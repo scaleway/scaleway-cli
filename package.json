@@ -1,0 +1,30 @@
+{
+  "name": "onlinelabs-cli",
+  "version": "0.1.0",
+  "description": "Interract with Online Labs API from commmand line",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moul/onlinelabs-cli"
+  },
+  "keywords": [
+    "online",
+    "labs",
+    "cli",
+    "onlinelabs",
+    "api",
+    "cloud"
+  ],
+  "author": "Manfred Touron <m@42.am> (@moul)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moul/onlinelabs-cli/issues"
+  },
+  "homepage": "https://github.com/moul/onlinelabs-cli",
+  "dependencies": {
+    "onlinelabs": "^0.2.1"
+  }
+}
