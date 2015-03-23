@@ -1,0 +1,259 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    fs = require('fs'),
+    version = JSON.parse(fs.readFileSync(__dirname + "/../package.json", "utf-8")).version;
+
+
+var notImplementedAction = function() {
+  console.error("onlinelabs: Not implemented");
+};
+
+
+program
+  .version(version)
+  .option('--api-endpoint <url>', 'set the API endpoint')
+  .option('--organization <uuid>', 'set the organization')
+  .option('--token <token>', 'set the API token')
+  .option('-D, --debug', 'enable debug mode');
+
+
+program
+  .command('attach <server>')
+  .description('attach (serial console) to a running server')
+  .action(notImplementedAction);
+
+
+program
+  .command('build <path>')
+  .description('build an image from a file')
+  .action(notImplementedAction);
+
+
+program
+  .command('commit <server>')
+  .description('create a new image from a server\'s changes')
+  .action(notImplementedAction);
+
+
+program
+  .command('cp <server:path> <path>')
+  .description('copy files/folders from a server\'s filesystem to the host path')
+  .action(notImplementedAction);
+
+
+program
+  .command('create <image>')
+  .description('create a new server but do not start ip')
+  .action(notImplementedAction);
+
+
+program
+  .command('events')
+  .description('get real time events from the API')
+  .action(notImplementedAction);
+
+
+program
+  .command('exec <server> <command>')
+  .description('run a command in a running server')
+  .action(notImplementedAction);
+
+
+program
+  .command('export <server>')
+  .description('stream the contents of a server as a tar archive')
+  .action(notImplementedAction);
+
+
+program
+  .command('history <image>')
+  .description('show the history of an image')
+  .action(notImplementedAction);
+
+
+program
+  .command('images')
+  .description('list images')
+  .action(notImplementedAction);
+
+
+program
+  .command('import')
+  .description('create a new filesystem image from the contents of a tarball')
+  .action(notImplementedAction);
+
+
+program
+  .command('info')
+  .description('display system-wide information')
+  .action(notImplementedAction);
+
+
+program
+  .command('inspect')
+  .description('return low-level information on a server or image')
+  .action(notImplementedAction);
+
+
+program
+  .command('kill')
+  .description('kill a running server')
+  .action(notImplementedAction);
+
+
+program
+  .command('load')
+  .description('load an image from a tar archive')
+  .action(notImplementedAction);
+
+
+program
+  .command('login')
+  .description('login to the API')
+  .action(notImplementedAction);
+
+
+program
+  .command('logout')
+  .description('log out from the API')
+  .action(notImplementedAction);
+
+
+program
+  .command('logs <server>')
+  .description('fetch the logs of a server')
+  .action(notImplementedAction);
+
+
+program
+  .command('port')
+  .description('list port security for the server')
+  .action(notImplementedAction);
+
+
+program
+  .command('pause')
+  .description('pause all processes within a server')
+  .action(notImplementedAction);
+
+
+program
+  .command('ps')
+  .description('list servers')
+  .option('--booted', 'show only booted servers')
+  .option('--halted', 'show only halted servers')
+  .action(notImplementedAction);
+
+
+program
+  .command('pull <image>')
+  .description('pull an image or a repository')
+  .action(notImplementedAction);
+
+
+program
+  .command('push <image>')
+  .description('push an image or a repository')
+  .action(notImplementedAction);
+
+
+program
+  .command('rename <server>')
+  .description('rename an existing server')
+  .action(notImplementedAction);
+
+
+program
+  .command('restart <server>')
+  .description('restart a running server')
+  .action(notImplementedAction);
+
+
+program
+  .command('rm <server>')
+  .description('remove one or more servers')
+  .action(notImplementedAction);
+
+
+program
+  .command('rmi <image>')
+  .description('remove one or more images')
+  .action(notImplementedAction);
+
+
+program
+  .command('run <image>')
+  .description('run a command in a new server')
+  .action(notImplementedAction);
+
+
+program
+  .command('save <image>')
+  .description('save an imate to a tar archive')
+  .action(notImplementedAction);
+
+
+program
+  .command('search <keyword>')
+  .description('search for an image on the Hub')
+  .action(notImplementedAction);
+
+
+program
+  .command('start <server>')
+  .description('start a stopped server')
+  .action(notImplementedAction);
+
+
+program
+  .command('stop <server>')
+  .description('stop a running server')
+  .action(notImplementedAction);
+
+
+program
+  .command('tag <image> <tag>')
+  .description('tag an image into a repository')
+  .action(notImplementedAction);
+
+
+program
+  .command('top <server>')
+  .description('lookup the running processes of a server')
+  .action(notImplementedAction);
+
+
+program
+  .command('unpause <server>')
+  .description('unpause a paused server')
+  .action(notImplementedAction);
+
+
+program
+  .command('version')
+  .description('show the version information')
+  .action(notImplementedAction);
+
+
+program
+  .command('wait <server>')
+  .description('block until a server stops')
+  .action(notImplementedAction);
+
+
+program
+  .command('*')
+  .description('')
+  .action(function(env) {
+    console.error(
+      program._name + ": '" + cmd + "' is not a valid command. See '"
+        + program._name + " --help'"
+    );
+  });
+
+
+program.parse(process.argv);
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}
