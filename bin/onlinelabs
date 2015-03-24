@@ -418,7 +418,21 @@ program
 program
   .command('stop <server>')
   .description('stop a running server')
-  .action(notImplementedAction);
+  .action(function(server) {
+    var client = newApi({});  // FIXME: get options
+    var query = '/servers/' + server + '/action';
+    var data = { action: 'poweroff' };
+    client.post(query, data, function(err, res) {
+      if (err &&
+          !_.includes([
+            'server is being stopped or rebooted',
+            'server should be running'
+          ], err.output.message)) {
+        panic(err);
+      }
+      console.log(server);
+    });
+  });
 
 
 program
