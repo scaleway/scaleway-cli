@@ -2,6 +2,8 @@
 
 var program = require('commander'),
     fs = require('fs'),
+    Api = require('onlinelabs'),
+    Table = require('cli-table'),
     version = JSON.parse(fs.readFileSync(__dirname + "/../package.json", "utf-8")).version;
 
 
@@ -143,7 +145,24 @@ program
   .description('list servers')
   .option('--booted', 'show only booted servers')
   .option('--halted', 'show only halted servers')
-  .action(notImplementedAction);
+  .action(function(options) {
+    var client = new Api();
+    client.get('/servers', function (err, res) {
+      if (err) {
+        console.log(err);
+        process.exit(-1);
+      }
+      var table = new Table({
+        head: ['SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'],
+        chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''}
+      });
+      for (var idx in res.servers) {
+        var server = res.servers[idx];
+        table.push([server.id, '', '', server.creation_date, server.state, '', server.name]);
+      }
+      console.log(table.toString());
+    });
+  });
 
 
 program

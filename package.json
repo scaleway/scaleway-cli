@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/moul/onlinelabs-cli",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "commander": "^2.7.1",
-    "onlinelabs": "^0.2.1"
+    "onlinelabs": "^0.2.2"
   }
 }
