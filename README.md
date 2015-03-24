@@ -66,13 +66,8 @@ Install
 -------
 
 1. Install `Node.js` and `npm`
-2. Install `onlinelabs-cli`
-
-    $ npm install -g onlinelabs-cli
-
-3. Setup token and organization
-
-    $ onlinelabs login --token=XXXXX --organization=YYYYY
+2. Install `onlinelabs-cli`: `$ npm install -g onlinelabs-cli`
+3. Setup token and organization: `$ onlinelabs login --token=XXXXX --organization=YYYYY`
 
 
 License
