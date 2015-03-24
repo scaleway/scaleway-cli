@@ -3,6 +3,7 @@
 var program = require('commander'),
     _ = require('lodash'),
     fs = require('fs'),
+    Q = require('q'),
     moment = require('moment'),
     filesize = require('filesize'),
     Api = require('onlinelabs'),
@@ -212,9 +213,33 @@ program
 
 
 program
-  .command('inspect')
+  .command('inspect <item> [otherItems...]')
+  // .option('-f, --format <format>', 'format the output using the given template')
   .description('return low-level information on a server or image')
-  .action(notImplementedAction);
+  .action(function(item, otherItems) {
+    var client = newApi({});  // FIXME: get options
+
+    var items = [item];
+    items.push.apply(items, otherItems);
+
+    var once = function(item, cb) {
+      return client.get('/servers/' + item);
+    };
+
+    var promises = items.map(once);
+    Q.all(promises).then(
+      function(results) {
+        console.log(
+          JSON.stringify(
+            _.pluck(results, 'body'),
+            null, 2
+          )
+        );
+      }, function(err) {
+        panic(err);
+      }
+    );
+  });
 
 
 program
