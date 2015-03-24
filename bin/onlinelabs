@@ -171,7 +171,7 @@ program
             '',
             image.id,
             moment(image.creation_date).fromNow(),
-            filesize(image.root_volume.size)
+            filesize(image.root_volume.size, {base: 10})
           ];
           if (options.trunc) {
             truncateRow(row, [80, 25, 8, 25, 25]);
