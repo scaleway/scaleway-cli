@@ -22,7 +22,7 @@ var notImplementedAction = function() {
 var truncateRow = function(row, limits) {
   for (idx in row) {
     if (limits[idx] != -1) {
-      row[idx] = row[idx].substring(0, limits[idx]);
+      row[idx] = row[idx].toString().substring(0, limits[idx]);
     }
   }
   return row;
@@ -141,7 +141,7 @@ program
 
     var query = '/images?';
 
-    if (options.filter.length || !options.trunc) {
+    if (options.filter.length) {
       panic("onlinelabs: Not implemented option");
     }
 
@@ -165,13 +165,17 @@ program
 
         for (var idx in res.images) {
           var image = res.images[idx];
-          table.push([
+          var row = [
             wordify(image.name),
             '',
             image.id,
             moment(image.creation_date).fromNow(),
             image.root_volume.size
-          ]);
+          ];
+          if (options.trunc) {
+            truncateRow(row, [42, 25, 8, 25, 25]);
+          }
+          table.push(row);
         }
         console.log(table.toString());
       }
