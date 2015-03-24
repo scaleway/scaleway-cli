@@ -402,7 +402,17 @@ program
 program
   .command('start <server>')
   .description('start a stopped server')
-  .action(notImplementedAction);
+  .action(function(server) {
+    var client = newApi({});  // FIXME: get options
+    var query = '/servers/' + server + '/action';
+    var data = { action: 'poweron' };
+    client.post(query, data, function(err, res) {
+      if (err && err.output.message != 'server should be stopped') {
+        panic(err);
+      }
+      console.log(server);
+    });
+  });
 
 
 program
