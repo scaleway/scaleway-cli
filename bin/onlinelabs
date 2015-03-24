@@ -103,8 +103,23 @@ program
 
 program
   .command('create <image>')
-  .description('create a new server but do not start ip')
-  .action(notImplementedAction);
+  .description('create a new server but do not start it')
+  .action(function(image, options) {
+    var client = newApi(options);
+
+    var data = {
+      image: image,
+      organization: client.config.organization,
+      name: 'noname'
+    };
+
+    client.post('/servers', data, function (err, res) {
+      if (err) {
+        panic(err);
+      }
+      console.log(res.server.id);
+    });
+  });
 
 
 program
