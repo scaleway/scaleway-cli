@@ -225,8 +225,7 @@ program
     var query = '/servers?';
 
     if (options.before || options.latest || options.n || options.noTrunk ||
-        options.quiet || options.filter.length || options.size ||
-        options.since) {
+        options.filter.length || options.size || options.since) {
       panic("onlinelabs: Not implemented option");
     }
 
@@ -238,25 +237,32 @@ program
       if (err) {
         panic(err);
       }
-      var table = newTable({
-        head: [
-          'SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'
-        ]
-      });
+      if (options.quiet) {
+        for (var idx in res.servers) {
+          var server = res.servers[idx];
+          console.log(server.id);
+        }
+      } else {
+        var table = newTable({
+          head: [
+            'SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'
+          ]
+        });
 
-      for (var idx in res.servers) {
-        var server = res.servers[idx];
-        table.push([
-          server.id,
-          (server.image ? wordify(server.image.root_volume.name) : ''),
-          '',
-          server.creation_date,
-          server.state,
-          '',
-          wordify(server.name)
-        ]);
+        for (var idx in res.servers) {
+          var server = res.servers[idx];
+          table.push([
+            server.id,
+            (server.image ? wordify(server.image.root_volume.name) : ''),
+            '',
+            server.creation_date,
+            server.state,
+            '',
+            wordify(server.name)
+          ]);
+        }
+        console.log(table.toString());
       }
-      console.log(table.toString());
     });
   });
 
