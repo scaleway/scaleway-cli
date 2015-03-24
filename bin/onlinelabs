@@ -7,6 +7,12 @@ var program = require('commander'),
     version = JSON.parse(fs.readFileSync(__dirname + "/../package.json", "utf-8")).version;
 
 
+var panic = function(msg) {
+  console.error(msg);
+  process.exit(-1);
+};
+
+
 var notImplementedAction = function() {
   console.error("onlinelabs: Not implemented");
 };
@@ -15,10 +21,10 @@ var notImplementedAction = function() {
 var newTable = function(options) {
   options = options || {};
   options.chars = options.chars || {
-    'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': ''
-    , 'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': ''
-    , 'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': ''
-    , 'right': '' , 'right-mid': '' , 'middle': ' '
+    'top': '', 'top-mid': '', 'top-left': '', 'top-right': '',
+    'bottom': '', 'bottom-mid': '', 'bottom-left': '', 'bottom-right': '',
+    'left': '', 'left-mid': '', 'mid': '', 'mid-mid': '',
+    'right': '', 'right-mid': '', 'middle': ' '
   };
   options.style = options.style || {
     // 'padding-left': 0, 'padding-right': 0
@@ -41,6 +47,12 @@ var newApi = function(options) {
   var config = {};
   // FIXME: override config from options
   return new Api(options);
+};
+
+
+var collect = function(val, memo) {
+  memo.push(val);
+  return memo;
 };
 
 
@@ -113,8 +125,7 @@ program
     var client = newApi(options);
     client.get('/images', function (err, res) {
       if (err) {
-        console.log(err);
-        process.exit(-1);
+        panic(err);
       }
       var table = newTable({
         head: [
@@ -200,14 +211,32 @@ program
 program
   .command('ps')
   .description('list servers')
-  .option('--booted', 'show only booted servers')
-  .option('--halted', 'show only halted servers')
+  .option('-a, --all', 'show all servers. only running servers are shown by default')
+  .option('--before <server>', 'show only server created before server, include non-running ones')
+  .option('-f, --filter <filters>', 'provide filter values. valid filters: status=(starting|running|stopping|stopped)', collect, [])
+  .option('-l, --latest', 'show only the latest created server, include non-running ones')
+  .option('-n <n>', 'show n last created servers, include non-running ones.', parseInt)
+  .option('--no-trunc', 'don\'t truncate output')
+  .option('-q, --quiet', 'only display numeric IDs')
+  .option('-s, --size', 'display total file sizes')
+  .option('--since <server>', 'show only servers created since server, include non-running ones')
   .action(function(options) {
     var client = newApi(options);
-    client.get('/servers', function (err, res) {
+    var query = '/servers?';
+
+    if (options.before || options.latest || options.n || options.noTrunk ||
+        options.quiet || options.filter.length || options.size ||
+        options.since) {
+      panic("onlinelabs: Not implemented option");
+    }
+
+    if (!options.all) {
+      query += 'state=running';
+    }
+
+    client.get(query, function (err, res) {
       if (err) {
-        console.log(err);
-        process.exit(-1);
+        panic(err);
       }
       var table = newTable({
         head: [
