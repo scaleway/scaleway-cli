@@ -18,6 +18,16 @@ var notImplementedAction = function() {
 };
 
 
+var truncateRow = function(row, limits) {
+  for (idx in row) {
+    if (limits[idx] != -1) {
+      row[idx] = row[idx].substring(0, limits[idx]);
+    }
+  }
+  return row;
+};
+
+
 var newTable = function(options) {
   options = options || {};
   options.chars = options.chars || {
@@ -224,8 +234,8 @@ program
     var client = newApi(options);
     var query = '/servers?';
 
-    if (options.before || options.noTrunk || options.filter.length ||
-        options.size || options.since) {
+    if (options.before || options.filter.length || options.size ||
+        options.since) {
       panic("onlinelabs: Not implemented option");
     }
 
@@ -251,7 +261,8 @@ program
 
         for (var idx in res.servers) {
           var server = res.servers[idx];
-          table.push([
+
+          var row = [
             server.id,
             (server.image ? wordify(server.image.root_volume.name) : ''),
             '',
@@ -259,7 +270,11 @@ program
             server.state,
             '',
             wordify(server.name)
-          ]);
+          ];
+          if (options.trunc) {
+            truncateRow(row, [8, 25, 25, 25, 25, 25, -1]);
+          }
+          table.push(row);
         }
         console.log(table.toString());
       }
