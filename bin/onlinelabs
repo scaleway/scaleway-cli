@@ -132,9 +132,22 @@ program
 program
   .command('images')
   .description('list images')
+  .option('-a, --all', 'show all images')
+  .option('-f, --filter <filters>', 'provide filter values. no valid filters yet', collect, [])
+  .option('--no-trunc', 'don\'t truncate output')
+  .option('-q, --quiet', 'only display numeric IDs')
   .action(function(options) {
     var client = newApi(options);
-    client.get('/images', function (err, res) {
+
+    var query = '/images?';
+
+    if (options.filter.length || !options.trunc || options.quiet) {
+      panic("onlinelabs: Not implemented option");
+    }
+
+    if (!options.all)   query += 'public=true&';
+
+    client.get(query, function (err, res) {
       if (err) {
         panic(err);
       }
