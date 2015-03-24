@@ -31,6 +31,7 @@
     "cli-table": "^0.3.1",
     "commander": "^2.7.1",
     "filesize": "^3.1.2",
+    "lodash": "^3.5.0",
     "moment": "^2.9.0",
     "onlinelabs": "^0.2.2"
   }

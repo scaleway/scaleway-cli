@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var program = require('commander'),
+    _ = require('lodash'),
     fs = require('fs'),
     moment = require('moment'),
     filesize = require('filesize'),
@@ -153,10 +154,9 @@ program
         panic(err);
       }
       if (options.quiet) {
-        for (var idx in res.images) {
-          var image = res.images[idx];
+        _.forEach(res.images, function (image) {
           console.log(image.id);
-        }
+        });
       } else {
         var table = newTable({
           head: [
@@ -164,8 +164,7 @@ program
           ]
         });
 
-        for (var idx in res.images) {
-          var image = res.images[idx];
+        _.forEach(res.images, function(image) {
           var row = [
             wordify(image.name),
             '',
@@ -177,7 +176,7 @@ program
             truncateRow(row, [80, 25, 8, 25, 25]);
           }
           table.push(row);
-        }
+        });
         console.log(table.toString());
       }
     });
@@ -274,10 +273,9 @@ program
         panic(err);
       }
       if (options.quiet) {
-        for (var idx in res.servers) {
-          var server = res.servers[idx];
+        _.forEach(res.servers, function(server) {
           console.log(server.id);
-        }
+        });
       } else {
         var table = newTable({
           head: [
@@ -285,9 +283,7 @@ program
           ]
         });
 
-        for (var idx in res.servers) {
-          var server = res.servers[idx];
-
+        _.forEach(res.servers, function(server) {
           var row = [
             server.id,
             (server.image ? wordify(server.image.root_volume.name) : ''),
@@ -301,7 +297,7 @@ program
             truncateRow(row, [8, 25, 25, 25, 25, 25, -1]);
           }
           table.push(row);
-        }
+        });
         console.log(table.toString());
       }
     });
