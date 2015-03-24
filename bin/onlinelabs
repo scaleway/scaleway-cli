@@ -355,7 +355,6 @@ program
 
     client.get(query)
       .then(function(res) {
-        console.log(res);
         if (options.quiet) {
           _.forEach(res.body.servers, function(server) {
             console.log(server.id);
