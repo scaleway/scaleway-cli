@@ -3,6 +3,7 @@
 var program = require('commander'),
     fs = require('fs'),
     moment = require('moment'),
+    filesize = require('filesize'),
     Api = require('onlinelabs'),
     Table = require('cli-table'),
     version = JSON.parse(fs.readFileSync(__dirname + "/../package.json", "utf-8")).version;
@@ -170,10 +171,10 @@ program
             '',
             image.id,
             moment(image.creation_date).fromNow(),
-            image.root_volume.size
+            filesize(image.root_volume.size)
           ];
           if (options.trunc) {
-            truncateRow(row, [42, 25, 8, 25, 25]);
+            truncateRow(row, [80, 25, 8, 25, 25]);
           }
           table.push(row);
         }
