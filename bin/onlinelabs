@@ -39,6 +39,16 @@ var truncateRow = function(row, limits) {
 };
 
 
+var default_config_path = function() {
+  var home = process.env[(
+    process.platform == 'win32' ?
+      'USERPROFILE' :
+      'HOME'
+  )];
+  return home + '/.onlinelabsrc';
+};
+
+
 var newTable = function(options) {
   options = options || {};
   options.chars = options.chars || {
@@ -269,12 +279,7 @@ program
     delete newConfig._;
     delete newConfig.configs;
     delete newConfig.config;
-    var home = process.env[(
-      process.platform == 'win32' ?
-        'USERPROFILE' :
-        'HOME'
-    )];
-    var filepath = home + '/.onlinelabsrc';
+    var filepath = default_config_path();
     fs.writeFile(
       filepath,
       JSON.stringify(newConfig, null, 2),
@@ -282,7 +287,7 @@ program
         if (err) {
           panic(err);
         }
-        console.log('Configuration written to ' + filepath);
+        console.log('configuration written to ' + filepath);
       });
   });
 
@@ -290,7 +295,17 @@ program
 program
   .command('logout')
   .description('log out from the API')
-  .action(notImplementedAction);
+  .action(function() {
+    var filepath = default_config_path();
+    fs.unlink(
+      filepath,
+      function (err) {
+        if (err) {
+          panic(err);
+        }
+        console.log('removed ' + filepath + ' configuration file');
+      });
+  });
 
 
 program
