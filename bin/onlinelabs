@@ -129,12 +129,13 @@ program
       name: options.name
     };
 
-    client.post('/servers', data, function (err, res) {
-      if (err) {
+    client.post('/servers', data)
+      .then(function (res) {
+        console.log(res.body.server.id);
+      })
+      .catch(function (err) {
         panic(err);
-      }
-      console.log(res.server.id);
-    });
+      });
   });
 
 
@@ -180,37 +181,38 @@ program
 
     if (!options.all)   query += 'public=true&';
 
-    client.get(query, function (err, res) {
-      if (err) {
-        panic(err);
-      }
-      if (options.quiet) {
-        _.forEach(res.images, function (image) {
-          console.log(image.id);
-        });
-      } else {
-        var table = newTable({
-          head: [
-            'REPOSITORY', 'TAG', 'IMAGE ID', 'CREATED', 'VIRTUAL SIZE'
-          ]
-        });
+    client.get(query)
+      .then(function (res) {
+        if (options.quiet) {
+          _.forEach(res.body.images, function (image) {
+            console.log(image.id);
+          });
+        } else {
+          var table = newTable({
+            head: [
+              'REPOSITORY', 'TAG', 'IMAGE ID', 'CREATED', 'VIRTUAL SIZE'
+            ]
+          });
 
-        _.forEach(res.images, function(image) {
-          var row = [
-            wordify(image.name),
-            '',
-            image.id,
-            moment(image.creation_date).fromNow(),
-            filesize(image.root_volume.size, {base: 10})
-          ];
-          if (options.trunc) {
-            truncateRow(row, [80, 25, 8, 25, 25]);
-          }
-          table.push(row);
-        });
-        console.log(table.toString());
-      }
-    });
+          _.forEach(res.body.images, function(image) {
+            var row = [
+              wordify(image.name),
+              '',
+              image.id,
+              moment(image.creation_date).fromNow(),
+              filesize(image.root_volume.size, {base: 10})
+            ];
+            if (options.trunc) {
+              truncateRow(row, [80, 25, 8, 25, 25]);
+            }
+            table.push(row);
+          });
+          console.log(table.toString());
+        }
+      })
+      .catch(function (err) {
+        panic(err);
+      });
   });
 
 
@@ -351,39 +353,41 @@ program
     if (options.latest) query += 'per_page=1&';
     if (options.n)      query += 'per_page=' + options.n + '&';
 
-    client.get(query, function (err, res) {
-      if (err) {
-        panic(err);
-      }
-      if (options.quiet) {
-        _.forEach(res.servers, function(server) {
-          console.log(server.id);
-        });
-      } else {
-        var table = newTable({
-          head: [
-            'SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'
-          ]
-        });
+    client.get(query)
+      .then(function(res) {
+        console.log(res);
+        if (options.quiet) {
+          _.forEach(res.body.servers, function(server) {
+            console.log(server.id);
+          });
+        } else {
+          var table = newTable({
+            head: [
+              'SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'
+            ]
+          });
 
-        _.forEach(res.servers, function(server) {
-          var row = [
-            server.id,
-            (server.image ? wordify(server.image.root_volume.name) : ''),
-            '',
-            moment(server.creation_date).fromNow(),
-            server.state,
-            '',
-            wordify(server.name)
-          ];
-          if (options.trunc) {
-            truncateRow(row, [8, 25, 25, 25, 25, 25, -1]);
-          }
-          table.push(row);
-        });
-        console.log(table.toString());
-      }
-    });
+          _.forEach(res.body.servers, function(server) {
+            var row = [
+              server.id,
+              (server.image ? wordify(server.image.root_volume.name) : ''),
+              '',
+              moment(server.creation_date).fromNow(),
+              server.state,
+              '',
+              wordify(server.name)
+            ];
+            if (options.trunc) {
+              truncateRow(row, [8, 25, 25, 25, 25, 25, -1]);
+            }
+            table.push(row);
+          });
+          console.log(table.toString());
+        }
+      })
+      .catch(function(err) {
+        panic(err);
+      });
   });
 
 
@@ -410,17 +414,18 @@ program
   .description('restart a running server')
   .action(function(server) {
     var client = newApi({});  // FIXME: get options
-    var query = '/servers/' + server + '/action';
-    var data = { action: 'reboot' };
-    client.post(query, data, function(err, res) {
-      if (err &&
-          !_.includes([
-            'server is being stopped or rebooted'
-          ], err.output.message)) {
-        panic(err);
-      }
-      console.log(server);
-    });
+
+    client.post('/servers/' + server + '/action', {
+      action: 'reboot'
+    })
+      .then(function() {
+        console.log(server);
+      })
+      .catch(function (err) {
+        if (err.error.message != 'server is being stopped or rebooted') {
+          panic(err);
+        }
+      });
   });
 
 
@@ -459,14 +464,18 @@ program
   .description('start a stopped server')
   .action(function(server) {
     var client = newApi({});  // FIXME: get options
-    var query = '/servers/' + server + '/action';
-    var data = { action: 'poweron' };
-    client.post(query, data, function(err, res) {
-      if (err && err.output.message != 'server should be stopped') {
-        panic(err);
-      }
-      console.log(server);
-    });
+
+    client.post('/servers/' + server + '/action', {
+      action: 'poweron'
+    })
+      .then(function() {
+        console.log(server);
+      })
+      .catch(function (err) {
+        if (err.error.message != 'server should be stopped') {
+          panic(err);
+        }
+      });
   });
 
 
@@ -475,18 +484,21 @@ program
   .description('stop a running server')
   .action(function(server) {
     var client = newApi({});  // FIXME: get options
-    var query = '/servers/' + server + '/action';
-    var data = { action: 'poweroff' };
-    client.post(query, data, function(err, res) {
-      if (err &&
-          !_.includes([
-            'server is being stopped or rebooted',
-            'server should be running'
-          ], err.output.message)) {
-        panic(err);
-      }
-      console.log(server);
-    });
+
+    client.post('/servers/' + server + '/action', {
+      action: 'poweroff'
+    })
+      .then(function() {
+        console.log(server);
+      })
+      .catch(function (err) {
+        if (!_.includes([
+          'server is being stopped or rebooted',
+          'server should be running'
+        ], err.error.message)) {
+          panic(err);
+        }
+      });
   });
 
 
