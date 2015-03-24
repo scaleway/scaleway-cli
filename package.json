@@ -1,6 +1,6 @@
 {
   "name": "onlinelabs-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Interract with Online Labs API from commmand line",
   "main": "index.js",
   "scripts": {
