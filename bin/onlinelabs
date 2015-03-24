@@ -12,6 +12,23 @@ var notImplementedAction = function() {
 };
 
 
+var newTable = function(options) {
+  options = options || {};
+  options.chars = options.chars || {
+    'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''
+  };
+  return new Table(options);
+};
+
+
+var newApi = function(options) {
+  options = options || {};
+  var config = {};
+  // FIXME: override config from options
+  return new Api(options);
+};
+
+
 program
   .version(version)
   .option('--api-endpoint <url>', 'set the API endpoint')
@@ -146,16 +163,18 @@ program
   .option('--booted', 'show only booted servers')
   .option('--halted', 'show only halted servers')
   .action(function(options) {
-    var client = new Api();
+    var client = newApi(options);
     client.get('/servers', function (err, res) {
       if (err) {
         console.log(err);
         process.exit(-1);
       }
-      var table = new Table({
-        head: ['SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'],
-        chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''}
+      var table = newTable({
+        head: [
+          'SERVER ID', 'IMAGE', 'COMMAND', 'CREATED', 'STATUS', 'PORTS', 'NAME'
+        ]
       });
+
       for (var idx in res.servers) {
         var server = res.servers[idx];
         table.push([server.id, '', '', server.creation_date, server.state, '', server.name]);
