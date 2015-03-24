@@ -2,6 +2,7 @@
 
 var program = require('commander'),
     fs = require('fs'),
+    moment = require('moment'),
     Api = require('onlinelabs'),
     Table = require('cli-table'),
     version = JSON.parse(fs.readFileSync(__dirname + "/../package.json", "utf-8")).version;
@@ -149,7 +150,7 @@ program
           wordify(image.name),
           '',
           image.id,
-          image.creation_date,
+          moment(image.creation_date).fromNow(),
           image.root_volume.size
         ]);
       }
@@ -266,7 +267,7 @@ program
             server.id,
             (server.image ? wordify(server.image.root_volume.name) : ''),
             '',
-            server.creation_date,
+            moment(server.creation_date).fromNow(),
             server.state,
             '',
             wordify(server.name)
