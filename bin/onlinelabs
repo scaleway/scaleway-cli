@@ -141,7 +141,7 @@ program
 
     var query = '/images?';
 
-    if (options.filter.length || !options.trunc || options.quiet) {
+    if (options.filter.length || !options.trunc) {
       panic("onlinelabs: Not implemented option");
     }
 
@@ -151,23 +151,30 @@ program
       if (err) {
         panic(err);
       }
-      var table = newTable({
-        head: [
-          'REPOSITORY', 'TAG', 'IMAGE ID', 'CREATED', 'VIRTUAL SIZE'
-        ]
-      });
+      if (options.quiet) {
+        for (var idx in res.images) {
+          var image = res.images[idx];
+          console.log(image.id);
+        }
+      } else {
+        var table = newTable({
+          head: [
+            'REPOSITORY', 'TAG', 'IMAGE ID', 'CREATED', 'VIRTUAL SIZE'
+          ]
+        });
 
-      for (var idx in res.images) {
-        var image = res.images[idx];
-        table.push([
-          wordify(image.name),
-          '',
-          image.id,
-          moment(image.creation_date).fromNow(),
-          image.root_volume.size
-        ]);
+        for (var idx in res.images) {
+          var image = res.images[idx];
+          table.push([
+            wordify(image.name),
+            '',
+            image.id,
+            moment(image.creation_date).fromNow(),
+            image.root_volume.size
+          ]);
+        }
+        console.log(table.toString());
       }
-      console.log(table.toString());
     });
   });
 
