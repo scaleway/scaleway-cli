@@ -379,17 +379,6 @@ program
   .action(notImplementedAction);
 
 
-program
-  .command('*')
-  .description('')
-  .action(function(env) {
-    console.error(
-      program._name + ": '" + cmd + "' is not a valid command. See '"
-        + program._name + " --help'"
-    );
-  });
-
-
 program.parse(process.argv);
 if (!process.argv.slice(2).length) {
   program.outputHelp();
