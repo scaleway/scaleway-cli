@@ -224,14 +224,14 @@ program
     var client = newApi(options);
     var query = '/servers?';
 
-    if (options.before || options.latest || options.n || options.noTrunk ||
-        options.filter.length || options.size || options.since) {
+    if (options.before || options.noTrunk || options.filter.length ||
+        options.size || options.since) {
       panic("onlinelabs: Not implemented option");
     }
 
-    if (!options.all) {
-      query += 'state=running';
-    }
+    if (!options.all)   query += 'state=running&';
+    if (options.latest) query += 'per_page=1&';
+    if (options.n)      query += 'per_page=' + options.n + '&';
 
     client.get(query, function (err, res) {
       if (err) {
