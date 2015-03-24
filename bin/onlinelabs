@@ -94,7 +94,26 @@ program
 program
   .command('images')
   .description('list images')
-  .action(notImplementedAction);
+  .action(function(options) {
+    var client = newApi(options);
+    client.get('/images', function (err, res) {
+      if (err) {
+        console.log(err);
+        process.exit(-1);
+      }
+      var table = newTable({
+        head: [
+          'REPOSITORY', 'TAG', 'IMAGE ID', 'CREATED', 'VIRTUAL SIZE'
+        ]
+      });
+
+      for (var idx in res.images) {
+        var image = res.images[idx];
+        table.push([image.name, '', image.id, image.creation_date, image.root_volume.size]);
+      }
+      console.log(table.toString());
+    });
+  });
 
 
 program
