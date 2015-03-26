@@ -4,7 +4,7 @@
   "description": "Interact with Online Labs API from commmand line",
   "main": "lib/program.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --ui tdd --bail --check-leaks ./test/all.js"
   },
   "bin": {
     "onlinelabs": "./bin/onlinelabs"
@@ -38,5 +38,10 @@
     "nedb": "^1.1.1",
     "onlinelabs": "^0.3.0",
     "q": "^1.2.0"
+  },
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "mocha": "^2.2.1",
+    "test-console": "^0.7.1"
   }
 }
