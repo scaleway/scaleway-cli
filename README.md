@@ -62,6 +62,122 @@ Usage 100% inspired by Docker
         -D, --debug           enable debug mode
 
 
+Examples
+--------
+
+Create a server with Fedora 21 image
+
+    $ onlinelabs create 1f164079-7012-4cc8-a9b2-565faf2f84b6
+    7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
+
+Run a stopped server
+
+    $ onlinelabs start 7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
+    7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
+
+Create a server with Fedora 21 image and start it
+
+    $ onlinelabs start `onlinelabs create 1f164079-7012-4cc8-a9b2-565faf2f84b6`
+    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+
+Execute a 'ls -la' on a server (via SSH)
+
+    $ onlinelabs exec 5cf8058e-a0df-4fc3-a772-8d44e6daf582 -- ls -la
+    total 40
+    drwx------.  4 root root 4096 Mar 26 05:56 .
+    drwxr-xr-x. 18 root root 4096 Mar 26 05:56 ..
+    -rw-r--r--.  1 root root   18 Jun  8  2014 .bash_logout
+    -rw-r--r--.  1 root root  176 Jun  8  2014 .bash_profile
+    -rw-r--r--.  1 root root  176 Jun  8  2014 .bashrc
+    -rw-r--r--.  1 root root  100 Jun  8  2014 .cshrc
+    drwxr-----.  3 root root 4096 Mar 16 06:31 .pki
+    -rw-rw-r--.  1 root root 1240 Mar 12 08:16 .s3cfg.sample
+    drwx------.  2 root root 4096 Mar 26 05:56 .ssh
+    -rw-r--r--.  1 root root  129 Jun  8  2014 .tcshrc
+
+Run a shell on a server (via SSH)
+
+    $ onlinelabs exec 5cf8058e-a0df-4fc3-a772-8d44e6daf582 /bin/bash
+    [root@noname ~]#
+
+List public images and my images
+
+    $ onlinelabs images
+    REPOSITORY                                 TAG      IMAGE ID   CREATED        VIRTUAL SIZE
+    user/Alpine_Linux_3_1                      latest   854eef72   10 days ago    50 GB
+    Debian_Wheezy_7_8                          latest   cd66fa55   2 months ago   20 GB
+    Ubuntu_Utopic_14_10                        latest   1a702a4e   4 months ago   20 GB
+    ...
+
+List public images, my images and my snapshots
+
+    $ onlinelabs images -a
+    REPOSITORY                                 TAG      IMAGE ID   CREATED        VIRTUAL SIZE
+    noname-snapshot                            <none>   54df92d1   a minute ago   50 GB
+    cool-snapshot                              <none>   0dbbc64c   11 hours ago   20 GB
+    user/Alpine_Linux_3_1                      latest   854eef72   10 days ago    50 GB
+    Debian_Wheezy_7_8                          latest   cd66fa55   2 months ago   20 GB
+    Ubuntu_Utopic_14_10                        latest   1a702a4e   4 months ago   20 GB
+
+List running servers
+
+    $ onlinelabs ps
+    SERVER ID   IMAGE                       COMMAND   CREATED          STATUS    PORTS   NAME
+    7313af22    user/Alpine_Linux_3_1                 13 minutes ago   running           noname
+    32070fa4    Ubuntu_Utopic_14_10                   36 minutes ago   running           labs-8fe556
+
+List all servers
+
+    $ onlinelabs ps -a
+    SERVER ID   IMAGE                       COMMAND   CREATED          STATUS    PORTS   NAME
+    7313af22    user/Alpine_Linux_3_1                 13 minutes ago   running           noname
+    32070fa4    Ubuntu_Utopic_14_10                   36 minutes ago   running           labs-8fe556
+    7fc76a15    Ubuntu_Utopic_14_10                   11 hours ago     stopped           backup
+
+Stop a running server
+
+    $ onlinelabs stop 5cf8058e-a0df-4fc3-a772-8d44e6daf582
+    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+
+Create a snapshot of the root volume of a server
+
+    $ onlinelabs commit 5cf8058e-a0df-4fc3-a772-8d44e6daf582
+    54df92d1-4666-4628-8320-bc4e438a90f1
+
+Send a 'halt' command via SSH
+
+    $ onlinelabs kill 5cf8058e-a0df-4fc3-a772-8d44e6daf582
+    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+
+Inspect a server
+
+    $ onlinelabs inspect 90074de6-11d8-47a2-9d41-7faac26d6372
+    [
+      {
+        "server": {
+        "dynamic_ip_required": true,
+        "name": "My server",
+        "modification_date": "2015-03-26T09:01:07.691774+00:00",
+        "tags": [
+          "web",
+          "production"
+        ],
+        "state_detail": "booted",
+        "public_ip": {
+          "dynamic": true,
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "address": "212.47.xxx.yyy"
+        },
+        "state": "running",
+      }
+    ]
+
+Show public ip address of a server
+
+    $ onlinelabs inspect 90074de6-11d8-47a2-9d41-7faac26d6372 -f '.server.public_ip.address'
+    212.47.xxx.yyy
+
+
 Install
 -------
 
