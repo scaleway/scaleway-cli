@@ -1,4 +1,4 @@
-OnlineLabs CLI
+OnlineLabs CLI [![Build Status](https://travis-ci.org/moul/onlinelabs-cli.svg?branch=master)](https://travis-ci.org/moul/onlinelabs-cli)
 ==============
 
 Interact with OnlineLabs API from the command line.
