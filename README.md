@@ -178,6 +178,34 @@ Show public ip address of a server
     212.47.xxx.yyy
 
 
+Debug
+-----
+
+`onlinelabs-cli` uses the [debug](https://www.npmjs.com/package/debug) package.
+
+To enable debug you can use the environment variable `DEBUG=` as :
+
+- `DEBUG='*' onlinelabs ...` to see debug for `onlinelabs-cli` and all dependencies
+- `DEBUG='onlinelabs-cli:*' onlinelabs ...` to see debug for `onlinelabs-cli`
+- `DEBUG='node-onlinelabs:*' onlinelabs ...` to see debug for `node-onlinelabs`
+
+    $ DEBUG='*' onlinelabs images
+      node-onlinelabs:lib GET https://api.cloud.online.net/images? +0ms { method: 'GET',
+      url: 'https://api.cloud.online.net/images?',
+      headers:
+       { Accept: 'application/json',
+         'User-Agent': 'node-onlinelabs',
+         'X-Auth-Token': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' },
+      resolveWithFullResponse: true,
+      json: true }
+    REPOSITORY                                 TAG      IMAGE ID   CREATED        VIRTUAL SIZE
+    Fedora_21_Twenty-one                       latest   1f164079   10 days ago    50 GB
+    user/Archlinux_latest                      latest   1197ca91   10 days ago    50 GB
+    ...
+    onlinelabs-cli:utils saveEntities: removed 15 items +0ms
+    onlinelabs-cli:utils saveEntities: inserted 15 items +4ms
+
+
 Install
 -------
 
