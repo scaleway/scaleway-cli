@@ -1,7 +1,18 @@
-OnlineLabs CLI [![Build Status](https://travis-ci.org/moul/onlinelabs-cli.svg?branch=master)](https://travis-ci.org/moul/onlinelabs-cli)
-==============
+# OnlineLabs CLI
+
+[![Build Status (Travis)](https://travis-ci.org/moul/onlinelabs-cli.svg?branch=master)](https://travis-ci.org/moul/onlinelabs-cli)
+[![Dependency Status](https://david-dm.org/moul/onlinelabs-cli.svg?theme=shields.io)](https://david-dm.org/moul/onlinelabs-cli)
+[![Total views](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
+[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views-24h.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
+[![Code Climate](https://codeclimate.com/github/moul/onlinelabs-cli/badges/gpa.svg)](https://codeclimate.com/github/moul/onlinelabs-cli)
+
+[![NPM Badge](https://nodei.co/npm/onlinelabs-cli.png)](https://npmjs.org/package/onlinelabs-cli)
 
 Interact with OnlineLabs API from the command line.
+
+Uses [onlinelabs](https://github.com/moul/node-onlinelabs) SDK.
+
+Maintained by [Manfred Touron](https://github.com/moul)
 
 
 Usage
@@ -20,23 +31,23 @@ Usage 100% inspired by Docker
         build <path>                    build an image from a file
         commit <server>                 create a new image from a server's changes
         cp <server:path> <path>         copy files/folders from a server's filesystem to the host path
-        create [options] <image>        create a new server but do not start it
+        create <image>                  create a new server but do not start it
         events                          get real time events from the API
         exec <server> <command>         run a command in a running server
         export <server>                 stream the contents of a server as a tar archive
         history <image>                 show the history of an image
-        images [options]                list images
+        images                          list images
         import                          create a new filesystem image from the contents of a tarball
         info                            display system-wide information
         inspect <item> [otherItems...]  return low-level information on a server or image
-        kill                            kill a running server
+        kill <server>                   kill a running server
         load                            load an image from a tar archive
-        login [options]                 login to the API
+        login                           login to the API
         logout                          log out from the API
         logs <server>                   fetch the logs of a server
         port                            list port security for the server
         pause                           pause all processes within a server
-        ps [options]                    list servers
+        ps                              list servers
         pull <image>                    pull an image or a repository
         push <image>                    push an image or a repository
         rename <server>                 rename an existing server
@@ -212,9 +223,10 @@ Install
 1. Install `Node.js` and `npm`
 2. Install `onlinelabs-cli`: `$ npm install -g onlinelabs-cli`
 3. Setup token and organization: `$ onlinelabs login --token=XXXXX --organization=YYYYY`
+4. Use `$ onlinelabs images`
 
 
 License
 -------
 
-MIT
+[MIT](https://github.com/moul/onlinelabs-cli/blob/master/LICENSE.md)
