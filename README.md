@@ -76,24 +76,35 @@ Usage 100% inspired by Docker
 Examples
 --------
 
+Create a server with Ubuntu Trusty image and 3.2.34 bootscript
+
+    $ onlinelabs create trusty --bootscript=3.2.34
+    df271f73-60ce-47fd-bd7b-37b5f698d8b2
+
 Create a server with Fedora 21 image
 
-    $ onlinelabs create 1f164079-7012-4cc8-a9b2-565faf2f84b6
+    $ onlinelabs create 1f164079
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
 
 Run a stopped server
 
-    $ onlinelabs start 7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
+    $ onlinelabs start 7313af22
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
+    
+Wait for a server to be in 'stopped' state
+
+    $ onlinelabs wait 7313af22
+    [...] some seconds later
+    0
 
 Create a server with Fedora 21 image and start it
 
-    $ onlinelabs start `onlinelabs create 1f164079-7012-4cc8-a9b2-565faf2f84b6`
+    $ onlinelabs start `onlinelabs create 1f164079`
     5cf8058e-a0df-4fc3-a772-8d44e6daf582
 
 Execute a 'ls -la' on a server (via SSH)
 
-    $ onlinelabs exec 5cf8058e-a0df-4fc3-a772-8d44e6daf582 -- ls -la
+    $ onlinelabs exec 5cf8058e -- ls -la
     total 40
     drwx------.  4 root root 4096 Mar 26 05:56 .
     drwxr-xr-x. 18 root root 4096 Mar 26 05:56 ..
@@ -108,7 +119,7 @@ Execute a 'ls -la' on a server (via SSH)
 
 Run a shell on a server (via SSH)
 
-    $ onlinelabs exec 5cf8058e-a0df-4fc3-a772-8d44e6daf582 /bin/bash
+    $ onlinelabs exec 5cf8058e /bin/bash
     [root@noname ~]#
 
 List public images and my images
@@ -147,22 +158,22 @@ List all servers
 
 Stop a running server
 
-    $ onlinelabs stop 5cf8058e-a0df-4fc3-a772-8d44e6daf582
-    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+    $ onlinelabs stop 5cf8058e
+    5cf8058e
 
 Create a snapshot of the root volume of a server
 
-    $ onlinelabs commit 5cf8058e-a0df-4fc3-a772-8d44e6daf582
-    54df92d1-4666-4628-8320-bc4e438a90f1
+    $ onlinelabs commit 5cf8058e
+    54df92d1
 
 Send a 'halt' command via SSH
 
-    $ onlinelabs kill 5cf8058e-a0df-4fc3-a772-8d44e6daf582
-    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+    $ onlinelabs kill 5cf8058e
+    5cf8058e
 
 Inspect a server
 
-    $ onlinelabs inspect 90074de6-11d8-47a2-9d41-7faac26d6372
+    $ onlinelabs inspect 90074de6
     [
       {
         "server": {
@@ -185,7 +196,7 @@ Inspect a server
 
 Show public ip address of a server
 
-    $ onlinelabs inspect 90074de6-11d8-47a2-9d41-7faac26d6372 -f '.server.public_ip.address'
+    $ onlinelabs inspect 90074de6 -f '.server.public_ip.address'
     212.47.xxx.yyy
 
 
