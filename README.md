@@ -4,7 +4,6 @@
 [![Dependency Status](https://david-dm.org/moul/onlinelabs-cli.svg?theme=shields.io)](https://david-dm.org/moul/onlinelabs-cli)
 [![Total views](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
 [![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views-24h.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
-[![Code Climate](https://codeclimate.com/github/moul/onlinelabs-cli/badges/gpa.svg)](https://codeclimate.com/github/moul/onlinelabs-cli)
 
 [![NPM Badge](https://nodei.co/npm/onlinelabs-cli.png)](https://npmjs.org/package/onlinelabs-cli)
 
@@ -209,6 +208,18 @@ Show public ip address of a server
     $ onlinelabs inspect 90074de6 -f '.server.public_ip.address'
     212.47.xxx.yyy
 
+
+Workflows
+---------
+
+    # create a server with a nbd1 volume of 50G and rescue bootscript
+    $ SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=50000000000)
+    # start it
+    $ onlinelabs start ${SERVER}
+    # wait for ssh to be ready
+    $ while ! onlinelabs exec ${SERVER} -- exit 0; do sleep 1; done
+    # print the ip address of the server
+    $ echo "Your server is ready and is available at: $(onlinelabs inspect ${SERVER} -f .server.public_ip.address)"
 
 Debug
 -----
