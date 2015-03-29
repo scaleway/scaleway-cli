@@ -212,6 +212,8 @@ Show public ip address of a server
 Workflows
 ---------
 
+For more examples, see [./examples/](https://github.com/moul/onlinelabs-cli/tree/master/examples) directory
+
     # create a server with a nbd1 volume of 50G and rescue bootscript
     $ SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=50000000000)
     # start it
