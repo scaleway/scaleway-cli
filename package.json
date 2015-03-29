@@ -39,7 +39,8 @@
     "moment": "^2.9.0",
     "nedb": "^1.1.1",
     "onlinelabs": "^0.4.0",
-    "q": "^1.2.0"
+    "q": "^1.2.0",
+    "validator": "^3.35.0"
   },
   "devDependencies": {
     "chai": "^2.1.2",
