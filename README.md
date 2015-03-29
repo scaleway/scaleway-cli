@@ -90,7 +90,7 @@ Run a stopped server
 
     $ onlinelabs start 7313af22
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
-    
+
 Wait for a server to be in 'stopped' state
 
     $ onlinelabs wait 7313af22
@@ -165,6 +165,16 @@ Create a snapshot of the root volume of a server
 
     $ onlinelabs commit 5cf8058e
     54df92d1
+
+Create a snapshot of nbd1
+
+    $ onlinelabs commit 5cf8058e -v 1
+    f1851f99
+
+Create an image based on a snapshot
+
+    $ onlinelabs tag 87f4526b my_image
+    46689419
 
 Send a 'halt' command via SSH
 
