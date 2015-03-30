@@ -28,3 +28,7 @@ node_modules
 .lock-wscript
 
 tmp/
+
+# nar
+.nar/
+*.nar
