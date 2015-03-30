@@ -193,6 +193,10 @@ Create an image based on a snapshot
     $ onlinelabs tag 87f4526b my_image
     46689419
 
+Delete an image
+
+    $ onlinelabs rmi 46689419
+
 Send a 'halt' command via SSH
 
     $ onlinelabs kill 5cf8058e
