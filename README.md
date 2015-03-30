@@ -85,6 +85,11 @@ Create a server with Fedora 21 image
     $ onlinelabs create 1f164079
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
 
+Create a server with an empty disc of 20G and rescue bootscript
+
+    $ onlinelabs create 20G --bootscript=rescue
+    5cf8058e-a0df-4fc3-a772-8d44e6daf582
+
 Run a stopped server
 
     $ onlinelabs start 7313af22
@@ -173,6 +178,10 @@ Create a snapshot of the root volume of a server
 
     $ onlinelabs commit 5cf8058e
     54df92d1
+
+Delete a stopped server
+
+    $ onlinelabs rm 5cf8
 
 Create a snapshot of nbd1
 
