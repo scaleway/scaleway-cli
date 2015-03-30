@@ -24,35 +24,29 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=${VOLUME_SIZE} --name="image-writer-${NAME}")
+SERVER=$(onlinelabs create trusty --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}")
 echo "[+] Server created: ${SERVER}"
 
 
 echo "[+] Booting..."
-onlinelabs start "${SERVER}" >/dev/null
-
-
-# FIXME: wait for state to be "running"
-
-
-echo "[+] Waiting for SSH to be available"
-until onlinelabs exec "${SERVER}" --insecure -- exit 0; do sleep 5; done &>/dev/null
+onlinelabs start --sync "${SERVER}" >/dev/null
 IP=$(onlinelabs inspect "${SERVER}" -f .server.public_ip.address)
+onlinelabs exec --insecure "${SERVER}" 'uname -a'
 echo "[+] SSH is ready (${IP})"
 
 
 echo "[+] Formating /dev/nbd1..."
-onlinelabs exec "${SERVER}" -- 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1'
+onlinelabs exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1'
 echo "[+] /dev/nbd1 formatted in ext4"
 
 
 echo "[+] Mounting /dev/nbd1"
-onlinelabs exec "${SERVER}" -- mount /dev/nbd1 /mnt
+onlinelabs exec "${SERVER}" mount /dev/nbd1 /mnt
 echo "[+] /dev/nbd1 mounted on /mnt"
 
 
 echo "[+] Download tarball from S3 and write it to /dev/nbd1"
-onlinelabs exec "${SERVER}" -- "wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
+onlinelabs exec "${SERVER}" "wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
 echo "[+] Tarball extracted on /dev/nbd1"
 
 
