@@ -3,18 +3,28 @@
 set -e
 URL="${1}"
 
+if [ -z "${1}" ]; then
+    echo "usage: $(basename ${0}) <url>"
+    echo ""
+    echo "examples:"
+    echo "  - $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
+    echo "  - VOLUME=20000000000 $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
+    exit 1
+fi
+
 # FIXME: add usage
 
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
+VOLUME_SIZE=${VOLUME_SIZE:-50000000000}  # 50GB
 
 
 echo "[+] URL of the tarball: ${URL}"
 echo "[+] Target name: ${NAME}"
 
 
-echo "[+] Creating new server in rescue mode with a secondary volume of 50GB..."
-SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=50000000000 --name="image-writer-${NAME}")
+echo "[+] Creating new server in rescue mode with a secondary volume..."
+SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=${VOLUME_SIZE} --name="image-writer-${NAME}")
 echo "[+] Server created: ${SERVER}"
 
 
