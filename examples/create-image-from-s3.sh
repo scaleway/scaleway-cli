@@ -8,7 +8,7 @@ if [ -z "${1}" ]; then
     echo ""
     echo "examples:"
     echo "  - $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
-    echo "  - VOLUME=20000000000 $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
+    echo "  - VOLUME=20GB $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
     exit 1
 fi
 
@@ -16,7 +16,7 @@ fi
 
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
-VOLUME_SIZE=${VOLUME_SIZE:-50000000000}  # 50GB
+VOLUME_SIZE=${VOLUME_SIZE:-50GB}
 
 
 echo "[+] URL of the tarball: ${URL}"
