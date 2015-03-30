@@ -16,21 +16,18 @@ fi
 
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}
-VOLUME_SIZE=${VOLUME_SIZE:-50GB}
 
 
 echo "[+] URL of the tarball: ${URL}"
 echo "[+] Target name: ${NAME}"
 
-
 echo "[+] Creating new server in rescue mode..."
-SERVER=$(onlinelabs create trusty \
+SERVER=$(onlinelabs create 1GB \
                     --bootscript=rescue \
                     --name="[testing] $NAME" \
                     --env="boot=rescue" \
                     --env="rescue_image=${URL}")
 echo "[+] Server created: ${SERVER}"
-
 
 echo "[+] Booting..."
 onlinelabs start "${SERVER}" >/dev/null
