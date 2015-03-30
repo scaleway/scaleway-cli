@@ -41,6 +41,7 @@
     "onlinelabs": "^0.4.0",
     "portscanner": "^1.0.0",
     "q": "^1.2.0",
+    "term.js-cli": "^0.2.0",
     "validator": "^3.35.0"
   },
   "devDependencies": {

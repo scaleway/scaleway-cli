@@ -96,6 +96,15 @@ Wait for a server to be in 'stopped' state
     [...] some seconds later
     0
 
+Attach to server serial port
+
+    $ onlinelabs attach 7313af22
+    [RET]
+    Ubuntu Vivid Vervet (development branch) nfs-server ttyS0
+    my-server login:
+    ^C
+    $
+
 Create a server with Fedora 21 image and start it
 
     $ onlinelabs start `onlinelabs create 1f164079`
