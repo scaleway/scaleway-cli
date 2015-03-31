@@ -12,7 +12,7 @@ chai.should();
 
 
 var inspect = function(name, obj) {
-  debug(name, util.inspect(obj, {showHidden: false, depth: null}));
+  debug(name, util.inspect(obj, {showHidden: false, depth: null, colors: true}));
 };
 
 
