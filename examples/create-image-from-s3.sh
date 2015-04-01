@@ -66,4 +66,6 @@ IMAGE=$(onlinelabs tag "${SNAPSHOT}" "${NAME}")
 echo "[+] Image created: ${IMAGE}"
 
 
-# FIXME: cleaning
+echo "[+] Deleting temporary server"
+onlinelabs rm "${SERVER}"
+echo "[+] Server deleted"
