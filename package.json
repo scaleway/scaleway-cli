@@ -1,6 +1,6 @@
 {
   "name": "scaleway-cli",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Interact with Scaleway API from commmand line",
   "main": "lib/program.js",
   "scripts": {
