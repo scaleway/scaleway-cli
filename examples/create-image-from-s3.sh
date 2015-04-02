@@ -14,6 +14,8 @@ fi
 
 # FIXME: add usage
 
+set -e
+
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
@@ -35,14 +37,9 @@ onlinelabs exec --insecure "${SERVER}" 'uname -a'
 echo "[+] SSH is ready (${IP})"
 
 
-echo "[+] Formating /dev/nbd1..."
-onlinelabs exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1'
-echo "[+] /dev/nbd1 formatted in ext4"
-
-
-echo "[+] Mounting /dev/nbd1"
-onlinelabs exec "${SERVER}" mount /dev/nbd1 /mnt
-echo "[+] /dev/nbd1 mounted on /mnt"
+echo "[+] Formating and mounting /dev/nbd1..."
+onlinelabs exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
+echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
 echo "[+] Download tarball from S3 and write it to /dev/nbd1"
