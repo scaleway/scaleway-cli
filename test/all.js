@@ -18,7 +18,7 @@ var inspect = function(name, obj) {
 
 var run = function(command) {
   var args = [];
-  args = args.concat.apply(['node', 'onlinelabs'], command);
+  args = args.concat.apply(['node', 'scw'], command);
   var inspect = stdout.inspect();
   program.parse(args);
   inspect.restore();
@@ -34,6 +34,6 @@ suite("[program]", function() {
   test('version', function() {
     var output = run(['version']);
     (output).should.contain('Client version: ' + require('../package.json').version);
-    (output).should.contain('Client API version: ' + require('onlinelabs/package.json').version);
+    (output).should.contain('Client API version: ' + require('scaleway/package.json').version);
   });
 });

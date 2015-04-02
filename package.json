@@ -1,32 +1,33 @@
 {
-  "name": "onlinelabs-cli",
+  "name": "scaleway-cli",
   "version": "0.15.0",
-  "description": "Interact with Online Labs API from commmand line",
+  "description": "Interact with Scaleway API from commmand line",
   "main": "lib/program.js",
   "scripts": {
     "test": "mocha --reporter spec --ui tdd --bail --check-leaks ./test/all.js"
   },
   "bin": {
-    "onlinelabs": "./bin/onlinelabs"
+    "scw": "./bin/scw"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/moul/onlinelabs-cli"
+    "url": "https://github.com/moul/scaleway-cli"
   },
   "keywords": [
-    "online",
-    "labs",
-    "cli",
-    "onlinelabs",
     "api",
-    "cloud"
+    "cli",
+    "cloud",
+    "labs",
+    "online",
+    "onlinelabs",
+    "scaleway"
   ],
   "author": "Manfred Touron <m@42.am> (@moul)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/moul/onlinelabs-cli/issues"
+    "url": "https://github.com/moul/scaleway-cli/issues"
   },
-  "homepage": "https://github.com/moul/onlinelabs-cli",
+  "homepage": "https://github.com/moul/scaleway-cli",
   "dependencies": {
     "JSONPath": "^0.10.0",
     "async": "^0.9.0",
@@ -38,9 +39,9 @@
     "lodash": "^3.5.0",
     "moment": "^2.9.0",
     "nedb": "^1.1.1",
-    "onlinelabs": "^0.4.0",
     "portscanner": "^1.0.0",
     "q": "^1.2.0",
+    "scaleway": "^0.5.0",
     "term.js-cli": "^0.2.0",
     "validator": "^3.35.0"
   },

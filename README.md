@@ -1,15 +1,15 @@
-# OnlineLabs CLI
+# Scaleway CLI
 
-[![Build Status (Travis)](https://travis-ci.org/moul/onlinelabs-cli.svg?branch=master)](https://travis-ci.org/moul/onlinelabs-cli)
-[![Dependency Status](https://david-dm.org/moul/onlinelabs-cli.svg?theme=shields.io)](https://david-dm.org/moul/onlinelabs-cli)
-[![Total views](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
-[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/moul/onlinelabs-cli/counters/views-24h.svg)](https://sourcegraph.com/github.com/moul/onlinelabs-cli)
+[![Build Status (Travis)](https://travis-ci.org/moul/scaleway-cli.svg?branch=master)](https://travis-ci.org/moul/scaleway-cli)
+[![Dependency Status](https://david-dm.org/moul/scaleway-cli.svg?theme=shields.io)](https://david-dm.org/moul/scaleway-cli)
+[![Total views](https://sourcegraph.com/api/repos/github.com/moul/scaleway-cli/counters/views.svg)](https://sourcegraph.com/github.com/moul/scaleway-cli)
+[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/moul/scaleway-cli/counters/views-24h.svg)](https://sourcegraph.com/github.com/moul/scaleway-cli)
 
-[![NPM Badge](https://nodei.co/npm/onlinelabs-cli.png)](https://npmjs.org/package/onlinelabs-cli)
+[![NPM Badge](https://nodei.co/npm/scaleway-cli.png)](https://npmjs.org/package/scaleway-cli)
 
-Interact with OnlineLabs API from the command line.
+Interact with Scaleway API from the command line.
 
-Uses [onlinelabs](https://github.com/moul/node-onlinelabs) SDK.
+Uses [node-scaleway](https://github.com/moul/node-scaleway) SDK.
 
 Maintained by [Manfred Touron](https://github.com/moul)
 
@@ -19,9 +19,9 @@ Usage
 
 Usage 100% inspired by Docker
 
-    $ onlinelabs
+    $ scw
 
-      Usage: onlinelabs [options] [command]
+      Usage: scw [options] [command]
 
 
       Commands:
@@ -77,33 +77,33 @@ Examples
 
 Create a server with Ubuntu Trusty image and 3.2.34 bootscript
 
-    $ onlinelabs create trusty --bootscript=3.2.34
+    $ scw create trusty --bootscript=3.2.34
     df271f73-60ce-47fd-bd7b-37b5f698d8b2
 
 Create a server with Fedora 21 image
 
-    $ onlinelabs create 1f164079
+    $ scw create 1f164079
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
 
 Create a server with an empty disc of 20G and rescue bootscript
 
-    $ onlinelabs create 20G --bootscript=rescue
+    $ scw create 20G --bootscript=rescue
     5cf8058e-a0df-4fc3-a772-8d44e6daf582
 
 Run a stopped server
 
-    $ onlinelabs start 7313af22
+    $ scw start 7313af22
     7313af22-62bf-4df1-9dc2-c4ffb4cb2d83
 
 Wait for a server to be in 'stopped' state
 
-    $ onlinelabs wait 7313af22
+    $ scw wait 7313af22
     [...] some seconds later
     0
 
 Attach to server serial port
 
-    $ onlinelabs attach 7313af22
+    $ scw attach 7313af22
     [RET]
     Ubuntu Vivid Vervet (development branch) nfs-server ttyS0
     my-server login:
@@ -112,12 +112,12 @@ Attach to server serial port
 
 Create a server with Fedora 21 image and start it
 
-    $ onlinelabs start `onlinelabs create 1f164079`
+    $ scw start `scw create 1f164079`
     5cf8058e-a0df-4fc3-a772-8d44e6daf582
 
 Execute a 'ls -la' on a server (via SSH)
 
-    $ onlinelabs exec 5cf8058e -- ls -la
+    $ scw exec 5cf8058e -- ls -la
     total 40
     drwx------.  4 root root 4096 Mar 26 05:56 .
     drwxr-xr-x. 18 root root 4096 Mar 26 05:56 ..
@@ -132,12 +132,12 @@ Execute a 'ls -la' on a server (via SSH)
 
 Run a shell on a server (via SSH)
 
-    $ onlinelabs exec 5cf8058e /bin/bash
+    $ scw exec 5cf8058e /bin/bash
     [root@noname ~]#
 
 List public images and my images
 
-    $ onlinelabs images
+    $ scw images
     REPOSITORY                                 TAG      IMAGE ID   CREATED        VIRTUAL SIZE
     user/Alpine_Linux_3_1                      latest   854eef72   10 days ago    50 GB
     Debian_Wheezy_7_8                          latest   cd66fa55   2 months ago   20 GB
@@ -146,7 +146,7 @@ List public images and my images
 
 List public images, my images and my snapshots
 
-    $ onlinelabs images -a
+    $ scw images -a
     REPOSITORY                                 TAG      IMAGE ID   CREATED        VIRTUAL SIZE
     noname-snapshot                            <none>   54df92d1   a minute ago   50 GB
     cool-snapshot                              <none>   0dbbc64c   11 hours ago   20 GB
@@ -156,14 +156,14 @@ List public images, my images and my snapshots
 
 List running servers
 
-    $ onlinelabs ps
+    $ scw ps
     SERVER ID   IMAGE                       COMMAND   CREATED          STATUS    PORTS   NAME
     7313af22    user/Alpine_Linux_3_1                 13 minutes ago   running           noname
     32070fa4    Ubuntu_Utopic_14_10                   36 minutes ago   running           labs-8fe556
 
 List all servers
 
-    $ onlinelabs ps -a
+    $ scw ps -a
     SERVER ID   IMAGE                       COMMAND   CREATED          STATUS    PORTS   NAME
     7313af22    user/Alpine_Linux_3_1                 13 minutes ago   running           noname
     32070fa4    Ubuntu_Utopic_14_10                   36 minutes ago   running           labs-8fe556
@@ -171,40 +171,40 @@ List all servers
 
 Stop a running server
 
-    $ onlinelabs stop 5cf8058e
+    $ scw stop 5cf8058e
     5cf8058e
 
 Create a snapshot of the root volume of a server
 
-    $ onlinelabs commit 5cf8058e
+    $ scw commit 5cf8058e
     54df92d1
 
 Delete a stopped server
 
-    $ onlinelabs rm 5cf8
+    $ scw rm 5cf8
 
 Create a snapshot of nbd1
 
-    $ onlinelabs commit 5cf8058e -v 1
+    $ scw commit 5cf8058e -v 1
     f1851f99
 
 Create an image based on a snapshot
 
-    $ onlinelabs tag 87f4526b my_image
+    $ scw tag 87f4526b my_image
     46689419
 
 Delete an image
 
-    $ onlinelabs rmi 46689419
+    $ scw rmi 46689419
 
 Send a 'halt' command via SSH
 
-    $ onlinelabs kill 5cf8058e
+    $ scw kill 5cf8058e
     5cf8058e
 
 Inspect a server
 
-    $ onlinelabs inspect 90074de6
+    $ scw inspect 90074de6
     [
       {
         "server": {
@@ -227,41 +227,41 @@ Inspect a server
 
 Show public ip address of a server
 
-    $ onlinelabs inspect 90074de6 -f '.server.public_ip.address'
+    $ scw inspect 90074de6 -f '.server.public_ip.address'
     212.47.xxx.yyy
 
 
 Workflows
 ---------
 
-For more examples, see [./examples/](https://github.com/moul/onlinelabs-cli/tree/master/examples) directory
+For more examples, see [./examples/](https://github.com/moul/scaleway-cli/tree/master/examples) directory
 
     # create a server with a nbd1 volume of 50G and rescue bootscript
-    $ SERVER=$(onlinelabs create trusty --bootscript=rescue --volume=50000000000)
+    $ SERVER=$(scw create trusty --bootscript=rescue --volume=50000000000)
     # start it
-    $ onlinelabs start ${SERVER}
+    $ scw start ${SERVER}
     # wait for ssh to be ready
-    $ while ! onlinelabs exec ${SERVER} -- exit 0; do sleep 1; done
+    $ while ! scw exec ${SERVER} -- exit 0; do sleep 1; done
     # print the ip address of the server
-    $ echo "Your server is ready and is available at: $(onlinelabs inspect ${SERVER} -f .server.public_ip.address)"
+    $ echo "Your server is ready and is available at: $(scw inspect ${SERVER} -f .server.public_ip.address)"
 
 Debug
 -----
 
-`onlinelabs-cli` uses the [debug](https://www.npmjs.com/package/debug) package.
+`scaleway-cli` uses the [debug](https://www.npmjs.com/package/debug) package.
 
 To enable debug you can use the environment variable `DEBUG=` as :
 
-- `DEBUG='*' onlinelabs ...` to see debug for `onlinelabs-cli` and all dependencies
-- `DEBUG='onlinelabs-cli:*' onlinelabs ...` to see debug for `onlinelabs-cli`
-- `DEBUG='node-onlinelabs:*' onlinelabs ...` to see debug for `node-onlinelabs`
+- `DEBUG='*' scw ...` to see debug for `scaleway-cli` and all dependencies
+- `DEBUG='scaleway-cli:*' scw ...` to see debug for `scaleway-cli`
+- `DEBUG='node-scaleway:*' scw ...` to see debug for `node-scaleway`
 
-    $ DEBUG='*' onlinelabs images
-      node-onlinelabs:lib GET https://api.cloud.online.net/images? +0ms { method: 'GET',
+    $ DEBUG='*' scw images
+      node-scaleway:lib GET https://api.cloud.online.net/images? +0ms { method: 'GET',
       url: 'https://api.cloud.online.net/images?',
       headers:
        { Accept: 'application/json',
-         'User-Agent': 'node-onlinelabs',
+         'User-Agent': 'node-scaleway',
          'X-Auth-Token': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' },
       resolveWithFullResponse: true,
       json: true }
@@ -269,20 +269,20 @@ To enable debug you can use the environment variable `DEBUG=` as :
     Fedora_21_Twenty-one                       latest   1f164079   10 days ago    50 GB
     user/Archlinux_latest                      latest   1197ca91   10 days ago    50 GB
     ...
-    onlinelabs-cli:utils saveEntities: removed 15 items +0ms
-    onlinelabs-cli:utils saveEntities: inserted 15 items +4ms
+    scaleway-cli:utils saveEntities: removed 15 items +0ms
+    scaleway-cli:utils saveEntities: inserted 15 items +4ms
 
 
 Install
 -------
 
 1. Install `Node.js` and `npm`
-2. Install `onlinelabs-cli`: `$ npm install -g onlinelabs-cli`
-3. Setup token and organization: `$ onlinelabs login --token=XXXXX --organization=YYYYY`
-4. Use `$ onlinelabs images`
+2. Install `scaleway-cli`: `$ npm install -g scaleway-cli`
+3. Setup token and organization: `$ scw login --token=XXXXX --organization=YYYYY`
+4. Use `$ scw images`
 
 
 License
 -------
 
-[MIT](https://github.com/moul/onlinelabs-cli/blob/master/LICENSE.md)
+[MIT](https://github.com/moul/scaleway-cli/blob/master/LICENSE.md)
