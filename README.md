@@ -117,7 +117,7 @@ Create a server with Fedora 21 image and start it
 
 Execute a 'ls -la' on a server (via SSH)
 
-    $ scw exec 5cf8058e -- ls -la
+    $ scw exec myserver -- ls -la
     total 40
     drwx------.  4 root root 4096 Mar 26 05:56 .
     drwxr-xr-x. 18 root root 4096 Mar 26 05:56 ..

@@ -33,7 +33,7 @@ echo "[+] Server created: ${SERVER}"
 echo "[+] Booting..."
 scw start --sync "${SERVER}" >/dev/null
 IP=$(scw inspect "${SERVER}" -f .server.public_ip.address)
-scw exec --insecure "${SERVER}" 'uname -a'
+scw exec "${SERVER}" 'uname -a'
 echo "[+] SSH is ready (${IP})"
 
 
