@@ -237,11 +237,7 @@ Workflows
 For more examples, see [./examples/](https://github.com/moul/scaleway-cli/tree/master/examples) directory
 
     # create a server with a nbd1 volume of 50G and rescue bootscript
-    $ SERVER=$(scw create trusty --bootscript=rescue --volume=50000000000)
-    # start it
-    $ scw start ${SERVER}
-    # wait for ssh to be ready
-    $ while ! scw exec ${SERVER} -- exit 0; do sleep 1; done
+    $ SERVER=$(scw create trusty --bootscript=rescue --volume=50000000000 --sync)
     # print the ip address of the server
     $ echo "Your server is ready and is available at: $(scw inspect ${SERVER} -f .server.public_ip.address)"
 
