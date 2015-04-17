@@ -31,7 +31,7 @@ echo "[+] Server created: ${SERVER}"
 
 
 echo "[+] Booting..."
-scw start --sync "${SERVER}" >/dev/null
+scw start --sync --timeout=600 "${SERVER}" >/dev/null
 IP=$(scw inspect "${SERVER}" -f .server.public_ip.address)
 scw exec "${SERVER}" 'uname -a'
 echo "[+] SSH is ready (${IP})"
