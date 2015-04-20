@@ -10,6 +10,7 @@ fi
 
 IMAGE_ID=$1
 NB_INSTANCES=16
+WORKDIR=$(mktemp -d 2>/dev/null || mktemp -d -t /tmp)
 INSTANCE_NAME='check-image'
 
 # destroy all existing servers matching name
@@ -27,13 +28,13 @@ function cleanup {
 function boot {
     echo >&2 "[+] creating $NB_INSTANCES servers..."
     for i in $(eval echo {1..$NB_INSTANCES}); do
-	scw create --bootscript $SANDBOX_DTB_UUID --volume 50G --volume 1G --name "$INSTANCE_NAME-$i" $IMAGE_ID >> $WORKDIR/uuids.txt
+	scw create --volume 1G --name "$INSTANCE_NAME-$i" $IMAGE_ID >> $WORKDIR/uuids.txt
     done
     cat $WORKDIR/uuids.txt
 
     echo >&2 "[+] booting $NB_INSTANCES servers..."
     for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw start -s --boot-timeout=120 --ssh-timeout=120 $uuid &
+	scw start -s --boot-timeout=120 --ssh-timeout=600 $uuid &
     done
     wait `jobs -p`
 
@@ -57,7 +58,11 @@ function report {
     echo >&2 "[+] report fping"
     echo "## fping"
     echo ""
-    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/'
+    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/' > $WORKDIR/fping
+    NB_INSTANCES_OK=$(wc -l $WORKDIR/fping | awk '// { print $1; }')
+    echo "- $NB_INSTANCES_OK / $NB_INSTANCES respond to ping"
+    echo ""
+    cat $WORKDIR/fping
     echo ""
 
     # reboot
@@ -65,26 +70,36 @@ function report {
     echo "## reboot"
     echo ""
     for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec $uuid 'systemctl reboot ; sleep 10 ; reboot' &
+	scw exec --timeout 60 $uuid '(which systemctl &>/dev/null && systemctl reboot) || reboot'
     done
     echo ""
 
     sleep 120
-    kill -9 `jobs -p`
 
     # fping
-    echo >&2 "[+] report fping after reboot"
+    echo >&2 "[+] report fping 120 sec after reboot"
     echo "## fping after reboot"
     echo ""
-    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/'
+    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/' > $WORKDIR/fping
+    NB_INSTANCES_OK=$(wc -l $WORKDIR/fping | awk '// { print $1; }')
+    echo "- $NB_INSTANCES_OK / $NB_INSTANCES respond to ping"
+    echo ""
+    cat $WORKDIR/fping
     echo ""
 
-    # fping
+    # uptime
     echo >&2 "[+] uptime"
     echo "## uptime"
     echo ""
     for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec $uuid 'uptime'
+	scw exec --timeout 600 $uuid 'uptime' 1>&2
+	failed=$?
+	if [ $failed -ne 0 ]
+	then
+	    echo "    - $uuid is DOWN"
+	else
+	    echo "    - $uuid is UP"
+	fi
     done
     echo ""
 }
