@@ -70,7 +70,7 @@ function report {
     echo "## reboot"
     echo ""
     for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec --timeout 60 $uuid '(which systemctl &>/dev/null && systemctl reboot) || reboot'
+	scw exec --wait --timeout 60 $uuid '(which systemctl &>/dev/null && systemctl reboot) || reboot'
     done
     echo ""
 
@@ -92,7 +92,7 @@ function report {
     echo "## uptime"
     echo ""
     for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec --timeout 600 $uuid 'uptime' 1>&2
+	scw exec --wait --timeout 600 $uuid 'uptime' 1>&2
 	failed=$?
 	if [ $failed -ne 0 ]
 	then
