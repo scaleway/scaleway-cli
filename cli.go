@@ -11,13 +11,16 @@ import (
 // Command is a Scaleway command
 type Command struct {
 	// Exec executes the command
-	Exec func(args []string)
+	Exec func(cmd *Command, args []string)
 
 	// Usage is the one-line usage message.
 	UsageLine string
 
 	// Description is the description of the command
 	Description string
+
+	// Help is the full description of the command
+	Help string
 
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
@@ -58,7 +61,9 @@ func usage() {
 	os.Exit(1)
 }
 
-var commands = []*Command{}
+var commands = []*Command{
+	cmdHelp,
+}
 
 func main() {
 	flag.Usage = usage
@@ -73,7 +78,7 @@ func main() {
 	for _, cmd := range commands {
 		if cmd.Name() == name {
 			args := args[1:]
-			cmd.Exec(args)
+			cmd.Exec(cmd, args)
 			os.Exit(0)
 		}
 	}
