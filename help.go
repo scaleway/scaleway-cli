@@ -9,9 +9,9 @@ import (
 var cmdHelp = &Command{
 	Exec:        nil,
 	UsageLine:   "help [COMMAND]",
-	Description: "help of the scw-go command line",
+	Description: "help of the scw command line",
 	Help: `
-Help prints help information about scw-go and its commands.
+Help prints help information about scw and its commands.
 
 By default, help lists available commands with a short description.
 When invoked with a command name, it prints the usage and the help of
@@ -24,7 +24,7 @@ func init() {
 	cmdHelp.Exec = runHelp
 }
 
-var helpTemplate = `Usage: scw-go [OPTIONS] COMMAND [arg...]
+var helpTemplate = `Usage: scw [OPTIONS] COMMAND [arg...]
 
 Interact with Scaleway from the command line.
 
@@ -37,11 +37,11 @@ Options:
 Commands:
 {{range .}}    {{.Name | printf "%-9s"}} {{.Description}}
 {{end}}
-Run 'scw-go COMMAND --help' for more information on a command.
+Run 'scw COMMAND --help' for more information on a command.
 `
 
 var fullHelpTemplate = `
-Usage: scw-go {{.UsageLine}}
+Usage: scw {{.UsageLine}}
 
 {{.Help}}
 

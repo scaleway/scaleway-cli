@@ -8,7 +8,7 @@ GODEP ?=	$(GOTEST) -i
 GOFMT ?=	gofmt -w
 
 
-NAME = scw-go
+NAME = scw
 SRC = .
 
 
