@@ -2,10 +2,12 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"strings"
 )
 
@@ -57,6 +59,7 @@ func (c *Command) Options() string {
 var commands = []*Command{
 	cmdHelp,
 	cmdLogin,
+	cmdPs,
 }
 
 func main() {
@@ -88,4 +91,53 @@ func main() {
 func usage() {
 	cmdHelp.Exec(cmdHelp, []string{})
 	os.Exit(1)
+}
+
+// Config is a Scaleway CLI configuration file
+type Config struct {
+	// APIEndpoint is the endpoint to the Scaleway API
+	APIEndPoint string
+
+	// Organization is the identifier of the Scaleway orgnization
+	Organization string
+
+	// Token is the authentication token for the Scaleway organization
+	Token string
+}
+
+// GetConfigFilePath returns the path to the Scaleway CLI config file
+func GetConfigFilePath() (string, error) {
+	u, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s/.scwrc", u.HomeDir), nil
+}
+
+// GetConfig returns the Scaleway CLI config file for the current user
+func GetConfig() (*Config, error) {
+	scwrc_path, err := GetConfigFilePath()
+	if err != nil {
+		return nil, err
+	}
+	file, err := ioutil.ReadFile(scwrc_path)
+	if err != nil {
+		return nil, err
+	}
+	var config Config
+	err = json.Unmarshal(file, &config)
+	if err != nil {
+		return nil, err
+	}
+	return &config, nil
+}
+
+// GetScalewayAPI returns a ScalewayAPI using the user config file
+func GetScalewayAPI() (*ScalewayAPI, error) {
+	config, err := GetConfig()
+	if err != nil {
+		return nil, err
+	}
+	api := NewScalewayAPI(config.APIEndPoint, config.Organization, config.Token)
+	return api, nil
 }

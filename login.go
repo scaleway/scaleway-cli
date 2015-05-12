@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/user"
 )
 
 var cmdLogin = &Command{
@@ -18,17 +17,6 @@ configuration file is automatically used by the 'scw' command.
 `,
 }
 
-type Config struct {
-	// APIEndpoint is the endpoint to the Scaleway API
-	APIEndPoint string
-
-	// Organization is the identifier of the Scaleway orgnization
-	Organization string
-
-	// Token is the authentication token for the Scaleway organization
-	Token string
-}
-
 func runLogin(cmd *Command, args []string) {
 	if len(args) != 2 {
 		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
@@ -39,12 +27,12 @@ func runLogin(cmd *Command, args []string) {
 		Organization: args[0],
 		Token:        args[1],
 	}
-	u, err := user.Current()
+	scwrc_path, err := GetConfigFilePath()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "can't get current user: %v\n", err)
+		fmt.Fprintf(os.Stderr, "can't get scwrc config file path: %v\n", err)
 		os.Exit(1)
 	}
-	scwrc, err := os.OpenFile(fmt.Sprintf("%s/.scwrc", u.HomeDir), os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
+	scwrc, err := os.OpenFile(scwrc_path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "can't create scwrc config file: %v\n", err)
 		os.Exit(1)
