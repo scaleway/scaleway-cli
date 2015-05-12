@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
@@ -80,7 +82,7 @@ func NewScalewayAPI(endpoint, organization, token string) *ScalewayAPI {
 
 // GetResponse returns a http.Response object for the requested resource
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", s.APIEndPoint, resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
@@ -92,8 +94,17 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 }
 
 // GetServers get the list of servers from the ScalewayAPI
-func (s *ScalewayAPI) GetServers() (*[]ScalewayServer, error) {
-	resp, err := s.GetResponse("servers")
+func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error) {
+	query := url.Values{}
+	if !all {
+		query.Set("state", "running")
+	}
+	if limit > 0 {
+		// FIXME: wait for the API to be ready
+		// query.Set("per_page", strconv.Itoa(limit))
+	}
+	fmt.Println(query.Encode())
+	resp, err := s.GetResponse("servers?" + query.Encode())
 	if err != nil {
 		return nil, err
 	}
@@ -103,6 +114,10 @@ func (s *ScalewayAPI) GetServers() (*[]ScalewayServer, error) {
 	err = decoder.Decode(&servers)
 	if err != nil {
 		return nil, err
+	}
+	// FIXME: when api limit is ready, remove the following code
+	if limit > 0 && limit < len(servers.Servers) {
+		servers.Servers = servers.Servers[0:limit]
 	}
 	return &servers.Servers, nil
 }

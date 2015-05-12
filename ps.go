@@ -56,7 +56,11 @@ func runPs(cmd *Command, args []string) {
 		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
 		os.Exit(1)
 	}
-	servers, err := api.GetServers()
+	limit := psN
+	if psL {
+		limit = 1
+	}
+	servers, err := api.GetServers(psA, limit)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to fetch servers from the Scaleway API: %v\n", err)
 		os.Exit(1)
@@ -67,11 +71,7 @@ func runPs(cmd *Command, args []string) {
 	if !psQ {
 		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\n")
 	}
-	for id, server := range *servers {
-		if !(psA || (psN != 0 && id < psN) || server.State == "running") {
-			continue
-		}
-
+	for _, server := range *servers {
 		if psQ {
 			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {
@@ -81,10 +81,6 @@ func runPs(cmd *Command, args []string) {
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
 			short_creationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
 			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", short_id, short_image, short_creationDate, server.State, short_name)
-		}
-
-		if psL {
-			break
 		}
 	}
 }
