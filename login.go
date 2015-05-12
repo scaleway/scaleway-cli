@@ -8,7 +8,7 @@ import (
 
 var cmdLogin = &Command{
 	Exec:        runLogin,
-	UsageLine:   "login [options] organization token",
+	UsageLine:   "login [options] ORGANIZATION TOKEN",
 	Description: "Login generates a configuration file containing credentials",
 	Help: `
 Login generates a configuration file in '/home/$USER/.scwrc'

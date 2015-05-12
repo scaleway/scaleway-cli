@@ -8,7 +8,7 @@ import (
 
 var cmdHelp = &Command{
 	Exec:        nil,
-	UsageLine:   "help [command]",
+	UsageLine:   "help [COMMAND]",
 	Description: "help of the scw command line",
 	Help: `
 Help prints help information about scw and its commands.

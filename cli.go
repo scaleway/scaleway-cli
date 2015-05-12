@@ -27,10 +27,6 @@ type Command struct {
 
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
-
-	// CustomFlags indicates that the command will do its own
-	// flag parsing.
-	CustomFlags bool
 }
 
 // Name returns the command's name
@@ -60,6 +56,7 @@ var commands = []*Command{
 	cmdHelp,
 	cmdLogin,
 	cmdPs,
+	cmdStart,
 }
 
 func main() {
