@@ -40,49 +40,31 @@ func (c *Command) Name() string {
 	return name
 }
 
-// Usage prints a usage on stderr then exits
-func (c *Command) Usage() {
-	fmt.Fprintf(os.Stderr, "usage: %s\n\n", c.Usage)
-	fmt.Fprintf(os.Stderr, "%s\n", c.Description)
-	os.Exit(1)
-}
-
-var usageTemplate = `Scw is a tool to interract with Scaleway from the command line.
-
-Usage:
-
-	scw command [arguments]
-
-`
-
-// usage prints the usage then exits
-func usage() {
-	fmt.Fprintf(os.Stderr, usageTemplate)
-	os.Exit(1)
-}
-
 var commands = []*Command{
 	cmdHelp,
 }
 
 func main() {
-	flag.Usage = usage
 	flag.Parse()
-
 	args := flag.Args()
 	if len(args) < 1 {
 		usage()
 	}
-
 	name := args[0]
+	args = args[1:]
+
 	for _, cmd := range commands {
 		if cmd.Name() == name {
-			args := args[1:]
 			cmd.Exec(cmd, args)
 			os.Exit(0)
 		}
 	}
 
 	fmt.Fprintf(os.Stderr, "scw: unknown subcommand %s\nRun 'scw help for usage.\n", name)
+	os.Exit(1)
+}
+
+func usage() {
+	cmdHelp.Exec(cmdHelp, []string{})
 	os.Exit(1)
 }
