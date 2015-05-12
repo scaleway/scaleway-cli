@@ -63,6 +63,14 @@ type ScalewayServer struct {
 	State string `json:"state,omitempty"`
 }
 
+// ShortIdentifier returns a truncated identifier
+func (s *ScalewayServer) ShortIdentifier() string {
+	if len(s.Identifier) > 8 {
+		return s.Identifier[:8]
+	}
+	return s.Identifier
+}
+
 // ScalewayServers represents a group of Scaleway C1 servers
 type ScalewayServers struct {
 	// Servers holds scaleway servers of the response
