@@ -4,6 +4,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -40,6 +41,19 @@ func (c *Command) Name() string {
 	return name
 }
 
+// Options returns a string describing options of the command
+func (c *Command) Options() string {
+	var options string
+	visitor := func(flag *flag.Flag) {
+		options += fmt.Sprintf("  -%-12s %s (%s)\n", flag.Name, flag.Usage, flag.DefValue)
+	}
+	c.Flag.VisitAll(visitor)
+	if len(options) == 0 {
+		options = "  no option for this command"
+	}
+	return options
+}
+
 var commands = []*Command{
 	cmdHelp,
 	cmdLogin,
@@ -56,7 +70,13 @@ func main() {
 
 	for _, cmd := range commands {
 		if cmd.Name() == name {
-			cmd.Exec(cmd, args)
+			cmd.Flag.SetOutput(ioutil.Discard)
+			err := cmd.Flag.Parse(args)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
+				os.Exit(1)
+			}
+			cmd.Exec(cmd, cmd.Flag.Args())
 			os.Exit(0)
 		}
 	}

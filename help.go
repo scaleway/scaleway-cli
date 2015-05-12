@@ -36,13 +36,18 @@ The commands are:
 {{end}}
 `
 
-var fullHelpTemplate = `{{.Description}}\n
+var fullHelpTemplate = `{{.Description}}
 
 Usage:
 
         scw {{.UsageLine}}
 
-{{.Help}}`
+{{.Help}}
+
+Options:
+
+{{.Options}}
+`
 
 func runHelp(cmd *Command, args []string) {
 	if len(args) >= 1 {
