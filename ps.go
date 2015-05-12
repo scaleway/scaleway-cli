@@ -3,7 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
+	"strings"
 	"text/tabwriter"
+	"time"
+
+	"github.com/docker/docker/pkg/units"
 )
 
 var cmdPs = &Command{
@@ -37,6 +42,14 @@ func truncIf(str string, max int, cond bool) string {
 	return str
 }
 
+// wordify convert complex name to a single word without special shell characters
+func wordify(str string) string {
+	str = regexp.MustCompile(`[^a-zA-Z0-9-]`).ReplaceAllString(str, "_")
+	str = regexp.MustCompile(`__+`).ReplaceAllString(str, "_")
+	str = strings.Trim(str, "_")
+	return str
+}
+
 func runPs(cmd *Command, args []string) {
 	api, err := GetScalewayAPI()
 	if err != nil {
@@ -60,12 +73,14 @@ func runPs(cmd *Command, args []string) {
 		}
 
 		if psQ {
-			fmt.Fprintf(w, "%s\n", truncIf(server.Identifier, 8, !psNoTrunc))
+			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {
 			short_id := truncIf(server.Identifier, 8, !psNoTrunc)
-			short_image := truncIf(server.Image.Name, 20, !psNoTrunc)
-			short_name := truncIf(server.Name, 20, !psNoTrunc)
-			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", short_id, short_image, server.CreationDate, server.State, short_name)
+			short_image := truncIf(wordify(server.Image.Name), 25, !psNoTrunc)
+			short_name := truncIf(wordify(server.Name), 25, !psNoTrunc)
+			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
+			short_creationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
+			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", short_id, short_image, short_creationDate, server.State, short_name)
 		}
 
 		if psL {
