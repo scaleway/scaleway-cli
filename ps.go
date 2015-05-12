@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"os"
+)
+
 var cmdPs = &Command{
 	Exec:        runPs,
 	UsageLine:   "ps [options]",
@@ -24,4 +29,17 @@ var psNoTrunc bool // --no-trunc flag
 var psN int        // -n flag
 
 func runPs(cmd *Command, args []string) {
+	api, err := GetScalewayAPI()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
+		os.Exit(1)
+	}
+	servers, err := api.GetServers()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "unable to fetch servers from the Scaleway API: %v\n", err)
+		os.Exit(1)
+	}
+	for _, server := range *servers {
+		fmt.Printf("%s\n", server.Identifier)
+	}
 }
