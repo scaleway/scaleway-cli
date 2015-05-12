@@ -7,10 +7,9 @@ import (
 
 var cmdStart = &Command{
 	Exec:        runStart,
-	UsageLine:   "start [options] SERVER",
-	Description: "Start a Scaleway C1 server",
-	Help: `
-Start starts a Scaleway C1 server.`,
+	UsageLine:   "start [OPTIONS] SERVER [SERVER...]",
+	Description: "Start a stopped server.",
+	Help:        "Start a stopped server.",
 }
 
 func runStart(cmd *Command, args []string) {

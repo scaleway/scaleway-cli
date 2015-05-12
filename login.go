@@ -10,11 +10,9 @@ var cmdLogin = &Command{
 	Exec:        runLogin,
 	UsageLine:   "login [options] ORGANIZATION TOKEN",
 	Description: "Login generates a configuration file containing credentials",
-	Help: `
-Login generates a configuration file in '/home/$USER/.scwrc'
+	Help: `Login generates a configuration file in '/home/$USER/.scwrc'
 containing credentials used to interact with the Scaleway API. This
-configuration file is automatically used by the 'scw' command.
-`,
+configuration file is automatically used by the 'scw' command.`,
 }
 
 func runLogin(cmd *Command, args []string) {

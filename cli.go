@@ -47,7 +47,7 @@ func (c *Command) Options() string {
 	}
 	c.Flag.VisitAll(visitor)
 	if len(options) == 0 {
-		options = "  no option for this command"
+		options = ""
 	}
 	return options
 }
