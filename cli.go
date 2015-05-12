@@ -96,13 +96,13 @@ func usage() {
 // Config is a Scaleway CLI configuration file
 type Config struct {
 	// APIEndpoint is the endpoint to the Scaleway API
-	APIEndPoint string
+	APIEndPoint string `json:"api_endpoint"`
 
 	// Organization is the identifier of the Scaleway orgnization
-	Organization string
+	Organization string `json:"organization"`
 
 	// Token is the authentication token for the Scaleway organization
-	Token string
+	Token string `json:"token"`
 }
 
 // GetConfigFilePath returns the path to the Scaleway CLI config file
