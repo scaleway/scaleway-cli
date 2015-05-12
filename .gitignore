@@ -1,5 +1,6 @@
 # builds
 scw-go
+Godeps/
 
 # junk
 *~
