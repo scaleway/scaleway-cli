@@ -32,14 +32,15 @@ Usage:
 
 The commands are:
 
-{{range .}} {{.Name | printf "%-12s"}} {{.Description}}{{end}}
+{{range .}} {{.Name | printf "%-12s"}} {{.Description}}
+{{end}}
 `
 
 var fullHelpTemplate = `{{.Description}}\n
 
 Usage:
 
-        {{.UsageLine}}
+        scw {{.UsageLine}}
 
 {{.Help}}`
 

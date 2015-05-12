@@ -42,6 +42,7 @@ func (c *Command) Name() string {
 
 var commands = []*Command{
 	cmdHelp,
+	cmdLogin,
 }
 
 func main() {
