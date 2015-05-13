@@ -83,6 +83,12 @@ type ScalewayImage struct {
 	ModificationDate string `json:"modification_date,omitempty"`
 }
 
+// ScalewayImages represents a group of Scaleway images
+type ScalewayImages struct {
+	// Images holds scaleway images of the response
+	Images []ScalewayImage `json:"images,omitempty"`
+}
+
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
 	// Identifier is a unique identifier for the server
@@ -241,4 +247,24 @@ func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
 		servers = s.Cache.LookUpServers(needle)
 	}
 	return servers, nil
+}
+
+// GetImages get the list of images from the ScalewayAPI
+func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
+	query := url.Values{}
+	resp, err := s.GetResponse("images?" + query.Encode())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var images ScalewayImages
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&images)
+	if err != nil {
+		return nil, err
+	}
+	for _, image := range images.Images {
+		s.Cache.InsertImage(image.Identifier, image.Name)
+	}
+	return &images.Images, nil
 }
