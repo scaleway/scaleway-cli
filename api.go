@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -76,6 +77,12 @@ type ScalewayServers struct {
 	Servers []ScalewayServer `json:"servers,omitempty"`
 }
 
+// ScalewayServerAction represents an action to perform on a Scaleway C1 server
+type ScalewayServerAction struct {
+	// State is the current status of the server
+	Action string `json:"action,omitempty"`
+}
+
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
 func NewScalewayAPI(endpoint, organization, token string) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
@@ -101,6 +108,25 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	log.Debugf("GET %s", uri)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("X-Auth-Token", s.Token)
+	req.Header.Set("Content-Type", "application/json")
+	return client.Do(req)
+}
+
+// PostResponse returns a http.Response object for the updated resource
+func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	client := &http.Client{}
+	payload := new(bytes.Buffer)
+	encoder := json.NewEncoder(payload)
+	log.Debugf("GET %s", uri)
+	if err := encoder.Encode(data); err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest("POST", uri, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +164,21 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		servers.Servers = servers.Servers[0:limit]
 	}
 	return &servers.Servers, nil
+}
+
+// PostServerAction posts an action on a server
+func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
+	data := ScalewayServerAction{
+		Action: action,
+	}
+	resp, err := s.PostResponse(fmt.Sprintf("servers/%s/action", server_id), data)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode == 202 {
+		return nil
+	}
+	return fmt.Errorf("invalid return code, expected 202, got %d", resp.StatusCode)
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string

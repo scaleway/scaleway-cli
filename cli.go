@@ -62,7 +62,7 @@ func (c *Command) Options() string {
 }
 
 // GetServerOrDie returns exactly one server matching or dies
-func (cmd *Command) GetServerOrDie(needle string) string {
+func (cmd *Command) GetServer(needle string) string {
 	servers, err := cmd.API.ResolveServer(needle)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to resolve server %s: %s\n", needle, err)
