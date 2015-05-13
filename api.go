@@ -68,6 +68,21 @@ type ScalewayIPAddress struct {
 	IP string `json:"address,omitempty"`
 }
 
+// ScalewayVolume represents a Scaleway Volume
+type ScalewayVolume struct {
+	// Identifier is a unique identifier for the volume
+	Identifier string `json:"id,omitempty"`
+
+	// Size is allocated size of the volume
+	Size int64 `json:"size,omitempty"`
+
+	// CreationDate is the creation date of the volume
+	CreationDate string `json:"creation_date,omitempty"`
+
+	// ModificationDate is the date of the last modification of the volume
+	ModificationDate string `json:"modification_date,omitempty"`
+}
+
 // ScalewayImage represents a Scaleway Image
 type ScalewayImage struct {
 	// Identifier is a unique identifier for the image
@@ -81,6 +96,9 @@ type ScalewayImage struct {
 
 	// ModificationDate is the date of the last modification of the image
 	ModificationDate string `json:"modification_date,omitempty"`
+
+	// RootVolume is the root volume bound to the image
+	RootVolume ScalewayVolume `json:"root_volume,omitempty"`
 }
 
 // ScalewayImages represents a group of Scaleway images
