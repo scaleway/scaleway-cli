@@ -32,6 +32,9 @@ type Command struct {
 
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
+
+	// API is the interface used to communicate with Scaleway's API
+	API *ScalewayAPI
 }
 
 // Name returns the command's name
@@ -74,7 +77,7 @@ var (
 )
 
 func main() {
-	config, _ = GetConfig()
+	config, _ = getConfig()
 
 	flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
 	flag.Parse()
@@ -107,8 +110,14 @@ func main() {
 				fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
 				os.Exit(1)
 			}
-
+			api, err := getScalewayAPI()
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "unable to initialize scw api: %s\n", err)
+				os.Exit(1)
+			}
+			cmd.API = api
 			cmd.Exec(cmd, cmd.Flag.Args())
+			cmd.API.Sync()
 			os.Exit(0)
 		}
 	}
@@ -143,8 +152,8 @@ func GetConfigFilePath() (string, error) {
 	return fmt.Sprintf("%s/.scwrc", u.HomeDir), nil
 }
 
-// GetConfig returns the Scaleway CLI config file for the current user
-func GetConfig() (*Config, error) {
+// getConfig returns the Scaleway CLI config file for the current user
+func getConfig() (*Config, error) {
 	scwrc_path, err := GetConfigFilePath()
 	if err != nil {
 		return nil, err
@@ -164,10 +173,10 @@ func GetConfig() (*Config, error) {
 	return &config, nil
 }
 
-// GetScalewayAPI returns a ScalewayAPI using the user config file
-func GetScalewayAPI() (*ScalewayAPI, error) {
+// getScalewayAPI returns a ScalewayAPI using the user config file
+func getScalewayAPI() (*ScalewayAPI, error) {
 	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
-	config, err := GetConfig()
+	config, err := getConfig()
 	if err != nil {
 		return nil, err
 	}

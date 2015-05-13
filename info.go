@@ -21,12 +21,6 @@ func runInfo(cmd *Command, args []string) {
 		os.Exit(1)
 	}
 
-	_, err := GetScalewayAPI()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
-		os.Exit(1)
-	}
-
 	// FIXME: fmt.Printf("Servers: %s\n", "quantity")
 	// FIXME: fmt.Printf("Images: %s\n", "quantity")
 	fmt.Printf("Debug mode (client): %v\n", os.Getenv("DEBUG") != "")

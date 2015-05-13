@@ -17,10 +17,4 @@ func runStart(cmd *Command, args []string) {
 		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
 		os.Exit(1)
 	}
-
-	_, err := GetScalewayAPI()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
-		os.Exit(1)
-	}
 }

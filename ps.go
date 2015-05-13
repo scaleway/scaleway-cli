@@ -51,17 +51,11 @@ func wordify(str string) string {
 }
 
 func runPs(cmd *Command, args []string) {
-	api, err := GetScalewayAPI()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
-		os.Exit(1)
-	}
-
 	limit := psN
 	if psL {
 		limit = 1
 	}
-	servers, err := api.GetServers(psA || psN > 0 || psL, limit)
+	servers, err := cmd.API.GetServers(psA || psN > 0 || psL, limit)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to fetch servers from the Scaleway API: %v\n", err)
 		os.Exit(1)

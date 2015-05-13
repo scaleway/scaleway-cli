@@ -139,3 +139,16 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	}
 	return &servers.Servers, nil
 }
+
+// ResolveServer attempts the find a matching Identifier for the input string
+func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
+	servers := s.Cache.LookUpServers(needle)
+	if len(servers) == 0 {
+		_, err := s.GetServers(true, 0)
+		if err != nil {
+			return nil, err
+		}
+		servers = s.Cache.LookUpServers(needle)
+	}
+	return servers, nil
+}

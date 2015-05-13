@@ -19,12 +19,6 @@ func runVersion(cmd *Command, args []string) {
 		os.Exit(1)
 	}
 
-	_, err := GetScalewayAPI()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
-		os.Exit(1)
-	}
-
 	// FIXME: fmt.Printf("Client version: %s\n", "FIXME")
 	// FIXME: fmt.Printf("Client SDK version: %s\n", "FIXME")
 	fmt.Printf("Go version (client): %s\n", runtime.Version())
