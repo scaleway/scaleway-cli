@@ -148,10 +148,10 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
-	log.Debugf("GET %s", uri)
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
+	log.Debugf("POST %s payload=%s", uri, payload)
 	req, err := http.NewRequest("POST", uri, payload)
 	if err != nil {
 		return nil, err
