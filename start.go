@@ -8,7 +8,7 @@ import (
 var cmdStart = &Command{
 	Exec:        runStart,
 	UsageLine:   "start [OPTIONS] SERVER [SERVER...]",
-	Description: "Start a stopped server.",
+	Description: "Start a stopped server",
 	Help:        "Start a stopped server.",
 }
 
@@ -22,13 +22,15 @@ func runStart(cmd *Command, args []string) {
 		server := cmd.GetServer(needle)
 		err := cmd.API.PostServerAction(server, "poweron")
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to start server %s: %s\n", server, err)
-			has_error = true
+			if err.Error() != "server should be stopped" {
+				fmt.Fprintf(os.Stderr, "failed to stop server %s: %s\n", server, err)
+				has_error = true
+			}
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\n", server)
+			fmt.Fprintf(os.Stdout, "%s\n", needle)
 		}
-	}
-	if has_error {
-		os.Exit(1)
+		if has_error {
+			os.Exit(1)
+		}
 	}
 }

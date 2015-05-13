@@ -26,6 +26,32 @@ type ScalewayAPI struct {
 	Cache *ScalewayCache
 }
 
+// ScalewayAPIError represents a Scaleway API Error
+type ScalewayAPIError struct {
+	// Message is a human-friendly error message
+	ApiMessage string `json:"message,omitempty"`
+
+	// Type is a string code that defines the kind of error
+	Type string `json:"type,omitempty"`
+
+	// StatusCode is the HTTP status code received
+	StatusCode int `json:"-"`
+
+	// Message
+	Message string `json:"-"`
+}
+
+func (e ScalewayAPIError) Error() string {
+	log.Debugf("ScalewayAPIError: %s", e)
+	if e.Message != "" {
+		return e.Message
+	}
+	if e.ApiMessage != "" {
+		return e.ApiMessage
+	}
+	return fmt.Sprintf("invalid return code, got %d", e.StatusCode)
+}
+
 // ScalewayIPAddress represents a Scaleway IP address
 type ScalewayIPAddress struct {
 	// IP is an IPv4 address
@@ -175,10 +201,23 @@ func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
 	if err != nil {
 		return err
 	}
+
+	// Succeed POST code
 	if resp.StatusCode == 202 {
 		return nil
 	}
-	return fmt.Errorf("invalid return code, expected 202, got %d", resp.StatusCode)
+
+	var error ScalewayAPIError
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	fmt.Println(error.Message)
+	return error
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string

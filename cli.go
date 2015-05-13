@@ -90,6 +90,7 @@ var commands = []*Command{
 	cmdLogin,
 	cmdPs,
 	cmdStart,
+	cmdStop,
 	cmdVersion,
 }
 
