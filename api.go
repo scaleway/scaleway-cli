@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
@@ -83,6 +85,7 @@ func NewScalewayAPI(endpoint, organization, token string) *ScalewayAPI {
 // GetResponse returns a http.Response object for the requested resource
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	log.Debugf("GET %s", uri)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
@@ -103,7 +106,6 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		// FIXME: wait for the API to be ready
 		// query.Set("per_page", strconv.Itoa(limit))
 	}
-	fmt.Println(query.Encode())
 	resp, err := s.GetResponse("servers?" + query.Encode())
 	if err != nil {
 		return nil, err

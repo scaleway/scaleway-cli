@@ -20,11 +20,11 @@ var cmdPs = &Command{
 
 func init() {
 	// FIXME: -h
-	cmdPs.Flag.BoolVar(&psA, "a", false, "Show all servers. Only running servers are shown by default")
-	cmdPs.Flag.BoolVar(&psL, "l", false, "Show only the latest created server, include non-running ones")
-	cmdPs.Flag.IntVar(&psN, "n", 0, "Show n last created servers, include non-running ones")
-	cmdPs.Flag.BoolVar(&psNoTrunc, "no-trunc", false, "Don't truncate output")
-	cmdPs.Flag.BoolVar(&psQ, "q", false, "Only display numeric IDs")
+	cmdPs.Flag.BoolVar(&psA, []string{"a", "-all"}, false, "Show all servers. Only running servers are shown by default")
+	cmdPs.Flag.BoolVar(&psL, []string{"l", "-latest"}, false, "Show only the latest created server, include non-running ones")
+	cmdPs.Flag.IntVar(&psN, []string{"n"}, 0, "Show n last created servers, include non-running ones")
+	cmdPs.Flag.BoolVar(&psNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
+	cmdPs.Flag.BoolVar(&psQ, []string{"q", "-quiet"}, false, "Only display numeric IDs")
 }
 
 // Flags
@@ -60,7 +60,7 @@ func runPs(cmd *Command, args []string) {
 	if psL {
 		limit = 1
 	}
-	servers, err := api.GetServers(psA, limit)
+	servers, err := api.GetServers(psA || psN > 0 || psL, limit)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to fetch servers from the Scaleway API: %v\n", err)
 		os.Exit(1)

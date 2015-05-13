@@ -3,12 +3,13 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"os/user"
 	"strings"
+
+	flag "github.com/docker/docker/pkg/mflag"
 )
 
 // Command is a Scaleway command
@@ -43,7 +44,8 @@ func (c *Command) Name() string {
 func (c *Command) Options() string {
 	var options string
 	visitor := func(flag *flag.Flag) {
-		options += fmt.Sprintf("  -%-12s %s (%s)\n", flag.Name, flag.Usage, flag.DefValue)
+		name := strings.Join(flag.Names, ", -")
+		options += fmt.Sprintf("  -%-12s %s (%s)\n", name, flag.Usage, flag.DefValue)
 	}
 	c.Flag.VisitAll(visitor)
 	if len(options) == 0 {
@@ -61,8 +63,19 @@ var commands = []*Command{
 	cmdVersion,
 }
 
+var (
+	flDebug = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
+)
+
 func main() {
 	flag.Parse()
+
+	if *flDebug {
+		os.Setenv("DEBUG", "1")
+	}
+
+	initLogging(os.Getenv("DEBUG") != "")
+
 	args := flag.Args()
 	if len(args) < 1 {
 		usage()
