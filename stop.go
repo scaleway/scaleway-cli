@@ -12,6 +12,14 @@ var cmdStop = &Command{
 	Help:        "Stop a running server.",
 }
 
+func init() {
+	// FIXME: -h
+	cmdStop.Flag.BoolVar(&psT, []string{"t", "-terminate"}, false, "Stop and trash a server with its volumes")
+}
+
+// Flags
+var psT bool // -t flag
+
 func runStop(cmd *Command, args []string) {
 	if len(args) == 0 {
 		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
@@ -20,7 +28,11 @@ func runStop(cmd *Command, args []string) {
 	has_error := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)
-		err := cmd.API.PostServerAction(server, "poweroff")
+		action := "poweroff"
+		if psT {
+			action = "terminate"
+		}
+		err := cmd.API.PostServerAction(server, action)
 		if err != nil {
 			if err.Error() != "server should be running" {
 				fmt.Fprintf(os.Stderr, "failed to stop server %s: %s\n", server, err)
