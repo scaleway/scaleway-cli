@@ -18,10 +18,10 @@ type Cache struct {
 	Servers map[string]string `json:"servers"`
 
 	// Path is the path to the cache file
-	Path string
+	Path string `json:"-"`
 
 	// Modified tells if the cache needs to be overwritten or not
-	Modified bool
+	Modified bool `json:"-"`
 }
 
 // NewCache loads a per-user cache
