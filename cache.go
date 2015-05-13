@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/user"
+	"strings"
 )
 
 // Cache is used not to query the API to resolve full identifiers
@@ -18,6 +19,9 @@ type Cache struct {
 
 	// Path is the path to the cache file
 	Path string
+
+	// Modified tells if the cache needs to be overwritten or not
+	Modified bool
 }
 
 // NewCache loads a per-user cache
@@ -52,14 +56,57 @@ func NewCache() (*Cache, error) {
 
 // Save atomically overwrites the current cache database
 func (c *Cache) Save() error {
-	file, err := ioutil.TempFile("", "")
-	if err != nil {
-		return err
+	if c.Modified {
+		file, err := ioutil.TempFile("", "")
+		if err != nil {
+			return err
+		}
+		encoder := json.NewEncoder(file)
+		err = encoder.Encode(*c)
+		if err != nil {
+			return err
+		}
+		return os.Rename(file.Name(), c.Path)
 	}
-	encoder := json.NewEncoder(file)
-	err = encoder.Encode(*c)
-	if err != nil {
-		return err
+	return nil
+}
+
+// LookupImages attempts to return identifiers matching a pattern
+func (c *Cache) LookUpImages(needle string) []string {
+	var res []string
+	for identifier, name := range c.Images {
+		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+			res = append(res, identifier)
+		}
 	}
-	return os.Rename(file.Name(), c.Path)
+	return res
+}
+
+// LookupServers attempts to return identifiers matching a pattern
+func (c *Cache) LookUpServers(needle string) []string {
+	var res []string
+	for identifier, name := range c.Servers {
+		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+			res = append(res, identifier)
+		}
+	}
+	return res
+}
+
+// InsertServer registers a server in the cache
+func (c *Cache) InsertServer(identifier, name string) {
+	current_name, exists := c.Servers[identifier]
+	if !exists || current_name != name {
+		c.Servers[identifier] = name
+		c.Modified = true
+	}
+}
+
+// InsertImage registers an image in the cache
+func (c *Cache) InsertImage(identifier, name string) {
+	current_name, exists := c.Images[identifier]
+	if !exists || current_name != name {
+		c.Images[identifier] = name
+		c.Modified = true
+	}
 }
