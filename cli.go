@@ -54,6 +54,7 @@ func (c *Command) Options() string {
 
 var commands = []*Command{
 	cmdHelp,
+	cmdInfo,
 	cmdLogin,
 	cmdPs,
 	cmdStart,
