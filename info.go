@@ -37,5 +37,6 @@ func runInfo(cmd *Command, args []string) {
 	cliPath, _ := osext.Executable()
 	fmt.Printf("CLI Path: %s\n", cliPath)
 
-	// FIXME: Cache information
+	fmt.Printf("CachedServers: %d\n", len(cmd.API.Cache.Servers))
+	fmt.Printf("CachedImages: %d\n", len(cmd.API.Cache.Images))
 }
