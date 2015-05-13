@@ -20,6 +20,9 @@ type ScalewayAPI struct {
 
 	// Token is the authentication token for the Scaleway organization
 	Token string
+
+	// Cache is used to quickly resolve identifiers from names
+	Cache *ScalewayCache
 }
 
 // ScalewayIPAddress represents a Scaleway IP address
@@ -74,12 +77,22 @@ type ScalewayServers struct {
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
-func NewScalewayAPI(endpoint, organization, token string) *ScalewayAPI {
+func NewScalewayAPI(endpoint, organization, token string) (*ScalewayAPI, error) {
+	cache, err := NewScalewayCache()
+	if err != nil {
+		return nil, err
+	}
 	return &ScalewayAPI{
 		APIEndPoint:  endpoint,
 		Organization: organization,
 		Token:        token,
-	}
+		Cache:        cache,
+	}, nil
+}
+
+// Sync flushes out the cache to the disk
+func (s *ScalewayAPI) Sync() {
+	s.Cache.Save()
 }
 
 // GetResponse returns a http.Response object for the requested resource
@@ -116,6 +129,9 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	err = decoder.Decode(&servers)
 	if err != nil {
 		return nil, err
+	}
+	for _, server := range servers.Servers {
+		s.Cache.InsertServer(server.Identifier, server.Name)
 	}
 	// FIXME: when api limit is ready, remove the following code
 	if limit > 0 && limit < len(servers.Servers) {

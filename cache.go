@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// Cache is used not to query the API to resolve full identifiers
-type Cache struct {
+// ScalewayCache is used not to query the API to resolve full identifiers
+type ScalewayCache struct {
 	// Images contains names of Scaleway images indexed by identifier
 	Images map[string]string `json:"images"`
 
@@ -24,8 +24,8 @@ type Cache struct {
 	Modified bool `json:"-"`
 }
 
-// NewCache loads a per-user cache
-func NewCache() (*Cache, error) {
+// NewScalewayCache loads a per-user cache
+func NewScalewayCache() (*ScalewayCache, error) {
 	u, err := user.Current()
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func NewCache() (*Cache, error) {
 	cache_path := fmt.Sprintf("%s/.scw-cache.db", u.HomeDir)
 	_, err = os.Stat(cache_path)
 	if os.IsNotExist(err) {
-		return &Cache{
+		return &ScalewayCache{
 			Images:  make(map[string]string),
 			Servers: make(map[string]string),
 			Path:    cache_path,
@@ -45,7 +45,7 @@ func NewCache() (*Cache, error) {
 	if err != nil {
 		return nil, err
 	}
-	var cache Cache
+	var cache ScalewayCache
 	cache.Path = cache_path
 	err = json.Unmarshal(file, &cache)
 	if err != nil {
@@ -55,7 +55,7 @@ func NewCache() (*Cache, error) {
 }
 
 // Save atomically overwrites the current cache database
-func (c *Cache) Save() error {
+func (c *ScalewayCache) Save() error {
 	if c.Modified {
 		file, err := ioutil.TempFile("", "")
 		if err != nil {
@@ -72,7 +72,7 @@ func (c *Cache) Save() error {
 }
 
 // LookupImages attempts to return identifiers matching a pattern
-func (c *Cache) LookUpImages(needle string) []string {
+func (c *ScalewayCache) LookUpImages(needle string) []string {
 	var res []string
 	for identifier, name := range c.Images {
 		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
@@ -83,7 +83,7 @@ func (c *Cache) LookUpImages(needle string) []string {
 }
 
 // LookupServers attempts to return identifiers matching a pattern
-func (c *Cache) LookUpServers(needle string) []string {
+func (c *ScalewayCache) LookUpServers(needle string) []string {
 	var res []string
 	for identifier, name := range c.Servers {
 		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
@@ -94,7 +94,7 @@ func (c *Cache) LookUpServers(needle string) []string {
 }
 
 // InsertServer registers a server in the cache
-func (c *Cache) InsertServer(identifier, name string) {
+func (c *ScalewayCache) InsertServer(identifier, name string) {
 	current_name, exists := c.Servers[identifier]
 	if !exists || current_name != name {
 		c.Servers[identifier] = name
@@ -103,7 +103,7 @@ func (c *Cache) InsertServer(identifier, name string) {
 }
 
 // InsertImage registers an image in the cache
-func (c *Cache) InsertImage(identifier, name string) {
+func (c *ScalewayCache) InsertImage(identifier, name string) {
 	current_name, exists := c.Images[identifier]
 	if !exists || current_name != name {
 		c.Images[identifier] = name

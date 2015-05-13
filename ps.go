@@ -51,18 +51,12 @@ func wordify(str string) string {
 }
 
 func runPs(cmd *Command, args []string) {
-	cache, err := NewCache()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to init cache: %v\n", err)
-		os.Exit(1)
-	}
-	defer cache.Save()
-
 	api, err := GetScalewayAPI()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to init Scaleway API: %v\n", err)
 		os.Exit(1)
 	}
+
 	limit := psN
 	if psL {
 		limit = 1
@@ -79,7 +73,6 @@ func runPs(cmd *Command, args []string) {
 		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\n")
 	}
 	for _, server := range *servers {
-		cache.InsertServer(server.Identifier, server.Name)
 		if psQ {
 			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {

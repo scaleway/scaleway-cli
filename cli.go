@@ -107,6 +107,7 @@ func main() {
 				fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
 				os.Exit(1)
 			}
+
 			cmd.Exec(cmd, cmd.Flag.Args())
 			os.Exit(0)
 		}
@@ -170,8 +171,7 @@ func GetScalewayAPI() (*ScalewayAPI, error) {
 	if err != nil {
 		return nil, err
 	}
-	api := NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
-	return api, nil
+	return NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
 }
 
 func showVersion() {
