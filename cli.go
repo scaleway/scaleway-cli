@@ -70,12 +70,20 @@ var commands = []*Command{
 var (
 	flAPIEndPoint *string
 	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
+	flVersion     = flag.Bool([]string{"v", "--version"}, false, "Print version information and quit")
 )
 
 func main() {
 	config, _ = GetConfig()
+
 	flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
 	flag.Parse()
+
+	if *flVersion {
+		showVersion()
+		return
+	}
+
 	os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
 
 	if *flDebug {
@@ -164,4 +172,8 @@ func GetScalewayAPI() (*ScalewayAPI, error) {
 	}
 	api := NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
 	return api, nil
+}
+
+func showVersion() {
+	fmt.Printf("scw version %s, build %s\n", "FIXME:VERSION", "FIXME:GITCOMMIT")
 }
