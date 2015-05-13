@@ -34,7 +34,7 @@ func runStop(cmd *Command, args []string) {
 		}
 		err := cmd.API.PostServerAction(server, action)
 		if err != nil {
-			if err.Error() != "server should be running" {
+			if err.Error() != "server should be running" && err.Error() != "server is being stopped or rebooted" {
 				fmt.Fprintf(os.Stderr, "failed to stop server %s: %s\n", server, err)
 				has_error = true
 			}
