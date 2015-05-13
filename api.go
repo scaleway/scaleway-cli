@@ -42,14 +42,24 @@ type ScalewayAPIError struct {
 }
 
 func (e ScalewayAPIError) Error() string {
-	log.Debugf("ScalewayAPIError: %s", e)
 	if e.Message != "" {
 		return e.Message
 	}
 	if e.ApiMessage != "" {
 		return e.ApiMessage
 	}
-	return fmt.Sprintf("invalid return code, got %d", e.StatusCode)
+	if e.StatusCode != 0 {
+		return fmt.Sprintf("invalid return code, got %d", e.StatusCode)
+	}
+	panic(e)
+}
+
+func (e ScalewayAPIError) Debug() {
+	log.WithFields(log.Fields{
+		"StatusCode": e.StatusCode,
+		"Type":       e.Type,
+		"Message":    e.Message,
+	}).Debug(e.ApiMessage)
 }
 
 // ScalewayIPAddress represents a Scaleway IP address
@@ -216,7 +226,7 @@ func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
 	}
 
 	error.StatusCode = resp.StatusCode
-	fmt.Println(error.Message)
+	error.Debug()
 	return error
 }
 
