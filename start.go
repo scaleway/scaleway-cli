@@ -13,15 +13,22 @@ var cmdStart = &Command{
 }
 
 func runStart(cmd *Command, args []string) {
-	if len(args) != 1 {
+	if len(args) == 0 {
 		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
 		os.Exit(1)
 	}
-	needle := args[0]
-	server := cmd.GetServer(needle)
-	err := cmd.API.PostServerAction(server, "poweron")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to start server %s: %s\n", server, err)
+	has_error := false
+	for _, needle := range args {
+		server := cmd.GetServer(needle)
+		err := cmd.API.PostServerAction(server, "poweron")
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to start server %s: %s\n", server, err)
+			has_error = true
+		} else {
+			fmt.Fprintf(os.Stdout, "%s\n", server)
+		}
+	}
+	if has_error {
 		os.Exit(1)
 	}
 }
