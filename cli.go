@@ -57,6 +57,7 @@ var commands = []*Command{
 	cmdLogin,
 	cmdPs,
 	cmdStart,
+	cmdVersion,
 }
 
 func main() {
