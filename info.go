@@ -31,9 +31,9 @@ func runInfo(cmd *Command, args []string) {
 	// FIXME: fmt.Printf("Images: %s\n", "quantity")
 	fmt.Printf("Debug mode (client): %v\n", os.Getenv("DEBUG") != "")
 
-	config, _ := GetConfig()
 	fmt.Printf("Organization: %s\n", config.Organization)
-	fmt.Printf("API Endpoint: %s\n", config.APIEndPoint)
+	// FIXME: add partially-masked token
+	fmt.Printf("API Endpoint: %s\n", os.Getenv("scaleway_api_endpoint"))
 	configPath, _ := GetConfigFilePath()
 	fmt.Printf("RC file: %s\n", configPath)
 	fmt.Printf("User: %s\n", os.Getenv("USER"))

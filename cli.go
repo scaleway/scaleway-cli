@@ -12,6 +12,10 @@ import (
 	flag "github.com/docker/docker/pkg/mflag"
 )
 
+var (
+	config *Config
+)
+
 // Command is a Scaleway command
 type Command struct {
 	// Exec executes the command
@@ -64,11 +68,15 @@ var commands = []*Command{
 }
 
 var (
-	flDebug = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
+	flAPIEndPoint *string
+	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
 )
 
 func main() {
+	config, _ = GetConfig()
+	flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
 	flag.Parse()
+	os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
 
 	if *flDebug {
 		os.Setenv("DEBUG", "1")
@@ -141,15 +149,19 @@ func GetConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	if os.Getenv("scaleway_api_endpoint") == "" {
+		os.Setenv("scaleway_api_endpoint", config.APIEndPoint)
+	}
 	return &config, nil
 }
 
 // GetScalewayAPI returns a ScalewayAPI using the user config file
 func GetScalewayAPI() (*ScalewayAPI, error) {
+	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
 	config, err := GetConfig()
 	if err != nil {
 		return nil, err
 	}
-	api := NewScalewayAPI(config.APIEndPoint, config.Organization, config.Token)
+	api := NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
 	return api, nil
 }
