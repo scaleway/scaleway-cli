@@ -45,7 +45,7 @@ func runImages(cmd *Command, args []string) {
 			fmt.Fprintf(w, "%s\n", image.Identifier)
 		} else {
 			tag := "latest"
-			virtualSize := units.HumanSize(image.RootVolume.Size)
+			virtualSize := units.HumanSize(float64(image.RootVolume.Size))
 			short_id := truncIf(image.Identifier, 8, !imagesNoTrunc)
 			short_name := truncIf(wordify(image.Name), 25, !imagesNoTrunc)
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", image.CreationDate)
