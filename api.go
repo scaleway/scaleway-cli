@@ -131,6 +131,11 @@ type ScalewayServer struct {
 	State string `json:"state,omitempty"`
 }
 
+// ScalewayOneServer represents the response of a GET /servers/UUID API call
+type ScalewayOneServer struct {
+	Server ScalewayServer `json:"server,omitempty"`
+}
+
 // ScalewayServers represents a group of Scaleway C1 servers
 type ScalewayServers struct {
 	// Servers holds scaleway servers of the response
@@ -224,6 +229,23 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		servers.Servers = servers.Servers[0:limit]
 	}
 	return &servers.Servers, nil
+}
+
+// GetServer get a server from the ScalewayAPI
+func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
+	resp, err := s.GetResponse("servers/" + serverId)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var oneServer ScalewayOneServer
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&oneServer)
+	if err != nil {
+		return nil, err
+	}
+	s.Cache.InsertServer(oneServer.Server.Identifier, oneServer.Server.Name)
+	return &oneServer.Server, nil
 }
 
 // PostServerAction posts an action on a server

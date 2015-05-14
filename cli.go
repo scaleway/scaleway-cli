@@ -85,6 +85,7 @@ func (cmd *Command) GetServer(needle string) string {
 }
 
 var commands = []*Command{
+	cmdExec,
 	cmdHelp,
 	cmdImages,
 	cmdInfo,
