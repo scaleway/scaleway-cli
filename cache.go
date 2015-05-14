@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/user"
 	"strings"
+	"sync"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers
@@ -22,6 +23,9 @@ type ScalewayCache struct {
 
 	// Modified tells if the cache needs to be overwritten or not
 	Modified bool `json:"-"`
+
+	// Lock allows ScalewayCache to be used concurrently
+	Lock sync.Mutex `json:"-"`
 }
 
 // NewScalewayCache loads a per-user cache
@@ -56,6 +60,9 @@ func NewScalewayCache() (*ScalewayCache, error) {
 
 // Save atomically overwrites the current cache database
 func (c *ScalewayCache) Save() error {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
 	if c.Modified {
 		file, err := ioutil.TempFile("", "")
 		if err != nil {
@@ -73,6 +80,9 @@ func (c *ScalewayCache) Save() error {
 
 // LookupImages attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpImages(needle string) []string {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
 	var res []string
 	for identifier, name := range c.Images {
 		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
@@ -84,6 +94,9 @@ func (c *ScalewayCache) LookUpImages(needle string) []string {
 
 // LookupServers attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpServers(needle string) []string {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
 	var res []string
 	for identifier, name := range c.Servers {
 		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
@@ -95,6 +108,9 @@ func (c *ScalewayCache) LookUpServers(needle string) []string {
 
 // InsertServer registers a server in the cache
 func (c *ScalewayCache) InsertServer(identifier, name string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
 	current_name, exists := c.Servers[identifier]
 	if !exists || current_name != name {
 		c.Servers[identifier] = name
@@ -104,9 +120,28 @@ func (c *ScalewayCache) InsertServer(identifier, name string) {
 
 // InsertImage registers an image in the cache
 func (c *ScalewayCache) InsertImage(identifier, name string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
 	current_name, exists := c.Images[identifier]
 	if !exists || current_name != name {
 		c.Images[identifier] = name
 		c.Modified = true
 	}
+}
+
+// GetNbServers returns the number of servers in the cache
+func (c *ScalewayCache) GetNbServers() int {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	return len(c.Servers)
+}
+
+// GetNbImages returns the number of images in the cache
+func (c *ScalewayCache) GetNbImages() int {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	return len(c.Images)
 }
