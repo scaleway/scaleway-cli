@@ -89,6 +89,7 @@ var commands = []*Command{
 	cmdHelp,
 	cmdImages,
 	cmdInfo,
+	cmdInspect,
 	cmdLogin,
 	cmdPs,
 	cmdRestart,
