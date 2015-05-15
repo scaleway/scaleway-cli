@@ -107,6 +107,30 @@ type ScalewayImages struct {
 	Images []ScalewayImage `json:"images,omitempty"`
 }
 
+// ScalewaySnapshot represents a Scaleway Snapshot
+type ScalewaySnapshot struct {
+	// Identifier is a unique identifier for the snapshot
+	Identifier string `json:"id,omitempty"`
+
+	// Name is a user-defined name for the snapshot
+	Name string `json:"name,omitempty"`
+
+	// CreationDate is the creation date of the snapshot
+	CreationDate string `json:"creation_date,omitempty"`
+
+	// ModificationDate is the date of the last modification of the snapshot
+	ModificationDate string `json:"modification_date,omitempty"`
+
+	// Size is allocated size of the volume
+	Size int64 `json:"size,omitempty"`
+}
+
+// ScalewaySnapshots represents a group of Scaleway snapshots
+type ScalewaySnapshots struct {
+	// Snapshots holds scaleway snapshots of the response
+	Snapshots []ScalewaySnapshot `json:"snapshots,omitempty"`
+}
+
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
 	// Identifier is a unique identifier for the server
@@ -307,4 +331,24 @@ func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 		s.Cache.InsertImage(image.Identifier, image.Name)
 	}
 	return &images.Images, nil
+}
+
+// GetSnapshots get the list of snapshots from the ScalewayAPI
+func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
+	query := url.Values{}
+	resp, err := s.GetResponse("snapshots?" + query.Encode())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var snapshots ScalewaySnapshots
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&snapshots)
+	if err != nil {
+		return nil, err
+	}
+	for _, snapshot := range snapshots.Snapshots {
+		s.Cache.InsertSnapshot(snapshot.Identifier, snapshot.Name)
+	}
+	return &snapshots.Snapshots, nil
 }
