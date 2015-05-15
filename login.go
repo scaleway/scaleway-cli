@@ -21,7 +21,7 @@ func runLogin(cmd *Command, args []string) {
 		os.Exit(1)
 	}
 	cfg := &Config{
-		APIEndPoint:  "https://api.cloud.online.net/",
+		APIEndPoint:  "https://api.scaleway.com/",
 		Organization: args[0],
 		Token:        args[1],
 	}
