@@ -110,8 +110,7 @@ func runInspect(cmd *Command, args []string) {
 		os.Exit(1)
 	}
 
-	fmt.Fprintf(os.Stdout, "[")
-
+	res := "["
 	nb_inspected := 0
 	ci := make(chan ScalewayResolvedIdentifier)
 	cj := make(chan interface{})
@@ -122,17 +121,18 @@ func runInspect(cmd *Command, args []string) {
 		if !open {
 			break
 		}
-		data_b, err := json.Marshal(data)
+		data_b, err := json.MarshalIndent(data, "", "  ")
 		if err == nil {
 			if nb_inspected != 0 {
-				fmt.Fprintf(os.Stdout, ",")
+				res += ",\n"
 			}
-			fmt.Fprintf(os.Stdout, string(data_b))
+			res += string(data_b)
 			nb_inspected += 1
 		}
 	}
+	res += "]"
 
-	fmt.Fprintf(os.Stdout, "]\n")
+	fmt.Fprintf(os.Stdout, "%s\n", res)
 
 	if len(args) != nb_inspected {
 		os.Exit(1)
