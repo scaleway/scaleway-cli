@@ -332,6 +332,20 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	return client.Do(req)
 }
 
+// DeleteResponse returns a http.Response object for the deleted resource
+func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	client := &http.Client{}
+	log.Debugf("DELETE %s", uri)
+	req, err := http.NewRequest("DELETE", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("X-Auth-Token", s.Token)
+	req.Header.Set("Content-Type", "application/json")
+	return client.Do(req)
+}
+
 // GetServers get the list of servers from the ScalewayAPI
 func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error) {
 	query := url.Values{}
@@ -392,6 +406,31 @@ func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
 
 	// Succeed POST code
 	if resp.StatusCode == 202 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
+}
+
+// DeleteServer deletes a server
+func (s *ScalewayAPI) DeleteServer(server_id string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", server_id))
+	if err != nil {
+		return err
+	}
+
+	// Succeed POST code
+	if resp.StatusCode == 204 {
 		return nil
 	}
 

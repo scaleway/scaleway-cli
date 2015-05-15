@@ -140,6 +140,7 @@ var commands = []*Command{
 	cmdLogin,
 	cmdPs,
 	cmdRestart,
+	cmdRm,
 	cmdStart,
 	cmdStop,
 	cmdVersion,
