@@ -61,7 +61,7 @@ func (c *Command) Options() string {
 	return options
 }
 
-// GetServerOrDie returns exactly one server matching or dies
+// GetServer returns exactly one server matching or dies
 func (cmd *Command) GetServer(needle string) string {
 	servers, err := cmd.API.ResolveServer(needle)
 	if err != nil {

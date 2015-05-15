@@ -158,7 +158,7 @@ func (c *ScalewayCache) LookUpServers(needle string) []string {
 }
 
 // LookupIdentifier attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpIdentifier(needle string) []ScalewayIdentifier {
+func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 	result := []ScalewayIdentifier{}
 
 	for _, identifier := range c.LookUpServers(needle) {
