@@ -293,6 +293,14 @@ type ScalewaySnapshotDefinition struct {
 	Organization     string `json:"organization"`
 }
 
+// ScalewayImageDefinition represents a Scaleway image definition
+type ScalewayImageDefinition struct {
+	SnapshotIdentifier string `json:"root_volume"`
+	Name               string `json:"name,omitempty"`
+	Organization       string `json:"organization"`
+	Arch               string `json:"arch"`
+}
+
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
 func NewScalewayAPI(endpoint, organization, token string) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
@@ -542,6 +550,45 @@ func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error)
 	return "", error
 }
 
+// PostImage create a new image
+func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
+	definition := ScalewayImageDefinition{
+		SnapshotIdentifier: volumeId,
+		Name:               name,
+		Organization:       s.Organization,
+		Arch:               "arm",
+	}
+	resp, err := s.PostResponse("images", definition)
+
+	if err != nil {
+		return "", err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		var image ScalewayOneImage
+		err = decoder.Decode(&image)
+		if err != nil {
+			return "", err
+		}
+		return image.Image.Identifier, nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+
+	if err != nil {
+		return "", err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return "", error
+}
+
 // ResolveServer attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
 	servers := s.Cache.LookUpServers(needle)
@@ -553,6 +600,19 @@ func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
 		servers = s.Cache.LookUpServers(needle)
 	}
 	return servers, nil
+}
+
+// ResolveSnapshot attempts the find a matching Identifier for the input string
+func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]string, error) {
+	snapshots := s.Cache.LookUpSnapshots(needle)
+	if len(snapshots) == 0 {
+		_, err := s.GetSnapshots()
+		if err != nil {
+			return nil, err
+		}
+		snapshots = s.Cache.LookUpSnapshots(needle)
+	}
+	return snapshots, nil
 }
 
 // ResolveImage attempts the find a matching Identifier for the input string

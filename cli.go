@@ -84,6 +84,29 @@ func (cmd *Command) GetServer(needle string) string {
 	return ""
 }
 
+// GetSnapshot returns exactly one snapshot matching or dies
+func (cmd *Command) GetSnapshot(needle string) string {
+	snapshots, err := cmd.API.ResolveSnapshot(needle)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to resolve snapshot %s: %s\n", needle, err)
+		os.Exit(1)
+	}
+	if len(snapshots) == 1 {
+		return snapshots[0]
+	}
+	if len(snapshots) == 0 {
+		fmt.Fprintf(os.Stderr, "No such snapshot: %s\n", needle)
+		os.Exit(1)
+	}
+	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(snapshots))
+	for _, identifier := range snapshots {
+		// FIXME: also print the name
+		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+	}
+	os.Exit(1)
+	return ""
+}
+
 // GetImage returns exactly one image matching or dies
 func (cmd *Command) GetImage(needle string) string {
 	images, err := cmd.API.ResolveImage(needle)
@@ -145,6 +168,7 @@ var commands = []*Command{
 	cmdRmi,
 	cmdStart,
 	cmdStop,
+	cmdTag,
 	cmdVersion,
 	cmdWait,
 }
