@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/user"
+	"regexp"
 	"strings"
 	"sync"
 )
@@ -107,8 +108,9 @@ func (c *ScalewayCache) LookUpImages(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Images {
-		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
@@ -121,8 +123,9 @@ func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Snapshots {
-		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
@@ -135,8 +138,9 @@ func (c *ScalewayCache) LookUpBootscripts(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Bootscripts {
-		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
@@ -149,8 +153,9 @@ func (c *ScalewayCache) LookUpServers(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Servers {
-		if strings.HasPrefix(identifier, needle) || strings.HasPrefix(name, needle) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
