@@ -9,8 +9,8 @@ import (
 var cmdWait = &Command{
 	Exec:        runWait,
 	UsageLine:   "wait [OPTIONS] SERVER [SERVER...]",
-	Description: "Wait until a running server stops.",
-	Help:        "Wait until a running server stops.",
+	Description: "Block until a server stops",
+	Help:        "Block until a server stops.",
 }
 
 func runWait(cmd *Command, args []string) {

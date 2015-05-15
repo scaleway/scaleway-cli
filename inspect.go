@@ -10,8 +10,8 @@ import (
 var cmdInspect = &Command{
 	Exec:        runInspect,
 	UsageLine:   "inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]",
-	Description: "Inspects servers, images, snapshots and bootscripts.",
-	Help:        "Inspects servers, images, snapshots and bootscripts.",
+	Description: "Return low-level information on a server, image, snapshot or bootscript",
+	Help:        "Return low-level information on a server, image, snapshot or bootscript.",
 }
 
 type ScalewayResolvedIdentifier struct {
