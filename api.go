@@ -165,6 +165,33 @@ type ScalewayBootCmdArgs struct {
 	Value string `json:"value,omitempty"`
 }
 
+// ScalewayInitrd represents the initrd used by a bootscript
+type ScalewayInitrd struct {
+	// Identifier is the unique identifier of the initrd
+	Identifier string `json:"id,omitempty"`
+
+	// Path is the path to the initrd used
+	Path string `json:"path,omitempty"`
+
+	// Title is the title of the initrd used
+	Title string `json:"title,omitempty"`
+}
+
+// ScalewayKernel represents a kernel used on C1 servers
+type ScalewayKernel struct {
+	// Identifier is the unique identifier of the kernel
+	Identifier string `json:"id,omitempty"`
+
+	// DTB is the kernel DTB used by this kernel
+	DTB string `json:"dtb,omitempty"`
+
+	// Path is the path to the kernel image
+	Path string `json:"path,omitempty"`
+
+	// Title is the title of the kernel
+	Title string `json:"title,omitempty"`
+}
+
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
 	// Identifier is a unique identifier for the bootscript
@@ -175,6 +202,12 @@ type ScalewayBootscript struct {
 
 	// BootCmdArgs represents the arguments used to boot
 	BootCmdArgs ScalewayBootCmdArgs `json:"bootcmdargs,omitempty"`
+
+	// Initrd is the initrd used by this bootscript
+	Initrd ScalewayInitrd `json:initrd,omitempty`
+
+	// Kernel is the kernel associated to this server
+	Kernel ScalewayKernel `json:"kernel,omitempty"`
 }
 
 // ScalewayOneBootscript represents the response of a GET /images/UUID API call
