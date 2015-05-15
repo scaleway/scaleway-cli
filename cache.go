@@ -34,6 +34,21 @@ type ScalewayCache struct {
 	Lock sync.Mutex `json:"-"`
 }
 
+const (
+	IDENTIFIER_SERVER = iota
+	IDENTIFIER_IMAGE
+	IDENTIFIER_BOOTSCRIPT
+)
+
+// ScalewayIdentifier is a unique identifier on Scaleway
+type ScalewayIdentifier struct {
+	// Identifier is a unique identifier on
+	Identifier string
+
+	// Type of the identifier
+	Type int
+}
+
 // NewScalewayCache loads a per-user cache
 func NewScalewayCache() (*ScalewayCache, error) {
 	u, err := user.Current()
@@ -140,6 +155,29 @@ func (c *ScalewayCache) LookUpServers(needle string) []string {
 		}
 	}
 	return res
+}
+
+// LookupIdentifier attempts to return identifiers matching a pattern
+func (c *ScalewayCache) LookUpIdentifier(needle string) []ScalewayIdentifier {
+	result := []ScalewayIdentifier{}
+
+	for _, identifier := range c.LookUpServers(needle) {
+		result = append(result, ScalewayIdentifier{
+			Identifier: identifier,
+			Type:       IDENTIFIER_SERVER,
+		})
+	}
+
+	for _, identifier := range c.LookUpImages(needle) {
+		result = append(result, ScalewayIdentifier{
+			Identifier: identifier,
+			Type:       IDENTIFIER_IMAGE,
+		})
+	}
+
+	// FIXME: add bootscripts
+
+	return result
 }
 
 // InsertServer registers a server in the cache
