@@ -557,6 +557,31 @@ func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
 	return &oneImage.Image, nil
 }
 
+// DeleteImage deletes a image
+func (s *ScalewayAPI) DeleteImage(image_id string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", image_id))
+	if err != nil {
+		return err
+	}
+
+	// Succeed POST code
+	if resp.StatusCode == 204 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
+}
+
 // GetSnapshots get the list of snapshots from the ScalewayAPI
 func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 	query := url.Values{}

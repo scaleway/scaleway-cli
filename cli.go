@@ -141,6 +141,7 @@ var commands = []*Command{
 	cmdPs,
 	cmdRestart,
 	cmdRm,
+	cmdRmi,
 	cmdStart,
 	cmdStop,
 	cmdVersion,
