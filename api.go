@@ -102,6 +102,9 @@ type ScalewayImage struct {
 
 	// RootVolume is the root volume bound to the image
 	RootVolume ScalewayVolume `json:"root_volume,omitempty"`
+
+	// Public is true for public images and false for user images
+	Public bool `json:"public",omitempty`
 }
 
 // ScalewayOneImage represents the response of a GET /images/UUID API call

@@ -24,6 +24,7 @@ type ScalewayImageInterface struct {
 	Name         string
 	Tag          string
 	VirtualSize  float64
+	Public       bool
 }
 
 type ByCreationDate []ScalewayImageInterface
@@ -62,6 +63,7 @@ func runImages(cmd *Command, args []string) {
 			CreationDate: creationDate,
 			Identifier:   val.Identifier,
 			Name:         val.Name,
+			Public:       val.Public,
 			Tag:          "latest",
 			VirtualSize:  float64(val.RootVolume.Size),
 		})
@@ -85,6 +87,7 @@ func runImages(cmd *Command, args []string) {
 				Name:         val.Name,
 				Tag:          "<none>",
 				VirtualSize:  float64(val.Size),
+				Public:       false,
 			})
 		}
 
@@ -98,6 +101,7 @@ func runImages(cmd *Command, args []string) {
 				Identifier: val.Identifier,
 				Name:       val.Title,
 				Tag:        "bootscript",
+				Public:     false,
 			})
 		}
 	}
@@ -114,7 +118,11 @@ func runImages(cmd *Command, args []string) {
 		} else {
 			tag := "latest"
 			short_id := truncIf(image.Identifier, 8, !imagesNoTrunc)
-			short_name := truncIf(wordify(image.Name), 25, !imagesNoTrunc)
+			name := wordify(image.Name)
+			if !image.Public {
+				name = "user/" + name
+			}
+			short_name := truncIf(name, 25, !imagesNoTrunc)
 			var creationDate, virtualSize string
 			if image.CreationDate.IsZero() {
 				creationDate = "n/a"
