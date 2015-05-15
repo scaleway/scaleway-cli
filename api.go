@@ -109,11 +109,6 @@ type ScalewayOneImage struct {
 	Image ScalewayImage `json:"image,omitempty"`
 }
 
-// ScalewayOneSnapshot represents the response of a GET /images/UUID API call
-type ScalewayOneSnapshot struct {
-	Snapshot ScalewaySnapshot `json:"snapshot,omitempty"`
-}
-
 // ScalewayImages represents a group of Scaleway images
 type ScalewayImages struct {
 	// Images holds scaleway images of the response
@@ -150,6 +145,11 @@ type ScalewaySnapshot struct {
 	BaseVolume ScalewayVolume `json:"base_volume,omitempty"`
 }
 
+// ScalewayOneSnapshot represents the response of a GET /images/UUID API call
+type ScalewayOneSnapshot struct {
+	Snapshot ScalewaySnapshot `json:"snapshot,omitempty"`
+}
+
 // ScalewaySnapshots represents a group of Scaleway snapshots
 type ScalewaySnapshots struct {
 	// Snapshots holds scaleway snapshots of the response
@@ -163,12 +163,11 @@ type ScalewayBootscript struct {
 
 	// Name is a user-defined name for the bootscript
 	Title string `json:"title,omitempty"`
+}
 
-	// CreationDate is the creation date of the bootscript
-	CreationDate string `json:"creation_date,omitempty"`
-
-	// ModificationDate is the date of the last modification of the bootscript
-	ModificationDate string `json:"modification_date,omitempty"`
+// ScalewayOneBootscript represents the response of a GET /images/UUID API call
+type ScalewayOneBootscript struct {
+	Bootscript ScalewayBootscript `json:"bootscript,omitempty"`
 }
 
 // ScalewayBootscripts represents a group of Scaleway bootscripts
@@ -451,4 +450,21 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 		s.Cache.InsertBootscript(bootscript.Identifier, bootscript.Title)
 	}
 	return &bootscripts.Bootscripts, nil
+}
+
+// GetBootscript gets a bootscript from the ScalewayAPI
+func (s *ScalewayAPI) GetBootscript(bootscriptId string) (*ScalewayBootscript, error) {
+	resp, err := s.GetResponse("bootscripts/" + bootscriptId)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var oneBootscript ScalewayOneBootscript
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&oneBootscript)
+	if err != nil {
+		return nil, err
+	}
+	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, oneBootscript.Bootscript.Title)
+	return &oneBootscript.Bootscript, nil
 }

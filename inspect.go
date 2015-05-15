@@ -40,7 +40,7 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
 		var wg sync.WaitGroup
-		wg.Add(3)
+		wg.Add(4)
 		go func() {
 			cmd.API.GetServers(true, 0)
 			wg.Done()
@@ -51,6 +51,10 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 		}()
 		go func() {
 			cmd.API.GetSnapshots()
+			wg.Done()
+		}()
+		go func() {
+			cmd.API.GetBootscripts()
 			wg.Done()
 		}()
 		wg.Wait()
@@ -103,7 +107,10 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 						cj <- snap
 					}
 				} else if ident.Type == IDENTIFIER_BOOTSCRIPT {
-					// FIXME: bootscript
+					bootscript, err := cmd.API.GetBootscript(ident.Identifier)
+					if err == nil {
+						cj <- bootscript
+					}
 				}
 				wg.Done()
 			}()

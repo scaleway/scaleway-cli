@@ -103,13 +103,11 @@ func (c *ScalewayCache) Save() error {
 	if c.Modified {
 		file, err := ioutil.TempFile("", "")
 		if err != nil {
-			fmt.Fprintf(os.Stdout, "ALORS SAVE FAILED 1: %v\n", err)
 			return err
 		}
 		encoder := json.NewEncoder(file)
 		err = encoder.Encode(*c)
 		if err != nil {
-			fmt.Fprintf(os.Stdout, "ALORS SAVE FAILED: %v\n", err)
 			return err
 		}
 		return os.Rename(file.Name(), c.Path)
@@ -202,7 +200,12 @@ func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 		})
 	}
 
-	// FIXME: add bootscripts
+	for _, identifier := range c.LookUpBootscripts(needle) {
+		result = append(result, ScalewayIdentifier{
+			Identifier: identifier,
+			Type:       IDENTIFIER_BOOTSCRIPT,
+		})
+	}
 
 	return result
 }
