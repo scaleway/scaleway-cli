@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"sync"
@@ -21,8 +22,9 @@ type ScalewayResolvedIdentifier struct {
 	Needle string
 }
 
-// resolveIdentifiers resolves incoming identifiers
+// resolveIdentifiers resolves needles provided by the user
 func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolvedIdentifier) {
+	// first attempt, only lookup from the cache
 	var unresolved []string
 	for _, needle := range needles {
 		idents := cmd.API.Cache.LookUpIdentifiers(needle)
@@ -35,15 +37,17 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 			}
 		}
 	}
+	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
 		var wg sync.WaitGroup
+		wg.Add(2)
 		go func() {
-			wg.Add(1)
 			cmd.API.GetServers(true, 0)
+			wg.Done()
 		}()
 		go func() {
-			wg.Add(1)
 			cmd.API.GetImages()
+			wg.Done()
 		}()
 		wg.Wait()
 		for _, needle := range unresolved {
@@ -54,6 +58,47 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 			}
 		}
 	}
+	close(out)
+}
+
+// inspectIdentifiers inspects identifiers concurrently
+func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj chan interface{}) {
+	var wg sync.WaitGroup
+	for {
+		idents, ok := <-ci
+		if !ok {
+			break
+		}
+		if len(idents.Identifiers) != 1 {
+			if len(idents.Identifiers) == 0 {
+				fmt.Fprintf(os.Stderr, "Unable to resolve identifier %s\n", idents.Needle)
+			} else {
+				fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", idents.Needle, len(idents.Identifiers))
+				for _, identifier := range idents.Identifiers {
+					// FIXME: also print the name
+					fmt.Fprintf(os.Stderr, "%s\n", identifier)
+				}
+			}
+		} else {
+			ident := idents.Identifiers[0]
+			wg.Add(1)
+			go func() {
+				if ident.Type == IDENTIFIER_SERVER {
+					server, err := cmd.API.GetServer(ident.Identifier)
+					if err == nil {
+						cj <- server
+					}
+				} else if ident.Type == IDENTIFIER_IMAGE {
+					// FIXME: image
+				} else if ident.Type == IDENTIFIER_BOOTSCRIPT {
+					// FIXME: bootscript
+				}
+				wg.Done()
+			}()
+		}
+	}
+	wg.Wait()
+	close(cj)
 }
 
 func runInspect(cmd *Command, args []string) {
@@ -62,9 +107,28 @@ func runInspect(cmd *Command, args []string) {
 		os.Exit(1)
 	}
 
-	has_error := false
-
-	if has_error {
+	fmt.Fprintf(os.Stdout, "[")
+	defer fmt.Fprintf(os.Stdout, "]\n")
+	nb_inspected := 0
+	ci := make(chan ScalewayResolvedIdentifier)
+	cj := make(chan interface{})
+	go resolveIdentifiers(cmd, args, ci)
+	go inspectIdentifiers(cmd, ci, cj)
+	for {
+		data, open := <-cj
+		if !open {
+			break
+		}
+		data_b, err := json.Marshal(data)
+		if err == nil {
+			if nb_inspected != 0 {
+				fmt.Fprintf(os.Stdout, ",")
+			}
+			fmt.Fprintf(os.Stdout, string(data_b))
+			nb_inspected += 1
+		}
+	}
+	if len(args) != nb_inspected {
 		os.Exit(1)
 	}
 }
