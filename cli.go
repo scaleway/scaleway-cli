@@ -131,6 +131,7 @@ func (cmd *Command) GetBootscript(needle string) string {
 }
 
 var commands = []*Command{
+	cmdCommit,
 	cmdCreate,
 	cmdExec,
 	cmdHelp,

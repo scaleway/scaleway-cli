@@ -246,6 +246,9 @@ type ScalewayServer struct {
 
 	// State is the current status of the server
 	State string `json:"state,omitempty"`
+
+	// Volumes are the attached volumes
+	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
 }
 
 // ScalewayServer represents a Scaleway C1 server definition
@@ -279,8 +282,15 @@ type ScalewayServers struct {
 
 // ScalewayServerAction represents an action to perform on a Scaleway C1 server
 type ScalewayServerAction struct {
-	// State is the current status of the server
+	// Action is the name of the action to trigger
 	Action string `json:"action,omitempty"`
+}
+
+// ScalewaySnapshotDefinition represents a Scaleway snapshot definition
+type ScalewaySnapshotDefinition struct {
+	VolumeIdentifier string `json:"volume_id"`
+	Name             string `json:"name,omitempty"`
+	Organization     string `json:"organization"`
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
@@ -387,8 +397,19 @@ func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	var oneServer ScalewayOneServer
 	decoder := json.NewDecoder(resp.Body)
+
+	if resp.StatusCode != 200 {
+		var error ScalewayAPIError
+		err = decoder.Decode(&error)
+		if err != nil {
+			return nil, err
+		}
+		error.Debug()
+		return nil, error
+	}
+
+	var oneServer ScalewayOneServer
 	err = decoder.Decode(&oneServer)
 	if err != nil {
 		return nil, err
@@ -458,11 +479,12 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 		return "", err
 	}
 
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
 	// Succeed POST code
 	if resp.StatusCode == 201 {
 		var server ScalewayOneServer
-		defer resp.Body.Close()
-		decoder := json.NewDecoder(resp.Body)
 		err = decoder.Decode(&server)
 		if err != nil {
 			return "", err
@@ -471,8 +493,44 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	}
 
 	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+
+	if err != nil {
+		return "", err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return "", error
+}
+
+// PostSnapshot create a new snapshot
+func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error) {
+	definition := ScalewaySnapshotDefinition{
+		VolumeIdentifier: volumeId,
+		Name:             name,
+		Organization:     s.Organization,
+	}
+	resp, err := s.PostResponse("snapshots", definition)
+
+	if err != nil {
+		return "", err
+	}
+
 	defer resp.Body.Close()
 	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		var snapshot ScalewayOneSnapshot
+		err = decoder.Decode(&snapshot)
+		if err != nil {
+			return "", err
+		}
+		return snapshot.Snapshot.Identifier, nil
+	}
+
+	var error ScalewayAPIError
 	err = decoder.Decode(&error)
 
 	if err != nil {
