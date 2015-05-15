@@ -245,6 +245,24 @@ type ScalewayServer struct {
 	State string `json:"state,omitempty"`
 }
 
+// ScalewayServer represents a Scaleway C1 server definition
+type ScalewayServerDefinition struct {
+	// Name is the user-defined name of the server
+	Name string `json:"name"`
+
+	// Image is the image used by the server
+	Image string `json:"image"`
+
+	// Bootscript is the bootscript used by the server
+	Bootscript *string `json:"bootscript"`
+
+	// Tags are the metadata tags attached to the server
+	// Tags []string `json:"tags",omitempty`
+
+	// Organization is the owner of the server
+	Organization string `json:"organization"`
+}
+
 // ScalewayOneServer represents the response of a GET /servers/UUID API call
 type ScalewayOneServer struct {
 	Server ScalewayServer `json:"server,omitempty"`
@@ -390,6 +408,40 @@ func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
 	return error
 }
 
+// PostServer create a new server
+func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, error) {
+	definition.Organization = s.Organization
+	resp, err := s.PostResponse(fmt.Sprintf("servers"), definition)
+	if err != nil {
+		return "", err
+	}
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		var server ScalewayOneServer
+		defer resp.Body.Close()
+		decoder := json.NewDecoder(resp.Body)
+		err = decoder.Decode(&server)
+		if err != nil {
+			return "", err
+		}
+		return server.Server.Identifier, nil
+	}
+
+	var error ScalewayAPIError
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+
+	if err != nil {
+		return "", err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return "", error
+}
+
 // ResolveServer attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
 	servers := s.Cache.LookUpServers(needle)
@@ -401,6 +453,32 @@ func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
 		servers = s.Cache.LookUpServers(needle)
 	}
 	return servers, nil
+}
+
+// ResolveImage attempts the find a matching Identifier for the input string
+func (s *ScalewayAPI) ResolveImage(needle string) ([]string, error) {
+	images := s.Cache.LookUpImages(needle)
+	if len(images) == 0 {
+		_, err := s.GetImages()
+		if err != nil {
+			return nil, err
+		}
+		images = s.Cache.LookUpImages(needle)
+	}
+	return images, nil
+}
+
+// ResolveBootscript attempts the find a matching Identifier for the input string
+func (s *ScalewayAPI) ResolveBootscript(needle string) ([]string, error) {
+	bootscripts := s.Cache.LookUpBootscripts(needle)
+	if len(bootscripts) == 0 {
+		_, err := s.GetBootscripts()
+		if err != nil {
+			return nil, err
+		}
+		bootscripts = s.Cache.LookUpBootscripts(needle)
+	}
+	return bootscripts, nil
 }
 
 // GetImages get the list of images from the ScalewayAPI

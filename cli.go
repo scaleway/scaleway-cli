@@ -84,7 +84,54 @@ func (cmd *Command) GetServer(needle string) string {
 	return ""
 }
 
+// GetImage returns exactly one image matching or dies
+func (cmd *Command) GetImage(needle string) string {
+	images, err := cmd.API.ResolveImage(needle)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to resolve image %s: %s\n", needle, err)
+		os.Exit(1)
+	}
+	if len(images) == 1 {
+		return images[0]
+	}
+	if len(images) == 0 {
+		fmt.Fprintf(os.Stderr, "No such image: %s\n", needle)
+		os.Exit(1)
+	}
+	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(images))
+	for _, identifier := range images {
+		// FIXME: also print the name
+		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+	}
+	os.Exit(1)
+	return ""
+}
+
+// GetBootscript returns exactly one bootscript matching or dies
+func (cmd *Command) GetBootscript(needle string) string {
+	bootscripts, err := cmd.API.ResolveBootscript(needle)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to resolve bootscript %s: %s\n", needle, err)
+		os.Exit(1)
+	}
+	if len(bootscripts) == 1 {
+		return bootscripts[0]
+	}
+	if len(bootscripts) == 0 {
+		fmt.Fprintf(os.Stderr, "No such bootscript: %s\n", needle)
+		os.Exit(1)
+	}
+	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(bootscripts))
+	for _, identifier := range bootscripts {
+		// FIXME: also print the name
+		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+	}
+	os.Exit(1)
+	return ""
+}
+
 var commands = []*Command{
+	cmdCreate,
 	cmdExec,
 	cmdHelp,
 	cmdImages,
