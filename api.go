@@ -101,6 +101,11 @@ type ScalewayImage struct {
 	RootVolume ScalewayVolume `json:"root_volume,omitempty"`
 }
 
+// ScalewayOneImage represents the response of a GET /images/UUID API call
+type ScalewayOneImage struct {
+	Image ScalewayImage `json:"image,omitempty"`
+}
+
 // ScalewayImages represents a group of Scaleway images
 type ScalewayImages struct {
 	// Images holds scaleway images of the response
@@ -352,6 +357,23 @@ func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 		s.Cache.InsertImage(image.Identifier, image.Name)
 	}
 	return &images.Images, nil
+}
+
+// GetImage gets an image from the ScalewayAPI
+func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
+	resp, err := s.GetResponse("images/" + imageId)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var oneImage ScalewayOneImage
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&oneImage)
+	if err != nil {
+		return nil, err
+	}
+	s.Cache.InsertImage(oneImage.Image.Identifier, oneImage.Image.Name)
+	return &oneImage.Image, nil
 }
 
 // GetSnapshots get the list of snapshots from the ScalewayAPI

@@ -76,7 +76,7 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 				fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", idents.Needle, len(idents.Identifiers))
 				for _, identifier := range idents.Identifiers {
 					// FIXME: also print the name
-					fmt.Fprintf(os.Stderr, "%s\n", identifier)
+					fmt.Fprintf(os.Stderr, "%s\n", identifier.Identifier)
 				}
 			}
 		} else {
@@ -89,7 +89,10 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 						cj <- server
 					}
 				} else if ident.Type == IDENTIFIER_IMAGE {
-					// FIXME: image
+					image, err := cmd.API.GetImage(ident.Identifier)
+					if err == nil {
+						cj <- image
+					}
 				} else if ident.Type == IDENTIFIER_BOOTSCRIPT {
 					// FIXME: bootscript
 				}
@@ -108,7 +111,7 @@ func runInspect(cmd *Command, args []string) {
 	}
 
 	fmt.Fprintf(os.Stdout, "[")
-	defer fmt.Fprintf(os.Stdout, "]\n")
+
 	nb_inspected := 0
 	ci := make(chan ScalewayResolvedIdentifier)
 	cj := make(chan interface{})
@@ -128,6 +131,9 @@ func runInspect(cmd *Command, args []string) {
 			nb_inspected += 1
 		}
 	}
+
+	fmt.Fprintf(os.Stdout, "]\n")
+
 	if len(args) != nb_inspected {
 		os.Exit(1)
 	}
