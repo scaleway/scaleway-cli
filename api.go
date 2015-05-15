@@ -81,6 +81,9 @@ type ScalewayVolume struct {
 
 	// ModificationDate is the date of the last modification of the volume
 	ModificationDate string `json:"modification_date,omitempty"`
+
+	// Name is the name of the volume
+	Name string `json:"name,omitempty"`
 }
 
 // ScalewayImage represents a Scaleway Image
@@ -106,6 +109,11 @@ type ScalewayOneImage struct {
 	Image ScalewayImage `json:"image,omitempty"`
 }
 
+// ScalewayOneSnapshot represents the response of a GET /images/UUID API call
+type ScalewayOneSnapshot struct {
+	Snapshot ScalewaySnapshot `json:"snapshot,omitempty"`
+}
+
 // ScalewayImages represents a group of Scaleway images
 type ScalewayImages struct {
 	// Images holds scaleway images of the response
@@ -128,6 +136,18 @@ type ScalewaySnapshot struct {
 
 	// Size is allocated size of the volume
 	Size int64 `json:"size,omitempty"`
+
+	// Organization is the owner of the snapshot
+	Organization string `json:"organization"`
+
+	// State is the current state of the snapshot
+	State string `json:"state"`
+
+	// VolumeType is the kind of volume behind the snapshot
+	VolumeType string `json:"volume_type"`
+
+	// BaseVolume is the volume from which the snapshot inherits
+	BaseVolume ScalewayVolume `json:"base_volume,omitempty"`
 }
 
 // ScalewaySnapshots represents a group of Scaleway snapshots
@@ -394,6 +414,23 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 		s.Cache.InsertSnapshot(snapshot.Identifier, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
+}
+
+// GetSnapshot gets a snapshot from the ScalewayAPI
+func (s *ScalewayAPI) GetSnapshot(snapshotId string) (*ScalewaySnapshot, error) {
+	resp, err := s.GetResponse("snapshots/" + snapshotId)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var oneSnapshot ScalewayOneSnapshot
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&oneSnapshot)
+	if err != nil {
+		return nil, err
+	}
+	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, oneSnapshot.Snapshot.Name)
+	return &oneSnapshot.Snapshot, nil
 }
 
 // GetBootscripts get the list of bootscripts from the ScalewayAPI

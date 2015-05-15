@@ -38,6 +38,7 @@ type ScalewayCache struct {
 const (
 	IDENTIFIER_SERVER = iota
 	IDENTIFIER_IMAGE
+	IDENTIFIER_SNAPSHOT
 	IDENTIFIER_BOOTSCRIPT
 )
 
@@ -79,6 +80,18 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	if err != nil {
 		return nil, err
 	}
+	if cache.Images == nil {
+		cache.Images = make(map[string]string)
+	}
+	if cache.Snapshots == nil {
+		cache.Snapshots = make(map[string]string)
+	}
+	if cache.Servers == nil {
+		cache.Servers = make(map[string]string)
+	}
+	if cache.Bootscripts == nil {
+		cache.Bootscripts = make(map[string]string)
+	}
 	return &cache, nil
 }
 
@@ -90,11 +103,13 @@ func (c *ScalewayCache) Save() error {
 	if c.Modified {
 		file, err := ioutil.TempFile("", "")
 		if err != nil {
+			fmt.Fprintf(os.Stdout, "ALORS SAVE FAILED 1: %v\n", err)
 			return err
 		}
 		encoder := json.NewEncoder(file)
 		err = encoder.Encode(*c)
 		if err != nil {
+			fmt.Fprintf(os.Stdout, "ALORS SAVE FAILED: %v\n", err)
 			return err
 		}
 		return os.Rename(file.Name(), c.Path)
@@ -177,6 +192,13 @@ func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IDENTIFIER_IMAGE,
+		})
+	}
+
+	for _, identifier := range c.LookUpSnapshots(needle) {
+		result = append(result, ScalewayIdentifier{
+			Identifier: identifier,
+			Type:       IDENTIFIER_SNAPSHOT,
 		})
 	}
 

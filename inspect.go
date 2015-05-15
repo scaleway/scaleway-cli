@@ -10,8 +10,8 @@ import (
 var cmdInspect = &Command{
 	Exec:        runInspect,
 	UsageLine:   "inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]",
-	Description: "Inspects a server, image or a bootscript",
-	Help:        "Inspects a server, image or a bootscript.",
+	Description: "Inspects servers, images, snapshots and bootscripts.",
+	Help:        "Inspects servers, images, snapshots and bootscripts.",
 }
 
 type ScalewayResolvedIdentifier struct {
@@ -40,13 +40,17 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
 		var wg sync.WaitGroup
-		wg.Add(2)
+		wg.Add(3)
 		go func() {
 			cmd.API.GetServers(true, 0)
 			wg.Done()
 		}()
 		go func() {
 			cmd.API.GetImages()
+			wg.Done()
+		}()
+		go func() {
+			cmd.API.GetSnapshots()
 			wg.Done()
 		}()
 		wg.Wait()
@@ -92,6 +96,11 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 					image, err := cmd.API.GetImage(ident.Identifier)
 					if err == nil {
 						cj <- image
+					}
+				} else if ident.Type == IDENTIFIER_SNAPSHOT {
+					snap, err := cmd.API.GetSnapshot(ident.Identifier)
+					if err == nil {
+						cj <- snap
 					}
 				} else if ident.Type == IDENTIFIER_BOOTSCRIPT {
 					// FIXME: bootscript
