@@ -156,6 +156,15 @@ type ScalewaySnapshots struct {
 	Snapshots []ScalewaySnapshot `json:"snapshots,omitempty"`
 }
 
+// ScalewayBootCmdArgs represents the boot arguments of a bootscript
+type ScalewayBootCmdArgs struct {
+	// Identifier is the unique identifier of boot args
+	Identifier string `json:"id,omitempty"`
+
+	// Value is the content of the cmd args
+	Value string `json:"value,omitempty"`
+}
+
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
 	// Identifier is a unique identifier for the bootscript
@@ -163,6 +172,9 @@ type ScalewayBootscript struct {
 
 	// Name is a user-defined name for the bootscript
 	Title string `json:"title,omitempty"`
+
+	// BootCmdArgs represents the arguments used to boot
+	BootCmdArgs ScalewayBootCmdArgs `json:"bootcmdargs,omitempty"`
 }
 
 // ScalewayOneBootscript represents the response of a GET /images/UUID API call
