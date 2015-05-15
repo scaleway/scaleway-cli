@@ -96,6 +96,7 @@ var commands = []*Command{
 	cmdStart,
 	cmdStop,
 	cmdVersion,
+	cmdWait,
 }
 
 var (
