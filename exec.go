@@ -27,7 +27,14 @@ func runExec(cmd *Command, args []string) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to get server information for %s: %s\n", server, err)
 	}
-	execCmd := []string{"-l", "root", server.PublicAddress.IP, "-t", "--", command}
+	execCmd := []string{}
+
+	if os.Getenv("exec_secure") != "1" {
+		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
+	}
+
+	execCmd = append(execCmd, "-l", "root", server.PublicAddress.IP, "-t", "--", command)
+
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)
 	spawn.Stdout = os.Stdout
