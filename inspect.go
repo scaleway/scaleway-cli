@@ -10,7 +10,7 @@ import (
 var cmdInspect = &Command{
 	Exec:        runInspect,
 	UsageLine:   "inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]",
-	Description: "Inspects a server, image or a bootscript.",
+	Description: "Inspects a server, image or a bootscript",
 	Help:        "Inspects a server, image or a bootscript.",
 }
 
