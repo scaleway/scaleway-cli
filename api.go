@@ -131,6 +131,27 @@ type ScalewaySnapshots struct {
 	Snapshots []ScalewaySnapshot `json:"snapshots,omitempty"`
 }
 
+// ScalewayBootscript represents a Scaleway Bootscript
+type ScalewayBootscript struct {
+	// Identifier is a unique identifier for the bootscript
+	Identifier string `json:"id,omitempty"`
+
+	// Name is a user-defined name for the bootscript
+	Title string `json:"title,omitempty"`
+
+	// CreationDate is the creation date of the bootscript
+	CreationDate string `json:"creation_date,omitempty"`
+
+	// ModificationDate is the date of the last modification of the bootscript
+	ModificationDate string `json:"modification_date,omitempty"`
+}
+
+// ScalewayBootscripts represents a group of Scaleway bootscripts
+type ScalewayBootscripts struct {
+	// Bootscripts holds scaleway bootscripts of the response
+	Bootscripts []ScalewayBootscript `json:"bootscripts,omitempty"`
+}
+
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
 	// Identifier is a unique identifier for the server
@@ -351,4 +372,24 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 		s.Cache.InsertSnapshot(snapshot.Identifier, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
+}
+
+// GetBootscripts get the list of bootscripts from the ScalewayAPI
+func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
+	query := url.Values{}
+	resp, err := s.GetResponse("bootscripts?" + query.Encode())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var bootscripts ScalewayBootscripts
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&bootscripts)
+	if err != nil {
+		return nil, err
+	}
+	for _, bootscript := range bootscripts.Bootscripts {
+		s.Cache.InsertBootscript(bootscript.Identifier, bootscript.Title)
+	}
+	return &bootscripts.Bootscripts, nil
 }

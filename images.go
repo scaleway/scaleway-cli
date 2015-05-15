@@ -87,6 +87,19 @@ func runImages(cmd *Command, args []string) {
 				VirtualSize:  float64(val.Size),
 			})
 		}
+
+		bootscripts, err := cmd.API.GetBootscripts()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "unable to fetch bootscripts from the Scaleway API: %v\n", err)
+			os.Exit(1)
+		}
+		for _, val := range *bootscripts {
+			entries = append(entries, ScalewayImageInterface{
+				Identifier: val.Identifier,
+				Name:       val.Title,
+				Tag:        "bootscript",
+			})
+		}
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 20, 1, 3, ' ', 0)
@@ -100,10 +113,19 @@ func runImages(cmd *Command, args []string) {
 			fmt.Fprintf(w, "%s\n", image.Identifier)
 		} else {
 			tag := "latest"
-			virtualSize := units.HumanSize(image.VirtualSize)
 			short_id := truncIf(image.Identifier, 8, !imagesNoTrunc)
 			short_name := truncIf(wordify(image.Name), 25, !imagesNoTrunc)
-			creationDate := units.HumanDuration(time.Now().UTC().Sub(image.CreationDate))
+			var creationDate, virtualSize string
+			if image.CreationDate.IsZero() {
+				creationDate = "n/a"
+			} else {
+				creationDate = units.HumanDuration(time.Now().UTC().Sub(image.CreationDate))
+			}
+			if image.VirtualSize == 0 {
+				virtualSize = "n/a"
+			} else {
+				virtualSize = units.HumanSize(image.VirtualSize)
+			}
 			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", short_name, tag, short_id, creationDate, virtualSize)
 		}
 	}
