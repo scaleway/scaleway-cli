@@ -171,6 +171,7 @@ var commands = []*Command{
 	cmdStart,
 	cmdStop,
 	cmdTag,
+	cmdTop,
 	cmdVersion,
 	cmdWait,
 }
