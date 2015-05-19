@@ -157,6 +157,7 @@ var commands = []*Command{
 	cmdAttach,
 	cmdCommit,
 	cmdCreate,
+	cmdEvents,
 	cmdExec,
 	cmdHelp,
 	cmdImages,

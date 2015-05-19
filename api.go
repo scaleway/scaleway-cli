@@ -148,7 +148,7 @@ type ScalewaySnapshot struct {
 	BaseVolume ScalewayVolume `json:"base_volume,omitempty"`
 }
 
-// ScalewayOneSnapshot represents the response of a GET /images/UUID API call
+// ScalewayOneSnapshot represents the response of a GET /snapshots/UUID API call
 type ScalewayOneSnapshot struct {
 	Snapshot ScalewaySnapshot `json:"snapshot,omitempty"`
 }
@@ -213,7 +213,7 @@ type ScalewayBootscript struct {
 	Kernel ScalewayKernel `json:"kernel,omitempty"`
 }
 
-// ScalewayOneBootscript represents the response of a GET /images/UUID API call
+// ScalewayOneBootscript represents the response of a GET /bootscripts/UUID API call
 type ScalewayOneBootscript struct {
 	Bootscript ScalewayBootscript `json:"bootscript,omitempty"`
 }
@@ -222,6 +222,37 @@ type ScalewayOneBootscript struct {
 type ScalewayBootscripts struct {
 	// Bootscripts holds scaleway bootscripts of the response
 	Bootscripts []ScalewayBootscript `json:"bootscripts,omitempty"`
+}
+
+// ScalewayTask represents a Scaleway Task
+type ScalewayTask struct {
+	// Identifier is a unique identifier for the task
+	Identifier string `json:"id,omitempty"`
+
+	// StartDate is the start date of the task
+	StartDate string `json:"started_at,omitempty"`
+
+	// TerminationDate is the termination date of the task
+	TerminationDate string `json:"terminated_at,omitempty"`
+
+	HrefFrom string `json:"href_from,omitempty"`
+
+	Description string `json:"description,omitempty"`
+
+	Status string `json:"status,omitempty"`
+
+	Progress int `json:"progress,omitempty"`
+}
+
+// ScalewayOneTask represents the response of a GET /tasks/UUID API call
+type ScalewayOneTask struct {
+	Task ScalewayTask `json:"task,omitempty"`
+}
+
+// ScalewayTasks represents a group of Scaleway tasks
+type ScalewayTasks struct {
+	// Tasks holds scaleway tasks of the response
+	Tasks []ScalewayTask `json:"tasks,omitempty"`
 }
 
 // ScalewayServer represents a Scaleway C1 server
@@ -775,4 +806,21 @@ func (s *ScalewayAPI) GetBootscript(bootscriptId string) (*ScalewayBootscript, e
 	}
 	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
+}
+
+// GetTasks get the list of tasks from the ScalewayAPI
+func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
+	query := url.Values{}
+	resp, err := s.GetResponse("tasks?" + query.Encode())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var tasks ScalewayTasks
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&tasks)
+	if err != nil {
+		return nil, err
+	}
+	return &tasks.Tasks, nil
 }
