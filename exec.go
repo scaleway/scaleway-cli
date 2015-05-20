@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"strings"
@@ -16,17 +15,7 @@ var cmdExec = &Command{
 	Help:        "Run a command on a running server.",
 }
 
-func runExec(cmd *Command, args []string) {
-	if len(args) < 2 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
-	}
-	serverId := cmd.GetServer(args[0])
-	command := args[1]
-	server, err := cmd.API.GetServer(serverId)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to get server information for %s: %s\n", server, err)
-	}
+func NewSshExecCmd(ipAddress string) []string {
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -37,7 +26,22 @@ func runExec(cmd *Command, args []string) {
 		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
 	}
 
-	execCmd = append(execCmd, "-l", "root", server.PublicAddress.IP, "-t", "--", command)
+	execCmd = append(execCmd, "-l", "root", ipAddress, "-t")
+	return execCmd
+}
+
+func runExec(cmd *Command, args []string) {
+	if len(args) < 2 {
+		log.Fatalf("usage: scw %s\n", cmd.UsageLine)
+	}
+	serverId := cmd.GetServer(args[0])
+	command := args[1]
+	server, err := cmd.API.GetServer(serverId)
+	if err != nil {
+		log.Fatalf("failed to get server information for %s: %s\n", server.Identifier, err)
+	}
+
+	execCmd := append(NewSshExecCmd(server.PublicAddress.IP), "--", command)
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)

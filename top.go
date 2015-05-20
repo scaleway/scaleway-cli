@@ -25,27 +25,15 @@ func runTop(cmd *Command, args []string) {
 	command := "ps"
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to get server information for %s: %s\n", server, err)
-	}
-	execCmd := []string{}
-
-	if os.Getenv("DEBUG") != "1" {
-		execCmd = append(execCmd, "-q")
+		log.Fatalf("failed to get server information for %s: %s\n", server.Identifier, err)
 	}
 
-	if os.Getenv("exec_secure") != "1" {
-		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
-	}
-
-	execCmd = append(execCmd, "-l", "root", server.PublicAddress.IP, "-t", "--", command)
+	execCmd := append(NewSshExecCmd(server.PublicAddress.IP), "--", command)
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-	spawn := exec.Command("ssh", execCmd...)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
-	err = spawn.Run()
+	out, err := exec.Command("ssh", execCmd...).CombinedOutput()
+	fmt.Printf("%s", out)
 	if err != nil {
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
