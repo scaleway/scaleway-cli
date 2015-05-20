@@ -29,6 +29,10 @@ func runExec(cmd *Command, args []string) {
 	}
 	execCmd := []string{}
 
+	if os.Getenv("DEBUG") != "1" {
+		execCmd = append(execCmd, "-q")
+	}
+
 	if os.Getenv("exec_secure") != "1" {
 		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
 	}
