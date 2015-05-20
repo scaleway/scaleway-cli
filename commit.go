@@ -15,7 +15,7 @@ var cmdCommit = &Command{
 
 func runCommit(cmd *Command, args []string) {
 	if len(args) == 0 {
-		log.Fatalf("usage: scw %s\n", cmd.UsageLine)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	serverId := cmd.GetServer(args[0])

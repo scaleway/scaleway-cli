@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"runtime"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdVersion = &Command{
@@ -15,8 +16,7 @@ var cmdVersion = &Command{
 
 func runVersion(cmd *Command, args []string) {
 	if len(args) != 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	// FIXME: fmt.Printf("Client version: %s\n", "FIXME")

@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"sync"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdInspect = &Command{
@@ -79,12 +81,12 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 		}
 		if len(idents.Identifiers) != 1 {
 			if len(idents.Identifiers) == 0 {
-				fmt.Fprintf(os.Stderr, "Unable to resolve identifier %s\n", idents.Needle)
+				log.Errorf("Unable to resolve identifier %s", idents.Needle)
 			} else {
-				fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", idents.Needle, len(idents.Identifiers))
+				log.Errorf("Too many candidates for %s (%d)", idents.Needle, len(idents.Identifiers))
 				for _, identifier := range idents.Identifiers {
 					// FIXME: also print the name
-					fmt.Fprintf(os.Stderr, "%s\n", identifier.Identifier)
+					log.Infof("- %s", identifier.Identifier)
 				}
 			}
 		} else {
@@ -122,8 +124,7 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 
 func runInspect(cmd *Command, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	res := "["
@@ -148,7 +149,7 @@ func runInspect(cmd *Command, args []string) {
 	}
 	res += "]"
 
-	fmt.Fprintf(os.Stdout, "%s\n", res)
+	fmt.Println(res)
 
 	if len(args) != nb_inspected {
 		os.Exit(1)

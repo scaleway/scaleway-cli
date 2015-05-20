@@ -9,6 +9,7 @@ import (
 	"os/user"
 	"strings"
 
+	log "github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
 )
 
@@ -65,20 +66,18 @@ func (c *Command) Options() string {
 func (cmd *Command) GetServer(needle string) string {
 	servers, err := cmd.API.ResolveServer(needle)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to resolve server %s: %s\n", needle, err)
-		os.Exit(1)
+		log.Fatalf("Unable to resolve server %s: %s", needle, err)
 	}
 	if len(servers) == 1 {
 		return servers[0]
 	}
 	if len(servers) == 0 {
-		fmt.Fprintf(os.Stderr, "No such server: %s\n", needle)
-		os.Exit(1)
+		log.Fatalf("No such server: %s", needle)
 	}
-	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(servers))
+	log.Errorf("Too many candidates for %s (%d)", needle, len(servers))
 	for _, identifier := range servers {
 		// FIXME: also print the name
-		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+		log.Infof("- %s", identifier)
 	}
 	os.Exit(1)
 	return ""
@@ -88,20 +87,18 @@ func (cmd *Command) GetServer(needle string) string {
 func (cmd *Command) GetSnapshot(needle string) string {
 	snapshots, err := cmd.API.ResolveSnapshot(needle)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to resolve snapshot %s: %s\n", needle, err)
-		os.Exit(1)
+		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
 	}
 	if len(snapshots) == 1 {
 		return snapshots[0]
 	}
 	if len(snapshots) == 0 {
-		fmt.Fprintf(os.Stderr, "No such snapshot: %s\n", needle)
-		os.Exit(1)
+		log.Fatalf("No such snapshot: %s", needle)
 	}
-	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(snapshots))
+	log.Errorf("Too many candidates for %s (%d)", needle, len(snapshots))
 	for _, identifier := range snapshots {
 		// FIXME: also print the name
-		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+		log.Infof("- %s", identifier)
 	}
 	os.Exit(1)
 	return ""
@@ -111,20 +108,18 @@ func (cmd *Command) GetSnapshot(needle string) string {
 func (cmd *Command) GetImage(needle string) string {
 	images, err := cmd.API.ResolveImage(needle)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to resolve image %s: %s\n", needle, err)
-		os.Exit(1)
+		log.Fatalf("Unable to resolve image %s: %s", needle, err)
 	}
 	if len(images) == 1 {
 		return images[0]
 	}
 	if len(images) == 0 {
-		fmt.Fprintf(os.Stderr, "No such image: %s\n", needle)
-		os.Exit(1)
+		log.Fatalf("No such image: %s", needle)
 	}
-	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(images))
+	log.Errorf("Too many candidates for %s (%d)", needle, len(images))
 	for _, identifier := range images {
 		// FIXME: also print the name
-		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+		log.Infof("- %s", identifier)
 	}
 	os.Exit(1)
 	return ""
@@ -134,20 +129,18 @@ func (cmd *Command) GetImage(needle string) string {
 func (cmd *Command) GetBootscript(needle string) string {
 	bootscripts, err := cmd.API.ResolveBootscript(needle)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to resolve bootscript %s: %s\n", needle, err)
-		os.Exit(1)
+		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
 	}
 	if len(bootscripts) == 1 {
 		return bootscripts[0]
 	}
 	if len(bootscripts) == 0 {
-		fmt.Fprintf(os.Stderr, "No such bootscript: %s\n", needle)
-		os.Exit(1)
+		log.Fatalf("No such bootscript: %s", needle)
 	}
-	fmt.Fprintf(os.Stderr, "Too many candidates for %s (%d)\n", needle, len(bootscripts))
+	log.Errorf("Too many candidates for %s (%d)", needle, len(bootscripts))
 	for _, identifier := range bootscripts {
 		// FIXME: also print the name
-		fmt.Fprintf(os.Stderr, "%s\n", identifier)
+		log.Infof("- %s", identifier)
 	}
 	os.Exit(1)
 	return ""
@@ -214,13 +207,11 @@ func main() {
 			cmd.Flag.SetOutput(ioutil.Discard)
 			err := cmd.Flag.Parse(args)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-				os.Exit(1)
+				log.Fatalf("usage: scw %s", cmd.UsageLine)
 			}
 			api, err := getScalewayAPI()
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "unable to initialize scw api: %s\n", err)
-				os.Exit(1)
+				log.Fatalf("unable to initialize scw api: %s", err)
 			}
 			cmd.API = api
 			cmd.Exec(cmd, cmd.Flag.Args())
@@ -229,8 +220,7 @@ func main() {
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "scw: unknown subcommand %s\nRun 'scw help for usage.\n", name)
-	os.Exit(1)
+	log.Fatalf("scw: unknown subcommand %s\nRun 'scw help for usage.", name)
 }
 
 func usage() {

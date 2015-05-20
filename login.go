@@ -2,8 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdLogin = &Command{
@@ -17,8 +18,7 @@ configuration file is automatically used by the 'scw' command.`,
 
 func runLogin(cmd *Command, args []string) {
 	if len(args) != 2 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 	cfg := &Config{
 		APIEndPoint:  "https://api.scaleway.com/",
@@ -27,19 +27,16 @@ func runLogin(cmd *Command, args []string) {
 	}
 	scwrc_path, err := GetConfigFilePath()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "can't get scwrc config file path: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("can't get scwrc config file path: %v", err)
 	}
 	scwrc, err := os.OpenFile(scwrc_path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "can't create scwrc config file: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("can't create scwrc config file: %v", err)
 	}
 	defer scwrc.Close()
 	encoder := json.NewEncoder(scwrc)
 	err = encoder.Encode(cfg)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "can't encode scw config file: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("can't encode scw config file: %v", err)
 	}
 }

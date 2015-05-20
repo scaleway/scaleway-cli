@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdWait = &Command{
@@ -15,8 +16,7 @@ var cmdWait = &Command{
 
 func runWait(cmd *Command, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 	has_error := false
 	for _, needle := range args {
@@ -24,7 +24,7 @@ func runWait(cmd *Command, args []string) {
 		for {
 			server, err := cmd.API.GetServer(server_identifier)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "failed to retrieve information from server %s: %s\n", server_identifier, err)
+				log.Errorf("failed to retrieve information from server %s: %s", server_identifier, err)
 				has_error = true
 				break
 			}

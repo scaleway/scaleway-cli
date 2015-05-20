@@ -8,6 +8,7 @@ import (
 	"text/tabwriter"
 	"time"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/units"
 )
 
@@ -57,8 +58,7 @@ func runPs(cmd *Command, args []string) {
 	}
 	servers, err := cmd.API.GetServers(psA || psN > 0 || psL, limit)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to fetch servers from the Scaleway API: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("unable to fetch servers from the Scaleway API: %v", err)
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 20, 1, 3, ' ', 0)

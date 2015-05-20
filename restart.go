@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdRestart = &Command{
@@ -14,8 +16,7 @@ var cmdRestart = &Command{
 
 func runRestart(cmd *Command, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 	has_error := false
 	for _, needle := range args {
@@ -23,11 +24,11 @@ func runRestart(cmd *Command, args []string) {
 		err := cmd.API.PostServerAction(server, "reboot")
 		if err != nil {
 			if err.Error() != "server is being stopped or rebooted" {
-				fmt.Fprintf(os.Stderr, "failed to restart server %s: %s\n", server, err)
+				log.Errorf("failed to restart server %s: %s", server, err)
 				has_error = true
 			}
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\n", needle)
+			fmt.Println(needle)
 		}
 		if has_error {
 			os.Exit(1)

@@ -15,7 +15,7 @@ var cmdTag = &Command{
 
 func runTag(cmd *Command, args []string) {
 	if len(args) < 2 {
-		log.Fatalf("usage: scw %s\n", cmd.UsageLine)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	snapshotId := cmd.GetSnapshot(args[0])

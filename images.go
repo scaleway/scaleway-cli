@@ -7,6 +7,7 @@ import (
 	"text/tabwriter"
 	"time"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/units"
 )
 
@@ -50,14 +51,12 @@ func runImages(cmd *Command, args []string) {
 
 	images, err := cmd.API.GetImages()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "unable to fetch images from the Scaleway API: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("unable to fetch images from the Scaleway API: %v", err)
 	}
 	for _, val := range *images {
 		creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "unable to parse creation date from the Scaleway API: %v\n", err)
-			os.Exit(1)
+			log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
 		}
 		entries = append(entries, ScalewayImageInterface{
 			CreationDate: creationDate,
@@ -72,14 +71,12 @@ func runImages(cmd *Command, args []string) {
 	if imagesA {
 		snapshots, err := cmd.API.GetSnapshots()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "unable to fetch snapshots from the Scaleway API: %v\n", err)
-			os.Exit(1)
+			log.Fatalf("unable to fetch snapshots from the Scaleway API: %v", err)
 		}
 		for _, val := range *snapshots {
 			creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "unable to parse creation date from the Scaleway API: %v\n", err)
-				os.Exit(1)
+				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
 			}
 			entries = append(entries, ScalewayImageInterface{
 				CreationDate: creationDate,
@@ -93,8 +90,7 @@ func runImages(cmd *Command, args []string) {
 
 		bootscripts, err := cmd.API.GetBootscripts()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "unable to fetch bootscripts from the Scaleway API: %v\n", err)
-			os.Exit(1)
+			log.Fatalf("unable to fetch bootscripts from the Scaleway API: %v", err)
 		}
 		for _, val := range *bootscripts {
 			entries = append(entries, ScalewayImageInterface{

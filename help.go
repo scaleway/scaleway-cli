@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"text/template"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdHelp = &Command{
@@ -62,8 +63,7 @@ func runHelp(cmd *Command, args []string) {
 				return
 			}
 		}
-		fmt.Fprintf(os.Stderr, "Unknown help topic `%s`.  Run 'scw help'.\n", name)
-		os.Exit(1)
+		log.Fatalf("Unknown help topic `%s`.  Run 'scw help'.", name)
 	} else {
 		t := template.New("top")
 		template.Must(t.Parse(helpTemplate))

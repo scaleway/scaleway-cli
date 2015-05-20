@@ -17,8 +17,7 @@ var cmdAttach = &Command{
 
 func runAttach(cmd *Command, args []string) {
 	if len(args) < 1 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	serverId := cmd.GetServer(args[0])

@@ -19,13 +19,13 @@ var cmdKill = &Command{
 
 func runKill(cmd *Command, args []string) {
 	if len(args) < 1 {
-		log.Fatalf("usage: scw %s\n", cmd.UsageLine)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 	serverId := cmd.GetServer(args[0])
 	command := "halt"
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {
-		log.Fatalf("failed to get server information for %s: %s\n", server.Identifier, err)
+		log.Fatalf("failed to get server information for %s: %s", server.Identifier, err)
 	}
 
 	execCmd := append(NewSshExecCmd(server.PublicAddress.IP), "--", command)

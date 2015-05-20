@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdRm = &Command{
@@ -14,18 +16,17 @@ var cmdRm = &Command{
 
 func runRm(cmd *Command, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 	has_error := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)
 		err := cmd.API.DeleteServer(server)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to delete server %s: %s\n", server, err)
+			log.Errorf("failed to delete server %s: %s", server, err)
 			has_error = true
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\n", needle)
+			fmt.Println(needle)
 		}
 	}
 	if has_error {

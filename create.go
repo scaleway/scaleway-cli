@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var cmdCreate = &Command{
@@ -24,8 +25,7 @@ var createBootscript string
 
 func runCreate(cmd *Command, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintf(os.Stderr, "usage: scw %s\n", cmd.UsageLine)
-		os.Exit(1)
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
 	image := cmd.GetImage(args[0])
@@ -44,7 +44,7 @@ func runCreate(cmd *Command, args []string) {
 
 	serverId, err := cmd.API.PostServer(server)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot create server: %v\n", err)
+		log.Fatalf("cannot create server: %v", err)
 	}
 	fmt.Println(serverId)
 }
