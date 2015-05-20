@@ -15,7 +15,7 @@ var cmdExec = &Command{
 	Help:        "Run a command on a running server.",
 }
 
-func NewSshExecCmd(ipAddress string) []string {
+func NewSshExecCmd(ipAddress string, allocateTTY bool) []string {
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -26,7 +26,12 @@ func NewSshExecCmd(ipAddress string) []string {
 		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
 	}
 
-	execCmd = append(execCmd, "-l", "root", ipAddress, "-t")
+	execCmd = append(execCmd, "-l", "root", ipAddress)
+
+	if allocateTTY {
+		execCmd = append(execCmd, "-t")
+	}
+
 	return execCmd
 }
 
@@ -41,7 +46,7 @@ func runExec(cmd *Command, args []string) {
 		log.Fatalf("failed to get server information for %s: %s", server.Identifier, err)
 	}
 
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP), "--", command)
+	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true), "--", command)
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)
