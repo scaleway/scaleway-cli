@@ -177,9 +177,15 @@ var (
 )
 
 func main() {
-	config, _ = getConfig()
+	var cfg_err error
+	config, cfg_err = getConfig()
+	if cfg_err != nil && !os.IsNotExist(cfg_err) {
+		log.Fatalf("unable to open .scwrc config file: %s", cfg_err)
+	}
 
-	flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
+	if config != nil {
+		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
+	}
 	flag.Parse()
 
 	if *flVersion {
@@ -187,7 +193,9 @@ func main() {
 		return
 	}
 
-	os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
+	if flAPIEndPoint != nil {
+		os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
+	}
 
 	if *flDebug {
 		os.Setenv("DEBUG", "1")
@@ -209,13 +217,20 @@ func main() {
 			if err != nil {
 				log.Fatalf("usage: scw %s", cmd.UsageLine)
 			}
-			api, err := getScalewayAPI()
-			if err != nil {
-				log.Fatalf("unable to initialize scw api: %s", err)
+			if cmd.Name() != "login" {
+				if cfg_err != nil {
+					log.Fatalf("unable to open .scwrc config file: %s", cfg_err)
+				}
+				api, err := getScalewayAPI()
+				if err != nil {
+					log.Fatalf("unable to initialize scw api: %s", err)
+				}
+				cmd.API = api
 			}
-			cmd.API = api
 			cmd.Exec(cmd, cmd.Flag.Args())
-			cmd.API.Sync()
+			if cmd.API != nil {
+				cmd.API.Sync()
+			}
 			os.Exit(0)
 		}
 	}
