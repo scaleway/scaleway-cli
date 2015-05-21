@@ -5,6 +5,7 @@ import (
 	"runtime"
 
 	log "github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/scwversion"
 )
 
 var cmdVersion = &Command{
@@ -19,10 +20,9 @@ func runVersion(cmd *Command, args []string) {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
-	// FIXME: fmt.Printf("Client version: %s\n", "FIXME")
-	// FIXME: fmt.Printf("Client SDK version: %s\n", "FIXME")
+	fmt.Printf("Client version: %s\n", scwversion.VERSION)
 	fmt.Printf("Go version (client): %s\n", runtime.Version())
-	// FIXME: fmt.Printf("Git commit (client): %s\n", "FIXME")
+	fmt.Printf("Git commit (client): %s\n", scwversion.GITCOMMIT)
 	fmt.Printf("OS/Arch (client): %s/%s\n", runtime.GOOS, runtime.GOARCH)
 	// FIXME: API version information
 }

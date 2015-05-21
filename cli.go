@@ -11,6 +11,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
+	"github.com/scaleway/scaleway-cli/scwversion"
 )
 
 var (
@@ -297,5 +298,5 @@ func getScalewayAPI() (*ScalewayAPI, error) {
 }
 
 func showVersion() {
-	fmt.Printf("scw version %s, build %s\n", "FIXME:VERSION", "FIXME:GITCOMMIT")
+	fmt.Printf("scw version %s, build %s\n", scwversion.VERSION, scwversion.GITCOMMIT)
 }
