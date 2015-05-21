@@ -31,7 +31,7 @@ func runWait(cmd *Command, args []string) {
 			if server.State == "stopped" {
 				break
 			}
-			time.Sleep(1)
+			time.Sleep(1 * time.Second)
 		}
 	}
 	if has_error {
