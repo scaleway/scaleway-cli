@@ -35,7 +35,7 @@ func runAttach(cmd *Command, args []string) {
 	err := spawn.Run()
 	if err != nil {
 		log.Warnf("%v", err)
-		fmt.Sprintf(os.Stderr, `
+		fmt.Fprintf(os.Stderr, `
 You need to install '%s' from https://github.com/moul/term.js-cli
 
     npm install -g term.js-cli
