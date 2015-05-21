@@ -824,3 +824,17 @@ func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
 	}
 	return &tasks.Tasks, nil
 }
+
+// CheckCredentials performs a dummy check to ensure we can contact the API
+func (s *ScalewayAPI) CheckCredentials() error {
+	query := url.Values{}
+	query.Set("token_id", s.Token)
+	resp, err := s.GetResponse("tokens?" + query.Encode())
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("Invalid credentials")
+	}
+	return nil
+}

@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
+	"fmt"
+	"golang.org/x/crypto/ssh/terminal"
 	"os"
 
 	log "github.com/Sirupsen/logrus"
@@ -9,34 +12,72 @@ import (
 
 var cmdLogin = &Command{
 	Exec:        runLogin,
-	UsageLine:   "login [options] ORGANIZATION TOKEN",
+	UsageLine:   "login [options]",
 	Description: "Login generates a configuration file containing credentials",
 	Help: `Login generates a configuration file in '/home/$USER/.scwrc'
 containing credentials used to interact with the Scaleway API. This
 configuration file is automatically used by the 'scw' command.`,
 }
 
+func promptUser(prompt string, output *string, echo bool) {
+	fmt.Fprintf(os.Stdout, prompt)
+	os.Stdout.Sync()
+
+	if !echo {
+		b, err := terminal.ReadPassword(int(os.Stdin.Fd()))
+		if err != nil {
+			log.Fatalf("Unable to prompt for password: %s", err)
+		}
+		*output = string(b)
+		fmt.Fprintf(os.Stdout, "\n")
+	} else {
+		reader := bufio.NewReader(os.Stdin)
+		*output, _ = reader.ReadString('\n')
+	}
+}
+
+func init() {
+	cmdLogin.Flag.StringVar(&organization, []string{"o", "-organization"}, "", "Organization")
+	cmdLogin.Flag.StringVar(&token, []string{"t", "-token"}, "", "Token")
+}
+
+// FLags
+var organization string // -o flag
+var token string        // -t flag
+
 func runLogin(cmd *Command, args []string) {
-	if len(args) != 2 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if len(organization) == 0 && len(token) == 0 {
+		promptUser("Organization: ", &organization, true)
+		promptUser("Token: ", &token, false)
 	}
+
 	cfg := &Config{
-		APIEndPoint:  "https://api.scaleway.com/",
-		Organization: args[0],
-		Token:        args[1],
+		APIEndPoint:  "https://account.scaleway.com/",
+		Organization: organization,
+		Token:        token,
 	}
+
+	api, err := NewScalewayAPI(cfg.APIEndPoint, cfg.Organization, cfg.Token)
+	if err != nil {
+		log.Fatalf("Unable to create ScalewayAPI: %s", err)
+	}
+	err = api.CheckCredentials()
+	if err != nil {
+		log.Fatalf("Unable to contact ScalewayAPI: %s", err)
+	}
+
 	scwrc_path, err := GetConfigFilePath()
 	if err != nil {
-		log.Fatalf("can't get scwrc config file path: %v", err)
+		log.Fatalf("Unable to get scwrc config file path: %s", err)
 	}
 	scwrc, err := os.OpenFile(scwrc_path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
 	if err != nil {
-		log.Fatalf("can't create scwrc config file: %v", err)
+		log.Fatalf("Unable to create scwrc config file: %s", err)
 	}
 	defer scwrc.Close()
 	encoder := json.NewEncoder(scwrc)
 	err = encoder.Encode(cfg)
 	if err != nil {
-		log.Fatalf("can't encode scw config file: %v", err)
+		log.Fatalf("Unable to encode scw config file: %s", err)
 	}
 }
