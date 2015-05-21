@@ -101,7 +101,7 @@ func runExec(cmd *Command, args []string) {
 		}
 	} else {
 		// no --wait
-		server, err := cmd.API.GetServer(serverId)
+		server, err = cmd.API.GetServer(serverId)
 		if err != nil {
 			log.Fatalf("Failed to get server information for %s: %s", server.Identifier, err)
 		}
