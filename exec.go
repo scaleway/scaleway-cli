@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"net"
 	"os"
 	"os/exec"
 	"strings"
@@ -56,10 +58,22 @@ func WaitForServerState(api *ScalewayAPI, serverId string, targetState string) (
 		if server.State == targetState {
 			break
 		}
-		time.Sleep(2)
+		time.Sleep(1 * time.Second)
 	}
 
 	return server, nil
+}
+
+func WaitForTcpPortOpen(dest string) error {
+	for {
+		conn, err := net.Dial("tcp", dest)
+		if err == nil {
+			defer conn.Close()
+			break
+		}
+		time.Sleep(1 * time.Second)
+	}
+	return nil
 }
 
 func runExec(cmd *Command, args []string) {
@@ -78,6 +92,12 @@ func runExec(cmd *Command, args []string) {
 		server, err = WaitForServerState(cmd.API, serverId, "running")
 		if err != nil {
 			log.Fatalf("Failed to wait for server to be ready, %v", err)
+		}
+
+		dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+		err = WaitForTcpPortOpen(dest)
+		if err != nil {
+			log.Fatalf("Failed to get an open SSH port: %v", err)
 		}
 	} else {
 		// no --wait
