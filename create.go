@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	log "github.com/Sirupsen/logrus"
+	humanize "github.com/dustin/go-humanize"
 )
 
 var cmdCreate = &Command{
@@ -23,28 +24,69 @@ func init() {
 var createName string
 var createBootscript string
 
+func CreateServerCommonFields(cmd *Command, server interface{}) {
+}
+
 func runCreate(cmd *Command, args []string) {
 	if len(args) == 0 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
-	image := cmd.GetImage(args[0])
-	var server ScalewayServerDefinition
-	server.Name = createName
+	var serverId string
 
-	// FIXME: handle snapshots
-	// FIXME: handle creation of volumes
-	// FIXME: handle tags
-	server.Image = image
+	// FIXME: use an interface to remove duplicates
 
-	if createBootscript != "" {
-		bootscript := cmd.GetBootscript(createBootscript)
-		server.Bootscript = &bootscript
+	bytes, err := humanize.ParseBytes(args[0])
+	if err == nil {
+		var server ScalewayServerWithVolumeDefinition
+		// Create a new root volume
+		var newVolume ScalewayVolumeDefinition
+		newVolume.Name = args[0]
+		newVolume.Size = bytes
+		newVolume.Type = "l_ssd"
+		volumeId, err := cmd.API.PostVolume(newVolume)
+		if err != nil {
+			log.Fatalf("Failed to create volume: %v", err)
+		}
+		server.Volumes = make(map[string]string)
+		server.Volumes["0"] = volumeId
+
+		// Common fields
+		server.Organization = cmd.API.Organization
+		server.Name = createName
+		if createBootscript != "" {
+			bootscript := cmd.GetBootscript(createBootscript)
+			server.Bootscript = &bootscript
+		}
+		// FIXME: handle tags
+		// End of common fields
+
+		serverId, err = cmd.API.PostServer(server)
+		if err != nil {
+			log.Fatalf("Failed to create server: %v", err)
+		}
+	} else {
+		var server ScalewayServerWithImageDefinition
+		// Use an existing image
+		// FIXME: handle snapshots
+		image := cmd.GetImage(args[0])
+		server.Image = image
+
+		// Common fields
+		server.Organization = cmd.API.Organization
+		server.Name = createName
+		if createBootscript != "" {
+			bootscript := cmd.GetBootscript(createBootscript)
+			server.Bootscript = &bootscript
+		}
+		// FIXME: handle tags
+		// End of common fields
+
+		serverId, err = cmd.API.PostServer(server)
+		if err != nil {
+			log.Fatalf("Failed to create server: %v", err)
+		}
 	}
 
-	serverId, err := cmd.API.PostServer(server)
-	if err != nil {
-		log.Fatalf("cannot create server: %v", err)
-	}
 	fmt.Println(serverId)
 }

@@ -86,6 +86,26 @@ type ScalewayVolume struct {
 	Name string `json:"name,omitempty"`
 }
 
+// ScalewayOneVolume represents the response of a GET /volumes/UUID API call
+type ScalewayOneVolume struct {
+	Volume ScalewayVolume `json:"volume,omitempty"`
+}
+
+// ScalewayVolume represents a Scaleway C1 volume definition
+type ScalewayVolumeDefinition struct {
+	// Name is the user-defined name of the volume
+	Name string `json:"name"`
+
+	// Image is the image used by the volume
+	Size uint64 `json:"size"`
+
+	// Bootscript is the bootscript used by the volume
+	Type string `json:"volume_type"`
+
+	// Organization is the owner of the volume
+	Organization string `json:"organization"`
+}
+
 // ScalewayImage represents a Scaleway Image
 type ScalewayImage struct {
 	// Identifier is a unique identifier for the image
@@ -282,8 +302,26 @@ type ScalewayServer struct {
 	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
 }
 
-// ScalewayServer represents a Scaleway C1 server definition
-type ScalewayServerDefinition struct {
+// ScalewayServer represents a Scaleway C1 server with volume definition
+type ScalewayServerWithVolumeDefinition struct {
+	// Name is the user-defined name of the server
+	Name string `json:"name"`
+
+	// Volumes are the attached volumes
+	Volumes map[string]string `json:"volumes,omitempty"`
+
+	// Bootscript is the bootscript used by the server
+	Bootscript *string `json:"bootscript"`
+
+	// Tags are the metadata tags attached to the server
+	// Tags []string `json:"tags",omitempty`
+
+	// Organization is the owner of the server
+	Organization string `json:"organization"`
+}
+
+// ScalewayServer represents a Scaleway C1 server with image definition
+type ScalewayServerWithImageDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
 
@@ -511,8 +549,7 @@ func (s *ScalewayAPI) DeleteServer(server_id string) error {
 }
 
 // PostServer create a new server
-func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, error) {
-	definition.Organization = s.Organization
+func (s *ScalewayAPI) PostServer(definition interface{}) (string, error) {
 	resp, err := s.PostResponse(fmt.Sprintf("servers"), definition)
 	if err != nil {
 		return "", err
@@ -606,6 +643,42 @@ func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
 			return "", err
 		}
 		return image.Image.Identifier, nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+
+	if err != nil {
+		return "", err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return "", error
+}
+
+// PostVolume create a new volume
+func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, error) {
+	definition.Organization = s.Organization
+	if definition.Type == "" {
+		definition.Type = "l_ssd"
+	}
+	resp, err := s.PostResponse(fmt.Sprintf("volumes"), definition)
+	if err != nil {
+		return "", err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		var volume ScalewayOneVolume
+		err = decoder.Decode(&volume)
+		if err != nil {
+			return "", err
+		}
+		return volume.Volume.Identifier, nil
 	}
 
 	var error ScalewayAPIError
