@@ -20,14 +20,32 @@ func init() {
 	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "noname", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
+	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 }
 
 // Flags
 var createName string
 var createBootscript string
 var createEnv string
+var createVolume string
 
-func CreateServerCommonFields(cmd *Command, server interface{}) {
+func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
+	bytes, err := humanize.ParseBytes(size)
+	if err != nil {
+		return nil, err
+	}
+
+	var newVolume ScalewayVolumeDefinition
+	newVolume.Name = size
+	newVolume.Size = bytes
+	newVolume.Type = "l_ssd"
+
+	volumeId, err := cmd.API.PostVolume(newVolume)
+	if err != nil {
+		return nil, err
+	}
+
+	return &volumeId, nil
 }
 
 func runCreate(cmd *Command, args []string) {
@@ -39,26 +57,35 @@ func runCreate(cmd *Command, args []string) {
 
 	// FIXME: use an interface to remove duplicates
 
-	bytes, err := humanize.ParseBytes(args[0])
+	_, err := humanize.ParseBytes(args[0])
 	if err == nil {
 		var server ScalewayServerWithVolumeDefinition
 		// Create a new root volume
-		var newVolume ScalewayVolumeDefinition
-		newVolume.Name = args[0]
-		newVolume.Size = bytes
-		newVolume.Type = "l_ssd"
-		volumeId, err := cmd.API.PostVolume(newVolume)
+		volumeId, err := CreateVolumeFromHumanSize(cmd, args[0])
 		if err != nil {
 			log.Fatalf("Failed to create volume: %v", err)
 		}
 		server.Volumes = make(map[string]string)
-		server.Volumes["0"] = volumeId
+		server.Volumes["0"] = *volumeId
 
 		// Common fields
 		server.Tags = []string{}
 		if createEnv != "" {
 			server.Tags = strings.Split(createEnv, " ")
 		}
+		if createVolume != "" {
+			volumes := strings.Split(createVolume, " ")
+			for i := range volumes {
+				volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
+				if err != nil {
+					log.Fatalf("Failed to create volume: %v", err)
+				}
+
+				volumeIdx := fmt.Sprintf("%d", i+1)
+				server.Volumes[volumeIdx] = *volumeId
+			}
+		}
+
 		server.Organization = cmd.API.Organization
 		server.Name = createName
 		if createBootscript != "" {
@@ -80,9 +107,22 @@ func runCreate(cmd *Command, args []string) {
 		server.Image = image
 
 		// Common fields
+		server.Volumes = make(map[string]string)
 		server.Tags = []string{}
 		if createEnv != "" {
 			server.Tags = strings.Split(createEnv, " ")
+		}
+		if createVolume != "" {
+			volumes := strings.Split(createVolume, " ")
+			for i := range volumes {
+				volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
+				if err != nil {
+					log.Fatalf("Failed to create volume: %v", err)
+				}
+
+				volumeIdx := fmt.Sprintf("%d", i+1)
+				server.Volumes[volumeIdx] = *volumeId
+			}
 		}
 		server.Organization = cmd.API.Organization
 		server.Name = createName

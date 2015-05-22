@@ -328,6 +328,9 @@ type ScalewayServerWithImageDefinition struct {
 	// Image is the image used by the server
 	Image string `json:"image"`
 
+	// Volumes are the attached volumes
+	Volumes map[string]string `json:"volumes,omitempty"`
+
 	// Bootscript is the bootscript used by the server
 	Bootscript *string `json:"bootscript"`
 
