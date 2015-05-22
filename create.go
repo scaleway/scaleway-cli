@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	log "github.com/Sirupsen/logrus"
 	humanize "github.com/dustin/go-humanize"
@@ -18,17 +19,19 @@ func init() {
 	// FIXME: -h
 	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "noname", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
+	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 }
 
 // Flags
 var createName string
 var createBootscript string
+var createEnv string
 
 func CreateServerCommonFields(cmd *Command, server interface{}) {
 }
 
 func runCreate(cmd *Command, args []string) {
-	if len(args) == 0 {
+	if len(args) != 1 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
@@ -52,6 +55,10 @@ func runCreate(cmd *Command, args []string) {
 		server.Volumes["0"] = volumeId
 
 		// Common fields
+		server.Tags = []string{}
+		if createEnv != "" {
+			server.Tags = strings.Split(createEnv, " ")
+		}
 		server.Organization = cmd.API.Organization
 		server.Name = createName
 		if createBootscript != "" {
@@ -73,6 +80,10 @@ func runCreate(cmd *Command, args []string) {
 		server.Image = image
 
 		// Common fields
+		server.Tags = []string{}
+		if createEnv != "" {
+			server.Tags = strings.Split(createEnv, " ")
+		}
 		server.Organization = cmd.API.Organization
 		server.Name = createName
 		if createBootscript != "" {

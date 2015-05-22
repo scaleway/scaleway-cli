@@ -314,7 +314,7 @@ type ScalewayServerWithVolumeDefinition struct {
 	Bootscript *string `json:"bootscript"`
 
 	// Tags are the metadata tags attached to the server
-	// Tags []string `json:"tags",omitempty`
+	Tags []string `json:"tags",omitempty`
 
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
@@ -332,7 +332,7 @@ type ScalewayServerWithImageDefinition struct {
 	Bootscript *string `json:"bootscript"`
 
 	// Tags are the metadata tags attached to the server
-	// Tags []string `json:"tags",omitempty`
+	Tags []string `json:"tags",omitempty`
 
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
