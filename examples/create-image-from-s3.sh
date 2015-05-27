@@ -58,7 +58,7 @@ echo "[+] Server stopped"
 
 
 echo "[+] Creating a snapshot of nbd1"
-SNAPSHOT=$(scw commit --volume=1 --name="${NAME}" "${SERVER}")
+SNAPSHOT=$(scw commit --volume=1 "${SERVER}" "${NAME}")
 echo "[+] Snapshot ${SNAPSHOT} created"
 
 
