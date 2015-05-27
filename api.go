@@ -320,6 +320,12 @@ type ScalewayServerWithVolumeDefinition struct {
 	Organization string `json:"organization"`
 }
 
+// ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
+type ScalewayServerPathNameDefinition struct {
+	// Name is the user-defined name of the server
+	Name string `json:"name"`
+}
+
 // ScalewayServer represents a Scaleway C1 server with image definition
 type ScalewayServerWithImageDefinition struct {
 	// Name is the user-defined name of the server
@@ -425,6 +431,25 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	return client.Do(req)
 }
 
+// PatchResponse returns a http.Response object for the updated resource
+func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	client := &http.Client{}
+	payload := new(bytes.Buffer)
+	encoder := json.NewEncoder(payload)
+	if err := encoder.Encode(data); err != nil {
+		return nil, err
+	}
+	log.Debugf("PATCH %s payload=%s", uri, payload)
+	req, err := http.NewRequest("PATCH", uri, payload)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("X-Auth-Token", s.Token)
+	req.Header.Set("Content-Type", "application/json")
+	return client.Do(req)
+}
+
 // DeleteResponse returns a http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
@@ -499,11 +524,11 @@ func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
 }
 
 // PostServerAction posts an action on a server
-func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
+func (s *ScalewayAPI) PostServerAction(serverId, action string) error {
 	data := ScalewayServerAction{
 		Action: action,
 	}
-	resp, err := s.PostResponse(fmt.Sprintf("servers/%s/action", server_id), data)
+	resp, err := s.PostResponse(fmt.Sprintf("servers/%s/action", serverId), data)
 	if err != nil {
 		return err
 	}
@@ -527,8 +552,8 @@ func (s *ScalewayAPI) PostServerAction(server_id, action string) error {
 }
 
 // DeleteServer deletes a server
-func (s *ScalewayAPI) DeleteServer(server_id string) error {
-	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", server_id))
+func (s *ScalewayAPI) DeleteServer(serverId string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", serverId))
 	if err != nil {
 		return err
 	}
@@ -581,6 +606,32 @@ func (s *ScalewayAPI) PostServer(definition interface{}) (string, error) {
 	error.StatusCode = resp.StatusCode
 	error.Debug()
 	return "", error
+}
+
+// PatchServer create a new server
+func (s *ScalewayAPI) PatchServerName(serverId string, definition ScalewayServerPathNameDefinition) error {
+	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverId), definition)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed PATCH code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
 }
 
 // PostSnapshot create a new snapshot
@@ -786,8 +837,8 @@ func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
 }
 
 // DeleteImage deletes a image
-func (s *ScalewayAPI) DeleteImage(image_id string) error {
-	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", image_id))
+func (s *ScalewayAPI) DeleteImage(imageId string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageId))
 	if err != nil {
 		return err
 	}

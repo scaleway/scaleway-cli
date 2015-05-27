@@ -161,6 +161,7 @@ var commands = []*Command{
 	cmdKill,
 	cmdLogin,
 	cmdPs,
+	cmdRename,
 	cmdRestart,
 	cmdRm,
 	cmdRmi,
