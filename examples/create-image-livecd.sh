@@ -20,11 +20,14 @@ echo "[+] URL of the tarball: ${URL}"
 echo "[+] Target name: ${NAME}"
 
 echo "[+] Creating new server in live mode..."
-SERVER=$(scw create 50GB \
-                    --bootscript=3.2.34 \
-                    --name="[live] $NAME" \
-                    --env="boot=live" \
-                    --env="rescue_image=${URL}")
+SERVER=$(
+    scw create \
+        --bootscript=3.2.34 \
+        --name="[live] $NAME" \
+        --env="boot=live" \
+        --env="rescue_image=${URL}" \
+        50GB
+      )
 echo "[+] Server created: ${SERVER}"
 
 echo "[+] Booting..."

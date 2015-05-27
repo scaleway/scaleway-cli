@@ -26,19 +26,23 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(scw create 1GB --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}")
+SERVER=$(scw create --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}" 1GB)
 echo "[+] Server created: ${SERVER}"
 
 
 echo "[+] Booting..."
-scw start --sync --timeout=600 "${SERVER}" >/dev/null
-IP=$(scw inspect "${SERVER}" -f .server.public_ip.address)
-scw exec "${SERVER}" 'uname -a'
-echo "[+] SSH is ready (${IP})"
+scw start "${SERVER}" >/dev/null
+echo "[+] Server is booting"
+
+# This version won't work with scaleway's go version for now
+# scw start s-sync --timeout=600 "${SERVER}" >/dev/null
+# IP=$(scw inspect -f .server.public_ip.address "${SERVER}")
+# scw exec "${SERVER}" 'uname -a'
+# echo "[+] SSH is ready (${IP})"
 
 
 echo "[+] Formating and mounting /dev/nbd1..."
-scw exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
+scw exec --wait "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
 echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
@@ -54,7 +58,7 @@ echo "[+] Server stopped"
 
 
 echo "[+] Creating a snapshot of nbd1"
-SNAPSHOT=$(scw commit "${SERVER}" --volume=1 --name="${NAME}")
+SNAPSHOT=$(scw commit --volume=1 --name="${NAME}" "${SERVER}")
 echo "[+] Snapshot ${SNAPSHOT} created"
 
 
