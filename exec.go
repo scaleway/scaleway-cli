@@ -26,7 +26,7 @@ func init() {
 // Flags
 var execW bool // -w flag
 
-func NewSshExecCmd(ipAddress string, allocateTTY bool) []string {
+func NewSshExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -42,6 +42,16 @@ func NewSshExecCmd(ipAddress string, allocateTTY bool) []string {
 	if allocateTTY {
 		execCmd = append(execCmd, "-t")
 	}
+
+	execCmd = append(execCmd, "--", "/bin/sh", "-e")
+
+	if os.Getenv("DEBUG") == "1" {
+		execCmd = append(execCmd, "-x")
+	}
+
+	execCmd = append(execCmd, "-c")
+
+	execCmd = append(execCmd, fmt.Sprintf("%q", strings.Join(command, " ")))
 
 	return execCmd
 }
@@ -80,7 +90,6 @@ func runExec(cmd *Command, args []string) {
 	if len(args) < 2 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
-	command := args[1]
 
 	serverId := cmd.GetServer(args[0])
 
@@ -107,7 +116,7 @@ func runExec(cmd *Command, args []string) {
 		}
 	}
 
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true), "--", command)
+	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true, args[1:]))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)

@@ -48,8 +48,7 @@ func runCp(cmd *Command, args []string) {
 	remoteCommand = append(remoteCommand, path.Base(serverParts[1]))
 
 	// execCmd contains the ssh connection + the remoteCommand
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, false), "--")
-	execCmd = append(execCmd, remoteCommand...)
+	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, false, remoteCommand))
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)
 
