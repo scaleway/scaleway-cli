@@ -14,6 +14,14 @@ var cmdStart = &Command{
 	Help:        "Start a stopped server.",
 }
 
+func init() {
+	// FIXME: -h
+	cmdStart.Flag.BoolVar(&startW, []string{"w", "-wait"}, false, "Synchronous start. Wait for SSH to be ready")
+}
+
+// Flags
+var startW bool // -w flag
+
 func runStart(cmd *Command, args []string) {
 	if len(args) == 0 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -28,6 +36,14 @@ func runStart(cmd *Command, args []string) {
 				has_error = true
 			}
 		} else {
+			if startW {
+				_, err = WaitForServerReady(cmd.API, server)
+				if err != nil {
+					log.Errorf("Failed to wait for server %s to be ready, %v", needle, err)
+					has_error = true
+				}
+			}
+
 			fmt.Println(needle)
 		}
 		if has_error {

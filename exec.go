@@ -20,7 +20,7 @@ var cmdExec = &Command{
 
 func init() {
 	// FIXME: -h
-	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "")
+	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
 }
 
 // Flags
@@ -86,6 +86,22 @@ func WaitForTcpPortOpen(dest string) error {
 	return nil
 }
 
+func WaitForServerReady(api *ScalewayAPI, serverId string) (*ScalewayServer, error) {
+	server, err := WaitForServerState(api, serverId, "running")
+	if err != nil {
+		return nil, err
+	}
+
+	dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+
+	err = WaitForTcpPortOpen(dest)
+	if err != nil {
+		return nil, err
+	}
+
+	return server, nil
+}
+
 func runExec(cmd *Command, args []string) {
 	if len(args) < 2 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -95,18 +111,11 @@ func runExec(cmd *Command, args []string) {
 
 	var server *ScalewayServer
 	var err error
-
 	if execW {
 		// --wait
-		server, err = WaitForServerState(cmd.API, serverId, "running")
+		server, err = WaitForServerReady(cmd.API, serverId)
 		if err != nil {
 			log.Fatalf("Failed to wait for server to be ready, %v", err)
-		}
-
-		dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
-		err = WaitForTcpPortOpen(dest)
-		if err != nil {
-			log.Fatalf("Failed to get an open SSH port: %v", err)
 		}
 	} else {
 		// no --wait
