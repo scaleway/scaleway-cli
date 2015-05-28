@@ -10,6 +10,8 @@ GOFMT ?=	gofmt -w
 
 NAME = scw
 SRC = .
+REV = $(shell git rev-parse HEAD || echo "nogit")
+TAG = $(shell git describe --always || echo "nogit")
 
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
@@ -20,16 +22,21 @@ TEST_LIST = $(foreach int, $(SRC), $(int)_test)
 FMT_TEST = $(foreach int, $(SRC), $(int)_fmt)
 
 
-.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
+.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST) scwversion
 
 
 all: build
-build: $(BUILD_LIST)
+build: scwversion $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
 fmt: $(FMT_TEST)
+
+
+scwversion:
+	@sed -i 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/' scwversion/version.go
+	@sed -i 's/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.go
 
 
 Godeps:
