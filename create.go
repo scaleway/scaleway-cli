@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
+	"github.com/docker/docker/pkg/namesgenerator"
 	humanize "github.com/dustin/go-humanize"
 )
 
@@ -17,7 +18,7 @@ var cmdCreate = &Command{
 
 func init() {
 	// FIXME: -h
-	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "noname", "Assign a name")
+	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
@@ -56,6 +57,10 @@ func runCreate(cmd *Command, args []string) {
 	var serverId string
 
 	// FIXME: use an interface to remove duplicates
+
+	if createName == "" {
+		createName = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
+	}
 
 	_, err := humanize.ParseBytes(args[0])
 	if err == nil {
