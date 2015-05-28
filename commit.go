@@ -13,6 +13,14 @@ var cmdCommit = &Command{
 	Help:        "Create a new snapshot from a server's volume.",
 }
 
+func init() {
+	// FIXME: -h
+	cmdCommit.Flag.IntVar(&commitVolume, []string{"v", "-volume"}, 0, "Volume slot")
+}
+
+// Flags
+var commitVolume int
+
 func runCommit(cmd *Command, args []string) {
 	if len(args) == 0 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -23,7 +31,7 @@ func runCommit(cmd *Command, args []string) {
 	if err != nil {
 		log.Fatalf("Cannot fetch server: %v", err)
 	}
-	var volume ScalewayVolume = server.Volumes["0"]
+	var volume ScalewayVolume = server.Volumes[fmt.Sprintf("%d", commitVolume)]
 	var name string
 	if len(args) > 1 {
 		name = args[1]
