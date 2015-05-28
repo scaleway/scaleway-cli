@@ -54,94 +54,53 @@ func runCreate(cmd *Command, args []string) {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
-	var serverId string
-
-	// FIXME: use an interface to remove duplicates
-
 	if createName == "" {
 		createName = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
 
+	var server ScalewayServerDefinition
+	server.Volumes = make(map[string]string)
+
+	server.Tags = []string{}
+	if createEnv != "" {
+		server.Tags = strings.Split(createEnv, " ")
+	}
+	if createVolume != "" {
+		volumes := strings.Split(createVolume, " ")
+		for i := range volumes {
+			volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
+			if err != nil {
+				log.Fatalf("Failed to create volume: %v", err)
+			}
+
+			volumeIdx := fmt.Sprintf("%d", i+1)
+			server.Volumes[volumeIdx] = *volumeId
+		}
+	}
+	server.Name = createName
+	if createBootscript != "" {
+		bootscript := cmd.GetBootscript(createBootscript)
+		server.Bootscript = &bootscript
+	}
+
 	_, err := humanize.ParseBytes(args[0])
 	if err == nil {
-		var server ScalewayServerWithVolumeDefinition
 		// Create a new root volume
 		volumeId, err := CreateVolumeFromHumanSize(cmd, args[0])
 		if err != nil {
 			log.Fatalf("Failed to create volume: %v", err)
 		}
-		server.Volumes = make(map[string]string)
 		server.Volumes["0"] = *volumeId
-
-		// Common fields
-		server.Tags = []string{}
-		if createEnv != "" {
-			server.Tags = strings.Split(createEnv, " ")
-		}
-		if createVolume != "" {
-			volumes := strings.Split(createVolume, " ")
-			for i := range volumes {
-				volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
-				if err != nil {
-					log.Fatalf("Failed to create volume: %v", err)
-				}
-
-				volumeIdx := fmt.Sprintf("%d", i+1)
-				server.Volumes[volumeIdx] = *volumeId
-			}
-		}
-
-		server.Organization = cmd.API.Organization
-		server.Name = createName
-		if createBootscript != "" {
-			bootscript := cmd.GetBootscript(createBootscript)
-			server.Bootscript = &bootscript
-		}
-		// FIXME: handle tags
-		// End of common fields
-
-		serverId, err = cmd.API.PostServer(server)
-		if err != nil {
-			log.Fatalf("Failed to create server: %v", err)
-		}
 	} else {
-		var server ScalewayServerWithImageDefinition
 		// Use an existing image
 		// FIXME: handle snapshots
 		image := cmd.GetImage(args[0])
-		server.Image = image
+		server.Image = &image
+	}
 
-		// Common fields
-		server.Volumes = make(map[string]string)
-		server.Tags = []string{}
-		if createEnv != "" {
-			server.Tags = strings.Split(createEnv, " ")
-		}
-		if createVolume != "" {
-			volumes := strings.Split(createVolume, " ")
-			for i := range volumes {
-				volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
-				if err != nil {
-					log.Fatalf("Failed to create volume: %v", err)
-				}
-
-				volumeIdx := fmt.Sprintf("%d", i+1)
-				server.Volumes[volumeIdx] = *volumeId
-			}
-		}
-		server.Organization = cmd.API.Organization
-		server.Name = createName
-		if createBootscript != "" {
-			bootscript := cmd.GetBootscript(createBootscript)
-			server.Bootscript = &bootscript
-		}
-		// FIXME: handle tags
-		// End of common fields
-
-		serverId, err = cmd.API.PostServer(server)
-		if err != nil {
-			log.Fatalf("Failed to create server: %v", err)
-		}
+	serverId, err := cmd.API.PostServer(server)
+	if err != nil {
+		log.Fatalf("Failed to create server: %v", err)
 	}
 
 	fmt.Println(serverId)

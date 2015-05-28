@@ -303,22 +303,6 @@ type ScalewayServer struct {
 }
 
 // ScalewayServer represents a Scaleway C1 server with volume definition
-type ScalewayServerWithVolumeDefinition struct {
-	// Name is the user-defined name of the server
-	Name string `json:"name"`
-
-	// Volumes are the attached volumes
-	Volumes map[string]string `json:"volumes,omitempty"`
-
-	// Bootscript is the bootscript used by the server
-	Bootscript *string `json:"bootscript"`
-
-	// Tags are the metadata tags attached to the server
-	Tags []string `json:"tags",omitempty`
-
-	// Organization is the owner of the server
-	Organization string `json:"organization"`
-}
 
 // ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
 type ScalewayServerPathNameDefinition struct {
@@ -327,12 +311,12 @@ type ScalewayServerPathNameDefinition struct {
 }
 
 // ScalewayServer represents a Scaleway C1 server with image definition
-type ScalewayServerWithImageDefinition struct {
+type ScalewayServerDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
 
 	// Image is the image used by the server
-	Image string `json:"image"`
+	Image *string `json:"image,omitempty"`
 
 	// Volumes are the attached volumes
 	Volumes map[string]string `json:"volumes,omitempty"`
@@ -577,7 +561,9 @@ func (s *ScalewayAPI) DeleteServer(serverId string) error {
 }
 
 // PostServer create a new server
-func (s *ScalewayAPI) PostServer(definition interface{}) (string, error) {
+func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, error) {
+	definition.Organization = s.Organization
+
 	resp, err := s.PostResponse(fmt.Sprintf("servers"), definition)
 	if err != nil {
 		return "", err
