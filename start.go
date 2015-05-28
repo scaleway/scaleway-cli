@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -22,32 +23,58 @@ func init() {
 // Flags
 var startW bool // -w flag
 
+func startOnce(cmd *Command, needle string, successChan chan bool, errChan chan error) {
+	server := cmd.GetServer(needle)
+
+	err := cmd.API.PostServerAction(server, "poweron")
+	if err != nil {
+		if err.Error() != "server should be stopped" {
+			errChan <- errors.New(fmt.Sprintf("failed to stop server %s: %v", server, err))
+			return
+		}
+	} else {
+		if startW {
+			_, err = WaitForServerReady(cmd.API, server)
+			if err != nil {
+				errChan <- errors.New(fmt.Sprintf("Failed to wait for server %s to be ready, %v", needle, err))
+				return
+			}
+		}
+		fmt.Println(needle)
+	}
+	successChan <- true
+}
+
 func runStart(cmd *Command, args []string) {
 	if len(args) == 0 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
-	has_error := false
-	for _, needle := range args {
-		server := cmd.GetServer(needle)
-		err := cmd.API.PostServerAction(server, "poweron")
-		if err != nil {
-			if err.Error() != "server should be stopped" {
-				log.Errorf("failed to stop server %s: %s", server, err)
-				has_error = true
-			}
-		} else {
-			if startW {
-				_, err = WaitForServerReady(cmd.API, server)
-				if err != nil {
-					log.Errorf("Failed to wait for server %s to be ready, %v", needle, err)
-					has_error = true
-				}
-			}
 
-			fmt.Println(needle)
+	hasError := false
+	errChan := make(chan error)
+	successChan := make(chan bool)
+	remainingItems := len(args)
+
+	for _, needle := range args {
+		go startOnce(cmd, needle, successChan, errChan)
+	}
+
+	for {
+		select {
+		case _ = <-successChan:
+			remainingItems--
+		case err := <-errChan:
+			log.Errorf(fmt.Sprintf("%s", err))
+			remainingItems--
+			hasError = true
 		}
-		if has_error {
-			os.Exit(1)
+
+		if remainingItems == 0 {
+			break
 		}
+	}
+
+	if hasError {
+		os.Exit(1)
 	}
 }
