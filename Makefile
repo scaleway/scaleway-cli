@@ -35,8 +35,7 @@ fmt: $(FMT_TEST)
 
 
 scwversion:
-	@sed -i 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/' scwversion/version.go
-	@sed -i 's/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.go
+	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.tpl > scwversion/version.go
 
 
 Godeps:
