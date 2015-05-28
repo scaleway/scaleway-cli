@@ -593,6 +593,7 @@ func (s *ScalewayAPI) PostServer(definition interface{}) (string, error) {
 		if err != nil {
 			return "", err
 		}
+		s.Cache.InsertServer(server.Server.Identifier, server.Server.Name)
 		return server.Server.Identifier, nil
 	}
 
@@ -657,6 +658,7 @@ func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error)
 		if err != nil {
 			return "", err
 		}
+		s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, snapshot.Snapshot.Name)
 		return snapshot.Snapshot.Identifier, nil
 	}
 
@@ -696,6 +698,7 @@ func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
 		if err != nil {
 			return "", err
 		}
+		s.Cache.InsertImage(image.Image.Identifier, image.Image.Name)
 		return image.Image.Identifier, nil
 	}
 
@@ -732,6 +735,7 @@ func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, e
 		if err != nil {
 			return "", err
 		}
+		// FIXME: s.Cache.InsertVolume(volume.Volume.Identifier, volume.Volume.Name)
 		return volume.Volume.Identifier, nil
 	}
 
