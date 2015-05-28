@@ -421,7 +421,7 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
-	log.Debugf("POST %s payload=%s", uri, payload)
+	log.Debugf("POST %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
 	req, err := http.NewRequest("POST", uri, payload)
 	if err != nil {
 		return nil, err
@@ -440,7 +440,7 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
-	log.Debugf("PATCH %s payload=%s", uri, payload)
+	log.Debugf("PATCH %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
 	req, err := http.NewRequest("PATCH", uri, payload)
 	if err != nil {
 		return nil, err
