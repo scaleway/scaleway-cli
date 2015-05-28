@@ -58,7 +58,8 @@ func runStart(cmd *Command, args []string) {
 	successChan := make(chan bool)
 	remainingItems := len(args)
 
-	for _, needle := range args {
+	for i, _ := range args {
+		needle := args[i]
 		go startOnce(cmd, needle, successChan, errChan)
 	}
 
