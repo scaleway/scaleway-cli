@@ -121,6 +121,8 @@ func (c *ScalewayCache) LookUpImages(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
+	// FIXME: if 'user/' is in needle, only watch for a user image
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Images {
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
@@ -136,6 +138,7 @@ func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Snapshots {
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
