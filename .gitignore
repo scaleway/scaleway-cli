@@ -1,6 +1,6 @@
 # builds
 scw
-scwversion/scwversion.go
+scwversion/version.go
 Godeps/
 
 # junk
