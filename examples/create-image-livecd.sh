@@ -16,20 +16,21 @@ fi
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}
 
-echo "[+] URL of the tarball: ${URL}"
-echo "[+] Target name: ${NAME}"
+echo "[+] URL of the tarball: ${URL}" >&2
+echo "[+] Target name: ${NAME}" >&2
 
-echo "[+] Creating new server in live mode..."
+echo "[+] Creating new server in live mode..." >&2
 SERVER=$(
     scw create \
         --bootscript=3.2.34 \
         --name="[live] $NAME" \
-        --env="boot=live" \
-        --env="rescue_image=${URL}" \
+        --env="boot=live rescue_image=${URL}" \
         50GB
       )
-echo "[+] Server created: ${SERVER}"
+echo "[+] Server created: ${SERVER}" >&2
 
-echo "[+] Booting..."
+echo "[+] Booting..." >&2
 scw start "${SERVER}" >/dev/null
-echo "[+] Done"
+echo "[+] Done" >&2
+
+echo "${SERVER}"
