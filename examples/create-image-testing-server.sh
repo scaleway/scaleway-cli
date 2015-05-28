@@ -26,8 +26,7 @@ SERVER=$(
     scw create \
         --bootscript=rescue \
         --name="[testing] $NAME" \
-        --env="boot=rescue" \
-        --env="rescue_image=${URL}" \
+        --env="boot=rescue rescue_image=${URL}" \
         1GB
       )
 echo "[+] Server created: ${SERVER}"
