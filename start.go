@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -18,10 +19,12 @@ var cmdStart = &Command{
 func init() {
 	// FIXME: -h
 	cmdStart.Flag.BoolVar(&startW, []string{"w", "-wait"}, false, "Synchronous start. Wait for SSH to be ready")
+	cmdStart.Flag.Float64Var(&startTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 }
 
 // Flags
-var startW bool // -w flag
+var startW bool          // -w flag
+var startTimeout float64 // -T flag
 
 func startOnce(cmd *Command, needle string, successChan chan bool, errChan chan error) {
 	server := cmd.GetServer(needle)
@@ -57,6 +60,13 @@ func runStart(cmd *Command, args []string) {
 
 	for _, needle := range args {
 		go startOnce(cmd, needle, successChan, errChan)
+	}
+
+	if startTimeout > 0 {
+		go func() {
+			time.Sleep(time.Duration(startTimeout*1000) * time.Millisecond)
+			log.Fatalf("Operation timed out")
+		}()
 	}
 
 	for {
