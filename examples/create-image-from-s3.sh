@@ -32,9 +32,10 @@ echo "[+] Server created: ${SERVER}"
 
 echo "[+] Booting..."
 scw start --wait --timeout=600 "${SERVER}" >/dev/null
-IP=$(scw inspect -f .server.public_ip.address "${SERVER}")
+#IP=$(scw inspect -f .server.public_ip.address "${SERVER}")
+#echo "[+] SSH is ready (${IP})"
+echo "[+] Server is booted"
 scw exec "${SERVER}" 'uname -a'
-echo "[+] SSH is ready (${IP})"
 
 
 echo "[+] Formating and mounting /dev/nbd1..."
