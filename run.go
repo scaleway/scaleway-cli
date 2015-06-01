@@ -62,7 +62,11 @@ func runRun(cmd *Command, args []string) {
 
 	// exec -w SERVER COMMAND ARGS...
 	log.Debugf("Executing command")
-	err = serverExec(server.PublicAddress.IP, args[1:])
+	if len(args) < 2 {
+		err = serverExec(server.PublicAddress.IP, "/bin/sh")
+	} else {
+		err = serverExec(server.PublicAddress.IP, args[1:])
+	}
 	if err != nil {
 		log.Debugf("Command execution failed: %v", err)
 		os.Exit(1)
