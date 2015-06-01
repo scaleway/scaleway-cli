@@ -160,6 +160,7 @@ var commands = []*Command{
 	cmdInspect,
 	cmdKill,
 	cmdLogin,
+	cmdLogs,
 	cmdPs,
 	cmdRename,
 	cmdRestart,
