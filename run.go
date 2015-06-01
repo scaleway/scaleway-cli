@@ -63,7 +63,7 @@ func runRun(cmd *Command, args []string) {
 	// exec -w SERVER COMMAND ARGS...
 	log.Debugf("Executing command")
 	if len(args) < 2 {
-		err = serverExec(server.PublicAddress.IP, "/bin/sh")
+		err = serverExec(server.PublicAddress.IP, []string{"if [ -x /bin/bash ]; then /bin/bash; else /bin/sh; fi"})
 	} else {
 		err = serverExec(server.PublicAddress.IP, args[1:])
 	}
