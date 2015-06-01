@@ -102,6 +102,17 @@ func WaitForServerReady(api *ScalewayAPI, serverId string) (*ScalewayServer, err
 	return server, nil
 }
 
+func serverExec(ipAddress string, command []string) error {
+	execCmd := append(NewSshExecCmd(ipAddress, true, command))
+
+	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+	spawn := exec.Command("ssh", execCmd...)
+	spawn.Stdout = os.Stdout
+	spawn.Stdin = os.Stdin
+	spawn.Stderr = os.Stderr
+	return spawn.Run()
+}
+
 func runExec(cmd *Command, args []string) {
 	if len(args) < 2 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -125,15 +136,10 @@ func runExec(cmd *Command, args []string) {
 		}
 	}
 
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true, args[1:]))
-
-	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-	spawn := exec.Command("ssh", execCmd...)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
-	err = spawn.Run()
+	err = serverExec(server.PublicAddress.IP, args[1:])
 	if err != nil {
+		log.Debugf("Command execution failed: %v", err)
 		os.Exit(1)
 	}
+	log.Debugf("Command successfuly executed")
 }

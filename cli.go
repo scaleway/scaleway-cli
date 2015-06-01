@@ -165,6 +165,7 @@ var commands = []*Command{
 	cmdRestart,
 	cmdRm,
 	cmdRmi,
+	cmdRun,
 	cmdStart,
 	cmdStop,
 	cmdTag,

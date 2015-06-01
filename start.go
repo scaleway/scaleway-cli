@@ -26,25 +26,34 @@ func init() {
 var startW bool          // -w flag
 var startTimeout float64 // -T flag
 
-func startOnce(cmd *Command, needle string, successChan chan bool, errChan chan error) {
+func startServer(cmd *Command, needle string, wait bool) error {
 	server := cmd.GetServer(needle)
 
 	err := cmd.API.PostServerAction(server, "poweron")
 	if err != nil {
 		if err.Error() != "server should be stopped" {
-			errChan <- errors.New(fmt.Sprintf("failed to stop server %s: %v", server, err))
-			return
+			return errors.New(fmt.Sprintf("Server %s is already started: %v", server, err))
 		}
-	} else {
-		if startW {
-			_, err = WaitForServerReady(cmd.API, server)
-			if err != nil {
-				errChan <- errors.New(fmt.Sprintf("Failed to wait for server %s to be ready, %v", needle, err))
-				return
-			}
-		}
-		fmt.Println(needle)
 	}
+
+	if wait {
+		_, err = WaitForServerReady(cmd.API, server)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Failed to wait for server %s to be ready, %v", needle, err))
+		}
+	}
+	return nil
+}
+
+func startOnce(cmd *Command, needle string, wait bool, successChan chan bool, errChan chan error) {
+	err := startServer(cmd, needle, wait)
+
+	if err != nil {
+		errChan <- err
+		return
+	}
+
+	fmt.Println(needle)
 	successChan <- true
 }
 
@@ -60,7 +69,7 @@ func runStart(cmd *Command, args []string) {
 
 	for i, _ := range args {
 		needle := args[i]
-		go startOnce(cmd, needle, successChan, errChan)
+		go startOnce(cmd, needle, startW, successChan, errChan)
 	}
 
 	if startTimeout > 0 {
@@ -84,7 +93,6 @@ func runStart(cmd *Command, args []string) {
 			break
 		}
 	}
-
 	if hasError {
 		os.Exit(1)
 	}

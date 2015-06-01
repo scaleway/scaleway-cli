@@ -49,56 +49,67 @@ func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	return &volumeId, nil
 }
 
-func runCreate(cmd *Command, args []string) {
-	if len(args) != 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
-	}
-
-	if createName == "" {
-		createName = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
+func createServer(cmd *Command, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
+	if name == "" {
+		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
 
 	var server ScalewayServerDefinition
 	server.Volumes = make(map[string]string)
 
 	server.Tags = []string{}
-	if createEnv != "" {
-		server.Tags = strings.Split(createEnv, " ")
+	if env != "" {
+		server.Tags = strings.Split(env, " ")
 	}
-	if createVolume != "" {
-		volumes := strings.Split(createVolume, " ")
+	if additionalVolumes != "" {
+		volumes := strings.Split(additionalVolumes, " ")
 		for i := range volumes {
 			volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
 			if err != nil {
-				log.Fatalf("Failed to create volume: %v", err)
+				return "", err
 			}
 
 			volumeIdx := fmt.Sprintf("%d", i+1)
 			server.Volumes[volumeIdx] = *volumeId
 		}
 	}
-	server.Name = createName
-	if createBootscript != "" {
-		bootscript := cmd.GetBootscript(createBootscript)
+	server.Name = name
+	if bootscript != "" {
+		bootscript := cmd.GetBootscript(bootscript)
 		server.Bootscript = &bootscript
 	}
 
-	_, err := humanize.ParseBytes(args[0])
+	_, err := humanize.ParseBytes(imageName)
 	if err == nil {
 		// Create a new root volume
-		volumeId, err := CreateVolumeFromHumanSize(cmd, args[0])
+		volumeId, err := CreateVolumeFromHumanSize(cmd, imageName)
 		if err != nil {
-			log.Fatalf("Failed to create volume: %v", err)
+			return "", err
 		}
 		server.Volumes["0"] = *volumeId
 	} else {
 		// Use an existing image
 		// FIXME: handle snapshots
-		image := cmd.GetImage(args[0])
+		image := cmd.GetImage(imageName)
 		server.Image = &image
 	}
 
 	serverId, err := cmd.API.PostServer(server)
+	if err != nil {
+		return "", nil
+	}
+
+	return serverId, nil
+
+}
+
+func runCreate(cmd *Command, args []string) {
+	if len(args) != 1 {
+		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	}
+
+	serverId, err := createServer(cmd, args[0], createName, createBootscript, createEnv, createVolume)
+
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
