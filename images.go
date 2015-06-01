@@ -26,6 +26,7 @@ type ScalewayImageInterface struct {
 	Tag          string
 	VirtualSize  float64
 	Public       bool
+	Type         string
 }
 
 type ByCreationDate []ScalewayImageInterface
@@ -59,6 +60,7 @@ func runImages(cmd *Command, args []string) {
 			log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
 		}
 		entries = append(entries, ScalewayImageInterface{
+			Type:         "image",
 			CreationDate: creationDate,
 			Identifier:   val.Identifier,
 			Name:         val.Name,
@@ -79,6 +81,7 @@ func runImages(cmd *Command, args []string) {
 				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
 			}
 			entries = append(entries, ScalewayImageInterface{
+				Type:         "snapshot",
 				CreationDate: creationDate,
 				Identifier:   val.Identifier,
 				Name:         val.Name,
@@ -94,6 +97,7 @@ func runImages(cmd *Command, args []string) {
 		}
 		for _, val := range *bootscripts {
 			entries = append(entries, ScalewayImageInterface{
+				Type:       "bootscript",
 				Identifier: val.Identifier,
 				Name:       val.Title,
 				Tag:        "bootscript",
