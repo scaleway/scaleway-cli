@@ -13,7 +13,7 @@ import (
 
 var cmdExec = &Command{
 	Exec:        runExec,
-	UsageLine:   "exec [OPTIONS] SERVER COMMAND", // FIXME: add [ARGS...] support
+	UsageLine:   "exec [OPTIONS] SERVER COMMAND [ARGS...]", // FIXME: add [ARGS...] support
 	Description: "Run a command on a running server",
 	Help:        "Run a command on a running server.",
 }
