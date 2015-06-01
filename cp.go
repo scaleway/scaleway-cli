@@ -34,7 +34,7 @@ func runCp(cmd *Command, args []string) {
 
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {
-		log.Fatalf("failed to get server information for %s: %s", server.Identifier, err)
+		log.Fatalf("Failed to get server information for %s: %v", serverId, err)
 	}
 
 	// remoteCommand is executed on the remote server

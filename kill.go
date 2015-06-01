@@ -25,7 +25,7 @@ func runKill(cmd *Command, args []string) {
 	command := "halt"
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {
-		log.Fatalf("failed to get server information for %s: %s", server.Identifier, err)
+		log.Fatalf("Failed to get server information for %s: %v", serverId, err)
 	}
 
 	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true, []string{command}))
