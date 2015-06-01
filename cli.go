@@ -155,6 +155,7 @@ var commands = []*Command{
 	cmdEvents,
 	cmdExec,
 	cmdHelp,
+	cmdHistory,
 	cmdImages,
 	cmdInfo,
 	cmdInspect,
