@@ -18,6 +18,27 @@ var (
 	config *Config
 )
 
+// CommandListOpts holds a list of parameters
+type CommandListOpts struct {
+	Values *[]string
+}
+
+func NewListOpts() CommandListOpts {
+	var values []string
+	return CommandListOpts{
+		Values: &values,
+	}
+}
+
+func (opts *CommandListOpts) String() string {
+	return fmt.Sprintf("%v", []string((*opts.Values)))
+}
+
+func (opts *CommandListOpts) Set(value string) error {
+	(*opts.Values) = append((*opts.Values), value)
+	return nil
+}
+
 // Command is a Scaleway command
 type Command struct {
 	// Exec executes the command
