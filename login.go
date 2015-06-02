@@ -4,8 +4,10 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"golang.org/x/crypto/ssh/terminal"
 	"os"
+	"strings"
+
+	"golang.org/x/crypto/ssh/terminal"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -52,9 +54,9 @@ func runLogin(cmd *Command, args []string) {
 	}
 
 	cfg := &Config{
-		APIEndPoint:  "https://account.scaleway.com/",
-		Organization: organization,
-		Token:        token,
+		APIEndPoint:  "https://api.scaleway.com/",
+		Organization: strings.Trim(organization, "\n"),
+		Token:        strings.Trim(token, "\n"),
 	}
 
 	api, err := NewScalewayAPI(cfg.APIEndPoint, cfg.Organization, cfg.Token)
