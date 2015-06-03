@@ -54,7 +54,7 @@ func runLogin(cmd *Command, args []string) {
 	}
 
 	cfg := &Config{
-		APIEndPoint:  "https://api.scaleway.com/",
+		APIEndPoint:  "https://account.scaleway.com/",
 		Organization: strings.Trim(organization, "\n"),
 		Token:        strings.Trim(token, "\n"),
 	}
@@ -78,6 +78,7 @@ func runLogin(cmd *Command, args []string) {
 	}
 	defer scwrc.Close()
 	encoder := json.NewEncoder(scwrc)
+	cfg.APIEndPoint = "https://api.scaleway.com/"
 	err = encoder.Encode(cfg)
 	if err != nil {
 		log.Fatalf("Unable to encode scw config file: %s", err)
