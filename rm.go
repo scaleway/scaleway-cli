@@ -42,7 +42,7 @@ func runRm(cmd *Command, args []string) {
 			log.Errorf("failed to delete server %s: %s", server, err)
 			has_error = true
 		} else {
-			cmd.API.Cache.RemoveServer(needle)
+			cmd.API.Cache.RemoveServer(server)
 			fmt.Println(needle)
 		}
 	}
