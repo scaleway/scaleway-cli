@@ -112,7 +112,6 @@ $ scw exec myserver /bin/bash
 [root@noname ~]#
 ```
 
-
 Run a stopped server and wait for SSH to be ready (inline version)
 
 ```console
@@ -143,6 +142,11 @@ $ scw exec --wait myserver /bin/bash
 [root@noname ~]#
 ```
 
+Run a command in background
+
+```console
+$ scw exec alpine tmux new -d "sleep 10"
+```
 
 Run a stopped server and wait for SSH to be ready with:
 
