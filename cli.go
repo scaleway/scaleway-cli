@@ -55,6 +55,9 @@ type Command struct {
 	// Help is the full description of the command
 	Help string
 
+	// Examples are some examples of the command
+	Examples string
+
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
 
@@ -78,6 +81,7 @@ Usage: scw {{.UsageLine}}
 {{.Help}}
 
 {{.Options}}
+{{.ExamplesHelp}}
 `
 
 func commandHelpMessage(cmd *Command) (string, error) {
@@ -123,9 +127,17 @@ func (c *Command) Options() string {
 	}
 	c.Flag.VisitAll(visitor)
 	if len(options) == 0 {
-		options = ""
+		return ""
 	}
-	return options
+	return fmt.Sprintf("Options:\n\n%s", options)
+}
+
+// Examples returns a string describing examples of the command
+func (c *Command) ExamplesHelp() string {
+	if c.Examples == "" {
+		return ""
+	}
+	return fmt.Sprintf("Examples:\n\n%s", strings.Trim(c.Examples, "\n"))
 }
 
 // GetServer returns exactly one server matching or dies
