@@ -233,6 +233,14 @@ func (c *ScalewayCache) RemoveServer(identifier string) {
 	delete(c.Servers, identifier)
 }
 
+// ClearServers removes all servers from the cache
+func (c *ScalewayCache) ClearServers(identifier string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	c.Servers = make(map[string]string)
+}
+
 // InsertImage registers an image in the cache
 func (c *ScalewayCache) InsertImage(identifier, name string) {
 	c.Lock.Lock()
@@ -251,6 +259,14 @@ func (c *ScalewayCache) RemoveImage(identifier string) {
 	defer c.Lock.Unlock()
 
 	delete(c.Images, identifier)
+}
+
+// ClearImages removes all images from the cache
+func (c *ScalewayCache) ClearImages(identifier string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	c.Images = make(map[string]string)
 }
 
 // InsertSnapshot registers an snapshot in the cache
@@ -273,6 +289,14 @@ func (c *ScalewayCache) RemoveSnapshot(identifier string) {
 	delete(c.Snapshots, identifier)
 }
 
+// ClearSnapshots removes all snapshots from the cache
+func (c *ScalewayCache) ClearSnapshots(identifier string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	c.Snapshots = make(map[string]string)
+}
+
 // InsertBootscript registers an bootscript in the cache
 func (c *ScalewayCache) InsertBootscript(identifier, name string) {
 	c.Lock.Lock()
@@ -291,6 +315,14 @@ func (c *ScalewayCache) RemoveBootscript(identifier string) {
 	defer c.Lock.Unlock()
 
 	delete(c.Bootscripts, identifier)
+}
+
+// ClearBootscripts removes all bootscripts from the cache
+func (c *ScalewayCache) ClearBootscripts(identifier string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	c.Bootscripts = make(map[string]string)
 }
 
 // GetNbServers returns the number of servers in the cache
