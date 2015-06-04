@@ -16,10 +16,6 @@ var cmdImages = &Command{
 	UsageLine:   "images [OPTIONS]",
 	Description: "List images",
 	Help:        "List images.",
-	Examples: `
-    $ scw rmi myimage
-    $ scw rmi $(scw images -q)
-`,
 }
 
 // ScalewayImageInterface is an interface to multiple Scaleway items

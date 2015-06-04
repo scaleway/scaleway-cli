@@ -14,6 +14,15 @@ var cmdInspect = &Command{
 	UsageLine:   "inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]",
 	Description: "Return low-level information on a server, image, snapshot or bootscript",
 	Help:        "Return low-level information on a server, image, snapshot or bootscript.",
+	Examples: `
+    $ scw inspect a-public-image
+    $ scw inspect my-snapshot
+    $ scw inspect my-image
+    $ scw inspect my-server
+    $ scw inspect my-volume
+    $ scw inspect my-server | jq '.[0].public_ip.address'
+    $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
+`,
 }
 
 type ScalewayResolvedIdentifier struct {

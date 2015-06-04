@@ -12,6 +12,12 @@ var cmdStop = &Command{
 	UsageLine:   "stop [OPTIONS] SERVER [SERVER...]",
 	Description: "Stop a running server",
 	Help:        "Stop a running server.",
+	Examples: `
+    $ scw stop my-running-server my-second-running-server
+    $ scw stop -t my-running-server my-second-running-server
+    $ scw stop $(scw ps -q)
+    $ scw stop $(scw ps | grep mysql | awk '{print $1}')
+`,
 }
 
 func init() {

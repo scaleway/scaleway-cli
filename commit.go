@@ -11,6 +11,10 @@ var cmdCommit = &Command{
 	UsageLine:   "commit [OPTIONS] SERVER [NAME]",
 	Description: "Create a new snapshot from a server's volume",
 	Help:        "Create a new snapshot from a server's volume.",
+	Examples: `
+    $ scw commit my-stopped-server
+    $ scw commit -v 1 my-stopped-server
+`,
 }
 
 func init() {

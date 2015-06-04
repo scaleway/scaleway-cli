@@ -12,6 +12,10 @@ var cmdRmi = &Command{
 	UsageLine:   "rmi [OPTIONS] IMAGE [IMAGE...]",
 	Description: "Remove one or more images",
 	Help:        "Remove one or more images.",
+	Examples: `
+    $ scw rmi myimage
+    $ scw rmi $(scw images -q)
+`,
 }
 
 func init() {

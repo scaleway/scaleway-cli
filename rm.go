@@ -15,6 +15,7 @@ var cmdRm = &Command{
 	Examples: `
     $ scw rm my-stopped-server my-second-stopped-server
     $ scw rm $(scw ps -q)
+    $ scw rm $(scw ps | grep mysql | awk '{print $1}')
 `,
 }
 
