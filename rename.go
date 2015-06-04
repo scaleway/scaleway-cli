@@ -32,5 +32,7 @@ func runRename(cmd *Command, args []string) {
 	err := cmd.API.PatchServerName(serverId, server)
 	if err != nil {
 		log.Fatalf("Cannot rename server: %v", err)
+	} else {
+		cmd.API.Cache.InsertServer(serverId, server.Name)
 	}
 }
