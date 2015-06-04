@@ -10,7 +10,12 @@ var cmdRun = &Command{
 	Exec:        runRun,
 	UsageLine:   "run [OPTIONS] IMAGE [COMMAND] [ARG...]",
 	Description: "Run a command in a new server",
-	Help:        "Run a command in a new server..",
+	Help:        "Run a command in a new server.",
+	Examples: `
+    $ scw run ubuntu-trusty
+    $ scw run --name=mydocker docker docker run moul/nyancat:armhf
+    $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
+`,
 }
 
 func init() {

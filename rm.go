@@ -12,6 +12,10 @@ var cmdRm = &Command{
 	UsageLine:   "rm [OPTIONS] SERVER [SERVER...]",
 	Description: "Remove one or more servers",
 	Help:        "Remove one or more servers.",
+	Examples: `
+    $ scw rm my-stopped-server my-second-stopped-server
+    $ scw rm $(scw ps -q)
+`,
 }
 
 func init() {

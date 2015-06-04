@@ -13,6 +13,11 @@ var cmdAttach = &Command{
 	UsageLine:   "attach [OPTIONS] SERVER",
 	Description: "Attach to a server serial console",
 	Help:        "Attach to a running server serial console.",
+	Examples: `
+    $ scw attach my-running-server
+    $ scw attach $(scw start my-stopped-server)
+    $ scw attach $(scw start $(scw create ubuntu-vivid))
+`,
 }
 
 func init() {

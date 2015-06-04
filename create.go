@@ -14,6 +14,13 @@ var cmdCreate = &Command{
 	UsageLine:   "create [OPTIONS] IMAGE",
 	Description: "Create a new server but do not create it",
 	Help:        "Create a new server but do not create it.",
+	Examples: `
+    $ scw create docker
+    $ scw create 10GB
+    $ scw create --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB
+    $ scw inspect $(scw create 1GB --bootscript=rescue --volume=50GB)
+    $ scw create $(scw tag my-snapshot my-image)
+`,
 }
 
 func init() {
