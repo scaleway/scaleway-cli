@@ -16,16 +16,20 @@ var cmdSearch = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdSearch.Flag.BoolVar(&searchNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
+	cmdSearch.Flag.BoolVar(&searchHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
 var searchNoTrunc bool // --no-trunc flag
+var searchHelp bool    // -h, --help flag
 
 func runSearch(cmd *Command, args []string) {
+	if searchHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) != 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 10, 1, 3, ' ', 0)

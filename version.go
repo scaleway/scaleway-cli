@@ -4,20 +4,29 @@ import (
 	"fmt"
 	"runtime"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/scwversion"
 )
 
 var cmdVersion = &Command{
 	Exec:        runVersion,
-	UsageLine:   "version",
+	UsageLine:   "version [OPTIONS]",
 	Description: "Show the version information",
 	Help:        "Show the version information.",
 }
 
+func init() {
+	cmdVersion.Flag.BoolVar(&versionHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var versionHelp bool // -h, --help flag
+
 func runVersion(cmd *Command, args []string) {
+	if versionHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) != 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	fmt.Printf("Client version: %s\n", scwversion.VERSION)

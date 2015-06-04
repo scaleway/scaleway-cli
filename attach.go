@@ -15,11 +15,21 @@ var cmdAttach = &Command{
 	Help:        "Attach to a running server serial console.",
 }
 
+func init() {
+	cmdAttach.Flag.BoolVar(&attachHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var attachHelp bool // -h, --help flag
+
 const termjsBin string = "termjs-cli"
 
 func runAttach(cmd *Command, args []string) {
-	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if attachHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 1 {
+		cmd.PrintShortUsage()
 	}
 
 	serverId := cmd.GetServer(args[0])

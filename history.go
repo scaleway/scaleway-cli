@@ -18,18 +18,22 @@ var cmdHistory = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdHistory.Flag.BoolVar(&historyNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
 	cmdHistory.Flag.BoolVar(&historyQuiet, []string{"q", "-quiet"}, false, "Only show numeric IDs")
+	cmdHistory.Flag.BoolVar(&historyHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
 var historyNoTrunc bool // --no-trunc flag
 var historyQuiet bool   // -q, --quiet flag
+var historyHelp bool    // -h, --help flag
 
 func runHistory(cmd *Command, args []string) {
+	if historyHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) != 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	imageId := cmd.GetImage(args[0])

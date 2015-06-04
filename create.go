@@ -17,18 +17,19 @@ var cmdCreate = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
+	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
-var createName string
-var createBootscript string
-var createEnv string
-var createVolume string
+var createName string       // --name flag
+var createBootscript string // --bootscript flag
+var createEnv string        // -e, --env flag
+var createVolume string     // -v, --volume flag
+var createHelp bool         // -h, --help flag
 
 func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	bytes, err := humanize.ParseBytes(size)
@@ -104,8 +105,11 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 }
 
 func runCreate(cmd *Command, args []string) {
+	if createHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) != 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	serverId, err := createServer(cmd, args[0], createName, createBootscript, createEnv, createVolume)

@@ -18,9 +18,19 @@ var cmdCp = &Command{
 	Help:        "Copy files/folders from a PATH on the server to a HOSTDIR on the host\nrunning the the command. Use '-' to write the data as a tar file to STDOUT.",
 }
 
+func init() {
+	cmdCp.Flag.BoolVar(&cpHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var cpHelp bool // -h, --help flag
+
 func runCp(cmd *Command, args []string) {
-	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if cpHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 2 {
+		cmd.PrintShortUsage()
 	}
 
 	hostPath := args[1]

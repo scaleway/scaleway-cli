@@ -13,18 +13,19 @@ import (
 
 var cmdExec = &Command{
 	Exec:        runExec,
-	UsageLine:   "exec [OPTIONS] SERVER COMMAND [ARGS...]", // FIXME: add [ARGS...] support
+	UsageLine:   "exec [OPTIONS] SERVER COMMAND [ARGS...]",
 	Description: "Run a command on a running server",
 	Help:        "Run a command on a running server.",
 }
 
 func init() {
-	// FIXME: -h
+	cmdExec.Flag.BoolVar(&execHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
 }
 
 // Flags
-var execW bool // -w flag
+var execW bool    // -w, --wait flag
+var execHelp bool // -h, --help flag
 
 func NewSshExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
 	execCmd := []string{}
@@ -114,8 +115,11 @@ func serverExec(ipAddress string, command []string) error {
 }
 
 func runExec(cmd *Command, args []string) {
+	if execHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) < 2 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	serverId := cmd.GetServer(args[0])

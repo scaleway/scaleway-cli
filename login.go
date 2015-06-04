@@ -14,11 +14,11 @@ import (
 
 var cmdLogin = &Command{
 	Exec:        runLogin,
-	UsageLine:   "login [options]",
-	Description: "Login generates a configuration file containing credentials",
-	Help: `Login generates a configuration file in '/home/$USER/.scwrc'
+	UsageLine:   "login [OPTIONS]",
+	Description: "Log in to Scaleway API",
+	Help: `Generates a configuration file in '/home/$USER/.scwrc'
 containing credentials used to interact with the Scaleway API. This
-configuration file is automatically used by the 'scw' command.`,
+configuration file is automatically used by the 'scw' commands.`,
 }
 
 func promptUser(prompt string, output *string, echo bool) {
@@ -41,13 +41,22 @@ func promptUser(prompt string, output *string, echo bool) {
 func init() {
 	cmdLogin.Flag.StringVar(&organization, []string{"o", "-organization"}, "", "Organization")
 	cmdLogin.Flag.StringVar(&token, []string{"t", "-token"}, "", "Token")
+	cmdLogin.Flag.BoolVar(&loginHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // FLags
 var organization string // -o flag
 var token string        // -t flag
+var loginHelp bool      // -h, --help flag
 
 func runLogin(cmd *Command, args []string) {
+	if loginHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	if len(organization) == 0 && len(token) == 0 {
 		promptUser("Organization: ", &organization, true)
 		promptUser("Token: ", &token, false)

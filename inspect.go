@@ -24,6 +24,13 @@ type ScalewayResolvedIdentifier struct {
 	Needle string
 }
 
+func init() {
+	cmdInspect.Flag.BoolVar(&inspectHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var inspectHelp bool // -h, --help flag
+
 // resolveIdentifiers resolves needles provided by the user
 func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolvedIdentifier) {
 	// first attempt, only lookup from the cache
@@ -123,8 +130,11 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 }
 
 func runInspect(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if inspectHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
 	}
 
 	res := "["

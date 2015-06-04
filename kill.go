@@ -15,12 +15,22 @@ var cmdKill = &Command{
 	Help:        "Kill a running server.",
 }
 
-// FIXME: add --signal option
+func init() {
+	cmdKill.Flag.BoolVar(&killHelp, []string{"h", "-help"}, false, "Print usage")
+	// FIXME: add --signal option
+}
+
+// Flags
+var killHelp bool // -h, --help flag
 
 func runKill(cmd *Command, args []string) {
-	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if killHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	serverId := cmd.GetServer(args[0])
 	command := "halt"
 	server, err := cmd.API.GetServer(serverId)

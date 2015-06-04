@@ -20,12 +20,12 @@ var cmdPs = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdPs.Flag.BoolVar(&psA, []string{"a", "-all"}, false, "Show all servers. Only running servers are shown by default")
 	cmdPs.Flag.BoolVar(&psL, []string{"l", "-latest"}, false, "Show only the latest created server, include non-running ones")
 	cmdPs.Flag.IntVar(&psN, []string{"n"}, 0, "Show n last created servers, include non-running ones")
 	cmdPs.Flag.BoolVar(&psNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
 	cmdPs.Flag.BoolVar(&psQ, []string{"q", "-quiet"}, false, "Only display numeric IDs")
+	cmdPs.Flag.BoolVar(&psHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
@@ -34,6 +34,7 @@ var psL bool       // -l flag
 var psQ bool       // -q flag
 var psNoTrunc bool // -no-trunc flag
 var psN int        // -n flag
+var psHelp bool    // -h, --help flag
 
 // truncIf ensures the input string does not exceed max size if cond is met
 func truncIf(str string, max int, cond bool) string {
@@ -52,6 +53,13 @@ func wordify(str string) string {
 }
 
 func runPs(cmd *Command, args []string) {
+	if psHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 0 {
+		cmd.PrintShortUsage()
+	}
+
 	limit := psN
 	if psL {
 		limit = 1

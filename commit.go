@@ -14,16 +14,20 @@ var cmdCommit = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdCommit.Flag.IntVar(&commitVolume, []string{"v", "-volume"}, 0, "Volume slot")
+	cmdCommit.Flag.BoolVar(&commitHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
-var commitVolume int
+var commitVolume int // -v, --volume flag
+var commitHelp bool  // -h, --help flag
 
 func runCommit(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if commitHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
 	}
 
 	serverId := cmd.GetServer(args[0])

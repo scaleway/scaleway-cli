@@ -15,10 +15,21 @@ var cmdTop = &Command{
 	Help:        "Lookup the running processes of a server.",
 }
 
+func init() {
+	cmdTop.Flag.BoolVar(&topHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var topHelp bool // -h, --help flag
+
 func runTop(cmd *Command, args []string) {
-	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if topHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) != 2 {
+		cmd.PrintShortUsage()
+	}
+
 	serverId := cmd.GetServer(args[0])
 	command := "ps"
 	server, err := cmd.API.GetServer(serverId)

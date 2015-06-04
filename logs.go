@@ -9,10 +9,21 @@ var cmdLogs = &Command{
 	Help:        "Fetch the logs of a server.",
 }
 
+func init() {
+	cmdLogs.Flag.BoolVar(&logsHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// FLags
+var logsHelp bool // -h, --help flag
+
 func runLogs(cmd *Command, args []string) {
-	if len(args) != 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if logsHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) != 1 {
+		cmd.PrintShortUsage()
+	}
+
 	serverId := cmd.GetServer(args[0])
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {

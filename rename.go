@@ -9,9 +9,19 @@ var cmdRename = &Command{
 	Help:        "Rename a server.",
 }
 
+func init() {
+	cmdRename.Flag.BoolVar(&renameHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var renameHelp bool // -h, --help flag
+
 func runRename(cmd *Command, args []string) {
-	if len(args) < 2 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if renameHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 2 {
+		cmd.PrintShortUsage()
 	}
 
 	serverId := cmd.GetServer(args[0])

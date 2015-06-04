@@ -2,12 +2,14 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"os/user"
 	"strings"
+	"text/template"
 
 	log "github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
@@ -70,12 +72,54 @@ func (c *Command) Name() string {
 	return name
 }
 
+var fullHelpTemplate = `
+Usage: scw {{.UsageLine}}
+
+{{.Help}}
+
+{{.Options}}
+`
+
+func commandHelpMessage(cmd *Command) (string, error) {
+	t := template.New("full")
+	template.Must(t.Parse(fullHelpTemplate))
+	var output bytes.Buffer
+	err := t.Execute(&output, cmd)
+	if err != nil {
+		return "", err
+	}
+	return strings.Trim(output.String(), "\n"), nil
+}
+
+func commandUsage(name string) {
+}
+
+func (c *Command) PrintUsage() {
+	helpMessage, err := commandHelpMessage(c)
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	fmt.Fprintf(os.Stderr, "%s\n", helpMessage)
+	os.Exit(1)
+}
+
+func (c *Command) PrintShortUsage() {
+	fmt.Fprintf(os.Stderr, "usage: scw %s. See 'scw %s --help'.\n", c.UsageLine, c.Name())
+	os.Exit(1)
+}
+
 // Options returns a string describing options of the command
 func (c *Command) Options() string {
 	var options string
 	visitor := func(flag *flag.Flag) {
 		name := strings.Join(flag.Names, ", -")
-		options += fmt.Sprintf("  -%-12s %s (%s)\n", name, flag.Usage, flag.DefValue)
+		var optionUsage string
+		if flag.DefValue == "" {
+			optionUsage = fmt.Sprintf("%s=\"\"", name)
+		} else {
+			optionUsage = fmt.Sprintf("%s=%s", name, flag.DefValue)
+		}
+		options += fmt.Sprintf("  -%-20s %s\n", optionUsage, flag.Usage)
 	}
 	c.Flag.VisitAll(visitor)
 	if len(options) == 0 {

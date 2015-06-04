@@ -14,10 +14,21 @@ var cmdRestart = &Command{
 	Help:        "Restart a running server.",
 }
 
+func init() {
+	cmdRestart.Flag.BoolVar(&restartHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var restartHelp bool // -h, --help flag
+
 func runRestart(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if restartHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	has_error := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)

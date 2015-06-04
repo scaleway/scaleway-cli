@@ -9,10 +9,21 @@ var cmdPort = &Command{
 	Help:        "List port mappings for the SERVER, or lookup the public-facing port that is NAT-ed to the PRIVATE_PORT",
 }
 
+func init() {
+	cmdPort.Flag.BoolVar(&portHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// FLags
+var portHelp bool // -h, --help flag
+
 func runPort(cmd *Command, args []string) {
-	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if portHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	serverId := cmd.GetServer(args[0])
 	server, err := cmd.API.GetServer(serverId)
 	if err != nil {

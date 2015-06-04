@@ -1,10 +1,9 @@
 package main
 
 import (
+	"log"
 	"os"
 	"text/template"
-
-	log "github.com/Sirupsen/logrus"
 )
 
 var cmdHelp = &Command{
@@ -23,7 +22,11 @@ the command.
 func init() {
 	// break dependency loop
 	cmdHelp.Exec = runHelp
+	cmdHelp.Flag.BoolVar(&helpHelp, []string{"h", "-help"}, false, "Print usage")
 }
+
+// Flags
+var helpHelp bool // -h, --help flag
 
 var helpTemplate = `Usage: scw [OPTIONS] COMMAND [arg...]
 
@@ -41,26 +44,19 @@ Commands:
 Run 'scw COMMAND --help' for more information on a command.
 `
 
-var fullHelpTemplate = `
-Usage: scw {{.UsageLine}}
-
-{{.Help}}
-
-{{.Options}}
-`
-
 func runHelp(cmd *Command, args []string) {
-	if len(args) >= 1 {
+	if waitHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) > 1 {
+		cmd.PrintShortUsage()
+	}
+
+	if len(args) == 1 {
 		name := args[0]
-		for _, cmd := range commands {
-			if cmd.Name() == name {
-				t := template.New("full")
-				template.Must(t.Parse(fullHelpTemplate))
-				// FIXME: TrimRight
-				if err := t.Execute(os.Stdout, cmd); err != nil {
-					panic(err)
-				}
-				return
+		for _, command := range commands {
+			if command.Name() == name {
+				command.PrintUsage()
 			}
 		}
 		log.Fatalf("Unknown help topic `%s`.  Run 'scw help'.", name)

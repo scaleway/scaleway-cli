@@ -14,10 +14,21 @@ var cmdRm = &Command{
 	Help:        "Remove one or more servers.",
 }
 
+func init() {
+	cmdRm.Flag.BoolVar(&rmHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var rmHelp bool // -h, --help flag
+
 func runRm(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if rmHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	has_error := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)

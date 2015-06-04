@@ -36,18 +36,26 @@ func (a ByCreationDate) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByCreationDate) Less(i, j int) bool { return a[j].CreationDate.Before(a[i].CreationDate) }
 
 func init() {
-	// FIXME: -h
 	cmdImages.Flag.BoolVar(&imagesA, []string{"a", "-all"}, false, "Show all iamges")
 	cmdImages.Flag.BoolVar(&imagesNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
 	cmdImages.Flag.BoolVar(&imagesQ, []string{"q", "-quiet"}, false, "Only show numeric IDs")
+	cmdImages.Flag.BoolVar(&imagesHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
 var imagesA bool       // -a flag
 var imagesQ bool       // -q flag
 var imagesNoTrunc bool // -no-trunc flag
+var imagesHelp bool    // -h, --help flag
 
 func runImages(cmd *Command, args []string) {
+	if imagesHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 0 {
+		cmd.PrintShortUsage()
+	}
+
 	var entries = []ScalewayImageInterface{}
 
 	images, err := cmd.API.GetImages()

@@ -14,24 +14,27 @@ var cmdRun = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdRun.Flag.StringVar(&runCreateName, []string{"-name"}, "", "Assign a name")
 	cmdRun.Flag.StringVar(&runCreateBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
 	cmdRun.Flag.StringVar(&runCreateEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdRun.Flag.StringVar(&runCreateVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
+	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
+	// FIXME: handle start --timeout
 }
 
 // Flags
-var runCreateName string
-var runCreateBootscript string
-var runCreateEnv string
-var runCreateVolume string
-
-// FIXME: handle start --timeout
+var runCreateName string       // --name flag
+var runCreateBootscript string // --bootscript flag
+var runCreateEnv string        // -e, --env flag
+var runCreateVolume string     // -v, --volume flag
+var runHelpFlag bool           // -h, --help flag
 
 func runRun(cmd *Command, args []string) {
+	if runHelpFlag {
+		cmd.PrintUsage()
+	}
 	if len(args) < 1 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	//image := args[0]

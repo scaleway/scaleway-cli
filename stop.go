@@ -15,22 +15,27 @@ var cmdStop = &Command{
 }
 
 func init() {
-	// FIXME: -h
-	cmdStop.Flag.BoolVar(&psT, []string{"t", "-terminate"}, false, "Stop and trash a server with its volumes")
+	cmdStop.Flag.BoolVar(&stopT, []string{"t", "-terminate"}, false, "Stop and trash a server with its volumes")
+	cmdStop.Flag.BoolVar(&stopHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
-var psT bool // -t flag
+var stopT bool    // -t flag
+var stopHelp bool // -h, --help flag
 
 func runStop(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if stopHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
+	}
+
 	has_error := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)
 		action := "poweroff"
-		if psT {
+		if stopT {
 			action = "terminate"
 		}
 		err := cmd.API.PostServerAction(server, action)

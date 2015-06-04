@@ -17,14 +17,15 @@ var cmdStart = &Command{
 }
 
 func init() {
-	// FIXME: -h
 	cmdStart.Flag.BoolVar(&startW, []string{"w", "-wait"}, false, "Synchronous start. Wait for SSH to be ready")
 	cmdStart.Flag.Float64Var(&startTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
+	cmdStart.Flag.BoolVar(&startHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
 var startW bool          // -w flag
 var startTimeout float64 // -T flag
+var startHelp bool       // -h, --help flag
 
 func startServer(cmd *Command, needle string, wait bool) error {
 	server := cmd.GetServer(needle)
@@ -58,8 +59,11 @@ func startOnce(cmd *Command, needle string, wait bool, successChan chan bool, er
 }
 
 func runStart(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if startHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) < 1 {
+		cmd.PrintShortUsage()
 	}
 
 	hasError := false

@@ -5,20 +5,29 @@ import (
 	"os"
 	"runtime"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/kardianos/osext"
 )
 
 var cmdInfo = &Command{
 	Exec:        runInfo,
-	UsageLine:   "info",
+	UsageLine:   "info [OPTIONS]",
 	Description: "Display system-wide information",
 	Help:        "Display system-wide information.",
 }
 
+func init() {
+	cmdInfo.Flag.BoolVar(&infoHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var infoHelp bool // -h, --help flag
+
 func runInfo(cmd *Command, args []string) {
+	if infoHelp {
+		cmd.PrintUsage()
+	}
 	if len(args) != 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+		cmd.PrintShortUsage()
 	}
 
 	// FIXME: fmt.Printf("Servers: %s\n", "quantity")

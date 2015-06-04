@@ -14,10 +14,21 @@ var cmdWait = &Command{
 	Help:        "Block until a server stops.",
 }
 
+func init() {
+	cmdWait.Flag.BoolVar(&waitHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var waitHelp bool // -h, --help flag
+
 func runWait(cmd *Command, args []string) {
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if waitHelp {
+		cmd.PrintUsage()
 	}
+	if len(args) != 0 {
+		cmd.PrintShortUsage()
+	}
+
 	has_error := false
 	for _, needle := range args {
 		server_identifier := cmd.GetServer(needle)

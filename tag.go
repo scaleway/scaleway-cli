@@ -13,9 +13,19 @@ var cmdTag = &Command{
 	Help:        "Tag a snapshot into an image.",
 }
 
+func init() {
+	cmdTag.Flag.BoolVar(&tagHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var tagHelp bool // -h, --help flag
+
 func runTag(cmd *Command, args []string) {
-	if len(args) < 2 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	if tagHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 2 {
+		cmd.PrintShortUsage()
 	}
 
 	snapshotId := cmd.GetSnapshot(args[0])

@@ -15,7 +15,21 @@ var cmdEvents = &Command{
 	Help:        "Get real time events from the API.",
 }
 
+func init() {
+	cmdEvents.Flag.BoolVar(&eventsHelp, []string{"h", "-help"}, false, "Print usage")
+}
+
+// Flags
+var eventsHelp bool // -h, --help flag
+
 func runEvents(cmd *Command, args []string) {
+	if eventsHelp {
+		cmd.PrintUsage()
+	}
+	if len(args) != 0 {
+		cmd.PrintShortUsage()
+	}
+
 	events, err := cmd.API.GetTasks()
 	if err != nil {
 		log.Fatalf("unable to fetch tasks from the Scaleway API: %v", err)
