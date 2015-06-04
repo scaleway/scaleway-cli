@@ -235,7 +235,7 @@ func (c *ScalewayCache) RemoveServer(identifier string) {
 }
 
 // ClearServers removes all servers from the cache
-func (c *ScalewayCache) ClearServers(identifier string) {
+func (c *ScalewayCache) ClearServers() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
@@ -265,7 +265,7 @@ func (c *ScalewayCache) RemoveImage(identifier string) {
 }
 
 // ClearImages removes all images from the cache
-func (c *ScalewayCache) ClearImages(identifier string) {
+func (c *ScalewayCache) ClearImages() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
@@ -295,7 +295,7 @@ func (c *ScalewayCache) RemoveSnapshot(identifier string) {
 }
 
 // ClearSnapshots removes all snapshots from the cache
-func (c *ScalewayCache) ClearSnapshots(identifier string) {
+func (c *ScalewayCache) ClearSnapshots() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
@@ -325,7 +325,7 @@ func (c *ScalewayCache) RemoveBootscript(identifier string) {
 }
 
 // ClearBootscripts removes all bootscripts from the cache
-func (c *ScalewayCache) ClearBootscripts(identifier string) {
+func (c *ScalewayCache) ClearBootscripts() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 

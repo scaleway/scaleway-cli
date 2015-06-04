@@ -458,6 +458,9 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		// FIXME: wait for the API to be ready
 		// query.Set("per_page", strconv.Itoa(limit))
 	}
+	if all && limit == 0 {
+		s.Cache.ClearServers()
+	}
 	resp, err := s.GetResponse("servers?" + query.Encode())
 	if err != nil {
 		return nil, err
@@ -544,6 +547,7 @@ func (s *ScalewayAPI) DeleteServer(serverId string) error {
 
 	// Succeed POST code
 	if resp.StatusCode == 204 {
+		s.Cache.RemoveServer(serverId)
 		return nil
 	}
 
@@ -792,6 +796,7 @@ func (s *ScalewayAPI) ResolveBootscript(needle string) ([]string, error) {
 // GetImages get the list of images from the ScalewayAPI
 func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 	query := url.Values{}
+	s.Cache.ClearImages()
 	resp, err := s.GetResponse("images?" + query.Encode())
 	if err != nil {
 		return nil, err
@@ -830,6 +835,7 @@ func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
 func (s *ScalewayAPI) DeleteImage(imageId string) error {
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageId))
 	if err != nil {
+		s.Cache.RemoveImage(imageId)
 		return err
 	}
 
@@ -854,6 +860,7 @@ func (s *ScalewayAPI) DeleteImage(imageId string) error {
 // GetSnapshots get the list of snapshots from the ScalewayAPI
 func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 	query := url.Values{}
+	s.Cache.ClearSnapshots()
 	resp, err := s.GetResponse("snapshots?" + query.Encode())
 	if err != nil {
 		return nil, err
@@ -891,6 +898,7 @@ func (s *ScalewayAPI) GetSnapshot(snapshotId string) (*ScalewaySnapshot, error) 
 // GetBootscripts get the list of bootscripts from the ScalewayAPI
 func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 	query := url.Values{}
+	s.Cache.ClearBootscripts()
 	resp, err := s.GetResponse("bootscripts?" + query.Encode())
 	if err != nil {
 		return nil, err
