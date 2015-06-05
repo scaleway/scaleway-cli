@@ -365,6 +365,16 @@ func getConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	stat, err := os.Stat(scwrcPath)
+	// we don't care if it fails, the user just won't see the warning
+	if err == nil {
+		mode := stat.Mode()
+		if mode&0066 != 0 {
+			log.Fatalf("Permissions %#o for .scwrc are too open.", mode)
+		}
+	}
+
 	file, err := ioutil.ReadFile(scwrcPath)
 	if err != nil {
 		return nil, err
