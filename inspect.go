@@ -12,11 +12,12 @@ import (
 var cmdInspect = &Command{
 	Exec:        runInspect,
 	UsageLine:   "inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]",
-	Description: "Return low-level information on a server, image, snapshot or bootscript",
-	Help:        "Return low-level information on a server, image, snapshot or bootscript.",
+	Description: "Return low-level information on a server, image, snapshot, volume or bootscript",
+	Help:        "Return low-level information on a server, image, snapshot, volume or bootscript.",
 	Examples: `
     $ scw inspect a-public-image
     $ scw inspect my-snapshot
+    $ scw inspect my-volume
     $ scw inspect my-image
     $ scw inspect my-server
     $ scw inspect my-volume
@@ -73,6 +74,10 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 			wg.Done()
 		}()
 		go func() {
+			cmd.API.GetVolumes()
+			wg.Done()
+		}()
+		go func() {
 			cmd.API.GetBootscripts()
 			wg.Done()
 		}()
@@ -122,6 +127,11 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 					}
 				} else if ident.Type == IdentifierSnapshot {
 					snap, err := cmd.API.GetSnapshot(ident.Identifier)
+					if err == nil {
+						cj <- snap
+					}
+				} else if ident.Type == IdentifierVolume {
+					snap, err := cmd.API.GetVolume(ident.Identifier)
 					if err == nil {
 						cj <- snap
 					}
