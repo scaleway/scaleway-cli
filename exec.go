@@ -91,7 +91,7 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 
 // IsTCPPortOpen returns true if a TCP communication with "host:port" can be initialized
 func IsTCPPortOpen(dest string) bool {
-	conn, err := net.Dial("TCP", dest)
+	conn, err := net.DialTimeout("tcp", dest, time.Duration(2000)*time.Millisecond)
 	if err == nil {
 		defer conn.Close()
 	}
