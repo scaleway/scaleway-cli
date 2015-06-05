@@ -1,5 +1,5 @@
 # builds
-scw
+/scw
 scwversion/version.go
 Godeps/
 dist/
