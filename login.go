@@ -57,8 +57,10 @@ func runLogin(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	if len(organization) == 0 && len(token) == 0 {
+	if len(organization) == 0 {
 		promptUser("Organization: ", &organization, true)
+	}
+	if len(token) == 0 {
 		promptUser("Token: ", &token, false)
 	}
 
@@ -81,7 +83,7 @@ func runLogin(cmd *Command, args []string) {
 	if err != nil {
 		log.Fatalf("Unable to get scwrc config file path: %s", err)
 	}
-	scwrc, err := os.OpenFile(scwrcPath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
+	scwrc, err := os.OpenFile(scwrcPath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
 	if err != nil {
 		log.Fatalf("Unable to create scwrc config file: %s", err)
 	}
