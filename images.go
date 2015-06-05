@@ -113,6 +113,26 @@ func runImages(cmd *Command, args []string) {
 				Public:     false,
 			})
 		}
+
+		volumes, err := cmd.API.GetVolumes()
+		if err != nil {
+			log.Fatalf("unable to fetch volumes from the Scaleway API: %v", err)
+		}
+		for _, val := range *volumes {
+			creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+			if err != nil {
+				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+			}
+			entries = append(entries, ScalewayImageInterface{
+				Type:         "volume",
+				CreationDate: creationDate,
+				Identifier:   val.Identifier,
+				Name:         val.Name,
+				Tag:          "<none>",
+				VirtualSize:  float64(val.Size),
+				Public:       false,
+			})
+		}
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 20, 1, 3, ' ', 0)
