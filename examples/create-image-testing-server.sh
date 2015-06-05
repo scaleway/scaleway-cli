@@ -7,8 +7,8 @@ if [ -z "${1}" ]; then
     echo "usage: $(basename ${0}) <url>"
     echo ""
     echo "examples:"
-    echo "  - $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
-    echo "  - VOLUME=20GB $(basename ${0}) http://test-images.fr-1.storage.online.net/ocs-distrib-ubuntu-trusty.tar"
+    echo "  - $(basename ${0}) http://test-images.fr-1.storage.online.net/scw-distrib-ubuntu-trusty.tar"
+    echo "  - VOLUME=20GB $(basename ${0}) http://test-images.fr-1.storage.online.net/scw-distrib-ubuntu-trusty.tar"
     exit 1
 fi
 
@@ -22,7 +22,7 @@ echo "[+] URL of the tarball: ${URL}"
 echo "[+] Target name: ${NAME}"
 
 echo "[+] Creating new server in rescue mode..."
-SERVER=$(onlinelabs create 1GB \
+SERVER=$(scw create 1GB \
                     --bootscript=rescue \
                     --name="[testing] $NAME" \
                     --env="boot=rescue" \
@@ -30,5 +30,5 @@ SERVER=$(onlinelabs create 1GB \
 echo "[+] Server created: ${SERVER}"
 
 echo "[+] Booting..."
-onlinelabs start "${SERVER}" >/dev/null
+scw start "${SERVER}" >/dev/null
 echo "[+] Done"
