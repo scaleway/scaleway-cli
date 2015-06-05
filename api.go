@@ -41,6 +41,7 @@ type ScalewayAPIError struct {
 	Message string `json:"-"`
 }
 
+// Error returns a string representing the error
 func (e ScalewayAPIError) Error() string {
 	if e.Message != "" {
 		return e.Message
@@ -54,6 +55,7 @@ func (e ScalewayAPIError) Error() string {
 	panic(e)
 }
 
+// Debug logs an error
 func (e ScalewayAPIError) Debug() {
 	log.WithFields(log.Fields{
 		"StatusCode": e.StatusCode,
@@ -91,7 +93,7 @@ type ScalewayOneVolume struct {
 	Volume ScalewayVolume `json:"volume,omitempty"`
 }
 
-// ScalewayVolume represents a Scaleway C1 volume definition
+// ScalewayVolumeDefinition represents a Scaleway C1 volume definition
 type ScalewayVolumeDefinition struct {
 	// Name is the user-defined name of the volume
 	Name string `json:"name"`
@@ -302,13 +304,13 @@ type ScalewayServer struct {
 	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
 }
 
-// ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
+// ScalewayServerPathNameDefinition represents a Scaleway C1 server with only its name as field
 type ScalewayServerPathNameDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
 }
 
-// ScalewayServer represents a Scaleway C1 server with image definition
+// ScalewayServerDefinition represents a Scaleway C1 server with image definition
 type ScalewayServerDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
@@ -481,8 +483,8 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 }
 
 // GetServer gets a server from the ScalewayAPI
-func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
-	resp, err := s.GetResponse("servers/" + serverId)
+func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
+	resp, err := s.GetResponse("servers/" + serverID)
 	if err != nil {
 		return nil, err
 	}
@@ -509,11 +511,11 @@ func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
 }
 
 // PostServerAction posts an action on a server
-func (s *ScalewayAPI) PostServerAction(serverId, action string) error {
+func (s *ScalewayAPI) PostServerAction(serverID, action string) error {
 	data := ScalewayServerAction{
 		Action: action,
 	}
-	resp, err := s.PostResponse(fmt.Sprintf("servers/%s/action", serverId), data)
+	resp, err := s.PostResponse(fmt.Sprintf("servers/%s/action", serverID), data)
 	if err != nil {
 		return err
 	}
@@ -537,15 +539,15 @@ func (s *ScalewayAPI) PostServerAction(serverId, action string) error {
 }
 
 // DeleteServer deletes a server
-func (s *ScalewayAPI) DeleteServer(serverId string) error {
-	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", serverId))
+func (s *ScalewayAPI) DeleteServer(serverID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", serverID))
 	if err != nil {
 		return err
 	}
 
 	// Succeed POST code
 	if resp.StatusCode == 204 {
-		s.Cache.RemoveServer(serverId)
+		s.Cache.RemoveServer(serverID)
 		return nil
 	}
 
@@ -597,9 +599,9 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	return "", error
 }
 
-// PatchServer creates a new server
-func (s *ScalewayAPI) PatchServerName(serverId string, definition ScalewayServerPathNameDefinition) error {
-	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverId), definition)
+// PatchServerName changes the name of the server
+func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPathNameDefinition) error {
+	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
 	if err != nil {
 		return err
 	}
@@ -813,8 +815,8 @@ func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 }
 
 // GetImage gets an image from the ScalewayAPI
-func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
-	resp, err := s.GetResponse("images/" + imageId)
+func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
+	resp, err := s.GetResponse("images/" + imageID)
 	if err != nil {
 		return nil, err
 	}
@@ -830,16 +832,16 @@ func (s *ScalewayAPI) GetImage(imageId string) (*ScalewayImage, error) {
 }
 
 // DeleteImage deletes a image
-func (s *ScalewayAPI) DeleteImage(imageId string) error {
-	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageId))
+func (s *ScalewayAPI) DeleteImage(imageID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageID))
 	if err != nil {
-		s.Cache.RemoveImage(imageId)
+		s.Cache.RemoveImage(imageID)
 		return err
 	}
 
 	// Succeed POST code
 	if resp.StatusCode == 204 {
-		s.Cache.RemoveImage(imageId)
+		s.Cache.RemoveImage(imageID)
 		return nil
 	}
 
@@ -878,8 +880,8 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 }
 
 // GetSnapshot gets a snapshot from the ScalewayAPI
-func (s *ScalewayAPI) GetSnapshot(snapshotId string) (*ScalewaySnapshot, error) {
-	resp, err := s.GetResponse("snapshots/" + snapshotId)
+func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) {
+	resp, err := s.GetResponse("snapshots/" + snapshotID)
 	if err != nil {
 		return nil, err
 	}
@@ -916,8 +918,8 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 }
 
 // GetBootscript gets a bootscript from the ScalewayAPI
-func (s *ScalewayAPI) GetBootscript(bootscriptId string) (*ScalewayBootscript, error) {
-	resp, err := s.GetResponse("bootscripts/" + bootscriptId)
+func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, error) {
+	resp, err := s.GetResponse("bootscripts/" + bootscriptID)
 	if err != nil {
 		return nil, err
 	}
