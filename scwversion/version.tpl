@@ -2,7 +2,7 @@
 
 package scwversion
 
-var (
-	VERSION   string = "defunct"
-	GITCOMMIT string = "defunct"
-)
+func init() {
+	VERSION = "defunct"
+	GITCOMMIT = "defunct"
+}
