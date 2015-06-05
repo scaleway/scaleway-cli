@@ -18,6 +18,9 @@ type ScalewayCache struct {
 	// Snapshots contains names of Scaleway snapshots indexed by identifier
 	Snapshots map[string]string `json:"snapshots"`
 
+	// Volumes contains names of Scaleway volumes indexed by identifier
+	Volumes map[string]string `json:"volumes"`
+
 	// Bootscripts contains names of Scaleway bootscripts indexed by identifier
 	Bootscripts map[string]string `json:"bootscripts"`
 
@@ -43,6 +46,8 @@ const (
 	IdentifierSnapshot
 	// IdentifierBootscript is the type key of cached bootscript objects
 	IdentifierBootscript
+	// IdentifierVolume is the type key of cached volume objects
+	IdentifierVolume
 )
 
 // ScalewayIdentifier is a unique identifier on Scaleway
@@ -69,6 +74,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		return &ScalewayCache{
 			Images:      make(map[string]string),
 			Snapshots:   make(map[string]string),
+			Volumes:     make(map[string]string),
 			Bootscripts: make(map[string]string),
 			Servers:     make(map[string]string),
 			Path:        cachePath,
@@ -91,6 +97,9 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	}
 	if cache.Snapshots == nil {
 		cache.Snapshots = make(map[string]string)
+	}
+	if cache.Volumes == nil {
+		cache.Volumes = make(map[string]string)
 	}
 	if cache.Servers == nil {
 		cache.Servers = make(map[string]string)
@@ -154,6 +163,21 @@ func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 	return res
 }
 
+// LookUpVolumes attempts to return identifiers matching a pattern
+func (c *ScalewayCache) LookUpVolumes(needle string) []string {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	var res []string
+	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
+	for identifier, name := range c.Volumes {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+			res = append(res, identifier)
+		}
+	}
+	return res
+}
+
 // LookUpBootscripts attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpBootscripts(needle string) []string {
 	c.Lock.Lock()
@@ -206,6 +230,13 @@ func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierSnapshot,
+		})
+	}
+
+	for _, identifier := range c.LookUpVolumes(needle) {
+		result = append(result, ScalewayIdentifier{
+			Identifier: identifier,
+			Type:       IdentifierVolume,
 		})
 	}
 
@@ -309,6 +340,36 @@ func (c *ScalewayCache) ClearSnapshots() {
 	c.Modified = true
 }
 
+// InsertVolume registers an volume in the cache
+func (c *ScalewayCache) InsertVolume(identifier, name string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	currentName, exists := c.Volumes[identifier]
+	if !exists || currentName != name {
+		c.Volumes[identifier] = name
+		c.Modified = true
+	}
+}
+
+// RemoveVolume removes a server from the cache
+func (c *ScalewayCache) RemoveVolume(identifier string) {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	delete(c.Volumes, identifier)
+	c.Modified = true
+}
+
+// ClearVolumes removes all volumes from the cache
+func (c *ScalewayCache) ClearVolumes() {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	c.Volumes = make(map[string]string)
+	c.Modified = true
+}
+
 // InsertBootscript registers an bootscript in the cache
 func (c *ScalewayCache) InsertBootscript(identifier, name string) {
 	c.Lock.Lock()
@@ -361,6 +422,14 @@ func (c *ScalewayCache) GetNbSnapshots() int {
 	defer c.Lock.Unlock()
 
 	return len(c.Snapshots)
+}
+
+// GetNbVolumes returns the number of volumes in the cache
+func (c *ScalewayCache) GetNbVolumes() int {
+	c.Lock.Lock()
+	defer c.Lock.Unlock()
+
+	return len(c.Volumes)
 }
 
 // GetNbBootscripts returns the number of bootscripts in the cache

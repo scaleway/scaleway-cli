@@ -93,6 +93,12 @@ type ScalewayOneVolume struct {
 	Volume ScalewayVolume `json:"volume,omitempty"`
 }
 
+// ScalewayVolumes represents a group of Scaleway volumes
+type ScalewayVolumes struct {
+	// Volumes holds scaleway volumes of the response
+	Volumes []ScalewayVolume `json:"volumes,omitempty"`
+}
+
 // ScalewayVolumeDefinition represents a Scaleway C1 volume definition
 type ScalewayVolumeDefinition struct {
 	// Name is the user-defined name of the volume
@@ -894,6 +900,44 @@ func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) 
 	}
 	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, oneSnapshot.Snapshot.Name)
 	return &oneSnapshot.Snapshot, nil
+}
+
+// GetVolumes gets the list of volumes from the ScalewayAPI
+func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
+	query := url.Values{}
+	s.Cache.ClearVolumes()
+	resp, err := s.GetResponse("volumes?" + query.Encode())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var volumes ScalewayVolumes
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&volumes)
+	if err != nil {
+		return nil, err
+	}
+	for _, volume := range volumes.Volumes {
+		s.Cache.InsertVolume(volume.Identifier, volume.Name)
+	}
+	return &volumes.Volumes, nil
+}
+
+// GetVolume gets a volume from the ScalewayAPI
+func (s *ScalewayAPI) GetVolume(volumeID string) (*ScalewayVolume, error) {
+	resp, err := s.GetResponse("volumes/" + volumeID)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var oneVolume ScalewayOneVolume
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&oneVolume)
+	if err != nil {
+		return nil, err
+	}
+	s.Cache.InsertVolume(oneVolume.Volume.Identifier, oneVolume.Volume.Name)
+	return &oneVolume.Volume, nil
 }
 
 // GetBootscripts gets the list of bootscripts from the ScalewayAPI

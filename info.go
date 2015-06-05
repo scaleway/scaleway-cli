@@ -50,5 +50,6 @@ func runInfo(cmd *Command, args []string) {
 	fmt.Printf("  Servers: %d\n", cmd.API.Cache.GetNbServers())
 	fmt.Printf("  Images: %d\n", cmd.API.Cache.GetNbImages())
 	fmt.Printf("  Snapshots: %d\n", cmd.API.Cache.GetNbSnapshots())
+	fmt.Printf("  Volumes: %d\n", cmd.API.Cache.GetNbVolumes())
 	fmt.Printf("  Bootscripts: %d\n", cmd.API.Cache.GetNbBootscripts())
 }
