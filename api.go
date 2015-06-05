@@ -16,7 +16,7 @@ type ScalewayAPI struct {
 	// APIEndpoint is the endpoint to the Scaleway API
 	APIEndPoint string
 
-	// Organization is the identifier of the Scaleway orgnization
+	// Organization is the identifier of the Scaleway organization
 	Organization string
 
 	// Token is the authentication token for the Scaleway organization
@@ -49,7 +49,7 @@ func (e ScalewayAPIError) Error() string {
 		return e.ApiMessage
 	}
 	if e.StatusCode != 0 {
-		return fmt.Sprintf("invalid return code, got %d", e.StatusCode)
+		return fmt.Sprintf("Invalid return code, got %d", e.StatusCode)
 	}
 	panic(e)
 }
@@ -73,7 +73,7 @@ type ScalewayVolume struct {
 	// Identifier is a unique identifier for the volume
 	Identifier string `json:"id,omitempty"`
 
-	// Size is allocated size of the volume
+	// Size is the allocated size of the volume
 	Size int64 `json:"size,omitempty"`
 
 	// CreationDate is the creation date of the volume
@@ -152,7 +152,7 @@ type ScalewaySnapshot struct {
 	// ModificationDate is the date of the last modification of the snapshot
 	ModificationDate string `json:"modification_date,omitempty"`
 
-	// Size is allocated size of the volume
+	// Size is the allocated size of the volume
 	Size int64 `json:"size,omitempty"`
 
 	// Organization is the owner of the snapshot
@@ -240,7 +240,7 @@ type ScalewayOneBootscript struct {
 
 // ScalewayBootscripts represents a group of Scaleway bootscripts
 type ScalewayBootscripts struct {
-	// Bootscripts holds scaleway bootscripts of the response
+	// Bootscripts holds Scaleway bootscripts of the response
 	Bootscripts []ScalewayBootscript `json:"bootscripts,omitempty"`
 }
 
@@ -301,8 +301,6 @@ type ScalewayServer struct {
 	// Volumes are the attached volumes
 	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
 }
-
-// ScalewayServer represents a Scaleway C1 server with volume definition
 
 // ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
 type ScalewayServerPathNameDefinition struct {
@@ -382,7 +380,7 @@ func (s *ScalewayAPI) Sync() {
 	s.Cache.Save()
 }
 
-// GetResponse returns a http.Response object for the requested resource
+// GetResponse returns an http.Response object for the requested resource
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
 	log.Debugf("GET %s", uri)
@@ -396,7 +394,7 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	return client.Do(req)
 }
 
-// PostResponse returns a http.Response object for the updated resource
+// PostResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
 	client := &http.Client{}
@@ -415,7 +413,7 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	return client.Do(req)
 }
 
-// PatchResponse returns a http.Response object for the updated resource
+// PatchResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
 	client := &http.Client{}
@@ -434,7 +432,7 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	return client.Do(req)
 }
 
-// DeleteResponse returns a http.Response object for the deleted resource
+// DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
 	client := &http.Client{}
@@ -448,7 +446,7 @@ func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	return client.Do(req)
 }
 
-// GetServers get the list of servers from the ScalewayAPI
+// GetServers gets the list of servers from the ScalewayAPI
 func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error) {
 	query := url.Values{}
 	if !all {
@@ -482,7 +480,7 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	return &servers.Servers, nil
 }
 
-// GetServer get a server from the ScalewayAPI
+// GetServer gets a server from the ScalewayAPI
 func (s *ScalewayAPI) GetServer(serverId string) (*ScalewayServer, error) {
 	resp, err := s.GetResponse("servers/" + serverId)
 	if err != nil {
@@ -564,7 +562,7 @@ func (s *ScalewayAPI) DeleteServer(serverId string) error {
 	return error
 }
 
-// PostServer create a new server
+// PostServer creates a new server
 func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, error) {
 	definition.Organization = s.Organization
 
@@ -599,7 +597,7 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	return "", error
 }
 
-// PatchServer create a new server
+// PatchServer creates a new server
 func (s *ScalewayAPI) PatchServerName(serverId string, definition ScalewayServerPathNameDefinition) error {
 	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverId), definition)
 	if err != nil {
@@ -625,7 +623,7 @@ func (s *ScalewayAPI) PatchServerName(serverId string, definition ScalewayServer
 	return error
 }
 
-// PostSnapshot create a new snapshot
+// PostSnapshot creates a new snapshot
 func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error) {
 	definition := ScalewaySnapshotDefinition{
 		VolumeIdentifier: volumeId,
@@ -664,7 +662,7 @@ func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error)
 	return "", error
 }
 
-// PostImage create a new image
+// PostImage creates a new image
 func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
 	definition := ScalewayImageDefinition{
 		SnapshotIdentifier: volumeId,
@@ -704,7 +702,7 @@ func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
 	return "", error
 }
 
-// PostVolume create a new volume
+// PostVolume creates a new volume
 func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, error) {
 	definition.Organization = s.Organization
 	if definition.Type == "" {
@@ -793,7 +791,7 @@ func (s *ScalewayAPI) ResolveBootscript(needle string) ([]string, error) {
 	return bootscripts, nil
 }
 
-// GetImages get the list of images from the ScalewayAPI
+// GetImages gets the list of images from the ScalewayAPI
 func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 	query := url.Values{}
 	s.Cache.ClearImages()
@@ -841,6 +839,7 @@ func (s *ScalewayAPI) DeleteImage(imageId string) error {
 
 	// Succeed POST code
 	if resp.StatusCode == 204 {
+		s.Cache.RemoveImage(imageId)
 		return nil
 	}
 
@@ -857,7 +856,7 @@ func (s *ScalewayAPI) DeleteImage(imageId string) error {
 	return error
 }
 
-// GetSnapshots get the list of snapshots from the ScalewayAPI
+// GetSnapshots gets the list of snapshots from the ScalewayAPI
 func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 	query := url.Values{}
 	s.Cache.ClearSnapshots()
@@ -895,7 +894,7 @@ func (s *ScalewayAPI) GetSnapshot(snapshotId string) (*ScalewaySnapshot, error) 
 	return &oneSnapshot.Snapshot, nil
 }
 
-// GetBootscripts get the list of bootscripts from the ScalewayAPI
+// GetBootscripts gets the list of bootscripts from the ScalewayAPI
 func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 	query := url.Values{}
 	s.Cache.ClearBootscripts()
