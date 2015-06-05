@@ -15,7 +15,7 @@ var cmdCp = &Command{
 	Exec:        runCp,
 	UsageLine:   "cp [OPTIONS] SERVER:PATH HOSTDIR|-",
 	Description: "Copy files/folders from a PATH on the server to a HOSTDIR on the host",
-	Help:        "Copy files/folders from a PATH on the server to a HOSTDIR on the host\nrunning the the command. Use '-' to write the data as a tar file to STDOUT.",
+	Help:        "Copy files/folders from a PATH on the server to a HOSTDIR on the host\nrunning the command. Use '-' to write the data as a tar file to STDOUT.",
 }
 
 func init() {

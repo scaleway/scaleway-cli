@@ -12,8 +12,8 @@ import (
 var cmdCreate = &Command{
 	Exec:        runCreate,
 	UsageLine:   "create [OPTIONS] IMAGE",
-	Description: "Create a new server but do not create it",
-	Help:        "Create a new server but do not create it.",
+	Description: "Create a new server but do not start it",
+	Help:        "Create a new server but do not start it.",
 	Examples: `
     $ scw create docker
     $ scw create 10GB
