@@ -31,18 +31,14 @@ echo "[+] Server created: ${SERVER}"
 
 
 echo "[+] Booting..."
-scw start "${SERVER}" >/dev/null
-echo "[+] Server is booting"
-
-# This version won't work with scaleway's go version for now
-# scw start s-sync --timeout=600 "${SERVER}" >/dev/null
-# IP=$(scw inspect -f .server.public_ip.address "${SERVER}")
-# scw exec "${SERVER}" 'uname -a'
-# echo "[+] SSH is ready (${IP})"
+scw start --wait --timeout=600 "${SERVER}" >/dev/null
+IP=$(scw inspect -f .server.public_ip.address "${SERVER}")
+scw exec "${SERVER}" 'uname -a'
+echo "[+] SSH is ready (${IP})"
 
 
 echo "[+] Formating and mounting /dev/nbd1..."
-scw exec --wait "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
+scw exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
 echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
