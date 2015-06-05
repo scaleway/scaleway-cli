@@ -2,6 +2,7 @@
 
 Interact with Scaleway API from the command line.
 
+[![GoDoc](https://godoc.org/github.com/scaleway/scaleway-cli?status.svg)](https://godoc.org/github.com/scaleway/scaleway-cli)
 
 For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway-cli-node).
 
