@@ -878,12 +878,18 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 Development in progress
 
-* No entry.
+#### Fixes
+
+* Verbose error message when `scw exec` fails
+* Fixed `scw login` parameters parsing
+* Minor improvements
 
 ### 1.0.0 (2015-06-05)
 
 First Golang version.
 For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/scaleway-cli-node).
+
+#### Features
 
 * Support of `attach` command
 * Support of `commit` command
