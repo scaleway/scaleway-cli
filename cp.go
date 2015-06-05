@@ -40,11 +40,11 @@ func runCp(cmd *Command, args []string) {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
-	serverId := cmd.GetServer(serverParts[0])
+	serverID := cmd.GetServer(serverParts[0])
 
-	server, err := cmd.API.GetServer(serverId)
+	server, err := cmd.API.GetServer(serverID)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverId, err)
+		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
 	// remoteCommand is executed on the remote server
@@ -58,7 +58,7 @@ func runCp(cmd *Command, args []string) {
 	remoteCommand = append(remoteCommand, path.Base(serverParts[1]))
 
 	// execCmd contains the ssh connection + the remoteCommand
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, false, remoteCommand))
+	execCmd := append(NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)
 

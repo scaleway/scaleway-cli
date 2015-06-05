@@ -29,19 +29,19 @@ func runRestart(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	has_error := false
+	hasError := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)
 		err := cmd.API.PostServerAction(server, "reboot")
 		if err != nil {
 			if err.Error() != "server is being stopped or rebooted" {
 				log.Errorf("failed to restart server %s: %s", server, err)
-				has_error = true
+				hasError = true
 			}
 		} else {
 			fmt.Println(needle)
 		}
-		if has_error {
+		if hasError {
 			os.Exit(1)
 		}
 	}

@@ -46,25 +46,25 @@ func runRun(cmd *Command, args []string) {
 
 	// create IMAGE
 	log.Debugf("Creating a new server")
-	serverId, err := createServer(cmd, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume)
+	serverID, err := createServer(cmd, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
-	log.Debugf("Created server: %s", serverId)
+	log.Debugf("Created server: %s", serverID)
 
 	// start SERVER
 	log.Debugf("Starting server")
-	err = startServer(cmd, serverId, false)
+	err = startServer(cmd, serverID, false)
 	if err != nil {
-		log.Fatalf("Failed to start server %s: %v", serverId, err)
+		log.Fatalf("Failed to start server %s: %v", serverID, err)
 	}
 	log.Debugf("Server is booting")
 
 	// waiting for server to be ready
 	log.Debugf("Waiting for server to be ready")
-	server, err := WaitForServerReady(cmd.API, serverId)
+	server, err := WaitForServerReady(cmd.API, serverID)
 	if err != nil {
-		log.Fatalf("Cannot get access to server %s: %v", serverId, err)
+		log.Fatalf("Cannot get access to server %s: %v", serverID, err)
 	}
 	log.Debugf("Server is ready: %s", server.PublicAddress.IP)
 

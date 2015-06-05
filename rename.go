@@ -24,15 +24,15 @@ func runRename(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
+	serverID := cmd.GetServer(args[0])
 
 	var server ScalewayServerPathNameDefinition
 	server.Name = args[1]
 
-	err := cmd.API.PatchServerName(serverId, server)
+	err := cmd.API.PatchServerName(serverID, server)
 	if err != nil {
 		log.Fatalf("Cannot rename server: %v", err)
 	} else {
-		cmd.API.Cache.InsertServer(serverId, server.Name)
+		cmd.API.Cache.InsertServer(serverID, server.Name)
 	}
 }

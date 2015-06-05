@@ -34,18 +34,18 @@ func runRm(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	has_error := false
+	hasError := false
 	for _, needle := range args {
 		server := cmd.GetServer(needle)
 		err := cmd.API.DeleteServer(server)
 		if err != nil {
 			log.Errorf("failed to delete server %s: %s", server, err)
-			has_error = true
+			hasError = true
 		} else {
 			fmt.Println(needle)
 		}
 	}
-	if has_error {
+	if hasError {
 		os.Exit(1)
 	}
 }

@@ -29,7 +29,7 @@ type ScalewayAPI struct {
 // ScalewayAPIError represents a Scaleway API Error
 type ScalewayAPIError struct {
 	// Message is a human-friendly error message
-	ApiMessage string `json:"message,omitempty"`
+	APIMessage string `json:"message,omitempty"`
 
 	// Type is a string code that defines the kind of error
 	Type string `json:"type,omitempty"`
@@ -46,8 +46,8 @@ func (e ScalewayAPIError) Error() string {
 	if e.Message != "" {
 		return e.Message
 	}
-	if e.ApiMessage != "" {
-		return e.ApiMessage
+	if e.APIMessage != "" {
+		return e.APIMessage
 	}
 	if e.StatusCode != 0 {
 		return fmt.Sprintf("Invalid return code, got %d", e.StatusCode)
@@ -55,13 +55,13 @@ func (e ScalewayAPIError) Error() string {
 	panic(e)
 }
 
-// Debug logs an error
+// Debug create a debug log entry with HTTP error informations
 func (e ScalewayAPIError) Debug() {
 	log.WithFields(log.Fields{
 		"StatusCode": e.StatusCode,
 		"Type":       e.Type,
 		"Message":    e.Message,
-	}).Debug(e.ApiMessage)
+	}).Debug(e.APIMessage)
 }
 
 // ScalewayIPAddress represents a Scaleway IP address
@@ -350,14 +350,14 @@ type ScalewayServerAction struct {
 
 // ScalewaySnapshotDefinition represents a Scaleway snapshot definition
 type ScalewaySnapshotDefinition struct {
-	VolumeIdentifier string `json:"volume_id"`
+	VolumeIDentifier string `json:"volume_id"`
 	Name             string `json:"name,omitempty"`
 	Organization     string `json:"organization"`
 }
 
 // ScalewayImageDefinition represents a Scaleway image definition
 type ScalewayImageDefinition struct {
-	SnapshotIdentifier string `json:"root_volume"`
+	SnapshotIDentifier string `json:"root_volume"`
 	Name               string `json:"name,omitempty"`
 	Organization       string `json:"organization"`
 	Arch               string `json:"arch"`
@@ -475,7 +475,7 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	for _, server := range servers.Servers {
 		s.Cache.InsertServer(server.Identifier, server.Name)
 	}
-	// FIXME: when api limit is ready, remove the following code
+	// FIXME: when API limit is ready, remove the following code
 	if limit > 0 && limit < len(servers.Servers) {
 		servers.Servers = servers.Servers[0:limit]
 	}
@@ -626,9 +626,9 @@ func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServer
 }
 
 // PostSnapshot creates a new snapshot
-func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error) {
+func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error) {
 	definition := ScalewaySnapshotDefinition{
-		VolumeIdentifier: volumeId,
+		VolumeIDentifier: volumeID,
 		Name:             name,
 		Organization:     s.Organization,
 	}
@@ -665,9 +665,9 @@ func (s *ScalewayAPI) PostSnapshot(volumeId string, name string) (string, error)
 }
 
 // PostImage creates a new image
-func (s *ScalewayAPI) PostImage(volumeId string, name string) (string, error) {
+func (s *ScalewayAPI) PostImage(volumeID string, name string) (string, error) {
 	definition := ScalewayImageDefinition{
-		SnapshotIdentifier: volumeId,
+		SnapshotIDentifier: volumeID,
 		Name:               name,
 		Organization:       s.Organization,
 		Arch:               "arm",

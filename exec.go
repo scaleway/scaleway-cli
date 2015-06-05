@@ -39,7 +39,8 @@ var execW bool          // -w, --wait flag
 var execTimeout float64 // -T flag
 var execHelp bool       // -h, --help flag
 
-func NewSshExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
+// NewSSHExecCmd computes execve compatible arguments to run a command via ssh
+func NewSSHExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -69,12 +70,13 @@ func NewSshExecCmd(ipAddress string, allocateTTY bool, command []string) []strin
 	return execCmd
 }
 
-func WaitForServerState(api *ScalewayAPI, serverId string, targetState string) (*ScalewayServer, error) {
+// WaitForServerState asks API in a loop until a server matches a wanted state
+func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (*ScalewayServer, error) {
 	var server *ScalewayServer
 	var err error
 
 	for {
-		server, err = api.GetServer(serverId)
+		server, err = api.GetServer(serverID)
 		if err != nil {
 			return nil, err
 		}
@@ -87,17 +89,19 @@ func WaitForServerState(api *ScalewayAPI, serverId string, targetState string) (
 	return server, nil
 }
 
-func IsTcpPortOpen(dest string) bool {
-	conn, err := net.Dial("tcp", dest)
+// IsTCPPortOpen returns true if a TCP communication with "host:port" can be initialized
+func IsTCPPortOpen(dest string) bool {
+	conn, err := net.Dial("TCP", dest)
 	if err == nil {
 		defer conn.Close()
 	}
 	return err == nil
 }
 
-func WaitForTcpPortOpen(dest string) error {
+// WaitForTCPPortOpen calls IsTCPPortOpen in a loop
+func WaitForTCPPortOpen(dest string) error {
 	for {
-		if IsTcpPortOpen(dest) {
+		if IsTCPPortOpen(dest) {
 			break
 		}
 		time.Sleep(1 * time.Second)
@@ -105,15 +109,16 @@ func WaitForTcpPortOpen(dest string) error {
 	return nil
 }
 
-func WaitForServerReady(api *ScalewayAPI, serverId string) (*ScalewayServer, error) {
-	server, err := WaitForServerState(api, serverId, "running")
+// WaitForServerReady wait for a server state to be running, then wait for the SSH port to be available
+func WaitForServerReady(api *ScalewayAPI, serverID string) (*ScalewayServer, error) {
+	server, err := WaitForServerState(api, serverID, "running")
 	if err != nil {
 		return nil, err
 	}
 
 	dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
 
-	err = WaitForTcpPortOpen(dest)
+	err = WaitForTCPPortOpen(dest)
 	if err != nil {
 		return nil, err
 	}
@@ -128,12 +133,12 @@ func serverExec(server *ScalewayServer, command []string, checkConnection bool) 
 	}
 
 	if checkConnection {
-		if !IsTcpPortOpen(fmt.Sprintf("%s:22", ipAddress)) {
+		if !IsTCPPortOpen(fmt.Sprintf("%s:22", ipAddress)) {
 			return errors.New("Server is not ready, try again later.")
 		}
 	}
 
-	execCmd := append(NewSshExecCmd(ipAddress, true, command))
+	execCmd := append(NewSSHExecCmd(ipAddress, true, command))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	spawn := exec.Command("ssh", execCmd...)
@@ -151,21 +156,21 @@ func runExec(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
+	serverID := cmd.GetServer(args[0])
 
 	var server *ScalewayServer
 	var err error
 	if execW {
 		// --wait
-		server, err = WaitForServerReady(cmd.API, serverId)
+		server, err = WaitForServerReady(cmd.API, serverID)
 		if err != nil {
 			log.Fatalf("Failed to wait for server to be ready, %v", err)
 		}
 	} else {
 		// no --wait
-		server, err = cmd.API.GetServer(serverId)
+		server, err = cmd.API.GetServer(serverID)
 		if err != nil {
-			log.Fatalf("Failed to get server information for %s: %v", serverId, err)
+			log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 		}
 	}
 

@@ -29,6 +29,7 @@ type ScalewayImageInterface struct {
 	Type         string
 }
 
+// ByCreationDate sorts images by CreationDate field
 type ByCreationDate []ScalewayImageInterface
 
 func (a ByCreationDate) Len() int           { return len(a) }
@@ -125,12 +126,12 @@ func runImages(cmd *Command, args []string) {
 			fmt.Fprintf(w, "%s\n", image.Identifier)
 		} else {
 			tag := "latest"
-			short_id := truncIf(image.Identifier, 8, !imagesNoTrunc)
+			shortID := truncIf(image.Identifier, 8, !imagesNoTrunc)
 			name := wordify(image.Name)
 			if !image.Public {
 				name = "user/" + name
 			}
-			short_name := truncIf(name, 25, !imagesNoTrunc)
+			shortName := truncIf(name, 25, !imagesNoTrunc)
 			var creationDate, virtualSize string
 			if image.CreationDate.IsZero() {
 				creationDate = "n/a"
@@ -142,7 +143,7 @@ func runImages(cmd *Command, args []string) {
 			} else {
 				virtualSize = units.HumanSize(image.VirtualSize)
 			}
-			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", short_name, tag, short_id, creationDate, virtualSize)
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", shortName, tag, shortID, creationDate, virtualSize)
 		}
 	}
 }

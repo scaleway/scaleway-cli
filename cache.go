@@ -35,10 +35,14 @@ type ScalewayCache struct {
 }
 
 const (
-	IDENTIFIER_SERVER = iota
-	IDENTIFIER_IMAGE
-	IDENTIFIER_SNAPSHOT
-	IDENTIFIER_BOOTSCRIPT
+	// IdentifierServer is the type key of cached server objects
+	IdentifierServer = iota
+	// IdentifierImage is the type key of cached image objects
+	IdentifierImage
+	// IdentifierSnapshot is the type key of cached snapshot objects
+	IdentifierSnapshot
+	// IdentifierBootscript is the type key of cached bootscript objects
+	IdentifierBootscript
 )
 
 // ScalewayIdentifier is a unique identifier on Scaleway
@@ -117,7 +121,7 @@ func (c *ScalewayCache) Save() error {
 	return nil
 }
 
-// LookupImages attempts to return identifiers matching a pattern
+// LookUpImages attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpImages(needle string) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
@@ -134,7 +138,7 @@ func (c *ScalewayCache) LookUpImages(needle string) []string {
 	return res
 }
 
-// LookupSnapshots attempts to return identifiers matching a pattern
+// LookUpSnapshots attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
@@ -150,7 +154,7 @@ func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 	return res
 }
 
-// LookupBootscripts attempts to return identifiers matching a pattern
+// LookUpBootscripts attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpBootscripts(needle string) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
@@ -165,7 +169,7 @@ func (c *ScalewayCache) LookUpBootscripts(needle string) []string {
 	return res
 }
 
-// LookupServers attempts to return identifiers matching a pattern
+// LookUpServers attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpServers(needle string) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
@@ -180,35 +184,35 @@ func (c *ScalewayCache) LookUpServers(needle string) []string {
 	return res
 }
 
-// LookupIdentifier attempts to return identifiers matching a pattern
+// LookUpIdentifiers attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 	result := []ScalewayIdentifier{}
 
 	for _, identifier := range c.LookUpServers(needle) {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
-			Type:       IDENTIFIER_SERVER,
+			Type:       IdentifierServer,
 		})
 	}
 
 	for _, identifier := range c.LookUpImages(needle) {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
-			Type:       IDENTIFIER_IMAGE,
+			Type:       IdentifierImage,
 		})
 	}
 
 	for _, identifier := range c.LookUpSnapshots(needle) {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
-			Type:       IDENTIFIER_SNAPSHOT,
+			Type:       IdentifierSnapshot,
 		})
 	}
 
 	for _, identifier := range c.LookUpBootscripts(needle) {
 		result = append(result, ScalewayIdentifier{
 			Identifier: identifier,
-			Type:       IDENTIFIER_BOOTSCRIPT,
+			Type:       IdentifierBootscript,
 		})
 	}
 
@@ -220,8 +224,8 @@ func (c *ScalewayCache) InsertServer(identifier, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	current_name, exists := c.Servers[identifier]
-	if !exists || current_name != name {
+	currentName, exists := c.Servers[identifier]
+	if !exists || currentName != name {
 		c.Servers[identifier] = name
 		c.Modified = true
 	}
@@ -250,8 +254,8 @@ func (c *ScalewayCache) InsertImage(identifier, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	current_name, exists := c.Images[identifier]
-	if !exists || current_name != name {
+	currentName, exists := c.Images[identifier]
+	if !exists || currentName != name {
 		c.Images[identifier] = name
 		c.Modified = true
 	}
@@ -280,8 +284,8 @@ func (c *ScalewayCache) InsertSnapshot(identifier, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	current_name, exists := c.Snapshots[identifier]
-	if !exists || current_name != name {
+	currentName, exists := c.Snapshots[identifier]
+	if !exists || currentName != name {
 		c.Snapshots[identifier] = name
 		c.Modified = true
 	}
@@ -310,8 +314,8 @@ func (c *ScalewayCache) InsertBootscript(identifier, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	current_name, exists := c.Bootscripts[identifier]
-	if !exists || current_name != name {
+	currentName, exists := c.Bootscripts[identifier]
+	if !exists || currentName != name {
 		c.Bootscripts[identifier] = name
 		c.Modified = true
 	}

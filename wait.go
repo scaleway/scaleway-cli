@@ -29,14 +29,14 @@ func runWait(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	has_error := false
+	hasError := false
 	for _, needle := range args {
-		server_identifier := cmd.GetServer(needle)
+		serverIdentifier := cmd.GetServer(needle)
 		for {
-			server, err := cmd.API.GetServer(server_identifier)
+			server, err := cmd.API.GetServer(serverIdentifier)
 			if err != nil {
-				log.Errorf("failed to retrieve information from server %s: %s", server_identifier, err)
-				has_error = true
+				log.Errorf("failed to retrieve information from server %s: %s", serverIdentifier, err)
+				hasError = true
 				break
 			}
 			if server.State == "stopped" {
@@ -45,7 +45,7 @@ func runWait(cmd *Command, args []string) {
 			time.Sleep(1 * time.Second)
 		}
 	}
-	if has_error {
+	if hasError {
 		os.Exit(1)
 	}
 }

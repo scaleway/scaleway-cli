@@ -24,10 +24,10 @@ func runLogs(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
-	server, err := cmd.API.GetServer(serverId)
+	serverID := cmd.GetServer(args[0])
+	server, err := cmd.API.GetServer(serverID)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverId, err)
+		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
 	// FIXME: switch to serial history when API is ready

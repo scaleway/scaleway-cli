@@ -37,13 +37,13 @@ func runAttach(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
+	serverID := cmd.GetServer(args[0])
 
-	termjsUrl := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverId, cmd.API.Token)
+	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, cmd.API.Token)
 
-	log.Debugf("Executing: %s %s", termjsBin, termjsUrl)
+	log.Debugf("Executing: %s %s", termjsBin, termjsURL)
 	// FIXME: check if termjs-cli is installed
-	spawn := exec.Command(termjsBin, termjsUrl)
+	spawn := exec.Command(termjsBin, termjsURL)
 	spawn.Stdout = os.Stdout
 	spawn.Stdin = os.Stdin
 	spawn.Stderr = os.Stderr
@@ -59,7 +59,7 @@ However, you can access your serial using a web browser:
 
     %s
 
-`, termjsBin, termjsUrl)
+`, termjsBin, termjsURL)
 		os.Exit(1)
 	}
 }

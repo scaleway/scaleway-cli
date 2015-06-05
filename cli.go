@@ -26,6 +26,7 @@ type CommandListOpts struct {
 	Values *[]string
 }
 
+// NewListOpts create an empty CommandListOpts
 func NewListOpts() CommandListOpts {
 	var values []string
 	return CommandListOpts{
@@ -33,10 +34,12 @@ func NewListOpts() CommandListOpts {
 	}
 }
 
+// String returns a string representation of a CommandListOpts object
 func (opts *CommandListOpts) String() string {
 	return fmt.Sprintf("%v", []string((*opts.Values)))
 }
 
+// Set appends a new value to a CommandListOpts
 func (opts *CommandListOpts) Set(value string) error {
 	(*opts.Values) = append((*opts.Values), value)
 	return nil
@@ -99,6 +102,7 @@ func commandHelpMessage(cmd *Command) (string, error) {
 func commandUsage(name string) {
 }
 
+// PrintUsage prints a full command usage and exits
 func (c *Command) PrintUsage() {
 	helpMessage, err := commandHelpMessage(c)
 	if err != nil {
@@ -108,6 +112,7 @@ func (c *Command) PrintUsage() {
 	os.Exit(1)
 }
 
+// PrintShortUsage prints a short command usage and exits
 func (c *Command) PrintShortUsage() {
 	fmt.Fprintf(os.Stderr, "usage: scw %s. See 'scw %s --help'.\n", c.UsageLine, c.Name())
 	os.Exit(1)
@@ -133,7 +138,7 @@ func (c *Command) Options() string {
 	return fmt.Sprintf("Options:\n\n%s", options)
 }
 
-// Examples returns a string describing examples of the command
+// ExamplesHelp returns a string describing examples of the command
 func (c *Command) ExamplesHelp() string {
 	if c.Examples == "" {
 		return ""
@@ -142,8 +147,8 @@ func (c *Command) ExamplesHelp() string {
 }
 
 // GetServer returns exactly one server matching or dies
-func (cmd *Command) GetServer(needle string) string {
-	servers, err := cmd.API.ResolveServer(needle)
+func (c *Command) GetServer(needle string) string {
+	servers, err := c.API.ResolveServer(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve server %s: %s", needle, err)
 	}
@@ -163,8 +168,8 @@ func (cmd *Command) GetServer(needle string) string {
 }
 
 // GetSnapshot returns exactly one snapshot matching or dies
-func (cmd *Command) GetSnapshot(needle string) string {
-	snapshots, err := cmd.API.ResolveSnapshot(needle)
+func (c *Command) GetSnapshot(needle string) string {
+	snapshots, err := c.API.ResolveSnapshot(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
 	}
@@ -184,8 +189,8 @@ func (cmd *Command) GetSnapshot(needle string) string {
 }
 
 // GetImage returns exactly one image matching or dies
-func (cmd *Command) GetImage(needle string) string {
-	images, err := cmd.API.ResolveImage(needle)
+func (c *Command) GetImage(needle string) string {
+	images, err := c.API.ResolveImage(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve image %s: %s", needle, err)
 	}
@@ -205,8 +210,8 @@ func (cmd *Command) GetImage(needle string) string {
 }
 
 // GetBootscript returns exactly one bootscript matching or dies
-func (cmd *Command) GetBootscript(needle string) string {
-	bootscripts, err := cmd.API.ResolveBootscript(needle)
+func (c *Command) GetBootscript(needle string) string {
+	bootscripts, err := c.API.ResolveBootscript(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
 	}
@@ -263,10 +268,10 @@ var (
 )
 
 func main() {
-	var cfg_err error
-	config, cfg_err = getConfig()
-	if cfg_err != nil && !os.IsNotExist(cfg_err) {
-		log.Fatalf("Unable to open .scwrc config file: %v", cfg_err)
+	var cfgErr error
+	config, cfgErr = getConfig()
+	if cfgErr != nil && !os.IsNotExist(cfgErr) {
+		log.Fatalf("Unable to open .scwrc config file: %v", cfgErr)
 	}
 
 	if config != nil {
@@ -304,8 +309,8 @@ func main() {
 				log.Fatalf("usage: scw %s", cmd.UsageLine)
 			}
 			if cmd.Name() != "login" {
-				if cfg_err != nil {
-					log.Fatalf("Unable to open .scwrc config file: %v", cfg_err)
+				if cfgErr != nil {
+					log.Fatalf("Unable to open .scwrc config file: %v", cfgErr)
 				}
 				api, err := getScalewayAPI()
 				if err != nil {
@@ -356,11 +361,11 @@ func GetConfigFilePath() (string, error) {
 
 // getConfig returns the Scaleway CLI config file for the current user
 func getConfig() (*Config, error) {
-	scwrc_path, err := GetConfigFilePath()
+	scwrcPath, err := GetConfigFilePath()
 	if err != nil {
 		return nil, err
 	}
-	file, err := ioutil.ReadFile(scwrc_path)
+	file, err := ioutil.ReadFile(scwrcPath)
 	if err != nil {
 		return nil, err
 	}

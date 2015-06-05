@@ -38,6 +38,7 @@ var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
 
+// CreateVolumeFromHumanSize create a new volume using the API from a human-readable size
 func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	bytes, err := humanize.ParseBytes(size)
 	if err != nil {
@@ -49,12 +50,12 @@ func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	newVolume.Size = bytes
 	newVolume.Type = "l_ssd"
 
-	volumeId, err := cmd.API.PostVolume(newVolume)
+	volumeID, err := cmd.API.PostVolume(newVolume)
 	if err != nil {
 		return nil, err
 	}
 
-	return &volumeId, nil
+	return &volumeID, nil
 }
 
 func createServer(cmd *Command, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
@@ -72,13 +73,13 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	if additionalVolumes != "" {
 		volumes := strings.Split(additionalVolumes, " ")
 		for i := range volumes {
-			volumeId, err := CreateVolumeFromHumanSize(cmd, volumes[i])
+			volumeID, err := CreateVolumeFromHumanSize(cmd, volumes[i])
 			if err != nil {
 				return "", err
 			}
 
-			volumeIdx := fmt.Sprintf("%d", i+1)
-			server.Volumes[volumeIdx] = *volumeId
+			volumeIDx := fmt.Sprintf("%d", i+1)
+			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
 	server.Name = name
@@ -90,11 +91,11 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	_, err := humanize.ParseBytes(imageName)
 	if err == nil {
 		// Create a new root volume
-		volumeId, err := CreateVolumeFromHumanSize(cmd, imageName)
+		volumeID, err := CreateVolumeFromHumanSize(cmd, imageName)
 		if err != nil {
 			return "", err
 		}
-		server.Volumes["0"] = *volumeId
+		server.Volumes["0"] = *volumeID
 	} else {
 		// Use an existing image
 		// FIXME: handle snapshots
@@ -102,12 +103,12 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 		server.Image = &image
 	}
 
-	serverId, err := cmd.API.PostServer(server)
+	serverID, err := cmd.API.PostServer(server)
 	if err != nil {
 		return "", nil
 	}
 
-	return serverId, nil
+	return serverID, nil
 
 }
 
@@ -119,11 +120,11 @@ func runCreate(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId, err := createServer(cmd, args[0], createName, createBootscript, createEnv, createVolume)
+	serverID, err := createServer(cmd, args[0], createName, createBootscript, createEnv, createVolume)
 
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
 
-	fmt.Println(serverId)
+	fmt.Println(serverID)
 }

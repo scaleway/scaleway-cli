@@ -36,18 +36,18 @@ func runRmi(cmd *Command, args []string) {
 	if len(args) == 0 {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
-	has_error := false
+	hasError := false
 	for _, needle := range args {
 		image := cmd.GetImage(needle)
 		err := cmd.API.DeleteImage(image)
 		if err != nil {
 			log.Errorf("failed to delete image %s: %s", image, err)
-			has_error = true
+			hasError = true
 		} else {
 			fmt.Println(needle)
 		}
 	}
-	if has_error {
+	if hasError {
 		os.Exit(1)
 	}
 }

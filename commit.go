@@ -34,12 +34,12 @@ func runCommit(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
-	server, err := cmd.API.GetServer(serverId)
+	serverID := cmd.GetServer(args[0])
+	server, err := cmd.API.GetServer(serverID)
 	if err != nil {
 		log.Fatalf("Cannot fetch server: %v", err)
 	}
-	var volume ScalewayVolume = server.Volumes[fmt.Sprintf("%d", commitVolume)]
+	var volume = server.Volumes[fmt.Sprintf("%d", commitVolume)]
 	var name string
 	if len(args) > 1 {
 		name = args[1]

@@ -78,12 +78,12 @@ func runPs(cmd *Command, args []string) {
 		if psQ {
 			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {
-			short_id := truncIf(server.Identifier, 8, !psNoTrunc)
-			short_image := truncIf(wordify(server.Image.Name), 25, !psNoTrunc)
-			short_name := truncIf(wordify(server.Name), 25, !psNoTrunc)
+			shortID := truncIf(server.Identifier, 8, !psNoTrunc)
+			shortImage := truncIf(wordify(server.Image.Name), 25, !psNoTrunc)
+			shortName := truncIf(wordify(server.Name), 25, !psNoTrunc)
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
-			short_creationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
-			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", short_id, short_image, short_creationDate, server.State, short_name)
+			shortCreationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
+			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", shortID, shortImage, shortCreationDate, server.State, shortName)
 		}
 	}
 }

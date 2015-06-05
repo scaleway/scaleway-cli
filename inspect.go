@@ -25,6 +25,7 @@ var cmdInspect = &Command{
 `,
 }
 
+// ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
 type ScalewayResolvedIdentifier struct {
 	// Identifiers holds matching identifiers
 	Identifiers []ScalewayIdentifier
@@ -109,22 +110,22 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 			ident := idents.Identifiers[0]
 			wg.Add(1)
 			go func() {
-				if ident.Type == IDENTIFIER_SERVER {
+				if ident.Type == IdentifierServer {
 					server, err := cmd.API.GetServer(ident.Identifier)
 					if err == nil {
 						cj <- server
 					}
-				} else if ident.Type == IDENTIFIER_IMAGE {
+				} else if ident.Type == IdentifierImage {
 					image, err := cmd.API.GetImage(ident.Identifier)
 					if err == nil {
 						cj <- image
 					}
-				} else if ident.Type == IDENTIFIER_SNAPSHOT {
+				} else if ident.Type == IdentifierSnapshot {
 					snap, err := cmd.API.GetSnapshot(ident.Identifier)
 					if err == nil {
 						cj <- snap
 					}
-				} else if ident.Type == IDENTIFIER_BOOTSCRIPT {
+				} else if ident.Type == IdentifierBootscript {
 					bootscript, err := cmd.API.GetBootscript(ident.Identifier)
 					if err == nil {
 						cj <- bootscript
@@ -147,7 +148,7 @@ func runInspect(cmd *Command, args []string) {
 	}
 
 	res := "["
-	nb_inspected := 0
+	nbInspected := 0
 	ci := make(chan ScalewayResolvedIdentifier)
 	cj := make(chan interface{})
 	go resolveIdentifiers(cmd, args, ci)
@@ -157,20 +158,20 @@ func runInspect(cmd *Command, args []string) {
 		if !open {
 			break
 		}
-		data_b, err := json.MarshalIndent(data, "", "  ")
+		dataB, err := json.MarshalIndent(data, "", "  ")
 		if err == nil {
-			if nb_inspected != 0 {
+			if nbInspected != 0 {
 				res += ",\n"
 			}
-			res += string(data_b)
-			nb_inspected += 1
+			res += string(dataB)
+			nbInspected++
 		}
 	}
 	res += "]"
 
 	fmt.Println(res)
 
-	if len(args) != nb_inspected {
+	if len(args) != nbInspected {
 		os.Exit(1)
 	}
 }

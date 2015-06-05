@@ -28,8 +28,8 @@ func runTag(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	snapshotId := cmd.GetSnapshot(args[0])
-	snapshot, err := cmd.API.GetSnapshot(snapshotId)
+	snapshotID := cmd.GetSnapshot(args[0])
+	snapshot, err := cmd.API.GetSnapshot(snapshotID)
 	if err != nil {
 		log.Fatalf("Cannot fetch snapshot: %v", err)
 	}

@@ -30,14 +30,14 @@ func runTop(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverId := cmd.GetServer(args[0])
+	serverID := cmd.GetServer(args[0])
 	command := "ps"
-	server, err := cmd.API.GetServer(serverId)
+	server, err := cmd.API.GetServer(serverID)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverId, err)
+		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := append(NewSshExecCmd(server.PublicAddress.IP, true, []string{command}))
+	execCmd := append(NewSSHExecCmd(server.PublicAddress.IP, true, []string{command}))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	out, err := exec.Command("ssh", execCmd...).CombinedOutput()

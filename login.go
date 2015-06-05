@@ -77,11 +77,11 @@ func runLogin(cmd *Command, args []string) {
 		log.Fatalf("Unable to contact ScalewayAPI: %s", err)
 	}
 
-	scwrc_path, err := GetConfigFilePath()
+	scwrcPath, err := GetConfigFilePath()
 	if err != nil {
 		log.Fatalf("Unable to get scwrc config file path: %s", err)
 	}
-	scwrc, err := os.OpenFile(scwrc_path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
+	scwrc, err := os.OpenFile(scwrcPath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0644)
 	if err != nil {
 		log.Fatalf("Unable to create scwrc config file: %s", err)
 	}
