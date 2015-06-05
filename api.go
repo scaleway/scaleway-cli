@@ -86,6 +86,15 @@ type ScalewayVolume struct {
 
 	// Name is the name of the volume
 	Name string `json:"name,omitempty"`
+
+	// Server is the server using this image
+	// Server ScalewayServer `json:"server,omitempty"`
+
+	// VolumeType is a Scaleway identifier for the kind of volume (default: l_ssd)
+	VolumeType string `json:"volume_type,omitempty"`
+
+	// ExportURI represents the url used by initrd/scripts to attach the volume
+	ExportURI string `json:"export_uri,omitempty"`
 }
 
 // ScalewayOneVolume represents the response of a GET /volumes/UUID API call
