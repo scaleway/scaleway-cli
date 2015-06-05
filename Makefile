@@ -11,7 +11,7 @@ GOFMT ?=	gofmt -w
 NAME = scw
 SRC = .
 REV = $(shell git rev-parse HEAD || echo "nogit")
-TAG = $(shell git describe --always || echo "nogit")
+TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
 
 
