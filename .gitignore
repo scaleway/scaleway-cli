@@ -1,4 +1,5 @@
 # builds
+/scaleway-cli
 /scw
 scwversion/version.go
 Godeps/
