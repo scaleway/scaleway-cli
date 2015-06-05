@@ -878,6 +878,15 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 212.47.xxx.yyy
 ```
 
+## Hack
+
+1. [Install go](https://golang.org/doc/install)
+2. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
+3. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
+4. Hack: `emacs`
+5. Build: `make`
+6. Run: `./scw`
+7. 
 
 ## Changelog
 
