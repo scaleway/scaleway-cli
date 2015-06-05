@@ -881,12 +881,15 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ## Hack
 
 1. [Install go](https://golang.org/doc/install)
-2. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
-3. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
-4. Hack: `emacs`
-5. Build: `make`
-6. Run: `./scw`
-7. 
+2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
+  * `export GOPATH=$HOME/go`
+  * `export PATH=$PATH:$GOPATH/bin`
+3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
+4. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
+5. Hack: `emacs`
+6. Build: `make`
+7. Run: `./scw`
+
 
 ## Changelog
 
