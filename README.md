@@ -53,6 +53,33 @@ Commands:
 Run 'scw COMMAND --help' for more information on a command.
 ```
 
+## Install
+
+To install Scaleway CLI 1.0.0, run the following commands:
+
+```bash
+curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.0.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
+chmod +x /usr/local/bin/scw
+```
+
+## Quick start
+
+Login
+
+```console
+$ scw login
+Organization: xxx-yyy-zzz
+Token: xxx-yyy-zzz
+$
+```
+
+Run a new server `my-ubuntu`
+
+```console
+$ scw run --name=my-ubuntu ubuntu-trusty bash
+   [...] wait about a minute for the first boot
+root@my-ubuntu:~#
+```
 
 ## Commands usage
 
