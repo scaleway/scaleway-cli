@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"os"
@@ -84,11 +85,17 @@ func WaitForServerState(api *ScalewayAPI, serverId string, targetState string) (
 	return server, nil
 }
 
+func IsTcpPortOpen(dest string) bool {
+	conn, err := net.Dial("tcp", dest)
+	if err == nil {
+		defer conn.Close()
+	}
+	return err == nil
+}
+
 func WaitForTcpPortOpen(dest string) error {
 	for {
-		conn, err := net.Dial("tcp", dest)
-		if err == nil {
-			defer conn.Close()
+		if IsTcpPortOpen(dest) {
 			break
 		}
 		time.Sleep(1 * time.Second)
@@ -112,7 +119,18 @@ func WaitForServerReady(api *ScalewayAPI, serverId string) (*ScalewayServer, err
 	return server, nil
 }
 
-func serverExec(ipAddress string, command []string) error {
+func serverExec(server *ScalewayServer, command []string, checkConnection bool) error {
+	ipAddress := server.PublicAddress.IP
+	if ipAddress == "" {
+		return errors.New("Server does not have public IP")
+	}
+
+	if checkConnection {
+		if !IsTcpPortOpen(fmt.Sprintf("%s:22", ipAddress)) {
+			return errors.New("Server is not ready, try again later.")
+		}
+	}
+
 	execCmd := append(NewSshExecCmd(ipAddress, true, command))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
@@ -149,9 +167,9 @@ func runExec(cmd *Command, args []string) {
 		}
 	}
 
-	err = serverExec(server.PublicAddress.IP, args[1:])
+	err = serverExec(server, args[1:], !execW)
 	if err != nil {
-		log.Debugf("Command execution failed: %v", err)
+		log.Fatalf("%v", err)
 		os.Exit(1)
 	}
 	log.Debugf("Command successfuly executed")
