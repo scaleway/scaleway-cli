@@ -25,7 +25,7 @@ func runWait(cmd *Command, args []string) {
 	if waitHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 0 {
+	if len(args) < 1 {
 		cmd.PrintShortUsage()
 	}
 
