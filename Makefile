@@ -37,11 +37,12 @@ fmt: $(FMT_TEST)
 
 scwversion/version.go:
 	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.tpl > $@.tmp
-	@if [ "$$(diff $@.tmp $@ 2>&1)" != "" ]; then echo toto; mv $@.tmp $@; fi
+	@if [ "$$(diff $@.tmp $@ 2>&1)" != "" ]; then mv $@.tmp $@; fi
 	@rm -f $@.tmp
 
 
-Godeps:
+Godeps: scwversion/version.go
+	go get github.com/tools/godep
 	godep get
 	godep save
 	touch $@
