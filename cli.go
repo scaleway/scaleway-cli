@@ -321,7 +321,7 @@ func main() {
 		}
 	}
 
-	log.Fatalf("scw: unknown subcommand %s\nRun 'scw help for usage.", name)
+	log.Fatalf("scw: unknown subcommand %s\nRun 'scw help' for usage.", name)
 }
 
 func usage() {
