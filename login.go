@@ -57,8 +57,10 @@ func runLogin(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	if len(organization) == 0 && len(token) == 0 {
+	if len(organization) == 0 {
 		promptUser("Organization: ", &organization, true)
+	}
+	if len(token) == 0 {
 		promptUser("Token: ", &token, false)
 	}
 
