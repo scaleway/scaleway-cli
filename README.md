@@ -1,13 +1,6 @@
 # Scaleway CLI
 
-[![](https://img.shields.io/npm/l/scaleway-cli.svg)](https://npmjs.org/package/scaleway-cli)
-
 Interact with Scaleway API from the command line.
-
-
-## Current State
-
-This is a Work In Progress aiming at implementing the scaleway-cli command using the [Go Programming Language](http://Golang.org).
 
 
 ## Usage
@@ -17,64 +10,524 @@ Usage inspired by [Docker CLI](https://docs.docker.com/reference/commandline/cli
 ```console
 $ scw
 
-  Usage: scw [options] [command]
+Usage: scw [OPTIONS] COMMAND [arg...]
 
+Interact with Scaleway from the command line.
 
-  Commands:
+Options:
+ --api-endpoint=APIEndPoint   Set the API endpoint
+ -D, --debug=false            Enable debug mode
+ -h, --help=false             Print usage
+ -v, --version=false          Print version information and quit
 
-    attach <server>                 attach (serial console) to a running server
-    build <path>                    build an image from a file
-    commit <server>                 create a new image from a server's changes
-    cp <server:path> <path>         copy files/folders from a server's filesystem to the host path
-    create <image>                  create a new server but do not start it
-    events                          get real time events from the API
-    exec <server> <command>         run a command in a running server
-    export <server>                 stream the contents of a server as a tar archive
-    history <image>                 show the history of an image
-    images                          list images
-    import                          create a new filesystem image from the contents of a tarball
-    info                            display system-wide information
-    inspect <item> [otherItems...]  return low-level information on a server or image
-    kill <server>                   kill a running server
-    load                            load an image from a tar archive
-    login                           login to the API
-    logout                          log out from the API
-    logs <server>                   fetch the logs of a server
-    port                            list port security for the server
-    pause                           pause all processes within a server
-    ps                              list servers
-    pull <image>                    pull an image or a repository
-    push <image>                    push an image or a repository
-    rename <server>                 rename an existing server
-    restart <server>                restart a running server
-    rm <server>                     remove one or more servers
-    rmi <image>                     remove one or more images
-    run <image>                     run a command in a new server
-    save <image>                    save an image to a tar archive
-    search <keyword>                search for an image on the Hub
-    start <server>                  start a stopped server
-    stop <server>                   stop a running server
-    tag <image> <tag>               tag an image into a repository
-    top <server>                    lookup the running processes of a server
-    unpause <server>                unpause a paused server
-    version                         show the version information
-    wait <server>                   block until a server stops
+Commands:
+    attach    Attach to a server serial console
+    commit    Create a new snapshot from a server's volume
+    cp        Copy files/folders from a PATH on the server to a HOSTDIR on the host
+    create    Create a new server but do not start it
+    events    Get real time events from the API
+    exec      Run a command on a running server
+    help      help of the scw command line
+    history   Show the history of an image
+    images    List images
+    info      Display system-wide information
+    inspect   Return low-level information on a server, image, snapshot or bootscript
+    kill      Kill a running server
+    login     Log in to Scaleway API
+    logs      Fetch the logs of a server
+    port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT
+    ps        List servers
+    rename    Rename a server
+    restart   Restart a running server
+    rm        Remove one or more servers
+    rmi       Remove one or more images
+    run       Run a command in a new server
+    search    Search the Scaleway Hub for images
+    start     Start a stopped server
+    stop      Stop a running server
+    tag       Tag a snapshot into an image
+    top       Lookup the running processes of a server
+    version   Show the version information
+    wait      Block until a server stops
 
-  Options:
-
-    -h, --help            output usage information
-    -V, --version         output the version number
-    --api-endpoint <url>  set the API endpoint
-    -D, --debug           enable debug mode
+Run 'scw COMMAND --help' for more information on a command.
 ```
 
+
+## Commands usage
+
+### scw attach [OPTIONS] SERVER
+
+```console
+Usage: scw attach [OPTIONS] SERVER
+
+Attach to a running server serial console.
+
+Options:
+
+  -h, --help=false      Print usage
+
+Examples:
+
+    $ scw attach my-running-server
+    $ scw attach $(scw start my-stopped-server)
+    $ scw attach $(scw start $(scw create ubuntu-vivid))
+```
+
+
+### scw commit [OPTIONS] SERVER [NAME]
+
+```console
+Usage: scw commit [OPTIONS] SERVER [NAME]
+
+Create a new snapshot from a server's volume.
+
+Options:
+
+  -h, --help=false      Print usage
+  -v, --volume=0        Volume slot
+
+Examples:
+
+    $ scw commit my-stopped-server
+    $ scw commit -v 1 my-stopped-server
+```
+
+
+### scw cp [OPTIONS] SERVER:PATH HOSTDIR|-
+
+```console
+Usage: scw cp [OPTIONS] SERVER:PATH HOSTDIR|-
+
+Copy files/folders from a PATH on the server to a HOSTDIR on the host
+running the command. Use '-' to write the data as a tar file to STDOUT.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw create
+
+```console
+Usage: scw create [OPTIONS] IMAGE
+
+Create a new server but do not start it.
+
+Options:
+
+  --bootscript=""       Assign a bootscript
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
+  -h, --help=false      Print usage
+  --name=""             Assign a name
+  -v, --volume=""       Attach additional volume (i.e., 50G)
+
+Examples:
+
+    $ scw create docker
+    $ scw create 10GB
+    $ scw create --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB
+    $ scw inspect $(scw create 1GB --bootscript=rescue --volume=50GB)
+    $ scw create $(scw tag my-snapshot my-image)
+```
+
+
+### scw events
+
+```console
+Usage: scw events [OPTIONS]
+
+Get real time events from the API.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw exec
+
+```console
+Usage: scw exec [OPTIONS] SERVER COMMAND [ARGS...]
+
+Run a command on a running server.
+
+Options:
+
+  -h, --help=false      Print usage
+  -w, --wait=false      Wait for SSH to be ready
+
+Examples:
+
+    $ scw exec myserver bash
+    $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
+    $ exec_secure=1 scw exec myserver bash
+    $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash
+    $ scw exec $(scw start -w $(scw create ubuntu-trusty)) bash
+    $ scw exec myserver tmux new -d sleep 10
+    $ scw exec myserver ls -la | grep password
+```
+
+
+### scw help
+
+```console
+Usage: scw help [COMMAND]
+
+
+Help prints help information about scw and its commands.
+
+By default, help lists available commands with a short description.
+When invoked with a command name, it prints the usage and the help of
+the command.
+
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw history
+
+```console
+Usage: scw history [OPTIONS] IMAGE
+
+Show the history of an image.
+
+Options:
+
+  -h, --help=false      Print usage
+  --no-trunc=false      Don't truncate output
+  -q, --quiet=false     Only show numeric IDs
+```
+
+
+### scw images
+
+```console
+Usage: scw images [OPTIONS]
+
+List images.
+
+Options:
+
+  -a, --all=false       Show all iamges
+  -h, --help=false      Print usage
+  --no-trunc=false      Don't truncate output
+  -q, --quiet=false     Only show numeric IDs
+```
+
+
+### scw info
+
+```console
+Usage: scw info [OPTIONS]
+
+Display system-wide information.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw inspect
+
+```console
+Usage: scw inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]
+
+Return low-level information on a server, image, snapshot or bootscript.
+
+Options:
+
+  -h, --help=false      Print usage
+
+Examples:
+
+    $ scw inspect a-public-image
+    $ scw inspect my-snapshot
+    $ scw inspect my-image
+    $ scw inspect my-server
+    $ scw inspect my-volume
+    $ scw inspect my-server | jq '.[0].public_ip.address'
+    $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
+```
+
+
+### scw kill
+
+```console
+Usage: scw kill [OPTIONS] SERVER
+
+Kill a running server.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw login
+
+```console
+Usage: scw login [OPTIONS]
+
+Generates a configuration file in '/home/$USER/.scwrc'
+containing credentials used to interact with the Scaleway API. This
+configuration file is automatically used by the 'scw' commands.
+
+Options:
+
+  -h, --help=false      Print usage
+  -o, --organization="" Organization
+  -t, --token=""        Token
+```
+
+
+### scw logs
+
+```console
+Usage: scw logs [OPTIONS] SERVER
+
+Fetch the logs of a server.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw port
+
+```console
+Usage: scw port [OPTIONS] SERVER [PRIVATE_PORT[/PROTO]]
+
+List port mappings for the SERVER, or lookup the public-facing port that is NAT-ed to the PRIVATE_PORT
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw ps
+
+```console
+Usage: scw ps [OPTIONS]
+
+List servers. By default, only running servers are displayed.
+
+Options:
+
+  -a, --all=false       Show all servers. Only running servers are shown by default
+  -h, --help=false      Print usage
+  -l, --latest=false    Show only the latest created server, include non-running ones
+  -n=0                  Show n last created servers, include non-running ones
+  --no-trunc=false      Don't truncate output
+  -q, --quiet=false     Only display numeric IDs
+```
+
+
+### scw rename
+
+```console
+Usage: scw rename [OPTIONS] SERVER NEW_NAME
+
+Rename a server.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw restart
+
+```console
+Usage: scw restart [OPTIONS] SERVER [SERVER...]
+
+Restart a running server.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw rm
+
+```console
+Usage: scw rm [OPTIONS] SERVER [SERVER...]
+
+Remove one or more servers.
+
+Options:
+
+  -h, --help=false      Print usage
+
+Examples:
+
+    $ scw rm my-stopped-server my-second-stopped-server
+    $ scw rm $(scw ps -q)
+    $ scw rm $(scw ps | grep mysql | awk '{print $1}')
+```
+
+
+### scw rmi
+
+```console
+Usage: scw rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images.
+
+Options:
+
+  -h, --help=false      Print usage
+
+Examples:
+
+    $ scw rmi myimage
+    $ scw rmi $(scw images -q)
+```
+
+
+### scw run
+
+```console
+Usage: scw run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new server.
+
+Options:
+
+  --bootscript=""       Assign a bootscript
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
+  -h, --help=false      Print usage
+  --name=""             Assign a name
+  -v, --volume=""       Attach additional volume (i.e., 50G)
+
+Examples:
+
+    $ scw run ubuntu-trusty
+    $ scw run --name=mydocker docker docker run moul/nyancat:armhf
+    $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
+```
+
+
+### scw search
+
+```console
+Usage: scw search [OPTIONS] TERM
+
+Search the Scaleway Hub for images.
+
+Options:
+
+  -h, --help=false      Print usage
+  --no-trunc=false      Don't truncate output
+```
+
+
+### scw start
+
+```console
+Usage: scw start [OPTIONS] SERVER [SERVER...]
+
+Start a stopped server.
+
+Options:
+
+  -h, --help=false      Print usage
+  -T, --timeout=0       Set timeout values to seconds
+  -w, --wait=false      Synchronous start. Wait for SSH to be ready
+```
+
+
+### scw stop
+
+```console
+➜  scaleway-cli git:(master) ✗ clear; scw help stop
+Usage: scw stop [OPTIONS] SERVER [SERVER...]
+
+Stop a running server.
+
+Options:
+
+  -h, --help=false      Print usage
+  -t, --terminate=false Stop and trash a server with its volumes
+
+Examples:
+
+    $ scw stop my-running-server my-second-running-server
+    $ scw stop -t my-running-server my-second-running-server
+    $ scw stop $(scw ps -q)
+    $ scw stop $(scw ps | grep mysql | awk '{print $1}')
+```
+
+
+### scw tag
+
+```console
+Usage: scw tag [OPTIONS] SNAPSHOT NAME
+
+Tag a snapshot into an image.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw top
+
+```console
+Usage: scw top [OPTIONS] SERVER
+
+Lookup the running processes of a server.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw version
+
+```console
+Usage: scw version [OPTIONS]
+
+Show the version information.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+### scw wait
+
+```console
+➜  scaleway-cli git:(master) ✗ clear; scw help wait
+Usage: scw wait [OPTIONS] SERVER [SERVER...]
+
+Block until a server stops.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+---
 
 ## Examples
 
 Create a server with Ubuntu Trusty image and 3.2.34 bootscript
 
 ```console
-$ scw create trusty --bootscript=3.2.34
+$ scw create --bootscript=3.2.34 trusty
 df271f73-60ce-47fd-bd7b-37b5f698d8b2
 ```
 
@@ -90,7 +543,7 @@ $ scw create 1f164079
 Create a server with an empty disc of 20G and rescue bootscript
 
 ```console
-$ scw create 20G --bootscript=rescue
+$ scw create --bootscript=rescue 20G
 5cf8058e-a0df-4fc3-a772-8d44e6daf582
 ```
 
@@ -106,7 +559,7 @@ $ scw start 7313af22
 Run a stopped server and wait for SSH to be ready
 
 ```console
-$ scw start --sync myserver
+$ scw start --wait myserver
 myserver
 $ scw exec myserver /bin/bash
 [root@noname ~]#
@@ -115,7 +568,7 @@ $ scw exec myserver /bin/bash
 Run a stopped server and wait for SSH to be ready (inline version)
 
 ```console
-$ scw exec $(scw start --sync myserver) /bin/bash
+$ scw exec $(scw start --wait myserver) /bin/bash
 [root@noname ~]#
 ```
 
@@ -123,7 +576,7 @@ $ scw exec $(scw start --sync myserver) /bin/bash
 Create, start and ssh to a new server (inline version)
 
 ```console
-$ scw exec $(scw start --sync $(scw create ubuntu-trusty)) /bin/bash
+$ scw exec $(scw start --wait $(scw create ubuntu-trusty)) /bin/bash
 [root@noname ~]#
 ```
 
@@ -148,14 +601,10 @@ Run a command in background
 $ scw exec alpine tmux new -d "sleep 10"
 ```
 
-Run a stopped server and wait for SSH to be ready with:
-
-- a timeout of 120 seconds for kernel to start
-- a timeout of 60 seconds for SSH to be ready
-- a global timeout of 150 seconds
+Run a stopped server and wait for SSH to be ready with a global timeout of 150 seconds
 
 ```console
-$ scw start --sync --boot-timeout=120 --ssh-timeout=60 --timeout=150 myserver
+$ scw start --wait --timeout=150 myserver
 global execution... failed: Operation timed out.
 ```
 
@@ -192,7 +641,7 @@ $ scw start `scw create 1f164079`
 Execute a 'ls -la' on a server (via SSH)
 
 ```console
-$ scw exec myserver -- ls -la
+$ scw exec myserver ls -la
 total 40
 drwx------.  4 root root 4096 Mar 26 05:56 .
 drwxr-xr-x. 18 root root 4096 Mar 26 05:56 ..
@@ -391,7 +840,7 @@ $ scw inspect 90074de6
 Show public ip address of a server
 
 ```console
-$ scw inspect 90074de6 -f '.server.public_ip.address'
+$ scw inspect myserver | jq '.[0].public_ip.address'
 212.47.xxx.yyy
 ```
 
@@ -400,13 +849,6 @@ $ scw inspect 90074de6 -f '.server.public_ip.address'
 
 
 For more examples, see [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
-
-```console
-# create a server with a nbd1 volume of 50G and rescue bootscript
-$ SERVER=$(scw create trusty --bootscript=rescue --volume=50000000000 --sync)
-# print the ip address of the server
-$ echo "Your server is ready and is available at: $(scw inspect ${SERVER} -f .server.public_ip.address)"
-```
 
 
 ## Install
