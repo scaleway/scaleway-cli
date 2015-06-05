@@ -3,6 +3,12 @@
 Interact with Scaleway API from the command line.
 
 
+For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway-cli-node).
+
+## Workflows
+
+See [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
+
 ## Usage
 
 Usage inspired by [Docker CLI](https://docs.docker.com/reference/commandline/cli/)
@@ -183,6 +189,7 @@ Run a command on a running server.
 Options:
 
   -h, --help=false      Print usage
+  -T, --timeout=0       Set timeout values to seconds
   -w, --wait=false      Wait for SSH to be ready
 
 Examples:
@@ -952,15 +959,6 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
 ### POC (2015-03-20)
 
 First [Node.js version](https://github.com/moul/scaleway-cli-node)
-
-
-## Workflows
-
-
-For more examples, see [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
-
-
-## Install
 
 
 ## License
