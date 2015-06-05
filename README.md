@@ -845,6 +845,72 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ```
 
 
+## Changelog
+
+### 1.0.0 (2015-06-05)
+
+First Golang version.
+For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/scaleway-cli-node).
+
+* Support of `attach` command
+* Support of `commit` command
+  * Support of `commit -v, --volume` option
+* Support of `cp` command
+* Support of `create` command
+  * Support of `create --bootscript` option
+  * Support of `create -e, --env` option
+  * Support of `create --name` option
+  * Support of `create -v, --volume` option
+* Support of `events` command
+* Support of `exec` command
+  * Support of `exec -w, --wait` option
+* Support of `help` command
+* Support of `history` command
+  * Support of `history --no-trunc` option
+  * Support of `history -q, --quiet` option
+* Support of `images` command
+  * Support of `images -a, --all` option
+  * Support of `images --no-trunc` option
+  * Support of `images -q, --quiet` option
+* Support of `info` command
+* Support of `inspect` command
+* Support of `kill` command
+* Support of `login` command
+* Support of `logs` command
+* Support of `port` command
+* Support of `ps` command
+  * Support of `ps -a, --all` option
+  * Support of `ps -n` option
+  * Support of `ps -l, --latest` option
+  * Support of `ps --no-trunc` option
+  * Support of `ps -q, --quiet` option
+* Support of `rename` command
+* Support of `restart` command
+* Support of `rm` command
+* Support of `rmi` command
+* Support of `run` command
+  * Support of `run --bootscript` option
+  * Support of `run -e, --env` option
+  * Support of `run --name` option
+  * Support of `run -v, --volume` option
+* Support of `search` command
+  * Support of `search --no-trunc` option
+* Support of `start` command
+  * Support of `start -w, --wait` option
+  * Support of `start -T, --timeout` option
+* Support of `stop` command
+  * Support of `stop -t, --terminate` option
+* Support of `tag` command
+* Support of `top` command
+* Support of `version` command
+* Support of `wait` command
+
+
+### POC (2015-03-20)
+
+First [Node.js version](https://github.com/moul/scaleway-cli-node)
+
+
 ## Workflows
 
 
