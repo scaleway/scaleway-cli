@@ -967,6 +967,7 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
 * Support of `version` command
 * Support of `wait` command
 
+[gopkg.in/scaleway/scaleway-cli.v1](http://gopkg.in/scaleway/scaleway-cli.v1)
 
 ### POC (2015-03-20)
 
