@@ -874,6 +874,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+Development in progress
+
+* No entry.
+
 ### 1.0.0 (2015-06-05)
 
 First Golang version.
