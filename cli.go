@@ -4,10 +4,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -265,7 +266,7 @@ func main() {
 	var cfg_err error
 	config, cfg_err = getConfig()
 	if cfg_err != nil && !os.IsNotExist(cfg_err) {
-		log.Fatalf("unable to open .scwrc config file: %s", cfg_err)
+		log.Fatalf("Unable to open .scwrc config file: %v", cfg_err)
 	}
 
 	if config != nil {
@@ -304,7 +305,7 @@ func main() {
 			}
 			if cmd.Name() != "login" {
 				if cfg_err != nil {
-					log.Fatalf("unable to open .scwrc config file: %s", cfg_err)
+					log.Fatalf("Unable to open .scwrc config file: %v", cfg_err)
 				}
 				api, err := getScalewayAPI()
 				if err != nil {
@@ -342,11 +343,15 @@ type Config struct {
 
 // GetConfigFilePath returns the path to the Scaleway CLI config file
 func GetConfigFilePath() (string, error) {
-	u, err := user.Current()
-	if err != nil {
-		return "", err
+	homeDir := os.Getenv("HOME") // *nix
+	if homeDir == "" {           // Windows
+		homeDir = os.Getenv("USERPROFILE")
 	}
-	return fmt.Sprintf("%s/.scwrc", u.HomeDir), nil
+	if homeDir == "" {
+		return "", errors.New("User home directory not found.")
+	}
+
+	return filepath.Join(homeDir, ".scwrc"), nil
 }
 
 // getConfig returns the Scaleway CLI config file for the current user
