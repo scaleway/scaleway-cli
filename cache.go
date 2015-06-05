@@ -2,10 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
@@ -53,29 +52,32 @@ type ScalewayIdentifier struct {
 
 // NewScalewayCache loads a per-user cache
 func NewScalewayCache() (*ScalewayCache, error) {
-	u, err := user.Current()
-	if err != nil {
-		return nil, err
+	homeDir := os.Getenv("HOME") // *nix
+	if homeDir == "" {           // Windows
+		homeDir = os.Getenv("USERPROFILE")
 	}
-	cache_path := fmt.Sprintf("%s/.scw-cache.db", u.HomeDir)
-	_, err = os.Stat(cache_path)
+	if homeDir == "" {
+		homeDir = "/tmp"
+	}
+	cachePath := filepath.Join(homeDir, ".scw-cache.db")
+	_, err := os.Stat(cachePath)
 	if os.IsNotExist(err) {
 		return &ScalewayCache{
 			Images:      make(map[string]string),
 			Snapshots:   make(map[string]string),
 			Bootscripts: make(map[string]string),
 			Servers:     make(map[string]string),
-			Path:        cache_path,
+			Path:        cachePath,
 		}, nil
 	} else if err != nil {
 		return nil, err
 	}
-	file, err := ioutil.ReadFile(cache_path)
+	file, err := ioutil.ReadFile(cachePath)
 	if err != nil {
 		return nil, err
 	}
 	var cache ScalewayCache
-	cache.Path = cache_path
+	cache.Path = cachePath
 	err = json.Unmarshal(file, &cache)
 	if err != nil {
 		return nil, err
