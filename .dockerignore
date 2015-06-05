@@ -1,0 +1,8 @@
+examples
+dist/
+
+.git
+*~
+*#
+.#*
+scw

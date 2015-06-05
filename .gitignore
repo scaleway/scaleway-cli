@@ -2,6 +2,7 @@
 scw
 scwversion/version.go
 Godeps/
+dist/
 
 # junk
 *~
