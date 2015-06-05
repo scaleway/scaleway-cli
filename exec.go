@@ -30,12 +30,14 @@ var cmdExec = &Command{
 
 func init() {
 	cmdExec.Flag.BoolVar(&execHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdExec.Flag.Float64Var(&execTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
 }
 
 // Flags
-var execW bool    // -w, --wait flag
-var execHelp bool // -h, --help flag
+var execW bool          // -w, --wait flag
+var execTimeout float64 // -T flag
+var execHelp bool       // -h, --help flag
 
 func NewSshExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
 	execCmd := []string{}
@@ -165,6 +167,13 @@ func runExec(cmd *Command, args []string) {
 		if err != nil {
 			log.Fatalf("Failed to get server information for %s: %v", serverId, err)
 		}
+	}
+
+	if execTimeout > 0 {
+		go func() {
+			time.Sleep(time.Duration(execTimeout*1000) * time.Millisecond)
+			log.Fatalf("Operation timed out")
+		}()
 	}
 
 	err = serverExec(server, args[1:], !execW)

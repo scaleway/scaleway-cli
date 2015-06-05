@@ -878,6 +878,10 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 Development in progress
 
+#### Features
+
+* Support of `exec --timeout` option
+
 #### Fixes
 
 * Verbose error message when `scw exec` fails
