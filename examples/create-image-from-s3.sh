@@ -24,7 +24,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(onlinelabs create trusty --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}")
+SERVER=$(onlinelabs create 1GB --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}")
 echo "[+] Server created: ${SERVER}"
 
 
