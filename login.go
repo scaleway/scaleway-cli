@@ -53,7 +53,7 @@ func runLogin(cmd *Command, args []string) {
 	if loginHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(args) != 0 {
 		cmd.PrintShortUsage()
 	}
 
