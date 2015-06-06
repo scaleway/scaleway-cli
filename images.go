@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"sync"
 	"text/tabwriter"
 	"time"
 
@@ -57,81 +58,119 @@ func runImages(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
+	wg := sync.WaitGroup{}
+	chEntries := make(chan ScalewayImageInterface)
 	var entries = []ScalewayImageInterface{}
 
-	images, err := cmd.API.GetImages()
-	if err != nil {
-		log.Fatalf("unable to fetch images from the Scaleway API: %v", err)
-	}
-	for _, val := range *images {
-		creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		images, err := cmd.API.GetImages()
 		if err != nil {
-			log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+			log.Fatalf("unable to fetch images from the Scaleway API: %v", err)
 		}
-		entries = append(entries, ScalewayImageInterface{
-			Type:         "image",
-			CreationDate: creationDate,
-			Identifier:   val.Identifier,
-			Name:         val.Name,
-			Public:       val.Public,
-			Tag:          "latest",
-			VirtualSize:  float64(val.RootVolume.Size),
-		})
-	}
+		for _, val := range *images {
+			creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+			if err != nil {
+				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+			}
+			chEntries <- ScalewayImageInterface{
+				Type:         "image",
+				CreationDate: creationDate,
+				Identifier:   val.Identifier,
+				Name:         val.Name,
+				Public:       val.Public,
+				Tag:          "latest",
+				VirtualSize:  float64(val.RootVolume.Size),
+			}
+		}
+	}()
 
 	if imagesA {
-		snapshots, err := cmd.API.GetSnapshots()
-		if err != nil {
-			log.Fatalf("unable to fetch snapshots from the Scaleway API: %v", err)
-		}
-		for _, val := range *snapshots {
-			creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			snapshots, err := cmd.API.GetSnapshots()
 			if err != nil {
-				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+				log.Fatalf("unable to fetch snapshots from the Scaleway API: %v", err)
 			}
-			entries = append(entries, ScalewayImageInterface{
-				Type:         "snapshot",
-				CreationDate: creationDate,
-				Identifier:   val.Identifier,
-				Name:         val.Name,
-				Tag:          "<none>",
-				VirtualSize:  float64(val.Size),
-				Public:       false,
-			})
-		}
+			for _, val := range *snapshots {
+				creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+				if err != nil {
+					log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+				}
+				chEntries <- ScalewayImageInterface{
+					Type:         "snapshot",
+					CreationDate: creationDate,
+					Identifier:   val.Identifier,
+					Name:         val.Name,
+					Tag:          "<none>",
+					VirtualSize:  float64(val.Size),
+					Public:       false,
+				}
+			}
+		}()
 
-		bootscripts, err := cmd.API.GetBootscripts()
-		if err != nil {
-			log.Fatalf("unable to fetch bootscripts from the Scaleway API: %v", err)
-		}
-		for _, val := range *bootscripts {
-			entries = append(entries, ScalewayImageInterface{
-				Type:       "bootscript",
-				Identifier: val.Identifier,
-				Name:       val.Title,
-				Tag:        "bootscript",
-				Public:     false,
-			})
-		}
-
-		volumes, err := cmd.API.GetVolumes()
-		if err != nil {
-			log.Fatalf("unable to fetch volumes from the Scaleway API: %v", err)
-		}
-		for _, val := range *volumes {
-			creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			bootscripts, err := cmd.API.GetBootscripts()
 			if err != nil {
-				log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+				log.Fatalf("unable to fetch bootscripts from the Scaleway API: %v", err)
 			}
-			entries = append(entries, ScalewayImageInterface{
-				Type:         "volume",
-				CreationDate: creationDate,
-				Identifier:   val.Identifier,
-				Name:         val.Name,
-				Tag:          "<none>",
-				VirtualSize:  float64(val.Size),
-				Public:       false,
-			})
+			for _, val := range *bootscripts {
+				chEntries <- ScalewayImageInterface{
+					Type:       "bootscript",
+					Identifier: val.Identifier,
+					Name:       val.Title,
+					Tag:        "bootscript",
+					Public:     false,
+				}
+			}
+		}()
+
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			volumes, err := cmd.API.GetVolumes()
+			if err != nil {
+				log.Fatalf("unable to fetch volumes from the Scaleway API: %v", err)
+			}
+			for _, val := range *volumes {
+				creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
+				if err != nil {
+					log.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+				}
+				chEntries <- ScalewayImageInterface{
+					Type:         "volume",
+					CreationDate: creationDate,
+					Identifier:   val.Identifier,
+					Name:         val.Name,
+					Tag:          "<none>",
+					VirtualSize:  float64(val.Size),
+					Public:       false,
+				}
+			}
+		}()
+	}
+
+	go func() {
+		wg.Wait()
+		close(chEntries)
+	}()
+
+	done := false
+	for {
+		select {
+		case entry, ok := <-chEntries:
+			if !ok {
+				done = true
+				break
+			}
+			entries = append(entries, entry)
+		}
+		if done {
+			break
 		}
 	}
 
