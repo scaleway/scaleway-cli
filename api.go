@@ -84,11 +84,17 @@ type ScalewayVolume struct {
 	// ModificationDate is the date of the last modification of the volume
 	ModificationDate string `json:"modification_date,omitempty"`
 
+	// Organization is the organization owning the volume
+	Organization string `json:"organization,omitempty"`
+
 	// Name is the name of the volume
 	Name string `json:"name,omitempty"`
 
 	// Server is the server using this image
-	// Server ScalewayServer `json:"server,omitempty"`
+	Server *struct {
+		Identifier string `json:"id,omitempty"`
+		Name       string `json:"name,omitempty"`
+	} `json:"server,omitempty"`
 
 	// VolumeType is a Scaleway identifier for the kind of volume (default: l_ssd)
 	VolumeType string `json:"volume_type,omitempty"`
