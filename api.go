@@ -154,6 +154,17 @@ type ScalewayImage struct {
 
 	// Public is true for public images and false for user images
 	Public bool `json:"public",omitempty`
+
+	// Bootscript is the bootscript bound to the image
+	DefaultBootscript *ScalewayBootscript `json:"default_bootscript"`
+
+	// Organization is the owner of the image
+	Organization string `json:"organization"`
+
+	// Arch is the architecture target of the image
+	Arch string `json:"arch"`
+
+	// FIXME: extra_volumes
 }
 
 // ScalewayOneImage represents the response of a GET /images/UUID API call
@@ -235,7 +246,7 @@ type ScalewayKernel struct {
 	Identifier string `json:"id,omitempty"`
 
 	// DTB is the kernel DTB used by this kernel
-	DTB string `json:"dtb,omitempty"`
+	DTB string `json:"dtb"`
 
 	// Path is the path to the kernel image
 	Path string `json:"path,omitempty"`
@@ -260,6 +271,9 @@ type ScalewayBootscript struct {
 
 	// Kernel is the kernel associated to this server
 	Kernel ScalewayKernel `json:"kernel,omitempty"`
+
+	// Public is true for public bootscripts and false for user bootscripts
+	Public bool `json:"public",omitempty`
 }
 
 // ScalewayOneBootscript represents the response of a GET /bootscripts/UUID API call
