@@ -66,8 +66,14 @@ func (e ScalewayAPIError) Debug() {
 
 // ScalewayIPAddress represents a Scaleway IP address
 type ScalewayIPAddress struct {
+	// Identifier is a unique identifier for the IP address
+	Identifier string `json:"id,omitempty"`
+
 	// IP is an IPv4 address
 	IP string `json:"address,omitempty"`
+
+	// Dynamic is a flag that defines an IP that change on each reboot
+	Dynamic *bool `json:"dynamic,omitempty"`
 }
 
 // ScalewayVolume represents a Scaleway Volume
@@ -298,6 +304,15 @@ type ScalewayTasks struct {
 	Tasks []ScalewayTask `json:"tasks,omitempty"`
 }
 
+// ScalewaySecurityGroup represents a Scaleway security group
+type ScalewaySecurityGroup struct {
+	// Identifier is a unique identifier for the security group
+	Identifier string `json:"id,omitempty"`
+
+	// Name is the user-defined name of the security group
+	Name string `json:"name,omitempty"`
+}
+
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
 	// Identifier is a unique identifier for the server
@@ -315,14 +330,38 @@ type ScalewayServer struct {
 	// Image is the image used by the server
 	Image ScalewayImage `json:"image,omitempty"`
 
+	// DynamicIPRequired is a flag that defines a server with a dynamic ip address attached
+	DynamicIPRequired *bool `json:"dynamic_ip_required,omitempty"`
+
 	// PublicIP is the public IP address bound to the server
 	PublicAddress ScalewayIPAddress `json:"public_ip,omitempty"`
 
 	// State is the current status of the server
 	State string `json:"state,omitempty"`
 
+	// StateDetail is the detailed status of the server
+	StateDetail string `json:"state_detail,omitempty"`
+
+	// PrivateIP reprensents the private IPV4 attached to the server (changes on each boot)
+	PrivateIP string `json:"private_ip,omitempty"`
+
+	// Bootscript is the unique identifier of the selected bootscript
+	Bootscript *string `json:"bootscript"`
+
+	// Hostname represents the ServerName in a format compatible with unix's hostname
+	Hostname string `json:"hostname,omitempty"`
+
+	// Tags represents user-defined tags
+	Tags []string `json:"tags",omitempty`
+
 	// Volumes are the attached volumes
 	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
+
+	// SecurityGroup is the selected security group object
+	SecurityGroup ScalewaySecurityGroup `json:"security_group,omitempty"`
+
+	// Organization is the owner of the server
+	Organization string `json:"organization"`
 }
 
 // ScalewayServerPathNameDefinition represents a Scaleway C1 server with only its name as field
