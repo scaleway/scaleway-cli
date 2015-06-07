@@ -104,7 +104,7 @@ func runImages(cmd *Command, args []string) {
 					CreationDate: creationDate,
 					Identifier:   val.Identifier,
 					Name:         val.Name,
-					Tag:          "<none>",
+					Tag:          "<snapshot>",
 					VirtualSize:  float64(val.Size),
 					Public:       false,
 				}
@@ -123,7 +123,7 @@ func runImages(cmd *Command, args []string) {
 					Type:       "bootscript",
 					Identifier: val.Identifier,
 					Name:       val.Title,
-					Tag:        "bootscript",
+					Tag:        "<bootscript>",
 					Public:     false,
 				}
 			}
@@ -146,7 +146,7 @@ func runImages(cmd *Command, args []string) {
 					CreationDate: creationDate,
 					Identifier:   val.Identifier,
 					Name:         val.Name,
-					Tag:          "<none>",
+					Tag:          "<volume>",
 					VirtualSize:  float64(val.Size),
 					Public:       false,
 				}
@@ -184,7 +184,7 @@ func runImages(cmd *Command, args []string) {
 		if imagesQ {
 			fmt.Fprintf(w, "%s\n", image.Identifier)
 		} else {
-			tag := "latest"
+			tag := image.Tag
 			shortID := truncIf(image.Identifier, 8, !imagesNoTrunc)
 			name := wordify(image.Name)
 			if !image.Public {
