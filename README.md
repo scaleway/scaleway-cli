@@ -277,6 +277,7 @@ Return low-level information on a server, image, snapshot or bootscript.
 
 Options:
 
+  -f, --format=""       Format the output using the given go template.
   -h, --help=false      Print usage
 
 Examples:
@@ -288,6 +289,7 @@ Examples:
     $ scw inspect my-volume
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
+    $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
 ```
 
 
@@ -900,6 +902,7 @@ Development in progress
 
 #### Features
 
+* Support of `inspect --format` option
 * Support of `exec --timeout` option
 
 #### Fixes

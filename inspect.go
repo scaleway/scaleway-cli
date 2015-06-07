@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"text/template"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -23,6 +24,7 @@ var cmdInspect = &Command{
     $ scw inspect my-volume
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
+    $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
 `,
 }
 
@@ -37,10 +39,12 @@ type ScalewayResolvedIdentifier struct {
 
 func init() {
 	cmdInspect.Flag.BoolVar(&inspectHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdInspect.Flag.StringVar(&inspectFormat, []string{"f", "-format"}, "", "Format the output using the given go template.")
 }
 
 // Flags
-var inspectHelp bool // -h, --help flag
+var inspectFormat string // -f, --format flat
+var inspectHelp bool     // -h, --help flag
 
 // resolveIdentifiers resolves needles provided by the user
 func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolvedIdentifier) {
@@ -149,6 +153,13 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 	close(cj)
 }
 
+var funcMap = template.FuncMap{
+	"json": func(v interface{}) string {
+		a, _ := json.Marshal(v)
+		return string(a)
+	},
+}
+
 func runInspect(cmd *Command, args []string) {
 	if inspectHelp {
 		cmd.PrintUsage()
@@ -168,18 +179,33 @@ func runInspect(cmd *Command, args []string) {
 		if !open {
 			break
 		}
-		dataB, err := json.MarshalIndent(data, "", "  ")
-		if err == nil {
-			if nbInspected != 0 {
-				res += ",\n"
+		if inspectFormat == "" {
+			dataB, err := json.MarshalIndent(data, "", "  ")
+			if err == nil {
+				if nbInspected != 0 {
+					res += ",\n"
+				}
+				res += string(dataB)
+				nbInspected++
 			}
-			res += string(dataB)
-			nbInspected++
+		} else {
+			tmpl, err := template.New("").Funcs(funcMap).Parse(inspectFormat)
+			if err != nil {
+				log.Fatalf("Format parsing error: %v", err)
+			}
+
+			err = tmpl.Execute(os.Stdout, data)
+			if err != nil {
+				log.Fatalf("Format execution error: %v", err)
+			}
+			fmt.Fprint(os.Stdout, "\n")
 		}
 	}
 	res += "]"
 
-	fmt.Println(res)
+	if inspectFormat == "" {
+		fmt.Println(res)
+	}
 
 	if len(args) != nbInspected {
 		os.Exit(1)
