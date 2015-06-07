@@ -156,13 +156,13 @@ type ScalewayImage struct {
 	Public bool `json:"public",omitempty`
 
 	// Bootscript is the bootscript bound to the image
-	DefaultBootscript *ScalewayBootscript `json:"default_bootscript"`
+	DefaultBootscript *ScalewayBootscript `json:"default_bootscript,omitempty"`
 
 	// Organization is the owner of the image
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 
 	// Arch is the architecture target of the image
-	Arch string `json:"arch"`
+	Arch string `json:"arch,omitempty"`
 
 	// FIXME: extra_volumes
 }
@@ -360,7 +360,7 @@ type ScalewayServer struct {
 	PrivateIP string `json:"private_ip,omitempty"`
 
 	// Bootscript is the unique identifier of the selected bootscript
-	Bootscript *string `json:"bootscript"`
+	Bootscript *ScalewayBootscript `json:"bootscript,omitempty"`
 
 	// Hostname represents the ServerName in a format compatible with unix's hostname
 	Hostname string `json:"hostname,omitempty"`
@@ -375,7 +375,7 @@ type ScalewayServer struct {
 	SecurityGroup ScalewaySecurityGroup `json:"security_group,omitempty"`
 
 	// Organization is the owner of the server
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 }
 
 // ScalewayServerPathNameDefinition represents a Scaleway C1 server with only its name as field

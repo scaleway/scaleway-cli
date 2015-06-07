@@ -66,7 +66,7 @@ func runPs(cmd *Command, args []string) {
 	}
 	servers, err := cmd.API.GetServers(psA || psN > 0 || psL, limit)
 	if err != nil {
-		log.Fatalf("unable to fetch servers from the Scaleway API: %v", err)
+		log.Fatalf("Unable to fetch servers from the Scaleway API: %v", err)
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 20, 1, 3, ' ', 0)
