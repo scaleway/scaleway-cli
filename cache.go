@@ -138,6 +138,7 @@ func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	var exactMatches []string
 
 	if acceptUUID && uuid.Parse(needle) != nil {
 		res = append(res, needle)
@@ -147,9 +148,16 @@ func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) []string {
 	// FIXME: if 'user/' is in needle, only watch for a user image
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Images {
+		if name == needle {
+			exactMatches = append(exactMatches, identifier)
+		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
+	}
+
+	if len(exactMatches) == 1 {
+		return exactMatches
 	}
 
 	return RemoveDuplicates(res)
@@ -161,6 +169,7 @@ func (c *ScalewayCache) LookUpSnapshots(needle string, acceptUUID bool) []string
 	defer c.Lock.Unlock()
 
 	var res []string
+	var exactMatches []string
 
 	if acceptUUID && uuid.Parse(needle) != nil {
 		res = append(res, needle)
@@ -169,9 +178,16 @@ func (c *ScalewayCache) LookUpSnapshots(needle string, acceptUUID bool) []string
 	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Snapshots {
+		if name == needle {
+			exactMatches = append(exactMatches, identifier)
+		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
+	}
+
+	if len(exactMatches) == 1 {
+		return exactMatches
 	}
 
 	return RemoveDuplicates(res)
@@ -183,6 +199,7 @@ func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	var exactMatches []string
 
 	if acceptUUID && uuid.Parse(needle) != nil {
 		res = append(res, needle)
@@ -190,9 +207,16 @@ func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) []string {
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Volumes {
+		if name == needle {
+			exactMatches = append(exactMatches, identifier)
+		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
+	}
+
+	if len(exactMatches) == 1 {
+		return exactMatches
 	}
 
 	return RemoveDuplicates(res)
@@ -204,6 +228,7 @@ func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) []stri
 	defer c.Lock.Unlock()
 
 	var res []string
+	var exactMatches []string
 
 	if acceptUUID && uuid.Parse(needle) != nil {
 		res = append(res, needle)
@@ -211,9 +236,16 @@ func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) []stri
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Bootscripts {
+		if name == needle {
+			exactMatches = append(exactMatches, identifier)
+		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
+	}
+
+	if len(exactMatches) == 1 {
+		return exactMatches
 	}
 
 	return RemoveDuplicates(res)
@@ -225,6 +257,7 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
 	defer c.Lock.Unlock()
 
 	var res []string
+	var exactMatches []string
 
 	if acceptUUID && uuid.Parse(needle) != nil {
 		res = append(res, needle)
@@ -232,9 +265,16 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Servers {
+		if name == needle {
+			exactMatches = append(exactMatches, identifier)
+		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
+	}
+
+	if len(exactMatches) == 1 {
+		return exactMatches
 	}
 
 	return RemoveDuplicates(res)
