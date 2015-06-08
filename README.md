@@ -904,6 +904,9 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/root/.scwrc scaleway/cli ps
 6. Build: `make`
 7. Run: `./scw`
 
+## Build manually
+
+Same as Hack, without step 5
 
 ## Changelog
 
