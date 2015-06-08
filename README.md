@@ -881,6 +881,17 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 212.47.xxx.yyy
 ```
 
+
+---
+
+## Run in Docker (sandboxed)
+
+Sandboxed by Docker, but caching is disabled
+
+```console
+$ docker run -it --rm --volume=$HOME/.scwrc:/root/.scwrc scaleway/cli ps
+```
+
 ## Hack
 
 1. [Install go](https://golang.org/doc/install)
