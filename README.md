@@ -922,6 +922,7 @@ Development in progress
 
 #### Fixes
 
+* Improved resolver behavior for exact matching  ([#53](https://github.com/scaleway/scaleway-cli/issues/53), [#55](https://github.com/scaleway/scaleway-cli/issues/55))
 * Verbose error message when `scw exec` fails
 * Fixed `scw login` parameters parsing
 * Minor improvements
