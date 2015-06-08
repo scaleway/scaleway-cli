@@ -8,6 +8,8 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+
+	"code.google.com/p/go-uuid/uuid"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers
@@ -131,11 +133,16 @@ func (c *ScalewayCache) Save() error {
 }
 
 // LookUpImages attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpImages(needle string) []string {
+func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	var res []string
+
+	if acceptUUID && uuid.Parse(needle) != nil {
+		res = append(res, needle)
+	}
+
 	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	// FIXME: if 'user/' is in needle, only watch for a user image
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
@@ -144,15 +151,21 @@ func (c *ScalewayCache) LookUpImages(needle string) []string {
 			res = append(res, identifier)
 		}
 	}
-	return res
+
+	return RemoveDuplicates(res)
 }
 
 // LookUpSnapshots attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
+func (c *ScalewayCache) LookUpSnapshots(needle string, acceptUUID bool) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	var res []string
+
+	if acceptUUID && uuid.Parse(needle) != nil {
+		res = append(res, needle)
+	}
+
 	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Snapshots {
@@ -160,93 +173,129 @@ func (c *ScalewayCache) LookUpSnapshots(needle string) []string {
 			res = append(res, identifier)
 		}
 	}
-	return res
+
+	return RemoveDuplicates(res)
 }
 
 // LookUpVolumes attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpVolumes(needle string) []string {
+func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	var res []string
+
+	if acceptUUID && uuid.Parse(needle) != nil {
+		res = append(res, needle)
+	}
+
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Volumes {
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
-	return res
+
+	return RemoveDuplicates(res)
 }
 
 // LookUpBootscripts attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpBootscripts(needle string) []string {
+func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	var res []string
+
+	if acceptUUID && uuid.Parse(needle) != nil {
+		res = append(res, needle)
+	}
+
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Bootscripts {
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
-	return res
+
+	return RemoveDuplicates(res)
 }
 
 // LookUpServers attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpServers(needle string) []string {
+func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	var res []string
+
+	if acceptUUID && uuid.Parse(needle) != nil {
+		res = append(res, needle)
+	}
+
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Servers {
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
 			res = append(res, identifier)
 		}
 	}
-	return res
+
+	return RemoveDuplicates(res)
 }
 
 // LookUpIdentifiers attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
-	result := []ScalewayIdentifier{}
+	results := []ScalewayIdentifier{}
 
-	for _, identifier := range c.LookUpServers(needle) {
-		result = append(result, ScalewayIdentifier{
+	for _, identifier := range c.LookUpServers(needle, false) {
+		results = append(results, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierServer,
 		})
 	}
 
-	for _, identifier := range c.LookUpImages(needle) {
-		result = append(result, ScalewayIdentifier{
+	for _, identifier := range c.LookUpImages(needle, false) {
+		results = append(results, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierImage,
 		})
 	}
 
-	for _, identifier := range c.LookUpSnapshots(needle) {
-		result = append(result, ScalewayIdentifier{
+	for _, identifier := range c.LookUpSnapshots(needle, false) {
+		results = append(results, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierSnapshot,
 		})
 	}
 
-	for _, identifier := range c.LookUpVolumes(needle) {
-		result = append(result, ScalewayIdentifier{
+	for _, identifier := range c.LookUpVolumes(needle, false) {
+		results = append(results, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierVolume,
 		})
 	}
 
-	for _, identifier := range c.LookUpBootscripts(needle) {
-		result = append(result, ScalewayIdentifier{
+	for _, identifier := range c.LookUpBootscripts(needle, false) {
+		results = append(results, ScalewayIdentifier{
 			Identifier: identifier,
 			Type:       IdentifierBootscript,
 		})
 	}
 
+	return results
+}
+
+// RemoveDuplicates transforms an array into a unique array
+func RemoveDuplicates(elements []string) []string {
+	encountered := map[string]bool{}
+
+	// Create a map of all unique elements.
+	for v := range elements {
+		encountered[elements[v]] = true
+	}
+
+	// Place all keys from the map into a slice.
+	result := []string{}
+	for key, _ := range encountered {
+		result = append(result, key)
+	}
 	return result
 }
 

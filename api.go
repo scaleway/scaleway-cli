@@ -817,52 +817,52 @@ func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, e
 
 // ResolveServer attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
-	servers := s.Cache.LookUpServers(needle)
+	servers := s.Cache.LookUpServers(needle, true)
 	if len(servers) == 0 {
 		_, err := s.GetServers(true, 0)
 		if err != nil {
 			return nil, err
 		}
-		servers = s.Cache.LookUpServers(needle)
+		servers = s.Cache.LookUpServers(needle, true)
 	}
 	return servers, nil
 }
 
 // ResolveSnapshot attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]string, error) {
-	snapshots := s.Cache.LookUpSnapshots(needle)
+	snapshots := s.Cache.LookUpSnapshots(needle, true)
 	if len(snapshots) == 0 {
 		_, err := s.GetSnapshots()
 		if err != nil {
 			return nil, err
 		}
-		snapshots = s.Cache.LookUpSnapshots(needle)
+		snapshots = s.Cache.LookUpSnapshots(needle, true)
 	}
 	return snapshots, nil
 }
 
 // ResolveImage attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveImage(needle string) ([]string, error) {
-	images := s.Cache.LookUpImages(needle)
+	images := s.Cache.LookUpImages(needle, true)
 	if len(images) == 0 {
 		_, err := s.GetImages()
 		if err != nil {
 			return nil, err
 		}
-		images = s.Cache.LookUpImages(needle)
+		images = s.Cache.LookUpImages(needle, true)
 	}
 	return images, nil
 }
 
 // ResolveBootscript attempts the find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveBootscript(needle string) ([]string, error) {
-	bootscripts := s.Cache.LookUpBootscripts(needle)
+	bootscripts := s.Cache.LookUpBootscripts(needle, true)
 	if len(bootscripts) == 0 {
 		_, err := s.GetBootscripts()
 		if err != nil {
 			return nil, err
 		}
-		bootscripts = s.Cache.LookUpBootscripts(needle)
+		bootscripts = s.Cache.LookUpBootscripts(needle, true)
 	}
 	return bootscripts, nil
 }
