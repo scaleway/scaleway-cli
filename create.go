@@ -26,7 +26,6 @@ var cmdCreate = &Command{
 func init() {
 	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
-	cmdCreate.Flag.BoolVar(&forceBootscript, []string{"-force-bootscript"}, false, "Do not attempt to resolve bootscript by name")
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
@@ -35,7 +34,6 @@ func init() {
 // Flags
 var createName string       // --name flag
 var createBootscript string // --bootscript flag
-var forceBootscript bool    // --force-bootscript flag
 var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
@@ -86,9 +84,7 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	}
 	server.Name = name
 	if bootscript != "" {
-		if !forceBootscript {
-			bootscript = cmd.GetBootscript(bootscript)
-		}
+		bootscript := cmd.GetBootscript(bootscript)
 		server.Bootscript = &bootscript
 	}
 
