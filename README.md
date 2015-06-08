@@ -916,9 +916,10 @@ Development in progress
 
 #### Features
 
+* Returing more resource fields on `scw inspect` ([#50](https://github.com/scaleway/scaleway-cli/issues/50))
 * Show public ip address in PORTS field in `scw ps` ([#54](https://github.com/scaleway/scaleway-cli/issues/54))
 * Support of `inspect --format` option
-* Support of `exec --timeout` option
+* Support of `exec --timeout` option ([#31](https://github.com/scaleway/scaleway-cli/issues/31))
 
 #### Fixes
 
