@@ -64,7 +64,7 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
 		var wg sync.WaitGroup
-		wg.Add(4)
+		wg.Add(5)
 		go func() {
 			cmd.API.GetServers(true, 0)
 			wg.Done()
