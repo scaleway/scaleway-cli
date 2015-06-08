@@ -83,7 +83,8 @@ func runPs(cmd *Command, args []string) {
 			shortName := truncIf(wordify(server.Name), 25, !psNoTrunc)
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
 			shortCreationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
-			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t\t%s\n", shortID, shortImage, shortCreationDate, server.State, shortName)
+			port := server.PublicAddress.IP
+			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t%s\t%s\n", shortID, shortImage, shortCreationDate, server.State, port, shortName)
 		}
 	}
 }

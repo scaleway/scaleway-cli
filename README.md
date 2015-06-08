@@ -902,6 +902,7 @@ Development in progress
 
 #### Features
 
+* Show public ip address in PORTS field in `scw ps` ([#54](https://github.com/scaleway/scaleway-cli/issues/54))
 * Support of `inspect --format` option
 * Support of `exec --timeout` option
 
