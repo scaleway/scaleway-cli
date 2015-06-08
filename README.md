@@ -902,6 +902,7 @@ Development in progress
 
 #### Features
 
+* Support of `create --force-bootscript` option
 * Support of `inspect --format` option
 * Support of `exec --timeout` option
 
