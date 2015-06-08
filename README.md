@@ -920,13 +920,17 @@ Development in progress
 * Show public ip address in PORTS field in `scw ps` ([#54](https://github.com/scaleway/scaleway-cli/issues/54))
 * Support of `inspect --format` option
 * Support of `exec --timeout` option ([#31](https://github.com/scaleway/scaleway-cli/issues/31))
+* Support of volumes in `images -a` and `inspect` ([#49](https://github.com/scaleway/scaleway-cli/issues/49))
+* Tuned `~/.scwrc` unix permissions + added a warning if the file is too open ([#48](https://github.com/scaleway/scaleway-cli/pull/48))
 
 #### Fixes
 
+* The project is now `go get`-able
+* Added timeout when polling SSH TCP port for `scw start -w` and `scw exec -w` ([#46](https://github.com/scaleway/scaleway-cli/issues/46))
 * Improved resolver behavior for exact matching  ([#53](https://github.com/scaleway/scaleway-cli/issues/53), [#55](https://github.com/scaleway/scaleway-cli/issues/55))
-* Verbose error message when `scw exec` fails
+* Verbose error message when `scw exec` fails ([#42](https://github.com/scaleway/scaleway-cli/issues/42))
 * Fixed `scw login` parameters parsing
-* Minor improvements
+* Speed and stability improvements
 
 ### 1.0.0 (2015-06-05)
 
