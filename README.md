@@ -916,6 +916,7 @@ Development in progress
 
 #### Features
 
+* Support of `_completion` command (shell completion helper) ([#45](https://github.com/scaleway/scaleway-cli/issues/45))
 * Returing more resource fields on `scw inspect` ([#50](https://github.com/scaleway/scaleway-cli/issues/50))
 * Show public ip address in PORTS field in `scw ps` ([#54](https://github.com/scaleway/scaleway-cli/issues/54))
 * Support of `inspect --format` option
