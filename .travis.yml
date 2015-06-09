@@ -1,0 +1,13 @@
+language: go
+
+go:
+  - 1.4.2
+
+install:
+  - export PATH=$HOME/gopath/bin:$PATH
+  - go get golang.org/x/tools/cmd/cover
+
+script:
+  - make Godeps
+  - make build
+  - go test -v -covermode=count -coverprofile=profile.cov
