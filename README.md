@@ -202,6 +202,7 @@ Examples:
     $ scw exec $(scw start -w $(scw create ubuntu-trusty)) bash
     $ scw exec myserver tmux new -d sleep 10
     $ scw exec myserver ls -la | grep password
+    $ cat local-file | scw exec myserver 'cat > remote/path'
 ```
 
 
