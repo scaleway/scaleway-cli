@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"sync"
 	"text/template"
 
 	log "github.com/Sirupsen/logrus"
@@ -28,15 +27,6 @@ var cmdInspect = &Command{
 `,
 }
 
-// ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
-type ScalewayResolvedIdentifier struct {
-	// Identifiers holds matching identifiers
-	Identifiers []ScalewayIdentifier
-
-	// Needle is the criteria used to lookup identifiers
-	Needle string
-}
-
 func init() {
 	cmdInspect.Flag.BoolVar(&inspectHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdInspect.Flag.StringVar(&inspectFormat, []string{"f", "-format"}, "", "Format the output using the given go template.")
@@ -45,120 +35,6 @@ func init() {
 // Flags
 var inspectFormat string // -f, --format flat
 var inspectHelp bool     // -h, --help flag
-
-// resolveIdentifiers resolves needles provided by the user
-func resolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayResolvedIdentifier) {
-	// first attempt, only lookup from the cache
-	var unresolved []string
-	for _, needle := range needles {
-		idents := api.Cache.LookUpIdentifiers(needle)
-		if len(idents) == 0 {
-			unresolved = append(unresolved, needle)
-		} else {
-			out <- ScalewayResolvedIdentifier{
-				Identifiers: idents,
-				Needle:      needle,
-			}
-		}
-	}
-	// fill the cache by fetching from the API and resolve missing identifiers
-	if len(unresolved) > 0 {
-		var wg sync.WaitGroup
-		wg.Add(5)
-		go func() {
-			api.GetServers(true, 0)
-			wg.Done()
-		}()
-		go func() {
-			api.GetImages()
-			wg.Done()
-		}()
-		go func() {
-			api.GetSnapshots()
-			wg.Done()
-		}()
-		go func() {
-			api.GetVolumes()
-			wg.Done()
-		}()
-		go func() {
-			api.GetBootscripts()
-			wg.Done()
-		}()
-		wg.Wait()
-		for _, needle := range unresolved {
-			idents := api.Cache.LookUpIdentifiers(needle)
-			out <- ScalewayResolvedIdentifier{
-				Identifiers: idents,
-				Needle:      needle,
-			}
-		}
-	}
-	close(out)
-}
-
-// inspectIdentifiers inspects identifiers concurrently
-func inspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan interface{}) {
-	var wg sync.WaitGroup
-	for {
-		idents, ok := <-ci
-		if !ok {
-			break
-		}
-		if len(idents.Identifiers) != 1 {
-			if len(idents.Identifiers) == 0 {
-				log.Errorf("Unable to resolve identifier %s", idents.Needle)
-			} else {
-				log.Errorf("Too many candidates for %s (%d)", idents.Needle, len(idents.Identifiers))
-				for _, identifier := range idents.Identifiers {
-					// FIXME: also print the name
-					log.Infof("- %s", identifier.Identifier)
-				}
-			}
-		} else {
-			ident := idents.Identifiers[0]
-			wg.Add(1)
-			go func() {
-				if ident.Type == IdentifierServer {
-					server, err := api.GetServer(ident.Identifier)
-					if err == nil {
-						cj <- server
-					}
-				} else if ident.Type == IdentifierImage {
-					image, err := api.GetImage(ident.Identifier)
-					if err == nil {
-						cj <- image
-					}
-				} else if ident.Type == IdentifierSnapshot {
-					snap, err := api.GetSnapshot(ident.Identifier)
-					if err == nil {
-						cj <- snap
-					}
-				} else if ident.Type == IdentifierVolume {
-					snap, err := api.GetVolume(ident.Identifier)
-					if err == nil {
-						cj <- snap
-					}
-				} else if ident.Type == IdentifierBootscript {
-					bootscript, err := api.GetBootscript(ident.Identifier)
-					if err == nil {
-						cj <- bootscript
-					}
-				}
-				wg.Done()
-			}()
-		}
-	}
-	wg.Wait()
-	close(cj)
-}
-
-var funcMap = template.FuncMap{
-	"json": func(v interface{}) string {
-		a, _ := json.Marshal(v)
-		return string(a)
-	},
-}
 
 func runInspect(cmd *Command, args []string) {
 	if inspectHelp {

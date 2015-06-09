@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"regexp"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -35,22 +33,6 @@ var psQ bool       // -q flag
 var psNoTrunc bool // -no-trunc flag
 var psN int        // -n flag
 var psHelp bool    // -h, --help flag
-
-// truncIf ensures the input string does not exceed max size if cond is met
-func truncIf(str string, max int, cond bool) string {
-	if cond && len(str) > max {
-		return str[:max]
-	}
-	return str
-}
-
-// wordify convert complex name to a single word without special shell characters
-func wordify(str string) string {
-	str = regexp.MustCompile(`[^a-zA-Z0-9-]`).ReplaceAllString(str, "_")
-	str = regexp.MustCompile(`__+`).ReplaceAllString(str, "_")
-	str = strings.Trim(str, "_")
-	return str
-}
 
 func runPs(cmd *Command, args []string) {
 	if psHelp {

@@ -2,11 +2,8 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/docker/pkg/namesgenerator"
-	humanize "github.com/dustin/go-humanize"
 )
 
 var cmdCreate = &Command{
@@ -37,79 +34,6 @@ var createBootscript string // --bootscript flag
 var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
-
-func CreateVolumeFromHumanSize(api *ScalewayAPI, size string) (*string, error) {
-	bytes, err := humanize.ParseBytes(size)
-	if err != nil {
-		return nil, err
-	}
-
-	var newVolume ScalewayVolumeDefinition
-	newVolume.Name = size
-	newVolume.Size = bytes
-	newVolume.Type = "l_ssd"
-
-	volumeID, err := api.PostVolume(newVolume)
-	if err != nil {
-		return nil, err
-	}
-
-	return &volumeID, nil
-}
-
-func createServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
-	if name == "" {
-		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
-	}
-
-	var server ScalewayServerDefinition
-	server.Volumes = make(map[string]string)
-
-	server.Tags = []string{}
-	if env != "" {
-		server.Tags = strings.Split(env, " ")
-	}
-	if additionalVolumes != "" {
-		volumes := strings.Split(additionalVolumes, " ")
-		for i := range volumes {
-			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
-			if err != nil {
-				return "", err
-			}
-
-			volumeIDx := fmt.Sprintf("%d", i+1)
-			server.Volumes[volumeIDx] = *volumeID
-		}
-	}
-	server.Name = name
-	if bootscript != "" {
-		bootscript := api.GetBootscriptID(bootscript)
-		server.Bootscript = &bootscript
-	}
-
-	_, err := humanize.ParseBytes(imageName)
-	if err == nil {
-		// Create a new root volume
-		volumeID, err := CreateVolumeFromHumanSize(api, imageName)
-		if err != nil {
-			return "", err
-		}
-		server.Volumes["0"] = *volumeID
-	} else {
-		// Use an existing image
-		// FIXME: handle snapshots
-		image := api.GetImageID(imageName)
-		server.Image = &image
-	}
-
-	serverID, err := api.PostServer(server)
-	if err != nil {
-		return "", nil
-	}
-
-	return serverID, nil
-
-}
 
 func runCreate(cmd *Command, args []string) {
 	if createHelp {

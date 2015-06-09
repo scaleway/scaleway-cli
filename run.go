@@ -71,9 +71,9 @@ func runRun(cmd *Command, args []string) {
 	// exec -w SERVER COMMAND ARGS...
 	log.Debugf("Executing command")
 	if len(args) < 2 {
-		err = serverExec(server, []string{"if [ -x /bin/bash ]; then /bin/bash; else /bin/sh; fi"}, false)
+		err = sshExec(server.PublicAddress.IP, []string{"if [ -x /bin/bash ]; then /bin/bash; else /bin/sh; fi"}, false)
 	} else {
-		err = serverExec(server, args[1:], false)
+		err = sshExec(server.PublicAddress.IP, args[1:], false)
 	}
 	if err != nil {
 		log.Debugf("Command execution failed: %v", err)

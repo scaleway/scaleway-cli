@@ -19,24 +19,6 @@ var cmdImages = &Command{
 	Help:        "List images.",
 }
 
-// ScalewayImageInterface is an interface to multiple Scaleway items
-type ScalewayImageInterface struct {
-	CreationDate time.Time
-	Identifier   string
-	Name         string
-	Tag          string
-	VirtualSize  float64
-	Public       bool
-	Type         string
-}
-
-// ByCreationDate sorts images by CreationDate field
-type ByCreationDate []ScalewayImageInterface
-
-func (a ByCreationDate) Len() int           { return len(a) }
-func (a ByCreationDate) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByCreationDate) Less(i, j int) bool { return a[j].CreationDate.Before(a[i].CreationDate) }
-
 func init() {
 	cmdImages.Flag.BoolVar(&imagesA, []string{"a", "-all"}, false, "Show all iamges")
 	cmdImages.Flag.BoolVar(&imagesNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")

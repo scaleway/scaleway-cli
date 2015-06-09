@@ -31,7 +31,7 @@ func runPort(cmd *Command, args []string) {
 	}
 
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = serverExec(server, command, true)
+	err = sshExec(server.PublicAddress.IP, command, true)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}

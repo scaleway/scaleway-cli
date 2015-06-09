@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"text/template"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -436,6 +437,13 @@ type ScalewayImageDefinition struct {
 	Name               string `json:"name,omitempty"`
 	Organization       string `json:"organization"`
 	Arch               string `json:"arch"`
+}
+
+var funcMap = template.FuncMap{
+	"json": func(v interface{}) string {
+		a, _ := json.Marshal(v)
+		return string(a)
+	},
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
