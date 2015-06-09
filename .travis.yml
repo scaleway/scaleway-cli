@@ -1,13 +1,21 @@
 language: go
 
+
+sudo: false
+
+
+env:
+  global:
+    - PATH=$HOME/gopath/bin:$PATH
+
+
 go:
   - 1.4.2
 
+
 install:
-  - export PATH=$HOME/gopath/bin:$PATH
-  - go get golang.org/x/tools/cmd/cover
+  - make travis_install
+
 
 script:
-  - make Godeps
-  - make build
-  - go test -v -covermode=count -coverprofile=profile.cov
+  - make travis_run

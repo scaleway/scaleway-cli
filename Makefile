@@ -72,3 +72,11 @@ cross: scwversion/version.go
 	touch tmp/bin/*
 	mv tmp/bin/* dist/
 	rm -rf tmp dist/godep
+
+
+travis_install:
+	go get golang.org/x/tools/cmd/cover
+
+
+travis_run: build
+	go test -v -covermode=count -coverprofile=profile.cov
