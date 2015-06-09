@@ -5,94 +5,37 @@
 # Inspired by https://github.com/felixr/docker-zsh-completion
 
 __scw_get_servers() {
-    local kind expl
-    declare -a running stopped lines args
-
-    kind=$1
-    shift
-    [[ $kind = (stopped|all) ]] && args=($args -a)
-
-    lines=(${(f)"$(_call_program commands scw ps ${args})"})
-
-    # Parse header line to find columns
-    local i=1 j=1 k header=${lines[1]}
-    declare -A begin end
-    while (( $j < ${#header} - 1 )) {
-        i=$(( $j + ${${header[$j,-1]}[(i)[^ ]]} - 1))
-        j=$(( $i + ${${header[$i,-1]}[(i)  ]} - 1))
-        k=$(( $j + ${${header[$j,-1]}[(i)[^ ]]} - 2))
-        begin[${header[$i,$(($j-1))]}]=$i
-        end[${header[$i,$(($j-1))]}]=$k
-    }
-    lines=(${lines[2,-1]})
-
-    # Server ID
-    local line
-    local s
-    for line in $lines; do
-        s="${line[${begin[SERVER ID]},${end[SERVER ID]}]%% ##}"
-        s="$s:${(l:15:: :::)${${line[${begin[CREATED]},${end[CREATED]}]/ ago/}%% ##}}"
-        s="$s, ${${${line[$begin[IMAGE],$end[IMAGE]]}/:/\\:}%% ##}"
-        if [[ ${line[${begin[STATUS]},${end[STATUS]}]} = Exit* ]]; then
-            stopped=($stopped $s)
-        else
-            running=($running $s)
-        fi
-    done
-
-    # Names
-    local name
-    local -a names
-    for line in $lines; do
-        names=(${(ps:,:)${${line[${begin[NAMES]},-1]}%% *}})
-        for name in $names; do
-            s="${name}:${(l:15:: :::)${${line[${begin[CREATED]},${end[CREATED]}]/ ago/}%% ##}}"
-            s="$s, ${${${line[$begin[IMAGE],$end[IMAGE]]}/:/\\:}%% ##}"
-            if [[ ${line[${begin[STATUS]},${end[STATUS]}]} = Exit* ]]; then
-                stopped=($stopped $s)
-            else
-                running=($running $s)
-            fi
-        done
-    done
-
-    [[ $kind = (running|all) ]] && _describe -t servers-running "running servers" running
-    [[ $kind = (stopped|all) ]] && _describe -t servers-stopped "stopped servers" stopped
+    local expl
+    declare -a servers
+    servers=(${(f)"$(_call_program commands scw _completion servers-all)"})
+    _describe -t servers "servers" servers
 }
 
 __scw_stoppedservers() {
-    __scw_get_servers stopped "$@"
+    __scw_get_servers
 }
 
 __scw_runningservers() {
-    __scw_get_servers running "$@"
+    __scw_get_servers
 }
 
 __scw_servers () {
-    __scw_get_servers all "$@"
+    __scw_get_servers
 }
 
 __scw_images () {
     local expl
     declare -a images
-    images=(${${${${(f)"$(_call_program commands scw images)"}[2,-1]}/ ##/\\:}%% *})
-    images=(${${images%\\:<none>}#<none>} ${${${(f)"$(_call_program commands scw images)"}[2,-1]}/(#b)([^ ]##) ##([^ ]##) ##([^ ]##)*/${match[3]}:${(r:15:: :::)match[2]} in ${match[1]}})
-    _describe -t scw-images "images" images
+    images=(${(f)"$(_call_program commands scw _completion images-all)"})
+    _describe -t images "images" images
 }
 
 __scw_tags() {
-    local expl
-    declare -a tags
-    tags=(${${${${${(f)"$(_call_program commands scw images)"}#* }## #}%% *}[2,-1]})
-    _describe -t scw-tags "tags" tags
+    __scw_images
 }
 
 __scw_repositories_with_tags() {
-    if compset -P '*:'; then
-        __scw_tags
-    else
-        __scw_repositories -qS ":"
-    fi
+    __scw_images
 }
 
 __scw_search() {
@@ -126,10 +69,7 @@ __scw_caching_policy()
 
 
 __scw_repositories () {
-    local expl
-    declare -a repos
-    repos=(${${${(f)"$(_call_program commands scw images)"}%% *}[2,-1]})
-    _describe -t scw-repos "repositories" repos "$@"
+    __scw_images
 }
 
 __scw_commands () {
