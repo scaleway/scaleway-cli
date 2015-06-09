@@ -39,8 +39,8 @@ Options:
  -v, --version=false          Print version information and quit
 
 Commands:
-{{range .}}    {{.Name | printf "%-9s"}} {{.Description}}
-{{end}}
+{{range .}}{{if not .Hidden}}    {{.Name | printf "%-9s"}} {{.Description}}
+{{end}}{{end}}
 Run 'scw COMMAND --help' for more information on a command.
 `
 

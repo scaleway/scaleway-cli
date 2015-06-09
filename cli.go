@@ -65,6 +65,9 @@ type Command struct {
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
 
+	// Hidden is a flat to hide command from global help commands listing
+	Hidden bool
+
 	// API is the interface used to communicate with Scaleway's API
 	API *ScalewayAPI
 }
