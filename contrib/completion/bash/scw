@@ -26,78 +26,58 @@
 # Inspired from https://github.com/docker/docker/blob/master/contrib/completion/bash/docker
 
 __scw_q() {
-	scw ${host:+-H "$host"} 2>/dev/null "$@"
+    scw $@ 2>/dev/null
 }
 
 __scw_servers_all() {
-#	local IFS=$'\n'
-#	local servers=( $(__scw_q ps -aq --no-trunc) )
-#	if [ "$1" ]; then
-#		servers=( $(__scw_q inspect --format "{{if $1}}{{.Id}}{{end}}" "${servers[@]}") )
-#	fi
-#	local names=( $(__scw_q inspect --format '{{.Name}}' "${servers[@]}") )
-#	names=( "${names[@]#/}" ) # trim off the leading "/" from the server names
-#	unset IFS
-#	COMPREPLY=( $(compgen -W "${names[*]} ${servers[*]}" -- "$cur") )
-    COMPREPLY=( )
+    local IFS=$'\n'
+    local servers=( $(__scw_q _completion servers-all) )
+    unset IFS
+    COMPREPLY=( $(compgen -W "${servers[*]}" -- "$cur") )
 }
 
 __scw_servers_running() {
-	__scw_servers_all '.State.Running'
+    __scw_servers_all
 }
 
 __scw_servers_stopped() {
-	__scw_servers_all 'not .State.Running'
+    __scw_servers_all
 }
 
 __scw_servers_pauseable() {
-	__scw_servers_all 'and .State.Running (not .State.Paused)'
+    __scw_servers_all
 }
 
 __scw_servers_unpauseable() {
-	__scw_servers_all '.State.Paused'
+    __scw_servers_all
 }
 
 __scw_server_names() {
-#	local servers=( $(__scw_q ps -aq --no-trunc) )
-#	local names=( $(__scw_q inspect --format '{{.Name}}' "${servers[@]}") )
-#	names=( "${names[@]#/}" ) # trim off the leading "/" from the server names
-#	COMPREPLY=( $(compgen -W "${names[*]}" -- "$cur") )
-    COMPREPLY=( )
+    __scw_servers_all
 }
 
 __scw_server_ids() {
-#	local servers=( $(__scw_q ps -aq) )
-#	COMPREPLY=( $(compgen -W "${servers[*]}" -- "$cur") )
-    COMPREPLY=( )
+    __scw_servers_all
 }
 
 __scw_image_repos() {
-#	local repos="$(__scw_q images | awk 'NR>1 && $1 != "<none>" { print $1 }')"
-#	COMPREPLY=( $(compgen -W "$repos" -- "$cur") )
-    COMPREPLY=( )
+    local repos=( $(__scw_q _completion images-all) )
+    COMPREPLY=( $(compgen -W "$repos" -- "$cur") )
 }
 
 __scw_image_repos_and_tags() {
-#	local reposAndTags="$(__scw_q images | awk 'NR>1 && $1 != "<none>" { print $1; print $1":"$2 }')"
-#	COMPREPLY=( $(compgen -W "$reposAndTags" -- "$cur") )
-#	__ltrim_colon_completions "$cur"
-    COMPREPLY=( )
+    __scw_image_repos
 }
 
 __scw_image_repos_and_tags_and_ids() {
-#	local images="$(__scw_q images -a --no-trunc | awk 'NR>1 { print $3; if ($1 != "<none>") { print $1; print $1":"$2 } }')"
-#	COMPREPLY=( $(compgen -W "$images" -- "$cur") )
-#	__ltrim_colon_completions "$cur"
-    COMPREPLY=( )
+    __scw_image_repos
 }
 
 __scw_servers_and_images() {
-#	__scw_servers_all
-#	local servers=( "${COMPREPLY[@]}" )
-#	__scw_image_repos_and_tags_and_ids
-#	COMPREPLY+=( "${servers[@]}" )
-    COMPREPLY=( )
+    __scw_servers_all
+    local servers=( "${COMPREPLY[@]}" )
+    __scw_image_repos_and_tags_and_ids
+    COMPREPLY+=( "${servers[@]}" )
 }
 
 __scw_pos_first_nonflag() {
