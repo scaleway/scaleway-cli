@@ -28,7 +28,7 @@ func runTag(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	snapshotID := cmd.GetSnapshot(args[0])
+	snapshotID := cmd.API.GetSnapshotID(args[0])
 	snapshot, err := cmd.API.GetSnapshot(snapshotID)
 	if err != nil {
 		log.Fatalf("Cannot fetch snapshot: %v", err)

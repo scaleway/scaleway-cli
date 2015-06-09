@@ -46,7 +46,7 @@ func runRun(cmd *Command, args []string) {
 
 	// create IMAGE
 	log.Debugf("Creating a new server")
-	serverID, err := createServer(cmd, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume)
+	serverID, err := createServer(cmd.API, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
@@ -54,7 +54,7 @@ func runRun(cmd *Command, args []string) {
 
 	// start SERVER
 	log.Debugf("Starting server")
-	err = startServer(cmd, serverID, false)
+	err = startServer(cmd.API, serverID, false)
 	if err != nil {
 		log.Fatalf("Failed to start server %s: %v", serverID, err)
 	}

@@ -31,7 +31,7 @@ func runRestart(cmd *Command, args []string) {
 
 	hasError := false
 	for _, needle := range args {
-		server := cmd.GetServer(needle)
+		server := cmd.API.GetServerID(needle)
 		err := cmd.API.PostServerAction(server, "reboot")
 		if err != nil {
 			if err.Error() != "server is being stopped or rebooted" {

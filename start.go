@@ -26,10 +26,10 @@ var startW bool          // -w flag
 var startTimeout float64 // -T flag
 var startHelp bool       // -h, --help flag
 
-func startServer(cmd *Command, needle string, wait bool) error {
-	server := cmd.GetServer(needle)
+func startServer(api *ScalewayAPI, needle string, wait bool) error {
+	server := api.GetServerID(needle)
 
-	err := cmd.API.PostServerAction(server, "poweron")
+	err := api.PostServerAction(server, "poweron")
 	if err != nil {
 		if err.Error() != "server should be stopped" {
 			return fmt.Errorf("Server %s is already started: %v", server, err)
@@ -37,7 +37,7 @@ func startServer(cmd *Command, needle string, wait bool) error {
 	}
 
 	if wait {
-		_, err = WaitForServerReady(cmd.API, server)
+		_, err = WaitForServerReady(api, server)
 		if err != nil {
 			return fmt.Errorf("Failed to wait for server %s to be ready, %v", needle, err)
 		}
@@ -45,8 +45,8 @@ func startServer(cmd *Command, needle string, wait bool) error {
 	return nil
 }
 
-func startOnce(cmd *Command, needle string, wait bool, successChan chan bool, errChan chan error) {
-	err := startServer(cmd, needle, wait)
+func startOnce(api *ScalewayAPI, needle string, wait bool, successChan chan bool, errChan chan error) {
+	err := startServer(api, needle, wait)
 
 	if err != nil {
 		errChan <- err
@@ -72,7 +72,7 @@ func runStart(cmd *Command, args []string) {
 
 	for i := range args {
 		needle := args[i]
-		go startOnce(cmd, needle, startW, successChan, errChan)
+		go startOnce(cmd.API, needle, startW, successChan, errChan)
 	}
 
 	if startTimeout > 0 {

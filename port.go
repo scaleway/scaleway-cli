@@ -24,7 +24,7 @@ func runPort(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.GetServer(args[0])
+	serverID := cmd.API.GetServerID(args[0])
 	server, err := cmd.API.GetServer(serverID)
 	if err != nil {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)

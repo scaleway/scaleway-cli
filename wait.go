@@ -31,7 +31,7 @@ func runWait(cmd *Command, args []string) {
 
 	hasError := false
 	for _, needle := range args {
-		serverIdentifier := cmd.GetServer(needle)
+		serverIdentifier := cmd.API.GetServerID(needle)
 		for {
 			server, err := cmd.API.GetServer(serverIdentifier)
 			if err != nil {

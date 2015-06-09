@@ -30,7 +30,7 @@ func runTop(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.GetServer(args[0])
+	serverID := cmd.API.GetServerID(args[0])
 	command := "ps"
 	server, err := cmd.API.GetServer(serverID)
 	if err != nil {

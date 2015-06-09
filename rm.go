@@ -36,7 +36,7 @@ func runRm(cmd *Command, args []string) {
 
 	hasError := false
 	for _, needle := range args {
-		server := cmd.GetServer(needle)
+		server := cmd.API.GetServerID(needle)
 		err := cmd.API.DeleteServer(server)
 		if err != nil {
 			log.Errorf("failed to delete server %s: %s", server, err)

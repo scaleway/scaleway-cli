@@ -40,7 +40,7 @@ func runCp(cmd *Command, args []string) {
 		log.Fatalf("usage: scw %s", cmd.UsageLine)
 	}
 
-	serverID := cmd.GetServer(serverParts[0])
+	serverID := cmd.API.GetServerID(serverParts[0])
 
 	server, err := cmd.API.GetServer(serverID)
 	if err != nil {

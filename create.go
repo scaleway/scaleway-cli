@@ -38,8 +38,7 @@ var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
 
-// CreateVolumeFromHumanSize create a new volume using the API from a human-readable size
-func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
+func CreateVolumeFromHumanSize(api *ScalewayAPI, size string) (*string, error) {
 	bytes, err := humanize.ParseBytes(size)
 	if err != nil {
 		return nil, err
@@ -50,7 +49,7 @@ func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	newVolume.Size = bytes
 	newVolume.Type = "l_ssd"
 
-	volumeID, err := cmd.API.PostVolume(newVolume)
+	volumeID, err := api.PostVolume(newVolume)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +57,7 @@ func CreateVolumeFromHumanSize(cmd *Command, size string) (*string, error) {
 	return &volumeID, nil
 }
 
-func createServer(cmd *Command, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
+func createServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
 	if name == "" {
 		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
@@ -73,7 +72,7 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	if additionalVolumes != "" {
 		volumes := strings.Split(additionalVolumes, " ")
 		for i := range volumes {
-			volumeID, err := CreateVolumeFromHumanSize(cmd, volumes[i])
+			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
 			if err != nil {
 				return "", err
 			}
@@ -84,14 +83,14 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	}
 	server.Name = name
 	if bootscript != "" {
-		bootscript := cmd.GetBootscript(bootscript)
+		bootscript := api.GetBootscriptID(bootscript)
 		server.Bootscript = &bootscript
 	}
 
 	_, err := humanize.ParseBytes(imageName)
 	if err == nil {
 		// Create a new root volume
-		volumeID, err := CreateVolumeFromHumanSize(cmd, imageName)
+		volumeID, err := CreateVolumeFromHumanSize(api, imageName)
 		if err != nil {
 			return "", err
 		}
@@ -99,11 +98,11 @@ func createServer(cmd *Command, imageName string, name string, bootscript string
 	} else {
 		// Use an existing image
 		// FIXME: handle snapshots
-		image := cmd.GetImage(imageName)
+		image := api.GetImageID(imageName)
 		server.Image = &image
 	}
 
-	serverID, err := cmd.API.PostServer(server)
+	serverID, err := api.PostServer(server)
 	if err != nil {
 		return "", nil
 	}
@@ -120,7 +119,7 @@ func runCreate(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverID, err := createServer(cmd, args[0], createName, createBootscript, createEnv, createVolume)
+	serverID, err := createServer(cmd.API, args[0], createName, createBootscript, createEnv, createVolume)
 
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)

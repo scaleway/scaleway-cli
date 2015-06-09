@@ -37,7 +37,7 @@ func runAttach(cmd *Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.GetServer(args[0])
+	serverID := cmd.API.GetServerID(args[0])
 
 	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, cmd.API.Token)
 

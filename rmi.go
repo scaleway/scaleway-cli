@@ -38,7 +38,7 @@ func runRmi(cmd *Command, args []string) {
 	}
 	hasError := false
 	for _, needle := range args {
-		image := cmd.GetImage(needle)
+		image := cmd.API.GetImageID(needle)
 		err := cmd.API.DeleteImage(image)
 		if err != nil {
 			log.Errorf("failed to delete image %s: %s", image, err)

@@ -47,11 +47,11 @@ var inspectFormat string // -f, --format flat
 var inspectHelp bool     // -h, --help flag
 
 // resolveIdentifiers resolves needles provided by the user
-func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolvedIdentifier) {
+func resolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayResolvedIdentifier) {
 	// first attempt, only lookup from the cache
 	var unresolved []string
 	for _, needle := range needles {
-		idents := cmd.API.Cache.LookUpIdentifiers(needle)
+		idents := api.Cache.LookUpIdentifiers(needle)
 		if len(idents) == 0 {
 			unresolved = append(unresolved, needle)
 		} else {
@@ -66,28 +66,28 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 		var wg sync.WaitGroup
 		wg.Add(5)
 		go func() {
-			cmd.API.GetServers(true, 0)
+			api.GetServers(true, 0)
 			wg.Done()
 		}()
 		go func() {
-			cmd.API.GetImages()
+			api.GetImages()
 			wg.Done()
 		}()
 		go func() {
-			cmd.API.GetSnapshots()
+			api.GetSnapshots()
 			wg.Done()
 		}()
 		go func() {
-			cmd.API.GetVolumes()
+			api.GetVolumes()
 			wg.Done()
 		}()
 		go func() {
-			cmd.API.GetBootscripts()
+			api.GetBootscripts()
 			wg.Done()
 		}()
 		wg.Wait()
 		for _, needle := range unresolved {
-			idents := cmd.API.Cache.LookUpIdentifiers(needle)
+			idents := api.Cache.LookUpIdentifiers(needle)
 			out <- ScalewayResolvedIdentifier{
 				Identifiers: idents,
 				Needle:      needle,
@@ -98,7 +98,7 @@ func resolveIdentifiers(cmd *Command, needles []string, out chan ScalewayResolve
 }
 
 // inspectIdentifiers inspects identifiers concurrently
-func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj chan interface{}) {
+func inspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan interface{}) {
 	var wg sync.WaitGroup
 	for {
 		idents, ok := <-ci
@@ -120,27 +120,27 @@ func inspectIdentifiers(cmd *Command, ci chan ScalewayResolvedIdentifier, cj cha
 			wg.Add(1)
 			go func() {
 				if ident.Type == IdentifierServer {
-					server, err := cmd.API.GetServer(ident.Identifier)
+					server, err := api.GetServer(ident.Identifier)
 					if err == nil {
 						cj <- server
 					}
 				} else if ident.Type == IdentifierImage {
-					image, err := cmd.API.GetImage(ident.Identifier)
+					image, err := api.GetImage(ident.Identifier)
 					if err == nil {
 						cj <- image
 					}
 				} else if ident.Type == IdentifierSnapshot {
-					snap, err := cmd.API.GetSnapshot(ident.Identifier)
+					snap, err := api.GetSnapshot(ident.Identifier)
 					if err == nil {
 						cj <- snap
 					}
 				} else if ident.Type == IdentifierVolume {
-					snap, err := cmd.API.GetVolume(ident.Identifier)
+					snap, err := api.GetVolume(ident.Identifier)
 					if err == nil {
 						cj <- snap
 					}
 				} else if ident.Type == IdentifierBootscript {
-					bootscript, err := cmd.API.GetBootscript(ident.Identifier)
+					bootscript, err := api.GetBootscript(ident.Identifier)
 					if err == nil {
 						cj <- bootscript
 					}
@@ -172,8 +172,8 @@ func runInspect(cmd *Command, args []string) {
 	nbInspected := 0
 	ci := make(chan ScalewayResolvedIdentifier)
 	cj := make(chan interface{})
-	go resolveIdentifiers(cmd, args, ci)
-	go inspectIdentifiers(cmd, ci, cj)
+	go resolveIdentifiers(cmd.API, args, ci)
+	go inspectIdentifiers(cmd.API, ci, cj)
 	for {
 		data, open := <-cj
 		if !open {

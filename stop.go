@@ -39,7 +39,7 @@ func runStop(cmd *Command, args []string) {
 
 	hasError := false
 	for _, needle := range args {
-		server := cmd.GetServer(needle)
+		server := cmd.API.GetServerID(needle)
 		action := "poweroff"
 		if stopT {
 			action = "terminate"
