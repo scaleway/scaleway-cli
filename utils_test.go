@@ -35,3 +35,26 @@ func TestTruncIf(t *testing.T) {
 		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
 	}
 }
+
+func TestPathToSCPPathparts(t *testing.T) {
+	dir, base := PathToSCPPathparts("/etc/passwd")
+	expected := []string{"/etc", "passwd"}
+	actual := []string{dir, base}
+	if actual[0] != expected[0] || actual[1] != expected[1] {
+		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
+	}
+
+	dir, base = PathToSCPPathparts("/etc")
+	expected = []string{"/", "etc"}
+	actual = []string{dir, base}
+	if actual[0] != expected[0] || actual[1] != expected[1] {
+		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
+	}
+
+	dir, base = PathToSCPPathparts("/etc/")
+	expected = []string{"/", "etc"}
+	actual = []string{dir, base}
+	if actual[0] != expected[0] || actual[1] != expected[1] {
+		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
+	}
+}
