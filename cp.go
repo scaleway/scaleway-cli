@@ -127,8 +127,55 @@ func runCp(cmd *Command, args []string) {
 	// destination
 	destination := args[1]
 	if strings.Index(destination, ":") > -1 { // destination server address
-		log.Fatalf("'scw cp ... SERVER' is not yet implemented")
+		serverParts := strings.Split(destination, ":")
+		if len(serverParts) != 2 {
+			log.Fatalf("usage: scw %s", cmd.UsageLine)
+		}
 
+		serverID := cmd.API.GetServerID(serverParts[0])
+
+		server, err := cmd.API.GetServer(serverID)
+		if err != nil {
+			log.Fatalf("Failed to get server information for %s: %v", serverID, err)
+		}
+
+		// remoteCommand is executed on the remote server
+		// it streams a tarball raw content
+		remoteCommand := []string{"tar"}
+		remoteCommand = append(remoteCommand, "-C", serverParts[1])
+		if os.Getenv("DEBUG") == "1" {
+			remoteCommand = append(remoteCommand, "-v")
+		}
+		remoteCommand = append(remoteCommand, "-tf", "-")
+
+		// execCmd contains the ssh connection + the remoteCommand
+		execCmd := append(NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
+		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+		spawn := exec.Command("ssh", execCmd...)
+
+		untarInputStream, err := spawn.StdinPipe()
+		if err != nil {
+			log.Fatal(err)
+		}
+		untarErrorStream, err := spawn.StderrPipe()
+		if err != nil {
+			log.Fatal(err)
+		}
+		untarOutputStream, err := spawn.StdoutPipe()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = spawn.Start()
+		if err != nil {
+			log.Fatalf("Failed to start ssh command: %v", err)
+		}
+
+		defer spawn.Wait()
+
+		io.Copy(untarInputStream, tarOutputStream)
+		io.Copy(os.Stderr, untarErrorStream)
+		io.Copy(os.Stdout, untarOutputStream)
 	} else if destination == "-" { // stdout
 		log.Debugf("Writing tarOutputStream(%v) to os.Stdout(%v)", tarOutputStream, os.Stdout)
 		written, err := io.Copy(os.Stdout, tarOutputStream)
