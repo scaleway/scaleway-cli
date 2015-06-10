@@ -4,6 +4,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
@@ -99,7 +100,26 @@ func runCp(cmd *Command, args []string) {
 	} else if source == "-" { // stdin
 		log.Fatalf("'scw cp - ...' is not yet implemented")
 	} else { // source host path
-		log.Fatalf("'scw cp HOSTPATH ...' is not yet implemented")
+		log.Debugf("Creating tarball of local path %s", source)
+		path, err := filepath.Abs(source)
+		if err != nil {
+			log.Fatalf("Cannot tar local path: %v", err)
+		}
+		path, err = filepath.EvalSymlinks(path)
+		if err != nil {
+			log.Fatalf("Cannot tar local path: %v", err)
+		}
+		log.Debugf("Real local path is %s", path)
+
+		dir, base := PathToSCPPathparts(path)
+
+		tarOutputStream, err = archive.TarWithOptions(dir, &archive.TarOptions{
+			Compression:  archive.Uncompressed,
+			IncludeFiles: []string{base},
+		})
+		if err != nil {
+			log.Fatalf("Cannot tar local path: %v", err)
+		}
 	}
 
 	// destination
