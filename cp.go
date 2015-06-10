@@ -65,7 +65,7 @@ func runCp(cmd *Command, args []string) {
 			log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 		}
 
-		dir, base := PathToSCPPathparts(serverParts[1])
+		dir, base := PathToTARPathparts(serverParts[1])
 
 		// remoteCommand is executed on the remote server
 		// it streams a tarball raw content
@@ -113,7 +113,7 @@ func runCp(cmd *Command, args []string) {
 		}
 		log.Debugf("Real local path is %s", path)
 
-		dir, base := PathToSCPPathparts(path)
+		dir, base := PathToTARPathparts(path)
 
 		tarOutputStream, err = archive.TarWithOptions(dir, &archive.TarOptions{
 			Compression:  archive.Uncompressed,

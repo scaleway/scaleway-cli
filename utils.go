@@ -102,8 +102,8 @@ func wordify(str string) string {
 	return str
 }
 
-// PathToSCPPathparts returns the two parts of a unix path
-func PathToSCPPathparts(fullPath string) (string, string) {
+// PathToTARPathparts returns the two parts of a unix path
+func PathToTARPathparts(fullPath string) (string, string) {
 	fullPath = strings.TrimRight(fullPath, "/")
 	return path.Dir(fullPath), path.Base(fullPath)
 }
