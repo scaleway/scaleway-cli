@@ -380,10 +380,23 @@ type ScalewayServer struct {
 	Organization string `json:"organization,omitempty"`
 }
 
-// ScalewayServerPathNameDefinition represents a Scaleway C1 server with only its name as field
-type ScalewayServerPathNameDefinition struct {
-	// Name is the user-defined name of the server
-	Name string `json:"name"`
+// ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
+type ScalewayServerPatchDefinition struct {
+	Name              *string                    `json:"name,omitempty"`
+	CreationDate      *string                    `json:"creation_date,omitempty"`
+	ModificationDate  *string                    `json:"modification_date,omitempty"`
+	Image             *ScalewayImage             `json:"image,omitempty"`
+	DynamicIPRequired *bool                      `json:"dynamic_ip_required,omitempty"`
+	PublicAddress     *ScalewayIPAddress         `json:"public_ip,omitempty"`
+	State             *string                    `json:"state,omitempty"`
+	StateDetail       *string                    `json:"state_detail,omitempty"`
+	PrivateIP         *string                    `json:"private_ip,omitempty"`
+	Bootscript        *ScalewayBootscript        `json:"bootscript,omitempty"`
+	Hostname          *string                    `json:"hostname,omitempty"`
+	Volumes           *map[string]ScalewayVolume `json:"volumes,omitempty"`
+	SecurityGroup     *ScalewaySecurityGroup     `json:"security_group,omitempty"`
+	Organization      *string                    `json:"organization,omitempty"`
+	//Tags            *[]string                  `json:"tags",omitempty`
 }
 
 // ScalewayServerDefinition represents a Scaleway C1 server with image definition
@@ -682,8 +695,8 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	return "", error
 }
 
-// PatchServerName changes the name of the server
-func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPathNameDefinition) error {
+// PatchServer updates a server
+func (s *ScalewayAPI) PatchServer(serverID string, definition ScalewayServerPatchDefinition) error {
 	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
 	if err != nil {
 		return err
