@@ -26,7 +26,7 @@ func runRename(cmd *Command, args []string) {
 
 	serverID := cmd.API.GetServerID(args[0])
 
-	var server ScalewayServerPathNameDefinition
+	var server ScalewayServerPatchNameDefinition
 	server.Name = args[1]
 
 	err := cmd.API.PatchServerName(serverID, server)

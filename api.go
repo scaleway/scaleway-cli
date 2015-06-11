@@ -380,8 +380,8 @@ type ScalewayServer struct {
 	Organization string `json:"organization,omitempty"`
 }
 
-// ScalewayServerPathNameDefinition represents a Scaleway C1 server with only its name as field
-type ScalewayServerPathNameDefinition struct {
+// ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
+type ScalewayServerPatchNameDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
 }
@@ -683,7 +683,7 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 }
 
 // PatchServerName changes the name of the server
-func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPathNameDefinition) error {
+func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPatchNameDefinition) error {
 	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
 	if err != nil {
 		return err
