@@ -34,6 +34,6 @@ RUN  cd $APP_DIR && GOOS=freebsd  GOARCH=arm   GOARM=5  godep go build -a -v -ld
 #RUN cd $APP_DIR && GOOS=openbsd  GOARCH=amd64          godep go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Openbsd-x86_64
 #RUN cd $APP_DIR && GOOS=openbsd  GOARCH=386            godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Openbsd-i386
 #RUN cd $APP_DIR && GOOS=openbsd  GOARCH=arm   GOARM=5  godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Openbsd-arm
-RUN  cd $APP_DIR && GOOS=windows  GOARCH=amd64          godep go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Windows-x86_64
+RUN  cd $APP_DIR && GOOS=windows  GOARCH=amd64          godep go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Windows-x86_64.exe
 #RUN cd $APP_DIR && GOOS=windows  GOARCH=386            godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Windows-i386
 #RUN cd $APP_DIR && GOOS=windows  GOARCH=arm   GOARM=5  godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Windows-arm
