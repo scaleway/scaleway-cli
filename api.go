@@ -399,12 +399,6 @@ type ScalewayServerPatchDefinition struct {
 	//Tags            *[]string                  `json:"tags",omitempty`
 }
 
-// ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
-type ScalewayServerPatchNameDefinition struct {
-	// Name is the user-defined name of the server
-	Name string `json:"name"`
-}
-
 // ScalewayServerDefinition represents a Scaleway C1 server with image definition
 type ScalewayServerDefinition struct {
 	// Name is the user-defined name of the server
@@ -699,32 +693,6 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	error.StatusCode = resp.StatusCode
 	error.Debug()
 	return "", error
-}
-
-// PatchServerName changes the name of the server
-func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPatchNameDefinition) error {
-	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
-	if err != nil {
-		return err
-	}
-
-	defer resp.Body.Close()
-	decoder := json.NewDecoder(resp.Body)
-
-	// Succeed PATCH code
-	if resp.StatusCode == 200 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-	err = decoder.Decode(&error)
-	if err != nil {
-		return err
-	}
-
-	error.StatusCode = resp.StatusCode
-	error.Debug()
-	return error
 }
 
 // PatchServer updates a server
