@@ -380,6 +380,25 @@ type ScalewayServer struct {
 	Organization string `json:"organization,omitempty"`
 }
 
+// ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
+type ScalewayServerPatchDefinition struct {
+	Name              *string                    `json:"name,omitempty"`
+	CreationDate      *string                    `json:"creation_date,omitempty"`
+	ModificationDate  *string                    `json:"modification_date,omitempty"`
+	Image             *ScalewayImage             `json:"image,omitempty"`
+	DynamicIPRequired *bool                      `json:"dynamic_ip_required,omitempty"`
+	PublicAddress     *ScalewayIPAddress         `json:"public_ip,omitempty"`
+	State             *string                    `json:"state,omitempty"`
+	StateDetail       *string                    `json:"state_detail,omitempty"`
+	PrivateIP         *string                    `json:"private_ip,omitempty"`
+	Bootscript        *ScalewayBootscript        `json:"bootscript,omitempty"`
+	Hostname          *string                    `json:"hostname,omitempty"`
+	Volumes           *map[string]ScalewayVolume `json:"volumes,omitempty"`
+	SecurityGroup     *ScalewaySecurityGroup     `json:"security_group,omitempty"`
+	Organization      *string                    `json:"organization,omitempty"`
+	//Tags            *[]string                  `json:"tags",omitempty`
+}
+
 // ScalewayServerPatchNameDefinition represents a Scaleway C1 server with only its name as field
 type ScalewayServerPatchNameDefinition struct {
 	// Name is the user-defined name of the server
@@ -684,6 +703,32 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 
 // PatchServerName changes the name of the server
 func (s *ScalewayAPI) PatchServerName(serverID string, definition ScalewayServerPatchNameDefinition) error {
+	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed PATCH code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
+}
+
+// PatchServer updates a server
+func (s *ScalewayAPI) PatchServer(serverID string, definition ScalewayServerPatchDefinition) error {
 	resp, err := s.PatchResponse(fmt.Sprintf("servers/%s", serverID), definition)
 	if err != nil {
 		return err
