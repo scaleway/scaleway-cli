@@ -70,6 +70,12 @@ curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.0.0/scw-`u
 chmod +x /usr/local/bin/scw
 ```
 
+To install Scaleway CLI master git, run the following command:
+
+```bash
+go get github.com/scaleway/scaleway-cli
+```
+
 ## Quick start
 
 Login
