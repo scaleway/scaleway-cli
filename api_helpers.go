@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -40,6 +41,66 @@ type ScalewayResolvedIdentifier struct {
 	Needle string
 }
 
+// fillIdentifierCache fills the cache by fetching fro the API
+func fillIdentifierCache(api *ScalewayAPI) {
+	log.Debugf("Filling the cache")
+	var wg sync.WaitGroup
+	wg.Add(5)
+	go func() {
+		api.GetServers(true, 0)
+		wg.Done()
+	}()
+	go func() {
+		api.GetImages()
+		wg.Done()
+	}()
+	go func() {
+		api.GetSnapshots()
+		wg.Done()
+	}()
+	go func() {
+		api.GetVolumes()
+		wg.Done()
+	}()
+	go func() {
+		api.GetBootscripts()
+		wg.Done()
+	}()
+	wg.Wait()
+}
+
+// getIdentifier returns a an identifier if the resolved needles only match one element, else, it exists the program
+func getIdentifier(api *ScalewayAPI, needle string) *ScalewayIdentifier {
+	idents := resolveIdentifier(api, needle)
+
+	if len(idents) == 1 {
+		return &idents[0]
+	}
+	if len(idents) == 0 {
+		log.Fatalf("No such identifier: %s", needle)
+	}
+	log.Errorf("Too many candidates for %s (%d)", needle, len(idents))
+	for _, identifier := range idents {
+		// FIXME: also print the name
+		log.Infof("- %s", identifier.Identifier)
+	}
+	os.Exit(1)
+	return nil
+}
+
+// resolveIdentifier resolves needle provided by the user
+func resolveIdentifier(api *ScalewayAPI, needle string) []ScalewayIdentifier {
+	idents := api.Cache.LookUpIdentifiers(needle)
+	if len(idents) > 0 {
+		return idents
+	}
+
+	fillIdentifierCache(api)
+
+	idents = api.Cache.LookUpIdentifiers(needle)
+	return idents
+}
+
 // resolveIdentifiers resolves needles provided by the user
 func resolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayResolvedIdentifier) {
 	// first attempt, only lookup from the cache
@@ -57,29 +118,8 @@ func resolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 	}
 	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
-		var wg sync.WaitGroup
-		wg.Add(5)
-		go func() {
-			api.GetServers(true, 0)
-			wg.Done()
-		}()
-		go func() {
-			api.GetImages()
-			wg.Done()
-		}()
-		go func() {
-			api.GetSnapshots()
-			wg.Done()
-		}()
-		go func() {
-			api.GetVolumes()
-			wg.Done()
-		}()
-		go func() {
-			api.GetBootscripts()
-			wg.Done()
-		}()
-		wg.Wait()
+		fillIdentifierCache(api)
+
 		for _, needle := range unresolved {
 			idents := api.Cache.LookUpIdentifiers(needle)
 			out <- ScalewayResolvedIdentifier{
