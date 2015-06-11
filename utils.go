@@ -16,12 +16,12 @@ import (
 
 func sshExec(ipAddress string, command []string, checkConnection bool) error {
 	if ipAddress == "" {
-		return errors.New("Server does not have public IP")
+		return errors.New("server does not have public IP")
 	}
 
 	if checkConnection {
 		if !IsTCPPortOpen(fmt.Sprintf("%s:22", ipAddress)) {
-			return errors.New("Server is not ready, try again later.")
+			return errors.New("server is not ready, try again later")
 		}
 	}
 
