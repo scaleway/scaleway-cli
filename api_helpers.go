@@ -300,14 +300,14 @@ func startServer(api *ScalewayAPI, needle string, wait bool) error {
 	err := api.PostServerAction(server, "poweron")
 	if err != nil {
 		if err.Error() != "server should be stopped" {
-			return fmt.Errorf("Server %s is already started: %v", server, err)
+			return fmt.Errorf("server %s is already started: %v", server, err)
 		}
 	}
 
 	if wait {
 		_, err = WaitForServerReady(api, server)
 		if err != nil {
-			return fmt.Errorf("Failed to wait for server %s to be ready, %v", needle, err)
+			return fmt.Errorf("failed to wait for server %s to be ready, %v", needle, err)
 		}
 	}
 	return nil

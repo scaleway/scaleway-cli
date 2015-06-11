@@ -1094,7 +1094,7 @@ func (s *ScalewayAPI) CheckCredentials() error {
 		return err
 	}
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("Invalid credentials")
+		return fmt.Errorf("invalid credentials")
 	}
 	return nil
 }

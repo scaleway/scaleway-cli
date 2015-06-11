@@ -274,7 +274,7 @@ func GetConfigFilePath() (string, error) {
 		homeDir = os.Getenv("USERPROFILE")
 	}
 	if homeDir == "" {
-		return "", errors.New("User home directory not found.")
+		return "", errors.New("user home directory not found")
 	}
 
 	return filepath.Join(homeDir, ".scwrc"), nil
