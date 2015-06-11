@@ -22,8 +22,9 @@ ADD . /go/src/github.com/scaleway/scaleway-cli
 # Compile the binary and statically link
 RUN  cd $APP_DIR && GOOS=darwin   GOARCH=amd64          godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Darwin-x86_64
 RUN  cd $APP_DIR && GOOS=darwin   GOARCH=386            godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Darwin-i386
-RUN  cd $APP_DIR && GOOS=linux    GOARCH=amd64          godep go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Linux-x86_64
 RUN  cd $APP_DIR && GOOS=linux    GOARCH=386            godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-i386
+#RUN  cd $APP_DIR && GOOS=linux    GOARCH=amd64          godep go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Linux-x86_64
+RUN cp /go/bin/scw-Linux-i386 /go/bin/scw-Linux-x86_64
 RUN  cd $APP_DIR && GOOS=linux    GOARCH=arm   GOARM=5  godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-arm
 RUN  cd $APP_DIR && GOOS=linux    GOARCH=arm   GOARM=6  godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-armv6
 RUN  cd $APP_DIR && GOOS=linux    GOARCH=arm   GOARM=7  godep go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-armv7
