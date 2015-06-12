@@ -18,7 +18,10 @@ var cmdLogin = &Command{
 	Description: "Log in to Scaleway API",
 	Help: `Generates a configuration file in '/home/$USER/.scwrc'
 containing credentials used to interact with the Scaleway API. This
-configuration file is automatically used by the 'scw' commands.`,
+configuration file is automatically used by the 'scw' commands.
+
+You can get your credentials on https://cloud.scaleway.com/#/credentials
+`,
 }
 
 func promptUser(prompt string, output *string, echo bool) {
@@ -58,7 +61,8 @@ func runLogin(cmd *Command, args []string) {
 	}
 
 	if len(organization) == 0 {
-		promptUser("Organization: ", &organization, true)
+		fmt.Println("You can get your credentials on https://cloud.scaleway.com/#/credentials")
+		promptUser("Organization (access key): ", &organization, true)
 	}
 	if len(token) == 0 {
 		promptUser("Token: ", &token, false)
