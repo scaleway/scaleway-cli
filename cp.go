@@ -53,6 +53,7 @@ func runCp(cmd *Command, args []string) {
 	// source
 	source := args[0]
 	if strings.Index(source, ":") > -1 { // source server address
+		log.Debugf("Creating a tarball remotely and streaming it using SSH")
 		serverParts := strings.Split(args[0], ":")
 		if len(serverParts) != 2 {
 			log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -66,6 +67,7 @@ func runCp(cmd *Command, args []string) {
 		}
 
 		dir, base := PathToTARPathparts(serverParts[1])
+		log.Debugf("Kind of equivalent of 'scp root@%s:%s/%s ...'", server.PublicAddress.IP, dir, base)
 
 		// remoteCommand is executed on the remote server
 		// it streams a tarball raw content
@@ -100,9 +102,10 @@ func runCp(cmd *Command, args []string) {
 
 		io.Copy(os.Stderr, tarErrorStream)
 	} else if source == "-" { // stdin
+		log.Debugf("Streaming tarball from stdin")
 		tarOutputStream = os.Stdin
 	} else { // source host path
-		log.Debugf("Creating tarball of local path %s", source)
+		log.Debugf("Taring local path %s", source)
 		path, err := filepath.Abs(source)
 		if err != nil {
 			log.Fatalf("Cannot tar local path: %v", err)
@@ -127,6 +130,7 @@ func runCp(cmd *Command, args []string) {
 	// destination
 	destination := args[1]
 	if strings.Index(destination, ":") > -1 { // destination server address
+		log.Debugf("Streaming using ssh and untaring remotely")
 		serverParts := strings.Split(destination, ":")
 		if len(serverParts) != 2 {
 			log.Fatalf("usage: scw %s", cmd.UsageLine)
@@ -185,6 +189,7 @@ func runCp(cmd *Command, args []string) {
 		}
 
 	} else { // destination host path
+		log.Debugf("Untaring to local path: %s", destination)
 		err := archive.Untar(tarOutputStream, destination, &archive.TarOptions{NoLchown: true})
 		if err != nil {
 			log.Fatalf("Failed to untar the remote archive: %v", err)
