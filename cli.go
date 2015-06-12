@@ -231,9 +231,12 @@ func main() {
 			if err != nil {
 				log.Fatalf("usage: scw %s", cmd.UsageLine)
 			}
-			if cmd.Name() != "login" {
+			if cmd.Name() != "login" && cmd.Name() != "help" {
 				if cfgErr != nil {
-					log.Fatalf("Unable to open .scwrc config file: %v", cfgErr)
+					if name != "login" && config == nil {
+						fmt.Fprintf(os.Stderr, "You need to login first: 'scw login'\n")
+						os.Exit(1)
+					}
 				}
 				api, err := getScalewayAPI()
 				if err != nil {
