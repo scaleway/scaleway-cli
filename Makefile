@@ -1,9 +1,9 @@
 # Go parameters
 GOCMD ?=	go
-GOBUILD ?=	$(GOCMD) build
+GOBUILD ?=	godep $(GOCMD) build
 GOCLEAN ?=	$(GOCMD) clean
 GOINSTALL ?=	$(GOCMD) install
-GOTEST ?=	$(GOCMD) test
+GOTEST ?=	godep $(GOCMD) test
 GODEP ?=	$(GOTEST) -i
 GOFMT ?=	gofmt -w
 
@@ -20,10 +20,10 @@ CLEAN_LIST = $(foreach int, $(SRC), $(int)_clean)
 INSTALL_LIST = $(foreach int, $(SRC), $(int)_install)
 IREF_LIST = $(foreach int, $(SRC), $(int)_iref)
 TEST_LIST = $(foreach int, $(SRC), $(int)_test)
-FMT_TEST = $(foreach int, $(SRC), $(int)_fmt)
+FMT_LIST = $(foreach int, $(SRC), $(int)_fmt)
 
 
-.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST) scwversion/version.go
+.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
 
 
 all: build
@@ -32,10 +32,14 @@ clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
-fmt: $(FMT_TEST)
+fmt: $(FMT_LIST)
 
 
-scwversion/version.go:
+.git:
+	touch $@
+
+
+scwversion/version.go: .git
 	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.tpl > $@.tmp
 	@if [ "$$(diff $@.tmp $@ 2>&1)" != "" ]; then mv $@.tmp $@; fi
 	@rm -f $@.tmp
@@ -58,7 +62,7 @@ $(IREF_LIST): %_iref: Godeps
 	$(GODEP) ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
-$(FMT_TEST): %_fmt:
+$(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
 

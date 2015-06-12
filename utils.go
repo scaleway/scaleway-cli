@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"path"
 	"regexp"
 	"strings"
 	"time"
@@ -99,4 +100,10 @@ func wordify(str string) string {
 	str = regexp.MustCompile(`__+`).ReplaceAllString(str, "_")
 	str = strings.Trim(str, "_")
 	return str
+}
+
+// PathToTARPathparts returns the two parts of a unix path
+func PathToTARPathparts(fullPath string) (string, string) {
+	fullPath = strings.TrimRight(fullPath, "/")
+	return path.Dir(fullPath), path.Base(fullPath)
 }
