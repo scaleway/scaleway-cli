@@ -948,6 +948,10 @@ Same as Hack, without step 5
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
 ### 1.1.0 (2015-06-12)
 
 #### Features
