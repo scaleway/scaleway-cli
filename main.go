@@ -45,7 +45,7 @@ func commandUsage(name string) {
 var (
 	flAPIEndPoint *string
 	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
-	flVersion     = flag.Bool([]string{"v", "--version"}, false, "Print version information and quit")
+	flVersion     = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
 )
 
 func main() {
