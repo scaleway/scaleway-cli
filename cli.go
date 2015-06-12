@@ -164,6 +164,7 @@ var commands = []*Command{
 	cmdInspect,
 	cmdKill,
 	cmdLogin,
+	cmdLogout,
 	cmdLogs,
 	cmdPatch,
 	cmdPort,
@@ -220,6 +221,7 @@ func main() {
 		usage()
 	}
 	name := args[0]
+
 	args = args[1:]
 
 	for _, cmd := range commands {
