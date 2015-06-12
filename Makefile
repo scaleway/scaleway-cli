@@ -10,17 +10,18 @@ GOFMT ?=	gofmt -w
 
 NAME = scw
 SRC = .
+PACKAGES = api commands utils
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
 
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
-CLEAN_LIST = $(foreach int, $(SRC), $(int)_clean)
+CLEAN_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_clean)
 INSTALL_LIST = $(foreach int, $(SRC), $(int)_install)
-IREF_LIST = $(foreach int, $(SRC), $(int)_iref)
-TEST_LIST = $(foreach int, $(SRC), $(int)_test)
-FMT_LIST = $(foreach int, $(SRC), $(int)_fmt)
+IREF_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_iref)
+TEST_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_test)
+FMT_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_fmt)
 
 
 .PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
