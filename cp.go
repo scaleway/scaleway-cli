@@ -80,7 +80,6 @@ func TarFromSource(api *ScalewayAPI, source string) (*io.ReadCloser, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer tarOutputStream.Close()
 
 		tarErrorStream, err := spawnSrc.StderrPipe()
 		if err != nil {
@@ -102,7 +101,6 @@ func TarFromSource(api *ScalewayAPI, source string) (*io.ReadCloser, error) {
 	if source == "-" {
 		log.Debugf("Streaming tarball from stdin")
 		tarOutputStream = os.Stdin
-		defer tarOutputStream.Close()
 		return &tarOutputStream, nil
 	}
 
@@ -127,7 +125,6 @@ func TarFromSource(api *ScalewayAPI, source string) (*io.ReadCloser, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer tarOutputStream.Close()
 	return &tarOutputStream, nil
 }
 
@@ -167,27 +164,15 @@ func UntarToDest(api *ScalewayAPI, sourceStream *io.ReadCloser, destination stri
 		}
 		defer untarInputStream.Close()
 
-		untarErrorStream, err := spawnDst.StderrPipe()
-		if err != nil {
-			return err
-		}
-		defer untarErrorStream.Close()
-
-		untarOutputStream, err := spawnDst.StdoutPipe()
-		if err != nil {
-			return err
-		}
-		defer untarOutputStream.Close()
+		// spawnDst.Stderr = os.Stderr
+		// spawnDst.Stdout = os.Stdout
 
 		err = spawnDst.Start()
 		if err != nil {
 			return err
 		}
-		defer spawnDst.Wait()
 
-		io.Copy(untarInputStream, *sourceStream)
-		io.Copy(os.Stderr, untarErrorStream)
-		_, err = io.Copy(os.Stdout, untarOutputStream)
+		_, err = io.Copy(untarInputStream, *sourceStream)
 		return err
 	}
 
@@ -223,6 +208,6 @@ func runCp(cmd *Command, args []string) {
 
 	err = UntarToDest(cmd.API, sourceStream, args[1])
 	if err != nil {
-		log.Fatalf("Cannot untar to destionation '%s': %v", args[1], err)
+		log.Fatalf("Cannot untar to destination '%s': %v", args[1], err)
 	}
 }
