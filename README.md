@@ -147,6 +147,21 @@ running the command. Use '-' to write the data as a tar file to STDOUT.
 Options:
 
   -h, --help=false      Print usage
+
+Examples:
+
+    $ scw cp path/to/my/local/file myserver:path
+    $ scw cp myserver:path/to/file path/to/my/local/dir
+    $ scw cp myserver:path/to/file myserver2:path/to/dir
+    $ scw cp myserver:path/to/file - > myserver-pathtofile-backup.tar
+    $ scw cp myserver:path/to/file - | tar -tvf -
+    $ scw cp path/to/my/local/dir  myserver:path
+    $ scw cp myserver:path/to/dir  path/to/my/local/dir
+    $ scw cp myserver:path/to/dir  myserver2:path/to/dir
+    $ scw cp myserver:path/to/dir  - > myserver-pathtodir-backup.tar
+    $ scw cp myserver:path/to/dir  - | tar -tvf -
+    $ cat archive.tar | scw cp - myserver:/path
+    $ tar -cvf - . | scw cp - myserver:path
 ```
 
 
@@ -925,6 +940,7 @@ Development in progress
 
 #### Features
 
+* Support of `scw cp` from {server-path,local-path,stdin} to {server-path,local-path,stdout} ([#56](https://github.com/scaleway/scaleway-cli/issues/56))
 * Support of `_patch` experimental command  ([#57](https://github.com/scaleway/scaleway-cli/issues/57))
 * Support of `_completion` command (shell completion helper) ([#45](https://github.com/scaleway/scaleway-cli/issues/45))
 * Returning more resource fields on `scw inspect` ([#50](https://github.com/scaleway/scaleway-cli/issues/50))
