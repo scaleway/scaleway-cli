@@ -89,7 +89,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("usage: scw %s", cmd.UsageLine)
 			}
-			if cmd.Name() != "login" && cmd.Name() != "help" {
+			if cmd.Name() != "login" && cmd.Name() != "help" && cmd.Name() != "version" {
 				if cfgErr != nil {
 					if name != "login" && config == nil {
 						fmt.Fprintf(os.Stderr, "You need to login first: 'scw login'\n")
