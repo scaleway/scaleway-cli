@@ -2,23 +2,18 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
-	"strings"
-	"text/template"
 
 	log "github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
-	"github.com/scaleway/scaleway-cli/scwversion"
-)
 
-var (
-	config *Config
+	"github.com/scaleway/scaleway-cli/api"
+	cmds "github.com/scaleway/scaleway-cli/commands"
+	"github.com/scaleway/scaleway-cli/scwversion"
+	"github.com/scaleway/scaleway-cli/utils"
 )
 
 // CommandListOpts holds a list of parameters
@@ -45,142 +40,7 @@ func (opts *CommandListOpts) Set(value string) error {
 	return nil
 }
 
-// Command is a Scaleway command
-type Command struct {
-	// Exec executes the command
-	Exec func(cmd *Command, args []string)
-
-	// Usage is the one-line usage message.
-	UsageLine string
-
-	// Description is the description of the command
-	Description string
-
-	// Help is the full description of the command
-	Help string
-
-	// Examples are some examples of the command
-	Examples string
-
-	// Flag is a set of flags specific to this command.
-	Flag flag.FlagSet
-
-	// Hidden is a flat to hide command from global help commands listing
-	Hidden bool
-
-	// API is the interface used to communicate with Scaleway's API
-	API *ScalewayAPI
-}
-
-// Name returns the command's name
-func (c *Command) Name() string {
-	name := c.UsageLine
-	i := strings.Index(name, " ")
-	if i >= 0 {
-		name = name[:i]
-	}
-	return name
-}
-
-var fullHelpTemplate = `
-Usage: scw {{.UsageLine}}
-
-{{.Help}}
-
-{{.Options}}
-{{.ExamplesHelp}}
-`
-
-func commandHelpMessage(cmd *Command) (string, error) {
-	t := template.New("full")
-	template.Must(t.Parse(fullHelpTemplate))
-	var output bytes.Buffer
-	err := t.Execute(&output, cmd)
-	if err != nil {
-		return "", err
-	}
-	return strings.Trim(output.String(), "\n"), nil
-}
-
 func commandUsage(name string) {
-}
-
-// PrintUsage prints a full command usage and exits
-func (c *Command) PrintUsage() {
-	helpMessage, err := commandHelpMessage(c)
-	if err != nil {
-		log.Fatalf("%v", err)
-	}
-	fmt.Fprintf(os.Stderr, "%s\n", helpMessage)
-	os.Exit(1)
-}
-
-// PrintShortUsage prints a short command usage and exits
-func (c *Command) PrintShortUsage() {
-	fmt.Fprintf(os.Stderr, "usage: scw %s. See 'scw %s --help'.\n", c.UsageLine, c.Name())
-	os.Exit(1)
-}
-
-// Options returns a string describing options of the command
-func (c *Command) Options() string {
-	var options string
-	visitor := func(flag *flag.Flag) {
-		name := strings.Join(flag.Names, ", -")
-		var optionUsage string
-		if flag.DefValue == "" {
-			optionUsage = fmt.Sprintf("%s=\"\"", name)
-		} else {
-			optionUsage = fmt.Sprintf("%s=%s", name, flag.DefValue)
-		}
-		options += fmt.Sprintf("  -%-20s %s\n", optionUsage, flag.Usage)
-	}
-	c.Flag.VisitAll(visitor)
-	if len(options) == 0 {
-		return ""
-	}
-	return fmt.Sprintf("Options:\n\n%s", options)
-}
-
-// ExamplesHelp returns a string describing examples of the command
-func (c *Command) ExamplesHelp() string {
-	if c.Examples == "" {
-		return ""
-	}
-	return fmt.Sprintf("Examples:\n\n%s", strings.Trim(c.Examples, "\n"))
-}
-
-var commands = []*Command{
-	cmdAttach,
-	cmdCommit,
-	cmdCompletion,
-	cmdCp,
-	cmdCreate,
-	cmdEvents,
-	cmdExec,
-	cmdHelp,
-	cmdHistory,
-	cmdImages,
-	cmdInfo,
-	cmdInspect,
-	cmdKill,
-	cmdLogin,
-	cmdLogout,
-	cmdLogs,
-	cmdPatch,
-	cmdPort,
-	cmdPs,
-	cmdRename,
-	cmdRestart,
-	cmdRm,
-	cmdRmi,
-	cmdRun,
-	cmdSearch,
-	cmdStart,
-	cmdStop,
-	cmdTag,
-	cmdTop,
-	cmdVersion,
-	cmdWait,
 }
 
 var (
@@ -189,105 +49,14 @@ var (
 	flVersion     = flag.Bool([]string{"v", "--version"}, false, "Print version information and quit")
 )
 
-func main() {
-	var cfgErr error
-	config, cfgErr = getConfig()
-	if cfgErr != nil && !os.IsNotExist(cfgErr) {
-		log.Fatalf("Unable to open .scwrc config file: %v", cfgErr)
-	}
-
-	if config != nil {
-		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
-	}
-	flag.Parse()
-
-	if *flVersion {
-		showVersion()
-		return
-	}
-
-	if flAPIEndPoint != nil {
-		os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
-	}
-
-	if *flDebug {
-		os.Setenv("DEBUG", "1")
-	}
-
-	initLogging(os.Getenv("DEBUG") != "")
-
-	args := flag.Args()
-	if len(args) < 1 {
-		usage()
-	}
-	name := args[0]
-
-	args = args[1:]
-
-	for _, cmd := range commands {
-		if cmd.Name() == name {
-			cmd.Flag.SetOutput(ioutil.Discard)
-			err := cmd.Flag.Parse(args)
-			if err != nil {
-				log.Fatalf("usage: scw %s", cmd.UsageLine)
-			}
-			if cmd.Name() != "login" && cmd.Name() != "help" {
-				if cfgErr != nil {
-					if name != "login" && config == nil {
-						fmt.Fprintf(os.Stderr, "You need to login first: 'scw login'\n")
-						os.Exit(1)
-					}
-				}
-				api, err := getScalewayAPI()
-				if err != nil {
-					log.Fatalf("unable to initialize scw api: %s", err)
-				}
-				cmd.API = api
-			}
-			cmd.Exec(cmd, cmd.Flag.Args())
-			if cmd.API != nil {
-				cmd.API.Sync()
-			}
-			os.Exit(0)
-		}
-	}
-
-	log.Fatalf("scw: unknown subcommand %s\nRun 'scw help' for usage.", name)
-}
-
 func usage() {
-	cmdHelp.Exec(cmdHelp, []string{})
+	cmds.CmdHelp.Exec(cmds.CmdHelp, []string{})
 	os.Exit(1)
 }
 
-// Config is a Scaleway CLI configuration file
-type Config struct {
-	// APIEndpoint is the endpoint to the Scaleway API
-	APIEndPoint string `json:"api_endpoint"`
-
-	// Organization is the identifier of the Scaleway orgnization
-	Organization string `json:"organization"`
-
-	// Token is the authentication token for the Scaleway organization
-	Token string `json:"token"`
-}
-
-// GetConfigFilePath returns the path to the Scaleway CLI config file
-func GetConfigFilePath() (string, error) {
-	homeDir := os.Getenv("HOME") // *nix
-	if homeDir == "" {           // Windows
-		homeDir = os.Getenv("USERPROFILE")
-	}
-	if homeDir == "" {
-		return "", errors.New("user home directory not found")
-	}
-
-	return filepath.Join(homeDir, ".scwrc"), nil
-}
-
 // getConfig returns the Scaleway CLI config file for the current user
-func getConfig() (*Config, error) {
-	scwrcPath, err := GetConfigFilePath()
+func getConfig() (*api.Config, error) {
+	scwrcPath, err := utils.GetConfigFilePath()
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +74,7 @@ func getConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	var config Config
+	var config api.Config
 	err = json.Unmarshal(file, &config)
 	if err != nil {
 		return nil, err
@@ -317,13 +86,13 @@ func getConfig() (*Config, error) {
 }
 
 // getScalewayAPI returns a ScalewayAPI using the user config file
-func getScalewayAPI() (*ScalewayAPI, error) {
+func getScalewayAPI() (*api.ScalewayAPI, error) {
 	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
 	config, err := getConfig()
 	if err != nil {
 		return nil, err
 	}
-	return NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
+	return api.NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
 }
 
 func showVersion() {
