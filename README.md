@@ -43,6 +43,7 @@ Commands:
     inspect   Return low-level information on a server, image, snapshot or bootscript
     kill      Kill a running server
     login     Log in to Scaleway API
+    logout    Log out from the Scaleway API
     logs      Fetch the logs of a server
     port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT
     ps        List servers
@@ -344,6 +345,19 @@ Options:
   -h, --help=false      Print usage
   -o, --organization="" Organization
   -t, --token=""        Token
+```
+
+
+### scw logout
+
+```console
+Usage: scw logout [OPTIONS]
+
+Log out from the Scaleway API.
+
+Options:
+
+  -h, --help=false      Print usage
 ```
 
 
@@ -941,6 +955,7 @@ Development in progress
 #### Features
 
 * Support of `scw cp` from {server-path,local-path,stdin} to {server-path,local-path,stdout} ([#56](https://github.com/scaleway/scaleway-cli/issues/56))
+* Support of `scw logout` command
 * Support of `_patch` experimental command  ([#57](https://github.com/scaleway/scaleway-cli/issues/57))
 * Support of `_completion` command (shell completion helper) ([#45](https://github.com/scaleway/scaleway-cli/issues/45))
 * Returning more resource fields on `scw inspect` ([#50](https://github.com/scaleway/scaleway-cli/issues/50))
