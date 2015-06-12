@@ -967,7 +967,7 @@ Development in progress
 
 #### Fixes
 
-* The project is now `go get`-able
+* The project is now `go get`-able and splitted into packages
 * Added timeout when polling SSH TCP port for `scw start -w` and `scw exec -w` ([#46](https://github.com/scaleway/scaleway-cli/issues/46))
 * Improved resolver behavior for exact matching  ([#53](https://github.com/scaleway/scaleway-cli/issues/53), [#55](https://github.com/scaleway/scaleway-cli/issues/55))
 * Verbose error message when `scw exec` fails ([#42](https://github.com/scaleway/scaleway-cli/issues/42))
