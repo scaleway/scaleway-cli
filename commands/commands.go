@@ -2,6 +2,7 @@ package commands
 
 import types "github.com/scaleway/scaleway-cli/commands/types"
 
+// Commands is the list of enabled CLI commands
 var Commands = []*types.Command{
 	CmdHelp,
 

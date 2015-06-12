@@ -8,6 +8,7 @@ import (
 	types "github.com/scaleway/scaleway-cli/commands/types"
 )
 
+// CmdHelp is the 'scw help' command
 var CmdHelp = &types.Command{
 	Exec:        nil,
 	UsageLine:   "help [COMMAND]",

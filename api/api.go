@@ -452,6 +452,7 @@ type ScalewayImageDefinition struct {
 	Arch               string `json:"arch"`
 }
 
+// FuncMap used for json inspection
 var FuncMap = template.FuncMap{
 	"json": func(v interface{}) string {
 		a, _ := json.Marshal(v)

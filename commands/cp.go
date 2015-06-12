@@ -44,6 +44,7 @@ func init() {
 // Flags
 var cpHelp bool // -h, --help flag
 
+// TarFromSource creates a stream buffer with the tarballed content of the user source
 func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) {
 	var tarOutputStream io.ReadCloser
 
@@ -132,6 +133,7 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 	return &tarOutputStream, nil
 }
 
+// UntarToDest writes to user destination the streamed tarball in input
 func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination string) error {
 	// destination is a server address + path (scp-like uri)
 	if strings.Index(destination, ":") > -1 {

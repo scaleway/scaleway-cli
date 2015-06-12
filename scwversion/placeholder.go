@@ -1,6 +1,8 @@
 package scwversion
 
 var (
-	VERSION   string = "placeholder"
-	GITCOMMIT string = "placeholder"
+	// VERSION is the 'scw version', it's overriden on build by the Makefile
+	VERSION = "placeholder"
+	// GITCOMMIT is the commit uuid, it's overriden on build by the Makefile
+	GITCOMMIT = "placeholder"
 )

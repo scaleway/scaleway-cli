@@ -38,7 +38,7 @@ func runLogs(cmd *types.Command, args []string) {
 	// FIXME: switch to serial history when API is ready
 
 	command := []string{"dmesg"}
-	err = utils.SshExec(server.PublicAddress.IP, command, true)
+	err = utils.SSHExec(server.PublicAddress.IP, command, true)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}

@@ -199,6 +199,7 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 	close(cj)
 }
 
+// CreateServer creates a server using API based on typical server fields
 func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
 	if name == "" {
 		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
@@ -295,6 +296,7 @@ func (a ByCreationDate) Len() int           { return len(a) }
 func (a ByCreationDate) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByCreationDate) Less(i, j int) bool { return a[j].CreationDate.Before(a[i].CreationDate) }
 
+// StartServer start a server based on its needle, can optionaly block while server is booting
 func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 	server := api.GetServerID(needle)
 
@@ -314,6 +316,7 @@ func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 	return nil
 }
 
+// StartServerOnce wraps StartServer for golang channel
 func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan chan bool, errChan chan error) {
 	err := StartServer(api, needle, wait)
 

@@ -85,3 +85,8 @@ travis_install:
 
 travis_run: build
 	go test -v -covermode=count -coverprofile=profile.cov
+
+
+golint:
+	@go get github.com/golang/lint/golint
+	@for dir in */; do golint $$dir; done

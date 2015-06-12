@@ -15,7 +15,8 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-func SshExec(ipAddress string, command []string, checkConnection bool) error {
+// SSHExec executes a command over SSH and redirects file-descriptors
+func SSHExec(ipAddress string, command []string, checkConnection bool) error {
 	if ipAddress == "" {
 		return errors.New("server does not have public IP")
 	}

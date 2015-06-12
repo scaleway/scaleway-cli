@@ -72,7 +72,7 @@ func runExec(cmd *types.Command, args []string) {
 		}()
 	}
 
-	err = utils.SshExec(server.PublicAddress.IP, args[1:], !execW)
+	err = utils.SSHExec(server.PublicAddress.IP, args[1:], !execW)
 	if err != nil {
 		log.Fatalf("%v", err)
 		os.Exit(1)
