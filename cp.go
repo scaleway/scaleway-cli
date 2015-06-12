@@ -80,23 +80,23 @@ func runCp(cmd *Command, args []string) {
 		// execCmd contains the ssh connection + the remoteCommand
 		execCmd := append(NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-		spawn := exec.Command("ssh", execCmd...)
+		spawnSrc := exec.Command("ssh", execCmd...)
 
-		tarOutputStream, err = spawn.StdoutPipe()
+		tarOutputStream, err = spawnSrc.StdoutPipe()
 		if err != nil {
 			log.Fatal(err)
 		}
-		tarErrorStream, err = spawn.StderrPipe()
+		tarErrorStream, err = spawnSrc.StderrPipe()
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = spawn.Start()
+		err = spawnSrc.Start()
 		if err != nil {
 			log.Fatalf("Failed to start ssh command: %v", err)
 		}
 
-		defer spawn.Wait()
+		defer spawnSrc.Wait()
 
 		io.Copy(os.Stderr, tarErrorStream)
 	} else if source == "-" { // stdin
@@ -151,27 +151,27 @@ func runCp(cmd *Command, args []string) {
 		// execCmd contains the ssh connection + the remoteCommand
 		execCmd := append(NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-		spawn := exec.Command("ssh", execCmd...)
+		spawnDst := exec.Command("ssh", execCmd...)
 
-		untarInputStream, err := spawn.StdinPipe()
+		untarInputStream, err := spawnDst.StdinPipe()
 		if err != nil {
 			log.Fatal(err)
 		}
-		untarErrorStream, err := spawn.StderrPipe()
+		untarErrorStream, err := spawnDst.StderrPipe()
 		if err != nil {
 			log.Fatal(err)
 		}
-		untarOutputStream, err := spawn.StdoutPipe()
+		untarOutputStream, err := spawnDst.StdoutPipe()
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = spawn.Start()
+		err = spawnDst.Start()
 		if err != nil {
 			log.Fatalf("Failed to start ssh command: %v", err)
 		}
 
-		defer spawn.Wait()
+		defer spawnDst.Wait()
 
 		io.Copy(untarInputStream, tarOutputStream)
 		io.Copy(os.Stderr, untarErrorStream)
