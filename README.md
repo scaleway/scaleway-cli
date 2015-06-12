@@ -65,10 +65,10 @@ Run 'scw COMMAND --help' for more information on a command.
 
 ## Install
 
-To install Scaleway CLI 1.0.0, run the following commands:
+To install Scaleway CLI 1.1.0, run the following commands:
 
 ```bash
-curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.0.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
+curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.1.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
 chmod +x /usr/local/bin/scw
 ```
 
@@ -948,9 +948,7 @@ Same as Hack, without step 5
 
 ## Changelog
 
-### master (unreleased)
-
-Development in progress
+### 1.1.0 (2015-06-12)
 
 #### Features
 
