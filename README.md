@@ -950,7 +950,9 @@ Same as Hack, without step 5
 
 ### master (unreleased)
 
-* No entry
+#### Fixes
+
+* `scw run IMAGE [COMMAND]`, default *COMMAND* is now `if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi`
 
 ### 1.1.0 (2015-06-12)
 
