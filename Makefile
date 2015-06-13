@@ -7,6 +7,21 @@ GOTEST ?=	godep $(GOCMD) test
 GODEP ?=	$(GOTEST) -i
 GOFMT ?=	gofmt -w
 
+FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
+FPM_DOCKER ?=	\
+	-it --rm \
+	-v $(PWD)/dist:/output \
+	-w /output \
+	tenzer/fpm fpm
+FPM_ARGS ?=	\
+	-C /input/ \
+	-s dir \
+	--name=scw \
+	--no-depends \
+	--version=$(FPM_VERSION) \
+	--license=mit \
+	-m "Scaleway <opensource@scaleway.com>"
+
 
 NAME = scw
 SRC = .
@@ -77,6 +92,17 @@ cross: scwversion/version.go
 	touch tmp/bin/*
 	mv tmp/bin/* dist/
 	rm -rf tmp dist/godep
+
+
+packages:
+	rm -f dist/*.deb
+	docker run -v $(PWD)/dist/scw-Linux-x86_64:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a x86_64 ./
+	docker run -v $(PWD)/dist/scw-Linux-i386:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a i386 ./
+	docker run -v $(PWD)/dist/scw-Linux-arm:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a arm ./
+
+
+#publish_packages:
+#	docker run -v $(PWD)/dist moul/dput ppa:moul/scw dist/scw_$(FPM_VERSION)_arm.changes
 
 
 travis_install:
