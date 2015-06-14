@@ -244,13 +244,14 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		image := api.GetImageID(imageName, false)
 		if image != "" {
 			server.Image = &image
+		} else {
+			snapshotID := api.GetSnapshotID(imageName)
+			snapshot, err := api.GetSnapshot(snapshotID)
+			if err != nil {
+				return "", err
+			}
+			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
-		snapshotID := api.GetSnapshotID(imageName)
-		snapshot, err := api.GetSnapshot(snapshotID)
-		if err != nil {
-			return "", err
-		}
-		server.Volumes["0"] = snapshot.BaseVolume.Identifier
 	}
 
 	serverID, err := api.PostServer(server)
