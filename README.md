@@ -950,6 +950,10 @@ Same as Hack, without step 5
 
 ### master (unreleased)
 
+#### Features
+
+* `scw {create,run} IMAGE`, *IMAGE* can be a snapshot ([#19](https://github.com/scaleway/scaleway-cli/issues/19))
+
 #### Fixes
 
 * `scw run IMAGE [COMMAND]`, default *COMMAND* is now `if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi`

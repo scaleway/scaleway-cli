@@ -39,7 +39,7 @@ func runHistory(cmd *types.Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	imageID := cmd.API.GetImageID(args[0])
+	imageID := cmd.API.GetImageID(args[0], true)
 	image, err := cmd.API.GetImage(imageID)
 	if err != nil {
 		log.Fatalf("Cannot get image %s: %v", imageID, err)

@@ -1143,7 +1143,7 @@ func (s *ScalewayAPI) GetSnapshotID(needle string) string {
 }
 
 // GetImageID returns exactly one image matching or dies
-func (s *ScalewayAPI) GetImageID(needle string) string {
+func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
 	images, err := s.ResolveImage(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve image %s: %s", needle, err)
@@ -1152,7 +1152,11 @@ func (s *ScalewayAPI) GetImageID(needle string) string {
 		return images[0]
 	}
 	if len(images) == 0 {
-		log.Fatalf("No such image: %s", needle)
+		if exitIfMissing {
+			log.Fatalf("No such image: %s", needle)
+		} else {
+			return ""
+		}
 	}
 	log.Errorf("Too many candidates for %s (%d)", needle, len(images))
 	for _, identifier := range images {
