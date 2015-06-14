@@ -110,7 +110,7 @@ travis_install:
 
 
 travis_run: build
-	go test -v -covermode=count -coverprofile=profile.cov
+	godep go test -v -covermode=count $(foreach int, $(SRC) $(PACKAGES), ./$(int))
 
 
 golint:
