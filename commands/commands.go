@@ -1,3 +1,8 @@
+// Copyright (C) 2015 Scaleway. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE.md file.
+
+// Docker-style commands to manage BareMetal servers
 package commands
 
 import types "github.com/scaleway/scaleway-cli/commands/types"
