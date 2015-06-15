@@ -150,6 +150,22 @@ type ScalewayVolumeDefinition struct {
 	Organization string `json:"organization"`
 }
 
+// ScalewayVolumePutDefinition represents a Scaleway C1 volume with nullable fields (for PUT)
+type ScalewayVolumePutDefinition struct {
+	Identifier       *string `json:"id,omitempty"`
+	Size             *uint64 `json:"size,omitempty"`
+	CreationDate     *string `json:"creation_date,omitempty"`
+	ModificationDate *string `json:"modification_date,omitempty"`
+	Organization     *string `json:"organization,omitempty"`
+	Name             *string `json:"name,omitempty"`
+	Server           struct {
+		Identifier *string `json:"id,omitempty"`
+		Name       *string `json:"name,omitempty"`
+	} `json:"server,omitempty"`
+	VolumeType *string `json:"volume_type,omitempty"`
+	ExportURI  *string `json:"export_uri,omitempty"`
+}
+
 // ScalewayImage represents a Scaleway Image
 type ScalewayImage struct {
 	// Identifier is a unique identifier for the image
@@ -544,6 +560,25 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	return client.Do(req)
 }
 
+// PutResponse returns an http.Response object for the updated resource
+func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	client := &http.Client{}
+	payload := new(bytes.Buffer)
+	encoder := json.NewEncoder(payload)
+	if err := encoder.Encode(data); err != nil {
+		return nil, err
+	}
+	log.Debugf("PUT %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
+	req, err := http.NewRequest("PUT", uri, payload)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("X-Auth-Token", s.Token)
+	req.Header.Set("Content-Type", "application/json")
+	return client.Do(req)
+}
+
 // DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
@@ -849,6 +884,32 @@ func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, e
 	error.StatusCode = resp.StatusCode
 	error.Debug()
 	return "", error
+}
+
+// PutVolume updates a volume
+func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDefinition) error {
+	resp, err := s.PutResponse(fmt.Sprintf("volumes/%s", volumeID), definition)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed PUT code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string

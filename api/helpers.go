@@ -234,6 +234,7 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		server.Bootscript = &bootscript
 	}
 
+	inheritingVolume := false
 	_, err := humanize.ParseBytes(imageName)
 	if err == nil {
 		// Create a new root volume
@@ -245,6 +246,7 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 	} else {
 		// Use an existing image
 		// FIXME: handle snapshots
+		inheritingVolume = true
 		image := api.GetImageID(imageName, false)
 		if image != "" {
 			server.Image = &image
@@ -261,6 +263,36 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 	serverID, err := api.PostServer(server)
 	if err != nil {
 		return "", nil
+	}
+
+	// For inherited volumes, we prefix the name with server hostname
+	if inheritingVolume {
+		createdServer, err := api.GetServer(serverID)
+		if err != nil {
+			return "", err
+		}
+		currentVolume := createdServer.Volumes["0"]
+
+		var volumePayload ScalewayVolumePutDefinition
+		newName := fmt.Sprintf("%s-%s", createdServer.Hostname, currentVolume.Name)
+		volumePayload.Name = &newName
+		volumePayload.CreationDate = &currentVolume.CreationDate
+		volumePayload.Organization = &currentVolume.Organization
+		volumePayload.Server.Identifier = &currentVolume.Server.Identifier
+		volumePayload.Server.Name = &currentVolume.Server.Name
+		volumePayload.Identifier = &currentVolume.Identifier
+		volumePayload.Size = &currentVolume.Size
+		volumePayload.ModificationDate = &currentVolume.ModificationDate
+		volumePayload.ExportURI = &currentVolume.ExportURI
+
+		// FIXME: temporary workaround for API bug
+		newType := "l_hdd"
+		volumePayload.VolumeType = &newType
+
+		err = api.PutVolume(currentVolume.Identifier, volumePayload)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	return serverID, nil
