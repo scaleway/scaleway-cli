@@ -41,6 +41,9 @@ type ScalewayAPIError struct {
 	// Type is a string code that defines the kind of error
 	Type string `json:"type,omitempty"`
 
+	// Fields contains detail about validation error
+	Fields map[string][]string `json:"fields,omitempty"`
+
 	// StatusCode is the HTTP status code received
 	StatusCode int `json:"-"`
 
@@ -69,6 +72,11 @@ func (e ScalewayAPIError) Debug() {
 		"Type":       e.Type,
 		"Message":    e.Message,
 	}).Debug(e.APIMessage)
+
+	// error.Fields handling
+	for k, v := range e.Fields {
+		log.Debugf("  %-30s %s", fmt.Sprintf("%s: ", k), v)
+	}
 }
 
 // ScalewayIPAddress represents a Scaleway IP address
