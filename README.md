@@ -952,6 +952,7 @@ Same as Hack, without step 5
 
 #### Features
 
+* `scw {create,run}`, prefixing root-volume with the server hostname ([#63](https://github.com/scaleway/scaleway-cli/issues/63))
 * `scw {create,run} IMAGE`, *IMAGE* can be a snapshot ([#19](https://github.com/scaleway/scaleway-cli/issues/19))
 
 #### Fixes
