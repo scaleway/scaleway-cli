@@ -284,10 +284,7 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		volumePayload.Size = &currentVolume.Size
 		volumePayload.ModificationDate = &currentVolume.ModificationDate
 		volumePayload.ExportURI = &currentVolume.ExportURI
-
-		// FIXME: temporary workaround for API bug
-		newType := "l_hdd"
-		volumePayload.VolumeType = &newType
+		volumePayload.VolumeType = &currentVolume.VolumeType
 
 		err = api.PutVolume(currentVolume.Identifier, volumePayload)
 		if err != nil {
