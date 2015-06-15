@@ -97,7 +97,7 @@ type ScalewayVolume struct {
 	Identifier string `json:"id,omitempty"`
 
 	// Size is the allocated size of the volume
-	Size int64 `json:"size,omitempty"`
+	Size uint64 `json:"size,omitempty"`
 
 	// CreationDate is the creation date of the volume
 	CreationDate string `json:"creation_date,omitempty"`
@@ -208,7 +208,7 @@ type ScalewaySnapshot struct {
 	ModificationDate string `json:"modification_date,omitempty"`
 
 	// Size is the allocated size of the volume
-	Size int64 `json:"size,omitempty"`
+	Size uint64 `json:"size,omitempty"`
 
 	// Organization is the owner of the snapshot
 	Organization string `json:"organization"`
