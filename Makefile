@@ -116,3 +116,10 @@ travis_run: build
 golint:
 	@go get github.com/golang/lint/golint
 	@for dir in */; do golint $$dir; done
+
+
+prerelease:
+	git add -f Godeps/Godeps.json scwversion/version.go
+
+postrelease:
+	git rm -f Godeps/Godeps.json scwversion/version.go
