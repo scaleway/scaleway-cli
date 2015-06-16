@@ -331,6 +331,15 @@ func WaitForServerReady(api *ScalewayAPI, serverID string) (*ScalewayServer, err
 	return server, nil
 }
 
+// WaitForServerStopped wait for a server state to be stopped
+func WaitForServerStopped(api *ScalewayAPI, serverID string) (*ScalewayServer, error) {
+	server, err := WaitForServerState(api, serverID, "stopped")
+	if err != nil {
+		return nil, err
+	}
+	return server, nil
+}
+
 // ByCreationDate sorts images by CreationDate field
 type ByCreationDate []ScalewayImageInterface
 

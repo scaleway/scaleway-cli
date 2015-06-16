@@ -6,10 +6,10 @@ package commands
 
 import (
 	"os"
-	"time"
 
 	log "github.com/Sirupsen/logrus"
 
+	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
 )
 
@@ -38,19 +38,14 @@ func runWait(cmd *types.Command, args []string) {
 	hasError := false
 	for _, needle := range args {
 		serverIdentifier := cmd.API.GetServerID(needle)
-		for {
-			server, err := cmd.API.GetServer(serverIdentifier)
-			if err != nil {
-				log.Errorf("failed to retrieve information from server %s: %s", serverIdentifier, err)
-				hasError = true
-				break
-			}
-			if server.State == "stopped" {
-				break
-			}
-			time.Sleep(1 * time.Second)
+
+		_, err := api.WaitForServerStopped(cmd.API, serverIdentifier)
+		if err != nil {
+			log.Errorf("failed to wait for server %s: %v", serverIdentifier, err)
+			hasError = true
 		}
 	}
+
 	if hasError {
 		os.Exit(1)
 	}
