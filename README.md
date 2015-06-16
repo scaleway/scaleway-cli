@@ -958,6 +958,7 @@ Same as Hack, without step 5
 
 #### Fixes
 
+* `scw run ...` waits for 30 seconds before polling the API
 * `scw stop server1 server2` doesn't exit on first stopping failure
 * `scw run IMAGE [COMMAND]`, default *COMMAND* is now `if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi`
 

@@ -6,6 +6,7 @@ package commands
 
 import (
 	"os"
+	"time"
 
 	log "github.com/Sirupsen/logrus"
 
@@ -70,6 +71,8 @@ func runRun(cmd *types.Command, args []string) {
 
 	// waiting for server to be ready
 	log.Debugf("Waiting for server to be ready")
+	// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
+	time.Sleep(30 * time.Second)
 	server, err := api.WaitForServerReady(cmd.API, serverID)
 	if err != nil {
 		log.Fatalf("Cannot get access to server %s: %v", serverID, err)
