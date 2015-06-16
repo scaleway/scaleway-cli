@@ -59,8 +59,8 @@ func runStop(cmd *types.Command, args []string) {
 		} else {
 			fmt.Println(needle)
 		}
-		if hasError {
-			os.Exit(1)
-		}
+	}
+	if hasError {
+		os.Exit(1)
 	}
 }
