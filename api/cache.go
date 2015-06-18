@@ -13,9 +13,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/scaleway/scaleway-cli/utils"
-
 	"code.google.com/p/go-uuid/uuid"
+
+	"github.com/scaleway/scaleway-cli/utils"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers
@@ -46,8 +46,10 @@ type ScalewayCache struct {
 }
 
 const (
+	// IdentifierUnknown is used when we don't know explicitely the type key of the object (used for nil comparison)
+	IdentifierUnknown = 1 << iota
 	// IdentifierServer is the type key of cached server objects
-	IdentifierServer = iota
+	IdentifierServer
 	// IdentifierImage is the type key of cached image objects
 	IdentifierImage
 	// IdentifierSnapshot is the type key of cached snapshot objects
@@ -286,43 +288,79 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
 	return utils.RemoveDuplicates(res)
 }
 
+// parseNeedle parses a user needle and try to extract a forced object type
+// i.e:
+//   - server:blah-blah -> kind=server, needle=blah-blah
+//   - blah-blah -> kind="", needle=blah-blah
+//   - not-existing-type:blah-blah
+func parseNeedle(input string) (identifierType int, needle string) {
+	parts := strings.Split(input, ":")
+	if len(parts) == 2 {
+		switch parts[0] {
+		case "server":
+			return IdentifierServer, parts[1]
+		case "image":
+			return IdentifierImage, parts[1]
+		case "snapshot":
+			return IdentifierSnapshot, parts[1]
+		case "bootscript":
+			return IdentifierBootscript, parts[1]
+		case "volume":
+			return IdentifierVolume, parts[1]
+		}
+	}
+	return IdentifierUnknown, input
+}
+
 // LookUpIdentifiers attempts to return identifiers matching a pattern
 func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 	results := []ScalewayIdentifier{}
 
-	for _, identifier := range c.LookUpServers(needle, false) {
-		results = append(results, ScalewayIdentifier{
-			Identifier: identifier,
-			Type:       IdentifierServer,
-		})
+	identifierType, needle := parseNeedle(needle)
+
+	if identifierType&(IdentifierUnknown|IdentifierServer) > 0 {
+		for _, identifier := range c.LookUpServers(needle, false) {
+			results = append(results, ScalewayIdentifier{
+				Identifier: identifier,
+				Type:       IdentifierServer,
+			})
+		}
 	}
 
-	for _, identifier := range c.LookUpImages(needle, false) {
-		results = append(results, ScalewayIdentifier{
-			Identifier: identifier,
-			Type:       IdentifierImage,
-		})
+	if identifierType&(IdentifierUnknown|IdentifierImage) > 0 {
+		for _, identifier := range c.LookUpImages(needle, false) {
+			results = append(results, ScalewayIdentifier{
+				Identifier: identifier,
+				Type:       IdentifierImage,
+			})
+		}
 	}
 
-	for _, identifier := range c.LookUpSnapshots(needle, false) {
-		results = append(results, ScalewayIdentifier{
-			Identifier: identifier,
-			Type:       IdentifierSnapshot,
-		})
+	if identifierType&(IdentifierUnknown|IdentifierSnapshot) > 0 {
+		for _, identifier := range c.LookUpSnapshots(needle, false) {
+			results = append(results, ScalewayIdentifier{
+				Identifier: identifier,
+				Type:       IdentifierSnapshot,
+			})
+		}
 	}
 
-	for _, identifier := range c.LookUpVolumes(needle, false) {
-		results = append(results, ScalewayIdentifier{
-			Identifier: identifier,
-			Type:       IdentifierVolume,
-		})
+	if identifierType&(IdentifierUnknown|IdentifierVolume) > 0 {
+		for _, identifier := range c.LookUpVolumes(needle, false) {
+			results = append(results, ScalewayIdentifier{
+				Identifier: identifier,
+				Type:       IdentifierVolume,
+			})
+		}
 	}
 
-	for _, identifier := range c.LookUpBootscripts(needle, false) {
-		results = append(results, ScalewayIdentifier{
-			Identifier: identifier,
-			Type:       IdentifierBootscript,
-		})
+	if identifierType&(IdentifierUnknown|IdentifierBootscript) > 0 {
+		for _, identifier := range c.LookUpBootscripts(needle, false) {
+			results = append(results, ScalewayIdentifier{
+				Identifier: identifier,
+				Type:       IdentifierBootscript,
+			})
+		}
 	}
 
 	return results

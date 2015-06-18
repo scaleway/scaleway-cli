@@ -307,11 +307,16 @@ Options:
 
 Examples:
 
-    $ scw inspect a-public-image
-    $ scw inspect my-snapshot
-    $ scw inspect my-image
     $ scw inspect my-server
+    $ scw inspect server:my-server
+    $ scw inspect a-public-image
+    $ scw inspect image:a-public-image
+    $ scw inspect my-snapshot
+    $ scw inspect snapshot:my-snapshot
     $ scw inspect my-volume
+    $ scw inspect volume:my-volume
+    $ scw inspect my-image
+    $ scw inspect image:my-image
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
     $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
@@ -955,6 +960,8 @@ Same as Hack, without step 5
 * `scw {create,run}`, prefixing root-volume with the server hostname ([#63](https://github.com/scaleway/scaleway-cli/issues/63))
 * `scw {create,run} IMAGE`, *IMAGE* can be a snapshot ([#19](https://github.com/scaleway/scaleway-cli/issues/19))
 * Support of `scw stop -w, --wait` option
+* Identifiers can be prefixed with the type of the resource, i.e: `scw inspect my-server` == `scw inspect server:my-server`
+  It may be useful if you have the same name in a server and a volume
 
 #### Fixes
 

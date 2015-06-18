@@ -22,6 +22,7 @@ var cmdPatch = &types.Command{
 	Help:        "PATCH an object on the API",
 	Examples: `
     $ scw _patch myserver state_detail=booted
+    $ scw _patch server:myserver state_detail=booted
 `,
 }
 

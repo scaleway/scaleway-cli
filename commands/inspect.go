@@ -22,12 +22,16 @@ var cmdInspect = &types.Command{
 	Description: "Return low-level information on a server, image, snapshot, volume or bootscript",
 	Help:        "Return low-level information on a server, image, snapshot, volume or bootscript.",
 	Examples: `
-    $ scw inspect a-public-image
-    $ scw inspect my-snapshot
-    $ scw inspect my-volume
-    $ scw inspect my-image
     $ scw inspect my-server
+    $ scw inspect server:my-server
+    $ scw inspect a-public-image
+    $ scw inspect image:a-public-image
+    $ scw inspect my-snapshot
+    $ scw inspect snapshot:my-snapshot
     $ scw inspect my-volume
+    $ scw inspect volume:my-volume
+    $ scw inspect my-image
+    $ scw inspect image:my-image
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
     $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
