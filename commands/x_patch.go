@@ -48,22 +48,42 @@ func runPatch(cmd *types.Command, args []string) {
 	fieldName := updateParts[0]
 	newValue := updateParts[1]
 
+	changes := 0
+
 	ident := api.GetIdentifier(cmd.API, args[0])
 	switch ident.Type {
 	case api.IdentifierServer:
+		currentServer, err := cmd.API.GetServer(ident.Identifier)
+		if err != nil {
+			log.Fatalf("Cannot get server %s: %v", ident.Identifier, err)
+		}
+
 		var payload api.ScalewayServerPatchDefinition
 
 		switch fieldName {
 		case "state_detail":
-			payload.StateDetail = &newValue
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.StateDetail, fieldName, newValue)
+			if currentServer.StateDetail != newValue {
+				changes++
+				payload.StateDetail = &newValue
+			}
 		case "name":
-			payload.Name = &newValue
-			log.Warnf("Use 'scw rename instead'")
+			log.Warnf("To rename a server, Use 'scw rename'")
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.StateDetail, fieldName, newValue)
+			if currentServer.Name != newValue {
+				changes++
+				payload.Name = &newValue
+			}
 		default:
 			log.Fatalf("'_patch server %s=' not implemented", fieldName)
 		}
 
-		err := cmd.API.PatchServer(ident.Identifier, payload)
+		if changes > 0 {
+			log.Debugf("updating server: %d change(s)", changes)
+			err = cmd.API.PatchServer(ident.Identifier, payload)
+		} else {
+			log.Debugf("no changes, not updating server")
+		}
 		if err != nil {
 			log.Fatalf("Cannot rename server: %v", err)
 		}
