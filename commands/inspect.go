@@ -86,6 +86,7 @@ func runInspect(cmd *types.Command, args []string) {
 				log.Fatalf("Format execution error: %v", err)
 			}
 			fmt.Fprint(os.Stdout, "\n")
+			nbInspected++
 		}
 	}
 	res += "]"

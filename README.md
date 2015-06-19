@@ -1024,6 +1024,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Fixes
 
+* `scw inspect -f` was always exiting 0
 * `scw images -a` does not prefix snapshots, volumes and bootscripts (only images)
 * `scw run ...` waits for 30 seconds before polling the API
 * `scw stop server1 server2` doesn't exit on first stopping failure
