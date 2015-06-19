@@ -177,7 +177,7 @@ func runImages(cmd *types.Command, args []string) {
 			tag := image.Tag
 			shortID := utils.TruncIf(image.Identifier, 8, !imagesNoTrunc)
 			name := utils.Wordify(image.Name)
-			if !image.Public {
+			if !image.Public && image.Type == "image" {
 				name = "user/" + name
 			}
 			shortName := utils.TruncIf(name, 25, !imagesNoTrunc)
