@@ -6,11 +6,104 @@ Interact with Scaleway API from the command line.
 [![GoDoc](https://godoc.org/github.com/scaleway/scaleway-cli?status.svg)](https://godoc.org/github.com/scaleway/scaleway-cli)
 ![License](https://img.shields.io/github/license/scaleway/scaleway-cli.svg)
 
+![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
+
+#### Table of Contents
+
+1. [Overview](#overview)
+2. [Setup](#setup)
+  * [Requirements](#requirements)
+  * [Run in Docker](#run-in-docker)
+4. [Usage](#usage)
+  * [Quick Start](#quick-start)
+  * [Workflows](#workflows)
+  * [Commands](#commands)
+    * [`attach [OPTIONS] SERVER`](#scw-attach)
+    * [`help [OPTIONS]`](#scw-help)
+    * [`commit [OPTIONS]`](#scw-commit)
+    * [`cp [OPTIONS]`](#scw-cp)
+    * [`create [OPTIONS]`](#scw-create)
+    * [`events [OPTIONS]`](#scw-events)
+    * [`exec [OPTIONS]`](#scw-exec)
+    * [`history [OPTIONS]`](#scw-history)
+    * [`images [OPTIONS]`](#scw-images)
+    * [`info [OPTIONS]`](#scw-info)
+    * [`inspect [OPTIONS]`](#scw-inspect)
+    * [`kill [OPTIONS]`](#scw-kill)
+    * [`login [OPTIONS]`](#scw-login)
+    * [`logout [OPTIONS]`](#scw-logout)
+    * [`logs [OPTIONS]`](#scw-logs)
+    * [`port [OPTIONS]`](#scw-port)
+    * [`ps [OPTIONS]`](#scw-ps)
+    * [`rename [OPTIONS]`](#scw-rename)
+    * [`restart [OPTIONS]`](#scw-restart)
+    * [`rm [OPTIONS]`](#scw-rm)
+    * [`rmi [OPTIONS]`](#scw-rmi)
+    * [`run [OPTIONS]`](#scw-run)
+    * [`search [OPTIONS]`](#scw-search)
+    * [`start [OPTIONS]`](#scw-start)
+    * [`stop [OPTIONS]`](#scw-stop)
+    * [`tag [OPTIONS]`](#scw-tag)
+    * [`top [OPTIONS]`](#scw-top)
+    * [`version [OPTIONS]`](#scw-version)
+    * [`wait [OPTIONS]`](#scw-wait)
+  * [Examples](#examples)
+5. [Changelog](#changelog)
+6. [Development](#development)
+  * [Hack](#hack)
+7. [License](#license)
+
+## Overview
+
+A command-line tool to manage Scaleway servers **à-la-Docker**.
+
 For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway-cli-node).
 
-## Workflows
+## Setup
 
-See [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
+To install Scaleway CLI 1.1.0, run the following commands:
+
+```bash
+curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.1.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
+chmod +x /usr/local/bin/scw
+```
+
+To install Scaleway CLI master git, run the following command:
+
+```bash
+go get github.com/scaleway/scaleway-cli
+```
+
+### Requirements
+
+By using the [static-compiled release binaries](https://github.com/scaleway/scaleway-cli/releases/latest), you only needs to have one of the following platform+architecture :
+
+Platform          | Architecture
+------------------|-------------------------------------------
+Darwin (Mac OS X) | `i386`, `x86_64`
+FreeBSD           | `arm`, `i386`, `x86_64`
+Linux             | `arm`, `armv7`, `armv7`, `i386`, `x86_64`
+Windows           | `x86_64`
+
+
+### Run in Docker
+
+You can run scaleway-cli in a sandboxed way using Docker.
+
+*warning*: caching is disabled
+
+```console
+$ docker run -it --rm --volume=$HOME/.scwrc:/root/.scwrc scaleway/cli ps
+```
+
+### Manual build
+
+1. [Install go](https://golang.org/doc/install)
+2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
+  * `export GOPATH=$HOME/go`
+  * `export PATH=$PATH:$GOPATH/bin`
+3. Install the project: `go get github.com/scaleway/scaleway-cli`
+4. Run: `./scaleway-cli`
 
 ## Usage
 
@@ -63,22 +156,7 @@ Commands:
 Run 'scw COMMAND --help' for more information on a command.
 ```
 
-## Install
-
-To install Scaleway CLI 1.1.0, run the following commands:
-
-```bash
-curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.1.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
-chmod +x /usr/local/bin/scw
-```
-
-To install Scaleway CLI master git, run the following command:
-
-```bash
-go get github.com/scaleway/scaleway-cli
-```
-
-## Quick start
+### Quick start
 
 Login
 
@@ -97,9 +175,14 @@ $ scw run --name=my-ubuntu ubuntu-trusty bash
 root@my-ubuntu:~#
 ```
 
-## Commands usage
+### Workflows
 
-### scw attach [OPTIONS] SERVER
+See [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
+
+
+### Commands
+
+#### `scw attach`
 
 ```console
 Usage: scw attach [OPTIONS] SERVER
@@ -118,7 +201,7 @@ Examples:
 ```
 
 
-### scw commit [OPTIONS] SERVER [NAME]
+#### `scw commit`
 
 ```console
 Usage: scw commit [OPTIONS] SERVER [NAME]
@@ -137,7 +220,7 @@ Examples:
 ```
 
 
-### scw cp [OPTIONS] SERVER:PATH HOSTDIR|-
+#### `scw cp`
 
 ```console
 Usage: scw cp [OPTIONS] SERVER:PATH HOSTDIR|-
@@ -166,7 +249,7 @@ Examples:
 ```
 
 
-### scw create
+#### `scw create`
 
 ```console
 Usage: scw create [OPTIONS] IMAGE
@@ -191,7 +274,7 @@ Examples:
 ```
 
 
-### scw events
+#### `scw events`
 
 ```console
 Usage: scw events [OPTIONS]
@@ -204,7 +287,7 @@ Options:
 ```
 
 
-### scw exec
+#### `scw exec`
 
 ```console
 Usage: scw exec [OPTIONS] SERVER COMMAND [ARGS...]
@@ -230,7 +313,7 @@ Examples:
 ```
 
 
-### scw help
+#### `scw help`
 
 ```console
 Usage: scw help [COMMAND]
@@ -249,7 +332,7 @@ Options:
 ```
 
 
-### scw history
+#### `scw history`
 
 ```console
 Usage: scw history [OPTIONS] IMAGE
@@ -264,7 +347,7 @@ Options:
 ```
 
 
-### scw images
+#### `scw images`
 
 ```console
 Usage: scw images [OPTIONS]
@@ -280,7 +363,7 @@ Options:
 ```
 
 
-### scw info
+#### `scw info`
 
 ```console
 Usage: scw info [OPTIONS]
@@ -293,7 +376,7 @@ Options:
 ```
 
 
-### scw inspect
+#### `scw inspect`
 
 ```console
 Usage: scw inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]
@@ -323,7 +406,7 @@ Examples:
 ```
 
 
-### scw kill
+#### `scw kill`
 
 ```console
 Usage: scw kill [OPTIONS] SERVER
@@ -336,7 +419,7 @@ Options:
 ```
 
 
-### scw login
+#### `scw login`
 
 ```console
 Usage: scw login [OPTIONS]
@@ -353,7 +436,7 @@ Options:
 ```
 
 
-### scw logout
+#### `scw logout`
 
 ```console
 Usage: scw logout [OPTIONS]
@@ -366,7 +449,7 @@ Options:
 ```
 
 
-### scw logs
+#### `scw logs`
 
 ```console
 Usage: scw logs [OPTIONS] SERVER
@@ -379,7 +462,7 @@ Options:
 ```
 
 
-### scw port
+#### `scw port`
 
 ```console
 Usage: scw port [OPTIONS] SERVER [PRIVATE_PORT[/PROTO]]
@@ -392,7 +475,7 @@ Options:
 ```
 
 
-### scw ps
+#### `scw ps`
 
 ```console
 Usage: scw ps [OPTIONS]
@@ -410,7 +493,7 @@ Options:
 ```
 
 
-### scw rename
+#### `scw rename`
 
 ```console
 Usage: scw rename [OPTIONS] SERVER NEW_NAME
@@ -423,7 +506,7 @@ Options:
 ```
 
 
-### scw restart
+#### `scw restart`
 
 ```console
 Usage: scw restart [OPTIONS] SERVER [SERVER...]
@@ -436,7 +519,7 @@ Options:
 ```
 
 
-### scw rm
+#### `scw rm`
 
 ```console
 Usage: scw rm [OPTIONS] SERVER [SERVER...]
@@ -455,7 +538,7 @@ Examples:
 ```
 
 
-### scw rmi
+#### `scw rmi`
 
 ```console
 Usage: scw rmi [OPTIONS] IMAGE [IMAGE...]
@@ -473,7 +556,7 @@ Examples:
 ```
 
 
-### scw run
+#### `scw run`
 
 ```console
 Usage: scw run [OPTIONS] IMAGE [COMMAND] [ARG...]
@@ -496,7 +579,7 @@ Examples:
 ```
 
 
-### scw search
+#### `scw search`
 
 ```console
 Usage: scw search [OPTIONS] TERM
@@ -510,7 +593,7 @@ Options:
 ```
 
 
-### scw start
+#### `scw start`
 
 ```console
 Usage: scw start [OPTIONS] SERVER [SERVER...]
@@ -525,7 +608,7 @@ Options:
 ```
 
 
-### scw stop
+#### `scw stop`
 
 ```console
 ➜  scaleway-cli git:(master) ✗ clear; scw help stop
@@ -547,7 +630,7 @@ Examples:
 ```
 
 
-### scw tag
+#### `scw tag`
 
 ```console
 Usage: scw tag [OPTIONS] SNAPSHOT NAME
@@ -560,7 +643,7 @@ Options:
 ```
 
 
-### scw top
+#### `scw top`
 
 ```console
 Usage: scw top [OPTIONS] SERVER
@@ -573,7 +656,7 @@ Options:
 ```
 
 
-### scw version
+#### `scw version`
 
 ```console
 Usage: scw version [OPTIONS]
@@ -586,7 +669,7 @@ Options:
 ```
 
 
-### scw wait
+#### `scw wait`
 
 ```console
 ➜  scaleway-cli git:(master) ✗ clear; scw help wait
@@ -602,7 +685,7 @@ Options:
 
 ---
 
-## Examples
+### Examples
 
 Create a server with Ubuntu Trusty image and 3.2.34 bootscript
 
@@ -927,30 +1010,6 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ---
 
-## Run in Docker (sandboxed)
-
-Sandboxed by Docker, but caching is disabled
-
-```console
-$ docker run -it --rm --volume=$HOME/.scwrc:/root/.scwrc scaleway/cli ps
-```
-
-## Hack
-
-1. [Install go](https://golang.org/doc/install)
-2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
-  * `export GOPATH=$HOME/go`
-  * `export PATH=$PATH:$GOPATH/bin`
-3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
-4. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
-5. Hack: `emacs`
-6. Build: `make`
-7. Run: `./scw`
-
-## Build manually
-
-Same as Hack, without step 5
-
 ## Changelog
 
 ### master (unreleased)
@@ -1060,6 +1119,24 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
 
 First [Node.js version](https://github.com/moul/scaleway-cli-node)
 
+
+
+## Development
+
+Feel free to contribute :smiley::beers:
+
+
+### Hack
+
+1. [Install go](https://golang.org/doc/install)
+2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
+  * `export GOPATH=$HOME/go`
+  * `export PATH=$PATH:$GOPATH/bin`
+3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
+4. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
+5. Hack: `emacs`
+6. Build: `make`
+7. Run: `./scw`
 
 ## License
 
