@@ -22,7 +22,7 @@ echo "[+] Target name: ${NAME}" >&2
 echo "[+] Creating new server in live mode..." >&2
 SERVER=$(
     scw create \
-        --bootscript=3.2.34 \
+        --bootscript=stable \
         --name="[live] $NAME" \
         --env="boot=live rescue_image=${URL}" \
         50GB
