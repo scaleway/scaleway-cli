@@ -184,7 +184,7 @@ type ScalewayImage struct {
 	RootVolume ScalewayVolume `json:"root_volume,omitempty"`
 
 	// Public is true for public images and false for user images
-	Public bool `json:"public",omitempty`
+	Public bool `json:"public,omitempty"`
 
 	// Bootscript is the bootscript bound to the image
 	DefaultBootscript *ScalewayBootscript `json:"default_bootscript,omitempty"`
@@ -298,13 +298,13 @@ type ScalewayBootscript struct {
 	BootCmdArgs ScalewayBootCmdArgs `json:"bootcmdargs,omitempty"`
 
 	// Initrd is the initrd used by this bootscript
-	Initrd ScalewayInitrd `json:initrd,omitempty`
+	Initrd ScalewayInitrd `json:"initrd,omitempty"`
 
 	// Kernel is the kernel associated to this server
 	Kernel ScalewayKernel `json:"kernel,omitempty"`
 
 	// Public is true for public bootscripts and false for user bootscripts
-	Public bool `json:"public",omitempty`
+	Public bool `json:"public,omitempty"`
 }
 
 // ScalewayOneBootscript represents the response of a GET /bootscripts/UUID API call
@@ -397,7 +397,7 @@ type ScalewayServer struct {
 	Hostname string `json:"hostname,omitempty"`
 
 	// Tags represents user-defined tags
-	Tags []string `json:"tags",omitempty`
+	Tags []string `json:"tags,omitempty"`
 
 	// Volumes are the attached volumes
 	Volumes map[string]ScalewayVolume `json:"volumes,omitempty"`
@@ -425,7 +425,7 @@ type ScalewayServerPatchDefinition struct {
 	Volumes           *map[string]ScalewayVolume `json:"volumes,omitempty"`
 	SecurityGroup     *ScalewaySecurityGroup     `json:"security_group,omitempty"`
 	Organization      *string                    `json:"organization,omitempty"`
-	//Tags            *[]string                  `json:"tags",omitempty`
+	//Tags            *[]string                  `json:"tags,omitempty"`
 }
 
 // ScalewayServerDefinition represents a Scaleway C1 server with image definition
@@ -443,7 +443,7 @@ type ScalewayServerDefinition struct {
 	Bootscript *string `json:"bootscript"`
 
 	// Tags are the metadata tags attached to the server
-	Tags []string `json:"tags",omitempty`
+	Tags []string `json:"tags,omitempty"`
 
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
