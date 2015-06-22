@@ -1273,3 +1273,10 @@ func (s *ScalewayAPI) GetBootscriptID(needle string) string {
 	os.Exit(1)
 	return ""
 }
+
+// HideApiCredentials removes API credentials from a string
+func (s *ScalewayAPI) HideApiCredentials(input string) string {
+	output := strings.Replace(input, s.Token, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
+	output = strings.Replace(output, s.Organization, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
+	return output
+}

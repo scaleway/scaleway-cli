@@ -35,6 +35,7 @@ var cmdInspect = &types.Command{
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
     $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
+    $ scw --sensitive inspect my-server
 `,
 }
 
@@ -92,6 +93,9 @@ func runInspect(cmd *types.Command, args []string) {
 	res += "]"
 
 	if inspectFormat == "" {
+		if os.Getenv("SCW_SENSITIVE") != "1" {
+			res = cmd.API.HideApiCredentials(res)
+		}
 		fmt.Println(res)
 	}
 

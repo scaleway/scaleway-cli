@@ -403,6 +403,7 @@ Examples:
     $ scw inspect my-server | jq '.[0].public_ip.address'
     $ scw inspect $(scw inspect my-image | jq '.[0].root_volume.id')
     $ scw inspect -f "{{ .PublicAddress.IP }}" my-server
+    $ scw --sensitive inspect my-server
 ```
 
 
@@ -1017,6 +1018,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Hiding sensitive data by default on `scw inspect` ([#64](https://github.com/scaleway/scaleway-cli/issues/64))
+* Support of `scw --sensitive` option ([#64](https://github.com/scaleway/scaleway-cli/issues/64))
 * Support of `scw run --attach` option ([#65](https://github.com/scaleway/scaleway-cli/issues/65))
 * `scw {create,run}`, prefixing root-volume with the server hostname ([#63](https://github.com/scaleway/scaleway-cli/issues/63))
 * `scw {create,run} IMAGE`, *IMAGE* can be a snapshot ([#19](https://github.com/scaleway/scaleway-cli/issues/19))

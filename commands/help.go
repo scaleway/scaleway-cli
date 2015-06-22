@@ -44,6 +44,7 @@ Options:
  -D, --debug=false            Enable debug mode
  -h, --help=false             Print usage
  -v, --version=false          Print version information and quit
+ --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
 
 Commands:
 {{range .}}{{if not .Hidden}}    {{.Name | printf "%-9s"}} {{.Description}}

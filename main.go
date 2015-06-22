@@ -51,6 +51,7 @@ var (
 	flAPIEndPoint *string
 	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
 	flVersion     = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
+	flSensitive   = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 )
 
 func main() {
@@ -71,6 +72,10 @@ func main() {
 
 	if flAPIEndPoint != nil {
 		os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
+	}
+
+	if *flSensitive {
+		os.Setenv("SCW_SENSITIVE", "1")
 	}
 
 	if *flDebug {
