@@ -144,3 +144,32 @@ func GetConfigFilePath() (string, error) {
 
 	return filepath.Join(homeDir, ".scwrc"), nil
 }
+
+const termjsBin string = "termjs-cli"
+
+// AttachToSerial tries to connect to server serial using 'term.js-cli' and fallback with a help message
+func AttachToSerial(serverID string, apiToken string) error {
+	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, apiToken)
+
+	log.Debugf("Executing: %s %s", termjsBin, termjsURL)
+	// FIXME: check if termjs-cli is installed
+	spawn := exec.Command(termjsBin, termjsURL)
+	spawn.Stdout = os.Stdout
+	spawn.Stdin = os.Stdin
+	spawn.Stderr = os.Stderr
+	err := spawn.Run()
+	if err != nil {
+		log.Warnf(`
+You need to install '%s' from https://github.com/moul/term.js-cli
+
+    npm install -g term.js-cli
+
+However, you can access your serial using a web browser:
+
+    %s
+
+`, termjsBin, termjsURL)
+		return err
+	}
+	return nil
+}

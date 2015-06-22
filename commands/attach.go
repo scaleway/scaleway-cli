@@ -5,13 +5,10 @@
 package commands
 
 import (
-	"fmt"
-	"os"
-	"os/exec"
-
 	log "github.com/Sirupsen/logrus"
 
 	types "github.com/scaleway/scaleway-cli/commands/types"
+	"github.com/scaleway/scaleway-cli/utils"
 )
 
 var cmdAttach = &types.Command{
@@ -33,8 +30,6 @@ func init() {
 // Flags
 var attachHelp bool // -h, --help flag
 
-const termjsBin string = "termjs-cli"
-
 func runAttach(cmd *types.Command, args []string) {
 	if attachHelp {
 		cmd.PrintUsage()
@@ -45,27 +40,8 @@ func runAttach(cmd *types.Command, args []string) {
 
 	serverID := cmd.API.GetServerID(args[0])
 
-	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, cmd.API.Token)
-
-	log.Debugf("Executing: %s %s", termjsBin, termjsURL)
-	// FIXME: check if termjs-cli is installed
-	spawn := exec.Command(termjsBin, termjsURL)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
-	err := spawn.Run()
+	err := utils.AttachToSerial(serverID, cmd.API.Token)
 	if err != nil {
-		log.Warnf("%v", err)
-		fmt.Fprintf(os.Stderr, `
-You need to install '%s' from https://github.com/moul/term.js-cli
-
-    npm install -g term.js-cli
-
-However, you can access your serial using a web browser:
-
-    %s
-
-`, termjsBin, termjsURL)
-		os.Exit(1)
+		log.Fatalf("%v", err)
 	}
 }
