@@ -1176,6 +1176,9 @@ func (s *ScalewayAPI) CheckCredentials() error {
 
 // GetServerID returns exactly one server matching or dies
 func (s *ScalewayAPI) GetServerID(needle string) string {
+	// Parses optional type prefix, i.e: "server:name" -> "name"
+	_, needle = parseNeedle(needle)
+
 	servers, err := s.ResolveServer(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve server %s: %s", needle, err)
@@ -1197,6 +1200,9 @@ func (s *ScalewayAPI) GetServerID(needle string) string {
 
 // GetSnapshotID returns exactly one snapshot matching or dies
 func (s *ScalewayAPI) GetSnapshotID(needle string) string {
+	// Parses optional type prefix, i.e: "snapshot:name" -> "name"
+	_, needle = parseNeedle(needle)
+
 	snapshots, err := s.ResolveSnapshot(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
@@ -1218,6 +1224,9 @@ func (s *ScalewayAPI) GetSnapshotID(needle string) string {
 
 // GetImageID returns exactly one image matching or dies
 func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
+	// Parses optional type prefix, i.e: "image:name" -> "name"
+	_, needle = parseNeedle(needle)
+
 	images, err := s.ResolveImage(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve image %s: %s", needle, err)
@@ -1243,6 +1252,9 @@ func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
 
 // GetBootscriptID returns exactly one bootscript matching or dies
 func (s *ScalewayAPI) GetBootscriptID(needle string) string {
+	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
+	_, needle = parseNeedle(needle)
+
 	bootscripts, err := s.ResolveBootscript(needle)
 	if err != nil {
 		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
