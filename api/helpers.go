@@ -248,6 +248,7 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		// FIXME: handle snapshots
 		inheritingVolume = true
 		image := api.GetImageID(imageName, false)
+		log.Debugf("COUCOU: %v", image)
 		if image != "" {
 			server.Image = &image
 		} else {

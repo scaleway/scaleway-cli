@@ -576,6 +576,7 @@ Examples:
     $ scw run ubuntu-trusty
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
+    $ scw run attach alpine
 ```
 
 
@@ -1016,6 +1017,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `scw run --attach` option ([#65](https://github.com/scaleway/scaleway-cli/issues/65))
 * `scw {create,run}`, prefixing root-volume with the server hostname ([#63](https://github.com/scaleway/scaleway-cli/issues/63))
 * `scw {create,run} IMAGE`, *IMAGE* can be a snapshot ([#19](https://github.com/scaleway/scaleway-cli/issues/19))
 * Support of `scw stop -w, --wait` option
