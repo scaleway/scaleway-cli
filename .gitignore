@@ -10,3 +10,4 @@ dist/
 *#
 .#*
 profile.cov
+.vendor
