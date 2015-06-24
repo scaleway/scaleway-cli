@@ -1027,6 +1027,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Support of `scw stop -w, --wait` option
 * Identifiers can be prefixed with the type of the resource, i.e: `scw inspect my-server` == `scw inspect server:my-server`
   It may be useful if you have the same name in a server and a volume
+* Improved support of zsh completion
 
 #### Fixes
 
