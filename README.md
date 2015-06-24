@@ -1036,6 +1036,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw run ...` waits for 30 seconds before polling the API
 * `scw stop server1 server2` doesn't exit on first stopping failure
 * `scw run IMAGE [COMMAND]`, default *COMMAND* is now `if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi`
+* `scw run|create SNAPSHOT`, raised an error if snapshot does not have base volume
 
 ### 1.1.0 (2015-06-12)
 

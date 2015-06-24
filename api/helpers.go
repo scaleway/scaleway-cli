@@ -248,7 +248,6 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		// FIXME: handle snapshots
 		inheritingVolume = true
 		image := api.GetImageID(imageName, false)
-		log.Debugf("COUCOU: %v", image)
 		if image != "" {
 			server.Image = &image
 		} else {
@@ -256,6 +255,9 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 			snapshot, err := api.GetSnapshot(snapshotID)
 			if err != nil {
 				return "", err
+			}
+			if snapshot.BaseVolume.Identifier == "" {
+				return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
 			}
 			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
