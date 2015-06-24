@@ -1018,6 +1018,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `scw attach --no-stdin` option
 * Hiding sensitive data by default on `scw inspect` ([#64](https://github.com/scaleway/scaleway-cli/issues/64))
 * Support of `scw --sensitive` option ([#64](https://github.com/scaleway/scaleway-cli/issues/64))
 * Support of `scw run --attach` option ([#65](https://github.com/scaleway/scaleway-cli/issues/65))

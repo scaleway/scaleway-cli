@@ -25,10 +25,12 @@ var cmdAttach = &types.Command{
 
 func init() {
 	cmdAttach.Flag.BoolVar(&attachHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdAttach.Flag.BoolVar(&attachNoStdin, []string{"-no-stdin"}, false, "Do not attach stdin")
 }
 
 // Flags
-var attachHelp bool // -h, --help flag
+var attachHelp bool    // -h, --help flag
+var attachNoStdin bool // --no-stdin flag
 
 func runAttach(cmd *types.Command, args []string) {
 	if attachHelp {
@@ -40,7 +42,7 @@ func runAttach(cmd *types.Command, args []string) {
 
 	serverID := cmd.API.GetServerID(args[0])
 
-	err := utils.AttachToSerial(serverID, cmd.API.Token)
+	err := utils.AttachToSerial(serverID, cmd.API.Token, !attachNoStdin)
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
