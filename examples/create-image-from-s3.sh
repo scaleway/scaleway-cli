@@ -8,11 +8,9 @@ if [ -z "${1}" ]; then
     echo ""
     echo "examples:"
     echo "  - $(basename ${0}) http://test-images.fr-1.storage.online.net/scw-distrib-ubuntu-trusty.tar"
-    echo "  - VOLUME=20GB $(basename ${0}) http://test-images.fr-1.storage.online.net/scw-distrib-ubuntu-trusty.tar"
+    echo "  - VOLUME_SIZE=50GB $(basename ${0}) http://test-images.fr-1.storage.online.net/scw-distrib-ubuntu-trusty.tar"
     exit 1
 fi
-
-# FIXME: add usage
 
 set -e
 
