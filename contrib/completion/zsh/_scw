@@ -30,6 +30,13 @@ __scw_images () {
     _describe -t images "images" images
 }
 
+__scw_bootscripts () {
+    local expl
+    declare -a bootscripts
+    bootscripts=(${(f)"$(_call_program commands scw _completion bootscripts-names)"})
+    _describe -t bootscripts "bootscripts" bootscripts
+}
+
 __scw_tags() {
     __scw_images
 }
@@ -235,6 +242,7 @@ __scw_subcommand () {
                 {-a,--attach}'[Attach to stdin, stdout or stderr]' \
                 '*'{-e,--environment=-}'[Set environment variables]:environment variable: ' \
                 '--name=-[Server name]:name: ' \
+                '--bootscript=-[Assign a bootscript]:bootscript:__scw_bootscripts ' \
                 '*-v[Bind mount a volume]:volume: '\
                 '(-):images:__scw_images' \
                 '(-):command: _command_names -e' \
