@@ -148,12 +148,17 @@ func GetConfigFilePath() (string, error) {
 const termjsBin string = "termjs-cli"
 
 // AttachToSerial tries to connect to server serial using 'term.js-cli' and fallback with a help message
-func AttachToSerial(serverID string, apiToken string) error {
+func AttachToSerial(serverID string, apiToken string, attachStdin bool) error {
 	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, apiToken)
 
-	log.Debugf("Executing: %s %s", termjsBin, termjsURL)
+	args := []string{}
+	if !attachStdin {
+		args = append(args, "--no-stdin")
+	}
+	args = append(args, termjsURL)
+	log.Debugf("Executing: %s %v", termjsBin, args)
 	// FIXME: check if termjs-cli is installed
-	spawn := exec.Command(termjsBin, termjsURL)
+	spawn := exec.Command(termjsBin, args...)
 	spawn.Stdout = os.Stdout
 	spawn.Stdin = os.Stdin
 	spawn.Stderr = os.Stderr

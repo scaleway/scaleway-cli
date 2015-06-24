@@ -76,7 +76,7 @@ func runRun(cmd *types.Command, args []string) {
 	if runAttachFlag {
 		// Attach to server serial
 		log.Debugf("Attaching to server console")
-		err = utils.AttachToSerial(serverID, cmd.API.Token)
+		err = utils.AttachToSerial(serverID, cmd.API.Token, true)
 		if err != nil {
 			log.Fatalf("Cannot attach to server serial: %v", err)
 		}
