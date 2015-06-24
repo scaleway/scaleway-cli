@@ -7,7 +7,7 @@
 __scw_get_servers() {
     local expl
     declare -a servers
-    servers=(${(f)"$(_call_program commands scw _completion servers-all)"})
+    servers=(${(f)"$(_call_program commands scw _completion servers-names)"})
     _describe -t servers "servers" servers
 }
 
@@ -26,7 +26,7 @@ __scw_servers () {
 __scw_images () {
     local expl
     declare -a images
-    images=(${(f)"$(_call_program commands scw _completion images-all)"})
+    images=(${(f)"$(_call_program commands scw _completion images-names)"})
     _describe -t images "images" images
 }
 
@@ -308,7 +308,7 @@ __scw_subcommand () {
                 '-m[Memory limit (in bytes)]:limit: ' \
                 '--name=-[Server name]:name: ' \
                 '--net=-[Network mode]:network mode:(bridge none server host)' \
-                {-P,--publish-all}'[Publish all exposed ports]' \
+                {-P,--publish-names}'[Publish all exposed ports]' \
                 '*'{-p,--publish=-}'[Expose a server'"'"'s port to the host]:port:_ports' \
                 '--privileged[Give extended privileges to this server]' \
                 '--restart=-[Restart policy]:restart policy:(no on-failure always)' \
