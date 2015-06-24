@@ -99,25 +99,11 @@ __scw_subcommand () {
         (attach)
             _arguments \
                 '--no-stdin[Do not attach stdin]' \
-                '--sig-proxy[Proxy all received signals to the process (non-TTY mode only)]' \
                 ':servers:__scw_runningservers'
-            ;;
-        (build)
-            _arguments \
-                {-f,--file=-}'[Scwfile to use]:Scwfile:_files' \
-                '--force-rm[Always remove intermediate servers]' \
-                '--no-cache[Do not use cache when building the image]' \
-                '--pull[Attempt to pull a newer version of the image]' \
-                {-q,--quiet}'[Suppress verbose build output]' \
-                '--rm[Remove intermediate servers after a successful build]' \
-                {-t,--tag=-}'[Repository, name and tag to be applied]:repository:__scw_repositories_with_tags' \
-                ':path or URL:_directories'
             ;;
         (commit)
             _arguments \
-                {-a,--author=-}'[Author]:author: ' \
-                {-m,--message=-}'[Commit message]:message: ' \
-                {-p,--pause}'[Pause server during commit]' \
+                {-v,--volume=0}'[Volume slot]:volume: ' \
                 ':server:__scw_servers' \
                 ':repository:__scw_repositories_with_tags'
             ;;
@@ -135,21 +121,11 @@ __scw_subcommand () {
                     ;;
             esac
             ;;
-        (diff|export)
-            _arguments '*:servers:__scw_servers'
-            ;;
-        (events)
-            _arguments \
-                '*'{-f,--filter=-}'[Filter values]:filter: ' \
-                '--since=-[Events created since this timestamp]:timestamp: ' \
-                '--until=-[Events created until this timestamp]:timestamp: '
-            ;;
         (exec)
             local state ret
             _arguments \
-                {-d,--detach}'[Detached mode: leave the server running in the background]' \
-                {-i,--interactive}'[Keep stdin open even if not attached]' \
-                {-t,--tty}'[Allocate a pseudo-tty]' \
+                {-T,--timeout=0}'[Set timeout values to seconds]' \
+                {-w,--wait}'[Wait for SSH to be ready]' \
                 ':servers:__scw_runningservers' \
                 '*::command:->anycommand' && ret=0
 
@@ -172,15 +148,9 @@ __scw_subcommand () {
         (images)
             _arguments \
                 {-a,--all}'[Show all images]' \
-                '*'{-f,--filter=-}'[Filter values]:filter: ' \
                 '--no-trunc[Do not truncate output]' \
                 {-q,--quiet}'[Only show numeric IDs]' \
                 ':repository:__scw_repositories'
-            ;;
-        (import)
-            _arguments \
-                ':URL:(- http:// file://)' \
-                ':repository:__scw_repositories_with_tags'
             ;;
         (info)
             ;;
@@ -191,18 +161,12 @@ __scw_subcommand () {
             ;;
         (kill)
             _arguments \
-                {-s,--signal=-}'[Signal to send]:signal:_signals' \
                 '*:servers:__scw_runningservers'
-            ;;
-        (load)
-            _arguments \
-                {-i,--input=-}'[Read from tar archive file]:archive file:_files -g "*.((tar|TAR)(.gz|.GZ|.Z|.bz2|.lzma|.xz|)|(tbz|tgz|txz))(-.)"'
             ;;
         (login)
             _arguments \
-                {-e,--email=-}'[Email]:email: ' \
-                {-p,--password=-}'[Password]:password: ' \
-                {-u,--user=-}'[Username]:username: ' \
+                {-o,--organization=-}'[Organization]:organization: ' \
+                {-t,--token=-}'[Token]:token: ' \
                 ':server: '
             ;;
         (logout)
@@ -211,10 +175,6 @@ __scw_subcommand () {
             ;;
         (logs)
             _arguments \
-                {-f,--follow}'[Follow log output]' \
-                '-s,--since[Show logs since timestamp]' \
-                {-t,--timestamps}'[Show timestamps]' \
-                '--tail=-[Output the last K lines]:lines:(1 10 20 50 all)' \
                 '*:servers:__scw_servers'
             ;;
         (port)
@@ -222,37 +182,28 @@ __scw_subcommand () {
                 '1:servers:__scw_runningservers' \
                 '2:port:_ports'
             ;;
-        (pause|unpause)
-            _arguments \
-                '1:servers:__scw_runningservers'
-            ;;
         (start)
             _arguments \
-                {-a,--attach}'[Attach server'"'"'s stdout/stderr and forward all signals]' \
-                {-i,--interactive}'[Attach server'"'"'s stding]' \
+                {-T,--timeout=0}'[Set timeout values to seconds]' \
+                {-w,--wait}'[Wait for SSH to be ready]' \
                 '*:servers:__scw_stoppedservers'
-            ;;
-        (stats)
-            _arguments \
-                '--no-stream[Disable streaming stats and only pull the first result]' \
-                '*:servers:__scw_runningservers'
             ;;
         (rm)
             _arguments \
-                {-f,--force}'[Force removal]' \
-                {-l,--link}'[Remove the specified link and not the underlying server]' \
-                {-v,--volumes}'[Remove the volumes associated to the server]' \
                 '*:servers:__scw_stoppedservers'
             ;;
         (rmi)
             _arguments \
-                {-f,--force}'[Force removal]' \
-                '--no-prune[Do not delete untagged parents]' \
                 '*:images:__scw_images'
             ;;
-        (restart|stop)
+        (restart)
             _arguments \
-                {-t,--time=-}'[Number of seconds to try to stop for before killing the server]:seconds to before killing:(1 5 10 30 60)' \
+                '*:servers:__scw_runningservers'
+            ;;
+        (stop)
+            _arguments \
+                {-t,--terminate}'[Stop and trash a server with its volumes]' \
+                {-w,--wait}'[Synchronous stop. Wait for server to be stopped]' \
                 '*:servers:__scw_runningservers'
             ;;
         (top)
@@ -264,19 +215,14 @@ __scw_subcommand () {
                     _ps
                     ;;
             esac
-
             ;;
         (ps)
             _arguments \
-                {-a,--all}'[Show all servers]' \
-                '--before=-[Show only server created before...]:servers:__scw_servers' \
-                '*'{-f,--filter=-}'[Filter values]:filter: ' \
+                {-a,--all}'[Show all servers. Only running servers are shown by default]' \
                 {-l,--latest}'[Show only the latest created server]' \
                 '-n[Show n last created servers, include non-running one]:n:(1 5 10 25 50)' \
                 '--no-trunc[Do not truncate output]' \
-                {-q,--quiet}'[Only show numeric IDs]' \
-                {-s,--size}'[Display total file sizes]' \
-                '--since=-[Show only servers created since...]:servers:__scw_servers'
+                {-q,--quiet}'[Only show numeric IDs]'
             ;;
         (tag)
             _arguments \
@@ -287,39 +233,9 @@ __scw_subcommand () {
         (create|run)
             _arguments \
                 {-a,--attach}'[Attach to stdin, stdout or stderr]' \
-                '*--add-host=-[Add a custom host-to-IP mapping]:host\:ip mapping: ' \
-                {-c,--cpu-shares=-}'[CPU shares (relative weight)]:CPU shares:(0 10 100 200 500 800 1000)' \
-                '*--cap-add=-[Add Linux capabilities]:capability: ' \
-                '*--cap-drop=-[Drop Linux capabilities]:capability: ' \
-                '--cidfile=-[Write the server ID to the file]:CID file:_files' \
-                '--cpuset=-[CPUs in which to allow execution]:CPU set: ' \
-                {-d,--detach}'[Detached mode: leave the server running in the background]' \
-                '*--device=-[Add a host device to the server]:device:_files' \
-                '*--dns=-[Set custom dns servers]:dns server: ' \
-                '*--dns-search=-[Set custom DNS search domains]:dns domains: ' \
                 '*'{-e,--environment=-}'[Set environment variables]:environment variable: ' \
-                '--entrypoint=-[Overwrite the default entrypoint of the image]:entry point: ' \
-                '*--env-file=-[Read environment variables from a file]:environment file:_files' \
-                '*--expose=-[Expose a port from the server without publishing it]: ' \
-                {-h,--hostname=-}'[Server host name]:hostname:_hosts' \
-                {-i,--interactive}'[Keep stdin open even if not attached]' \
-                '*--link=-[Add link to another server]:link:->link' \
-                '*--lxc-conf=-[Add custom lxc options]:lxc options: ' \
-                '-m[Memory limit (in bytes)]:limit: ' \
                 '--name=-[Server name]:name: ' \
-                '--net=-[Network mode]:network mode:(bridge none server host)' \
-                {-P,--publish-names}'[Publish all exposed ports]' \
-                '*'{-p,--publish=-}'[Expose a server'"'"'s port to the host]:port:_ports' \
-                '--privileged[Give extended privileges to this server]' \
-                '--restart=-[Restart policy]:restart policy:(no on-failure always)' \
-                '--rm[Remove intermediate servers when it exits]' \
-                '*--security-opt=-[Security options]:security option: ' \
-                '--sig-proxy[Proxy all received signals to the process (non-TTY mode only)]' \
-                {-t,--tty}'[Allocate a pseudo-tty]' \
-                {-u,--user=-}'[Username or UID]:user:_users' \
                 '*-v[Bind mount a volume]:volume: '\
-                '*--volumes-from=-[Mount volumes from the specified server]:volume: ' \
-                {-w,--workdir=-}'[Working directory inside the server]:directory:_directories' \
                 '(-):images:__scw_images' \
                 '(-):command: _command_names -e' \
                 '*::arguments: _normal'
@@ -333,31 +249,15 @@ __scw_subcommand () {
                     fi
                     ;;
             esac
-
-            ;;
-        (pull)
-            _arguments \
-                {-a,--all-tags}'[Download all tagged images]' \
-                ':name:__scw_search'
-            ;;
-        (push)
-            _arguments ':images:__scw_images'
             ;;
         (rename)
             _arguments \
                 ':old name:__scw_servers' \
                 ':new name: '
             ;;
-        (save)
-            _arguments \
-                {-o,--output=-}'[Write to file]:file:_files' \
-                '*:images:__scw_images'
-            ;;
         (search)
             _arguments \
-                '--automated[Only show automated builds]' \
                 '--no-trunc[Do not truncate output]' \
-                {-s,--stars=-}'[Only display with at least X stars]:stars:(0 10 100 1000)' \
                 ':term: '
             ;;
         (wait)
