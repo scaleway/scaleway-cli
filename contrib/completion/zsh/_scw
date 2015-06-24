@@ -30,6 +30,18 @@ __scw_images () {
     _describe -t images "images" images
 }
 
+__scw_images_and_snapshots () {
+    __scw_images
+    __scw_snapshots
+}
+
+__scw_snapshots () {
+    local expl
+    declare -a snapshots
+    snapshots=(${(f)"$(_call_program commands scw _completion --prefix snapshots-names)"})
+    _describe -t snapshots "snapshots" snapshots
+}
+
 __scw_bootscripts () {
     local expl
     declare -a bootscripts
@@ -244,7 +256,7 @@ __scw_subcommand () {
                 '--name=-[Server name]:name: ' \
                 '--bootscript=-[Assign a bootscript]:bootscript:__scw_bootscripts ' \
                 '*-v[Bind mount a volume]:volume: '\
-                '(-):images:__scw_images' \
+                '(-):images:__scw_images_and_snapshots' \
                 '(-):command: _command_names -e' \
                 '*::arguments: _normal'
 
