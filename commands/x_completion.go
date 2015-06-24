@@ -26,6 +26,11 @@ var cmdCompletion = &types.Command{
     $ scw _completion snapshots-all
     $ scw _completion volumes-all
     $ scw _completion bootscripts-all
+    $ scw _completion servers-names
+    $ scw _completion images-names
+    $ scw _completion snapshots-names
+    $ scw _completion volumes-names
+    $ scw _completion bootscripts-names
 `,
 }
 
@@ -53,21 +58,41 @@ func runCompletion(cmd *types.Command, args []string) {
 		for identifier, name := range cmd.API.Cache.Servers {
 			elements = append(elements, identifier, utils.Wordify(name))
 		}
+	case "servers-names":
+		for _, name := range cmd.API.Cache.Servers {
+			elements = append(elements, utils.Wordify(name))
+		}
 	case "images-all":
 		for identifier, name := range cmd.API.Cache.Images {
 			elements = append(elements, identifier, utils.Wordify(name))
+		}
+	case "images-names":
+		for _, name := range cmd.API.Cache.Images {
+			elements = append(elements, utils.Wordify(name))
 		}
 	case "volumes-all":
 		for identifier, name := range cmd.API.Cache.Volumes {
 			elements = append(elements, identifier, utils.Wordify(name))
 		}
+	case "volumes-names":
+		for _, name := range cmd.API.Cache.Volumes {
+			elements = append(elements, utils.Wordify(name))
+		}
 	case "snapshots-all":
 		for identifier, name := range cmd.API.Cache.Snapshots {
 			elements = append(elements, identifier, utils.Wordify(name))
 		}
+	case "snapshots-names":
+		for _, name := range cmd.API.Cache.Snapshots {
+			elements = append(elements, utils.Wordify(name))
+		}
 	case "bootscripts-all":
 		for identifier, name := range cmd.API.Cache.Bootscripts {
 			elements = append(elements, identifier, utils.Wordify(name))
+		}
+	case "bootscripts-names":
+		for _, name := range cmd.API.Cache.Bootscripts {
+			elements = append(elements, utils.Wordify(name))
 		}
 	default:
 		log.Fatalf("Unhandled category of completion: %s", category)
