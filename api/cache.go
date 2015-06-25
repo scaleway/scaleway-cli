@@ -6,6 +6,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -67,6 +68,27 @@ type ScalewayIdentifier struct {
 
 	// Type of the identifier
 	Type int
+}
+
+// ScalewayResolverResult is a structure containing human-readable information
+// about resolver results. This structure is used to display the user choices.
+type ScalewayResolverResult struct {
+	Identifier string
+	Type       string
+	Name       string
+}
+
+func (s *ScalewayResolverResult) TruncIdentifier() string {
+	return s.Identifier[:8]
+}
+
+func (s *ScalewayResolverResult) CodeName() string {
+	name := strings.ToLower(s.Name)
+	name = regexp.MustCompile(`[^a-z0-9-]`).ReplaceAllString(name, "-")
+	name = regexp.MustCompile(`--+`).ReplaceAllString(name, "-")
+	name = strings.Trim(name, "-")
+
+	return fmt.Sprintf("%s:%s", strings.ToLower(s.Type), name)
 }
 
 // NewScalewayCache loads a per-user cache
@@ -260,24 +282,39 @@ func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) []stri
 }
 
 // LookUpServers attempts to return identifiers matching a pattern
-func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
+func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []ScalewayResolverResult {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	var res []string
-	var exactMatches []string
+	var res []ScalewayResolverResult
+	var exactMatches []ScalewayResolverResult
 
 	if acceptUUID && uuid.Parse(needle) != nil {
-		res = append(res, needle)
+		entry := ScalewayResolverResult{
+			Identifier: needle,
+			Name:       needle,
+			Type:       "Server",
+		}
+		res = append(res, entry)
 	}
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, name := range c.Servers {
 		if name == needle {
-			exactMatches = append(exactMatches, identifier)
+			entry := ScalewayResolverResult{
+				Identifier: identifier,
+				Name:       name,
+				Type:       "Server",
+			}
+			exactMatches = append(exactMatches, entry)
 		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
-			res = append(res, identifier)
+			entry := ScalewayResolverResult{
+				Identifier: identifier,
+				Name:       name,
+				Type:       "Server",
+			}
+			res = append(res, entry)
 		}
 	}
 
@@ -285,7 +322,24 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) []string {
 		return exactMatches
 	}
 
-	return utils.RemoveDuplicates(res)
+	return removeDuplicatesResults(res)
+}
+
+// removeDuplicatesResults transforms an array into a unique array
+func removeDuplicatesResults(elements []ScalewayResolverResult) []ScalewayResolverResult {
+	encountered := map[string]ScalewayResolverResult{}
+
+	// Create a map of all unique elements.
+	for v := range elements {
+		encountered[elements[v].Identifier] = elements[v]
+	}
+
+	// Place all keys from the map into a slice.
+	results := []ScalewayResolverResult{}
+	for _, result := range encountered {
+		results = append(results, result)
+	}
+	return results
 }
 
 // parseNeedle parses a user needle and try to extract a forced object type
@@ -319,9 +373,9 @@ func (c *ScalewayCache) LookUpIdentifiers(needle string) []ScalewayIdentifier {
 	identifierType, needle := parseNeedle(needle)
 
 	if identifierType&(IdentifierUnknown|IdentifierServer) > 0 {
-		for _, identifier := range c.LookUpServers(needle, false) {
+		for _, result := range c.LookUpServers(needle, false) {
 			results = append(results, ScalewayIdentifier{
-				Identifier: identifier,
+				Identifier: result.Identifier,
 				Type:       IdentifierServer,
 			})
 		}

@@ -13,6 +13,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"text/tabwriter"
 	"text/template"
 
 	log "github.com/Sirupsen/logrus"
@@ -913,7 +914,7 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveServer(needle string) ([]string, error) {
+func (s *ScalewayAPI) ResolveServer(needle string) ([]ScalewayResolverResult, error) {
 	servers := s.Cache.LookUpServers(needle, true)
 	if len(servers) == 0 {
 		_, err := s.GetServers(true, 0)
@@ -1184,18 +1185,26 @@ func (s *ScalewayAPI) GetServerID(needle string) string {
 		log.Fatalf("Unable to resolve server %s: %s", needle, err)
 	}
 	if len(servers) == 1 {
-		return servers[0]
+		return servers[0].Identifier
 	}
 	if len(servers) == 0 {
 		log.Fatalf("No such server: %s", needle)
 	}
-	log.Errorf("Too many candidates for %s (%d)", needle, len(servers))
-	for _, identifier := range servers {
-		// FIXME: also print the name
-		log.Infof("- %s", identifier)
-	}
+
+	showResolverResults(needle, servers)
 	os.Exit(1)
 	return ""
+}
+
+func showResolverResults(needle string, results []ScalewayResolverResult) error {
+	log.Errorf("Too many candidates for %s (%d)", needle, len(results))
+
+	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
+	defer w.Flush()
+	for _, result := range results {
+		fmt.Fprintf(w, "- %s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name)
+	}
+	return nil
 }
 
 // GetSnapshotID returns exactly one snapshot matching or dies
