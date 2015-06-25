@@ -4,6 +4,7 @@ Interact with Scaleway API from the command line.
 
 [![Build Status (Travis)](https://img.shields.io/travis/scaleway/scaleway-cli.svg)](https://travis-ci.org/scaleway/scaleway-cli)
 [![GoDoc](https://godoc.org/github.com/scaleway/scaleway-cli?status.svg)](https://godoc.org/github.com/scaleway/scaleway-cli)
+[![Packager](https://img.shields.io/badge/Packager-Install-blue.svg?style=flat)](https://packager.io/gh/scaleway/scaleway-cli/install)
 ![License](https://img.shields.io/github/license/scaleway/scaleway-cli.svg)
 
 ![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
