@@ -25,7 +25,7 @@ Interact with Scaleway API from the command line.
     * [`cp [OPTIONS] SERVER:PATH|HOSTPATH|- SERVER:PATH|HOSTPATH|-`](#scw-cp)
     * [`create [OPTIONS] IMAGE`](#scw-create)
     * [`events [OPTIONS]`](#scw-events)
-    * [`exec [OPTIONS] SERVER COMMAND [ARGS...]`](#scw-exec)
+    * [`exec [OPTIONS] SERVER [COMMAND] [ARGS...]`](#scw-exec)
     * [`history [OPTIONS] IMAGE`](#scw-history)
     * [`images [OPTIONS]`](#scw-images)
     * [`info [OPTIONS]`](#scw-info)
@@ -291,7 +291,7 @@ Options:
 #### `scw exec`
 
 ```console
-Usage: scw exec [OPTIONS] SERVER COMMAND [ARGS...]
+Usage: scw exec [OPTIONS] SERVER [COMMAND] [ARGS...]
 
 Run a command on a running server.
 
@@ -303,6 +303,7 @@ Options:
 
 Examples:
 
+    $ scw exec myserver
     $ scw exec myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
     $ exec_secure=1 scw exec myserver bash
@@ -1019,6 +1020,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* `scw exec SERVER [COMMAND] [ARGS...]`, *COMMAND* is now optional
 * Showing the server MOTD when calling `scw run <image> [COMMAND]` without *COMMAND*
 * Support of `scw attach --no-stdin` option
 * Hiding sensitive data by default on `scw inspect` ([#64](https://github.com/scaleway/scaleway-cli/issues/64))

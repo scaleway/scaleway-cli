@@ -17,10 +17,11 @@ import (
 
 var cmdExec = &types.Command{
 	Exec:        runExec,
-	UsageLine:   "exec [OPTIONS] SERVER COMMAND [ARGS...]",
+	UsageLine:   "exec [OPTIONS] SERVER [COMMAND] [ARGS...]",
 	Description: "Run a command on a running server",
 	Help:        "Run a command on a running server.",
 	Examples: `
+    $ scw exec myserver
     $ scw exec myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
     $ exec_secure=1 scw exec myserver bash
@@ -47,7 +48,7 @@ func runExec(cmd *types.Command, args []string) {
 	if execHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 2 {
+	if len(args) < 1 {
 		cmd.PrintShortUsage()
 	}
 
