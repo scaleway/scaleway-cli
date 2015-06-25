@@ -94,7 +94,7 @@ func runRun(cmd *types.Command, args []string) {
 		// exec -w SERVER COMMAND ARGS...
 		log.Debugf("Executing command")
 		if len(args) < 2 {
-			err = utils.SSHExec(server.PublicAddress.IP, []string{"if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi"}, false)
+			err = utils.SSHExec(server.PublicAddress.IP, []string{}, false)
 		} else {
 			err = utils.SSHExec(server.PublicAddress.IP, args[1:], false)
 		}

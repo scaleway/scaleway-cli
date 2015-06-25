@@ -1019,6 +1019,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Showing the server MOTD when calling `scw run <image> [COMMAND]` without *COMMAND*
 * Support of `scw attach --no-stdin` option
 * Hiding sensitive data by default on `scw inspect` ([#64](https://github.com/scaleway/scaleway-cli/issues/64))
 * Support of `scw --sensitive` option ([#64](https://github.com/scaleway/scaleway-cli/issues/64))

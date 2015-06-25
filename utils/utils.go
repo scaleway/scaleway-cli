@@ -60,15 +60,17 @@ func NewSSHExecCmd(ipAddress string, allocateTTY bool, command []string) []strin
 		execCmd = append(execCmd, "-t")
 	}
 
-	execCmd = append(execCmd, "--", "/bin/sh", "-e")
+	if len(command) > 0 {
+		execCmd = append(execCmd, "--", "/bin/sh", "-e")
 
-	if os.Getenv("DEBUG") == "1" {
-		execCmd = append(execCmd, "-x")
+		if os.Getenv("DEBUG") == "1" {
+			execCmd = append(execCmd, "-x")
+		}
+
+		execCmd = append(execCmd, "-c")
+
+		execCmd = append(execCmd, fmt.Sprintf("%q", strings.Join(command, " ")))
 	}
-
-	execCmd = append(execCmd, "-c")
-
-	execCmd = append(execCmd, fmt.Sprintf("%q", strings.Join(command, " ")))
 
 	return execCmd
 }
