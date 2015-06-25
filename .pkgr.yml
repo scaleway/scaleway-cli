@@ -1,0 +1,11 @@
+cli: scw
+targets:
+  ubuntu-14.04:
+  centos-7:
+  ubuntu-12.04:
+  centos-6:
+  debian-7:
+before:
+  - echo "scw" > .godir
+after:
+  - rm -f .godir
