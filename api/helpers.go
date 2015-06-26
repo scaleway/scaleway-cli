@@ -20,7 +20,7 @@ import (
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
 type ScalewayResolvedIdentifier struct {
 	// Identifiers holds matching identifiers
-	Identifiers []ScalewayIdentifier
+	Identifiers []ScalewayResolverResult
 
 	// Needle is the criteria used to lookup identifiers
 	Needle string
@@ -86,7 +86,7 @@ func fillIdentifierCache(api *ScalewayAPI) {
 }
 
 // GetIdentifier returns a an identifier if the resolved needles only match one element, else, it exists the program
-func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayIdentifier {
+func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 	idents := ResolveIdentifier(api, needle)
 
 	if len(idents) == 1 {
@@ -105,7 +105,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayIdentifier {
 }
 
 // ResolveIdentifier resolves needle provided by the user
-func ResolveIdentifier(api *ScalewayAPI, needle string) []ScalewayIdentifier {
+func ResolveIdentifier(api *ScalewayAPI, needle string) []ScalewayResolverResult {
 	idents := api.Cache.LookUpIdentifiers(needle)
 	if len(idents) > 0 {
 		return idents
@@ -159,11 +159,7 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 			if len(idents.Identifiers) == 0 {
 				log.Errorf("Unable to resolve identifier %s", idents.Needle)
 			} else {
-				log.Errorf("Too many candidates for %s (%d)", idents.Needle, len(idents.Identifiers))
-				for _, identifier := range idents.Identifiers {
-					// FIXME: also print the name
-					log.Infof("- %s", identifier.Identifier)
-				}
+				showResolverResults(idents.Needle, idents.Identifiers)
 			}
 		} else {
 			ident := idents.Identifiers[0]
