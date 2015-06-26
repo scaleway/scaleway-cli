@@ -927,7 +927,7 @@ func (s *ScalewayAPI) ResolveServer(needle string) ([]ScalewayResolverResult, er
 }
 
 // ResolveSnapshot attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]string, error) {
+func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]ScalewayResolverResult, error) {
 	snapshots := s.Cache.LookUpSnapshots(needle, true)
 	if len(snapshots) == 0 {
 		_, err := s.GetSnapshots()
@@ -940,7 +940,7 @@ func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]string, error) {
 }
 
 // ResolveImage attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveImage(needle string) ([]string, error) {
+func (s *ScalewayAPI) ResolveImage(needle string) ([]ScalewayResolverResult, error) {
 	images := s.Cache.LookUpImages(needle, true)
 	if len(images) == 0 {
 		_, err := s.GetImages()
@@ -953,7 +953,7 @@ func (s *ScalewayAPI) ResolveImage(needle string) ([]string, error) {
 }
 
 // ResolveBootscript attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveBootscript(needle string) ([]string, error) {
+func (s *ScalewayAPI) ResolveBootscript(needle string) ([]ScalewayResolverResult, error) {
 	bootscripts := s.Cache.LookUpBootscripts(needle, true)
 	if len(bootscripts) == 0 {
 		_, err := s.GetBootscripts()
@@ -1217,16 +1217,13 @@ func (s *ScalewayAPI) GetSnapshotID(needle string) string {
 		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
 	}
 	if len(snapshots) == 1 {
-		return snapshots[0]
+		return snapshots[0].Identifier
 	}
 	if len(snapshots) == 0 {
 		log.Fatalf("No such snapshot: %s", needle)
 	}
-	log.Errorf("Too many candidates for %s (%d)", needle, len(snapshots))
-	for _, identifier := range snapshots {
-		// FIXME: also print the name
-		log.Infof("- %s", identifier)
-	}
+
+	showResolverResults(needle, snapshots)
 	os.Exit(1)
 	return ""
 }
@@ -1241,7 +1238,7 @@ func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
 		log.Fatalf("Unable to resolve image %s: %s", needle, err)
 	}
 	if len(images) == 1 {
-		return images[0]
+		return images[0].Identifier
 	}
 	if len(images) == 0 {
 		if exitIfMissing {
@@ -1250,11 +1247,8 @@ func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
 			return ""
 		}
 	}
-	log.Errorf("Too many candidates for %s (%d)", needle, len(images))
-	for _, identifier := range images {
-		// FIXME: also print the name
-		log.Infof("- %s", identifier)
-	}
+
+	showResolverResults(needle, images)
 	os.Exit(1)
 	return ""
 }
@@ -1269,16 +1263,13 @@ func (s *ScalewayAPI) GetBootscriptID(needle string) string {
 		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
 	}
 	if len(bootscripts) == 1 {
-		return bootscripts[0]
+		return bootscripts[0].Identifier
 	}
 	if len(bootscripts) == 0 {
 		log.Fatalf("No such bootscript: %s", needle)
 	}
-	log.Errorf("Too many candidates for %s (%d)", needle, len(bootscripts))
-	for _, identifier := range bootscripts {
-		// FIXME: also print the name
-		log.Infof("- %s", identifier)
-	}
+
+	showResolverResults(needle, bootscripts)
 	os.Exit(1)
 	return ""
 }

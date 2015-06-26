@@ -1020,6 +1020,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Improved resolver behavior when matching multiple results, now displaying more info too help choosing candidates ([#47](https://github.com/scaleway/scaleway-cli/issues/47))
 * `scw exec SERVER [COMMAND] [ARGS...]`, *COMMAND* is now optional
 * Showing the server MOTD when calling `scw run <image> [COMMAND]` without *COMMAND*
 * Support of `scw attach --no-stdin` option
