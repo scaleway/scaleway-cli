@@ -75,9 +75,22 @@ func runPatch(cmd *types.Command, args []string) {
 				changes++
 				payload.Name = &newValue
 			}
+		case "bootscript":
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.Bootscript.Identifier, fieldName, newValue)
+			if currentServer.Bootscript.Identifier != newValue {
+				changes++
+				payload.Bootscript.Identifier = newValue
+			}
+		case "security_group":
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.SecurityGroup.Identifier, fieldName, newValue)
+			if currentServer.SecurityGroup.Identifier != newValue {
+				changes++
+				payload.SecurityGroup.Identifier = newValue
+			}
 		default:
 			log.Fatalf("'_patch server %s=' not implemented", fieldName)
 		}
+		// FIXME: volumes, tags, dynamic_ip_required
 
 		if changes > 0 {
 			log.Debugf("updating server: %d change(s)", changes)
