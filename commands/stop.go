@@ -73,6 +73,9 @@ func runStop(cmd *types.Command, args []string) {
 					hasError = true
 				}
 			}
+			if stopT {
+				cmd.API.Cache.RemoveServer(serverID)
+			}
 			fmt.Println(needle)
 		}
 	}
