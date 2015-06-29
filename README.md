@@ -62,10 +62,10 @@ For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway
 
 ## Setup
 
-To install Scaleway CLI 1.1.0, run the following commands:
+To install Scaleway CLI 1.2.0, run the following commands:
 
 ```bash
-curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.1.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
+curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.2.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
 chmod +x /usr/local/bin/scw
 ```
 
@@ -1016,7 +1016,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### 1.2.0 (2015-07-29)
 
 #### Features
 
