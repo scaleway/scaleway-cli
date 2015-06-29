@@ -1016,6 +1016,16 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+#### Features
+
+* No entry
+
+#### Fixes
+
+* No entry
+
 ### 1.2.0 (2015-07-29)
 
 #### Features
