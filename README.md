@@ -568,7 +568,9 @@ Run a command in a new server.
 
 Options:
 
+  -a, --attach=false    Attach to serial console
   --bootscript=""       Assign a bootscript
+  -d, --detach=false    Run server in background and print server ID
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
   --name=""             Assign a name
@@ -577,9 +579,11 @@ Options:
 Examples:
 
     $ scw run ubuntu-trusty
+    $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
-    $ scw run attach alpine
+    $ scw run --attach alpine
+    $ scw run --detach alpine
 ```
 
 
@@ -1020,7 +1024,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
-* No entry
+* Support of `scw run -d` option ([#69](https://github.com/scaleway/scaleway-cli/issues/69))
 
 #### Fixes
 

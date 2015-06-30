@@ -5,6 +5,7 @@
 package commands
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -22,9 +23,11 @@ var cmdRun = &types.Command{
 	Help:        "Run a command in a new server.",
 	Examples: `
     $ scw run ubuntu-trusty
+    $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
-    $ scw run attach alpine
+    $ scw run --attach alpine
+    $ scw run --detach alpine
 `,
 }
 
@@ -35,6 +38,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runCreateVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
+	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	// FIXME: handle start --timeout
 }
 
@@ -45,6 +49,7 @@ var runCreateEnv string        // -e, --env flag
 var runCreateVolume string     // -v, --volume flag
 var runHelpFlag bool           // -h, --help flag
 var runAttachFlag bool         // -a, --attach flag
+var runDetachFlag bool         // -d, --detach flag
 
 func runRun(cmd *types.Command, args []string) {
 	if runHelpFlag {
@@ -54,7 +59,13 @@ func runRun(cmd *types.Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 	if runAttachFlag && len(args) > 1 {
-		log.Fatalf("Cannot use '--attach' and 'COMMAND [ARG...]' at the same time. See 'scw run --help'")
+		log.Fatalf("Conflicting options: -a and COMMAND")
+	}
+	if runAttachFlag && runDetachFlag {
+		log.Fatalf("Conflicting options: -a and -d")
+	}
+	if runDetachFlag && len(args) > 1 {
+		log.Fatalf("Conflicting options: -d and COMMAND")
 	}
 
 	// create IMAGE
@@ -72,6 +83,11 @@ func runRun(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to start server %s: %v", serverID, err)
 	}
 	log.Debugf("Server is booting")
+
+	if runDetachFlag {
+		fmt.Println(serverID)
+		return
+	}
 
 	if runAttachFlag {
 		// Attach to server serial
