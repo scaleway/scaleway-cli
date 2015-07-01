@@ -8,7 +8,7 @@ Interact with Scaleway API from the command line.
 ![License](https://img.shields.io/github/license/scaleway/scaleway-cli.svg)
 
 ![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
-
+c
 #### Table of Contents
 
 1. [Overview](#overview)
@@ -1020,7 +1020,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### master (unreleased) 
 
 #### Features
 
@@ -1029,6 +1029,10 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 #### Fixes
 
 * No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.2.0...master)
+
+---
 
 ### 1.2.0 (2015-07-29)
 
@@ -1059,6 +1063,10 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw run|create SNAPSHOT`, raised an error if snapshot does not have base volume
 * `scw stop -t` removes server entry from cache
 
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.1.0...v1.2.0)
+
+---
+
 ### 1.1.0 (2015-06-12)
 
 #### Features
@@ -1082,6 +1090,10 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Verbose error message when `scw exec` fails ([#42](https://github.com/scaleway/scaleway-cli/issues/42))
 * Fixed `scw login` parameters parsing
 * Speed and stability improvements
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.0.0...v1.1.0)
+
+---
 
 ### 1.0.0 (2015-06-05)
 
@@ -1145,11 +1157,13 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
 
 [gopkg.in/scaleway/scaleway-cli.v1](http://gopkg.in/scaleway/scaleway-cli.v1)
 
+---
+
 ### POC (2015-03-20)
 
 First [Node.js version](https://github.com/moul/scaleway-cli-node)
 
-
+---
 
 ## Development
 
