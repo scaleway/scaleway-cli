@@ -2,7 +2,7 @@
 /scaleway-cli
 /scw
 scwversion/version.go
-Godeps/
+#Godeps/
 dist/
 
 # junk
