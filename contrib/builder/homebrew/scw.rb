@@ -1,6 +1,7 @@
 require "language/go"
 
 class Scw < Formula
+  desc "Manage BareMetal Servers from Command Line (as easily as with Docker)"
   homepage "https://github.com/scaleway/scaleway-cli"
   url "https://github.com/scaleway/scaleway-cli/archive/v1.2.1.tar.gz"
   sha256 "e3ae09558a5f451935831381177f1ee3ce50aec438a1e11269dfc380e0e196c9"
@@ -24,7 +25,6 @@ class Scw < Formula
   go_resource "golang.org/x/crypto" do
     url "https://github.com/golang/crypto.git", :revision => "8b27f58b78dbd60e9a26b60b0d908ea642974b6d"
   end
-
 
   def install
     ENV["GOPATH"] = buildpath
