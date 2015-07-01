@@ -37,7 +37,7 @@ scw exec "${SERVER}" 'uname -a'
 
 
 echo "[+] Formating and mounting /dev/nbd1..."
-scw exec "${SERVER}" 'service xnbd-common stop && service xnbd-common start && mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
+scw exec "${SERVER}" 'mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
 echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
