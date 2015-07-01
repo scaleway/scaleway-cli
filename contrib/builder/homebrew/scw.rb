@@ -2,13 +2,12 @@ require "language/go"
 
 class Scw < Formula
   homepage "https://github.com/scaleway/scaleway-cli"
-  url "https://github.com/scaleway/scaleway-cli/archive/v1.1.0.tar.gz"
-  sha256 "571146c067da9d3f411fabd24adb08f409f913e2237d80233a71655598b32a37"
+  url "https://github.com/scaleway/scaleway-cli/archive/v1.2.1.tar.gz"
+  sha256 "e3ae09558a5f451935831381177f1ee3ce50aec438a1e11269dfc380e0e196c9"
 
   head "https://github.com/scaleway/scaleway-cli.git"
 
   depends_on "go" => :build
-  depends_on "hg" => :build
 
   go_resource "github.com/tools/godep" do
     url "https://github.com/tools/godep.git", :revision => "58d90f262c13357d3203e67a33c6f7a9382f9223"
@@ -26,10 +25,6 @@ class Scw < Formula
     url "https://github.com/golang/crypto.git", :revision => "8b27f58b78dbd60e9a26b60b0d908ea642974b6d"
   end
 
-  go_resource "github.com/scaleway/scaleway-cli" do
-    url "https://github.com/scaleway/scaleway-cli.git", :revision => "49587ef360980cd28e7e0eac30806fb66372f2ed"
-  end
-
 
   def install
     ENV["GOPATH"] = buildpath
@@ -44,8 +39,6 @@ class Scw < Formula
       system "go", "install"
     end
 
-    system "make scwversion/version.go"
-    system "./bin/godep", "get"
     system "./bin/godep", "go", "build", "-o", "scw"
     bin.install "scw"
 
@@ -55,7 +48,7 @@ class Scw < Formula
 
   test do
     output = shell_output(bin/"scw version")
-    assert output.include? "Client version: v1.1.0"
-    assert output.include? "Git commit (client): 49587ef360980cd28e7e0eac30806fb66372f2ed"
+    assert output.include? "Client version: v1.2.1"
+    assert output.include? "Git commit (client): 3eb2cfb2478410b61992396fad5081ee80a140e9"
   end
 end
