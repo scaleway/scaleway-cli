@@ -8,7 +8,7 @@ Interact with Scaleway API from the command line.
 ![License](https://img.shields.io/github/license/scaleway/scaleway-cli.svg)
 
 ![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
-c
+
 #### Table of Contents
 
 1. [Overview](#overview)
