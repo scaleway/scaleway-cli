@@ -27,6 +27,7 @@ var cmdCp = &types.Command{
 	Help:        "Copy files/folders from a PATH on the server to a HOSTDIR on the host\nrunning the command. Use '-' to write the data as a tar file to STDOUT.",
 	Examples: `
     $ scw cp path/to/my/local/file myserver:path
+    $ scw cp --gateway=myotherserver path/to/my/local/file myserver:path
     $ scw cp myserver:path/to/file path/to/my/local/dir
     $ scw cp myserver:path/to/file myserver2:path/to/dir
     $ scw cp myserver:path/to/file - > myserver-pathtofile-backup.tar

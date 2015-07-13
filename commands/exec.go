@@ -23,6 +23,7 @@ var cmdExec = &types.Command{
 	Examples: `
     $ scw exec myserver
     $ scw exec myserver bash
+    $ scw exec --gateway=myotherserver myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
     $ exec_secure=1 scw exec myserver bash
     $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash

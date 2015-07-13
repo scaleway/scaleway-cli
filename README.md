@@ -237,6 +237,7 @@ Options:
 Examples:
 
     $ scw cp path/to/my/local/file myserver:path
+    $ scw cp --gateway=myotherserver path/to/my/local/file myserver:path
     $ scw cp myserver:path/to/file path/to/my/local/dir
     $ scw cp myserver:path/to/file myserver2:path/to/dir
     $ scw cp myserver:path/to/file - > myserver-pathtofile-backup.tar
@@ -307,6 +308,7 @@ Examples:
 
     $ scw exec myserver
     $ scw exec myserver bash
+    $ scw exec --gateway=myotherserver myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
     $ exec_secure=1 scw exec myserver bash
     $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash
@@ -585,6 +587,7 @@ Options:
 Examples:
 
     $ scw run ubuntu-trusty
+    $ scw run --gateway=myotherserver ubuntu-trusty
     $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash

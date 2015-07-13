@@ -23,6 +23,7 @@ var cmdRun = &types.Command{
 	Help:        "Run a command in a new server.",
 	Examples: `
     $ scw run ubuntu-trusty
+    $ scw run --gateway=myotherserver ubuntu-trusty
     $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash

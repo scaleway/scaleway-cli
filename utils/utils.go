@@ -52,7 +52,7 @@ func SSHExec(publicIpAddress string, privateIpAddress string, command []string, 
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
 func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIpAddress string) []string {
-	useGateway := len(gatewayIpAddress) != 0
+	useGateway := gatewayIpAddress != ""
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
