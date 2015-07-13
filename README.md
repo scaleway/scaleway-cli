@@ -231,6 +231,7 @@ running the command. Use '-' to write the data as a tar file to STDOUT.
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
 
 Examples:
@@ -297,6 +298,7 @@ Run a command on a running server.
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
   -T, --timeout=0       Set timeout values to seconds
   -w, --wait=false      Wait for SSH to be ready
@@ -418,6 +420,7 @@ Kill a running server.
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
 ```
 
@@ -461,6 +464,7 @@ Fetch the logs of a server.
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
 ```
 
@@ -474,6 +478,7 @@ List port mappings for the SERVER, or lookup the public-facing port that is NAT-
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
 ```
 
@@ -572,6 +577,7 @@ Options:
   --bootscript=""       Assign a bootscript
   -d, --detach=false    Run server in background and print server ID
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
   --name=""             Assign a name
   -v, --volume=""       Attach additional volume (i.e., 50G)
@@ -660,6 +666,7 @@ Lookup the running processes of a server.
 
 Options:
 
+  -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
 ```
 
@@ -1024,11 +1031,11 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
-* No entry
+* Support of `-g` option ([#70](https://github.com/scaleway/scaleway-cli/issues/70))
 
 #### Fixes
 
-* No entry
+* Issue with `scw top`'s usage
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.2.1...master)
 
