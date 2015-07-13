@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE.md file.
 
 // Docker-style commands to manage BareMetal servers
+
+// Package commands contains CLI commands
 package commands
 
 import types "github.com/scaleway/scaleway-cli/commands/types"

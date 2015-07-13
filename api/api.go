@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE.md file.
 
 // Interact with Scaleway API
+
+// Package api contains client and functions to interact with Scaleway API
 package api
 
 import (
@@ -1274,8 +1276,8 @@ func (s *ScalewayAPI) GetBootscriptID(needle string) string {
 	return ""
 }
 
-// HideApiCredentials removes API credentials from a string
-func (s *ScalewayAPI) HideApiCredentials(input string) string {
+// HideAPICredentials removes API credentials from a string
+func (s *ScalewayAPI) HideAPICredentials(input string) string {
 	output := strings.Replace(input, s.Token, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
 	output = strings.Replace(output, s.Organization, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
 	return output

@@ -5,7 +5,6 @@
 package api
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -38,6 +37,7 @@ type ScalewayImageInterface struct {
 	Type         string
 }
 
+// ResolveGateway tries to resolve a server public ip address, else returns the input string, i.e. IPv4, hostname
 func ResolveGateway(api *ScalewayAPI, gateway string) (string, error) {
 	if gateway == "" {
 		return "", nil
@@ -57,7 +57,7 @@ func ResolveGateway(api *ScalewayAPI, gateway string) (string, error) {
 
 	if len(servers) > 1 {
 		showResolverResults(gateway, servers)
-		return "", errors.New(fmt.Sprintf("Gateway '%s' is ambiguous", gateway))
+		return "", fmt.Errorf("Gateway '%s' is ambiguous", gateway)
 	}
 
 	// if len(servers) == 1 {

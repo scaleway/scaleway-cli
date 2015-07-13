@@ -67,6 +67,7 @@ type ScalewayResolverResult struct {
 	Name       string
 }
 
+// TruncIdentifier returns first 8 characters of an Identifier (UUID)
 func (s *ScalewayResolverResult) TruncIdentifier() string {
 	return s.Identifier[:8]
 }
@@ -87,6 +88,7 @@ func identifierTypeName(kind int) string {
 	return ""
 }
 
+// CodeName returns a full resource name with typed prefix
 func (s *ScalewayResolverResult) CodeName() string {
 	name := strings.ToLower(s.Name)
 	name = regexp.MustCompile(`[^a-z0-9-]`).ReplaceAllString(name, "-")

@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE.md file.
 
 // Dynamically generated version
+
+// Package scwversion is a dynamically generated package
 package scwversion
 
 var (

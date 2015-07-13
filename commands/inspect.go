@@ -94,7 +94,7 @@ func runInspect(cmd *types.Command, args []string) {
 
 	if inspectFormat == "" {
 		if os.Getenv("SCW_SENSITIVE") != "1" {
-			res = cmd.API.HideApiCredentials(res)
+			res = cmd.API.HideAPICredentials(res)
 		}
 		fmt.Println(res)
 	}

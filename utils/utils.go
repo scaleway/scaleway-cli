@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE.md file.
 
 // scw helpers
+
+// Package utils contains helpers
 package utils
 
 import (
@@ -21,25 +23,25 @@ import (
 )
 
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(publicIpAddress string, privateIpAddress string, command []string, checkConnection bool, gatewayIpAddress string) error {
-	if publicIpAddress == "" && gatewayIpAddress == "" {
+func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gatewayIPAddress string) error {
+	if publicIPAddress == "" && gatewayIPAddress == "" {
 		return errors.New("server does not have public IP")
 	}
-	if privateIpAddress == "" && gatewayIpAddress != "" {
+	if privateIPAddress == "" && gatewayIPAddress != "" {
 		return errors.New("server does not have private IP")
 	}
 
 	if checkConnection {
-		useGateway := gatewayIpAddress != ""
-		if useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", gatewayIpAddress)) {
+		useGateway := gatewayIPAddress != ""
+		if useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", gatewayIPAddress)) {
 			return errors.New("gateway is not available, try again later")
 		}
-		if !useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", publicIpAddress)) {
+		if !useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", publicIPAddress)) {
 			return errors.New("server is not ready, try again later")
 		}
 	}
 
-	execCmd := append(NewSSHExecCmd(publicIpAddress, privateIpAddress, true, nil, command, gatewayIpAddress))
+	execCmd := append(NewSSHExecCmd(publicIPAddress, privateIPAddress, true, nil, command, gatewayIPAddress))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 
@@ -51,8 +53,8 @@ func SSHExec(publicIpAddress string, privateIpAddress string, command []string, 
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIpAddress string) []string {
-	useGateway := gatewayIpAddress != ""
+func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIPAddress string) []string {
+	useGateway := gatewayIPAddress != ""
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -69,10 +71,10 @@ func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY 
 
 	execCmd = append(execCmd, "-l", "root")
 	if useGateway {
-		proxyCommand := NewSSHExecCmd(gatewayIpAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "")
-		execCmd = append(execCmd, privateIpAddress, "-o", "ProxyCommand=ssh "+strings.Join(proxyCommand, " "))
+		proxyCommand := NewSSHExecCmd(gatewayIPAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "")
+		execCmd = append(execCmd, privateIPAddress, "-o", "ProxyCommand=ssh "+strings.Join(proxyCommand, " "))
 	} else {
-		execCmd = append(execCmd, publicIpAddress)
+		execCmd = append(execCmd, publicIPAddress)
 	}
 
 	if allocateTTY {

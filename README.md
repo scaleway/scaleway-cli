@@ -1039,6 +1039,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 #### Fixes
 
 * Issue with `scw top`'s usage
+* Minor code improvements
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.2.1...master)
 
