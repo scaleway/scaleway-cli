@@ -39,6 +39,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
+	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	// FIXME: handle start --timeout
 }
 
@@ -50,6 +51,7 @@ var runCreateVolume string     // -v, --volume flag
 var runHelpFlag bool           // -h, --help flag
 var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
+var runGateway string          // -g, --gateway flag
 
 func runRun(cmd *types.Command, args []string) {
 	if runHelpFlag {
@@ -110,9 +112,9 @@ func runRun(cmd *types.Command, args []string) {
 		// exec -w SERVER COMMAND ARGS...
 		log.Debugf("Executing command")
 		if len(args) < 2 {
-			err = utils.SSHExec(server.PublicAddress.IP, []string{}, false)
+			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, runGateway)
 		} else {
-			err = utils.SSHExec(server.PublicAddress.IP, args[1:], false)
+			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], false, runGateway)
 		}
 		if err != nil {
 			log.Debugf("Command execution failed: %v", err)

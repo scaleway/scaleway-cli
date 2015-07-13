@@ -20,10 +20,12 @@ var cmdLogs = &types.Command{
 
 func init() {
 	cmdLogs.Flag.BoolVar(&logsHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdLogs.Flag.StringVar(&logsGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 }
 
 // FLags
-var logsHelp bool // -h, --help flag
+var logsHelp bool      // -h, --help flag
+var logsGateway string // -g, --gateway flag
 
 func runLogs(cmd *types.Command, args []string) {
 	if logsHelp {
@@ -42,7 +44,7 @@ func runLogs(cmd *types.Command, args []string) {
 	// FIXME: switch to serial history when API is ready
 
 	command := []string{"dmesg"}
-	err = utils.SSHExec(server.PublicAddress.IP, command, true)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, logsGateway)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}

@@ -24,11 +24,13 @@ var cmdKill = &types.Command{
 
 func init() {
 	cmdKill.Flag.BoolVar(&killHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdKill.Flag.StringVar(&killGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	// FIXME: add --signal option
 }
 
 // Flags
-var killHelp bool // -h, --help flag
+var killHelp bool      // -h, --help flag
+var killGateway string // -g, --gateway flag
 
 func runKill(cmd *types.Command, args []string) {
 	if killHelp {
@@ -45,7 +47,7 @@ func runKill(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, true, []string{command}))
+	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, killGateway))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 

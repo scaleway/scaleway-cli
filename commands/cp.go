@@ -43,10 +43,12 @@ var cmdCp = &types.Command{
 
 func init() {
 	cmdCp.Flag.BoolVar(&cpHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdCp.Flag.StringVar(&cpGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 }
 
 // Flags
-var cpHelp bool // -h, --help flag
+var cpHelp bool      // -h, --help flag
+var cpGateway string // -g, --gateway flag
 
 // TarFromSource creates a stream buffer with the tarballed content of the user source
 func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) {
@@ -81,7 +83,7 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 		remoteCommand = append(remoteCommand, base)
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, cpGateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnSrc := exec.Command("ssh", execCmd...)
 
@@ -164,7 +166,7 @@ func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination 
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, false, remoteCommand))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, cpGateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnDst := exec.Command("ssh", execCmd...)
 

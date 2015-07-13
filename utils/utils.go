@@ -21,20 +21,28 @@ import (
 )
 
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(ipAddress string, command []string, checkConnection bool) error {
-	if ipAddress == "" {
+func SSHExec(publicIpAddress string, privateIpAddress string, command []string, checkConnection bool, gatewayIpAddress string) error {
+	if publicIpAddress == "" && gatewayIpAddress == "" {
 		return errors.New("server does not have public IP")
+	}
+	if privateIpAddress == "" && gatewayIpAddress != "" {
+		return errors.New("server does not have private IP")
 	}
 
 	if checkConnection {
-		if !IsTCPPortOpen(fmt.Sprintf("%s:22", ipAddress)) {
+		useGateway := gatewayIpAddress != ""
+		if useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", gatewayIpAddress)) {
+			return errors.New("gateway is not available, try again later")
+		}
+		if !useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", publicIpAddress)) {
 			return errors.New("server is not ready, try again later")
 		}
 	}
 
-	execCmd := append(NewSSHExecCmd(ipAddress, true, command))
+	execCmd := append(NewSSHExecCmd(publicIpAddress, privateIpAddress, true, command, gatewayIpAddress))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+
 	spawn := exec.Command("ssh", execCmd...)
 	spawn.Stdout = os.Stdout
 	spawn.Stdin = os.Stdin
@@ -43,7 +51,8 @@ func SSHExec(ipAddress string, command []string, checkConnection bool) error {
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(ipAddress string, allocateTTY bool, command []string) []string {
+func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY bool, command []string, gatewayIpAddress string) []string {
+	useGateway := len(gatewayIpAddress) != 0
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -54,10 +63,20 @@ func NewSSHExecCmd(ipAddress string, allocateTTY bool, command []string) []strin
 		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
 	}
 
-	execCmd = append(execCmd, "-l", "root", ipAddress)
+	execCmd = append(execCmd, "-l", "root")
+	if useGateway {
+		execCmd = append(execCmd, privateIpAddress, "-o")
+		if allocateTTY {
+			execCmd = append(execCmd, "ProxyCommand=ssh -q -t -t -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p "+gatewayIpAddress)
+		} else {
+			execCmd = append(execCmd, "ProxyCommand=ssh -q -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p "+gatewayIpAddress)
+		}
+	} else {
+		execCmd = append(execCmd, publicIpAddress)
+	}
 
 	if allocateTTY {
-		execCmd = append(execCmd, "-t")
+		execCmd = append(execCmd, "-t", "-t")
 	}
 
 	if len(command) > 0 {

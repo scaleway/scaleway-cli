@@ -24,16 +24,18 @@ var cmdTop = &types.Command{
 
 func init() {
 	cmdTop.Flag.BoolVar(&topHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdTop.Flag.StringVar(&topGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 }
 
 // Flags
-var topHelp bool // -h, --help flag
+var topHelp bool      // -h, --help flag
+var topGateway string // -g, --gateway flag
 
 func runTop(cmd *types.Command, args []string) {
 	if topHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 2 {
+	if len(args) != 1 {
 		cmd.PrintShortUsage()
 	}
 
@@ -44,8 +46,7 @@ func runTop(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, true, []string{command}))
-
+	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, topGateway)
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	out, err := exec.Command("ssh", execCmd...).CombinedOutput()
 	fmt.Printf("%s", out)

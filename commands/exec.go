@@ -37,12 +37,14 @@ func init() {
 	cmdExec.Flag.BoolVar(&execHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdExec.Flag.Float64Var(&execTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
+	cmdExec.Flag.StringVar(&execGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 }
 
 // Flags
 var execW bool          // -w, --wait flag
 var execTimeout float64 // -T flag
 var execHelp bool       // -h, --help flag
+var execGateway string  // -g, --gateway flag
 
 func runExec(cmd *types.Command, args []string) {
 	if execHelp {
@@ -77,7 +79,7 @@ func runExec(cmd *types.Command, args []string) {
 		}()
 	}
 
-	err = utils.SSHExec(server.PublicAddress.IP, args[1:], !execW)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], !execW, execGateway)
 	if err != nil {
 		log.Fatalf("%v", err)
 		os.Exit(1)

@@ -20,10 +20,12 @@ var cmdPort = &types.Command{
 
 func init() {
 	cmdPort.Flag.BoolVar(&portHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdPort.Flag.StringVar(&portGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 }
 
 // FLags
-var portHelp bool // -h, --help flag
+var portHelp bool      // -h, --help flag
+var portGateway string // -g, --gateway flag
 
 func runPort(cmd *types.Command, args []string) {
 	if portHelp {
@@ -40,7 +42,7 @@ func runPort(cmd *types.Command, args []string) {
 	}
 
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = utils.SSHExec(server.PublicAddress.IP, command, true)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, portGateway)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}
