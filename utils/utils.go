@@ -39,7 +39,7 @@ func SSHExec(publicIpAddress string, privateIpAddress string, command []string, 
 		}
 	}
 
-	execCmd := append(NewSSHExecCmd(publicIpAddress, privateIpAddress, true, command, gatewayIpAddress))
+	execCmd := append(NewSSHExecCmd(publicIpAddress, privateIpAddress, true, nil, command, gatewayIpAddress))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 
@@ -51,7 +51,7 @@ func SSHExec(publicIpAddress string, privateIpAddress string, command []string, 
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY bool, command []string, gatewayIpAddress string) []string {
+func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIpAddress string) []string {
 	useGateway := len(gatewayIpAddress) != 0
 	execCmd := []string{}
 
@@ -63,14 +63,14 @@ func NewSSHExecCmd(publicIpAddress string, privateIpAddress string, allocateTTY 
 		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
 	}
 
+	if len(sshOptions) > 0 {
+		execCmd = append(execCmd, strings.Join(sshOptions, " "))
+	}
+
 	execCmd = append(execCmd, "-l", "root")
 	if useGateway {
-		execCmd = append(execCmd, privateIpAddress, "-o")
-		if allocateTTY {
-			execCmd = append(execCmd, "ProxyCommand=ssh -q -t -t -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p "+gatewayIpAddress)
-		} else {
-			execCmd = append(execCmd, "ProxyCommand=ssh -q -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p "+gatewayIpAddress)
-		}
+		proxyCommand := NewSSHExecCmd(gatewayIpAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "")
+		execCmd = append(execCmd, privateIpAddress, "-o", "ProxyCommand=ssh "+strings.Join(proxyCommand, " "))
 	} else {
 		execCmd = append(execCmd, publicIpAddress)
 	}

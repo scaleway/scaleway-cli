@@ -46,7 +46,7 @@ func runTop(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, topGateway)
+	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, topGateway)
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 	out, err := exec.Command("ssh", execCmd...).CombinedOutput()
 	fmt.Printf("%s", out)

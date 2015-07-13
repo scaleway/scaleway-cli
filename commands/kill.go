@@ -47,7 +47,7 @@ func runKill(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, killGateway))
+	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, killGateway))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 

@@ -83,7 +83,7 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 		remoteCommand = append(remoteCommand, base)
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, cpGateway))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, cpGateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnSrc := exec.Command("ssh", execCmd...)
 
@@ -166,7 +166,7 @@ func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination 
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, cpGateway))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, cpGateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnDst := exec.Command("ssh", execCmd...)
 
