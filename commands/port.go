@@ -7,6 +7,7 @@ package commands
 import (
 	log "github.com/Sirupsen/logrus"
 
+	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
 	"github.com/scaleway/scaleway-cli/utils"
 )
@@ -41,8 +42,14 @@ func runPort(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
+	// Resolve gateway
+	gateway, err := api.ResolveGateway(cmd.API, portGateway)
+	if err != nil {
+		log.Fatalf("Cannot resolve Gateway '%s': %v", portGateway, err)
+	}
+
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, portGateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, gateway)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}

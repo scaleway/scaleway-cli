@@ -5,6 +5,7 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -35,6 +36,36 @@ type ScalewayImageInterface struct {
 	VirtualSize  float64
 	Public       bool
 	Type         string
+}
+
+func ResolveGateway(api *ScalewayAPI, gateway string) (string, error) {
+	if gateway == "" {
+		return "", nil
+	}
+
+	// Parses optional type prefix, i.e: "server:name" -> "name"
+	_, gateway = parseNeedle(gateway)
+
+	servers, err := api.ResolveServer(gateway)
+	if err != nil {
+		return "", err
+	}
+
+	if len(servers) == 0 {
+		return gateway, nil
+	}
+
+	if len(servers) > 1 {
+		showResolverResults(gateway, servers)
+		return "", errors.New(fmt.Sprintf("Gateway '%s' is ambiguous", gateway))
+	}
+
+	// if len(servers) == 1 {
+	server, err := api.GetServer(servers[0].Identifier)
+	if err != nil {
+		return "", err
+	}
+	return server.PublicAddress.IP, nil
 }
 
 // CreateVolumeFromHumanSize creates a volume on the API with a human readable size

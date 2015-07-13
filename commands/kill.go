@@ -11,6 +11,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 
+	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
 	"github.com/scaleway/scaleway-cli/utils"
 )
@@ -47,7 +48,13 @@ func runKill(cmd *types.Command, args []string) {
 		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, killGateway))
+	// Resolve gateway
+	gateway, err := api.ResolveGateway(cmd.API, killGateway)
+	if err != nil {
+		log.Fatalf("Cannot resolve Gateway '%s': %v", killGateway, err)
+	}
+
+	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway))
 
 	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 

@@ -52,7 +52,7 @@ var cpHelp bool      // -h, --help flag
 var cpGateway string // -g, --gateway flag
 
 // TarFromSource creates a stream buffer with the tarballed content of the user source
-func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) {
+func TarFromSource(apiClient *api.ScalewayAPI, source string) (*io.ReadCloser, error) {
 	var tarOutputStream io.ReadCloser
 
 	// source is a server address + path (scp-like uri)
@@ -63,9 +63,9 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 			return nil, fmt.Errorf("invalid source uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := api.GetServerID(serverParts[0])
+		serverID := apiClient.GetServerID(serverParts[0])
 
-		server, err := api.GetServer(serverID)
+		server, err := apiClient.GetServer(serverID)
 		if err != nil {
 			return nil, err
 		}
@@ -83,8 +83,14 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 		remoteCommand = append(remoteCommand, "-cf", "-")
 		remoteCommand = append(remoteCommand, base)
 
+		// Resolve gateway
+		gateway, err := api.ResolveGateway(apiClient, cpGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+		}
+
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, cpGateway))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, gateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnSrc := exec.Command("ssh", execCmd...)
 
@@ -141,7 +147,7 @@ func TarFromSource(api *api.ScalewayAPI, source string) (*io.ReadCloser, error) 
 }
 
 // UntarToDest writes to user destination the streamed tarball in input
-func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination string) error {
+func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destination string) error {
 	// destination is a server address + path (scp-like uri)
 	if strings.Index(destination, ":") > -1 {
 		log.Debugf("Streaming using ssh and untaring remotely")
@@ -150,9 +156,9 @@ func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination 
 			return fmt.Errorf("invalid destination uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := api.GetServerID(serverParts[0])
+		serverID := apiClient.GetServerID(serverParts[0])
 
-		server, err := api.GetServer(serverID)
+		server, err := apiClient.GetServer(serverID)
 		if err != nil {
 			return err
 		}
@@ -166,8 +172,14 @@ func UntarToDest(api *api.ScalewayAPI, sourceStream *io.ReadCloser, destination 
 		}
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
+		// Resolve gateway
+		gateway, err := api.ResolveGateway(apiClient, cpGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+		}
+
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, cpGateway))
+		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, gateway))
 		log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 		spawnDst := exec.Command("ssh", execCmd...)
 

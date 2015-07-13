@@ -57,8 +57,13 @@ func runExec(cmd *types.Command, args []string) {
 
 	serverID := cmd.API.GetServerID(args[0])
 
+	// Resolve gateway
+	gateway, err := api.ResolveGateway(cmd.API, execGateway)
+	if err != nil {
+		log.Fatalf("Cannot resolve Gateway '%s': %v", execGateway, err)
+	}
+
 	var server *api.ScalewayServer
-	var err error
 	if execW {
 		// --wait
 		server, err = api.WaitForServerReady(cmd.API, serverID)
@@ -80,7 +85,7 @@ func runExec(cmd *types.Command, args []string) {
 		}()
 	}
 
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], !execW, execGateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], !execW, gateway)
 	if err != nil {
 		log.Fatalf("%v", err)
 		os.Exit(1)

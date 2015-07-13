@@ -7,6 +7,7 @@ package commands
 import (
 	log "github.com/Sirupsen/logrus"
 
+	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
 	"github.com/scaleway/scaleway-cli/utils"
 )
@@ -43,8 +44,14 @@ func runLogs(cmd *types.Command, args []string) {
 
 	// FIXME: switch to serial history when API is ready
 
+	// Resolve gateway
+	gateway, err := api.ResolveGateway(cmd.API, logsGateway)
+	if err != nil {
+		log.Fatalf("Cannot resolve Gateway '%s': %v", logsGateway, err)
+	}
+
 	command := []string{"dmesg"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, logsGateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, gateway)
 	if err != nil {
 		log.Fatalf("Command execution failed: %v", err)
 	}

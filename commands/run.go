@@ -110,12 +110,18 @@ func runRun(cmd *types.Command, args []string) {
 		}
 		log.Debugf("Server is ready: %s", server.PublicAddress.IP)
 
+		// Resolve gateway
+		gateway, err := api.ResolveGateway(cmd.API, runGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", runGateway, err)
+		}
+
 		// exec -w SERVER COMMAND ARGS...
 		log.Debugf("Executing command")
 		if len(args) < 2 {
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, runGateway)
+			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway)
 		} else {
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], false, runGateway)
+			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], false, gateway)
 		}
 		if err != nil {
 			log.Debugf("Command execution failed: %v", err)
