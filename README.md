@@ -9,6 +9,8 @@ Interact with Scaleway API from the command line.
 
 ![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
 
+Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-servers-with-scaleway-cli/).
+
 #### Table of Contents
 
 1. [Overview](#overview)
