@@ -100,21 +100,21 @@ func runRun(cmd *types.Command, args []string) {
 			log.Fatalf("Cannot attach to server serial: %v", err)
 		}
 	} else {
-		// waiting for server to be ready
-		log.Debugf("Waiting for server to be ready")
-		// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
-		time.Sleep(30 * time.Second)
-		server, err := api.WaitForServerReady(cmd.API, serverID)
-		if err != nil {
-			log.Fatalf("Cannot get access to server %s: %v", serverID, err)
-		}
-		log.Debugf("Server is ready: %s", server.PublicAddress.IP)
-
 		// Resolve gateway
 		gateway, err := api.ResolveGateway(cmd.API, runGateway)
 		if err != nil {
 			log.Fatalf("Cannot resolve Gateway '%s': %v", runGateway, err)
 		}
+
+		// waiting for server to be ready
+		log.Debugf("Waiting for server to be ready")
+		// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
+		time.Sleep(30 * time.Second)
+		server, err := api.WaitForServerReady(cmd.API, serverID, gateway)
+		if err != nil {
+			log.Fatalf("Cannot get access to server %s: %v", serverID, err)
+		}
+		log.Debugf("Server is ready: %s", server.PublicAddress.IP)
 
 		// exec -w SERVER COMMAND ARGS...
 		log.Debugf("Executing command")

@@ -66,7 +66,7 @@ func runExec(cmd *types.Command, args []string) {
 	var server *api.ScalewayServer
 	if execW {
 		// --wait
-		server, err = api.WaitForServerReady(cmd.API, serverID)
+		server, err = api.WaitForServerReady(cmd.API, serverID, gateway)
 		if err != nil {
 			log.Fatalf("Failed to wait for server to be ready, %v", err)
 		}

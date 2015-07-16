@@ -345,17 +345,29 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 }
 
 // WaitForServerReady wait for a server state to be running, then wait for the SSH port to be available
-func WaitForServerReady(api *ScalewayAPI, serverID string) (*ScalewayServer, error) {
+func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*ScalewayServer, error) {
 	server, err := WaitForServerState(api, serverID, "running")
 	if err != nil {
 		return nil, err
 	}
 
-	dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+	if gateway == "" {
+		log.Debugf("Waiting for server SSH port")
+		dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+		err = utils.WaitForTCPPortOpen(dest)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		log.Debugf("Waiting for gateway SSH port")
+		dest := fmt.Sprintf("%s:22", gateway)
+		err = utils.WaitForTCPPortOpen(dest)
+		if err != nil {
+			return nil, err
+		}
 
-	err = utils.WaitForTCPPortOpen(dest)
-	if err != nil {
-		return nil, err
+		log.Debugf("Waiting 30 more seconds, for SSH to be ready")
+		// FIXME: check for SSH port through the gateway
 	}
 
 	return server, nil
@@ -389,7 +401,7 @@ func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 	}
 
 	if wait {
-		_, err = WaitForServerReady(api, server)
+		_, err = WaitForServerReady(api, server, "")
 		if err != nil {
 			return fmt.Errorf("failed to wait for server %s to be ready, %v", needle, err)
 		}
