@@ -48,9 +48,14 @@ func runTop(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
-	gateway, err := api.ResolveGateway(cmd.API, topGateway)
-	if err != nil {
-		log.Fatalf("Cannot resolve Gateway '%s': %v", topGateway, err)
+	var gateway string
+	if topGateway == serverID || topGateway == args[0] {
+		gateway = ""
+	} else {
+		gateway, err = api.ResolveGateway(cmd.API, topGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", topGateway, err)
+		}
 	}
 
 	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway)

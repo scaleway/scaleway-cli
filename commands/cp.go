@@ -84,9 +84,14 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string) (*io.ReadCloser, e
 		remoteCommand = append(remoteCommand, base)
 
 		// Resolve gateway
-		gateway, err := api.ResolveGateway(apiClient, cpGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+		var gateway string
+		if cpGateway == serverID || cpGateway == serverParts[0] {
+			gateway = ""
+		} else {
+			gateway, err = api.ResolveGateway(apiClient, cpGateway)
+			if err != nil {
+				log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+			}
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
@@ -173,9 +178,14 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
 		// Resolve gateway
-		gateway, err := api.ResolveGateway(apiClient, cpGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+		var gateway string
+		if cpGateway == serverID || cpGateway == serverParts[0] {
+			gateway = ""
+		} else {
+			gateway, err = api.ResolveGateway(apiClient, cpGateway)
+			if err != nil {
+				log.Fatalf("Cannot resolve Gateway '%s': %v", cpGateway, err)
+			}
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand

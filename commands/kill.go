@@ -49,9 +49,14 @@ func runKill(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
-	gateway, err := api.ResolveGateway(cmd.API, killGateway)
-	if err != nil {
-		log.Fatalf("Cannot resolve Gateway '%s': %v", killGateway, err)
+	var gateway string
+	if killGateway == serverID || killGateway == args[0] {
+		gateway = ""
+	} else {
+		gateway, err = api.ResolveGateway(cmd.API, killGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", killGateway, err)
+		}
 	}
 
 	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway))

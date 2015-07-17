@@ -45,9 +45,14 @@ func runLogs(cmd *types.Command, args []string) {
 	// FIXME: switch to serial history when API is ready
 
 	// Resolve gateway
-	gateway, err := api.ResolveGateway(cmd.API, logsGateway)
-	if err != nil {
-		log.Fatalf("Cannot resolve Gateway '%s': %v", logsGateway, err)
+	var gateway string
+	if logsGateway == serverID || logsGateway == args[0] {
+		gateway = ""
+	} else {
+		gateway, err = api.ResolveGateway(cmd.API, logsGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", logsGateway, err)
+		}
 	}
 
 	command := []string{"dmesg"}

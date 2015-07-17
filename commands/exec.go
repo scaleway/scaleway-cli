@@ -58,9 +58,15 @@ func runExec(cmd *types.Command, args []string) {
 	serverID := cmd.API.GetServerID(args[0])
 
 	// Resolve gateway
-	gateway, err := api.ResolveGateway(cmd.API, execGateway)
-	if err != nil {
-		log.Fatalf("Cannot resolve Gateway '%s': %v", execGateway, err)
+	var gateway string
+	var err error
+	if execGateway == serverID || execGateway == args[0] {
+		gateway = ""
+	} else {
+		gateway, err = api.ResolveGateway(cmd.API, execGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", execGateway, err)
+		}
 	}
 
 	var server *api.ScalewayServer

@@ -43,9 +43,14 @@ func runPort(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
-	gateway, err := api.ResolveGateway(cmd.API, portGateway)
-	if err != nil {
-		log.Fatalf("Cannot resolve Gateway '%s': %v", portGateway, err)
+	var gateway string
+	if portGateway == serverID || portGateway == args[0] {
+		gateway = ""
+	} else {
+		gateway, err = api.ResolveGateway(cmd.API, portGateway)
+		if err != nil {
+			log.Fatalf("Cannot resolve Gateway '%s': %v", portGateway, err)
+		}
 	}
 
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
