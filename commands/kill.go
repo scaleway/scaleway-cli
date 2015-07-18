@@ -49,6 +49,9 @@ func runKill(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
+	if killGateway == "" {
+		killGateway = os.Getenv("SCW_GATEWAY")
+	}
 	var gateway string
 	if killGateway == serverID || killGateway == args[0] {
 		gateway = ""

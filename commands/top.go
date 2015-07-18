@@ -6,6 +6,7 @@ package commands
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -48,6 +49,9 @@ func runTop(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
+	if topGateway == "" {
+		topGateway = os.Getenv("SCW_GATEWAY")
+	}
 	var gateway string
 	if topGateway == serverID || topGateway == args[0] {
 		gateway = ""

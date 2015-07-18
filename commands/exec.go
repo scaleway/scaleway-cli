@@ -58,6 +58,9 @@ func runExec(cmd *types.Command, args []string) {
 	serverID := cmd.API.GetServerID(args[0])
 
 	// Resolve gateway
+	if execGateway == "" {
+		execGateway = os.Getenv("SCW_GATEWAY")
+	}
 	var gateway string
 	var err error
 	if execGateway == serverID || execGateway == args[0] {

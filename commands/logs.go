@@ -5,6 +5,8 @@
 package commands
 
 import (
+	"os"
+
 	log "github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/api"
@@ -45,6 +47,9 @@ func runLogs(cmd *types.Command, args []string) {
 	// FIXME: switch to serial history when API is ready
 
 	// Resolve gateway
+	if logsGateway == "" {
+		logsGateway = os.Getenv("SCW_GATEWAY")
+	}
 	var gateway string
 	if logsGateway == serverID || logsGateway == args[0] {
 		gateway = ""

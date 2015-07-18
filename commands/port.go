@@ -5,6 +5,8 @@
 package commands
 
 import (
+	"os"
+
 	log "github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/api"
@@ -43,6 +45,9 @@ func runPort(cmd *types.Command, args []string) {
 	}
 
 	// Resolve gateway
+	if portGateway == "" {
+		portGateway = os.Getenv("SCW_GATEWAY")
+	}
 	var gateway string
 	if portGateway == serverID || portGateway == args[0] {
 		gateway = ""

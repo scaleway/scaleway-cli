@@ -84,6 +84,9 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string) (*io.ReadCloser, e
 		remoteCommand = append(remoteCommand, base)
 
 		// Resolve gateway
+		if cpGateway == "" {
+			cpGateway = os.Getenv("SCW_GATEWAY")
+		}
 		var gateway string
 		if cpGateway == serverID || cpGateway == serverParts[0] {
 			gateway = ""
@@ -178,6 +181,9 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
 		// Resolve gateway
+		if cpGateway == "" {
+			cpGateway = os.Getenv("SCW_GATEWAY")
+		}
 		var gateway string
 		if cpGateway == serverID || cpGateway == serverParts[0] {
 			gateway = ""
