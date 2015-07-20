@@ -89,28 +89,38 @@ func CreateVolumeFromHumanSize(api *ScalewayAPI, size string) (*string, error) {
 }
 
 // fillIdentifierCache fills the cache by fetching fro the API
-func fillIdentifierCache(api *ScalewayAPI) {
+func fillIdentifierCache(api *ScalewayAPI, identifierType int) {
 	log.Debugf("Filling the cache")
 	var wg sync.WaitGroup
 	wg.Add(5)
 	go func() {
-		api.GetServers(true, 0)
+		if identifierType&(IdentifierUnknown|IdentifierServer) > 0 {
+			api.GetServers(true, 0)
+		}
 		wg.Done()
 	}()
 	go func() {
-		api.GetImages()
+		if identifierType&(IdentifierUnknown|IdentifierImage) > 0 {
+			api.GetImages()
+		}
 		wg.Done()
 	}()
 	go func() {
-		api.GetSnapshots()
+		if identifierType&(IdentifierUnknown|IdentifierSnapshot) > 0 {
+			api.GetSnapshots()
+		}
 		wg.Done()
 	}()
 	go func() {
-		api.GetVolumes()
+		if identifierType&(IdentifierUnknown|IdentifierVolume) > 0 {
+			api.GetVolumes()
+		}
 		wg.Done()
 	}()
 	go func() {
-		api.GetBootscripts()
+		if identifierType&(IdentifierUnknown|IdentifierBootscript) > 0 {
+			api.GetBootscripts()
+		}
 		wg.Done()
 	}()
 	wg.Wait()
@@ -142,7 +152,8 @@ func ResolveIdentifier(api *ScalewayAPI, needle string) []ScalewayResolverResult
 		return idents
 	}
 
-	fillIdentifierCache(api)
+	identifierType, _ := parseNeedle(needle)
+	fillIdentifierCache(api, identifierType)
 
 	idents = api.Cache.LookUpIdentifiers(needle)
 	return idents
@@ -165,8 +176,23 @@ func ResolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 	}
 	// fill the cache by fetching from the API and resolve missing identifiers
 	if len(unresolved) > 0 {
-		fillIdentifierCache(api)
+		// compute identifierType:
+		//   if identifierType is the same for every unresolved needle,
+		//   we use it directly, else, we choose IdentifierUnknown to
+		//   fulfill every types of cache
+		identifierType, _ := parseNeedle(unresolved[0])
+		for _, needle := range unresolved {
+			newIdentifierType, _ := parseNeedle(needle)
+			if identifierType != newIdentifierType {
+				identifierType = IdentifierUnknown
+				break
+			}
+		}
 
+		// fill all the cache
+		fillIdentifierCache(api, identifierType)
+
+		// lookup again in the cache
 		for _, needle := range unresolved {
 			idents := api.Cache.LookUpIdentifiers(needle)
 			out <- ScalewayResolvedIdentifier{
@@ -175,6 +201,7 @@ func ResolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 			}
 		}
 	}
+
 	close(out)
 }
 
