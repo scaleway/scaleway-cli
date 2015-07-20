@@ -442,6 +442,9 @@ type ScalewayServerDefinition struct {
 	// Volumes are the attached volumes
 	Volumes map[string]string `json:"volumes,omitempty"`
 
+	// DynamicIPRequired is a flag that defines a server with a dynamic ip address attached
+	DynamicIPRequired *bool `json:"dynamic_ip_required,omitempty"`
+
 	// Bootscript is the bootscript used by the server
 	Bootscript *string `json:"bootscript"`
 

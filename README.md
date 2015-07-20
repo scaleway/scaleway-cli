@@ -1036,7 +1036,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
-* No entry
+* `scw run --gateway ...` or `SCW_GATEWAY="..." scw run ...` now creates a server without public ip address ([#74](https://github.com/scaleway/scaleway-cli/issues/74))
 
 #### Fixes
 

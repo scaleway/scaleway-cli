@@ -231,13 +231,15 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 }
 
 // CreateServer creates a server using API based on typical server fields
-func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string) (string, error) {
+func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string, dynamicIPRequired bool) (string, error) {
 	if name == "" {
 		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
 
 	var server ScalewayServerDefinition
 	server.Volumes = make(map[string]string)
+
+	server.DynamicIPRequired = &dynamicIPRequired
 
 	server.Tags = []string{}
 	if env != "" {
@@ -292,7 +294,7 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 
 	serverID, err := api.PostServer(server)
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 
 	// For inherited volumes, we prefix the name with server hostname

@@ -71,9 +71,14 @@ func runRun(cmd *types.Command, args []string) {
 		log.Fatalf("Conflicting options: -d and COMMAND")
 	}
 
+	if runGateway == "" {
+		runGateway = os.Getenv("SCW_GATEWAY")
+	}
+
 	// create IMAGE
 	log.Debugf("Creating a new server")
-	serverID, err := api.CreateServer(cmd.API, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume)
+	dynamicIPRequired := runGateway == ""
+	serverID, err := api.CreateServer(cmd.API, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume, dynamicIPRequired)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
@@ -101,9 +106,6 @@ func runRun(cmd *types.Command, args []string) {
 		}
 	} else {
 		// Resolve gateway
-		if runGateway == "" {
-			runGateway = os.Getenv("SCW_GATEWAY")
-		}
 		gateway, err := api.ResolveGateway(cmd.API, runGateway)
 		if err != nil {
 			log.Fatalf("Cannot resolve Gateway '%s': %v", runGateway, err)

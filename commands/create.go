@@ -50,7 +50,7 @@ func runCreate(cmd *types.Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	serverID, err := api.CreateServer(cmd.API, args[0], createName, createBootscript, createEnv, createVolume)
+	serverID, err := api.CreateServer(cmd.API, args[0], createName, createBootscript, createEnv, createVolume, true)
 
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
