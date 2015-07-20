@@ -26,6 +26,10 @@ class Scw < Formula
     zsh_completion.install "contrib/completion/zsh/_scw"
   end
 
+  def caveats
+    "Use `scw login` to set up the correct environment to use scaleway-cli."
+  end
+
   test do
     output = shell_output(bin/"scw version")
     assert output.include? "OS/Arch (client): darwin/amd64"
