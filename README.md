@@ -1032,6 +1032,20 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+#### Features
+
+* No entry
+
+#### Fixes
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
+
+---
+
 ### 1.3.0 (2015-07-20)
 
 #### Features
