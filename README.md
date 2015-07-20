@@ -1040,7 +1040,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Fixes
 
-* No entry
+* Bumped dependencies
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
 
