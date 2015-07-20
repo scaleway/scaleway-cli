@@ -11,8 +11,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	flag "github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/mflag"
+	log "github.com/Sirupsen/logrus"
+	flag "github.com/docker/docker/pkg/mflag"
 
 	"github.com/scaleway/scaleway-cli/api"
 	cmds "github.com/scaleway/scaleway-cli/commands"

@@ -18,7 +18,7 @@ import (
 	"text/tabwriter"
 	"text/template"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API

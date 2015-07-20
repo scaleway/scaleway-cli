@@ -11,8 +11,8 @@ import (
 	"os"
 	"strings"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
+	log "github.com/Sirupsen/logrus"
+	"golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"

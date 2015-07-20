@@ -19,7 +19,7 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 )
 
 // SSHExec executes a command over SSH and redirects file-descriptors

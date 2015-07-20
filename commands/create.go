@@ -7,7 +7,7 @@ package commands
 import (
 	"fmt"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
