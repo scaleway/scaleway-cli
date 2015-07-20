@@ -8,9 +8,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/scaleway/scaleway-cli/scwversion"
-
 	types "github.com/scaleway/scaleway-cli/commands/types"
+	"github.com/scaleway/scaleway-cli/scwversion"
 )
 
 var cmdVersion = &types.Command{
