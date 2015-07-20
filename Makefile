@@ -1,10 +1,9 @@
 # Go parameters
 GOCMD ?=	go
-GOBUILD ?=	godep $(GOCMD) build
+GOBUILD ?=	$(GOCMD) build
 GOCLEAN ?=	$(GOCMD) clean
 GOINSTALL ?=	$(GOCMD) install
-GOTEST ?=	godep $(GOCMD) test
-GODEP ?=	$(GOTEST) -i
+GOTEST ?=	$(GOCMD) test
 GOFMT ?=	gofmt -w
 
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
@@ -61,21 +60,14 @@ scwversion/version.go: .git
 	@rm -f $@.tmp
 
 
-Godeps: scwversion/version.go
-	go get github.com/tools/godep
-	godep get
-	godep save
-	touch $@
-
-
 $(BUILD_LIST): %_build: %_fmt %_iref
 	$(GOBUILD) -o $(NAME) ./$*
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) ./$*
-$(IREF_LIST): %_iref: Godeps
-	$(GODEP) ./$*
+$(IREF_LIST): %_iref: scwversion/version.go
+	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
 $(FMT_LIST): %_fmt:
@@ -91,7 +83,7 @@ cross: scwversion/version.go
 	docker rm $(BUILDER)
 	touch tmp/bin/*
 	mv tmp/bin/* dist/
-	rm -rf tmp dist/godep
+	rm -rf tmp
 
 
 packages:
@@ -110,7 +102,7 @@ travis_install:
 
 
 travis_run: build
-	godep go test -v -covermode=count $(foreach int, $(SRC) $(PACKAGES), ./$(int))
+	go test -v -covermode=count $(foreach int, $(SRC) $(PACKAGES), ./$(int))
 
 
 golint:
@@ -118,8 +110,5 @@ golint:
 	@for dir in */; do golint $$dir; done
 
 
-prerelease:
-	git add -f Godeps/Godeps.json scwversion/version.go
-
-postrelease:
-	git rm -f Godeps/Godeps.json scwversion/version.go
+party:
+	party -c -d=vendor

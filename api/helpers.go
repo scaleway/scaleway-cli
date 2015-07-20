@@ -11,10 +11,10 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/docker/docker/pkg/namesgenerator"
-	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-cli/utils"
+	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/namesgenerator"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
 )
 
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern

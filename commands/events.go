@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/docker/docker/pkg/units"
+	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
 
 	types "github.com/scaleway/scaleway-cli/commands/types"
 )

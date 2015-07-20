@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	"code.google.com/p/go-uuid/uuid"
+	"github.com/scaleway/scaleway-cli/vendor/code.google.com/p/go-uuid/uuid"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers

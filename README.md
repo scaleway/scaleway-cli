@@ -1036,6 +1036,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Switched from [Godep](http://godoc.org/github.com/tools/godep) to [Party](http://godoc.org/github.com/mjibson/party)
 * Support of `-g` option ([#70](https://github.com/scaleway/scaleway-cli/issues/70))
 
 #### Fixes
