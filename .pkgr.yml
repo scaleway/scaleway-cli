@@ -5,3 +5,5 @@ targets:
   ubuntu-12.04:
   centos-6:
   debian-7:
+after:
+  - mv bin/scaleway-cli bin/scw
