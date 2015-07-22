@@ -1042,6 +1042,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 #### Fixes
 
 * Bumped dependencies
+* Hiding more sensitive data ([#77](https://github.com/scaleway/scaleway-cli/issues/77))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
 
