@@ -537,7 +537,7 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
-	log.Debugf("POST %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
+	log.Debugf("POST %s payload=%s", uri, s.HideAPICredentials(strings.TrimSpace(fmt.Sprintf("%s", payload))))
 	req, err := http.NewRequest("POST", uri, payload)
 	if err != nil {
 		return nil, err
@@ -556,7 +556,7 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
-	log.Debugf("PATCH %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
+	log.Debugf("PATCH %s payload=%s", uri, s.HideAPICredentials(strings.TrimSpace(fmt.Sprintf("%s", payload))))
 	req, err := http.NewRequest("PATCH", uri, payload)
 	if err != nil {
 		return nil, err
@@ -575,7 +575,7 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 	if err := encoder.Encode(data); err != nil {
 		return nil, err
 	}
-	log.Debugf("PUT %s payload=%s", uri, strings.TrimSpace(fmt.Sprintf("%s", payload)))
+	log.Debugf("PUT %s payload=%s", uri, s.HideAPICredentials(strings.TrimSpace(fmt.Sprintf("%s", payload))))
 	req, err := http.NewRequest("PUT", uri, payload)
 	if err != nil {
 		return nil, err
