@@ -396,6 +396,7 @@ func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*Sca
 		}
 
 		log.Debugf("Waiting 30 more seconds, for SSH to be ready")
+		time.Sleep(30 * time.Second)
 		// FIXME: check for SSH port through the gateway
 	}
 
