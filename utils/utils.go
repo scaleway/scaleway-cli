@@ -16,11 +16,22 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
+
+// quoteShellArgs transforms an array of shell arguments ([]string) into a copy/paste-able string
+func quoteShellArgs(args []string) string {
+	output := ""
+	for _, arg := range args {
+		output += " "
+		output += strconv.Quote(arg)
+	}
+	return output
+}
 
 // SSHExec executes a command over SSH and redirects file-descriptors
 func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gatewayIPAddress string) error {
@@ -43,7 +54,7 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 
 	execCmd := append(NewSSHExecCmd(publicIPAddress, privateIPAddress, true, nil, command, gatewayIPAddress))
 
-	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+	log.Debugf("Executing: ssh %s", quoteShellArgs(execCmd))
 
 	spawn := exec.Command("ssh", execCmd...)
 	spawn.Stdout = os.Stdout
