@@ -12,7 +12,6 @@ if [ -z "${1}" ]; then
     exit 1
 fi
 
-set -e
 
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
@@ -47,7 +46,7 @@ echo "[+] Tarball extracted on /dev/nbd1"
 
 
 echo "[+] Stopping the server"
-scw stop "${SERVER}"
+scw stop "${SERVER}" >/dev/null
 scw wait "${SERVER}"
 echo "[+] Server stopped"
 
@@ -63,5 +62,5 @@ echo "[+] Image created: ${IMAGE}"
 
 
 echo "[+] Deleting temporary server"
-scw rm "${SERVER}"
+scw rm "${SERVER}" >/dev/null
 echo "[+] Server deleted"
