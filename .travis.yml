@@ -13,9 +13,17 @@ go:
   - 1.4.2
 
 
+before_install:
+  - go get -u github.com/axw/gocov/gocov
+  - go get -u github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+
+
 install:
   - make travis_install
 
 
 script:
   - make travis_run
+  - make cover
+  - goveralls -service=travis-ci -v -coverprofile=profile.out

@@ -36,9 +36,10 @@ INSTALL_LIST = $(foreach int, $(SRC), $(int)_install)
 IREF_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_iref)
 TEST_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_test)
 FMT_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_fmt)
+COVER_LIST = $(foreach int, $(PACKAGES), $(int)_cover)
 
 
-.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
+.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST) $(COVER_LIST)
 
 
 all: build
@@ -48,6 +49,10 @@ install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
+cover:
+	rm -f profile.out
+	$(MAKE) $(COVER_LIST)
+	echo "mode: set" | cat - profile.out > profile.out.tmp && mv profile.out.tmp profile.out
 
 
 .git:
@@ -70,6 +75,9 @@ $(IREF_LIST): %_iref: scwversion/version.go
 	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
+$(COVER_LIST): %_cover:
+	$(GOTEST) -coverprofile=file-profile.out ./$*
+	if [ -f file-profile.out ]; then cat file-profile.out | grep -v "mode: set" >> profile.out || true; rm -f file-profile.out; fi
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
