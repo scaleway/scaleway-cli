@@ -11,6 +11,7 @@ import (
 	"text/template"
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/skratchdot/open-golang/open"
 
 	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
@@ -24,6 +25,7 @@ var cmdInspect = &types.Command{
 	Examples: `
     $ scw inspect my-server
     $ scw inspect server:my-server
+    $ scw inspect --browser my-server
     $ scw inspect a-public-image
     $ scw inspect image:a-public-image
     $ scw inspect my-snapshot
@@ -41,11 +43,13 @@ var cmdInspect = &types.Command{
 
 func init() {
 	cmdInspect.Flag.BoolVar(&inspectHelp, []string{"h", "-help"}, false, "Print usage")
-	cmdInspect.Flag.StringVar(&inspectFormat, []string{"f", "-format"}, "", "Format the output using the given go template.")
+	cmdInspect.Flag.StringVar(&inspectFormat, []string{"f", "-format"}, "", "Format the output using the given go template")
+	cmdInspect.Flag.BoolVar(&inspectBrowser, []string{"b", "-browser"}, false, "Inspect object in browser")
 }
 
 // Flags
-var inspectFormat string // -f, --format flat
+var inspectFormat string // -f, --format flag
+var inspectBrowser bool  // -b, --browser flag
 var inspectHelp bool     // -h, --help flag
 
 func runInspect(cmd *types.Command, args []string) {
@@ -56,47 +60,85 @@ func runInspect(cmd *types.Command, args []string) {
 		cmd.PrintShortUsage()
 	}
 
-	res := "["
 	nbInspected := 0
 	ci := make(chan api.ScalewayResolvedIdentifier)
-	cj := make(chan interface{})
+	cj := make(chan api.InspectIdentifierResult)
 	go api.ResolveIdentifiers(cmd.API, args, ci)
 	go api.InspectIdentifiers(cmd.API, ci, cj)
-	for {
-		data, open := <-cj
-		if !open {
-			break
-		}
-		if inspectFormat == "" {
-			dataB, err := json.MarshalIndent(data, "", "  ")
-			if err == nil {
-				if nbInspected != 0 {
-					res += ",\n"
+
+	if inspectBrowser {
+		// --browser will open links in the browser
+		for {
+			data, isOpen := <-cj
+			if !isOpen {
+				break
+			}
+
+			switch data.Type {
+			case api.IdentifierServer:
+				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/servers/%s", data.Object.(*api.ScalewayServer).Identifier))
+				if err != nil {
+					log.Fatalf("Cannot open browser: %v", err)
 				}
-				res += string(dataB)
+				nbInspected++
+			case api.IdentifierImage:
+				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/images/%s", data.Object.(*api.ScalewayImage).Identifier))
+				if err != nil {
+					log.Fatalf("Cannot open browser: %v", err)
+				}
+				nbInspected++
+			case api.IdentifierVolume:
+				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/volumes/%s", data.Object.(*api.ScalewayVolume).Identifier))
+				if err != nil {
+					log.Fatalf("Cannot open browser: %v", err)
+				}
+				nbInspected++
+			case api.IdentifierSnapshot:
+				log.Errorf("Cannot use '--browser' option for snapshots")
+			case api.IdentifierBootscript:
+				log.Errorf("Cannot use '--browser' option for bootscripts")
+			}
+		}
+
+	} else {
+		// without --browser option, inspect will print object info to the terminal
+		res := "["
+		for {
+			data, isOpen := <-cj
+			if !isOpen {
+				break
+			}
+			if inspectFormat == "" {
+				dataB, err := json.MarshalIndent(data, "", "  ")
+				if err == nil {
+					if nbInspected != 0 {
+						res += ",\n"
+					}
+					res += string(dataB)
+					nbInspected++
+				}
+			} else {
+				tmpl, err := template.New("").Funcs(api.FuncMap).Parse(inspectFormat)
+				if err != nil {
+					log.Fatalf("Format parsing error: %v", err)
+				}
+
+				err = tmpl.Execute(os.Stdout, data)
+				if err != nil {
+					log.Fatalf("Format execution error: %v", err)
+				}
+				fmt.Fprint(os.Stdout, "\n")
 				nbInspected++
 			}
-		} else {
-			tmpl, err := template.New("").Funcs(api.FuncMap).Parse(inspectFormat)
-			if err != nil {
-				log.Fatalf("Format parsing error: %v", err)
-			}
-
-			err = tmpl.Execute(os.Stdout, data)
-			if err != nil {
-				log.Fatalf("Format execution error: %v", err)
-			}
-			fmt.Fprint(os.Stdout, "\n")
-			nbInspected++
 		}
-	}
-	res += "]"
+		res += "]"
 
-	if inspectFormat == "" {
-		if os.Getenv("SCW_SENSITIVE") != "1" {
-			res = cmd.API.HideAPICredentials(res)
+		if inspectFormat == "" {
+			if os.Getenv("SCW_SENSITIVE") != "1" {
+				res = cmd.API.HideAPICredentials(res)
+			}
+			fmt.Println(res)
 		}
-		fmt.Println(res)
 	}
 
 	if len(args) != nbInspected {

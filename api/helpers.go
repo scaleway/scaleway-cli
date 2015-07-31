@@ -205,8 +205,14 @@ func ResolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 	close(out)
 }
 
+// InspectIdentifierResult is returned by `InspectIdentifiers` and contains the inspected `Object` with its `Type`
+type InspectIdentifierResult struct {
+	Type   int
+	Object interface{}
+}
+
 // InspectIdentifiers inspects identifiers concurrently
-func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan interface{}) {
+func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan InspectIdentifierResult) {
 	var wg sync.WaitGroup
 	for {
 		idents, ok := <-ci
@@ -226,27 +232,42 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 				if ident.Type == IdentifierServer {
 					server, err := api.GetServer(ident.Identifier)
 					if err == nil {
-						cj <- server
+						cj <- InspectIdentifierResult{
+							Type:   ident.Type,
+							Object: server,
+						}
 					}
 				} else if ident.Type == IdentifierImage {
 					image, err := api.GetImage(ident.Identifier)
 					if err == nil {
-						cj <- image
+						cj <- InspectIdentifierResult{
+							Type:   ident.Type,
+							Object: image,
+						}
 					}
 				} else if ident.Type == IdentifierSnapshot {
 					snap, err := api.GetSnapshot(ident.Identifier)
 					if err == nil {
-						cj <- snap
+						cj <- InspectIdentifierResult{
+							Type:   ident.Type,
+							Object: snap,
+						}
 					}
 				} else if ident.Type == IdentifierVolume {
-					snap, err := api.GetVolume(ident.Identifier)
+					volume, err := api.GetVolume(ident.Identifier)
 					if err == nil {
-						cj <- snap
+						cj <- InspectIdentifierResult{
+							Type:   ident.Type,
+							Object: volume,
+						}
 					}
 				} else if ident.Type == IdentifierBootscript {
 					bootscript, err := api.GetBootscript(ident.Identifier)
 					if err == nil {
-						cj <- bootscript
+						cj <- InspectIdentifierResult{
+							Type:   ident.Type,
+							Object: bootscript,
+						}
 					}
 				}
 				wg.Done()

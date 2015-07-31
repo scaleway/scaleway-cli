@@ -394,6 +394,7 @@ Return low-level information on a server, image, snapshot or bootscript.
 
 Options:
 
+  -b, --browser=false   Inspect object in browser
   -f, --format=""       Format the output using the given go template.
   -h, --help=false      Print usage
 
@@ -401,6 +402,7 @@ Examples:
 
     $ scw inspect my-server
     $ scw inspect server:my-server
+    $ scw inspect --browser my-server
     $ scw inspect a-public-image
     $ scw inspect image:a-public-image
     $ scw inspect my-snapshot
@@ -1037,6 +1039,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `scw inspect --browser` option
 * Support of `scw _flush-cache` internal command
 * `scw run --gateway ...` or `SCW_GATEWAY="..." scw run ...` now creates a server without public ip address ([#74](https://github.com/scaleway/scaleway-cli/issues/74))
 * `scw inspect TYPE:xxx TYPE:yyy` will only refresh cache for `TYPE`
