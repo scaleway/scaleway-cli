@@ -20,6 +20,7 @@ var Commands = []*types.Command{
 	cmdCreate,
 	cmdEvents,
 	cmdExec,
+	cmdFlushCache,
 	cmdHistory,
 	cmdImages,
 	cmdInfo,

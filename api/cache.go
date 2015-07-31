@@ -149,6 +149,11 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	return &cache, nil
 }
 
+// Flush flushes the cache database
+func (c *ScalewayCache) Flush() error {
+	return os.Remove(c.Path)
+}
+
 // Save atomically overwrites the current cache database
 func (c *ScalewayCache) Save() error {
 	c.Lock.Lock()
