@@ -109,7 +109,7 @@ func runInspect(cmd *types.Command, args []string) {
 				break
 			}
 			if inspectFormat == "" {
-				dataB, err := json.MarshalIndent(data, "", "  ")
+				dataB, err := json.MarshalIndent(data.Object, "", "  ")
 				if err == nil {
 					if nbInspected != 0 {
 						res += ",\n"
@@ -123,7 +123,7 @@ func runInspect(cmd *types.Command, args []string) {
 					log.Fatalf("Format parsing error: %v", err)
 				}
 
-				err = tmpl.Execute(os.Stdout, data)
+				err = tmpl.Execute(os.Stdout, data.Object)
 				if err != nil {
 					log.Fatalf("Format execution error: %v", err)
 				}
