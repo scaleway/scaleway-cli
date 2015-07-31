@@ -10,3 +10,6 @@ dist/
 .#*
 profile.cov
 .vendor
+
+man/man1
+man/man5
