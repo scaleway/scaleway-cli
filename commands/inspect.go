@@ -11,7 +11,7 @@ import (
 	"text/template"
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/skratchdot/open-golang/open"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/skratchdot/open-golang/open"
 
 	"github.com/scaleway/scaleway-cli/api"
 	types "github.com/scaleway/scaleway-cli/commands/types"
