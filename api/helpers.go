@@ -139,7 +139,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 	log.Errorf("Too many candidates for %s (%d)", needle, len(idents))
 	for _, identifier := range idents {
 		// FIXME: also print the name
-		log.Infof("- %s", identifier.Identifier)
+		fmt.Fprint(os.Stderr, "- %s\n", identifier.Identifier)
 	}
 	os.Exit(1)
 	return nil

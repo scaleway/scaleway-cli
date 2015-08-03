@@ -76,21 +76,21 @@ func runRun(cmd *types.Command, args []string) {
 	}
 
 	// create IMAGE
-	log.Debugf("Creating a new server")
+	log.Info("Server creation ...")
 	dynamicIPRequired := runGateway == ""
 	serverID, err := api.CreateServer(cmd.API, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume, dynamicIPRequired)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
-	log.Debugf("Created server: %s", serverID)
+	log.Infof("Server created: %s", serverID)
 
 	// start SERVER
-	log.Debugf("Starting server")
+	log.Info("Server start requested ...")
 	err = api.StartServer(cmd.API, serverID, false)
 	if err != nil {
 		log.Fatalf("Failed to start server %s: %v", serverID, err)
 	}
-	log.Debugf("Server is booting")
+	log.Info("Server is starting, this may take up to a minute ...")
 
 	if runDetachFlag {
 		fmt.Println(serverID)
@@ -99,7 +99,7 @@ func runRun(cmd *types.Command, args []string) {
 
 	if runAttachFlag {
 		// Attach to server serial
-		log.Debugf("Attaching to server console")
+		log.Info("Attaching to server console ...")
 		err = utils.AttachToSerial(serverID, cmd.API.Token, true)
 		if err != nil {
 			log.Fatalf("Cannot attach to server serial: %v", err)
@@ -112,26 +112,28 @@ func runRun(cmd *types.Command, args []string) {
 		}
 
 		// waiting for server to be ready
-		log.Debugf("Waiting for server to be ready")
+		log.Debug("Waiting for server to be ready")
 		// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
 		time.Sleep(30 * time.Second)
 		server, err := api.WaitForServerReady(cmd.API, serverID, gateway)
 		if err != nil {
 			log.Fatalf("Cannot get access to server %s: %v", serverID, err)
 		}
-		log.Debugf("Server is ready: %s", server.PublicAddress.IP)
+		log.Debugf("SSH server is available: %s:22", server.PublicAddress.IP)
+		log.Info("Server is ready !")
 
 		// exec -w SERVER COMMAND ARGS...
-		log.Debugf("Executing command")
 		if len(args) < 2 {
+			log.Info("Connecting to server ...")
 			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway)
 		} else {
+			log.Infof("Executing command: %s ...", args[1:])
 			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], false, gateway)
 		}
 		if err != nil {
-			log.Debugf("Command execution failed: %v", err)
+			log.Infof("Command execution failed: %v", err)
 			os.Exit(1)
 		}
-		log.Debugf("Command successfuly executed")
+		log.Info("Command successfuly executed")
 	}
 }

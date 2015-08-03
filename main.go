@@ -50,6 +50,7 @@ func commandUsage(name string) {
 var (
 	flAPIEndPoint *string
 	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
+	flVerbose     = flag.Bool([]string{"V", "-verbose"}, false, "Enable verbose mode")
 	flVersion     = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
 	flSensitive   = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 )
@@ -82,7 +83,11 @@ func main() {
 		os.Setenv("DEBUG", "1")
 	}
 
-	initLogging(os.Getenv("DEBUG") != "")
+	if *flVerbose {
+		os.Setenv("VERBOSE", "1")
+	}
+
+	initLogging(os.Getenv("DEBUG") != "", os.Getenv("VERBOSE") != "")
 
 	args := flag.Args()
 	if len(args) < 1 {
@@ -173,11 +178,13 @@ func showVersion() {
 	fmt.Printf("scw version %s, build %s\n", scwversion.VERSION, scwversion.GITCOMMIT)
 }
 
-func initLogging(debug bool) {
+func initLogging(debug bool, verbose bool) {
 	log.SetOutput(os.Stderr)
 	if debug {
 		log.SetLevel(log.DebugLevel)
-	} else {
+	} else if verbose {
 		log.SetLevel(log.InfoLevel)
+	} else {
+		log.SetLevel(log.WarnLevel)
 	}
 }
