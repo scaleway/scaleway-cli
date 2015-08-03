@@ -18,8 +18,8 @@ import (
 	"text/tabwriter"
 	"text/template"
 
-	"github.com/moul/anonuuid"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
