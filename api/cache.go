@@ -14,8 +14,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/renstrom/fuzzysearch/fuzzy"
 	"github.com/scaleway/scaleway-cli/vendor/code.google.com/p/go-uuid/uuid"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers
