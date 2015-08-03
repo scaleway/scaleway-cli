@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strings"
 	"text/tabwriter"
 	"text/template"
@@ -943,7 +944,7 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveServer(needle string) ([]ScalewayResolverResult, error) {
+func (s *ScalewayAPI) ResolveServer(needle string) (ScalewayResolverResults, error) {
 	servers := s.Cache.LookUpServers(needle, true)
 	if len(servers) == 0 {
 		_, err := s.GetServers(true, 0)
@@ -956,7 +957,7 @@ func (s *ScalewayAPI) ResolveServer(needle string) ([]ScalewayResolverResult, er
 }
 
 // ResolveSnapshot attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]ScalewayResolverResult, error) {
+func (s *ScalewayAPI) ResolveSnapshot(needle string) (ScalewayResolverResults, error) {
 	snapshots := s.Cache.LookUpSnapshots(needle, true)
 	if len(snapshots) == 0 {
 		_, err := s.GetSnapshots()
@@ -969,7 +970,7 @@ func (s *ScalewayAPI) ResolveSnapshot(needle string) ([]ScalewayResolverResult, 
 }
 
 // ResolveImage attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveImage(needle string) ([]ScalewayResolverResult, error) {
+func (s *ScalewayAPI) ResolveImage(needle string) (ScalewayResolverResults, error) {
 	images := s.Cache.LookUpImages(needle, true)
 	if len(images) == 0 {
 		_, err := s.GetImages()
@@ -982,7 +983,7 @@ func (s *ScalewayAPI) ResolveImage(needle string) ([]ScalewayResolverResult, err
 }
 
 // ResolveBootscript attempts the find a matching Identifier for the input string
-func (s *ScalewayAPI) ResolveBootscript(needle string) ([]ScalewayResolverResult, error) {
+func (s *ScalewayAPI) ResolveBootscript(needle string) (ScalewayResolverResults, error) {
 	bootscripts := s.Cache.LookUpBootscripts(needle, true)
 	if len(bootscripts) == 0 {
 		_, err := s.GetBootscripts()
@@ -1225,11 +1226,12 @@ func (s *ScalewayAPI) GetServerID(needle string) string {
 	return ""
 }
 
-func showResolverResults(needle string, results []ScalewayResolverResult) error {
+func showResolverResults(needle string, results ScalewayResolverResults) error {
 	log.Errorf("Too many candidates for %s (%d)", needle, len(results))
 
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
+	sort.Sort(results)
 	for _, result := range results {
 		fmt.Fprintf(w, "- %s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name)
 	}
