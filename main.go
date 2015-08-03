@@ -83,11 +83,7 @@ func main() {
 		os.Setenv("DEBUG", "1")
 	}
 
-	if *flVerbose {
-		os.Setenv("VERBOSE", "1")
-	}
-
-	initLogging(os.Getenv("DEBUG") != "", os.Getenv("VERBOSE") != "")
+	initLogging(os.Getenv("DEBUG") != "", *flVerbose)
 
 	args := flag.Args()
 	if len(args) < 1 {
