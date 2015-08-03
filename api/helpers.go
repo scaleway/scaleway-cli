@@ -7,6 +7,7 @@ package api
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -20,7 +21,7 @@ import (
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
 type ScalewayResolvedIdentifier struct {
 	// Identifiers holds matching identifiers
-	Identifiers []ScalewayResolverResult
+	Identifiers ScalewayResolverResults
 
 	// Needle is the criteria used to lookup identifiers
 	Needle string
@@ -137,6 +138,8 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 		log.Fatalf("No such identifier: %s", needle)
 	}
 	log.Errorf("Too many candidates for %s (%d)", needle, len(idents))
+
+	sort.Sort(idents)
 	for _, identifier := range idents {
 		// FIXME: also print the name
 		fmt.Fprint(os.Stderr, "- %s\n", identifier.Identifier)
@@ -146,7 +149,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 }
 
 // ResolveIdentifier resolves needle provided by the user
-func ResolveIdentifier(api *ScalewayAPI, needle string) []ScalewayResolverResult {
+func ResolveIdentifier(api *ScalewayAPI, needle string) ScalewayResolverResults {
 	idents := api.Cache.LookUpIdentifiers(needle)
 	if len(idents) > 0 {
 		return idents

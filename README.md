@@ -1045,6 +1045,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Support of `scw _flush-cache` internal command
 * `scw run --gateway ...` or `SCW_GATEWAY="..." scw run ...` now creates a server without public ip address ([#74](https://github.com/scaleway/scaleway-cli/issues/74))
 * `scw inspect TYPE:xxx TYPE:yyy` will only refresh cache for `TYPE`
+* Sorting cache search by Levenshtein distance ([#87](https://github.com/scaleway/scaleway-cli/issues/87))
 
 #### Fixes
 
