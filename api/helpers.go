@@ -139,7 +139,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 	log.Errorf("Too many candidates for %s (%d)", needle, len(idents))
 	for _, identifier := range idents {
 		// FIXME: also print the name
-		log.Infof("- %s", identifier.Identifier)
+		fmt.Fprint(os.Stderr, "- %s\n", identifier.Identifier)
 	}
 	os.Exit(1)
 	return nil
@@ -380,8 +380,14 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 	var server *ScalewayServer
 	var err error
 
+	var currentState string
+
 	for {
 		server, err = api.GetServer(serverID)
+		if currentState != server.State {
+			log.Infof("Server changed state to '%s'", server.State)
+			currentState = server.State
+		}
 		if err != nil {
 			return nil, err
 		}

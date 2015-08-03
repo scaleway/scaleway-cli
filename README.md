@@ -124,6 +124,7 @@ Options:
  --api-endpoint=APIEndPoint   Set the API endpoint
  -D, --debug=false            Enable debug mode
  -h, --help=false             Print usage
+ -V, --verbose=false          Enable verbose mode
  -v, --version=false          Print version information and quit
 
 Commands:
@@ -1039,6 +1040,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `scw -V/--verbose` option ([#83](https://github.com/scaleway/scaleway-cli/issues/83))
 * Support of `scw inspect --browser` option
 * Support of `scw _flush-cache` internal command
 * `scw run --gateway ...` or `SCW_GATEWAY="..." scw run ...` now creates a server without public ip address ([#74](https://github.com/scaleway/scaleway-cli/issues/74))
