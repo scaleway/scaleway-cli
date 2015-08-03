@@ -18,6 +18,7 @@ import (
 	"text/tabwriter"
 	"text/template"
 
+	"github.com/moul/anonuuid"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
@@ -34,6 +35,8 @@ type ScalewayAPI struct {
 
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
+
+	anonuuid anonuuid.AnonUUID
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -501,12 +504,15 @@ func NewScalewayAPI(endpoint, organization, token string) (*ScalewayAPI, error) 
 	if err != nil {
 		return nil, err
 	}
-	return &ScalewayAPI{
+	s := &ScalewayAPI{
 		APIEndPoint:  endpoint,
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
-	}, nil
+		anonuuid:     *anonuuid.New(),
+	}
+
+	return s, nil
 }
 
 // Sync flushes out the cache to the disk
@@ -1299,7 +1305,7 @@ func (s *ScalewayAPI) GetBootscriptID(needle string) string {
 
 // HideAPICredentials removes API credentials from a string
 func (s *ScalewayAPI) HideAPICredentials(input string) string {
-	output := strings.Replace(input, s.Token, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
-	output = strings.Replace(output, s.Organization, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX", -1)
+	output := strings.Replace(input, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
+	output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
 	return output
 }
