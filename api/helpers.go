@@ -142,7 +142,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 	sort.Sort(idents)
 	for _, identifier := range idents {
 		// FIXME: also print the name
-		fmt.Fprint(os.Stderr, "- %s\n", identifier.Identifier)
+		fmt.Fprintf(os.Stderr, "- %s\n", identifier.Identifier)
 	}
 	os.Exit(1)
 	return nil
@@ -405,32 +405,59 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 
 // WaitForServerReady wait for a server state to be running, then wait for the SSH port to be available
 func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*ScalewayServer, error) {
-	server, err := WaitForServerState(api, serverID, "running")
-	if err != nil {
-		return nil, err
-	}
+	promise := make(chan bool)
+	var server *ScalewayServer
+	var err error
 
-	if gateway == "" {
-		log.Debugf("Waiting for server SSH port")
-		dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
-		err = utils.WaitForTCPPortOpen(dest)
+	go func() {
+		defer close(promise)
+
+		server, err = WaitForServerState(api, serverID, "running")
 		if err != nil {
-			return nil, err
-		}
-	} else {
-		log.Debugf("Waiting for gateway SSH port")
-		dest := fmt.Sprintf("%s:22", gateway)
-		err = utils.WaitForTCPPortOpen(dest)
-		if err != nil {
-			return nil, err
+			promise <- false
+			return
 		}
 
-		log.Debugf("Waiting 30 more seconds, for SSH to be ready")
-		time.Sleep(30 * time.Second)
-		// FIXME: check for SSH port through the gateway
-	}
+		if gateway == "" {
+			log.Debugf("Waiting for server SSH port")
+			dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+			err = utils.WaitForTCPPortOpen(dest)
+			if err != nil {
+				promise <- false
+				return
+			}
+		} else {
+			log.Debugf("Waiting for gateway SSH port")
+			dest := fmt.Sprintf("%s:22", gateway)
+			err = utils.WaitForTCPPortOpen(dest)
+			if err != nil {
+				promise <- false
+				return
+			}
 
-	return server, nil
+			log.Debugf("Waiting 30 more seconds, for SSH to be ready")
+			time.Sleep(30 * time.Second)
+			// FIXME: check for SSH port through the gateway
+		}
+		promise <- true
+	}()
+
+	loop := 0
+	for {
+		select {
+		case done := <-promise:
+			if done == false {
+				return nil, err
+			}
+			return server, nil
+		case <-time.After(time.Millisecond * 100):
+			fmt.Printf("\r%c", "-\\|/"[loop%4])
+			loop = loop + 1
+			if loop == 5 {
+				loop = 0
+			}
+		}
+	}
 }
 
 // WaitForServerStopped wait for a server state to be stopped
