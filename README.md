@@ -115,7 +115,6 @@ Usage inspired by [Docker CLI](https://docs.docker.com/reference/commandline/cli
 
 ```console
 $ scw
-
 Usage: scw [OPTIONS] COMMAND [arg...]
 
 Interact with Scaleway from the command line.
@@ -124,21 +123,21 @@ Options:
  --api-endpoint=APIEndPoint   Set the API endpoint
  -D, --debug=false            Enable debug mode
  -h, --help=false             Print usage
- -V, --verbose=false          Enable verbose mode
  -v, --version=false          Print version information and quit
+ --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
 
 Commands:
+    help      help of the scw command line
     attach    Attach to a server serial console
     commit    Create a new snapshot from a server's volume
     cp        Copy files/folders from a PATH on the server to a HOSTDIR on the host
     create    Create a new server but do not start it
     events    Get real time events from the API
     exec      Run a command on a running server
-    help      help of the scw command line
     history   Show the history of an image
     images    List images
     info      Display system-wide information
-    inspect   Return low-level information on a server, image, snapshot or bootscript
+    inspect   Return low-level information on a server, image, snapshot, volume or bootscript
     kill      Kill a running server
     login     Log in to Scaleway API
     logout    Log out from the Scaleway API
