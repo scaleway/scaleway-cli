@@ -94,6 +94,13 @@ cross: scwversion/version.go
 	rm -rf tmp
 
 
+release-docker:
+	docker build -t scaleway/cli dist
+	docker run scaleway/cli version
+	docker tag -f scaleway/cli:latest scaleway/cli:$(TAG)
+	@echo "   Now you can run 'docker push scaleway/cli'"
+
+
 packages:
 	rm -f dist/*.deb
 	docker run -v $(PWD)/dist/scw-Linux-x86_64:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a x86_64 ./
