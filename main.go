@@ -103,6 +103,7 @@ func main() {
 			if cmd.Name() != "login" && cmd.Name() != "help" && cmd.Name() != "version" {
 				if cfgErr != nil {
 					if name != "login" && config == nil {
+						log.Debugf("cfgErr: %v", cfgErr)
 						fmt.Fprintf(os.Stderr, "You need to login first: 'scw login'\n")
 						os.Exit(1)
 					}
