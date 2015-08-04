@@ -97,7 +97,7 @@ You can run scaleway-cli in a sandboxed way using Docker.
 *warning*: caching is disabled
 
 ```console
-$ docker run -it --rm --volume=$HOME/.scwrc:/root/.scwrc scaleway/cli ps
+$ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
 ```
 
 ### Manual build
@@ -1050,6 +1050,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 * Bumped dependencies
 * Hiding more sensitive data ([#77](https://github.com/scaleway/scaleway-cli/issues/77))
+* Fixed "Run in Docker" usage ([#90](https://github.com/scaleway/scaleway-cli/issues/90))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
 
