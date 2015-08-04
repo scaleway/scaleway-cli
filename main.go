@@ -84,9 +84,7 @@ func main() {
 		os.Setenv("DEBUG", "1")
 	}
 
-	if *flQuiet {
-		os.Setenv("QUIET", "1")
-	}
+	utils.Quiet(*flQuiet)
 	initLogging(os.Getenv("DEBUG") != "", *flVerbose)
 
 	args := flag.Args()
