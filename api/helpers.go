@@ -142,7 +142,7 @@ func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
 	sort.Sort(idents)
 	for _, identifier := range idents {
 		// FIXME: also print the name
-		fmt.Fprint(os.Stderr, "- %s\n", identifier.Identifier)
+		fmt.Fprintf(os.Stderr, "- %s\n", identifier.Identifier)
 	}
 	os.Exit(1)
 	return nil

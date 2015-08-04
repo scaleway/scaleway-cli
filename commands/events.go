@@ -56,6 +56,6 @@ func runEvents(cmd *types.Command, args []string) {
 			terminatedAt = units.HumanDuration(time.Now().UTC().Sub(terminatedAtTime))
 		}
 
-		fmt.Printf("%s %s: %s (%s %s) %s\n", startedAt, event.HrefFrom, event.Description, event.Status, event.Progress, terminatedAt)
+		fmt.Printf("%s %s: %s (%s %d) %s\n", startedAt, event.HrefFrom, event.Description, event.Status, event.Progress, terminatedAt)
 	}
 }
