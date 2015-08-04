@@ -40,12 +40,13 @@ var helpTemplate = `Usage: scw [OPTIONS] COMMAND [arg...]
 Interact with Scaleway from the command line.
 
 Options:
- --api-endpoint=APIEndPoint   Set the API endpoint
- -D, --debug=false            Enable debug mode
  -h, --help=false             Print usage
- -v, --version=false          Print version information and quit
+ -D, --debug=false            Enable debug mode
+ -V, --verbose=false          Enable verbose mode
  -q, --quiet=false            Enable quiet mode
+ --api-endpoint=APIEndPoint   Set the API endpoint
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
+ -v, --version=false          Print version information and quit
 
 Commands:
 {{range .}}{{if not .Hidden}}    {{.Name | printf "%-9s"}} {{.Description}}
