@@ -446,12 +446,13 @@ func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*Sca
 	for {
 		select {
 		case done := <-promise:
+			utils.LogQuiet("\r \r")
 			if done == false {
 				return nil, err
 			}
 			return server, nil
 		case <-time.After(time.Millisecond * 100):
-			fmt.Printf("\r%c", "-\\|/"[loop%4])
+			utils.LogQuiet(fmt.Sprintf("\r%c\r", "-\\|/"[loop%4]))
 			loop = loop + 1
 			if loop == 5 {
 				loop = 0
