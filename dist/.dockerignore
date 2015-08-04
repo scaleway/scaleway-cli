@@ -1,0 +1,7 @@
+scw-Darwin-*
+scw-Windows-*
+scw-Freebsd-*
+scw-Linux-arm*
+scw-Linux-x86*
+Dockerfile
+.dockerignore
