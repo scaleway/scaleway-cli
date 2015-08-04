@@ -52,6 +52,7 @@ var (
 	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
 	flVerbose     = flag.Bool([]string{"V", "-verbose"}, false, "Enable verbose mode")
 	flVersion     = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
+	flQuiet       = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
 	flSensitive   = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 )
 
@@ -83,6 +84,9 @@ func main() {
 		os.Setenv("DEBUG", "1")
 	}
 
+	if *flQuiet {
+		os.Setenv("QUIET", "1")
+	}
 	initLogging(os.Getenv("DEBUG") != "", *flVerbose)
 
 	args := flag.Args()

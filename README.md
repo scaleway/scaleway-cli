@@ -124,6 +124,7 @@ Options:
  -D, --debug=false            Enable debug mode
  -h, --help=false             Print usage
  -v, --version=false          Print version information and quit
+ -q, --quiet=false            Enable quiet mode
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
 
 Commands:
