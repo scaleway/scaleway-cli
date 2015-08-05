@@ -16,6 +16,7 @@ fi
 NAME=$(basename "${URL}")
 NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
+KEY=$(cat ~/.ssh/id_rsa.pub | awk '{ print $1" "$2 }' | tr ' ' '_')
 
 
 echo "[+] URL of the tarball: ${URL}"
@@ -23,7 +24,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(scw create --bootscript=rescue --volume="${VOLUME_SIZE}" --name="image-writer-${NAME}" 1GB)
+SERVER=$(scw create --bootscript=rescue --volume="${VOLUME_SIZE}" --env="AUTHORIZED_KEY=${KEY}" --name="image-writer-${NAME}" 1GB)
 echo "[+] Server created: ${SERVER}"
 
 
