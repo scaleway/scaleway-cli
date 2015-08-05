@@ -26,6 +26,7 @@ RUN cp /go/bin/scw-Linux-i386 /go/bin/scw-Linux-x86_64
 RUN  GOOS=linux    GOARCH=arm   GOARM=5  go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-arm
 RUN  GOOS=linux    GOARCH=arm   GOARM=6  go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-armv6
 RUN  GOOS=linux    GOARCH=arm   GOARM=7  go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Linux-armv7
+RUN cp /go/bin/scw-Linux-armv7 /go/bin/scw-Linux-armv7l
 RUN  GOOS=freebsd  GOARCH=amd64          go build -a -v -ldflags '-w -s'    -o /go/bin/scw-Freebsd-x86_64
 RUN  GOOS=freebsd  GOARCH=386            go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Freebsd-i386
 RUN  GOOS=freebsd  GOARCH=arm   GOARM=5  go build -a -v -ldflags '-d -w -s' -o /go/bin/scw-Freebsd-arm
