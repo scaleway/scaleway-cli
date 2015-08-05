@@ -10,9 +10,21 @@ import (
 	"os"
 )
 
+// LogQuietStruct is a struct to store information about quiet state
+type LogQuietStruct struct {
+	quiet bool
+}
+
+var instanceQuiet LogQuietStruct
+
+// Quiet enable or disable quiet
+func Quiet(option bool) {
+	instanceQuiet.quiet = option
+}
+
 // LogQuiet Displays info if quiet is activated
 func LogQuiet(str string) {
-	if os.Getenv("QUIET") == "" {
+	if instanceQuiet.quiet == false {
 		fmt.Fprintf(os.Stderr, "%s", str)
 	}
 }
