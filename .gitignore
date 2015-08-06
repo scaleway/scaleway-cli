@@ -1,7 +1,7 @@
 # builds
 /scaleway-cli
 /scw
-scwversion/version.go
+pkg/scwversion/version.go
 dist/
 
 # junk
@@ -9,4 +9,5 @@ dist/
 *#
 .#*
 profile.cov
+profile.out
 .vendor

@@ -75,7 +75,7 @@ chmod +x /usr/local/bin/scw
 To install Scaleway CLI master git, run the following command:
 
 ```bash
-go get github.com/scaleway/scaleway-cli
+go get github.com/scaleway/scaleway-cli/...
 ```
 
 ### Requirements
@@ -106,7 +106,7 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
 2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
   * `export GOPATH=$HOME/go`
   * `export PATH=$PATH:$GOPATH/bin`
-3. Install the project: `go get github.com/scaleway/scaleway-cli`
+3. Install the project: `go get github.com/scaleway/scaleway-cli/...`
 4. Run: `scaleway-cli`
 
 ## Usage
@@ -1230,7 +1230,7 @@ Feel free to contribute :smiley::beers:
 2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
   * `export GOPATH=$HOME/go`
   * `export PATH=$PATH:$GOPATH/bin`
-3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli`
+3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli/...`
 4. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
 5. Hack: `emacs`
 6. Build: `make`
