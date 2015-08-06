@@ -5,10 +5,8 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdRestart = &Command{
@@ -25,28 +23,21 @@ func init() {
 // Flags
 var restartHelp bool // -h, --help flag
 
-func runRestart(cmd *Command, args []string) {
+func runRestart(cmd *Command, rawArgs []string) {
 	if restartHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	hasError := false
-	for _, needle := range args {
-		server := cmd.API.GetServerID(needle)
-		err := cmd.API.PostServerAction(server, "reboot")
-		if err != nil {
-			if err.Error() != "server is being stopped or rebooted" {
-				log.Errorf("failed to restart server %s: %s", server, err)
-				hasError = true
-			}
-		} else {
-			fmt.Println(needle)
-		}
-		if hasError {
-			os.Exit(1)
-		}
+	args := commands.RestartArgs{
+		Servers: rawArgs,
 	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunRestart(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'restart': %v", err)
+	}
+
 }
