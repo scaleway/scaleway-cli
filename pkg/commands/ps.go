@@ -6,7 +6,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"text/tabwriter"
 	"time"
 
@@ -18,7 +17,7 @@ import (
 )
 
 var cmdPs = &types.Command{
-	Exec:        runPs,
+	Exec:        cmdExecPs,
 	UsageLine:   "ps [OPTIONS]",
 	Description: "List servers",
 	Help:        "List servers. By default, only running servers are displayed.",
@@ -41,39 +40,66 @@ var psNoTrunc bool // -no-trunc flag
 var psN int        // -n flag
 var psHelp bool    // -h, --help flag
 
-func runPs(cmd *types.Command, args []string) {
+// PsArgs are flags for the `RunPs` function
+type PsArgs struct {
+	All     bool
+	Latest  bool
+	NLast   int
+	NoTrunc bool
+	Quiet   bool
+}
+
+func cmdExecPs(cmd *types.Command, rawArgs []string) {
 	if psHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 0 {
+	if len(rawArgs) != 0 {
 		cmd.PrintShortUsage()
 	}
 
-	limit := psN
-	if psL {
+	args := PsArgs{
+		All:     psA,
+		Latest:  psL,
+		Quiet:   psQ,
+		NoTrunc: psNoTrunc,
+		NLast:   psN,
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := RunPs(ctx, args)
+	if err != nil {
+		log.Fatalf("Cannot exec 'ps': %v", err)
+	}
+}
+
+// RunPs is the handler for 'scw ps'
+func RunPs(ctx types.CommandContext, args PsArgs) error {
+	limit := args.NLast
+	if args.Latest {
 		limit = 1
 	}
-	servers, err := cmd.API.GetServers(psA || psN > 0 || psL, limit)
+	all := args.All || args.NLast > 0 || args.Latest
+	servers, err := ctx.API.GetServers(all, limit)
 	if err != nil {
-		log.Fatalf("Unable to fetch servers from the Scaleway API: %v", err)
+		return fmt.Errorf("Unable to fetch servers from the Scaleway API: %v", err)
 	}
 
-	w := tabwriter.NewWriter(os.Stdout, 20, 1, 3, ' ', 0)
+	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
 	defer w.Flush()
-	if !psQ {
+	if !args.Quiet {
 		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\n")
 	}
 	for _, server := range *servers {
-		if psQ {
+		if args.Quiet {
 			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {
-			shortID := utils.TruncIf(server.Identifier, 8, !psNoTrunc)
-			shortImage := utils.TruncIf(utils.Wordify(server.Image.Name), 25, !psNoTrunc)
-			shortName := utils.TruncIf(utils.Wordify(server.Name), 25, !psNoTrunc)
+			shortID := utils.TruncIf(server.Identifier, 8, !args.NoTrunc)
+			shortImage := utils.TruncIf(utils.Wordify(server.Image.Name), 25, !args.NoTrunc)
+			shortName := utils.TruncIf(utils.Wordify(server.Name), 25, !args.NoTrunc)
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
 			shortCreationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
 			port := server.PublicAddress.IP
 			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t%s\t%s\n", shortID, shortImage, shortCreationDate, server.State, port, shortName)
 		}
 	}
+	return nil
 }

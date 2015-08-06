@@ -8,6 +8,7 @@ package types
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -43,6 +44,28 @@ type Command struct {
 
 	// API is the interface used to communicate with Scaleway's API
 	API *api.ScalewayAPI
+}
+
+// CommandContext is passed to all commands and contains streams, environment, api and arguments
+type CommandContext struct {
+	Stdin   io.Reader
+	Stdout  io.Writer
+	Stderr  io.Writer
+	Env     []string
+	RawArgs []string
+	API     *api.ScalewayAPI
+}
+
+// GetContext returns a standard context, with real stdin, stdout, stderr, a configured API and raw arguments
+func (c *Command) GetContext(rawArgs []string) CommandContext {
+	return CommandContext{
+		Stdin:   os.Stdin,
+		Stdout:  os.Stdout,
+		Stderr:  os.Stderr,
+		Env:     os.Environ(),
+		RawArgs: rawArgs,
+		API:     c.API,
+	}
 }
 
 // Name returns the command's name
