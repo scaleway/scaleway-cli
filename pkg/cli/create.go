@@ -5,11 +5,10 @@
 package cli
 
 import (
-	"fmt"
+	"strings"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdCreate = &Command{
@@ -41,19 +40,24 @@ var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
 
-func runCreate(cmd *Command, args []string) {
+func runCreate(cmd *Command, rawArgs []string) {
 	if createHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID, err := api.CreateServer(cmd.API, args[0], createName, createBootscript, createEnv, createVolume, true)
-
-	if err != nil {
-		log.Fatalf("Failed to create server: %v", err)
+	args := commands.CreateArgs{
+		Name:       createName,
+		Bootscript: createBootscript,
+		Tags:       strings.Split(createEnv, " "),
+		Volumes:    strings.Split(createVolume, " "),
+		Image:      rawArgs[0],
 	}
-
-	fmt.Println(serverID)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunCreate(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'create': %v", err)
+	}
 }
