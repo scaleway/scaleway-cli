@@ -8,46 +8,13 @@ import (
 	"fmt"
 	"time"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
-
-	types "github.com/scaleway/scaleway-cli/pkg/commands/types"
 )
-
-var cmdEvents = &types.Command{
-	Exec:        cmdExecEvents,
-	UsageLine:   "events [OPTIONS]",
-	Description: "Get real time events from the API",
-	Help:        "Get real time events from the API.",
-}
-
-func init() {
-	cmdEvents.Flag.BoolVar(&eventsHelp, []string{"h", "-help"}, false, "Print usage")
-}
-
-// Flags
-var eventsHelp bool // -h, --help flag
 
 type EventsArgs struct{}
 
-func cmdExecEvents(cmd *types.Command, rawArgs []string) {
-	if eventsHelp {
-		cmd.PrintUsage()
-	}
-	if len(rawArgs) != 0 {
-		cmd.PrintShortUsage()
-	}
-
-	args := EventsArgs{}
-	ctx := cmd.GetContext(rawArgs)
-	err := RunEvents(ctx, args)
-	if err != nil {
-		log.Fatalf("Cannot execute 'events': %v", err)
-	}
-}
-
 // RunEvents is the handler for 'scw events'
-func RunEvents(ctx types.CommandContext, args EventsArgs) error {
+func RunEvents(ctx CommandContext, args EventsArgs) error {
 	events, err := ctx.API.GetTasks()
 	if err != nil {
 		return fmt.Errorf("unable to fetch tasks from the Scaleway API: %v", err)

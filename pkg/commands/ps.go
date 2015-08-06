@@ -9,36 +9,10 @@ import (
 	"text/tabwriter"
 	"time"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
 
-	types "github.com/scaleway/scaleway-cli/pkg/commands/types"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
-
-var cmdPs = &types.Command{
-	Exec:        cmdExecPs,
-	UsageLine:   "ps [OPTIONS]",
-	Description: "List servers",
-	Help:        "List servers. By default, only running servers are displayed.",
-}
-
-func init() {
-	cmdPs.Flag.BoolVar(&psA, []string{"a", "-all"}, false, "Show all servers. Only running servers are shown by default")
-	cmdPs.Flag.BoolVar(&psL, []string{"l", "-latest"}, false, "Show only the latest created server, include non-running ones")
-	cmdPs.Flag.IntVar(&psN, []string{"n"}, 0, "Show n last created servers, include non-running ones")
-	cmdPs.Flag.BoolVar(&psNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
-	cmdPs.Flag.BoolVar(&psQ, []string{"q", "-quiet"}, false, "Only display numeric IDs")
-	cmdPs.Flag.BoolVar(&psHelp, []string{"h", "-help"}, false, "Print usage")
-}
-
-// Flags
-var psA bool       // -a flag
-var psL bool       // -l flag
-var psQ bool       // -q flag
-var psNoTrunc bool // -no-trunc flag
-var psN int        // -n flag
-var psHelp bool    // -h, --help flag
 
 // PsArgs are flags for the `RunPs` function
 type PsArgs struct {
@@ -49,30 +23,8 @@ type PsArgs struct {
 	Quiet   bool
 }
 
-func cmdExecPs(cmd *types.Command, rawArgs []string) {
-	if psHelp {
-		cmd.PrintUsage()
-	}
-	if len(rawArgs) != 0 {
-		cmd.PrintShortUsage()
-	}
-
-	args := PsArgs{
-		All:     psA,
-		Latest:  psL,
-		Quiet:   psQ,
-		NoTrunc: psNoTrunc,
-		NLast:   psN,
-	}
-	ctx := cmd.GetContext(rawArgs)
-	err := RunPs(ctx, args)
-	if err != nil {
-		log.Fatalf("Cannot exec 'ps': %v", err)
-	}
-}
-
 // RunPs is the handler for 'scw ps'
-func RunPs(ctx types.CommandContext, args PsArgs) error {
+func RunPs(ctx CommandContext, args PsArgs) error {
 	limit := args.NLast
 	if args.Latest {
 		limit = 1

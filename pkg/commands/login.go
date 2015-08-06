@@ -8,85 +8,24 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	types "github.com/scaleway/scaleway-cli/pkg/commands/types"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
-
-var cmdLogin = &types.Command{
-	Exec:        cmdExecLogin,
-	UsageLine:   "login [OPTIONS]",
-	Description: "Log in to Scaleway API",
-	Help: `Generates a configuration file in '/home/$USER/.scwrc'
-containing credentials used to interact with the Scaleway API. This
-configuration file is automatically used by the 'scw' commands.
-
-You can get your credentials on https://cloud.scaleway.com/#/credentials
-`,
-}
-
-func promptUser(prompt string, output *string, echo bool) {
-	// FIXME: should use stdin/stdout from command context
-	fmt.Fprintf(os.Stdout, prompt)
-	os.Stdout.Sync()
-
-	if !echo {
-		b, err := terminal.ReadPassword(int(os.Stdin.Fd()))
-		if err != nil {
-			log.Fatalf("Unable to prompt for password: %s", err)
-		}
-		*output = string(b)
-		fmt.Fprintf(os.Stdout, "\n")
-	} else {
-		reader := bufio.NewReader(os.Stdin)
-		*output, _ = reader.ReadString('\n')
-	}
-}
-
-func init() {
-	cmdLogin.Flag.StringVar(&organization, []string{"o", "-organization"}, "", "Organization")
-	cmdLogin.Flag.StringVar(&token, []string{"t", "-token"}, "", "Token")
-	cmdLogin.Flag.BoolVar(&loginHelp, []string{"h", "-help"}, false, "Print usage")
-}
-
-// FLags
-var organization string // -o flag
-var token string        // -t flag
-var loginHelp bool      // -h, --help flag
 
 type LoginArgs struct {
 	Organization string
 	Token        string
 }
 
-func cmdExecLogin(cmd *types.Command, rawArgs []string) {
-	if loginHelp {
-		cmd.PrintUsage()
-	}
-	if len(rawArgs) != 0 {
-		cmd.PrintShortUsage()
-	}
-
-	args := LoginArgs{
-		Organization: organization,
-		Token:        token,
-	}
-	ctx := cmd.GetContext(rawArgs)
-	err := RunLogin(ctx, args)
-	if err != nil {
-		log.Fatalf("Cannot execute 'login': %v", err)
-	}
-}
-
 // RunLogin is the handler for 'scw login'
-func RunLogin(ctx types.CommandContext, args LoginArgs) error {
-	if len(organization) == 0 {
+func RunLogin(ctx CommandContext, args LoginArgs) error {
+	if args.Organization == "" {
 		fmt.Println("You can get your credentials on https://cloud.scaleway.com/#/credentials")
 		promptUser("Organization (access key): ", &args.Organization, true)
 	}
@@ -125,4 +64,22 @@ func RunLogin(ctx types.CommandContext, args LoginArgs) error {
 		return fmt.Errorf("Unable to encode scw config file: %s", err)
 	}
 	return nil
+}
+
+func promptUser(prompt string, output *string, echo bool) {
+	// FIXME: should use stdin/stdout from command context
+	fmt.Fprintf(os.Stdout, prompt)
+	os.Stdout.Sync()
+
+	if !echo {
+		b, err := terminal.ReadPassword(int(os.Stdin.Fd()))
+		if err != nil {
+			log.Fatalf("Unable to prompt for password: %s", err)
+		}
+		*output = string(b)
+		fmt.Fprintf(os.Stdout, "\n")
+	} else {
+		reader := bufio.NewReader(os.Stdin)
+		*output, _ = reader.ReadString('\n')
+	}
 }

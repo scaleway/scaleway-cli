@@ -15,7 +15,7 @@ import (
 	flag "github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/mflag"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	cmds "github.com/scaleway/scaleway-cli/pkg/commands"
+	cmds "github.com/scaleway/scaleway-cli/pkg/cli"
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
