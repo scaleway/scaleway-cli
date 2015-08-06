@@ -5,12 +5,9 @@
 package cli
 
 import (
-	"os"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdPort = &Command{
@@ -29,37 +26,21 @@ func init() {
 var portHelp bool      // -h, --help flag
 var portGateway string // -g, --gateway flag
 
-func runPort(cmd *Command, args []string) {
+func runPort(cmd *Command, rawArgs []string) {
 	if portHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-	server, err := cmd.API.GetServer(serverID)
+	args := commands.PortArgs{
+		Gateway: portGateway,
+		Server:  rawArgs[0],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunPort(ctx, args)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
-	}
-
-	// Resolve gateway
-	if portGateway == "" {
-		portGateway = os.Getenv("SCW_GATEWAY")
-	}
-	var gateway string
-	if portGateway == serverID || portGateway == args[0] {
-		gateway = ""
-	} else {
-		gateway, err = api.ResolveGateway(cmd.API, portGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", portGateway, err)
-		}
-	}
-
-	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, gateway)
-	if err != nil {
-		log.Fatalf("Command execution failed: %v", err)
+		logrus.Fatalf("Cannot execute 'port': %v", err)
 	}
 }
