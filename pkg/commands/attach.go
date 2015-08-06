@@ -5,14 +5,14 @@
 package commands
 
 import (
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"log"
 
 	types "github.com/scaleway/scaleway-cli/pkg/commands/types"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 var cmdAttach = &types.Command{
-	Exec:        runAttach,
+	Exec:        cmdExecAttach,
 	UsageLine:   "attach [OPTIONS] SERVER",
 	Description: "Attach to a server serial console",
 	Help:        "Attach to a running server serial console.",
@@ -32,18 +32,34 @@ func init() {
 var attachHelp bool    // -h, --help flag
 var attachNoStdin bool // --no-stdin flag
 
-func runAttach(cmd *types.Command, args []string) {
+// AttachArgs are flags for the `RunAttach` function
+type AttachArgs struct {
+	NoStdin bool
+	Server  string
+}
+
+func cmdExecAttach(cmd *types.Command, rawArgs []string) {
 	if attachHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-
-	err := utils.AttachToSerial(serverID, cmd.API.Token, !attachNoStdin)
-	if err != nil {
-		log.Fatalf("%v", err)
+	args := AttachArgs{
+		NoStdin: attachNoStdin,
+		Server:  rawArgs[0],
 	}
+	ctx := cmd.GetContext(rawArgs)
+	err := RunAttach(ctx, args)
+	if err != nil {
+		log.Fatalf("Cannot execute 'attach': %v", err)
+	}
+}
+
+// RunAttach is the handler for 'scw attach'
+func RunAttach(ctx types.CommandContext, args AttachArgs) error {
+	serverID := ctx.API.GetServerID(args.Server)
+
+	return utils.AttachToSerial(serverID, ctx.API.Token, !args.NoStdin)
 }
