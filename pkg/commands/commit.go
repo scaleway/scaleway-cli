@@ -13,7 +13,7 @@ import (
 )
 
 var cmdCommit = &types.Command{
-	Exec:        runCommit,
+	Exec:        cmdExecCommit,
 	UsageLine:   "commit [OPTIONS] SERVER [NAME]",
 	Description: "Create a new snapshot from a server's volume",
 	Help:        "Create a new snapshot from a server's volume.",
@@ -32,29 +32,55 @@ func init() {
 var commitVolume int // -v, --volume flag
 var commitHelp bool  // -h, --help flag
 
-func runCommit(cmd *types.Command, args []string) {
+// CommitArgs are flags for the `RunCommit` function
+type CommitArgs struct {
+	Volume int
+	Server string
+	Name   string
+}
+
+func cmdExecCommit(cmd *types.Command, rawArgs []string) {
 	if commitHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-	server, err := cmd.API.GetServer(serverID)
+	args := CommitArgs{
+		Volume: commitVolume,
+		Server: rawArgs[0],
+		Name:   "",
+	}
+	if len(rawArgs) > 1 {
+		args.Name = rawArgs[1]
+	}
+
+	ctx := cmd.GetContext(rawArgs)
+	err := RunCommit(ctx, args)
 	if err != nil {
-		log.Fatalf("Cannot fetch server: %v", err)
+		log.Fatalf("Cannot execute 'commit': %v", err)
+	}
+}
+
+// RunCommit is the handler for 'scw commit'
+func RunCommit(ctx types.CommandContext, args CommitArgs) error {
+	serverID := ctx.API.GetServerID(args.Server)
+	server, err := ctx.API.GetServer(serverID)
+	if err != nil {
+		return fmt.Errorf("Cannot fetch server: %v", err)
 	}
 	var volume = server.Volumes[fmt.Sprintf("%d", commitVolume)]
 	var name string
-	if len(args) > 1 {
-		name = args[1]
+	if args.Name != "" {
+		name = args.Name
 	} else {
 		name = volume.Name + "-snapshot"
 	}
-	snapshot, err := cmd.API.PostSnapshot(volume.Identifier, name)
+	snapshot, err := ctx.API.PostSnapshot(volume.Identifier, name)
 	if err != nil {
-		log.Fatalf("Cannot create snapshot: %v", err)
+		return fmt.Errorf("Cannot create snapshot: %v", err)
 	}
 	fmt.Println(snapshot)
+	return nil
 }
