@@ -5,11 +5,8 @@
 package cli
 
 import (
-	"os"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdLogout = &Command{
@@ -26,23 +23,18 @@ func init() {
 // FLags
 var logoutHelp bool // -h, --help flag
 
-func runLogout(cmd *Command, args []string) {
+func runLogout(cmd *Command, rawArgs []string) {
 	if logoutHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 0 {
+	if len(rawArgs) != 0 {
 		cmd.PrintShortUsage()
 	}
 
-	scwrcPath, err := utils.GetConfigFilePath()
+	args := commands.LogoutArgs{}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunLogout(ctx, args)
 	if err != nil {
-		log.Fatalf("Unable to get scwrc config file path: %v", err)
-	}
-
-	if _, err = os.Stat(scwrcPath); err == nil {
-		err = os.Remove(scwrcPath)
-		if err != nil {
-			log.Fatalf("Unable to remove scwrc config file: %v", err)
-		}
+		logrus.Fatalf("Cannot execute 'logout': %v", err)
 	}
 }
