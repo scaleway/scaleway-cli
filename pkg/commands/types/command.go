@@ -56,6 +56,12 @@ type CommandContext struct {
 	API     *api.ScalewayAPI
 }
 
+// Getenv returns the equivalent of os.Getenv for the CommandContext.Env
+func (c *CommandContext) Getenv(key string) string {
+	// FIXME: parse c.Env instead
+	return os.Getenv(key)
+}
+
 // GetContext returns a standard context, with real stdin, stdout, stderr, a configured API and raw arguments
 func (c *Command) GetContext(rawArgs []string) CommandContext {
 	return CommandContext{

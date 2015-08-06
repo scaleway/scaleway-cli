@@ -5,18 +5,18 @@
 package commands
 
 import (
-	"os"
+	"fmt"
 	"time"
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	types "github.com/scaleway/scaleway-cli/pkg/commands/types"
+	"github.com/scaleway/scaleway-cli/pkg/commands/types"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 var cmdExec = &types.Command{
-	Exec:        runExec,
+	Exec:        cmdExecExec,
 	UsageLine:   "exec [OPTIONS] SERVER [COMMAND] [ARGS...]",
 	Description: "Run a command on a running server",
 	Help:        "Run a command on a running server.",
@@ -47,57 +47,92 @@ var execTimeout float64 // -T flag
 var execHelp bool       // -h, --help flag
 var execGateway string  // -g, --gateway flag
 
-func runExec(cmd *types.Command, args []string) {
+// ExecArgs are flags for the `RunExec` function
+type ExecArgs struct {
+	Timeout float64
+	Wait    bool
+	Gateway string
+	Server  string
+	Command []string
+}
+
+func cmdExecExec(cmd *types.Command, rawArgs []string) {
 	if execHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
+	args := ExecArgs{
+		Timeout: execTimeout,
+		Wait:    execW,
+		Gateway: execGateway,
+		Server:  rawArgs[0],
+		Command: rawArgs[1:],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := RunExec(ctx, args)
+	if err != nil {
+		log.Fatalf("Cannot exec 'exec': %v", err)
+	}
+}
+
+// RunExec is the handler for 'scw exec'
+func RunExec(ctx types.CommandContext, args ExecArgs) error {
+	serverID := ctx.API.GetServerID(args.Server)
 
 	// Resolve gateway
-	if execGateway == "" {
-		execGateway = os.Getenv("SCW_GATEWAY")
+	if args.Gateway == "" {
+		args.Gateway = ctx.Getenv("SCW_GATEWAY")
 	}
 	var gateway string
 	var err error
-	if execGateway == serverID || execGateway == args[0] {
+	if args.Gateway == serverID || args.Gateway == args.Server {
+		log.Debugf("The server and the gateway are the same host, using direct access to the server")
 		gateway = ""
 	} else {
-		gateway, err = api.ResolveGateway(cmd.API, execGateway)
+		gateway, err = api.ResolveGateway(ctx.API, args.Gateway)
 		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", execGateway, err)
+			return fmt.Errorf("Cannot resolve Gateway '%s': %v", args.Gateway, err)
+		}
+		if gateway != "" {
+			log.Debugf("The server will be accessed using the gateway '%s' as a SSH relay", gateway)
 		}
 	}
 
 	var server *api.ScalewayServer
-	if execW {
+	if args.Wait {
 		// --wait
-		server, err = api.WaitForServerReady(cmd.API, serverID, gateway)
+		log.Debugf("Waiting for server to be ready")
+		server, err = api.WaitForServerReady(ctx.API, serverID, gateway)
 		if err != nil {
-			log.Fatalf("Failed to wait for server to be ready, %v", err)
+			return fmt.Errorf("Failed to wait for server to be ready, %v", err)
 		}
 	} else {
 		// no --wait
-		server, err = cmd.API.GetServer(serverID)
+		log.Debugf("scw won't wait for the server to be ready, if it is not, the command will fail")
+		server, err = ctx.API.GetServer(serverID)
 		if err != nil {
-			log.Fatalf("Failed to get server information for %s: %v", serverID, err)
+			return fmt.Errorf("Failed to get server information for %s: %v", serverID, err)
 		}
 	}
 
-	if execTimeout > 0 {
+	// --timeout
+	if args.Timeout > 0 {
+		log.Debugf("Setting up a global timeout of %d seconds", args.Timeout)
+		// FIXME: avoid use of log.Fatalf here
 		go func() {
-			time.Sleep(time.Duration(execTimeout*1000) * time.Millisecond)
+			time.Sleep(time.Duration(args.Timeout*1000) * time.Millisecond)
 			log.Fatalf("Operation timed out")
 		}()
 	}
 
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], !execW, gateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, !args.Wait, gateway)
 	if err != nil {
-		log.Fatalf("%v", err)
-		os.Exit(1)
+		return fmt.Errorf("Failed to run the command: %v", err)
 	}
+
 	log.Debugf("Command successfuly executed")
+	return nil
 }
