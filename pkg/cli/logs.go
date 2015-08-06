@@ -5,12 +5,9 @@
 package cli
 
 import (
-	"os"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdLogs = &Command{
@@ -29,39 +26,21 @@ func init() {
 var logsHelp bool      // -h, --help flag
 var logsGateway string // -g, --gateway flag
 
-func runLogs(cmd *Command, args []string) {
+func runLogs(cmd *Command, rawArgs []string) {
 	if logsHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-	server, err := cmd.API.GetServer(serverID)
+	args := commands.LogsArgs{
+		Gateway: logsGateway,
+		Server:  rawArgs[0],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunLogs(ctx, args)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
-	}
-
-	// FIXME: switch to serial history when API is ready
-
-	// Resolve gateway
-	if logsGateway == "" {
-		logsGateway = os.Getenv("SCW_GATEWAY")
-	}
-	var gateway string
-	if logsGateway == serverID || logsGateway == args[0] {
-		gateway = ""
-	} else {
-		gateway, err = api.ResolveGateway(cmd.API, logsGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", logsGateway, err)
-		}
-	}
-
-	command := []string{"dmesg"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, gateway)
-	if err != nil {
-		log.Fatalf("Command execution failed: %v", err)
+		logrus.Fatalf("Cannot execute 'logs': %v", err)
 	}
 }
