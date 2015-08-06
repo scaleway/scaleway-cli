@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	"golang.org/x/crypto/ssh/terminal"
+	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"

@@ -5,7 +5,7 @@
 package cli
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 )

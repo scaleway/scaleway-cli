@@ -10,9 +10,9 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/docker/machine/log"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 // KillArgs are flags for the `RunKill` function
@@ -46,7 +46,7 @@ func RunKill(ctx CommandContext, args KillArgs) error {
 
 	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway))
 
-	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+	logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 
 	spawn := exec.Command("ssh", execCmd...)
 	spawn.Stdout = os.Stdout

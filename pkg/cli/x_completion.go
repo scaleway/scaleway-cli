@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	utils "github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdCompletion = &Command{

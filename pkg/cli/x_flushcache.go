@@ -7,7 +7,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdFlushCache = &Command{

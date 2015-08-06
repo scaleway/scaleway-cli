@@ -8,7 +8,7 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 // CmdHelp is the 'scw help' command
