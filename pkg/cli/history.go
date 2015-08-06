@@ -5,15 +5,8 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"text/tabwriter"
-	"time"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
-
-	utils "github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdHistory = &Command{
@@ -34,39 +27,22 @@ var historyNoTrunc bool // --no-trunc flag
 var historyQuiet bool   // -q, --quiet flag
 var historyHelp bool    // -h, --help flag
 
-func runHistory(cmd *Command, args []string) {
+func runHistory(cmd *Command, rawArgs []string) {
 	if historyHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	imageID := cmd.API.GetImageID(args[0], true)
-	image, err := cmd.API.GetImage(imageID)
+	args := commands.HistoryArgs{
+		Quiet:   historyQuiet,
+		NoTrunc: historyNoTrunc,
+		Image:   rawArgs[0],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunHistory(ctx, args)
 	if err != nil {
-		log.Fatalf("Cannot get image %s: %v", imageID, err)
+		logrus.Fatalf("Cannot execute 'history': %v", err)
 	}
-
-	if imagesQ {
-		fmt.Println(imageID)
-		return
-	}
-
-	w := tabwriter.NewWriter(os.Stdout, 10, 1, 3, ' ', 0)
-	defer w.Flush()
-	fmt.Fprintf(w, "IMAGE\tCREATED\tCREATED BY\tSIZE\n")
-
-	identifier := utils.TruncIf(image.Identifier, 8, !historyNoTrunc)
-
-	creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", image.CreationDate)
-	if err != nil {
-		log.Fatalf("Unable to parse creation date from the Scaleway API: %v", err)
-	}
-	creationDateStr := units.HumanDuration(time.Now().UTC().Sub(creationDate))
-
-	volumeName := utils.TruncIf(image.RootVolume.Name, 25, !historyNoTrunc)
-	size := units.HumanSize(float64(image.RootVolume.Size))
-
-	fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", identifier, creationDateStr, volumeName, size)
 }
