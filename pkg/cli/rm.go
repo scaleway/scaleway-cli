@@ -5,10 +5,8 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdRm = &Command{
@@ -30,26 +28,21 @@ func init() {
 // Flags
 var rmHelp bool // -h, --help flag
 
-func runRm(cmd *Command, args []string) {
+func runRm(cmd *Command, rawArgs []string) {
 	if rmHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	hasError := false
-	for _, needle := range args {
-		server := cmd.API.GetServerID(needle)
-		err := cmd.API.DeleteServer(server)
-		if err != nil {
-			log.Errorf("failed to delete server %s: %s", server, err)
-			hasError = true
-		} else {
-			fmt.Println(needle)
-		}
+	args := commands.RmArgs{
+		Servers: rawArgs,
 	}
-	if hasError {
-		os.Exit(1)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunRm(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'rm': %v", err)
 	}
+
 }
