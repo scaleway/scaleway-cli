@@ -5,15 +5,9 @@
 package cli
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
-	"text/template"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/skratchdot/open-golang/open"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdInspect = &Command{
@@ -51,96 +45,22 @@ var inspectFormat string // -f, --format flag
 var inspectBrowser bool  // -b, --browser flag
 var inspectHelp bool     // -h, --help flag
 
-func runInspect(cmd *Command, args []string) {
+func runInspect(cmd *Command, rawArgs []string) {
 	if inspectHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	nbInspected := 0
-	ci := make(chan api.ScalewayResolvedIdentifier)
-	cj := make(chan api.InspectIdentifierResult)
-	go api.ResolveIdentifiers(cmd.API, args, ci)
-	go api.InspectIdentifiers(cmd.API, ci, cj)
-
-	if inspectBrowser {
-		// --browser will open links in the browser
-		for {
-			data, isOpen := <-cj
-			if !isOpen {
-				break
-			}
-
-			switch data.Type {
-			case api.IdentifierServer:
-				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/servers/%s", data.Object.(*api.ScalewayServer).Identifier))
-				if err != nil {
-					log.Fatalf("Cannot open browser: %v", err)
-				}
-				nbInspected++
-			case api.IdentifierImage:
-				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/images/%s", data.Object.(*api.ScalewayImage).Identifier))
-				if err != nil {
-					log.Fatalf("Cannot open browser: %v", err)
-				}
-				nbInspected++
-			case api.IdentifierVolume:
-				err := open.Start(fmt.Sprintf("https://cloud.scaleway.com/#/volumes/%s", data.Object.(*api.ScalewayVolume).Identifier))
-				if err != nil {
-					log.Fatalf("Cannot open browser: %v", err)
-				}
-				nbInspected++
-			case api.IdentifierSnapshot:
-				log.Errorf("Cannot use '--browser' option for snapshots")
-			case api.IdentifierBootscript:
-				log.Errorf("Cannot use '--browser' option for bootscripts")
-			}
-		}
-
-	} else {
-		// without --browser option, inspect will print object info to the terminal
-		res := "["
-		for {
-			data, isOpen := <-cj
-			if !isOpen {
-				break
-			}
-			if inspectFormat == "" {
-				dataB, err := json.MarshalIndent(data.Object, "", "  ")
-				if err == nil {
-					if nbInspected != 0 {
-						res += ",\n"
-					}
-					res += string(dataB)
-					nbInspected++
-				}
-			} else {
-				tmpl, err := template.New("").Funcs(api.FuncMap).Parse(inspectFormat)
-				if err != nil {
-					log.Fatalf("Format parsing error: %v", err)
-				}
-
-				err = tmpl.Execute(os.Stdout, data.Object)
-				if err != nil {
-					log.Fatalf("Format execution error: %v", err)
-				}
-				fmt.Fprint(os.Stdout, "\n")
-				nbInspected++
-			}
-		}
-		res += "]"
-
-		if inspectFormat == "" {
-			if os.Getenv("SCW_SENSITIVE") != "1" {
-				res = cmd.API.HideAPICredentials(res)
-			}
-			fmt.Println(res)
-		}
+	args := commands.InspectArgs{
+		Format:      inspectFormat,
+		Browser:     inspectBrowser,
+		Identifiers: rawArgs,
 	}
-
-	if len(args) != nbInspected {
-		os.Exit(1)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunInspect(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'inspect': %v", err)
 	}
 }
