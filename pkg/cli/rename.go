@@ -5,9 +5,9 @@
 package cli
 
 import (
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdRename = &Command{
@@ -24,23 +24,21 @@ func init() {
 // Flags
 var renameHelp bool // -h, --help flag
 
-func runRename(cmd *Command, args []string) {
+func runRename(cmd *Command, rawArgs []string) {
 	if renameHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 2 {
+	if len(rawArgs) != 2 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-
-	var server api.ScalewayServerPatchDefinition
-	server.Name = &args[1]
-
-	err := cmd.API.PatchServer(serverID, server)
+	args := commands.RenameArgs{
+		Server:  rawArgs[0],
+		NewName: rawArgs[1],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunRename(ctx, args)
 	if err != nil {
-		log.Fatalf("Cannot rename server: %v", err)
-	} else {
-		cmd.API.Cache.InsertServer(serverID, *server.Name)
+		logrus.Fatalf("Cannot execute 'rename': %v", err)
 	}
 }
