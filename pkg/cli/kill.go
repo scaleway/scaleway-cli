@@ -5,14 +5,9 @@
 package cli
 
 import (
-	"os"
-	"os/exec"
-	"strings"
+	"github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdKill = &Command{
@@ -32,45 +27,21 @@ func init() {
 var killHelp bool      // -h, --help flag
 var killGateway string // -g, --gateway flag
 
-func runKill(cmd *Command, args []string) {
+func runKill(cmd *Command, rawArgs []string) {
 	if killHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-	command := "halt"
-	server, err := cmd.API.GetServer(serverID)
+	args := commands.KillArgs{
+		Gateway: killGateway,
+		Server:  rawArgs[0],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunKill(ctx, args)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
-	}
-
-	// Resolve gateway
-	if killGateway == "" {
-		killGateway = os.Getenv("SCW_GATEWAY")
-	}
-	var gateway string
-	if killGateway == serverID || killGateway == args[0] {
-		gateway = ""
-	} else {
-		gateway, err = api.ResolveGateway(cmd.API, killGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", killGateway, err)
-		}
-	}
-
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway))
-
-	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-
-	spawn := exec.Command("ssh", execCmd...)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
-	err = spawn.Run()
-	if err != nil {
-		log.Fatal(err)
+		logrus.Fatalf("Cannot execute 'kill': %v", err)
 	}
 }
