@@ -5,9 +5,8 @@
 package cli
 
 import (
-	"fmt"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdTag = &Command{
@@ -24,23 +23,21 @@ func init() {
 // Flags
 var tagHelp bool // -h, --help flag
 
-func runTag(cmd *Command, args []string) {
+func runTag(cmd *Command, rawArgs []string) {
 	if tagHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 2 {
+	if len(rawArgs) != 2 {
 		cmd.PrintShortUsage()
 	}
 
-	snapshotID := cmd.API.GetSnapshotID(args[0])
-	snapshot, err := cmd.API.GetSnapshot(snapshotID)
-	if err != nil {
-		log.Fatalf("Cannot fetch snapshot: %v", err)
+	args := commands.TagArgs{
+		Snapshot: rawArgs[0],
+		Name:     rawArgs[1],
 	}
-
-	image, err := cmd.API.PostImage(snapshot.Identifier, args[1])
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunTag(ctx, args)
 	if err != nil {
-		log.Fatalf("Cannot create image: %v", err)
+		logrus.Fatalf("Cannot execute 'tag': %v", err)
 	}
-	fmt.Println(image)
 }
