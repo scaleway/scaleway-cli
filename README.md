@@ -1050,6 +1050,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Fixes
 
+* `scw search TERM` was not restricting results based on `TERM`
 * Bumped dependencies
 * Hiding more sensitive data ([#77](https://github.com/scaleway/scaleway-cli/issues/77))
 * Fixed "Run in Docker" usage ([#90](https://github.com/scaleway/scaleway-cli/issues/90))
