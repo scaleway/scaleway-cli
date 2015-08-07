@@ -26,8 +26,9 @@ func RunRename(ctx CommandContext, args RenameArgs) error {
 	err := ctx.API.PatchServer(serverID, server)
 	if err != nil {
 		return fmt.Errorf("cannot rename server: %v", err)
-	} else {
-		ctx.API.Cache.InsertServer(serverID, *server.Name)
 	}
+
+	ctx.API.Cache.InsertServer(serverID, *server.Name)
+
 	return nil
 }

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE.md file.
 
-// Golang structs for scw commands
+// Package commands contains the workflows behind each commands of the CLI (run, attach, start, exec, commit, ...)
 package commands
 
 import (

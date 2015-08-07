@@ -16,6 +16,7 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
+// LoginArgs are arguments passed to `RunLogin`
 type LoginArgs struct {
 	Organization string
 	Token        string

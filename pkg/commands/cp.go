@@ -18,6 +18,7 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/archive"
 )
 
+// CpArgs are arguments passed to `RunCp`
 type CpArgs struct {
 	Gateway     string
 	Source      string
@@ -27,7 +28,7 @@ type CpArgs struct {
 // RunCp is the handler for 'scw cp'
 func RunCp(ctx CommandContext, args CpArgs) error {
 	if strings.Count(args.Source, ":") > 1 || strings.Count(args.Destination, ":") > 1 {
-		return fmt.Errorf("bad usage, see 'scw help cp'.")
+		return fmt.Errorf("bad usage, see 'scw help cp'")
 	}
 
 	sourceStream, err := TarFromSource(ctx, args.Source, args.Gateway)

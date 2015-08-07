@@ -14,7 +14,7 @@ import (
 // VersionArgs are flags for the `RunVersion` function
 type VersionArgs struct{}
 
-// RunVersion is the handler for 'scw version'
+// Version is the handler for 'scw version'
 func Version(ctx CommandContext, args VersionArgs) error {
 	fmt.Fprintf(ctx.Stdout, "Client version: %s\n", scwversion.VERSION)
 	fmt.Fprintf(ctx.Stdout, "Go version (client): %s\n", runtime.Version())

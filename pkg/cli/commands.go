@@ -4,7 +4,7 @@
 
 // Docker-style commands to manage BareMetal servers
 
-// Package commands contains CLI commands
+// Package cli contains CLI commands
 package cli
 
 // Commands is the list of enabled CLI commands
