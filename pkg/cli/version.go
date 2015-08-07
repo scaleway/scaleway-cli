@@ -33,7 +33,7 @@ func runVersion(cmd *Command, rawArgs []string) {
 
 	args := commands.VersionArgs{}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunVersion(ctx, args)
+	err := commands.Version(ctx, args)
 	if err != nil {
 		logrus.Fatalf("Cannot execute 'version': %v", err)
 	}
