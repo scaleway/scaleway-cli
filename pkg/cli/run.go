@@ -5,13 +5,12 @@
 package cli
 
 import (
-	"fmt"
-	"os"
+	"strings"
 
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	api "github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdRun = &Command{
@@ -52,85 +51,39 @@ var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 
-func runRun(cmd *Command, args []string) {
+func runRun(cmd *Command, rawArgs []string) {
 	if runHelpFlag {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
-	if runAttachFlag && len(args) > 1 {
+	if runAttachFlag && len(rawArgs) > 1 {
 		log.Fatalf("Conflicting options: -a and COMMAND")
 	}
 	if runAttachFlag && runDetachFlag {
 		log.Fatalf("Conflicting options: -a and -d")
 	}
-	if runDetachFlag && len(args) > 1 {
+	if runDetachFlag && len(rawArgs) > 1 {
 		log.Fatalf("Conflicting options: -d and COMMAND")
 	}
 
-	if runGateway == "" {
-		runGateway = os.Getenv("SCW_GATEWAY")
+	args := commands.RunArgs{
+		Attach:     runAttachFlag,
+		Bootscript: runCreateBootscript,
+		Command:    rawArgs[1:],
+		Detach:     runDetachFlag,
+		Gateway:    runGateway,
+		Image:      rawArgs[0],
+		Name:       runCreateName,
+		Tags:       strings.Split(runCreateEnv, " "),
+		Volumes:    strings.Split(runCreateVolume, " "),
+		// FIXME: DynamicIPRequired
+		// FIXME: Timeout
 	}
-
-	// create IMAGE
-	log.Info("Server creation ...")
-	dynamicIPRequired := runGateway == ""
-	serverID, err := api.CreateServer(cmd.API, args[0], runCreateName, runCreateBootscript, runCreateEnv, runCreateVolume, dynamicIPRequired)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunRun(ctx, args)
 	if err != nil {
-		log.Fatalf("Failed to create server: %v", err)
-	}
-	log.Infof("Server created: %s", serverID)
-
-	// start SERVER
-	log.Info("Server start requested ...")
-	err = api.StartServer(cmd.API, serverID, false)
-	if err != nil {
-		log.Fatalf("Failed to start server %s: %v", serverID, err)
-	}
-	log.Info("Server is starting, this may take up to a minute ...")
-
-	if runDetachFlag {
-		fmt.Println(serverID)
-		return
-	}
-
-	if runAttachFlag {
-		// Attach to server serial
-		log.Info("Attaching to server console ...")
-		err = utils.AttachToSerial(serverID, cmd.API.Token, true)
-		if err != nil {
-			log.Fatalf("Cannot attach to server serial: %v", err)
-		}
-	} else {
-		// Resolve gateway
-		gateway, err := api.ResolveGateway(cmd.API, runGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", runGateway, err)
-		}
-
-		// waiting for server to be ready
-		log.Debug("Waiting for server to be ready")
-		// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
-		server, err := api.WaitForServerReady(cmd.API, serverID, gateway)
-		if err != nil {
-			log.Fatalf("Cannot get access to server %s: %v", serverID, err)
-		}
-		log.Debugf("SSH server is available: %s:22", server.PublicAddress.IP)
-		log.Info("Server is ready !")
-
-		// exec -w SERVER COMMAND ARGS...
-		if len(args) < 2 {
-			log.Info("Connecting to server ...")
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway)
-		} else {
-			log.Infof("Executing command: %s ...", args[1:])
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args[1:], false, gateway)
-		}
-		if err != nil {
-			log.Infof("Command execution failed: %v", err)
-			os.Exit(1)
-		}
-		log.Info("Command successfuly executed")
+		logrus.Fatalf("Cannot execute 'run': %v", err)
 	}
 }
