@@ -23,8 +23,8 @@ FPM_ARGS ?=	\
 
 
 NAME = scw
-SRC = .
-PACKAGES = api commands utils
+SRC = cmd/scw
+PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
@@ -43,7 +43,7 @@ COVER_LIST = $(foreach int, $(PACKAGES), $(int)_cover)
 
 
 all: build
-build: scwversion/version.go $(BUILD_LIST)
+build: pkg/scwversion/version.go $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
@@ -59,8 +59,8 @@ cover:
 	touch $@
 
 
-scwversion/version.go: .git
-	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' scwversion/version.tpl > $@.tmp
+pkg/scwversion/version.go: .git
+	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' pkg/scwversion/version.tpl > $@.tmp
 	@if [ "$$(diff $@.tmp $@ 2>&1)" != "" ]; then mv $@.tmp $@; fi
 	@rm -f $@.tmp
 
@@ -72,7 +72,7 @@ $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) ./$*
-$(IREF_LIST): %_iref: scwversion/version.go
+$(IREF_LIST): %_iref: pkg/scwversion/version.go
 	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
@@ -83,7 +83,7 @@ $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
 
-cross: scwversion/version.go
+cross: pkg/scwversion/version.go
 	docker build -t $(BUILDER) .
 	@docker rm scaleway-cli-builer 2>/dev/null || true
 	mkdir -p dist
