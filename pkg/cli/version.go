@@ -5,10 +5,8 @@
 package cli
 
 import (
-	"fmt"
-	"runtime"
-
-	"github.com/scaleway/scaleway-cli/pkg/scwversion"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdVersion = &Command{
@@ -25,17 +23,18 @@ func init() {
 // Flags
 var versionHelp bool // -h, --help flag
 
-func runVersion(cmd *Command, args []string) {
+func runVersion(cmd *Command, rawArgs []string) {
 	if versionHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 0 {
+	if len(rawArgs) != 0 {
 		cmd.PrintShortUsage()
 	}
 
-	fmt.Printf("Client version: %s\n", scwversion.VERSION)
-	fmt.Printf("Go version (client): %s\n", runtime.Version())
-	fmt.Printf("Git commit (client): %s\n", scwversion.GITCOMMIT)
-	fmt.Printf("OS/Arch (client): %s/%s\n", runtime.GOOS, runtime.GOARCH)
-	// FIXME: API version information
+	args := commands.VersionArgs{}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunVersion(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'version': %v", err)
+	}
 }
