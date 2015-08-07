@@ -7,7 +7,6 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -98,7 +97,7 @@ func RunInspect(ctx CommandContext, args InspectArgs) error {
 		res += "]"
 
 		if args.Format == "" {
-			if os.Getenv("SCW_SENSITIVE") != "1" {
+			if ctx.Getenv("SCW_SENSITIVE") != "1" {
 				res = ctx.API.HideAPICredentials(res)
 			}
 			fmt.Fprintln(ctx.Stdout, res)
@@ -106,7 +105,7 @@ func RunInspect(ctx CommandContext, args InspectArgs) error {
 	}
 
 	if len(args.Identifiers) != nbInspected {
-		os.Exit(1)
+		return fmt.Errorf("at least 1 item failed to be inspected")
 	}
 	return nil
 }

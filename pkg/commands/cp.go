@@ -30,12 +30,12 @@ func RunCp(ctx CommandContext, args CpArgs) error {
 		return fmt.Errorf("bad usage, see 'scw help cp'.")
 	}
 
-	sourceStream, err := TarFromSource(ctx.API, args.Source, args.Gateway)
+	sourceStream, err := TarFromSource(ctx, args.Source, args.Gateway)
 	if err != nil {
 		return fmt.Errorf("cannot tar from source '%s': %v", args.Source, err)
 	}
 
-	err = UntarToDest(ctx.API, sourceStream, args.Destination, args.Gateway)
+	err = UntarToDest(ctx, sourceStream, args.Destination, args.Gateway)
 	if err != nil {
 		return fmt.Errorf("cannot untar to destination '%s': %v", args.Destination, err)
 	}
@@ -43,7 +43,7 @@ func RunCp(ctx CommandContext, args CpArgs) error {
 }
 
 // TarFromSource creates a stream buffer with the tarballed content of the user source
-func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*io.ReadCloser, error) {
+func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadCloser, error) {
 	var tarOutputStream io.ReadCloser
 
 	// source is a server address + path (scp-like uri)
@@ -54,9 +54,9 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 			return nil, fmt.Errorf("invalid source uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := apiClient.GetServerID(serverParts[0])
+		serverID := ctx.API.GetServerID(serverParts[0])
 
-		server, err := apiClient.GetServer(serverID)
+		server, err := ctx.API.GetServer(serverID)
 		if err != nil {
 			return nil, err
 		}
@@ -68,7 +68,7 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 		// it streams a tarball raw content
 		remoteCommand := []string{"tar"}
 		remoteCommand = append(remoteCommand, "-C", dir)
-		if os.Getenv("DEBUG") == "1" {
+		if ctx.Getenv("DEBUG") == "1" {
 			remoteCommand = append(remoteCommand, "-v")
 		}
 		remoteCommand = append(remoteCommand, "-cf", "-")
@@ -76,13 +76,13 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 
 		// Resolve gateway
 		if gateway == "" {
-			gateway = os.Getenv("SCW_GATEWAY")
+			gateway = ctx.Getenv("SCW_GATEWAY")
 		}
 		var gateway string
 		if gateway == serverID || gateway == serverParts[0] {
 			gateway = ""
 		} else {
-			gateway, err = api.ResolveGateway(apiClient, gateway)
+			gateway, err = api.ResolveGateway(ctx.API, gateway)
 			if err != nil {
 				return nil, fmt.Errorf("cannot resolve Gateway '%s': %v", gateway, err)
 			}
@@ -103,7 +103,7 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 			return nil, err
 		}
 		defer tarErrorStream.Close()
-		io.Copy(os.Stderr, tarErrorStream)
+		io.Copy(ctx.Stderr, tarErrorStream)
 
 		err = spawnSrc.Start()
 		if err != nil {
@@ -117,6 +117,7 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 	// source is stdin
 	if source == "-" {
 		logrus.Debugf("Streaming tarball from stdin")
+		// FIXME: should be ctx.Stdin
 		tarOutputStream = os.Stdin
 		return &tarOutputStream, nil
 	}
@@ -146,7 +147,7 @@ func TarFromSource(apiClient *api.ScalewayAPI, source string, gateway string) (*
 }
 
 // UntarToDest writes to user destination the streamed tarball in input
-func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destination string, gateway string) error {
+func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination string, gateway string) error {
 	// destination is a server address + path (scp-like uri)
 	if strings.Index(destination, ":") > -1 {
 		logrus.Debugf("Streaming using ssh and untaring remotely")
@@ -155,9 +156,9 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 			return fmt.Errorf("invalid destination uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := apiClient.GetServerID(serverParts[0])
+		serverID := ctx.API.GetServerID(serverParts[0])
 
-		server, err := apiClient.GetServer(serverID)
+		server, err := ctx.API.GetServer(serverID)
 		if err != nil {
 			return err
 		}
@@ -166,20 +167,20 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 		// it streams a tarball raw content
 		remoteCommand := []string{"tar"}
 		remoteCommand = append(remoteCommand, "-C", serverParts[1])
-		if os.Getenv("DEBUG") == "1" {
+		if ctx.Getenv("DEBUG") == "1" {
 			remoteCommand = append(remoteCommand, "-v")
 		}
 		remoteCommand = append(remoteCommand, "-xf", "-")
 
 		// Resolve gateway
 		if gateway == "" {
-			gateway = os.Getenv("SCW_GATEWAY")
+			gateway = ctx.Getenv("SCW_GATEWAY")
 		}
 		var gateway string
 		if gateway == serverID || gateway == serverParts[0] {
 			gateway = ""
 		} else {
-			gateway, err = api.ResolveGateway(apiClient, gateway)
+			gateway, err = api.ResolveGateway(ctx.API, gateway)
 			if err != nil {
 				return fmt.Errorf("cannot resolve Gateway '%s': %v", gateway, err)
 			}
@@ -196,8 +197,8 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 		}
 		defer untarInputStream.Close()
 
-		// spawnDst.Stderr = os.Stderr
-		// spawnDst.Stdout = os.Stdout
+		// spawnDst.Stderr = ctx.Stderr
+		// spawnDst.Stdout = ctx.Stdout
 
 		err = spawnDst.Start()
 		if err != nil {
@@ -210,8 +211,8 @@ func UntarToDest(apiClient *api.ScalewayAPI, sourceStream *io.ReadCloser, destin
 
 	// destination is stdout
 	if destination == "-" { // stdout
-		logrus.Debugf("Writing sourceStream(%v) to os.Stdout(%v)", sourceStream, os.Stdout)
-		_, err := io.Copy(os.Stdout, *sourceStream)
+		logrus.Debugf("Writing sourceStream(%v) to ctx.Stdout(%v)", sourceStream, ctx.Stdout)
+		_, err := io.Copy(ctx.Stdout, *sourceStream)
 		return err
 	}
 

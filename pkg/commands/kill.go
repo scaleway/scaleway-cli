@@ -6,7 +6,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"strings"
 
@@ -49,9 +48,9 @@ func RunKill(ctx CommandContext, args KillArgs) error {
 	logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 
 	spawn := exec.Command("ssh", execCmd...)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
+	spawn.Stdout = ctx.Stdout
+	spawn.Stdin = ctx.Stdin
+	spawn.Stderr = ctx.Stderr
 
 	return spawn.Run()
 }

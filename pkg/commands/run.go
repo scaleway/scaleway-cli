@@ -6,7 +6,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -93,9 +92,7 @@ func RunRun(ctx CommandContext, args RunArgs) error {
 			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway)
 		}
 		if err != nil {
-			logrus.Infof("Command execution failed: %v", err)
-			// FIXME: create a new error type for silent exiting
-			os.Exit(1)
+			return fmt.Errorf("command execution failed: %v", err)
 		}
 		logrus.Info("Command successfuly executed")
 	}
