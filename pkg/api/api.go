@@ -25,8 +25,14 @@ import (
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
 type ScalewayAPI struct {
-	// APIEndpoint is the endpoint to the Scaleway API
-	APIEndPoint string
+	// ComputeAPI is the endpoint to the Scaleway API
+	ComputeAPI string
+
+	// AccountAPI is the endpoint to the Scaleway Account API
+	AccountAPI string
+
+	// APIEndPoint or ACCOUNTEndPoint
+	APIUrl string
 
 	// Organization is the identifier of the Scaleway organization
 	Organization string
@@ -500,13 +506,15 @@ var FuncMap = template.FuncMap{
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
-func NewScalewayAPI(endpoint, organization, token string) (*ScalewayAPI, error) {
+func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
 	if err != nil {
 		return nil, err
 	}
 	s := &ScalewayAPI{
-		APIEndPoint:  endpoint,
+		ComputeAPI:   apiEndPoint,
+		AccountAPI:   accountEndPoint,
+		APIUrl:       apiEndPoint,
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
@@ -523,7 +531,7 @@ func (s *ScalewayAPI) Sync() {
 
 // GetResponse returns an http.Response object for the requested resource
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	log.Debugf("GET %s", uri)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
@@ -537,7 +545,7 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 
 // PostResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
@@ -562,7 +570,7 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 
 // PatchResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
@@ -587,7 +595,7 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 
 // PutResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
@@ -612,7 +620,7 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 
 // DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIEndPoint, "/"), resource)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	client := &http.Client{}
 	log.Debugf("DELETE %s", uri)
 	req, err := http.NewRequest("DELETE", uri, nil)
@@ -1193,6 +1201,8 @@ func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
 
 // CheckCredentials performs a dummy check to ensure we can contact the API
 func (s *ScalewayAPI) CheckCredentials() error {
+	s.enableAccountApi()
+	defer s.disableAccountApi()
 	query := url.Values{}
 	query.Set("token_id", s.Token)
 	resp, err := s.GetResponse("tokens?" + query.Encode())
@@ -1310,4 +1320,12 @@ func (s *ScalewayAPI) HideAPICredentials(input string) string {
 	output := strings.Replace(input, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
 	output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
 	return output
+}
+
+func (s *ScalewayAPI) enableAccountApi() {
+	s.APIUrl = s.AccountAPI
+}
+
+func (s *ScalewayAPI) disableAccountApi() {
+	s.APIUrl = s.ComputeAPI
 }

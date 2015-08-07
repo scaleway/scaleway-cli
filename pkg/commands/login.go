@@ -6,7 +6,6 @@ package commands
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -15,7 +14,6 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 type LoginArgs struct {
@@ -34,12 +32,13 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	}
 
 	cfg := &api.Config{
-		APIEndPoint:  "https://account.scaleway.com/",
+		ComputeAPI:   "https://api.scaleway.com/",
+		AccountAPI:   "https://account.scaleway.com/",
 		Organization: strings.Trim(args.Organization, "\n"),
 		Token:        strings.Trim(args.Token, "\n"),
 	}
 
-	api, err := api.NewScalewayAPI(cfg.APIEndPoint, cfg.Organization, cfg.Token)
+	api, err := api.NewScalewayAPI(cfg.ComputeAPI, cfg.AccountAPI, cfg.Organization, cfg.Token)
 	if err != nil {
 		return fmt.Errorf("Unable to create ScalewayAPI: %s", err)
 	}
@@ -47,23 +46,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	if err != nil {
 		return fmt.Errorf("Unable to contact ScalewayAPI: %s", err)
 	}
-
-	scwrcPath, err := utils.GetConfigFilePath()
-	if err != nil {
-		return fmt.Errorf("Unable to get scwrc config file path: %s", err)
-	}
-	scwrc, err := os.OpenFile(scwrcPath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
-	if err != nil {
-		return fmt.Errorf("Unable to create scwrc config file: %s", err)
-	}
-	defer scwrc.Close()
-	encoder := json.NewEncoder(scwrc)
-	cfg.APIEndPoint = "https://api.scaleway.com/"
-	err = encoder.Encode(cfg)
-	if err != nil {
-		return fmt.Errorf("Unable to encode scw config file: %s", err)
-	}
-	return nil
+	return cfg.Save()
 }
 
 func promptUser(prompt string, output *string, echo bool) {
