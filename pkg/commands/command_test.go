@@ -14,7 +14,7 @@ import (
 )
 
 func ExampleCommandContext() CommandContext {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 	if err != nil {
 		panic(err)
 	}

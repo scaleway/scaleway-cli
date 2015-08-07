@@ -63,7 +63,7 @@ func main() {
 	}
 
 	if config != nil {
-		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.APIEndPoint, "Set the API endpoint")
+		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.ComputeAPI, "Set the API endpoint")
 	}
 	flag.Parse()
 
@@ -157,8 +157,13 @@ func getConfig() (*api.Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	// check if he has an old scwrc version
+	if config.AccountAPI == "" {
+		config.AccountAPI = "https://account.scaleway.com"
+		config.Save()
+	}
 	if os.Getenv("scaleway_api_endpoint") == "" {
-		os.Setenv("scaleway_api_endpoint", config.APIEndPoint)
+		os.Setenv("scaleway_api_endpoint", config.ComputeAPI)
 	}
 	return &config, nil
 }
@@ -170,7 +175,7 @@ func getScalewayAPI() (*api.ScalewayAPI, error) {
 	if err != nil {
 		return nil, err
 	}
-	return api.NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.Organization, config.Token)
+	return api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token)
 }
 
 func showVersion() {
