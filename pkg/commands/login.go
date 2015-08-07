@@ -8,10 +8,10 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -74,7 +74,7 @@ func promptUser(prompt string, output *string, echo bool) {
 	if !echo {
 		b, err := terminal.ReadPassword(int(os.Stdin.Fd()))
 		if err != nil {
-			log.Fatalf("Unable to prompt for password: %s", err)
+			logrus.Fatalf("Unable to prompt for password: %s", err)
 		}
 		*output = string(b)
 		fmt.Fprintf(os.Stdout, "\n")

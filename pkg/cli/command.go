@@ -8,11 +8,11 @@ package cli
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 	"text/template"
 
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	flag "github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/mflag"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -71,7 +71,7 @@ func (c *Command) Name() string {
 func (c *Command) PrintUsage() {
 	helpMessage, err := commandHelpMessage(c)
 	if err != nil {
-		log.Fatalf("%v", err)
+		logrus.Fatalf("%v", err)
 	}
 	fmt.Fprintf(os.Stderr, "%s\n", helpMessage)
 	os.Exit(1)

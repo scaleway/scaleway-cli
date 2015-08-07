@@ -5,9 +5,8 @@
 package cli
 
 import (
-	"log"
-
 	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdCommit = &Command{
@@ -50,6 +49,6 @@ func cmdExecCommit(cmd *Command, rawArgs []string) {
 	ctx := cmd.GetContext(rawArgs)
 	err := commands.RunCommit(ctx, args)
 	if err != nil {
-		log.Fatalf("Cannot execute 'commit': %v", err)
+		logrus.Fatalf("Cannot execute 'commit': %v", err)
 	}
 }

@@ -5,7 +5,7 @@
 package commands
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
@@ -25,7 +25,7 @@ func RunRename(ctx CommandContext, args RenameArgs) error {
 
 	err := ctx.API.PatchServer(serverID, server)
 	if err != nil {
-		log.Fatalf("Cannot rename server: %v", err)
+		return fmt.Errorf("cannot rename server: %v", err)
 	} else {
 		ctx.API.Cache.InsertServer(serverID, *server.Name)
 	}
