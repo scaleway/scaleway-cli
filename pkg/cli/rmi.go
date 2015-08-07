@@ -5,10 +5,8 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdRmi = &Command{
@@ -29,29 +27,20 @@ func init() {
 // Flags
 var rmiHelp bool // -h, --help flag
 
-func runRmi(cmd *Command, args []string) {
+func runRmi(cmd *Command, rawArgs []string) {
 	if rmiHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	if len(args) == 0 {
-		log.Fatalf("usage: scw %s", cmd.UsageLine)
+	args := commands.RmiArgs{
+		Images: rawArgs,
 	}
-	hasError := false
-	for _, needle := range args {
-		image := cmd.API.GetImageID(needle, true)
-		err := cmd.API.DeleteImage(image)
-		if err != nil {
-			log.Errorf("failed to delete image %s: %s", image, err)
-			hasError = true
-		} else {
-			fmt.Println(needle)
-		}
-	}
-	if hasError {
-		os.Exit(1)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunRmi(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'rmi': %v", err)
 	}
 }
