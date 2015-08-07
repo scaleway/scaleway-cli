@@ -13,7 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
-// RunArgs are flags for the `RunRun` function
+// RunArgs are flags for the `Run` function
 type RunArgs struct {
 	Attach     bool
 	Bootscript string
@@ -28,8 +28,8 @@ type RunArgs struct {
 	// Timeout
 }
 
-// RunRun is the handler for 'scw run'
-func RunRun(ctx CommandContext, args RunArgs) error {
+// Run is the handler for 'scw run'
+func Run(ctx CommandContext, args RunArgs) error {
 	if args.Gateway == "" {
 		args.Gateway = ctx.Getenv("SCW_GATEWAY")
 	}

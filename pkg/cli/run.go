@@ -82,7 +82,7 @@ func runRun(cmd *Command, rawArgs []string) {
 		// FIXME: Timeout
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunRun(ctx, args)
+	err := commands.Run(ctx, args)
 	if err != nil {
 		logrus.Fatalf("Cannot execute 'run': %v", err)
 	}
