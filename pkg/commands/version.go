@@ -15,7 +15,7 @@ import (
 type VersionArgs struct{}
 
 // RunVersion is the handler for 'scw version'
-func RunVersion(ctx CommandContext, args VersionArgs) error {
+func Version(ctx CommandContext, args VersionArgs) error {
 	fmt.Fprintf(ctx.Stdout, "Client version: %s\n", scwversion.VERSION)
 	fmt.Fprintf(ctx.Stdout, "Go version (client): %s\n", runtime.Version())
 	fmt.Fprintf(ctx.Stdout, "Git commit (client): %s\n", scwversion.GITCOMMIT)
