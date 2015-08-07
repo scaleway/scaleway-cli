@@ -5,13 +5,9 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"time"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdStart = &Command{
@@ -32,46 +28,22 @@ var startW bool          // -w flag
 var startTimeout float64 // -T flag
 var startHelp bool       // -h, --help flag
 
-func runStart(cmd *Command, args []string) {
+func runStart(cmd *Command, rawArgs []string) {
 	if startHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	hasError := false
-	errChan := make(chan error)
-	successChan := make(chan bool)
-	remainingItems := len(args)
-
-	for i := range args {
-		needle := args[i]
-		go api.StartServerOnce(cmd.API, needle, startW, successChan, errChan)
+	args := commands.StartArgs{
+		Servers: rawArgs,
+		Timeout: startTimeout,
+		Wait:    startW,
 	}
-
-	if startTimeout > 0 {
-		go func() {
-			time.Sleep(time.Duration(startTimeout*1000) * time.Millisecond)
-			log.Fatalf("Operation timed out")
-		}()
-	}
-
-	for {
-		select {
-		case _ = <-successChan:
-			remainingItems--
-		case err := <-errChan:
-			log.Errorf(fmt.Sprintf("%s", err))
-			remainingItems--
-			hasError = true
-		}
-
-		if remainingItems == 0 {
-			break
-		}
-	}
-	if hasError {
-		os.Exit(1)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunStart(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'start': %v", err)
 	}
 }
