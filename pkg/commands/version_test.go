@@ -6,29 +6,10 @@ package commands
 
 import (
 	"bytes"
-	"os"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/stretchr/testify/assert"
 )
-
-func ExampleCommandContext() CommandContext {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-	if err != nil {
-		panic(err)
-	}
-
-	ctx := CommandContext{
-		Stdin:   os.Stdin,
-		Stdout:  os.Stdout,
-		Stderr:  os.Stderr,
-		Env:     []string{},
-		RawArgs: []string{},
-		API:     apiClient,
-	}
-	return ctx
-}
 
 func TestToto(t *testing.T) {
 	ctx := ExampleCommandContext()
