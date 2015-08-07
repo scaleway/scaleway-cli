@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/stretchr/testify/assert"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/stretchr/testify/assert"
 )
 
 func ExampleCommandContext() CommandContext {
