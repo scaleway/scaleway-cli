@@ -19,6 +19,7 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
+// Command contains everything needed by the cli main loop to calls the workflow, display help and usage, and the context
 type Command struct {
 	// Exec executes the command
 	Exec func(cmd *Command, args []string)

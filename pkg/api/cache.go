@@ -70,6 +70,7 @@ type ScalewayResolverResult struct {
 	RankMatch  int
 }
 
+// ScalewayResolverResults is a list of `ScalewayResolverResult`
 type ScalewayResolverResults []ScalewayResolverResult
 
 func (s ScalewayResolverResults) Len() int {
@@ -191,6 +192,7 @@ func (c *ScalewayCache) Save() error {
 	return nil
 }
 
+// ComputeRankMatch fills `ScalewayResolverResult.RankMatch` with its `fuzzy` score
 func (s *ScalewayResolverResult) ComputeRankMatch(needle string) {
 	s.Needle = needle
 	s.RankMatch = fuzzy.RankMatch(needle, s.Name)

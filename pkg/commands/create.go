@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
+// CreateArgs are arguments passed to `RunCreate`
 type CreateArgs struct {
 	Name       string
 	Bootscript string

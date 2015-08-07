@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
 )
 
+// EventsArgs are arguments passed to `RunEvents`
 type EventsArgs struct{}
 
 // RunEvents is the handler for 'scw events'
