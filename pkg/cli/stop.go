@@ -5,13 +5,9 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"time"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdStop = &Command{
@@ -40,46 +36,22 @@ var stopT bool    // -t flag
 var stopHelp bool // -h, --help flag
 var stopW bool    // -w, --wait flat
 
-// FIXME: parallelize stop when stopping multiple servers
-func runStop(cmd *Command, args []string) {
+func runStop(cmd *Command, rawArgs []string) {
 	if stopHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) < 1 {
+	if len(rawArgs) < 1 {
 		cmd.PrintShortUsage()
 	}
 
-	hasError := false
-	for _, needle := range args {
-		serverID := cmd.API.GetServerID(needle)
-		action := "poweroff"
-		if stopT {
-			action = "terminate"
-		}
-		err := cmd.API.PostServerAction(serverID, action)
-		if err != nil {
-			if err.Error() != "server should be running" && err.Error() != "server is being stopped or rebooted" {
-				log.Warningf("failed to stop server %s: %s", serverID, err)
-				hasError = true
-			}
-		} else {
-			if stopW {
-				// We wait for 10 seconds which is the minimal amount of time needed for a server to stop
-				time.Sleep(10 * time.Second)
-				_, err = api.WaitForServerStopped(cmd.API, serverID)
-				if err != nil {
-					log.Errorf("failed to wait for server %s: %v", serverID, err)
-					hasError = true
-				}
-			}
-			if stopT {
-				cmd.API.Cache.RemoveServer(serverID)
-			}
-			fmt.Println(needle)
-		}
+	args := commands.StopArgs{
+		Terminate: stopT,
+		Wait:      stopW,
+		Servers:   rawArgs,
 	}
-
-	if hasError {
-		os.Exit(1)
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunStop(ctx, args)
+	if err != nil {
+		logrus.Fatalf("Cannot execute 'stop': %v", err)
 	}
 }
