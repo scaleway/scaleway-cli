@@ -5,15 +5,9 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"os/exec"
-	"strings"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdTop = &Command{
@@ -32,40 +26,21 @@ func init() {
 var topHelp bool      // -h, --help flag
 var topGateway string // -g, --gateway flag
 
-func runTop(cmd *Command, args []string) {
+func runTop(cmd *Command, rawArgs []string) {
 	if topHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	serverID := cmd.API.GetServerID(args[0])
-	command := "ps"
-	server, err := cmd.API.GetServer(serverID)
+	args := commands.TopArgs{
+		Gateway: topGateway,
+		Server:  rawArgs[0],
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunTop(ctx, args)
 	if err != nil {
-		log.Fatalf("Failed to get server information for %s: %v", serverID, err)
-	}
-
-	// Resolve gateway
-	if topGateway == "" {
-		topGateway = os.Getenv("SCW_GATEWAY")
-	}
-	var gateway string
-	if topGateway == serverID || topGateway == args[0] {
-		gateway = ""
-	} else {
-		gateway, err = api.ResolveGateway(cmd.API, topGateway)
-		if err != nil {
-			log.Fatalf("Cannot resolve Gateway '%s': %v", topGateway, err)
-		}
-	}
-
-	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway)
-	log.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-	out, err := exec.Command("ssh", execCmd...).CombinedOutput()
-	fmt.Printf("%s", out)
-	if err != nil {
-		log.Fatal(err)
+		logrus.Fatalf("Cannot execute 'top': %v", err)
 	}
 }
