@@ -5,14 +5,9 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"text/tabwriter"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdSearch = &Command{
@@ -31,71 +26,21 @@ func init() {
 var searchNoTrunc bool // --no-trunc flag
 var searchHelp bool    // -h, --help flag
 
-func runSearch(cmd *Command, args []string) {
+func runSearch(cmd *Command, rawArgs []string) {
 	if searchHelp {
 		cmd.PrintUsage()
 	}
-	if len(args) != 1 {
+	if len(rawArgs) != 1 {
 		cmd.PrintShortUsage()
 	}
 
-	w := tabwriter.NewWriter(os.Stdout, 10, 1, 3, ' ', 0)
-	defer w.Flush()
-	fmt.Fprintf(w, "NAME\tDESCRIPTION\tSTARS\tOFFICIAL\tAUTOMATED\n")
-
-	var entries = []api.ScalewayImageInterface{}
-
-	images, err := cmd.API.GetImages()
+	args := commands.SearchArgs{
+		Term:    rawArgs[0],
+		NoTrunc: searchNoTrunc,
+	}
+	ctx := cmd.GetContext(rawArgs)
+	err := commands.RunSearch(ctx, args)
 	if err != nil {
-		log.Fatalf("unable to fetch images from the Scaleway API: %v", err)
-	}
-	for _, val := range *images {
-		entries = append(entries, api.ScalewayImageInterface{
-			Type:   "image",
-			Name:   val.Name,
-			Public: val.Public,
-		})
-	}
-
-	snapshots, err := cmd.API.GetSnapshots()
-	if err != nil {
-		log.Fatalf("unable to fetch snapshots from the Scaleway API: %v", err)
-	}
-	for _, val := range *snapshots {
-		entries = append(entries, api.ScalewayImageInterface{
-			Type:   "snapshot",
-			Name:   val.Name,
-			Public: false,
-		})
-	}
-
-	for _, image := range entries {
-		// name field
-		name := utils.TruncIf(utils.Wordify(image.Name), 45, !searchNoTrunc)
-
-		// description field
-		var description string
-		switch image.Type {
-		case "image":
-			if image.Public {
-				description = "public image"
-			} else {
-				description = "user image"
-			}
-
-		case "snapshot":
-			description = "user snapshot"
-		}
-		description = utils.TruncIf(utils.Wordify(description), 45, !searchNoTrunc)
-
-		// official field
-		var official string
-		if image.Public {
-			official = "[OK]"
-		} else {
-			official = ""
-		}
-
-		fmt.Fprintf(w, "%s\t%s\t%d\t%s\t%s\n", name, description, 0, official, "")
+		logrus.Fatalf("Cannot execute 'search': %v", err)
 	}
 }
