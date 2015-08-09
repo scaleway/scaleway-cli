@@ -400,7 +400,7 @@ type ScalewayServer struct {
 	// StateDetail is the detailed status of the server
 	StateDetail string `json:"state_detail,omitempty"`
 
-	// PrivateIP reprensents the private IPV4 attached to the server (changes on each boot)
+	// PrivateIP represents the private IPV4 attached to the server (changes on each boot)
 	PrivateIP string `json:"private_ip,omitempty"`
 
 	// Bootscript is the unique identifier of the selected bootscript
@@ -495,6 +495,37 @@ type ScalewayImageDefinition struct {
 	Name               string `json:"name,omitempty"`
 	Organization       string `json:"organization"`
 	Arch               string `json:"arch"`
+}
+
+// ScalewayTokenUserIDRoleDefinition represents a Scaleway Token UserId Role
+type ScalewayTokenUserIDRoleDefinition struct {
+	Organization string `json:"organization,omitempty"`
+	Role         string `json:"role,omitempty"`
+}
+
+// ScalewayTokenDefinition represents a Scaleway Token
+type ScalewayTokenDefinition struct {
+	UserID             string                            `json:"user_id"`
+	Description        string                            `json:"description,omitempty"`
+	Roles              ScalewayTokenUserIDRoleDefinition `json:"roles"`
+	Expires            string                            `json:"expires"`
+	InheritsUsersPerms bool                              `json:"inherits_user_perms"`
+	ID                 string                            `json:"id"`
+}
+
+// ScalewayTokensDefinition represents a Scaleway Tokens
+type ScalewayTokensDefinition struct {
+	Tokens []ScalewayTokenDefinition `json:"tokens"`
+}
+
+// ScalewayUserPatchKeyDefinition represents a key
+type ScalewayUserPatchKeyDefinition struct {
+	Key string `json:"key"`
+}
+
+// ScalewayUserPatchDefinition represents a User Patch
+type ScalewayUserPatchDefinition struct {
+	SSHPublicKeys []ScalewayUserPatchKeyDefinition `json:"ssh_public_keys"`
 }
 
 // FuncMap used for json inspection
@@ -752,7 +783,7 @@ func (s *ScalewayAPI) DeleteServer(serverID string) error {
 func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, error) {
 	definition.Organization = s.Organization
 
-	resp, err := s.PostResponse(fmt.Sprintf("servers"), definition)
+	resp, err := s.PostResponse("servers", definition)
 	if err != nil {
 		return "", err
 	}
@@ -781,6 +812,34 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	error.StatusCode = resp.StatusCode
 	error.Debug()
 	return "", error
+}
+
+// PatchUser updates a user
+func (s *ScalewayAPI) PatchUser(UserID string, definition ScalewayUserPatchDefinition) error {
+	s.enableAccountAPI()
+	defer s.disableAccountAPI()
+	resp, err := s.PatchResponse(fmt.Sprintf("users/%s", UserID), definition)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+
+	// Succeed PATCH code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
 }
 
 // PatchServer updates a server
@@ -894,7 +953,7 @@ func (s *ScalewayAPI) PostVolume(definition ScalewayVolumeDefinition) (string, e
 	if definition.Type == "" {
 		definition.Type = "l_ssd"
 	}
-	resp, err := s.PostResponse(fmt.Sprintf("volumes"), definition)
+	resp, err := s.PostResponse("volumes", definition)
 	if err != nil {
 		return "", err
 	}
@@ -1201,8 +1260,8 @@ func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
 
 // CheckCredentials performs a dummy check to ensure we can contact the API
 func (s *ScalewayAPI) CheckCredentials() error {
-	s.enableAccountApi()
-	defer s.disableAccountApi()
+	s.enableAccountAPI()
+	defer s.disableAccountAPI()
 	query := url.Values{}
 	query.Set("token_id", s.Token)
 	resp, err := s.GetResponse("tokens?" + query.Encode())
@@ -1210,10 +1269,36 @@ func (s *ScalewayAPI) CheckCredentials() error {
 		return err
 	}
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("invalid credentials")
+		return fmt.Errorf("[%d] invalid credentials", resp.StatusCode)
 	}
 	return nil
 }
+
+// GetUserID returns the UserID
+func (s *ScalewayAPI) GetUserID() (string, error) {
+	s.enableAccountAPI()
+	defer s.disableAccountAPI()
+	resp, err := s.GetResponse("tokens")
+	if err != nil {
+		return "", err
+	}
+	if resp.StatusCode != 200 {
+		return "", fmt.Errorf("[%d] invalid credentials", resp.StatusCode)
+	}
+	defer resp.Body.Close()
+	var tokens ScalewayTokensDefinition
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&tokens)
+	if err != nil {
+		return "", err
+	}
+	if len(tokens.Tokens) == 0 {
+		return "", fmt.Errorf("Unable to get tokens")
+	}
+	return tokens.Tokens[0].UserID, nil
+}
+
+//
 
 // GetServerID returns exactly one server matching or dies
 func (s *ScalewayAPI) GetServerID(needle string) string {
@@ -1322,10 +1407,10 @@ func (s *ScalewayAPI) HideAPICredentials(input string) string {
 	return output
 }
 
-func (s *ScalewayAPI) enableAccountApi() {
+func (s *ScalewayAPI) enableAccountAPI() {
 	s.APIUrl = s.AccountAPI
 }
 
-func (s *ScalewayAPI) disableAccountApi() {
+func (s *ScalewayAPI) disableAccountAPI() {
 	s.APIUrl = s.ComputeAPI
 }

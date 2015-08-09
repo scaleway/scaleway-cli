@@ -166,8 +166,8 @@ func RemoveDuplicates(elements []string) []string {
 	return result
 }
 
-// GetConfigFilePath returns the path to the Scaleway CLI config file
-func GetConfigFilePath() (string, error) {
+// GetHomeDir returns the path to your home
+func GetHomeDir() (string, error) {
 	homeDir := os.Getenv("HOME") // *nix
 	if homeDir == "" {           // Windows
 		homeDir = os.Getenv("USERPROFILE")
@@ -175,8 +175,16 @@ func GetConfigFilePath() (string, error) {
 	if homeDir == "" {
 		return "", errors.New("user home directory not found")
 	}
+	return homeDir, nil
+}
 
-	return filepath.Join(homeDir, ".scwrc"), nil
+// GetConfigFilePath returns the path to the Scaleway CLI config file
+func GetConfigFilePath() (string, error) {
+	path, err := GetHomeDir()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(path, ".scwrc"), nil
 }
 
 const termjsBin string = "termjs-cli"
