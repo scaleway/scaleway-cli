@@ -175,7 +175,7 @@ func getScalewayAPI() (*api.ScalewayAPI, error) {
 	if err != nil {
 		return nil, err
 	}
-	return api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token)
+	return api.NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.AccountAPI, config.Organization, config.Token)
 }
 
 func showVersion() {
