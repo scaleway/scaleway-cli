@@ -1041,12 +1041,15 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Upload local ssh key to scaleway account on `scw login` ([#100](https://github.com/scaleway/scaleway-cli/issues/100))
+* Add a 'running indicator' for `scw run`, can be disabled with the new flag `--quiet`
 * Support of `scw -V/--verbose` option ([#83](https://github.com/scaleway/scaleway-cli/issues/83))
 * Support of `scw inspect --browser` option
 * Support of `scw _flush-cache` internal command
 * `scw run --gateway ...` or `SCW_GATEWAY="..." scw run ...` now creates a server without public ip address ([#74](https://github.com/scaleway/scaleway-cli/issues/74))
 * `scw inspect TYPE:xxx TYPE:yyy` will only refresh cache for `TYPE`
 * Sorting cache search by Levenshtein distance ([#87](https://github.com/scaleway/scaleway-cli/issues/87))
+* Allow set up api endpoint using the environment variable $scaleway_api_endpoint
 
 #### Fixes
 
@@ -1055,6 +1058,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Bumped dependencies
 * Hiding more sensitive data ([#77](https://github.com/scaleway/scaleway-cli/issues/77))
 * Fixed "Run in Docker" usage ([#90](https://github.com/scaleway/scaleway-cli/issues/90))
+* Improved `-D/--debug` outputs
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
 
