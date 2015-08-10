@@ -63,7 +63,11 @@ func main() {
 	}
 
 	if config != nil {
-		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, config.ComputeAPI, "Set the API endpoint")
+		defaultComputeAPI := os.Getenv("scaleway_api_endpoint")
+		if defaultComputeAPI == "" {
+			defaultComputeAPI = config.ComputeAPI
+		}
+		flAPIEndPoint = flag.String([]string{"-api-endpoint"}, defaultComputeAPI, "Set the API endpoint")
 	}
 	flag.Parse()
 
