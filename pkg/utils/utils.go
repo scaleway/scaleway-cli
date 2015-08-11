@@ -35,6 +35,13 @@ func quoteShellArgs(args []string) string {
 
 // SSHExec executes a command over SSH and redirects file-descriptors
 func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gatewayIPAddress string) error {
+	gatewayUser := "root"
+	if strings.Contains(gatewayIPAddress, "@") {
+		parts := strings.Split(gatewayIPAddress, "@")
+		gatewayUser = parts[0]
+		gatewayIPAddress = parts[1]
+	}
+
 	if publicIPAddress == "" && gatewayIPAddress == "" {
 		return errors.New("server does not have public IP")
 	}
@@ -52,7 +59,7 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 		}
 	}
 
-	execCmd := append(NewSSHExecCmd(publicIPAddress, privateIPAddress, true, nil, command, gatewayIPAddress))
+	execCmd := append(NewSSHExecCmd(publicIPAddress, privateIPAddress, true, nil, command, gatewayUser+"@"+gatewayIPAddress, "root"))
 
 	log.Debugf("Executing: ssh %s", quoteShellArgs(execCmd))
 
@@ -64,8 +71,9 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIPAddress string) []string {
+func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIPAddress string, sshUser string) []string {
 	useGateway := gatewayIPAddress != ""
+
 	execCmd := []string{}
 
 	if os.Getenv("DEBUG") != "1" {
@@ -80,9 +88,16 @@ func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY 
 		execCmd = append(execCmd, strings.Join(sshOptions, " "))
 	}
 
-	execCmd = append(execCmd, "-l", "root")
+	execCmd = append(execCmd, "-l", sshUser)
 	if useGateway {
-		proxyCommand := NewSSHExecCmd(gatewayIPAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "")
+		gatewayUser := "root"
+		if useGateway && strings.Contains(gatewayIPAddress, "@") {
+			parts := strings.Split(gatewayIPAddress, "@")
+			gatewayUser = parts[0]
+			gatewayIPAddress = parts[1]
+		}
+
+		proxyCommand := NewSSHExecCmd(gatewayIPAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "", gatewayUser)
 		execCmd = append(execCmd, privateIPAddress, "-o", "ProxyCommand=ssh "+strings.Join(proxyCommand, " "))
 	} else {
 		execCmd = append(execCmd, publicIPAddress)

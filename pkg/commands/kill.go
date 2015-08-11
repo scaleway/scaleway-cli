@@ -43,7 +43,7 @@ func RunKill(ctx CommandContext, args KillArgs) error {
 		}
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway))
+	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway, "root"))
 
 	logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
 
