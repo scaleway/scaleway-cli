@@ -24,7 +24,7 @@ FPM_ARGS ?=	\
 
 NAME = scw
 SRC = cmd/scw
-PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli
+PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
