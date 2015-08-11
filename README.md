@@ -1041,6 +1041,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))
 * Upload local ssh key to scaleway account on `scw login` ([#100](https://github.com/scaleway/scaleway-cli/issues/100))
 * Add a 'running indicator' for `scw run`, can be disabled with the new flag `--quiet`
 * Support of `scw -V/--verbose` option ([#83](https://github.com/scaleway/scaleway-cli/issues/83))
