@@ -16,30 +16,22 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
-	"strconv"
 	"strings"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
-// quoteShellArgs transforms an array of shell arguments ([]string) into a copy/paste-able string
-func quoteShellArgs(args []string) string {
-	output := ""
-	for _, arg := range args {
-		output += " "
-		output += strconv.Quote(arg)
-	}
-	return output
-}
-
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gatewayIPAddress string) error {
+func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gateway string) error {
 	gatewayUser := "root"
-	if strings.Contains(gatewayIPAddress, "@") {
+	gatewayIPAddress := gateway
+	if strings.Contains(gateway, "@") {
 		parts := strings.Split(gatewayIPAddress, "@")
 		gatewayUser = parts[0]
 		gatewayIPAddress = parts[1]
+		gateway = gatewayUser + "@" + gatewayIPAddress
 	}
 
 	if publicIPAddress == "" && gatewayIPAddress == "" {
@@ -59,11 +51,11 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 		}
 	}
 
-	execCmd := append(NewSSHExecCmd(publicIPAddress, privateIPAddress, true, nil, command, gatewayUser+"@"+gatewayIPAddress, "root"))
+	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, true, command, gateway)
 
-	log.Debugf("Executing: ssh %s", quoteShellArgs(execCmd))
+	log.Debugf("Executing: %s", sshCommand)
 
-	spawn := exec.Command("ssh", execCmd...)
+	spawn := exec.Command("ssh", sshCommand.Slice()[1:]...)
 	spawn.Stdout = os.Stdout
 	spawn.Stdin = os.Stdin
 	spawn.Stderr = os.Stderr
@@ -71,55 +63,30 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, sshOptions []string, command []string, gatewayIPAddress string, sshUser string) []string {
-	useGateway := gatewayIPAddress != ""
-
-	execCmd := []string{}
-
-	if os.Getenv("DEBUG") != "1" {
-		execCmd = append(execCmd, "-q")
+func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, command []string, gatewayIPAddress string) *sshcommand.Command {
+	quiet := os.Getenv("DEBUG") != "1"
+	secureExec := os.Getenv("exec_secure") == "1"
+	sshCommand := &sshcommand.Command{
+		AllocateTTY:         true,
+		Command:             command,
+		Host:                publicIPAddress,
+		Quiet:               quiet,
+		SkipHostKeyChecking: !secureExec,
+		User:                "root",
+		NoEscapeCommand:     true,
 	}
-
-	if os.Getenv("exec_secure") != "1" {
-		execCmd = append(execCmd, "-o", "UserKnownHostsFile=/dev/null", "-o", "StrictHostKeyChecking=no")
-	}
-
-	if len(sshOptions) > 0 {
-		execCmd = append(execCmd, strings.Join(sshOptions, " "))
-	}
-
-	execCmd = append(execCmd, "-l", sshUser)
-	if useGateway {
-		gatewayUser := "root"
-		if useGateway && strings.Contains(gatewayIPAddress, "@") {
-			parts := strings.Split(gatewayIPAddress, "@")
-			gatewayUser = parts[0]
-			gatewayIPAddress = parts[1]
+	if gatewayIPAddress != "" {
+		sshCommand.Host = privateIPAddress
+		sshCommand.Gateway = &sshcommand.Command{
+			Host:                gatewayIPAddress,
+			SkipHostKeyChecking: !secureExec,
+			AllocateTTY:         true,
+			Quiet:               quiet,
+			User:                "root",
 		}
-
-		proxyCommand := NewSSHExecCmd(gatewayIPAddress, "", allocateTTY, []string{"-W", "%h:%p"}, nil, "", gatewayUser)
-		execCmd = append(execCmd, privateIPAddress, "-o", "ProxyCommand=ssh "+strings.Join(proxyCommand, " "))
-	} else {
-		execCmd = append(execCmd, publicIPAddress)
 	}
 
-	if allocateTTY {
-		execCmd = append(execCmd, "-t", "-t")
-	}
-
-	if len(command) > 0 {
-		execCmd = append(execCmd, "--", "/bin/sh", "-e")
-
-		if os.Getenv("DEBUG") == "1" {
-			execCmd = append(execCmd, "-x")
-		}
-
-		execCmd = append(execCmd, "-c")
-
-		execCmd = append(execCmd, fmt.Sprintf("%q", strings.Join(command, " ")))
-	}
-
-	return execCmd
+	return sshCommand
 }
 
 // WaitForTCPPortOpen calls IsTCPPortOpen in a loop

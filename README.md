@@ -1054,6 +1054,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Fixes
 
+* Moved ssh command generation code to dedicated package
 * Global refactor to improve Golang library usage, allow chaining of commands and ease the writing of unit tests ([#80](https://github.com/scaleway/scaleway-cli/issues/80))
 * `scw search TERM` was not restricting results based on `TERM`
 * Bumped dependencies

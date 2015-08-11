@@ -90,9 +90,9 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, gateway, "root"))
-		logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-		spawnSrc := exec.Command("ssh", execCmd...)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, gateway)
+		logrus.Debugf("Executing: %s", sshCommand)
+		spawnSrc := exec.Command("ssh", sshCommand.Slice()[1:]...)
 
 		tarOutputStream, err = spawnSrc.StdoutPipe()
 		if err != nil {
@@ -188,9 +188,9 @@ func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination st
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, nil, remoteCommand, gateway, "root"))
-		logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-		spawnDst := exec.Command("ssh", execCmd...)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, gateway)
+		logrus.Debugf("Executing: %s", sshCommand)
+		spawnDst := exec.Command("ssh", sshCommand.Slice()[1:]...)
 
 		untarInputStream, err := spawnDst.StdinPipe()
 		if err != nil {
