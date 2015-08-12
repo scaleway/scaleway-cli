@@ -42,16 +42,16 @@ func ExampleCommand_gateway() *Command {
 	}
 }
 
-func ExampleCommandNew() *Command {
+func ExampleCommand_New() *Command {
 	return New("1.2.3.4")
 }
 
-func ExampleCommandString() {
+func ExampleCommand_String() {
 	fmt.Println(New("1.2.3.4").String())
 	// Output: ssh 1.2.3.4
 }
 
-func ExampleCommandString_options() {
+func ExampleCommand_String_options() {
 	command := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
@@ -66,7 +66,7 @@ func ExampleCommandString_options() {
 	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no 1.2.3.4 -t -t -- /bin/sh -e -x -c "\"\\\"echo\\\" \\\"hello world\\\"\""
 }
 
-func ExampleCommandString_complex() {
+func ExampleCommand_String_complex() {
 	command := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
@@ -87,17 +87,17 @@ func ExampleCommandString_complex() {
 	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t" 1.2.3.4 -t -t -- /bin/sh -e -c "\"\\\"echo\\\" \\\"hello world\\\"\""
 }
 
-func ExampleCommandSlice() {
+func ExampleCommand_Slice() {
 	fmt.Println(New("1.2.3.4").Slice())
 	// Output: [ssh 1.2.3.4]
 }
 
-func ExampleCommandSlice_user() {
+func ExampleCommand_Slice_user() {
 	fmt.Println(New("root@1.2.3.4").Slice())
 	// Output: [ssh -l root 1.2.3.4]
 }
 
-func ExampleCommandSlice_options() {
+func ExampleCommand_Slice_options() {
 	command := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
@@ -113,7 +113,7 @@ func ExampleCommandSlice_options() {
 	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-l" "root" "1.2.3.4" "-t" "-t" "--" "/bin/sh" "-e" "-x" "-c" "\"\\\"echo\\\" \\\"hello world\\\"\""]
 }
 
-func ExampleCommandSlice_gateway() {
+func ExampleCommand_Slice_gateway() {
 	command := Command{
 		Host:    "1.2.3.4",
 		Gateway: New("5.6.7.8"),
@@ -124,7 +124,7 @@ func ExampleCommandSlice_gateway() {
 	// ["ssh" "-o" "ProxyCommand=ssh -W %h:%p 5.6.7.8" "1.2.3.4"]
 }
 
-func ExampleCommandSlice_complex() {
+func ExampleCommand_Slice_complex() {
 	command := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
