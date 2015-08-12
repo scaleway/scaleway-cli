@@ -7,7 +7,6 @@ package commands
 import (
 	"fmt"
 	"os/exec"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
@@ -43,11 +42,11 @@ func RunKill(ctx CommandContext, args KillArgs) error {
 		}
 	}
 
-	execCmd := append(utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway, "root"))
+	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, gateway)
 
-	logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
+	logrus.Debugf("Executing: %s", sshCommand)
 
-	spawn := exec.Command("ssh", execCmd...)
+	spawn := exec.Command("ssh", sshCommand.Slice()[1:]...)
 	spawn.Stdout = ctx.Stdout
 	spawn.Stdin = ctx.Stdin
 	spawn.Stderr = ctx.Stderr

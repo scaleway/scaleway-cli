@@ -7,7 +7,6 @@ package commands
 import (
 	"fmt"
 	"os/exec"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
@@ -43,9 +42,9 @@ func RunTop(ctx CommandContext, args TopArgs) error {
 		}
 	}
 
-	execCmd := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, nil, []string{command}, gateway, "root")
-	logrus.Debugf("Executing: ssh %s", strings.Join(execCmd, " "))
-	out, err := exec.Command("ssh", execCmd...).CombinedOutput()
+	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, gateway)
+	logrus.Debugf("Executing: %s", sshCommand)
+	out, err := exec.Command("ssh", sshCommand.Slice()[1:]...).CombinedOutput()
 	fmt.Printf("%s", out)
 	return err
 }
