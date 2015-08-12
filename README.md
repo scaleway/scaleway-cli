@@ -1051,6 +1051,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw inspect TYPE:xxx TYPE:yyy` will only refresh cache for `TYPE`
 * Sorting cache search by Levenshtein distance ([#87](https://github.com/scaleway/scaleway-cli/issues/87))
 * Allow set up api endpoint using the environment variable $scaleway_api_endpoint
+* Use TLS and verify can now be disabled using `SCALEWAY_TLSVERIFY=0` env var ([#115](https://github.com/scaleway/scaleway-cli/issues/115))
 
 #### Fixes
 

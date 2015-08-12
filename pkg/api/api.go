@@ -9,6 +9,7 @@ package api
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -43,6 +44,7 @@ type ScalewayAPI struct {
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
+	client   *http.Client
 	anonuuid anonuuid.AnonUUID
 }
 
@@ -543,13 +545,23 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		return nil, err
 	}
 	s := &ScalewayAPI{
+		// exposed
 		ComputeAPI:   apiEndPoint,
 		AccountAPI:   accountEndPoint,
 		APIUrl:       apiEndPoint,
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
-		anonuuid:     *anonuuid.New(),
+
+		// internal
+		anonuuid: *anonuuid.New(),
+		client:   &http.Client{},
+	}
+
+	if os.Getenv("SCALEWAY_TLSVERIFY") == "0" {
+		s.client.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
 	}
 
 	return s, nil
@@ -564,20 +576,18 @@ func (s *ScalewayAPI) Sync() {
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	log.Debugf("GET %s", uri)
-	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
-	return client.Do(req)
+	return s.client.Do(req)
 }
 
 // PostResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -596,13 +606,12 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
-	return client.Do(req)
+	return s.client.Do(req)
 }
 
 // PatchResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -621,13 +630,12 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
-	return client.Do(req)
+	return s.client.Do(req)
 }
 
 // PutResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	client := &http.Client{}
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -646,13 +654,12 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
-	return client.Do(req)
+	return s.client.Do(req)
 }
 
 // DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	client := &http.Client{}
 	log.Debugf("DELETE %s", uri)
 	req, err := http.NewRequest("DELETE", uri, nil)
 	if err != nil {
@@ -660,7 +667,7 @@ func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
-	return client.Do(req)
+	return s.client.Do(req)
 }
 
 // GetServers gets the list of servers from the ScalewayAPI
