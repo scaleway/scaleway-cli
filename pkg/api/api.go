@@ -9,6 +9,7 @@ package api
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -555,6 +556,12 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		// internal
 		anonuuid: *anonuuid.New(),
 		client:   &http.Client{},
+	}
+
+	if os.Getenv("SCALEWAY_TLSVERIFY") == "0" {
+		s.client.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
 	}
 
 	return s, nil
