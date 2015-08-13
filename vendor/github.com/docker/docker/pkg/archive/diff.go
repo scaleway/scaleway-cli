@@ -16,7 +16,10 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/system"
 )
 
-func UnpackLayer(dest string, layer ArchiveReader) (size int64, err error) {
+// UnpackLayer unpack `layer` to a `dest`. The stream `layer` can be
+// compressed or uncompressed.
+// Returns the size in bytes of the contents of the layer.
+func UnpackLayer(dest string, layer Reader) (size int64, err error) {
 	tr := tar.NewReader(layer)
 	trBuf := pools.BufioReader32KPool.Get(tr)
 	defer pools.BufioReader32KPool.Put(trBuf)
@@ -55,7 +58,7 @@ func UnpackLayer(dest string, layer ArchiveReader) (size int64, err error) {
 		// TODO Windows. Once the registry is aware of what images are Windows-
 		// specific or Linux-specific, this warning should be changed to an error
 		// to cater for the situation where someone does manage to upload a Linux
-		// image but have it tagged as Windows inadvertantly.
+		// image but have it tagged as Windows inadvertently.
 		if runtime.GOOS == "windows" {
 			if strings.Contains(hdr.Name, ":") {
 				logrus.Warnf("Windows: Ignoring %s (is this a Linux image?)", hdr.Name)
@@ -177,7 +180,7 @@ func UnpackLayer(dest string, layer ArchiveReader) (size int64, err error) {
 // and applies it to the directory `dest`. The stream `layer` can be
 // compressed or uncompressed.
 // Returns the size in bytes of the contents of the layer.
-func ApplyLayer(dest string, layer ArchiveReader) (int64, error) {
+func ApplyLayer(dest string, layer Reader) (int64, error) {
 	return applyLayerHandler(dest, layer, true)
 }
 
@@ -185,12 +188,12 @@ func ApplyLayer(dest string, layer ArchiveReader) (int64, error) {
 // `layer`, and applies it to the directory `dest`. The stream `layer`
 // can only be uncompressed.
 // Returns the size in bytes of the contents of the layer.
-func ApplyUncompressedLayer(dest string, layer ArchiveReader) (int64, error) {
+func ApplyUncompressedLayer(dest string, layer Reader) (int64, error) {
 	return applyLayerHandler(dest, layer, false)
 }
 
 // do the bulk load of ApplyLayer, but allow for not calling DecompressStream
-func applyLayerHandler(dest string, layer ArchiveReader, decompress bool) (int64, error) {
+func applyLayerHandler(dest string, layer Reader, decompress bool) (int64, error) {
 	dest = filepath.Clean(dest)
 
 	// We need to be able to set any perms

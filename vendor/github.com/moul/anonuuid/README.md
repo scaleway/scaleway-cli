@@ -12,32 +12,6 @@ new one.
 The fake UUIDs are cached, so if anonuuid encounter the same real UUIDs multiple
 times, the translation will be the same.
 
-## Usage
-
-```console
-$ anonuuid -h
-NAME:
-   anonuuid - Anonymize UUIDs outputs
-
-USAGE:
-   anonuuid [global options] command [command options] [arguments...]
-
-VERSION:
-   1.0.0-dev
-
-AUTHOR(S):
-   Manfred Touron <https://github.com/moul>
-
-COMMANDS:
-   help, h    Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --hexspeak        Generate hexspeak style fake UUIDs
-   --random, -r        Generate random fake UUIDs
-   --help, -h        show help
-   --version, -v    print the version
-```
-
 ## Example
 
 Replace all UUIDs and cache the correspondance.
