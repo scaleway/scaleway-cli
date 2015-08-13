@@ -146,3 +146,9 @@ golint:
 
 party:
 	party -c -d=vendor
+
+
+.PHONY: convey
+convey:
+	go get github.com/smartystreets/goconvey
+	goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
