@@ -65,18 +65,58 @@ For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway
 
 ## Setup
 
-To install Scaleway CLI 1.3.0, run the following commands:
+We recommend to use the latest version, using:
 
-```bash
-curl -L https://github.com/scaleway/scaleway-cli/releases/download/v1.3.0/scw-`uname -s`-`uname -m` > /usr/local/bin/scw
-chmod +x /usr/local/bin/scw
+```shell
+go get -u github.com/scaleway/scaleway-cli/cmd/scw
 ```
 
-To install Scaleway CLI master git, run the following command:
+or
+
+```shell
+brew install "https://raw.githubusercontent.com/scaleway/scaleway-cli/master/contrib/builder/homebrew/scw.rb" --HEAD
+```
+
+---
+
+To install a release, checkout the [latest release page](https://github.com/scaleway/scaleway-cli/releases/latest).
+
+Install the latest stable release on Mac OS X using [Homebrew](http://brew.sh):
 
 ```bash
-go get github.com/scaleway/scaleway-cli/...
+brew install scw
 ```
+
+Install the latest stable release on Mac OS X manually:
+
+```bash
+# prepare for forst install and upgrade
+mkdir -p /usr/local/bin
+mv /usr/local/bin/scw /tmp/scw.old
+
+# get latest release
+export VERSION=v1.4.0-rc1
+wget "https://github.com/scaleway/scaleway-cli/releases/download/${VERSION}/scw_${VERSION}_darwin_amd64.zip" -O /tmp/scw.zip
+unzip /tmp/scw.zip \*/scw -d /tmp
+mv /tmp/scw_*/scw /usr/local/bin
+rm -rf /tmp/scw.zip /tmp/scw_*_darwin_amd64
+
+# test
+scw version
+```
+
+Install the latest release on Linux:
+
+```bash
+# get latest release
+export ARCH=amd64  # can be 'i386', 'amd64' or 'arm'
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.4.0-rc1/scw_v1.4.0-rc1_${ARCH}.deb" -O /tmp/scw.deb
+dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
+
+# test
+scw version
+```
+
 
 ### Requirements
 
@@ -1056,6 +1096,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Sorting cache search by Levenshtein distance ([#87](https://github.com/scaleway/scaleway-cli/issues/87))
 * Allow set up api endpoint using the environment variable $scaleway_api_endpoint
 * Use TLS and verify can now be disabled using `SCALEWAY_TLSVERIFY=0` env var ([#115](https://github.com/scaleway/scaleway-cli/issues/115))
+* Switched to `goxc` for releases
 
 #### Fixes
 

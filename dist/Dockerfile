@@ -1,6 +1,6 @@
 FROM scratch
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
-ADD ssl.tar /
-COPY scw-Linux-i386 /bin/scw
+ADD latest/ssl.tar /
+COPY latest/scw-Linux-i386 /bin/scw
 VOLUME /root/
 ENTRYPOINT ["/bin/scw"]
