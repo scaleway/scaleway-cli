@@ -11,3 +11,6 @@ dist/
 profile.cov
 profile.out
 .vendor
+
+man/man1
+man/man5
