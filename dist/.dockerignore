@@ -1,7 +1,5 @@
-scw-Darwin-*
-scw-Windows-*
-scw-Freebsd-*
-scw-Linux-arm*
-scw-Linux-x86*
+*.zip
+*.tar.gz
+*.deb
 Dockerfile
 .dockerignore

@@ -83,23 +83,41 @@ $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
 
-cross: pkg/scwversion/version.go
-	docker build -t $(BUILDER) .
-	@docker rm scaleway-cli-builer 2>/dev/null || true
-	mkdir -p dist
-	docker run --name=$(BUILDER) $(BUILDER) tar -cf - /etc/ssl > dist/ssl.tar
-	docker cp $(BUILDER):/go/bin tmp
-	docker rm $(BUILDER)
-	touch tmp/bin/*
-	mv tmp/bin/* dist/
-	rm -rf tmp
-
-
 release-docker:
+	docker push scaleway/cli
+
+
+goxc: pkg/scwversion/version.go
+	rm -rf dist/$(shell cat .goxc.json| jq -r .PackageVersion)
+	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
+	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
+
+	goxc
+
+	mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
+	mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
+	mv dist/latest/freebsd_386/scw        dist/latest/scw-Freebsd-i386
+	mv dist/latest/freebsd_amd64/scw      dist/latest/scw-Freebsd-x86_64
+	mv dist/latest/freebsd_arm/scw        dist/latest/scw-Freebsd-arm
+	mv dist/latest/linux_386/scw          dist/latest/scw-Linux-i386
+	mv dist/latest/linux_amd64/scw        dist/latest/scw-Linux-x86_64
+	mv dist/latest/linux_arm/scw          dist/latest/scw-Linux-arm
+	mv dist/latest/netbsd_386/scw         dist/latest/scw-Netbsd-i386
+	mv dist/latest/netbsd_amd64/scw       dist/latest/scw-Netbsd-x86_64
+	mv dist/latest/netbsd_arm/scw         dist/latest/scw-Netbsd-arm
+	mv dist/latest/windows_386/scw.exe    dist/latest/scw-Windows-i386.exe
+	mv dist/latest/windows_amd64/scw.exe  dist/latest/scw-Windows-x86_64.exe
+
+	cp dist/latest/scw-Linux-arm dist/latest/scw-Linux-armv7l
+
+	@rmdir dist/latest/* || true
+
+	docker run --rm golang tar -cf - /etc/ssl > dist/latest/ssl.tar
 	docker build -t scaleway/cli dist
 	docker run scaleway/cli version
 	docker tag -f scaleway/cli:latest scaleway/cli:$(TAG)
-	@echo "   Now you can run 'docker push scaleway/cli'"
+
+	@echo "Now you can run 'goxc publish-github', 'goxc bintray' and 'make release-docker'"
 
 
 packages:

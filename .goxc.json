@@ -1,0 +1,49 @@
+{
+	"AppName": "scw",
+	"ArtifactsDest": "dist",
+	"OutPath": "{{.Dest}}{{.PS}}{{.Version}}{{.PS}}{{.Os}}_{{.Arch}}{{.PS}}{{.ExeName}}{{.Ext}}",
+	"Tasks": [
+		"default",
+		"deb-source",
+		"downloads-page"
+	],
+	"TasksExclude": [
+		"go-test",
+		"bintray",
+		"go-vet",
+		"rmbin",
+		"publish-github"
+	],
+	"BuildConstraints": "darwin linux windows freebsd netbsd",
+	"ResourcesExclude": "*.go .goxc-temp",
+	"MainDirsExclude": "vendor,Godeps,testdata",
+	"PackageVersion": "v1.4.0-rc1",
+	"TaskSettings": {
+		"bintray": {
+			"downloadspage": "bintray.md",
+			"package": "scaleway-cli",
+			"repository": "utils",
+			"subject": "scaleway"
+		},
+		"codesign": {
+			"id": "scaleway-cli"
+		},
+		"downloads-page": {
+			"filename": "index.md",
+			"templateFile": "downloads.tpl"
+		},
+		"publish-github": {
+			"owner": "scaleway",
+			"prerelease": false,
+			"repository": "scaleway-cli"
+		}
+	},
+	"ConfigVersion": "0.9",
+	"BuildSettings": {
+		"LdFlags": "-s",
+		"LdFlagsXVars": {
+			"TimeNow": "main.BUILD_DATE",
+			"Version": "main.VERSION"
+		}
+	}
+}
