@@ -24,6 +24,7 @@ type RunArgs struct {
 	Name       string
 	Tags       []string
 	Volumes    []string
+	AutoRemove bool
 	// DynamicIPRequired
 	// Timeout
 }
@@ -45,6 +46,10 @@ func Run(ctx CommandContext, args RunArgs) error {
 		return fmt.Errorf("failed to create server: %v", err)
 	}
 	logrus.Infof("Server created: %s", serverID)
+
+	if args.AutoRemove {
+		defer ctx.API.DeleteServerSafe(serverID)
+	}
 
 	// start SERVER
 	logrus.Info("Server start requested ...")

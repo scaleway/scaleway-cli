@@ -20,6 +20,8 @@ var cmdRun = &Command{
 	Help:        "Run a command in a new server.",
 	Examples: `
     $ scw run ubuntu-trusty
+    $ scw run --rm ubuntu-trusty
+    $ scw run -a --rm ubuntu-trusty
     $ scw run --gateway=myotherserver ubuntu-trusty
     $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
@@ -38,11 +40,13 @@ func init() {
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	// FIXME: handle start --timeout
 }
 
 // Flags
 var runCreateName string       // --name flag
+var runAutoRemove bool         // --rm flag
 var runCreateBootscript string // --bootscript flag
 var runCreateEnv string        // -e, --env flag
 var runCreateVolume string     // -v, --volume flag
@@ -67,6 +71,9 @@ func runRun(cmd *Command, rawArgs []string) {
 	if runDetachFlag && len(rawArgs) > 1 {
 		log.Fatalf("Conflicting options: -d and COMMAND")
 	}
+	if runAutoRemove && runDetachFlag {
+		log.Fatalf("Conflicting options: --attach and --rm")
+	}
 
 	args := commands.RunArgs{
 		Attach:     runAttachFlag,
@@ -78,6 +85,7 @@ func runRun(cmd *Command, rawArgs []string) {
 		Name:       runCreateName,
 		Tags:       strings.Split(runCreateEnv, " "),
 		Volumes:    strings.Split(runCreateVolume, " "),
+		AutoRemove: runAutoRemove,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
 	}

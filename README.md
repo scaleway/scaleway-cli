@@ -589,11 +589,14 @@ Options:
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
   --name=""             Assign a name
+  --rm=false            Automatically remove the server when it exits
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
     $ scw run ubuntu-trusty
+    $ scw run --rm ubuntu-trusty
+    $ scw run -a --rm ubuntu-trusty
     $ scw run --gateway=myotherserver ubuntu-trusty
     $ scw run ubuntu-trusty bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
@@ -1041,7 +1044,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
-* Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))
+* Support -f `scw run --rm` option ([#117](https://github.com/scaleway/scaleway-cli/issues/117))
+* Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))p
 * Upload local ssh key to scaleway account on `scw login` ([#100](https://github.com/scaleway/scaleway-cli/issues/100))
 * Add a 'running indicator' for `scw run`, can be disabled with the new flag `--quiet`
 * Support of `scw -V/--verbose` option ([#83](https://github.com/scaleway/scaleway-cli/issues/83))

@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/namesgenerator"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
@@ -508,4 +509,24 @@ func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan cha
 
 	fmt.Println(needle)
 	successChan <- true
+}
+
+// DeleteServerSafe tries to delete a server using multiple ways
+func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
+	// FIXME: also delete attached volumes and ip address
+	err := a.DeleteServer(serverID)
+	if err == nil {
+		logrus.Infof("Server '%s' successfuly deleted", serverID)
+		return nil
+	}
+
+	err = a.PostServerAction(serverID, "terminate")
+	if err == nil {
+		logrus.Infof("Server '%s' successfuly terminated", serverID)
+		return nil
+	}
+
+	logrus.Errorf("Failed to delete server %s", serverID)
+	logrus.Errorf("Try to run 'scw rm %s' later", serverID)
+	return err
 }
