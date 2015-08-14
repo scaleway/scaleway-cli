@@ -1,60 +1,44 @@
 package utils
 
-import "testing"
+import (
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
+)
 
 func TestWordify(t *testing.T) {
-	actual := Wordify("Hello World 42 !!")
-	expected := "Hello_World_42"
-	if actual != expected {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
+	Convey("Testing Wordify()", t, func() {
+		So(Wordify("Hello World 42 !!"), ShouldEqual, "Hello_World_42")
+		So(Wordify("  Hello   World   42   !!  "), ShouldEqual, "Hello_World_42")
+		So(Wordify("Hello_World_42"), ShouldEqual, "Hello_World_42")
+		So(Wordify(""), ShouldEqual, "")
+	})
 }
 
 func TestTruncIf(t *testing.T) {
-	actual := TruncIf("Hello World", 5, false)
-	expected := "Hello World"
-	if actual != expected {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
-
-	actual = TruncIf("Hello World", 5, true)
-	expected = "Hello"
-	if actual != expected {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
-
-	actual = TruncIf("Hello World", 50, false)
-	expected = "Hello World"
-	if actual != expected {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
-
-	actual = TruncIf("Hello World", 50, true)
-	expected = "Hello World"
-	if actual != expected {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
+	Convey("Testing TruncIf()", t, func() {
+		So(TruncIf("Hello World", 5, false), ShouldEqual, "Hello World")
+		So(TruncIf("Hello World", 5, true), ShouldEqual, "Hello")
+		So(TruncIf("Hello World", 50, false), ShouldEqual, "Hello World")
+		So(TruncIf("Hello World", 50, true), ShouldEqual, "Hello World")
+	})
 }
 
 func TestPathToTARPathparts(t *testing.T) {
-	dir, base := PathToTARPathparts("/etc/passwd")
-	expected := []string{"/etc", "passwd"}
-	actual := []string{dir, base}
-	if actual[0] != expected[0] || actual[1] != expected[1] {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
+	Convey("Testing PathToTARPathparts()", t, func() {
+		dir, base := PathToTARPathparts("/etc/passwd")
+		So([]string{"/etc", "passwd"}, ShouldResemble, []string{dir, base})
 
-	dir, base = PathToTARPathparts("/etc")
-	expected = []string{"/", "etc"}
-	actual = []string{dir, base}
-	if actual[0] != expected[0] || actual[1] != expected[1] {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
+		dir, base = PathToTARPathparts("/etc")
+		So([]string{"/", "etc"}, ShouldResemble, []string{dir, base})
 
-	dir, base = PathToTARPathparts("/etc/")
-	expected = []string{"/", "etc"}
-	actual = []string{dir, base}
-	if actual[0] != expected[0] || actual[1] != expected[1] {
-		t.Errorf("returned value is invalid [actual: %s][expected: %s]", actual, expected)
-	}
+		dir, base = PathToTARPathparts("/etc/")
+		So([]string{"/", "etc"}, ShouldResemble, []string{dir, base})
+
+		dir, base = PathToTARPathparts("/long/path/to/file")
+		So([]string{"/long/path/to", "file"}, ShouldResemble, []string{dir, base})
+
+		dir, base = PathToTARPathparts("/long/path/to/dir/")
+		So([]string{"/long/path/to", "dir"}, ShouldResemble, []string{dir, base})
+	})
 }
