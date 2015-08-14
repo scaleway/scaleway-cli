@@ -1,6 +1,11 @@
 package sshcommand
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
+)
 
 func ExampleCommand() *Command {
 	return &Command{
@@ -144,4 +149,75 @@ func ExampleCommand_Slice_complex() {
 
 	// Output:
 	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-o" "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t" "1.2.3.4" "-t" "-t" "--" "/bin/sh" "-e" "-c" "\"echo hello world\""]
+}
+
+func TestCommand_defaults(t *testing.T) {
+	Convey("Testing Command{} default values", t, func() {
+		command := Command{}
+		So(command.Host, ShouldEqual, "")
+		So(command.Port, ShouldEqual, 0)
+		So(command.User, ShouldEqual, "")
+		So(command.SkipHostKeyChecking, ShouldEqual, false)
+		So(command.Quiet, ShouldEqual, false)
+		So(len(command.SSHOptions), ShouldEqual, 0)
+		So(command.Gateway, ShouldEqual, nil)
+		So(command.AllocateTTY, ShouldEqual, false)
+		So(len(command.Command), ShouldEqual, 0)
+		So(command.Debug, ShouldEqual, false)
+		So(command.NoEscapeCommand, ShouldEqual, false)
+		So(command.isGateway, ShouldEqual, false)
+	})
+}
+
+func TestCommand_applyDefaults(t *testing.T) {
+	Convey("Testing Command.applyDefaults()", t, func() {
+		Convey("On a Command{}", func() {
+			command := Command{}
+			command.applyDefaults()
+			So(command.Host, ShouldEqual, "")
+			So(command.Port, ShouldEqual, 22)
+			So(command.User, ShouldEqual, "")
+			So(command.SkipHostKeyChecking, ShouldEqual, false)
+			So(command.Quiet, ShouldEqual, false)
+			So(len(command.SSHOptions), ShouldEqual, 0)
+			So(command.Gateway, ShouldEqual, nil)
+			So(command.AllocateTTY, ShouldEqual, false)
+			So(len(command.Command), ShouldEqual, 0)
+			So(command.Debug, ShouldEqual, false)
+			So(command.NoEscapeCommand, ShouldEqual, false)
+			So(command.isGateway, ShouldEqual, false)
+		})
+		Convey("On a New(\"example.com\")", func() {
+			command := New("example.com")
+			command.applyDefaults()
+			So(command.Host, ShouldEqual, "example.com")
+			So(command.Port, ShouldEqual, 22)
+			So(command.User, ShouldEqual, "")
+			So(command.SkipHostKeyChecking, ShouldEqual, false)
+			So(command.Quiet, ShouldEqual, false)
+			So(len(command.SSHOptions), ShouldEqual, 0)
+			So(command.Gateway, ShouldEqual, nil)
+			So(command.AllocateTTY, ShouldEqual, false)
+			So(len(command.Command), ShouldEqual, 0)
+			So(command.Debug, ShouldEqual, false)
+			So(command.NoEscapeCommand, ShouldEqual, false)
+			So(command.isGateway, ShouldEqual, false)
+		})
+		Convey("On a New(\"toto@example.com\")", func() {
+			command := New("toto@example.com")
+			command.applyDefaults()
+			So(command.Host, ShouldEqual, "example.com")
+			So(command.Port, ShouldEqual, 22)
+			So(command.User, ShouldEqual, "toto")
+			So(command.SkipHostKeyChecking, ShouldEqual, false)
+			So(command.Quiet, ShouldEqual, false)
+			So(len(command.SSHOptions), ShouldEqual, 0)
+			So(command.Gateway, ShouldEqual, nil)
+			So(command.AllocateTTY, ShouldEqual, false)
+			So(len(command.Command), ShouldEqual, 0)
+			So(command.Debug, ShouldEqual, false)
+			So(command.NoEscapeCommand, ShouldEqual, false)
+			So(command.isGateway, ShouldEqual, false)
+		})
+	})
 }
