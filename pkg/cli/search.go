@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdSearch = &Command{
 	Exec:        runSearch,
@@ -26,7 +22,7 @@ func init() {
 var searchNoTrunc bool // --no-trunc flag
 var searchHelp bool    // -h, --help flag
 
-func runSearch(cmd *Command, rawArgs []string) {
+func runSearch(cmd *Command, rawArgs []string) error {
 	if searchHelp {
 		cmd.PrintUsage()
 	}
@@ -39,8 +35,5 @@ func runSearch(cmd *Command, rawArgs []string) {
 		NoTrunc: searchNoTrunc,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunSearch(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'search': %v", err)
-	}
+	return commands.RunSearch(ctx, args)
 }

@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdHistory = &Command{
 	Exec:        runHistory,
@@ -27,7 +24,7 @@ var historyNoTrunc bool // --no-trunc flag
 var historyQuiet bool   // -q, --quiet flag
 var historyHelp bool    // -h, --help flag
 
-func runHistory(cmd *Command, rawArgs []string) {
+func runHistory(cmd *Command, rawArgs []string) error {
 	if historyHelp {
 		cmd.PrintUsage()
 	}
@@ -41,8 +38,5 @@ func runHistory(cmd *Command, rawArgs []string) {
 		Image:   rawArgs[0],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunHistory(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'history': %v", err)
-	}
+	return commands.RunHistory(ctx, args)
 }

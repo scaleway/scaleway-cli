@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdTop = &Command{
 	Exec:        runTop,
@@ -26,7 +22,7 @@ func init() {
 var topHelp bool      // -h, --help flag
 var topGateway string // -g, --gateway flag
 
-func runTop(cmd *Command, rawArgs []string) {
+func runTop(cmd *Command, rawArgs []string) error {
 	if topHelp {
 		cmd.PrintUsage()
 	}
@@ -39,8 +35,5 @@ func runTop(cmd *Command, rawArgs []string) {
 		Server:  rawArgs[0],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunTop(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'top': %v", err)
-	}
+	return commands.RunTop(ctx, args)
 }

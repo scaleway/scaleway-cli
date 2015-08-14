@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdInspect = &Command{
 	Exec:        runInspect,
@@ -45,7 +41,7 @@ var inspectFormat string // -f, --format flag
 var inspectBrowser bool  // -b, --browser flag
 var inspectHelp bool     // -h, --help flag
 
-func runInspect(cmd *Command, rawArgs []string) {
+func runInspect(cmd *Command, rawArgs []string) error {
 	if inspectHelp {
 		cmd.PrintUsage()
 	}
@@ -59,8 +55,5 @@ func runInspect(cmd *Command, rawArgs []string) {
 		Identifiers: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunInspect(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'inspect': %v", err)
-	}
+	return commands.RunInspect(ctx, args)
 }

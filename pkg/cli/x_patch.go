@@ -32,7 +32,7 @@ func init() {
 // Flags
 var patchHelp bool // -h, --help flag
 
-func runPatch(cmd *Command, args []string) {
+func runPatch(cmd *Command, args []string) error {
 	if patchHelp {
 		cmd.PrintUsage()
 	}
@@ -104,4 +104,6 @@ func runPatch(cmd *Command, args []string) {
 		log.Fatalf("_patch not implemented for this kind of object")
 	}
 	fmt.Println(ident.Identifier)
+
+	return nil
 }

@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdCp = &Command{
 	Exec:        runCp,
@@ -40,7 +37,7 @@ func init() {
 var cpHelp bool      // -h, --help flag
 var cpGateway string // -g, --gateway flag
 
-func runCp(cmd *Command, rawArgs []string) {
+func runCp(cmd *Command, rawArgs []string) error {
 	if cpHelp {
 		cmd.PrintUsage()
 	}
@@ -54,9 +51,5 @@ func runCp(cmd *Command, rawArgs []string) {
 		Destination: rawArgs[1],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunCp(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'cp': %v", err)
-	}
-
+	return commands.RunCp(ctx, args)
 }

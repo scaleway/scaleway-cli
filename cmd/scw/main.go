@@ -120,7 +120,10 @@ func main() {
 				}
 				cmd.API = api
 			}
-			cmd.Exec(cmd, cmd.Flag.Args())
+			err = cmd.Exec(cmd, cmd.Flag.Args())
+			if err != nil {
+				log.Fatalf("Cannot execute '%s': %v", cmd.Name(), err)
+			}
 			if cmd.API != nil {
 				cmd.API.Sync()
 			}

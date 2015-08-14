@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdLogin = &Command{
-	Exec:        cmdExecLogin,
+	Exec:        runLogin,
 	UsageLine:   "login [OPTIONS]",
 	Description: "Log in to Scaleway API",
 	Help: `Generates a configuration file in '/home/$USER/.scwrc'
@@ -32,7 +29,7 @@ var organization string // -o flag
 var token string        // -t flag
 var loginHelp bool      // -h, --help flag
 
-func cmdExecLogin(cmd *Command, rawArgs []string) {
+func runLogin(cmd *Command, rawArgs []string) error {
 	if loginHelp {
 		cmd.PrintUsage()
 	}
@@ -45,8 +42,5 @@ func cmdExecLogin(cmd *Command, rawArgs []string) {
 		Token:        token,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunLogin(ctx, args)
-	if err != nil {
-		log.Fatalf("Cannot execute 'login': %v", err)
-	}
+	return commands.RunLogin(ctx, args)
 }

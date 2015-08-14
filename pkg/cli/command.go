@@ -22,7 +22,7 @@ import (
 // Command contains everything needed by the cli main loop to calls the workflow, display help and usage, and the context
 type Command struct {
 	// Exec executes the command
-	Exec func(cmd *Command, args []string)
+	Exec func(cmd *Command, args []string) error
 
 	// Usage is the one-line usage message.
 	UsageLine string

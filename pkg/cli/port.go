@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdPort = &Command{
 	Exec:        runPort,
@@ -26,7 +22,7 @@ func init() {
 var portHelp bool      // -h, --help flag
 var portGateway string // -g, --gateway flag
 
-func runPort(cmd *Command, rawArgs []string) {
+func runPort(cmd *Command, rawArgs []string) error {
 	if portHelp {
 		cmd.PrintUsage()
 	}
@@ -39,8 +35,5 @@ func runPort(cmd *Command, rawArgs []string) {
 		Server:  rawArgs[0],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunPort(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'port': %v", err)
-	}
+	return commands.RunPort(ctx, args)
 }

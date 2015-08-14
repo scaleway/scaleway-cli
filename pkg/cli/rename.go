@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdRename = &Command{
 	Exec:        runRename,
@@ -24,7 +20,7 @@ func init() {
 // Flags
 var renameHelp bool // -h, --help flag
 
-func runRename(cmd *Command, rawArgs []string) {
+func runRename(cmd *Command, rawArgs []string) error {
 	if renameHelp {
 		cmd.PrintUsage()
 	}
@@ -37,8 +33,5 @@ func runRename(cmd *Command, rawArgs []string) {
 		NewName: rawArgs[1],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunRename(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'rename': %v", err)
-	}
+	return commands.RunRename(ctx, args)
 }

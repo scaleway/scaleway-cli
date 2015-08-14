@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdExec = &Command{
-	Exec:        cmdExecExec,
+	Exec:        runExec,
 	UsageLine:   "exec [OPTIONS] SERVER [COMMAND] [ARGS...]",
 	Description: "Run a command on a running server",
 	Help:        "Run a command on a running server.",
@@ -41,7 +38,7 @@ var execTimeout float64 // -T flag
 var execHelp bool       // -h, --help flag
 var execGateway string  // -g, --gateway flag
 
-func cmdExecExec(cmd *Command, rawArgs []string) {
+func runExec(cmd *Command, rawArgs []string) error {
 	if execHelp {
 		cmd.PrintUsage()
 	}
@@ -57,8 +54,5 @@ func cmdExecExec(cmd *Command, rawArgs []string) {
 		Command: rawArgs[1:],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunExec(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot exec 'exec': %v", err)
-	}
+	return commands.RunExec(ctx, args)
 }

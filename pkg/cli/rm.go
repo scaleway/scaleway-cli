@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdRm = &Command{
 	Exec:        runRm,
@@ -28,7 +25,7 @@ func init() {
 // Flags
 var rmHelp bool // -h, --help flag
 
-func runRm(cmd *Command, rawArgs []string) {
+func runRm(cmd *Command, rawArgs []string) error {
 	if rmHelp {
 		cmd.PrintUsage()
 	}
@@ -40,9 +37,5 @@ func runRm(cmd *Command, rawArgs []string) {
 		Servers: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunRm(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'rm': %v", err)
-	}
-
+	return commands.RunRm(ctx, args)
 }

@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdPs = &Command{
-	Exec:        cmdExecPs,
+	Exec:        runPs,
 	UsageLine:   "ps [OPTIONS]",
 	Description: "List servers",
 	Help:        "List servers. By default, only running servers are displayed.",
@@ -33,7 +30,7 @@ var psNoTrunc bool // -no-trunc flag
 var psN int        // -n flag
 var psHelp bool    // -h, --help flag
 
-func cmdExecPs(cmd *Command, rawArgs []string) {
+func runPs(cmd *Command, rawArgs []string) error {
 	if psHelp {
 		cmd.PrintUsage()
 	}
@@ -49,8 +46,5 @@ func cmdExecPs(cmd *Command, rawArgs []string) {
 		NLast:   psN,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunPs(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'ps': %v", err)
-	}
+	return commands.RunPs(ctx, args)
 }

@@ -25,7 +25,7 @@ func init() {
 // Flags
 var flushCacheHelp bool // -h, --help flag
 
-func runFlushCache(cmd *Command, args []string) {
+func runFlushCache(cmd *Command, args []string) error {
 	if flushCacheHelp {
 		cmd.PrintUsage()
 	}
@@ -39,4 +39,6 @@ func runFlushCache(cmd *Command, args []string) {
 	}
 
 	fmt.Println("Cache flushed")
+
+	return nil
 }

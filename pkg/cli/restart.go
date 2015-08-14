@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdRestart = &Command{
 	Exec:        runRestart,
@@ -23,7 +20,7 @@ func init() {
 // Flags
 var restartHelp bool // -h, --help flag
 
-func runRestart(cmd *Command, rawArgs []string) {
+func runRestart(cmd *Command, rawArgs []string) error {
 	if restartHelp {
 		cmd.PrintUsage()
 	}
@@ -35,9 +32,5 @@ func runRestart(cmd *Command, rawArgs []string) {
 		Servers: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunRestart(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'restart': %v", err)
-	}
-
+	return commands.RunRestart(ctx, args)
 }

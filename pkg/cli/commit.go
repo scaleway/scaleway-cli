@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdCommit = &Command{
-	Exec:        cmdExecCommit,
+	Exec:        runCommit,
 	UsageLine:   "commit [OPTIONS] SERVER [NAME]",
 	Description: "Create a new snapshot from a server's volume",
 	Help:        "Create a new snapshot from a server's volume.",
@@ -29,7 +26,7 @@ func init() {
 var commitVolume int // -v, --volume flag
 var commitHelp bool  // -h, --help flag
 
-func cmdExecCommit(cmd *Command, rawArgs []string) {
+func runCommit(cmd *Command, rawArgs []string) error {
 	if commitHelp {
 		cmd.PrintUsage()
 	}
@@ -47,8 +44,5 @@ func cmdExecCommit(cmd *Command, rawArgs []string) {
 	}
 
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunCommit(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'commit': %v", err)
-	}
+	return commands.RunCommit(ctx, args)
 }

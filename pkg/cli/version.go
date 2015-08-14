@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdVersion = &Command{
 	Exec:        runVersion,
@@ -23,7 +20,7 @@ func init() {
 // Flags
 var versionHelp bool // -h, --help flag
 
-func runVersion(cmd *Command, rawArgs []string) {
+func runVersion(cmd *Command, rawArgs []string) error {
 	if versionHelp {
 		cmd.PrintUsage()
 	}
@@ -33,8 +30,5 @@ func runVersion(cmd *Command, rawArgs []string) {
 
 	args := commands.VersionArgs{}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.Version(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'version': %v", err)
-	}
+	return commands.Version(ctx, args)
 }

@@ -51,7 +51,7 @@ func wordifyName(name string, kind string) string {
 	return ret
 }
 
-func runCompletion(cmd *Command, args []string) {
+func runCompletion(cmd *Command, args []string) error {
 	if completionHelp {
 		cmd.PrintUsage()
 	}
@@ -110,4 +110,6 @@ func runCompletion(cmd *Command, args []string) {
 
 	sort.Strings(elements)
 	fmt.Println(strings.Join(utils.RemoveDuplicates(elements), "\n"))
+
+	return nil
 }
