@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"sort"
+	"strings"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -40,5 +42,45 @@ func TestPathToTARPathparts(t *testing.T) {
 
 		dir, base = PathToTARPathparts("/long/path/to/dir/")
 		So([]string{"/long/path/to", "dir"}, ShouldResemble, []string{dir, base})
+	})
+}
+
+func TestRemoveDuplicates(t *testing.T) {
+	Convey("Testing RemoveDuplicates()", t, func() {
+		slice := RemoveDuplicates([]string{"a", "b", "c", "a"})
+		sort.Strings(slice)
+		So(slice, ShouldResemble, []string{"a", "b", "c"})
+
+		slice = RemoveDuplicates([]string{"a", "b", "c", "a"})
+		sort.Strings(slice)
+		So(slice, ShouldResemble, []string{"a", "b", "c"})
+
+		slice = RemoveDuplicates([]string{"a", "b", "c", "a", "a", "b", "d"})
+		sort.Strings(slice)
+		So(slice, ShouldResemble, []string{"a", "b", "c", "d"})
+
+		slice = RemoveDuplicates([]string{"a", "b", "c", "a", ""})
+		sort.Strings(slice)
+		So(slice, ShouldResemble, []string{"", "a", "b", "c"})
+	})
+}
+
+func TestGetHomeDir(t *testing.T) {
+	Convey("Testing GetHomeDir()", t, func() {
+		homedir, err := GetHomeDir()
+		So(err, ShouldBeNil)
+		So(homedir, ShouldNotEqual, "")
+	})
+}
+
+func TestGetConfigFilePath(t *testing.T) {
+	Convey("Testing GetConfigFilePath()", t, func() {
+		configPath, err := GetConfigFilePath()
+		So(err, ShouldBeNil)
+		So(configPath, ShouldNotEqual, "")
+
+		homedir, err := GetHomeDir()
+		So(err, ShouldBeNil)
+		So(strings.Contains(configPath, homedir), ShouldBeTrue)
 	})
 }

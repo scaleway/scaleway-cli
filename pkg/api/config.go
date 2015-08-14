@@ -7,8 +7,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"os"
+
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // Config is a Scaleway CLI configuration file
