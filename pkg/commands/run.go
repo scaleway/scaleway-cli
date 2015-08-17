@@ -6,6 +6,9 @@ package commands
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -25,8 +28,39 @@ type RunArgs struct {
 	Tags       []string
 	Volumes    []string
 	AutoRemove bool
+	TmpSSHKey  bool
 	// DynamicIPRequired
 	// Timeout
+}
+
+// AddSSHKeyToTags adds the ssh key in the tags
+func AddSSHKeyToTags(ctx CommandContext, tags *[]string, image string) error {
+	home, err := utils.GetHomeDir()
+	if err != nil {
+		return fmt.Errorf("unable to find your home %v", err)
+	}
+	idRsa := filepath.Join(home, ".ssh", "id_rsa")
+	if _, err := os.Stat(idRsa); err != nil {
+		if os.IsNotExist(err) {
+			logrus.Warnln("Unable to find your ~/.ssh/id_rsa")
+			logrus.Warnln("Run 'ssh-keygen -t rsa'")
+			return nil
+		}
+	}
+	idRsa = strings.Join([]string{idRsa, ".pub"}, "")
+	data, err := ioutil.ReadFile(idRsa)
+	if err != nil {
+		return fmt.Errorf("failed to read %v", err)
+	}
+	data[7] = '_'
+	for i := range data {
+		if data[i] == ' ' {
+			data = data[:i]
+			break
+		}
+	}
+	*tags = append(*tags, strings.Join([]string{"AUTHORIZED_KEY", string(data[:len(data)])}, "="))
+	return nil
 }
 
 // Run is the handler for 'scw run'
@@ -35,6 +69,12 @@ func Run(ctx CommandContext, args RunArgs) error {
 		args.Gateway = ctx.Getenv("SCW_GATEWAY")
 	}
 
+	if args.TmpSSHKey {
+		err := AddSSHKeyToTags(ctx, &args.Tags, args.Image)
+		if err != nil {
+			return err
+		}
+	}
 	env := strings.Join(args.Tags, " ")
 	volume := strings.Join(args.Volumes, " ")
 
