@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"testing"
@@ -82,5 +85,30 @@ func TestGetConfigFilePath(t *testing.T) {
 		homedir, err := GetHomeDir()
 		So(err, ShouldBeNil)
 		So(strings.Contains(configPath, homedir), ShouldBeTrue)
+	})
+}
+
+func TestGeneratingAnSSHKey(t *testing.T) {
+	Convey("Testing GeneratingAnSSHKey()", t, func() {
+		streams := SpawnRedirection{
+			Stdout: os.Stdout,
+			Stderr: os.Stderr,
+			Stdin:  os.Stdin,
+		}
+
+		tmpDir, err := ioutil.TempDir("/tmp", "scaleway-test")
+		So(err, ShouldBeNil)
+
+		tmpFile, err := ioutil.TempFile(tmpDir, "ssh-key")
+		So(err, ShouldBeNil)
+
+		err = os.Remove(tmpFile.Name())
+		So(err, ShouldBeNil)
+
+		filePath, err := GeneratingAnSSHKey(streams, tmpDir, filepath.Base(tmpFile.Name()))
+		So(err, ShouldBeNil)
+		So(filePath, ShouldEqual, tmpFile.Name())
+
+		os.Remove(tmpFile.Name())
 	})
 }
