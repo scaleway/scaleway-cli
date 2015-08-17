@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdKill = &Command{
 	Exec:        runKill,
@@ -27,7 +23,7 @@ func init() {
 var killHelp bool      // -h, --help flag
 var killGateway string // -g, --gateway flag
 
-func runKill(cmd *Command, rawArgs []string) {
+func runKill(cmd *Command, rawArgs []string) error {
 	if killHelp {
 		cmd.PrintUsage()
 	}
@@ -40,8 +36,5 @@ func runKill(cmd *Command, rawArgs []string) {
 		Server:  rawArgs[0],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunKill(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'kill': %v", err)
-	}
+	return commands.RunKill(ctx, args)
 }

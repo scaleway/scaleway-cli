@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdAttach = &Command{
-	Exec:        cmdExecAttach,
+	Exec:        runAttach,
 	UsageLine:   "attach [OPTIONS] SERVER",
 	Description: "Attach to a server serial console",
 	Help:        "Attach to a running server serial console.",
@@ -30,7 +27,7 @@ func init() {
 var attachHelp bool    // -h, --help flag
 var attachNoStdin bool // --no-stdin flag
 
-func cmdExecAttach(cmd *Command, rawArgs []string) {
+func runAttach(cmd *Command, rawArgs []string) error {
 	if attachHelp {
 		cmd.PrintUsage()
 	}
@@ -43,8 +40,5 @@ func cmdExecAttach(cmd *Command, rawArgs []string) {
 		Server:  rawArgs[0],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunAttach(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'attach': %v", err)
-	}
+	return commands.RunAttach(ctx, args)
 }

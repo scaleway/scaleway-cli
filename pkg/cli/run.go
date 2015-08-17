@@ -5,10 +5,8 @@
 package cli
 
 import (
+	"fmt"
 	"strings"
-
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
@@ -58,7 +56,7 @@ var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 
-func runRun(cmd *Command, rawArgs []string) {
+func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
 		cmd.PrintUsage()
 	}
@@ -66,16 +64,16 @@ func runRun(cmd *Command, rawArgs []string) {
 		cmd.PrintShortUsage()
 	}
 	if runAttachFlag && len(rawArgs) > 1 {
-		log.Fatalf("Conflicting options: -a and COMMAND")
+		return fmt.Errorf("conflicting options: -a and COMMAND")
 	}
 	if runAttachFlag && runDetachFlag {
-		log.Fatalf("Conflicting options: -a and -d")
+		return fmt.Errorf("conflicting options: -a and -d")
 	}
 	if runDetachFlag && len(rawArgs) > 1 {
-		log.Fatalf("Conflicting options: -d and COMMAND")
+		return fmt.Errorf("conflicting options: -d and COMMAND")
 	}
 	if runAutoRemove && runDetachFlag {
-		log.Fatalf("Conflicting options: --attach and --rm")
+		return fmt.Errorf("conflicting options: --detach and --rm")
 	}
 
 	args := commands.RunArgs{
@@ -99,8 +97,5 @@ func runRun(cmd *Command, rawArgs []string) {
 		args.Volumes = strings.Split(runCreateVolume, " ")
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.Run(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'run': %v", err)
-	}
+	return commands.Run(ctx, args)
 }

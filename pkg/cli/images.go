@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdImages = &Command{
 	Exec:        runImages,
@@ -29,7 +26,7 @@ var imagesQ bool       // -q flag
 var imagesNoTrunc bool // -no-trunc flag
 var imagesHelp bool    // -h, --help flag
 
-func runImages(cmd *Command, rawArgs []string) {
+func runImages(cmd *Command, rawArgs []string) error {
 	if imagesHelp {
 		cmd.PrintUsage()
 	}
@@ -43,8 +40,5 @@ func runImages(cmd *Command, rawArgs []string) {
 		NoTrunc: imagesNoTrunc,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunImages(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'images': %v", err)
-	}
+	return commands.RunImages(ctx, args)
 }

@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdLogout = &Command{
 	Exec:        runLogout,
@@ -23,7 +20,7 @@ func init() {
 // FLags
 var logoutHelp bool // -h, --help flag
 
-func runLogout(cmd *Command, rawArgs []string) {
+func runLogout(cmd *Command, rawArgs []string) error {
 	if logoutHelp {
 		cmd.PrintUsage()
 	}
@@ -33,8 +30,5 @@ func runLogout(cmd *Command, rawArgs []string) {
 
 	args := commands.LogoutArgs{}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunLogout(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'logout': %v", err)
-	}
+	return commands.RunLogout(ctx, args)
 }

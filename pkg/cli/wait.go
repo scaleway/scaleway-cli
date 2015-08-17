@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdWait = &Command{
 	Exec:        runWait,
@@ -24,7 +20,7 @@ func init() {
 // Flags
 var waitHelp bool // -h, --help flag
 
-func runWait(cmd *Command, rawArgs []string) {
+func runWait(cmd *Command, rawArgs []string) error {
 	if waitHelp {
 		cmd.PrintUsage()
 	}
@@ -36,8 +32,5 @@ func runWait(cmd *Command, rawArgs []string) {
 		Servers: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunWait(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'wait': %v", err)
-	}
+	return commands.RunWait(ctx, args)
 }

@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdStop = &Command{
 	Exec:        runStop,
@@ -36,7 +32,7 @@ var stopT bool    // -t flag
 var stopHelp bool // -h, --help flag
 var stopW bool    // -w, --wait flat
 
-func runStop(cmd *Command, rawArgs []string) {
+func runStop(cmd *Command, rawArgs []string) error {
 	if stopHelp {
 		cmd.PrintUsage()
 	}
@@ -50,8 +46,5 @@ func runStop(cmd *Command, rawArgs []string) {
 		Servers:   rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunStop(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'stop': %v", err)
-	}
+	return commands.RunStop(ctx, args)
 }

@@ -53,7 +53,7 @@ Commands:
 Run 'scw COMMAND --help' for more information on a command.
 `
 
-func runHelp(cmd *Command, args []string) {
+func runHelp(cmd *Command, args []string) error {
 	if waitHelp {
 		cmd.PrintUsage()
 	}
@@ -73,7 +73,8 @@ func runHelp(cmd *Command, args []string) {
 		t := template.New("top")
 		template.Must(t.Parse(helpTemplate))
 		if err := t.Execute(os.Stdout, Commands); err != nil {
-			panic(err)
+			return err
 		}
 	}
+	return nil
 }

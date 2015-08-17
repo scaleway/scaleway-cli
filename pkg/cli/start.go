@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdStart = &Command{
 	Exec:        runStart,
@@ -28,7 +24,7 @@ var startW bool          // -w flag
 var startTimeout float64 // -T flag
 var startHelp bool       // -h, --help flag
 
-func runStart(cmd *Command, rawArgs []string) {
+func runStart(cmd *Command, rawArgs []string) error {
 	if startHelp {
 		cmd.PrintUsage()
 	}
@@ -42,8 +38,5 @@ func runStart(cmd *Command, rawArgs []string) {
 		Wait:    startW,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunStart(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'start': %v", err)
-	}
+	return commands.RunStart(ctx, args)
 }

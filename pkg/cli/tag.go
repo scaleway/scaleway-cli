@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdTag = &Command{
 	Exec:        runTag,
@@ -23,7 +20,7 @@ func init() {
 // Flags
 var tagHelp bool // -h, --help flag
 
-func runTag(cmd *Command, rawArgs []string) {
+func runTag(cmd *Command, rawArgs []string) error {
 	if tagHelp {
 		cmd.PrintUsage()
 	}
@@ -36,8 +33,5 @@ func runTag(cmd *Command, rawArgs []string) {
 		Name:     rawArgs[1],
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunTag(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'tag': %v", err)
-	}
+	return commands.RunTag(ctx, args)
 }

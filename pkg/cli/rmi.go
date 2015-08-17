@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdRmi = &Command{
 	Exec:        runRmi,
@@ -27,7 +24,7 @@ func init() {
 // Flags
 var rmiHelp bool // -h, --help flag
 
-func runRmi(cmd *Command, rawArgs []string) {
+func runRmi(cmd *Command, rawArgs []string) error {
 	if rmiHelp {
 		cmd.PrintUsage()
 	}
@@ -39,8 +36,5 @@ func runRmi(cmd *Command, rawArgs []string) {
 		Images: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunRmi(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'rmi': %v", err)
-	}
+	return commands.RunRmi(ctx, args)
 }

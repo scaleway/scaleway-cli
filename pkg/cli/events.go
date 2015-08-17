@@ -4,13 +4,10 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdEvents = &Command{
-	Exec:        cmdExecEvents,
+	Exec:        runEvents,
 	UsageLine:   "events [OPTIONS]",
 	Description: "Get real time events from the API",
 	Help:        "Get real time events from the API.",
@@ -23,7 +20,7 @@ func init() {
 // Flags
 var eventsHelp bool // -h, --help flag
 
-func cmdExecEvents(cmd *Command, rawArgs []string) {
+func runEvents(cmd *Command, rawArgs []string) error {
 	if eventsHelp {
 		cmd.PrintUsage()
 	}
@@ -33,8 +30,5 @@ func cmdExecEvents(cmd *Command, rawArgs []string) {
 
 	args := commands.EventsArgs{}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunEvents(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'events': %v", err)
-	}
+	return commands.RunEvents(ctx, args)
 }

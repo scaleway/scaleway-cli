@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdCreate = &Command{
@@ -43,7 +42,7 @@ var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
 var createTmpSSHKey bool    // --tmp-ssh-key flag
 
-func runCreate(cmd *Command, rawArgs []string) {
+func runCreate(cmd *Command, rawArgs []string) error {
 	if createHelp {
 		cmd.PrintUsage()
 	}
@@ -65,8 +64,5 @@ func runCreate(cmd *Command, rawArgs []string) {
 		args.Volumes = strings.Split(runCreateVolume, " ")
 	}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunCreate(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'create': %v", err)
-	}
+	return commands.RunCreate(ctx, args)
 }

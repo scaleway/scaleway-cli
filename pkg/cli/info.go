@@ -4,10 +4,7 @@
 
 package cli
 
-import (
-	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-)
+import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdInfo = &Command{
 	Exec:        runInfo,
@@ -23,7 +20,7 @@ func init() {
 // Flags
 var infoHelp bool // -h, --help flag
 
-func runInfo(cmd *Command, rawArgs []string) {
+func runInfo(cmd *Command, rawArgs []string) error {
 	if infoHelp {
 		cmd.PrintUsage()
 	}
@@ -33,8 +30,5 @@ func runInfo(cmd *Command, rawArgs []string) {
 
 	args := commands.InfoArgs{}
 	ctx := cmd.GetContext(rawArgs)
-	err := commands.RunInfo(ctx, args)
-	if err != nil {
-		logrus.Fatalf("Cannot execute 'info': %v", err)
-	}
+	return commands.RunInfo(ctx, args)
 }
