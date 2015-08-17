@@ -18,10 +18,18 @@ type CreateArgs struct {
 	Tags       []string
 	Volumes    []string
 	Image      string
+	TmpSSHKey  bool
 }
 
 // RunCreate is the handler for 'scw create'
 func RunCreate(ctx CommandContext, args CreateArgs) error {
+	if args.TmpSSHKey {
+		err := AddSSHKeyToTags(ctx, &args.Tags, args.Image)
+		if err != nil {
+			return err
+		}
+	}
+
 	env := strings.Join(args.Tags, " ")
 	volume := strings.Join(args.Volumes, " ")
 	serverID, err := api.CreateServer(ctx.API, args.Image, args.Name, args.Bootscript, env, volume, true)
@@ -30,6 +38,5 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 	}
 
 	fmt.Fprintln(ctx.Stdout, serverID)
-
 	return nil
 }

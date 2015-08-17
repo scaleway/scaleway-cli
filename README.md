@@ -310,6 +310,7 @@ Options:
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
   --name=""             Assign a name
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
@@ -319,6 +320,7 @@ Examples:
     $ scw create --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB
     $ scw inspect $(scw create 1GB --bootscript=rescue --volume=50GB)
     $ scw create $(scw tag my-snapshot my-image)
+    $ scw create --tmp-ssh-key 10GB
 ```
 
 
@@ -630,6 +632,7 @@ Options:
   -h, --help=false      Print usage
   --name=""             Assign a name
   --rm=false            Automatically remove the server when it exits
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
@@ -643,6 +646,7 @@ Examples:
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
     $ scw run --attach alpine
     $ scw run --detach alpine
+    $ scw run --tmp-ssh-key alpine
 ```
 
 
@@ -1084,8 +1088,9 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support --tmp-ssh-key `scw {run,create}` option ([#99](https://github.com/scaleway/scaleway-cli/issues/99))
 * Support -f `scw run --rm` option ([#117](https://github.com/scaleway/scaleway-cli/issues/117))
-* Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))p
+* Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))
 * Upload local ssh key to scaleway account on `scw login` ([#100](https://github.com/scaleway/scaleway-cli/issues/100))
 * Add a 'running indicator' for `scw run`, can be disabled with the new flag `--quiet`
 * Support of `scw -V/--verbose` option ([#83](https://github.com/scaleway/scaleway-cli/issues/83))

@@ -10,6 +10,7 @@ package utils
 import (
 	"errors"
 	"fmt"
+	"io"
 	"net"
 	"os"
 	"os/exec"
@@ -22,6 +23,13 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
+
+// SpawnRedirection is used to redirects the fluxes
+type SpawnRedirection struct {
+	Stdin  io.Reader
+	Stdout io.Writer
+	Stderr io.Writer
+}
 
 // SSHExec executes a command over SSH and redirects file-descriptors
 func SSHExec(publicIPAddress string, privateIPAddress string, command []string, checkConnection bool, gateway string) error {
@@ -87,6 +95,28 @@ func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY 
 	}
 
 	return sshCommand
+}
+
+// GeneratingAnSSHKey generates an SSH key
+func GeneratingAnSSHKey(cfg SpawnRedirection, path string, name string) (string, error) {
+	args := []string{
+		"-t",
+		"rsa",
+		"-b",
+		"4096",
+		"-f",
+		filepath.Join(path, name),
+		"-N",
+		"",
+		"-C",
+		"",
+	}
+	log.Infof("Executing commands %v", args)
+	spawn := exec.Command("ssh-keygen", args...)
+	spawn.Stdout = cfg.Stdout
+	spawn.Stdin = cfg.Stdin
+	spawn.Stderr = cfg.Stderr
+	return args[5], spawn.Run()
 }
 
 // WaitForTCPPortOpen calls IsTCPPortOpen in a loop

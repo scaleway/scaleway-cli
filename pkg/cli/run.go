@@ -28,6 +28,7 @@ var cmdRun = &Command{
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
     $ scw run --attach alpine
     $ scw run --detach alpine
+    $ scw run --tmp-ssh-key alpine
 `,
 }
 
@@ -41,6 +42,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
+	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	// FIXME: handle start --timeout
 }
 
@@ -54,6 +56,7 @@ var runHelpFlag bool           // -h, --help flag
 var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
+var runTmpSSHKey bool          // --tmp-ssh-key flag
 
 func runRun(cmd *Command, rawArgs []string) {
 	if runHelpFlag {
@@ -83,11 +86,17 @@ func runRun(cmd *Command, rawArgs []string) {
 		Gateway:    runGateway,
 		Image:      rawArgs[0],
 		Name:       runCreateName,
-		Tags:       strings.Split(runCreateEnv, " "),
-		Volumes:    strings.Split(runCreateVolume, " "),
 		AutoRemove: runAutoRemove,
+		TmpSSHKey:  runTmpSSHKey,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
+	}
+
+	if len(runCreateEnv) > 0 {
+		args.Tags = strings.Split(runCreateEnv, " ")
+	}
+	if len(runCreateVolume) > 0 {
+		args.Volumes = strings.Split(runCreateVolume, " ")
 	}
 	ctx := cmd.GetContext(rawArgs)
 	err := commands.Run(ctx, args)
