@@ -12,11 +12,17 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
+// Streams is used to redirects the streams
+type Streams struct {
+	Stdin  io.Reader
+	Stdout io.Writer
+	Stderr io.Writer
+}
+
 // CommandContext is passed to all commands and contains streams, environment, api and arguments
 type CommandContext struct {
-	Stdin   io.Reader
-	Stdout  io.Writer
-	Stderr  io.Writer
+	Streams
+
 	Env     []string
 	RawArgs []string
 	API     *api.ScalewayAPI
