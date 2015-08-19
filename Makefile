@@ -77,7 +77,7 @@ $(IREF_LIST): %_iref: pkg/scwversion/version.go
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
 $(COVER_LIST): %_cover:
-	$(GOTEST) -coverprofile=file-profile.out ./$*
+	$(GOTEST) -covermode=count -v -coverprofile=file-profile.out ./$*
 	if [ -f file-profile.out ]; then cat file-profile.out | grep -v "mode: set" >> profile.out || true; rm -f file-profile.out; fi
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
@@ -129,15 +129,6 @@ packages:
 
 #publish_packages:
 #	docker run -v $(PWD)/dist moul/dput ppa:moul/scw dist/scw_$(FPM_VERSION)_arm.changes
-
-
-travis_install:
-	go get golang.org/x/tools/cmd/cover
-
-
-travis_run: build
-	go test -v -covermode=count $(foreach int, $(SRC) $(PACKAGES), ./$(int))
-
 
 golint:
 	@go get github.com/golang/lint/golint
