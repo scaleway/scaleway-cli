@@ -152,3 +152,14 @@ party:
 convey:
 	go get github.com/smartystreets/goconvey
 	goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
+
+
+.PHONY: integration-cli
+integration-cli:
+	go test -v ./integration-cli
+
+
+.PHONY: integration-cli
+convey-integration-cli:
+	go get github.com/smartystreets/goconvey
+	goconvey -cover -port=9043 -workDir="$(realpath .)/integration-cli" -depth=-1

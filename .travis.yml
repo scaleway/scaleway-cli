@@ -37,3 +37,4 @@ script:
   - make travis_run
   - make cover
   - goveralls -service=travis-ci -v -coverprofile=profile.out
+  - make integration-cli
