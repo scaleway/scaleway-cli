@@ -32,6 +32,8 @@ install:
 
 
 script:
+  - make build
+  - ./scw version
   - make travis_run
   - make cover
   - goveralls -service=travis-ci -v -coverprofile=profile.out
