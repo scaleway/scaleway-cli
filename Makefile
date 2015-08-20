@@ -49,6 +49,11 @@ install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
+
+noop =
+comma = ,
+space = $(noop) $(noop)
+
 cover:
 	rm -f profile.out
 	$(MAKE) $(COVER_LIST)
@@ -77,7 +82,8 @@ $(IREF_LIST): %_iref: pkg/scwversion/version.go
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
 $(COVER_LIST): %_cover:
-	$(GOTEST) -covermode=count -v -coverprofile=file-profile.out ./$*
+	#$(GOTEST) -covermode=set -coverpkg=$(subst $(space),$(comma),$(addprefix ./, $(PACKAGES))) -v -coverprofile=file-profile.out ./$*
+	$(GOTEST) -covermode=set -v -coverprofile=file-profile.out ./$*
 	if [ -f file-profile.out ]; then cat file-profile.out | grep -v "mode: set" >> profile.out || true; rm -f file-profile.out; fi
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
