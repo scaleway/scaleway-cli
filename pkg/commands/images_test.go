@@ -5,7 +5,6 @@
 package commands
 
 import (
-	"bytes"
 	"strings"
 	"testing"
 
@@ -132,10 +131,6 @@ func TestRunImages_realAPI(t *testing.T) {
 				// FIXME: test bootscripts
 				// FIXME: test snapshots
 			}
-		})
-		Reset(func() {
-			ctx.Stdout.(*bytes.Buffer).Reset()
-			ctx.Stderr.(*bytes.Buffer).Reset()
 		})
 	})
 }

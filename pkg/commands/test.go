@@ -6,10 +6,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
-	"github.com/pborman/uuid"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/pborman/uuid"
 )
 
 func shouldBeAnUUID(actual interface{}, expected ...interface{}) string {
