@@ -5,7 +5,6 @@
 package commands
 
 import (
-	"bytes"
 	"strings"
 	"testing"
 
@@ -65,37 +64,27 @@ func TestRunCreate_realAPI(t *testing.T) {
 				Name:  "unittest-create-standard",
 				Image: "ubuntu-vivid",
 			}
-			err := RunCreate(*ctx, args)
+
+			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)
+			err := RunCreate(*scopedCtx, args)
 			So(err, ShouldBeNil)
+			So(scopedStderr.String(), ShouldBeEmpty)
+			So(scopedStdout.String(), shouldBeAnUUID)
 
-			stderr := ctx.Stderr.(*bytes.Buffer).String()
-			stdout := ctx.Stdout.(*bytes.Buffer).String()
-			So(stderr, ShouldBeEmpty)
-			So(stdout, shouldBeAnUUID)
-
-			createdUUIDs = append(createdUUIDs, strings.TrimSpace(stdout))
+			uuid := strings.TrimSpace(scopedStdout.String())
+			createdUUIDs = append(createdUUIDs, uuid)
 		})
 
 		Reset(func() {
-			ctx.Stdout.(*bytes.Buffer).Reset()
-			ctx.Stderr.(*bytes.Buffer).Reset()
-
 			if len(createdUUIDs) > 0 {
-				err := RunRm(*ctx, RmArgs{
-					Servers: createdUUIDs,
-				})
-				So(err, ShouldBeNil)
+				rmCtx, rmStdout, rmStderr := getScopedCtx(ctx)
+				rmErr := RunRm(*rmCtx, RmArgs{Servers: createdUUIDs})
+				So(rmErr, ShouldBeNil)
+				So(rmStderr.String(), ShouldBeEmpty)
 
-				stderr := ctx.Stderr.(*bytes.Buffer).String()
-				stdout := ctx.Stdout.(*bytes.Buffer).String()
-				So(stderr, ShouldBeEmpty)
-				removedUUIDs := strings.Split(strings.TrimSpace(stdout), "\n")
+				removedUUIDs := strings.Split(strings.TrimSpace(rmStdout.String()), "\n")
 				So(removedUUIDs, ShouldResemble, createdUUIDs)
-
 				createdUUIDs = createdUUIDs[:0]
-
-				ctx.Stdout.(*bytes.Buffer).Reset()
-				ctx.Stderr.(*bytes.Buffer).Reset()
 			}
 		})
 	})

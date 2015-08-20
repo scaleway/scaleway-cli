@@ -70,14 +70,13 @@ func TestRunImages_realAPI(t *testing.T) {
 				NoTrunc: false,
 				Quiet:   false,
 			}
-			err := RunImages(*ctx, args)
+
+			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)
+			err := RunImages(*scopedCtx, args)
 			So(err, ShouldBeNil)
+			So(scopedStderr.String(), ShouldBeEmpty)
 
-			stderr := ctx.Stderr.(*bytes.Buffer).String()
-			So(stderr, ShouldBeEmpty)
-
-			stdout := ctx.Stdout.(*bytes.Buffer).String()
-			lines := strings.Split(stdout, "\n")
+			lines := strings.Split(scopedStdout.String(), "\n")
 			So(len(lines), ShouldBeGreaterThan, 0)
 
 			firstLine := lines[0]
@@ -92,14 +91,13 @@ func TestRunImages_realAPI(t *testing.T) {
 				NoTrunc: false,
 				Quiet:   false,
 			}
-			err := RunImages(*ctx, args)
+
+			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)
+			err := RunImages(*scopedCtx, args)
 			So(err, ShouldBeNil)
+			So(scopedStderr.String(), ShouldBeEmpty)
 
-			stderr := ctx.Stderr.(*bytes.Buffer).String()
-			So(stderr, ShouldBeEmpty)
-
-			stdout := ctx.Stdout.(*bytes.Buffer).String()
-			lines := strings.Split(stdout, "\n")
+			lines := strings.Split(scopedStdout.String(), "\n")
 			So(len(lines), ShouldBeGreaterThan, 0)
 
 			firstLine := lines[0]
@@ -116,14 +114,13 @@ func TestRunImages_realAPI(t *testing.T) {
 				NoTrunc: false,
 				Quiet:   true,
 			}
-			err := RunImages(*ctx, args)
+
+			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)
+			err := RunImages(*scopedCtx, args)
 			So(err, ShouldBeNil)
+			So(scopedStderr.String(), ShouldBeEmpty)
 
-			stderr := ctx.Stderr.(*bytes.Buffer).String()
-			So(stderr, ShouldBeEmpty)
-
-			stdout := ctx.Stdout.(*bytes.Buffer).String()
-			lines := strings.Split(stdout, "\n")
+			lines := strings.Split(scopedStdout.String(), "\n")
 			// So(len(lines), ShouldBeGreaterThan, 0)
 
 			if len(lines) > 0 {

@@ -6,13 +6,10 @@
 package commands
 
 import (
-	"bytes"
 	"os"
 	"testing"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/stretchr/testify/assert"
 )
 
@@ -41,35 +38,4 @@ func TestCommandContext_Getenv(t *testing.T) {
 	ctx := ExampleCommandContext()
 	assert.Equal(t, ctx.Getenv("HOME"), os.Getenv("HOME"))
 	assert.Equal(t, ctx.Getenv("DONTEXISTS"), "")
-}
-
-func RealAPIContext() *CommandContext {
-	config, err := config.GetConfig()
-	if err != nil {
-		logrus.Warnf("RealAPIContext: failed to call config.GetConfig(): %v", err)
-		return nil
-	}
-
-	apiClient, err := api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token)
-	if err != nil {
-		logrus.Warnf("RealAPIContext: failed to call api.NewScalewayAPI(): %v", err)
-		return nil
-	}
-
-	stdout := bytes.Buffer{}
-	stderr := bytes.Buffer{}
-
-	ctx := CommandContext{
-		Streams: Streams{
-			Stdin:  os.Stdin,
-			Stdout: &stdout,
-			Stderr: &stderr,
-		},
-		Env: []string{
-			"HOME" + os.Getenv("HOME"),
-		},
-		RawArgs: []string{},
-		API:     apiClient,
-	}
-	return &ctx
 }
