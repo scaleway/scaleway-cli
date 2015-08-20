@@ -149,3 +149,33 @@ party:
 convey:
 	go get github.com/smartystreets/goconvey
 	goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
+
+
+.PHONY: travis_login
+travis_login:
+	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
+	  echo '{"api_endpoint":"https://api.scaleway.com/","account_endpoint":"https://account.scaleway.com/","organization":"$(TRAVIS_SCALEWAY_ORGANIZATION)","token":"$(TRAVIS_SCALEWAY_TOKEN)"}' > ~/.scwrc && \
+	  chmod 600 ~/.scwrc; \
+	else \
+	  echo "Cannot login, credentials are missing"; \
+	fi
+
+
+.PHONY: travis_coveralls
+travis_coveralls:
+	if [ -f ~/.scwrc ]; then goveralls -service=travis-ci -v -coverprofile=profile.out; fi
+
+
+.PHONY: travis_cleanup
+travis_cleanup:
+	# FIXME: delete only resources created for this project
+	if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
+	  ./scw stop -t $(shell ./scw ps -q) || true; \
+	  ./scw rm $(shell ./scw ps -aq) || true; \
+	  ./scw rmi $(shell ./scw images -q) || true; \
+	fi
+
+
+.PHONY: show_version
+show_version:
+	./scw version
