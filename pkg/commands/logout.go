@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 )
 
 // LogoutArgs are flags for the `RunLogout` function
@@ -17,7 +17,7 @@ type LogoutArgs struct{}
 // RunLogout is the handler for 'scw logout'
 func RunLogout(ctx CommandContext, args LogoutArgs) error {
 	// FIXME: ask if we need to remove the local ssh key on the account
-	scwrcPath, err := utils.GetConfigFilePath()
+	scwrcPath, err := config.GetConfigFilePath()
 	if err != nil {
 		return fmt.Errorf("unable to get scwrc config file path: %v", err)
 	}

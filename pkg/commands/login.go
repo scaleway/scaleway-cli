@@ -17,7 +17,7 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 )
 
 // LoginArgs are arguments passed to `RunLogin`
@@ -30,7 +30,7 @@ type LoginArgs struct {
 // selectKey allows to choice a key in ~/.ssh
 func selectKey(args *LoginArgs) error {
 	fmt.Println("Do you want to upload a SSH key ?")
-	home, err := utils.GetHomeDir()
+	home, err := config.GetHomeDir()
 	if err != nil {
 		return err
 	}
@@ -88,7 +88,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 		promptUser("Token: ", &args.Token, false)
 	}
 
-	cfg := &api.Config{
+	cfg := &config.Config{
 		ComputeAPI:   "https://api.scaleway.com/",
 		AccountAPI:   "https://account.scaleway.com/",
 		Organization: strings.Trim(args.Organization, "\n"),

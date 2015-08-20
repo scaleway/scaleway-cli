@@ -5,7 +5,6 @@
 package cli
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -15,6 +14,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
@@ -40,7 +40,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 
 	flag.CommandLine.Parse(rawArgs)
 
-	config, cfgErr := getConfig()
+	config, cfgErr := config.GetConfig()
 	if cfgErr != nil && !os.IsNotExist(cfgErr) {
 		return 1, fmt.Errorf("unable to open .scwrc config file: %v", cfgErr)
 	}
@@ -130,46 +130,10 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 	return 1, fmt.Errorf("scw: unknown subcommand %s\nRun 'scw help' for usage.", name)
 }
 
-// getConfig returns the Scaleway CLI config file for the current user
-func getConfig() (*api.Config, error) {
-	scwrcPath, err := utils.GetConfigFilePath()
-	if err != nil {
-		return nil, err
-	}
-
-	stat, err := os.Stat(scwrcPath)
-	// we don't care if it fails, the user just won't see the warning
-	if err == nil {
-		mode := stat.Mode()
-		if mode&0066 != 0 {
-			return nil, fmt.Errorf("permissions %#o for .scwrc are too open.", mode)
-		}
-	}
-
-	file, err := ioutil.ReadFile(scwrcPath)
-	if err != nil {
-		return nil, err
-	}
-	var config api.Config
-	err = json.Unmarshal(file, &config)
-	if err != nil {
-		return nil, err
-	}
-	// check if he has an old scwrc version
-	if config.AccountAPI == "" {
-		config.AccountAPI = "https://account.scaleway.com"
-		config.Save()
-	}
-	if os.Getenv("scaleway_api_endpoint") == "" {
-		os.Setenv("scaleway_api_endpoint", config.ComputeAPI)
-	}
-	return &config, nil
-}
-
 // getScalewayAPI returns a ScalewayAPI using the user config file
 func getScalewayAPI() (*api.ScalewayAPI, error) {
 	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
-	config, err := getConfig()
+	config, err := config.GetConfig()
 	if err != nil {
 		return nil, err
 	}

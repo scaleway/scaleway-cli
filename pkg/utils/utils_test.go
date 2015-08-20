@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
-	"strings"
 	"testing"
 
 	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
@@ -65,26 +64,6 @@ func TestRemoveDuplicates(t *testing.T) {
 		slice = RemoveDuplicates([]string{"a", "b", "c", "a", ""})
 		sort.Strings(slice)
 		So(slice, ShouldResemble, []string{"", "a", "b", "c"})
-	})
-}
-
-func TestGetHomeDir(t *testing.T) {
-	Convey("Testing GetHomeDir()", t, func() {
-		homedir, err := GetHomeDir()
-		So(err, ShouldBeNil)
-		So(homedir, ShouldNotEqual, "")
-	})
-}
-
-func TestGetConfigFilePath(t *testing.T) {
-	Convey("Testing GetConfigFilePath()", t, func() {
-		configPath, err := GetConfigFilePath()
-		So(err, ShouldBeNil)
-		So(configPath, ShouldNotEqual, "")
-
-		homedir, err := GetHomeDir()
-		So(err, ShouldBeNil)
-		So(strings.Contains(configPath, homedir), ShouldBeTrue)
 	})
 }
 
