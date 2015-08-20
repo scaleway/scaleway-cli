@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/smartystreets/goconvey/convey"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
 )
 
 func TestGetConfigFilePath(t *testing.T) {
