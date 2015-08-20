@@ -1088,6 +1088,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Bump to Golang 1.5
 * Support --tmp-ssh-key `scw {run,create}` option ([#99](https://github.com/scaleway/scaleway-cli/issues/99))
 * Support -f `scw run --rm` option ([#117](https://github.com/scaleway/scaleway-cli/issues/117))
 * Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))
