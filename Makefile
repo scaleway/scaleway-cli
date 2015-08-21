@@ -5,6 +5,7 @@ GOCLEAN ?=	$(GOCMD) clean
 GOINSTALL ?=	$(GOCMD) install
 GOTEST ?=	$(GOCMD) test
 GOFMT ?=	gofmt -w
+GOCOVER ?=	$(GOTEST) -covermode=count -v
 
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
 FPM_DOCKER ?=	\
@@ -24,11 +25,11 @@ FPM_ARGS ?=	\
 
 NAME = scw
 SRC = cmd/scw
-PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config
+PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
-
+ALL_GO_FILES = $(shell find . -type f -name "*.go")
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
 CLEAN_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_clean)
@@ -36,10 +37,10 @@ INSTALL_LIST = $(foreach int, $(SRC), $(int)_install)
 IREF_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_iref)
 TEST_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_test)
 FMT_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_fmt)
-COVER_LIST = $(foreach int, $(PACKAGES), $(int)_cover)
+COVERPROFILE_LIST = $(foreach int, $(PACKAGES), $(int)/profile.out)
 
 
-.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST) $(COVER_LIST)
+.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
 
 
 all: build
@@ -49,15 +50,6 @@ install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
-
-noop =
-comma = ,
-space = $(noop) $(noop)
-
-cover:
-	rm -f profile.out
-	$(MAKE) $(COVER_LIST)
-	echo "mode: set" | cat - profile.out > profile.out.tmp && mv profile.out.tmp profile.out
 
 
 .git:
@@ -81,10 +73,6 @@ $(IREF_LIST): %_iref: pkg/scwversion/version.go
 	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
-$(COVER_LIST): %_cover:
-	#$(GOTEST) -covermode=set -coverpkg=$(subst $(space),$(comma),$(addprefix ./, $(PACKAGES))) -v -coverprofile=file-profile.out ./$*
-	$(GOTEST) -covermode=set -v -coverprofile=file-profile.out ./$*
-	if [ -f file-profile.out ]; then cat file-profile.out | grep -v "mode: set" >> profile.out || true; rm -f file-profile.out; fi
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
@@ -161,9 +149,22 @@ travis_login:
 	fi
 
 
+.PHONY: cover
+cover: profile.out
+
+$(COVERPROFILE_LIST): $(ALL_GO_FILES)
+	rm -f $@
+	$(GOCOVER) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
+
+profile.out: $(COVERPROFILE_LIST)
+	rm -f $@
+	echo "mode: set" > $@
+	cat ./pkg/*/profile.out | grep -v mode: | sort -r | awk '{if($$1 != last) {print $$0;last=$$1}}' >> $@
+
+
 .PHONY: travis_coveralls
 travis_coveralls:
-	if [ -f ~/.scwrc ]; then goveralls -service=travis-ci -v -coverprofile=profile.out; fi
+	if [ -f ~/.scwrc ]; then goveralls -covermode=count -service=travis-ci -v -coverprofile=profile.out; fi
 
 
 .PHONY: travis_cleanup
