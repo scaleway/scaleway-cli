@@ -24,9 +24,11 @@ before_install:
   - go get -u github.com/axw/gocov/gocov
   - go get -u github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
+  - go get github.com/moul/anonuuid/cmd/anonuuid
 
 
 script:
+  - env | anonuuid
   - make build show_version
   - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
   - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
