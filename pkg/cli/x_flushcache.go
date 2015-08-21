@@ -27,10 +27,10 @@ var flushCacheHelp bool // -h, --help flag
 
 func runFlushCache(cmd *Command, args []string) error {
 	if flushCacheHelp {
-		cmd.PrintUsage()
+		return cmd.PrintUsage()
 	}
 	if len(args) > 0 {
-		cmd.PrintShortUsage()
+		return cmd.PrintShortUsage()
 	}
 
 	err := cmd.API.Cache.Flush()

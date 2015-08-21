@@ -20,9 +20,11 @@ func ExampleCommandContext() CommandContext {
 	}
 
 	ctx := CommandContext{
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
+		Streams: Streams{
+			Stdin:  os.Stdin,
+			Stdout: os.Stdout,
+			Stderr: os.Stderr,
+		},
 		Env: []string{
 			"HOME" + os.Getenv("HOME"),
 		},

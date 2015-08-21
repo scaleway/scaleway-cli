@@ -8,23 +8,26 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/stretchr/testify/assert"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
 )
 
-func TestToto(t *testing.T) {
-	ctx := ExampleCommandContext()
-	var buf bytes.Buffer
-	ctx.Stdout = &buf
+func TestVersion(t *testing.T) {
+	Convey("Testing Version()", t, func() {
+		ctx := ExampleCommandContext()
+		var buf bytes.Buffer
+		ctx.Stdout = &buf
 
-	args := VersionArgs{}
+		args := VersionArgs{}
 
-	err := Version(ctx, args)
+		err := Version(ctx, args)
 
-	assert.Nil(t, err)
-	assert.Contains(t, buf.String(), "Client version: ")
-	assert.Contains(t, buf.String(), "Go version (client): ")
-	assert.Contains(t, buf.String(), "Git commit (client): ")
-	assert.Contains(t, buf.String(), "OS/Arch (client): ")
+		So(err, ShouldBeNil)
+		So(buf.String(), ShouldContainSubstring, "Client version: ")
+		So(buf.String(), ShouldContainSubstring, "Go version (client): ")
+		So(buf.String(), ShouldContainSubstring, "Git commit (client): ")
+		So(buf.String(), ShouldContainSubstring, "OS/Arch (client): ")
+
+	})
 }
 
 func ExampleVersion() {

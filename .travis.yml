@@ -9,13 +9,12 @@ env:
     - PATH=$HOME/gopath/bin:$PATH
 
 
-go:
-  - 1.3
-  - 1.4
-  - 1.5
-  - tip
-
 matrix:
+  include:
+    - go: 1.3
+    - go: 1.4
+    - go: 1.5     TEST_WITH_REAL_API=1
+    - go: tip
   allow_failures:
     - go: tip
 
@@ -25,15 +24,21 @@ before_install:
   - go get -u github.com/axw/gocov/gocov
   - go get -u github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
-
-
-install:
-  - make travis_install
+  - go get github.com/moul/anonuuid/cmd/anonuuid
 
 
 script:
-  - make build
-  - ./scw version
-  - make travis_run
-  - make cover
-  - goveralls -service=travis-ci -v -coverprofile=profile.out
+  - env | anonuuid
+  - make build show_version
+  - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup || true; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make cover; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_coveralls; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
+
+after_success:
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
+
+after_failure:
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi

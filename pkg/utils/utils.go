@@ -178,27 +178,6 @@ func RemoveDuplicates(elements []string) []string {
 	return result
 }
 
-// GetHomeDir returns the path to your home
-func GetHomeDir() (string, error) {
-	homeDir := os.Getenv("HOME") // *nix
-	if homeDir == "" {           // Windows
-		homeDir = os.Getenv("USERPROFILE")
-	}
-	if homeDir == "" {
-		return "", errors.New("user home directory not found")
-	}
-	return homeDir, nil
-}
-
-// GetConfigFilePath returns the path to the Scaleway CLI config file
-func GetConfigFilePath() (string, error) {
-	path, err := GetHomeDir()
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(path, ".scwrc"), nil
-}
-
 const termjsBin string = "termjs-cli"
 
 // AttachToSerial tries to connect to server serial using 'term.js-cli' and fallback with a help message

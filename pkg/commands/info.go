@@ -11,7 +11,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/vendor/github.com/kardianos/osext"
 
-	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 )
 
 // InfoArgs are flags for the `RunInfo` function
@@ -26,7 +26,7 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 	fmt.Fprintf(ctx.Stdout, "Organization: %s\n", ctx.API.Organization)
 	// FIXME: add partially-masked token
 	fmt.Fprintf(ctx.Stdout, "API Endpoint: %s\n", ctx.Getenv("scaleway_api_endpoint"))
-	configPath, _ := utils.GetConfigFilePath()
+	configPath, _ := config.GetConfigFilePath()
 	fmt.Fprintf(ctx.Stdout, "RC file: %s\n", configPath)
 	fmt.Fprintf(ctx.Stdout, "User: %s\n", ctx.Getenv("USER"))
 	fmt.Fprintf(ctx.Stdout, "CPUs: %d\n", runtime.NumCPU())

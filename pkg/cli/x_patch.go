@@ -34,10 +34,10 @@ var patchHelp bool // -h, --help flag
 
 func runPatch(cmd *Command, args []string) error {
 	if patchHelp {
-		cmd.PrintUsage()
+		return cmd.PrintUsage()
 	}
 	if len(args) != 2 {
-		cmd.PrintShortUsage()
+		return cmd.PrintShortUsage()
 	}
 
 	// Parsing FIELD=VALUE

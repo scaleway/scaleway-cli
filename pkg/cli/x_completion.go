@@ -53,10 +53,10 @@ func wordifyName(name string, kind string) string {
 
 func runCompletion(cmd *Command, args []string) error {
 	if completionHelp {
-		cmd.PrintUsage()
+		return cmd.PrintUsage()
 	}
 	if len(args) != 1 {
-		cmd.PrintShortUsage()
+		return cmd.PrintShortUsage()
 	}
 
 	category := args[0]
