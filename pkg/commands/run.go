@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
@@ -35,7 +36,7 @@ type RunArgs struct {
 
 // AddSSHKeyToTags adds the ssh key in the tags
 func AddSSHKeyToTags(ctx CommandContext, tags *[]string, image string) error {
-	home, err := utils.GetHomeDir()
+	home, err := config.GetHomeDir()
 	if err != nil {
 		return fmt.Errorf("unable to find your home %v", err)
 	}

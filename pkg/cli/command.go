@@ -7,6 +7,7 @@ package cli
 // Command is a Scaleway command
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -17,6 +18,12 @@ import (
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
+)
+
+// errors
+var (
+	ErrExitFailure = errors.New("exit 1")
+	ErrExitSuccess = errors.New("exit 0")
 )
 
 // Command contains everything needed by the cli main loop to calls the workflow, display help and usage, and the context
@@ -44,18 +51,41 @@ type Command struct {
 
 	// API is the interface used to communicate with Scaleway's API
 	API *api.ScalewayAPI
+
+	streams *commands.Streams
 }
 
 // GetContext returns a standard context, with real stdin, stdout, stderr, a configured API and raw arguments
 func (c *Command) GetContext(rawArgs []string) commands.CommandContext {
-	return commands.CommandContext{
-		Stdin:   os.Stdin,
-		Stdout:  os.Stdout,
-		Stderr:  os.Stderr,
+	ctx := commands.CommandContext{
 		Env:     os.Environ(),
 		RawArgs: rawArgs,
 		API:     c.API,
 	}
+
+	if c.streams != nil {
+		ctx.Streams = *c.streams
+	} else {
+		ctx.Streams = commands.Streams{
+			Stdin:  os.Stdin,
+			Stdout: os.Stdout,
+			Stderr: os.Stderr,
+		}
+	}
+
+	return ctx
+}
+
+func (c *Command) Streams() *commands.Streams {
+	if c.streams != nil {
+		return c.streams
+	}
+	return &commands.Streams{
+		Stdin:  os.Stdin,
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
+	}
+
 }
 
 // Name returns the command's name
@@ -68,20 +98,20 @@ func (c *Command) Name() string {
 	return name
 }
 
-// PrintUsage prints a full command usage and exits
-func (c *Command) PrintUsage() {
+// PrintUsage prints a full command usage
+func (c *Command) PrintUsage() error {
 	helpMessage, err := commandHelpMessage(c)
 	if err != nil {
 		logrus.Fatalf("%v", err)
 	}
-	fmt.Fprintf(os.Stderr, "%s\n", helpMessage)
-	os.Exit(1)
+	fmt.Fprintf(c.Streams().Stdout, "%s\n", helpMessage)
+	return ErrExitFailure
 }
 
-// PrintShortUsage prints a short command usage and exits
-func (c *Command) PrintShortUsage() {
-	fmt.Fprintf(os.Stderr, "usage: scw %s. See 'scw %s --help'.\n", c.UsageLine, c.Name())
-	os.Exit(1)
+// PrintShortUsage prints a short command usage
+func (c *Command) PrintShortUsage() error {
+	fmt.Fprintf(c.Streams().Stderr, "usage: scw %s. See 'scw %s --help'.\n", c.UsageLine, c.Name())
+	return ErrExitFailure
 }
 
 // Options returns a string describing options of the command

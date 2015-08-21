@@ -5,6 +5,7 @@ GOCLEAN ?=	$(GOCMD) clean
 GOINSTALL ?=	$(GOCMD) install
 GOTEST ?=	$(GOCMD) test
 GOFMT ?=	gofmt -w
+GOCOVER ?=	$(GOTEST) -covermode=count -v
 
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
 FPM_DOCKER ?=	\
@@ -24,11 +25,11 @@ FPM_ARGS ?=	\
 
 NAME = scw
 SRC = cmd/scw
-PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand
+PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
-
+ALL_GO_FILES = $(shell find . -type f -name "*.go")
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
 CLEAN_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_clean)
@@ -36,10 +37,10 @@ INSTALL_LIST = $(foreach int, $(SRC), $(int)_install)
 IREF_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_iref)
 TEST_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_test)
 FMT_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_fmt)
-COVER_LIST = $(foreach int, $(PACKAGES), $(int)_cover)
+COVERPROFILE_LIST = $(foreach int, $(PACKAGES), $(int)/profile.out)
 
 
-.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST) $(COVER_LIST)
+.PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
 
 
 all: build
@@ -49,10 +50,6 @@ install: $(INSTALL_LIST)
 test: $(TEST_LIST)
 iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
-cover:
-	rm -f profile.out
-	$(MAKE) $(COVER_LIST)
-	echo "mode: set" | cat - profile.out > profile.out.tmp && mv profile.out.tmp profile.out
 
 
 .git:
@@ -76,9 +73,6 @@ $(IREF_LIST): %_iref: pkg/scwversion/version.go
 	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) ./$*
-$(COVER_LIST): %_cover:
-	$(GOTEST) -coverprofile=file-profile.out ./$*
-	if [ -f file-profile.out ]; then cat file-profile.out | grep -v "mode: set" >> profile.out || true; rm -f file-profile.out; fi
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
@@ -130,15 +124,6 @@ packages:
 #publish_packages:
 #	docker run -v $(PWD)/dist moul/dput ppa:moul/scw dist/scw_$(FPM_VERSION)_arm.changes
 
-
-travis_install:
-	go get golang.org/x/tools/cmd/cover
-
-
-travis_run: build
-	go test -v -covermode=count $(foreach int, $(SRC) $(PACKAGES), ./$(int))
-
-
 golint:
 	@go get github.com/golang/lint/golint
 	@for dir in */; do golint $$dir; done
@@ -152,3 +137,46 @@ party:
 convey:
 	go get github.com/smartystreets/goconvey
 	goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
+
+
+.PHONY: travis_login
+travis_login:
+	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
+	  echo '{"api_endpoint":"https://api.scaleway.com/","account_endpoint":"https://account.scaleway.com/","organization":"$(TRAVIS_SCALEWAY_ORGANIZATION)","token":"$(TRAVIS_SCALEWAY_TOKEN)"}' > ~/.scwrc && \
+	  chmod 600 ~/.scwrc; \
+	else \
+	  echo "Cannot login, credentials are missing"; \
+	fi
+
+
+.PHONY: cover
+cover: profile.out
+
+$(COVERPROFILE_LIST): $(ALL_GO_FILES)
+	rm -f $@
+	$(GOCOVER) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
+
+profile.out: $(COVERPROFILE_LIST)
+	rm -f $@
+	echo "mode: set" > $@
+	cat ./pkg/*/profile.out | grep -v mode: | sort -r | awk '{if($$1 != last) {print $$0;last=$$1}}' >> $@
+
+
+.PHONY: travis_coveralls
+travis_coveralls:
+	if [ -f ~/.scwrc ]; then goveralls -covermode=count -service=travis-ci -v -coverprofile=profile.out; fi
+
+
+.PHONY: travis_cleanup
+travis_cleanup:
+	# FIXME: delete only resources created for this project
+	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
+	  ./scw stop -t $(shell ./scw ps -q) || true; \
+	  ./scw rm $(shell ./scw ps -aq) || true; \
+	  ./scw rmi $(shell ./scw images -q) || true; \
+	fi
+
+
+.PHONY: show_version
+show_version:
+	./scw version
