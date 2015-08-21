@@ -170,7 +170,7 @@ travis_coveralls:
 .PHONY: travis_cleanup
 travis_cleanup:
 	# FIXME: delete only resources created for this project
-	if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
+	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
 	  ./scw stop -t $(shell ./scw ps -q) || true; \
 	  ./scw rm $(shell ./scw ps -aq) || true; \
 	  ./scw rmi $(shell ./scw images -q) || true; \

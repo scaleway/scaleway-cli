@@ -28,15 +28,15 @@ before_install:
 
 script:
   - make build show_version
-  - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_TOKEN}" ]; then make test; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_login; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_cleanup || true; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make cover; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_coveralls; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_cleanup; fi
+  - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup || true; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make cover; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_coveralls; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
 
 after_success:
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_cleanup; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
 
 after_failure:
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_TOKEN}" ]; then make travis_cleanup; fi
+  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
