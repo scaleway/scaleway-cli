@@ -24,6 +24,12 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
 )
 
+// Default values
+var (
+	ComputeAPI string = "https://api.scaleway.com/"
+	AccountAPI string = "https://account.scaleway.com/"
+)
+
 // ScalewayAPI is the interface used to communicate with the Scaleway API
 type ScalewayAPI struct {
 	// ComputeAPI is the endpoint to the Scaleway API
@@ -499,20 +505,20 @@ type ScalewayImageDefinition struct {
 	Arch               string `json:"arch"`
 }
 
-// ScalewayTokenUserIDRoleDefinition represents a Scaleway Token UserId Role
-type ScalewayTokenUserIDRoleDefinition struct {
-	Organization string `json:"organization,omitempty"`
-	Role         string `json:"role,omitempty"`
+// ScalewayRoleDefinition represents a Scaleway Token UserId Role
+type ScalewayRoleDefinition struct {
+	Organization ScalewayOrganizationDefinition `json:"organization,omitempty"`
+	Role         string                         `json:"role,omitempty"`
 }
 
 // ScalewayTokenDefinition represents a Scaleway Token
 type ScalewayTokenDefinition struct {
-	UserID             string                            `json:"user_id"`
-	Description        string                            `json:"description,omitempty"`
-	Roles              ScalewayTokenUserIDRoleDefinition `json:"roles"`
-	Expires            string                            `json:"expires"`
-	InheritsUsersPerms bool                              `json:"inherits_user_perms"`
-	ID                 string                            `json:"id"`
+	UserID             string                 `json:"user_id"`
+	Description        string                 `json:"description,omitempty"`
+	Roles              ScalewayRoleDefinition `json:"roles"`
+	Expires            string                 `json:"expires"`
+	InheritsUsersPerms bool                   `json:"inherits_user_perms"`
+	ID                 string                 `json:"id"`
 }
 
 // ScalewayTokensDefinition represents a Scaleway Tokens
@@ -520,14 +526,51 @@ type ScalewayTokensDefinition struct {
 	Tokens []ScalewayTokenDefinition `json:"tokens"`
 }
 
-// ScalewayUserPatchKeyDefinition represents a key
-type ScalewayUserPatchKeyDefinition struct {
+// ScalewayConnectResponse represents the answer from POST /tokens
+type ScalewayConnectResponse struct {
+	Token ScalewayTokenDefinition `json:"token"`
+}
+
+// ScalewayConnect represents the data to connect
+type ScalewayConnect struct {
+	Email       string `json:"email"`
+	Password    string `json:"password"`
+	Description string `json:"description"`
+	Expires     bool   `json:"expires"`
+}
+
+// ScalewayOrganizationDefinition represents a Scaleway Organization
+type ScalewayOrganizationDefinition struct {
+	ID    string                   `json:"id"`
+	Name  string                   `json:"name"`
+	Users []ScalewayUserDefinition `json:"users"`
+}
+
+// ScalewayOrganizationsDefinition represents a Scaleway Organizations
+type ScalewayOrganizationsDefinition struct {
+	Organizations []ScalewayOrganizationDefinition `json:"organizations"`
+}
+
+// ScalewayUserDefinition represents a Scaleway User
+type ScalewayUserDefinition struct {
+	Email         string                           `json:"email"`
+	Firstname     string                           `json:"firstname"`
+	Fullname      string                           `json:"fullname"`
+	ID            string                           `json:"id"`
+	Lastname      string                           `json:"lastname"`
+	Organizations []ScalewayOrganizationDefinition `json:"organizations"`
+	Roles         []ScalewayRoleDefinition         `json:"roles"`
+	SSHPublicKeys []ScalewayKeyDefinition          `json:"ssh_public_keys"`
+}
+
+// ScalewayKeyDefinition represents a key
+type ScalewayKeyDefinition struct {
 	Key string `json:"key"`
 }
 
-// ScalewayUserPatchDefinition represents a User Patch
-type ScalewayUserPatchDefinition struct {
-	SSHPublicKeys []ScalewayUserPatchKeyDefinition `json:"ssh_public_keys"`
+// ScalewayUserPatchSSHKeyDefinition represents a User Patch
+type ScalewayUserPatchSSHKeyDefinition struct {
+	SSHPublicKeys []ScalewayKeyDefinition `json:"ssh_public_keys"`
 }
 
 // FuncMap used for json inspection
@@ -821,10 +864,10 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	return "", error
 }
 
-// PatchUser updates a user
-func (s *ScalewayAPI) PatchUser(UserID string, definition ScalewayUserPatchDefinition) error {
-	s.enableAccountAPI()
-	defer s.disableAccountAPI()
+// PatchUserSSHKey updates a user
+func (s *ScalewayAPI) PatchUserSSHKey(UserID string, definition ScalewayUserPatchSSHKeyDefinition) error {
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
 	resp, err := s.PatchResponse(fmt.Sprintf("users/%s", UserID), definition)
 	if err != nil {
 		return err
@@ -1267,8 +1310,8 @@ func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
 
 // CheckCredentials performs a dummy check to ensure we can contact the API
 func (s *ScalewayAPI) CheckCredentials() error {
-	s.enableAccountAPI()
-	defer s.disableAccountAPI()
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
 	query := url.Values{}
 	query.Set("token_id", s.Token)
 	resp, err := s.GetResponse("tokens?" + query.Encode())
@@ -1283,8 +1326,8 @@ func (s *ScalewayAPI) CheckCredentials() error {
 
 // GetUserID returns the UserID
 func (s *ScalewayAPI) GetUserID() (string, error) {
-	s.enableAccountAPI()
-	defer s.disableAccountAPI()
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
 	resp, err := s.GetResponse("tokens")
 	if err != nil {
 		return "", err
@@ -1300,7 +1343,7 @@ func (s *ScalewayAPI) GetUserID() (string, error) {
 		return "", err
 	}
 	if len(tokens.Tokens) == 0 {
-		return "", fmt.Errorf("Unable to get tokens")
+		return "", fmt.Errorf("unable to get tokens")
 	}
 	return tokens.Tokens[0].UserID, nil
 }
@@ -1409,15 +1452,22 @@ func (s *ScalewayAPI) GetBootscriptID(needle string) string {
 
 // HideAPICredentials removes API credentials from a string
 func (s *ScalewayAPI) HideAPICredentials(input string) string {
-	output := strings.Replace(input, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
-	output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
+	output := input
+	if s.Token != "" {
+		output = strings.Replace(output, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
+	}
+	if s.Organization != "" {
+		output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
+	}
 	return output
 }
 
-func (s *ScalewayAPI) enableAccountAPI() {
+// EnableAccountAPI enable accountAPI
+func (s *ScalewayAPI) EnableAccountAPI() {
 	s.APIUrl = s.AccountAPI
 }
 
-func (s *ScalewayAPI) disableAccountAPI() {
+// DisableAccountAPI disable accountAPI
+func (s *ScalewayAPI) DisableAccountAPI() {
 	s.APIUrl = s.ComputeAPI
 }
