@@ -103,6 +103,9 @@ func Run(ctx CommandContext, args RunArgs) error {
 	if args.Detach {
 		fmt.Fprintln(ctx.Stdout, serverID)
 		return nil
+	} else {
+		// Sync cache on disk
+		ctx.API.Sync()
 	}
 
 	if args.Attach {
