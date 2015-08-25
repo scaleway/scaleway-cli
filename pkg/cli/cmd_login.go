@@ -4,7 +4,11 @@
 
 package cli
 
-import "github.com/scaleway/scaleway-cli/pkg/commands"
+import (
+	"fmt"
+
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+)
 
 var cmdLogin = &Command{
 	Exec:        runLogin,
@@ -36,7 +40,9 @@ func runLogin(cmd *Command, rawArgs []string) error {
 	if len(rawArgs) != 0 {
 		return cmd.PrintShortUsage()
 	}
-
+	if (organization != "" || token != "") && (organization == "" || token == "") {
+		return fmt.Errorf("you must define organization AND token")
+	}
 	args := commands.LoginArgs{
 		Organization: organization,
 		Token:        token,

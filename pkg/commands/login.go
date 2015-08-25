@@ -6,6 +6,7 @@ package commands
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -78,19 +79,119 @@ func selectKey(args *LoginArgs) error {
 	return nil
 }
 
+func getToken(connect api.ScalewayConnect) (string, error) {
+	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", "")
+	if err != nil {
+		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
+	}
+	FakeConnection.EnableAccountAPI()
+
+	resp, err := FakeConnection.PostResponse("tokens", connect)
+	if err != nil {
+		return "", fmt.Errorf("unable to connect %v", err)
+	}
+	// Succeed POST code
+	if resp.StatusCode != 201 {
+		return "", fmt.Errorf("[%d] maybe your email or your password is not valid", resp.StatusCode)
+	}
+	var data api.ScalewayConnectResponse
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&data)
+	if err != nil {
+		return "", err
+	}
+	return data.Token.ID, nil
+}
+
+func getOrga(token string, email string) (string, error) {
+	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", token)
+	if err != nil {
+		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
+	}
+	FakeConnection.EnableAccountAPI()
+
+	resp, err := FakeConnection.GetResponse("organizations")
+	if err != nil {
+		return "", err
+	}
+	if resp.StatusCode != 200 {
+		return "", fmt.Errorf("[%d] unable to GET", resp.StatusCode)
+	}
+
+	var data api.ScalewayOrganizationsDefinition
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&data)
+	if err != nil {
+		return "", err
+	}
+	orgaID := ""
+
+	for _, orga := range data.Organizations {
+		for _, user := range orga.Users {
+			if user.Email == email {
+				for i := range user.Organizations {
+					if user.Organizations[i].Name != "OCS" {
+						orgaID = user.Organizations[i].ID
+						goto exit
+					}
+				}
+			}
+		}
+	}
+	if orgaID == "" {
+		return "", fmt.Errorf("Unable to find your organization")
+	}
+exit:
+	return orgaID, nil
+}
+
+func connectAPI() (string, string, error) {
+	email := ""
+	password := ""
+	orga := ""
+	token := ""
+	hostname, err := os.Hostname()
+	if err != nil {
+		return "", "", fmt.Errorf("unable to get your Hostname %v", err)
+	}
+	promptUser("Login (cloud.scaleway.com): ", &email, true)
+	promptUser("Password: ", &password, false)
+
+	connect := api.ScalewayConnect{
+		Email:       strings.Trim(email, "\n"),
+		Password:    strings.Trim(password, "\n"),
+		Expires:     false,
+		Description: strings.Join([]string{"scw", hostname}, "-"),
+	}
+	token, err = getToken(connect)
+	if err != nil {
+		return "", "", err
+	}
+	orga, err = getOrga(token, connect.Email)
+	if err != nil {
+		return "", "", err
+	}
+	return orga, token, nil
+}
+
 // RunLogin is the handler for 'scw login'
 func RunLogin(ctx CommandContext, args LoginArgs) error {
-	if args.Organization == "" {
-		fmt.Println("You can get your credentials on https://cloud.scaleway.com/#/credentials")
-		promptUser("Organization (access key): ", &args.Organization, true)
-	}
-	if args.Token == "" {
-		promptUser("Token: ", &args.Token, false)
+	if args.Organization == "" || args.Token == "" {
+		var err error
+
+		args.Organization, args.Token, err = connectAPI()
+		if err != nil {
+			return err
+		}
 	}
 
 	cfg := &config.Config{
-		ComputeAPI:   "https://api.scaleway.com/",
-		AccountAPI:   "https://account.scaleway.com/",
+		ComputeAPI:   api.ComputeAPI,
+		AccountAPI:   api.AccountAPI,
 		Organization: strings.Trim(args.Organization, "\n"),
 		Token:        strings.Trim(args.Token, "\n"),
 	}
@@ -112,13 +213,13 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 				logrus.Errorf("Unable to contact ScalewayAPI: %s", err)
 			} else {
 
-				SSHKey := api.ScalewayUserPatchDefinition{
-					SSHPublicKeys: []api.ScalewayUserPatchKeyDefinition{{
+				SSHKey := api.ScalewayUserPatchSSHKeyDefinition{
+					SSHPublicKeys: []api.ScalewayKeyDefinition{{
 						Key: strings.Trim(args.SSHKey, "\n"),
 					}},
 				}
 
-				if err = apiConnection.PatchUser(userID, SSHKey); err != nil {
+				if err = apiConnection.PatchUserSSHKey(userID, SSHKey); err != nil {
 					logrus.Errorf("Unable to patch SSHkey: %v", err)
 				}
 			}
