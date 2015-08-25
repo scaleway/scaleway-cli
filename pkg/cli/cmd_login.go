@@ -26,12 +26,14 @@ func init() {
 	cmdLogin.Flag.StringVar(&organization, []string{"o", "-organization"}, "", "Organization")
 	cmdLogin.Flag.StringVar(&token, []string{"t", "-token"}, "", "Token")
 	cmdLogin.Flag.BoolVar(&loginHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdLogin.Flag.BoolVar(&loginSkipSSHKey, []string{"s", "-skip-ssh-key"}, false, "Don't ask to upload an SSH Key")
 }
 
 // FLags
-var organization string // -o flag
-var token string        // -t flag
-var loginHelp bool      // -h, --help flag
+var organization string  // -o flag
+var token string         // -t flag
+var loginHelp bool       // -h, --help flag
+var loginSkipSSHKey bool // -s, --skip-ssh-key flag
 
 func runLogin(cmd *Command, rawArgs []string) error {
 	if loginHelp {
@@ -46,6 +48,7 @@ func runLogin(cmd *Command, rawArgs []string) error {
 	args := commands.LoginArgs{
 		Organization: organization,
 		Token:        token,
+		SkipSSHKey:   loginSkipSSHKey,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunLogin(ctx, args)

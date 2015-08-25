@@ -26,11 +26,12 @@ type LoginArgs struct {
 	Organization string
 	Token        string
 	SSHKey       string
+	SkipSSHKey   bool
 }
 
 // selectKey allows to choice a key in ~/.ssh
 func selectKey(args *LoginArgs) error {
-	fmt.Println("Do you want to upload a SSH key ?")
+	fmt.Println("Do you want to upload an SSH key ?")
 	home, err := config.GetHomeDir()
 	if err != nil {
 		return err
@@ -205,23 +206,25 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	if err != nil {
 		return fmt.Errorf("Unable to contact ScalewayAPI: %s", err)
 	}
-	if err := selectKey(&args); err != nil {
-		logrus.Errorf("Unable to select a key: %v", err)
-	} else {
-		if args.SSHKey != "" {
-			userID, err := apiConnection.GetUserID()
-			if err != nil {
-				logrus.Errorf("Unable to contact ScalewayAPI: %s", err)
-			} else {
+	if !args.SkipSSHKey {
+		if err := selectKey(&args); err != nil {
+			logrus.Errorf("Unable to select a key: %v", err)
+		} else {
+			if args.SSHKey != "" {
+				userID, err := apiConnection.GetUserID()
+				if err != nil {
+					logrus.Errorf("Unable to contact ScalewayAPI: %s", err)
+				} else {
 
-				SSHKey := api.ScalewayUserPatchSSHKeyDefinition{
-					SSHPublicKeys: []api.ScalewayKeyDefinition{{
-						Key: strings.Trim(args.SSHKey, "\n"),
-					}},
-				}
+					SSHKey := api.ScalewayUserPatchSSHKeyDefinition{
+						SSHPublicKeys: []api.ScalewayKeyDefinition{{
+							Key: strings.Trim(args.SSHKey, "\n"),
+						}},
+					}
 
-				if err = apiConnection.PatchUserSSHKey(userID, SSHKey); err != nil {
-					logrus.Errorf("Unable to patch SSHkey: %v", err)
+					if err = apiConnection.PatchUserSSHKey(userID, SSHKey); err != nil {
+						logrus.Errorf("Unable to patch SSHkey: %v", err)
+					}
 				}
 			}
 		}
