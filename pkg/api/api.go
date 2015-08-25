@@ -47,6 +47,9 @@ type ScalewayAPI struct {
 	// Token is the authentication token for the Scaleway organization
 	Token string
 
+	// Password is the authentication password
+	password string
+
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
@@ -595,6 +598,7 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
+		password:     "",
 
 		// internal
 		anonuuid: *anonuuid.New(),
@@ -1459,6 +1463,9 @@ func (s *ScalewayAPI) HideAPICredentials(input string) string {
 	if s.Organization != "" {
 		output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
 	}
+	if s.password != "" {
+		output = strings.Replace(output, s.password, "XX-XX-XX-XX", -1)
+	}
 	return output
 }
 
@@ -1470,4 +1477,9 @@ func (s *ScalewayAPI) EnableAccountAPI() {
 // DisableAccountAPI disable accountAPI
 func (s *ScalewayAPI) DisableAccountAPI() {
 	s.APIUrl = s.ComputeAPI
+}
+
+// SetPassword register the password
+func (s *ScalewayAPI) SetPassword(password string) {
+	s.password = password
 }

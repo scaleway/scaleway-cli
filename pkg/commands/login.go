@@ -85,6 +85,7 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
 	FakeConnection.EnableAccountAPI()
+	FakeConnection.SetPassword(connect.Password)
 
 	resp, err := FakeConnection.PostResponse("tokens", connect)
 	if err != nil {
