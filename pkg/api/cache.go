@@ -15,6 +15,7 @@ import (
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/vendor/code.google.com/p/go-uuid/uuid"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/renstrom/fuzzysearch/fuzzy"
 )
 
@@ -176,6 +177,8 @@ func (c *ScalewayCache) Flush() error {
 func (c *ScalewayCache) Save() error {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
+
+	logrus.Debugf("Writing cache file to disk")
 
 	if c.Modified {
 		file, err := ioutil.TempFile("", "")
