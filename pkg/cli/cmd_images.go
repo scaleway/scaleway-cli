@@ -68,6 +68,10 @@ func runImages(cmd *Command, rawArgs []string) error {
 	if imagesFilters != "" {
 		for _, filter := range strings.Split(imagesFilters, " ") {
 			parts := strings.SplitN(filter, "=", 2)
+			if len(parts) != 2 {
+				logrus.Warnf("Invalid filter '%s', should be in the form 'key=value'", filter)
+				continue
+			}
 			if _, ok := args.Filters[parts[0]]; ok {
 				logrus.Warnf("Duplicated filter: %q", parts[0])
 			} else {

@@ -74,6 +74,10 @@ func runPs(cmd *Command, rawArgs []string) error {
 	if psFilters != "" {
 		for _, filter := range strings.Split(psFilters, " ") {
 			parts := strings.SplitN(filter, "=", 2)
+			if len(parts) != 2 {
+				logrus.Warnf("Invalid filter '%s', should be in the form 'key=value'", filter)
+				continue
+			}
 			if _, ok := args.Filters[parts[0]]; ok {
 				logrus.Warnf("Duplicated filter: %q", parts[0])
 			} else {
