@@ -1089,6 +1089,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 #### Features
 
 * `scw -D login` displays a fake password
+* Support --skip-ssh-key `scw login` ([#129](https://github.com/scaleway/scaleway-cli/issues/129))
+* Now `scw login` ask your login/password, you can also pass token and organization with -o and -t ([#59](https://github.com/scaleway/scaleway-cli/issues/59))
 * Syncing cache to disk after server creation when running `scw run` in a non-detached mode
 * Bump to Golang 1.5
 * Support --tmp-ssh-key `scw {run,create}` option ([#99](https://github.com/scaleway/scaleway-cli/issues/99))
