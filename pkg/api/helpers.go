@@ -37,6 +37,7 @@ type ScalewayImageInterface struct {
 	VirtualSize  float64
 	Public       bool
 	Type         string
+	Organization string
 }
 
 // ResolveGateway tries to resolve a server public ip address, else returns the input string, i.e. IPv4, hostname

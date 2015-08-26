@@ -410,9 +410,29 @@ List images.
 Options:
 
   -a, --all=false       Show all iamges
+  -f, --filter=""       Filter output based on conditions provided
   -h, --help=false      Print usage
   --no-trunc=false      Don't truncate output
   -q, --quiet=false     Only show numeric IDs
+
+Examples:
+
+    $ scw images
+    $ scw images -a
+    $ scw images -q
+    $ scw images --no-trunc
+    $ scw images -f organization=me
+    $ scw images -f organization=official-distribs
+    $ scw images -f organization=official-apps
+    $ scw images -f organization=UUIDOFORGANIZATION
+    $ scw images -f name=ubuntu
+    $ scw images -f type=image
+    $ scw images -f type=bootscript
+    $ scw images -f type=snapshot
+    $ scw images -f type=volume
+    $ scw images -f public=true
+    $ scw images -f public=false
+    $ scw images -f "organization=me type=volume" -q
 ```
 
 
@@ -544,11 +564,31 @@ List servers. By default, only running servers are displayed.
 Options:
 
   -a, --all=false       Show all servers. Only running servers are shown by default
+  -f, --filter=""       Filter output based on conditions provided
   -h, --help=false      Print usage
   -l, --latest=false    Show only the latest created server, include non-running ones
   -n=0                  Show n last created servers, include non-running ones
   --no-trunc=false      Don't truncate output
   -q, --quiet=false     Only display numeric IDs
+
+Examples:
+
+    $ scw ps
+    $ scw ps -a
+    $ scw ps -l
+    $ scw ps -n=10
+    $ scw ps -q
+    $ scw ps --no-trunc
+    $ scw ps -f state=booted
+    $ scw ps -f state=running
+    $ scw ps -f state=stopped
+    $ scw ps -f ip=212.47.229.26
+    $ scw ps -f tags=prod
+    $ scw ps -f tags=boot=live
+    $ scw ps -f image=docker
+    $ scw ps -f image=alpine
+    $ scw ps -f image=UUIDOFIMAGE
+    $ scw ps -f "state=booted image=docker tags=prod"
 ```
 
 
@@ -1091,10 +1131,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw -D login` displays a fake password
 * Support --skip-ssh-key `scw login` ([#129](https://github.com/scaleway/scaleway-cli/issues/129))
 * Now `scw login` ask your login/password, you can also pass token and organization with -o and -t ([#59](https://github.com/scaleway/scaleway-cli/issues/59))
+* Support of `scw images --filter` option *(type, organization, name, public)* ([#134](https://github.com/scaleway/scaleway-cli/issues/134))
+* Support of `scw {ps,images} --filter` option *(images: type,organization,name,public; ps:state,ip,tags,image)* ([#134](https://github.com/scaleway/scaleway-cli/issues/134))
 * Syncing cache to disk after server creation when running `scw run` in a non-detached mode
 * Bump to Golang 1.5
 * Support --tmp-ssh-key `scw {run,create}` option ([#99](https://github.com/scaleway/scaleway-cli/issues/99))
-* Support -f `scw run --rm` option ([#117](https://github.com/scaleway/scaleway-cli/issues/117))
+* Support of `scw run --rm` option ([#117](https://github.com/scaleway/scaleway-cli/issues/117))
 * Support of `--gateway=login@host` ([#110](https://github.com/scaleway/scaleway-cli/issues/110))
 * Upload local ssh key to scaleway account on `scw login` ([#100](https://github.com/scaleway/scaleway-cli/issues/100))
 * Add a 'running indicator' for `scw run`, can be disabled with the new flag `--quiet`
