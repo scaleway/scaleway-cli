@@ -107,29 +107,16 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 	return data.Token.ID, nil
 }
 
-func getOrga(token string, email string) (string, error) {
+func getOrganization(token string, email string) (string, error) {
 	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", token)
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
-	FakeConnection.EnableAccountAPI()
-
-	resp, err := FakeConnection.GetResponse("organizations")
+	data, err := FakeConnection.GetOrganization()
 	if err != nil {
 		return "", err
 	}
-	if resp.StatusCode != 200 {
-		return "", fmt.Errorf("[%d] unable to GET", resp.StatusCode)
-	}
 
-	var data api.ScalewayOrganizationsDefinition
-
-	defer resp.Body.Close()
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&data)
-	if err != nil {
-		return "", err
-	}
 	orgaID := ""
 
 	for _, orga := range data.Organizations {
@@ -173,11 +160,34 @@ func connectAPI() (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	orga, err = getOrga(token, connect.Email)
+	orga, err = getOrganization(token, connect.Email)
 	if err != nil {
 		return "", "", err
 	}
 	return orga, token, nil
+}
+
+// uploadSSHKeys uploads an SSH Key
+func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
+	user, err := apiConnection.GetUser()
+	if err != nil {
+		logrus.Errorf("Unable to contact ScalewayAPI: %s", err)
+	} else {
+		user.SSHPublicKeys = append(user.SSHPublicKeys, api.ScalewayKeyDefinition{Key: strings.Trim(newKey, "\n")})
+
+		SSHKeys := api.ScalewayUserPatchSSHKeyDefinition{
+			SSHPublicKeys: user.SSHPublicKeys,
+		}
+
+		userID, err := apiConnection.GetUserID()
+		if err != nil {
+			logrus.Errorf("Unable to get userID: %s", err)
+		} else {
+			if err = apiConnection.PatchUserSSHKey(userID, SSHKeys); err != nil {
+				logrus.Errorf("Unable to patch SSHkey: %v", err)
+			}
+		}
+	}
 }
 
 // RunLogin is the handler for 'scw login'
@@ -211,21 +221,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 			logrus.Errorf("Unable to select a key: %v", err)
 		} else {
 			if args.SSHKey != "" {
-				userID, err := apiConnection.GetUserID()
-				if err != nil {
-					logrus.Errorf("Unable to contact ScalewayAPI: %s", err)
-				} else {
-
-					SSHKey := api.ScalewayUserPatchSSHKeyDefinition{
-						SSHPublicKeys: []api.ScalewayKeyDefinition{{
-							Key: strings.Trim(args.SSHKey, "\n"),
-						}},
-					}
-
-					if err = apiConnection.PatchUserSSHKey(userID, SSHKey); err != nil {
-						logrus.Errorf("Unable to patch SSHkey: %v", err)
-					}
-				}
+				uploadSSHKeys(apiConnection, args.SSHKey)
 			}
 		}
 	}

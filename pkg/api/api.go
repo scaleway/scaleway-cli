@@ -526,7 +526,7 @@ type ScalewayTokenDefinition struct {
 
 // ScalewayTokensDefinition represents a Scaleway Tokens
 type ScalewayTokensDefinition struct {
-	Tokens []ScalewayTokenDefinition `json:"tokens"`
+	Token ScalewayTokenDefinition `json:"token"`
 }
 
 // ScalewayConnectResponse represents the answer from POST /tokens
@@ -564,6 +564,10 @@ type ScalewayUserDefinition struct {
 	Organizations []ScalewayOrganizationDefinition `json:"organizations"`
 	Roles         []ScalewayRoleDefinition         `json:"roles"`
 	SSHPublicKeys []ScalewayKeyDefinition          `json:"ssh_public_keys"`
+}
+
+type ScalewayUsersDefinition struct {
+	User ScalewayUserDefinition `json:"user"`
 }
 
 // ScalewayKeyDefinition represents a key
@@ -1328,11 +1332,11 @@ func (s *ScalewayAPI) CheckCredentials() error {
 	return nil
 }
 
-// GetUserID returns the UserID
+// GetUserID returns the userID
 func (s *ScalewayAPI) GetUserID() (string, error) {
 	s.EnableAccountAPI()
 	defer s.DisableAccountAPI()
-	resp, err := s.GetResponse("tokens")
+	resp, err := s.GetResponse(fmt.Sprintf("tokens/%s", s.Token))
 	if err != nil {
 		return "", err
 	}
@@ -1340,16 +1344,63 @@ func (s *ScalewayAPI) GetUserID() (string, error) {
 		return "", fmt.Errorf("[%d] invalid credentials", resp.StatusCode)
 	}
 	defer resp.Body.Close()
-	var tokens ScalewayTokensDefinition
+	var token ScalewayTokensDefinition
+
 	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&tokens)
+	err = decoder.Decode(&token)
 	if err != nil {
 		return "", err
 	}
-	if len(tokens.Tokens) == 0 {
-		return "", fmt.Errorf("unable to get tokens")
+	return token.Token.UserID, nil
+}
+
+// GetOrganization returns Organization
+func (s *ScalewayAPI) GetOrganization() (*ScalewayOrganizationsDefinition, error) {
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
+	resp, err := s.GetResponse("organizations")
+	if err != nil {
+		return nil, err
 	}
-	return tokens.Tokens[0].UserID, nil
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("[%d] unable to GET", resp.StatusCode)
+	}
+
+	var data ScalewayOrganizationsDefinition
+
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&data)
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
+// GetUser returns the user
+func (s *ScalewayAPI) GetUser() (*ScalewayUserDefinition, error) {
+	userID, err := s.GetUserID()
+	if err != nil {
+		return nil, err
+	}
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
+	resp, err := s.GetResponse(fmt.Sprintf("users/%s", userID))
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("[%d] no such user", resp.StatusCode)
+	}
+	defer resp.Body.Close()
+	var user ScalewayUsersDefinition
+
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&user)
+	if err != nil {
+		return nil, err
+	}
+	return &user.User, nil
 }
 
 //
