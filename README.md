@@ -564,11 +564,31 @@ List servers. By default, only running servers are displayed.
 Options:
 
   -a, --all=false       Show all servers. Only running servers are shown by default
+  -f, --filter=""       Filter output based on conditions provided
   -h, --help=false      Print usage
   -l, --latest=false    Show only the latest created server, include non-running ones
   -n=0                  Show n last created servers, include non-running ones
   --no-trunc=false      Don't truncate output
   -q, --quiet=false     Only display numeric IDs
+
+Examples:
+
+    $ scw ps
+    $ scw ps -a
+    $ scw ps -l
+    $ scw ps -n=10
+    $ scw ps -q
+    $ scw ps --no-trunc
+    $ scw ps -f state=booted
+    $ scw ps -f state=running
+    $ scw ps -f state=stopped
+    $ scw ps -f ip=212.47.229.26
+    $ scw ps -f tags=prod
+    $ scw ps -f tags=boot=live
+    $ scw ps -f image=docker
+    $ scw ps -f image=alpine
+    $ scw ps -f image=UUIDOFIMAGE
+    $ scw ps -f "state=booted image=docker tags=prod"
 ```
 
 
@@ -1112,6 +1132,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Support --skip-ssh-key `scw login` ([#129](https://github.com/scaleway/scaleway-cli/issues/129))
 * Now `scw login` ask your login/password, you can also pass token and organization with -o and -t ([#59](https://github.com/scaleway/scaleway-cli/issues/59))
 * Support of `scw images --filter` option *(type, organization, name, public)* ([#134](https://github.com/scaleway/scaleway-cli/issues/134))
+* Support of `scw {ps,images} --filter` option *(images: type,organization,name,public; ps:state,ip,tags,image)* ([#134](https://github.com/scaleway/scaleway-cli/issues/134))
 * Syncing cache to disk after server creation when running `scw run` in a non-detached mode
 * Bump to Golang 1.5
 * Support --tmp-ssh-key `scw {run,create}` option ([#99](https://github.com/scaleway/scaleway-cli/issues/99))
