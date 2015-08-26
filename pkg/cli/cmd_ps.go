@@ -7,8 +7,8 @@ package cli
 import (
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
 
 var cmdPs = &Command{

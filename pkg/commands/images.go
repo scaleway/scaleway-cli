@@ -12,11 +12,11 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/renstrom/fuzzysearch/fuzzy"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 // ImagesArgs are flags for the `RunImages` function
