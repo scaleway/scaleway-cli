@@ -64,7 +64,7 @@ pkg/scwversion/version.go: .git
 
 $(BUILD_LIST): %_build: %_fmt %_iref
 	$(GOBUILD) -o $(NAME) ./$*
-	go tool vet -all=true $(PACKAGES)
+	go tool vet -all=true $(PACKAGES) $(SRC)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
 $(INSTALL_LIST): %_install:
