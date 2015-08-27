@@ -22,6 +22,7 @@ import (
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/http2curl"
 )
 
 // Default values
@@ -626,13 +627,21 @@ func (s *ScalewayAPI) Sync() {
 // GetResponse returns an http.Response object for the requested resource
 func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	log.Debugf("GET %s", uri)
+
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
 	return s.client.Do(req)
 }
 
@@ -645,18 +654,20 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 		return nil, err
 	}
 
-	payloadString := strings.TrimSpace(fmt.Sprintf("%s", payload))
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		payloadString = s.HideAPICredentials(payloadString)
-	}
-	log.Debugf("POST %s payload=%s", uri, payloadString)
-
 	req, err := http.NewRequest("POST", uri, payload)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
 	return s.client.Do(req)
 }
 
@@ -669,18 +680,20 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 		return nil, err
 	}
 
-	payloadString := strings.TrimSpace(fmt.Sprintf("%s", payload))
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		payloadString = s.HideAPICredentials(payloadString)
-	}
-	log.Debugf("PATCH %s payload=%s", uri, payloadString)
-
 	req, err := http.NewRequest("PATCH", uri, payload)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
 	return s.client.Do(req)
 }
 
@@ -693,31 +706,41 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 		return nil, err
 	}
 
-	payloadString := strings.TrimSpace(fmt.Sprintf("%s", payload))
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		payloadString = s.HideAPICredentials(payloadString)
-	}
-	log.Debugf("PUT %s payload=%s", uri, payloadString)
-
 	req, err := http.NewRequest("PUT", uri, payload)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
 	return s.client.Do(req)
 }
 
 // DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
-	log.Debugf("DELETE %s", uri)
+
 	req, err := http.NewRequest("DELETE", uri, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
 	return s.client.Do(req)
 }
 
