@@ -449,7 +449,7 @@ type ScalewayServerPatchDefinition struct {
 	Volumes           *map[string]ScalewayVolume `json:"volumes,omitempty"`
 	SecurityGroup     *ScalewaySecurityGroup     `json:"security_group,omitempty"`
 	Organization      *string                    `json:"organization,omitempty"`
-	//Tags            *[]string                  `json:"tags,omitempty"`
+	Tags              *[]string                  `json:"tags,omitempty"`
 }
 
 // ScalewayServerDefinition represents a Scaleway C1 server with image definition
