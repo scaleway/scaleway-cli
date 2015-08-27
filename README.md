@@ -1128,6 +1128,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `_patch SERVER tags="tag1 tag2=value2 tag3"`
 * `scw -D login` displays a fake password
 * Support --skip-ssh-key `scw login` ([#129](https://github.com/scaleway/scaleway-cli/issues/129))
 * Now `scw login` ask your login/password, you can also pass token and organization with -o and -t ([#59](https://github.com/scaleway/scaleway-cli/issues/59))

@@ -41,7 +41,7 @@ func runPatch(cmd *Command, args []string) error {
 	}
 
 	// Parsing FIELD=VALUE
-	updateParts := strings.Split(args[1], "=")
+	updateParts := strings.SplitN(args[1], "=", 2)
 	if len(updateParts) != 2 {
 		cmd.PrintShortUsage()
 	}
@@ -86,6 +86,12 @@ func runPatch(cmd *Command, args []string) error {
 				changes++
 				payload.SecurityGroup.Identifier = newValue
 			}
+		case "tags":
+			newTags := strings.Split(newValue, " ")
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.Tags, fieldName, newTags)
+			// fixme test equality with reflect.DeepEqual ?
+			changes++
+			payload.Tags = &newTags
 		default:
 			log.Fatalf("'_patch server %s=' not implemented", fieldName)
 		}
