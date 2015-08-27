@@ -20,9 +20,9 @@ import (
 	"text/tabwriter"
 	"text/template"
 
-	"github.com/moul/http2curl"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/http2curl"
 )
 
 // Default values
