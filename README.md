@@ -1128,6 +1128,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* `-D,--debug` mode shows ready to copy-paste `curl` commands when using the API (must be used with `--sensitive` to unhide private token)
 * Support of `_patch SERVER tags="tag1 tag2=value2 tag3"`
 * `scw -D login` displays a fake password
 * Support --skip-ssh-key `scw login` ([#129](https://github.com/scaleway/scaleway-cli/issues/129))

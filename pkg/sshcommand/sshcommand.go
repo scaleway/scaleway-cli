@@ -107,8 +107,9 @@ func (c *Command) Slice() []string {
 func (c *Command) String() string {
 	slice := c.Slice()
 	for i := range slice {
-		if strings.Contains(slice[i], " ") {
-			slice[i] = fmt.Sprintf("%q", slice[i])
+		quoted := fmt.Sprintf("%q", slice[i])
+		if strings.Contains(slice[i], " ") || len(quoted) != len(slice[i])+2 {
+			slice[i] = quoted
 		}
 	}
 	return strings.Join(slice, " ")

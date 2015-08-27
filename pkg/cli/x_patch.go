@@ -104,7 +104,7 @@ func runPatch(cmd *Command, args []string) error {
 			log.Debugf("no changes, not updating server")
 		}
 		if err != nil {
-			log.Fatalf("Cannot rename server: %v", err)
+			log.Fatalf("Cannot update server: %v", err)
 		}
 	default:
 		log.Fatalf("_patch not implemented for this kind of object")
