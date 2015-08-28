@@ -57,11 +57,11 @@ func runCreate(cmd *Command, rawArgs []string) error {
 		TmpSSHKey:  createTmpSSHKey,
 	}
 
-	if len(runCreateEnv) > 0 {
-		args.Tags = strings.Split(runCreateEnv, " ")
+	if len(createEnv) > 0 {
+		args.Tags = strings.Split(createEnv, " ")
 	}
-	if len(runCreateVolume) > 0 {
-		args.Volumes = strings.Split(runCreateVolume, " ")
+	if len(createVolume) > 0 {
+		args.Volumes = strings.Split(createVolume, " ")
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunCreate(ctx, args)
