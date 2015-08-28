@@ -95,7 +95,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-export VERSION=v1.4.0-rc1
+export VERSION=v1.4.0
 wget "https://github.com/scaleway/scaleway-cli/releases/download/${VERSION}/scw_${VERSION}_darwin_amd64.zip" -O /tmp/scw.zip
 unzip /tmp/scw.zip \*/scw -d /tmp
 mv /tmp/scw_*/scw /usr/local/bin
@@ -110,7 +110,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'arm'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.4.0-rc1/scw_v1.4.0-rc1_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.4.0/scw_v1.4.0_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1124,7 +1124,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.4.0 (2015-08-28)
 
 #### Features
 
@@ -1162,7 +1162,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Fixed "Run in Docker" usage ([#90](https://github.com/scaleway/scaleway-cli/issues/90))
 * Improved `-D/--debug` outputs
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0...v1.4.0)
 
 ---
 

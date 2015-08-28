@@ -17,12 +17,12 @@
 	"BuildConstraints": "darwin linux windows freebsd netbsd",
 	"ResourcesExclude": "*.go .goxc-temp",
 	"MainDirsExclude": "vendor,Godeps,testdata",
-	"PackageVersion": "v1.4.0-rc1",
+	"PackageVersion": "v1.4.0",
 	"TaskSettings": {
 		"bintray": {
 			"downloadspage": "bintray.md",
 			"package": "scaleway-cli",
-			"repository": "utils",
+			"repository": "gh",
 			"subject": "scaleway"
 		},
 		"codesign": {
