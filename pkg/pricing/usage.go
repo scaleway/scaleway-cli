@@ -7,15 +7,27 @@ type Usage struct {
 	Quantity      *big.Rat
 }
 
-func NewUsageByPath(objectPath string, quantity float64) Usage {
-	return NewUsage(CurrentPricing.GetByPath(objectPath), quantity)
+func NewUsageByPath(objectPath string) Usage {
+	return NewUsageByPathWithQuantity(objectPath, 0)
 }
 
-func NewUsage(object *PricingObject, quantity float64) Usage {
+func NewUsageByPathWithQuantity(objectPath string, quantity float64) Usage {
+	return NewUsageWithQuantity(CurrentPricing.GetByPath(objectPath), quantity)
+}
+
+func NewUsageWithQuantity(object *PricingObject, quantity float64) Usage {
 	return Usage{
 		PricingObject: object,
 		Quantity:      new(big.Rat).SetFloat64(quantity),
 	}
+}
+
+func NewUsage(object *PricingObject) Usage {
+	return NewUsageWithQuantity(object, 0)
+}
+
+func (u *Usage) SetQuantity(quantity *big.Rat) {
+	u.Quantity = quantity
 }
 
 func (u *Usage) BillableQuantity() *big.Rat {

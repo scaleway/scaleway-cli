@@ -20,11 +20,11 @@ func TestBasket_Add(t *testing.T) {
 		So(basket, ShouldNotBeNil)
 		So(basket.Length(), ShouldEqual, 0)
 
-		err := basket.Add(NewUsageByPath("/compute/c1/run", 1))
+		err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 1))
 		So(err, ShouldBeNil)
 		So(basket.Length(), ShouldEqual, 1)
 
-		err = basket.Add(NewUsageByPath("/compute/c1/run", 42))
+		err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 42))
 		So(err, ShouldBeNil)
 		So(basket.Length(), ShouldEqual, 2)
 	})
