@@ -23,7 +23,7 @@ func TestGetByPath(t *testing.T) {
 
 func TestGetByIdentifier(t *testing.T) {
 	Convey("Testing GetByIdentifier", t, func() {
-		object := CurrentPricing.GetByIdentifier("aaaaaaaa-aaaa-4aaa-8aaa-111111111111")
+		object := CurrentPricing.GetByIdentifier("aaaaaaaa-aaaa-4aaa-8aaa-111111111112")
 		So(object, ShouldNotBeNil)
 		So(object.Path, ShouldEqual, "/compute/c1/run")
 

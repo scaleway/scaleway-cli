@@ -27,38 +27,38 @@ func init() {
 	CurrentPricing = PricingList{
 		{
 			Path:             "/compute/c1/run",
-			Identifier:       "aaaaaaaa-aaaa-4aaa-8aaa-111111111111",
+			Identifier:       "aaaaaaaa-aaaa-4aaa-8aaa-111111111112",
 			Currency:         "EUR",
-			UnitPrice:        big.NewRat(12, 1000),    // 0.012
+			UnitPrice:        big.NewRat(2, 1000),     // 0.002
 			UnitQuantity:     big.NewRat(60000, 1000), // 60
-			UnitPriceCap:     big.NewRat(6000, 1000),  // 6
+			UnitPriceCap:     big.NewRat(1000, 1000),  // 1
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/dynamic",
-			Identifier:       "467116bf-4631-49fb-905b-e07701c2db11",
+			Identifier:       "467116bf-4631-49fb-905b-e07701c21111",
 			Currency:         "EUR",
-			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitPrice:        big.NewRat(2, 1000),     // 0.002
 			UnitQuantity:     big.NewRat(60000, 1000), // 60
-			UnitPriceCap:     big.NewRat(1999, 1000),  // 1.99
+			UnitPriceCap:     big.NewRat(990, 1000),   // 0.99
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/reserved",
-			Identifier:       "467116bf-4631-49fb-905b-e07701c2db22",
+			Identifier:       "467116bf-4631-49fb-905b-e07701c22222",
 			Currency:         "EUR",
-			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitPrice:        big.NewRat(2, 1000),     // 0.002
 			UnitQuantity:     big.NewRat(60000, 1000), // 60
-			UnitPriceCap:     big.NewRat(1990, 1000),  // 1.99
+			UnitPriceCap:     big.NewRat(990, 1000),   // 0.99
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/storage/local/ssd/storage",
-			Identifier:       "bbbbbbbb-bbbb-4bbb-8bbb-111111111113",
+			Identifier:       "bbbbbbbb-bbbb-4bbb-8bbb-111111111144",
 			Currency:         "EUR",
-			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitPrice:        big.NewRat(2, 1000),     // 0.002
 			UnitQuantity:     big.NewRat(50000, 1000), // 50
-			UnitPriceCap:     big.NewRat(2000, 1000),  // 2
+			UnitPriceCap:     big.NewRat(1000, 1000),  // 1
 			UsageGranularity: time.Hour,
 		},
 	}
