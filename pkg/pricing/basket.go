@@ -1,6 +1,9 @@
 package pricing
 
-import "math/big"
+import (
+	"math/big"
+	"time"
+)
 
 type Basket []Usage
 
@@ -15,6 +18,18 @@ func (b *Basket) Add(usage Usage) error {
 
 func (b *Basket) Length() int {
 	return len(*b)
+}
+
+func (b *Basket) SetDuration(duration time.Duration) error {
+	var err error
+	for i, usage := range *b {
+		err = usage.SetDuration(duration)
+		if err != nil {
+			return err
+		}
+		(*b)[i] = usage
+	}
+	return nil
 }
 
 func (b *Basket) Total() *big.Rat {
