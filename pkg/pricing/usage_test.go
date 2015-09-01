@@ -10,7 +10,7 @@ import (
 
 func TestNewUsageByPathWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageByPathWithQuantity()", t, func() {
-		usage := NewUsageByPathWithQuantity("/compute/c1/run", 1)
+		usage := NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(1, 1))
 		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
 	})
@@ -27,7 +27,7 @@ func TestNewUsageByPath(t *testing.T) {
 func TestNewUsageWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageWithQuantity()", t, func() {
 		object := CurrentPricing.GetByPath("/compute/c1/run")
-		usage := NewUsageWithQuantity(object, 1)
+		usage := NewUsageWithQuantity(object, big.NewRat(1, 1))
 		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
 	})
@@ -154,42 +154,42 @@ func TestUsage_SetDuration(t *testing.T) {
 func TestUsage_BillableQuantity(t *testing.T) {
 	Convey("Testing Usage.BillableQuantity()", t, FailureContinues, func() {
 		object := &PricingObject{
-			UnitQuantity: 60,
+			UnitQuantity: big.NewRat(60, 1),
 		}
-		usage := NewUsageWithQuantity(object, -1)
+		usage := NewUsageWithQuantity(object, big.NewRat(-1, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, -1000)
+		usage = NewUsageWithQuantity(object, big.NewRat(-1000, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, 0)
+		usage = NewUsageWithQuantity(object, big.NewRat(0, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, 1)
+		usage = NewUsageWithQuantity(object, big.NewRat(1, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60, 1))
 
-		usage = NewUsageWithQuantity(object, 59)
+		usage = NewUsageWithQuantity(object, big.NewRat(59, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60, 1))
 
-		usage = NewUsageWithQuantity(object, 59.9999)
+		usage = NewUsageWithQuantity(object, big.NewRat(599999, 10000)) // 59.9999
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60, 1))
 
-		usage = NewUsageWithQuantity(object, 60)
+		usage = NewUsageWithQuantity(object, big.NewRat(60, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60, 1))
 
-		usage = NewUsageWithQuantity(object, 60.00001)
+		usage = NewUsageWithQuantity(object, big.NewRat(6000001, 100000)) // 60.00001
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60*2, 1))
 
-		usage = NewUsageWithQuantity(object, 61)
+		usage = NewUsageWithQuantity(object, big.NewRat(61, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60*2, 1))
 
-		usage = NewUsageWithQuantity(object, 119)
+		usage = NewUsageWithQuantity(object, big.NewRat(119, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60*2, 1))
 
-		usage = NewUsageWithQuantity(object, 121)
+		usage = NewUsageWithQuantity(object, big.NewRat(121, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60*3, 1))
 
-		usage = NewUsageWithQuantity(object, 1000)
+		usage = NewUsageWithQuantity(object, big.NewRat(1000, 1))
 		So(usage.BillableQuantity(), ShouldEqualBigRat, big.NewRat(60*17, 1))
 	})
 }
@@ -197,42 +197,42 @@ func TestUsage_BillableQuantity(t *testing.T) {
 func TestUsage_LostQuantity(t *testing.T) {
 	Convey("Testing Usage.LostQuantity()", t, FailureContinues, func() {
 		object := &PricingObject{
-			UnitQuantity: 60,
+			UnitQuantity: big.NewRat(60, 1),
 		}
-		usage := NewUsageWithQuantity(object, -1)
+		usage := NewUsageWithQuantity(object, big.NewRat(-1, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, -1000)
+		usage = NewUsageWithQuantity(object, big.NewRat(-1000, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, 0)
+		usage = NewUsageWithQuantity(object, big.NewRat(0, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, 1)
+		usage = NewUsageWithQuantity(object, big.NewRat(1, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60-1, 1))
 
-		usage = NewUsageWithQuantity(object, 59)
+		usage = NewUsageWithQuantity(object, big.NewRat(59, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60-59, 1))
 
-		usage = NewUsageWithQuantity(object, 59.9999)
-		So(usage.LostQuantity(), ShouldEqualBigRat, new(big.Rat).Sub(big.NewRat(60, 1), new(big.Rat).SetFloat64(59.9999)))
+		usage = NewUsageWithQuantity(object, big.NewRat(599999, 10000)) // 59.9999
+		So(usage.LostQuantity(), ShouldEqualBigRat, new(big.Rat).Sub(big.NewRat(60, 1), big.NewRat(599999, 10000)))
 
-		usage = NewUsageWithQuantity(object, 60)
+		usage = NewUsageWithQuantity(object, big.NewRat(60, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(object, 60.00001)
-		So(usage.LostQuantity(), ShouldEqualBigRat, new(big.Rat).SetFloat64(60*2-60.00001))
+		usage = NewUsageWithQuantity(object, big.NewRat(6000001, 100000)) // 60.00001
+		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(6000000*2-6000001, 100000))
 
-		usage = NewUsageWithQuantity(object, 61)
+		usage = NewUsageWithQuantity(object, big.NewRat(61, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60*2-61, 1))
 
-		usage = NewUsageWithQuantity(object, 119)
+		usage = NewUsageWithQuantity(object, big.NewRat(119, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60*2-119, 1))
 
-		usage = NewUsageWithQuantity(object, 121)
+		usage = NewUsageWithQuantity(object, big.NewRat(121, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60*3-121, 1))
 
-		usage = NewUsageWithQuantity(object, 1000)
+		usage = NewUsageWithQuantity(object, big.NewRat(1000, 1))
 		So(usage.LostQuantity(), ShouldEqualBigRat, big.NewRat(60*17-1000, 1))
 	})
 }
@@ -240,24 +240,24 @@ func TestUsage_LostQuantity(t *testing.T) {
 func TestUsage_Total(t *testing.T) {
 	Convey("Testing Usage.Total()", t, FailureContinues, func() {
 		object := PricingObject{
-			UnitQuantity: 60,
-			UnitPrice:    0.012,
-			UnitPriceCap: 6,
+			UnitQuantity: big.NewRat(60, 1),
+			UnitPrice:    big.NewRat(12, 1000), // 0.012
+			UnitPriceCap: big.NewRat(6, 1),
 		}
 
-		usage := NewUsageWithQuantity(&object, -1)
+		usage := NewUsageWithQuantity(&object, big.NewRat(-1, 1))
 		So(usage.Total(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(&object, 0)
+		usage = NewUsageWithQuantity(&object, big.NewRat(0, 1))
 		So(usage.Total(), ShouldEqualBigRat, big.NewRat(0, 1))
 
-		usage = NewUsageWithQuantity(&object, 1)
-		So(usage.Total(), ShouldEqualBigRat, new(big.Rat).Mul(big.NewRat(60, 1), new(big.Rat).SetFloat64(0.012)))
+		usage = NewUsageWithQuantity(&object, big.NewRat(1, 1))
+		So(usage.Total(), ShouldEqualBigRat, big.NewRat(60*12, 1000)) // 60 * 0.012
 
-		usage = NewUsageWithQuantity(&object, 61)
-		So(usage.Total(), ShouldEqualBigRat, new(big.Rat).Mul(big.NewRat(120, 1), new(big.Rat).SetFloat64(0.012)))
+		usage = NewUsageWithQuantity(&object, big.NewRat(61, 1))
+		So(usage.Total(), ShouldEqualBigRat, big.NewRat(120*12, 1000)) // 120 * 0.012
 
-		usage = NewUsageWithQuantity(&object, 1000)
+		usage = NewUsageWithQuantity(&object, big.NewRat(1000, 1))
 		So(usage.Total(), ShouldEqualBigRat, big.NewRat(6, 1))
 	})
 }

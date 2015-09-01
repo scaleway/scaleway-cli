@@ -22,15 +22,15 @@ func TestBasket_Add(t *testing.T) {
 		So(basket, ShouldNotBeNil)
 		So(basket.Length(), ShouldEqual, 0)
 
-		err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 1))
+		err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(1, 1)))
 		So(err, ShouldBeNil)
 		So(basket.Length(), ShouldEqual, 1)
 
-		err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 42))
+		err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(42, 1)))
 		So(err, ShouldBeNil)
 		So(basket.Length(), ShouldEqual, 2)
 
-		err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 600))
+		err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(600, 1)))
 		So(err, ShouldBeNil)
 		So(basket.Length(), ShouldEqual, 3)
 	})
@@ -41,28 +41,19 @@ func TestBasket_Total(t *testing.T) {
 		Convey("3 compute instances", func() {
 			basket := NewBasket()
 			So(basket, ShouldNotBeNil)
-			current := ratZero
-			difference := ratZero
-			So(basket.Total(), ShouldEqualBigRat, current)
+			So(basket.Total(), ShouldEqualBigRat, ratZero)
 
-			err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 1))
+			err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(1, 1)))
 			So(err, ShouldBeNil)
-			difference = new(big.Rat).Mul(big.NewRat(60, 1), new(big.Rat).SetFloat64(0.012))
-			current = new(big.Rat).Add(current, difference)
-			So(basket.Total(), ShouldEqualBigRat, current)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(72, 100)) // 0.72
 
-			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 42))
+			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(42, 1)))
 			So(err, ShouldBeNil)
-			difference = new(big.Rat).Mul(big.NewRat(60, 1), new(big.Rat).SetFloat64(0.012))
-			//difference = big.NewRat(72, 100)
-			current = new(big.Rat).Add(current, difference)
-			So(basket.Total(), ShouldEqualBigRat, current)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(144, 100)) // 1.44
 
-			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", 600))
+			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(600, 1)))
 			So(err, ShouldBeNil)
-			difference = big.NewRat(6, 1)
-			current = new(big.Rat).Add(current, difference)
-			So(basket.Total(), ShouldEqualBigRat, current)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(744, 100)) // 7.44
 		})
 		Convey("1 compute instance with 2 volumes and 1 ip", func() {
 			basket := NewBasket()
@@ -74,19 +65,19 @@ func TestBasket_Total(t *testing.T) {
 			So(basket.Length(), ShouldEqual, 4)
 
 			basket.SetDuration(1 * time.Minute)
-			So(basket.Total(), ShouldEqualBigRat, new(big.Rat).SetFloat64(1.36))
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(136, 100)) // 1.36
 
 			basket.SetDuration(1 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, new(big.Rat).SetFloat64(1.36))
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(136, 100)) // 1.36
 
 			basket.SetDuration(2 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, new(big.Rat).SetFloat64(2.32))
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(232, 100)) // 2.32
 
 			basket.SetDuration(2 * 24 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, new(big.Rat).SetFloat64(8.39))
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(8399, 1000)) // 8.399
 
 			basket.SetDuration(30 * 24 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, new(big.Rat).SetFloat64(1.99))
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(11999, 1000)) // 11.999
 		})
 	})
 }

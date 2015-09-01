@@ -11,22 +11,22 @@ type Usage struct {
 }
 
 func NewUsageByPath(objectPath string) Usage {
-	return NewUsageByPathWithQuantity(objectPath, 0)
+	return NewUsageByPathWithQuantity(objectPath, ratZero)
 }
 
-func NewUsageByPathWithQuantity(objectPath string, quantity float64) Usage {
+func NewUsageByPathWithQuantity(objectPath string, quantity *big.Rat) Usage {
 	return NewUsageWithQuantity(CurrentPricing.GetByPath(objectPath), quantity)
 }
 
-func NewUsageWithQuantity(object *PricingObject, quantity float64) Usage {
+func NewUsageWithQuantity(object *PricingObject, quantity *big.Rat) Usage {
 	return Usage{
 		PricingObject: object,
-		Quantity:      new(big.Rat).SetFloat64(quantity),
+		Quantity:      quantity,
 	}
 }
 
 func NewUsage(object *PricingObject) Usage {
-	return NewUsageWithQuantity(object, 0)
+	return NewUsageWithQuantity(object, ratZero)
 }
 
 func (u *Usage) SetQuantity(quantity *big.Rat) error {
@@ -55,15 +55,14 @@ func (u *Usage) SetStartEnd(start, end time.Time) error {
 }
 
 func (u *Usage) BillableQuantity() *big.Rat {
-	if u.Quantity.Cmp(big.NewRat(0, 1)) < 1 {
+	if u.Quantity.Cmp(ratZero) < 1 {
 		return big.NewRat(0, 1)
 	}
 
 	//return math.Ceil(u.Quantity/u.PricingObject.UnitQuantity) * u.PricingObject.UnitQuantity
-	unitQuantity := new(big.Rat).SetFloat64(u.PricingObject.UnitQuantity)
-	quantityQuotient := new(big.Rat).Quo(u.Quantity, unitQuantity)
+	quantityQuotient := new(big.Rat).Quo(u.Quantity, u.PricingObject.UnitQuantity)
 	ceil := new(big.Rat).SetInt(ratCeil(quantityQuotient))
-	return new(big.Rat).Mul(ceil, unitQuantity)
+	return new(big.Rat).Mul(ceil, u.PricingObject.UnitQuantity)
 }
 
 func (u *Usage) LostQuantity() *big.Rat {
@@ -75,9 +74,6 @@ func (u *Usage) LostQuantity() *big.Rat {
 func (u *Usage) Total() *big.Rat {
 	//return math.Min(u.PricingObject.UnitPrice * u.BillableQuantity(), u.PricingObject.UnitPriceCap)
 
-	unitPrice := new(big.Rat).SetFloat64(u.PricingObject.UnitPrice)
-	total := new(big.Rat).Mul(u.BillableQuantity(), unitPrice)
-
-	unitPriceCap := new(big.Rat).SetFloat64(u.PricingObject.UnitPriceCap)
-	return ratMin(total, unitPriceCap)
+	total := new(big.Rat).Mul(u.BillableQuantity(), u.PricingObject.UnitPrice)
+	return ratMin(total, u.PricingObject.UnitPriceCap)
 }

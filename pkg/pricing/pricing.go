@@ -1,15 +1,18 @@
 package pricing
 
-import "time"
+import (
+	"math/big"
+	"time"
+)
 
 type PricingObject struct {
 	Path             string
 	Identifier       string
 	Currency         string
-	UnitPrice        float64
-	UnitQuantity     float64
-	UnitPriceCap     float64
 	UsageUnit        string
+	UnitPrice        *big.Rat
+	UnitQuantity     *big.Rat
+	UnitPriceCap     *big.Rat
 	UsageGranularity time.Duration
 }
 
@@ -26,36 +29,36 @@ func init() {
 			Path:             "/compute/c1/run",
 			Identifier:       "aaaaaaaa-aaaa-4aaa-8aaa-111111111111",
 			Currency:         "EUR",
-			UnitPrice:        0.012,
-			UnitQuantity:     60,
-			UnitPriceCap:     6,
+			UnitPrice:        big.NewRat(12, 1000),    // 0.012
+			UnitQuantity:     big.NewRat(60000, 1000), // 60
+			UnitPriceCap:     big.NewRat(6000, 1000),  // 6
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/dynamic",
 			Identifier:       "467116bf-4631-49fb-905b-e07701c2db11",
 			Currency:         "EUR",
-			UnitPrice:        0.004,
-			UnitQuantity:     60,
-			UnitPriceCap:     1.99,
+			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitQuantity:     big.NewRat(60000, 1000), // 60
+			UnitPriceCap:     big.NewRat(1999, 1000),  // 1.99
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/reserved",
 			Identifier:       "467116bf-4631-49fb-905b-e07701c2db22",
 			Currency:         "EUR",
-			UnitPrice:        0.004,
-			UnitQuantity:     60,
-			UnitPriceCap:     1.99,
+			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitQuantity:     big.NewRat(60000, 1000), // 60
+			UnitPriceCap:     big.NewRat(1990, 1000),  // 1.99
 			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/storage/local/ssd/storage",
 			Identifier:       "bbbbbbbb-bbbb-4bbb-8bbb-111111111113",
 			Currency:         "EUR",
-			UnitPrice:        0.004,
-			UnitQuantity:     50,
-			UnitPriceCap:     2,
+			UnitPrice:        big.NewRat(4, 1000),     // 0.004
+			UnitQuantity:     big.NewRat(50000, 1000), // 50
+			UnitPriceCap:     big.NewRat(2000, 1000),  // 2
 			UsageGranularity: time.Hour,
 		},
 	}
