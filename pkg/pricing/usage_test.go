@@ -1,28 +1,12 @@
 package pricing
 
 import (
-	"fmt"
 	"math/big"
 	"testing"
+	"time"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
-
-func ShouldEqualBigRat(actual interface{}, expected ...interface{}) string {
-	actualRat := actual.(*big.Rat)
-	expectRat := expected[0].(*big.Rat)
-	cmp := actualRat.Cmp(expectRat)
-	if cmp == 0 {
-		return ""
-	}
-
-	output := fmt.Sprintf("big.Rat are not matching: %q != %q\n", actualRat, expectRat)
-
-	actualFloat64, _ := actualRat.Float64()
-	expectFloat64, _ := expectRat.Float64()
-	output += fmt.Sprintf("                          %f != %f", actualFloat64, expectFloat64)
-	return output
-}
 
 func TestNewUsageByPathWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageByPathWithQuantity()", t, func() {
@@ -32,12 +16,138 @@ func TestNewUsageByPathWithQuantity(t *testing.T) {
 	})
 }
 
+func TestNewUsageByPath(t *testing.T) {
+	Convey("Testing NewUsageByPath()", t, func() {
+		usage := NewUsageByPath("/compute/c1/run")
+		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
+		So(usage.Quantity, ShouldEqualBigRat, ratZero)
+	})
+}
+
 func TestNewUsageWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageWithQuantity()", t, func() {
 		object := CurrentPricing.GetByPath("/compute/c1/run")
 		usage := NewUsageWithQuantity(object, 1)
 		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+	})
+}
+
+func TestUsage_SetStartEnd(t *testing.T) {
+	Convey("Testing Usage.SetStartEnd()", t, func() {
+		object := PricingObject{
+			UsageGranularity: time.Minute,
+		}
+		usage := NewUsage(&object)
+		layout := "2006-Jan-02 15:04:05"
+		start, err := time.Parse(layout, "2015-Jan-25 13:15:42")
+		So(err, ShouldBeNil)
+		end, err := time.Parse(layout, "2015-Jan-25 13:16:10")
+		So(err, ShouldBeNil)
+		err = usage.SetStartEnd(start, end)
+		So(err, ShouldBeNil)
+		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(2, 1))
+	})
+}
+
+func TestUsage_SetDuration(t *testing.T) {
+	Convey("Testing Usage.SetDuration()", t, FailureContinues, func() {
+		Convey("UsageGranularity=time.Minute", func() {
+			object := PricingObject{
+				UsageGranularity: time.Minute,
+			}
+			usage := NewUsage(&object)
+
+			err := usage.SetDuration(time.Minute * 10)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(10, 1))
+
+			err = usage.SetDuration(time.Minute + time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(2, 1))
+
+			err = usage.SetDuration(0 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(-1 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(10*time.Hour + 5*time.Minute + 10*time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(60*10+5+1, 1))
+
+			err = usage.SetDuration(10 * time.Nanosecond)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+		})
+
+		Convey("UsageGranularity=time.Hour", func() {
+			object := PricingObject{
+				UsageGranularity: time.Hour,
+			}
+			usage := NewUsage(&object)
+
+			err := usage.SetDuration(time.Minute * 10)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+
+			err = usage.SetDuration(time.Minute + time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+
+			err = usage.SetDuration(0 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(-1 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(10*time.Hour + 5*time.Minute + 10*time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(11, 1))
+
+			err = usage.SetDuration(10 * time.Nanosecond)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+		})
+
+		Convey("UsageGranularity=time.Hour*24", func() {
+			object := PricingObject{
+				UsageGranularity: time.Hour * 24,
+			}
+			usage := NewUsage(&object)
+
+			err := usage.SetDuration(time.Minute * 10)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+
+			err = usage.SetDuration(time.Minute + time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+
+			err = usage.SetDuration(0 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(-1 * time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(0, 1))
+
+			err = usage.SetDuration(10*time.Hour + 5*time.Minute + 10*time.Second)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+
+			err = usage.SetDuration(3*24*time.Hour + 1*time.Minute)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(4, 1))
+
+			err = usage.SetDuration(10 * time.Nanosecond)
+			So(err, ShouldBeNil)
+			So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
+		})
 	})
 }
 

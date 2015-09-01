@@ -1,5 +1,7 @@
 package pricing
 
+import "time"
+
 type PricingObject struct {
 	Path             string
 	Identifier       string
@@ -8,7 +10,7 @@ type PricingObject struct {
 	UnitQuantity     float64
 	UnitPriceCap     float64
 	UsageUnit        string
-	UsageGranularity string
+	UsageGranularity time.Duration
 }
 
 type PricingList []PricingObject
@@ -27,7 +29,7 @@ func init() {
 			UnitPrice:        0.012,
 			UnitQuantity:     60,
 			UnitPriceCap:     6,
-			UsageGranularity: "minute",
+			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/dynamic",
@@ -36,7 +38,7 @@ func init() {
 			UnitPrice:        0.004,
 			UnitQuantity:     60,
 			UnitPriceCap:     1.99,
-			UsageGranularity: "minute",
+			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/ip/reserved",
@@ -45,7 +47,7 @@ func init() {
 			UnitPrice:        0.004,
 			UnitQuantity:     60,
 			UnitPriceCap:     1.99,
-			UsageGranularity: "minute",
+			UsageGranularity: time.Minute,
 		},
 		{
 			Path:             "/storage/local/ssd/storage",
@@ -54,7 +56,7 @@ func init() {
 			UnitPrice:        0.004,
 			UnitQuantity:     50,
 			UnitPriceCap:     2,
-			UsageGranularity: "hour",
+			UsageGranularity: time.Hour,
 		},
 	}
 }

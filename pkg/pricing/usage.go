@@ -1,6 +1,9 @@
 package pricing
 
-import "math/big"
+import (
+	"math/big"
+	"time"
+)
 
 type Usage struct {
 	PricingObject *PricingObject
@@ -26,8 +29,29 @@ func NewUsage(object *PricingObject) Usage {
 	return NewUsageWithQuantity(object, 0)
 }
 
-func (u *Usage) SetQuantity(quantity *big.Rat) {
-	u.Quantity = quantity
+func (u *Usage) SetQuantity(quantity *big.Rat) error {
+	u.Quantity = ratMax(quantity, ratZero)
+	return nil
+}
+
+func (u *Usage) SetDuration(duration time.Duration) error {
+	minutes := new(big.Rat).SetFloat64(duration.Minutes())
+	factor := new(big.Rat).SetInt64((u.PricingObject.UsageGranularity / time.Minute).Nanoseconds())
+	quantity := new(big.Rat).Quo(minutes, factor)
+	ceil := new(big.Rat).SetInt(ratCeil(quantity))
+	return u.SetQuantity(ceil)
+}
+
+func (u *Usage) SetStartEnd(start, end time.Time) error {
+	roundedStart := start.Round(u.PricingObject.UsageGranularity)
+	if roundedStart.After(start) {
+		roundedStart = roundedStart.Add(-u.PricingObject.UsageGranularity)
+	}
+	roundedEnd := end.Round(u.PricingObject.UsageGranularity)
+	if roundedEnd.Before(end) {
+		roundedEnd = roundedEnd.Add(u.PricingObject.UsageGranularity)
+	}
+	return u.SetDuration(roundedEnd.Sub(roundedStart))
 }
 
 func (u *Usage) BillableQuantity() *big.Rat {
