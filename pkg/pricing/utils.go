@@ -1,6 +1,11 @@
 package pricing
 
-import "math/big"
+import (
+	"fmt"
+	"math/big"
+
+	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+)
 
 var (
 	intZero = big.NewInt(0)
@@ -34,4 +39,9 @@ func ratMin(x, y *big.Rat) *big.Rat {
 		return y
 	}
 	return x
+}
+
+func PriceString(price *big.Rat, currency string) string {
+	floatVal, _ := price.Float64()
+	return fmt.Sprintf("%s %s", humanize.Ftoa(floatVal), currency)
 }

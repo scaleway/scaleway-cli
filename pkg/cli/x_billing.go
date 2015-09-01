@@ -6,6 +6,7 @@ package cli
 
 import (
 	"fmt"
+	"math/big"
 	"text/tabwriter"
 	"time"
 
@@ -61,6 +62,9 @@ func runBilling(cmd *Command, rawArgs []string) error {
 	if err != nil {
 		return err
 	}
+
+	totalMonthPrice := new(big.Rat)
+
 	for _, server := range *servers {
 		if server.State != "running" {
 			continue
@@ -73,8 +77,12 @@ func runBilling(cmd *Command, rawArgs []string) error {
 		usage := pricing.NewUsageByPath("/compute/c1/run")
 		usage.SetStartEnd(modificationTime, time.Now().UTC())
 
+		totalMonthPrice = totalMonthPrice.Add(totalMonthPrice, usage.Total())
+
 		fmt.Fprintf(w, "server/%s\t%s\t%s\t%s\n", shortID, shortName, shortModificationDate, usage.TotalString())
 	}
+
+	fmt.Fprintf(w, "TOTAL\t\t\t%s\n", pricing.PriceString(totalMonthPrice, "EUR"))
 
 	return nil
 }

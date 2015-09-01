@@ -1,11 +1,8 @@
 package pricing
 
 import (
-	"fmt"
 	"math/big"
 	"time"
-
-	"github.com/dustin/go-humanize"
 )
 
 type Usage struct {
@@ -82,7 +79,5 @@ func (u *Usage) Total() *big.Rat {
 }
 
 func (u *Usage) TotalString() string {
-	total := u.Total()
-	floatVal, _ := total.Float64()
-	return fmt.Sprintf("%s %s", humanize.Ftoa(floatVal), u.PricingObject.Currency)
+	return PriceString(u.Total(), u.PricingObject.Currency)
 }
