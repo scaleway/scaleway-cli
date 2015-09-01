@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/smartystreets/goconvey/convey"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
 )
 
 func TestNewUsageByPathWithQuantity(t *testing.T) {

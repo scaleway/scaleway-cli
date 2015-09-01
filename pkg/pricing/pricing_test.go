@@ -3,7 +3,7 @@ package pricing
 import (
 	"testing"
 
-	. "github.com/smartystreets/goconvey/convey"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
 )
 
 func TestGetByPath(t *testing.T) {
