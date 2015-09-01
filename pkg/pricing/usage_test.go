@@ -252,12 +252,12 @@ func TestUsage_Total(t *testing.T) {
 		So(usage.Total(), ShouldEqualBigRat, big.NewRat(0, 1))
 
 		usage = NewUsageWithQuantity(&object, big.NewRat(1, 1))
-		So(usage.Total(), ShouldEqualBigRat, big.NewRat(60*12, 1000)) // 60 * 0.012
+		So(usage.Total(), ShouldEqualBigRat, big.NewRat(12, 1000)) // 0.012
 
 		usage = NewUsageWithQuantity(&object, big.NewRat(61, 1))
-		So(usage.Total(), ShouldEqualBigRat, big.NewRat(120*12, 1000)) // 120 * 0.012
+		So(usage.Total(), ShouldEqualBigRat, big.NewRat(24, 1000)) // 0.024
 
 		usage = NewUsageWithQuantity(&object, big.NewRat(1000, 1))
-		So(usage.Total(), ShouldEqualBigRat, big.NewRat(6, 1))
+		So(usage.Total(), ShouldEqualBigRat, big.NewRat(204, 1000)) // 0.204
 	})
 }

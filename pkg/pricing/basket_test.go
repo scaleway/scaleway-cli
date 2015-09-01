@@ -45,15 +45,15 @@ func TestBasket_Total(t *testing.T) {
 
 			err := basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(1, 1)))
 			So(err, ShouldBeNil)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(12, 100)) // 0.12
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(2, 1000)) // 0.002
 
 			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(42, 1)))
 			So(err, ShouldBeNil)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(24, 100)) // 0.24
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(4, 1000)) // 0.004
 
 			err = basket.Add(NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(600, 1)))
 			So(err, ShouldBeNil)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(124, 100)) // 1.24
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(24, 1000)) // 0.024
 		})
 		Convey("1 compute instance with 2 volumes and 1 ip", func() {
 			basket := NewBasket()
@@ -65,23 +65,23 @@ func TestBasket_Total(t *testing.T) {
 			So(basket.Length(), ShouldEqual, 4)
 
 			basket.SetDuration(1 * time.Minute)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(44, 100)) // 0.44
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(8, 1000)) // 0.008
 
 			basket.SetDuration(1 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(44, 100)) // 0.44
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(8, 1000)) // 0.008
 
 			basket.SetDuration(2 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(68, 100)) // 0.68
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(12, 1000)) // 0.012
 
 			basket.SetDuration(2 * 24 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(219, 100)) // 2.19
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(196, 1000)) // 0.196
 
 			basket.SetDuration(30 * 24 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(399, 100)) // 3.99
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(2050, 1000)) // 2.05
 
 			// FIXME: this test is false, the capacity is per month
 			basket.SetDuration(365 * 24 * time.Hour)
-			So(basket.Total(), ShouldEqualBigRat, big.NewRat(399, 100)) // 3.99
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(2694, 1000)) // 2.694
 		})
 	})
 }

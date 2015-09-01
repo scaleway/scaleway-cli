@@ -75,6 +75,7 @@ func (u *Usage) Total() *big.Rat {
 	//return math.Min(u.PricingObject.UnitPrice * u.BillableQuantity(), u.PricingObject.UnitPriceCap)
 
 	total := new(big.Rat).Mul(u.BillableQuantity(), u.PricingObject.UnitPrice)
+	total = total.Quo(total, u.PricingObject.UnitQuantity)
 	return ratMin(total, u.PricingObject.UnitPriceCap)
 }
 
