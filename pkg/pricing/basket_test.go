@@ -78,6 +78,10 @@ func TestBasket_Total(t *testing.T) {
 
 			basket.SetDuration(30 * 24 * time.Hour)
 			So(basket.Total(), ShouldEqualBigRat, big.NewRat(11999, 1000)) // 11.999
+
+			// FIXME: this test is false, the capacity is per month
+			basket.SetDuration(365 * 24 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(11999, 1000)) // 11.999
 		})
 	})
 }
