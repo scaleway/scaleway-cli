@@ -1,113 +1,153 @@
 #!/usr/bin/env bash
 
-# I'm a script used to check the state of images.
+# I'm a script used to check some basic operations with images.
 
-# parameters
+# Params
 if [ $# -ne 1 ]; then
     echo "usage: $0 image-id"
     exit 1
 fi
 
-IMAGE_ID=$1
-NB_INSTANCES=16
+# Globals
+
+IMAGE_UUID=$1
+IMAGE_NAME=""
+SERVER_UUID=""
+SERVER_NAME=""
 WORKDIR=$(mktemp -d 2>/dev/null || mktemp -d -t /tmp)
-INSTANCE_NAME='check-image'
 
-# destroy all existing servers matching name
+# Printing helpers
+
+function _log_msg {
+    echo -ne "${*}" >&2
+}
+
+function einfo {
+    _log_msg "\033[1;36m>>> \033[0m${*}\n"
+}
+
+function echeck {
+    einfo $@
+    echo ""
+}
+
+function esuccess {
+    _log_msg "\033[1;32m>>> \033[0m${*}\n"
+}
+
+function ewarn {
+    _log_msg "\033[1;33m>>> \033[0m${*}\n"
+}
+
+function eerror {
+    _log_msg "\033[1;31m>>> ${*}\033[0m\n"
+}
+
+function eedie_on_error {
+    failed=$1
+    if [ $failed -ne 0 ]
+    then
+	eerror $2
+	cleanup
+	exit 1
+    fi
+}
+
+# Super helper to print server output to stdout
+
+function watch_server {
+    einfo "Attaching to server $SERVER_UUID"
+    mkfifo ${WORKDIR}/stop_watching_server
+    scw attach $SERVER_UUID 2>/dev/null &
+    killme=$!
+    sleep 5
+    (
+	cat ${WORKDIR}/stop_watching_server
+	kill -9 $killme
+	echo ""
+    ) &>/dev/null &
+}
+
+function stop_watching {
+    echo "" > ${WORKDIR}/stop_watching_server
+    rm -f ${WORKDIR}/stop_watching_server
+    sleep 1
+}
+
+# Checks
+
+function check_image {
+    echeck "Checking image..."
+    IMAGE_NAME=$(scw inspect -f '{{ .Name }}' $IMAGE_UUID 2> /dev/null)
+    eedie_on_error $? "Unable to find image behind $IMAGE_UUID"
+    esuccess "Image name is $IMAGE_NAME"
+    SERVER_NAME="qa-image-$$"
+}
+
+function check_create {
+    echeck "Checking server creation with image..."
+    SERVER_UUID=$(scw create --name "$SERVER_NAME" $IMAGE_UUID)
+    eedie_on_error $? "Unable to create server with image $IMAGE_NAME"
+    esuccess "Created server $SERVER_UUID with image $IMAGE_NAME"
+}
+
+function check_boot {
+    echeck "Checking server boot (can take up to 300 seconds)..."
+    watch_server $SERVER_UUID
+    scw start -w -T 300 $SERVER_UUID &> /dev/null
+    eedie_on_error $? "Unable to boot server $SERVER_UUID"
+    stop_watching
+    esuccess "Server $SERVER_UUID properly boots"
+}
+
+function check_hostname {
+    echeck "Checking server hostname..."
+    HOSTNAME=$(scw exec $SERVER_UUID hostname)
+    eedie_on_error $? "Unable to fetch hostname from server $SERVER_UUID"
+    if [ "$HOSTNAME" -ne "$SERVER_NAME" ]
+    then
+	ewarn "Server hostname is *NOT* properly set (expected=${SERVR_NAME}, found=${HOSTNAME})"
+    else
+	esuccess "Server hostname is properly set"
+    fi
+}
+
+function check_reboot {
+    echeck "Checking reboot..."
+    watch_server
+    scw exec $SERVER_UUID reboot &> /dev/null
+    scw exec -T 300 -w $SERVER_UUID uptime
+    stop_watching
+    eedie_on_error $? "Unable to reboot server $SERVER_NAME"
+    esuccess "Server $SERVER_NAME properly reboots"
+}
+
+# Cleanup
+
 function cleanup {
-    echo >&2 '[+] cleaning up existing servers...'
-    for uuid in $(scw ps -a --no-trunc | tail -n +2 | awk '// { print $1, $NF; }' | grep "^.* ${INSTANCE_NAME}\-" | awk '// { print $1; }'); do
-	scw stop -t $uuid
-    done
-    
-    touch $WORKDIR/uuids.txt
-    touch $WORKDIR/ips.txt
+    if [ "$SERVER_UUID" != "" ]
+    then
+	einfo "Cleaning up server $SERVER_UUID"
+	scw stop -t $SERVER_UUID &> /dev/null
+	scw rm $SERVER_UUID &> /dev/null
+	SERVER_UUID=""
+    fi
+    stop_watching
+    einfo "Cleaning up temporary directory $WORKDIR"
+    rm -rf $WORKDIR
+    kill -9 $(jobs -p)
+    einfo "Killed all survivor processes"
 }
 
-# create $NB_INSTANCES servers using the image
-function boot {
-    echo >&2 "[+] creating $NB_INSTANCES servers..."
-    for i in $(eval echo {1..$NB_INSTANCES}); do
-	scw create --volume 1G --name "$INSTANCE_NAME-$i" $IMAGE_ID >> $WORKDIR/uuids.txt
-    done
-    cat $WORKDIR/uuids.txt
-
-    echo >&2 "[+] booting $NB_INSTANCES servers..."
-    for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw start -s --boot-timeout=120 --ssh-timeout=600 $uuid &
-    done
-    wait `jobs -p`
-
-    echo >&2 "[+] fetching IPs..."
-    for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw inspect $uuid | grep address | awk '// { print $2; }' | tr -d '"' | awk '// { print $1; }' >> $WORKDIR/ips.txt
-    done
-}
-
-# run several tests and output a Markdown report
-function report {
-    # status
-    echo >&2 "[+] report status"
-    echo "## Status of instances"
-    echo ""
-    NB_INSTANCES_OK=$(wc -l $WORKDIR/ips.txt | awk '// { print $1; }')
-    echo "- $NB_INSTANCES_OK / $NB_INSTANCES have correctly booted"
-    echo ""
-
-    # fping
-    echo >&2 "[+] report fping"
-    echo "## fping"
-    echo ""
-    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/' > $WORKDIR/fping
-    NB_INSTANCES_OK=$(wc -l $WORKDIR/fping | awk '// { print $1; }')
-    echo "- $NB_INSTANCES_OK / $NB_INSTANCES respond to ping"
-    echo ""
-    cat $WORKDIR/fping
-    echo ""
-
-    # reboot
-    echo >&2 "[+] reboot"
-    echo "## reboot"
-    echo ""
-    for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec --wait --timeout 60 $uuid '(which systemctl &>/dev/null && systemctl reboot) || reboot'
-    done
-    echo ""
-
-    sleep 120
-
-    # fping
-    echo >&2 "[+] report fping 120 sec after reboot"
-    echo "## fping after reboot"
-    echo ""
-    fping $(cat $WORKDIR/ips.txt) | sed 's/\(.*\)/    \1/' > $WORKDIR/fping
-    NB_INSTANCES_OK=$(wc -l $WORKDIR/fping | awk '// { print $1; }')
-    echo "- $NB_INSTANCES_OK / $NB_INSTANCES respond to ping"
-    echo ""
-    cat $WORKDIR/fping
-    echo ""
-
-    # uptime
-    echo >&2 "[+] uptime"
-    echo "## uptime"
-    echo ""
-    for uuid in $(cat $WORKDIR/uuids.txt); do
-	scw exec --wait --timeout 600 $uuid 'uptime' 1>&2
-	failed=$?
-	if [ $failed -ne 0 ]
-	then
-	    echo "    - $uuid is DOWN"
-	else
-	    echo "    - $uuid is UP"
-	fi
-    done
-    echo ""
-}
+# Main
 
 function main {
+    check_image
+    check_create
+    check_boot
+    check_hostname
+    check_reboot
     cleanup
-    boot
-    report
 }
 
 main
