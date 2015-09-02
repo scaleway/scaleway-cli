@@ -12,6 +12,7 @@ import (
 	"github.com/scaleway/scaleway-cli/vendor/github.com/kardianos/osext"
 
 	"github.com/scaleway/scaleway-cli/pkg/config"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // InfoArgs are flags for the `RunInfo` function
@@ -41,5 +42,23 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 	fmt.Fprintf(ctx.Stdout, "  Snapshots: %d\n", ctx.API.Cache.GetNbSnapshots())
 	fmt.Fprintf(ctx.Stdout, "  Volumes: %d\n", ctx.API.Cache.GetNbVolumes())
 	fmt.Fprintf(ctx.Stdout, "  Bootscripts: %d\n", ctx.API.Cache.GetNbBootscripts())
+	user, err := ctx.API.GetUser()
+	if err != nil {
+		return fmt.Errorf("Unable to get your SSH Keys")
+	} else {
+		if len(user.SSHPublicKeys) == 0 {
+			fmt.Fprintln(ctx.Stdout, "You have no ssh keys")
+		} else {
+			fmt.Fprintln(ctx.Stdout, "SSH Keys:")
+			for id, key := range user.SSHPublicKeys {
+				fingerprint, err := utils.SSHGetFingerprint(key.Key)
+				if err != nil {
+					return err
+				} else {
+					fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
+				}
+			}
+		}
+	}
 	return nil
 }
