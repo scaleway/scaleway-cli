@@ -146,7 +146,7 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
   * `export GOPATH=$HOME/go`
   * `export PATH=$PATH:$GOPATH/bin`
 3. Install the project: `go get github.com/scaleway/scaleway-cli/...`
-4. Run: `scaleway-cli`
+4. Run: `scw`
 
 ## Usage
 
