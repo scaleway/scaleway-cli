@@ -389,12 +389,12 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 
 	for {
 		server, err = api.GetServer(serverID)
+		if err != nil {
+			return nil, err
+		}
 		if currentState != server.State {
 			log.Infof("Server changed state to '%s'", server.State)
 			currentState = server.State
-		}
-		if err != nil {
-			return nil, err
 		}
 		if server.State == targetState {
 			break
