@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"os"
 	"os/exec"
@@ -210,4 +211,26 @@ However, you can access your serial using a web browser:
 		return err
 	}
 	return nil
+}
+
+func SSHGetFingerprint(key string) (string, error) {
+	tmp, err := ioutil.TempFile("", ".tmp")
+	if err != nil {
+		return "", fmt.Errorf("Unable to create a tempory file: %v", err)
+	}
+	defer os.Remove(tmp.Name())
+	buff := []byte(key)
+	bytesWritten := 0
+	for bytesWritten < len(buff) {
+		nb, err := tmp.Write(buff[bytesWritten:])
+		if err != nil {
+			return "", fmt.Errorf("Unable to write: %v", err)
+		}
+		bytesWritten += nb
+	}
+	ret, err := exec.Command("ssh-keygen", "-l", "-f", tmp.Name()).Output()
+	if err != nil {
+		return "", fmt.Errorf("Unable to run ssh-keygen: %v", err)
+	}
+	return string(ret), nil
 }
