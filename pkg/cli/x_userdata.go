@@ -4,7 +4,10 @@
 
 package cli
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 var cmdUserdata = &Command{
 	Exec:        runUserdata,
@@ -35,7 +38,48 @@ func runUserdata(cmd *Command, args []string) error {
 		return cmd.PrintShortUsage()
 	}
 
-	fmt.Println("Not implemented")
+	ctx := cmd.GetContext(args)
+	serverID := ctx.API.GetServerID(args[0])
+
+	switch len(args) {
+	case 1:
+		// List userdata
+		res, err := ctx.API.GetUserdatas(serverID)
+		if err != nil {
+			return err
+		}
+		for _, key := range res.UserData {
+			fmt.Fprintln(ctx.Stdout, key)
+		}
+	default:
+		parts := strings.Split(args[1], "=")
+		key := parts[0]
+		switch len(parts) {
+		case 1:
+			// Get userdatas
+			res, err := ctx.API.GetUserdata(serverID, key)
+			if err != nil {
+				return err
+			}
+			fmt.Fprintf(ctx.Stdout, "%s\n", res.String())
+		default:
+			value := parts[1]
+			if value != "" {
+				// Set userdata
+				err := ctx.API.PatchUserdata(serverID, key, []byte(value))
+				if err != nil {
+					return err
+				}
+				fmt.Fprintln(ctx.Stdout, key)
+			} else {
+				// Delete userdata
+				err := ctx.API.DeleteUserdata(serverID, key)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
 
 	return nil
 }

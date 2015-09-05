@@ -12,6 +12,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -1320,6 +1321,98 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 	}
 	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
+}
+
+type ScalewayUserdatas struct {
+	UserData []string `json:"user_data"`
+}
+
+// GetUserdatas gets list of userdata for a server
+func (s *ScalewayAPI) GetUserdatas(serverID string) (*ScalewayUserdatas, error) {
+	resp, err := s.GetResponse("servers/" + serverID + "/user_data")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	var userdatas ScalewayUserdatas
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&userdatas)
+	if err != nil {
+		return nil, err
+	}
+	return &userdatas, nil
+}
+
+type ScalewayUserdata []byte
+
+func (s *ScalewayUserdata) String() string {
+	return string(*s)
+}
+
+// GetUserdata gets a specific userdata for a server
+func (s *ScalewayAPI) GetUserdata(serverID string, key string) (*ScalewayUserdata, error) {
+	var data ScalewayUserdata
+	var err error
+	resp, err := s.GetResponse("servers/" + serverID + "/user_data/" + key)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("no such user_data %q (%d)", key, resp.StatusCode)
+	}
+
+	defer resp.Body.Close()
+	data, err = ioutil.ReadAll(resp.Body)
+	return &data, err
+}
+
+// PatchUserdata sets a user data
+func (s *ScalewayAPI) PatchUserdata(serverID string, key string, value []byte) error {
+	resource := fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
+	payload := new(bytes.Buffer)
+	payload.Write(value)
+
+	req, err := http.NewRequest("PATCH", uri, payload)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("X-Auth-Token", s.Token)
+	req.Header.Set("Content-Type", "text/plain")
+
+	curl, err := http2curl.GetCurlCommand(req)
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		log.Debug(s.HideAPICredentials(curl.String()))
+	} else {
+		log.Debug(curl.String())
+	}
+
+	resp, err := s.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == 204 {
+		return nil
+	}
+
+	return fmt.Errorf("cannot set user_data (%d)", resp.StatusCode)
+}
+
+// DeleteUserdata deletes a server user_data
+func (s *ScalewayAPI) DeleteUserdata(serverID string, key string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s/user_data/%s", serverID, key))
+	if err != nil {
+		return err
+	}
+
+	// Succeed POST code
+	if resp.StatusCode == 204 {
+		return nil
+	}
+	return fmt.Errorf("cannot delete user_data (%d)", resp.StatusCode)
 }
 
 // GetTasks get the list of tasks from the ScalewayAPI
