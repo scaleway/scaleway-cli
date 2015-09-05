@@ -13,6 +13,7 @@ import (
 // RmArgs are flags for the `RunRm` function
 type RmArgs struct {
 	Servers []string
+	Force   bool
 }
 
 // RunRm is the handler for 'scw rm'
@@ -20,7 +21,12 @@ func RunRm(ctx CommandContext, args RmArgs) error {
 	hasError := false
 	for _, needle := range args.Servers {
 		server := ctx.API.GetServerID(needle)
-		err := ctx.API.DeleteServer(server)
+		var err error
+		if args.Force {
+			err = ctx.API.DeleteServerSafe(server)
+		} else {
+			err = ctx.API.DeleteServer(server)
+		}
 		if err != nil {
 			logrus.Errorf("failed to delete server %s: %s", server, err)
 			hasError = true
