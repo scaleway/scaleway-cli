@@ -1131,6 +1131,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Fixes
 
+* Fixed nil pointer dereference ([#150](https://github.com/scaleway/scaleway-cli/pull/155))
 * Fixed regression on scw create ([#142](https://github.com/scaleway/scaleway-cli/issues/142))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.4.0...master)
