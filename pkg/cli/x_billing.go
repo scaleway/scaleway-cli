@@ -13,6 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 	"github.com/scaleway/scaleway-cli/pkg/pricing"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
 )
 
@@ -51,6 +52,11 @@ func runBilling(cmd *Command, rawArgs []string) error {
 		NoTrunc: billingNoTrunc,
 	}
 	ctx := cmd.GetContext(rawArgs)
+
+	logrus.Warn("")
+	logrus.Warn("Warning: 'scw _billing' is a work-in-progress price estimation tool")
+	logrus.Warn("For real usage, visit https://cloud.scaleway.com/#/billing")
+	logrus.Warn("")
 
 	// table
 	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
