@@ -96,7 +96,15 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 			if err != nil {
 				return 1, fmt.Errorf("usage: scw %s", cmd.UsageLine)
 			}
-			if cmd.Name() != "login" && cmd.Name() != "help" && cmd.Name() != "version" {
+			switch cmd.Name() {
+			case "login", "help", "version":
+				// commands that don't need API
+			case "_userdata":
+				// commands that may need API
+				api, _ := getScalewayAPI()
+				cmd.API = api
+			default:
+				// commands that do need API
 				if cfgErr != nil {
 					if name != "login" && config == nil {
 						logrus.Debugf("cfgErr: %v", cfgErr)
