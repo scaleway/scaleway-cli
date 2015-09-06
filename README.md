@@ -1128,7 +1128,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 #### Features
 
 * `scw info` now prints user/organization info from the API ([#142](https://github.com/scaleway/scaleway-cli/issues/130)
-*
+* Added helpers to manipulate new `user_data` API ([#150](https://github.com/scaleway/scaleway-cli/issues/150))
 
 #### Fixes
 

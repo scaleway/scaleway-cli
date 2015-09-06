@@ -17,7 +17,7 @@ var (
 		"version", "wait",
 	}
 	secretCommands []string = []string{
-		"_patch", "_completion", "_flush-cache",
+		"_patch", "_completion", "_flush-cache", "_userdata",
 	}
 	publicOptions []string = []string{
 		"-h, --help=false",

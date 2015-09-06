@@ -40,6 +40,7 @@ var Commands = []*Command{
 	cmdStop,
 	cmdTag,
 	cmdTop,
+	cmdUserdata,
 	cmdVersion,
 	cmdWait,
 }
