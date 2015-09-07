@@ -1133,6 +1133,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw info` now prints user/organization info from the API ([#142](https://github.com/scaleway/scaleway-cli/issues/130)
 * Added helpers to manipulate new `user_data` API ([#150](https://github.com/scaleway/scaleway-cli/issues/150))
 * Support of `scw rm -f/--force` option ([#158](https://github.com/scaleway/scaleway-cli/issues/158))
+* Added `scw _userdata local ...` option which interacts with the Metadata API without authentication ([#166](https://github.com/scaleway/scaleway-cli/issues/166))
 
 #### Fixes
 

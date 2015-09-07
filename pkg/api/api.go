@@ -28,8 +28,9 @@ import (
 
 // Default values
 var (
-	ComputeAPI string = "https://api.scaleway.com/"
-	AccountAPI string = "https://account.scaleway.com/"
+	ComputeAPI  string = "https://api.scaleway.com/"
+	AccountAPI  string = "https://account.scaleway.com/"
+	MetadataAPI string = "http://169.254.42.42/"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
@@ -55,8 +56,9 @@ type ScalewayAPI struct {
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
-	client   *http.Client
-	anonuuid anonuuid.AnonUUID
+	client     *http.Client
+	anonuuid   anonuuid.AnonUUID
+	isMetadata bool
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -1355,7 +1357,14 @@ type ScalewayUserdatas struct {
 
 // GetUserdatas gets list of userdata for a server
 func (s *ScalewayAPI) GetUserdatas(serverID string) (*ScalewayUserdatas, error) {
-	resp, err := s.GetResponse("servers/" + serverID + "/user_data")
+	var url string
+	if s.isMetadata {
+		url = "/user_data"
+	} else {
+		url = fmt.Sprintf("servers/%s/user_data", serverID)
+	}
+
+	resp, err := s.GetResponse(url)
 	if err != nil {
 		return nil, err
 	}
@@ -1381,7 +1390,14 @@ func (s *ScalewayAPI) GetUserdata(serverID string, key string) (*ScalewayUserdat
 	var data ScalewayUserdata
 	var err error
 
-	resp, err := s.GetResponse("servers/" + serverID + "/user_data/" + key)
+	var url string
+	if s.isMetadata {
+		url = fmt.Sprintf("/user_data/%s", key)
+	} else {
+		url = fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
+	}
+
+	resp, err := s.GetResponse(url)
 	if err != nil {
 		return nil, err
 	}
@@ -1397,7 +1413,13 @@ func (s *ScalewayAPI) GetUserdata(serverID string, key string) (*ScalewayUserdat
 
 // PatchUserdata sets a user data
 func (s *ScalewayAPI) PatchUserdata(serverID string, key string, value []byte) error {
-	resource := fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
+	var resource string
+	if s.isMetadata {
+		resource = fmt.Sprintf("/user_data/%s", key)
+	} else {
+		resource = fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
+	}
+
 	uri := fmt.Sprintf("%s/%s", strings.TrimRight(s.APIUrl, "/"), resource)
 	payload := new(bytes.Buffer)
 	payload.Write(value)
@@ -1432,7 +1454,14 @@ func (s *ScalewayAPI) PatchUserdata(serverID string, key string, value []byte) e
 
 // DeleteUserdata deletes a server user_data
 func (s *ScalewayAPI) DeleteUserdata(serverID string, key string) error {
-	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s/user_data/%s", serverID, key))
+	var url string
+	if s.isMetadata {
+		url = fmt.Sprintf("/user_data/%s", key)
+	} else {
+		url = fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
+	}
+
+	resp, err := s.DeleteResponse(url)
 	if err != nil {
 		return err
 	}
@@ -1685,6 +1714,18 @@ func (s *ScalewayAPI) EnableAccountAPI() {
 // DisableAccountAPI disable accountAPI
 func (s *ScalewayAPI) DisableAccountAPI() {
 	s.APIUrl = s.ComputeAPI
+}
+
+// EnableMetadataAPI enable metadataAPI
+func (s *ScalewayAPI) EnableMetadataAPI() {
+	s.APIUrl = MetadataAPI
+	s.isMetadata = true
+}
+
+// DisableMetadataAPI disable metadataAPI
+func (s *ScalewayAPI) DisableMetadataAPI() {
+	s.APIUrl = s.ComputeAPI
+	s.isMetadata = false
 }
 
 // SetPassword register the password

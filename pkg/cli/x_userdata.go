@@ -7,6 +7,8 @@ package cli
 import (
 	"fmt"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 var cmdUserdata = &Command{
@@ -39,12 +41,27 @@ func runUserdata(cmd *Command, args []string) error {
 	}
 
 	ctx := cmd.GetContext(args)
-	serverID := ctx.API.GetServerID(args[0])
+	var Api *api.ScalewayAPI
+	var err error
+	var serverID string
+	if args[0] == "local" {
+		Api, err = api.NewScalewayAPI("", "", "", "")
+		if err != nil {
+			return err
+		}
+		Api.EnableMetadataAPI()
+	} else {
+		if ctx.API == nil {
+			return fmt.Errorf("You need to login first: 'scw login'")
+		}
+		serverID = ctx.API.GetServerID(args[0])
+		Api = ctx.API
+	}
 
 	switch len(args) {
 	case 1:
 		// List userdata
-		res, err := ctx.API.GetUserdatas(serverID)
+		res, err := Api.GetUserdatas(serverID)
 		if err != nil {
 			return err
 		}
@@ -57,7 +74,7 @@ func runUserdata(cmd *Command, args []string) error {
 		switch len(parts) {
 		case 1:
 			// Get userdatas
-			res, err := ctx.API.GetUserdata(serverID, key)
+			res, err := Api.GetUserdata(serverID, key)
 			if err != nil {
 				return err
 			}
@@ -66,14 +83,14 @@ func runUserdata(cmd *Command, args []string) error {
 			value := parts[1]
 			if value != "" {
 				// Set userdata
-				err := ctx.API.PatchUserdata(serverID, key, []byte(value))
+				err := Api.PatchUserdata(serverID, key, []byte(value))
 				if err != nil {
 					return err
 				}
 				fmt.Fprintln(ctx.Stdout, key)
 			} else {
 				// Delete userdata
-				err := ctx.API.DeleteUserdata(serverID, key)
+				err := Api.DeleteUserdata(serverID, key)
 				if err != nil {
 					return err
 				}
