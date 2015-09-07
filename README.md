@@ -626,11 +626,14 @@ Remove one or more servers.
 
 Options:
 
+  -f, --force=false     Force the removal of a server
   -h, --help=false      Print usage
 
 Examples:
 
-    $ scw rm my-stopped-server my-second-stopped-server
+    $ scw rm myserver
+    $ scw rm -f myserver
+    $ scw rm my-stopped-server my-second-stopped-serv
     $ scw rm $(scw ps -q)
     $ scw rm $(scw ps | grep mysql | awk '{print $1}')
 ```
@@ -1129,6 +1132,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 * `scw info` now prints user/organization info from the API ([#142](https://github.com/scaleway/scaleway-cli/issues/130)
 * Added helpers to manipulate new `user_data` API ([#150](https://github.com/scaleway/scaleway-cli/issues/150))
+* Support of `scw rm -f/--force` option ([#158](https://github.com/scaleway/scaleway-cli/issues/158))
 
 #### Fixes
 

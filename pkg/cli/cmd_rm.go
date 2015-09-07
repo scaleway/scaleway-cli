@@ -12,6 +12,8 @@ var cmdRm = &Command{
 	Description: "Remove one or more servers",
 	Help:        "Remove one or more servers.",
 	Examples: `
+    $ scw rm myserver
+    $ scw rm -f myserver
     $ scw rm my-stopped-server my-second-stopped-server
     $ scw rm $(scw ps -q)
     $ scw rm $(scw ps | grep mysql | awk '{print $1}')
@@ -20,10 +22,12 @@ var cmdRm = &Command{
 
 func init() {
 	cmdRm.Flag.BoolVar(&rmHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdRm.Flag.BoolVar(&rmForce, []string{"f", "-force"}, false, "Force the removal of a server")
 }
 
 // Flags
-var rmHelp bool // -h, --help flag
+var rmHelp bool  // -h, --help flag
+var rmForce bool // -f, --force flag
 
 func runRm(cmd *Command, rawArgs []string) error {
 	if rmHelp {
@@ -35,6 +39,7 @@ func runRm(cmd *Command, rawArgs []string) error {
 
 	args := commands.RmArgs{
 		Servers: rawArgs,
+		Force:   rmForce,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunRm(ctx, args)

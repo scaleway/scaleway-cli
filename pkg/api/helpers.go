@@ -515,6 +515,7 @@ func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan cha
 // DeleteServerSafe tries to delete a server using multiple ways
 func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
 	// FIXME: also delete attached volumes and ip address
+	// FIXME: call delete and stop -t in parallel to speed up process
 	err := a.DeleteServer(serverID)
 	if err == nil {
 		logrus.Infof("Server '%s' successfuly deleted", serverID)
@@ -527,7 +528,8 @@ func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
 		return nil
 	}
 
+	// FIXME: retry in a loop until timeout or Control+C
 	logrus.Errorf("Failed to delete server %s", serverID)
-	logrus.Errorf("Try to run 'scw rm %s' later", serverID)
+	logrus.Errorf("Try to run 'scw rm -f %s' later", serverID)
 	return err
 }
