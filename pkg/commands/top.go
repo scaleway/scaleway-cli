@@ -45,6 +45,8 @@ func RunTop(ctx CommandContext, args TopArgs) error {
 	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, gateway)
 	logrus.Debugf("Executing: %s", sshCommand)
 	out, err := exec.Command("ssh", sshCommand.Slice()[1:]...).CombinedOutput()
-	fmt.Printf("%s", out)
+	if err != nil {
+		fmt.Fprintf(ctx.Stdout, "%s", out)
+	}
 	return err
 }

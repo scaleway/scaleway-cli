@@ -33,6 +33,6 @@ func RunCommit(ctx CommandContext, args CommitArgs) error {
 	if err != nil {
 		return fmt.Errorf("Cannot create snapshot: %v", err)
 	}
-	fmt.Println(snapshot)
+	fmt.Fprintln(ctx.Stdout, snapshot)
 	return nil
 }
