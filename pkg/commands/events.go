@@ -36,7 +36,7 @@ func RunEvents(ctx CommandContext, args EventsArgs) error {
 			terminatedAt = units.HumanDuration(time.Now().UTC().Sub(terminatedAtTime))
 		}
 
-		fmt.Printf("%s %s: %s (%s %d) %s\n", startedAt, event.HrefFrom, event.Description, event.Status, event.Progress, terminatedAt)
+		fmt.Fprintf(ctx.Stdout, "%s %s: %s (%s %d) %s\n", startedAt, event.HrefFrom, event.Description, event.Status, event.Progress, terminatedAt)
 	}
 	return nil
 }

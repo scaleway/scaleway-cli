@@ -55,7 +55,7 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 				if err != nil {
 					return err
 				} else {
-					fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
+					fmt.Fprintf(ctx.Stdout, "  [%d] %s\n", id, fingerprint)
 				}
 			}
 		}

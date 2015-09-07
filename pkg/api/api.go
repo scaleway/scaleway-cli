@@ -637,12 +637,14 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	req.Header.Set("Content-Type", "application/json")
 
 	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		return nil, err
+	}
 	if os.Getenv("SCW_SENSITIVE") != "1" {
 		log.Debug(s.HideAPICredentials(curl.String()))
 	} else {
 		log.Debug(curl.String())
 	}
-
 	return s.client.Do(req)
 }
 
@@ -663,6 +665,9 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	req.Header.Set("Content-Type", "application/json")
 
 	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		return nil, err
+	}
 	if os.Getenv("SCW_SENSITIVE") != "1" {
 		log.Debug(s.HideAPICredentials(curl.String()))
 	} else {
@@ -689,6 +694,9 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	req.Header.Set("Content-Type", "application/json")
 
 	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		return nil, err
+	}
 	if os.Getenv("SCW_SENSITIVE") != "1" {
 		log.Debug(s.HideAPICredentials(curl.String()))
 	} else {
@@ -715,6 +723,9 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 	req.Header.Set("Content-Type", "application/json")
 
 	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		return nil, err
+	}
 	if os.Getenv("SCW_SENSITIVE") != "1" {
 		log.Debug(s.HideAPICredentials(curl.String()))
 	} else {
@@ -736,6 +747,9 @@ func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	req.Header.Set("Content-Type", "application/json")
 
 	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		return nil, err
+	}
 	if os.Getenv("SCW_SENSITIVE") != "1" {
 		log.Debug(s.HideAPICredentials(curl.String()))
 	} else {

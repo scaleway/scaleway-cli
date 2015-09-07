@@ -92,13 +92,14 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("unable to connect %v", err)
 	}
+	defer resp.Body.Close()
+
 	// Succeed POST code
 	if resp.StatusCode != 201 {
 		return "", fmt.Errorf("[%d] maybe your email or your password is not valid", resp.StatusCode)
 	}
 	var data api.ScalewayConnectResponse
 
-	defer resp.Body.Close()
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&data)
 	if err != nil {
