@@ -1719,6 +1719,9 @@ func (s *ScalewayAPI) DisableAccountAPI() {
 // EnableMetadataAPI enable metadataAPI
 func (s *ScalewayAPI) EnableMetadataAPI() {
 	s.APIUrl = MetadataAPI
+	if os.Getenv("SCW_METADATA_URL") != "" {
+		s.APIUrl = os.Getenv("SCW_METADATA_URL")
+	}
 	s.isMetadata = true
 }
 
