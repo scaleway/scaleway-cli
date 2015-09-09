@@ -108,7 +108,7 @@ Install the latest release on Linux:
 
 ```bash
 # get latest release
-export ARCH=amd64  # can be 'i386', 'amd64' or 'arm'
+export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
 wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.4.0/scw_1.4.0_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 

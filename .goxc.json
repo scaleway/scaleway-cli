@@ -36,6 +36,9 @@
 			"owner": "scaleway",
 			"prerelease": false,
 			"repository": "scaleway-cli"
+		},
+		"xc": {
+			"GOARM": "5"
 		}
 	},
 	"ConfigVersion": "0.9",
