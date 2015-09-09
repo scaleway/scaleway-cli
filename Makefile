@@ -25,7 +25,7 @@ FPM_ARGS ?=	\
 
 NAME = scw
 SRC = cmd/scw
-PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion
+PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion pkg/pricing
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
@@ -72,7 +72,7 @@ $(INSTALL_LIST): %_install:
 $(IREF_LIST): %_iref: pkg/scwversion/version.go
 	$(GOTEST) -i ./$*
 $(TEST_LIST): %_test:
-	$(GOTEST) ./$*
+	$(GOTEST) -v ./$*
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 

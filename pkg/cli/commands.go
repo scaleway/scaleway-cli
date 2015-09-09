@@ -13,12 +13,10 @@ var Commands = []*Command{
 
 	cmdAttach,
 	cmdCommit,
-	cmdCompletion,
 	cmdCp,
 	cmdCreate,
 	cmdEvents,
 	cmdExec,
-	cmdFlushCache,
 	cmdHistory,
 	cmdImages,
 	cmdInfo,
@@ -27,7 +25,6 @@ var Commands = []*Command{
 	cmdLogin,
 	cmdLogout,
 	cmdLogs,
-	cmdPatch,
 	cmdPort,
 	cmdPs,
 	cmdRename,
@@ -43,4 +40,9 @@ var Commands = []*Command{
 	cmdUserdata,
 	cmdVersion,
 	cmdWait,
+
+	cmdBilling,
+	cmdCompletion,
+	cmdFlushCache,
+	cmdPatch,
 }
