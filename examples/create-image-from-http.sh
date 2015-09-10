@@ -14,7 +14,9 @@ fi
 
 
 NAME=$(basename "${URL}")
-NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
+SNAPSHOT_NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
+IMAGE_NAME=${IMAGE_NAME:-$SNAPSHOT_NAME}
+IMAGE_BOOTSCRIPT=${IMAGE_BOOTSCRIPT:stable}
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
 KEY=$(cat ~/.ssh/id_rsa.pub | awk '{ print $1" "$2 }' | tr ' ' '_')
 
@@ -50,12 +52,12 @@ echo "[+] Server stopped"
 
 
 echo "[+] Creating a snapshot of nbd1"
-SNAPSHOT=$(scw commit --volume=1 "${SERVER}" "${NAME}")
+SNAPSHOT=$(scw commit --volume=1 "${SERVER}" "${SNAPSHOT_NAME}")
 echo "[+] Snapshot ${SNAPSHOT} created"
 
 
 echo "[+] Creating an image based of the snapshot"
-IMAGE=$(scw tag "${SNAPSHOT}" "${NAME}")
+IMAGE=$(scw tag --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
 echo "[+] Image created: ${IMAGE}"
 
 
