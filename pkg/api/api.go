@@ -13,6 +13,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -20,6 +21,7 @@ import (
 	"strings"
 	"text/tabwriter"
 	"text/template"
+	"time"
 
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
@@ -56,9 +58,11 @@ type ScalewayAPI struct {
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
-	client     *http.Client
-	anonuuid   anonuuid.AnonUUID
-	isMetadata bool
+	client *http.Client
+	// Used when switching from an API to another
+	oldTransport *http.RoundTripper
+	anonuuid     anonuuid.AnonUUID
+	isMetadata   bool
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -1720,15 +1724,54 @@ func (s *ScalewayAPI) DisableAccountAPI() {
 	s.APIUrl = s.ComputeAPI
 }
 
+func rootNetDial(network, addr string) (net.Conn, error) {
+	dialer := net.Dialer{
+		Timeout:   10 * time.Second,
+		KeepAlive: 10 * time.Second,
+	}
+
+	// bruteforce privileged ports
+	var localAddr net.Addr
+	var err error
+	for port := 1; port <= 1024; port++ {
+		localAddr, err = net.ResolveTCPAddr("tcp", fmt.Sprintf(":%d", port))
+
+		// this should never happen
+		if err != nil {
+			return nil, err
+		}
+
+		dialer.LocalAddr = localAddr
+
+		conn, err := dialer.Dial(network, addr)
+
+		// if err is nil, dialer.Dial succeed, so let's go
+		// else, err != nil, but we don't care
+		if err == nil {
+			return conn, nil
+		}
+	}
+	// if here, all privileged ports were tried without success
+	return nil, fmt.Errorf("bind: permission denied, are you root ?")
+}
+
 // EnableMetadataAPI enable metadataAPI
 func (s *ScalewayAPI) EnableMetadataAPI() {
 	s.APIUrl = MetadataAPI
+	if os.Getenv("SCW_METADATA_URL") != "" {
+		s.APIUrl = os.Getenv("SCW_METADATA_URL")
+	}
+	s.oldTransport = &s.client.Transport
+	s.client.Transport = &http.Transport{
+		Dial: rootNetDial,
+	}
 	s.isMetadata = true
 }
 
 // DisableMetadataAPI disable metadataAPI
 func (s *ScalewayAPI) DisableMetadataAPI() {
 	s.APIUrl = s.ComputeAPI
+	s.client.Transport = *s.oldTransport
 	s.isMetadata = false
 }
 
