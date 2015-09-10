@@ -8,8 +8,9 @@ import "fmt"
 
 // TagArgs are flags for the `RunTag` function
 type TagArgs struct {
-	Snapshot string
-	Name     string
+	Snapshot   string
+	Bootscript string
+	Name       string
 }
 
 // RunTag is the handler for 'scw tag'
@@ -20,7 +21,12 @@ func RunTag(ctx CommandContext, args TagArgs) error {
 		return fmt.Errorf("cannot fetch snapshot: %v", err)
 	}
 
-	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name)
+	bootscriptID := ""
+	if args.Bootscript != "" {
+		bootscriptID = ctx.API.GetBootscriptID(args.Bootscript)
+	}
+
+	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name, bootscriptID)
 	if err != nil {
 		return fmt.Errorf("cannot create image: %v", err)
 	}

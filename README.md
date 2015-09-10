@@ -753,6 +753,7 @@ Tag a snapshot into an image.
 Options:
 
   -h, --help=false      Print usage
+  --bootscript=""       Assign a bootscript
 ```
 
 
@@ -1130,6 +1131,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 #### Features
 
+* Support of `scw tag --bootscript=""` option ([#149](https://github.com/scaleway/scaleway-cli/issues/149)
 * `scw info` now prints user/organization info from the API ([#130](https://github.com/scaleway/scaleway-cli/issues/130)
 * Added helpers to manipulate new `user_data` API ([#150](https://github.com/scaleway/scaleway-cli/issues/150))
 * Support of `scw rm -f/--force` option ([#158](https://github.com/scaleway/scaleway-cli/issues/158))

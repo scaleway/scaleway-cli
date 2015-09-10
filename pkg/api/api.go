@@ -506,10 +506,11 @@ type ScalewaySnapshotDefinition struct {
 
 // ScalewayImageDefinition represents a Scaleway image definition
 type ScalewayImageDefinition struct {
-	SnapshotIDentifier string `json:"root_volume"`
-	Name               string `json:"name,omitempty"`
-	Organization       string `json:"organization"`
-	Arch               string `json:"arch"`
+	SnapshotIDentifier string  `json:"root_volume"`
+	Name               string  `json:"name,omitempty"`
+	Organization       string  `json:"organization"`
+	Arch               string  `json:"arch"`
+	DefaultBootscript  *string `json:"default_bootscript,omitempty"`
 }
 
 // ScalewayRoleDefinition represents a Scaleway Token UserId Role
@@ -1007,12 +1008,15 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 }
 
 // PostImage creates a new image
-func (s *ScalewayAPI) PostImage(volumeID string, name string) (string, error) {
+func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string) (string, error) {
 	definition := ScalewayImageDefinition{
 		SnapshotIDentifier: volumeID,
 		Name:               name,
 		Organization:       s.Organization,
 		Arch:               "arm",
+	}
+	if bootscript != "" {
+		definition.DefaultBootscript = &bootscript
 	}
 
 	resp, err := s.PostResponse("images", definition)
