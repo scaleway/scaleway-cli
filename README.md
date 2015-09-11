@@ -1127,6 +1127,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...master)
+
 ### v1.5.0 (2015-09-11)
 
 * Support of `scw tag --bootscript=""` option ([#149](https://github.com/scaleway/scaleway-cli/issues/149)
