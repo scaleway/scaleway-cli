@@ -1129,19 +1129,17 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-#### Features
-
 * Support of `scw tag --bootscript=""` option ([#149](https://github.com/scaleway/scaleway-cli/issues/149)
 * `scw info` now prints user/organization info from the API ([#130](https://github.com/scaleway/scaleway-cli/issues/130)
 * Added helpers to manipulate new `user_data` API ([#150](https://github.com/scaleway/scaleway-cli/issues/150))
+* Renamed `create-image-from-s3.sh` example and now auto-filling image metadata (title and bootscript) based on the Makefile configuration
 * Support of `scw rm -f/--force` option ([#158](https://github.com/scaleway/scaleway-cli/issues/158))
 * Added `scw _userdata local ...` option which interacts with the Metadata API without authentication ([#166](https://github.com/scaleway/scaleway-cli/issues/166))
 * Initial version of `scw _billing` (price estimation tool) ([#118](https://github.com/scaleway/scaleway-cli/issues/118)
-
-#### Fixes
-
-* Fixed nil pointer dereference ([#155](https://github.com/scaleway/scaleway-cli/pull/155)) ([@ebfe](https://github.com/ebfe))
-* Fixed regression on scw create ([#142](https://github.com/scaleway/scaleway-cli/issues/142))
+* Fix: debian-package installation
+* Fix: nil pointer dereference ([#155](https://github.com/scaleway/scaleway-cli/pull/155)) ([@ebfe](https://github.com/ebfe))
+* Fix: regression on scw create ([#142](https://github.com/scaleway/scaleway-cli/issues/142))
+* Stability improvements
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.4.0...master)
 
