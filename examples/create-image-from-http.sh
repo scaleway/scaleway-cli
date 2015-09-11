@@ -40,7 +40,7 @@ scw exec "${SERVER}" 'mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
 echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
-echo "[+] Download tarball from S3 and write it to /dev/nbd1"
+echo "[+] Download tarball and write it to /dev/nbd1"
 scw exec "${SERVER}" "wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
 echo "[+] Tarball extracted on /dev/nbd1"
 
