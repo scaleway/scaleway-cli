@@ -6,6 +6,7 @@ package cli
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -82,8 +83,17 @@ func runUserdata(cmd *Command, args []string) error {
 		default:
 			value := parts[1]
 			if value != "" {
+				var data []byte
 				// Set userdata
-				err := Api.PatchUserdata(serverID, key, []byte(value))
+				if value[0] == '@' {
+					data, err = ioutil.ReadFile(value[1:])
+					if err != nil {
+						return err
+					}
+				} else {
+					data = []byte(value)
+				}
+				err := Api.PatchUserdata(serverID, key, data)
 				if err != nil {
 					return err
 				}
