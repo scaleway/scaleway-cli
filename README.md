@@ -1129,7 +1129,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-* No entry
+* Support of `scw _userdata name VAR=@/path/to/file` ([#183](https://github.com/scaleway/scaleway-cli/issues/183))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...master)
 
