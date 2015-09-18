@@ -14,11 +14,15 @@ var cmdRestart = &Command{
 }
 
 func init() {
+	cmdRestart.Flag.BoolVar(&restartW, []string{"w", "-wait"}, false, "Synchronous restart. Wait for SSH to be ready")
+	cmdRestart.Flag.Float64Var(&restartTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 	cmdRestart.Flag.BoolVar(&restartHelp, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
-var restartHelp bool // -h, --help flag
+var restartW bool          // -w flag
+var restartTimeout float64 // -T flag
+var restartHelp bool       // -h, --help flag
 
 func runRestart(cmd *Command, rawArgs []string) error {
 	if restartHelp {
@@ -29,6 +33,8 @@ func runRestart(cmd *Command, rawArgs []string) error {
 	}
 
 	args := commands.RestartArgs{
+		Timeout: restartTimeout,
+		Wait:    restartW,
 		Servers: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
