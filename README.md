@@ -614,6 +614,8 @@ Restart a running server.
 Options:
 
   -h, --help=false      Print usage
+  -T, --timeout=0       Set timeout value to seconds
+  -w, --wait=false      Synchronous restart. Wait for SSH to be ready
 ```
 
 
@@ -1130,6 +1132,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ### master (unreleased)
 
 * Support of `scw _userdata name VAR=@/path/to/file` ([#183](https://github.com/scaleway/scaleway-cli/issues/183))
+* Support of `scw restart -w` ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
+* Restarting multiple servers in parallel ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...master)
 
