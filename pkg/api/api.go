@@ -30,9 +30,9 @@ import (
 
 // Default values
 var (
-	ComputeAPI  string = "https://api.scaleway.com/"
-	AccountAPI  string = "https://account.scaleway.com/"
-	MetadataAPI string = "http://169.254.42.42/"
+	ComputeAPI  = "https://api.scaleway.com/"
+	AccountAPI  = "https://account.scaleway.com/"
+	MetadataAPI = "http://169.254.42.42/"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
@@ -381,6 +381,59 @@ type ScalewayTasks struct {
 	Tasks []ScalewayTask `json:"tasks,omitempty"`
 }
 
+// ScalewaySecurityGroupRule definition
+type ScalewaySecurityGroupRule struct {
+	Direction    string `json:"direction"`
+	Protocol     string `json:"protocol"`
+	IPRange      string `json:"ip_range"`
+	DestPortFrom int    `json:"dest_port_from,omitempty"`
+	Action       string `json:"action"`
+	Postion      int    `json:"position"`
+	DestPortTo   string `json:"dest_port_to"`
+	Editable     bool   `json:"editable"`
+	ID           string `json:"id"`
+}
+
+// ScalewayGetSecurityGroupRules represents the response of a GET /security_group/{groupID}/rules
+type ScalewayGetSecurityGroupRules struct {
+	Rules []ScalewaySecurityGroupRule `json:"rules"`
+}
+
+// ScalewayGetSecurityGroupRule represents the response of a GET /security_group/{groupID}/rules/{ruleID}
+type ScalewayGetSecurityGroupRule struct {
+	Rules ScalewaySecurityGroupRule `json:"rule"`
+}
+
+// ScalewayNewSecurityGroupRule definition POST/PUT request /security_group/{groupID}
+type ScalewayNewSecurityGroupRule struct {
+	Action       string `json:"action"`
+	Direction    string `json:"direction"`
+	IPRange      string `json:"ip_range"`
+	Protocol     string `json:"protocol"`
+	DestPortFrom int    `json:"dest_port_from,omitempty"`
+}
+
+// ScalewaySecurityGroups definition
+type ScalewaySecurityGroups struct {
+	Description           string                  `json:"description"`
+	EnableDefaultSecurity bool                    `json:"enable_default_security"`
+	ID                    string                  `json:"id"`
+	Organization          string                  `json:"organization"`
+	Name                  string                  `json:"name"`
+	OrganizationDefault   bool                    `json:"organization_default"`
+	Servers               []ScalewaySecurityGroup `json:"servers"`
+}
+
+// ScalewayGetSecurityGroups represents the response of a GET /security_groups/
+type ScalewayGetSecurityGroups struct {
+	SecurityGroups []ScalewaySecurityGroups `json:"security_groups"`
+}
+
+// ScalewayGetSecurityGroup represents the response of a GET /security_groups/{groupID}
+type ScalewayGetSecurityGroup struct {
+	SecurityGroups ScalewaySecurityGroups `json:"security_group"`
+}
+
 // ScalewaySecurityGroup represents a Scaleway security group
 type ScalewaySecurityGroup struct {
 	// Identifier is a unique identifier for the security group
@@ -388,6 +441,13 @@ type ScalewaySecurityGroup struct {
 
 	// Name is the user-defined name of the security group
 	Name string `json:"name,omitempty"`
+}
+
+// ScalewayNewSecurityGroup definition POST/PUT request /security_groups
+type ScalewayNewSecurityGroup struct {
+	Organization string `json:"organization"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
 }
 
 // ScalewayServer represents a Scaleway C1 server
@@ -575,6 +635,7 @@ type ScalewayUserDefinition struct {
 	SSHPublicKeys []ScalewayKeyDefinition          `json:"ssh_public_keys"`
 }
 
+// ScalewayUsersDefinition represents the response of a GET /user
 type ScalewayUsersDefinition struct {
 	User ScalewayUserDefinition `json:"user"`
 }
@@ -1359,6 +1420,7 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 	return &oneBootscript.Bootscript, nil
 }
 
+// ScalewayUserdatas represents the response of a GET /user_data
 type ScalewayUserdatas struct {
 	UserData []string `json:"user_data"`
 }
@@ -1676,6 +1738,74 @@ func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
 	showResolverResults(needle, images)
 	os.Exit(1)
 	return ""
+}
+
+// GetSecurityGroups returns a ScalewaySecurityGroups
+func (s *ScalewayAPI) GetSecurityGroups() (*ScalewayGetSecurityGroups, error) {
+	resp, err := s.GetResponse("security_groups")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var securityGroups ScalewayGetSecurityGroups
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&securityGroups)
+	if err != nil {
+		return nil, err
+	}
+	return &securityGroups, nil
+}
+
+// GetSecurityGroupRules returns a ScalewaySecurityGroupRules
+func (s *ScalewayAPI) GetSecurityGroupRules(groupID string) (*ScalewayGetSecurityGroupRules, error) {
+	resp, err := s.GetResponse(fmt.Sprintf("security_groups/%s/rules", groupID))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var securityGroupRules ScalewayGetSecurityGroupRules
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&securityGroupRules)
+	if err != nil {
+		return nil, err
+	}
+	return &securityGroupRules, nil
+}
+
+// GetASecurityGroupRule returns a ScalewaySecurityGroupRule
+func (s *ScalewayAPI) GetASecurityGroupRule(groupID string, rulesID string) (*ScalewayGetSecurityGroupRule, error) {
+	resp, err := s.GetResponse(fmt.Sprintf("security_groups/%s/rules/%s", groupID, rulesID))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var securityGroupRules ScalewayGetSecurityGroupRule
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&securityGroupRules)
+	if err != nil {
+		return nil, err
+	}
+	return &securityGroupRules, nil
+}
+
+// GetASecurityGroup returns a ScalewaySecurityGroup
+func (s *ScalewayAPI) GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGroup, error) {
+	resp, err := s.GetResponse(fmt.Sprintf("security_groups/%s", groupsID))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var securityGroups ScalewayGetSecurityGroup
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&securityGroups)
+	if err != nil {
+		return nil, err
+	}
+	return &securityGroups, nil
 }
 
 // GetBootscriptID returns exactly one bootscript matching or dies

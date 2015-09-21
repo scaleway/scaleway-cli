@@ -43,7 +43,7 @@ func runPatch(cmd *Command, args []string) error {
 	// Parsing FIELD=VALUE
 	updateParts := strings.SplitN(args[1], "=", 2)
 	if len(updateParts) != 2 {
-		cmd.PrintShortUsage()
+		return cmd.PrintShortUsage()
 	}
 	fieldName := updateParts[0]
 	newValue := updateParts[1]
