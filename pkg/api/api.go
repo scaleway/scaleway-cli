@@ -650,6 +650,21 @@ type ScalewayUserPatchSSHKeyDefinition struct {
 	SSHPublicKeys []ScalewayKeyDefinition `json:"ssh_public_keys"`
 }
 
+// ScalewayDashboardResp represents a dashboard received from the API
+type ScalewayDashboardResp struct {
+	Dashboard ScalewayDashboard
+}
+
+// ScalewayDashboard represents a dashboard
+type ScalewayDashboard struct {
+	VolumesCount        int `json:"volumes_count"`
+	RunningServersCount int `json:"running_servers_count"`
+	ImagesCount         int `json:"images_count"`
+	SnapshotsCount      int `json:"snapshots_count"`
+	ServersCount        int `json:"servers_count"`
+	IPsCount            int `json:"ips_count"`
+}
+
 // FuncMap used for json inspection
 var FuncMap = template.FuncMap{
 	"json": func(v interface{}) string {
@@ -1659,7 +1674,26 @@ func (s *ScalewayAPI) GetUser() (*ScalewayUserDefinition, error) {
 	return &user.User, nil
 }
 
-//
+// GetDashboard returns the dashboard
+func (s *ScalewayAPI) GetDashboard() (*ScalewayDashboard, error) {
+	resp, err := s.GetResponse("dashboard")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("[%d] no such dashboard", resp.StatusCode)
+	}
+	var dashboard ScalewayDashboardResp
+
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&dashboard)
+	if err != nil {
+		return nil, err
+	}
+	return &dashboard.Dashboard, nil
+}
 
 // GetServerID returns exactly one server matching or dies
 func (s *ScalewayAPI) GetServerID(needle string) string {
