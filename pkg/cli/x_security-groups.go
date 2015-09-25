@@ -60,11 +60,11 @@ var securityGroupsRuleNew string    // -rn, --rule-new flag
 var securityGroupsRuleUpdate string // -ru, --rule-update flag
 
 func printRawMode(out io.Writer, data interface{}) error {
-	js, err := json.Marshal(data)
+	js, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("Unable to parse the data: %v", err)
 	}
-	fmt.Fprintf(out, string(js))
+	fmt.Fprintf(out, "%s\n", string(js))
 	return nil
 }
 
