@@ -75,8 +75,9 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 	fmt.Fprintf(ctx.Stdout, "  Images:\t\t%d\n", dashboard.ImagesCount)
 	fmt.Fprintf(ctx.Stdout, "  Snapshots:\t\t%d\n", dashboard.SnapshotsCount)
 	fmt.Fprintf(ctx.Stdout, "  Servers:\t\t%d\n", dashboard.ServersCount)
-	fmt.Fprintf(ctx.Stdout, "  Ips:\t\t\t%d\n\n", dashboard.IPsCount)
+	fmt.Fprintf(ctx.Stdout, "  Ips:\t\t\t%d\n", dashboard.IPsCount)
 
+	fmt.Fprintf(ctx.Stdout, "\n")
 	permissions, err := ctx.API.GetPermissions()
 	if err != nil {
 		return fmt.Errorf("Unable to get your permisssions")
