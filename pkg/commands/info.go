@@ -59,9 +59,10 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 			if err != nil {
 				return err
 			} else {
-				fmt.Fprintf(ctx.Stdout, "  [%d] %s\n", id, fingerprint)
+				fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
 			}
 		}
+		fmt.Fprintf(ctx.Stdout, "\n")
 	}
 
 	dashboard, err := ctx.API.GetDashboard()
@@ -76,5 +77,19 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 	fmt.Fprintf(ctx.Stdout, "  Servers:\t\t%d\n", dashboard.ServersCount)
 	fmt.Fprintf(ctx.Stdout, "  Ips:\t\t\t%d\n", dashboard.IPsCount)
 
+	fmt.Fprintf(ctx.Stdout, "\n")
+	permissions, err := ctx.API.GetPermissions()
+	if err != nil {
+		return fmt.Errorf("Unable to get your permisssions")
+	}
+	fmt.Fprintln(ctx.Stdout, "Permissions:")
+	for _, service := range permissions.Permissions {
+		for key, serviceName := range service {
+			fmt.Fprintf(ctx.Stdout, "  %s\n", key)
+			for _, perm := range serviceName {
+				fmt.Fprintf(ctx.Stdout, "    %s\n", perm)
+			}
+		}
+	}
 	return nil
 }

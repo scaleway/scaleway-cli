@@ -665,6 +665,14 @@ type ScalewayDashboard struct {
 	IPsCount            int `json:"ips_count"`
 }
 
+type ScalewayPermissions map[string]ScalewayPermCategory
+type ScalewayPermCategory map[string][]string
+
+// ScalewayPermissionDefinition represents the permissions
+type ScalewayPermissionDefinition struct {
+	Permissions ScalewayPermissions `json:"permissions"`
+}
+
 // FuncMap used for json inspection
 var FuncMap = template.FuncMap{
 	"json": func(v interface{}) string {
@@ -1672,6 +1680,28 @@ func (s *ScalewayAPI) GetUser() (*ScalewayUserDefinition, error) {
 		return nil, err
 	}
 	return &user.User, nil
+}
+
+func (s *ScalewayAPI) GetPermissions() (*ScalewayPermissionDefinition, error) {
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
+	resp, err := s.GetResponse(fmt.Sprintf("tokens/%s/permissions", s.Token))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("[%d] no such user", resp.StatusCode)
+	}
+	var permissions ScalewayPermissionDefinition
+
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&permissions)
+	if err != nil {
+		return nil, err
+	}
+	return &permissions, nil
 }
 
 // GetDashboard returns the dashboard
