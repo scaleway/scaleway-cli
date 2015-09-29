@@ -1951,7 +1951,7 @@ func (s *ScalewayAPI) AttachIP(ipID, serverID string) error {
 		Server       string  `json:"server"`
 	}
 
-	ip, err := s.GetIP(idIP)
+	ip, err := s.GetIP(ipID)
 	if err != nil {
 		return err
 	}
