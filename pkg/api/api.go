@@ -434,6 +434,25 @@ type ScalewayGetSecurityGroup struct {
 	SecurityGroups ScalewaySecurityGroups `json:"security_group"`
 }
 
+type ScalewayIPDefinition struct {
+	Organization string `json:"organization"`
+	Reverse      string `json:"reverse"`
+	ID           string `json:"id"`
+	Server       struct {
+		Identifier string `json:"id,omitempty"`
+		Name       string `json:"name,omitempty"`
+	} `json:"server,omitempty"`
+	Address string `json:"address"`
+}
+
+type ScalewayGetIPS struct {
+	IPS []ScalewayIPDefinition `json:"ips"`
+}
+
+type ScalewayGetIP struct {
+	IP ScalewayIPDefinition `json:"ip"`
+}
+
 // ScalewaySecurityGroup represents a Scaleway security group
 type ScalewaySecurityGroup struct {
 	// Identifier is a unique identifier for the security group
@@ -1870,6 +1889,133 @@ func (s *ScalewayAPI) GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGr
 		return nil, err
 	}
 	return &securityGroups, nil
+}
+
+// GetIPS returns a ScalewayGetIPS
+func (s *ScalewayAPI) GetIPS() (*ScalewayGetIPS, error) {
+	resp, err := s.GetResponse("ips")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var ips ScalewayGetIPS
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&ips)
+	if err != nil {
+		return nil, err
+	}
+	return &ips, nil
+}
+
+// NewIP returns a new IP
+func (s *ScalewayAPI) NewIP() (*ScalewayGetIP, error) {
+	var orga struct {
+		Organization string `json:"organization"`
+	}
+	orga.Organization = s.Organization
+	resp, err := s.PostResponse("ips", orga)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		var ip ScalewayGetIP
+		decoder := json.NewDecoder(resp.Body)
+		err = decoder.Decode(&ip)
+		if err != nil {
+			return nil, err
+		}
+		return &ip, nil
+	}
+	var error ScalewayAPIError
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return nil, err
+	}
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return nil, error
+}
+
+// AttachIP attachs an IP to a server
+func (s *ScalewayAPI) AttachIP(ipID, serverID string) error {
+	var update struct {
+		Address      string  `json:"address"`
+		ID           string  `json:"id"`
+		Reverse      *string `json:"reverse"`
+		Organization string  `json:"organization"`
+		Server       string  `json:"server"`
+	}
+
+	ip, err := s.GetIP(idIP)
+	if err != nil {
+		return err
+	}
+	update.Address = ip.IP.Address
+	update.ID = ip.IP.ID
+	update.Organization = ip.IP.Organization
+	update.Server = serverID
+	resp, err := s.PutResponse(fmt.Sprintf("ips/%s", ipID), update)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode == 200 {
+		return nil
+	}
+	var error ScalewayAPIError
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
+}
+
+// DeleteIP deletes an IP
+func (s *ScalewayAPI) DeleteIP(ipID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("ips/%s", ipID))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed PUT code
+	if resp.StatusCode == 204 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&error)
+	if err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	error.Debug()
+	return error
+}
+
+// GetIP returns a ScalewayGetIP
+func (s *ScalewayAPI) GetIP(ipID string) (*ScalewayGetIP, error) {
+	resp, err := s.GetResponse(fmt.Sprintf("ips/%s", ipID))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var ip ScalewayGetIP
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&ip)
+	if err != nil {
+		return nil, err
+	}
+	return &ip, nil
 }
 
 // GetBootscriptID returns exactly one bootscript matching or dies
