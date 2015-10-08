@@ -1138,6 +1138,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Support of `scw restart -w` ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
 * Restarting multiple servers in parallel ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
 * Added _security-groups ([#179](https://github.com/scaleway/scaleway-cli/issues/179))
+* Reflect server location in `scw inspect` ([#204](https://github.com/scaleway/scaleway-cli/pull/204))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...master)
 
