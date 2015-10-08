@@ -518,6 +518,15 @@ type ScalewayServer struct {
 
 	// Organization is the owner of the server
 	Organization string `json:"organization,omitempty"`
+
+	// Location of the server
+	Location struct {
+		Region   string `json:"region,omitempty"`
+		Platform string `json:"platform,omitempty"`
+		Chassis  string `json:"chassis,omitempty"`
+		Blade    string `json:"blade,omitempty"`
+		Node     string `json:"node,omitempty"`
+	} `json:"location,omitempty"`
 }
 
 // ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
