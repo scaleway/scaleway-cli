@@ -11,6 +11,7 @@ import (
 	"bytes"
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -885,6 +886,13 @@ func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 
 // handleHTTPError checks the statusCode and displays the error
 func handleHTTPError(goodStatusCode []int, resp *http.Response) (*json.Decoder, error) {
+	if resp.StatusCode >= 500 {
+		errorMsg, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		return nil, errors.New(string(errorMsg))
+	}
 	good := false
 	for _, code := range goodStatusCode {
 		if code == resp.StatusCode {
