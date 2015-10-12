@@ -525,7 +525,6 @@ type ScalewayServer struct {
 
 	// Location of the server
 	Location struct {
-		Region   string `json:"region,omitempty"`
 		Platform string `json:"platform_id,omitempty"`
 		Chassis  string `json:"chassis_id,omitempty"`
 		Blade    string `json:"blade_id,omitempty"`
