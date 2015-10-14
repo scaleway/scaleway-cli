@@ -44,7 +44,7 @@ COVERPROFILE_LIST = $(foreach int, $(PACKAGES), $(int)/profile.out)
 
 
 all: build
-build: pkg/scwversion/version.go $(BUILD_LIST)
+build: $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
@@ -56,14 +56,11 @@ fmt: $(FMT_LIST)
 	touch $@
 
 
-pkg/scwversion/version.go: .git
-	@sed 's/\(.*GITCOMMIT.* = \).*/\1"$(REV)"/;s/\(.*VERSION.* = \).*/\1"$(TAG)"/' pkg/scwversion/version.tpl > $@.tmp
-	@if [ "$$(diff $@.tmp $@ 2>&1)" != "" ]; then mv $@.tmp $@; fi
-	@rm -f $@.tmp
-
-
 $(BUILD_LIST): %_build: %_fmt %_iref
-	$(GOBUILD) -o $(NAME) ./$*
+	$(GOBUILD) -ldflags \
+		"-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV)\
+		 -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)" \
+	-o $(NAME) ./$*
 	go tool vet -all=true $(PACKAGES) $(SRC)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
@@ -77,16 +74,19 @@ $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
 
+
 release-docker:
 	docker push scaleway/cli
 
 
-goxc: pkg/scwversion/version.go
+goxc:
 	rm -rf dist/$(shell cat .goxc.json| jq -r .PackageVersion)
 	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
 	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
 
-	goxc
+	goxc -build-ldflags \
+		"-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV)\
+		 -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
 
 	mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
 	mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
