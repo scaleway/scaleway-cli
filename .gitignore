@@ -1,7 +1,6 @@
 # builds
 /scaleway-cli
 /scw
-pkg/scwversion/version.go
 dist/
 
 # junk
