@@ -6,6 +6,9 @@ GOINSTALL ?=	$(GOCMD) install
 GOTEST ?=	$(GOCMD) test
 GOFMT ?=	gofmt -w
 GOCOVER ?=	$(GOTEST) -covermode=count -v
+GOVERSIONMAJOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
+GOVERSIONMINOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
+VERSION_GE_1_5 = $(shell [ $(GOVERSIONMAJOR) -gt 1 -o $(GOVERSIONMINOR) -ge 5 ] && echo true)
 
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
 FPM_DOCKER ?=	\
@@ -30,6 +33,13 @@ REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
 BUILDER = scaleway-cli-builder
 ALL_GO_FILES = $(shell find . -type f -name "*.go")
+ifeq ($(VERSION_GE_1_5),true)
+LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV) \
+           -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
+else
+LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT $(REV) \
+           -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION $(TAG)"
+endif
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
 CLEAN_LIST = $(foreach int, $(SRC) $(PACKAGES), $(int)_clean)
@@ -57,19 +67,16 @@ fmt: $(FMT_LIST)
 
 
 $(BUILD_LIST): %_build: %_fmt %_iref
-	$(GOBUILD) -ldflags \
-		"-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV)\
-		 -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)" \
-	-o $(NAME) ./$*
+	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) ./$*
 	go tool vet -all=true $(PACKAGES) $(SRC)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) ./$*
 $(IREF_LIST): %_iref: pkg/scwversion/version.go
-	$(GOTEST) -i ./$*
+	$(GOTEST) -ldflags $(LDFLAGS) -i ./$*
 $(TEST_LIST): %_test:
-	$(GOTEST) -v ./$*
+	$(GOTEST) -ldflags $(LDFLAGS) -v ./$*
 $(FMT_LIST): %_fmt:
 	$(GOFMT) ./$*
 
@@ -84,9 +91,7 @@ goxc:
 	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
 	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
 
-	goxc -build-ldflags \
-		"-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV)\
-		 -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
+	goxc -build-ldflags $(LDFLAGS)
 
 	mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
 	mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
@@ -154,7 +159,7 @@ cover: profile.out
 
 $(COVERPROFILE_LIST): $(ALL_GO_FILES)
 	rm -f $@
-	$(GOCOVER) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
+	$(GOCOVER) -ldflags $(LDFLAGS) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
 
 profile.out: $(COVERPROFILE_LIST)
 	rm -f $@
