@@ -17,7 +17,6 @@ matrix:
     - go: tip
   allow_failures:
     - go: tip
-    - go: 1.4     # Temporarily disabled
 
 
 before_install:

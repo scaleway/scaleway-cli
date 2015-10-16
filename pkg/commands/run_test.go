@@ -5,7 +5,7 @@
 package commands
 
 func ExampleRun() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := RunArgs{
 		Image: "ubuntu-trusuty",
 	}
@@ -13,7 +13,7 @@ func ExampleRun() {
 }
 
 func ExampleRun_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := RunArgs{
 		Attach:     false,
 		Bootscript: "rescue",

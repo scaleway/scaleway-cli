@@ -13,7 +13,7 @@ import (
 
 func TestVersion(t *testing.T) {
 	Convey("Testing Version()", t, func() {
-		ctx := ExampleCommandContext()
+		ctx := testCommandContext()
 		var buf bytes.Buffer
 		ctx.Stdout = &buf
 
@@ -31,7 +31,7 @@ func TestVersion(t *testing.T) {
 }
 
 func ExampleVersion() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := VersionArgs{}
 	Version(ctx, args)
 }
