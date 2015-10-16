@@ -12,13 +12,13 @@ import (
 )
 
 func ExampleRunSearch() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := SearchArgs{}
 	RunSearch(ctx, args)
 }
 
 func ExampleRunSearch_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := SearchArgs{
 		Term:    "",
 		NoTrunc: false,

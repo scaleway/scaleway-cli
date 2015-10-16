@@ -7,14 +7,17 @@ import (
 	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
 )
 
-func ExampleCommand() *Command {
-	return &Command{
+func ExampleCommand() {
+	cmd := Command{
 		Host: "1.2.3.4",
 	}
+
+	// Do stuff
+	fmt.Println(cmd)
 }
 
-func ExampleCommand_options() *Command {
-	return &Command{
+func ExampleCommand_options() {
+	cmd := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
 		Quiet:               true,
@@ -22,10 +25,13 @@ func ExampleCommand_options() *Command {
 		Command:             []string{"echo", "hello world"},
 		Debug:               true,
 	}
+
+	// Do stuff
+	fmt.Println(cmd)
 }
 
-func ExampleCommand_complex() *Command {
-	return &Command{
+func ExampleCommand_complex() {
+	cmd := Command{
 		SkipHostKeyChecking: true,
 		Host:                "1.2.3.4",
 		Quiet:               true,
@@ -38,17 +44,26 @@ func ExampleCommand_complex() *Command {
 			AllocateTTY: true,
 		},
 	}
+
+	// Do stuff
+	fmt.Println(cmd)
 }
 
-func ExampleCommand_gateway() *Command {
-	return &Command{
+func ExampleCommand_gateway() {
+	cmd := Command{
 		Host:    "1.2.3.4",
 		Gateway: New("5.6.7.8"),
 	}
+
+	// Do stuff
+	fmt.Println(cmd)
 }
 
-func ExampleCommand_New() *Command {
-	return New("1.2.3.4")
+func ExampleNew() {
+	cmd := New("1.2.3.4")
+
+	// Do stuff
+	fmt.Println(cmd)
 }
 
 func ExampleCommand_String() {

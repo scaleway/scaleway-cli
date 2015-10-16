@@ -12,13 +12,13 @@ import (
 )
 
 func ExampleRunCreate() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := CreateArgs{}
 	RunCreate(ctx, args)
 }
 
 func ExampleRunCreate_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := CreateArgs{
 		Name:       "test",
 		Bootscript: "rescue",

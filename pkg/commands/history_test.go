@@ -13,13 +13,13 @@ import (
 )
 
 func ExampleRunHistory() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := HistoryArgs{}
 	RunHistory(ctx, args)
 }
 
 func ExampleRunHistory_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := HistoryArgs{
 		NoTrunc: false,
 		Quiet:   false,

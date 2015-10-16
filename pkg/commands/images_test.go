@@ -12,13 +12,13 @@ import (
 )
 
 func ExampleRunImages() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := ImagesArgs{}
 	RunImages(ctx, args)
 }
 
 func ExampleRunImages_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := ImagesArgs{
 		All:     false,
 		NoTrunc: false,
@@ -28,7 +28,7 @@ func ExampleRunImages_complex() {
 }
 
 func ExampleRunImages_quiet() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := ImagesArgs{
 		All:     false,
 		NoTrunc: false,
@@ -38,7 +38,7 @@ func ExampleRunImages_quiet() {
 }
 
 func ExampleRunImages_all() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := ImagesArgs{
 		All:     true,
 		NoTrunc: false,
@@ -48,7 +48,7 @@ func ExampleRunImages_all() {
 }
 
 func ExampleRunImages_notrunc() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := ImagesArgs{
 		All:     false,
 		NoTrunc: true,

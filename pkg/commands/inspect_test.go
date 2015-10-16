@@ -15,13 +15,13 @@ import (
 )
 
 func ExampleRunInspect() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := InspectArgs{}
 	RunInspect(ctx, args)
 }
 
 func ExampleRunInspect_complex() {
-	ctx := ExampleCommandContext()
+	ctx := testCommandContext()
 	args := InspectArgs{
 		Format:      "",
 		Browser:     false,
