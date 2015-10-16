@@ -15,8 +15,7 @@ import (
 func shouldBeAnUUID(actual interface{}, expected ...interface{}) string {
 	input := actual.(string)
 	input = strings.TrimSpace(input)
-	uuid := anonuuid.IsUUID(input)
-	if uuid == nil {
+	if err := anonuuid.IsUUID(input); err != nil {
 		return fmt.Sprintf("%q should be an UUID", actual)
 	}
 	return ""

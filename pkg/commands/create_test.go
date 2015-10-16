@@ -69,9 +69,10 @@ func TestRunCreate_realAPI(t *testing.T) {
 			err := RunCreate(*scopedCtx, args)
 			So(err, ShouldBeNil)
 			So(scopedStderr.String(), ShouldBeEmpty)
-			So(scopedStdout.String(), shouldBeAnUUID)
 
 			uuid := strings.TrimSpace(scopedStdout.String())
+			So(uuid, shouldBeAnUUID)
+
 			createdUUIDs = append(createdUUIDs, uuid)
 		})
 
