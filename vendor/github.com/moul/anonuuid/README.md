@@ -1,4 +1,4 @@
-# anonuuid
+# AnonUUID
 
 [![Build Status](https://travis-ci.org/moul/anonuuid.svg)](https://travis-ci.org/moul/anonuuid)
 [![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
@@ -6,11 +6,39 @@
 
 :wrench: Anonymize UUIDs outputs (written in Golang)
 
+![AnonUUID Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
+
 **anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
 new one.
 
-The fake UUIDs are cached, so if anonuuid encounter the same real UUIDs multiple
+The fake UUIDs are cached, so if AnonUUID encounter the same real UUIDs multiple
 times, the translation will be the same.
+
+## Usage
+
+```console
+$ anonuuid -h
+NAME:
+   anonuuid - Anonymize UUIDs outputs
+
+USAGE:
+   anonuuid [global options] command [command options] [arguments...]
+
+VERSION:
+   1.0.0-dev
+
+AUTHOR(S):
+   Manfred Touron <https://github.com/moul>
+
+COMMANDS:
+   help, h    Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --hexspeak        Generate hexspeak style fake UUIDs
+   --random, -r        Generate random fake UUIDs
+   --help, -h        show help
+   --version, -v    print the version
+```
 
 ## Example
 
@@ -108,6 +136,28 @@ $ curl -s https://api.pathwar.net/achievements\?max_results\=2 | anonuuid | jq .
 Using go
 
 - `go get github.com/moul/anonuuid/...`
+
+## Changelog
+
+### master (unreleased)
+
+* Support of `--suffix=xxx`, `--keep-beginning` and `--keep-end` options ([#4](https://github.com/moul/anonuuid/issues/4))
+* Using **party** to stabilize vendor package versions ([#8](https://github.com/moul/anonuuid/issues/8))
+* Add homebrew package ([#6](https://github.com/moul/anonuuid/issues/6))
+
+[full commits list](https://github.com/moul/anonuuid/compare/v1.0.0...master)
+
+### [v1.0.0](https://github.com/moul/anonuuid/releases/tag/v1.0.0) (2015-10-07)
+
+**Initial release**
+
+#### Features
+
+* Support of `--hexspeak` option
+* Support of `--random` option
+* Support of `--prefix` option
+* Anonymize input stream
+* Anonymize files
 
 ## License
 
