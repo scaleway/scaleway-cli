@@ -215,7 +215,7 @@ func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) ScalewayRes
 	var res ScalewayResolverResults
 	var exactMatches ScalewayResolverResults
 
-	if acceptUUID && anonuuid.IsUUID(needle) != nil {
+	if acceptUUID && anonuuid.IsUUID(needle) == nil {
 		entry := ScalewayResolverResult{
 			Identifier: needle,
 			Name:       needle,
@@ -264,7 +264,7 @@ func (c *ScalewayCache) LookUpSnapshots(needle string, acceptUUID bool) Scaleway
 	var res ScalewayResolverResults
 	var exactMatches ScalewayResolverResults
 
-	if acceptUUID && anonuuid.IsUUID(needle) != nil {
+	if acceptUUID && anonuuid.IsUUID(needle) == nil {
 		entry := ScalewayResolverResult{
 			Identifier: needle,
 			Name:       needle,
@@ -312,7 +312,7 @@ func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) ScalewayRe
 	var res ScalewayResolverResults
 	var exactMatches ScalewayResolverResults
 
-	if acceptUUID && anonuuid.IsUUID(needle) != nil {
+	if acceptUUID && anonuuid.IsUUID(needle) == nil {
 		entry := ScalewayResolverResult{
 			Identifier: needle,
 			Name:       needle,
@@ -359,7 +359,7 @@ func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) Scalew
 	var res ScalewayResolverResults
 	var exactMatches ScalewayResolverResults
 
-	if acceptUUID && anonuuid.IsUUID(needle) != nil {
+	if acceptUUID && anonuuid.IsUUID(needle) == nil {
 		entry := ScalewayResolverResult{
 			Identifier: needle,
 			Name:       needle,
@@ -406,7 +406,7 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) ScalewayRe
 	var res ScalewayResolverResults
 	var exactMatches ScalewayResolverResults
 
-	if acceptUUID && anonuuid.IsUUID(needle) != nil {
+	if acceptUUID && anonuuid.IsUUID(needle) == nil {
 		entry := ScalewayResolverResult{
 			Identifier: needle,
 			Name:       needle,
