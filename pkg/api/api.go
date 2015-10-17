@@ -1955,7 +1955,7 @@ func (s *ScalewayAPI) GetIP(ipID string) (*ScalewayGetIP, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := s.handleHTTPError([]int{204}, resp)
+	body, err := s.handleHTTPError([]int{200}, resp)
 	if err != nil {
 		return nil, err
 	}
