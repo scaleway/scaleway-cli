@@ -47,4 +47,5 @@ var Commands = []*Command{
 	cmdPatch,
 	cmdSecurityGroups,
 	cmdIPS,
+	cmdCS,
 }
