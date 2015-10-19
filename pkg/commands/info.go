@@ -58,9 +58,8 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 			fingerprint, err := utils.SSHGetFingerprint(key.Key)
 			if err != nil {
 				return err
-			} else {
-				fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
 			}
+			fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
 		}
 		fmt.Fprintf(ctx.Stdout, "\n")
 	}
@@ -90,6 +89,15 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 				fmt.Fprintf(ctx.Stdout, "    %s\n", perm)
 			}
 		}
+	}
+	fmt.Fprintf(ctx.Stdout, "\n")
+	quotas, err := ctx.API.GetQuotas()
+	if err != nil {
+		return fmt.Errorf("Unable to get your quotas")
+	}
+	fmt.Fprintln(ctx.Stdout, "Quotas:")
+	for key, value := range quotas.Quotas {
+		fmt.Fprintf(ctx.Stdout, "  %-20s: %d\n", key, value)
 	}
 	return nil
 }

@@ -734,6 +734,13 @@ type ScalewayUserdatas struct {
 	UserData []string `json:"user_data"`
 }
 
+type ScalewayQuota map[string]int
+
+// ScalewayGetQuotas represents the response of GET /organizations/{orga_id}/quotas
+type ScalewayGetQuotas struct {
+	Quotas ScalewayQuota `json:"quotas"`
+}
+
 // ScalewayUserdata represents []byte
 type ScalewayUserdata []byte
 
@@ -2025,6 +2032,28 @@ func (s *ScalewayAPI) GetIP(ipID string) (*ScalewayGetIP, error) {
 		return nil, err
 	}
 	return &ip, nil
+}
+
+// GetQuotas returns a ScalewayGetQuotas
+func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
+	s.EnableAccountAPI()
+	defer s.DisableAccountAPI()
+	resp, err := s.GetResponse(fmt.Sprintf("organizations/%s/quotas", s.Organization))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var quotas ScalewayGetQuotas
+
+	if err = json.Unmarshal(body, &quotas); err != nil {
+		return nil, err
+	}
+	return &quotas, nil
 }
 
 // GetBootscriptID returns exactly one bootscript matching or dies

@@ -1132,8 +1132,9 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ### master (unreleased)
 
 * Added _cs ([#180](https://github.com/scaleway/scaleway-cli/issues/180))
-* Added SCALEWAY_VERBOSE_API to make the API more verbose
-* Support of 'scw _ips' command ... ([#196](https://github.com/scaleway/scaleway-cli/issues/196))
+* Report **quotas** in `scw info` ([#130](https://github.com/scaleway/scaleway-cli/issues/130))
+* Added `SCALEWAY_VERBOSE_API` to make the API more verbose
+* Support of `scw _ips` command ... ([#196](https://github.com/scaleway/scaleway-cli/issues/196))
 * Report **permissions** in `scw info` ([#191](https://github.com/scaleway/scaleway-cli/issues/191))
 * Report **dashboard** statistics in `scw info` ([#177](https://github.com/scaleway/scaleway-cli/issues/177))
 * Support of `scw _userdata name VAR=@/path/to/file` ([#183](https://github.com/scaleway/scaleway-cli/issues/183))
