@@ -485,7 +485,7 @@ func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 
 	err := api.PostServerAction(server, "poweron")
 	if err != nil {
-		if err.Error() != "server should be stopped" {
+		if err.Error() == "server should be stopped" {
 			return fmt.Errorf("server %s is already started: %v", server, err)
 		}
 	}
