@@ -631,6 +631,26 @@ type ScalewayTokensDefinition struct {
 	Token ScalewayTokenDefinition `json:"token"`
 }
 
+type ScalewayContainerData struct {
+	LastModified string `json:"last_modified"`
+	Name         string `json:"name"`
+	Size         string `json:"size"`
+}
+
+type ScalewayGetContainerDatas struct {
+	Container []ScalewayContainerData `json:"container"`
+}
+
+type ScalewayContainer struct {
+	ScalewayOrganizationDefinition `json:"organization"`
+	Name                           string `json:"name"`
+	Size                           string `json:"size"`
+}
+
+type ScalewayGetContainers struct {
+	Containers []ScalewayContainer `json:"containers"`
+}
+
 // ScalewayConnectResponse represents the answer from POST /tokens
 type ScalewayConnectResponse struct {
 	Token ScalewayTokenDefinition `json:"token"`
@@ -1859,6 +1879,46 @@ func (s *ScalewayAPI) GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGr
 		return nil, err
 	}
 	return &securityGroups, nil
+}
+
+// GetContainers returns a ScalewayGetContainers
+func (s *ScalewayAPI) GetContainers() (*ScalewayGetContainers, error) {
+	resp, err := s.GetResponse("containers")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var containers ScalewayGetContainers
+
+	if err = json.Unmarshal(body, &containers); err != nil {
+		return nil, err
+	}
+	return &containers, nil
+}
+
+// GetContainerDatas returns a ScalewayGetContainerDatas
+func (s *ScalewayAPI) GetContainerDatas(container string) (*ScalewayGetContainerDatas, error) {
+	resp, err := s.GetResponse(fmt.Sprintf("containers/%s", container))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var datas ScalewayGetContainerDatas
+
+	if err = json.Unmarshal(body, &datas); err != nil {
+		return nil, err
+	}
+	return &datas, nil
 }
 
 // GetIPS returns a ScalewayGetIPS
