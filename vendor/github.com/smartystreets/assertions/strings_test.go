@@ -100,3 +100,19 @@ func TestShouldNotBeBlank(t *testing.T) {
 	fail(t, so("", ShouldNotBeBlank), "Expected value to NOT be blank (but it was)!")
 	pass(t, so("asdf", ShouldNotBeBlank))
 }
+
+func TestShouldEqualWithout(t *testing.T) {
+	fail(t, so("", ShouldEqualWithout, ""), "This assertion requires exactly 2 comparison values (you provided 1).")
+	fail(t, so(1, ShouldEqualWithout, 2, 3), "All arguments to this assertion must be strings (you provided: [int int int]).")
+
+	fail(t, so("asdf", ShouldEqualWithout, "qwer", "q"), "Expected 'asdf' to equal 'qwer' but without any 'q' (but it didn't).")
+	pass(t, so("asdf", ShouldEqualWithout, "df", "as"))
+}
+
+func TestShouldEqualTrimSpace(t *testing.T) {
+	fail(t, so(" asdf ", ShouldEqualTrimSpace), "This assertion requires exactly 1 comparison values (you provided 0).")
+	fail(t, so(1, ShouldEqualTrimSpace, 2), "Both arguments to this assertion must be strings (you provided int and int).")
+
+	fail(t, so("asdf", ShouldEqualTrimSpace, "qwer"), "qwer|asdf|Expected: 'qwer' Actual: 'asdf' (Should be equal)")
+	pass(t, so(" asdf\t\n", ShouldEqualTrimSpace, "asdf"))
+}

@@ -17,7 +17,7 @@ times, the translation will be the same.
 ## Usage
 
 ```console
-$ anonuuid -h
+$ anonuuid --help
 NAME:
    anonuuid - Anonymize UUIDs outputs
 
@@ -31,14 +31,18 @@ AUTHOR(S):
    Manfred Touron <https://github.com/moul>
 
 COMMANDS:
-   help, h    Shows a list of commands or help for one command
+   help, h	Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --hexspeak        Generate hexspeak style fake UUIDs
-   --random, -r        Generate random fake UUIDs
-   --help, -h        show help
-   --version, -v    print the version
-```
+   --hexspeak		Generate hexspeak style fake UUIDs
+   --random, -r		Generate random fake UUIDs
+   --keep-beginning	Keep first part of the UUID unchanged
+   --keep-end		Keep last part of the UUID unchanged
+   --prefix, -p 	Prefix generated UUIDs
+   --suffix 		Suffix generated UUIDs
+   --help, -h		show help
+   --version, -v	print the version
+   ```
 
 ## Example
 

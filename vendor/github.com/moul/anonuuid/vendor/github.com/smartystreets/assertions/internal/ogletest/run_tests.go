@@ -28,7 +28,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/reqtrace"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/reqtrace"
 )
 
 var fTestFilter = flag.String(

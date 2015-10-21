@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/ogletest/srcutil"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/ogletest/srcutil"
 )
 
 // Test suites that implement this interface have special meaning to

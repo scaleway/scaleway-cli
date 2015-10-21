@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey/reporting"
 )
 
 func TestSerializerCreatesSerializedVersionOfAssertionResult(t *testing.T) {

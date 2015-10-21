@@ -21,10 +21,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Sirupsen/logrus"
-	"github.com/moul/gotty-client"
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client"
 )
 
 // SpawnRedirection is used to redirects the fluxes

@@ -1,6 +1,6 @@
 package convey
 
-import "github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions"
+import "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions"
 
 var (
 	ShouldEqual          = assertions.ShouldEqual

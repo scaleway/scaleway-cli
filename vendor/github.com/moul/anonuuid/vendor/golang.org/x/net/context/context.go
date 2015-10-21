@@ -34,7 +34,7 @@
 //
 // See http://blog.golang.org/context for example code for a server that uses
 // Contexts.
-package context // import "github.com/moul/anonuuid/vendor/golang.org/x/net/context"
+package context // import "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/golang.org/x/net/context"
 
 import (
 	"errors"
