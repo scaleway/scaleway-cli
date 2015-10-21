@@ -21,6 +21,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Sirupsen/logrus"
+	"github.com/moul/gotty-client"
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 )
@@ -179,38 +181,17 @@ func RemoveDuplicates(elements []string) []string {
 	return result
 }
 
-const termjsBin string = "termjs-cli"
-
-// AttachToSerial tries to connect to server serial using 'term.js-cli' and fallback with a help message
+// AttachToSerial tries to connect to server serial using 'gotty-client' and fallback with a help message
 func AttachToSerial(serverID string, apiToken string, attachStdin bool) error {
-	termjsURL := fmt.Sprintf("https://tty.cloud.online.net?server_id=%s&type=serial&auth_token=%s", serverID, apiToken)
+	URL := fmt.Sprintf("https://tty.scaleway.com/v2/?arg=%s&arg=%s", apiToken, serverID)
 
-	args := []string{}
-	if !attachStdin {
-		args = append(args, "--no-stdin")
-	}
-	args = append(args, termjsURL)
-	log.Debugf("Executing: %s %v", termjsBin, args)
-	// FIXME: check if termjs-cli is installed
-	spawn := exec.Command(termjsBin, args...)
-	spawn.Stdout = os.Stdout
-	spawn.Stdin = os.Stdin
-	spawn.Stderr = os.Stderr
-	err := spawn.Run()
+	logrus.Debug("Connection to ", URL)
+	gottycli, err := gottyclient.NewClient(URL)
 	if err != nil {
-		log.Warnf(`
-You need to install '%s' from https://github.com/moul/term.js-cli
-
-    npm install -g term.js-cli
-
-However, you can access your serial using a web browser:
-
-    %s
-
-`, termjsBin, termjsURL)
 		return err
 	}
-	return nil
+	fmt.Println("You are connected, type 'Ctrl+q' to quit.")
+	return gottycli.Loop()
 }
 
 func SSHGetFingerprint(key string) (string, error) {
