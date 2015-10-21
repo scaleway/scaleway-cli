@@ -123,3 +123,35 @@ func TestShouldNotBeEmpty(t *testing.T) {
 	time.Sleep(time.Millisecond)
 	pass(t, so(c, ShouldNotBeEmpty))
 }
+
+func TestShouldHaveLength(t *testing.T) {
+	fail(t, so(1, ShouldHaveLength, 2), "You must provide a valid container (was int)!")
+	fail(t, so(nil, ShouldHaveLength, 1), "You must provide a valid container (was <nil>)!")
+	fail(t, so("hi", ShouldHaveLength, float64(1.0)), "You must provide a valid integer (was float64)!")
+	fail(t, so([]string{}, ShouldHaveLength), "This assertion requires exactly 1 comparison values (you provided 0).")
+	fail(t, so([]string{}, ShouldHaveLength, 1, 2), "This assertion requires exactly 1 comparison values (you provided 2).")
+	fail(t, so([]string{}, ShouldHaveLength, -10), "You must provide a valid positive integer (was -10)!")
+
+	fail(t, so([]int{}, ShouldHaveLength, 1), "Expected [] to have length equal to '1', but it wasn't!")             // empty slice
+	fail(t, so([]interface{}{}, ShouldHaveLength, 1), "Expected [] to have length equal to '1', but it wasn't!")     // empty slice
+	fail(t, so(map[string]int{}, ShouldHaveLength, 1), "Expected map[] to have length equal to '1', but it wasn't!") // empty map
+	fail(t, so("", ShouldHaveLength, 1), "Expected  to have length equal to '1', but it wasn't!")                    // empty string
+	fail(t, so(&[]int{}, ShouldHaveLength, 1), "Expected &[] to have length equal to '1', but it wasn't!")           // pointer to empty slice
+	fail(t, so(&[0]int{}, ShouldHaveLength, 1), "Expected &[] to have length equal to '1', but it wasn't!")          // pointer to empty array
+	c := make(chan int, 0)                                                                                           // non-empty channel
+	fail(t, so(c, ShouldHaveLength, 1), fmt.Sprintf("Expected %+v to have length equal to '1', but it wasn't!", c))
+	c = make(chan int) // empty channel
+	fail(t, so(c, ShouldHaveLength, 1), fmt.Sprintf("Expected %+v to have length equal to '1', but it wasn't!", c))
+
+	pass(t, so([]int{1}, ShouldHaveLength, 1))                // non-empty slice
+	pass(t, so([]interface{}{1}, ShouldHaveLength, 1))        // non-empty slice
+	pass(t, so(map[string]int{"hi": 0}, ShouldHaveLength, 1)) // non-empty map
+	pass(t, so("hi", ShouldHaveLength, 2))                    // non-empty string
+	pass(t, so(&[]int{1}, ShouldHaveLength, 1))               // pointer to non-empty slice
+	pass(t, so(&[1]int{1}, ShouldHaveLength, 1))              // pointer to non-empty array
+	c = make(chan int, 1)
+	go func() { c <- 1 }()
+	time.Sleep(time.Millisecond)
+	pass(t, so(c, ShouldHaveLength, 1))
+
+}

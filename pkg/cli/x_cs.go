@@ -4,7 +4,14 @@
 
 package cli
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+)
 
 var cmdCS = &Command{
 	Exec:        runCS,
@@ -37,13 +44,28 @@ func runCS(cmd *Command, args []string) error {
 		if err != nil {
 			return fmt.Errorf("Unable to get your containers: %v", err)
 		}
-		printRawMode(cmd.Streams().Stdout, *containers)
+		for _, container := range containers.Containers {
+			fmt.Fprintf(cmd.Streams().Stdout, "s3://%s\n", container.Name)
+		}
 		return nil
 	}
-	datas, err := cmd.API.GetContainerDatas(args[0])
+	container := strings.Replace(args[0], "s3://", "", 1)
+	datas, err := cmd.API.GetContainerDatas(container)
 	if err != nil {
-		return fmt.Errorf("Unable to get your data from %s: %v", args[1], err)
+		return fmt.Errorf("Unable to get your data from %s: %v", container, err)
 	}
-	printRawMode(cmd.Streams().Stdout, *datas)
+	for _, data := range datas.Container {
+		t, err := time.Parse(time.RFC3339, data.LastModified)
+		if err != nil {
+			return err
+		}
+		year, month, day := t.Date()
+		hour, minute, _ := t.Clock()
+		size, err := strconv.Atoi(data.Size)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(cmd.Streams().Stdout, "%-4d-%02d-%02d %02d:%02d %8s s3://%s/%s\n", year, month, day, hour, minute, humanize.Bytes(uint64(size)), container, data.Name)
+	}
 	return nil
 }

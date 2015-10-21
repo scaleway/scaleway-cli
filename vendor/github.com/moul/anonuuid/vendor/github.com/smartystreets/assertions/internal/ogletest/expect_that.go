@@ -21,7 +21,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
 )
 
 // ExpectThat confirms that the supplied matcher matches the value x, adding a

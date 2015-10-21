@@ -3,8 +3,8 @@ package convey
 import (
 	"fmt"
 
-	"github.com/moul/anonuuid/vendor/github.com/jtolds/gls"
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/jtolds/gls"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey/reporting"
 )
 
 type conveyErr struct {

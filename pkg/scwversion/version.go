@@ -1,6 +1,6 @@
 package scwversion
 
 var (
-	VERSION string
+	VERSION   string
 	GITCOMMIT string
 )

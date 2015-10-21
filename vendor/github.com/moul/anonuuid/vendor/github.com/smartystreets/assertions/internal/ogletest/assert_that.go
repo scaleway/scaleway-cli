@@ -16,7 +16,7 @@
 package ogletest
 
 import (
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
 )
 
 func assertThat(

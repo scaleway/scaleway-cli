@@ -8,7 +8,7 @@ package mock_io
 
 import (
 	fmt "fmt"
-	oglemock "github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
+	oglemock "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
 	io "io"
 	runtime "runtime"
 	unsafe "unsafe"

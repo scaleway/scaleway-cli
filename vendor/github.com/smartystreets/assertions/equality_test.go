@@ -15,6 +15,7 @@ func TestShouldEqual(t *testing.T) {
 
 	pass(t, so(1, ShouldEqual, 1))
 	fail(t, so(1, ShouldEqual, 2), "2|1|Expected: '2' Actual: '1' (Should be equal)")
+	fail(t, so(1, ShouldEqual, "1"), "1|1|Expected: '1' (string) Actual: '1' (int) (Should be equal, type mismatch)")
 
 	pass(t, so(true, ShouldEqual, true))
 	fail(t, so(true, ShouldEqual, false), "false|true|Expected: 'false' Actual: 'true' (Should be equal)")
@@ -37,6 +38,7 @@ func TestShouldNotEqual(t *testing.T) {
 	fail(t, so(1, ShouldNotEqual, 1, 2, 3), "This assertion requires exactly 1 comparison values (you provided 3).")
 
 	pass(t, so(1, ShouldNotEqual, 2))
+	pass(t, so(1, ShouldNotEqual, "1"))
 	fail(t, so(1, ShouldNotEqual, 1), "Expected '1' to NOT equal '1' (but it did)!")
 
 	pass(t, so(true, ShouldNotEqual, false))
@@ -119,8 +121,8 @@ func TestShouldResemble(t *testing.T) {
 		"[hi bye]|[hi bye]|Expected: '[]string{\"hi\", \"bye\"}' Actual: 'assertions.StringSliceAlias{\"hi\", \"bye\"}' (Should resemble)!")
 
 	// some types come out looking the same when represented with "%#v" so we show type mismatch info:
-	fail(t, so(StringAlias("hi"), ShouldResemble, "hi"), "hi|hi|Expected: '\"hi\"' Actual: '\"hi\"' (Type mismatch: 'string' vs 'assertions.StringAlias')!")
-	fail(t, so(IntAlias(42), ShouldResemble, 42), "42|42|Expected: '42' Actual: '42' (Type mismatch: 'int' vs 'assertions.IntAlias')!")
+	fail(t, so(StringAlias("hi"), ShouldResemble, "hi"), "hi|hi|Expected: '\"hi\"' (string) Actual: '\"hi\"' (assertions.StringAlias) (Should resemble, type mismatch)")
+	fail(t, so(IntAlias(42), ShouldResemble, 42), "42|42|Expected: '42' (int) Actual: '42' (assertions.IntAlias) (Should resemble, type mismatch)")
 }
 
 func TestShouldNotResemble(t *testing.T) {

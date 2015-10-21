@@ -17,10 +17,10 @@ package oglemock_test
 
 import (
 	"errors"
-	. "github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock/sample/mock_io"
-	. "github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/ogletest"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock/sample/mock_io"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/ogletest"
 	"path"
 	"runtime"
 )

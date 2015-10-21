@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	. "github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey"
+	. "github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/goconvey/convey"
 )
 
 const exampleInput string = `VOLUMES_0_SERVER_ID=15573749-c89d-41dd-a655-16e79bed52e0
