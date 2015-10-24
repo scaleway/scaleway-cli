@@ -11,8 +11,6 @@ env:
 
 matrix:
   include:
-    - go: 1.3
-    - go: 1.4
     - go: 1.5     TEST_WITH_REAL_API=1
     - go: tip
   allow_failures:
