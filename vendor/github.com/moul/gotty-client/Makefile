@@ -45,7 +45,7 @@ run-docker: build-docker
 $(notdir $(COMMANDS)): $(SOURCES)
 	gofmt -w $(PACKAGES) ./cmd/$@
 	go test -i $(PACKAGES) ./cmd/$@
-	go build -o $@ ./cmd/$@
+	go build -ldflags "-X main.VERSION=$(VERSION)" -o $@ ./cmd/$@
 	./$@ --version
 
 

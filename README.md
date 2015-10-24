@@ -1132,6 +1132,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Update gotty-client to 1.2.0
 * Improve _cs format ([#223](https://github.com/scaleway/scaleway-cli/issues/223))
 * Use `gotty-client` instead of `termjs-cli`
 * Fix: bad detection of server already started when starting a server ([#224](https://github.com/scaleway/scaleway-cli/pull/224)) - [@arianvp](https://github.com/arianvp)
