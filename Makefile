@@ -6,9 +6,6 @@ GOINSTALL ?=	$(GOCMD) install
 GOTEST ?=	$(GOCMD) test
 GOFMT ?=	gofmt -w
 GOCOVER ?=	$(GOTEST) -covermode=count -v
-GOVERSIONMAJOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
-GOVERSIONMINOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
-VERSION_GE_1_5 = $(shell [ $(GOVERSIONMAJOR) -gt 1 -o $(GOVERSIONMINOR) -ge 5 ] && echo true)
 
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
 FPM_DOCKER ?=	\
@@ -31,14 +28,17 @@ SRC = cmd/scw
 PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion pkg/pricing
 REV = $(shell git rev-parse HEAD || echo "nogit")
 TAG = $(shell git describe --tags --always || echo "nogit")
-BUILDER = scaleway-cli-builder
-ALL_GO_FILES = $(shell find . -type f -name "*.go")
-ifeq ($(VERSION_GE_1_5),true)
 LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV) \
            -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
-else
-LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT $(REV) \
-           -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION $(TAG)"
+BUILDER = scaleway-cli-builder
+ALL_GO_FILES = $(shell find . -type f -name "*.go")
+
+# Check go version
+GOVERSIONMAJOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
+GOVERSIONMINOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
+VERSION_GE_1_5 = $(shell [ $(GOVERSIONMAJOR) -gt 1 -o $(GOVERSIONMINOR) -ge 5 ] && echo true)
+ifneq ($(VERSION_GE_1_5),true)
+	$(error Bad go version, please install a version greater than or equal to 1.5)
 endif
 
 BUILD_LIST = $(foreach int, $(SRC), $(int)_build)
@@ -73,7 +73,7 @@ $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) ./$*
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) ./$*
-$(IREF_LIST): %_iref: pkg/scwversion/version.go
+$(IREF_LIST): %_iref:
 	$(GOTEST) -ldflags $(LDFLAGS) -i ./$*
 $(TEST_LIST): %_test:
 	$(GOTEST) -ldflags $(LDFLAGS) -v ./$*
