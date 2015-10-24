@@ -1,10 +1,10 @@
 package gottyclient
 
 import (
-	"bufio"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -15,10 +15,10 @@ import (
 	"sync"
 	"syscall"
 	"time"
-	"unicode/utf8"
 	"unsafe"
 
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/creack/goselect"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/gorilla/websocket"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/golang.org/x/crypto/ssh/terminal"
 )
@@ -80,6 +80,7 @@ type Client struct {
 	URL        string
 	Connected  bool
 	WriteMutex *sync.Mutex
+	Output     io.Writer
 }
 
 type querySingleType struct {
@@ -157,7 +158,7 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return err
 	}
-	var querySingle querySingleType = querySingleType{
+	querySingle := querySingleType{
 		Arguments: "?" + query.Encode(),
 		AuthToken: authToken,
 	}
@@ -200,11 +201,19 @@ func (c *Client) Loop() error {
 		}
 	}
 
+	var wg sync.WaitGroup
+	quit := make(chan struct{})
 	done := make(chan bool)
-	go c.readLoop(done)
-	go c.writeLoop(done)
-	go c.termsizeLoop(done)
+
+	wg.Add(1)
+	go c.termsizeLoop(quit, &wg)
+	wg.Add(1)
+	go c.readLoop(done, quit, &wg)
+	wg.Add(1)
+	go c.writeLoop(done, quit, &wg)
 	<-done
+	close(quit)
+	wg.Wait()
 	return nil
 }
 
@@ -216,9 +225,11 @@ type winsize struct {
 	y uint16
 }
 
-func (c *Client) termsizeLoop(done chan bool) {
+func (c *Client) termsizeLoop(quit chan struct{}, wg *sync.WaitGroup) {
+	defer wg.Done()
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, syscall.SIGWINCH)
+	defer signal.Reset(syscall.SIGWINCH)
 	ws := winsize{}
 
 	for {
@@ -235,68 +246,115 @@ func (c *Client) termsizeLoop(done chan bool) {
 		if err != nil {
 			logrus.Warnf("ws.WriteMessage failed: %v", err)
 		}
-
-		<-ch
+		select {
+		case <-quit:
+			return
+		case <-ch:
+		}
 	}
 }
 
-func (c *Client) writeLoop(done chan bool) {
+type exposeFd interface {
+	Fd() uintptr
+}
+
+func (c *Client) writeLoop(done chan bool, quit chan struct{}, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	buff := make([]byte, 128)
 	oldState, err := terminal.MakeRaw(0)
 	if err == nil {
 		defer terminal.Restore(0, oldState)
 	}
 
-	reader := bufio.NewReader(os.Stdin)
+	rdfs := &goselect.FDSet{}
+	reader := io.Reader(os.Stdin)
 	for {
-		x, size, err := reader.ReadRune()
-		if size <= 0 || err != nil {
-			done <- true
-			return
-		}
-
-		p := make([]byte, size)
-		utf8.EncodeRune(p, x)
-
-		err = c.write(append([]byte("0"), p...))
+		rdfs.Zero()
+		rdfs.Set(reader.(exposeFd).Fd())
+		err := goselect.Select(1, rdfs, nil, nil, 50*time.Millisecond)
 		if err != nil {
 			done <- true
 			return
+		}
+		if rdfs.IsSet(reader.(exposeFd).Fd()) {
+			size, err := reader.Read(buff)
+			if size <= 0 || err != nil {
+				done <- true
+				return
+			}
+			data := buff[:size]
+			err = c.write(append([]byte("0"), data...))
+			if err != nil {
+				done <- true
+				return
+			}
+		}
+		select {
+		case <-quit:
+			return
+		default:
+			break
 		}
 	}
 }
 
-func (c *Client) readLoop(done chan bool) {
+func (c *Client) readLoop(done chan bool, quit chan struct{}, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	type MessageNonBlocking struct {
+		Data []byte
+		Err  error
+	}
+	msgChan := make(chan MessageNonBlocking)
+
 	for {
-		_, data, err := c.Conn.ReadMessage()
-		if err != nil {
-			done <- true
-			logrus.Warnf("c.Conn.ReadMessage: %v", err)
+		go func() {
+			_, data, err := c.Conn.ReadMessage()
+			msgChan <- MessageNonBlocking{Data: data, Err: err}
+		}()
+
+		select {
+		case <-quit:
 			return
-		}
-		if len(data) == 0 {
-			done <- true
-			logrus.Warnf("An error has occured")
-			return
-		}
-		switch data[0] {
-		case '0': // data
-			buf, err := base64.StdEncoding.DecodeString(string(data[1:]))
-			if err != nil {
-				logrus.Warnf("Invalid base64 content: %q", data[1:])
+		case msg := <-msgChan:
+			if msg.Err != nil {
+				done <- true
+				if _, ok := msg.Err.(*websocket.CloseError); !ok {
+					logrus.Warnf("c.Conn.ReadMessage: %v", msg.Err)
+				}
+				return
 			}
-			fmt.Print(string(buf))
-		case '1': // pong
-		case '2': // new title
-			newTitle := string(data[1:])
-			fmt.Printf("\033]0;%s\007", newTitle)
-		case '3': // json prefs
-			logrus.Debugf("Unhandled protocol message: json pref: %s", string(data[1:]))
-		case '4': // autoreconnect
-			logrus.Debugf("Unhandled protocol message: autoreconnect: %s", string(data))
-		default:
-			logrus.Warnf("Unhandled protocol message: %s", string(data))
+			if len(msg.Data) == 0 {
+				done <- true
+				logrus.Warnf("An error has occured")
+				return
+			}
+			switch msg.Data[0] {
+			case '0': // data
+				buf, err := base64.StdEncoding.DecodeString(string(msg.Data[1:]))
+				if err != nil {
+					logrus.Warnf("Invalid base64 content: %q", msg.Data[1:])
+				}
+				fmt.Fprintf(c.Output, string(buf))
+			case '1': // pong
+			case '2': // new title
+				newTitle := string(msg.Data[1:])
+				fmt.Fprintf(c.Output, "\033]0;%s\007", newTitle)
+			case '3': // json prefs
+				logrus.Debugf("Unhandled protocol message: json pref: %s", string(msg.Data[1:]))
+			case '4': // autoreconnect
+				logrus.Debugf("Unhandled protocol message: autoreconnect: %s", string(msg.Data))
+			default:
+				logrus.Warnf("Unhandled protocol message: %s", string(msg.Data))
+			}
 		}
 	}
+}
+
+// SetOutput changes the output stream
+func (c *Client) SetOutput(w io.Writer) {
+	c.Output = w
 }
 
 // NewClient returns a GoTTY client object
@@ -305,5 +363,6 @@ func NewClient(httpURL string) (*Client, error) {
 		Dialer:     &websocket.Dialer{},
 		URL:        httpURL,
 		WriteMutex: &sync.Mutex{},
+		Output:     os.Stdout,
 	}, nil
 }

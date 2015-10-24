@@ -103,11 +103,22 @@ $ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/
 
 ### master (unreleased)
 
+* No entry
+
+[full commits list](https://github.com/moul/gotty-client/compare/v1.2.0...master)
+
+### [v1.2.0](https://github.com/moul/gotty-client/releases/tag/v1.2.0) (2015-10-23)
+
+* Removed an annoying warning when exiting connection ([#22](https://github.com/moul/gotty-client/issues/22)) ([@QuentinPerez](https://github.com/QuentinPerez))
+* Add the ability to configure alternative stdout ([#21](https://github.com/moul/gotty-client/issues/21)) ([@QuentinPerez](https://github.com/QuentinPerez))
+* Refactored the goroutine system with select, improve speed and stability ([@QuentinPerez](https://github.com/QuentinPerez))
 * Add debug mode (`--debug`/`-D`) ([#18](https://github.com/moul/gotty-client/issues/18))
 * Improve error message when connecting by checking HTTP status code
 * Fix arguments passing ([#16](https://github.com/moul/gotty-client/issues/16))
+* Dropped support for golang<1.5
+* Small fixes
 
-[full commits list](https://github.com/moul/gotty-client/compare/v1.1.0...master)
+[full commits list](https://github.com/moul/gotty-client/compare/v1.1.0...v1.2.0)
 
 ### [v1.1.0](https://github.com/moul/gotty-client/releases/tag/v1.1.0) (2015-10-10)
 
