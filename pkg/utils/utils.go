@@ -182,16 +182,26 @@ func RemoveDuplicates(elements []string) []string {
 }
 
 // AttachToSerial tries to connect to server serial using 'gotty-client' and fallback with a help message
-func AttachToSerial(serverID string, apiToken string, attachStdin bool) error {
+func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan bool, error) {
 	URL := fmt.Sprintf("https://tty.scaleway.com/v2/?arg=%s&arg=%s", apiToken, serverID)
 
 	logrus.Debug("Connection to ", URL)
 	gottycli, err := gottyclient.NewClient(URL)
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
+	if err = gottycli.Connect(); err != nil {
+		return nil, nil, err
+	}
+	done := make(chan bool)
+
 	fmt.Println("You are connected, type 'Ctrl+q' to quit.")
-	return gottycli.Loop()
+	go func() {
+		gottycli.Loop()
+		gottycli.Close()
+		done <- true
+	}()
+	return gottycli, done, nil
 }
 
 func SSHGetFingerprint(key string) (string, error) {

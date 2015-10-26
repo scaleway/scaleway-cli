@@ -1132,6 +1132,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Support of `scw run --show-boot` option ([#156](https://github.com/scaleway/scaleway-cli/issues/156))
 * Remove go1.[34] support
 * Update gotty-client to 1.2.0
 * Improve _cs format ([#223](https://github.com/scaleway/scaleway-cli/issues/223))

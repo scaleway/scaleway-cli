@@ -41,6 +41,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
+	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
 	// FIXME: handle start --timeout
 }
 
@@ -55,6 +56,7 @@ var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
+var runShowBoot bool           // --show-boot flag
 
 func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
@@ -68,6 +70,15 @@ func runRun(cmd *Command, rawArgs []string) error {
 	}
 	if runAttachFlag && runDetachFlag {
 		return fmt.Errorf("conflicting options: -a and -d")
+	}
+	if runAttachFlag && runShowBoot {
+		return fmt.Errorf("conflicting options: -a and --show-boot")
+	}
+	if runShowBoot && len(rawArgs) > 1 {
+		return fmt.Errorf("conflicting options: --show-boot and COMMAND")
+	}
+	if runShowBoot && runDetachFlag {
+		return fmt.Errorf("conflicting options: --show-boot and -d")
 	}
 	if runDetachFlag && len(rawArgs) > 1 {
 		return fmt.Errorf("conflicting options: -d and COMMAND")
@@ -86,6 +97,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		Name:       runCreateName,
 		AutoRemove: runAutoRemove,
 		TmpSSHKey:  runTmpSSHKey,
+		ShowBoot:   runShowBoot,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
 	}

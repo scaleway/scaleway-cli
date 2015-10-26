@@ -16,5 +16,10 @@ type AttachArgs struct {
 func RunAttach(ctx CommandContext, args AttachArgs) error {
 	serverID := ctx.API.GetServerID(args.Server)
 
-	return utils.AttachToSerial(serverID, ctx.API.Token, !args.NoStdin)
+	_, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+	if err != nil {
+		return err
+	}
+	<-done
+	return nil
 }
