@@ -75,12 +75,14 @@ func GetWebsocketURL(httpURL string) (*url.URL, *http.Header, error) {
 }
 
 type Client struct {
-	Dialer     *websocket.Dialer
-	Conn       *websocket.Conn
-	URL        string
-	Connected  bool
-	WriteMutex *sync.Mutex
-	Output     io.Writer
+	Dialer         *websocket.Dialer
+	Conn           *websocket.Conn
+	URL            string
+	Connected      bool
+	WriteMutex     *sync.Mutex
+	Output         io.Writer
+	QuitChan       chan struct{}
+	QuitChanClosed bool
 }
 
 type querySingleType struct {
@@ -152,6 +154,7 @@ func (c *Client) Connect() error {
 		return err
 	}
 	c.Conn = conn
+	c.Connected = true
 
 	// Pass arguments and auth-token
 	query, err := GetURLQuery(c.URL)
@@ -192,6 +195,15 @@ func (c *Client) Close() {
 	c.Conn.Close()
 }
 
+// ExitLoop will kill all goroutine
+// ExitLoop() -> wait Loop() -> Close()
+func (c *Client) ExitLoop() {
+	if !c.QuitChanClosed {
+		close(c.QuitChan)
+		c.QuitChanClosed = true
+	}
+}
+
 // Loop will look indefinitely for new messages
 func (c *Client) Loop() error {
 	if !c.Connected {
@@ -202,17 +214,20 @@ func (c *Client) Loop() error {
 	}
 
 	var wg sync.WaitGroup
-	quit := make(chan struct{})
 	done := make(chan bool)
 
 	wg.Add(1)
-	go c.termsizeLoop(quit, &wg)
+	go c.termsizeLoop(&wg)
 	wg.Add(1)
-	go c.readLoop(done, quit, &wg)
+	go c.readLoop(done, &wg)
 	wg.Add(1)
-	go c.writeLoop(done, quit, &wg)
-	<-done
-	close(quit)
+	go c.writeLoop(done, &wg)
+	select {
+	case <-done:
+		close(c.QuitChan)
+		c.QuitChanClosed = true
+	case <-c.QuitChan:
+	}
 	wg.Wait()
 	return nil
 }
@@ -225,7 +240,7 @@ type winsize struct {
 	y uint16
 }
 
-func (c *Client) termsizeLoop(quit chan struct{}, wg *sync.WaitGroup) {
+func (c *Client) termsizeLoop(wg *sync.WaitGroup) {
 	defer wg.Done()
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, syscall.SIGWINCH)
@@ -247,7 +262,7 @@ func (c *Client) termsizeLoop(quit chan struct{}, wg *sync.WaitGroup) {
 			logrus.Warnf("ws.WriteMessage failed: %v", err)
 		}
 		select {
-		case <-quit:
+		case <-c.QuitChan:
 			return
 		case <-ch:
 		}
@@ -258,7 +273,7 @@ type exposeFd interface {
 	Fd() uintptr
 }
 
-func (c *Client) writeLoop(done chan bool, quit chan struct{}, wg *sync.WaitGroup) {
+func (c *Client) writeLoop(done chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	buff := make([]byte, 128)
@@ -291,7 +306,7 @@ func (c *Client) writeLoop(done chan bool, quit chan struct{}, wg *sync.WaitGrou
 			}
 		}
 		select {
-		case <-quit:
+		case <-c.QuitChan:
 			return
 		default:
 			break
@@ -299,7 +314,7 @@ func (c *Client) writeLoop(done chan bool, quit chan struct{}, wg *sync.WaitGrou
 	}
 }
 
-func (c *Client) readLoop(done chan bool, quit chan struct{}, wg *sync.WaitGroup) {
+func (c *Client) readLoop(done chan bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	type MessageNonBlocking struct {
@@ -315,7 +330,7 @@ func (c *Client) readLoop(done chan bool, quit chan struct{}, wg *sync.WaitGroup
 		}()
 
 		select {
-		case <-quit:
+		case <-c.QuitChan:
 			return
 		case msg := <-msgChan:
 			if msg.Err != nil {
@@ -364,5 +379,6 @@ func NewClient(httpURL string) (*Client, error) {
 		URL:        httpURL,
 		WriteMutex: &sync.Mutex{},
 		Output:     os.Stdout,
+		QuitChan:   make(chan struct{}),
 	}, nil
 }
