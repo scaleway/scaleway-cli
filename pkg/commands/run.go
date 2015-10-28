@@ -30,6 +30,7 @@ type RunArgs struct {
 	Volumes    []string
 	AutoRemove bool
 	TmpSSHKey  bool
+	ShowBoot   bool
 	// DynamicIPRequired
 	// Timeout
 }
@@ -103,47 +104,99 @@ func Run(ctx CommandContext, args RunArgs) error {
 	if args.Detach {
 		fmt.Fprintln(ctx.Stdout, serverID)
 		return nil
-	} else {
-		// Sync cache on disk
-		ctx.API.Sync()
 	}
+	// Sync cache on disk
+	ctx.API.Sync()
 
-	if args.Attach {
+	if args.ShowBoot {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
-		err = utils.AttachToSerial(serverID, ctx.API.Token, true)
+		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
 		if err != nil {
 			return fmt.Errorf("cannot attach to server serial: %v", err)
 		}
+		utils.Quiet(true)
+		notif, gateway, err := waitSSHConnection(ctx, args, serverID)
+		if err != nil {
+			return err
+		}
+		sshConnection := <-notif
+		gottycli.ExitLoop()
+		<-done
+		utils.Quiet(false)
+		if sshConnection.err != nil {
+			return sshConnection.err
+		}
+		server := sshConnection.server
+		logrus.Info("Connecting to server ...")
+		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
+			return fmt.Errorf("Connection to server failed: %v", err)
+		}
+	} else if args.Attach {
+		// Attach to server serial
+		logrus.Info("Attaching to server console ...")
+		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+		if err != nil {
+			return fmt.Errorf("cannot attach to server serial: %v", err)
+		}
+		<-done
+		gottycli.Close()
 	} else {
-		// Resolve gateway
-		gateway, err := api.ResolveGateway(ctx.API, args.Gateway)
+		notif, gateway, err := waitSSHConnection(ctx, args, serverID)
 		if err != nil {
-			return fmt.Errorf("cannot resolve Gateway '%s': %v", args.Gateway, err)
+			return err
 		}
-
-		// waiting for server to be ready
-		logrus.Debug("Waiting for server to be ready")
-		// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
-		server, err := api.WaitForServerReady(ctx.API, serverID, gateway)
-		if err != nil {
-			return fmt.Errorf("cannot get access to server %s: %v", serverID, err)
+		sshConnection := <-notif
+		if sshConnection.err != nil {
+			return sshConnection.err
 		}
-		logrus.Debugf("SSH server is available: %s:22", server.PublicAddress.IP)
-		logrus.Info("Server is ready !")
-
+		server := sshConnection.server
 		// exec -w SERVER COMMAND ARGS...
 		if len(args.Command) < 1 {
 			logrus.Info("Connecting to server ...")
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway)
+			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
+				return fmt.Errorf("Connection to server failed: %v", err)
+			}
 		} else {
 			logrus.Infof("Executing command: %s ...", args.Command)
-			err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway)
+			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway); err != nil {
+				return fmt.Errorf("command execution failed: %v", err)
+			}
+			logrus.Info("Command successfuly executed")
 		}
-		if err != nil {
-			return fmt.Errorf("command execution failed: %v", err)
-		}
-		logrus.Info("Command successfuly executed")
 	}
 	return nil
+}
+
+type notifSSHConnection struct {
+	server *api.ScalewayServer
+	err    error
+}
+
+func waitSSHConnection(ctx CommandContext, args RunArgs, serverID string) (chan notifSSHConnection, string, error) {
+	notif := make(chan notifSSHConnection)
+	// Resolve gateway
+	gateway, err := api.ResolveGateway(ctx.API, args.Gateway)
+	if err != nil {
+		return nil, "", fmt.Errorf("cannot resolve Gateway '%s': %v", args.Gateway, err)
+	}
+
+	// waiting for server to be ready
+	logrus.Debug("Waiting for server to be ready")
+	// We wait for 30 seconds, which is the minimal amount of time needed by a server to boot
+	go func() {
+		server, err := api.WaitForServerReady(ctx.API, serverID, gateway)
+		if err != nil {
+			notif <- notifSSHConnection{
+				err: fmt.Errorf("cannot get access to server %s: %v", serverID, err),
+			}
+			return
+		}
+		logrus.Debugf("SSH server is available: %s:22", server.PublicAddress.IP)
+		logrus.Info("Server is ready !")
+		notif <- notifSSHConnection{
+			server: server,
+		}
+	}()
+	return notif, gateway, nil
 }
