@@ -3,6 +3,9 @@
 // license that can be found in the LICENSE.md file.
 
 // Manage BareMetal Servers from Command Line (as easily as with Docker)
+
+// +build go1.5
+
 package main
 
 import (
