@@ -208,8 +208,8 @@ Login
 
 ```console
 $ scw login
-Organization: xxx-yyy-zzz
-Token: xxx-yyy-zzz
+Login (cloud.scaleway.com): xxxx@xx.xx
+Password:
 $
 ```
 
@@ -505,10 +505,14 @@ Generates a configuration file in '/home/$USER/.scwrc'
 containing credentials used to interact with the Scaleway API. This
 configuration file is automatically used by the 'scw' commands.
 
+You can get your credentials on https://cloud.scaleway.com/#/credentials
+
+
 Options:
 
   -h, --help=false      Print usage
   -o, --organization="" Organization
+  -s, --skip-ssh-key=false Don't ask to upload an SSH Key
   -t, --token=""        Token
 ```
 
@@ -736,6 +740,7 @@ Options:
 
   -h, --help=false      Print usage
   -t, --terminate=false Stop and trash a server with its volumes
+  -w, --wait=false      Synchronous stop. Wait for SSH to be ready
 
 Examples:
 
@@ -743,6 +748,8 @@ Examples:
     $ scw stop -t my-running-server my-second-running-server
     $ scw stop $(scw ps -q)
     $ scw stop $(scw ps | grep mysql | awk '{print $1}')
+    $ scw stop server && stop wait server
+    $ scw stop -w server
 ```
 
 
