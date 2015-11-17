@@ -17,6 +17,7 @@ import (
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/namesgenerator"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
 )
 
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
@@ -283,23 +284,51 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 	close(cj)
 }
 
+type ConfigCreateServer struct {
+	ImageName         string
+	Name              string
+	Bootscript        string
+	Env               string
+	AdditionalVolumes string
+	DynamicIpRequired bool
+	IP                string
+}
+
 // CreateServer creates a server using API based on typical server fields
-func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript string, env string, additionalVolumes string, dynamicIPRequired bool) (string, error) {
-	if name == "" {
-		name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
+func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
+	if c.Name == "" {
+		c.Name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
 
 	var server ScalewayServerDefinition
 	server.Volumes = make(map[string]string)
 
-	server.DynamicIPRequired = &dynamicIPRequired
-
-	server.Tags = []string{}
-	if env != "" {
-		server.Tags = strings.Split(env, " ")
+	server.DynamicIPRequired = &c.DynamicIpRequired
+	if c.IP != "" {
+		if anonuuid.IsUUID(c.IP) == nil {
+			server.PublicIP = c.IP
+		} else {
+			ips, err := api.GetIPS()
+			if err != nil {
+				return "", err
+			}
+			for _, ip := range ips.IPS {
+				if ip.Address == c.IP {
+					server.PublicIP = ip.ID
+					break
+				}
+			}
+			if server.PublicIP == "" {
+				return "", fmt.Errorf("IP address %v not found", c.IP)
+			}
+		}
 	}
-	if additionalVolumes != "" {
-		volumes := strings.Split(additionalVolumes, " ")
+	server.Tags = []string{}
+	if c.Env != "" {
+		server.Tags = strings.Split(c.Env, " ")
+	}
+	if c.AdditionalVolumes != "" {
+		volumes := strings.Split(c.AdditionalVolumes, " ")
 		for i := range volumes {
 			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
 			if err != nil {
@@ -310,17 +339,17 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
-	server.Name = name
-	if bootscript != "" {
-		bootscript := api.GetBootscriptID(bootscript)
+	server.Name = c.Name
+	if c.Bootscript != "" {
+		bootscript := api.GetBootscriptID(c.Bootscript)
 		server.Bootscript = &bootscript
 	}
 
 	inheritingVolume := false
-	_, err := humanize.ParseBytes(imageName)
+	_, err := humanize.ParseBytes(c.ImageName)
 	if err == nil {
 		// Create a new root volume
-		volumeID, err := CreateVolumeFromHumanSize(api, imageName)
+		volumeID, err := CreateVolumeFromHumanSize(api, c.ImageName)
 		if err != nil {
 			return "", err
 		}
@@ -329,11 +358,11 @@ func CreateServer(api *ScalewayAPI, imageName string, name string, bootscript st
 		// Use an existing image
 		// FIXME: handle snapshots
 		inheritingVolume = true
-		image := api.GetImageID(imageName, false)
+		image := api.GetImageID(c.ImageName, false)
 		if image != "" {
 			server.Image = &image
 		} else {
-			snapshotID := api.GetSnapshotID(imageName)
+			snapshotID := api.GetSnapshotID(c.ImageName)
 			snapshot, err := api.GetSnapshot(snapshotID)
 			if err != nil {
 				return "", err
