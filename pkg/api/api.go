@@ -575,6 +575,8 @@ type ScalewayServerDefinition struct {
 
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
+
+	PublicIP string `json:"public_ip,omitempty"`
 }
 
 // ScalewayOneServer represents the response of a GET /servers/UUID API call

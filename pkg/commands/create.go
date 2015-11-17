@@ -19,6 +19,7 @@ type CreateArgs struct {
 	Volumes    []string
 	Image      string
 	TmpSSHKey  bool
+	IP         string
 }
 
 // RunCreate is the handler for 'scw create'
@@ -32,7 +33,15 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 
 	env := strings.Join(args.Tags, " ")
 	volume := strings.Join(args.Volumes, " ")
-	serverID, err := api.CreateServer(ctx.API, args.Image, args.Name, args.Bootscript, env, volume, true)
+	serverID, err := api.CreateServer(ctx.API, &api.ConfigCreateServer{
+		ImageName:         args.Image,
+		Name:              args.Name,
+		Bootscript:        args.Bootscript,
+		Env:               env,
+		AdditionalVolumes: volume,
+		DynamicIpRequired: args.IP == "",
+		IP:                args.IP,
+	})
 	if err != nil {
 		return err
 	}

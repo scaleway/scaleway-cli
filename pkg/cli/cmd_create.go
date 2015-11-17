@@ -30,6 +30,7 @@ func init() {
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
+	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "", "Assign an IP")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCreate.Flag.BoolVar(&createTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 }
@@ -41,6 +42,7 @@ var createEnv string        // -e, --env flag
 var createVolume string     // -v, --volume flag
 var createHelp bool         // -h, --help flag
 var createTmpSSHKey bool    // --tmp-ssh-key flag
+var createIPAddress string  // --ip-address flag
 
 func runCreate(cmd *Command, rawArgs []string) error {
 	if createHelp {
@@ -55,6 +57,7 @@ func runCreate(cmd *Command, rawArgs []string) error {
 		Bootscript: createBootscript,
 		Image:      rawArgs[0],
 		TmpSSHKey:  createTmpSSHKey,
+		IP:         createIPAddress,
 	}
 
 	if len(createEnv) > 0 {

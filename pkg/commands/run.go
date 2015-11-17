@@ -26,6 +26,7 @@ type RunArgs struct {
 	Gateway    string
 	Image      string
 	Name       string
+	IP         string
 	Tags       []string
 	Volumes    []string
 	AutoRemove bool
@@ -82,8 +83,15 @@ func Run(ctx CommandContext, args RunArgs) error {
 
 	// create IMAGE
 	logrus.Info("Server creation ...")
-	dynamicIPRequired := args.Gateway == ""
-	serverID, err := api.CreateServer(ctx.API, args.Image, args.Name, args.Bootscript, env, volume, dynamicIPRequired)
+	serverID, err := api.CreateServer(ctx.API, &api.ConfigCreateServer{
+		ImageName:         args.Image,
+		Name:              args.Name,
+		Bootscript:        args.Bootscript,
+		Env:               env,
+		AdditionalVolumes: volume,
+		DynamicIpRequired: args.Gateway == "",
+		IP:                args.IP,
+	})
 	if err != nil {
 		return fmt.Errorf("failed to create server: %v", err)
 	}

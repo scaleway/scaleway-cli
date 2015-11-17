@@ -36,6 +36,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runCreateEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdRun.Flag.StringVar(&runCreateVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
+	cmdRun.Flag.StringVar(&runIPAddress, []string{"-ip-address"}, "", "Assign an IP")
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
@@ -51,6 +52,7 @@ var runAutoRemove bool         // --rm flag
 var runCreateBootscript string // --bootscript flag
 var runCreateEnv string        // -e, --env flag
 var runCreateVolume string     // -v, --volume flag
+var runIPAddress string        // --ip-address flag
 var runHelpFlag bool           // -h, --help flag
 var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
@@ -98,6 +100,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		AutoRemove: runAutoRemove,
 		TmpSSHKey:  runTmpSSHKey,
 		ShowBoot:   runShowBoot,
+		IP:         runIPAddress,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
 	}

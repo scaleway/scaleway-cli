@@ -309,6 +309,7 @@ Options:
   --bootscript=""       Assign a bootscript
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
+  --ip-address=""       Assign an IP
   --name=""             Assign a name
   --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
@@ -679,8 +680,10 @@ Options:
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --ip-address=""       Assign an IP
   --name=""             Assign a name
   --rm=false            Automatically remove the server when it exits
+  --show-boot=false     Allows to show the boot
   --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
@@ -1139,6 +1142,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Support of `scw create|run --ip-address` ([#235](https://github.com/scaleway/scaleway-cli/issues/235))
 * Update gotty-client to 1.3.0
 * Support of `scw run --show-boot` option ([#156](https://github.com/scaleway/scaleway-cli/issues/156))
 * Remove go1.[34] support
