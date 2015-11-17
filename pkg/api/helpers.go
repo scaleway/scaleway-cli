@@ -12,12 +12,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/moul/anonuuid"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/namesgenerator"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
 )
 
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
