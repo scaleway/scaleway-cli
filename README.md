@@ -96,7 +96,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.5.0/scw_1.5.0_darwin_amd64.zip" -O /tmp/scw.zip
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.6.0/scw_1.6.0_darwin_amd64.zip" -O /tmp/scw.zip
 unzip /tmp/scw.zip \*/scw -d /tmp
 mv /tmp/scw_*/scw /usr/local/bin
 rm -rf /tmp/scw.zip /tmp/scw_*_darwin_amd64
@@ -110,7 +110,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.5.0/scw_1.5.0_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.6.0/scw_1.6.0_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1140,13 +1140,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.6.0 (2015-11-18)
 
 * Support of `scw create|run --ip-address` ([#235](https://github.com/scaleway/scaleway-cli/issues/235))
 * Update gotty-client to 1.3.0
 * Support of `scw run --show-boot` option ([#156](https://github.com/scaleway/scaleway-cli/issues/156))
 * Remove go1.[34] support
-* Update gotty-client to 1.2.0
 * Improve _cs format ([#223](https://github.com/scaleway/scaleway-cli/issues/223))
 * Use `gotty-client` instead of `termjs-cli`
 * Fix: bad detection of server already started when starting a server ([#224](https://github.com/scaleway/scaleway-cli/pull/224)) - [@arianvp](https://github.com/arianvp)
@@ -1162,7 +1161,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Added _security-groups ([#179](https://github.com/scaleway/scaleway-cli/issues/179))
 * Reflect server location in `scw inspect` ([#204](https://github.com/scaleway/scaleway-cli/pull/204))
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...v1.6.0)
 
 ### v1.5.0 (2015-09-11)
 
