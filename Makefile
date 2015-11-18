@@ -26,8 +26,9 @@ FPM_ARGS ?=	\
 NAME = scw
 SRC = cmd/scw
 PACKAGES = pkg/api pkg/commands pkg/utils pkg/cli pkg/sshcommand pkg/config pkg/scwversion pkg/pricing
-REV = $(shell git rev-parse HEAD || echo "nogit")
-TAG = $(shell git describe --tags --always || echo "nogit")
+VERSION = $(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
+REV = $(shell git rev-parse HEAD || git ls-remote https://github.com/scaleway/scaleway-cli  | grep -F $(VERSION) | head -n1 | awk '{print $$1}' || echo "nogit")
+TAG = $(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
 LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV) \
            -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
 BUILDER = scaleway-cli-builder
