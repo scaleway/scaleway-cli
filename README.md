@@ -1140,6 +1140,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0...master)
+
 ### v1.6.0 (2015-11-18)
 
 * Support of `scw create|run --ip-address` ([#235](https://github.com/scaleway/scaleway-cli/issues/235))
