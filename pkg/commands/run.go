@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
@@ -32,6 +33,7 @@ type RunArgs struct {
 	AutoRemove bool
 	TmpSSHKey  bool
 	ShowBoot   bool
+	Timeout    int64
 	// DynamicIPRequired
 	// Timeout
 }
@@ -116,6 +118,19 @@ func Run(ctx CommandContext, args RunArgs) error {
 	// Sync cache on disk
 	ctx.API.Sync()
 
+	closeTimeout := make(chan struct{})
+
+	if args.Timeout > 0 {
+		go func() {
+			select {
+			case <-time.After(time.Duration(args.Timeout) * time.Second):
+				// FIXME: avoid use of fatalf
+				logrus.Fatalf("Operation timed out")
+			case <-closeTimeout:
+				break
+			}
+		}()
+	}
 	if args.ShowBoot {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
@@ -129,6 +144,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 			return err
 		}
 		sshConnection := <-notif
+		close(closeTimeout)
 		gottycli.ExitLoop()
 		<-done
 		utils.Quiet(false)
@@ -147,6 +163,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		if err != nil {
 			return fmt.Errorf("cannot attach to server serial: %v", err)
 		}
+		close(closeTimeout)
 		<-done
 		gottycli.Close()
 	} else {
@@ -155,6 +172,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 			return err
 		}
 		sshConnection := <-notif
+		close(closeTimeout)
 		if sshConnection.err != nil {
 			return sshConnection.err
 		}

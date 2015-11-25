@@ -33,9 +33,10 @@ var cmdRun = &Command{
 func init() {
 	cmdRun.Flag.StringVar(&runCreateName, []string{"-name"}, "", "Assign a name")
 	cmdRun.Flag.StringVar(&runCreateBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
-	cmdRun.Flag.StringVar(&runCreateEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
+	cmdRun.Flag.StringVar(&runCreateEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)")
 	cmdRun.Flag.StringVar(&runCreateVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
+	cmdRun.Flag.Int64Var(&runTimeout, []string{"T", "-timeout"}, 0, "Set timeout value to seconds")
 	cmdRun.Flag.StringVar(&runIPAddress, []string{"-ip-address"}, "", "Assign an IP")
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
@@ -59,6 +60,7 @@ var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
+var runTimeout int64           // --timeout flag
 
 func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
@@ -101,6 +103,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		TmpSSHKey:  runTmpSSHKey,
 		ShowBoot:   runShowBoot,
 		IP:         runIPAddress,
+		Timeout:    runTimeout,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
 	}
