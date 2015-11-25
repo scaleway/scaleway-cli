@@ -439,14 +439,30 @@ func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*Sca
 	promise := make(chan bool)
 	var server *ScalewayServer
 	var err error
+	var currentState string
 
 	go func() {
 		defer close(promise)
 
-		server, err = WaitForServerState(api, serverID, "running")
-		if err != nil {
-			promise <- false
-			return
+		for {
+			server, err = api.GetServer(serverID)
+			if err != nil {
+				promise <- false
+				return
+			}
+			if currentState != server.State {
+				log.Infof("Server changed state to '%s'", server.State)
+				currentState = server.State
+			}
+			if server.State == "running" {
+				break
+			}
+			if server.State == "stopped" {
+				err = fmt.Errorf("The server has been stopped")
+				promise <- false
+				return
+			}
+			time.Sleep(1 * time.Second)
 		}
 
 		if gateway == "" {
