@@ -1,5 +1,7 @@
 # Scaleway's API
 
+[![GoDoc](https://godoc.org/github.com/scaleway/scaleway-cli/pkg/api?status.svg)](https://godoc.org/github.com/scaleway/scaleway-cli/pkg/api)
+
 This package contains facilities to play with the Scaleway API, it includes the following features:
 
 - dedicated configuration file containing credentials to deal with the API
