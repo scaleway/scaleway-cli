@@ -677,13 +677,14 @@ Options:
   -a, --attach=false    Attach to serial console
   --bootscript=""       Assign a bootscript
   -d, --detach=false    Run server in background and print server ID
-  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
   --ip-address=""       Assign an IP
   --name=""             Assign a name
   --rm=false            Automatically remove the server when it exits
   --show-boot=false     Allows to show the boot
+  -T, --timeout=0       Set timeout value to seconds
   --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
@@ -1142,6 +1143,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Support of `scw run --timeout=X` ([#239](https://github.com/scaleway/scaleway-cli/issues/239))
 * Check the "stopped" state for `scw run | exec -w`([#229](https://github.com/scaleway/scaleway-cli/issues/229))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0...master)

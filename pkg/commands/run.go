@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
@@ -32,6 +33,7 @@ type RunArgs struct {
 	AutoRemove bool
 	TmpSSHKey  bool
 	ShowBoot   bool
+	Timeout    int64
 	// DynamicIPRequired
 	// Timeout
 }
@@ -116,34 +118,60 @@ func Run(ctx CommandContext, args RunArgs) error {
 	// Sync cache on disk
 	ctx.API.Sync()
 
+	closeTimeout := make(chan struct{})
+	timeoutExit := make(chan struct{})
+
+	if args.Timeout > 0 {
+		go func() {
+			select {
+			case <-time.After(time.Duration(args.Timeout) * time.Second):
+				close(timeoutExit)
+			case <-closeTimeout:
+				break
+			}
+		}()
+	}
 	if args.ShowBoot {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
 		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
 		if err != nil {
+			close(closeTimeout)
 			return fmt.Errorf("cannot attach to server serial: %v", err)
 		}
 		utils.Quiet(true)
 		notif, gateway, err := waitSSHConnection(ctx, args, serverID)
 		if err != nil {
+			close(closeTimeout)
+			gottycli.ExitLoop()
+			<-done
 			return err
 		}
-		sshConnection := <-notif
-		gottycli.ExitLoop()
-		<-done
-		utils.Quiet(false)
-		if sshConnection.err != nil {
-			return sshConnection.err
-		}
-		server := sshConnection.server
-		logrus.Info("Connecting to server ...")
-		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
-			return fmt.Errorf("Connection to server failed: %v", err)
+		select {
+		case <-timeoutExit:
+			gottycli.ExitLoop()
+			<-done
+			utils.Quiet(false)
+			return fmt.Errorf("Operation timed out")
+		case sshConnection := <-notif:
+			close(closeTimeout)
+			gottycli.ExitLoop()
+			<-done
+			utils.Quiet(false)
+			if sshConnection.err != nil {
+				return sshConnection.err
+			}
+			server := sshConnection.server
+			logrus.Info("Connecting to server ...")
+			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
+				return fmt.Errorf("Connection to server failed: %v", err)
+			}
 		}
 	} else if args.Attach {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
 		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+		close(closeTimeout)
 		if err != nil {
 			return fmt.Errorf("cannot attach to server serial: %v", err)
 		}
@@ -152,25 +180,31 @@ func Run(ctx CommandContext, args RunArgs) error {
 	} else {
 		notif, gateway, err := waitSSHConnection(ctx, args, serverID)
 		if err != nil {
+			close(closeTimeout)
 			return err
 		}
-		sshConnection := <-notif
-		if sshConnection.err != nil {
-			return sshConnection.err
-		}
-		server := sshConnection.server
-		// exec -w SERVER COMMAND ARGS...
-		if len(args.Command) < 1 {
-			logrus.Info("Connecting to server ...")
-			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
-				return fmt.Errorf("Connection to server failed: %v", err)
+		select {
+		case <-timeoutExit:
+			return fmt.Errorf("Operation timed out")
+		case sshConnection := <-notif:
+			close(closeTimeout)
+			if sshConnection.err != nil {
+				return sshConnection.err
 			}
-		} else {
-			logrus.Infof("Executing command: %s ...", args.Command)
-			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway); err != nil {
-				return fmt.Errorf("command execution failed: %v", err)
+			server := sshConnection.server
+			// exec -w SERVER COMMAND ARGS...
+			if len(args.Command) < 1 {
+				logrus.Info("Connecting to server ...")
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
+					return fmt.Errorf("Connection to server failed: %v", err)
+				}
+			} else {
+				logrus.Infof("Executing command: %s ...", args.Command)
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway); err != nil {
+					return fmt.Errorf("command execution failed: %v", err)
+				}
+				logrus.Info("Command successfuly executed")
 			}
-			logrus.Info("Command successfuly executed")
 		}
 	}
 	return nil
