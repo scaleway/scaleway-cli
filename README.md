@@ -1145,6 +1145,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 * Support of `scw run --timeout=X` ([#239](https://github.com/scaleway/scaleway-cli/issues/239))
 * Check the "stopped" state for `scw run | exec -w`([#229](https://github.com/scaleway/scaleway-cli/issues/229))
+* Basic support of Server.CommercialType
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0...master)
 

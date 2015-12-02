@@ -292,15 +292,24 @@ type ConfigCreateServer struct {
 	AdditionalVolumes string
 	DynamicIpRequired bool
 	IP                string
+	CommercialType    string
 }
 
 // CreateServer creates a server using API based on typical server fields
 func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
+	if c.CommercialType == "" {
+		c.CommercialType = os.Getenv("SCW_COMMERCIAL_TYPE")
+		if c.CommercialType == "" {
+			c.CommercialType = "C1"
+		}
+	}
+
 	if c.Name == "" {
 		c.Name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
 	}
 
 	var server ScalewayServerDefinition
+	server.CommercialType = c.CommercialType
 	server.Volumes = make(map[string]string)
 
 	server.DynamicIPRequired = &c.DynamicIpRequired
