@@ -1,5 +1,5 @@
 # gotty-client
-:wrench: [GoTTY](https://github.com/yudai/gotty) client for your terminal
+:wrench: Terminal client for [GoTTY](https://github.com/yudai/gotty).
 
 ![](https://raw.githubusercontent.com/moul/gotty-client/master/resources/gotty-client.png)
 
@@ -64,7 +64,7 @@ USAGE:
    gotty-client [global options] command [command options] GOTTY_URL
 
 VERSION:
-   1.1.0
+   1.3.0+
 
 AUTHOR(S):
    Manfred Touron <https://github.com/moul/gotty-client>
@@ -73,6 +73,7 @@ COMMANDS:
    help, h	Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
+   --debug, -D		Enable debug mode [$GOTTY_CLIENT_DEBUG]
    --help, -h		show help
    --version, -v	print the version
 ```
@@ -101,11 +102,15 @@ $ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/
 
 ## Changelog
 
-### master (unreleased)
+### [v1.4.0](https://github.com/moul/gotty-client/releases/tag/v1.4.0) (2015-12-09)
 
-* No entry
+* Remove solaris,plan9,nacl for `.goxc.json`
+* Add an error if the go version is lower than 1.5
+* Flexible parsing of the input URL
+* Add tests
+* Support of `--skip-tls-verify`
 
-[full commits list](https://github.com/moul/gotty-client/compare/v1.3.0...master)
+[full commits list](https://github.com/moul/gotty-client/compare/v1.3.0...v1.4.0)
 
 ### [v1.3.0](https://github.com/moul/gotty-client/releases/tag/v1.3.0) (2015-10-27)
 

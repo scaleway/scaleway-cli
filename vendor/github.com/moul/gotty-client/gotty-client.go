@@ -1,6 +1,7 @@
 package gottyclient
 
 import (
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -9,13 +10,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/signal"
 	"regexp"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
-	"unsafe"
 
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/creack/goselect"
@@ -83,6 +81,7 @@ type Client struct {
 	Output         io.Writer
 	QuitChan       chan struct{}
 	QuitChanClosed bool
+	SkipTLSVerify  bool
 }
 
 type querySingleType struct {
@@ -107,6 +106,11 @@ func (c *Client) GetAuthToken() (string, error) {
 	req, err := http.NewRequest("GET", target.String(), nil)
 	req.Header = *header
 	client := http.Client{}
+	if c.SkipTLSVerify {
+		client.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return "", err
@@ -149,6 +153,9 @@ func (c *Client) Connect() error {
 		return err
 	}
 	logrus.Debugf("Connecting to websocket: %q", target.String())
+	if c.SkipTLSVerify {
+		c.Dialer.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
 	conn, _, err := c.Dialer.Dial(target.String(), *header)
 	if err != nil {
 		return err
@@ -243,23 +250,16 @@ type winsize struct {
 func (c *Client) termsizeLoop(wg *sync.WaitGroup) {
 	defer wg.Done()
 	ch := make(chan os.Signal, 1)
-	signal.Notify(ch, syscall.SIGWINCH)
-	defer signal.Reset(syscall.SIGWINCH)
-	ws := winsize{}
+	notifySignalSIGWINCH(ch)
+	defer resetSignalSIGWINCH()
 
 	for {
-		syscall.Syscall(syscall.SYS_IOCTL,
-			uintptr(0), uintptr(syscall.TIOCGWINSZ),
-			uintptr(unsafe.Pointer(&ws)))
-
-		b, err := json.Marshal(ws)
-		if err != nil {
-			logrus.Warnf("json.Marshal error: %v", err)
-		}
-
-		err = c.write(append([]byte("2"), b...))
-		if err != nil {
-			logrus.Warnf("ws.WriteMessage failed: %v", err)
+		if b, err := syscallTIOCGWINSZ(); err != nil {
+			logrus.Warn(err)
+		} else {
+			if err = c.write(append([]byte("2"), b...)); err != nil {
+				logrus.Warnf("ws.WriteMessage failed: %v", err)
+			}
 		}
 		select {
 		case <-c.QuitChan:
@@ -350,6 +350,7 @@ func (c *Client) readLoop(done chan bool, wg *sync.WaitGroup) {
 				buf, err := base64.StdEncoding.DecodeString(string(msg.Data[1:]))
 				if err != nil {
 					logrus.Warnf("Invalid base64 content: %q", msg.Data[1:])
+					break
 				}
 				fmt.Fprintf(c.Output, string(buf))
 			case '1': // pong
@@ -372,11 +373,30 @@ func (c *Client) SetOutput(w io.Writer) {
 	c.Output = w
 }
 
+// ParseURL parses an URL which may be incomplete and tries to standardize it
+func ParseURL(input string) (string, error) {
+	parsed, err := url.Parse(input)
+	if err != nil {
+		return "", err
+	}
+	switch parsed.Scheme {
+	case "http", "https":
+		// everything is ok
+	default:
+		return ParseURL(fmt.Sprintf("http://%s", input))
+	}
+	return parsed.String(), nil
+}
+
 // NewClient returns a GoTTY client object
-func NewClient(httpURL string) (*Client, error) {
+func NewClient(inputURL string) (*Client, error) {
+	url, err := ParseURL(inputURL)
+	if err != nil {
+		return nil, err
+	}
 	return &Client{
 		Dialer:     &websocket.Dialer{},
-		URL:        httpURL,
+		URL:        url,
 		WriteMutex: &sync.Mutex{},
 		Output:     os.Stdout,
 		QuitChan:   make(chan struct{}),
