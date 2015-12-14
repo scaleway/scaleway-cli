@@ -57,7 +57,11 @@ echo "[+] Snapshot ${SNAPSHOT} created"
 
 
 echo "[+] Creating an image based of the snapshot"
-IMAGE=$(scw tag --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
+if [ -n "${IMAGE_ARCH}" ]; then
+    IMAGE=$(scw tag --arch="${IMAGE_ARCH}" --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
+else
+    IMAGE=$(scw tag --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
+fi
 echo "[+] Image created: ${IMAGE}"
 
 
