@@ -16,11 +16,13 @@ var cmdTag = &Command{
 func init() {
 	cmdTag.Flag.BoolVar(&tagHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdTag.Flag.StringVar(&tagBootscript, []string{"-bootscript"}, "", "Assign bootscript")
+	cmdTag.Flag.StringVar(&tagArch, []string{"-arch"}, "arm", "Image architecture")
 }
 
 // Flags
 var tagHelp bool         // -h, --help flag
 var tagBootscript string // --bootscript flag
+var tagArch string       // --arch flag
 
 func runTag(cmd *Command, rawArgs []string) error {
 	if tagHelp {
@@ -34,6 +36,7 @@ func runTag(cmd *Command, rawArgs []string) error {
 		Snapshot:   rawArgs[0],
 		Name:       rawArgs[1],
 		Bootscript: tagBootscript,
+		Arch:       tagArch,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunTag(ctx, args)
