@@ -1141,12 +1141,12 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 }
 
 // PostImage creates a new image
-func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string) (string, error) {
+func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string, arch string) (string, error) {
 	definition := ScalewayImageDefinition{
 		SnapshotIDentifier: volumeID,
 		Name:               name,
 		Organization:       s.Organization,
-		Arch:               "arm",
+		Arch:               arch,
 	}
 	if bootscript != "" {
 		definition.DefaultBootscript = &bootscript

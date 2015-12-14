@@ -11,6 +11,7 @@ type TagArgs struct {
 	Snapshot   string
 	Bootscript string
 	Name       string
+	Arch       string
 }
 
 // RunTag is the handler for 'scw tag'
@@ -26,7 +27,7 @@ func RunTag(ctx CommandContext, args TagArgs) error {
 		bootscriptID = ctx.API.GetBootscriptID(args.Bootscript)
 	}
 
-	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name, bootscriptID)
+	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name, bootscriptID, args.Arch)
 	if err != nil {
 		return fmt.Errorf("cannot create image: %v", err)
 	}
