@@ -8,56 +8,69 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 var cmdSecurityGroups = &Command{
 	Exec:        runSecurityGroups,
-	UsageLine:   "_security-groups [OPTIONS] [ARGS]",
+	UsageLine:   "_security-groups OPTIONS [ARGS]",
 	Description: "Interacts with security-groups",
 	Hidden:      true,
 	Help:        "Interacts with security-groups",
 	Examples: `
-    $ scw _security-groups
-    $ scw _security-groups "SecurityGroupID"
-    $ scw _security-groups --new "NAME:DESCRIPTION"
-    $ scw _security-groups --update "NAME:DESCRIPTION" "SecurityGroupID"
-    $ scw _security-groups --delete "SecurityGroupID"
-    $ scw _security-groups --rules "SecurityGroupID"
-    $ scw _security-groups --rule-id "SecurityGroupID:RuleID"
-    $ scw _security-groups --rule-delete "SecurityGroupID:RuleID"
-    $ scw _security-groups --rule-new "SecurityGroupID:ACTION:DIRECTION:IP_RANGE:PROTOCOL[:DEST_PORT_FROM]"
-    $ scw _security-groups --rule-update "SecurityGroupID:RuleID:ACTION:DIRECTION:IP_RANGE:PROTOCOL[:DEST_PORT_FROM]"
-`,
+
+	SGID = SecurityGroupID
+	ACTION = "{\"action\":"string", \"direction\": \"string\", \"ip_range\": \"string\", \"protocol\": \"string\", \"dest_port_from\": \"int\"}"
+
+	$ scw _security-groups list-groups
+	$ scw _security-groups show-group SGID
+	$ scw _security-groups new-group --name=NAME --desc=DESC
+	$ scw _security-groups update-group SGID --name=NAME --desc=DESC
+	$ scw _security-groups delete-group SGID
+
+	$ scw _security-groups list-rules SGID
+	$ scw _security-groups show-rule SGID RULEID
+	$ scw _security-gruops delete-rule SGID RULEID
+	$ scw _security-groups new-rule SGID ACTION
+	$ scw _security-gruops update-rule SGID RULEID ACTION`,
 }
+
+// "show-rule"
 
 func init() {
 	cmdSecurityGroups.Flag.BoolVar(&securityGroupsHelp, []string{"h", "-help"}, false, "Print usage")
-	// cmdSecurityGroups.Flag.BoolVar(&securityGroupsRaw, []string{"r", "-raw"}, false, "Displays the output in raw mode")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsNew, []string{"n", "-new"}, "", "Adds a new security group")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsUpdate, []string{"u", "-update"}, "", "Updates a security group")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsDelete, []string{"d", "-delete"}, "", "Deteles a security group")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsRules, []string{"r", "-rules"}, "", "Displays the rules")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsRuleID, []string{"ri", "-rule-id"}, "", "Displays one rule")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsRuleDelete, []string{"rd", "-rule-delete"}, "", "Deletes one rule")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsRuleNew, []string{"rn", "-rule-new"}, "", "Adds a new rule")
-	cmdSecurityGroups.Flag.StringVar(&securityGroupsRuleUpdate, []string{"ru", "-rule-update"}, "", "Updates one rule")
+	cmdSecurityGroups.Flag.StringVar(&securityGroupsName, []string{"n", "-name"}, "", "SecurityGroup's name")
+	cmdSecurityGroups.Flag.StringVar(&securityGroupsDesc, []string{"d", "-description"}, "", "SecurityGroup's description")
+	subCmdSecurityGroup = map[string]func(cmd *Command, args []string) error{
+		"list-groups":  listSecurityGroup,
+		"new-group":    newSecurityGroup,
+		"update-group": updateSecurityGroup,
+		"delete-group": deleteSecurityGroup,
+		"show-group":   showSecurityGroup,
+		"list-rules":   listSecurityGroupRule,
+		"new-rule":     newSecurityGroupRule,
+		"update-rule":  updateSecurityGroupRule,
+		"delete-rule":  deleteSecurityGroupRule,
+		"show-rule":    showSecurityGroupRule,
+	}
 }
 
 // Flags
-// var securityGroupsRaw bool       // -r, --raw flag
-var securityGroupsHelp bool         // -h, --help flag
-var securityGroupsNew string        // -n, --new flag
-var securityGroupsUpdate string     // -u, --update flag
-var securityGroupsDelete string     // -d, --delete flag
-var securityGroupsRules string      // -r, --rules flag
-var securityGroupsRuleID string     // -ri, --rule-id flag
-var securityGroupsRuleDelete string // -rd, --rule-delete flag
-var securityGroupsRuleNew string    // -rn, --rule-new flag
-var securityGroupsRuleUpdate string // -ru, --rule-update flag
+var securityGroupsHelp bool   // -h, --help flag
+var securityGroupsName string // -n, --name flag
+var securityGroupsDesc string // -d, --description flag
+
+// SubCommand
+var subCmdSecurityGroup map[string]func(cmd *Command, args []string) error
+
+type rulesDefinition struct {
+	Action       string `json:"action"`
+	Direction    string `json:"direction"`
+	IPRange      string `json:"ip_range"`
+	Protocol     string `json:"protocol"`
+	DestPortFrom *int   `json:"dest_port_from,omitempty"`
+}
 
 func printRawMode(out io.Writer, data interface{}) error {
 	js, err := json.MarshalIndent(data, "", "  ")
@@ -68,118 +81,133 @@ func printRawMode(out io.Writer, data interface{}) error {
 	return nil
 }
 
-func runSecurityGroups(cmd *Command, args []string) error {
-	if securityGroupsHelp {
-		return cmd.PrintUsage()
+func newSecurityGroup(cmd *Command, args []string) error {
+	fmt.Println(securityGroupsDesc)
+	fmt.Println(securityGroupsName)
+	if securityGroupsName == "" || securityGroupsDesc == "" {
+		return cmd.PrintShortUsage()
 	}
+	return cmd.API.PostSecurityGroup(api.ScalewayNewSecurityGroup{
+		Organization: cmd.API.Organization,
+		Name:         securityGroupsName,
+		Description:  securityGroupsDesc,
+	})
+}
 
-	if securityGroupsNew != "" {
-		newParts := strings.SplitN(securityGroupsNew, ":", 2)
-		if len(newParts) != 2 {
-			return cmd.PrintShortUsage()
-		}
+func updateSecurityGroup(cmd *Command, args []string) error {
+	fmt.Println(args)
+	if securityGroupsName == "" || securityGroupsDesc == "" || len(args) != 1 {
+		return cmd.PrintShortUsage()
+	}
+	return cmd.API.PutSecurityGroup(api.ScalewayNewSecurityGroup{
+		Organization: cmd.API.Organization,
+		Name:         securityGroupsName,
+		Description:  securityGroupsDesc,
+	}, args[0])
+}
 
-		return cmd.API.PostSecurityGroup(api.ScalewayNewSecurityGroup{
-			Organization: cmd.API.Organization,
-			Name:         newParts[0],
-			Description:  newParts[1],
-		})
-	} else if securityGroupsUpdate != "" {
-		if len(args) != 1 {
-			return cmd.PrintShortUsage()
-		}
-		newParts := strings.SplitN(securityGroupsUpdate, ":", 2)
-		if len(newParts) != 2 {
-			return cmd.PrintShortUsage()
-		}
-		return cmd.API.PutSecurityGroup(api.ScalewayNewSecurityGroup{
-			Organization: cmd.API.Organization,
-			Name:         newParts[0],
-			Description:  newParts[1],
-		}, args[0])
-	} else if securityGroupsDelete != "" {
-		return cmd.API.DeleteSecurityGroup(securityGroupsDelete)
-	} else if securityGroupsRules != "" {
-		GetSecurityGroupRules, err := cmd.API.GetSecurityGroupRules(securityGroupsRules)
-		if err != nil {
-			return err
-		}
-		return printRawMode(cmd.Streams().Stdout, *GetSecurityGroupRules)
-	} else if securityGroupsRuleID != "" {
-		newParts := strings.SplitN(securityGroupsRuleID, ":", 2)
-		if len(newParts) != 2 {
-			return cmd.PrintShortUsage()
-		}
-		GroupRuleID, err := cmd.API.GetASecurityGroupRule(newParts[0], newParts[1])
-		if err != nil {
-			return err
-		}
-		return printRawMode(cmd.Streams().Stdout, *GroupRuleID)
-	} else if securityGroupsRuleDelete != "" {
-		newParts := strings.SplitN(securityGroupsRuleDelete, ":", 2)
-		if len(newParts) != 2 {
-			return cmd.PrintShortUsage()
-		}
-		return cmd.API.DeleteSecurityGroupRule(newParts[0], newParts[1])
-	} else if securityGroupsRuleNew != "" {
-		newParts := strings.Split(securityGroupsRuleNew, ":")
-		if len(newParts) != 5 && len(newParts) != 6 {
-			return cmd.PrintShortUsage()
-		}
-		if len(newParts) == 6 {
-			port, err := strconv.Atoi(newParts[5])
-			if err != nil {
-				return err
-			}
-			return cmd.API.PostSecurityGroupRule(newParts[0], api.ScalewayNewSecurityGroupRule{
-				Action:       newParts[1],
-				Direction:    newParts[2],
-				IPRange:      newParts[3],
-				Protocol:     newParts[4],
-				DestPortFrom: port,
-			})
-		}
-		return cmd.API.PostSecurityGroupRule(newParts[0], api.ScalewayNewSecurityGroupRule{
-			Action:    newParts[1],
-			Direction: newParts[2],
-			IPRange:   newParts[3],
-			Protocol:  newParts[4],
-		})
-	} else if securityGroupsRuleUpdate != "" {
-		newParts := strings.Split(securityGroupsRuleUpdate, ":")
-		if len(newParts) != 6 && len(newParts) != 7 {
-			return cmd.PrintShortUsage()
-		}
-		if len(newParts) == 7 {
-			port, err := strconv.Atoi(newParts[6])
-			if err != nil {
-				return err
-			}
-			return cmd.API.PutSecurityGroupRule(api.ScalewayNewSecurityGroupRule{
-				Action:       newParts[2],
-				Direction:    newParts[3],
-				IPRange:      newParts[4],
-				Protocol:     newParts[5],
-				DestPortFrom: port,
-			}, newParts[0], newParts[1])
-		}
-		return cmd.API.PutSecurityGroupRule(api.ScalewayNewSecurityGroupRule{
-			Action:    newParts[2],
-			Direction: newParts[3],
-			IPRange:   newParts[4],
-			Protocol:  newParts[5],
-		}, newParts[0], newParts[1])
+func deleteSecurityGroup(cmd *Command, args []string) error {
+	if len(args) != 1 {
+		return cmd.PrintShortUsage()
 	}
-	if len(args) == 1 {
-		securityGroups, err := cmd.API.GetASecurityGroup(args[0])
-		if err != nil {
-			return err
-		}
-		return printRawMode(cmd.Streams().Stdout, *securityGroups)
+	return cmd.API.DeleteSecurityGroup(args[0])
+}
+
+func showSecurityGroup(cmd *Command, args []string) error {
+	if len(args) != 1 {
+		return cmd.PrintShortUsage()
 	}
+	securityGroups, err := cmd.API.GetASecurityGroup(args[0])
+	if err != nil {
+		return err
+	}
+	return printRawMode(cmd.Streams().Stdout, *securityGroups)
+}
+
+func listSecurityGroup(cmd *Command, args []string) error {
 	securityGroups, err := cmd.API.GetSecurityGroups()
 	if err != nil {
 		return err
 	}
 	return printRawMode(cmd.Streams().Stdout, *securityGroups)
+}
+
+func listSecurityGroupRule(cmd *Command, args []string) error {
+	if len(args) != 1 {
+		return cmd.PrintShortUsage()
+	}
+	GetSecurityGroupRules, err := cmd.API.GetSecurityGroupRules(args[0])
+	if err != nil {
+		return err
+	}
+	return printRawMode(cmd.Streams().Stdout, *GetSecurityGroupRules)
+}
+
+func newSecurityGroupRule(cmd *Command, args []string) error {
+	var rule rulesDefinition
+	var content api.ScalewayNewSecurityGroupRule
+
+	if len(args) != 2 {
+		return cmd.PrintShortUsage()
+	}
+	if err := json.Unmarshal([]byte(args[1]), &rule); err != nil {
+		return err
+	}
+	content.Action = rule.Action
+	content.Direction = rule.Direction
+	content.IPRange = rule.IPRange
+	content.Protocol = rule.Protocol
+	if rule.DestPortFrom != nil {
+		content.DestPortFrom = *rule.DestPortFrom
+	}
+	return cmd.API.PostSecurityGroupRule(args[0], content)
+}
+
+func updateSecurityGroupRule(cmd *Command, args []string) error {
+	var rule rulesDefinition
+	var content api.ScalewayNewSecurityGroupRule
+
+	if len(args) != 3 {
+		return cmd.PrintShortUsage()
+	}
+	if err := json.Unmarshal([]byte(args[2]), &rule); err != nil {
+		return err
+	}
+	content.Action = rule.Action
+	content.Direction = rule.Direction
+	content.IPRange = rule.IPRange
+	content.Protocol = rule.Protocol
+	if rule.DestPortFrom != nil {
+		content.DestPortFrom = *rule.DestPortFrom
+	}
+	return cmd.API.PutSecurityGroupRule(content, args[0], args[1])
+}
+
+func showSecurityGroupRule(cmd *Command, args []string) error {
+	if len(args) != 2 {
+		return cmd.PrintShortUsage()
+	}
+	GroupRuleID, err := cmd.API.GetASecurityGroupRule(args[0], args[1])
+	if err != nil {
+		return err
+	}
+	return printRawMode(cmd.Streams().Stdout, *GroupRuleID)
+}
+
+func deleteSecurityGroupRule(cmd *Command, args []string) error {
+	if len(args) != 2 {
+		return cmd.PrintShortUsage()
+	}
+	return cmd.API.DeleteSecurityGroupRule(args[0], args[1])
+}
+
+func runSecurityGroups(cmd *Command, args []string) error {
+	if securityGroupsHelp || len(args) == 0 {
+		return cmd.PrintUsage()
+	}
+	cmd.Flag.Parse(args[1:])
+	if function, ok := subCmdSecurityGroup[args[0]]; ok {
+		return function(cmd, cmd.Flag.Args())
+	}
+	return fmt.Errorf("subcommand not found: %s", args[0])
 }
