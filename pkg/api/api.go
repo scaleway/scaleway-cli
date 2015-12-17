@@ -1896,6 +1896,144 @@ func (s *ScalewayAPI) GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGr
 	return &securityGroups, nil
 }
 
+// PostSecurityGroup posts a group on a server
+func (s *ScalewayAPI) PostSecurityGroup(group ScalewayNewSecurityGroup) error {
+	resp, err := s.PostResponse("security_groups", group)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
+// PostSecurityGroupRule posts a rule on a server
+func (s *ScalewayAPI) PostSecurityGroupRule(SecurityGroupID string, rules ScalewayNewSecurityGroupRule) error {
+	resp, err := s.PostResponse(fmt.Sprintf("security_groups/%s/rules", SecurityGroupID), rules)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed POST code
+	if resp.StatusCode == 201 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
+// DeleteSecurityGroup deletes a SecurityGroup
+func (s *ScalewayAPI) DeleteSecurityGroup(securityGroupID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("security_groups/%s", securityGroupID))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed PUT code
+	if resp.StatusCode == 204 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
+// PutSecurityGroup updates a SecurityGroup
+func (s *ScalewayAPI) PutSecurityGroup(group ScalewayNewSecurityGroup, securityGroupID string) error {
+	resp, err := s.PutResponse(fmt.Sprintf("security_groups/%s", securityGroupID), group)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed PUT code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
+// PutSecurityGroupRule updates a SecurityGroupRule
+func (s *ScalewayAPI) PutSecurityGroupRule(rules ScalewayNewSecurityGroupRule, securityGroupID, RuleID string) error {
+	resp, err := s.PutResponse(fmt.Sprintf("security_groups/%s/rules/%s", securityGroupID, RuleID), rules)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed PUT code
+	if resp.StatusCode == 200 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
+// DeleteSecurityGroupRule deletes a SecurityGroupRule
+func (s *ScalewayAPI) DeleteSecurityGroupRule(SecurityGroupID, RuleID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("security_groups/%s/rules/%s", SecurityGroupID, RuleID))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Succeed PUT code
+	if resp.StatusCode == 204 {
+		return nil
+	}
+
+	var error ScalewayAPIError
+
+	decoder := json.NewDecoder(resp.Body)
+	if err = decoder.Decode(&error); err != nil {
+		return err
+	}
+	error.StatusCode = resp.StatusCode
+	return error
+}
+
 // GetContainers returns a ScalewayGetContainers
 func (s *ScalewayAPI) GetContainers() (*ScalewayGetContainers, error) {
 	resp, err := s.GetResponse("containers")
@@ -1908,7 +2046,7 @@ func (s *ScalewayAPI) GetContainers() (*ScalewayGetContainers, error) {
 	if err != nil {
 		return nil, err
 	}
-	var containers ScalewayGetContainers
+	var containers ScalewayGetContainersg
 
 	if err = json.Unmarshal(body, &containers); err != nil {
 		return nil, err

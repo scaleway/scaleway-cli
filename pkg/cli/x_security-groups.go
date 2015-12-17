@@ -74,38 +74,17 @@ func runSecurityGroups(cmd *Command, args []string) error {
 	}
 
 	if securityGroupsNew != "" {
-		var newGroups api.ScalewayNewSecurityGroup
-
 		newParts := strings.SplitN(securityGroupsNew, ":", 2)
 		if len(newParts) != 2 {
 			return cmd.PrintShortUsage()
 		}
-		newGroups.Organization = cmd.API.Organization
-		newGroups.Name = newParts[0]
-		newGroups.Description = newParts[1]
-		resp, err := cmd.API.PostResponse("security_groups", newGroups)
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
 
-		// Succeed POST code
-		if resp.StatusCode == 201 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.PostSecurityGroup(api.ScalewayNewSecurityGroup{
+			Organization: cmd.API.Organization,
+			Name:         newParts[0],
+			Description:  newParts[1],
+		})
 	} else if securityGroupsUpdate != "" {
-		var newGroups api.ScalewayNewSecurityGroup
-
 		if len(args) != 1 {
 			return cmd.PrintShortUsage()
 		}
@@ -113,57 +92,19 @@ func runSecurityGroups(cmd *Command, args []string) error {
 		if len(newParts) != 2 {
 			return cmd.PrintShortUsage()
 		}
-		newGroups.Organization = cmd.API.Organization
-		newGroups.Name = newParts[0]
-		newGroups.Description = newParts[1]
-		resp, err := cmd.API.PutResponse(fmt.Sprintf("security_groups/%s", args[0]), newGroups)
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-
-		// Succeed PUT code
-		if resp.StatusCode == 200 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.PutSecurityGroup(api.ScalewayNewSecurityGroup{
+			Organization: cmd.API.Organization,
+			Name:         newParts[0],
+			Description:  newParts[1],
+		}, args[0])
 	} else if securityGroupsDelete != "" {
-		resp, err := cmd.API.DeleteResponse(fmt.Sprintf("security_groups/%s", securityGroupsDelete))
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-
-		// Succeed PUT code
-		if resp.StatusCode == 204 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.DeleteSecurityGroup(securityGroupsDelete)
 	} else if securityGroupsRules != "" {
-		securityGroupRules, err := cmd.API.GetSecurityGroupRules(securityGroupsRules)
+		GetSecurityGroupRules, err := cmd.API.GetSecurityGroupRules(securityGroupsRules)
 		if err != nil {
 			return err
 		}
-		printRawMode(cmd.Streams().Stdout, *securityGroupRules)
-		return nil
+		return printRawMode(cmd.Streams().Stdout, *GetSecurityGroupRules)
 	} else if securityGroupsRuleID != "" {
 		newParts := strings.SplitN(securityGroupsRuleID, ":", 2)
 		if len(newParts) != 2 {
@@ -173,124 +114,72 @@ func runSecurityGroups(cmd *Command, args []string) error {
 		if err != nil {
 			return err
 		}
-		printRawMode(cmd.Streams().Stdout, *GroupRuleID)
-		return nil
+		return printRawMode(cmd.Streams().Stdout, *GroupRuleID)
 	} else if securityGroupsRuleDelete != "" {
 		newParts := strings.SplitN(securityGroupsRuleDelete, ":", 2)
 		if len(newParts) != 2 {
 			return cmd.PrintShortUsage()
 		}
-		resp, err := cmd.API.DeleteResponse(fmt.Sprintf("security_groups/%s/rules/%s", newParts[0], newParts[1]))
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-
-		// Succeed PUT code
-		if resp.StatusCode == 204 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.DeleteSecurityGroupRule(newParts[0], newParts[1])
 	} else if securityGroupsRuleNew != "" {
-		var newRule api.ScalewayNewSecurityGroupRule
-
 		newParts := strings.Split(securityGroupsRuleNew, ":")
 		if len(newParts) != 5 && len(newParts) != 6 {
 			return cmd.PrintShortUsage()
 		}
-		newRule.Action = newParts[1]
-		newRule.Direction = newParts[2]
-		newRule.IPRange = newParts[3]
-		newRule.Protocol = newParts[4]
 		if len(newParts) == 6 {
-			var err error
-
-			newRule.DestPortFrom, err = strconv.Atoi(newParts[5])
+			port, err := strconv.Atoi(newParts[5])
 			if err != nil {
 				return err
 			}
+			return cmd.API.PostSecurityGroupRule(newParts[0], api.ScalewayNewSecurityGroupRule{
+				Action:       newParts[1],
+				Direction:    newParts[2],
+				IPRange:      newParts[3],
+				Protocol:     newParts[4],
+				DestPortFrom: port,
+			})
 		}
-		resp, err := cmd.API.PostResponse(fmt.Sprintf("security_groups/%s/rules", newParts[0]), newRule)
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-
-		// Succeed POST code
-		if resp.StatusCode == 201 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.PostSecurityGroupRule(newParts[0], api.ScalewayNewSecurityGroupRule{
+			Action:    newParts[1],
+			Direction: newParts[2],
+			IPRange:   newParts[3],
+			Protocol:  newParts[4],
+		})
 	} else if securityGroupsRuleUpdate != "" {
-		var newRule api.ScalewayNewSecurityGroupRule
-
 		newParts := strings.Split(securityGroupsRuleUpdate, ":")
 		if len(newParts) != 6 && len(newParts) != 7 {
 			return cmd.PrintShortUsage()
 		}
-		newRule.Action = newParts[2]
-		newRule.Direction = newParts[3]
-		newRule.IPRange = newParts[4]
-		newRule.Protocol = newParts[5]
 		if len(newParts) == 7 {
-			var err error
-
-			newRule.DestPortFrom, err = strconv.Atoi(newParts[6])
+			port, err := strconv.Atoi(newParts[6])
 			if err != nil {
 				return err
 			}
+			return cmd.API.PutSecurityGroupRule(api.ScalewayNewSecurityGroupRule{
+				Action:       newParts[2],
+				Direction:    newParts[3],
+				IPRange:      newParts[4],
+				Protocol:     newParts[5],
+				DestPortFrom: port,
+			}, newParts[0], newParts[1])
 		}
-		resp, err := cmd.API.PutResponse(fmt.Sprintf("security_groups/%s/rules/%s", newParts[0], newParts[1]), newRule)
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-
-		// Succeed PUT code
-		if resp.StatusCode == 200 {
-			return nil
-		}
-
-		var error api.ScalewayAPIError
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&error)
-		if err != nil {
-			return err
-		}
-		error.StatusCode = resp.StatusCode
-		error.Debug()
-		return error
+		return cmd.API.PutSecurityGroupRule(api.ScalewayNewSecurityGroupRule{
+			Action:    newParts[2],
+			Direction: newParts[3],
+			IPRange:   newParts[4],
+			Protocol:  newParts[5],
+		}, newParts[0], newParts[1])
 	}
 	if len(args) == 1 {
 		securityGroups, err := cmd.API.GetASecurityGroup(args[0])
 		if err != nil {
 			return err
 		}
-		printRawMode(cmd.Streams().Stdout, *securityGroups)
-		return nil
+		return printRawMode(cmd.Streams().Stdout, *securityGroups)
 	}
 	securityGroups, err := cmd.API.GetSecurityGroups()
 	if err != nil {
 		return err
 	}
-	printRawMode(cmd.Streams().Stdout, *securityGroups)
-	return nil
+	return printRawMode(cmd.Streams().Stdout, *securityGroups)
 }
