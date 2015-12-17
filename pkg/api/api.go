@@ -1040,10 +1040,8 @@ func (s *ScalewayAPI) PostServerAction(serverID, action string) error {
 	}
 	defer resp.Body.Close()
 
-	if _, err = s.handleHTTPError([]int{202}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{202}, resp)
+	return err
 }
 
 // DeleteServer deletes a server
@@ -1205,10 +1203,8 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 	}
 	defer resp.Body.Close()
 
-	if _, err := s.handleHTTPError([]int{200}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string
@@ -1575,11 +1571,8 @@ func (s *ScalewayAPI) DeleteUserdata(serverID string, key string) error {
 	}
 	defer resp.Body.Close()
 
-	// Succeed POST code
-	if resp.StatusCode == 204 {
-		return nil
-	}
-	return fmt.Errorf("cannot delete user_data (%d)", resp.StatusCode)
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
 
 // GetTasks get the list of tasks from the ScalewayAPI
@@ -1904,19 +1897,8 @@ func (s *ScalewayAPI) PostSecurityGroup(group ScalewayNewSecurityGroup) error {
 	}
 	defer resp.Body.Close()
 
-	// Succeed POST code
-	if resp.StatusCode == 201 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{201}, resp)
+	return err
 }
 
 // PostSecurityGroupRule posts a rule on a server
@@ -1927,19 +1909,8 @@ func (s *ScalewayAPI) PostSecurityGroupRule(SecurityGroupID string, rules Scalew
 	}
 	defer resp.Body.Close()
 
-	// Succeed POST code
-	if resp.StatusCode == 201 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{201}, resp)
+	return err
 }
 
 // DeleteSecurityGroup deletes a SecurityGroup
@@ -1950,19 +1921,8 @@ func (s *ScalewayAPI) DeleteSecurityGroup(securityGroupID string) error {
 	}
 	defer resp.Body.Close()
 
-	// Succeed PUT code
-	if resp.StatusCode == 204 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
 
 // PutSecurityGroup updates a SecurityGroup
@@ -1973,19 +1933,8 @@ func (s *ScalewayAPI) PutSecurityGroup(group ScalewayNewSecurityGroup, securityG
 	}
 	defer resp.Body.Close()
 
-	// Succeed PUT code
-	if resp.StatusCode == 200 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // PutSecurityGroupRule updates a SecurityGroupRule
@@ -1996,19 +1945,8 @@ func (s *ScalewayAPI) PutSecurityGroupRule(rules ScalewayNewSecurityGroupRule, s
 	}
 	defer resp.Body.Close()
 
-	// Succeed PUT code
-	if resp.StatusCode == 200 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // DeleteSecurityGroupRule deletes a SecurityGroupRule
@@ -2019,19 +1957,8 @@ func (s *ScalewayAPI) DeleteSecurityGroupRule(SecurityGroupID, RuleID string) er
 	}
 	defer resp.Body.Close()
 
-	// Succeed PUT code
-	if resp.StatusCode == 204 {
-		return nil
-	}
-
-	var error ScalewayAPIError
-
-	decoder := json.NewDecoder(resp.Body)
-	if err = decoder.Decode(&error); err != nil {
-		return err
-	}
-	error.StatusCode = resp.StatusCode
-	return error
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
 
 // GetContainers returns a ScalewayGetContainers
@@ -2046,7 +1973,7 @@ func (s *ScalewayAPI) GetContainers() (*ScalewayGetContainers, error) {
 	if err != nil {
 		return nil, err
 	}
-	var containers ScalewayGetContainersg
+	var containers ScalewayGetContainers
 
 	if err = json.Unmarshal(body, &containers); err != nil {
 		return nil, err
@@ -2140,10 +2067,8 @@ func (s *ScalewayAPI) AttachIP(ipID, serverID string) error {
 	if err != nil {
 		return err
 	}
-	if _, err := s.handleHTTPError([]int{200}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // DeleteIP deletes an IP
