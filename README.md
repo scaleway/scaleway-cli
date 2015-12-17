@@ -1146,6 +1146,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ### master (unreleased)
 
 * Support of `scw run --userdata=...` ([#202](https://github.com/scaleway/scaleway-cli/issues/202))
+* Refactor of `scw _security-groups` ([#197](https://github.com/scaleway/scaleway-cli/issues/197))
 * Support of `scw tag --arch=XXX`
 * Support of `scw run --timeout=X` ([#239](https://github.com/scaleway/scaleway-cli/issues/239))
 * Check the "stopped" state for `scw run | exec -w`([#229](https://github.com/scaleway/scaleway-cli/issues/229))

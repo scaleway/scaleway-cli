@@ -1040,10 +1040,8 @@ func (s *ScalewayAPI) PostServerAction(serverID, action string) error {
 	}
 	defer resp.Body.Close()
 
-	if _, err = s.handleHTTPError([]int{202}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{202}, resp)
+	return err
 }
 
 // DeleteServer deletes a server
@@ -1205,10 +1203,8 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 	}
 	defer resp.Body.Close()
 
-	if _, err := s.handleHTTPError([]int{200}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // ResolveServer attempts the find a matching Identifier for the input string
@@ -1575,11 +1571,8 @@ func (s *ScalewayAPI) DeleteUserdata(serverID string, key string) error {
 	}
 	defer resp.Body.Close()
 
-	// Succeed POST code
-	if resp.StatusCode == 204 {
-		return nil
-	}
-	return fmt.Errorf("cannot delete user_data (%d)", resp.StatusCode)
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
 
 // GetTasks get the list of tasks from the ScalewayAPI
@@ -1896,6 +1889,78 @@ func (s *ScalewayAPI) GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGr
 	return &securityGroups, nil
 }
 
+// PostSecurityGroup posts a group on a server
+func (s *ScalewayAPI) PostSecurityGroup(group ScalewayNewSecurityGroup) error {
+	resp, err := s.PostResponse("security_groups", group)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{201}, resp)
+	return err
+}
+
+// PostSecurityGroupRule posts a rule on a server
+func (s *ScalewayAPI) PostSecurityGroupRule(SecurityGroupID string, rules ScalewayNewSecurityGroupRule) error {
+	resp, err := s.PostResponse(fmt.Sprintf("security_groups/%s/rules", SecurityGroupID), rules)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{201}, resp)
+	return err
+}
+
+// DeleteSecurityGroup deletes a SecurityGroup
+func (s *ScalewayAPI) DeleteSecurityGroup(securityGroupID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("security_groups/%s", securityGroupID))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
+}
+
+// PutSecurityGroup updates a SecurityGroup
+func (s *ScalewayAPI) PutSecurityGroup(group ScalewayNewSecurityGroup, securityGroupID string) error {
+	resp, err := s.PutResponse(fmt.Sprintf("security_groups/%s", securityGroupID), group)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
+}
+
+// PutSecurityGroupRule updates a SecurityGroupRule
+func (s *ScalewayAPI) PutSecurityGroupRule(rules ScalewayNewSecurityGroupRule, securityGroupID, RuleID string) error {
+	resp, err := s.PutResponse(fmt.Sprintf("security_groups/%s/rules/%s", securityGroupID, RuleID), rules)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
+}
+
+// DeleteSecurityGroupRule deletes a SecurityGroupRule
+func (s *ScalewayAPI) DeleteSecurityGroupRule(SecurityGroupID, RuleID string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("security_groups/%s/rules/%s", SecurityGroupID, RuleID))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
+}
+
 // GetContainers returns a ScalewayGetContainers
 func (s *ScalewayAPI) GetContainers() (*ScalewayGetContainers, error) {
 	resp, err := s.GetResponse("containers")
@@ -2002,10 +2067,8 @@ func (s *ScalewayAPI) AttachIP(ipID, serverID string) error {
 	if err != nil {
 		return err
 	}
-	if _, err := s.handleHTTPError([]int{200}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
 }
 
 // DeleteIP deletes an IP
