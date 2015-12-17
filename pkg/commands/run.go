@@ -34,6 +34,7 @@ type RunArgs struct {
 	TmpSSHKey  bool
 	ShowBoot   bool
 	Timeout    int64
+	Userdata   string
 	// DynamicIPRequired
 	// Timeout
 }
@@ -66,6 +67,33 @@ func AddSSHKeyToTags(ctx CommandContext, tags *[]string, image string) error {
 	}
 	*tags = append(*tags, strings.Join([]string{"AUTHORIZED_KEY", string(data[:len(data)])}, "="))
 	return nil
+}
+
+func addUserData(ctx CommandContext, userdatas []string, serverID string) {
+	for i := range userdatas {
+		keyValue := strings.Split(userdatas[i], "=")
+		if len(keyValue) != 2 {
+			logrus.Warn("Bad format: ", userdatas[i])
+			continue
+		}
+		var data []byte
+		var err error
+
+		// Set userdata
+		if keyValue[1][0] == '@' {
+			data, err = ioutil.ReadFile(keyValue[1][1:])
+			if err != nil {
+				logrus.Warn("ReadFile: ", err)
+				continue
+			}
+		} else {
+			data = []byte(keyValue[1])
+		}
+		if err = ctx.API.PatchUserdata(serverID, keyValue[0], data); err != nil {
+			logrus.Warn("PatchUserdata: ", err)
+			continue
+		}
+	}
 }
 
 // Run is the handler for 'scw run'
@@ -110,6 +138,10 @@ func Run(ctx CommandContext, args RunArgs) error {
 		return fmt.Errorf("failed to start server %s: %v", serverID, err)
 	}
 	logrus.Info("Server is starting, this may take up to a minute ...")
+
+	if args.Userdata != "" {
+		addUserData(ctx, strings.Split(args.Userdata, " "), serverID)
+	}
 
 	if args.Detach {
 		fmt.Fprintln(ctx.Stdout, serverID)

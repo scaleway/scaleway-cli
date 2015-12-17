@@ -27,6 +27,7 @@ var cmdRun = &Command{
     $ scw run --attach alpine
     $ scw run --detach alpine
     $ scw run --tmp-ssh-key alpine
+    $ scw run --userdata="FOO=BAR FILE=@/tmp/file" alpine
 `,
 }
 
@@ -41,6 +42,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
@@ -58,6 +60,7 @@ var runHelpFlag bool           // -h, --help flag
 var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
+var runUserdatas string        // -u, --userdata flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
 var runTimeout int64           // --timeout flag
@@ -104,6 +107,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		ShowBoot:   runShowBoot,
 		IP:         runIPAddress,
 		Timeout:    runTimeout,
+		Userdata:   runUserdatas,
 		// FIXME: DynamicIPRequired
 		// FIXME: Timeout
 	}

@@ -686,6 +686,7 @@ Options:
   --show-boot=false     Allows to show the boot
   -T, --timeout=0       Set timeout value to seconds
   --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -u, --userdata=""     Start a server with userdata predefined
   -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
@@ -700,6 +701,7 @@ Examples:
     $ scw run --attach alpine
     $ scw run --detach alpine
     $ scw run --tmp-ssh-key alpine
+    $ scw run --userdata="FOO=BAR FILE=@/tmp/file" alpine
 ```
 
 
@@ -1143,6 +1145,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Support of `scw run --userdata=...` ([#202](https://github.com/scaleway/scaleway-cli/issues/202))
 * Support of `scw tag --arch=XXX`
 * Support of `scw run --timeout=X` ([#239](https://github.com/scaleway/scaleway-cli/issues/239))
 * Check the "stopped" state for `scw run | exec -w`([#229](https://github.com/scaleway/scaleway-cli/issues/229))
