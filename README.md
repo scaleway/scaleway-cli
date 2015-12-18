@@ -9,7 +9,7 @@ Interact with Scaleway API from the command line.
 ![Release](https://img.shields.io/github/release/scaleway/scaleway-cli.svg)
 [![IRC](https://www.irccloud.com/invite-svg?channel=%23scaleway&amp;hostname=irc.online.net&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23scaleway&amp;hostname=irc.online.net&amp;port=6697&amp;ssl=1)
 
-![Scaleway CLI logo](https://fr-1.storage.online.net/scaleway/blog/images/terminalcli.png)
+![Scaleway CLI demo](https://raw.githubusercontent.com/scaleway/scaleway-cli/master/assets/terminal-main-demo.gif)
 
 Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-servers-with-scaleway-cli/).
 
