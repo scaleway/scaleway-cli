@@ -19,6 +19,7 @@ Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-serve
 2. [Setup](#setup)
   * [Requirements](#requirements)
   * [Run in Docker](#run-in-docker)
+3. [Use in Golang](#use-in-golang)
 4. [Usage](#usage)
   * [Quick Start](#quick-start)
   * [Workflows](#workflows)
@@ -148,6 +149,12 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
   * `export PATH=$PATH:$GOPATH/bin`
 3. Install the project: `go get github.com/scaleway/scaleway-cli/...`
 4. Run: `scw`
+
+## Use in Golang
+
+Scaleway-cli is written in Go, the code is splitted across multiple `go-get`able [packages](https://github.com/scaleway/scaleway-cli/tree/master/pkg)
+
+* [Scaleway API Go client](https://github.com/scaleway/scaleway-cli/tree/master/pkg/api)
 
 ## Usage
 
