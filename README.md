@@ -1152,6 +1152,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* create-image-from-http.sh: Support HTTP proxy ([#249](https://github.com/scaleway/scaleway-cli/issues/249))
 * Support of `scw run --userdata=...` ([#202](https://github.com/scaleway/scaleway-cli/issues/202))
 * Refactor of `scw _security-groups` ([#197](https://github.com/scaleway/scaleway-cli/issues/197))
 * Support of `scw tag --arch=XXX`

@@ -20,7 +20,6 @@ IMAGE_BOOTSCRIPT=${IMAGE_BOOTSCRIPT:stable}
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
 KEY=$(cat ~/.ssh/id_rsa.pub | awk '{ print $1" "$2 }' | tr ' ' '_')
 
-
 echo "[+] URL of the tarball: ${URL}"
 echo "[+] Target name: ${NAME}"
 
@@ -33,6 +32,16 @@ echo "[+] Server created: ${SERVER}"
 echo "[+] Booting..."
 scw exec -w "${SERVER}" 'uname -a'
 echo "[+] Server is booted"
+
+
+if [ -n "${SCW_GATEWAY_HTTP_PROXY}" ]; then
+    echo "[+] Configuring HTTP proxy"
+    # scw exec "${SERVER}" "echo proxy=${SCW_GATEWAY_HTTP_PROY} >> .curlrc"
+    (
+        set +x
+        scw exec "${SERVER}" "echo http_proxy = ${SCW_GATEWAY_HTTP_PROXY} >> .wgetrc" >/dev/null 2>/dev/null || (echo "Failed to configure HTTP proxy"; exit 1) || exit 1
+    )
+fi
 
 
 echo "[+] Formating and mounting /dev/nbd1..."
