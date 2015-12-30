@@ -11,7 +11,7 @@ import (
 func TestNewUsageByPathWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageByPathWithQuantity()", t, func() {
 		usage := NewUsageByPathWithQuantity("/compute/c1/run", big.NewRat(1, 1))
-		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
+		So(usage.Object.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
 	})
 }
@@ -19,7 +19,7 @@ func TestNewUsageByPathWithQuantity(t *testing.T) {
 func TestNewUsageByPath(t *testing.T) {
 	Convey("Testing NewUsageByPath()", t, func() {
 		usage := NewUsageByPath("/compute/c1/run")
-		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
+		So(usage.Object.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, ratZero)
 	})
 }
@@ -28,14 +28,14 @@ func TestNewUsageWithQuantity(t *testing.T) {
 	Convey("Testing NewUsageWithQuantity()", t, func() {
 		object := CurrentPricing.GetByPath("/compute/c1/run")
 		usage := NewUsageWithQuantity(object, big.NewRat(1, 1))
-		So(usage.PricingObject.Path, ShouldEqual, "/compute/c1/run")
+		So(usage.Object.Path, ShouldEqual, "/compute/c1/run")
 		So(usage.Quantity, ShouldEqualBigRat, big.NewRat(1, 1))
 	})
 }
 
 func TestUsage_SetStartEnd(t *testing.T) {
 	Convey("Testing Usage.SetStartEnd()", t, func() {
-		object := PricingObject{
+		object := Object{
 			UsageGranularity: time.Minute,
 		}
 		usage := NewUsage(&object)
@@ -53,7 +53,7 @@ func TestUsage_SetStartEnd(t *testing.T) {
 func TestUsage_SetDuration(t *testing.T) {
 	Convey("Testing Usage.SetDuration()", t, FailureContinues, func() {
 		Convey("UsageGranularity=time.Minute", func() {
-			object := PricingObject{
+			object := Object{
 				UsageGranularity: time.Minute,
 			}
 			usage := NewUsage(&object)
@@ -84,7 +84,7 @@ func TestUsage_SetDuration(t *testing.T) {
 		})
 
 		Convey("UsageGranularity=time.Hour", func() {
-			object := PricingObject{
+			object := Object{
 				UsageGranularity: time.Hour,
 			}
 			usage := NewUsage(&object)
@@ -115,7 +115,7 @@ func TestUsage_SetDuration(t *testing.T) {
 		})
 
 		Convey("UsageGranularity=time.Hour*24", func() {
-			object := PricingObject{
+			object := Object{
 				UsageGranularity: time.Hour * 24,
 			}
 			usage := NewUsage(&object)
@@ -153,7 +153,7 @@ func TestUsage_SetDuration(t *testing.T) {
 
 func TestUsage_BillableQuantity(t *testing.T) {
 	Convey("Testing Usage.BillableQuantity()", t, FailureContinues, func() {
-		object := &PricingObject{
+		object := &Object{
 			UnitQuantity: big.NewRat(60, 1),
 		}
 		usage := NewUsageWithQuantity(object, big.NewRat(-1, 1))
@@ -196,7 +196,7 @@ func TestUsage_BillableQuantity(t *testing.T) {
 
 func TestUsage_LostQuantity(t *testing.T) {
 	Convey("Testing Usage.LostQuantity()", t, FailureContinues, func() {
-		object := &PricingObject{
+		object := &Object{
 			UnitQuantity: big.NewRat(60, 1),
 		}
 		usage := NewUsageWithQuantity(object, big.NewRat(-1, 1))
@@ -239,7 +239,7 @@ func TestUsage_LostQuantity(t *testing.T) {
 
 func TestUsage_Total(t *testing.T) {
 	Convey("Testing Usage.Total()", t, FailureContinues, func() {
-		object := PricingObject{
+		object := Object{
 			UnitQuantity: big.NewRat(60, 1),
 			UnitPrice:    big.NewRat(12, 1000), // 0.012
 			UnitPriceCap: big.NewRat(6, 1),

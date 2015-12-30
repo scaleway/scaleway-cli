@@ -284,13 +284,14 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 	close(cj)
 }
 
+// ConfigCreateServer represents the options sent to CreateServer and defining a server
 type ConfigCreateServer struct {
 	ImageName         string
 	Name              string
 	Bootscript        string
 	Env               string
 	AdditionalVolumes string
-	DynamicIpRequired bool
+	DynamicIPRequired bool
 	IP                string
 	CommercialType    string
 }
@@ -312,7 +313,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	server.CommercialType = c.CommercialType
 	server.Volumes = make(map[string]string)
 
-	server.DynamicIPRequired = &c.DynamicIpRequired
+	server.DynamicIPRequired = &c.DynamicIPRequired
 	if c.IP != "" {
 		if anonuuid.IsUUID(c.IP) == nil {
 			server.PublicIP = c.IP

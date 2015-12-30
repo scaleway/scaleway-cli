@@ -183,11 +183,11 @@ func RemoveDuplicates(elements []string) []string {
 
 // AttachToSerial tries to connect to server serial using 'gotty-client' and fallback with a help message
 func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan bool, error) {
-	gottyUrl := os.Getenv("SCW_GOTTY_URL")
-	if gottyUrl == "" {
-		gottyUrl = "https://tty.scaleway.com/v2/"
+	gottyURL := os.Getenv("SCW_GOTTY_URL")
+	if gottyURL == "" {
+		gottyURL = "https://tty.scaleway.com/v2/"
 	}
-	URL := fmt.Sprintf("%s?arg=%s&arg=%s", gottyUrl, apiToken, serverID)
+	URL := fmt.Sprintf("%s?arg=%s&arg=%s", gottyURL, apiToken, serverID)
 
 	logrus.Debug("Connection to ", URL)
 	gottycli, err := gottyclient.NewClient(URL)
@@ -213,6 +213,7 @@ func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan
 	return gottycli, done, nil
 }
 
+// SSHGetFingerprint returns the fingerprint of an SSH key
 func SSHGetFingerprint(key string) (string, error) {
 	tmp, err := ioutil.TempFile("", ".tmp")
 	if err != nil {

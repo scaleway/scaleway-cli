@@ -132,7 +132,12 @@ packages:
 
 golint:
 	@go get github.com/golang/lint/golint
-	@for dir in */; do golint $$dir; done
+	@for dir in $(shell go list ./... | grep -v /vendor/); do golint $$dir; done
+
+
+gocyclo:
+	go get github.com/fzipp/gocyclo
+	gocyclo -over 15 $(shell find . -name "*.go" -not -name "*test.go" | grep -v /vendor/)
 
 
 party:

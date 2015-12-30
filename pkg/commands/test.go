@@ -33,6 +33,7 @@ func getScopedCtx(sessionCtx *CommandContext) (*CommandContext, *bytes.Buffer, *
 	return &newCtx, &stdout, &stderr
 }
 
+// RealAPIContext returns a CommandContext with a configured API
 func RealAPIContext() *CommandContext {
 	config, err := config.GetConfig()
 	if err != nil {

@@ -352,7 +352,7 @@ func (c *Client) readLoop(done chan bool, wg *sync.WaitGroup) {
 					logrus.Warnf("Invalid base64 content: %q", msg.Data[1:])
 					break
 				}
-				fmt.Fprintf(c.Output, string(buf))
+				c.Output.Write(buf)
 			case '1': // pong
 			case '2': // new title
 				newTitle := string(msg.Data[1:])

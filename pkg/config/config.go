@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE.md file.
 
-// ~/.scwrc management
+// Package config contains helpers to manage '~/.scwrc'
 package config
 
 import (
@@ -60,7 +60,7 @@ func GetConfig() (*Config, error) {
 	if err == nil {
 		mode := stat.Mode()
 		if mode&0066 != 0 {
-			return nil, fmt.Errorf("permissions %#o for .scwrc are too open.", mode)
+			return nil, fmt.Errorf("permissions %#o for .scwrc are too open", mode)
 		}
 	}
 

@@ -29,6 +29,7 @@ var (
 	flSensitive   = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 )
 
+// Start is the entrypoint
 func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 	if streams == nil {
 		streams = &commands.Streams{
@@ -135,7 +136,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 		}
 	}
 
-	return 1, fmt.Errorf("scw: unknown subcommand %s\nRun 'scw help' for usage.", name)
+	return 1, fmt.Errorf("scw: unknown subcommand %s\nRun 'scw help' for usage", name)
 }
 
 // getScalewayAPI returns a ScalewayAPI using the user config file

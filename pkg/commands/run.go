@@ -119,7 +119,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		Bootscript:        args.Bootscript,
 		Env:               env,
 		AdditionalVolumes: volume,
-		DynamicIpRequired: args.Gateway == "",
+		DynamicIPRequired: args.Gateway == "",
 		IP:                args.IP,
 	})
 	if err != nil {
