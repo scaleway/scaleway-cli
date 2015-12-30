@@ -132,7 +132,7 @@ packages:
 
 golint:
 	@go get github.com/golang/lint/golint
-	@for dir in */; do golint $$dir; done
+	@for dir in $(shell go list ./... | grep -v /vendor/); do golint $$dir; done
 
 
 party:

@@ -76,6 +76,7 @@ func (c *Command) GetContext(rawArgs []string) commands.CommandContext {
 	return ctx
 }
 
+// Streams returns command streams with default os streams if unset
 func (c *Command) Streams() *commands.Streams {
 	if c.streams != nil {
 		return c.streams

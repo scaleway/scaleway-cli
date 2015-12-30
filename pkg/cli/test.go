@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	scwcli         string   = "../../scw"
-	publicCommands []string = []string{
+	scwcli         = "../../scw"
+	publicCommands = []string{
 		"help", "attach", "commit", "cp", "create",
 		"events", "exec", "history", "images", "info",
 		"inspect", "kill", "login", "logout", "logs",
@@ -16,10 +16,10 @@ var (
 		"run", "search", "start", "stop", "tag", "top",
 		"version", "wait",
 	}
-	secretCommands []string = []string{
+	secretCommands = []string{
 		"_patch", "_completion", "_flush-cache", "_userdata", "_billing",
 	}
-	publicOptions []string = []string{
+	publicOptions = []string{
 		"-h, --help=false",
 		"-D, --debug=false",
 		"-V, --verbose=false",

@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-type PricingObject struct {
+// Object represents a Pricing item definition
+type Object struct {
 	Path             string
 	Identifier       string
 	Currency         string
@@ -16,15 +17,16 @@ type PricingObject struct {
 	UsageGranularity time.Duration
 }
 
-type PricingList []PricingObject
+// List represents a list of Object
+type List []Object
 
 // CurrentPricing tries to be up-to-date with the real pricing
 // we cannot guarantee of these values since we hardcode values for now
 // later, we should be able to call a dedicated pricing API
-var CurrentPricing PricingList
+var CurrentPricing List
 
 func init() {
-	CurrentPricing = PricingList{
+	CurrentPricing = List{
 		{
 			Path:             "/compute/c1/run",
 			Identifier:       "aaaaaaaa-aaaa-4aaa-8aaa-111111111112",
@@ -65,7 +67,7 @@ func init() {
 }
 
 // GetByPath returns an object matching a path
-func (pl *PricingList) GetByPath(path string) *PricingObject {
+func (pl *List) GetByPath(path string) *Object {
 	for _, object := range *pl {
 		if object.Path == path {
 			return &object
@@ -75,7 +77,7 @@ func (pl *PricingList) GetByPath(path string) *PricingObject {
 }
 
 // GetByIdentifier returns an object matching a identifier
-func (pl *PricingList) GetByIdentifier(identifier string) *PricingObject {
+func (pl *List) GetByIdentifier(identifier string) *Object {
 	for _, object := range *pl {
 		if object.Identifier == identifier {
 			return &object

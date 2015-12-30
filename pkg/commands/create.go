@@ -39,7 +39,7 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 		Bootscript:        args.Bootscript,
 		Env:               env,
 		AdditionalVolumes: volume,
-		DynamicIpRequired: args.IP == "",
+		DynamicIPRequired: args.IP == "",
 		IP:                args.IP,
 	})
 	if err != nil {

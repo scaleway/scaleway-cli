@@ -639,22 +639,26 @@ type ScalewayTokensDefinition struct {
 	Token ScalewayTokenDefinition `json:"token"`
 }
 
+// ScalewayContainerData represents a Scaleway container data (S3)
 type ScalewayContainerData struct {
 	LastModified string `json:"last_modified"`
 	Name         string `json:"name"`
 	Size         string `json:"size"`
 }
 
+// ScalewayGetContainerDatas represents a list of Scaleway containers data (S3)
 type ScalewayGetContainerDatas struct {
 	Container []ScalewayContainerData `json:"container"`
 }
 
+// ScalewayContainer represents a Scaleway container (S3)
 type ScalewayContainer struct {
 	ScalewayOrganizationDefinition `json:"organization"`
 	Name                           string `json:"name"`
 	Size                           string `json:"size"`
 }
 
+// ScalewayGetContainers represents a list of Scaleway containers (S3)
 type ScalewayGetContainers struct {
 	Containers []ScalewayContainer `json:"containers"`
 }
@@ -742,6 +746,7 @@ type ScalewayUserdatas struct {
 	UserData []string `json:"user_data"`
 }
 
+// ScalewayQuota represents a map of quota (name, value)
 type ScalewayQuota map[string]int
 
 // ScalewayGetQuotas represents the response of GET /organizations/{orga_id}/quotas
