@@ -30,6 +30,8 @@ NAME =		scw
 SOURCES :=	$(shell find . -type f -name "*.go")
 COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
+REL_COMMANDS :=	$(subst $(GODIR),./,$(COMMANDS))
+REL_PACKAGES :=	$(subst $(GODIR),./,$(PACKAGES))
 VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
 REV =		$(shell git rev-parse HEAD || git ls-remote https://github.com/scaleway/scaleway-cli  | grep -F $(VERSION) | head -n1 | awk '{print $$1}' || echo "nogit")
 TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
@@ -73,7 +75,7 @@ fmt: $(FMT_LIST)
 
 $(BUILD_LIST): %_build: %_fmt %_iref
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),./,$*)
-	$(GO) tool vet -all=true $(PACKAGES) $(COMMANDS)
+	for file in $(shell find $(REL_COMMANDS) $(REL_PACKAGES) -depth 1 -name "*.go"); do $(GO) tool vet -all=true $$file; done
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
 $(INSTALL_LIST): %_install:
