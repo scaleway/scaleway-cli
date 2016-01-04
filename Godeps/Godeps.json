@@ -137,6 +137,10 @@
 			"Rev": "f5520455607c0233cb6d7b056f71b22c1d265ef1"
 		},
 		{
+			"ImportPath": "golang.org/x/crypto/curve25519",
+			"Rev": "f18420efc3b4f8e9f3d51f6bd2476e92c46260e9"
+		},
+		{
 			"ImportPath": "golang.org/x/crypto/ssh",
 			"Rev": "f18420efc3b4f8e9f3d51f6bd2476e92c46260e9"
 		},
