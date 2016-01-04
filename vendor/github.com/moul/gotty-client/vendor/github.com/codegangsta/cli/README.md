@@ -1,10 +1,9 @@
+[![Coverage](http://gocover.io/_badge/github.com/codegangsta/cli?0)](http://gocover.io/github.com/codegangsta/cli)
 [![Build Status](https://travis-ci.org/codegangsta/cli.png?branch=master)](https://travis-ci.org/codegangsta/cli)
+[![GoDoc](https://godoc.org/github.com/codegangsta/cli?status.svg)](https://godoc.org/github.com/codegangsta/cli)
 
 # cli.go
 `cli.go` is simple, fast, and fun package for building command line apps in Go. The goal is to enable developers to write fast and distributable command line applications in an expressive way.
-
-You can view the API docs here:
-http://godoc.org/github.com/codegangsta/cli
 
 ## Overview
 Command line apps are usually so tiny that there is absolutely no reason why your code should *not* be self-documenting. Things like generating help text and parsing command flags/options should not hinder productivity when writing a command line app.
@@ -151,6 +150,32 @@ app.Action = func(c *cli.Context) {
     name = c.Args()[0]
   }
   if c.String("lang") == "spanish" {
+    println("Hola", name)
+  } else {
+    println("Hello", name)
+  }
+}
+...
+```
+
+You can also set a destination variable for a flag, to which the content will be scanned.
+``` go
+...
+var language string
+app.Flags = []cli.Flag {
+  cli.StringFlag{
+    Name:        "lang",
+    Value:       "english",
+    Usage:       "language for the greeting",
+    Destination: &language,
+  },
+}
+app.Action = func(c *cli.Context) {
+  name := "someone"
+  if len(c.Args()) > 0 {
+    name = c.Args()[0]
+  }
+  if language == "spanish" {
     println("Hola", name)
   } else {
     println("Hello", name)

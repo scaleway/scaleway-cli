@@ -3,8 +3,8 @@ require "language/go"
 class GottyClient < Formula
   desc "gotty-client: GoTTY client for your terminal"
   homepage "https://github.com/moul/gotty-client"
-  url "https://github.com/moul/gotty-client/archive/v1.3.0.tar.gz"
-  sha256 "1c186f097c50c9c99e1d0e85cb4ff3ae3b734567222174373879b17dddc445a0"
+  url "https://github.com/moul/gotty-client/archive/v1.4.0.tar.gz"
+  sha256 "598dbb521414cfb99590d6b6d36fb7410252af12e6b18e96d08b46400fe850b6"
 
   head "https://github.com/moul/gotty-client.git"
 

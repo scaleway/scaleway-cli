@@ -5,13 +5,14 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path"
 	"time"
 )
 
 // App is the main structure of a cli application. It is recomended that
 // an app be created with the cli.NewApp() function
 type App struct {
-	// The name of the program. Defaults to os.Args[0]
+	// The name of the program. Defaults to path.Base(os.Args[0])
 	Name string
 	// Full name of command for help, defaults to Name
 	HelpName string
@@ -70,8 +71,8 @@ func compileTime() time.Time {
 // Creates a new cli Application with some reasonable defaults for Name, Usage, Version and Action.
 func NewApp() *App {
 	return &App{
-		Name:         os.Args[0],
-		HelpName:     os.Args[0],
+		Name:         path.Base(os.Args[0]),
+		HelpName:     path.Base(os.Args[0]),
 		Usage:        "A new cli application",
 		Version:      "0.0.0",
 		BashComplete: DefaultAppComplete,
@@ -126,6 +127,10 @@ func (a *App) Run(arguments []string) (err error) {
 	}
 	context := NewContext(a, set, nil)
 
+	if checkCompletions(context) {
+		return nil
+	}
+
 	if err != nil {
 		fmt.Fprintln(a.Writer, "Incorrect Usage.")
 		fmt.Fprintln(a.Writer)
@@ -133,15 +138,13 @@ func (a *App) Run(arguments []string) (err error) {
 		return err
 	}
 
-	if checkCompletions(context) {
-		return nil
-	}
-
 	if !a.HideHelp && checkHelp(context) {
+		ShowAppHelp(context)
 		return nil
 	}
 
 	if !a.HideVersion && checkVersion(context) {
+		ShowVersion(context)
 		return nil
 	}
 
@@ -231,15 +234,15 @@ func (a *App) RunAsSubcommand(ctx *Context) (err error) {
 		return nerr
 	}
 
+	if checkCompletions(context) {
+		return nil
+	}
+
 	if err != nil {
 		fmt.Fprintln(a.Writer, "Incorrect Usage.")
 		fmt.Fprintln(a.Writer)
 		ShowSubcommandHelp(context)
 		return err
-	}
-
-	if checkCompletions(context) {
-		return nil
 	}
 
 	if len(a.Commands) > 0 {

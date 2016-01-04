@@ -101,8 +101,8 @@
 		},
 		{
 			"ImportPath": "github.com/moul/gotty-client",
-			"Comment": "v1.4.0",
-			"Rev": "1c35271872ddcbf2f155c04262e1221c2ef45277"
+			"Comment": "v1.4.0-9-g1706850",
+			"Rev": "1706850d99323453cee4500070d42567905b2a72"
 		},
 		{
 			"ImportPath": "github.com/moul/http2curl",

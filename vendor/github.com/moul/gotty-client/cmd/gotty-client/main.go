@@ -6,9 +6,9 @@ import (
 	"os"
 	"path"
 
+	"github.com/Sirupsen/logrus"
+	"github.com/codegangsta/cli"
 	"github.com/moul/gotty-client"
-	"github.com/moul/gotty-client/vendor/github.com/Sirupsen/logrus"
-	"github.com/moul/gotty-client/vendor/github.com/codegangsta/cli"
 )
 
 var VERSION string

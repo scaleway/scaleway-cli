@@ -15,10 +15,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/moul/gotty-client/vendor/github.com/Sirupsen/logrus"
-	"github.com/moul/gotty-client/vendor/github.com/creack/goselect"
-	"github.com/moul/gotty-client/vendor/github.com/gorilla/websocket"
-	"github.com/moul/gotty-client/vendor/golang.org/x/crypto/ssh/terminal"
+	"github.com/Sirupsen/logrus"
+	"github.com/creack/goselect"
+	"github.com/gorilla/websocket"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // GetAuthTokenURL transforms a GoTTY http URL to its AuthToken file URL
@@ -352,7 +352,7 @@ func (c *Client) readLoop(done chan bool, wg *sync.WaitGroup) {
 					logrus.Warnf("Invalid base64 content: %q", msg.Data[1:])
 					break
 				}
-				fmt.Fprintf(c.Output, string(buf))
+				c.Output.Write(buf)
 			case '1': // pong
 			case '2': // new title
 				newTitle := string(msg.Data[1:])

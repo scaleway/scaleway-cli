@@ -1,72 +1,76 @@
-COMMANDS :=	$(addprefix ./,$(wildcard cmd/*))
-PACKAGES :=	 .
+# Project-specific variables
+BINARIES ?=	gotty-client
+GOTTY_URL := http://localhost:8081/
 VERSION :=	$(shell cat .goxc.json | jq -c .PackageVersion | sed 's/"//g')
-SOURCES :=	$(shell find . -name "*.go")
-GOTTY_URL :=	http://localhost:8081/
+
+CONVEY_PORT ?=	9042
+
+
+# Common variables
+SOURCES :=	$(shell find . -type f -name "*.go")
+COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
+PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
+GOENV ?=	GO15VENDOREXPERIMENT=1
+GO ?=		$(GOENV) go
+GODEP ?=	$(GOENV) godep
+USER ?=		$(shell whoami)
+
+
+all:	build
 
 
 .PHONY: build
-build: $(notdir $(COMMANDS))
+build:	$(BINARIES)
+
+
+$(BINARIES):	$(SOURCES)
+	$(GO) build -o $@ ./cmd/$@
 
 
 .PHONY: test
-test: build
-	./gotty-client $(GOTTY_URL)
+test:
+	$(GO) get -t .
+	$(GO) test -v .
 
 
-.PHONY: build-docker
-build-docker: contrib/docker/.docker-container-built
+.PHONY: godep-save
+godep-save:
+	$(GODEP) save $(PACKAGES) $(COMMANDS)
 
 
 .PHONY: clean
 clean:
-	rm -f $(notdir $(COMMANDS))
+	rm -f $(BINARIES)
 
 
-.PHONY: install
-install:
-	go install $(COMMANDS)
-
-
-.PHONY: release
-release:
-	goxc
-
-
-.PHONY: build-docker
-build-docker: contrib/docker/.docker-container-built
-
-
-.PHONY: run-docker
-run-docker: build-docker
-	docker run -it --rm moul/gotty-client $(GOTTY_URL)
-
-
-$(notdir $(COMMANDS)): $(SOURCES)
-	gofmt -w $(PACKAGES) ./cmd/$@
-	go test -i $(PACKAGES) ./cmd/$@
-	go build -ldflags "-X main.VERSION=$(VERSION)" -o $@ ./cmd/$@
-	./$@ --version
-
-
-dist/latest/gotty-client_latest_linux_386: $(SOURCES)
-	mkdir -p dist
-	rm -f dist/latest
-	(cd dist; ln -s $(VERSION) latest)
-	goxc -bc="linux,386" xc
-	cp dist/latest/gotty-client_$(VERSION)_linux_386 dist/latest/gotty-client_latest_linux_386
-
-
-contrib/docker/.docker-container-built: dist/latest/gotty-client_latest_linux_386
-	cp dist/latest/gotty-client_latest_linux_386 contrib/docker/gotty-client
-	docker build -t moul/gotty-client:latest contrib/docker
-	docker tag moul/gotty-client:latest moul/gotty-client:$(VERSION)
-	docker run -it --rm moul/gotty-client --version
-	docker inspect --type=image --format="{{ .Id }}" moul/gotty-client > $@.tmp
-	mv $@.tmp $@
+.PHONY: re
+re:	clean all
 
 
 .PHONY: convey
 convey:
-	go get github.com/smartystreets/goconvey
-	goconvey -cover -port=9042 -workDir="$(realpath .)" -depth=1
+	$(GO) get github.com/smartystreets/goconvey
+	goconvey -cover -port=$(CONVEY_PORT) -workDir="$(realpath .)" -depth=1
+
+
+.PHONY:	cover
+cover:	profile.out
+
+
+profile.out:	$(SOURCES)
+	rm -f $@
+	$(GO) test -covermode=count -coverpkg=. -coverprofile=$@ .
+
+
+.PHONY: docker-build
+docker-build:
+	go get github.com/laher/goxc
+	rm -rf contrib/docker/linux_386
+	for binary in $(BINARIES); do                                             \
+	  goxc -bc="linux,386" -d . -pv contrib/docker -n $$binary xc;            \
+	  mv contrib/docker/linux_386/$$binary contrib/docker/entrypoint;         \
+	  docker build -t $(USER)/$$binary contrib/docker;                        \
+	  docker run -it --rm $(USER)/$$binary || true;                           \
+	  docker inspect --type=image --format="{{ .Id }}" moul/$$binary || true; \
+	  echo "Now you can run 'docker push $(USER)/$$binary'";                  \
+	done
