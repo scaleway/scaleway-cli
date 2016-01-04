@@ -38,11 +38,10 @@ TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
 LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV) \
            -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
 BUILDER =	scaleway-cli-builder
-ALL_GO_FILES =	$(shell find . -type f -name "*.go")
 
 # Check go version
-GOVERSIONMAJOR = $(shell $(GO) version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
-GOVERSIONMINOR = $(shell $(GO) version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
+GOVERSIONMAJOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
+GOVERSIONMINOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
 VERSION_GE_1_5 = $(shell [ $(GOVERSIONMAJOR) -gt 1 -o $(GOVERSIONMINOR) -ge 5 ] && echo true)
 ifneq ($(VERSION_GE_1_5),true)
 	$(error Bad go version, please install a version greater than or equal to 1.5)
@@ -173,7 +172,7 @@ travis_login:
 .PHONY: cover
 cover: profile.out
 
-$(COVERPROFILE_LIST): $(ALL_GO_FILES)
+$(COVERPROFILE_LIST): $(SOURCES)
 	rm -f $@
 	$(GOCOVER) -ldflags $(LDFLAGS) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
 

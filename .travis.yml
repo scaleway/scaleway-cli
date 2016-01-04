@@ -11,10 +11,14 @@ env:
 
 matrix:
   include:
-    - go: 1.5     TEST_WITH_REAL_API=1
-    - go: tip
+    - go:   1.5
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=1
+    - go:   1.5.1
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0
+    - go:   tip
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0
   allow_failures:
-    - go: tip
+    - go:   tip
 
 
 before_install:
@@ -27,6 +31,7 @@ before_install:
 
 script:
   - env | anonuuid
+  - rm -rf Godeps/_workspace   # Remove automatic 'godep restore' from travis...
   - make build show_version
   - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
   - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
