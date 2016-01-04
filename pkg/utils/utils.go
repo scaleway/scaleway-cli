@@ -8,18 +8,21 @@
 package utils
 
 import (
+	"crypto/md5"
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"strings"
 	"time"
+
+	"golang.org/x/crypto/ssh"
 
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
 	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
@@ -213,25 +216,29 @@ func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan
 	return gottycli, done, nil
 }
 
-// SSHGetFingerprint returns the fingerprint of an SSH key
-func SSHGetFingerprint(key string) (string, error) {
-	tmp, err := ioutil.TempFile("", ".tmp")
-	if err != nil {
-		return "", fmt.Errorf("Unable to create a tempory file: %v", err)
-	}
-	defer os.Remove(tmp.Name())
-	buff := []byte(key)
-	bytesWritten := 0
-	for bytesWritten < len(buff) {
-		nb, err := tmp.Write(buff[bytesWritten:])
-		if err != nil {
-			return "", fmt.Errorf("Unable to write: %v", err)
+func rfc4716hex(data []byte) string {
+	fingerprint := ""
+
+	for i := 0; i < len(data); i++ {
+		fingerprint = fmt.Sprintf("%s%0.2x", fingerprint, data[i])
+		if i != len(data)-1 {
+			fingerprint = fingerprint + ":"
 		}
-		bytesWritten += nb
 	}
-	ret, err := exec.Command("ssh-keygen", "-l", "-f", tmp.Name()).Output()
+	return fingerprint
+}
+
+// SSHGetFingerprint returns the fingerprint of an SSH key
+func SSHGetFingerprint(key []byte) (string, error) {
+	publicKey, comment, _, _, err := ssh.ParseAuthorizedKey(key)
 	if err != nil {
-		return "", fmt.Errorf("Unable to run ssh-keygen: %v", err)
+		return "", err
 	}
-	return string(ret), nil
+	switch reflect.TypeOf(publicKey).String() {
+	case "*ssh.rsaPublicKey", "*ssh.dsaPublicKey", "*ssh.ecdsaPublicKey":
+		md5sum := md5.Sum(publicKey.Marshal())
+		return publicKey.Type() + " " + rfc4716hex(md5sum[:]) + " " + comment, nil
+	default:
+		return "", errors.New("Can't handle this key")
+	}
 }
