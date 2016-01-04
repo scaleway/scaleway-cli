@@ -14,9 +14,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/Sirupsen/logrus"
+	"github.com/moul/anonuuid"
+	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers

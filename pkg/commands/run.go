@@ -15,7 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 // RunArgs are flags for the `Run` function

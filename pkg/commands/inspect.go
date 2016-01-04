@@ -10,8 +10,8 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/skratchdot/open-golang/open"
+	"github.com/Sirupsen/logrus"
+	"github.com/skratchdot/open-golang/open"
 )
 
 // InspectArgs are flags for the `RunInspect` function

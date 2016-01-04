@@ -12,7 +12,7 @@ import (
 	"os"
 
 	"github.com/scaleway/scaleway-cli/pkg/cli"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 func main() {

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 // RestartArgs are flags for the `RunRestart` function

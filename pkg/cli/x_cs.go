@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+	"github.com/dustin/go-humanize"
 )
 
 var cmdCS = &Command{

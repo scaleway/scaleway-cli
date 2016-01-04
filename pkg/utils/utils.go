@@ -25,9 +25,9 @@ import (
 	"golang.org/x/crypto/ssh"
 
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	log "github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client"
+	"github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
+	"github.com/moul/gotty-client"
 )
 
 // SpawnRedirection is used to redirects the fluxes

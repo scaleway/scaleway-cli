@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
+	"github.com/docker/docker/pkg/units"
 )
 
 // EventsArgs are arguments passed to `RunEvents`
