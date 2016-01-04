@@ -64,3 +64,9 @@ contrib/docker/.docker-container-built: dist/latest/gotty-client_latest_linux_38
 	docker run -it --rm moul/gotty-client --version
 	docker inspect --type=image --format="{{ .Id }}" moul/gotty-client > $@.tmp
 	mv $@.tmp $@
+
+
+.PHONY: convey
+convey:
+	go get github.com/smartystreets/goconvey
+	goconvey -cover -port=9042 -workDir="$(realpath .)" -depth=1

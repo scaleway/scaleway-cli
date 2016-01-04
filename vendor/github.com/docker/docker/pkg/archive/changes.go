@@ -13,10 +13,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/idtools"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/pools"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/system"
+	"github.com/Sirupsen/logrus"
+	"github.com/docker/docker/pkg/pools"
+	"github.com/docker/docker/pkg/system"
 )
 
 // ChangeType represents the change type.
@@ -103,7 +102,7 @@ func Changes(layers []string, rw string) ([]Change, error) {
 		}
 
 		// Skip AUFS metadata
-		if matched, err := filepath.Match(string(os.PathSeparator)+WhiteoutMetaPrefix+"*", path); err != nil || matched {
+		if matched, err := filepath.Match(string(os.PathSeparator)+".wh..wh.*", path); err != nil || matched {
 			return err
 		}
 
@@ -114,8 +113,8 @@ func Changes(layers []string, rw string) ([]Change, error) {
 		// Find out what kind of modification happened
 		file := filepath.Base(path)
 		// If there is a whiteout, then the file was removed
-		if strings.HasPrefix(file, WhiteoutPrefix) {
-			originalFile := file[len(WhiteoutPrefix):]
+		if strings.HasPrefix(file, ".wh.") {
+			originalFile := file[len(".wh."):]
 			change.Path = filepath.Join(filepath.Dir(path), originalFile)
 			change.Kind = ChangeDelete
 		} else {
@@ -174,7 +173,7 @@ func Changes(layers []string, rw string) ([]Change, error) {
 type FileInfo struct {
 	parent     *FileInfo
 	name       string
-	stat       *system.StatT
+	stat       *system.Stat_t
 	children   map[string]*FileInfo
 	capability []byte
 	added      bool
@@ -342,15 +341,13 @@ func ChangesSize(newDir string, changes []Change) int64 {
 }
 
 // ExportChanges produces an Archive from the provided changes, relative to dir.
-func ExportChanges(dir string, changes []Change, uidMaps, gidMaps []idtools.IDMap) (Archive, error) {
+func ExportChanges(dir string, changes []Change) (Archive, error) {
 	reader, writer := io.Pipe()
 	go func() {
 		ta := &tarAppender{
 			TarWriter: tar.NewWriter(writer),
 			Buffer:    pools.BufioWriter32KPool.Get(nil),
 			SeenFiles: make(map[uint64]string),
-			UIDMaps:   uidMaps,
-			GIDMaps:   gidMaps,
 		}
 		// this buffer is needed for the duration of this piped stream
 		defer pools.BufioWriter32KPool.Put(ta.Buffer)
@@ -365,7 +362,7 @@ func ExportChanges(dir string, changes []Change, uidMaps, gidMaps []idtools.IDMa
 			if change.Kind == ChangeDelete {
 				whiteOutDir := filepath.Dir(change.Path)
 				whiteOutBase := filepath.Base(change.Path)
-				whiteOut := filepath.Join(whiteOutDir, WhiteoutPrefix+whiteOutBase)
+				whiteOut := filepath.Join(whiteOutDir, ".wh."+whiteOutBase)
 				timestamp := time.Now()
 				hdr := &tar.Header{
 					Name:       whiteOut[1:],

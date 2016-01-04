@@ -13,8 +13,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/archive"
+	"github.com/Sirupsen/logrus"
+	"github.com/docker/docker/pkg/archive"
 )
 
 var (

@@ -18,7 +18,7 @@ package reqtrace
 import (
 	"flag"
 
-	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/net/context"
+	"golang.org/x/net/context"
 )
 
 type contextKey int

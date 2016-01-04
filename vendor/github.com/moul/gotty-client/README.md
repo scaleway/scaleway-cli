@@ -102,12 +102,6 @@ $ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/
 
 ## Changelog
 
-### master (unreleased)
-
-* Fix terminal data being interpreted as format string ([#34](https://github.com/moul/gotty-client/pull/34)) ([@mickael9](https://github.com/mickael9))
-
-[full commits list](https://github.com/moul/gotty-client/compare/v1.4.0...master)
-
 ### [v1.4.0](https://github.com/moul/gotty-client/releases/tag/v1.4.0) (2015-12-09)
 
 * Remove solaris,plan9,nacl for `.goxc.json`

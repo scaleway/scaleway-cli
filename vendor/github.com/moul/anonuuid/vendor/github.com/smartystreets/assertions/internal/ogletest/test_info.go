@@ -18,9 +18,9 @@ package ogletest
 import (
 	"sync"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/golang.org/x/net/context"
+	"golang.org/x/net/context"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
+	"github.com/smartystreets/assertions/internal/oglemock"
 )
 
 // TestInfo represents information about a currently running or previously-run

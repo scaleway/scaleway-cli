@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/smartystreets/goconvey/convey/reporting"
 )
 
 type Serializer interface {

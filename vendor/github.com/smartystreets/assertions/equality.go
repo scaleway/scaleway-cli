@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/smartystreets/assertions/internal/oglematchers"
 )
 
 // default acceptable delta for ShouldAlmostEqual

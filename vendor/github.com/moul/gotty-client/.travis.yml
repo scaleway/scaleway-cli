@@ -1,0 +1,13 @@
+language: go
+
+go:
+- 1.5
+- tip
+
+matrix:
+  allow_failures:
+  - go: tip
+
+script:
+- go build ./cmd/...
+- go run ./cmd/gotty-client/main.go --help || true

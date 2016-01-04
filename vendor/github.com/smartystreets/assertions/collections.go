@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/smartystreets/assertions/internal/oglematchers"
 )
 
 // ShouldContain receives exactly two parameters. The first is a slice and the

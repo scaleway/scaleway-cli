@@ -2,12 +2,17 @@ package system
 
 import (
 	"bufio"
+	"errors"
 	"io"
 	"os"
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/units"
+	"github.com/docker/docker/pkg/units"
+)
+
+var (
+	ErrMalformed = errors.New("malformed file")
 )
 
 // ReadMemInfo retrieves memory statistics of the host system and returns a

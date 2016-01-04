@@ -6,25 +6,10 @@ import (
 	"archive/tar"
 	"errors"
 	"os"
-	"path/filepath"
 	"syscall"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/system"
+	"github.com/docker/docker/pkg/system"
 )
-
-// fixVolumePathPrefix does platform specific processing to ensure that if
-// the path being passed in is not in a volume path format, convert it to one.
-func fixVolumePathPrefix(srcPath string) string {
-	return srcPath
-}
-
-// getWalkRoot calculates the root path when performing a TarWithOptions.
-// We use a seperate function as this is platform specific. On Linux, we
-// can't use filepath.Join(srcPath,include) because this will clean away
-// a trailing "." or "/" which may be important.
-func getWalkRoot(srcPath string, include string) string {
-	return srcPath + string(filepath.Separator) + include
-}
 
 // CanonicalTarNameForPath returns platform-specific filepath
 // to canonical posix-style path for tar archival. p is relative
@@ -51,7 +36,7 @@ func setHeaderForSpecialDevice(hdr *tar.Header, ta *tarAppender, name string, st
 	nlink = uint32(s.Nlink)
 	inode = uint64(s.Ino)
 
-	// Currently go does not fill in the major/minors
+	// Currently go does not fil in the major/minors
 	if s.Mode&syscall.S_IFBLK != 0 ||
 		s.Mode&syscall.S_IFCHR != 0 {
 		hdr.Devmajor = int64(major(uint64(s.Rdev)))
@@ -59,15 +44,6 @@ func setHeaderForSpecialDevice(hdr *tar.Header, ta *tarAppender, name string, st
 	}
 
 	return
-}
-
-func getFileUIDGID(stat interface{}) (int, int, error) {
-	s, ok := stat.(*syscall.Stat_t)
-
-	if !ok {
-		return -1, -1, errors.New("cannot convert stat value to syscall.Stat_t")
-	}
-	return int(s.Uid), int(s.Gid), nil
 }
 
 func major(device uint64) uint64 {

@@ -204,7 +204,7 @@ Note: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/v
 | [Airbrake "legacy"](https://github.com/gemnasium/logrus-airbrake-legacy-hook) | Send errors to an exception tracking service compatible with the Airbrake API V2. Uses [`airbrake-go`](https://github.com/tobi/airbrake-go) behind the scenes. |
 | [Papertrail](https://github.com/polds/logrus-papertrail-hook) | Send errors to the [Papertrail](https://papertrailapp.com) hosted logging service via UDP. |
 | [Syslog](https://github.com/Sirupsen/logrus/blob/master/hooks/syslog/syslog.go) | Send errors to remote syslog server. Uses standard library `log/syslog` behind the scenes. |
-| [BugSnag](https://github.com/Sirupsen/logrus/blob/master/hooks/bugsnag/bugsnag.go) | Send errors to the Bugsnag exception tracking service. |
+| [Bugsnag](https://github.com/Shopify/logrus-bugsnag/blob/master/bugsnag.go) | Send errors to the Bugsnag exception tracking service. |
 | [Sentry](https://github.com/evalphobia/logrus_sentry) | Send errors to the Sentry error logging and aggregation service. |
 | [Hiprus](https://github.com/nubo/hiprus) | Send errors to a channel in hipchat. |
 | [Logrusly](https://github.com/sebest/logrusly) | Send logs to [Loggly](https://www.loggly.com/) |
@@ -219,6 +219,8 @@ Note: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/v
 | [Fluentd](https://github.com/evalphobia/logrus_fluent) | Hook for logging to fluentd |
 | [Mongodb](https://github.com/weekface/mgorus) | Hook for logging to mongodb |
 | [InfluxDB](https://github.com/Abramovic/logrus_influxdb) | Hook for logging to influxdb |
+| [Octokit](https://github.com/dorajistyle/logrus-octokit-hook) | Hook for logging to github via octokit |
+| [DeferPanic](https://github.com/deferpanic/dp-logrus) | Hook for logging to DeferPanic |
 
 #### Level logging
 
@@ -299,12 +301,13 @@ The built-in logging formatters are:
 * `logrus/formatters/logstash.LogstashFormatter`. Logs fields as [Logstash](http://logstash.net) Events.
 
     ```go
-      logrus.SetFormatter(&logstash.LogstashFormatter{Type: “application_name"})
+      logrus.SetFormatter(&logstash.LogstashFormatter{Type: "application_name"})
     ```
 
 Third party logging formatters:
 
-* [`zalgo`](https://github.com/aybabtme/logzalgo): invoking the P͉̫o̳̼̊w̖͈̰͎e̬͔̭͂r͚̼̹̲ ̫͓͉̳͈ō̠͕͖̚f̝͍̠ ͕̲̞͖͑Z̖̫̤̫ͪa͉̬͈̗l͖͎g̳̥o̰̥̅!̣͔̲̻͊̄ ̙̘̦̹̦.
+* [`prefixed`](https://github.com/x-cray/logrus-prefixed-formatter). Displays log entry source along with alternative layout.
+* [`zalgo`](https://github.com/aybabtme/logzalgo). Invoking the P͉̫o̳̼̊w̖͈̰͎e̬͔̭͂r͚̼̹̲ ̫͓͉̳͈ō̠͕͖̚f̝͍̠ ͕̲̞͖͑Z̖̫̤̫ͪa͉̬͈̗l͖͎g̳̥o̰̥̅!̣͔̲̻͊̄ ̙̘̦̹̦.
 
 You can define your formatter by implementing the `Formatter` interface,
 requiring a `Format` method. `Format` takes an `*Entry`. `entry.Data` is a
@@ -353,5 +356,10 @@ Log rotation is not provided with Logrus. Log rotation should be done by an
 external program (like `logrotate(8)`) that can compress and delete old log
 entries. It should not be a feature of the application-level logger.
 
+#### Tools
+
+| Tool | Description |
+| ---- | ----------- |
+|[Logrus Mate](https://github.com/gogap/logrus_mate)|Logrus mate is a tool for Logrus to manage loggers, you can initial logger's level, hook and formatter by config file, the logger will generated with different config at different environment.|
 
 [godoc]: https://godoc.org/github.com/Sirupsen/logrus

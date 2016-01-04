@@ -4,9 +4,9 @@ import (
 	"flag"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/jtolds/gls"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/assertions"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/jtolds/gls"
+	"github.com/smartystreets/assertions"
+	"github.com/smartystreets/goconvey/convey/reporting"
 )
 
 func init() {

@@ -14,7 +14,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/ioutils"
+	"github.com/docker/docker/pkg/ioutils"
 )
 
 var (
