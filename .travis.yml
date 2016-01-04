@@ -35,12 +35,12 @@ script:
   - env | anonuuid
   - rm -rf Godeps/_workspace   # Remove automatic 'godep restore' from travis...
   - make build show_version
-  - if [ -z "${TEST_WITH_REAL_API}" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup || true; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make cover; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_coveralls; fi
-  - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
+  - if [ "${TEST_WITH_REAL_API}" != "1" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
+  - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi
+  - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup || true; fi
+  - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make cover; fi
+  - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_coveralls; fi
+  - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
 
 after_success:
   - if [ "${TEST_WITH_REAL_API}" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_cleanup; fi
