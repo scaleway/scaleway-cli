@@ -12,9 +12,11 @@ env:
 matrix:
   include:
     - go:   1.5
-      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=1
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0
     - go:   1.5.1
       env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0
+    - go:   1.5.2
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=1
     - go:   tip
       env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0
   allow_failures:
