@@ -11,7 +11,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 // SearchArgs are flags for the `RunSearch` function

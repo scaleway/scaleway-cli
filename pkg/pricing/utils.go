@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/dustin/go-humanize"
+	"github.com/dustin/go-humanize"
 )
 
 var (

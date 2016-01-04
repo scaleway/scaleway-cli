@@ -18,7 +18,7 @@ package oglemock
 import (
 	"errors"
 	"fmt"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglematchers"
+	"github.com/smartystreets/assertions/internal/oglematchers"
 	"reflect"
 	"sync"
 )

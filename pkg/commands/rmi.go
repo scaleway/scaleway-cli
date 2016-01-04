@@ -7,7 +7,7 @@ package commands
 import (
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 // RmiArgs are flags for the `RunRmi` function

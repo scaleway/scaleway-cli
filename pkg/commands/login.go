@@ -14,8 +14,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/golang.org/x/crypto/ssh/terminal"
+	"github.com/Sirupsen/logrus"
+	"golang.org/x/crypto/ssh/terminal"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"

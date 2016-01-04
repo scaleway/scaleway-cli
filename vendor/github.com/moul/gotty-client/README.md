@@ -104,6 +104,7 @@ $ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/
 
 ### master (unreleased)
 
+* Switch from `Party` to `Godep`
 * Fix terminal data being interpreted as format string ([#34](https://github.com/moul/gotty-client/pull/34)) ([@mickael9](https://github.com/mickael9))
 
 [full commits list](https://github.com/moul/gotty-client/compare/v1.4.0...master)

@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 // WaitArgs are flags for the `RunWait` function

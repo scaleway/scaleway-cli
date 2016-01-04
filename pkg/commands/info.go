@@ -9,7 +9,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/kardianos/osext"
+	"github.com/kardianos/osext"
 
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/utils"

@@ -9,8 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/system"
+	"github.com/Sirupsen/logrus"
 )
 
 // Errors used or returned by this file.
@@ -211,7 +210,7 @@ func CopyInfoDestinationPath(path string) (info CopyInfo, err error) {
 			return CopyInfo{}, err
 		}
 
-		if !system.IsAbs(linkTarget) {
+		if !filepath.IsAbs(linkTarget) {
 			// Join with the parent directory.
 			dstParent, _ := SplitPathDirEntry(path)
 			linkTarget = filepath.Join(dstParent, linkTarget)

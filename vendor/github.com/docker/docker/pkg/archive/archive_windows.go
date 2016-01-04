@@ -6,25 +6,10 @@ import (
 	"archive/tar"
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
-
-	"github.com/scaleway/scaleway-cli/vendor/github.com/docker/docker/pkg/longpath"
 )
 
-// fixVolumePathPrefix does platform specific processing to ensure that if
-// the path being passed in is not in a volume path format, convert it to one.
-func fixVolumePathPrefix(srcPath string) string {
-	return longpath.AddPrefix(srcPath)
-}
-
-// getWalkRoot calculates the root path when performing a TarWithOptions.
-// We use a seperate function as this is platform specific.
-func getWalkRoot(srcPath string, include string) string {
-	return filepath.Join(srcPath, include)
-}
-
-// CanonicalTarNameForPath returns platform-specific filepath
+// canonicalTarNameForPath returns platform-specific filepath
 // to canonical posix-style path for tar archival. p is relative
 // path.
 func CanonicalTarNameForPath(p string) (string, error) {
@@ -62,9 +47,4 @@ func handleTarTypeBlockCharFifo(hdr *tar.Header, path string) error {
 
 func handleLChmod(hdr *tar.Header, path string, hdrInfo os.FileInfo) error {
 	return nil
-}
-
-func getFileUIDGID(stat interface{}) (int, int, error) {
-	// no notion of file ownership mapping yet on Windows
-	return 0, 0, nil
 }

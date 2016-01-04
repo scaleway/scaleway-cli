@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/commands"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 var cmdPs = &Command{

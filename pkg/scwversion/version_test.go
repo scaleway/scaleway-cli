@@ -3,7 +3,7 @@ package scwversion
 import (
 	"testing"
 
-	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestInit(t *testing.T) {

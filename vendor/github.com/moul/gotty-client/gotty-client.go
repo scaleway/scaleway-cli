@@ -15,10 +15,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/Sirupsen/logrus"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/creack/goselect"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/github.com/gorilla/websocket"
-	"github.com/scaleway/scaleway-cli/vendor/github.com/moul/gotty-client/vendor/golang.org/x/crypto/ssh/terminal"
+	"github.com/Sirupsen/logrus"
+	"github.com/creack/goselect"
+	"github.com/gorilla/websocket"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // GetAuthTokenURL transforms a GoTTY http URL to its AuthToken file URL

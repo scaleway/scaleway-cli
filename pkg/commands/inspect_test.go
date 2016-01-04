@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	. "github.com/scaleway/scaleway-cli/vendor/github.com/smartystreets/goconvey/convey"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func ExampleRunInspect() {
