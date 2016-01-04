@@ -55,11 +55,11 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 		fmt.Fprintln(ctx.Stdout, "")
 		fmt.Fprintln(ctx.Stdout, "SSH Keys:")
 		for id, key := range user.SSHPublicKeys {
-			fingerprint, err := utils.SSHGetFingerprint(key.Key)
+			fingerprint, err := utils.SSHGetFingerprint([]byte(key.Key))
 			if err != nil {
 				return err
 			}
-			fmt.Fprintf(ctx.Stdout, "  [%d] %s", id, fingerprint)
+			fmt.Fprintf(ctx.Stdout, "  [%d] %s\n", id, fingerprint)
 		}
 		fmt.Fprintf(ctx.Stdout, "\n")
 	}
