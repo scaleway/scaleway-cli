@@ -1170,7 +1170,8 @@ func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string,
 	if err = json.Unmarshal(body, &image); err != nil {
 		return "", err
 	}
-	s.Cache.InsertImage(image.Image.Identifier, image.Image.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertImage(image.Image.Identifier, "fr-1", image.Image.Arch, image.Image.Organization, image.Image.Name)
 	return image.Image.Identifier, nil
 }
 
@@ -1280,7 +1281,8 @@ func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 		return nil, err
 	}
 	for _, image := range images.Images {
-		s.Cache.InsertImage(image.Identifier, image.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertImage(image.Identifier, "fr-1", image.Arch, image.Organization, image.Name)
 	}
 	return &images.Images, nil
 }
@@ -1302,7 +1304,8 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 	if err = json.Unmarshal(body, &oneImage); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertImage(oneImage.Image.Identifier, oneImage.Image.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertImage(oneImage.Image.Identifier, "fr-1", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name)
 	return &oneImage.Image, nil
 }
 

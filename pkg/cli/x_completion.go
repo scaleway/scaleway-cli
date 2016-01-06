@@ -9,8 +9,9 @@ import (
 	"sort"
 	"strings"
 
-	utils "github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/api"
+	utils "github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 var cmdCompletion = &Command{
@@ -73,12 +74,12 @@ func runCompletion(cmd *Command, args []string) error {
 			elements = append(elements, wordifyName(name, "server"))
 		}
 	case "images-all":
-		for identifier, name := range cmd.API.Cache.Images {
-			elements = append(elements, identifier, wordifyName(name, "image"))
+		for identifier, fields := range cmd.API.Cache.Images {
+			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "image"))
 		}
 	case "images-names":
-		for _, name := range cmd.API.Cache.Images {
-			elements = append(elements, wordifyName(name, "image"))
+		for _, fields := range cmd.API.Cache.Images {
+			elements = append(elements, wordifyName(fields[api.TITLE], "image"))
 		}
 	case "volumes-all":
 		for identifier, name := range cmd.API.Cache.Volumes {

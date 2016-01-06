@@ -19,10 +19,18 @@ import (
 	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 
+const ( // cache fields
+	REGION   = iota
+	ARCH     = iota
+	OWNER    = iota
+	TITLE    = iota
+	MAXFIELD = iota
+)
+
 // ScalewayCache is used not to query the API to resolve full identifiers
 type ScalewayCache struct {
 	// Images contains names of Scaleway images indexed by identifier
-	Images map[string]string `json:"images"`
+	Images map[string][MAXFIELD]string `json:"images"`
 
 	// Snapshots contains names of Scaleway snapshots indexed by identifier
 	Snapshots map[string]string `json:"snapshots"`
@@ -130,7 +138,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	_, err := os.Stat(cachePath)
 	if os.IsNotExist(err) {
 		return &ScalewayCache{
-			Images:      make(map[string]string),
+			Images:      make(map[string][MAXFIELD]string),
 			Snapshots:   make(map[string]string),
 			Volumes:     make(map[string]string),
 			Bootscripts: make(map[string]string),
@@ -145,13 +153,24 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		return nil, err
 	}
 	var cache ScalewayCache
+
 	cache.Path = cachePath
 	err = json.Unmarshal(file, &cache)
 	if err != nil {
-		return nil, err
+		// fix compatibility with older version
+		cache = ScalewayCache{}
+		if err = os.Remove(cachePath); err != nil {
+			return nil, err
+		}
+		f, err := os.OpenFile(cachePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+		if err != nil {
+			return nil, err
+		}
+		json.Unmarshal(file, &cache)
+		f.Close()
 	}
 	if cache.Images == nil {
-		cache.Images = make(map[string]string)
+		cache.Images = make(map[string][MAXFIELD]string)
 	}
 	if cache.Snapshots == nil {
 		cache.Snapshots = make(map[string]string)
@@ -228,20 +247,20 @@ func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) ScalewayRes
 	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	// FIXME: if 'user/' is in needle, only watch for a user image
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
-	for identifier, name := range c.Images {
-		if name == needle {
+	for identifier, fields := range c.Images {
+		if fields[TITLE] == needle {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierImage,
 			}
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
-		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[TITLE]) {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierImage,
 			}
 			entry.ComputeRankMatch(needle)
@@ -586,13 +605,13 @@ func (c *ScalewayCache) ClearServers() {
 }
 
 // InsertImage registers an image in the cache
-func (c *ScalewayCache) InsertImage(identifier, name string) {
+func (c *ScalewayCache) InsertImage(identifier, region, arch, owner, title string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	currentName, exists := c.Images[identifier]
-	if !exists || currentName != name {
-		c.Images[identifier] = name
+	fields, exists := c.Images[identifier]
+	if !exists || fields[TITLE] != fields[TITLE] {
+		c.Images[identifier] = [MAXFIELD]string{region, arch, owner, title}
 		c.Modified = true
 	}
 }
@@ -611,7 +630,7 @@ func (c *ScalewayCache) ClearImages() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	c.Images = make(map[string]string)
+	c.Images = make(map[string][MAXFIELD]string)
 	c.Modified = true
 }
 

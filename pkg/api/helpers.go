@@ -12,12 +12,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/Sirupsen/logrus"
 	log "github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/namesgenerator"
 	"github.com/dustin/go-humanize"
 	"github.com/moul/anonuuid"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
@@ -92,7 +92,7 @@ func CreateVolumeFromHumanSize(api *ScalewayAPI, size string) (*string, error) {
 	return &volumeID, nil
 }
 
-// fillIdentifierCache fills the cache by fetching fro the API
+// fillIdentifierCache fills the cache by fetching from the API
 func fillIdentifierCache(api *ScalewayAPI, identifierType int) {
 	log.Debugf("Filling the cache")
 	var wg sync.WaitGroup
