@@ -66,12 +66,12 @@ func runCompletion(cmd *Command, args []string) error {
 
 	switch category {
 	case "servers-all":
-		for identifier, name := range cmd.API.Cache.Servers {
-			elements = append(elements, identifier, wordifyName(name, "server"))
+		for identifier, fields := range cmd.API.Cache.Servers {
+			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "server"))
 		}
 	case "servers-names":
-		for _, name := range cmd.API.Cache.Servers {
-			elements = append(elements, wordifyName(name, "server"))
+		for _, fields := range cmd.API.Cache.Servers {
+			elements = append(elements, wordifyName(fields[api.TITLE], "server"))
 		}
 	case "images-all":
 		for identifier, fields := range cmd.API.Cache.Images {

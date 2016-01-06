@@ -42,7 +42,7 @@ type ScalewayCache struct {
 	Bootscripts map[string][MAXFIELD]string `json:"bootscripts"`
 
 	// Servers contains names of Scaleway C1 servers indexed by identifier
-	Servers map[string]string `json:"servers"`
+	Servers map[string][MAXFIELD]string `json:"servers"`
 
 	// Path is the path to the cache file
 	Path string `json:"-"`
@@ -142,7 +142,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 			Snapshots:   make(map[string][MAXFIELD]string),
 			Volumes:     make(map[string][MAXFIELD]string),
 			Bootscripts: make(map[string][MAXFIELD]string),
-			Servers:     make(map[string]string),
+			Servers:     make(map[string][MAXFIELD]string),
 			Path:        cachePath,
 		}, nil
 	} else if err != nil {
@@ -179,7 +179,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		cache.Volumes = make(map[string][MAXFIELD]string)
 	}
 	if cache.Servers == nil {
-		cache.Servers = make(map[string]string)
+		cache.Servers = make(map[string][MAXFIELD]string)
 	}
 	if cache.Bootscripts == nil {
 		cache.Bootscripts = make(map[string][MAXFIELD]string)
@@ -436,20 +436,20 @@ func (c *ScalewayCache) LookUpServers(needle string, acceptUUID bool) ScalewayRe
 	}
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
-	for identifier, name := range c.Servers {
-		if name == needle {
+	for identifier, fields := range c.Servers {
+		if fields[TITLE] == needle {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierServer,
 			}
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
-		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[TITLE]) {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierServer,
 			}
 			entry.ComputeRankMatch(needle)
@@ -575,13 +575,13 @@ func (c *ScalewayCache) LookUpIdentifiers(needle string) ScalewayResolverResults
 }
 
 // InsertServer registers a server in the cache
-func (c *ScalewayCache) InsertServer(identifier, name string) {
+func (c *ScalewayCache) InsertServer(identifier, region, arch, owner, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	currentName, exists := c.Servers[identifier]
-	if !exists || currentName != name {
-		c.Servers[identifier] = name
+	fields, exists := c.Servers[identifier]
+	if !exists || fields[TITLE] != name {
+		c.Servers[identifier] = [MAXFIELD]string{region, arch, owner, name}
 		c.Modified = true
 	}
 }
@@ -600,7 +600,7 @@ func (c *ScalewayCache) ClearServers() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	c.Servers = make(map[string]string)
+	c.Servers = make(map[string][MAXFIELD]string)
 	c.Modified = true
 }
 

@@ -483,6 +483,9 @@ type ScalewayNewSecurityGroup struct {
 
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
+	// Arch is the architecture target of the server
+	Arch string `json:"arch,omitempty"`
+
 	// Identifier is a unique identifier for the server
 	Identifier string `json:"id,omitempty"`
 
@@ -545,6 +548,7 @@ type ScalewayServer struct {
 
 // ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
 type ScalewayServerPatchDefinition struct {
+	Arch              *string                    `json:"arch,omitempty"`
 	Name              *string                    `json:"name,omitempty"`
 	CreationDate      *string                    `json:"creation_date,omitempty"`
 	ModificationDate  *string                    `json:"modification_date,omitempty"`
@@ -1009,7 +1013,8 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		return nil, err
 	}
 	for _, server := range servers.Servers {
-		s.Cache.InsertServer(server.Identifier, server.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertServer(server.Identifier, "fr-1", server.Arch, server.Organization, server.Name)
 	}
 	// FIXME: when API limit is ready, remove the following code
 	if limit > 0 && limit < len(servers.Servers) {
@@ -1036,7 +1041,8 @@ func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
 	if err = json.Unmarshal(body, &oneServer); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertServer(oneServer.Server.Identifier, oneServer.Server.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertServer(oneServer.Server.Identifier, "fr-1", oneServer.Server.Arch, oneServer.Server.Organization, oneServer.Server.Name)
 	return &oneServer.Server, nil
 }
 
@@ -1089,7 +1095,9 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	if err = json.Unmarshal(body, &server); err != nil {
 		return "", err
 	}
-	s.Cache.InsertServer(server.Server.Identifier, server.Server.Name)
+	fmt.Println("1->", string(body))
+	// FIXME region, arch, owner, title
+	s.Cache.InsertServer(server.Server.Identifier, "fr-1", server.Server.Arch, server.Server.Organization, server.Server.Name)
 	return server.Server.Identifier, nil
 }
 
