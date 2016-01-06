@@ -1139,7 +1139,8 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 	if err = json.Unmarshal(body, &snapshot); err != nil {
 		return "", err
 	}
-	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, snapshot.Snapshot.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, "fr-1", "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
 	return snapshot.Snapshot.Identifier, nil
 }
 
@@ -1346,7 +1347,8 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 		return nil, err
 	}
 	for _, snapshot := range snapshots.Snapshots {
-		s.Cache.InsertSnapshot(snapshot.Identifier, snapshot.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertSnapshot(snapshot.Identifier, "fr-1", "", snapshot.Organization, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
 }
@@ -1368,7 +1370,8 @@ func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) 
 	if err = json.Unmarshal(body, &oneSnapshot); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, oneSnapshot.Snapshot.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, "fr-1", "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
 	return &oneSnapshot.Snapshot, nil
 }
 

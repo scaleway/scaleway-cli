@@ -33,7 +33,7 @@ type ScalewayCache struct {
 	Images map[string][MAXFIELD]string `json:"images"`
 
 	// Snapshots contains names of Scaleway snapshots indexed by identifier
-	Snapshots map[string]string `json:"snapshots"`
+	Snapshots map[string][MAXFIELD]string `json:"snapshots"`
 
 	// Volumes contains names of Scaleway volumes indexed by identifier
 	Volumes map[string]string `json:"volumes"`
@@ -139,7 +139,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	if os.IsNotExist(err) {
 		return &ScalewayCache{
 			Images:      make(map[string][MAXFIELD]string),
-			Snapshots:   make(map[string]string),
+			Snapshots:   make(map[string][MAXFIELD]string),
 			Volumes:     make(map[string]string),
 			Bootscripts: make(map[string]string),
 			Servers:     make(map[string]string),
@@ -173,7 +173,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		cache.Images = make(map[string][MAXFIELD]string)
 	}
 	if cache.Snapshots == nil {
-		cache.Snapshots = make(map[string]string)
+		cache.Snapshots = make(map[string][MAXFIELD]string)
 	}
 	if cache.Volumes == nil {
 		cache.Volumes = make(map[string]string)
@@ -295,20 +295,20 @@ func (c *ScalewayCache) LookUpSnapshots(needle string, acceptUUID bool) Scaleway
 
 	needle = regexp.MustCompile(`^user/`).ReplaceAllString(needle, "")
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
-	for identifier, name := range c.Snapshots {
-		if name == needle {
+	for identifier, fields := range c.Snapshots {
+		if fields[TITLE] == needle {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierSnapshot,
 			}
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
-		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[TITLE]) {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierSnapshot,
 			}
 			entry.ComputeRankMatch(needle)
@@ -605,13 +605,13 @@ func (c *ScalewayCache) ClearServers() {
 }
 
 // InsertImage registers an image in the cache
-func (c *ScalewayCache) InsertImage(identifier, region, arch, owner, title string) {
+func (c *ScalewayCache) InsertImage(identifier, region, arch, owner, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	fields, exists := c.Images[identifier]
-	if !exists || fields[TITLE] != fields[TITLE] {
-		c.Images[identifier] = [MAXFIELD]string{region, arch, owner, title}
+	if !exists || fields[TITLE] != name {
+		c.Images[identifier] = [MAXFIELD]string{region, arch, owner, name}
 		c.Modified = true
 	}
 }
@@ -635,13 +635,13 @@ func (c *ScalewayCache) ClearImages() {
 }
 
 // InsertSnapshot registers an snapshot in the cache
-func (c *ScalewayCache) InsertSnapshot(identifier, name string) {
+func (c *ScalewayCache) InsertSnapshot(identifier, region, arch, owner, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	currentName, exists := c.Snapshots[identifier]
-	if !exists || currentName != name {
-		c.Snapshots[identifier] = name
+	fields, exists := c.Snapshots[identifier]
+	if !exists || fields[TITLE] != name {
+		c.Snapshots[identifier] = [MAXFIELD]string{region, arch, owner, name}
 		c.Modified = true
 	}
 }
@@ -660,7 +660,7 @@ func (c *ScalewayCache) ClearSnapshots() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	c.Snapshots = make(map[string]string)
+	c.Snapshots = make(map[string][MAXFIELD]string)
 	c.Modified = true
 }
 

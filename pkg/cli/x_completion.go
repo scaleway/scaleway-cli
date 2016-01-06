@@ -90,12 +90,12 @@ func runCompletion(cmd *Command, args []string) error {
 			elements = append(elements, wordifyName(name, "volume"))
 		}
 	case "snapshots-all":
-		for identifier, name := range cmd.API.Cache.Snapshots {
-			elements = append(elements, identifier, wordifyName(name, "snapshot"))
+		for identifier, fields := range cmd.API.Cache.Snapshots {
+			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "snapshot"))
 		}
 	case "snapshots-names":
-		for _, name := range cmd.API.Cache.Snapshots {
-			elements = append(elements, wordifyName(name, "snapshot"))
+		for _, fields := range cmd.API.Cache.Snapshots {
+			elements = append(elements, wordifyName(fields[api.TITLE], "snapshot"))
 		}
 	case "bootscripts-all":
 		for identifier, name := range cmd.API.Cache.Bootscripts {
