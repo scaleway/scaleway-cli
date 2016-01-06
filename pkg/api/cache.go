@@ -20,11 +20,16 @@ import (
 )
 
 const ( // cache fields
-	REGION   = iota
-	ARCH     = iota
-	OWNER    = iota
-	TITLE    = iota
-	MAXFIELD = iota
+	// REGION permits to access at the region field
+	REGION = iota
+	// ARCH permits to access at the arch field
+	ARCH
+	// OWNER permits to access at the owner field
+	OWNER
+	// TITLE permits to access at the title field
+	TITLE
+	// MAXFIELD is used to determine the size of array
+	MAXFIELD
 )
 
 // ScalewayCache is used not to query the API to resolve full identifiers
