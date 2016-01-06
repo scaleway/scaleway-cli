@@ -39,7 +39,7 @@ type ScalewayCache struct {
 	Volumes map[string][MAXFIELD]string `json:"volumes"`
 
 	// Bootscripts contains names of Scaleway bootscripts indexed by identifier
-	Bootscripts map[string]string `json:"bootscripts"`
+	Bootscripts map[string][MAXFIELD]string `json:"bootscripts"`
 
 	// Servers contains names of Scaleway C1 servers indexed by identifier
 	Servers map[string]string `json:"servers"`
@@ -141,7 +141,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 			Images:      make(map[string][MAXFIELD]string),
 			Snapshots:   make(map[string][MAXFIELD]string),
 			Volumes:     make(map[string][MAXFIELD]string),
-			Bootscripts: make(map[string]string),
+			Bootscripts: make(map[string][MAXFIELD]string),
 			Servers:     make(map[string]string),
 			Path:        cachePath,
 		}, nil
@@ -182,7 +182,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		cache.Servers = make(map[string]string)
 	}
 	if cache.Bootscripts == nil {
-		cache.Bootscripts = make(map[string]string)
+		cache.Bootscripts = make(map[string][MAXFIELD]string)
 	}
 	return &cache, nil
 }
@@ -389,20 +389,20 @@ func (c *ScalewayCache) LookUpBootscripts(needle string, acceptUUID bool) Scalew
 	}
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
-	for identifier, name := range c.Bootscripts {
-		if name == needle {
+	for identifier, fields := range c.Bootscripts {
+		if fields[TITLE] == needle {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierBootscript,
 			}
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
-		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[TITLE]) {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierBootscript,
 			}
 			entry.ComputeRankMatch(needle)
@@ -695,13 +695,13 @@ func (c *ScalewayCache) ClearVolumes() {
 }
 
 // InsertBootscript registers an bootscript in the cache
-func (c *ScalewayCache) InsertBootscript(identifier, name string) {
+func (c *ScalewayCache) InsertBootscript(identifier, region, arch, owner, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	currentName, exists := c.Bootscripts[identifier]
-	if !exists || currentName != name {
-		c.Bootscripts[identifier] = name
+	fields, exists := c.Bootscripts[identifier]
+	if !exists || fields[TITLE] != name {
+		c.Bootscripts[identifier] = [MAXFIELD]string{region, arch, owner, name}
 		c.Modified = true
 	}
 }
@@ -720,7 +720,7 @@ func (c *ScalewayCache) ClearBootscripts() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	c.Bootscripts = make(map[string]string)
+	c.Bootscripts = make(map[string][MAXFIELD]string)
 	c.Modified = true
 }
 

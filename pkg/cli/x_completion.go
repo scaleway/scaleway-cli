@@ -98,12 +98,12 @@ func runCompletion(cmd *Command, args []string) error {
 			elements = append(elements, wordifyName(fields[api.TITLE], "snapshot"))
 		}
 	case "bootscripts-all":
-		for identifier, name := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, identifier, wordifyName(name, "bootscript"))
+		for identifier, fields := range cmd.API.Cache.Bootscripts {
+			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "bootscript"))
 		}
 	case "bootscripts-names":
-		for _, name := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, wordifyName(name, "bootscript"))
+		for _, fields := range cmd.API.Cache.Bootscripts {
+			elements = append(elements, wordifyName(fields[api.TITLE], "bootscript"))
 		}
 	default:
 		logrus.Fatalf("Unhandled category of completion: %s", category)

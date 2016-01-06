@@ -323,6 +323,12 @@ type ScalewayKernel struct {
 
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
+	// Arch is the architecture target of the bootscript
+	Arch string `json:"architecture,omitempty"`
+
+	// Organization is the owner of the bootscript
+	Organization string `json:"organization,omitempty"`
+
 	// Identifier is a unique identifier for the bootscript
 	Identifier string `json:"id,omitempty"`
 
@@ -1444,7 +1450,8 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 		return nil, err
 	}
 	for _, bootscript := range bootscripts.Bootscripts {
-		s.Cache.InsertBootscript(bootscript.Identifier, bootscript.Title)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertBootscript(bootscript.Identifier, "fr-1", bootscript.Arch, bootscript.Organization, bootscript.Title)
 	}
 	return &bootscripts.Bootscripts, nil
 }
@@ -1466,7 +1473,8 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 	if err = json.Unmarshal(body, &oneBootscript); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, oneBootscript.Bootscript.Title)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "fr-1", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
 }
 
