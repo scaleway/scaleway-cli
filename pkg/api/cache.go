@@ -36,7 +36,7 @@ type ScalewayCache struct {
 	Snapshots map[string][MAXFIELD]string `json:"snapshots"`
 
 	// Volumes contains names of Scaleway volumes indexed by identifier
-	Volumes map[string]string `json:"volumes"`
+	Volumes map[string][MAXFIELD]string `json:"volumes"`
 
 	// Bootscripts contains names of Scaleway bootscripts indexed by identifier
 	Bootscripts map[string]string `json:"bootscripts"`
@@ -140,7 +140,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		return &ScalewayCache{
 			Images:      make(map[string][MAXFIELD]string),
 			Snapshots:   make(map[string][MAXFIELD]string),
-			Volumes:     make(map[string]string),
+			Volumes:     make(map[string][MAXFIELD]string),
 			Bootscripts: make(map[string]string),
 			Servers:     make(map[string]string),
 			Path:        cachePath,
@@ -176,7 +176,7 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		cache.Snapshots = make(map[string][MAXFIELD]string)
 	}
 	if cache.Volumes == nil {
-		cache.Volumes = make(map[string]string)
+		cache.Volumes = make(map[string][MAXFIELD]string)
 	}
 	if cache.Servers == nil {
 		cache.Servers = make(map[string]string)
@@ -342,20 +342,20 @@ func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) ScalewayRe
 	}
 
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
-	for identifier, name := range c.Volumes {
-		if name == needle {
+	for identifier, fields := range c.Volumes {
+		if fields[TITLE] == needle {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierVolume,
 			}
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
-		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(name) {
+		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[TITLE]) {
 			entry := ScalewayResolverResult{
 				Identifier: identifier,
-				Name:       name,
+				Name:       fields[TITLE],
 				Type:       IdentifierVolume,
 			}
 			entry.ComputeRankMatch(needle)
@@ -665,13 +665,13 @@ func (c *ScalewayCache) ClearSnapshots() {
 }
 
 // InsertVolume registers an volume in the cache
-func (c *ScalewayCache) InsertVolume(identifier, name string) {
+func (c *ScalewayCache) InsertVolume(identifier, region, arch, owner, name string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	currentName, exists := c.Volumes[identifier]
-	if !exists || currentName != name {
-		c.Volumes[identifier] = name
+	fields, exists := c.Volumes[identifier]
+	if !exists || fields[TITLE] != name {
+		c.Volumes[identifier] = [MAXFIELD]string{region, arch, owner, name}
 		c.Modified = true
 	}
 }
@@ -690,7 +690,7 @@ func (c *ScalewayCache) ClearVolumes() {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	c.Volumes = make(map[string]string)
+	c.Volumes = make(map[string][MAXFIELD]string)
 	c.Modified = true
 }
 

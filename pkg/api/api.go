@@ -1396,7 +1396,8 @@ func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
 		return nil, err
 	}
 	for _, volume := range volumes.Volumes {
-		s.Cache.InsertVolume(volume.Identifier, volume.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertVolume(volume.Identifier, "fr-1", "", volume.Organization, volume.Name)
 	}
 	return &volumes.Volumes, nil
 }
@@ -1418,7 +1419,8 @@ func (s *ScalewayAPI) GetVolume(volumeID string) (*ScalewayVolume, error) {
 	if err = json.Unmarshal(body, &oneVolume); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertVolume(oneVolume.Volume.Identifier, oneVolume.Volume.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertVolume(oneVolume.Volume.Identifier, "fr-1", "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
 	return &oneVolume.Volume, nil
 }
 

@@ -82,12 +82,12 @@ func runCompletion(cmd *Command, args []string) error {
 			elements = append(elements, wordifyName(fields[api.TITLE], "image"))
 		}
 	case "volumes-all":
-		for identifier, name := range cmd.API.Cache.Volumes {
-			elements = append(elements, identifier, wordifyName(name, "volume"))
+		for identifier, fields := range cmd.API.Cache.Volumes {
+			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "volume"))
 		}
 	case "volumes-names":
-		for _, name := range cmd.API.Cache.Volumes {
-			elements = append(elements, wordifyName(name, "volume"))
+		for _, fields := range cmd.API.Cache.Volumes {
+			elements = append(elements, wordifyName(fields[api.TITLE], "volume"))
 		}
 	case "snapshots-all":
 		for identifier, fields := range cmd.API.Cache.Snapshots {
