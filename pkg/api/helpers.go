@@ -39,6 +39,8 @@ type ScalewayImageInterface struct {
 	Public       bool
 	Type         string
 	Organization string
+	Arch         string
+	Region       string
 }
 
 // ResolveGateway tries to resolve a server public ip address, else returns the input string, i.e. IPv4, hostname
@@ -310,9 +312,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	}
 
 	var server ScalewayServerDefinition
+
 	server.CommercialType = c.CommercialType
 	server.Volumes = make(map[string]string)
-
 	server.DynamicIPRequired = &c.DynamicIPRequired
 	if c.IP != "" {
 		if anonuuid.IsUUID(c.IP) == nil {
@@ -383,7 +385,6 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
 	}
-
 	serverID, err := api.PostServer(server)
 	if err != nil {
 		return "", err

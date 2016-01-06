@@ -12,11 +12,11 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/units"
 	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // ImagesArgs are flags for the `RunImages` function
@@ -59,6 +59,9 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 					Tag:          "latest",
 					VirtualSize:  float64(val.RootVolume.Size),
 					Organization: val.Organization,
+					// FIXME the region should not be hardcoded
+					Region: "fr-1",
+					Arch:   val.Arch,
 				}
 			}
 		}()
@@ -87,6 +90,8 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						VirtualSize:  float64(val.Size),
 						Public:       false,
 						Organization: val.Organization,
+						// FIXME the region should not be hardcoded
+						Region: "fr-1",
 					}
 				}
 			}()
@@ -107,6 +112,9 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Name:       val.Title,
 						Tag:        "<bootscript>",
 						Public:     false,
+						// FIXME the region should not be hardcoded
+						Region: "fr-1",
+						Arch:   val.Arch,
 					}
 				}
 			}()
@@ -134,6 +142,8 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						VirtualSize:  float64(val.Size),
 						Public:       false,
 						Organization: val.Organization,
+						// FIXME the region should not be hardcoded
+						Region: "fr-1",
 					}
 				}
 			}()
@@ -145,18 +155,11 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 		close(chEntries)
 	}()
 
-	done := false
 	for {
-		select {
-		case entry, ok := <-chEntries:
-			if !ok {
-				done = true
-				break
-			}
-			entries = append(entries, entry)
-		}
-		if done {
+		if entry, ok := <-chEntries; !ok {
 			break
+		} else {
+			entries = append(entries, entry)
 		}
 	}
 
@@ -172,7 +175,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	if !args.Quiet {
-		fmt.Fprintf(w, "REPOSITORY\tTAG\tIMAGE ID\tCREATED\tVIRTUAL SIZE\n")
+		fmt.Fprintf(w, "REPOSITORY\tTAG\tIMAGE ID\tCREATED\tVIRTUAL SIZE\tREGION\tARCH\n")
 	}
 	sort.Sort(api.ByCreationDate(entries))
 	for _, image := range entries {
@@ -227,7 +230,10 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 			} else {
 				virtualSize = units.HumanSize(image.VirtualSize)
 			}
-			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", shortName, tag, shortID, creationDate, virtualSize)
+			if image.Arch == "" {
+				image.Arch = "n/a"
+			}
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n", shortName, tag, shortID, creationDate, virtualSize, image.Region, image.Arch)
 		}
 
 	skipimage:
