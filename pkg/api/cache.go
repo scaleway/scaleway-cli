@@ -143,10 +143,12 @@ func (s *ScalewayResolverResult) CodeName() string {
 
 // FilterByArch deletes the elements which not match with arch
 func (s *ScalewayResolverResults) FilterByArch(arch string) {
+REDO:
 	for i := range *s {
 		if (*s)[i].Arch != arch {
 			(*s)[i] = (*s)[len(*s)-1]
 			*s = (*s)[:len(*s)-1]
+			goto REDO
 		}
 	}
 }
