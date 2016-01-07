@@ -186,16 +186,17 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	err = json.Unmarshal(file, &cache)
 	if err != nil {
 		// fix compatibility with older version
-		cache = ScalewayCache{}
 		if err = os.Remove(cachePath); err != nil {
 			return nil, err
 		}
-		f, err := os.OpenFile(cachePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
-		if err != nil {
-			return nil, err
-		}
-		json.Unmarshal(file, &cache)
-		f.Close()
+		return &ScalewayCache{
+			Images:      make(map[string][MAXFIELD]string),
+			Snapshots:   make(map[string][MAXFIELD]string),
+			Volumes:     make(map[string][MAXFIELD]string),
+			Bootscripts: make(map[string][MAXFIELD]string),
+			Servers:     make(map[string][MAXFIELD]string),
+			Path:        cachePath,
+		}, nil
 	}
 	if cache.Images == nil {
 		cache.Images = make(map[string][MAXFIELD]string)
