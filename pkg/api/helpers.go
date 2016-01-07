@@ -348,7 +348,8 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
-	var archImage, imageID string
+	// FIXME build images only on ARM ?
+	archImage, imageID := "arm", ""
 
 	server.Name = c.Name
 	inheritingVolume := false
