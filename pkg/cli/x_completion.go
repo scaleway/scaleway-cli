@@ -9,7 +9,6 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	utils "github.com/scaleway/scaleway-cli/pkg/utils"
 )
@@ -106,7 +105,7 @@ func runCompletion(cmd *Command, args []string) error {
 			elements = append(elements, wordifyName(fields[api.TITLE], "bootscript"))
 		}
 	default:
-		logrus.Fatalf("Unhandled category of completion: %s", category)
+		return fmt.Errorf("Unhandled category of completion: %s", category)
 	}
 
 	sort.Strings(elements)

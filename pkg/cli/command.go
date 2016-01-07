@@ -13,7 +13,6 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
@@ -103,7 +102,7 @@ func (c *Command) Name() string {
 func (c *Command) PrintUsage() error {
 	helpMessage, err := commandHelpMessage(c)
 	if err != nil {
-		logrus.Fatalf("%v", err)
+		return err
 	}
 	fmt.Fprintf(c.Streams().Stdout, "%s\n", helpMessage)
 	return ErrExitFailure

@@ -132,24 +132,22 @@ func fillIdentifierCache(api *ScalewayAPI, identifierType int) {
 }
 
 // GetIdentifier returns a an identifier if the resolved needles only match one element, else, it exists the program
-func GetIdentifier(api *ScalewayAPI, needle string) *ScalewayResolverResult {
+func GetIdentifier(api *ScalewayAPI, needle string) (*ScalewayResolverResult, error) {
 	idents := ResolveIdentifier(api, needle)
 
 	if len(idents) == 1 {
-		return &idents[0]
+		return &idents[0], nil
 	}
 	if len(idents) == 0 {
-		log.Fatalf("No such identifier: %s", needle)
+		return nil, fmt.Errorf("No such identifier: %s", needle)
 	}
-	log.Errorf("Too many candidates for %s (%d)", needle, len(idents))
 
 	sort.Sort(idents)
 	for _, identifier := range idents {
 		// FIXME: also print the name
 		fmt.Fprintf(os.Stderr, "- %s\n", identifier.Identifier)
 	}
-	os.Exit(1)
-	return nil
+	return nil, fmt.Errorf("Too many candidates for %s (%d)", needle, len(idents))
 }
 
 // ResolveIdentifier resolves needle provided by the user

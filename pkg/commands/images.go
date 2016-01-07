@@ -31,11 +31,10 @@ type ImagesArgs struct {
 func RunImages(ctx CommandContext, args ImagesArgs) error {
 	wg := sync.WaitGroup{}
 	chEntries := make(chan api.ScalewayImageInterface)
+	errChan := make(chan error, 10)
 	var entries = []api.ScalewayImageInterface{}
 
 	filterType := args.Filters["type"]
-
-	// FIXME: remove log.Fatalf in routines
 
 	if filterType == "" || filterType == "image" {
 		wg.Add(1)
@@ -43,12 +42,14 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 			defer wg.Done()
 			images, err := ctx.API.GetImages()
 			if err != nil {
-				logrus.Fatalf("unable to fetch images from the Scaleway API: %v", err)
+				errChan <- fmt.Errorf("unable to fetch images from the Scaleway API: %v", err)
+				return
 			}
 			for _, val := range *images {
 				creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
 				if err != nil {
-					logrus.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+					errChan <- fmt.Errorf("unable to parse creation date from the Scaleway API: %v", err)
+					return
 				}
 				chEntries <- api.ScalewayImageInterface{
 					Type:         "image",
@@ -74,12 +75,14 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 				defer wg.Done()
 				snapshots, err := ctx.API.GetSnapshots()
 				if err != nil {
-					logrus.Fatalf("unable to fetch snapshots from the Scaleway API: %v", err)
+					errChan <- fmt.Errorf("unable to fetch snapshots from the Scaleway API: %v", err)
+					return
 				}
 				for _, val := range *snapshots {
 					creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
 					if err != nil {
-						logrus.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+						errChan <- fmt.Errorf("unable to parse creation date from the Scaleway API: %v", err)
+						return
 					}
 					chEntries <- api.ScalewayImageInterface{
 						Type:         "snapshot",
@@ -103,7 +106,8 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 				defer wg.Done()
 				bootscripts, err := ctx.API.GetBootscripts()
 				if err != nil {
-					logrus.Fatalf("unable to fetch bootscripts from the Scaleway API: %v", err)
+					errChan <- fmt.Errorf("unable to fetch bootscripts from the Scaleway API: %v", err)
+					return
 				}
 				for _, val := range *bootscripts {
 					chEntries <- api.ScalewayImageInterface{
@@ -126,12 +130,14 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 				defer wg.Done()
 				volumes, err := ctx.API.GetVolumes()
 				if err != nil {
-					logrus.Fatalf("unable to fetch volumes from the Scaleway API: %v", err)
+					errChan <- fmt.Errorf("unable to fetch volumes from the Scaleway API: %v", err)
+					return
 				}
 				for _, val := range *volumes {
 					creationDate, err := time.Parse("2006-01-02T15:04:05.000000+00:00", val.CreationDate)
 					if err != nil {
-						logrus.Fatalf("unable to parse creation date from the Scaleway API: %v", err)
+						errChan <- fmt.Errorf("unable to parse creation date from the Scaleway API: %v", err)
+						return
 					}
 					chEntries <- api.ScalewayImageInterface{
 						Type:         "volume",
@@ -162,7 +168,12 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 			entries = append(entries, entry)
 		}
 	}
-
+	select {
+	case err := <-errChan:
+		return err
+	default:
+		break
+	}
 	for key, value := range args.Filters {
 		switch key {
 		case "organization", "type", "name", "public":

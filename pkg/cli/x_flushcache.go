@@ -4,11 +4,7 @@
 
 package cli
 
-import (
-	"fmt"
-
-	"github.com/Sirupsen/logrus"
-)
+import "fmt"
 
 var cmdFlushCache = &Command{
 	Exec:        runFlushCache,
@@ -35,10 +31,8 @@ func runFlushCache(cmd *Command, args []string) error {
 
 	err := cmd.API.Cache.Flush()
 	if err != nil {
-		logrus.Fatal("Failed to flush the cache")
+		return fmt.Errorf("Failed to flush the cache")
 	}
-
 	fmt.Println("Cache flushed")
-
 	return nil
 }
