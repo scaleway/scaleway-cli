@@ -67,11 +67,9 @@ func runHelp(cmd *Command, rawArgs []string) error {
 			}
 		}
 		return fmt.Errorf("Unknown help topic `%s`.  Run 'scw help'.", name)
-	} else {
-		t := template.New("top")
-		template.Must(t.Parse(helpTemplate))
-		ctx := cmd.GetContext(rawArgs)
-		return t.Execute(ctx.Stdout, Commands)
 	}
-	return nil
+	t := template.New("top")
+	template.Must(t.Parse(helpTemplate))
+	ctx := cmd.GetContext(rawArgs)
+	return t.Execute(ctx.Stdout, Commands)
 }
