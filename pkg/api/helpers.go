@@ -62,8 +62,7 @@ func ResolveGateway(api *ScalewayAPI, gateway string) (string, error) {
 	}
 
 	if len(servers) > 1 {
-		showResolverResults(gateway, servers)
-		return "", fmt.Errorf("Gateway '%s' is ambiguous", gateway)
+		return "", showResolverResults(gateway, servers)
 	}
 
 	// if len(servers) == 1 {
@@ -231,7 +230,7 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 			if len(idents.Identifiers) == 0 {
 				log.Errorf("Unable to resolve identifier %s", idents.Needle)
 			} else {
-				showResolverResults(idents.Needle, idents.Identifiers)
+				logrus.Fatal(showResolverResults(idents.Needle, idents.Identifiers))
 			}
 		} else {
 			ident := idents.Identifiers[0]
@@ -351,12 +350,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
-	server.Name = c.Name
-	if c.Bootscript != "" {
-		bootscript := api.GetBootscriptID(c.Bootscript)
-		server.Bootscript = &bootscript
-	}
+	var archImage, imageID string
 
+	server.Name = c.Name
 	inheritingVolume := false
 	_, err := humanize.ParseBytes(c.ImageName)
 	if err == nil {
@@ -370,11 +366,17 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		// Use an existing image
 		// FIXME: handle snapshots
 		inheritingVolume = true
-		image := api.GetImageID(c.ImageName, false)
-		if image != "" {
-			server.Image = &image
+		imageID, archImage, err = api.GetImageID(c.ImageName, false)
+		if err != nil {
+			return "", err
+		}
+		if imageID != "" {
+			server.Image = &imageID
 		} else {
-			snapshotID := api.GetSnapshotID(c.ImageName)
+			snapshotID, err := api.GetSnapshotID(c.ImageName)
+			if err != nil {
+				return "", err
+			}
 			snapshot, err := api.GetSnapshot(snapshotID)
 			if err != nil {
 				return "", err
@@ -384,6 +386,13 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			}
 			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
+	}
+	if c.Bootscript != "" {
+		bootscript, err := api.GetBootscriptID(c.Bootscript, archImage)
+		if err != nil {
+			return "", err
+		}
+		server.Bootscript = &bootscript
 	}
 	serverID, err := api.PostServer(server)
 	if err != nil {
@@ -537,10 +546,12 @@ func (a ByCreationDate) Less(i, j int) bool { return a[j].CreationDate.Before(a[
 
 // StartServer start a server based on its needle, can optionaly block while server is booting
 func StartServer(api *ScalewayAPI, needle string, wait bool) error {
-	server := api.GetServerID(needle)
-
-	err := api.PostServerAction(server, "poweron")
+	server, err := api.GetServerID(needle)
 	if err != nil {
+		return err
+	}
+
+	if err = api.PostServerAction(server, "poweron"); err != nil {
 		if err.Error() == "server should be stopped" {
 			return fmt.Errorf("server %s is already started: %v", server, err)
 		}

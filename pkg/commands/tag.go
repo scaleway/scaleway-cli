@@ -16,7 +16,10 @@ type TagArgs struct {
 
 // RunTag is the handler for 'scw tag'
 func RunTag(ctx CommandContext, args TagArgs) error {
-	snapshotID := ctx.API.GetSnapshotID(args.Snapshot)
+	snapshotID, err := ctx.API.GetSnapshotID(args.Snapshot)
+	if err != nil {
+		return err
+	}
 	snapshot, err := ctx.API.GetSnapshot(snapshotID)
 	if err != nil {
 		return fmt.Errorf("cannot fetch snapshot: %v", err)
@@ -24,7 +27,10 @@ func RunTag(ctx CommandContext, args TagArgs) error {
 
 	bootscriptID := ""
 	if args.Bootscript != "" {
-		bootscriptID = ctx.API.GetBootscriptID(args.Bootscript)
+		bootscriptID, err = ctx.API.GetBootscriptID(args.Bootscript, "")
+		if err != nil {
+			return err
+		}
 	}
 
 	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name, bootscriptID, args.Arch)

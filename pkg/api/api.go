@@ -1760,82 +1760,70 @@ func (s *ScalewayAPI) GetDashboard() (*ScalewayDashboard, error) {
 }
 
 // GetServerID returns exactly one server matching or dies
-func (s *ScalewayAPI) GetServerID(needle string) string {
+func (s *ScalewayAPI) GetServerID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "server:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	servers, err := s.ResolveServer(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve server %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve server %s: %s", needle, err)
 	}
 	if len(servers) == 1 {
-		return servers[0].Identifier
+		return servers[0].Identifier, nil
 	}
 	if len(servers) == 0 {
-		log.Fatalf("No such server: %s", needle)
+		return "", fmt.Errorf("No such server: %s", needle)
 	}
-
-	showResolverResults(needle, servers)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, servers)
 }
 
 func showResolverResults(needle string, results ScalewayResolverResults) error {
-	log.Errorf("Too many candidates for %s (%d)", needle, len(results))
-
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	sort.Sort(results)
 	for _, result := range results {
 		fmt.Fprintf(w, "- %s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name)
 	}
-	return nil
+	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
 
 // GetSnapshotID returns exactly one snapshot matching or dies
-func (s *ScalewayAPI) GetSnapshotID(needle string) string {
+func (s *ScalewayAPI) GetSnapshotID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "snapshot:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	snapshots, err := s.ResolveSnapshot(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve snapshot %s: %s", needle, err)
 	}
 	if len(snapshots) == 1 {
-		return snapshots[0].Identifier
+		return snapshots[0].Identifier, nil
 	}
 	if len(snapshots) == 0 {
-		log.Fatalf("No such snapshot: %s", needle)
+		return "", fmt.Errorf("No such snapshot: %s", needle)
 	}
-
-	showResolverResults(needle, snapshots)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, snapshots)
 }
 
 // GetImageID returns exactly one image matching or dies
-func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
+func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (string, string, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	images, err := s.ResolveImage(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve image %s: %s", needle, err)
+		return "", "", fmt.Errorf("Unable to resolve image %s: %s", needle, err)
 	}
 	if len(images) == 1 {
-		return images[0].Identifier
+		return images[0].Identifier, images[0].Arch, nil
 	}
 	if len(images) == 0 {
 		if exitIfMissing {
-			log.Fatalf("No such image: %s", needle)
-		} else {
-			return ""
+			return "", "", fmt.Errorf("No such image: %s", needle)
 		}
+		return "", "", nil
 	}
-
-	showResolverResults(needle, images)
-	os.Exit(1)
-	return ""
+	return "", "", showResolverResults(needle, images)
 }
 
 // GetSecurityGroups returns a ScalewaySecurityGroups
@@ -2157,24 +2145,22 @@ func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
 }
 
 // GetBootscriptID returns exactly one bootscript matching or dies
-func (s *ScalewayAPI) GetBootscriptID(needle string) string {
+func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	bootscripts, err := s.ResolveBootscript(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve bootscript %s: %s", needle, err)
 	}
+	bootscripts.FilterByArch(arch)
 	if len(bootscripts) == 1 {
-		return bootscripts[0].Identifier
+		return bootscripts[0].Identifier, nil
 	}
 	if len(bootscripts) == 0 {
-		log.Fatalf("No such bootscript: %s", needle)
+		return "", fmt.Errorf("No such bootscript: %s", needle)
 	}
-
-	showResolverResults(needle, bootscripts)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, bootscripts)
 }
 
 // HideAPICredentials removes API credentials from a string

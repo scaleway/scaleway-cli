@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 // RestartArgs are flags for the `RunRestart` function
@@ -26,19 +26,25 @@ func restartIdentifiers(ctx CommandContext, wait bool, servers []string, cr chan
 	for _, needle := range servers {
 		wg.Add(1)
 		go func(needle string) {
+			res := ""
+
 			defer wg.Done()
-			server := ctx.API.GetServerID(needle)
-			res := server
-			err := ctx.API.PostServerAction(server, "reboot")
+			server, err := ctx.API.GetServerID(needle)
 			if err != nil {
-				if err.Error() != "server is being stopped or rebooted" {
-					logrus.Errorf("failed to restart server %s: %s", server, err)
-				}
-				res = ""
+				logrus.Error(err)
 			} else {
-				if wait {
-					// FIXME: handle gateway
-					api.WaitForServerReady(ctx.API, server, "")
+				res = server
+				err := ctx.API.PostServerAction(server, "reboot")
+				if err != nil {
+					if err.Error() != "server is being stopped or rebooted" {
+						logrus.Errorf("failed to restart server %s: %s", server, err)
+					}
+					res = ""
+				} else {
+					if wait {
+						// FIXME: handle gateway
+						api.WaitForServerReady(ctx.API, server, "")
+					}
 				}
 			}
 			cr <- res

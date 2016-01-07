@@ -20,8 +20,10 @@ type RmArgs struct {
 func RunRm(ctx CommandContext, args RmArgs) error {
 	hasError := false
 	for _, needle := range args.Servers {
-		server := ctx.API.GetServerID(needle)
-		var err error
+		server, err := ctx.API.GetServerID(needle)
+		if err != nil {
+			return err
+		}
 		if args.Force {
 			err = ctx.API.DeleteServerSafe(server)
 		} else {

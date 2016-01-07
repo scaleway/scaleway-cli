@@ -14,8 +14,10 @@ type AttachArgs struct {
 
 // RunAttach is the handler for 'scw attach'
 func RunAttach(ctx CommandContext, args AttachArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
-
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	_, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
 	if err != nil {
 		return err

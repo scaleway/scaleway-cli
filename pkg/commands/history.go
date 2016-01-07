@@ -9,8 +9,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/docker/docker/pkg/units"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // HistoryArgs are flags for the `RunHistory` function
@@ -22,7 +22,10 @@ type HistoryArgs struct {
 
 // RunHistory is the handler for 'scw history'
 func RunHistory(ctx CommandContext, args HistoryArgs) error {
-	imageID := ctx.API.GetImageID(args.Image, true)
+	imageID, _, err := ctx.API.GetImageID(args.Image, true)
+	if err != nil {
+		return err
+	}
 	image, err := ctx.API.GetImage(imageID)
 	if err != nil {
 		return fmt.Errorf("cannot get image %s: %v", imageID, err)

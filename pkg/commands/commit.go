@@ -17,7 +17,10 @@ type CommitArgs struct {
 
 // RunCommit is the handler for 'scw commit'
 func RunCommit(ctx CommandContext, args CommitArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	server, err := ctx.API.GetServer(serverID)
 	if err != nil {
 		return fmt.Errorf("Cannot fetch server: %v", err)

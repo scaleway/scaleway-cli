@@ -7,8 +7,8 @@ package commands
 import (
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 // WaitArgs are flags for the `RunWait` function
@@ -20,12 +20,15 @@ type WaitArgs struct {
 func RunWait(ctx CommandContext, args WaitArgs) error {
 	hasError := false
 	for _, needle := range args.Servers {
-		serverIdentifier := ctx.API.GetServerID(needle)
-
-		_, err := api.WaitForServerStopped(ctx.API, serverIdentifier)
+		serverIdentifier, err := ctx.API.GetServerID(needle)
 		if err != nil {
-			logrus.Errorf("failed to wait for server %s: %v", serverIdentifier, err)
+			logrus.Error(err)
 			hasError = true
+		} else {
+			if _, err := api.WaitForServerStopped(ctx.API, serverIdentifier); err != nil {
+				logrus.Errorf("failed to wait for server %s: %v", serverIdentifier, err)
+				hasError = true
+			}
 		}
 	}
 

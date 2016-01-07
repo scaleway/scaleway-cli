@@ -18,13 +18,14 @@ type RenameArgs struct {
 
 // RunRename is the handler for 'scw rename'
 func RunRename(ctx CommandContext, args RenameArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
-
-	var server api.ScalewayServerPatchDefinition
-	server.Name = &args.NewName
-
-	err := ctx.API.PatchServer(serverID, server)
+	serverID, err := ctx.API.GetServerID(args.Server)
 	if err != nil {
+		return err
+	}
+	var server api.ScalewayServerPatchDefinition
+
+	server.Name = &args.NewName
+	if err = ctx.API.PatchServer(serverID, server); err != nil {
 		return fmt.Errorf("cannot rename server: %v", err)
 	}
 	// FIXME region, arch, owner, title

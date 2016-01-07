@@ -12,10 +12,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/archive"
+	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // CpArgs are arguments passed to `RunCp`
@@ -55,7 +55,10 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 			return nil, fmt.Errorf("invalid source uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := ctx.API.GetServerID(serverParts[0])
+		serverID, err := ctx.API.GetServerID(serverParts[0])
+		if err != nil {
+			return nil, err
+		}
 
 		server, err := ctx.API.GetServer(serverID)
 		if err != nil {
@@ -157,7 +160,10 @@ func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination st
 			return fmt.Errorf("invalid destination uri, see 'scw cp -h' for usage")
 		}
 
-		serverID := ctx.API.GetServerID(serverParts[0])
+		serverID, err := ctx.API.GetServerID(serverParts[0])
+		if err != nil {
+			return err
+		}
 
 		server, err := ctx.API.GetServer(serverID)
 		if err != nil {
