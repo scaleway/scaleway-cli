@@ -27,12 +27,11 @@ func RunTag(ctx CommandContext, args TagArgs) error {
 
 	bootscriptID := ""
 	if args.Bootscript != "" {
-		bootscriptID, err = ctx.API.GetBootscriptID(args.Bootscript, "")
+		bootscriptID, err = ctx.API.GetBootscriptID(args.Bootscript, args.Arch)
 		if err != nil {
 			return err
 		}
 	}
-
 	image, err := ctx.API.PostImage(snapshot.Identifier, args.Name, bootscriptID, args.Arch)
 	if err != nil {
 		return fmt.Errorf("cannot create image: %v", err)

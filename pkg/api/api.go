@@ -1778,11 +1778,16 @@ func (s *ScalewayAPI) GetServerID(needle string) (string, error) {
 }
 
 func showResolverResults(needle string, results ScalewayResolverResults) error {
+	arch := ""
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	sort.Sort(results)
 	for _, result := range results {
-		fmt.Fprintf(w, "- %s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name)
+		arch = result.Arch
+		if arch == "" {
+			arch = "n/a"
+		}
+		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, arch)
 	}
 	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
