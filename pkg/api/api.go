@@ -1095,7 +1095,6 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	if err = json.Unmarshal(body, &server); err != nil {
 		return "", err
 	}
-	fmt.Println("1->", string(body))
 	// FIXME region, arch, owner, title
 	s.Cache.InsertServer(server.Server.Identifier, "fr-1", server.Server.Arch, server.Server.Organization, server.Server.Name)
 	return server.Server.Identifier, nil
