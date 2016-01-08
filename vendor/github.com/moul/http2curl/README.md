@@ -1,7 +1,9 @@
 # http2curl
 :triangular_ruler: Convert Golang's http.Request to CURL command line
 
+[![Build Status](https://travis-ci.org/moul/http2curl.svg?branch=master)](https://travis-ci.org/moul/http2curl)
 [![GoDoc](https://godoc.org/github.com/moul/http2curl?status.svg)](https://godoc.org/github.com/moul/http2curl)
+[![Coverage Status](https://coveralls.io/repos/moul/http2curl/badge.svg)](https://coveralls.io/github/moul/http2curl)
 
 ## Example
 

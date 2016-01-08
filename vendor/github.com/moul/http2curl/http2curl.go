@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"sort"
 	"strings"
 )
 
@@ -56,8 +57,15 @@ func GetCurlCommand(req *http.Request) (*CurlCommand, error) {
 		command.append("-d", fmt.Sprintf("%s", bytes.Trim(body, "\n")))
 	}
 
-	for key, values := range req.Header {
-		command.append("-H", fmt.Sprintf("%s: %s", key, strings.Join(values, " ")))
+	var keys []string
+
+	for k := range req.Header {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		command.append("-H", fmt.Sprintf("%s: %s", k, strings.Join(req.Header[k], " ")))
 	}
 
 	command.append(req.URL.String())
