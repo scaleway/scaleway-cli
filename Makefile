@@ -53,7 +53,7 @@ INSTALL_LIST =		$(foreach int, $(COMMANDS), $(int)_install)
 IREF_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_iref)
 TEST_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_test)
 FMT_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_fmt)
-COVERPROFILE_LIST =	$(foreach int, $(PACKAGES), $(int)/profile.out)
+COVERPROFILE_LIST =	$(foreach int, $(subst $(GODIR),./,$(PACKAGES)), $(int)/profile.out)
 
 
 .PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
