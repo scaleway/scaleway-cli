@@ -1077,6 +1077,7 @@ func (s *ScalewayAPI) PostServerAction(serverID, action string) error {
 
 // DeleteServer deletes a server
 func (s *ScalewayAPI) DeleteServer(serverID string) error {
+	defer s.Cache.RemoveServer(serverID)
 	resp, err := s.DeleteResponse(fmt.Sprintf("servers/%s", serverID))
 	if resp != nil {
 		defer resp.Body.Close()
@@ -1088,7 +1089,6 @@ func (s *ScalewayAPI) DeleteServer(serverID string) error {
 	if _, err = s.handleHTTPError([]int{204}, resp); err != nil {
 		return err
 	}
-	s.Cache.RemoveServer(serverID)
 	return nil
 }
 
@@ -1357,19 +1357,18 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 
 // DeleteImage deletes a image
 func (s *ScalewayAPI) DeleteImage(imageID string) error {
+	defer s.Cache.RemoveImage(imageID)
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageID))
 	if resp != nil {
 		defer resp.Body.Close()
 	}
 	if err != nil {
-		s.Cache.RemoveImage(imageID)
 		return err
 	}
 
 	if _, err := s.handleHTTPError([]int{204}, resp); err != nil {
 		return err
 	}
-	s.Cache.RemoveImage(imageID)
 	return nil
 }
 
