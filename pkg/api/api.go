@@ -1255,7 +1255,7 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 	return err
 }
 
-// ResolveServer attempts the find a matching Identifier for the input string
+// ResolveServer attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveServer(needle string) (ScalewayResolverResults, error) {
 	servers := s.Cache.LookUpServers(needle, true)
 	if len(servers) == 0 {
@@ -1267,7 +1267,19 @@ func (s *ScalewayAPI) ResolveServer(needle string) (ScalewayResolverResults, err
 	return servers, nil
 }
 
-// ResolveSnapshot attempts the find a matching Identifier for the input string
+// ResolveVolume attempts to find a matching Identifier for the input string
+func (s *ScalewayAPI) ResolveVolume(needle string) (ScalewayResolverResults, error) {
+	volumes := s.Cache.LookUpVolumes(needle, true)
+	if len(volumes) == 0 {
+		if _, err := s.GetVolumes(); err != nil {
+			return nil, err
+		}
+		volumes = s.Cache.LookUpVolumes(needle, true)
+	}
+	return volumes, nil
+}
+
+// ResolveSnapshot attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveSnapshot(needle string) (ScalewayResolverResults, error) {
 	snapshots := s.Cache.LookUpSnapshots(needle, true)
 	if len(snapshots) == 0 {
@@ -1279,7 +1291,7 @@ func (s *ScalewayAPI) ResolveSnapshot(needle string) (ScalewayResolverResults, e
 	return snapshots, nil
 }
 
-// ResolveImage attempts the find a matching Identifier for the input string
+// ResolveImage attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveImage(needle string) (ScalewayResolverResults, error) {
 	images := s.Cache.LookUpImages(needle, true)
 	if len(images) == 0 {
@@ -1291,7 +1303,7 @@ func (s *ScalewayAPI) ResolveImage(needle string) (ScalewayResolverResults, erro
 	return images, nil
 }
 
-// ResolveBootscript attempts the find a matching Identifier for the input string
+// ResolveBootscript attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveBootscript(needle string) (ScalewayResolverResults, error) {
 	bootscripts := s.Cache.LookUpBootscripts(needle, true)
 	if len(bootscripts) == 0 {
@@ -1359,6 +1371,40 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 func (s *ScalewayAPI) DeleteImage(imageID string) error {
 	defer s.Cache.RemoveImage(imageID)
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%s", imageID))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+
+	if _, err := s.handleHTTPError([]int{204}, resp); err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteSnapshot deletes a snapshot
+func (s *ScalewayAPI) DeleteSnapshot(snapshotID string) error {
+	defer s.Cache.RemoveSnapshot(snapshotID)
+	resp, err := s.DeleteResponse(fmt.Sprintf("snapshots/%s", snapshotID))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+
+	if _, err := s.handleHTTPError([]int{204}, resp); err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteVolume deletes a volume
+func (s *ScalewayAPI) DeleteVolume(volumeID string) error {
+	defer s.Cache.RemoveVolume(volumeID)
+	resp, err := s.DeleteResponse(fmt.Sprintf("volumes/%s", volumeID))
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -1825,7 +1871,7 @@ func (s *ScalewayAPI) GetDashboard() (*ScalewayDashboard, error) {
 	return &dashboard.Dashboard, nil
 }
 
-// GetServerID returns exactly one server matching or dies
+// GetServerID returns exactly one server matching
 func (s *ScalewayAPI) GetServerID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "server:name" -> "name"
 	_, needle = parseNeedle(needle)
@@ -1858,7 +1904,25 @@ func showResolverResults(needle string, results ScalewayResolverResults) error {
 	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
 
-// GetSnapshotID returns exactly one snapshot matching or dies
+// GetVolumeID returns exactly one volume matching
+func (s *ScalewayAPI) GetVolumeID(needle string) (string, error) {
+	// Parses optional type prefix, i.e: "volume:name" -> "name"
+	_, needle = parseNeedle(needle)
+
+	volumes, err := s.ResolveVolume(needle)
+	if err != nil {
+		return "", fmt.Errorf("Unable to resolve volume %s: %s", needle, err)
+	}
+	if len(volumes) == 1 {
+		return volumes[0].Identifier, nil
+	}
+	if len(volumes) == 0 {
+		return "", fmt.Errorf("No such volume: %s", needle)
+	}
+	return "", showResolverResults(needle, volumes)
+}
+
+// GetSnapshotID returns exactly one snapshot matching
 func (s *ScalewayAPI) GetSnapshotID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "snapshot:name" -> "name"
 	_, needle = parseNeedle(needle)
@@ -1876,8 +1940,8 @@ func (s *ScalewayAPI) GetSnapshotID(needle string) (string, error) {
 	return "", showResolverResults(needle, snapshots)
 }
 
-// GetImageID returns exactly one image matching or dies
-func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (*ScalewayImageIdentifier, error) {
+// GetImageID returns exactly one image matching
+func (s *ScalewayAPI) GetImageID(needle string) (*ScalewayImageIdentifier, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
 	_, needle = parseNeedle(needle)
 
@@ -1895,10 +1959,7 @@ func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (*ScalewayIm
 		}, nil
 	}
 	if len(images) == 0 {
-		if exitIfMissing {
-			return nil, fmt.Errorf("No such image: %s", needle)
-		}
-		return nil, nil
+		return nil, fmt.Errorf("No such image: %s", needle)
 	}
 	return nil, showResolverResults(needle, images)
 }
@@ -2255,7 +2316,7 @@ func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
 	return &quotas, nil
 }
 
-// GetBootscriptID returns exactly one bootscript matching or dies
+// GetBootscriptID returns exactly one bootscript matching
 func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
 	_, needle = parseNeedle(needle)

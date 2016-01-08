@@ -8,11 +8,13 @@ import "github.com/scaleway/scaleway-cli/pkg/commands"
 
 var cmdRmi = &Command{
 	Exec:        runRmi,
-	UsageLine:   "rmi [OPTIONS] IMAGE [IMAGE...]",
-	Description: "Remove one or more images",
-	Help:        "Remove one or more images.",
+	UsageLine:   "rmi [OPTIONS] IDENTIFIER [IDENTIFIER...]",
+	Description: "Remove one or more image(s)/volume(s)/snapshot(s)",
+	Help:        "Remove one or more image(s)/volume(s)/snapshot(s)",
 	Examples: `
     $ scw rmi myimage
+    $ scw rmi mysnapshot
+    $ scw rmi myvolume
     $ scw rmi $(scw images -q)
 `,
 }
@@ -33,7 +35,7 @@ func runRmi(cmd *Command, rawArgs []string) error {
 	}
 
 	args := commands.RmiArgs{
-		Images: rawArgs,
+		Identifier: rawArgs,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunRmi(ctx, args)
