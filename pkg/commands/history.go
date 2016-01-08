@@ -22,7 +22,7 @@ type HistoryArgs struct {
 
 // RunHistory is the handler for 'scw history'
 func RunHistory(ctx CommandContext, args HistoryArgs) error {
-	imageID, err := ctx.API.GetImageID(args.Image, true)
+	imageID, err := ctx.API.GetImageID(args.Image)
 	if err != nil {
 		return err
 	}

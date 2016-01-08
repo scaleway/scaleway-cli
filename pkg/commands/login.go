@@ -91,10 +91,12 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 	FakeConnection.SetPassword(connect.Password)
 
 	resp, err := FakeConnection.PostResponse("tokens", connect)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return "", fmt.Errorf("unable to connect %v", err)
 	}
-	defer resp.Body.Close()
 
 	// Succeed POST code
 	if resp.StatusCode != 201 {

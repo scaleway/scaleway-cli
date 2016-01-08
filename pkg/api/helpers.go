@@ -367,7 +367,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		// Use an existing image
 		// FIXME: handle snapshots
 		inheritingVolume = true
-		imageIdentifier, err = api.GetImageID(c.ImageName, false)
+		imageIdentifier, err = api.GetImageID(c.ImageName)
 		if err != nil {
 			return "", err
 		}
