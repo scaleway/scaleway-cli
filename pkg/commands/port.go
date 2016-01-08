@@ -19,7 +19,10 @@ type PortArgs struct {
 
 // RunPort is the handler for 'scw port'
 func RunPort(ctx CommandContext, args PortArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	server, err := ctx.API.GetServer(serverID)
 	if err != nil {
 		return fmt.Errorf("failed to get server information for %s: %v", serverID, err)

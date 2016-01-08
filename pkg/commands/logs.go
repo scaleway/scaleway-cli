@@ -19,7 +19,10 @@ type LogsArgs struct {
 
 // RunLogs is the handler for 'scw logs'
 func RunLogs(ctx CommandContext, args LogsArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	server, err := ctx.API.GetServer(serverID)
 	if err != nil {
 		return fmt.Errorf("failed to get server information for %s: %v", serverID, err)

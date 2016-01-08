@@ -1152,6 +1152,9 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Match bootscript/image with the good architecture ([#255](https://github.com/scaleway/scaleway-cli/issues/255)) 
+* Support of region/owner/arch in the cache file ([#255](https://github.com/scaleway/scaleway-cli/issues/255))
+* Remove some `fatal` and `Exit`
 * Use rfc4716 (openSSH) to generate the fingerprints ([#151](https://github.com/scaleway/scaleway-cli/issues/151))
 * Switch from `Party` to `Godep`
 * create-image-from-http.sh: Support HTTP proxy ([#249](https://github.com/scaleway/scaleway-cli/issues/249))

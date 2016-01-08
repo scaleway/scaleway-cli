@@ -56,7 +56,9 @@ func selectKey(args *LoginArgs) error {
 		fmt.Printf("[%d] %s\n", i+1, pubs[i])
 	}
 	for {
-		promptUser("Which [id]: ", &args.SSHKey, true)
+		if err := promptUser("Which [id]: ", &args.SSHKey, true); err != nil {
+			return err
+		}
 		id, err := strconv.ParseUint(strings.TrimSpace(args.SSHKey), 10, 32)
 		if err != nil {
 			fmt.Println(err)
@@ -148,8 +150,12 @@ func connectAPI() (string, string, error) {
 	if err != nil {
 		return "", "", fmt.Errorf("unable to get your Hostname %v", err)
 	}
-	promptUser("Login (cloud.scaleway.com): ", &email, true)
-	promptUser("Password: ", &password, false)
+	if err := promptUser("Login (cloud.scaleway.com): ", &email, true); err != nil {
+		return "", "", err
+	}
+	if err := promptUser("Password: ", &password, false); err != nil {
+		return "", "", err
+	}
 
 	connect := api.ScalewayConnect{
 		Email:       strings.Trim(email, "\n"),
@@ -229,7 +235,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	return cfg.Save()
 }
 
-func promptUser(prompt string, output *string, echo bool) {
+func promptUser(prompt string, output *string, echo bool) error {
 	// FIXME: should use stdin/stdout from command context
 	fmt.Fprintf(os.Stdout, prompt)
 	os.Stdout.Sync()
@@ -237,7 +243,7 @@ func promptUser(prompt string, output *string, echo bool) {
 	if !echo {
 		b, err := terminal.ReadPassword(int(os.Stdin.Fd()))
 		if err != nil {
-			logrus.Fatalf("Unable to prompt for password: %s", err)
+			return fmt.Errorf("Unable to prompt for password: %s", err)
 		}
 		*output = string(b)
 		fmt.Fprintf(os.Stdout, "\n")
@@ -245,4 +251,5 @@ func promptUser(prompt string, output *string, echo bool) {
 		reader := bufio.NewReader(os.Stdin)
 		*output, _ = reader.ReadString('\n')
 	}
+	return nil
 }

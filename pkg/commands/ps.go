@@ -82,8 +82,11 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 					goto skipServer
 				}
 			case "image":
-				imageID := ctx.API.GetImageID(value, true)
-				if imageID != server.Image.Identifier {
+				imageID, err := ctx.API.GetImageID(value, true)
+				if err != nil {
+					goto skipServer
+				}
+				if imageID.Identifier != server.Image.Identifier {
 					goto skipServer
 				}
 			case "ip":

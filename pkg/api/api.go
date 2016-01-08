@@ -233,6 +233,14 @@ type ScalewayImage struct {
 	// FIXME: extra_volumes
 }
 
+// ScalewayImageIdentifier represents a Scaleway Image Identifier
+type ScalewayImageIdentifier struct {
+	Identifier string
+	Arch       string
+	Region     string
+	Owner      string
+}
+
 // ScalewayOneImage represents the response of a GET /images/UUID API call
 type ScalewayOneImage struct {
 	Image ScalewayImage `json:"image,omitempty"`
@@ -323,6 +331,12 @@ type ScalewayKernel struct {
 
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
+	// Arch is the architecture target of the bootscript
+	Arch string `json:"architecture,omitempty"`
+
+	// Organization is the owner of the bootscript
+	Organization string `json:"organization,omitempty"`
+
 	// Identifier is a unique identifier for the bootscript
 	Identifier string `json:"id,omitempty"`
 
@@ -477,6 +491,9 @@ type ScalewayNewSecurityGroup struct {
 
 // ScalewayServer represents a Scaleway C1 server
 type ScalewayServer struct {
+	// Arch is the architecture target of the server
+	Arch string `json:"arch,omitempty"`
+
 	// Identifier is a unique identifier for the server
 	Identifier string `json:"id,omitempty"`
 
@@ -539,6 +556,7 @@ type ScalewayServer struct {
 
 // ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
 type ScalewayServerPatchDefinition struct {
+	Arch              *string                    `json:"arch,omitempty"`
 	Name              *string                    `json:"name,omitempty"`
 	CreationDate      *string                    `json:"creation_date,omitempty"`
 	ModificationDate  *string                    `json:"modification_date,omitempty"`
@@ -1003,7 +1021,8 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		return nil, err
 	}
 	for _, server := range servers.Servers {
-		s.Cache.InsertServer(server.Identifier, server.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertServer(server.Identifier, "fr-1", server.Arch, server.Organization, server.Name)
 	}
 	// FIXME: when API limit is ready, remove the following code
 	if limit > 0 && limit < len(servers.Servers) {
@@ -1030,7 +1049,8 @@ func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
 	if err = json.Unmarshal(body, &oneServer); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertServer(oneServer.Server.Identifier, oneServer.Server.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertServer(oneServer.Server.Identifier, "fr-1", oneServer.Server.Arch, oneServer.Server.Organization, oneServer.Server.Name)
 	return &oneServer.Server, nil
 }
 
@@ -1083,7 +1103,8 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	if err = json.Unmarshal(body, &server); err != nil {
 		return "", err
 	}
-	s.Cache.InsertServer(server.Server.Identifier, server.Server.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertServer(server.Server.Identifier, "fr-1", server.Server.Arch, server.Server.Organization, server.Server.Name)
 	return server.Server.Identifier, nil
 }
 
@@ -1139,7 +1160,8 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 	if err = json.Unmarshal(body, &snapshot); err != nil {
 		return "", err
 	}
-	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, snapshot.Snapshot.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, "fr-1", "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
 	return snapshot.Snapshot.Identifier, nil
 }
 
@@ -1170,7 +1192,8 @@ func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string,
 	if err = json.Unmarshal(body, &image); err != nil {
 		return "", err
 	}
-	s.Cache.InsertImage(image.Image.Identifier, image.Image.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertImage(image.Image.Identifier, "fr-1", image.Image.Arch, image.Image.Organization, image.Image.Name)
 	return image.Image.Identifier, nil
 }
 
@@ -1280,7 +1303,8 @@ func (s *ScalewayAPI) GetImages() (*[]ScalewayImage, error) {
 		return nil, err
 	}
 	for _, image := range images.Images {
-		s.Cache.InsertImage(image.Identifier, image.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertImage(image.Identifier, "fr-1", image.Arch, image.Organization, image.Name)
 	}
 	return &images.Images, nil
 }
@@ -1302,7 +1326,8 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 	if err = json.Unmarshal(body, &oneImage); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertImage(oneImage.Image.Identifier, oneImage.Image.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertImage(oneImage.Image.Identifier, "fr-1", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name)
 	return &oneImage.Image, nil
 }
 
@@ -1343,7 +1368,8 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 		return nil, err
 	}
 	for _, snapshot := range snapshots.Snapshots {
-		s.Cache.InsertSnapshot(snapshot.Identifier, snapshot.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertSnapshot(snapshot.Identifier, "fr-1", "", snapshot.Organization, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
 }
@@ -1365,7 +1391,8 @@ func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) 
 	if err = json.Unmarshal(body, &oneSnapshot); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, oneSnapshot.Snapshot.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, "fr-1", "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
 	return &oneSnapshot.Snapshot, nil
 }
 
@@ -1390,7 +1417,8 @@ func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
 		return nil, err
 	}
 	for _, volume := range volumes.Volumes {
-		s.Cache.InsertVolume(volume.Identifier, volume.Name)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertVolume(volume.Identifier, "fr-1", "", volume.Organization, volume.Name)
 	}
 	return &volumes.Volumes, nil
 }
@@ -1412,7 +1440,8 @@ func (s *ScalewayAPI) GetVolume(volumeID string) (*ScalewayVolume, error) {
 	if err = json.Unmarshal(body, &oneVolume); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertVolume(oneVolume.Volume.Identifier, oneVolume.Volume.Name)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertVolume(oneVolume.Volume.Identifier, "fr-1", "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
 	return &oneVolume.Volume, nil
 }
 
@@ -1436,7 +1465,8 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 		return nil, err
 	}
 	for _, bootscript := range bootscripts.Bootscripts {
-		s.Cache.InsertBootscript(bootscript.Identifier, bootscript.Title)
+		// FIXME region, arch, owner, title
+		s.Cache.InsertBootscript(bootscript.Identifier, "fr-1", bootscript.Arch, bootscript.Organization, bootscript.Title)
 	}
 	return &bootscripts.Bootscripts, nil
 }
@@ -1458,7 +1488,8 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 	if err = json.Unmarshal(body, &oneBootscript); err != nil {
 		return nil, err
 	}
-	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, oneBootscript.Bootscript.Title)
+	// FIXME region, arch, owner, title
+	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "fr-1", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
 }
 
@@ -1736,82 +1767,81 @@ func (s *ScalewayAPI) GetDashboard() (*ScalewayDashboard, error) {
 }
 
 // GetServerID returns exactly one server matching or dies
-func (s *ScalewayAPI) GetServerID(needle string) string {
+func (s *ScalewayAPI) GetServerID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "server:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	servers, err := s.ResolveServer(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve server %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve server %s: %s", needle, err)
 	}
 	if len(servers) == 1 {
-		return servers[0].Identifier
+		return servers[0].Identifier, nil
 	}
 	if len(servers) == 0 {
-		log.Fatalf("No such server: %s", needle)
+		return "", fmt.Errorf("No such server: %s", needle)
 	}
-
-	showResolverResults(needle, servers)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, servers)
 }
 
 func showResolverResults(needle string, results ScalewayResolverResults) error {
-	log.Errorf("Too many candidates for %s (%d)", needle, len(results))
-
+	arch := ""
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	sort.Sort(results)
 	for _, result := range results {
-		fmt.Fprintf(w, "- %s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name)
+		arch = result.Arch
+		if arch == "" {
+			arch = "n/a"
+		}
+		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, arch)
 	}
-	return nil
+	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
 
 // GetSnapshotID returns exactly one snapshot matching or dies
-func (s *ScalewayAPI) GetSnapshotID(needle string) string {
+func (s *ScalewayAPI) GetSnapshotID(needle string) (string, error) {
 	// Parses optional type prefix, i.e: "snapshot:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	snapshots, err := s.ResolveSnapshot(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve snapshot %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve snapshot %s: %s", needle, err)
 	}
 	if len(snapshots) == 1 {
-		return snapshots[0].Identifier
+		return snapshots[0].Identifier, nil
 	}
 	if len(snapshots) == 0 {
-		log.Fatalf("No such snapshot: %s", needle)
+		return "", fmt.Errorf("No such snapshot: %s", needle)
 	}
-
-	showResolverResults(needle, snapshots)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, snapshots)
 }
 
 // GetImageID returns exactly one image matching or dies
-func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) string {
+func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (*ScalewayImageIdentifier, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	images, err := s.ResolveImage(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve image %s: %s", needle, err)
+		return nil, fmt.Errorf("Unable to resolve image %s: %s", needle, err)
 	}
 	if len(images) == 1 {
-		return images[0].Identifier
+		return &ScalewayImageIdentifier{
+			Identifier: images[0].Identifier,
+			Arch:       images[0].Arch,
+			// FIXME region, owner hardcoded
+			Region: "fr-1",
+			Owner:  "",
+		}, nil
 	}
 	if len(images) == 0 {
 		if exitIfMissing {
-			log.Fatalf("No such image: %s", needle)
-		} else {
-			return ""
+			return nil, fmt.Errorf("No such image: %s", needle)
 		}
+		return nil, nil
 	}
-
-	showResolverResults(needle, images)
-	os.Exit(1)
-	return ""
+	return nil, showResolverResults(needle, images)
 }
 
 // GetSecurityGroups returns a ScalewaySecurityGroups
@@ -2133,24 +2163,22 @@ func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
 }
 
 // GetBootscriptID returns exactly one bootscript matching or dies
-func (s *ScalewayAPI) GetBootscriptID(needle string) string {
+func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	bootscripts, err := s.ResolveBootscript(needle)
 	if err != nil {
-		log.Fatalf("Unable to resolve bootscript %s: %s", needle, err)
+		return "", fmt.Errorf("Unable to resolve bootscript %s: %s", needle, err)
 	}
+	bootscripts.FilterByArch(arch)
 	if len(bootscripts) == 1 {
-		return bootscripts[0].Identifier
+		return bootscripts[0].Identifier, nil
 	}
 	if len(bootscripts) == 0 {
-		log.Fatalf("No such bootscript: %s", needle)
+		return "", fmt.Errorf("No such bootscript: %s", needle)
 	}
-
-	showResolverResults(needle, bootscripts)
-	os.Exit(1)
-	return ""
+	return "", showResolverResults(needle, bootscripts)
 }
 
 // HideAPICredentials removes API credentials from a string

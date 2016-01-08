@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 // StopArgs are flags for the `RunStop` function
@@ -24,13 +24,15 @@ func RunStop(ctx CommandContext, args StopArgs) error {
 	// FIXME: parallelize stop when stopping multiple servers
 	hasError := false
 	for _, needle := range args.Servers {
-		serverID := ctx.API.GetServerID(needle)
+		serverID, err := ctx.API.GetServerID(needle)
+		if err != nil {
+			return err
+		}
 		action := "poweroff"
 		if args.Terminate {
 			action = "terminate"
 		}
-		err := ctx.API.PostServerAction(serverID, action)
-		if err != nil {
+		if err = ctx.API.PostServerAction(serverID, action); err != nil {
 			if err.Error() != "server should be running" && err.Error() != "server is being stopped or rebooted" {
 				logrus.Warningf("failed to stop server %s: %s", serverID, err)
 				hasError = true
@@ -39,8 +41,7 @@ func RunStop(ctx CommandContext, args StopArgs) error {
 			if args.Wait {
 				// We wait for 10 seconds which is the minimal amount of time needed for a server to stop
 				time.Sleep(10 * time.Second)
-				_, err = api.WaitForServerStopped(ctx.API, serverID)
-				if err != nil {
+				if _, err = api.WaitForServerStopped(ctx.API, serverID); err != nil {
 					logrus.Errorf("failed to wait for server %s: %v", serverID, err)
 					hasError = true
 				}

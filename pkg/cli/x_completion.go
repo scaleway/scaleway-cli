@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/pkg/api"
 	utils "github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/Sirupsen/logrus"
 )
 
 var cmdCompletion = &Command{
@@ -65,47 +65,47 @@ func runCompletion(cmd *Command, args []string) error {
 
 	switch category {
 	case "servers-all":
-		for identifier, name := range cmd.API.Cache.Servers {
-			elements = append(elements, identifier, wordifyName(name, "server"))
+		for identifier, fields := range cmd.API.Cache.Servers {
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "server"))
 		}
 	case "servers-names":
-		for _, name := range cmd.API.Cache.Servers {
-			elements = append(elements, wordifyName(name, "server"))
+		for _, fields := range cmd.API.Cache.Servers {
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "server"))
 		}
 	case "images-all":
-		for identifier, name := range cmd.API.Cache.Images {
-			elements = append(elements, identifier, wordifyName(name, "image"))
+		for identifier, fields := range cmd.API.Cache.Images {
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "image"))
 		}
 	case "images-names":
-		for _, name := range cmd.API.Cache.Images {
-			elements = append(elements, wordifyName(name, "image"))
+		for _, fields := range cmd.API.Cache.Images {
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "image"))
 		}
 	case "volumes-all":
-		for identifier, name := range cmd.API.Cache.Volumes {
-			elements = append(elements, identifier, wordifyName(name, "volume"))
+		for identifier, fields := range cmd.API.Cache.Volumes {
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "volume"))
 		}
 	case "volumes-names":
-		for _, name := range cmd.API.Cache.Volumes {
-			elements = append(elements, wordifyName(name, "volume"))
+		for _, fields := range cmd.API.Cache.Volumes {
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "volume"))
 		}
 	case "snapshots-all":
-		for identifier, name := range cmd.API.Cache.Snapshots {
-			elements = append(elements, identifier, wordifyName(name, "snapshot"))
+		for identifier, fields := range cmd.API.Cache.Snapshots {
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "snapshot"))
 		}
 	case "snapshots-names":
-		for _, name := range cmd.API.Cache.Snapshots {
-			elements = append(elements, wordifyName(name, "snapshot"))
+		for _, fields := range cmd.API.Cache.Snapshots {
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "snapshot"))
 		}
 	case "bootscripts-all":
-		for identifier, name := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, identifier, wordifyName(name, "bootscript"))
+		for identifier, fields := range cmd.API.Cache.Bootscripts {
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "bootscript"))
 		}
 	case "bootscripts-names":
-		for _, name := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, wordifyName(name, "bootscript"))
+		for _, fields := range cmd.API.Cache.Bootscripts {
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "bootscript"))
 		}
 	default:
-		logrus.Fatalf("Unhandled category of completion: %s", category)
+		return fmt.Errorf("Unhandled category of completion: %s", category)
 	}
 
 	sort.Strings(elements)

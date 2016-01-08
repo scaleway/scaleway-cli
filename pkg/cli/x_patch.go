@@ -50,12 +50,15 @@ func runPatch(cmd *Command, args []string) error {
 
 	changes := 0
 
-	ident := api.GetIdentifier(cmd.API, args[0])
+	ident, err := api.GetIdentifier(cmd.API, args[0])
+	if err != nil {
+		return err
+	}
 	switch ident.Type {
 	case api.IdentifierServer:
 		currentServer, err := cmd.API.GetServer(ident.Identifier)
 		if err != nil {
-			log.Fatalf("Cannot get server %s: %v", ident.Identifier, err)
+			return fmt.Errorf("Cannot get server %s: %v", ident.Identifier, err)
 		}
 
 		var payload api.ScalewayServerPatchDefinition
@@ -93,7 +96,7 @@ func runPatch(cmd *Command, args []string) error {
 			changes++
 			payload.Tags = &newTags
 		default:
-			log.Fatalf("'_patch server %s=' not implemented", fieldName)
+			return fmt.Errorf("'_patch server %s=' not implemented", fieldName)
 		}
 		// FIXME: volumes, tags, dynamic_ip_required
 
@@ -104,12 +107,11 @@ func runPatch(cmd *Command, args []string) error {
 			log.Debugf("no changes, not updating server")
 		}
 		if err != nil {
-			log.Fatalf("Cannot update server: %v", err)
+			return fmt.Errorf("Cannot update server: %v", err)
 		}
 	default:
-		log.Fatalf("_patch not implemented for this kind of object")
+		return fmt.Errorf("_patch not implemented for this kind of object")
 	}
 	fmt.Println(ident.Identifier)
-
 	return nil
 }

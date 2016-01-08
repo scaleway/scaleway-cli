@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/Sirupsen/logrus"
 )
 
 // RunArgs are flags for the `Run` function
@@ -133,8 +133,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 
 	// start SERVER
 	logrus.Info("Server start requested ...")
-	err = api.StartServer(ctx.API, serverID, false)
-	if err != nil {
+	if err = api.StartServer(ctx.API, serverID, false); err != nil {
 		return fmt.Errorf("failed to start server %s: %v", serverID, err)
 	}
 	logrus.Info("Server is starting, this may take up to a minute ...")
@@ -142,13 +141,13 @@ func Run(ctx CommandContext, args RunArgs) error {
 	if args.Userdata != "" {
 		addUserData(ctx, strings.Split(args.Userdata, " "), serverID)
 	}
+	// Sync cache on disk
+	ctx.API.Sync()
 
 	if args.Detach {
 		fmt.Fprintln(ctx.Stdout, serverID)
 		return nil
 	}
-	// Sync cache on disk
-	ctx.API.Sync()
 
 	closeTimeout := make(chan struct{})
 	timeoutExit := make(chan struct{})

@@ -5,9 +5,8 @@
 package cli
 
 import (
+	"fmt"
 	"text/template"
-
-	"github.com/Sirupsen/logrus"
 )
 
 // CmdHelp is the 'scw help' command
@@ -67,12 +66,10 @@ func runHelp(cmd *Command, rawArgs []string) error {
 				return command.PrintUsage()
 			}
 		}
-		logrus.Fatalf("Unknown help topic `%s`.  Run 'scw help'.", name)
-	} else {
-		t := template.New("top")
-		template.Must(t.Parse(helpTemplate))
-		ctx := cmd.GetContext(rawArgs)
-		return t.Execute(ctx.Stdout, Commands)
+		return fmt.Errorf("Unknown help topic `%s`.  Run 'scw help'.", name)
 	}
-	return nil
+	t := template.New("top")
+	template.Must(t.Parse(helpTemplate))
+	ctx := cmd.GetContext(rawArgs)
+	return t.Execute(ctx.Stdout, Commands)
 }

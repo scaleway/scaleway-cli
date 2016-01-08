@@ -55,7 +55,10 @@ func runUserdata(cmd *Command, args []string) error {
 		if ctx.API == nil {
 			return fmt.Errorf("You need to login first: 'scw login'")
 		}
-		serverID = ctx.API.GetServerID(args[0])
+		serverID, err = ctx.API.GetServerID(args[0])
+		if err != nil {
+			return err
+		}
 		API = ctx.API
 	}
 

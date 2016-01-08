@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/Sirupsen/logrus"
 )
 
 // KillArgs are flags for the `RunKill` function
@@ -21,7 +21,10 @@ type KillArgs struct {
 
 // RunKill is the handler for 'scw kill'
 func RunKill(ctx CommandContext, args KillArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	command := "halt"
 	server, err := ctx.API.GetServer(serverID)
 	if err != nil {

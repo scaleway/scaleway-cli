@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/Sirupsen/logrus"
 )
 
 // TopArgs are flags for the `RunTop` function
@@ -21,7 +21,10 @@ type TopArgs struct {
 
 // RunTop is the handler for 'scw top'
 func RunTop(ctx CommandContext, args TopArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 	command := "ps"
 	server, err := ctx.API.GetServer(serverID)
 	if err != nil {

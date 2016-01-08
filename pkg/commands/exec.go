@@ -25,14 +25,17 @@ type ExecArgs struct {
 
 // RunExec is the handler for 'scw exec'
 func RunExec(ctx CommandContext, args ExecArgs) error {
-	serverID := ctx.API.GetServerID(args.Server)
+	serverID, err := ctx.API.GetServerID(args.Server)
+	if err != nil {
+		return err
+	}
 
 	// Resolve gateway
 	if args.Gateway == "" {
 		args.Gateway = ctx.Getenv("SCW_GATEWAY")
 	}
 	var gateway string
-	var err error
+
 	if args.Gateway == serverID || args.Gateway == args.Server {
 		log.Debugf("The server and the gateway are the same host, using direct access to the server")
 		gateway = ""
