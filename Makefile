@@ -194,7 +194,7 @@ travis_cleanup:
 	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
 	  ./scw stop -t $(shell ./scw ps -q) || true; \
 	  ./scw rm $(shell ./scw ps -aq) || true; \
-	  ./scw rmi $(shell ./scw images -q) || true; \
+	  ./scw rmi $(shell ./scw images -f organization=me -q) || true; \
 	fi
 
 
