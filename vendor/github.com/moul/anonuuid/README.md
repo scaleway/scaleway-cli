@@ -145,6 +145,7 @@ Using go
 
 ### master (unreleased)
 
+* Switch from `Party` to `Godep`
 * Support of `--suffix=xxx`, `--keep-beginning` and `--keep-end` options ([#4](https://github.com/moul/anonuuid/issues/4))
 * Using **party** to stabilize vendor package versions ([#8](https://github.com/moul/anonuuid/issues/8))
 * Add homebrew package ([#6](https://github.com/moul/anonuuid/issues/6))

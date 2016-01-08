@@ -9,7 +9,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/docker/docker/pkg/units"
+	"github.com/docker/go-units"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 

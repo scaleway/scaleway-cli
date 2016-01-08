@@ -80,7 +80,7 @@ func TestRunImages_realAPI(t *testing.T) {
 
 			firstLine := lines[0]
 			colNames := strings.Fields(firstLine)
-			So(colNames, ShouldResemble, []string{"REPOSITORY", "TAG", "IMAGE", "ID", "CREATED", "VIRTUAL", "SIZE"})
+			So(colNames, ShouldResemble, []string{"REPOSITORY", "TAG", "IMAGE", "ID", "CREATED", "VIRTUAL", "SIZE", "REGION", "ARCH"})
 
 			// FIXME: test public images
 		})
@@ -101,7 +101,7 @@ func TestRunImages_realAPI(t *testing.T) {
 
 			firstLine := lines[0]
 			colNames := strings.Fields(firstLine)
-			So(colNames, ShouldResemble, []string{"REPOSITORY", "TAG", "IMAGE", "ID", "CREATED", "VIRTUAL", "SIZE"})
+			So(colNames, ShouldResemble, []string{"REPOSITORY", "TAG", "IMAGE", "ID", "CREATED", "VIRTUAL", "SIZE", "REGION", "ARCH"})
 
 			// FIXME: test public images
 			// FIXME: test bootscripts

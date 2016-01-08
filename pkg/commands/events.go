@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/docker/docker/pkg/units"
+	"github.com/docker/go-units"
 )
 
 // EventsArgs are arguments passed to `RunEvents`

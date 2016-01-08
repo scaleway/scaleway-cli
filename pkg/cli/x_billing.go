@@ -10,11 +10,11 @@ import (
 	"text/tabwriter"
 	"time"
 
+	"github.com/Sirupsen/logrus"
+	"github.com/docker/go-units"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 	"github.com/scaleway/scaleway-cli/pkg/pricing"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/Sirupsen/logrus"
-	"github.com/docker/docker/pkg/units"
 )
 
 var cmdBilling = &Command{

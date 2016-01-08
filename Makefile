@@ -53,7 +53,7 @@ INSTALL_LIST =		$(foreach int, $(COMMANDS), $(int)_install)
 IREF_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_iref)
 TEST_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_test)
 FMT_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_fmt)
-COVERPROFILE_LIST =	$(foreach int, $(PACKAGES), $(int)/profile.out)
+COVERPROFILE_LIST =	$(foreach int, $(subst $(GODIR),./,$(PACKAGES)), $(int)/profile.out)
 
 
 .PHONY: $(CLEAN_LIST) $(TEST_LIST) $(FMT_LIST) $(INSTALL_LIST) $(BUILD_LIST) $(IREF_LIST)
@@ -150,6 +150,7 @@ gocyclo:
 
 .PHONY: godep-save
 godep-save:
+	go get github.com/tools/godep
 	$(GODEP) save $(PACKAGES) $(COMMANDS)
 
 
@@ -172,11 +173,11 @@ travis_login:
 .PHONY: cover
 cover: profile.out
 
-$(COVERPROFILE_LIST): $(SOURCES)
+$(COVERPROFILE_LIST):: $(SOURCES)
 	rm -f $@
 	$(GOCOVER) -ldflags $(LDFLAGS) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
 
-profile.out: $(COVERPROFILE_LIST)
+profile.out:: $(COVERPROFILE_LIST)
 	rm -f $@
 	echo "mode: set" > $@
 	cat ./pkg/*/profile.out | grep -v mode: | sort -r | awk '{if($$1 != last) {print $$0;last=$$1}}' >> $@
@@ -193,7 +194,7 @@ travis_cleanup:
 	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
 	  ./scw stop -t $(shell ./scw ps -q) || true; \
 	  ./scw rm $(shell ./scw ps -aq) || true; \
-	  ./scw rmi $(shell ./scw images -q) || true; \
+	  ./scw rmi $(shell ./scw images -f organization=me -q) || true; \
 	fi
 
 
