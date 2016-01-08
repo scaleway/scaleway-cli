@@ -150,6 +150,7 @@ gocyclo:
 
 .PHONY: godep-save
 godep-save:
+	go get github.com/tools/godep
 	$(GODEP) save $(PACKAGES) $(COMMANDS)
 
 
