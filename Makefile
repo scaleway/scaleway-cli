@@ -173,11 +173,11 @@ travis_login:
 .PHONY: cover
 cover: profile.out
 
-$(COVERPROFILE_LIST): $(SOURCES)
+$(COVERPROFILE_LIST):: $(SOURCES)
 	rm -f $@
 	$(GOCOVER) -ldflags $(LDFLAGS) -coverpkg=./pkg/... -coverprofile=$@ ./$(dir $@)
 
-profile.out: $(COVERPROFILE_LIST)
+profile.out:: $(COVERPROFILE_LIST)
 	rm -f $@
 	echo "mode: set" > $@
 	cat ./pkg/*/profile.out | grep -v mode: | sort -r | awk '{if($$1 != last) {print $$0;last=$$1}}' >> $@
