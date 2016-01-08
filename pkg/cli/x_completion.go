@@ -66,43 +66,43 @@ func runCompletion(cmd *Command, args []string) error {
 	switch category {
 	case "servers-all":
 		for identifier, fields := range cmd.API.Cache.Servers {
-			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "server"))
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "server"))
 		}
 	case "servers-names":
 		for _, fields := range cmd.API.Cache.Servers {
-			elements = append(elements, wordifyName(fields[api.TITLE], "server"))
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "server"))
 		}
 	case "images-all":
 		for identifier, fields := range cmd.API.Cache.Images {
-			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "image"))
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "image"))
 		}
 	case "images-names":
 		for _, fields := range cmd.API.Cache.Images {
-			elements = append(elements, wordifyName(fields[api.TITLE], "image"))
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "image"))
 		}
 	case "volumes-all":
 		for identifier, fields := range cmd.API.Cache.Volumes {
-			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "volume"))
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "volume"))
 		}
 	case "volumes-names":
 		for _, fields := range cmd.API.Cache.Volumes {
-			elements = append(elements, wordifyName(fields[api.TITLE], "volume"))
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "volume"))
 		}
 	case "snapshots-all":
 		for identifier, fields := range cmd.API.Cache.Snapshots {
-			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "snapshot"))
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "snapshot"))
 		}
 	case "snapshots-names":
 		for _, fields := range cmd.API.Cache.Snapshots {
-			elements = append(elements, wordifyName(fields[api.TITLE], "snapshot"))
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "snapshot"))
 		}
 	case "bootscripts-all":
 		for identifier, fields := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, identifier, wordifyName(fields[api.TITLE], "bootscript"))
+			elements = append(elements, identifier, wordifyName(fields[api.CacheTitle], "bootscript"))
 		}
 	case "bootscripts-names":
 		for _, fields := range cmd.API.Cache.Bootscripts {
-			elements = append(elements, wordifyName(fields[api.TITLE], "bootscript"))
+			elements = append(elements, wordifyName(fields[api.CacheTitle], "bootscript"))
 		}
 	default:
 		return fmt.Errorf("Unhandled category of completion: %s", category)
