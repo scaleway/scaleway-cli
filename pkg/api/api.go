@@ -233,6 +233,14 @@ type ScalewayImage struct {
 	// FIXME: extra_volumes
 }
 
+// ScalewayImageIdentifier represents a Scaleway Image Identifier
+type ScalewayImageIdentifier struct {
+	Identifier string
+	Arch       string
+	Region     string
+	Owner      string
+}
+
 // ScalewayOneImage represents the response of a GET /images/UUID API call
 type ScalewayOneImage struct {
 	Image ScalewayImage `json:"image,omitempty"`
@@ -1810,24 +1818,30 @@ func (s *ScalewayAPI) GetSnapshotID(needle string) (string, error) {
 }
 
 // GetImageID returns exactly one image matching or dies
-func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (string, string, error) {
+func (s *ScalewayAPI) GetImageID(needle string, exitIfMissing bool) (*ScalewayImageIdentifier, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
 	_, needle = parseNeedle(needle)
 
 	images, err := s.ResolveImage(needle)
 	if err != nil {
-		return "", "", fmt.Errorf("Unable to resolve image %s: %s", needle, err)
+		return nil, fmt.Errorf("Unable to resolve image %s: %s", needle, err)
 	}
 	if len(images) == 1 {
-		return images[0].Identifier, images[0].Arch, nil
+		return &ScalewayImageIdentifier{
+			Identifier: images[0].Identifier,
+			Arch:       images[0].Arch,
+			// FIXME region, owner hardcoded
+			Region: "fr-1",
+			Owner:  "",
+		}, nil
 	}
 	if len(images) == 0 {
 		if exitIfMissing {
-			return "", "", fmt.Errorf("No such image: %s", needle)
+			return nil, fmt.Errorf("No such image: %s", needle)
 		}
-		return "", "", nil
+		return nil, nil
 	}
-	return "", "", showResolverResults(needle, images)
+	return nil, showResolverResults(needle, images)
 }
 
 // GetSecurityGroups returns a ScalewaySecurityGroups

@@ -349,8 +349,10 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		}
 	}
 	// FIXME build images only on ARM ?
-	archImage, imageID := "arm", ""
-
+	imageIdentifier := &ScalewayImageIdentifier{
+		Arch:   "arm",
+		Region: "fr-1",
+	}
 	server.Name = c.Name
 	inheritingVolume := false
 	_, err := humanize.ParseBytes(c.ImageName)
@@ -365,12 +367,12 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		// Use an existing image
 		// FIXME: handle snapshots
 		inheritingVolume = true
-		imageID, archImage, err = api.GetImageID(c.ImageName, false)
+		imageIdentifier, err = api.GetImageID(c.ImageName, false)
 		if err != nil {
 			return "", err
 		}
-		if imageID != "" {
-			server.Image = &imageID
+		if imageIdentifier.Identifier != "" {
+			server.Image = &imageIdentifier.Identifier
 		} else {
 			snapshotID, err := api.GetSnapshotID(c.ImageName)
 			if err != nil {
@@ -387,7 +389,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		}
 	}
 	if c.Bootscript != "" {
-		bootscript, err := api.GetBootscriptID(c.Bootscript, archImage)
+		bootscript, err := api.GetBootscriptID(c.Bootscript, imageIdentifier.Arch)
 		if err != nil {
 			return "", err
 		}
