@@ -1154,7 +1154,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-# Add a warn message when using `ssh exec` on host without public ip nor gateway ([#171](https://github.com/scaleway/scaleway-cli/issues/171))
+* Add a warn message when using `ssh exec` on host without public ip nor gateway ([#171](https://github.com/scaleway/scaleway-cli/issues/171))
+* Display `ssh-host-fingerprints` when it's available ([#194](https://github.com/scaleway/scaleway-cli/issues/194))
 * Support of `scw rmi` snapshot|volume ([#258](https://github.com/scaleway/scaleway-cli/issues/258))
 * Match bootscript/image with the good architecture ([#255](https://github.com/scaleway/scaleway-cli/issues/255))
 * Support of region/owner/arch in the cache file ([#255](https://github.com/scaleway/scaleway-cli/issues/255))
