@@ -25,11 +25,19 @@ type ExecArgs struct {
 
 // RunExec is the handler for 'scw exec'
 func RunExec(ctx CommandContext, args ExecArgs) error {
+	var fingerprints []string
+
+	done := make(chan struct{})
+
 	serverID, err := ctx.API.GetServerID(args.Server)
 	if err != nil {
 		return err
 	}
 
+	go func() {
+		fingerprints = ctx.API.GetSSHFingerprintFromServer(serverID)
+		close(done)
+	}()
 	// Resolve gateway
 	if args.Gateway == "" {
 		args.Gateway = ctx.Getenv("SCW_GATEWAY")
@@ -80,8 +88,13 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 		}()
 	}
 
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, !args.Wait, gateway)
-	if err != nil {
+	<-done
+	if len(fingerprints) > 0 {
+		for i := range fingerprints {
+			fmt.Fprintf(ctx.Stdout, "%s\n", fingerprints[i])
+		}
+	}
+	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, !args.Wait, gateway); err != nil {
 		return fmt.Errorf("Failed to run the command: %v", err)
 	}
 

@@ -601,3 +601,18 @@ func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
 	logrus.Errorf("Try to run 'scw rm -f %s' later", serverID)
 	return err
 }
+
+// GetSSHFingerprintFromServer returns an array which containts ssh-host-fingerprints
+func (a *ScalewayAPI) GetSSHFingerprintFromServer(serverID string) []string {
+	ret := []string{}
+
+	if value, err := a.GetUserdata(serverID, "ssh-host-fingerprints"); err == nil {
+		PublicKeys := strings.Split(string(*value), "\n")
+		for i := range PublicKeys {
+			if fingerprint, err := utils.SSHGetFingerprint([]byte(PublicKeys[i])); err == nil {
+				ret = append(ret, fingerprint)
+			}
+		}
+	}
+	return ret
+}
