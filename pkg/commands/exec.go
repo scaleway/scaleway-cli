@@ -66,6 +66,10 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 		}
 	}
 
+	if server.PublicAddress.IP == "" && gateway == "" {
+		log.Warn(`Your host has no public IP address, you should use '--gateway', see 'scw help exec'`)
+	}
+
 	// --timeout
 	if args.Timeout > 0 {
 		log.Debugf("Setting up a global timeout of %d seconds", args.Timeout)
