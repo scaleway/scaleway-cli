@@ -96,6 +96,50 @@ func addUserData(ctx CommandContext, userdatas []string, serverID string) {
 	}
 }
 
+func runShowBoot(ctx CommandContext, args RunArgs, serverID string, closeTimeout chan struct{}, timeoutExit chan struct{}) error {
+	// Attach to server serial
+	logrus.Info("Attaching to server console ...")
+	gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+	if err != nil {
+		close(closeTimeout)
+		return fmt.Errorf("cannot attach to server serial: %v", err)
+	}
+	utils.Quiet(true)
+	notif, gateway, err := waitSSHConnection(ctx, args, serverID)
+	if err != nil {
+		close(closeTimeout)
+		gottycli.ExitLoop()
+		<-done
+		return err
+	}
+	select {
+	case <-timeoutExit:
+		gottycli.ExitLoop()
+		<-done
+		utils.Quiet(false)
+		return fmt.Errorf("Operation timed out")
+	case sshConnection := <-notif:
+		close(closeTimeout)
+		gottycli.ExitLoop()
+		<-done
+		utils.Quiet(false)
+		if sshConnection.err != nil {
+			return sshConnection.err
+		}
+		if fingerprints := ctx.API.GetSSHFingerprintFromServer(serverID); len(fingerprints) > 0 {
+			for i := range fingerprints {
+				fmt.Fprintf(ctx.Stdout, "%s\n", fingerprints[i])
+			}
+		}
+		server := sshConnection.server
+		logrus.Info("Connecting to server ...")
+		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
+			return fmt.Errorf("Connection to server failed: %v", err)
+		}
+	}
+	return nil
+}
+
 // Run is the handler for 'scw run'
 func Run(ctx CommandContext, args RunArgs) error {
 	if args.Gateway == "" {
@@ -163,41 +207,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		}()
 	}
 	if args.ShowBoot {
-		// Attach to server serial
-		logrus.Info("Attaching to server console ...")
-		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
-		if err != nil {
-			close(closeTimeout)
-			return fmt.Errorf("cannot attach to server serial: %v", err)
-		}
-		utils.Quiet(true)
-		notif, gateway, err := waitSSHConnection(ctx, args, serverID)
-		if err != nil {
-			close(closeTimeout)
-			gottycli.ExitLoop()
-			<-done
-			return err
-		}
-		select {
-		case <-timeoutExit:
-			gottycli.ExitLoop()
-			<-done
-			utils.Quiet(false)
-			return fmt.Errorf("Operation timed out")
-		case sshConnection := <-notif:
-			close(closeTimeout)
-			gottycli.ExitLoop()
-			<-done
-			utils.Quiet(false)
-			if sshConnection.err != nil {
-				return sshConnection.err
-			}
-			server := sshConnection.server
-			logrus.Info("Connecting to server ...")
-			if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, []string{}, false, gateway); err != nil {
-				return fmt.Errorf("Connection to server failed: %v", err)
-			}
-		}
+		return runShowBoot(ctx, args, serverID, closeTimeout, timeoutExit)
 	} else if args.Attach {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
@@ -221,6 +231,11 @@ func Run(ctx CommandContext, args RunArgs) error {
 			close(closeTimeout)
 			if sshConnection.err != nil {
 				return sshConnection.err
+			}
+			if fingerprints := ctx.API.GetSSHFingerprintFromServer(serverID); len(fingerprints) > 0 {
+				for i := range fingerprints {
+					fmt.Fprintf(ctx.Stdout, "%s\n", fingerprints[i])
+				}
 			}
 			server := sshConnection.server
 			// exec -w SERVER COMMAND ARGS...
