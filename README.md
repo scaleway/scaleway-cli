@@ -158,7 +158,7 @@ Scaleway-cli is written in Go, the code is splitted across multiple `go-get`able
 
 ## Usage
 
-Usage inspired by [Docker CLI](https://docs.docker.com/reference/commandline/cli/)
+Usage inspired by [Docker CLI](https://docs.docker.com/engine/reference/commandline/cli/)
 
 ```console
 $ scw
@@ -1185,14 +1185,14 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0
 * Added _cs ([#180](https://github.com/scaleway/scaleway-cli/issues/180))
 * Report **quotas** in `scw info` ([#130](https://github.com/scaleway/scaleway-cli/issues/130))
 * Added `SCALEWAY_VERBOSE_API` to make the API more verbose
-* Support of `scw _ips` command ... ([#196](https://github.com/scaleway/scaleway-cli/issues/196))
+* Support of `scw _ips` command ... ([#196](https://github.com/scaleway/scaleway-cli/pull/196))
 * Report **permissions** in `scw info` ([#191](https://github.com/scaleway/scaleway-cli/issues/191))
 * Report **dashboard** statistics in `scw info` ([#177](https://github.com/scaleway/scaleway-cli/issues/177))
 * Support of `scw _userdata name VAR=@/path/to/file` ([#183](https://github.com/scaleway/scaleway-cli/issues/183))
 * Support of `scw restart -w` ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
 * Restarting multiple servers in parallel ([#185](https://github.com/scaleway/scaleway-cli/issues/185))
 * Added _security-groups ([#179](https://github.com/scaleway/scaleway-cli/issues/179))
-* Reflect server location in `scw inspect` ([#204](https://github.com/scaleway/scaleway-cli/pull/204))
+* Reflect server location in `scw inspect` ([#204](https://github.com/scaleway/scaleway-cli/issues/204))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.5.0...v1.6.0)
 
@@ -1260,7 +1260,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.3.0
 
 #### Features
 
-* Switched from [Godep](http://godoc.org/github.com/tools/godep) to [Party](http://godoc.org/github.com/mjibson/party)
+* Switched from [Godep](https://godoc.org/github.com/tools/godep) to [Party](https://godoc.org/github.com/mjibson/party)
 * Support of `-g` option ([#70](https://github.com/scaleway/scaleway-cli/issues/70))
 
 #### Fixes
