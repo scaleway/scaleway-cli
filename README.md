@@ -1154,6 +1154,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* SCALEWAY_VERBOSE_API is now SCW_VERBOSE_API
+* SCALEWAY_TLSVERIFY is now SCW_TLSVERIFY
 * Add a warn message when using `ssh exec` on host without public ip nor gateway ([#171](https://github.com/scaleway/scaleway-cli/issues/171))
 * Display `ssh-host-fingerprints` when it's available ([#194](https://github.com/scaleway/scaleway-cli/issues/194))
 * Support of `scw rmi` snapshot|volume ([#258](https://github.com/scaleway/scaleway-cli/issues/258))

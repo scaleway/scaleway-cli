@@ -797,7 +797,7 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
-		verbose:      os.Getenv("SCALEWAY_VERBOSE_API") != "",
+		verbose:      os.Getenv("SCW_VERBOSE_API") != "",
 		password:     "",
 
 		// internal
@@ -805,7 +805,7 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		client:   &http.Client{},
 	}
 
-	if os.Getenv("SCALEWAY_TLSVERIFY") == "0" {
+	if os.Getenv("SCW_TLSVERIFY") == "0" {
 		s.client.Transport = &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		}

@@ -198,7 +198,7 @@ func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan
 		return nil, nil, err
 	}
 
-	if os.Getenv("SCALEWAY_TLSVERIFY") == "0" {
+	if os.Getenv("SCW_TLSVERIFY") == "0" {
 		gottycli.SkipTLSVerify = true
 	}
 
