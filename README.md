@@ -1152,6 +1152,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.0...master)
+
 ### v1.7.0 (2016-01-27)
 
 * SCALEWAY_VERBOSE_API is now SCW_VERBOSE_API
