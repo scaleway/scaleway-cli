@@ -97,7 +97,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.6.0/scw_1.6.0_darwin_amd64.zip" -O /tmp/scw.zip
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.0/scw_1.7.0_darwin_amd64.zip" -O /tmp/scw.zip
 unzip /tmp/scw.zip \*/scw -d /tmp
 mv /tmp/scw_*/scw /usr/local/bin
 rm -rf /tmp/scw.zip /tmp/scw_*_darwin_amd64
@@ -111,7 +111,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.6.0/scw_1.6.0_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.0/scw_1.7.0_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1152,7 +1152,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.7.0 (2016-01-27)
 
 * SCALEWAY_VERBOSE_API is now SCW_VERBOSE_API
 * SCALEWAY_TLSVERIFY is now SCW_TLSVERIFY
@@ -1173,7 +1173,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Basic support of Server.CommercialType
 * Support of `SCW_GOTTY_URL` environment variable
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.6.0...v1.7.0)
 
 ### v1.6.0 (2015-11-18)
 
