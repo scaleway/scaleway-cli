@@ -7,12 +7,15 @@ package cli
 import (
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
+	"github.com/hashicorp/go-version"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
@@ -194,5 +197,34 @@ func checkVersion() {
 			return
 		}
 		scwupdate.Close()
+		req := http.Client{
+			Timeout: time.Duration(1 * time.Second),
+		}
+		resp, err := req.Get("https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION")
+		if resp != nil {
+			defer resp.Body.Close()
+		}
+		if err != nil {
+			return
+		}
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return
+		}
+		if scwversion.VERSION == "" {
+			return
+		}
+		ver := scwversion.VERSION
+		if ver[0] == 'v' {
+			ver = string([]byte(ver)[1:])
+		}
+		actual, err1 := version.NewVersion(ver)
+		update, err2 := version.NewVersion(strings.Trim(string(body), "\n"))
+		if err1 != nil || err2 != nil {
+			return
+		}
+		if actual.LessThan(update) {
+			logrus.Infof("A new version of scw is available (%v), beware that you are currently running %v", update, actual)
+		}
 	}
 }
