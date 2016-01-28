@@ -33,7 +33,7 @@ PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
 REL_COMMANDS :=	$(subst $(GODIR),./,$(COMMANDS))
 REL_PACKAGES :=	$(subst $(GODIR),./,$(PACKAGES))
 VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
-REV =		$(shell git rev-parse HEAD || git ls-remote https://github.com/scaleway/scaleway-cli  | grep -F $(VERSION) | head -n1 | awk '{print $$1}' || echo "nogit")
+REV =		$(shell git rev-parse HEAD || echo "nogit")
 TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
 LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV) \
            -X github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=$(TAG)"
