@@ -6,10 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
-	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/Sirupsen/logrus"
 	"github.com/moul/anonuuid"
+	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/config"
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
 
 func shouldBeAnUUID(actual interface{}, expected ...interface{}) string {
@@ -41,7 +42,7 @@ func RealAPIContext() *CommandContext {
 		return nil
 	}
 
-	apiClient, err := api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token)
+	apiClient, err := api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token, scwversion.UserAgent())
 	if err != nil {
 		logrus.Warnf("RealAPIContext: failed to call api.NewScalewayAPI(): %v", err)
 		return nil
