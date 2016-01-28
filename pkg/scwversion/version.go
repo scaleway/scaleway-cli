@@ -1,9 +1,16 @@
 package scwversion
 
+import "fmt"
+
 var (
 	// VERSION represents the semver version of the package, it is configured at build time
-	VERSION string
+	VERSION = "v1.7.0"
 
 	// GITCOMMIT represents the git commit hash of the package, it is configured at build time
 	GITCOMMIT string
 )
+
+// UserAgent returns a string to be used by API
+func UserAgent() string {
+	return fmt.Sprintf("scw/%v", VERSION)
+}

@@ -11,11 +11,12 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	"github.com/stretchr/testify/assert"
 )
 
 func testCommandContext() CommandContext {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", scwversion.UserAgent())
 	if err != nil {
 		panic(err)
 	}
@@ -36,7 +37,7 @@ func testCommandContext() CommandContext {
 }
 
 func ExampleCommandContext() {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",scwversion.UserAgent())
 	if err != nil {
 		panic(err)
 	}

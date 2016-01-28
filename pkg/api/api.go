@@ -58,6 +58,8 @@ type ScalewayAPI struct {
 	// Password is the authentication password
 	password string
 
+	userAgent string
+
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
@@ -784,7 +786,7 @@ var FuncMap = template.FuncMap{
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
-func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*ScalewayAPI, error) {
+func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token, userAgent string) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
 	if err != nil {
 		return nil, err
@@ -799,6 +801,7 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token string) (*
 		Cache:        cache,
 		verbose:      os.Getenv("SCW_VERBOSE_API") != "",
 		password:     "",
+		userAgent:    userAgent,
 
 		// internal
 		anonuuid: *anonuuid.New(),
@@ -829,6 +832,7 @@ func (s *ScalewayAPI) GetResponse(resource string) (*http.Response, error) {
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
@@ -857,6 +861,7 @@ func (s *ScalewayAPI) PostResponse(resource string, data interface{}) (*http.Res
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
@@ -886,6 +891,7 @@ func (s *ScalewayAPI) PatchResponse(resource string, data interface{}) (*http.Re
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
@@ -915,6 +921,7 @@ func (s *ScalewayAPI) PutResponse(resource string, data interface{}) (*http.Resp
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
@@ -939,6 +946,7 @@ func (s *ScalewayAPI) DeleteResponse(resource string) (*http.Response, error) {
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
@@ -1657,6 +1665,7 @@ func (s *ScalewayAPI) PatchUserdata(serverID string, key string, value []byte) e
 
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "text/plain")
+	req.Header.Set("User-Agent", s.userAgent)
 
 	curl, err := http2curl.GetCurlCommand(req)
 	if os.Getenv("SCW_SENSITIVE") != "1" {

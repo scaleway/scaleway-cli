@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
 
 var cmdUserdata = &Command{
@@ -46,7 +47,7 @@ func runUserdata(cmd *Command, args []string) error {
 	var err error
 	var serverID string
 	if args[0] == "local" {
-		API, err = api.NewScalewayAPI("", "", "", "")
+		API, err = api.NewScalewayAPI("", "", "", "", scwversion.UserAgent())
 		if err != nil {
 			return err
 		}

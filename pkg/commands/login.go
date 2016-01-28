@@ -19,6 +19,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
 
 // LoginArgs are arguments passed to `RunLogin`
@@ -83,7 +84,7 @@ func selectKey(args *LoginArgs) error {
 }
 
 func getToken(connect api.ScalewayConnect) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", "")
+	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", "", scwversion.UserAgent())
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -113,7 +114,7 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 }
 
 func getOrganization(token string, email string) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", token)
+	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", token, scwversion.UserAgent())
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -217,7 +218,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 		Token:        strings.Trim(args.Token, "\n"),
 	}
 
-	apiConnection, err := api.NewScalewayAPI(cfg.ComputeAPI, cfg.AccountAPI, cfg.Organization, cfg.Token)
+	apiConnection, err := api.NewScalewayAPI(cfg.ComputeAPI, cfg.AccountAPI, cfg.Organization, cfg.Token, scwversion.UserAgent())
 	if err != nil {
 		return fmt.Errorf("Unable to create ScalewayAPI: %s", err)
 	}

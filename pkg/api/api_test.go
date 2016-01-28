@@ -3,12 +3,13 @@ package api
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestNewScalewayAPI(t *testing.T) {
 	Convey("Testing NewScalewayAPI()", t, func() {
-		api, err := NewScalewayAPI("http://api-endpoint.com", "http://account-endpoint.com", "my-organization", "my-token")
+		api, err := NewScalewayAPI("http://api-endpoint.com", "http://account-endpoint.com", "my-organization", "my-token", scwversion.UserAgent())
 		So(err, ShouldBeNil)
 		So(api, ShouldNotBeNil)
 		So(api.ComputeAPI, ShouldEqual, "http://api-endpoint.com")
