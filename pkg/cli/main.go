@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"time"
 
 	"github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
@@ -31,6 +33,7 @@ var (
 
 // Start is the entrypoint
 func Start(rawArgs []string, streams *commands.Streams) (int, error) {
+	checkVersion()
 	if streams == nil {
 		streams = &commands.Streams{
 			Stdin:  os.Stdin,
@@ -38,7 +41,6 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 			Stderr: os.Stderr,
 		}
 	}
-
 	flag.CommandLine.Parse(rawArgs)
 
 	config, cfgErr := config.GetConfig()
@@ -157,5 +159,40 @@ func initLogging(debug bool, verbose bool, streams *commands.Streams) {
 		logrus.SetLevel(logrus.InfoLevel)
 	} else {
 		logrus.SetLevel(logrus.WarnLevel)
+	}
+}
+
+func checkVersion() {
+	homeDir, err := config.GetHomeDir()
+	if err != nil {
+		return
+	}
+	updateFiles := []string{"/var/run/.scw-update", "/tmp/.scw-update", filepath.Join(homeDir, ".scw-update")}
+	updateFile := ""
+
+	callAPI := false
+	for _, file := range updateFiles {
+		if stat, err := os.Stat(file); err == nil {
+			updateFile = file
+			callAPI = stat.ModTime().Before(time.Now().AddDate(0, 0, -1))
+			break
+		}
+	}
+	if updateFile == "" {
+		for _, file := range updateFiles {
+			if scwupdate, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600); err == nil {
+				scwupdate.Close()
+				updateFile = file
+				callAPI = true
+				break
+			}
+		}
+	}
+	if callAPI {
+		scwupdate, err := os.OpenFile(updateFile, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
+		if err != nil {
+			return
+		}
+		scwupdate.Close()
 	}
 }
