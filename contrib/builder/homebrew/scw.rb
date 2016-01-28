@@ -10,10 +10,6 @@ class Scw < Formula
 
   depends_on "go" => :build
 
-  go_resource "github.com/Sirupsen/logrus" do
-    url "https://github.com/Sirupsen/logrus.git", revision: "f7f79f729e0fbe2fcc061db48a9ba0263f588252"
-  end
-
   def install
     ENV["GOPATH"] = buildpath
     ENV["CGO_ENABLED"] = "0"
@@ -24,8 +20,7 @@ class Scw < Formula
     ln_s buildpath, buildpath/"src/github.com/scaleway/scaleway-cli"
     Language::Go.stage_deps resources, buildpath/"src"
 
-    version = `cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}"`
-    system "go", "build", "-ldflags", "-X  github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=homebrew -X  github.com/scaleway/scaleway-cli/pkg/scwversion.VERSION=#{version}", "./cmd/scw"
+    system "go", "build", "-ldflags", "-X  github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=homebrew", "./cmd/scw"
     bin.install "scw"
 
     bash_completion.install "contrib/completion/bash/scw"
