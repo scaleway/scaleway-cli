@@ -7,8 +7,8 @@ package cli
 import (
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/pkg/commands"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdImages = &Command{
@@ -37,7 +37,7 @@ var cmdImages = &Command{
 }
 
 func init() {
-	cmdImages.Flag.BoolVar(&imagesA, []string{"a", "-all"}, false, "Show all iamges")
+	cmdImages.Flag.BoolVar(&imagesA, []string{"a", "-all"}, false, "Show all images")
 	cmdImages.Flag.BoolVar(&imagesNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
 	cmdImages.Flag.BoolVar(&imagesQ, []string{"q", "-quiet"}, false, "Only show numeric IDs")
 	cmdImages.Flag.BoolVar(&imagesHelp, []string{"h", "-help"}, false, "Print usage")

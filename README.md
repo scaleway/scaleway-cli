@@ -69,8 +69,10 @@ For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway
 
 We recommend to use the latest version, using:
 
+:warning: Ensure you have a go version `>= 1.5`
+
 ```shell
-go get -u github.com/scaleway/scaleway-cli/cmd/scw
+GO15VENDOREXPERIMENT=1 go get -u github.com/scaleway/scaleway-cli/cmd/scw
 ```
 
 or
@@ -92,7 +94,7 @@ brew install scw
 Install the latest stable release on Mac OS X manually:
 
 ```bash
-# prepare for forst install and upgrade
+# prepare for first install and upgrade
 mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
@@ -135,7 +137,7 @@ Windows           | `x86_64`
 
 You can run scaleway-cli in a sandboxed way using Docker.
 
-*warning*: caching is disabled
+:warning: caching is disabled
 
 ```console
 $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
@@ -143,10 +145,11 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
 
 ### Manual build
 
-1. [Install go](https://golang.org/doc/install)
+1. [Install go](https://golang.org/doc/install) a version `>= 1.5`
 2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
   * `export GOPATH=$HOME/go`
   * `export PATH=$PATH:$GOPATH/bin`
+  * `export GO15VENDOREXPERIMENT=1`
 3. Install the project: `go get github.com/scaleway/scaleway-cli/...`
 4. Run: `scw`
 
@@ -417,7 +420,7 @@ List images.
 
 Options:
 
-  -a, --all=false       Show all iamges
+  -a, --all=false       Show all images
   -f, --filter=""       Filter output based on conditions provided
   -h, --help=false      Print usage
   --no-trunc=false      Don't truncate output
