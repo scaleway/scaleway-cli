@@ -17,7 +17,7 @@
 	"BuildConstraints": "darwin linux windows freebsd netbsd",
 	"ResourcesExclude": "*.go .goxc-temp",
 	"MainDirsExclude": "vendor,Godeps,testdata",
-	"PackageVersion": "1.7.1+",
+	"PackageVersion": "1.7.1+dev",
 	"TaskSettings": {
 		"bintray": {
 			"downloadspage": "bintray.md",
