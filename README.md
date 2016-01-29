@@ -1155,6 +1155,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.1...master)
+
 ### v1.7.1 (2016-01-29)
 
 * Configure User-Agent ([#269](https://github.com/scaleway/scaleway-cli/issues/269))
