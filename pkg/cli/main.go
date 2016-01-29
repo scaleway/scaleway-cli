@@ -166,7 +166,7 @@ func initLogging(debug bool, verbose bool, streams *commands.Streams) {
 }
 
 func checkVersion() {
-	if os.Getenv("SCW_NOCHECKVERSION") != "1" {
+	if os.Getenv("SCW_NOCHECKVERSION") == "1" {
 		return
 	}
 	homeDir, err := config.GetHomeDir()
