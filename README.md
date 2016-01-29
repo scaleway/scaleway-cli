@@ -99,7 +99,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.0/scw_1.7.0_darwin_amd64.zip" -O /tmp/scw.zip
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.1/scw_1.7.1_darwin_amd64.zip" -O /tmp/scw.zip
 unzip /tmp/scw.zip \*/scw -d /tmp
 mv /tmp/scw_*/scw /usr/local/bin
 rm -rf /tmp/scw.zip /tmp/scw_*_darwin_amd64
@@ -113,7 +113,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.0/scw_1.7.0_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.1/scw_1.7.1_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1155,13 +1155,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.7.1 (2016-01-29)
 
-* Add `SCW_NOCHECKVERSION=1` env var to disable the check of scw version
-* Add User-Agent with scw version ([#269](https://github.com/scaleway/scaleway-cli/issues/269))
-* Add daily check to update scw ([#268](https://github.com/scaleway/scaleway-cli/issues/268))
+* Configure User-Agent ([#269](https://github.com/scaleway/scaleway-cli/issues/269))
+* Daily check for new scw version ([#268](https://github.com/scaleway/scaleway-cli/issues/268))
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.0...v1.7.1)
 
 ### v1.7.0 (2016-01-27)
 
