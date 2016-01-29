@@ -105,6 +105,10 @@
 			"Rev": "5434f8b69b7f4f4ef0120e04c046cd6ce54ef0dd"
 		},
 		{
+			"ImportPath": "github.com/hashicorp/go-version",
+			"Rev": "7e3c02b30806fa5779d3bdfc152ce4c6f40e7b38"
+		},
+		{
 			"ImportPath": "github.com/jtolds/gls",
 			"Rev": "8ddce2a84170772b95dd5d576c48d517b22cac63"
 		},
