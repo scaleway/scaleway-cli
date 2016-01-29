@@ -96,23 +96,23 @@ goxc:
 	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
 	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
 
-	goxc -build-ldflags $(LDFLAGS)
+	$(GOENV) goxc -build-ldflags $(LDFLAGS)
 
-	mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
-	mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
-	mv dist/latest/freebsd_386/scw        dist/latest/scw-Freebsd-i386
-	mv dist/latest/freebsd_amd64/scw      dist/latest/scw-Freebsd-x86_64
-	mv dist/latest/freebsd_arm/scw        dist/latest/scw-Freebsd-arm
-	mv dist/latest/linux_386/scw          dist/latest/scw-Linux-i386
-	mv dist/latest/linux_amd64/scw        dist/latest/scw-Linux-x86_64
-	mv dist/latest/linux_arm/scw          dist/latest/scw-Linux-arm
-	mv dist/latest/netbsd_386/scw         dist/latest/scw-Netbsd-i386
-	mv dist/latest/netbsd_amd64/scw       dist/latest/scw-Netbsd-x86_64
-	mv dist/latest/netbsd_arm/scw         dist/latest/scw-Netbsd-arm
-	mv dist/latest/windows_386/scw.exe    dist/latest/scw-Windows-i386.exe
-	mv dist/latest/windows_amd64/scw.exe  dist/latest/scw-Windows-x86_64.exe
+	-mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
+	-mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
+	-mv dist/latest/freebsd_386/scw        dist/latest/scw-Freebsd-i386
+	-mv dist/latest/freebsd_amd64/scw      dist/latest/scw-Freebsd-x86_64
+	-mv dist/latest/freebsd_arm/scw        dist/latest/scw-Freebsd-arm
+	-mv dist/latest/linux_386/scw          dist/latest/scw-Linux-i386
+	-mv dist/latest/linux_amd64/scw        dist/latest/scw-Linux-x86_64
+	-mv dist/latest/linux_arm/scw          dist/latest/scw-Linux-arm
+	-mv dist/latest/netbsd_386/scw         dist/latest/scw-Netbsd-i386
+	-mv dist/latest/netbsd_amd64/scw       dist/latest/scw-Netbsd-x86_64
+	-mv dist/latest/netbsd_arm/scw         dist/latest/scw-Netbsd-arm
+	-mv dist/latest/windows_386/scw.exe    dist/latest/scw-Windows-i386.exe
+	-mv dist/latest/windows_amd64/scw.exe  dist/latest/scw-Windows-x86_64.exe
 
-	cp dist/latest/scw-Linux-arm dist/latest/scw-Linux-armv7l
+	-cp dist/latest/scw-Linux-arm dist/latest/scw-Linux-armv7l
 
 	@rmdir dist/latest/* || true
 
