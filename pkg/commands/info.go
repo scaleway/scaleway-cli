@@ -12,7 +12,6 @@ import (
 	"github.com/kardianos/osext"
 
 	"github.com/scaleway/scaleway-cli/pkg/config"
-	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 // InfoArgs are flags for the `RunInfo` function
@@ -55,11 +54,7 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 		fmt.Fprintln(ctx.Stdout, "")
 		fmt.Fprintln(ctx.Stdout, "SSH Keys:")
 		for id, key := range user.SSHPublicKeys {
-			fingerprint, err := utils.SSHGetFingerprint([]byte(key.Key))
-			if err != nil {
-				return err
-			}
-			fmt.Fprintf(ctx.Stdout, "  [%d] %s\n", id, fingerprint)
+			fmt.Fprintf(ctx.Stdout, "  [%d] %s\n", id, key.Fingerprint)
 		}
 		fmt.Fprintf(ctx.Stdout, "\n")
 	}
