@@ -349,9 +349,17 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		}
 	}
 	// FIXME build images only on ARM ?
+	arch := os.Getenv("SCW_TARGET_ARCH")
+	if arch == "" {
+		arch = "arm"
+	}
+	region := os.Getenv("SCW_TARGET_REGION")
+	if region == "" {
+		region = "fr-1"
+	}
 	imageIdentifier := &ScalewayImageIdentifier{
-		Arch:   "arm",
-		Region: "fr-1",
+		Arch:   arch,
+		Region: region,
 	}
 	server.Name = c.Name
 	inheritingVolume := false
