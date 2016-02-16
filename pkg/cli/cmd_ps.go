@@ -7,8 +7,8 @@ package cli
 import (
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/pkg/commands"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
 var cmdPs = &Command{
@@ -32,6 +32,7 @@ var cmdPs = &Command{
     $ scw ps -f image=docker
     $ scw ps -f image=alpine
     $ scw ps -f image=UUIDOFIMAGE
+    $ scw ps -f arch=ARCH
     $ scw ps -f "state=booted image=docker tags=prod"
 `,
 }
