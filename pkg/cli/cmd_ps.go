@@ -33,6 +33,7 @@ var cmdPs = &Command{
     $ scw ps -f image=alpine
     $ scw ps -f image=UUIDOFIMAGE
     $ scw ps -f arch=ARCH
+    $ scw ps -f server-type=COMMERCIALTYPE
     $ scw ps -f "state=booted image=docker tags=prod"
 `,
 }

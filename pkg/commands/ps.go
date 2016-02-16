@@ -45,7 +45,7 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 
 	for key, value := range args.Filters {
 		switch key {
-		case "state", "name", "tags", "image", "ip", "arch":
+		case "state", "name", "tags", "image", "ip", "arch", "server-type":
 			continue
 		default:
 			logrus.Warnf("Unknown filter: '%s=%s'", key, value)
@@ -95,6 +95,10 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 				}
 			case "arch":
 				if value != server.Arch {
+					goto skipServer
+				}
+			case "server-type":
+				if value != server.CommercialType {
 					goto skipServer
 				}
 			}
