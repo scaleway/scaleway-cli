@@ -1,4 +1,4 @@
-// Copyright 2012 Aaron Jacobs. All Rights Reserved.
+// Copyright 2015 Aaron Jacobs. All Rights Reserved.
 // Author: aaronjjacobs@gmail.com (Aaron Jacobs)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// A package that calls itself something different than its package path would
-// have you believe.
-package tony
-
-type SomeUint8Alias uint8
-
-type SomeInterface interface {
-	DoFoo(a int) int
-}
+// Package oglemock provides a mocking framework for unit tests.
+//
+// Among its features are the following:
+//
+//  *  An extensive and extensible set of matchers for expressing call
+//     expectations (provided by the oglematchers package).
+//
+//  *  Style and semantics similar to Google Mock and Google JS Test.
+//
+//  *  Easy integration with the ogletest unit testing framework.
+//
+// See https://github.com/smartystreets/assertions/internal/oglemock for more information.
+package oglemock
