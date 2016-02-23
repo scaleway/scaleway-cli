@@ -42,7 +42,7 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 		DynamicIPRequired: false,
 		IP:                args.IP,
 	}
-	if args.IP == "" || args.IP == "dynamic" {
+	if args.IP == "dynamic" || args.IP == "" {
 		config.DynamicIPRequired = true
 		config.IP = ""
 	} else if args.IP == "none" || args.IP == "no" {

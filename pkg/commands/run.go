@@ -157,15 +157,22 @@ func Run(ctx CommandContext, args RunArgs) error {
 
 	// create IMAGE
 	logrus.Info("Server creation ...")
-	serverID, err := api.CreateServer(ctx.API, &api.ConfigCreateServer{
+	config := api.ConfigCreateServer{
 		ImageName:         args.Image,
 		Name:              args.Name,
 		Bootscript:        args.Bootscript,
 		Env:               env,
 		AdditionalVolumes: volume,
-		DynamicIPRequired: args.Gateway == "",
+		DynamicIPRequired: false,
 		IP:                args.IP,
-	})
+	}
+	if args.IP == "dynamic" || (args.IP == "" && args.Gateway == "") {
+		config.DynamicIPRequired = true
+		config.IP = ""
+	} else if args.IP == "none" || args.IP == "no" || (args.IP == "" && args.Gateway != "") {
+		config.IP = ""
+	}
+	serverID, err := api.CreateServer(ctx.API, &config)
 	if err != nil {
 		return fmt.Errorf("failed to create server: %v", err)
 	}

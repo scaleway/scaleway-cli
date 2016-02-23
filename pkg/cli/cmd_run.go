@@ -38,7 +38,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runCreateVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdRun.Flag.BoolVar(&runHelpFlag, []string{"h", "-help"}, false, "Print usage")
 	cmdRun.Flag.Int64Var(&runTimeout, []string{"T", "-timeout"}, 0, "Set timeout value to seconds")
-	cmdRun.Flag.StringVar(&runIPAddress, []string{"-ip-address"}, "", "Assign an IP")
+	cmdRun.Flag.StringVar(&runIPAddress, []string{"-ip-address"}, "", "Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)")
 	cmdRun.Flag.BoolVar(&runAttachFlag, []string{"a", "-attach"}, false, "Attach to serial console")
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
