@@ -14,7 +14,9 @@ matrix:
     - go:   1.5.3
       env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
     - go:   1.6
-      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=1 GOTESTFLAGS="-race"
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=1
+    - go:   1.6
+      env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
     - go:   tip
       env:  GO15VENDOREXPERIMENT=1 TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
   allow_failures:
