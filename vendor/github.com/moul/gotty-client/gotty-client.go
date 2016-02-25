@@ -76,12 +76,12 @@ type Client struct {
 	Dialer         *websocket.Dialer
 	Conn           *websocket.Conn
 	URL            string
-	Connected      bool
 	WriteMutex     *sync.Mutex
 	Output         io.Writer
 	QuitChan       chan struct{}
 	QuitChanClosed bool
 	SkipTLSVerify  bool
+	Connected      bool
 }
 
 type querySingleType struct {

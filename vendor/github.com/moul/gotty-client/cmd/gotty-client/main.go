@@ -3,6 +3,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path"
 
@@ -15,12 +16,24 @@ var VERSION string
 
 func main() {
 	app := cli.NewApp()
+	app.EnableBashCompletion = true
 	app.Name = path.Base(os.Args[0])
 	app.Author = "Manfred Touron"
 	app.Email = "https://github.com/moul/gotty-client"
 	app.Version = VERSION
 	app.Usage = "GoTTY client for your terminal"
 	app.ArgsUsage = "GOTTY_URL"
+	app.BashComplete = func(c *cli.Context) {
+		for _, command := range []string{
+			"--debug", "--skip-tls-verify", "--help",
+			"--generate-bash-completion", "--version",
+			"http://user:pass@host:1234/path/\\\\?arg=abcdef\\\\&arg=ghijkl",
+			"https://user:pass@host:1234/path/\\\\?arg=abcdef\\\\&arg=ghijkl",
+			"http://localhost:8000",
+		} {
+			fmt.Println(command)
+		}
+	}
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
