@@ -319,7 +319,7 @@ Options:
   --bootscript=""       Assign a bootscript
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
-  --ip-address=""       Assign an IP
+  --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
   --name=""             Assign a name
   --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
   -v, --volume=""       Attach additional volume (i.e., 50G)
@@ -694,7 +694,7 @@ Options:
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  --ip-address=""       Assign an IP
+  --ip-address=""       Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
   --name=""             Assign a name
   --rm=false            Automatically remove the server when it exits
   --show-boot=false     Allows to show the boot
