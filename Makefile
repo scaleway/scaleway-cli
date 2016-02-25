@@ -5,7 +5,7 @@ GODEP ?=	$(GOENV) godep
 GOBUILD ?=	$(GO) build
 GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
-GOTEST ?=	$(GO) test
+GOTEST ?=	$(GO) test $(GOTESTFLAGS)
 GOFMT ?=	gofmt -w
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
