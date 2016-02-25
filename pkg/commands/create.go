@@ -33,15 +33,22 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 
 	env := strings.Join(args.Tags, " ")
 	volume := strings.Join(args.Volumes, " ")
-	serverID, err := api.CreateServer(ctx.API, &api.ConfigCreateServer{
+	config := api.ConfigCreateServer{
 		ImageName:         args.Image,
 		Name:              args.Name,
 		Bootscript:        args.Bootscript,
 		Env:               env,
 		AdditionalVolumes: volume,
-		DynamicIPRequired: args.IP == "",
+		DynamicIPRequired: false,
 		IP:                args.IP,
-	})
+	}
+	if args.IP == "dynamic" || args.IP == "" {
+		config.DynamicIPRequired = true
+		config.IP = ""
+	} else if args.IP == "none" || args.IP == "no" {
+		config.IP = ""
+	}
+	serverID, err := api.CreateServer(ctx.API, &config)
 	if err != nil {
 		return err
 	}
