@@ -5,7 +5,7 @@ GODEP ?=	$(GOENV) godep
 GOBUILD ?=	$(GO) build
 GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
-GOTEST ?=	$(GO) test
+GOTEST ?=	$(GO) test $(GOTESTFLAGS)
 GOFMT ?=	gofmt -w
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
@@ -30,8 +30,8 @@ NAME =		scw
 SOURCES :=	$(shell find . -type f -name "*.go")
 COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
-REL_COMMANDS :=	$(subst $(GODIR),./,$(COMMANDS))
-REL_PACKAGES :=	$(subst $(GODIR),./,$(PACKAGES))
+REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
+REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
 VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
 REV =		$(shell git rev-parse HEAD || echo "nogit")
 TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
@@ -49,7 +49,6 @@ endif
 BUILD_LIST =		$(foreach int, $(COMMANDS), $(int)_build)
 CLEAN_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_clean)
 INSTALL_LIST =		$(foreach int, $(COMMANDS), $(int)_install)
-IREF_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_iref)
 TEST_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_test)
 FMT_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_fmt)
 COVERPROFILE_LIST =	$(foreach int, $(subst $(GODIR),./,$(PACKAGES)), $(int)/profile.out)
@@ -63,7 +62,6 @@ build: $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
-iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
 
 
@@ -71,19 +69,17 @@ fmt: $(FMT_LIST)
 	touch $@
 
 
-$(BUILD_LIST): %_build: %_fmt %_iref
-	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),./,$*)
-	for file in $(shell find $(REL_COMMANDS) $(REL_PACKAGES) -depth 1 -name "*.go"); do $(GO) tool vet -all=true $$file; done
+$(BUILD_LIST): %_build: %_fmt
+	go tool vet --all=true ./cmd ./pkg
+	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) $(subst $(GODIR),./,$*)
-$(IREF_LIST): %_iref:
-	$(GOTEST) -ldflags $(LDFLAGS) -i $(subst $(GODIR),./,$*)
 $(TEST_LIST): %_test:
-	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),./,$*)
+	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),.,$*)
 $(FMT_LIST): %_fmt:
-	$(GOFMT) $(subst $(GODIR),./,$*)
+	$(GOFMT) $(subst $(GODIR),.,$*)
 
 
 
@@ -193,7 +189,7 @@ travis_cleanup:
 	@if [ "$(TRAVIS_SCALEWAY_TOKEN)" -a "$(TRAVIS_SCALEWAY_ORGANIZATION)" ]; then \
 	  ./scw stop -t $(shell ./scw ps -q) || true; \
 	  ./scw rm $(shell ./scw ps -aq) || true; \
-	  ./scw rmi $(shell ./scw images -f organization=me -q) || true; \
+	  ./scw rmi $(shell ./scw images -a -f organization=me -q) || true; \
 	fi
 
 
