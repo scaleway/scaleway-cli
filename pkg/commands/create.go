@@ -13,13 +13,14 @@ import (
 
 // CreateArgs are arguments passed to `RunCreate`
 type CreateArgs struct {
-	Name       string
-	Bootscript string
-	Tags       []string
-	Volumes    []string
-	Image      string
-	TmpSSHKey  bool
-	IP         string
+	Name        string
+	Bootscript  string
+	Tags        []string
+	Volumes     []string
+	Image       string
+	TmpSSHKey   bool
+	IP          string
+	NoDynamicIP bool
 }
 
 // RunCreate is the handler for 'scw create'
@@ -39,7 +40,7 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 		Bootscript:        args.Bootscript,
 		Env:               env,
 		AdditionalVolumes: volume,
-		DynamicIPRequired: args.IP == "",
+		DynamicIPRequired: (args.IP == "") && !args.NoDynamicIP,
 		IP:                args.IP,
 	})
 	if err != nil {
