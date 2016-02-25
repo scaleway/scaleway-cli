@@ -49,7 +49,6 @@ endif
 BUILD_LIST =		$(foreach int, $(COMMANDS), $(int)_build)
 CLEAN_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_clean)
 INSTALL_LIST =		$(foreach int, $(COMMANDS), $(int)_install)
-IREF_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_iref)
 TEST_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_test)
 FMT_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_fmt)
 COVERPROFILE_LIST =	$(foreach int, $(subst $(GODIR),./,$(PACKAGES)), $(int)/profile.out)
@@ -63,7 +62,6 @@ build: $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 install: $(INSTALL_LIST)
 test: $(TEST_LIST)
-iref: $(IREF_LIST)
 fmt: $(FMT_LIST)
 
 
