@@ -1159,6 +1159,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Support of `scw [run|create] --ip-address=[none|dynamic]` ([#283](https://github.com/scaleway/scaleway-cli/pull/283)) ([@ElNounch](https://github.com/ElNounch))
 * Support of `scw ps -f server-type=COMMERCIALTYPE` ([#280](https://github.com/scaleway/scaleway-cli/issues/280))
 * Support of `scw ps -f arch=XXX` ([#278](https://github.com/scaleway/scaleway-cli/issues/278))
 * `scw info` Use json fingerprint field exposed by API
