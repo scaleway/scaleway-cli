@@ -30,8 +30,8 @@ NAME =		scw
 SOURCES :=	$(shell find . -type f -name "*.go")
 COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
-REL_COMMANDS :=	$(subst $(GODIR),./,$(COMMANDS))
-REL_PACKAGES :=	$(subst $(GODIR),./,$(PACKAGES))
+REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
+REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
 VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
 REV =		$(shell git rev-parse HEAD || echo "nogit")
 TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
@@ -69,19 +69,17 @@ fmt: $(FMT_LIST)
 	touch $@
 
 
-$(BUILD_LIST): %_build: %_fmt %_iref
-	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),./,$*)
-	for file in $(shell find $(REL_COMMANDS) $(REL_PACKAGES) -depth 1 -name "*.go"); do $(GO) tool vet -all=true $$file; done
+$(BUILD_LIST): %_build: %_fmt
+	go tool vet --all=true ./cmd ./pkg
+	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) $(subst $(GODIR),./,$*)
-$(IREF_LIST): %_iref:
-	$(GOTEST) -ldflags $(LDFLAGS) -i $(subst $(GODIR),./,$*)
 $(TEST_LIST): %_test:
-	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),./,$*)
+	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),.,$*)
 $(FMT_LIST): %_fmt:
-	$(GOFMT) $(subst $(GODIR),./,$*)
+	$(GOFMT) $(subst $(GODIR),.,$*)
 
 
 
