@@ -22,13 +22,14 @@ func RunRename(ctx CommandContext, args RenameArgs) error {
 	if err != nil {
 		return err
 	}
-	var server api.ScalewayServerPatchDefinition
-
-	server.Name = &args.NewName
-	if err = ctx.API.PatchServer(serverID, server); err != nil {
+	if err = ctx.API.PatchServer(serverID,
+		api.ScalewayServerPatchDefinition{
+			Name: &args.NewName,
+		}); err != nil {
 		return fmt.Errorf("cannot rename server: %v", err)
 	}
-	// FIXME region, arch, owner, title
-	ctx.API.Cache.InsertServer(serverID, "fr-1", *server.Arch, *server.Organization, *server.Name)
+	if server, err := ctx.API.GetServer(serverID); err == nil {
+		ctx.API.Cache.InsertServer(serverID, "fr-1", server.Arch, server.Organization, server.Name)
+	}
 	return nil
 }
