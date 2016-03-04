@@ -44,6 +44,7 @@ var Commands = []*Command{
 	cmdBilling,
 	cmdCompletion,
 	cmdFlushCache,
+	cmdMarketplace,
 	cmdPatch,
 	cmdSecurityGroups,
 	cmdIPS,

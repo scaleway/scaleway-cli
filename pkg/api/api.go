@@ -31,9 +31,10 @@ import (
 
 // Default values
 var (
-	ComputeAPI  = "https://api.scaleway.com/"
-	AccountAPI  = "https://account.scaleway.com/"
-	MetadataAPI = "http://169.254.42.42/"
+	ComputeAPI     = "https://api.scaleway.com/"
+	AccountAPI     = "https://account.scaleway.com/"
+	MetadataAPI    = "http://169.254.42.42/"
+	MarketplaceAPI = "https://api-marketplace.scaleway.com"
 )
 
 // ScalewayAPI is the interface used to communicate with the Scaleway API
@@ -43,6 +44,9 @@ type ScalewayAPI struct {
 
 	// AccountAPI is the endpoint to the Scaleway Account API
 	AccountAPI string
+
+	// MarketplaceAPI is the endpoint to the Scaleway MarketPlace API
+	MarketplaceAPI string
 
 	// APIEndPoint or ACCOUNTEndPoint
 	APIUrl string
@@ -786,6 +790,66 @@ var FuncMap = template.FuncMap{
 	},
 }
 
+// MarketPlaceLocalImage represents localImage of marketplace version
+type MarketLocalImageDefinition struct {
+	Arch string `json:"arch"`
+	ID   string `json:"id"`
+	Zone string `json:"zone"`
+}
+
+type MarketLocalImages struct {
+	LocalImages []MarketLocalImageDefinition `json:"local_images"`
+}
+
+type MarketLocalImage struct {
+	LocalImages MarketLocalImageDefinition `json:"local_image"`
+}
+
+// MarketPlaceVersionDefinition represents version of marketplace image
+type MarketVersionDefinition struct {
+	CreationDate string `json:"creation_date"`
+	ID           string `json:"id"`
+	Image        struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	} `json:"image"`
+	LocalImages      []MarketLocalImage `json:"local_images"`
+	ModificationDate string             `json:"modification_date"`
+	Name             string             `json:"name"`
+}
+
+// MarketPlaceVersions represents versions of marketplace image
+type MarketVersions struct {
+	Versions []MarketVersionDefinition `json:"versions"`
+}
+
+// MarketPlaceVersion represents version of marketplace image
+type MarketVersion struct {
+	Versions MarketVersionDefinition `json:"version"`
+}
+
+// MarketPlaceImage represents MarketPlace image
+type MarketImage struct {
+	Categories           []string `json:"categories"`
+	CreationDate         string   `json:"creation_date"`
+	CurrentPublicVersion string   `json:"current_public_version"`
+	Description          string   `json:"description"`
+	ID                   string   `json:"id"`
+	Logo                 string   `json:"logo"`
+	ModificationDate     string   `json:"modification_date"`
+	Name                 string   `json:"name"`
+	Organization         struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	} `json:"organization"`
+	MarketVersion
+}
+
+// MarketPlace represents MarketPlace images
+type MarketImages struct {
+	Images []MarketImage `json:"images"`
+}
+
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
 func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token, userAgent string) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
@@ -794,15 +858,16 @@ func NewScalewayAPI(apiEndPoint, accountEndPoint, organization, token, userAgent
 	}
 	s := &ScalewayAPI{
 		// exposed
-		ComputeAPI:   apiEndPoint,
-		AccountAPI:   accountEndPoint,
-		APIUrl:       apiEndPoint,
-		Organization: organization,
-		Token:        token,
-		Cache:        cache,
-		verbose:      os.Getenv("SCW_VERBOSE_API") != "",
-		password:     "",
-		userAgent:    userAgent,
+		ComputeAPI:     apiEndPoint,
+		AccountAPI:     accountEndPoint,
+		MarketplaceAPI: MarketplaceAPI,
+		APIUrl:         apiEndPoint,
+		Organization:   organization,
+		Token:          token,
+		Cache:          cache,
+		verbose:        os.Getenv("SCW_VERBOSE_API") != "",
+		password:       "",
+		userAgent:      userAgent,
 
 		// internal
 		anonuuid: *anonuuid.New(),
@@ -2401,11 +2466,24 @@ func rootNetDial(network, addr string) (net.Conn, error) {
 	return nil, fmt.Errorf("bind: permission denied, are you root ?")
 }
 
+// EnableMarketplaceAPI enable marketplaceAPI
+func (s *ScalewayAPI) EnableMarketplaceAPI() {
+	s.APIUrl = s.MarketplaceAPI
+	if url := os.Getenv("SCW_MARKETPLACE_URL"); url != "" {
+		s.APIUrl = url
+	}
+}
+
+// DisableMarketplaceAPI disable marketplaceAPI
+func (s *ScalewayAPI) DisableMarketplaceAPI() {
+	s.APIUrl = s.ComputeAPI
+}
+
 // EnableMetadataAPI enable metadataAPI
 func (s *ScalewayAPI) EnableMetadataAPI() {
 	s.APIUrl = MetadataAPI
-	if os.Getenv("SCW_METADATA_URL") != "" {
-		s.APIUrl = os.Getenv("SCW_METADATA_URL")
+	if url := os.Getenv("SCW_METADATA_URL"); url != "" {
+		s.APIUrl = url
 	}
 	s.oldTransport = &s.client.Transport
 	s.client.Transport = &http.Transport{
@@ -2424,4 +2502,237 @@ func (s *ScalewayAPI) DisableMetadataAPI() {
 // SetPassword register the password
 func (s *ScalewayAPI) SetPassword(password string) {
 	s.password = password
+}
+
+func (s *ScalewayAPI) GetMarketPlaceImages(uuidImage string) (*MarketImages, error) {
+	s.EnableMarketplaceAPI()
+	defer s.DisableMarketplaceAPI()
+
+	resp, err := s.GetResponse(fmt.Sprintf("images/%s", uuidImage))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var ret MarketImages
+
+	if uuidImage != "" {
+		ret.Images = make([]MarketImage, 1)
+
+		var img MarketImage
+
+		if err = json.Unmarshal(body, &img); err != nil {
+			return nil, err
+		}
+		ret.Images[0] = img
+	} else {
+		if err = json.Unmarshal(body, &ret); err != nil {
+			return nil, err
+		}
+	}
+	return &ret, nil
+}
+
+func (s *ScalewayAPI) GetMarketPlaceImageVersions(uuidImage, uuidVersion string) (*MarketVersions, error) {
+	s.EnableMarketplaceAPI()
+	defer s.DisableMarketplaceAPI()
+
+	resp, err := s.GetResponse(fmt.Sprintf("images/%v/versions/%s", uuidImage, uuidVersion))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var ret MarketVersions
+
+	if uuidImage != "" {
+		var version MarketVersion
+		ret.Versions = make([]MarketVersionDefinition, 1)
+
+		if err = json.Unmarshal(body, &version); err != nil {
+			return nil, err
+		}
+		ret.Versions[0] = version.Versions
+	} else {
+		if err = json.Unmarshal(body, &ret); err != nil {
+			return nil, err
+		}
+	}
+	return &ret, nil
+}
+
+func (s *ScalewayAPI) GetMarketPlaceImageCurrentVersion(uuidImage string) (*MarketVersion, error) {
+	s.EnableMarketplaceAPI()
+	defer s.DisableMarketplaceAPI()
+
+	resp, err := s.GetResponse(fmt.Sprintf("images/%v/versions/current", uuidImage))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var ret MarketVersion
+
+	if err = json.Unmarshal(body, &ret); err != nil {
+		return nil, err
+	}
+	return &ret, nil
+}
+
+func (s *ScalewayAPI) GetMarketPlaceLocalImages(uuidImage, uuidVersion, uuidLocalImage string) (*MarketLocalImages, error) {
+	s.EnableMarketplaceAPI()
+	defer s.DisableMarketplaceAPI()
+
+	resp, err := s.GetResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%s", uuidImage, uuidVersion, uuidLocalImage))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
+	var ret MarketLocalImages
+	if uuidLocalImage != "" {
+		var localImage MarketLocalImage
+		ret.LocalImages = make([]MarketLocalImageDefinition, 1)
+
+		if err = json.Unmarshal(body, &localImage); err != nil {
+			return nil, err
+		}
+		ret.LocalImages[0] = localImage.LocalImages
+	} else {
+		if err = json.Unmarshal(body, &ret); err != nil {
+			return nil, err
+		}
+	}
+	return &ret, nil
+}
+
+func (s *ScalewayAPI) PostMarketPlaceImage(images MarketImage) error {
+	resp, err := s.PostResponse("images/", images)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{202}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) PostMarketPlaceImageVersion(uuidImage string, version MarketVersion) error {
+	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions", uuidImage), version)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{202}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) PostMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error {
+	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage), local)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{202}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) PutMarketPlaceImage(uudiImage string, images MarketImage) error {
+	resp, err := s.PutResponse(fmt.Sprintf("images/%v", uudiImage), images)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) PutMarketPlaceImageVersion(uuidImage, uuidVersion string, version MarketVersion) error {
+	resp, err := s.PutResponse(fmt.Sprintf("images/%v/versions/%v", uuidImage, uuidVersion), version)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) PutMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error {
+	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage), local)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{200}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) DeleteMarketPlaceImage(uudImage string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v", uudImage))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) DeleteMarketPlaceImageVersion(uuidImage, uuidVersion string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v/versions/%v", uuidImage, uuidVersion))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
+}
+
+func (s *ScalewayAPI) DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string) error {
+	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage))
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		return err
+	}
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
