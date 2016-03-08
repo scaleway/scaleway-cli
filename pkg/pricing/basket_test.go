@@ -55,6 +55,36 @@ func TestBasket_Total(t *testing.T) {
 			So(err, ShouldBeNil)
 			So(basket.Total(), ShouldEqualBigRat, big.NewRat(24, 1000)) // 0.024
 		})
+		Convey("1 server of each type", func() {
+			basket := NewBasket()
+			So(basket, ShouldNotBeNil)
+			So(basket.Total(), ShouldEqualBigRat, ratZero)
+
+			basket.Add(NewUsageByPath("/compute/c1/run"))
+			basket.Add(NewUsageByPath("/compute/c2s/run"))
+			basket.Add(NewUsageByPath("/compute/c2m/run"))
+			basket.Add(NewUsageByPath("/compute/c2l/run"))
+			basket.Add(NewUsageByPath("/compute/vc1/run"))
+
+			basket.SetDuration(1 * time.Minute)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(100, 1000)) // 0.1
+
+			basket.SetDuration(1 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(100, 1000)) // 0.1
+
+			basket.SetDuration(2 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(200, 1000)) // 0.2
+
+			basket.SetDuration(24 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(2400, 1000)) // 2.4
+
+			basket.SetDuration(30 * 24 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(50000, 1000)) // 50
+
+			// FIXME: this test if false, the capacity is per month
+			basket.SetDuration(365 * 24 * time.Hour)
+			So(basket.Total(), ShouldEqualBigRat, big.NewRat(50000, 1000)) // 40
+		})
 		Convey("1 compute instance with 2 volumes and 1 ip", func() {
 			basket := NewBasket()
 
