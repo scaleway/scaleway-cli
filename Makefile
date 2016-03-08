@@ -152,7 +152,7 @@ godep-save:
 .PHONY: convey
 convey:
 	go get github.com/smartystreets/goconvey
-	goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
+	$(GOENV) goconvey -cover -port=9042 -workDir="$(realpath .)/pkg" -depth=-1
 
 
 .PHONY: travis_login
