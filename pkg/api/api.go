@@ -790,22 +790,24 @@ var FuncMap = template.FuncMap{
 	},
 }
 
-// MarketPlaceLocalImage represents localImage of marketplace version
+// MarketLocalImageDefinition represents localImage of marketplace version
 type MarketLocalImageDefinition struct {
 	Arch string `json:"arch"`
 	ID   string `json:"id"`
 	Zone string `json:"zone"`
 }
 
+// MarketLocalImages represents an array of local images
 type MarketLocalImages struct {
 	LocalImages []MarketLocalImageDefinition `json:"local_images"`
 }
 
+// MarketLocalImage represents local image
 type MarketLocalImage struct {
 	LocalImages MarketLocalImageDefinition `json:"local_image"`
 }
 
-// MarketPlaceVersionDefinition represents version of marketplace image
+// MarketVersionDefinition represents version of marketplace image
 type MarketVersionDefinition struct {
 	CreationDate string `json:"creation_date"`
 	ID           string `json:"id"`
@@ -818,17 +820,17 @@ type MarketVersionDefinition struct {
 	Name             string             `json:"name"`
 }
 
-// MarketPlaceVersions represents versions of marketplace image
+// MarketVersions represents an array of marketplace image versions
 type MarketVersions struct {
 	Versions []MarketVersionDefinition `json:"versions"`
 }
 
-// MarketPlaceVersion represents version of marketplace image
+// MarketVersion represents version of marketplace image
 type MarketVersion struct {
 	Versions MarketVersionDefinition `json:"version"`
 }
 
-// MarketPlaceImage represents MarketPlace image
+// MarketImage represents MarketPlace image
 type MarketImage struct {
 	Categories           []string `json:"categories"`
 	CreationDate         string   `json:"creation_date"`
@@ -845,7 +847,7 @@ type MarketImage struct {
 	MarketVersion
 }
 
-// MarketPlace represents MarketPlace images
+// MarketImages represents MarketPlace images
 type MarketImages struct {
 	Images []MarketImage `json:"images"`
 }
@@ -2504,6 +2506,7 @@ func (s *ScalewayAPI) SetPassword(password string) {
 	s.password = password
 }
 
+// GetMarketPlaceImages returns images from marketplace
 func (s *ScalewayAPI) GetMarketPlaceImages(uuidImage string) (*MarketImages, error) {
 	s.EnableMarketplaceAPI()
 	defer s.DisableMarketplaceAPI()
@@ -2539,6 +2542,7 @@ func (s *ScalewayAPI) GetMarketPlaceImages(uuidImage string) (*MarketImages, err
 	return &ret, nil
 }
 
+// GetMarketPlaceImageVersions returns image version
 func (s *ScalewayAPI) GetMarketPlaceImageVersions(uuidImage, uuidVersion string) (*MarketVersions, error) {
 	s.EnableMarketplaceAPI()
 	defer s.DisableMarketplaceAPI()
@@ -2573,6 +2577,7 @@ func (s *ScalewayAPI) GetMarketPlaceImageVersions(uuidImage, uuidVersion string)
 	return &ret, nil
 }
 
+// GetMarketPlaceImageCurrentVersion return the image current version
 func (s *ScalewayAPI) GetMarketPlaceImageCurrentVersion(uuidImage string) (*MarketVersion, error) {
 	s.EnableMarketplaceAPI()
 	defer s.DisableMarketplaceAPI()
@@ -2597,6 +2602,7 @@ func (s *ScalewayAPI) GetMarketPlaceImageCurrentVersion(uuidImage string) (*Mark
 	return &ret, nil
 }
 
+// GetMarketPlaceLocalImages returns images from local region
 func (s *ScalewayAPI) GetMarketPlaceLocalImages(uuidImage, uuidVersion, uuidLocalImage string) (*MarketLocalImages, error) {
 	s.EnableMarketplaceAPI()
 	defer s.DisableMarketplaceAPI()
@@ -2629,6 +2635,7 @@ func (s *ScalewayAPI) GetMarketPlaceLocalImages(uuidImage, uuidVersion, uuidLoca
 	return &ret, nil
 }
 
+// PostMarketPlaceImage adds new image
 func (s *ScalewayAPI) PostMarketPlaceImage(images MarketImage) error {
 	resp, err := s.PostResponse("images/", images)
 	if resp != nil {
@@ -2641,6 +2648,7 @@ func (s *ScalewayAPI) PostMarketPlaceImage(images MarketImage) error {
 	return err
 }
 
+// PostMarketPlaceImageVersion adds new image version
 func (s *ScalewayAPI) PostMarketPlaceImageVersion(uuidImage string, version MarketVersion) error {
 	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions", uuidImage), version)
 	if resp != nil {
@@ -2653,6 +2661,7 @@ func (s *ScalewayAPI) PostMarketPlaceImageVersion(uuidImage string, version Mark
 	return err
 }
 
+// PostMarketPlaceLocalImage adds new local image
 func (s *ScalewayAPI) PostMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error {
 	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage), local)
 	if resp != nil {
@@ -2665,6 +2674,7 @@ func (s *ScalewayAPI) PostMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLoca
 	return err
 }
 
+// PutMarketPlaceImage updates image
 func (s *ScalewayAPI) PutMarketPlaceImage(uudiImage string, images MarketImage) error {
 	resp, err := s.PutResponse(fmt.Sprintf("images/%v", uudiImage), images)
 	if resp != nil {
@@ -2677,6 +2687,7 @@ func (s *ScalewayAPI) PutMarketPlaceImage(uudiImage string, images MarketImage) 
 	return err
 }
 
+// PutMarketPlaceImageVersion updates image version
 func (s *ScalewayAPI) PutMarketPlaceImageVersion(uuidImage, uuidVersion string, version MarketVersion) error {
 	resp, err := s.PutResponse(fmt.Sprintf("images/%v/versions/%v", uuidImage, uuidVersion), version)
 	if resp != nil {
@@ -2689,6 +2700,7 @@ func (s *ScalewayAPI) PutMarketPlaceImageVersion(uuidImage, uuidVersion string, 
 	return err
 }
 
+// PutMarketPlaceLocalImage updates local image
 func (s *ScalewayAPI) PutMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error {
 	resp, err := s.PostResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage), local)
 	if resp != nil {
@@ -2701,6 +2713,7 @@ func (s *ScalewayAPI) PutMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocal
 	return err
 }
 
+// DeleteMarketPlaceImage deletes image
 func (s *ScalewayAPI) DeleteMarketPlaceImage(uudImage string) error {
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v", uudImage))
 	if resp != nil {
@@ -2713,6 +2726,7 @@ func (s *ScalewayAPI) DeleteMarketPlaceImage(uudImage string) error {
 	return err
 }
 
+// DeleteMarketPlaceImageVersion delete image version
 func (s *ScalewayAPI) DeleteMarketPlaceImageVersion(uuidImage, uuidVersion string) error {
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v/versions/%v", uuidImage, uuidVersion))
 	if resp != nil {
@@ -2725,6 +2739,7 @@ func (s *ScalewayAPI) DeleteMarketPlaceImageVersion(uuidImage, uuidVersion strin
 	return err
 }
 
+// DeleteMarketPlaceLocalImage deletes local image
 func (s *ScalewayAPI) DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string) error {
 	resp, err := s.DeleteResponse(fmt.Sprintf("images/%v/versions/%s/local_images/%v", uuidImage, uuidVersion, uuidLocalImage))
 	if resp != nil {
