@@ -1166,6 +1166,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw info` Use json fingerprint field exposed by API
 * Allow to override Region and Architecture when using the helpers to create a new volume from a human size
 * Do not check permissions on config file under Windows ([#282](https://github.com/scaleway/scaleway-cli/pull/282)) ([@ElNounch](https://github.com/ElNounch))
+* Update pricing ([#294](https://github.com/scaleway/scaleway-cli/issues/294))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.1...master)
 
