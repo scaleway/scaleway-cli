@@ -1159,6 +1159,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw exec` Add warning to try to clean the cache when an error occurred
 * `scw rename` fix nil dereference ([#289](https://github.com/scaleway/scaleway-cli/issues/289))
 * Support of `scw [run|create] --ip-address=[none|dynamic]` ([#283](https://github.com/scaleway/scaleway-cli/pull/283)) ([@ElNounch](https://github.com/ElNounch))
 * Support of `scw ps -f server-type=COMMERCIALTYPE` ([#280](https://github.com/scaleway/scaleway-cli/issues/280))
