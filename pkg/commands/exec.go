@@ -70,7 +70,11 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 		log.Debugf("scw won't wait for the server to be ready, if it is not, the command will fail")
 		server, err = ctx.API.GetServer(serverID)
 		if err != nil {
-			return fmt.Errorf("Failed to get server information for %s: %v", serverID, err)
+			rerr := fmt.Errorf("Failed to get server information for %s: %v", serverID, err)
+			if err.Error() == `"`+serverID+`" not found` {
+				return fmt.Errorf("%v\nmaybe try to flush the cache with : scw _flush-cache", rerr)
+			}
+			return rerr
 		}
 	}
 
