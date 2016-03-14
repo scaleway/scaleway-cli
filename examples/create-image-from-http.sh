@@ -25,7 +25,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(scw run -d --bootscript=rescue --volume="${VOLUME_SIZE}" --env="AUTHORIZED_KEY=${KEY}" --name="image-writer-${NAME}" 1GB)
+SERVER=$(SCW_TARGET_ARCH=x86_64 SCW_COMMERCIAL_TYPE=VC1 scw run -d --env="AUTHORIZED_KEY=${KEY} boot=rescue rescue_image=${URL} INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
 echo "[+] Server created: ${SERVER}"
 
 
@@ -44,14 +44,15 @@ if [ -n "${SCW_GATEWAY_HTTP_PROXY}" ]; then
 fi
 
 
-echo "[+] Formating and mounting /dev/nbd1..."
-scw exec "${SERVER}" 'mkfs.ext4 /dev/nbd1 && mount /dev/nbd1 /mnt'
+echo "[+] Formating and mounting disk..."
+# FIXME: make disk dynamic between /dev/vda and /dev/nbd1
+scw exec "${SERVER}" '/sbin/mkfs.ext4 /dev/vda && mkdir -p /mnt && mount /dev/vda /mnt'
 echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
-echo "[+] Download tarball and write it to /dev/nbd1"
+echo "[+] Download tarball and write it to /mnt"
 scw exec "${SERVER}" "wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
-echo "[+] Tarball extracted on /dev/nbd1"
+echo "[+] Tarball extracted on disk"
 
 
 echo "[+] Stopping the server"
@@ -60,8 +61,8 @@ scw wait "${SERVER}"
 echo "[+] Server stopped"
 
 
-echo "[+] Creating a snapshot of nbd1"
-SNAPSHOT=$(scw commit --volume=1 "${SERVER}" "${SNAPSHOT_NAME}")
+echo "[+] Creating a snapshot of disk 1"
+SNAPSHOT=$(scw commit --volume=0 "${SERVER}" "${SNAPSHOT_NAME}")
 echo "[+] Snapshot ${SNAPSHOT} created"
 
 
