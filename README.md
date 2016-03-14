@@ -78,7 +78,7 @@ GO15VENDOREXPERIMENT=1 go get -u github.com/scaleway/scaleway-cli/cmd/scw
 or
 
 ```shell
-brew install "https://raw.githubusercontent.com/scaleway/scaleway-cli/master/contrib/builder/homebrew/scw.rb" --HEAD
+brew install "https://raw.githubusercontent.com/scaleway/scaleway-cli/master/contrib/homebrew/scw.rb" --HEAD
 ```
 
 ---
