@@ -17,12 +17,14 @@ func init() {
 	cmdHistory.Flag.BoolVar(&historyNoTrunc, []string{"-no-trunc"}, false, "Don't truncate output")
 	cmdHistory.Flag.BoolVar(&historyQuiet, []string{"q", "-quiet"}, false, "Only show numeric IDs")
 	cmdHistory.Flag.BoolVar(&historyHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdHistory.Flag.StringVar(&historyArch, []string{"-arch"}, "*", "Specify architecture")
 }
 
 // Flags
 var historyNoTrunc bool // --no-trunc flag
 var historyQuiet bool   // -q, --quiet flag
 var historyHelp bool    // -h, --help flag
+var historyArch string  // --arch flag
 
 func runHistory(cmd *Command, rawArgs []string) error {
 	if historyHelp {
@@ -36,6 +38,7 @@ func runHistory(cmd *Command, rawArgs []string) error {
 		Quiet:   historyQuiet,
 		NoTrunc: historyNoTrunc,
 		Image:   rawArgs[0],
+		Arch:    historyArch,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunHistory(ctx, args)
