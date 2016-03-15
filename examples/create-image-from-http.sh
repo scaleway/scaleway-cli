@@ -17,7 +17,12 @@ NAME=$(basename "${URL}")
 SNAPSHOT_NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
 IMAGE_NAME=${IMAGE_NAME:-$SNAPSHOT_NAME}
 IMAGE_BOOTSCRIPT=${IMAGE_BOOTSCRIPT:stable}
+SCW_COMMERCIAL_TYPE=${SCW_COMMERCIAL_TYPE:-VC1}
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
+SCW_TARGET_ARCH=x86_64
+if [ "$SCW_COMMERCIAL_TYPE" = "C1" ]; then
+    SCW_TARGET_ARCH=arm
+fi
 KEY=$(cat ~/.ssh/id_rsa.pub | awk '{ print $1" "$2 }' | tr ' ' '_')
 
 echo "[+] URL of the tarball: ${URL}"
@@ -25,7 +30,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(SCW_TARGET_ARCH=x86_64 SCW_COMMERCIAL_TYPE=VC1 scw run -d --env="AUTHORIZED_KEY=${KEY} boot=rescue rescue_image=${URL} INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
+SERVER=$(SCW_TARGET_ARCH="$SCW_TARGET_ARCH" SCW_COMMERCIAL_TYPE="$SCW_COMMERCIAL_TYPE" scw run -d --env="AUTHORIZED_KEY=${KEY} boot=rescue rescue_image=${URL} INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
 echo "[+] Server created: ${SERVER}"
 
 
