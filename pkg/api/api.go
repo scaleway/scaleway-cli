@@ -37,20 +37,23 @@ var (
 	MarketplaceAPI = "https://api-marketplace.scaleway.com"
 )
 
+func init() {
+	if url := os.Getenv("SCW_COMPUTE_API"); url != "" {
+		ComputeAPI = url
+	}
+	if url := os.Getenv("SCW_ACCOUNT_API"); url != "" {
+		AccountAPI = url
+	}
+	if url := os.Getenv("SCW_METADATA_API"); url != "" {
+		MetadataAPI = url
+	}
+	if url := os.Getenv("SCW_MARKETPLACE_API"); url != "" {
+		MarketplaceAPI = url
+	}
+}
+
 // ScalewayAPI is the interface used to communicate with the Scaleway API
 type ScalewayAPI struct {
-	// ComputeAPI is the endpoint to the Scaleway API
-	ComputeAPI string
-
-	// AccountAPI is the endpoint to the Scaleway Account API
-	AccountAPI string
-
-	// MarketplaceAPI is the endpoint to the Scaleway MarketPlace API
-	MarketplaceAPI string
-
-	// APIEndPoint or ACCOUNTEndPoint
-	APIUrl string
-
 	// Organization is the identifier of the Scaleway organization
 	Organization string
 
@@ -71,7 +74,6 @@ type ScalewayAPI struct {
 	// Used when switching from an API to another
 	oldTransport *http.RoundTripper
 	anonuuid     anonuuid.AnonUUID
-	isMetadata   bool
 }
 
 // ScalewayAPIError represents a Scaleway API Error
