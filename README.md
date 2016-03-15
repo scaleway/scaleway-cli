@@ -718,6 +718,24 @@ Examples:
     $ scw run --userdata="FOO=BAR FILE=@/tmp/file" alpine
 ```
 
+---
+
+```
+┌ ─ ─ ─ ─ ─ scw run docker  ─ ─ ─ ─ ┐
+                                     
+│   ┌───────────────────────────┐   │
+    │server=$(scw create docker)│    
+│   └───────────────────────────┘   │
+                  +                  
+│        ┌─────────────────┐        │
+         │scw start $SERVER│         
+│        └─────────────────┘        │
+                  +                  
+│┌─────────────────────────────────┐│
+ │scw exec --wait $SERVER /bin/bash│ 
+│└─────────────────────────────────┘│
+ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 
+```
 
 #### `scw search`
 
