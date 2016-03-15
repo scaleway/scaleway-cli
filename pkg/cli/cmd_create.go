@@ -31,18 +31,20 @@ func init() {
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "dynamic", "Assign a reserved public IP, a 'dynamic' one or 'none'")
+	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "C1", "Create a server with specific commercial-type C1, VC1, C2[S|M|L]")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCreate.Flag.BoolVar(&createTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 }
 
 // Flags
-var createName string       // --name flag
-var createBootscript string // --bootscript flag
-var createEnv string        // -e, --env flag
-var createVolume string     // -v, --volume flag
-var createHelp bool         // -h, --help flag
-var createTmpSSHKey bool    // --tmp-ssh-key flag
-var createIPAddress string  // --ip-address flag
+var createName string           // --name flag
+var createBootscript string     // --bootscript flag
+var createEnv string            // -e, --env flag
+var createVolume string         // -v, --volume flag
+var createHelp bool             // -h, --help flag
+var createTmpSSHKey bool        // --tmp-ssh-key flag
+var createIPAddress string      // --ip-address flag
+var createCommercialType string // --commercial-type flag
 
 func runCreate(cmd *Command, rawArgs []string) error {
 	if createHelp {
@@ -53,11 +55,12 @@ func runCreate(cmd *Command, rawArgs []string) error {
 	}
 
 	args := commands.CreateArgs{
-		Name:       createName,
-		Bootscript: createBootscript,
-		Image:      rawArgs[0],
-		TmpSSHKey:  createTmpSSHKey,
-		IP:         createIPAddress,
+		Name:           createName,
+		Bootscript:     createBootscript,
+		Image:          rawArgs[0],
+		TmpSSHKey:      createTmpSSHKey,
+		IP:             createIPAddress,
+		CommercialType: createCommercialType,
 	}
 
 	if len(createEnv) > 0 {
