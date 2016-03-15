@@ -34,11 +34,12 @@ func TestRunHistory_realAPI(t *testing.T) {
 		t.Skip()
 	}
 	Convey("Testing RunHistory() on real API", t, func() {
-		Convey("ubuntu-vivid", func() {
+		Convey("ubuntu-wily", func() {
 			args := HistoryArgs{
 				NoTrunc: false,
 				Quiet:   false,
-				Image:   "ubuntu-vivid",
+				Image:   "ubuntu-wily",
+				Arch:    "arm",
 			}
 
 			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)
