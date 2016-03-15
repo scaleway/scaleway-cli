@@ -188,6 +188,9 @@ func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
 		SSHKeys := api.ScalewayUserPatchSSHKeyDefinition{
 			SSHPublicKeys: user.SSHPublicKeys,
 		}
+		for i := range SSHKeys.SSHPublicKeys {
+			SSHKeys.SSHPublicKeys[i].Fingerprint = ""
+		}
 
 		userID, err := apiConnection.GetUserID()
 		if err != nil {

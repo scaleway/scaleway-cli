@@ -734,7 +734,7 @@ type ScalewayUsersDefinition struct {
 // ScalewayKeyDefinition represents a key
 type ScalewayKeyDefinition struct {
 	Key         string `json:"key"`
-	Fingerprint string `json:"fingerprint"`
+	Fingerprint string `json:"fingerprint,omitempty"`
 }
 
 // ScalewayUserPatchSSHKeyDefinition represents a User Patch
