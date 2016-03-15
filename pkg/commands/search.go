@@ -9,9 +9,9 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/renstrom/fuzzysearch/fuzzy"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
-	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 // SearchArgs are flags for the `RunSearch` function

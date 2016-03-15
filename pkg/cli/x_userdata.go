@@ -41,17 +41,17 @@ func runUserdata(cmd *Command, args []string) error {
 	if len(args) < 1 {
 		return cmd.PrintShortUsage()
 	}
-
+	metadata := false
 	ctx := cmd.GetContext(args)
 	var API *api.ScalewayAPI
 	var err error
 	var serverID string
 	if args[0] == "local" {
-		API, err = api.NewScalewayAPI("", "", "", "", scwversion.UserAgent())
+		API, err = api.NewScalewayAPI("", "", scwversion.UserAgent())
 		if err != nil {
 			return err
 		}
-		API.EnableMetadataAPI()
+		metadata = true
 	} else {
 		if ctx.API == nil {
 			return fmt.Errorf("You need to login first: 'scw login'")
@@ -66,7 +66,7 @@ func runUserdata(cmd *Command, args []string) error {
 	switch len(args) {
 	case 1:
 		// List userdata
-		res, err := API.GetUserdatas(serverID)
+		res, err := API.GetUserdatas(serverID, metadata)
 		if err != nil {
 			return err
 		}
@@ -79,7 +79,7 @@ func runUserdata(cmd *Command, args []string) error {
 		switch len(parts) {
 		case 1:
 			// Get userdatas
-			res, err := API.GetUserdata(serverID, key)
+			res, err := API.GetUserdata(serverID, key, metadata)
 			if err != nil {
 				return err
 			}
@@ -97,20 +97,19 @@ func runUserdata(cmd *Command, args []string) error {
 				} else {
 					data = []byte(value)
 				}
-				err := API.PatchUserdata(serverID, key, data)
+				err := API.PatchUserdata(serverID, key, data, metadata)
 				if err != nil {
 					return err
 				}
 				fmt.Fprintln(ctx.Stdout, key)
 			} else {
 				// Delete userdata
-				err := API.DeleteUserdata(serverID, key)
+				err := API.DeleteUserdata(serverID, key, metadata)
 				if err != nil {
 					return err
 				}
 			}
 		}
 	}
-
 	return nil
 }

@@ -41,7 +41,6 @@ Options:
  -D, --debug=false            Enable debug mode
  -V, --verbose=false          Enable verbose mode
  -q, --quiet=false            Enable quiet mode
- --api-endpoint=APIEndPoint   Set the API endpoint
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
 

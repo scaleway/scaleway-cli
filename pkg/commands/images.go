@@ -51,18 +51,26 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 					errChan <- fmt.Errorf("unable to parse creation date from the Scaleway API: %v", err)
 					return
 				}
+				archs := []string{}
+				for _, version := range val.Versions {
+					if val.CurrentPublicVersion == version.ID {
+						for _, local := range version.LocalImages {
+							archs = append(archs, local.Arch)
+						}
+						break
+					}
+				}
 				chEntries <- api.ScalewayImageInterface{
 					Type:         "image",
 					CreationDate: creationDate,
-					Identifier:   val.Identifier,
+					Identifier:   val.CurrentPublicVersion,
 					Name:         val.Name,
-					Public:       val.Public,
 					Tag:          "latest",
-					VirtualSize:  float64(val.RootVolume.Size),
-					Organization: val.Organization,
+					Organization: val.Organization.ID,
+					Public:       val.Public,
 					// FIXME the region should not be hardcoded
 					Region: "fr-1",
-					Arch:   val.Arch,
+					Archs:  archs,
 				}
 			}
 		}()
@@ -118,7 +126,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Public:     false,
 						// FIXME the region should not be hardcoded
 						Region: "fr-1",
-						Arch:   val.Arch,
+						Archs:  []string{val.Arch},
 					}
 				}
 			}()
@@ -186,11 +194,13 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	if !args.Quiet {
-		fmt.Fprintf(w, "REPOSITORY\tTAG\tIMAGE ID\tCREATED\tVIRTUAL SIZE\tREGION\tARCH\n")
+		fmt.Fprintf(w, "REPOSITORY\tTAG\tIMAGE ID\tCREATED\tREGION\tARCH\n")
 	}
 	sort.Sort(api.ByCreationDate(entries))
 	for _, image := range entries {
-
+		if image.Identifier == "" {
+			continue
+		}
 		for key, value := range args.Filters {
 			switch key {
 			case "type":
@@ -230,21 +240,17 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 				name = "user/" + name
 			}
 			shortName := utils.TruncIf(name, 25, !args.NoTrunc)
-			var creationDate, virtualSize string
+			var creationDate string
 			if image.CreationDate.IsZero() {
 				creationDate = "n/a"
 			} else {
 				creationDate = units.HumanDuration(time.Now().UTC().Sub(image.CreationDate))
 			}
-			if image.VirtualSize == 0 {
-				virtualSize = "n/a"
-			} else {
-				virtualSize = units.HumanSize(image.VirtualSize)
+			if len(image.Archs) == 0 {
+				image.Archs = []string{"n/a"}
 			}
-			if image.Arch == "" {
-				image.Arch = "n/a"
-			}
-			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n", shortName, tag, shortID, creationDate, virtualSize, image.Region, image.Arch)
+			sort.Strings(image.Archs)
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%v\n", shortName, tag, shortID, creationDate, image.Region, image.Archs)
 		}
 
 	skipimage:

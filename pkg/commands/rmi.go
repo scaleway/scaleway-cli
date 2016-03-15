@@ -19,7 +19,7 @@ type RmiArgs struct {
 func RunRmi(ctx CommandContext, args RmiArgs) error {
 	hasError := false
 	for _, needle := range args.Identifier {
-		if image, err := ctx.API.GetImageID(needle); err == nil {
+		if image, err := ctx.API.GetImageID(needle, "*"); err == nil {
 			if err = ctx.API.DeleteImage(image.Identifier); err != nil {
 				logrus.Errorf("failed to delete image %s: %s", image.Identifier, err)
 				hasError = true

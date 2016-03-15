@@ -26,12 +26,11 @@ import (
 
 // global options
 var (
-	flAPIEndPoint *string
-	flDebug       = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
-	flVerbose     = flag.Bool([]string{"V", "-verbose"}, false, "Enable verbose mode")
-	flVersion     = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
-	flQuiet       = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
-	flSensitive   = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
+	flDebug     = flag.Bool([]string{"D", "-debug"}, false, "Enable debug mode")
+	flVerbose   = flag.Bool([]string{"V", "-verbose"}, false, "Enable verbose mode")
+	flVersion   = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
+	flQuiet     = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
+	flSensitive = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 )
 
 // Start is the entrypoint
@@ -56,18 +55,11 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 		if defaultComputeAPI == "" {
 			defaultComputeAPI = config.ComputeAPI
 		}
-		if flAPIEndPoint == nil {
-			flAPIEndPoint = flag.String([]string{"-api-endpoint"}, defaultComputeAPI, "Set the API endpoint")
-		}
 	}
 
 	if *flVersion {
 		fmt.Fprintf(streams.Stderr, "scw version %s, build %s\n", scwversion.VERSION, scwversion.GITCOMMIT)
 		return 0, nil
-	}
-
-	if flAPIEndPoint != nil {
-		os.Setenv("scaleway_api_endpoint", *flAPIEndPoint)
 	}
 
 	if *flSensitive {
@@ -140,7 +132,6 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 			return 0, nil
 		}
 	}
-
 	return 1, fmt.Errorf("scw: unknown subcommand %s\nRun 'scw help' for usage", name)
 }
 
@@ -151,7 +142,7 @@ func getScalewayAPI() (*api.ScalewayAPI, error) {
 	if err != nil {
 		return nil, err
 	}
-	return api.NewScalewayAPI(os.Getenv("scaleway_api_endpoint"), config.AccountAPI, config.Organization, config.Token, scwversion.UserAgent())
+	return api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent())
 }
 
 func initLogging(debug bool, verbose bool, streams *commands.Streams) {
