@@ -34,12 +34,14 @@ func init() {
 	cmdInspect.Flag.BoolVar(&inspectHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdInspect.Flag.StringVar(&inspectFormat, []string{"f", "-format"}, "", "Format the output using the given go template")
 	cmdInspect.Flag.BoolVar(&inspectBrowser, []string{"b", "-browser"}, false, "Inspect object in browser")
+	cmdInspect.Flag.StringVar(&inspectArch, []string{"-arch"}, "*", "Specify architecture")
 }
 
 // Flags
 var inspectFormat string // -f, --format flag
 var inspectBrowser bool  // -b, --browser flag
 var inspectHelp bool     // -h, --help flag
+var inspectArch string   // --arch flag
 
 func runInspect(cmd *Command, rawArgs []string) error {
 	if inspectHelp {
@@ -53,6 +55,7 @@ func runInspect(cmd *Command, rawArgs []string) error {
 		Format:      inspectFormat,
 		Browser:     inspectBrowser,
 		Identifiers: rawArgs,
+		Arch:        inspectArch,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunInspect(ctx, args)
