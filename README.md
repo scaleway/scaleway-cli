@@ -317,7 +317,7 @@ Create a new server but do not start it.
 Options:
 
   --bootscript=""       Assign a bootscript
-  --commercial-type=C1  Create a server with specific commercial-type C1, VC1, C2[S|M|L]
+  --commercial-type=VC1 Create a server with specific commercial-type C1, VC1, C2[S|M|L]
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
   --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -693,7 +693,7 @@ Options:
 
   -a, --attach=false    Attach to serial console
   --bootscript=""       Assign a bootscript
-  --commercial-type=C1  Start a server with specific commercial-type C1, VC1, C2[SML]
+  --commercial-type=VC1 Start a server with specific commercial-type C1, VC1, C2[SML]
   -d, --detach=false    Run server in background and print server ID
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway
@@ -1183,6 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Use VC1 by default
 * `scw exec` Add warning to try to clean the cache when an error occurred
 * Add `SCW_[COMPUTE|ACCOUNT|METADATA|MARKETPLACE]_API` environment variable
 * Remove --api-endpoint
