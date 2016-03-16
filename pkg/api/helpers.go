@@ -380,27 +380,30 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		server.Volumes["0"] = *volumeID
 	} else {
 		// Use an existing image
-		// FIXME: handle snapshots
 		inheritingVolume = true
-		imageIdentifier, err = api.GetImageID(c.ImageName, arch)
-		if err != nil {
-			return "", err
-		}
-		if imageIdentifier.Identifier != "" {
-			server.Image = &imageIdentifier.Identifier
+		if anonuuid.IsUUID(c.ImageName) == nil {
+			server.Image = &c.ImageName
 		} else {
-			snapshotID, err := api.GetSnapshotID(c.ImageName)
+			imageIdentifier, err = api.GetImageID(c.ImageName, arch)
 			if err != nil {
 				return "", err
 			}
-			snapshot, err := api.GetSnapshot(snapshotID)
-			if err != nil {
-				return "", err
+			if imageIdentifier.Identifier != "" {
+				server.Image = &imageIdentifier.Identifier
+			} else {
+				snapshotID, err := api.GetSnapshotID(c.ImageName)
+				if err != nil {
+					return "", err
+				}
+				snapshot, err := api.GetSnapshot(snapshotID)
+				if err != nil {
+					return "", err
+				}
+				if snapshot.BaseVolume.Identifier == "" {
+					return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
+				}
+				server.Volumes["0"] = snapshot.BaseVolume.Identifier
 			}
-			if snapshot.BaseVolume.Identifier == "" {
-				return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
-			}
-			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
 	}
 	if c.Bootscript != "" {
