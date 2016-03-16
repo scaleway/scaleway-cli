@@ -693,7 +693,7 @@ Options:
 
   -a, --attach=false    Attach to serial console
   --bootscript=""       Assign a bootscript
-  --commercial-type=C1  Start a server with specific commercial-type C1, VC1, C2[S|M|L]
+  --commercial-type=C1  Start a server with specific commercial-type C1, VC1, C2[SML]
   -d, --detach=false    Run server in background and print server ID
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway

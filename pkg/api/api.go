@@ -890,8 +890,8 @@ func (s *ScalewayAPI) Sync() {
 }
 
 // GetResponse returns an http.Response object for the requested resource
-func (s *ScalewayAPI) GetResponse(url, resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(url, "/"), resource)
+func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
@@ -914,8 +914,8 @@ func (s *ScalewayAPI) GetResponse(url, resource string) (*http.Response, error) 
 }
 
 // PostResponse returns an http.Response object for the updated resource
-func (s *ScalewayAPI) PostResponse(url, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(url, "/"), resource)
+func (s *ScalewayAPI) PostResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -944,8 +944,8 @@ func (s *ScalewayAPI) PostResponse(url, resource string, data interface{}) (*htt
 }
 
 // PatchResponse returns an http.Response object for the updated resource
-func (s *ScalewayAPI) PatchResponse(url, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(url, "/"), resource)
+func (s *ScalewayAPI) PatchResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -974,8 +974,8 @@ func (s *ScalewayAPI) PatchResponse(url, resource string, data interface{}) (*ht
 }
 
 // PutResponse returns an http.Response object for the updated resource
-func (s *ScalewayAPI) PutResponse(url, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(url, "/"), resource)
+func (s *ScalewayAPI) PutResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	encoder := json.NewEncoder(payload)
 	if err := encoder.Encode(data); err != nil {
@@ -1004,8 +1004,8 @@ func (s *ScalewayAPI) PutResponse(url, resource string, data interface{}) (*http
 }
 
 // DeleteResponse returns an http.Response object for the deleted resource
-func (s *ScalewayAPI) DeleteResponse(url, resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(url, "/"), resource)
+func (s *ScalewayAPI) DeleteResponse(apiURL, resource string) (*http.Response, error) {
+	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 
 	req, err := http.NewRequest("DELETE", uri, nil)
 	if err != nil {

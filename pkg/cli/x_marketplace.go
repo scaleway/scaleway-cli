@@ -22,7 +22,7 @@ var cmdMarketplace = &Command{
     $ scw _marketplace -r GET local_images UUID_IMAGE UUID_LOCAL_VERSION
     $ scw _marketplace -r POST images <data>
     $ scw _marketplace -r POST versions UUID_IMAGE <data>
-    $ scw _marketplace -r POST local_i<data>mages UUID_IMAGE UUID_LOCAL_VERSION
+    $ scw _marketplace -r POST local_images UUID_IMAGE UUID_LOCAL_VERSION <data>
     $ scw _marketplace -r POST images <data>
     $ scw _marketplace -r PUT versions UUID_IMAGE <data>
     $ scw _marketplace -r PUT local_images UUID_IMAGE UUID_LOCAL_VERSION <data>
