@@ -30,7 +30,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(SCW_TARGET_ARCH="$SCW_TARGET_ARCH" SCW_COMMERCIAL_TYPE="$SCW_COMMERCIAL_TYPE" scw run -d --env="AUTHORIZED_KEY=${KEY} boot=none INITRD_DROPBEAR=1 INITRD_HTTP_PROXY=${SCW_GATEWAY_HTTP_PROXY}" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
+SERVER=$(SCW_TARGET_ARCH="$SCW_TARGET_ARCH" SCW_COMMERCIAL_TYPE="$SCW_COMMERCIAL_TYPE" scw run -d --env="AUTHORIZED_KEY=${KEY} boot=none INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
 echo "[+] Server created: ${SERVER}"
 
 
@@ -44,7 +44,7 @@ if [ -n "${SCW_GATEWAY_HTTP_PROXY}" ]; then
     # scw exec "${SERVER}" "echo proxy=${SCW_GATEWAY_HTTP_PROY} >> .curlrc"
     (
         set +x
-        scw exec "${SERVER}" "echo http_proxy = ${SCW_GATEWAY_HTTP_PROXY} >> .wgetrc" >/dev/null 2>/dev/null || (echo "Failed to configure HTTP proxy"; exit 1) || exit 1
+        scw exec "${SERVER}" "echo export http_proxy=${SCW_GATEWAY_HTTP_PROXY} > /proxy-env" >/dev/null 2>/dev/null || (echo "Failed to configure HTTP proxy"; exit 1) || exit 1
     )
 fi
 
@@ -56,7 +56,7 @@ echo "[+] /dev/nbd1 formatted in ext4 and mounted on /mnt"
 
 
 echo "[+] Download tarball and write it to /mnt"
-scw exec "${SERVER}" "wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
+scw exec "${SERVER}" "touch /proxy-env; . /proxy-env; wget -qO - ${URL} | tar -C /mnt/ -xf - && sync"
 echo "[+] Tarball extracted on disk"
 
 
