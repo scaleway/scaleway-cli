@@ -9,11 +9,9 @@ import (
 
 func TestNewScalewayAPI(t *testing.T) {
 	Convey("Testing NewScalewayAPI()", t, func() {
-		api, err := NewScalewayAPI("http://api-endpoint.com", "http://account-endpoint.com", "my-organization", "my-token", scwversion.UserAgent())
+		api, err := NewScalewayAPI("my-organization", "my-token", scwversion.UserAgent())
 		So(err, ShouldBeNil)
 		So(api, ShouldNotBeNil)
-		So(api.ComputeAPI, ShouldEqual, "http://api-endpoint.com")
-		So(api.AccountAPI, ShouldEqual, "http://account-endpoint.com")
 		So(api.Token, ShouldEqual, "my-token")
 		So(api.Organization, ShouldEqual, "my-organization")
 		So(api.Cache, ShouldNotBeNil)

@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/Sirupsen/logrus"
+	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -19,6 +19,7 @@ type InspectArgs struct {
 	Format      string
 	Browser     bool
 	Identifiers []string
+	Arch        string
 }
 
 // RunInspect is the handler for 'scw inspect'
@@ -27,7 +28,7 @@ func RunInspect(ctx CommandContext, args InspectArgs) error {
 	ci := make(chan api.ScalewayResolvedIdentifier)
 	cj := make(chan api.InspectIdentifierResult)
 	go api.ResolveIdentifiers(ctx.API, args.Identifiers, ci)
-	go api.InspectIdentifiers(ctx.API, ci, cj)
+	go api.InspectIdentifiers(ctx.API, ci, cj, args.Arch)
 
 	if args.Browser {
 		// --browser will open links in the browser

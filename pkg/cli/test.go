@@ -24,7 +24,6 @@ var (
 		"-D, --debug=false",
 		"-V, --verbose=false",
 		"-q, --quiet=false",
-		"--api-endpoint=APIEndPoint",
 		"--sensitive=false",
 		"-v, --version=false",
 	}

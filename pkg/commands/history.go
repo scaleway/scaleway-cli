@@ -18,11 +18,12 @@ type HistoryArgs struct {
 	NoTrunc bool
 	Quiet   bool
 	Image   string
+	Arch    string
 }
 
 // RunHistory is the handler for 'scw history'
 func RunHistory(ctx CommandContext, args HistoryArgs) error {
-	imageID, err := ctx.API.GetImageID(args.Image)
+	imageID, err := ctx.API.GetImageID(args.Image, args.Arch)
 	if err != nil {
 		return err
 	}

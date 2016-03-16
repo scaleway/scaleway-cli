@@ -18,6 +18,8 @@ var cmdRun = &Command{
 	Help:        "Run a command in a new server.",
 	Examples: `
     $ scw run ubuntu-trusty
+    $ scw run --commercial-type=C2S ubuntu-trusty
+    $ scw run --show-boot --commercial-type=C2S ubuntu-trusty
     $ scw run --rm ubuntu-trusty
     $ scw run -a --rm ubuntu-trusty
     $ scw run --gateway=myotherserver ubuntu-trusty
@@ -43,6 +45,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
+	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "C1", "Start a server with specific commercial-type C1, VC1, C2[SML]")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
@@ -61,6 +64,7 @@ var runAttachFlag bool         // -a, --attach flag
 var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 var runUserdatas string        // -u, --userdata flag
+var runCommercialType string   // --commercial-type flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
 var runTimeout int64           // --timeout flag
@@ -95,20 +99,20 @@ func runRun(cmd *Command, rawArgs []string) error {
 	}
 
 	args := commands.RunArgs{
-		Attach:     runAttachFlag,
-		Bootscript: runCreateBootscript,
-		Command:    rawArgs[1:],
-		Detach:     runDetachFlag,
-		Gateway:    runGateway,
-		Image:      rawArgs[0],
-		Name:       runCreateName,
-		AutoRemove: runAutoRemove,
-		TmpSSHKey:  runTmpSSHKey,
-		ShowBoot:   runShowBoot,
-		IP:         runIPAddress,
-		Timeout:    runTimeout,
-		Userdata:   runUserdatas,
-		// FIXME: DynamicIPRequired
+		Attach:         runAttachFlag,
+		Bootscript:     runCreateBootscript,
+		Command:        rawArgs[1:],
+		Detach:         runDetachFlag,
+		Gateway:        runGateway,
+		Image:          rawArgs[0],
+		Name:           runCreateName,
+		AutoRemove:     runAutoRemove,
+		TmpSSHKey:      runTmpSSHKey,
+		ShowBoot:       runShowBoot,
+		IP:             runIPAddress,
+		Timeout:        runTimeout,
+		Userdata:       runUserdatas,
+		CommercialType: runCommercialType,
 		// FIXME: Timeout
 	}
 

@@ -5,6 +5,7 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"sort"
@@ -39,7 +40,7 @@ type ScalewayImageInterface struct {
 	Public       bool
 	Type         string
 	Organization string
-	Arch         string
+	Archs        []string
 	Region       string
 }
 
@@ -217,13 +218,14 @@ type InspectIdentifierResult struct {
 }
 
 // InspectIdentifiers inspects identifiers concurrently
-func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan InspectIdentifierResult) {
+func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj chan InspectIdentifierResult, arch string) {
 	var wg sync.WaitGroup
 	for {
 		idents, ok := <-ci
 		if !ok {
 			break
 		}
+		idents.Identifiers = FilterImagesByArch(idents.Identifiers, arch)
 		if len(idents.Identifiers) != 1 {
 			if len(idents.Identifiers) == 0 {
 				log.Errorf("Unable to resolve identifier %s", idents.Needle)
@@ -297,11 +299,9 @@ type ConfigCreateServer struct {
 
 // CreateServer creates a server using API based on typical server fields
 func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
-	if c.CommercialType == "" {
-		c.CommercialType = os.Getenv("SCW_COMMERCIAL_TYPE")
-		if c.CommercialType == "" {
-			c.CommercialType = "C1"
-		}
+	commercialType := os.Getenv("SCW_COMMERCIAL_TYPE")
+	if commercialType != "" {
+		commercialType = c.CommercialType
 	}
 
 	if c.Name == "" {
@@ -313,6 +313,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	server.CommercialType = c.CommercialType
 	server.Volumes = make(map[string]string)
 	server.DynamicIPRequired = &c.DynamicIPRequired
+	if c.CommercialType == "" {
+		return "", errors.New("You need to specify a commercial-type")
+	}
 	if c.IP != "" {
 		if anonuuid.IsUUID(c.IP) == nil {
 			server.PublicIP = c.IP
@@ -348,10 +351,14 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
-	// FIXME build images only on ARM ?
 	arch := os.Getenv("SCW_TARGET_ARCH")
 	if arch == "" {
-		arch = "arm"
+		switch server.CommercialType[:2] {
+		case "C1":
+			arch = "arm"
+		case "C2", "VC":
+			arch = "x86_64"
+		}
 	}
 	region := os.Getenv("SCW_TARGET_REGION")
 	if region == "" {
@@ -373,27 +380,30 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		server.Volumes["0"] = *volumeID
 	} else {
 		// Use an existing image
-		// FIXME: handle snapshots
 		inheritingVolume = true
-		imageIdentifier, err = api.GetImageID(c.ImageName)
-		if err != nil {
-			return "", err
-		}
-		if imageIdentifier.Identifier != "" {
-			server.Image = &imageIdentifier.Identifier
+		if anonuuid.IsUUID(c.ImageName) == nil {
+			server.Image = &c.ImageName
 		} else {
-			snapshotID, err := api.GetSnapshotID(c.ImageName)
+			imageIdentifier, err = api.GetImageID(c.ImageName, arch)
 			if err != nil {
 				return "", err
 			}
-			snapshot, err := api.GetSnapshot(snapshotID)
-			if err != nil {
-				return "", err
+			if imageIdentifier.Identifier != "" {
+				server.Image = &imageIdentifier.Identifier
+			} else {
+				snapshotID, err := api.GetSnapshotID(c.ImageName)
+				if err != nil {
+					return "", err
+				}
+				snapshot, err := api.GetSnapshot(snapshotID)
+				if err != nil {
+					return "", err
+				}
+				if snapshot.BaseVolume.Identifier == "" {
+					return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
+				}
+				server.Volumes["0"] = snapshot.BaseVolume.Identifier
 			}
-			if snapshot.BaseVolume.Identifier == "" {
-				return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
-			}
-			server.Volumes["0"] = snapshot.BaseVolume.Identifier
 		}
 	}
 	if c.Bootscript != "" {
@@ -614,7 +624,7 @@ func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
 func (a *ScalewayAPI) GetSSHFingerprintFromServer(serverID string) []string {
 	ret := []string{}
 
-	if value, err := a.GetUserdata(serverID, "ssh-host-fingerprints"); err == nil {
+	if value, err := a.GetUserdata(serverID, "ssh-host-fingerprints", false); err == nil {
 		PublicKeys := strings.Split(string(*value), "\n")
 		for i := range PublicKeys {
 			if fingerprint, err := utils.SSHGetFingerprint([]byte(PublicKeys[i])); err == nil {

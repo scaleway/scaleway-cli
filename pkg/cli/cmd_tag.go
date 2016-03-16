@@ -16,7 +16,7 @@ var cmdTag = &Command{
 func init() {
 	cmdTag.Flag.BoolVar(&tagHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdTag.Flag.StringVar(&tagBootscript, []string{"-bootscript"}, "", "Assign bootscript")
-	cmdTag.Flag.StringVar(&tagArch, []string{"-arch"}, "arm", "Image architecture")
+	cmdTag.Flag.StringVar(&tagArch, []string{"-arch"}, "arm", "Image architecture arm, x86_64")
 }
 
 // Flags

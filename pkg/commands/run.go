@@ -20,22 +20,22 @@ import (
 
 // RunArgs are flags for the `Run` function
 type RunArgs struct {
-	Attach     bool
-	Bootscript string
-	Command    []string
-	Detach     bool
-	Gateway    string
-	Image      string
-	Name       string
-	IP         string
-	Tags       []string
-	Volumes    []string
-	AutoRemove bool
-	TmpSSHKey  bool
-	ShowBoot   bool
-	Timeout    int64
-	Userdata   string
-	// DynamicIPRequired
+	Attach         bool
+	Bootscript     string
+	Command        []string
+	Detach         bool
+	Gateway        string
+	Image          string
+	Name           string
+	IP             string
+	Tags           []string
+	Volumes        []string
+	AutoRemove     bool
+	TmpSSHKey      bool
+	ShowBoot       bool
+	Timeout        int64
+	Userdata       string
+	CommercialType string
 	// Timeout
 }
 
@@ -89,7 +89,7 @@ func addUserData(ctx CommandContext, userdatas []string, serverID string) {
 		} else {
 			data = []byte(keyValue[1])
 		}
-		if err = ctx.API.PatchUserdata(serverID, keyValue[0], data); err != nil {
+		if err = ctx.API.PatchUserdata(serverID, keyValue[0], data, false); err != nil {
 			logrus.Warn("PatchUserdata: ", err)
 			continue
 		}
@@ -165,6 +165,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		AdditionalVolumes: volume,
 		DynamicIPRequired: false,
 		IP:                args.IP,
+		CommercialType:    args.CommercialType,
 	}
 	if args.IP == "dynamic" || (args.IP == "" && args.Gateway == "") {
 		config.DynamicIPRequired = true

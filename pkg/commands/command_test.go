@@ -16,7 +16,7 @@ import (
 )
 
 func testCommandContext() CommandContext {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", scwversion.UserAgent())
+	apiClient, err := api.NewScalewayAPI("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", scwversion.UserAgent())
 	if err != nil {
 		panic(err)
 	}
@@ -37,7 +37,7 @@ func testCommandContext() CommandContext {
 }
 
 func ExampleCommandContext() {
-	apiClient, err := api.NewScalewayAPI("https://example.org/", "https://example.org/", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",scwversion.UserAgent())
+	apiClient, err := api.NewScalewayAPI("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", scwversion.UserAgent())
 	if err != nil {
 		panic(err)
 	}

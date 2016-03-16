@@ -84,14 +84,13 @@ func selectKey(args *LoginArgs) error {
 }
 
 func getToken(connect api.ScalewayConnect) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", "", scwversion.UserAgent())
+	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent())
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
-	FakeConnection.EnableAccountAPI()
 	FakeConnection.SetPassword(connect.Password)
 
-	resp, err := FakeConnection.PostResponse("tokens", connect)
+	resp, err := FakeConnection.PostResponse(api.AccountAPI, "tokens", connect)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -114,7 +113,7 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 }
 
 func getOrganization(token string, email string) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI(api.ComputeAPI, api.AccountAPI, "", token, scwversion.UserAgent())
+	FakeConnection, err := api.NewScalewayAPI("", token, scwversion.UserAgent())
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -188,6 +187,9 @@ func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
 		SSHKeys := api.ScalewayUserPatchSSHKeyDefinition{
 			SSHPublicKeys: user.SSHPublicKeys,
 		}
+		for i := range SSHKeys.SSHPublicKeys {
+			SSHKeys.SSHPublicKeys[i].Fingerprint = ""
+		}
 
 		userID, err := apiConnection.GetUserID()
 		if err != nil {
@@ -212,13 +214,11 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	}
 
 	cfg := &config.Config{
-		ComputeAPI:   api.ComputeAPI,
-		AccountAPI:   api.AccountAPI,
 		Organization: strings.Trim(args.Organization, "\n"),
 		Token:        strings.Trim(args.Token, "\n"),
 	}
 
-	apiConnection, err := api.NewScalewayAPI(cfg.ComputeAPI, cfg.AccountAPI, cfg.Organization, cfg.Token, scwversion.UserAgent())
+	apiConnection, err := api.NewScalewayAPI(cfg.Organization, cfg.Token, scwversion.UserAgent())
 	if err != nil {
 		return fmt.Errorf("Unable to create ScalewayAPI: %s", err)
 	}

@@ -174,7 +174,6 @@ Options:
  -D, --debug=false            Enable debug mode
  -V, --verbose=false          Enable verbose mode
  -q, --quiet=false            Enable quiet mode
- --api-endpoint=APIEndPoint   Set the API endpoint
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
 
@@ -199,7 +198,7 @@ Commands:
     rename    Rename a server
     restart   Restart a running server
     rm        Remove one or more servers
-    rmi       Remove one or more images
+    rmi       Remove one or more image(s)/volume(s)/snapshot(s)
     run       Run a command in a new server
     search    Search the Scaleway Hub for images
     start     Start a stopped server
@@ -248,6 +247,7 @@ Attach to a running server serial console.
 Options:
 
   -h, --help=false      Print usage
+  --no-stdin=false      Do not attach stdin
 
 Examples:
 
@@ -279,7 +279,7 @@ Examples:
 #### `scw cp`
 
 ```console
-Usage: scw cp [OPTIONS] SERVER:PATH HOSTDIR|-
+Usage: scw cp [OPTIONS] SERVER:PATH|HOSTPATH|- SERVER:PATH|HOSTPATH|-
 
 Copy files/folders from a PATH on the server to a HOSTDIR on the host
 running the command. Use '-' to write the data as a tar file to STDOUT.
@@ -317,6 +317,7 @@ Create a new server but do not start it.
 Options:
 
   --bootscript=""       Assign a bootscript
+  --commercial-type=C1  Create a server with specific commercial-type C1, VC1, C2[S|M|L]
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
   -h, --help=false      Print usage
   --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -405,6 +406,7 @@ Show the history of an image.
 
 Options:
 
+  --arch=*              Specify architecture
   -h, --help=false      Print usage
   --no-trunc=false      Don't truncate output
   -q, --quiet=false     Only show numeric IDs
@@ -443,7 +445,7 @@ Examples:
     $ scw images -f type=volume
     $ scw images -f public=true
     $ scw images -f public=false
-    $ scw images -f "organization=me type=volume" -q
+    $ scw images -f "organization=me type=volume" -qsc
 ```
 
 
@@ -465,12 +467,13 @@ Options:
 ```console
 Usage: scw inspect [OPTIONS] IDENTIFIER [IDENTIFIER...]
 
-Return low-level information on a server, image, snapshot or bootscript.
+Return low-level information on a server, image, snapshot, volume or bootscript.
 
 Options:
 
+  --arch=*              Specify architecture
   -b, --browser=false   Inspect object in browser
-  -f, --format=""       Format the output using the given go template.
+  -f, --format=""       Format the output using the given go template
   -h, --help=false      Print usage
 
 Examples:
@@ -632,7 +635,7 @@ Restart a running server.
 Options:
 
   -h, --help=false      Print usage
-  -T, --timeout=0       Set timeout value to seconds
+  -T, --timeout=0       Set timeout values to seconds
   -w, --wait=false      Synchronous restart. Wait for SSH to be ready
 ```
 
@@ -653,7 +656,7 @@ Examples:
 
     $ scw rm myserver
     $ scw rm -f myserver
-    $ scw rm my-stopped-server my-second-stopped-serv
+    $ scw rm my-stopped-server my-second-stopped-server
     $ scw rm $(scw ps -q)
     $ scw rm $(scw ps | grep mysql | awk '{print $1}')
 ```
@@ -690,6 +693,7 @@ Options:
 
   -a, --attach=false    Attach to serial console
   --bootscript=""       Assign a bootscript
+  --commercial-type=C1  Start a server with specific commercial-type C1, VC1, C2[SML]
   -d, --detach=false    Run server in background and print server ID
   -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""      Use a SSH gateway
@@ -706,6 +710,8 @@ Options:
 Examples:
 
     $ scw run ubuntu-trusty
+    $ scw run --commercial-type=C2S ubuntu-trusty
+    $ scw run --show-boot --commercial-type=C2S ubuntu-trusty
     $ scw run --rm ubuntu-trusty
     $ scw run -a --rm ubuntu-trusty
     $ scw run --gateway=myotherserver ubuntu-trusty
@@ -722,7 +728,7 @@ Examples:
 
 ```
 ┌ ─ ─ ─ ─ ─ scw run docker  ─ ─ ─ ─ ┐
-                                     
+
 │   ┌───────────────────────────┐   │
     │server=$(scw create docker)│    
 │   └───────────────────────────┘   │
@@ -732,9 +738,9 @@ Examples:
 │        └─────────────────┘        │
                   +                  
 │┌─────────────────────────────────┐│
- │scw exec --wait $SERVER /bin/bash│ 
+ │scw exec --wait $SERVER /bin/bash│
 │└─────────────────────────────────┘│
- ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 
+ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
 ```
 
 #### `scw search`
@@ -1178,6 +1184,11 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ### master (unreleased)
 
 * `scw exec` Add warning to try to clean the cache when an error occurred
+* Add `SCW_[COMPUTE|ACCOUNT|METADATA|MARKETPLACE]_API` environment variable
+* Remove --api-endpoint
+* Fix uploading SSH key with `scw login`
+* Use markerplace API in GetImages()
+* Add `_markerplace`
 * `scw rename` fix nil dereference ([#289](https://github.com/scaleway/scaleway-cli/issues/289))
 * Support of `scw [run|create] --ip-address=[none|dynamic]` ([#283](https://github.com/scaleway/scaleway-cli/pull/283)) ([@ElNounch](https://github.com/ElNounch))
 * Support of `scw ps -f server-type=COMMERCIALTYPE` ([#280](https://github.com/scaleway/scaleway-cli/issues/280))

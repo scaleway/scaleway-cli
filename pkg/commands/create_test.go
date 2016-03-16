@@ -61,8 +61,9 @@ func TestRunCreate_realAPI(t *testing.T) {
 
 		Convey("--name=unittest-create-standard ubuntu-vivid", func() {
 			args := CreateArgs{
-				Name:  "unittest-create-standard",
-				Image: "ubuntu-vivid",
+				Name:           "unittest-create-standard",
+				Image:          "ubuntu-wily",
+				CommercialType: "VC1",
 			}
 
 			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)

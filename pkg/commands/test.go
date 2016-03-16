@@ -45,7 +45,7 @@ func RealAPIContext() *CommandContext {
 		return nil
 	}
 
-	apiClient, err := api.NewScalewayAPI(config.ComputeAPI, config.AccountAPI, config.Organization, config.Token, scwversion.UserAgent())
+	apiClient, err := api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent())
 	if err != nil {
 		logrus.Warnf("RealAPIContext: failed to call api.NewScalewayAPI(): %v", err)
 		return nil
