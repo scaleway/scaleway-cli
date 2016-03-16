@@ -30,7 +30,7 @@ echo "[+] Target name: ${NAME}"
 
 
 echo "[+] Creating new server in rescue mode with a secondary volume..."
-SERVER=$(SCW_TARGET_ARCH="$SCW_TARGET_ARCH" SCW_COMMERCIAL_TYPE="$SCW_COMMERCIAL_TYPE" scw run -d --env="AUTHORIZED_KEY=${KEY} boot=rescue rescue_image=${URL} INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
+SERVER=$(SCW_TARGET_ARCH="$SCW_TARGET_ARCH" SCW_COMMERCIAL_TYPE="$SCW_COMMERCIAL_TYPE" scw run -d --env="AUTHORIZED_KEY=${KEY} boot=none INITRD_DROPBEAR=1" --name="image-writer-${NAME}" "${VOLUME_SIZE}")
 echo "[+] Server created: ${SERVER}"
 
 
