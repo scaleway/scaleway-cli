@@ -730,13 +730,13 @@ Examples:
 ┌ ─ ─ ─ ─ ─ scw run docker  ─ ─ ─ ─ ┐
 
 │   ┌───────────────────────────┐   │
-    │server=$(scw create docker)│    
+    │server=$(scw create docker)│
 │   └───────────────────────────┘   │
-                  +                  
+                  +
 │        ┌─────────────────┐        │
-         │scw start $SERVER│         
+         │scw start $SERVER│
 │        └─────────────────┘        │
-                  +                  
+                  +
 │┌─────────────────────────────────┐│
  │scw exec --wait $SERVER /bin/bash│
 │└─────────────────────────────────┘│
@@ -1181,7 +1181,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.8.0 (2016-03-17
 
 * Use VC1 by default
 * `scw exec` Add warning to try to clean the cache when an error occurred
@@ -1200,7 +1200,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Update pricing ([#294](https://github.com/scaleway/scaleway-cli/issues/294))
 * create-image-from-http.sh: using VPS instead of C1 ([#301](https://github.com/scaleway/scaleway-cli/issues/301))
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.1...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.7.1...v1.8.0)
 
 ### v1.7.1 (2016-01-29)
 
