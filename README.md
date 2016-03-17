@@ -1181,6 +1181,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
+
 ### v1.8.0 (2016-03-17
 
 * Use VC1 by default
