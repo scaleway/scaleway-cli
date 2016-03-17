@@ -1187,7 +1187,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
 
-### v1.8.0 (2016-03-17
+### v1.8.0 (2016-03-17)
 
 * Use VC1 by default
 * `scw exec` Add warning to try to clean the cache when an error occurred
@@ -1351,7 +1351,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.2.0
 
 ---
 
-### 1.2.0 (2015-07-29)
+### 1.2.0 (2015-06-29)
 
 #### Features
 
