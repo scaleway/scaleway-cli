@@ -555,10 +555,12 @@ type ScalewayServer struct {
 
 	// Location of the server
 	Location struct {
-		Platform string `json:"platform_id,omitempty"`
-		Chassis  string `json:"chassis_id,omitempty"`
-		Blade    string `json:"blade_id,omitempty"`
-		Node     string `json:"node_id,omitempty"`
+		Platform   string `json:"platform_id,omitempty"`
+		Chassis    string `json:"chassis_id,omitempty"`
+		Cluster    string `json:"cluster_id,omitempty"`
+		Hypervisor string `json:"hypervisor_id,omitempty"`
+		Blade      string `json:"blade_id,omitempty"`
+		Node       string `json:"node_id,omitempty"`
 	} `json:"location,omitempty"`
 }
 
