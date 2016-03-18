@@ -11,6 +11,7 @@ import (
 
 	"github.com/kardianos/osext"
 
+	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 )
 
@@ -25,7 +26,7 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 
 	fmt.Fprintf(ctx.Stdout, "Organization:\t\t%s\n", ctx.API.Organization)
 	// FIXME: add partially-masked token
-	fmt.Fprintf(ctx.Stdout, "API Endpoint:\t\t%s\n", ctx.Getenv("scaleway_api_endpoint"))
+	fmt.Fprintf(ctx.Stdout, "API Endpoint:\t\t%s\n", api.ComputeAPI)
 	configPath, _ := config.GetConfigFilePath()
 	fmt.Fprintf(ctx.Stdout, "RC file:\t\t%s\n", configPath)
 	fmt.Fprintf(ctx.Stdout, "User:\t\t\t%s\n", ctx.Getenv("USER"))

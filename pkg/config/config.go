@@ -83,9 +83,6 @@ func GetConfig() (*Config, error) {
 		config.AccountAPI = "https://account.scaleway.com"
 		config.Save()
 	}
-	if os.Getenv("scaleway_api_endpoint") == "" {
-		os.Setenv("scaleway_api_endpoint", config.ComputeAPI)
-	}
 	return &config, nil
 }
 

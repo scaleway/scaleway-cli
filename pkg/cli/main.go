@@ -50,13 +50,6 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 		return 1, fmt.Errorf("unable to open .scwrc config file: %v", cfgErr)
 	}
 
-	if config != nil {
-		defaultComputeAPI := os.Getenv("scaleway_api_endpoint")
-		if defaultComputeAPI == "" {
-			defaultComputeAPI = config.ComputeAPI
-		}
-	}
-
 	if *flVersion {
 		fmt.Fprintf(streams.Stderr, "scw version %s, build %s\n", scwversion.VERSION, scwversion.GITCOMMIT)
 		return 0, nil
