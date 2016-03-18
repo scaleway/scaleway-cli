@@ -55,7 +55,7 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	if !args.Quiet {
-		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\n")
+		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\tCOMMERCIAL TYPE\n")
 	}
 	for _, server := range *servers {
 
@@ -113,7 +113,7 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 			creationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.CreationDate)
 			shortCreationDate := units.HumanDuration(time.Now().UTC().Sub(creationTime))
 			port := server.PublicAddress.IP
-			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t%s\t%s\n", shortID, shortImage, shortCreationDate, server.State, port, shortName)
+			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\n", shortID, shortImage, shortCreationDate, server.State, port, shortName, server.CommercialType)
 		}
 	skipServer:
 		continue
