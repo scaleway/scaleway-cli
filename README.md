@@ -1185,6 +1185,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 * Use `SCW_SECURE_EXEC` instead of `exec_exec`
 * Remove `scaleway_api_endpoint` environment variable
+* brew remove cache after install
 * `scw login` don't ask to upload ssh key when there is no keys
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
