@@ -1183,6 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw ps` add commercial-type column
 * Use `SCW_SECURE_EXEC` instead of `exec_exec`
 * Remove `scaleway_api_endpoint` environment variable
 * `scw login` don't ask to upload ssh key when there is no keys
