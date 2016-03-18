@@ -1183,7 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-* No entry
+* `scw login` don't ask to upload ssh key when there is no keys
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
 
