@@ -369,7 +369,7 @@ Examples:
     $ scw exec myserver bash
     $ scw exec --gateway=myotherserver myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
-    $ exec_secure=1 scw exec myserver bash
+    $ SCW_SECURE_EXEC=1 scw exec myserver bash
     $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash
     $ scw exec $(scw start -w $(scw create ubuntu-trusty)) bash
     $ scw exec myserver tmux new -d sleep 10
@@ -1183,6 +1183,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Use `SCW_SECURE_EXEC` instead of `exec_exec`
+* Remove `scaleway_api_endpoint` environment variable
 * `scw login` don't ask to upload ssh key when there is no keys
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
