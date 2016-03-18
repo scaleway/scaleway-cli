@@ -16,7 +16,7 @@ var cmdExec = &Command{
     $ scw exec myserver bash
     $ scw exec --gateway=myotherserver myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
-    $ exec_secure=1 scw exec myserver bash
+    $ SCW_SECURE_EXEC=1 scw exec myserver bash
     $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash
     $ scw exec $(scw start -w $(scw create ubuntu-trusty)) bash
     $ scw exec myserver tmux new -d sleep 10

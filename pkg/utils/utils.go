@@ -79,7 +79,7 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
 func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY bool, command []string, gatewayIPAddress string) *sshcommand.Command {
 	quiet := os.Getenv("DEBUG") != "1"
-	secureExec := os.Getenv("exec_secure") == "1"
+	secureExec := os.Getenv("SCW_SECURE_EXEC") == "1"
 	sshCommand := &sshcommand.Command{
 		AllocateTTY:         true,
 		Command:             command,
