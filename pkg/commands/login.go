@@ -32,7 +32,6 @@ type LoginArgs struct {
 
 // selectKey allows to choice a key in ~/.ssh
 func selectKey(args *LoginArgs) error {
-	fmt.Println("Do you want to upload an SSH key ?")
 	home, err := config.GetHomeDir()
 	if err != nil {
 		return err
@@ -52,6 +51,7 @@ func selectKey(args *LoginArgs) error {
 	if len(pubs) == 0 {
 		return nil
 	}
+	fmt.Println("Do you want to upload an SSH key ?")
 	fmt.Println("[0] I don't want to upload a key !")
 	for i := range pubs {
 		fmt.Printf("[%d] %s\n", i+1, pubs[i])
