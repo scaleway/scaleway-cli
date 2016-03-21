@@ -46,7 +46,7 @@ type ScalewayCache struct {
 	// Bootscripts contains names of Scaleway bootscripts indexed by identifier
 	Bootscripts map[string][CacheMaxfield]string `json:"bootscripts"`
 
-	// Servers contains names of Scaleway C1 servers indexed by identifier
+	// Servers contains names of Scaleway servers indexed by identifier
 	Servers map[string][CacheMaxfield]string `json:"servers"`
 
 	// Path is the path to the cache file

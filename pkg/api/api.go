@@ -178,7 +178,7 @@ type ScalewayVolumes struct {
 	Volumes []ScalewayVolume `json:"volumes,omitempty"`
 }
 
-// ScalewayVolumeDefinition represents a Scaleway C1 volume definition
+// ScalewayVolumeDefinition represents a Scaleway volume definition
 type ScalewayVolumeDefinition struct {
 	// Name is the user-defined name of the volume
 	Name string `json:"name"`
@@ -193,7 +193,7 @@ type ScalewayVolumeDefinition struct {
 	Organization string `json:"organization"`
 }
 
-// ScalewayVolumePutDefinition represents a Scaleway C1 volume with nullable fields (for PUT)
+// ScalewayVolumePutDefinition represents a Scaleway volume with nullable fields (for PUT)
 type ScalewayVolumePutDefinition struct {
 	Identifier       *string `json:"id,omitempty"`
 	Size             *uint64 `json:"size,omitempty"`
@@ -322,7 +322,7 @@ type ScalewayInitrd struct {
 	Title string `json:"title,omitempty"`
 }
 
-// ScalewayKernel represents a kernel used on C1 servers
+// ScalewayKernel represents a kernel used on servers
 type ScalewayKernel struct {
 	// Identifier is the unique identifier of the kernel
 	Identifier string `json:"id,omitempty"`
@@ -497,7 +497,7 @@ type ScalewayNewSecurityGroup struct {
 	Description  string `json:"description"`
 }
 
-// ScalewayServer represents a Scaleway C1 server
+// ScalewayServer represents a Scaleway server
 type ScalewayServer struct {
 	// Arch is the architecture target of the server
 	Arch string `json:"arch,omitempty"`
@@ -550,7 +550,7 @@ type ScalewayServer struct {
 	// Organization is the owner of the server
 	Organization string `json:"organization,omitempty"`
 
-	// CommercialType is the commercial type of the server (i.e: C1)
+	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1)
 	CommercialType string `json:"commercial_type,omitempty"`
 
 	// Location of the server
@@ -564,7 +564,7 @@ type ScalewayServer struct {
 	} `json:"location,omitempty"`
 }
 
-// ScalewayServerPatchDefinition represents a Scaleway C1 server with nullable fields (for PATCH)
+// ScalewayServerPatchDefinition represents a Scaleway server with nullable fields (for PATCH)
 type ScalewayServerPatchDefinition struct {
 	Arch              *string                    `json:"arch,omitempty"`
 	Name              *string                    `json:"name,omitempty"`
@@ -584,7 +584,7 @@ type ScalewayServerPatchDefinition struct {
 	Tags              *[]string                  `json:"tags,omitempty"`
 }
 
-// ScalewayServerDefinition represents a Scaleway C1 server with image definition
+// ScalewayServerDefinition represents a Scaleway server with image definition
 type ScalewayServerDefinition struct {
 	// Name is the user-defined name of the server
 	Name string `json:"name"`
@@ -607,7 +607,7 @@ type ScalewayServerDefinition struct {
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
 
-	// CommercialType is the commercial type of the server (i.e: C1)
+	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1)
 	CommercialType string `json:"commercial_type"`
 
 	PublicIP string `json:"public_ip,omitempty"`
@@ -618,13 +618,13 @@ type ScalewayOneServer struct {
 	Server ScalewayServer `json:"server,omitempty"`
 }
 
-// ScalewayServers represents a group of Scaleway C1 servers
+// ScalewayServers represents a group of Scaleway servers
 type ScalewayServers struct {
 	// Servers holds scaleway servers of the response
 	Servers []ScalewayServer `json:"servers,omitempty"`
 }
 
-// ScalewayServerAction represents an action to perform on a Scaleway C1 server
+// ScalewayServerAction represents an action to perform on a Scaleway server
 type ScalewayServerAction struct {
 	// Action is the name of the action to trigger
 	Action string `json:"action,omitempty"`
