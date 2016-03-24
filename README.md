@@ -1183,6 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* GetBootscriptID doesn't try to resolve when we pass an UUID
 * Add location fields for VPS
 * `scw ps` add commercial-type column
 * Use `SCW_SECURE_EXEC` instead of `exec_exec`
