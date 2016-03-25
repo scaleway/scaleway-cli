@@ -10,6 +10,10 @@
 #            "50G" \
 #            "initrd http://ftp.ch.openbsd.org/pub/OpenBSD/5.8/amd64/install58.iso" \
 #            "chain http://boot.salstar.sk/memdisk iso raw"
+#
+# Deps:
+# - https://github.com/scaleway/scaleway-cli
+# - https://github.com/moul/slow-stream
 
 
 set timeout 60
