@@ -1,0 +1,44 @@
+#!/usr/bin/expect
+# Usage: ipxe.expect "SCW_RUN_ARGS" ["IPXE LINE" ["IPXE LINE" [...]]]
+#
+# Examples:
+#        ipxe.expect \
+#            "--commercial-type=VC1 50G" \
+#            "chain --autofree http://boot.netboot.xyz/menu.ipxe"
+#
+#        ipxe.expect \
+#            "50G" \
+#            "initrd http://ftp.ch.openbsd.org/pub/OpenBSD/5.8/amd64/install58.iso" \
+#            "chain http://boot.salstar.sk/memdisk iso raw"
+
+
+set timeout 60
+set scwargs [lindex $argv 0]
+set commands [lrange $argv 1 end]
+#FIXME: set default scwargs: --commercial-type=VC1 50G
+
+
+# Start scw-run in a slow-stream
+eval spawn slow-stream --raw -b 1 -i 10 --stdout-passthrough -- scw run --attach $scwargs
+
+
+# Detect iPXE trigger
+expect "Press Ctrl-B for the iPXE command line..."
+send   "\x02"
+
+
+# Perform initial DHCP
+expect "iPXE>"
+send   "dhcp\r"
+
+
+# Send secondary commands
+foreach command $commands {
+    expect "iPXE>"
+    send   "${command}\r"
+}
+
+
+# Drop shell
+set timeout -1
+interact
