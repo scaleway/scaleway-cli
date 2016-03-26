@@ -85,7 +85,7 @@ func runUserdata(cmd *Command, args []string) error {
 			}
 			fmt.Fprintf(ctx.Stdout, "%s\n", res.String())
 		default:
-			value := parts[1]
+			value := args[1][len(parts[0])+1:]
 			if value != "" {
 				var data []byte
 				// Set userdata
