@@ -1183,6 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw _userdata` fix bug when we have multiple '=' in the value ([#320](https://github.com/scaleway/scaleway-cli/issues/320))
 * GetBootscriptID doesn't try to resolve when we pass an UUID
 * Add location fields for VPS
 * `scw ps` add commercial-type column
