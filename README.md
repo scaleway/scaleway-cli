@@ -1181,6 +1181,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.1...master)
+
 ### v1.8.1 (2016-03-29)
 
 * Fix `ScalewayBootscript` structure
@@ -1193,7 +1199,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * brew remove cache after install
 * `scw login` don't ask to upload ssh key when there is no keys
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.0...v1.8.1)
 
 ### v1.8.0 (2016-03-17)
 
