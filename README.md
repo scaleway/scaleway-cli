@@ -1181,7 +1181,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.8.1 (2016-03-29)
 
 * Fix `ScalewayBootscript` structure
 * `scw _userdata` fix bug when we have multiple '=' in the value ([#320](https://github.com/scaleway/scaleway-cli/issues/320))
