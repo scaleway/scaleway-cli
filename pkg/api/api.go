@@ -301,67 +301,28 @@ type ScalewaySnapshots struct {
 	Snapshots []ScalewaySnapshot `json:"snapshots,omitempty"`
 }
 
-// ScalewayBootCmdArgs represents the boot arguments of a bootscript
-type ScalewayBootCmdArgs struct {
-	// Identifier is the unique identifier of boot args
-	Identifier string `json:"id,omitempty"`
-
-	// Value is the content of the cmd args
-	Value string `json:"value,omitempty"`
-}
-
-// ScalewayInitrd represents the initrd used by a bootscript
-type ScalewayInitrd struct {
-	// Identifier is the unique identifier of the initrd
-	Identifier string `json:"id,omitempty"`
-
-	// Path is the path to the initrd used
-	Path string `json:"path,omitempty"`
-
-	// Title is the title of the initrd used
-	Title string `json:"title,omitempty"`
-}
-
-// ScalewayKernel represents a kernel used on servers
-type ScalewayKernel struct {
-	// Identifier is the unique identifier of the kernel
-	Identifier string `json:"id,omitempty"`
-
-	// DTB is the kernel DTB used by this kernel
-	DTB string `json:"dtb"`
-
-	// Path is the path to the kernel image
-	Path string `json:"path,omitempty"`
-
-	// Title is the title of the kernel
-	Title string `json:"title,omitempty"`
-}
-
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
+	Bootcmdargs string `json:"bootcmdargs,omitempty"`
+	Default     bool   `json:"default,omitempty"`
+	Dtb         string `json:"dtb,omitempty"`
+	Initrd      string `json:"initrd,omitempty"`
+	Kernel      string `json:"kernel,omitempty"`
+
 	// Arch is the architecture target of the bootscript
 	Arch string `json:"architecture,omitempty"`
-
-	// Organization is the owner of the bootscript
-	Organization string `json:"organization,omitempty"`
 
 	// Identifier is a unique identifier for the bootscript
 	Identifier string `json:"id,omitempty"`
 
-	// Name is a user-defined name for the bootscript
-	Title string `json:"title,omitempty"`
-
-	// BootCmdArgs represents the arguments used to boot
-	BootCmdArgs ScalewayBootCmdArgs `json:"bootcmdargs,omitempty"`
-
-	// Initrd is the initrd used by this bootscript
-	Initrd ScalewayInitrd `json:"initrd,omitempty"`
-
-	// Kernel is the kernel associated to this server
-	Kernel ScalewayKernel `json:"kernel,omitempty"`
+	// Organization is the owner of the bootscript
+	Organization string `json:"organization,omitempty"`
 
 	// Public is true for public bootscripts and false for user bootscripts
 	Public bool `json:"public,omitempty"`
+
+	// Name is a user-defined name for the bootscript
+	Title string `json:"title,omitempty"`
 }
 
 // ScalewayOneBootscript represents the response of a GET /bootscripts/UUID API call
