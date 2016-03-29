@@ -20,7 +20,7 @@ class Scw < Formula
     system "go", "build", "-o", "#{bin}/scw", "-v", "-ldflags", "-X  github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=homebrew", "github.com/scaleway/scaleway-cli/cmd/scw/"
  # we remove our .scw-cache.db file, to clean the cache of scw
  # this file is created and handled by scw
-    system "rm", "-f", "~/.scw-cache.db"
+    rm_f "~/.scw-cache.db"
 
     bash_completion.install "src/github.com/scaleway/scaleway-cli/contrib/completion/bash/scw"
     zsh_completion.install "src/github.com/scaleway/scaleway-cli/contrib/completion/zsh/_scw"
