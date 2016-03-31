@@ -63,7 +63,7 @@ func TestRunCreate_realAPI(t *testing.T) {
 			args := CreateArgs{
 				Name:           "unittest-create-standard",
 				Image:          "ubuntu-wily",
-				CommercialType: "VC1",
+				CommercialType: "VC1S",
 			}
 
 			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)

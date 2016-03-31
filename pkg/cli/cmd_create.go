@@ -31,7 +31,7 @@ func init() {
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "dynamic", "Assign a reserved public IP, a 'dynamic' one or 'none'")
-	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "VC1", "Create a server with specific commercial-type C1, VC1, C2[S|M|L]")
+	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "VC1S", "Create a server with specific commercial-type C1, VC1S, C2[S|M|L]")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCreate.Flag.BoolVar(&createTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 }
