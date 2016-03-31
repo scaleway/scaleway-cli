@@ -511,7 +511,7 @@ type ScalewayServer struct {
 	// Organization is the owner of the server
 	Organization string `json:"organization,omitempty"`
 
-	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1)
+	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1S)
 	CommercialType string `json:"commercial_type,omitempty"`
 
 	// Location of the server
@@ -568,7 +568,7 @@ type ScalewayServerDefinition struct {
 	// Organization is the owner of the server
 	Organization string `json:"organization"`
 
-	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1)
+	// CommercialType is the commercial type of the server (i.e: C1, C2[SML], VC1S)
 	CommercialType string `json:"commercial_type"`
 
 	PublicIP string `json:"public_ip,omitempty"`
