@@ -300,7 +300,7 @@ type ConfigCreateServer struct {
 // CreateServer creates a server using API based on typical server fields
 func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	commercialType := os.Getenv("SCW_COMMERCIAL_TYPE")
-	if commercialType != "" {
+	if commercialType == "" {
 		commercialType = c.CommercialType
 	}
 

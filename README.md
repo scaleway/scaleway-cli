@@ -1183,7 +1183,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-* No entry
+* Fix bug when using SCW_COMMERCIAL_TYPE variable
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.1...master)
 
