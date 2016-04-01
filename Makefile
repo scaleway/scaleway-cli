@@ -89,6 +89,7 @@ release-docker:
 
 goxc:
 	rm -rf dist/$(shell cat .goxc.json| jq -r .PackageVersion)
+	rm -f dist/latest
 	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
 	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
 
