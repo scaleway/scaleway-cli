@@ -1181,12 +1181,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.9.0 (2016-04-01)
 
 * Fix bug when using SCW_COMMERCIAL_TYPE variable
 * Switch to VC1S
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.1...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.8.1...v.1.9.0)
 
 ### v1.8.1 (2016-03-29)
 
