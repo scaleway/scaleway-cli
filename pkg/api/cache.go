@@ -28,6 +28,9 @@ const (
 	CacheOwner
 	// CacheTitle permits to access at the title field
 	CacheTitle
+	// CacheMarketPlaceUUID is used to determine the UUID of local images
+	CacheMarketPlaceUUID
+
 	// CacheMaxfield is used to determine the size of array
 	CacheMaxfield
 )
@@ -281,6 +284,10 @@ func (c *ScalewayCache) LookUpImages(needle string, acceptUUID bool) ScalewayRes
 			exactMatches = append(exactMatches, entry)
 		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[CacheTitle]) {
+			entry := NewScalewayResolverResult(identifier, fields[CacheTitle], fields[CacheArch], IdentifierImage)
+			entry.ComputeRankMatch(needle)
+			res = append(res, entry)
+		} else if strings.HasPrefix(fields[CacheMarketPlaceUUID], needle) || nameRegex.MatchString(fields[CacheMarketPlaceUUID]) {
 			entry := NewScalewayResolverResult(identifier, fields[CacheTitle], fields[CacheArch], IdentifierImage)
 			entry.ComputeRankMatch(needle)
 			res = append(res, entry)
@@ -564,13 +571,13 @@ func (c *ScalewayCache) ClearServers() {
 }
 
 // InsertImage registers an image in the cache
-func (c *ScalewayCache) InsertImage(identifier, region, arch, owner, name string) {
+func (c *ScalewayCache) InsertImage(identifier, region, arch, owner, name, marketPlaceUUID string) {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
 	fields, exists := c.Images[identifier]
 	if !exists || fields[CacheTitle] != name {
-		c.Images[identifier] = [CacheMaxfield]string{region, arch, owner, name}
+		c.Images[identifier] = [CacheMaxfield]string{region, arch, owner, name, marketPlaceUUID}
 		c.Modified = true
 	}
 }

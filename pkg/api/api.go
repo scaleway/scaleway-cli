@@ -1246,7 +1246,7 @@ func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string,
 		return "", err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(image.Image.Identifier, "fr-1", image.Image.Arch, image.Image.Organization, image.Image.Name)
+	s.Cache.InsertImage(image.Image.Identifier, "fr-1", image.Image.Arch, image.Image.Organization, image.Image.Name, "")
 	return image.Image.Identifier, nil
 }
 
@@ -1365,7 +1365,7 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 				if version.ID == image.CurrentPublicVersion {
 					for _, localImage := range version.LocalImages {
 						images.Images[i].Public = true
-						s.Cache.InsertImage(localImage.ID, localImage.Zone, localImage.Arch, image.Organization.ID, image.Name)
+						s.Cache.InsertImage(localImage.ID, localImage.Zone, localImage.Arch, image.Organization.ID, image.Name, image.CurrentPublicVersion)
 					}
 				}
 			}
@@ -1385,7 +1385,7 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 		return nil, err
 	}
 	for _, orgaImage := range OrgaImages.Images {
-		s.Cache.InsertImage(orgaImage.Identifier, "fr-1", orgaImage.Arch, orgaImage.Organization, orgaImage.Name)
+		s.Cache.InsertImage(orgaImage.Identifier, "fr-1", orgaImage.Arch, orgaImage.Organization, orgaImage.Name, "")
 		images.Images = append(images.Images, MarketImage{
 			Categories:           []string{"MyImages"},
 			CreationDate:         orgaImage.CreationDate,
@@ -1436,7 +1436,7 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(oneImage.Image.Identifier, "fr-1", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name)
+	s.Cache.InsertImage(oneImage.Image.Identifier, "fr-1", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name, "")
 	return &oneImage.Image, nil
 }
 
