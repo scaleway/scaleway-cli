@@ -1189,6 +1189,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.9.0
 
 ### v1.9.0 (2016-04-01)
 
+* `scw _userdata` handles `@~/path/to/file` ([#321](https://github.com/scaleway/scaleway-cli/issues/321))
 * Fix bug when using SCW_COMMERCIAL_TYPE variable
 * Switch to VC1S
 
