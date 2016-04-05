@@ -21,7 +21,7 @@ func NewListOpts() CommandListOpts {
 
 // String returns a string representation of a CommandListOpts object
 func (opts *CommandListOpts) String() string {
-	return fmt.Sprintf("%v", []string((*opts.Values)))
+	return fmt.Sprintf("%v", (*opts.Values))
 }
 
 // Set appends a new value to a CommandListOpts

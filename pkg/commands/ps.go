@@ -19,9 +19,9 @@ import (
 
 // PsArgs are flags for the `RunPs` function
 type PsArgs struct {
+	NLast   int
 	All     bool
 	Latest  bool
-	NLast   int
 	NoTrunc bool
 	Quiet   bool
 	Filters map[string]string

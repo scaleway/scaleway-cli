@@ -8,16 +8,16 @@ import (
 // Command contains settings to build a ssh command
 type Command struct {
 	Host                string
-	Port                int
 	User                string
-	SkipHostKeyChecking bool
-	Quiet               bool
+	Port                int
 	SSHOptions          []string
 	Gateway             *Command
-	AllocateTTY         bool
 	Command             []string
 	Debug               bool
 	NoEscapeCommand     bool
+	SkipHostKeyChecking bool
+	Quiet               bool
+	AllocateTTY         bool
 
 	isGateway bool
 }

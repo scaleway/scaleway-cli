@@ -60,8 +60,6 @@ type ScalewayAPI struct {
 	// Token is the authentication token for the Scaleway organization
 	Token string
 
-	verbose bool
-
 	// Password is the authentication password
 	password string
 
@@ -70,10 +68,9 @@ type ScalewayAPI struct {
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
-	client *http.Client
-	// Used when switching from an API to another
-	oldTransport *http.RoundTripper
-	anonuuid     anonuuid.AnonUUID
+	client   *http.Client
+	anonuuid anonuuid.AnonUUID
+	verbose  bool
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -304,7 +301,6 @@ type ScalewaySnapshots struct {
 // ScalewayBootscript represents a Scaleway Bootscript
 type ScalewayBootscript struct {
 	Bootcmdargs string `json:"bootcmdargs,omitempty"`
-	Default     bool   `json:"default,omitempty"`
 	Dtb         string `json:"dtb,omitempty"`
 	Initrd      string `json:"initrd,omitempty"`
 	Kernel      string `json:"kernel,omitempty"`
@@ -318,11 +314,13 @@ type ScalewayBootscript struct {
 	// Organization is the owner of the bootscript
 	Organization string `json:"organization,omitempty"`
 
+	// Name is a user-defined name for the bootscript
+	Title string `json:"title,omitempty"`
+
 	// Public is true for public bootscripts and false for user bootscripts
 	Public bool `json:"public,omitempty"`
 
-	// Name is a user-defined name for the bootscript
-	Title string `json:"title,omitempty"`
+	Default bool `json:"default,omitempty"`
 }
 
 // ScalewayOneBootscript represents the response of a GET /bootscripts/UUID API call
@@ -402,12 +400,12 @@ type ScalewayNewSecurityGroupRule struct {
 // ScalewaySecurityGroups definition
 type ScalewaySecurityGroups struct {
 	Description           string                  `json:"description"`
-	EnableDefaultSecurity bool                    `json:"enable_default_security"`
 	ID                    string                  `json:"id"`
 	Organization          string                  `json:"organization"`
 	Name                  string                  `json:"name"`
-	OrganizationDefault   bool                    `json:"organization_default"`
 	Servers               []ScalewaySecurityGroup `json:"servers"`
+	EnableDefaultSecurity bool                    `json:"enable_default_security"`
+	OrganizationDefault   bool                    `json:"organization_default"`
 }
 
 // ScalewayGetSecurityGroups represents the response of a GET /security_groups/

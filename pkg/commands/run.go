@@ -20,23 +20,22 @@ import (
 
 // RunArgs are flags for the `Run` function
 type RunArgs struct {
-	Attach         bool
 	Bootscript     string
 	Command        []string
-	Detach         bool
 	Gateway        string
 	Image          string
 	Name           string
 	IP             string
 	Tags           []string
 	Volumes        []string
+	Userdata       string
+	CommercialType string
+	Timeout        int64
 	AutoRemove     bool
 	TmpSSHKey      bool
 	ShowBoot       bool
-	Timeout        int64
-	Userdata       string
-	CommercialType string
-	// Timeout
+	Detach         bool
+	Attach         bool
 }
 
 // AddSSHKeyToTags adds the ssh key in the tags
@@ -46,8 +45,8 @@ func AddSSHKeyToTags(ctx CommandContext, tags *[]string, image string) error {
 		return fmt.Errorf("unable to find your home %v", err)
 	}
 	idRsa := filepath.Join(home, ".ssh", "id_rsa")
-	if _, err := os.Stat(idRsa); err != nil {
-		if os.IsNotExist(err) {
+	if _, errStat := os.Stat(idRsa); errStat != nil {
+		if os.IsNotExist(errStat) {
 			logrus.Warnln("Unable to find your ~/.ssh/id_rsa")
 			logrus.Warnln("Run 'ssh-keygen -t rsa'")
 			return nil
