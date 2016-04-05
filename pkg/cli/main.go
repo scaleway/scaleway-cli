@@ -103,9 +103,9 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 						return 1, nil
 					}
 				}
-				api, err := getScalewayAPI()
-				if err != nil {
-					return 1, fmt.Errorf("unable to initialize scw api: %s", err)
+				api, errGet := getScalewayAPI()
+				if errGet != nil {
+					return 1, fmt.Errorf("unable to initialize scw api: %v", errGet)
 				}
 				cmd.API = api
 			}
@@ -185,7 +185,7 @@ func checkVersion() {
 		}
 		scwupdate.Close()
 		req := http.Client{
-			Timeout: time.Duration(1 * time.Second),
+			Timeout: 1 * time.Second,
 		}
 		resp, err := req.Get("https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION")
 		if resp != nil {

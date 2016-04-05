@@ -310,7 +310,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 
 	var server ScalewayServerDefinition
 
-	server.CommercialType = c.CommercialType
+	server.CommercialType = commercialType
 	server.Volumes = make(map[string]string)
 	server.DynamicIPRequired = &c.DynamicIPRequired
 	if c.CommercialType == "" {
@@ -373,9 +373,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	_, err := humanize.ParseBytes(c.ImageName)
 	if err == nil {
 		// Create a new root volume
-		volumeID, err := CreateVolumeFromHumanSize(api, c.ImageName)
-		if err != nil {
-			return "", err
+		volumeID, errCreateVol := CreateVolumeFromHumanSize(api, c.ImageName)
+		if errCreateVol != nil {
+			return "", errCreateVol
 		}
 		server.Volumes["0"] = *volumeID
 	} else {
@@ -391,13 +391,13 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			if imageIdentifier.Identifier != "" {
 				server.Image = &imageIdentifier.Identifier
 			} else {
-				snapshotID, err := api.GetSnapshotID(c.ImageName)
-				if err != nil {
-					return "", err
+				snapshotID, errGetSnapID := api.GetSnapshotID(c.ImageName)
+				if errGetSnapID != nil {
+					return "", errGetSnapID
 				}
-				snapshot, err := api.GetSnapshot(snapshotID)
-				if err != nil {
-					return "", err
+				snapshot, errGetSnap := api.GetSnapshot(snapshotID)
+				if errGetSnap != nil {
+					return "", errGetSnap
 				}
 				if snapshot.BaseVolume.Identifier == "" {
 					return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
@@ -407,9 +407,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		}
 	}
 	if c.Bootscript != "" {
-		bootscript, err := api.GetBootscriptID(c.Bootscript, imageIdentifier.Arch)
-		if err != nil {
-			return "", err
+		bootscript, errGetBootScript := api.GetBootscriptID(c.Bootscript, imageIdentifier.Arch)
+		if errGetBootScript != nil {
+			return "", errGetBootScript
 		}
 		server.Bootscript = &bootscript
 	}
@@ -533,7 +533,7 @@ func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*Sca
 		select {
 		case done := <-promise:
 			utils.LogQuiet("\r \r")
-			if done == false {
+			if !done {
 				return nil, err
 			}
 			return server, nil

@@ -48,7 +48,7 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 	var tarOutputStream io.ReadCloser
 
 	// source is a server address + path (scp-like uri)
-	if strings.Index(source, ":") > -1 {
+	if strings.Contains(source, ":") {
 		logrus.Debugf("Creating a tarball remotely and streaming it using SSH")
 		serverParts := strings.Split(source, ":")
 		if len(serverParts) != 2 {
@@ -82,7 +82,7 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 		if gateway == "" {
 			gateway = ctx.Getenv("SCW_GATEWAY")
 		}
-		var gateway string
+
 		if gateway == serverID || gateway == serverParts[0] {
 			gateway = ""
 		} else {
@@ -153,7 +153,7 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 // UntarToDest writes to user destination the streamed tarball in input
 func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination string, gateway string) error {
 	// destination is a server address + path (scp-like uri)
-	if strings.Index(destination, ":") > -1 {
+	if strings.Contains(destination, ":") {
 		logrus.Debugf("Streaming using ssh and untaring remotely")
 		serverParts := strings.Split(destination, ":")
 		if len(serverParts) != 2 {
@@ -183,7 +183,6 @@ func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination st
 		if gateway == "" {
 			gateway = ctx.Getenv("SCW_GATEWAY")
 		}
-		var gateway string
 		if gateway == serverID || gateway == serverParts[0] {
 			gateway = ""
 		} else {

@@ -59,9 +59,9 @@ func GetConfig() (*Config, error) {
 	// Don't check permissions on Windows, Go knows nothing about them on this platform
 	// User profile is to be assumed safe anyway
 	if runtime.GOOS != "windows" {
-		stat, err := os.Stat(scwrcPath)
+		stat, errStat := os.Stat(scwrcPath)
 		// we don't care if it fails, the user just won't see the warning
-		if err == nil {
+		if errStat == nil {
 			perm := stat.Mode().Perm()
 			if perm&0066 != 0 {
 				return nil, fmt.Errorf("permissions %#o for .scwrc are too open", perm)

@@ -66,21 +66,17 @@ func RunRestart(ctx CommandContext, args RestartArgs) error {
 
 	cr := make(chan string)
 	go restartIdentifiers(ctx, args.Wait, args.Servers, cr)
-	done := false
 	hasError := false
 
-	for !done {
-		select {
-		case uuid, more := <-cr:
-			if !more {
-				done = true
-				break
-			}
-			if len(uuid) > 0 {
-				fmt.Fprintln(ctx.Stdout, uuid)
-			} else {
-				hasError = true
-			}
+	for {
+		uuid, more := <-cr
+		if !more {
+			break
+		}
+		if len(uuid) > 0 {
+			fmt.Fprintln(ctx.Stdout, uuid)
+		} else {
+			hasError = true
 		}
 	}
 

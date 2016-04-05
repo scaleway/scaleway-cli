@@ -24,7 +24,7 @@ func Quiet(option bool) {
 
 // LogQuiet Displays info if quiet is activated
 func LogQuiet(str string) {
-	if instanceQuiet.quiet == false {
+	if !instanceQuiet.quiet {
 		fmt.Fprintf(os.Stderr, "%s", str)
 	}
 }
