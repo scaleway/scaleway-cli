@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
 
@@ -90,6 +91,13 @@ func runUserdata(cmd *Command, args []string) error {
 				var data []byte
 				// Set userdata
 				if value[0] == '@' {
+					if len(value) > 1 && value[1] == '~' {
+						home, err := config.GetHomeDir()
+						if err != nil {
+							return err
+						}
+						value = "@" + home + value[2:]
+					}
 					data, err = ioutil.ReadFile(value[1:])
 					if err != nil {
 						return err
