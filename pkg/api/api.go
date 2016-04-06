@@ -570,6 +570,8 @@ type ScalewayServerDefinition struct {
 	CommercialType string `json:"commercial_type"`
 
 	PublicIP string `json:"public_ip,omitempty"`
+
+	EnableIPV6 bool `json:"enable_ipv6,omitempty"`
 }
 
 // ScalewayOneServer represents the response of a GET /servers/UUID API call
