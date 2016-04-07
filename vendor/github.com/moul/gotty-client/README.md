@@ -7,20 +7,23 @@
 [![GoDoc](https://godoc.org/github.com/moul/gotty-client?status.svg)](https://godoc.org/github.com/moul/gotty-client)
 
 ```ruby
-                +----------------+       +----------------+      +-------------+
-                |                |       |             +--------->  /bin/bash  |
-            +--->    Browser    -----+   |     gotty   |  |      +-------------+
-+-------+   |   |                |   |   |             |  |
-|       |   |   +----------------+   |   |             |  |      +-------------+
-|  Bob  +---+                        +--->---websockets+--------->  /bin/bash  |
-|       |   |   +================+   |   |             |  |      +-------------+
-+-------+   |   |................|   |   |             |  |
-            +--->..gotty-client.-----+   |             |  |      +-------------+
-                |................|       |             +--------->  /bin/bash  |
-                +================+       +----------------+      +-------------+
-
-                  ^  ^  ^  ^  ^
-                  |  |  |  |  |
+                                                             ┌─────────────────┐
+                                                     ┌──────▶│    /bin/bash    │
+                                                     │       └─────────────────┘
+                ┌──────────────┐               ┌──────────┐
+                │              │               │  Gotty   │
+┌───────┐   ┌──▶│   Browser    │───────┐       │          │
+│       │   │   │              │       │       │          │
+│       │   │   └──────────────┘       │       │          │  ┌─────────────────┐
+│  Bob  │───┤                      websockets─▶│          │─▶│ emacs /var/www  │
+│       │   │   ╔═ ══ ══ ══ ══ ╗       │       │          │  └─────────────────┘
+│       │   │   ║              ║       │       │          │
+└───────┘   └──▶║ gotty-client  ───────┘       │          │
+                               ║               │          │
+                ╚═ ══ ══ ══ ══ ╝               └──────────┘
+                                                     │       ┌─────────────────┐
+                                                     └──────▶│   tmux attach   │
+                                                             └─────────────────┘
 ```
 
 ## Example
@@ -104,7 +107,7 @@ $ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/
 
 ### master (unreleased)
 
-* No entry
+* Support of `--use-proxy-from-env` (Add Proxy support) ([#36](https://github.com/moul/gotty-client/pull/36)) ([@byung2](https://github.com/byung2))
 
 [full commits list](https://github.com/moul/gotty-client/compare/v1.5.0...master)
 

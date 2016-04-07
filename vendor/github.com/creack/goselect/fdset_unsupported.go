@@ -1,6 +1,8 @@
-// +build windows plan9
+// +build plan9
 
 package goselect
+
+const FD_SETSIZE = 0
 
 // FDSet wraps syscall.FdSet with convenience methods
 type FDSet struct{}

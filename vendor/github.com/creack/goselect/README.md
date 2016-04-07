@@ -14,12 +14,12 @@ select(2) implementation in Go
 | **dragonfly** | n/a | yes   | n/a |
 | **solaris**   | n/a | no    | n/a |
 | **plan9**     | no  | no    | n/a |
-| **windows**   | no  | no    | n/a |
+| **windows**   | yes | yes   | n/a |
 | **android**   | n/a | n/a   | no  |
 
 *n/a: platform not supported by Go
 
-Go on `windows`, `plan9` and `solaris` do not implement `syscall.Select` not `syscall.SYS_SELECT`.
+Go on `plan9` and `solaris` do not implement `syscall.Select` not `syscall.SYS_SELECT`.
 
 ## Cross compile
 

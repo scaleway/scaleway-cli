@@ -73,15 +73,16 @@ func GetWebsocketURL(httpURL string) (*url.URL, *http.Header, error) {
 }
 
 type Client struct {
-	Dialer         *websocket.Dialer
-	Conn           *websocket.Conn
-	URL            string
-	WriteMutex     *sync.Mutex
-	Output         io.Writer
-	QuitChan       chan struct{}
-	QuitChanClosed bool
-	SkipTLSVerify  bool
-	Connected      bool
+	Dialer          *websocket.Dialer
+	Conn            *websocket.Conn
+	URL             string
+	WriteMutex      *sync.Mutex
+	Output          io.Writer
+	QuitChan        chan struct{}
+	QuitChanClosed  bool
+	SkipTLSVerify   bool
+	UseProxyFromEnv bool
+	Connected       bool
 }
 
 type querySingleType struct {
@@ -105,12 +106,15 @@ func (c *Client) GetAuthToken() (string, error) {
 	logrus.Debugf("Fetching auth token auth-token: %q", target.String())
 	req, err := http.NewRequest("GET", target.String(), nil)
 	req.Header = *header
-	client := http.Client{}
+	tr := &http.Transport{}
 	if c.SkipTLSVerify {
-		client.Transport = &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		conf := &tls.Config{InsecureSkipVerify: true}
+		tr.TLSClientConfig = conf
 	}
+	if c.UseProxyFromEnv {
+		tr.Proxy = http.ProxyFromEnvironment
+	}
+	client := &http.Client{Transport: tr}
 	resp, err := client.Do(req)
 	if err != nil {
 		return "", err
@@ -155,6 +159,9 @@ func (c *Client) Connect() error {
 	logrus.Debugf("Connecting to websocket: %q", target.String())
 	if c.SkipTLSVerify {
 		c.Dialer.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
+	if c.UseProxyFromEnv {
+		c.Dialer.Proxy = http.ProxyFromEnvironment
 	}
 	conn, _, err := c.Dialer.Dial(target.String(), *header)
 	if err != nil {
