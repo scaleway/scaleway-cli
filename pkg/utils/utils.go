@@ -26,6 +26,7 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	log "github.com/Sirupsen/logrus"
+	"github.com/mattn/go-isatty"
 	"github.com/moul/gotty-client"
 	"github.com/scaleway/scaleway-cli/pkg/sshcommand"
 )
@@ -65,7 +66,7 @@ func SSHExec(publicIPAddress string, privateIPAddress string, command []string, 
 		}
 	}
 
-	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, true, command, gateway)
+	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, isatty.IsTerminal(os.Stdin.Fd()), command, gateway)
 
 	log.Debugf("Executing: %s", sshCommand)
 
@@ -81,7 +82,7 @@ func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY 
 	quiet := os.Getenv("DEBUG") != "1"
 	secureExec := os.Getenv("SCW_SECURE_EXEC") == "1"
 	sshCommand := &sshcommand.Command{
-		AllocateTTY:         true,
+		AllocateTTY:         allocateTTY,
 		Command:             command,
 		Host:                publicIPAddress,
 		Quiet:               quiet,
@@ -94,7 +95,7 @@ func NewSSHExecCmd(publicIPAddress string, privateIPAddress string, allocateTTY 
 		sshCommand.Gateway = &sshcommand.Command{
 			Host:                gatewayIPAddress,
 			SkipHostKeyChecking: !secureExec,
-			AllocateTTY:         true,
+			AllocateTTY:         allocateTTY,
 			Quiet:               quiet,
 			User:                "root",
 		}
