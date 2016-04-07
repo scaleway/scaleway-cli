@@ -521,6 +521,17 @@ type ScalewayServer struct {
 		Blade      string `json:"blade_id,omitempty"`
 		Node       string `json:"node_id,omitempty"`
 	} `json:"location,omitempty"`
+
+	IPV6 *ScalewayIPV6Definition `json:"ipv6,omitempty"`
+
+	EnableIPV6 bool `json:"enable_ipv6,omitempty"`
+}
+
+// ScalewayIPV6Definition represents a Scaleway ipv6
+type ScalewayIPV6Definition struct {
+	Netmask string `json:"netmask"`
+	Gateway string `json:"gateway"`
+	Address string `json:"address"`
 }
 
 // ScalewayServerPatchDefinition represents a Scaleway server with nullable fields (for PATCH)
@@ -541,6 +552,8 @@ type ScalewayServerPatchDefinition struct {
 	SecurityGroup     *ScalewaySecurityGroup     `json:"security_group,omitempty"`
 	Organization      *string                    `json:"organization,omitempty"`
 	Tags              *[]string                  `json:"tags,omitempty"`
+	IPV6              *ScalewayIPV6Definition    `json:"ipv6,omitempty"`
+	EnableIPV6        bool                       `json:"enable_ipv6"`
 }
 
 // ScalewayServerDefinition represents a Scaleway server with image definition
