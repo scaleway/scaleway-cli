@@ -553,7 +553,7 @@ type ScalewayServerPatchDefinition struct {
 	Organization      *string                    `json:"organization,omitempty"`
 	Tags              *[]string                  `json:"tags,omitempty"`
 	IPV6              *ScalewayIPV6Definition    `json:"ipv6,omitempty"`
-	EnableIPV6        bool                       `json:"enable_ipv6"`
+	EnableIPV6        *bool                      `json:"enable_ipv6,omitempty"`
 }
 
 // ScalewayServerDefinition represents a Scaleway server with image definition

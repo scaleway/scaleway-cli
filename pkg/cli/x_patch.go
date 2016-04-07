@@ -99,10 +99,12 @@ func runPatch(cmd *Command, args []string) error {
 			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.Tags, fieldName, newValue)
 			switch strings.ToLower(newValue) {
 			case "true":
-				payload.EnableIPV6 = true
+				t := true
+				payload.EnableIPV6 = &t
 				changes++
 			case "false":
-				payload.EnableIPV6 = false
+				f := false
+				payload.EnableIPV6 = &f
 				changes++
 			}
 		default:
