@@ -1183,6 +1183,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Add `enable_ipv6` field
+  ([#334])(https://github.com/scaleway/scaleway-cli/issues/334)
 * Add marketplace alias in the cache to resolve image ([#330](https://github.com/scaleway/scaleway-cli/issues/330))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.9.0...master)
