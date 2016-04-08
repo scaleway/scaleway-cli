@@ -7,6 +7,7 @@ package cli
 import (
 	"fmt"
 	"math/big"
+	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -75,17 +76,18 @@ func runBilling(cmd *Command, rawArgs []string) error {
 		if server.State != "running" {
 			continue
 		}
+		commercialType := strings.ToLower(server.CommercialType)
 		shortID := utils.TruncIf(server.Identifier, 8, !args.NoTrunc)
 		shortName := utils.TruncIf(utils.Wordify(server.Name), 25, !args.NoTrunc)
 		modificationTime, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", server.ModificationDate)
 		modificationAgo := time.Now().UTC().Sub(modificationTime)
 		shortModificationDate := units.HumanDuration(modificationAgo)
-		usage := pricing.NewUsageByPath("/compute/c1/run")
+		usage := pricing.NewUsageByPath(fmt.Sprintf("/compute/%s/run", commercialType))
 		usage.SetStartEnd(modificationTime, time.Now().UTC())
 
 		totalMonthPrice = totalMonthPrice.Add(totalMonthPrice, usage.Total())
 
-		fmt.Fprintf(w, "server/%s\t%s\t%s\t%s\n", shortID, shortName, shortModificationDate, usage.TotalString())
+		fmt.Fprintf(w, "server/%s/%s\t%s\t%s\t%s\n", commercialType, shortID, shortName, shortModificationDate, usage.TotalString())
 	}
 
 	fmt.Fprintf(w, "TOTAL\t\t\t%s\n", pricing.PriceString(totalMonthPrice, "EUR"))
