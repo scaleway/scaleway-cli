@@ -160,8 +160,8 @@ func connectAPI() (string, string, error) {
 	}
 
 	connect := api.ScalewayConnect{
-		Email:       strings.Trim(email, "\n"),
-		Password:    strings.Trim(password, "\n"),
+		Email:       strings.Trim(email, "\r\n"),
+		Password:    strings.Trim(password, "\r\n"),
 		Expires:     false,
 		Description: strings.Join([]string{"scw", hostname}, "-"),
 	}
