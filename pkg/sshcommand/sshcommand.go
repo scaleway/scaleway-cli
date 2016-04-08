@@ -2,6 +2,7 @@ package sshcommand
 
 import (
 	"fmt"
+	"runtime"
 	"strings"
 )
 
@@ -96,10 +97,11 @@ func (c *Command) Slice() []string {
 				escapedCommand = append(escapedCommand, fmt.Sprintf("%q", part))
 			}
 		}
-
 		slice = append(slice, fmt.Sprintf("%q", strings.Join(escapedCommand, " ")))
 	}
-
+	if runtime.GOOS == "windows" {
+		slice[len(slice)-1] = slice[len(slice)-1] + " " // WTF: Why ?
+	}
 	return slice
 }
 
