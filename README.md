@@ -1183,6 +1183,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Fix sshExecCommand with Windows ([#338](https://github.com/scaleway/scaleway-cli/issues/338))
+* Fix `scw login` with Windows ([#341](https://github.com/scaleway/scaleway-cli/issues/341))
 * Add `enable_ipv6` field ([#334](https://github.com/scaleway/scaleway-cli/issues/334))
 * `scw _patch` handles ipv6=[true|false]
 * Add `ScalewayIPV6Definition`
