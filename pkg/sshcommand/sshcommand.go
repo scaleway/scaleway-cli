@@ -100,7 +100,7 @@ func (c *Command) Slice() []string {
 		slice = append(slice, fmt.Sprintf("%q", strings.Join(escapedCommand, " ")))
 	}
 	if runtime.GOOS == "windows" {
-		slice[len(slice)-1] = slice[len(slice)-1] + " " // WTF: Why ?
+		slice[len(slice)-1] = slice[len(slice)-1] + " " // Why ?
 	}
 	return slice
 }
