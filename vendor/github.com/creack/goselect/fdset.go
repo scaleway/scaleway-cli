@@ -4,6 +4,8 @@ package goselect
 
 import "syscall"
 
+const FD_SETSIZE = syscall.FD_SETSIZE
+
 // FDSet wraps syscall.FdSet with convenience methods
 type FDSet syscall.FdSet
 

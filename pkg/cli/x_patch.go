@@ -46,7 +46,7 @@ func runPatch(cmd *Command, args []string) error {
 		return cmd.PrintShortUsage()
 	}
 	fieldName := updateParts[0]
-	newValue := updateParts[1]
+	newValue := args[1][len(updateParts[0])+1:]
 
 	changes := 0
 
@@ -95,6 +95,18 @@ func runPatch(cmd *Command, args []string) error {
 			// fixme test equality with reflect.DeepEqual ?
 			changes++
 			payload.Tags = &newTags
+		case "ipv6":
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.Tags, fieldName, newValue)
+			switch strings.ToLower(newValue) {
+			case "true":
+				t := true
+				payload.EnableIPV6 = &t
+				changes++
+			case "false":
+				f := false
+				payload.EnableIPV6 = &f
+				changes++
+			}
 		default:
 			return fmt.Errorf("'_patch server %s=' not implemented", fieldName)
 		}
