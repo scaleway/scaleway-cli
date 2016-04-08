@@ -1191,6 +1191,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * Add `ScalewayIPV6Definition`
 * Add marketplace alias in the cache to resolve image ([#330](https://github.com/scaleway/scaleway-cli/issues/330))
 * `scw _userdata` handles `@~/path/to/file` ([#321](https://github.com/scaleway/scaleway-cli/issues/321))
+* Update `scw _billing` for new instance types ([#293](https://github.com/scaleway/scaleway-cli/issues/293))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.9.0...master)
 
