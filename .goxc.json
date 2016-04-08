@@ -41,12 +41,5 @@
 			"GOARM": "5"
 		}
 	},
-	"ConfigVersion": "0.9",
-	"BuildSettings": {
-		"LdFlags": "-s",
-		"LdFlagsXVars": {
-			"TimeNow": "main.BUILD_DATE",
-			"Version": "main.VERSION"
-		}
-	}
+	"ConfigVersion": "0.9"
 }
