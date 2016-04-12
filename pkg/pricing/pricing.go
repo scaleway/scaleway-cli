@@ -64,12 +64,30 @@ func init() {
 			UsageGranularity: time.Minute,
 		},
 		{
-			Path:             "/compute/vc1/run",
+			Path:             "/compute/vc1s/run",
 			Identifier:       "cccccccc-6ab1-4131-a35e-000000000001",
 			Currency:         "EUR",
 			UnitPrice:        big.NewRat(2, 1000),     // 0.002
 			UnitQuantity:     big.NewRat(60000, 1000), // 60
 			UnitPriceCap:     big.NewRat(1000, 1000),  // 1
+			UsageGranularity: time.Minute,
+		},
+		{
+			Path:             "/compute/vc1m/run",
+			Identifier:       "cccccccc-6ab1-4131-a35e-000000000002",
+			Currency:         "EUR",
+			UnitPrice:        big.NewRat(6, 1000),     // 0.006
+			UnitQuantity:     big.NewRat(60000, 1000), // 60
+			UnitPriceCap:     big.NewRat(3000, 1000),  // 3
+			UsageGranularity: time.Minute,
+		},
+		{
+			Path:             "/compute/vc1l/run",
+			Identifier:       "cccccccc-6ab1-4131-a35e-000000000003",
+			Currency:         "EUR",
+			UnitPrice:        big.NewRat(10, 1000),    // 0.01
+			UnitQuantity:     big.NewRat(60000, 1000), // 60
+			UnitPriceCap:     big.NewRat(5000, 1000),  // 5
 			UsageGranularity: time.Minute,
 		},
 		{
