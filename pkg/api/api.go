@@ -1392,6 +1392,9 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 		return nil, err
 	}
 	body, err := s.handleHTTPError([]int{200}, resp)
+	if err != nil {
+		return nil, err
+	}
 	var OrgaImages ScalewayImages
 
 	if err = json.Unmarshal(body, &OrgaImages); err != nil {
