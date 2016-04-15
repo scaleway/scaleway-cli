@@ -33,9 +33,9 @@ PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
 REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
 REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
 VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
-REV =		$(shell git rev-parse HEAD || echo "nogit")
+REV =		$(shell git rev-parse --short HEAD || echo "nogit")
 TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
-LDFLAGS = "-X github.com/scaleway/scaleway-cli/pkg/scwversion.GITCOMMIT=$(REV)"
+LDFLAGS = "-X `go list ./pkg/scwversion`.GITCOMMIT=$(REV) -s"
 BUILDER =	scaleway-cli-builder
 
 # Check go version
