@@ -3,7 +3,7 @@ package scwversion
 import "fmt"
 
 var (
-	// VERSION represents the semver version of the package, it is configured at build time
+	// VERSION represents the semver version of the package
 	VERSION = "v1.9.0+dev"
 
 	// GITCOMMIT represents the git commit hash of the package, it is configured at build time
