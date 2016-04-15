@@ -313,7 +313,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	server.CommercialType = commercialType
 	server.Volumes = make(map[string]string)
 	server.DynamicIPRequired = &c.DynamicIPRequired
-	if c.CommercialType == "" {
+	if commercialType == "" {
 		return "", errors.New("You need to specify a commercial-type")
 	}
 	if c.IP != "" {
