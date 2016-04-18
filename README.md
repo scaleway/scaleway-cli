@@ -1184,6 +1184,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Fix `scw _patch bootscript` nil dereference
 * Fix `scw images` bad error message ([#336](https://github.com/scaleway/scaleway-cli/issues/337))
 * Fix sshExecCommand with Windows ([#338](https://github.com/scaleway/scaleway-cli/issues/338))
 * Fix `scw login` with Windows ([#341](https://github.com/scaleway/scaleway-cli/issues/341))
