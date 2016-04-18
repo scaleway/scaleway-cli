@@ -81,7 +81,7 @@ func runPatch(cmd *Command, args []string) error {
 			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.Bootscript.Identifier, fieldName, newValue)
 			if currentServer.Bootscript.Identifier != newValue {
 				changes++
-				payload.Bootscript.Identifier = newValue
+				payload.Bootscript = &newValue
 			}
 		case "security_group":
 			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.SecurityGroup.Identifier, fieldName, newValue)
