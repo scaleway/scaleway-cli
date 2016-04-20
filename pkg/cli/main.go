@@ -109,6 +109,11 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 				}
 				cmd.API = api
 			}
+			// clean cache between versions
+			if cmd.API != nil && config.Version != scwversion.VERSION {
+				cmd.API.ClearCache()
+				config.Save()
+			}
 			err = cmd.Exec(cmd, cmd.Flag.Args())
 			switch err {
 			case nil:

@@ -158,6 +158,8 @@ REDO:
 
 // NewScalewayCache loads a per-user cache
 func NewScalewayCache() (*ScalewayCache, error) {
+	var cache ScalewayCache
+
 	homeDir := os.Getenv("HOME") // *nix
 	if homeDir == "" {           // Windows
 		homeDir = os.Getenv("USERPROFILE")
@@ -166,16 +168,11 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		homeDir = "/tmp"
 	}
 	cachePath := filepath.Join(homeDir, ".scw-cache.db")
+	cache.Path = cachePath
 	_, err := os.Stat(cachePath)
 	if os.IsNotExist(err) {
-		return &ScalewayCache{
-			Images:      make(map[string][CacheMaxfield]string),
-			Snapshots:   make(map[string][CacheMaxfield]string),
-			Volumes:     make(map[string][CacheMaxfield]string),
-			Bootscripts: make(map[string][CacheMaxfield]string),
-			Servers:     make(map[string][CacheMaxfield]string),
-			Path:        cachePath,
-		}, nil
+		cache.Clear()
+		return &cache, nil
 	} else if err != nil {
 		return nil, err
 	}
@@ -183,23 +180,14 @@ func NewScalewayCache() (*ScalewayCache, error) {
 	if err != nil {
 		return nil, err
 	}
-	var cache ScalewayCache
-
-	cache.Path = cachePath
 	err = json.Unmarshal(file, &cache)
 	if err != nil {
 		// fix compatibility with older version
 		if err = os.Remove(cachePath); err != nil {
 			return nil, err
 		}
-		return &ScalewayCache{
-			Images:      make(map[string][CacheMaxfield]string),
-			Snapshots:   make(map[string][CacheMaxfield]string),
-			Volumes:     make(map[string][CacheMaxfield]string),
-			Bootscripts: make(map[string][CacheMaxfield]string),
-			Servers:     make(map[string][CacheMaxfield]string),
-			Path:        cachePath,
-		}, nil
+		cache.Clear()
+		return &cache, nil
 	}
 	if cache.Images == nil {
 		cache.Images = make(map[string][CacheMaxfield]string)
@@ -217,6 +205,16 @@ func NewScalewayCache() (*ScalewayCache, error) {
 		cache.Bootscripts = make(map[string][CacheMaxfield]string)
 	}
 	return &cache, nil
+}
+
+// Clear removes all information from the cache
+func (s *ScalewayCache) Clear() {
+	s.Images = make(map[string][CacheMaxfield]string)
+	s.Snapshots = make(map[string][CacheMaxfield]string)
+	s.Volumes = make(map[string][CacheMaxfield]string)
+	s.Bootscripts = make(map[string][CacheMaxfield]string)
+	s.Servers = make(map[string][CacheMaxfield]string)
+	s.Modified = true
 }
 
 // Flush flushes the cache database

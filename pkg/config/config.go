@@ -13,21 +13,20 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
 
 // Config is a Scaleway CLI configuration file
 type Config struct {
-	// ComputeAPI is the endpoint to the Scaleway API
-	ComputeAPI string `json:"api_endpoint"`
-
-	// AccountAPI is the endpoint to the Scaleway Account API
-	AccountAPI string `json:"account_endpoint"`
-
 	// Organization is the identifier of the Scaleway orgnization
 	Organization string `json:"organization"`
 
 	// Token is the authentication token for the Scaleway organization
 	Token string `json:"token"`
+
+	// Version is the actual version of scw
+	Version string `json:"version"`
 }
 
 // Save write the config file
@@ -42,6 +41,7 @@ func (c *Config) Save() error {
 	}
 	defer scwrc.Close()
 	encoder := json.NewEncoder(scwrc)
+	c.Version = scwversion.VERSION
 	err = encoder.Encode(c)
 	if err != nil {
 		return fmt.Errorf("Unable to encode scw config file: %s", err)
@@ -74,14 +74,10 @@ func GetConfig() (*Config, error) {
 		return nil, err
 	}
 	var config Config
+
 	err = json.Unmarshal(file, &config)
 	if err != nil {
 		return nil, err
-	}
-	// check if he has an old scwrc version
-	if config.AccountAPI == "" {
-		config.AccountAPI = "https://account.scaleway.com"
-		config.Save()
 	}
 	return &config, nil
 }

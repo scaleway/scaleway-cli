@@ -860,6 +860,11 @@ func NewScalewayAPI(organization, token, userAgent string) (*ScalewayAPI, error)
 	return s, nil
 }
 
+// ClearCache clears the cache
+func (s *ScalewayAPI) ClearCache() {
+	s.Cache.Clear()
+}
+
 // Sync flushes out the cache to the disk
 func (s *ScalewayAPI) Sync() {
 	s.Cache.Save()
