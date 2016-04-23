@@ -4,18 +4,18 @@ select(2) implementation in Go
 
 ## Supported platforms
 
-|               | 386 | amd64 | arm |
-|---------------|-----|-------|-----|
-| **linux**     | yes | yes   | yes |
-| **darwin**    | yes | yes   | n/a |
-| **freebsd**   | yes | yes   | yes |
-| **openbsd**   | yes | yes   | yes |
-| **netbsd**    | yes | yes   | yes |
-| **dragonfly** | n/a | yes   | n/a |
-| **solaris**   | n/a | no    | n/a |
-| **plan9**     | no  | no    | n/a |
-| **windows**   | yes | yes   | n/a |
-| **android**   | n/a | n/a   | no  |
+|               | 386 | amd64 | arm | arm64 |
+|---------------|-----|-------|-----|-------|
+| **linux**     | yes | yes   | yes | yes   |
+| **darwin**    | yes | yes   | n/a | ??    |
+| **freebsd**   | yes | yes   | yes | ??    |
+| **openbsd**   | yes | yes   | yes | ??    |
+| **netbsd**    | yes | yes   | yes | ??    |
+| **dragonfly** | n/a | yes   | n/a | ??    |
+| **solaris**   | n/a | no    | n/a | ??    |
+| **plan9**     | no  | no    | n/a | ??    |
+| **windows**   | yes | yes   | n/a | ??    |
+| **android**   | n/a | n/a   | no  | ??    |
 
 *n/a: platform not supported by Go
 
