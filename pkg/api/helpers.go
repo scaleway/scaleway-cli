@@ -236,45 +236,25 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 			ident := idents.Identifiers[0]
 			wg.Add(1)
 			go func() {
-				if ident.Type == IdentifierServer {
-					server, err := api.GetServer(ident.Identifier)
-					if err == nil {
-						cj <- InspectIdentifierResult{
-							Type:   ident.Type,
-							Object: server,
-						}
-					}
-				} else if ident.Type == IdentifierImage {
-					image, err := api.GetImage(ident.Identifier)
-					if err == nil {
-						cj <- InspectIdentifierResult{
-							Type:   ident.Type,
-							Object: image,
-						}
-					}
-				} else if ident.Type == IdentifierSnapshot {
-					snap, err := api.GetSnapshot(ident.Identifier)
-					if err == nil {
-						cj <- InspectIdentifierResult{
-							Type:   ident.Type,
-							Object: snap,
-						}
-					}
-				} else if ident.Type == IdentifierVolume {
-					volume, err := api.GetVolume(ident.Identifier)
-					if err == nil {
-						cj <- InspectIdentifierResult{
-							Type:   ident.Type,
-							Object: volume,
-						}
-					}
-				} else if ident.Type == IdentifierBootscript {
-					bootscript, err := api.GetBootscript(ident.Identifier)
-					if err == nil {
-						cj <- InspectIdentifierResult{
-							Type:   ident.Type,
-							Object: bootscript,
-						}
+				var obj interface{}
+				var err error
+
+				switch ident.Type {
+				case IdentifierServer:
+					obj, err = api.GetServer(ident.Identifier)
+				case IdentifierImage:
+					obj, err = api.GetImage(ident.Identifier)
+				case IdentifierSnapshot:
+					obj, err = api.GetSnapshot(ident.Identifier)
+				case IdentifierVolume:
+					obj, err = api.GetVolume(ident.Identifier)
+				case IdentifierBootscript:
+					obj, err = api.GetBootscript(ident.Identifier)
+				}
+				if err == nil && obj != nil {
+					cj <- InspectIdentifierResult{
+						Type:   ident.Type,
+						Object: obj,
 					}
 				}
 				wg.Done()

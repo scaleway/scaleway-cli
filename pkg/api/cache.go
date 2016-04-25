@@ -356,12 +356,12 @@ func (c *ScalewayCache) LookUpVolumes(needle string, acceptUUID bool) ScalewayRe
 	nameRegex := regexp.MustCompile(`(?i)` + regexp.MustCompile(`[_-]`).ReplaceAllString(needle, ".*"))
 	for identifier, fields := range c.Volumes {
 		if fields[CacheTitle] == needle {
-			entry := NewScalewayResolverResult(needle, fields[CacheTitle], fields[CacheArch], IdentifierVolume)
+			entry := NewScalewayResolverResult(identifier, fields[CacheTitle], fields[CacheArch], IdentifierVolume)
 			entry.ComputeRankMatch(needle)
 			exactMatches = append(exactMatches, entry)
 		}
 		if strings.HasPrefix(identifier, needle) || nameRegex.MatchString(fields[CacheTitle]) {
-			entry := NewScalewayResolverResult(needle, fields[CacheTitle], fields[CacheArch], IdentifierVolume)
+			entry := NewScalewayResolverResult(identifier, fields[CacheTitle], fields[CacheArch], IdentifierVolume)
 			entry.ComputeRankMatch(needle)
 			res = append(res, entry)
 		}
