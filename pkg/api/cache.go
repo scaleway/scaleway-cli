@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -93,6 +94,9 @@ type ScalewayResolverResults []ScalewayResolverResult
 
 // NewScalewayResolverResult returns a new ScalewayResolverResult
 func NewScalewayResolverResult(Identifier, Name, Arch string, Type int) ScalewayResolverResult {
+	if err := anonuuid.IsUUID(Identifier); err != nil {
+		log.Fatal(err)
+	}
 	return ScalewayResolverResult{
 		Identifier: Identifier,
 		Type:       Type,
