@@ -101,7 +101,9 @@ func RunInspect(ctx CommandContext, args InspectArgs) error {
 			if ctx.Getenv("SCW_SENSITIVE") != "1" {
 				res = ctx.API.HideAPICredentials(res)
 			}
-			fmt.Fprintln(ctx.Stdout, res)
+			if len(res) > 2 {
+				fmt.Fprintln(ctx.Stdout, res)
+			}
 		}
 	}
 
