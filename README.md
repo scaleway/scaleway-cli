@@ -100,7 +100,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.1/scw_1.7.1_darwin_amd64.zip" -O /tmp/scw.zip
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.9.0/scw_1.9.0_darwin_amd64.zip" -O /tmp/scw.zip
 unzip /tmp/scw.zip \*/scw -d /tmp
 mv /tmp/scw_*/scw /usr/local/bin
 rm -rf /tmp/scw.zip /tmp/scw_*_darwin_amd64
@@ -114,7 +114,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.7.1/scw_1.7.1_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.9.0/scw_1.9.0_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
