@@ -28,7 +28,7 @@ var cmdCreate = &Command{
 func init() {
 	cmdCreate.Flag.StringVar(&createName, []string{"-name"}, "", "Assign a name")
 	cmdCreate.Flag.StringVar(&createBootscript, []string{"-bootscript"}, "", "Assign a bootscript")
-	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)")
+	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "dynamic", "Assign a reserved public IP, a 'dynamic' one or 'none'")
 	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "VC1S", "Create a server with specific commercial-type C1, VC1S, C2[S|M|L]")

@@ -319,7 +319,7 @@ Options:
 
   --bootscript=""        Assign a bootscript
   --commercial-type=VC1S Create a server with specific commercial-type C1, VC1S, C2[S|M|L]
-  -e, --env=""           Provide metadata tags passed to initrd (i.e., boot=resue INITRD_DEBUG=1)
+  -e, --env=""           Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -h, --help=false       Print usage
   --ip-address=dynamic   Assign a reserved public IP, a 'dynamic' one or 'none'
   --name=""              Assign a name
