@@ -1,0 +1,67 @@
+hash: 8d9b6002cf888184e8c30584226f175650ddbcd1262531ac5e8027b4d08cfc56
+updated: 2016-04-30T14:48:55.414506898+02:00
+imports:
+- name: github.com/creack/goselect
+  version: 9d6356225769a093a90601efec3edc649dc4b04b
+- name: github.com/docker/docker
+  version: d32345240c39b990a00d5d3e740a90a1f57d1251
+  subpackages:
+  - pkg/archive
+  - pkg/mflag
+  - pkg/namesgenerator
+  - pkg/random
+  - pkg/homedir
+  - pkg/fileutils
+  - pkg/idtools
+  - pkg/ioutils
+  - pkg/pools
+  - pkg/promise
+  - pkg/system
+  - pkg/longpath
+- name: github.com/docker/go-units
+  version: 5d2041e26a699eaca682e2ea41c8f891e1060444
+- name: github.com/dustin/go-humanize
+  version: 8929fe90cee4b2cb9deb468b51fb34eba64d1bf0
+- name: github.com/gorilla/websocket
+  version: 3d02343cd35473727f9962992854b1829d2ef87b
+- name: github.com/hashicorp/go-version
+  version: 2e7f5ea8e27bb3fdf9baa0881d16757ac4637332
+- name: github.com/kardianos/osext
+  version: 29ae4ffbc9a6fe9fb2bc5029050ce6996ea1d3bc
+- name: github.com/mattn/go-isatty
+  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
+- name: github.com/moul/anonuuid
+  version: 609b752a95effbbef26d134ac18ed6f57e01b98e
+- name: github.com/moul/gotty-client
+  version: 770fab0722cf531dc442e8782296aebf700e137e
+- name: github.com/moul/http2curl
+  version: 1812aee76a1ce98d604a44200c6a23c689b17a89
+- name: github.com/opencontainers/runc
+  version: e87c59e2e4bca9a8698062c5f632542b07faf86b
+  subpackages:
+  - libcontainer/user
+- name: github.com/renstrom/fuzzysearch
+  version: 2d205ac6ec17a839a94bdbfd16d2fa6c6dada2e0
+  subpackages:
+  - fuzzy
+- name: github.com/Sirupsen/logrus
+  version: cd7d1bbe41066b6c1f19780f895901052150a575
+- name: github.com/skratchdot/open-golang
+  version: 75fb7ed4208cf72d323d7d02fd1a5964a7a9073c
+  subpackages:
+  - open
+- name: golang.org/x/crypto
+  version: 7b428712abe956d0e9e1e9a01e163fb6c7171438
+  subpackages:
+  - ssh
+  - ssh/terminal
+  - curve25519
+- name: golang.org/x/net
+  version: 1aafd77e1e7f6849ad16a7bdeb65e3589a10b2bb
+  subpackages:
+  - context
+- name: golang.org/x/sys
+  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
+  subpackages:
+  - unix
+devImports: []
