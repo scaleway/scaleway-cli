@@ -1,7 +1,7 @@
 # Go parameters
 GOENV ?=	GO15VENDOREXPERIMENT=1
 GO ?=		$(GOENV) go
-GODEP ?=	$(GOENV) godep
+GODEP ?=	$(GOENV) glide
 GOBUILD ?=	$(GO) build
 GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
@@ -144,10 +144,10 @@ gocyclo:
 	gocyclo -over 15 $(shell find . -name "*.go" -not -name "*test.go" | grep -v /vendor/)
 
 
-.PHONY: godep-save
-godep-save:
-	go get github.com/tools/godep
-	$(GODEP) save $(PACKAGES) $(COMMANDS)
+.PHONY: glide-save
+glide-save:
+	go get -u github.com/Masterminds/glide
+	glide up
 
 
 .PHONY: convey
