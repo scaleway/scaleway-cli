@@ -24,16 +24,20 @@ matrix:
 
 
 before_install:
-  - go get github.com/golang/go/src/cmd/vet
+  - go get -u github.com/golang/go/src/cmd/vet
   - go get -u github.com/axw/gocov/gocov
   - go get -u github.com/mattn/goveralls
-  - go get golang.org/x/tools/cmd/cover
+  - go get -u github.com/smartystreets/goconvey/convey
+  - go get -u golang.org/x/tools/cmd/cover
+  - go get -u github.com/Masterminds/glide
+  - go get -u github.com/stretchr/testify/assert
   - GO15VENDOREXPERIMENT=1 go get github.com/moul/anonuuid/cmd/anonuuid
 
 
 script:
   - env | anonuuid
   - rm -rf Godeps/_workspace   # Remove automatic 'godep restore' from travis...
+  - glide install
   - make build show_version
   - if [ "${TEST_WITH_REAL_API}" != "1" -o -z "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make test; fi
   - if [ "${TEST_WITH_REAL_API}" = "1" -a "${TRAVIS_SCALEWAY_ORGANIZATION}" ]; then make travis_login; fi

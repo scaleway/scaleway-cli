@@ -1,0 +1,26 @@
+package: github.com/scaleway/scaleway-cli
+import:
+- package: github.com/Sirupsen/logrus
+- package: github.com/docker/docker
+  subpackages:
+  - pkg/archive
+  - pkg/mflag
+  - pkg/namesgenerator
+- package: github.com/docker/go-units
+- package: github.com/dustin/go-humanize
+- package: github.com/hashicorp/go-version
+- package: github.com/kardianos/osext
+- package: github.com/mattn/go-isatty
+- package: github.com/moul/anonuuid
+- package: github.com/moul/gotty-client
+- package: github.com/moul/http2curl
+- package: github.com/renstrom/fuzzysearch
+  subpackages:
+  - fuzzy
+- package: github.com/skratchdot/open-golang
+  subpackages:
+  - open
+- package: golang.org/x/crypto
+  subpackages:
+  - ssh
+  - ssh/terminal
