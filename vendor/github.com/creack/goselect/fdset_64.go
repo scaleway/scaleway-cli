@@ -1,4 +1,5 @@
-// +build amd64,arm64 !darwin,!netbsd,!openbsd
+// +build !darwin,!netbsd,!openbsd
+// +build amd64 arm64
 
 package goselect
 
