@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/Sirupsen/logrus"
@@ -79,7 +80,7 @@ type Client struct {
 	WriteMutex      *sync.Mutex
 	Output          io.Writer
 	QuitChan        chan struct{}
-	QuitChanClosed  bool
+	QuitChanClosed  int32 // atomic value
 	SkipTLSVerify   bool
 	UseProxyFromEnv bool
 	Connected       bool
@@ -212,9 +213,8 @@ func (c *Client) Close() {
 // ExitLoop will kill all goroutine
 // ExitLoop() -> wait Loop() -> Close()
 func (c *Client) ExitLoop() {
-	if !c.QuitChanClosed {
+	if atomic.CompareAndSwapInt32(&c.QuitChanClosed, 0, 1) {
 		close(c.QuitChan)
-		c.QuitChanClosed = true
 	}
 }
 
@@ -238,8 +238,9 @@ func (c *Client) Loop() error {
 	go c.writeLoop(done, &wg)
 	select {
 	case <-done:
-		close(c.QuitChan)
-		c.QuitChanClosed = true
+		if atomic.CompareAndSwapInt32(&c.QuitChanClosed, 0, 1) {
+			close(c.QuitChan)
+		}
 	case <-c.QuitChan:
 	}
 	wg.Wait()
