@@ -1184,6 +1184,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* gotty-client enable ProxyFromEnviromnent ([#363](https://github.com/scaleway/scaleway-cli/pull/363)) (@debovema)
 * `scw inspect` fix panic ([#353](https://github.com/scaleway/scaleway-cli/issues/353))
 * Clear cache between the releases ([#329](https://github.com/scaleway/scaleway-cli/issues/329))
 * Fix `scw _patch bootscript` nil dereference
