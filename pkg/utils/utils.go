@@ -203,6 +203,8 @@ func AttachToSerial(serverID string, apiToken string) (*gottyclient.Client, chan
 		gottycli.SkipTLSVerify = true
 	}
 
+	gottycli.UseProxyFromEnv = true
+
 	if err = gottycli.Connect(); err != nil {
 		return nil, nil, err
 	}
