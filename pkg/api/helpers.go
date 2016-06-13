@@ -283,6 +283,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	if commercialType == "" {
 		commercialType = c.CommercialType
 	}
+	if len(commercialType) < 2 {
+		return "", errors.New("Invalid commercial type")
+	}
 
 	if c.Name == "" {
 		c.Name = strings.Replace(namesgenerator.GetRandomName(0), "_", "-", -1)
