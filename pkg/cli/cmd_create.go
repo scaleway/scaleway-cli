@@ -33,6 +33,7 @@ func init() {
 	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "dynamic", "Assign a reserved public IP, a 'dynamic' one or 'none'")
 	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "VC1S", "Create a server with specific commercial-type C1, VC1S, C2[S|M|L]")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdCreate.Flag.BoolVar(&createIPV6, []string{"-ipv6"}, false, "Enable IPV6")
 	cmdCreate.Flag.BoolVar(&createTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 }
 
@@ -45,6 +46,7 @@ var createHelp bool             // -h, --help flag
 var createTmpSSHKey bool        // --tmp-ssh-key flag
 var createIPAddress string      // --ip-address flag
 var createCommercialType string // --commercial-type flag
+var createIPV6 bool             // --ipv6 flag
 
 func runCreate(cmd *Command, rawArgs []string) error {
 	if createHelp {
@@ -61,6 +63,7 @@ func runCreate(cmd *Command, rawArgs []string) error {
 		TmpSSHKey:      createTmpSSHKey,
 		IP:             createIPAddress,
 		CommercialType: createCommercialType,
+		IPV6:           createIPV6,
 	}
 
 	if len(createEnv) > 0 {

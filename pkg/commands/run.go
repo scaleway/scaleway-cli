@@ -36,6 +36,7 @@ type RunArgs struct {
 	ShowBoot       bool
 	Detach         bool
 	Attach         bool
+	IPV6           bool
 }
 
 // AddSSHKeyToTags adds the ssh key in the tags
@@ -165,6 +166,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		DynamicIPRequired: false,
 		IP:                args.IP,
 		CommercialType:    args.CommercialType,
+		EnableIPV6:        args.IPV6,
 	}
 	if args.IP == "dynamic" || (args.IP == "" && args.Gateway == "") {
 		config.DynamicIPRequired = true

@@ -47,6 +47,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
 	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "VC1S", "Start a server with specific commercial-type C1, VC1S, C2[SML]")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
+	cmdRun.Flag.BoolVar(&runIPV6, []string{"-ipv6"}, false, "Enable IPV6")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
 	// FIXME: handle start --timeout
@@ -67,6 +68,7 @@ var runUserdatas string        // -u, --userdata flag
 var runCommercialType string   // --commercial-type flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
+var runIPV6 bool               // --ipv6 flag
 var runTimeout int64           // --timeout flag
 
 func runRun(cmd *Command, rawArgs []string) error {
@@ -113,6 +115,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		Timeout:        runTimeout,
 		Userdata:       runUserdatas,
 		CommercialType: runCommercialType,
+		IPV6:           runIPV6,
 		// FIXME: Timeout
 	}
 

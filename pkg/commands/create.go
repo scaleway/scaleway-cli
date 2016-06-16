@@ -21,6 +21,7 @@ type CreateArgs struct {
 	TmpSSHKey      bool
 	IP             string
 	CommercialType string
+	IPV6           bool
 }
 
 // RunCreate is the handler for 'scw create'
@@ -43,6 +44,7 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 		DynamicIPRequired: false,
 		IP:                args.IP,
 		CommercialType:    args.CommercialType,
+		EnableIPV6:        args.IPV6,
 	}
 	if args.IP == "dynamic" || args.IP == "" {
 		config.DynamicIPRequired = true
