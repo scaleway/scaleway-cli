@@ -1184,6 +1184,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw run` handle `--ipv6` flag
+* `scw create` handle `--ipv6` flag
 * Fix panic when the commercial-type is lower than 2 characters ([#365](https://github.com/scaleway/scaleway-cli/issues/365))
 * gotty-client enable ProxyFromEnviromnent ([#363](https://github.com/scaleway/scaleway-cli/pull/363)) ([@debovema](https://github.com/debovema))
 * `scw inspect` fix panic ([#353](https://github.com/scaleway/scaleway-cli/issues/353))
