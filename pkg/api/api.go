@@ -2382,21 +2382,6 @@ func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	return "", showResolverResults(needle, bootscripts)
 }
 
-// HideAPICredentials removes API credentials from a string
-func (s *ScalewayAPI) HideAPICredentials(input string) string {
-	output := input
-	if s.Token != "" {
-		output = strings.Replace(output, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
-	}
-	if s.Organization != "" {
-		output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
-	}
-	if s.password != "" {
-		output = strings.Replace(output, s.password, "XX-XX-XX-XX", -1)
-	}
-	return output
-}
-
 func rootNetDial(network, addr string) (net.Conn, error) {
 	dialer := net.Dialer{
 		Timeout:   10 * time.Second,
