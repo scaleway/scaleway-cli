@@ -7,6 +7,7 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 	"text/template"
 
 	"github.com/Sirupsen/logrus"
@@ -20,6 +21,20 @@ type InspectArgs struct {
 	Browser     bool
 	Identifiers []string
 	Arch        string
+}
+
+func hideAPICredentials(input string) string {
+	output := input
+	if s.Token != "" {
+		output = strings.Replace(output, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
+	}
+	if s.Organization != "" {
+		output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
+	}
+	if s.password != "" {
+		output = strings.Replace(output, s.password, "XX-XX-XX-XX", -1)
+	}
+	return output
 }
 
 // RunInspect is the handler for 'scw inspect'
@@ -99,7 +114,7 @@ func RunInspect(ctx CommandContext, args InspectArgs) error {
 
 		if args.Format == "" {
 			if ctx.Getenv("SCW_SENSITIVE") != "1" {
-				res = ctx.API.HideAPICredentials(res)
+				res = hideAPICredentials(res)
 			}
 			if len(res) > 2 {
 				fmt.Fprintln(ctx.Stdout, res)

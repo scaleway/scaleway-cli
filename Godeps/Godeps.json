@@ -134,10 +134,6 @@
 			"Rev": "92f0c24d5b2985522174e3ff5ad882a1c4d7f1d9"
 		},
 		{
-			"ImportPath": "github.com/moul/http2curl",
-			"Rev": "b1479103caacaa39319f75e7f57fc545287fca0d"
-		},
-		{
 			"ImportPath": "github.com/opencontainers/runc/libcontainer/user",
 			"Comment": "v0.1.1-131-g57b9972",
 			"Rev": "57b997243d52f70a78cfea5e31ccb69f37450b5a"
