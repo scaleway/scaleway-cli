@@ -15,8 +15,9 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
-	"github.com/hashicorp/go-version"
+	"github.com/moul/http2curl"
 
+	version "github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 	"github.com/scaleway/scaleway-cli/pkg/config"
@@ -140,7 +141,37 @@ func getScalewayAPI() (*api.ScalewayAPI, error) {
 	if err != nil {
 		return nil, err
 	}
-	return api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent())
+	return api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), func(s *api.ScalewayAPI) {
+		s.Logger = newCliLogger(s)
+	})
+}
+
+type cliLogger struct {
+	logrus.Logger
+	s *api.ScalewayAPI
+}
+
+func (l *cliLogger) Log(args ...interface{}) {
+	l.Log(args...)
+}
+
+func (l cliLogger) LogHTTP(req *http.Request) {
+	curl, err := http2curl.GetCurlCommand(req)
+	if err != nil {
+		l.Fatalf("Failed to convert to curl request: %q", err)
+	}
+
+	if os.Getenv("SCW_SENSITIVE") != "1" {
+		l.Debug(l.s.HideAPICredentials(curl.String()))
+	} else {
+		l.Debug(curl.String())
+	}
+}
+
+func newCliLogger(s *api.ScalewayAPI) api.Logger {
+	return &cliLogger{
+		s: s,
+	}
 }
 
 func initLogging(debug bool, verbose bool, streams *commands.Streams) {
