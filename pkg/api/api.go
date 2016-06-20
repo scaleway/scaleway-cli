@@ -26,7 +26,6 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/moul/anonuuid"
-	"github.com/moul/http2curl"
 )
 
 // Default values
@@ -882,15 +881,6 @@ func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, erro
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
 	return s.client.Do(req)
 }
 
@@ -910,16 +900,6 @@ func (s *ScalewayAPI) PostResponse(apiURL, resource string, data interface{}) (*
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
-
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
 
 	return s.client.Do(req)
 }
@@ -941,16 +921,6 @@ func (s *ScalewayAPI) PatchResponse(apiURL, resource string, data interface{}) (
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
-
 	return s.client.Do(req)
 }
 
@@ -971,16 +941,6 @@ func (s *ScalewayAPI) PutResponse(apiURL, resource string, data interface{}) (*h
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
-
 	return s.client.Do(req)
 }
 
@@ -995,16 +955,6 @@ func (s *ScalewayAPI) DeleteResponse(apiURL, resource string) (*http.Response, e
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
-
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
 
 	return s.client.Do(req)
 }
@@ -1069,12 +1019,11 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		return nil, err
 	}
 
-	var servers ScalewayServers
-
 	body, err := s.handleHTTPError([]int{200}, resp)
 	if err != nil {
 		return nil, err
 	}
+	var servers ScalewayServers
 	if err = json.Unmarshal(body, &servers); err != nil {
 		return nil, err
 	}
@@ -1708,8 +1657,6 @@ func (s *ScalewayUserdata) String() string {
 
 // GetUserdata gets a specific userdata for a server
 func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*ScalewayUserdata, error) {
-	var data ScalewayUserdata
-	var err error
 	var url, endpoint string
 
 	endpoint = ComputeAPI
@@ -1720,6 +1667,7 @@ func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*Scalewa
 		url = fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
 	}
 
+	var err error
 	resp, err := s.GetResponse(endpoint, url)
 	if resp != nil {
 		defer resp.Body.Close()
@@ -1731,6 +1679,7 @@ func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*Scalewa
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("no such user_data %q (%d)", key, resp.StatusCode)
 	}
+	var data ScalewayUserdata
 	data, err = ioutil.ReadAll(resp.Body)
 	return &data, err
 }
@@ -1759,13 +1708,6 @@ func (s *ScalewayAPI) PatchUserdata(serverID, key string, value []byte, metadata
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "text/plain")
 	req.Header.Set("User-Agent", s.userAgent)
-
-	curl, err := http2curl.GetCurlCommand(req)
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
 
 	resp, err := s.client.Do(req)
 	if resp != nil {
