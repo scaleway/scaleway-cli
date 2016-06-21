@@ -1184,6 +1184,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Add Logger Interface to avoid multiples dependencies in the API, thank you [@nicolai86](https://github.com/nicolai86) ([#369](https://github.com/scaleway/scaleway-cli/pull/369))
 * `scw run` handle `--ipv6` flag
 * `scw create` handle `--ipv6` flag
 * Fix panic when the commercial-type is lower than 2 characters ([#365](https://github.com/scaleway/scaleway-cli/issues/365))
