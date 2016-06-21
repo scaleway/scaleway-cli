@@ -147,15 +147,11 @@ func getScalewayAPI() (*api.ScalewayAPI, error) {
 }
 
 type cliLogger struct {
-	logrus.Logger
+	*logrus.Logger
 	s *api.ScalewayAPI
 }
 
-func (l *cliLogger) Log(args ...interface{}) {
-	l.Log(args...)
-}
-
-func (l cliLogger) LogHTTP(req *http.Request) {
+func (l *cliLogger) LogHTTP(req *http.Request) {
 	curl, err := http2curl.GetCurlCommand(req)
 	if err != nil {
 		l.Fatalf("Failed to convert to curl request: %q", err)
@@ -170,7 +166,8 @@ func (l cliLogger) LogHTTP(req *http.Request) {
 
 func newCliLogger(s *api.ScalewayAPI) api.Logger {
 	return &cliLogger{
-		s: s,
+		Logger: logrus.StandardLogger(),
+		s:      s,
 	}
 }
 

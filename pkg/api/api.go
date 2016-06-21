@@ -68,7 +68,7 @@ type ScalewayAPI struct {
 	verbose bool
 
 	//
-	Logger Logger
+	Logger
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -849,7 +849,6 @@ func NewScalewayAPI(organization, token, userAgent string, options ...func(*Scal
 		// internal
 		client: &http.Client{},
 	}
-
 	for _, option := range options {
 		option(s)
 	}
@@ -885,7 +884,7 @@ func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, erro
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -907,7 +906,7 @@ func (s *ScalewayAPI) PostResponse(apiURL, resource string, data interface{}) (*
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -929,7 +928,7 @@ func (s *ScalewayAPI) PatchResponse(apiURL, resource string, data interface{}) (
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -951,7 +950,7 @@ func (s *ScalewayAPI) PutResponse(apiURL, resource string, data interface{}) (*h
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -968,7 +967,7 @@ func (s *ScalewayAPI) DeleteResponse(apiURL, resource string) (*http.Response, e
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -991,12 +990,11 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 	if !good {
 		var scwError ScalewayAPIError
 
-		err := json.Unmarshal(body, &scwError)
-		if err != nil {
+		if err := json.Unmarshal(body, &scwError); err != nil {
 			return nil, err
 		}
 		scwError.StatusCode = resp.StatusCode
-		s.Logger.Log(scwError.Error())
+		s.Debugf("%s", scwError.Error())
 		return nil, scwError
 	}
 	if s.verbose {
@@ -1004,9 +1002,9 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 
 		err = json.Indent(&js, body, "", "  ")
 		if err != nil {
-			s.Logger.Log(string(body))
+			s.Debugf("%s", string(body))
 		} else {
-			s.Logger.Log(js.String())
+			s.Debugf("%s", js.String())
 		}
 	}
 	return body, nil
@@ -1723,7 +1721,7 @@ func (s *ScalewayAPI) PatchUserdata(serverID, key string, value []byte, metadata
 	req.Header.Set("Content-Type", "text/plain")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.Logger.LogHTTP(req)
+	s.LogHTTP(req)
 
 	resp, err := s.client.Do(req)
 	if resp != nil {
