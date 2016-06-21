@@ -23,10 +23,6 @@ import (
 	"text/tabwriter"
 	"text/template"
 	"time"
-
-	log "github.com/Sirupsen/logrus"
-	"github.com/moul/anonuuid"
-	"github.com/moul/http2curl"
 )
 
 // Default values
@@ -68,9 +64,11 @@ type ScalewayAPI struct {
 	// Cache is used to quickly resolve identifiers from names
 	Cache *ScalewayCache
 
-	client   *http.Client
-	anonuuid anonuuid.AnonUUID
-	verbose  bool
+	client  *http.Client
+	verbose bool
+
+	//
+	Logger
 }
 
 // ScalewayAPIError represents a Scaleway API Error
@@ -93,30 +91,31 @@ type ScalewayAPIError struct {
 
 // Error returns a string representing the error
 func (e ScalewayAPIError) Error() string {
-	if e.Message != "" {
-		return e.Message
-	}
-	if e.APIMessage != "" {
-		return e.APIMessage
-	}
-	if e.StatusCode != 0 {
-		return fmt.Sprintf("Invalid return code, got %d", e.StatusCode)
-	}
-	panic(e)
-}
-
-// Debug create a debug log entry with HTTP error informations
-func (e ScalewayAPIError) Debug() {
-	log.WithFields(log.Fields{
+	var b bytes.Buffer
+	for k, v := range map[string]interface{}{
 		"StatusCode": e.StatusCode,
 		"Type":       e.Type,
 		"Message":    e.Message,
-	}).Debug(e.APIMessage)
-
-	// error.Fields handling
-	for k, v := range e.Fields {
-		log.Debugf("  %-30s %s", fmt.Sprintf("%s: ", k), v)
+		"APIMessage": e.APIMessage,
+	} {
+		fmt.Fprintf(&b, "  %-30s %s", fmt.Sprintf("%s: ", k), v)
 	}
+	return b.String()
+}
+
+// HideAPICredentials removes API credentials from a string
+func (s *ScalewayAPI) HideAPICredentials(input string) string {
+	output := input
+	if s.Token != "" {
+		output = strings.Replace(output, s.Token, "00000000-0000-4000-8000-000000000000", -1)
+	}
+	if s.Organization != "" {
+		output = strings.Replace(output, s.Organization, "00000000-0000-5000-9000-000000000000", -1)
+	}
+	if s.password != "" {
+		output = strings.Replace(output, s.password, "XX-XX-XX-XX", -1)
+	}
+	return output
 }
 
 // ScalewayIPAddress represents a Scaleway IP address
@@ -832,7 +831,7 @@ type MarketImages struct {
 }
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
-func NewScalewayAPI(organization, token, userAgent string) (*ScalewayAPI, error) {
+func NewScalewayAPI(organization, token, userAgent string, options ...func(*ScalewayAPI)) (*ScalewayAPI, error) {
 	cache, err := NewScalewayCache()
 	if err != nil {
 		return nil, err
@@ -842,13 +841,16 @@ func NewScalewayAPI(organization, token, userAgent string) (*ScalewayAPI, error)
 		Organization: organization,
 		Token:        token,
 		Cache:        cache,
+		Logger:       NewDefaultLogger(),
 		verbose:      os.Getenv("SCW_VERBOSE_API") != "",
 		password:     "",
 		userAgent:    userAgent,
 
 		// internal
-		anonuuid: *anonuuid.New(),
-		client:   &http.Client{},
+		client: &http.Client{},
+	}
+	for _, option := range options {
+		option(s)
 	}
 
 	if os.Getenv("SCW_TLSVERIFY") == "0" {
@@ -882,15 +884,8 @@ func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, erro
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
+
 	return s.client.Do(req)
 }
 
@@ -911,15 +906,7 @@ func (s *ScalewayAPI) PostResponse(apiURL, resource string, data interface{}) (*
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -941,15 +928,7 @@ func (s *ScalewayAPI) PatchResponse(apiURL, resource string, data interface{}) (
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -971,15 +950,7 @@ func (s *ScalewayAPI) PutResponse(apiURL, resource string, data interface{}) (*h
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -996,15 +967,7 @@ func (s *ScalewayAPI) DeleteResponse(apiURL, resource string) (*http.Response, e
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if err != nil {
-		return nil, err
-	}
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
 
 	return s.client.Do(req)
 }
@@ -1027,12 +990,11 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 	if !good {
 		var scwError ScalewayAPIError
 
-		err := json.Unmarshal(body, &scwError)
-		if err != nil {
+		if err := json.Unmarshal(body, &scwError); err != nil {
 			return nil, err
 		}
 		scwError.StatusCode = resp.StatusCode
-		scwError.Debug()
+		s.Debugf("%s", scwError.Error())
 		return nil, scwError
 	}
 	if s.verbose {
@@ -1040,9 +1002,9 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 
 		err = json.Indent(&js, body, "", "  ")
 		if err != nil {
-			log.Debug(string(body))
+			s.Debugf("%s", string(body))
 		} else {
-			log.Debug(js.String())
+			s.Debugf("%s", js.String())
 		}
 	}
 	return body, nil
@@ -1069,12 +1031,11 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		return nil, err
 	}
 
-	var servers ScalewayServers
-
 	body, err := s.handleHTTPError([]int{200}, resp)
 	if err != nil {
 		return nil, err
 	}
+	var servers ScalewayServers
 	if err = json.Unmarshal(body, &servers); err != nil {
 		return nil, err
 	}
@@ -1708,8 +1669,6 @@ func (s *ScalewayUserdata) String() string {
 
 // GetUserdata gets a specific userdata for a server
 func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*ScalewayUserdata, error) {
-	var data ScalewayUserdata
-	var err error
 	var url, endpoint string
 
 	endpoint = ComputeAPI
@@ -1720,6 +1679,7 @@ func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*Scalewa
 		url = fmt.Sprintf("servers/%s/user_data/%s", serverID, key)
 	}
 
+	var err error
 	resp, err := s.GetResponse(endpoint, url)
 	if resp != nil {
 		defer resp.Body.Close()
@@ -1731,6 +1691,7 @@ func (s *ScalewayAPI) GetUserdata(serverID, key string, metadata bool) (*Scalewa
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("no such user_data %q (%d)", key, resp.StatusCode)
 	}
+	var data ScalewayUserdata
 	data, err = ioutil.ReadAll(resp.Body)
 	return &data, err
 }
@@ -1760,12 +1721,7 @@ func (s *ScalewayAPI) PatchUserdata(serverID, key string, value []byte, metadata
 	req.Header.Set("Content-Type", "text/plain")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	curl, err := http2curl.GetCurlCommand(req)
-	if os.Getenv("SCW_SENSITIVE") != "1" {
-		log.Debug(s.HideAPICredentials(curl.String()))
-	} else {
-		log.Debug(curl.String())
-	}
+	s.LogHTTP(req)
 
 	resp, err := s.client.Do(req)
 	if resp != nil {
@@ -2420,7 +2376,7 @@ func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
 // GetBootscriptID returns exactly one bootscript matching
 func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
-	if anonuuid.IsUUID(needle) == nil {
+	if len(strings.Split(needle, ":")) == 1 {
 		return needle, nil
 	}
 
@@ -2438,21 +2394,6 @@ func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 		return "", fmt.Errorf("No such bootscript: %s", needle)
 	}
 	return "", showResolverResults(needle, bootscripts)
-}
-
-// HideAPICredentials removes API credentials from a string
-func (s *ScalewayAPI) HideAPICredentials(input string) string {
-	output := input
-	if s.Token != "" {
-		output = strings.Replace(output, s.Token, s.anonuuid.FakeUUID(s.Token), -1)
-	}
-	if s.Organization != "" {
-		output = strings.Replace(output, s.Organization, s.anonuuid.FakeUUID(s.Organization), -1)
-	}
-	if s.password != "" {
-		output = strings.Replace(output, s.password, "XX-XX-XX-XX", -1)
-	}
-	return output
 }
 
 func rootNetDial(network, addr string) (net.Conn, error) {

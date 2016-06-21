@@ -16,6 +16,6 @@ func TestNewScalewayAPI(t *testing.T) {
 		So(api.Organization, ShouldEqual, "my-organization")
 		So(api.Cache, ShouldNotBeNil)
 		So(api.client, ShouldNotBeNil)
-		So(api.anonuuid, ShouldNotBeNil)
+		So(api.Logger, ShouldNotBeNil)
 	})
 }
