@@ -15,7 +15,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/moul/anonuuid"
 	"github.com/renstrom/fuzzysearch/fuzzy"
 )
@@ -231,7 +230,7 @@ func (c *ScalewayCache) Save() error {
 	c.Lock.Lock()
 	defer c.Lock.Unlock()
 
-	logrus.Debugf("Writing cache file to disk")
+	log.Printf("Writing cache file to disk")
 
 	if c.Modified {
 		file, err := ioutil.TempFile(filepath.Dir(c.Path), filepath.Base(c.Path))
