@@ -98,7 +98,7 @@ func (e ScalewayAPIError) Error() string {
 		"Message":    e.Message,
 		"APIMessage": e.APIMessage,
 	} {
-		fmt.Fprintf(&b, "  %-30s %s", fmt.Sprintf("%s: ", k), v)
+		fmt.Fprintf(&b, "%s: %v ", k, v)
 	}
 	return b.String()
 }

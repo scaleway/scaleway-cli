@@ -338,11 +338,14 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	}
 	arch := os.Getenv("SCW_TARGET_ARCH")
 	if arch == "" {
+		server.CommercialType = strings.ToUpper(server.CommercialType)
 		switch server.CommercialType[:2] {
 		case "C1":
 			arch = "arm"
 		case "C2", "VC":
 			arch = "x86_64"
+		default:
+			return "", fmt.Errorf("%s wrong commercial type", server.CommercialType)
 		}
 	}
 	region := os.Getenv("SCW_TARGET_REGION")
