@@ -83,8 +83,12 @@ func selectKey(args *LoginArgs) error {
 	return nil
 }
 
+func disableLogger(s *api.ScalewayAPI) {
+	s.Logger = api.NewDisableLogger()
+}
+
 func getToken(connect api.ScalewayConnect) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent())
+	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent(), disableLogger)
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -113,7 +117,7 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 }
 
 func getOrganization(token string, email string) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI("", token, scwversion.UserAgent())
+	FakeConnection, err := api.NewScalewayAPI("", token, scwversion.UserAgent(), disableLogger)
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -152,10 +156,10 @@ func connectAPI() (string, string, error) {
 	if err != nil {
 		return "", "", fmt.Errorf("unable to get your Hostname %v", err)
 	}
-	if err := promptUser("Login (cloud.scaleway.com): ", &email, true); err != nil {
+	if err = promptUser("Login (cloud.scaleway.com): ", &email, true); err != nil {
 		return "", "", err
 	}
-	if err := promptUser("Password: ", &password, false); err != nil {
+	if err = promptUser("Password: ", &password, false); err != nil {
 		return "", "", err
 	}
 
@@ -218,7 +222,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 		Token:        strings.Trim(args.Token, "\n"),
 	}
 
-	apiConnection, err := api.NewScalewayAPI(cfg.Organization, cfg.Token, scwversion.UserAgent())
+	apiConnection, err := api.NewScalewayAPI(cfg.Organization, cfg.Token, scwversion.UserAgent(), disableLogger)
 	if err != nil {
 		return fmt.Errorf("Unable to create ScalewayAPI: %s", err)
 	}
