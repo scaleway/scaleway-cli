@@ -208,6 +208,14 @@ func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
 
 // RunLogin is the handler for 'scw login'
 func RunLogin(ctx CommandContext, args LoginArgs) error {
+	if config, cfgErr := config.GetConfig(); cfgErr == nil {
+		if TestConnection, err := api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), disableLogger); err == nil {
+			if user, err := TestConnection.GetUser(); err == nil {
+				fmt.Println("You are already logged as", user.Fullname)
+			}
+		}
+	}
+
 	if args.Organization == "" || args.Token == "" {
 		var err error
 
@@ -231,7 +239,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 		return fmt.Errorf("Unable to contact ScalewayAPI: %s", err)
 	}
 	if !args.SkipSSHKey {
-		if err := selectKey(&args); err != nil {
+		if err = selectKey(&args); err != nil {
 			logrus.Errorf("Unable to select a key: %v", err)
 		} else {
 			if args.SSHKey != "" {
@@ -239,6 +247,16 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 			}
 		}
 	}
+	name := "."
+	user, err := apiConnection.GetUser()
+	if err == nil {
+		name = "as " + user.Fullname + "."
+	}
+	fmt.Println("")
+	fmt.Println("You are now authenticated on Scaleway.com", name)
+	fmt.Println("You can list your existing servers using `scw ps` or create a new one using `scw run ubuntu-xenial`.")
+	fmt.Println("You can get a list of all available commands using `scw -h` and get more usage examples on github.com/scaleway/scaleway-cli.")
+	fmt.Println("Happy cloud riding.")
 	return cfg.Save()
 }
 
