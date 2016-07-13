@@ -419,13 +419,13 @@ type ScalewayGetSecurityGroup struct {
 
 // ScalewayIPDefinition represents the IP's fields
 type ScalewayIPDefinition struct {
-	Organization string `json:"organization"`
-	Reverse      string `json:"reverse"`
-	ID           string `json:"id"`
-	Server       struct {
+	Organization string  `json:"organization"`
+	Reverse      *string `json:"reverse"`
+	ID           string  `json:"id"`
+	Server       *struct {
 		Identifier string `json:"id,omitempty"`
 		Name       string `json:"name,omitempty"`
-	} `json:"server,omitempty"`
+	} `json:"server"`
 	Address string `json:"address"`
 }
 
@@ -2315,29 +2315,18 @@ func (s *ScalewayAPI) AttachIP(ipID, serverID string) error {
 
 // DetachIP detaches an IP from a server
 func (s *ScalewayAPI) DetachIP(ipID string) error {
-	var update struct {
-		Address      string `json:"address"`
-		ID           string `json:"id"`
-		Organization string `json:"organization"`
-	}
-
 	ip, err := s.GetIP(ipID)
 	if err != nil {
 		return err
 	}
-
-	if ip.IP.Server.Identifier == "" {
-		return nil
+	ip.IP.Server = nil
+	resp, err := s.PutResponse(ComputeAPI, fmt.Sprintf("ips/%s", ipID), ip.IP)
+	if resp != nil {
+		defer resp.Body.Close()
 	}
-
-	update.Address = ip.IP.Address
-	update.ID = ip.IP.ID
-	update.Organization = ip.IP.Organization
-	resp, err := s.PutResponse(ComputeAPI, fmt.Sprintf("ips/%s", ipID), update)
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
 	_, err = s.handleHTTPError([]int{200}, resp)
 	return err
 }
@@ -2351,11 +2340,8 @@ func (s *ScalewayAPI) DeleteIP(ipID string) error {
 	if err != nil {
 		return err
 	}
-
-	if _, err := s.handleHTTPError([]int{204}, resp); err != nil {
-		return err
-	}
-	return nil
+	_, err = s.handleHTTPError([]int{204}, resp)
+	return err
 }
 
 // GetIP returns a ScalewayGetIP
