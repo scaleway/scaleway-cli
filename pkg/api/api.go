@@ -832,27 +832,26 @@ type MarketImages struct {
 
 // NewScalewayAPI creates a ready-to-use ScalewayAPI client
 func NewScalewayAPI(organization, token, userAgent string, options ...func(*ScalewayAPI)) (*ScalewayAPI, error) {
-	cache, err := NewScalewayCache()
-	if err != nil {
-		return nil, err
-	}
 	s := &ScalewayAPI{
 		// exposed
 		Organization: organization,
 		Token:        token,
-		Cache:        cache,
 		Logger:       NewDefaultLogger(),
-		verbose:      os.Getenv("SCW_VERBOSE_API") != "",
-		password:     "",
-		userAgent:    userAgent,
 
 		// internal
-		client: &http.Client{},
+		client:    &http.Client{},
+		verbose:   os.Getenv("SCW_VERBOSE_API") != "",
+		password:  "",
+		userAgent: userAgent,
 	}
 	for _, option := range options {
 		option(s)
 	}
-
+	cache, err := NewScalewayCache(func() { s.Logger.Debugf("Writing cache file to disk") })
+	if err != nil {
+		return nil, err
+	}
+	s.Cache = cache
 	if os.Getenv("SCW_TLSVERIFY") == "0" {
 		s.client.Transport = &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -1273,62 +1272,77 @@ func (s *ScalewayAPI) PutVolume(volumeID string, definition ScalewayVolumePutDef
 
 // ResolveServer attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveServer(needle string) (ScalewayResolverResults, error) {
-	servers := s.Cache.LookUpServers(needle, true)
+	servers, err := s.Cache.LookUpServers(needle, true)
+	if err != nil {
+		return servers, err
+	}
 	if len(servers) == 0 {
-		if _, err := s.GetServers(true, 0); err != nil {
+		if _, err = s.GetServers(true, 0); err != nil {
 			return nil, err
 		}
-		servers = s.Cache.LookUpServers(needle, true)
+		servers, err = s.Cache.LookUpServers(needle, true)
 	}
-	return servers, nil
+	return servers, err
 }
 
 // ResolveVolume attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveVolume(needle string) (ScalewayResolverResults, error) {
-	volumes := s.Cache.LookUpVolumes(needle, true)
+	volumes, err := s.Cache.LookUpVolumes(needle, true)
+	if err != nil {
+		return volumes, err
+	}
 	if len(volumes) == 0 {
-		if _, err := s.GetVolumes(); err != nil {
+		if _, err = s.GetVolumes(); err != nil {
 			return nil, err
 		}
-		volumes = s.Cache.LookUpVolumes(needle, true)
+		volumes, err = s.Cache.LookUpVolumes(needle, true)
 	}
-	return volumes, nil
+	return volumes, err
 }
 
 // ResolveSnapshot attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveSnapshot(needle string) (ScalewayResolverResults, error) {
-	snapshots := s.Cache.LookUpSnapshots(needle, true)
+	snapshots, err := s.Cache.LookUpSnapshots(needle, true)
+	if err != nil {
+		return snapshots, err
+	}
 	if len(snapshots) == 0 {
-		if _, err := s.GetSnapshots(); err != nil {
+		if _, err = s.GetSnapshots(); err != nil {
 			return nil, err
 		}
-		snapshots = s.Cache.LookUpSnapshots(needle, true)
+		snapshots, err = s.Cache.LookUpSnapshots(needle, true)
 	}
-	return snapshots, nil
+	return snapshots, err
 }
 
 // ResolveImage attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveImage(needle string) (ScalewayResolverResults, error) {
-	images := s.Cache.LookUpImages(needle, true)
+	images, err := s.Cache.LookUpImages(needle, true)
+	if err != nil {
+		return images, err
+	}
 	if len(images) == 0 {
-		if _, err := s.GetImages(); err != nil {
+		if _, err = s.GetImages(); err != nil {
 			return nil, err
 		}
-		images = s.Cache.LookUpImages(needle, true)
+		images, err = s.Cache.LookUpImages(needle, true)
 	}
-	return images, nil
+	return images, err
 }
 
 // ResolveBootscript attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveBootscript(needle string) (ScalewayResolverResults, error) {
-	bootscripts := s.Cache.LookUpBootscripts(needle, true)
+	bootscripts, err := s.Cache.LookUpBootscripts(needle, true)
+	if err != nil {
+		return bootscripts, err
+	}
 	if len(bootscripts) == 0 {
-		if _, err := s.GetBootscripts(); err != nil {
+		if _, err = s.GetBootscripts(); err != nil {
 			return nil, err
 		}
-		bootscripts = s.Cache.LookUpBootscripts(needle, true)
+		bootscripts, err = s.Cache.LookUpBootscripts(needle, true)
 	}
-	return bootscripts, nil
+	return bootscripts, err
 }
 
 // GetImages gets the list of images from the ScalewayAPI
