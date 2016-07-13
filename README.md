@@ -1185,6 +1185,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 ### master (unreleased)
 
 * `scw login` Add motd when you are already logged ([#371](https://github.com/scaleway/scaleway-cli/issues/371))
+* `scw _ips` add --detach flag
+* API add DetachIP method ([@nicolai86](https://github.com/scaleway/scaleway-cli/pull/378))
 * Fix error message with `--commercial-type=c2m` ([#374](https://github.com/scaleway/scaleway-cli/issues/374))
 * Add Logger Interface to avoid multiples dependencies in the API, thank you [@nicolai86](https://github.com/nicolai86) ([#369](https://github.com/scaleway/scaleway-cli/pull/369))
 * `scw run` handle `--ipv6` flag
