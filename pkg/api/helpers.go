@@ -134,7 +134,10 @@ func fillIdentifierCache(api *ScalewayAPI, identifierType int) {
 
 // GetIdentifier returns a an identifier if the resolved needles only match one element, else, it exists the program
 func GetIdentifier(api *ScalewayAPI, needle string) (*ScalewayResolverResult, error) {
-	idents := ResolveIdentifier(api, needle)
+	idents, err := ResolveIdentifier(api, needle)
+	if err != nil {
+		return nil, err
+	}
 
 	if len(idents) == 1 {
 		return &idents[0], nil
@@ -152,17 +155,19 @@ func GetIdentifier(api *ScalewayAPI, needle string) (*ScalewayResolverResult, er
 }
 
 // ResolveIdentifier resolves needle provided by the user
-func ResolveIdentifier(api *ScalewayAPI, needle string) ScalewayResolverResults {
-	idents := api.Cache.LookUpIdentifiers(needle)
+func ResolveIdentifier(api *ScalewayAPI, needle string) (ScalewayResolverResults, error) {
+	idents, err := api.Cache.LookUpIdentifiers(needle)
+	if err != nil {
+		return idents, err
+	}
 	if len(idents) > 0 {
-		return idents
+		return idents, nil
 	}
 
 	identifierType, _ := parseNeedle(needle)
 	fillIdentifierCache(api, identifierType)
 
-	idents = api.Cache.LookUpIdentifiers(needle)
-	return idents
+	return api.Cache.LookUpIdentifiers(needle)
 }
 
 // ResolveIdentifiers resolves needles provided by the user
@@ -170,7 +175,10 @@ func ResolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 	// first attempt, only lookup from the cache
 	var unresolved []string
 	for _, needle := range needles {
-		idents := api.Cache.LookUpIdentifiers(needle)
+		idents, err := api.Cache.LookUpIdentifiers(needle)
+		if err != nil {
+			api.Logger.Fatalf("%s", err)
+		}
 		if len(idents) == 0 {
 			unresolved = append(unresolved, needle)
 		} else {
@@ -200,7 +208,10 @@ func ResolveIdentifiers(api *ScalewayAPI, needles []string, out chan ScalewayRes
 
 		// lookup again in the cache
 		for _, needle := range unresolved {
-			idents := api.Cache.LookUpIdentifiers(needle)
+			idents, err := api.Cache.LookUpIdentifiers(needle)
+			if err != nil {
+				api.Logger.Fatalf("%s", err)
+			}
 			out <- ScalewayResolvedIdentifier{
 				Identifiers: idents,
 				Needle:      needle,
