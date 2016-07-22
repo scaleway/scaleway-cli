@@ -448,11 +448,19 @@ type ScalewaySecurityGroup struct {
 	Name string `json:"name,omitempty"`
 }
 
-// ScalewayNewSecurityGroup definition POST/PUT request /security_groups
+// ScalewayNewSecurityGroup definition POST request /security_groups
 type ScalewayNewSecurityGroup struct {
 	Organization string `json:"organization"`
 	Name         string `json:"name"`
 	Description  string `json:"description"`
+}
+
+// ScalewayUpdateSecurityGroup definition PUT request /security_groups
+type ScalewayUpdateSecurityGroup struct {
+	Organization        string `json:"organization"`
+	Name                string `json:"name"`
+	Description         string `json:"description"`
+	OrganizationDefault bool   `json:"organization_default"`
 }
 
 // ScalewayServer represents a Scaleway server
@@ -2168,7 +2176,7 @@ func (s *ScalewayAPI) DeleteSecurityGroup(securityGroupID string) error {
 }
 
 // PutSecurityGroup updates a SecurityGroup
-func (s *ScalewayAPI) PutSecurityGroup(group ScalewayNewSecurityGroup, securityGroupID string) error {
+func (s *ScalewayAPI) PutSecurityGroup(group ScalewayUpdateSecurityGroup, securityGroupID string) error {
 	resp, err := s.PutResponse(ComputeAPI, fmt.Sprintf("security_groups/%s", securityGroupID), group)
 	if resp != nil {
 		defer resp.Body.Close()

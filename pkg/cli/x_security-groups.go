@@ -99,7 +99,7 @@ func updateSecurityGroup(cmd *Command, args []string) error {
 	if securityGroupsName == "" || securityGroupsDesc == "" || len(args) != 1 {
 		return cmd.PrintShortUsage()
 	}
-	return cmd.API.PutSecurityGroup(api.ScalewayNewSecurityGroup{
+	return cmd.API.PutSecurityGroup(api.ScalewayUpdateSecurityGroup{
 		Organization: cmd.API.Organization,
 		Name:         securityGroupsName,
 		Description:  securityGroupsDesc,
