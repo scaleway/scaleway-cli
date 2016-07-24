@@ -592,6 +592,8 @@ type ScalewayServerDefinition struct {
 	PublicIP string `json:"public_ip,omitempty"`
 
 	EnableIPV6 bool `json:"enable_ipv6,omitempty"`
+
+	SecurityGroup string `json:"security_group,omitempty"`
 }
 
 // ScalewayOneServer represents the response of a GET /servers/UUID API call
