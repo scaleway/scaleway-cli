@@ -11,3 +11,4 @@ profile.cov
 profile.out
 .vendor
 .goxc.local.json
+/.vscode

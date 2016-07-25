@@ -70,6 +70,7 @@ var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
 var runIPV6 bool               // --ipv6 flag
 var runTimeout int64           // --timeout flag
+var runSetState string         // --set-state flag
 
 func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
@@ -115,6 +116,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		Timeout:        runTimeout,
 		Userdata:       runUserdatas,
 		CommercialType: runCommercialType,
+		State:          runSetState,
 		IPV6:           runIPV6,
 		// FIXME: Timeout
 	}

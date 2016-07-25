@@ -78,8 +78,8 @@ func RunStart(ctx CommandContext, args StartArgs) error {
 						})
 						if err != nil {
 							logrus.Errorf("%s", err)
-							return
 						}
+						return
 					}
 					time.Sleep(1 * time.Second)
 				}

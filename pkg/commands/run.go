@@ -30,6 +30,7 @@ type RunArgs struct {
 	Volumes        []string
 	Userdata       string
 	CommercialType string
+	State          string
 	Timeout        int64
 	AutoRemove     bool
 	TmpSSHKey      bool
@@ -212,6 +213,27 @@ func Run(ctx CommandContext, args RunArgs) error {
 				close(timeoutExit)
 			case <-closeTimeout:
 				break
+			}
+		}()
+	}
+	if args.State != "" {
+		go func() {
+			for {
+				server, err := ctx.API.GetServer(serverID)
+				if err != nil {
+					logrus.Errorf("%s", err)
+					return
+				}
+				if server.StateDetail == "kernel-started" {
+					err = ctx.API.PatchServer(serverID, api.ScalewayServerPatchDefinition{
+						StateDetail: &args.State,
+					})
+					if err != nil {
+						logrus.Errorf("%s", err)
+					}
+					return
+				}
+				time.Sleep(1 * time.Second)
 			}
 		}()
 	}
