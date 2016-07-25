@@ -1184,6 +1184,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw [run|start]` Add `--set-state` flag
 * `scw login` Add motd when you are already logged ([#371](https://github.com/scaleway/scaleway-cli/issues/371))
 * `scw _ips` add --detach flag
 * API add DetachIP method ([@nicolai86](https://github.com/scaleway/scaleway-cli/pull/378))

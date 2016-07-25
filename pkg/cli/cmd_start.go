@@ -17,12 +17,14 @@ func init() {
 	cmdStart.Flag.BoolVar(&startW, []string{"w", "-wait"}, false, "Synchronous start. Wait for SSH to be ready")
 	cmdStart.Flag.Float64Var(&startTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 	cmdStart.Flag.BoolVar(&startHelp, []string{"h", "-help"}, false, "Print usage")
+	cmdStart.Flag.StringVar(&startSetState, []string{"-set-state"}, "", "Set a state after the boot")
 }
 
 // Flags
 var startW bool          // -w flag
 var startTimeout float64 // -T flag
 var startHelp bool       // -h, --help flag
+var startSetState string // -set-state flag
 
 func runStart(cmd *Command, rawArgs []string) error {
 	if startHelp {
@@ -33,9 +35,10 @@ func runStart(cmd *Command, rawArgs []string) error {
 	}
 
 	args := commands.StartArgs{
-		Servers: rawArgs,
-		Timeout: startTimeout,
-		Wait:    startW,
+		Servers:  rawArgs,
+		Timeout:  startTimeout,
+		Wait:     startW,
+		SetState: startSetState,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunStart(ctx, args)
