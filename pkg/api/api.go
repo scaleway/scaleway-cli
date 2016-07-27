@@ -92,14 +92,11 @@ type ScalewayAPIError struct {
 // Error returns a string representing the error
 func (e ScalewayAPIError) Error() string {
 	var b bytes.Buffer
-	for k, v := range map[string]interface{}{
-		"StatusCode": e.StatusCode,
-		"Type":       e.Type,
-		"Message":    e.Message,
-		"APIMessage": e.APIMessage,
-	} {
-		fmt.Fprintf(&b, "%s: %v ", k, v)
-	}
+
+	fmt.Fprintf(&b, "StatusCode: %v, ", e.StatusCode)
+	fmt.Fprintf(&b, "Type: %v, ", e.Type)
+	fmt.Fprintf(&b, "APIMessage: %v, ", e.APIMessage)
+	fmt.Fprintf(&b, "Details: %v", e.Fields)
 	return b.String()
 }
 
