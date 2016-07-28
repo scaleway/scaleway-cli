@@ -1184,6 +1184,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Fix regression on bootscript ([#387](https://github.com/scaleway/scaleway-cli/issues/387))
 * `scw [run|start]` Add `--set-state` flag
 * `scw login` Add motd when you are already logged ([#371](https://github.com/scaleway/scaleway-cli/issues/371))
 * `scw _ips` add --detach flag

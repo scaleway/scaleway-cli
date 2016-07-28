@@ -405,10 +405,19 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			}
 		}
 	}
+
 	if c.Bootscript != "" {
-		bootscript, errGetBootScript := api.GetBootscriptID(c.Bootscript, imageIdentifier.Arch)
-		if errGetBootScript != nil {
-			return "", errGetBootScript
+		bootscript := ""
+
+		if anonuuid.IsUUID(c.Bootscript) == nil {
+			bootscript = c.Bootscript
+		} else {
+			var errGetBootScript error
+
+			bootscript, errGetBootScript = api.GetBootscriptID(c.Bootscript, imageIdentifier.Arch)
+			if errGetBootScript != nil {
+				return "", errGetBootScript
+			}
 		}
 		server.Bootscript = &bootscript
 	}
