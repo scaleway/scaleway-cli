@@ -2412,10 +2412,6 @@ func (s *ScalewayAPI) GetQuotas() (*ScalewayGetQuotas, error) {
 // GetBootscriptID returns exactly one bootscript matching
 func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
 	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
-	if len(strings.Split(needle, ":")) == 1 {
-		return needle, nil
-	}
-
 	_, needle = parseNeedle(needle)
 
 	bootscripts, err := s.ResolveBootscript(needle)
