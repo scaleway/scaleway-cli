@@ -8,6 +8,7 @@ Interact with Scaleway API from the command line.
 ![License](https://img.shields.io/github/license/scaleway/scaleway-cli.svg)
 ![Release](https://img.shields.io/github/release/scaleway/scaleway-cli.svg)
 [![IRC](https://www.irccloud.com/invite-svg?channel=%23scaleway&amp;hostname=irc.online.net&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23scaleway&amp;hostname=irc.online.net&amp;port=6697&amp;ssl=1)
+[![Go Report Card](https://goreportcard.com/badge/github.com/scaleway/scaleway-cli)](https://goreportcard.com/report/github.com/scaleway/scaleway-cli)
 
 ![Scaleway CLI demo](https://raw.githubusercontent.com/scaleway/scaleway-cli/master/assets/terminal-main-demo.gif)
 
