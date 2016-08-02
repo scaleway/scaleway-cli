@@ -66,7 +66,7 @@ func AddSSHKeyToTags(ctx CommandContext, tags *[]string, image string) error {
 			break
 		}
 	}
-	*tags = append(*tags, strings.Join([]string{"AUTHORIZED_KEY", string(data[:len(data)])}, "="))
+	*tags = append(*tags, strings.Join([]string{"AUTHORIZED_KEY", string(data[:])}, "="))
 	return nil
 }
 

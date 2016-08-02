@@ -77,7 +77,7 @@ func selectKey(args *LoginArgs) error {
 		if err != nil {
 			return fmt.Errorf("Unable to open your key: %v", err)
 		}
-		args.SSHKey = string(buff[:len(buff)])
+		args.SSHKey = string(buff[:])
 		break
 	}
 	return nil
