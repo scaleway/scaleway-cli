@@ -102,6 +102,6 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 		return fmt.Errorf("Failed to run the command: %v", err)
 	}
 
-	log.Debugf("Command successfuly executed")
+	log.Debugf("Command successfully executed")
 	return nil
 }

@@ -368,7 +368,7 @@ type ScalewaySecurityGroupRule struct {
 	IPRange      string `json:"ip_range"`
 	DestPortFrom int    `json:"dest_port_from,omitempty"`
 	Action       string `json:"action"`
-	Postion      int    `json:"position"`
+	Position     int    `json:"position"`
 	DestPortTo   string `json:"dest_port_to"`
 	Editable     bool   `json:"editable"`
 	ID           string `json:"id"`

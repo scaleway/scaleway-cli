@@ -280,7 +280,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, false, gateway); err != nil {
 					return fmt.Errorf("command execution failed: %v", err)
 				}
-				logrus.Info("Command successfuly executed")
+				logrus.Info("Command successfully executed")
 			}
 		}
 	}

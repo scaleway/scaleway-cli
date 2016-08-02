@@ -612,13 +612,13 @@ func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
 	// FIXME: call delete and stop -t in parallel to speed up process
 	err := a.DeleteServer(serverID)
 	if err == nil {
-		logrus.Infof("Server '%s' successfuly deleted", serverID)
+		logrus.Infof("Server '%s' successfully deleted", serverID)
 		return nil
 	}
 
 	err = a.PostServerAction(serverID, "terminate")
 	if err == nil {
-		logrus.Infof("Server '%s' successfuly terminated", serverID)
+		logrus.Infof("Server '%s' successfully terminated", serverID)
 		return nil
 	}
 
