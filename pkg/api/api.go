@@ -1057,6 +1057,7 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	return &servers.Servers, nil
 }
 
+// ScalewaySortServers represents a wrapper to sort by CreationDate the servers
 type ScalewaySortServers []ScalewayServer
 
 func (s ScalewaySortServers) Len() int {
