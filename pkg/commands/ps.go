@@ -6,6 +6,7 @@ package commands
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"text/tabwriter"
 	"time"
@@ -14,6 +15,7 @@ import (
 	"github.com/docker/go-units"
 	"github.com/renstrom/fuzzysearch/fuzzy"
 
+	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
@@ -37,8 +39,8 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 	filterState := args.Filters["state"]
 
 	// FIXME: if filter state is defined, try to optimize the query
-	all := args.All || args.NLast > 0 || args.Latest || filterState != ""
-	servers, err := ctx.API.GetServers(all, limit)
+	all := args.All || limit > 0 || filterState != ""
+	servers, err := ctx.API.GetServers(all, 0)
 	if err != nil {
 		return fmt.Errorf("Unable to fetch servers from the Scaleway API: %v", err)
 	}
@@ -51,14 +53,8 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 			logrus.Warnf("Unknown filter: '%s=%s'", key, value)
 		}
 	}
-
-	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
-	defer w.Flush()
-	if !args.Quiet {
-		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\tCOMMERCIAL TYPE\n")
-	}
+	filtered := []api.ScalewayServer{}
 	for _, server := range *servers {
-
 		// filtering
 		for key, value := range args.Filters {
 			switch key {
@@ -103,7 +99,20 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 				}
 			}
 		}
-
+		filtered = append(filtered, server)
+	skipServer:
+		continue
+	}
+	w := tabwriter.NewWriter(ctx.Stdout, 20, 1, 3, ' ', 0)
+	defer w.Flush()
+	if !args.Quiet {
+		fmt.Fprintf(w, "SERVER ID\tIMAGE\tCOMMAND\tCREATED\tSTATUS\tPORTS\tNAME\tCOMMERCIAL TYPE\n")
+	}
+	sort.Sort(api.ScalewaySortServers(filtered))
+	for i, server := range filtered {
+		if limit > 0 && i >= limit {
+			break
+		}
 		if args.Quiet {
 			fmt.Fprintf(w, "%s\n", server.Identifier)
 		} else {
@@ -115,8 +124,6 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 			port := server.PublicAddress.IP
 			fmt.Fprintf(w, "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\n", shortID, shortImage, shortCreationDate, server.State, port, shortName, server.CommercialType)
 		}
-	skipServer:
-		continue
 	}
 	return nil
 }

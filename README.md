@@ -1185,6 +1185,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw ps` sort the servers by CreationDate ([#391](https://github.com/scaleway/scaleway-cli/issues/391))
 * Fix regression on bootscript ([#387](https://github.com/scaleway/scaleway-cli/issues/387))
 * `scw [run|start]` Add `--set-state` flag
 * `scw login` Add motd when you are already logged ([#371](https://github.com/scaleway/scaleway-cli/issues/371))

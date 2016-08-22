@@ -1025,6 +1025,7 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	if limit > 0 {
 		// FIXME: wait for the API to be ready
 		// query.Set("per_page", strconv.Itoa(limit))
+		panic("Not implemented yet")
 	}
 	if all && limit == 0 {
 		s.Cache.ClearServers()
@@ -1054,6 +1055,22 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		servers.Servers = servers.Servers[0:limit]
 	}
 	return &servers.Servers, nil
+}
+
+type ScalewaySortServers []ScalewayServer
+
+func (s ScalewaySortServers) Len() int {
+	return len(s)
+}
+
+func (s ScalewaySortServers) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
+func (s ScalewaySortServers) Less(i, j int) bool {
+	date1, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", s[i].CreationDate)
+	date2, _ := time.Parse("2006-01-02T15:04:05.000000+00:00", s[j].CreationDate)
+	return date2.Before(date1)
 }
 
 // GetServer gets a server from the ScalewayAPI
