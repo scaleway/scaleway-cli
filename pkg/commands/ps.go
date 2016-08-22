@@ -53,7 +53,8 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 			logrus.Warnf("Unknown filter: '%s=%s'", key, value)
 		}
 	}
-	filtered := []api.ScalewayServer{}
+	filtered := make([]api.ScalewayServer, len(*servers))
+	index := 0
 	for _, server := range *servers {
 		// filtering
 		for key, value := range args.Filters {
@@ -99,7 +100,8 @@ func RunPs(ctx CommandContext, args PsArgs) error {
 				}
 			}
 		}
-		filtered = append(filtered, server)
+		filtered[index] = server
+		index++
 	skipServer:
 		continue
 	}
