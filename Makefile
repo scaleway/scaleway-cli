@@ -6,7 +6,7 @@ GOBUILD ?=	$(GO) build
 GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
 GOTEST ?=	$(GO) test $(GOTESTFLAGS)
-GOFMT ?=	gofmt -w
+GOFMT ?=	gofmt -w -s
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
 FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
@@ -27,7 +27,7 @@ FPM_ARGS ?=	\
 
 NAME =		scw
 
-SOURCES :=	$(shell find . -type f -name "*.go")
+SOURCES :=	$(shell find ./pkg ./cmd -type f -name "*.go" | grep -v "_test.go$$")
 COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
 REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
@@ -70,7 +70,7 @@ fmt: $(FMT_LIST)
 
 
 $(BUILD_LIST): %_build: %_fmt
-	go tool vet --all=true ./cmd ./pkg
+	@go tool vet --all=true $(SOURCES)
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
@@ -79,7 +79,7 @@ $(INSTALL_LIST): %_install:
 $(TEST_LIST): %_test:
 	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),.,$*)
 $(FMT_LIST): %_fmt:
-	$(GOFMT) $(subst $(GODIR),.,$*)
+	@$(GOFMT) $(SOURCES)
 
 
 
