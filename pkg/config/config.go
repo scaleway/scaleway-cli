@@ -40,9 +40,8 @@ func (c *Config) Save() error {
 		return fmt.Errorf("Unable to create scwrc config file: %s", err)
 	}
 	defer scwrc.Close()
-	encoder := json.NewEncoder(scwrc)
 	c.Version = scwversion.VERSION
-	err = encoder.Encode(c)
+	err = json.NewEncoder(scwrc).Encode(c)
 	if err != nil {
 		return fmt.Errorf("Unable to encode scw config file: %s", err)
 	}

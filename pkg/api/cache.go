@@ -239,9 +239,7 @@ func (c *ScalewayCache) Save() error {
 			return err
 		}
 		defer file.Close()
-		encoder := json.NewEncoder(file)
-		err = encoder.Encode(c)
-		if err != nil {
+		if err := json.NewEncoder(file).Encode(c); err != nil {
 			os.Remove(file.Name())
 			return err
 		}
