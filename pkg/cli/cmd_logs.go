@@ -17,12 +17,14 @@ func init() {
 	cmdLogs.Flag.BoolVar(&logsHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdLogs.Flag.StringVar(&logsGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdLogs.Flag.StringVar(&logsSSHUser, []string{"u", "-user"}, "root", "Specify SSH root")
+	cmdLogs.Flag.IntVar(&logsSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
 }
 
 // FLags
 var logsHelp bool      // -h, --help flag
 var logsGateway string // -g, --gateway flag
 var logsSSHUser string // -u, --user flag
+var logsSSHPort int    // -p, --port flag
 
 func runLogs(cmd *Command, rawArgs []string) error {
 	if logsHelp {
@@ -36,6 +38,7 @@ func runLogs(cmd *Command, rawArgs []string) error {
 		Gateway: logsGateway,
 		Server:  rawArgs[0],
 		SSHUser: logsSSHUser,
+		SSHPort: logsSSHPort,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunLogs(ctx, args)

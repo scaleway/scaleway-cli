@@ -33,6 +33,7 @@ type RunArgs struct {
 	State          string
 	SSHUser        string
 	Timeout        int64
+	SSHPort        int
 	AutoRemove     bool
 	TmpSSHKey      bool
 	ShowBoot       bool
@@ -135,7 +136,7 @@ func runShowBoot(ctx CommandContext, args RunArgs, serverID string, closeTimeout
 		}
 		server := sshConnection.server
 		logrus.Info("Connecting to server ...")
-		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, []string{}, false, gateway); err != nil {
+		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway); err != nil {
 			return fmt.Errorf("Connection to server failed: %v", err)
 		}
 	}
@@ -273,12 +274,12 @@ func Run(ctx CommandContext, args RunArgs) error {
 			// exec -w SERVER COMMAND ARGS...
 			if len(args.Command) < 1 {
 				logrus.Info("Connecting to server ...")
-				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, []string{}, false, gateway); err != nil {
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway); err != nil {
 					return fmt.Errorf("Connection to server failed: %v", err)
 				}
 			} else {
 				logrus.Infof("Executing command: %s ...", args.Command)
-				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.Command, false, gateway); err != nil {
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, false, gateway); err != nil {
 					return fmt.Errorf("command execution failed: %v", err)
 				}
 				logrus.Info("Command successfully executed")

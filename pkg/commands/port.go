@@ -16,6 +16,7 @@ type PortArgs struct {
 	Gateway string
 	Server  string
 	SSHUser string
+	SSHPort int
 }
 
 // RunPort is the handler for 'scw port'
@@ -44,7 +45,7 @@ func RunPort(ctx CommandContext, args PortArgs) error {
 	}
 
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, command, true, gateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway)
 	if err != nil {
 		return fmt.Errorf("command execution failed: %v", err)
 	}

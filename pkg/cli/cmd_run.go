@@ -51,6 +51,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runIPV6, []string{"-ipv6"}, false, "Enable IPV6")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
+	cmdRun.Flag.IntVar(&runSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
 	// FIXME: handle start --timeout
 }
 
@@ -73,6 +74,7 @@ var runIPV6 bool               // --ipv6 flag
 var runTimeout int64           // --timeout flag
 var runSetState string         // --set-state flag
 var runSSHUser string          // -u, --user flag
+var runSSHPort int             // -p, --port flag
 
 func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
@@ -121,6 +123,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		State:          runSetState,
 		IPV6:           runIPV6,
 		SSHUser:        runSSHUser,
+		SSHPort:        runSSHPort,
 		// FIXME: Timeout
 	}
 

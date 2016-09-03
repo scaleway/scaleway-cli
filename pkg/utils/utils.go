@@ -39,7 +39,7 @@ type SpawnRedirection struct {
 }
 
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(publicIPAddress, privateIPAddress, user string, command []string, checkConnection bool, gateway string) error {
+func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command []string, checkConnection bool, gateway string) error {
 	gatewayUser := "root"
 	gatewayIPAddress := gateway
 	if strings.Contains(gateway, "@") {
@@ -66,7 +66,7 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, command []string, c
 		}
 	}
 
-	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, isatty.IsTerminal(os.Stdin.Fd()), command, gateway)
+	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, port, isatty.IsTerminal(os.Stdin.Fd()), command, gateway)
 
 	log.Debugf("Executing: %s", sshCommand)
 
@@ -78,7 +78,7 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, command []string, c
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, allocateTTY bool, command []string, gatewayIPAddress string) *sshcommand.Command {
+func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, port int, allocateTTY bool, command []string, gatewayIPAddress string) *sshcommand.Command {
 	quiet := os.Getenv("DEBUG") != "1"
 	secureExec := os.Getenv("SCW_SECURE_EXEC") == "1"
 	sshCommand := &sshcommand.Command{
@@ -89,6 +89,7 @@ func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, allocateTTY b
 		SkipHostKeyChecking: !secureExec,
 		User:                user,
 		NoEscapeCommand:     true,
+		Port:                port,
 	}
 	if gatewayIPAddress != "" {
 		sshCommand.Host = privateIPAddress
@@ -98,6 +99,7 @@ func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, allocateTTY b
 			AllocateTTY:         allocateTTY,
 			Quiet:               quiet,
 			User:                user,
+			Port:                port,
 		}
 	}
 
