@@ -17,6 +17,7 @@ import (
 type KillArgs struct {
 	Gateway string
 	Server  string
+	SSHUser string
 }
 
 // RunKill is the handler for 'scw kill'
@@ -45,7 +46,7 @@ func RunKill(ctx CommandContext, args KillArgs) error {
 		}
 	}
 
-	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, gateway)
+	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, true, []string{command}, gateway)
 
 	logrus.Debugf("Executing: %s", sshCommand)
 

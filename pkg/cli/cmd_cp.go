@@ -31,11 +31,13 @@ var cmdCp = &Command{
 func init() {
 	cmdCp.Flag.BoolVar(&cpHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCp.Flag.StringVar(&cpGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdCp.Flag.StringVar(&cpSSHUser, []string{"u", "-user"}, "root", "Specify SSH user")
 }
 
 // Flags
 var cpHelp bool      // -h, --help flag
 var cpGateway string // -g, --gateway flag
+var cpSSHUser string // -u, --user flag
 
 func runCp(cmd *Command, rawArgs []string) error {
 	if cpHelp {
@@ -49,6 +51,7 @@ func runCp(cmd *Command, rawArgs []string) error {
 		Gateway:     cpGateway,
 		Source:      rawArgs[0],
 		Destination: rawArgs[1],
+		SSHUser:     cpSSHUser,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunCp(ctx, args)

@@ -17,6 +17,7 @@ import (
 type TopArgs struct {
 	Server  string
 	Gateway string
+	SSHUser string
 }
 
 // RunTop is the handler for 'scw top'
@@ -45,7 +46,7 @@ func RunTop(ctx CommandContext, args TopArgs) error {
 		}
 	}
 
-	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, true, []string{command}, gateway)
+	sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, true, []string{command}, gateway)
 	logrus.Debugf("Executing: %s", sshCommand)
 	out, err := exec.Command("ssh", sshCommand.Slice()[1:]...).CombinedOutput()
 	if err == nil {

@@ -30,6 +30,7 @@ func init() {
 	cmdExec.Flag.Float64Var(&execTimeout, []string{"T", "-timeout"}, 0, "Set timeout values to seconds")
 	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
 	cmdExec.Flag.StringVar(&execGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdExec.Flag.StringVar(&execSSHUser, []string{"u", "-user"}, "root", "Specify SSH user")
 }
 
 // Flags
@@ -37,6 +38,7 @@ var execW bool          // -w, --wait flag
 var execTimeout float64 // -T flag
 var execHelp bool       // -h, --help flag
 var execGateway string  // -g, --gateway flag
+var execSSHUser string  // -u, --user flag
 
 func runExec(cmd *Command, rawArgs []string) error {
 	if execHelp {
@@ -52,6 +54,7 @@ func runExec(cmd *Command, rawArgs []string) error {
 		Gateway: execGateway,
 		Server:  rawArgs[0],
 		Command: rawArgs[1:],
+		SSHUser: execSSHUser,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunExec(ctx, args)

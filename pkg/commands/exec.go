@@ -21,6 +21,7 @@ type ExecArgs struct {
 	Gateway string
 	Server  string
 	Command []string
+	SSHUser string
 }
 
 // RunExec is the handler for 'scw exec'
@@ -98,7 +99,7 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 			fmt.Fprintf(ctx.Stdout, "%s\n", fingerprints[i])
 		}
 	}
-	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.Command, !args.Wait, gateway); err != nil {
+	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.Command, !args.Wait, gateway); err != nil {
 		return fmt.Errorf("Failed to run the command: %v", err)
 	}
 
