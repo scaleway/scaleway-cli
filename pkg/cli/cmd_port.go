@@ -16,11 +16,15 @@ var cmdPort = &Command{
 func init() {
 	cmdPort.Flag.BoolVar(&portHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdPort.Flag.StringVar(&portGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdPort.Flag.StringVar(&portSSHUser, []string{"u", "-user"}, "root", "Specify SSH user")
+	cmdPort.Flag.IntVar(&portSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
 }
 
 // FLags
 var portHelp bool      // -h, --help flag
 var portGateway string // -g, --gateway flag
+var portSSHUser string // -u, --user flag
+var portSSHPort int    // -p, --port flag
 
 func runPort(cmd *Command, rawArgs []string) error {
 	if portHelp {
@@ -33,6 +37,8 @@ func runPort(cmd *Command, rawArgs []string) error {
 	args := commands.PortArgs{
 		Gateway: portGateway,
 		Server:  rawArgs[0],
+		SSHUser: portSSHUser,
+		SSHPort: portSSHPort,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunPort(ctx, args)

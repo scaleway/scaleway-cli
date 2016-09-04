@@ -23,6 +23,8 @@ type CpArgs struct {
 	Gateway     string
 	Source      string
 	Destination string
+	SSHUser     string
+	SSHPort     int
 }
 
 // RunCp is the handler for 'scw cp'
@@ -31,12 +33,12 @@ func RunCp(ctx CommandContext, args CpArgs) error {
 		return fmt.Errorf("bad usage, see 'scw help cp'")
 	}
 
-	sourceStream, err := TarFromSource(ctx, args.Source, args.Gateway)
+	sourceStream, err := TarFromSource(ctx, args.Source, args.Gateway, args.SSHUser, args.SSHPort)
 	if err != nil {
 		return fmt.Errorf("cannot tar from source '%s': %v", args.Source, err)
 	}
 
-	err = UntarToDest(ctx, sourceStream, args.Destination, args.Gateway)
+	err = UntarToDest(ctx, sourceStream, args.Destination, args.Gateway, args.SSHUser, args.SSHPort)
 	if err != nil {
 		return fmt.Errorf("cannot untar to destination '%s': %v", args.Destination, err)
 	}
@@ -44,7 +46,7 @@ func RunCp(ctx CommandContext, args CpArgs) error {
 }
 
 // TarFromSource creates a stream buffer with the tarballed content of the user source
-func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadCloser, error) {
+func TarFromSource(ctx CommandContext, source, gateway, user string, port int) (*io.ReadCloser, error) {
 	var tarOutputStream io.ReadCloser
 
 	// source is a server address + path (scp-like uri)
@@ -93,7 +95,7 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, gateway)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway)
 		logrus.Debugf("Executing: %s", sshCommand)
 		spawnSrc := exec.Command("ssh", sshCommand.Slice()[1:]...)
 
@@ -151,7 +153,7 @@ func TarFromSource(ctx CommandContext, source string, gateway string) (*io.ReadC
 }
 
 // UntarToDest writes to user destination the streamed tarball in input
-func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination string, gateway string) error {
+func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination, gateway, user string, port int) error {
 	// destination is a server address + path (scp-like uri)
 	if strings.Contains(destination, ":") {
 		logrus.Debugf("Streaming using ssh and untaring remotely")
@@ -193,7 +195,7 @@ func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination st
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, false, remoteCommand, gateway)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway)
 		logrus.Debugf("Executing: %s", sshCommand)
 		spawnDst := exec.Command("ssh", sshCommand.Slice()[1:]...)
 

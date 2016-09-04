@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
@@ -56,7 +57,9 @@ func RunCreate(ctx CommandContext, args CreateArgs) error {
 	if err != nil {
 		return err
 	}
-
+	logrus.Debugf("Server created: %s", serverID)
+	logrus.Debugf("PublicDNS %s", serverID+api.URLPublicDNS)
+	logrus.Debugf("PrivateDNS %s", serverID+api.URLPrivateDNS)
 	fmt.Fprintln(ctx.Stdout, serverID)
 	return nil
 }

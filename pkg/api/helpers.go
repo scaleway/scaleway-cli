@@ -482,7 +482,7 @@ func WaitForServerState(api *ScalewayAPI, serverID string, targetState string) (
 }
 
 // WaitForServerReady wait for a server state to be running, then wait for the SSH port to be available
-func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*ScalewayServer, error) {
+func WaitForServerReady(api *ScalewayAPI, serverID, gateway string) (*ScalewayServer, error) {
 	promise := make(chan bool)
 	var server *ScalewayServer
 	var err error
@@ -513,25 +513,48 @@ func WaitForServerReady(api *ScalewayAPI, serverID string, gateway string) (*Sca
 		}
 
 		if gateway == "" {
-			log.Debugf("Waiting for server SSH port")
 			dest := fmt.Sprintf("%s:22", server.PublicAddress.IP)
+			log.Debugf("Waiting for server SSH port %s", dest)
 			err = utils.WaitForTCPPortOpen(dest)
 			if err != nil {
 				promise <- false
 				return
 			}
 		} else {
-			log.Debugf("Waiting for gateway SSH port")
 			dest := fmt.Sprintf("%s:22", gateway)
+			log.Debugf("Waiting for server SSH port %s", dest)
 			err = utils.WaitForTCPPortOpen(dest)
 			if err != nil {
 				promise <- false
 				return
 			}
+			timeout := time.Tick(120 * time.Second)
+			for {
+				select {
+				case <-timeout:
+					err = fmt.Errorf("Timeout: unable to ping %s", server.PrivateIP)
+					fmt.Println("timeout")
+					goto OUT
+				default:
+					if utils.SSHExec("", server.PrivateIP, "root", 22, []string{
+						"nc",
+						"-z",
+						"-w",
+						"1",
+						server.PrivateIP,
+						"22",
+					}, false, gateway) == nil {
+						goto OUT
+					}
+				}
+			}
+		OUT:
+			if err != nil {
+				promise <- false
+				return
+			}
+			log.Debugf("Check for SSH port through the gateway: %s", server.PrivateIP)
 
-			log.Debugf("Waiting 30 more seconds, for SSH to be ready")
-			time.Sleep(30 * time.Second)
-			// FIXME: check for SSH port through the gateway
 		}
 		promise <- true
 	}()

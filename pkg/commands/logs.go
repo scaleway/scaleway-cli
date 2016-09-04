@@ -15,6 +15,8 @@ import (
 type LogsArgs struct {
 	Gateway string
 	Server  string
+	SSHUser string
+	SSHPort int
 }
 
 // RunLogs is the handler for 'scw logs'
@@ -45,7 +47,7 @@ func RunLogs(ctx CommandContext, args LogsArgs) error {
 	}
 
 	command := []string{"dmesg"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, command, true, gateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway)
 	if err != nil {
 		return fmt.Errorf("command execution failed: %v", err)
 	}

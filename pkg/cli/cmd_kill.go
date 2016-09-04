@@ -16,12 +16,16 @@ var cmdKill = &Command{
 func init() {
 	cmdKill.Flag.BoolVar(&killHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdKill.Flag.StringVar(&killGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
+	cmdKill.Flag.StringVar(&killSSHUser, []string{"u", "-user"}, "root", "Specify SSH user")
+	cmdKill.Flag.IntVar(&killSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
 	// FIXME: add --signal option
 }
 
 // Flags
 var killHelp bool      // -h, --help flag
 var killGateway string // -g, --gateway flag
+var killSSHUser string // -u, --user flag
+var killSSHPort int    // -p, --port flag
 
 func runKill(cmd *Command, rawArgs []string) error {
 	if killHelp {
@@ -34,6 +38,8 @@ func runKill(cmd *Command, rawArgs []string) error {
 	args := commands.KillArgs{
 		Gateway: killGateway,
 		Server:  rawArgs[0],
+		SSHUser: killSSHUser,
+		SSHPort: killSSHPort,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunKill(ctx, args)

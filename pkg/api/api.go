@@ -31,6 +31,8 @@ var (
 	AccountAPI     = "https://account.scaleway.com/"
 	MetadataAPI    = "http://169.254.42.42/"
 	MarketplaceAPI = "https://api-marketplace.scaleway.com"
+	URLPublicDNS   = ".pub.cloud.scaleway.com"
+	URLPrivateDNS  = ".priv.cloud.scaleway.com"
 )
 
 func init() {
@@ -529,6 +531,10 @@ type ScalewayServer struct {
 	IPV6 *ScalewayIPV6Definition `json:"ipv6,omitempty"`
 
 	EnableIPV6 bool `json:"enable_ipv6,omitempty"`
+
+	// This fields are not returned by the API, we generate it
+	DNSPublic  string `json:"dns_public,omitempty"`
+	DNSPrivate string `json:"dns_private,omitempty"`
 }
 
 // ScalewayIPV6Definition represents a Scaleway ipv6
@@ -1043,8 +1049,10 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	if err = json.Unmarshal(body, &servers); err != nil {
 		return nil, err
 	}
-	for _, server := range servers.Servers {
+	for i, server := range servers.Servers {
 		// FIXME region, arch, owner, title
+		servers.Servers[i].DNSPublic = server.Identifier + URLPublicDNS
+		servers.Servers[i].DNSPrivate = server.Identifier + URLPrivateDNS
 		s.Cache.InsertServer(server.Identifier, "fr-1", server.Arch, server.Organization, server.Name)
 	}
 	// FIXME: when API limit is ready, remove the following code
@@ -1092,6 +1100,8 @@ func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
+	oneServer.Server.DNSPublic = oneServer.Server.Identifier + URLPublicDNS
+	oneServer.Server.DNSPrivate = oneServer.Server.Identifier + URLPrivateDNS
 	s.Cache.InsertServer(oneServer.Server.Identifier, "fr-1", oneServer.Server.Arch, oneServer.Server.Organization, oneServer.Server.Name)
 	return &oneServer.Server, nil
 }
