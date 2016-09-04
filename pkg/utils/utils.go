@@ -44,6 +44,9 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command [
 	gatewayIPAddress := gateway
 	if strings.Contains(gateway, "@") {
 		parts := strings.Split(gatewayIPAddress, "@")
+		if len(parts) != 2 {
+			return fmt.Errorf("gateway: must be like root@IP")
+		}
 		gatewayUser = parts[0]
 		gatewayIPAddress = parts[1]
 		gateway = gatewayUser + "@" + gatewayIPAddress
