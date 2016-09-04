@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
@@ -47,7 +47,7 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 	var gateway string
 
 	if args.Gateway == serverID || args.Gateway == args.Server {
-		log.Debugf("The server and the gateway are the same host, using direct access to the server")
+		logrus.Debugf("The server and the gateway are the same host, using direct access to the server")
 		gateway = ""
 	} else {
 		gateway, err = api.ResolveGateway(ctx.API, args.Gateway)
@@ -55,21 +55,21 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 			return fmt.Errorf("Cannot resolve Gateway '%s': %v", args.Gateway, err)
 		}
 		if gateway != "" {
-			log.Debugf("The server will be accessed using the gateway '%s' as a SSH relay", gateway)
+			logrus.Debugf("The server will be accessed using the gateway '%s' as a SSH relay", gateway)
 		}
 	}
 
 	var server *api.ScalewayServer
 	if args.Wait {
 		// --wait
-		log.Debugf("Waiting for server to be ready")
+		logrus.Debugf("Waiting for server to be ready")
 		server, err = api.WaitForServerReady(ctx.API, serverID, gateway)
 		if err != nil {
 			return fmt.Errorf("Failed to wait for server to be ready, %v", err)
 		}
 	} else {
 		// no --wait
-		log.Debugf("scw won't wait for the server to be ready, if it is not, the command will fail")
+		logrus.Debugf("scw won't wait for the server to be ready, if it is not, the command will fail")
 		server, err = ctx.API.GetServer(serverID)
 		if err != nil {
 			rerr := fmt.Errorf("Failed to get server information for %s: %v", serverID, err)
@@ -81,16 +81,16 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 	}
 
 	if server.PublicAddress.IP == "" && gateway == "" {
-		log.Warn(`Your host has no public IP address, you should use '--gateway', see 'scw help exec'`)
+		logrus.Warn(`Your host has no public IP address, you should use '--gateway', see 'scw help exec'`)
 	}
 
 	// --timeout
 	if args.Timeout > 0 {
-		log.Debugf("Setting up a global timeout of %d seconds", args.Timeout)
+		logrus.Debugf("Setting up a global timeout of %d seconds", args.Timeout)
 		// FIXME: avoid use of log.Fatalf here
 		go func() {
 			time.Sleep(time.Duration(args.Timeout*1000) * time.Millisecond)
-			log.Fatalf("Operation timed out")
+			logrus.Fatalf("Operation timed out")
 		}()
 	}
 
@@ -100,10 +100,12 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 			fmt.Fprintf(ctx.Stdout, "%s\n", fingerprints[i])
 		}
 	}
+	logrus.Debugf("PublicDNS %s", serverID+api.URLPublicDNS)
+	logrus.Debugf("PrivateDNS %s", serverID+api.URLPrivateDNS)
 	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, !args.Wait, gateway); err != nil {
 		return fmt.Errorf("Failed to run the command: %v", err)
 	}
 
-	log.Debugf("Command successfully executed")
+	logrus.Debugf("Command successfully executed")
 	return nil
 }

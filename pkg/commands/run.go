@@ -182,6 +182,8 @@ func Run(ctx CommandContext, args RunArgs) error {
 		return fmt.Errorf("failed to create server: %v", err)
 	}
 	logrus.Infof("Server created: %s", serverID)
+	logrus.Debugf("PublicDNS %s", serverID+api.URLPublicDNS)
+	logrus.Debugf("PrivateDNS %s", serverID+api.URLPrivateDNS)
 
 	if args.AutoRemove {
 		defer ctx.API.DeleteServerSafe(serverID)
