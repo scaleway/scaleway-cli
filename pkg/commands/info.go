@@ -95,5 +95,11 @@ func RunInfo(ctx CommandContext, args InfoArgs) error {
 	for key, value := range quotas.Quotas {
 		fmt.Fprintf(ctx.Stdout, "  %-20s: %d\n", key, value)
 	}
+	fmt.Fprintf(ctx.Stdout, "\n")
+	fmt.Fprintln(ctx.Stdout, "Urls:")
+	fmt.Fprintf(ctx.Stdout, "  compute: %s\n", api.ComputeAPI)
+	fmt.Fprintf(ctx.Stdout, "  account: %s\n", api.AccountAPI)
+	fmt.Fprintf(ctx.Stdout, "  metadata: %s\n", api.MetadataAPI)
+	fmt.Fprintf(ctx.Stdout, "  marketplace: %s\n", api.MarketplaceAPI)
 	return nil
 }
