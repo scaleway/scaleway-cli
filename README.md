@@ -290,6 +290,8 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --p, --port=22        Specify SSH port
+  --user=root           Specify SSH user
 
 Examples:
 
@@ -319,7 +321,7 @@ Create a new server but do not start it.
 Options:
 
   --bootscript=""        Assign a bootscript
-  --commercial-type=VC1S Create a server with specific commercial-type C1, VC1S, C2[S|M|L]
+  --commercial-type=VC1S Create a server with specific commercial-type C1, VC1[S|M|L], C2[S|M|L]
   -e, --env=""           Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -h, --help=false       Print usage
   --ip-address=dynamic   Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -362,7 +364,9 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --p, --port=22        Specify SSH port
   -T, --timeout=0       Set timeout values to seconds
+  --user=root           Specify SSH user
   -w, --wait=false      Wait for SSH to be ready
 
 Examples:
@@ -557,6 +561,8 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --p, --port=22        Specify SSH port
+  --user=root           Specify SSH user
 ```
 
 
@@ -571,6 +577,8 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --p, --port=22        Specify SSH port
+  --user=root           Specify SSH user
 ```
 
 
@@ -693,21 +701,24 @@ Run a command in a new server.
 
 Options:
 
-  -a, --attach=false     Attach to serial console
-  --bootscript=""        Assign a bootscript
-  --commercial-type=VC1S Start a server with specific commercial-type C1, VC1S, C2[SML]
-  -d, --detach=false     Run server in background and print server ID
-  -e, --env=""           Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -g, --gateway=""       Use a SSH gateway
-  -h, --help=false       Print usage
-  --ip-address=""        Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
-  --name=""              Assign a name
-  --rm=false             Automatically remove the server when it exits
-  --show-boot=false      Allows to show the boot
-  -T, --timeout=0        Set timeout value to seconds
-  --tmp-ssh-key=false    Access your server without uploading your SSH key to your account
-  -u, --userdata=""      Start a server with userdata predefined
-  -v, --volume=""        Attach additional volume (i.e., 50G)
+  -a, --attach=false    Attach to serial console
+  --bootscript=""       Assign a bootscript
+  --commercial-type=VC1S Start a server with specific commercial-type C1, VC1[S|M|L], C2[S|M|L]
+  -d, --detach=false    Run server in background and print server ID
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -g, --gateway=""      Use a SSH gateway
+  -h, --help=false      Print usage
+  --ip-address=""       Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
+  --ipv6=false          Enable IPV6
+  --name=""             Assign a name
+  --p, --port=22        Specify SSH port
+  --rm=false            Automatically remove the server when it exits
+  --show-boot=false     Allows to show the boot
+  -T, --timeout=0       Set timeout value to seconds
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -u, --userdata=""     Start a server with userdata predefined
+  --user=root           Specify SSH User
+  -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
@@ -824,6 +835,8 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --p, --port=22        Specify SSH port
+  --user=root           Specify SSH user
 ```
 
 
@@ -1185,6 +1198,9 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* `scw exec --gateway` remove hardcoded 30 seconds sleep ([#254](https://github.com/scaleway/scaleway-cli/issues/254))
+* `ScalewayServer` add DNS fields ([#157](https://github.com/scaleway/scaleway-cli/issues/157))
+* `scw [logs|exec|cp|port|run|top]` add `--user` && `--port` ([#396](https://github.com/scaleway/scaleway-cli/issues/396))
 * `scw ps` sort the servers by CreationDate ([#391](https://github.com/scaleway/scaleway-cli/issues/391))
 * Fix regression on bootscript ([#387](https://github.com/scaleway/scaleway-cli/issues/387))
 * `scw [run|start]` Add `--set-state` flag

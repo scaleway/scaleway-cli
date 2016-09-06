@@ -16,14 +16,14 @@ var cmdLogs = &Command{
 func init() {
 	cmdLogs.Flag.BoolVar(&logsHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdLogs.Flag.StringVar(&logsGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
-	cmdLogs.Flag.StringVar(&logsSSHUser, []string{"u", "-user"}, "root", "Specify SSH root")
+	cmdLogs.Flag.StringVar(&logsSSHUser, []string{"-user"}, "root", "Specify SSH user")
 	cmdLogs.Flag.IntVar(&logsSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
 }
 
 // FLags
 var logsHelp bool      // -h, --help flag
 var logsGateway string // -g, --gateway flag
-var logsSSHUser string // -u, --user flag
+var logsSSHUser string // --user flag
 var logsSSHPort int    // -p, --port flag
 
 func runLogs(cmd *Command, rawArgs []string) error {
