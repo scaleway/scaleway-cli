@@ -14,14 +14,14 @@ import (
 
 // CreateArgs are arguments passed to `RunCreate`
 type CreateArgs struct {
+	Volumes        []string
+	Tags           []string
 	Name           string
 	Bootscript     string
-	Tags           []string
-	Volumes        []string
 	Image          string
-	TmpSSHKey      bool
 	IP             string
 	CommercialType string
+	TmpSSHKey      bool
 	IPV6           bool
 }
 

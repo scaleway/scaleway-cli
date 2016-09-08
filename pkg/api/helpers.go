@@ -283,9 +283,9 @@ type ConfigCreateServer struct {
 	Bootscript        string
 	Env               string
 	AdditionalVolumes string
-	DynamicIPRequired bool
 	IP                string
 	CommercialType    string
+	DynamicIPRequired bool
 	EnableIPV6        bool
 }
 
