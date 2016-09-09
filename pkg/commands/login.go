@@ -88,7 +88,7 @@ func disableLogger(s *api.ScalewayAPI) {
 }
 
 func getToken(connect api.ScalewayConnect) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent(), disableLogger)
+	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent(), "", disableLogger)
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -117,7 +117,7 @@ func getToken(connect api.ScalewayConnect) (string, error) {
 }
 
 func getOrganization(token string, email string) (string, error) {
-	FakeConnection, err := api.NewScalewayAPI("", token, scwversion.UserAgent(), disableLogger)
+	FakeConnection, err := api.NewScalewayAPI("", token, scwversion.UserAgent(), "", disableLogger)
 	if err != nil {
 		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
@@ -209,7 +209,7 @@ func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
 // RunLogin is the handler for 'scw login'
 func RunLogin(ctx CommandContext, args LoginArgs) error {
 	if config, cfgErr := config.GetConfig(); cfgErr == nil {
-		if TestConnection, err := api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), disableLogger); err == nil {
+		if TestConnection, err := api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), "", disableLogger); err == nil {
 			if user, err := TestConnection.GetUser(); err == nil {
 				fmt.Println("You are already logged as", user.Fullname)
 			}
@@ -230,7 +230,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 		Token:        strings.Trim(args.Token, "\n"),
 	}
 
-	apiConnection, err := api.NewScalewayAPI(cfg.Organization, cfg.Token, scwversion.UserAgent(), disableLogger)
+	apiConnection, err := api.NewScalewayAPI(cfg.Organization, cfg.Token, scwversion.UserAgent(), "", disableLogger)
 	if err != nil {
 		return fmt.Errorf("Unable to create ScalewayAPI: %s", err)
 	}

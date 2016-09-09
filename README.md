@@ -178,6 +178,7 @@ Options:
  -q, --quiet=false            Enable quiet mode
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
+ --region=par1                Change the default region
 
 Commands:
     help      help of the scw command line
@@ -1198,6 +1199,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Add a global flag, `--region` to change the defaut region
 * `scw exec --gateway` remove hardcoded 30 seconds sleep ([#254](https://github.com/scaleway/scaleway-cli/issues/254))
 * `ScalewayServer` add DNS fields ([#157](https://github.com/scaleway/scaleway-cli/issues/157))
 * `scw [logs|exec|cp|port|run|top]` add `--user` && `--port` ([#396](https://github.com/scaleway/scaleway-cli/issues/396))

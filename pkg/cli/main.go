@@ -32,6 +32,7 @@ var (
 	flVersion   = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
 	flQuiet     = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
 	flSensitive = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
+	flRegion    = flag.String([]string{"-region"}, "par1", "Change the default region")
 )
 
 // Start is the entrypoint
@@ -93,7 +94,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 				// commands that don't need API
 			case "_userdata":
 				// commands that may need API
-				api, _ := getScalewayAPI()
+				api, _ := getScalewayAPI(*flRegion)
 				cmd.API = api
 			default:
 				// commands that do need API
@@ -104,7 +105,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 						return 1, nil
 					}
 				}
-				api, errGet := getScalewayAPI()
+				api, errGet := getScalewayAPI(*flRegion)
 				if errGet != nil {
 					return 1, fmt.Errorf("unable to initialize scw api: %v", errGet)
 				}
@@ -135,13 +136,13 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 }
 
 // getScalewayAPI returns a ScalewayAPI using the user config file
-func getScalewayAPI() (*api.ScalewayAPI, error) {
+func getScalewayAPI(region string) (*api.ScalewayAPI, error) {
 	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
 	config, err := config.GetConfig()
 	if err != nil {
 		return nil, err
 	}
-	return api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), func(s *api.ScalewayAPI) {
+	return api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), region, func(s *api.ScalewayAPI) {
 		s.Logger = newCliLogger(s)
 	})
 }
