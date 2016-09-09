@@ -1199,6 +1199,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Better handling of secondary volumes size ([361](https://github.com/scaleway/scaleway-cli/issues/361))
 * Add a global flag, `--region` to change the defaut region
 * `scw exec --gateway` remove hardcoded 30 seconds sleep ([#254](https://github.com/scaleway/scaleway-cli/issues/254))
 * `ScalewayServer` add DNS fields ([#157](https://github.com/scaleway/scaleway-cli/issues/157))
