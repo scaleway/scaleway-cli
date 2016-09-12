@@ -65,6 +65,10 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 		os.Setenv("DEBUG", "1")
 	}
 
+	if *flVerbose {
+		os.Setenv("SCW_VERBOSE_API", "1")
+	}
+
 	utils.Quiet(*flQuiet)
 	initLogging(os.Getenv("DEBUG") != "", *flVerbose, streams)
 

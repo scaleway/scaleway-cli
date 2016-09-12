@@ -13,9 +13,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"os"
 	"sort"
@@ -888,101 +890,65 @@ func (s *ScalewayAPI) Sync() {
 	s.Cache.Save()
 }
 
-// GetResponse returns an http.Response object for the requested resource
-func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
+func (s *ScalewayAPI) response(method, uri string, content io.Reader) (resp *http.Response, err error) {
+	var (
+		req *http.Request
+	)
 
-	req, err := http.NewRequest("GET", uri, nil)
+	req, err = http.NewRequest(method, uri, content)
 	if err != nil {
-		return nil, err
+		err = fmt.Errorf("response %s %s", method, uri)
+		return
 	}
 	req.Header.Set("X-Auth-Token", s.Token)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", s.userAgent)
 
-	s.LogHTTP(req)
+	if s.verbose {
+		dump, _ := httputil.DumpRequest(req, true)
+		s.Debugf("%v", string(dump))
+	} else {
+		s.Debugf("[%s]: %v", method, uri)
+	}
+	resp, err = s.client.Do(req)
+	return
+}
 
-	return s.client.Do(req)
+// GetResponse returns an http.Response object for the requested resource
+func (s *ScalewayAPI) GetResponse(apiURL, resource string) (*http.Response, error) {
+	return s.response("GET", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), nil)
 }
 
 // PostResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PostResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	if err := json.NewEncoder(payload).Encode(data); err != nil {
 		return nil, err
 	}
-
-	req, err := http.NewRequest("POST", uri, payload)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("X-Auth-Token", s.Token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", s.userAgent)
-
-	s.LogHTTP(req)
-
-	return s.client.Do(req)
+	return s.response("POST", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), payload)
 }
 
 // PatchResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PatchResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	if err := json.NewEncoder(payload).Encode(data); err != nil {
 		return nil, err
 	}
-
-	req, err := http.NewRequest("PATCH", uri, payload)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("X-Auth-Token", s.Token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", s.userAgent)
-
-	s.LogHTTP(req)
-
-	return s.client.Do(req)
+	return s.response("PATCH", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), payload)
 }
 
 // PutResponse returns an http.Response object for the updated resource
 func (s *ScalewayAPI) PutResponse(apiURL, resource string, data interface{}) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
 	payload := new(bytes.Buffer)
 	if err := json.NewEncoder(payload).Encode(data); err != nil {
 		return nil, err
 	}
-
-	req, err := http.NewRequest("PUT", uri, payload)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("X-Auth-Token", s.Token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", s.userAgent)
-
-	s.LogHTTP(req)
-
-	return s.client.Do(req)
+	return s.response("PUT", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), payload)
 }
 
 // DeleteResponse returns an http.Response object for the deleted resource
 func (s *ScalewayAPI) DeleteResponse(apiURL, resource string) (*http.Response, error) {
-	uri := fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource)
-
-	req, err := http.NewRequest("DELETE", uri, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("X-Auth-Token", s.Token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", s.userAgent)
-
-	s.LogHTTP(req)
-
-	return s.client.Do(req)
+	return s.response("DELETE", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), nil)
 }
 
 // handleHTTPError checks the statusCode and displays the error
@@ -991,6 +957,23 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 	if err != nil {
 		return nil, err
 	}
+	if s.verbose {
+		resp.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+		dump, err := httputil.DumpResponse(resp, true)
+		if err == nil {
+			var js bytes.Buffer
+
+			err = json.Indent(&js, body, "", "  ")
+			if err != nil {
+				s.Debugf("[Response]: [%v]\n%v", resp.StatusCode, string(dump))
+			} else {
+				s.Debugf("[Response]: [%v]\n%v", resp.StatusCode, js.String())
+			}
+		}
+	} else {
+		s.Debugf("[Response]: [%v]\n%v", resp.StatusCode, string(body))
+	}
+
 	if resp.StatusCode >= http.StatusInternalServerError {
 		return nil, errors.New(string(body))
 	}
@@ -1009,16 +992,6 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 		scwError.StatusCode = resp.StatusCode
 		s.Debugf("%s", scwError.Error())
 		return nil, scwError
-	}
-	if s.verbose {
-		var js bytes.Buffer
-
-		err = json.Indent(&js, body, "", "  ")
-		if err != nil {
-			s.Debugf("%s", string(body))
-		} else {
-			s.Debugf("%s", js.String())
-		}
 	}
 	return body, nil
 }
