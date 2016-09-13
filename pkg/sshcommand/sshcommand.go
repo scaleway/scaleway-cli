@@ -81,6 +81,7 @@ func (c *Command) Slice() []string {
 		slice = append(slice, "-t", "-t")
 	}
 
+	slice = append(slice, "-p", fmt.Sprintf("%d", c.Port))
 	if len(c.Command) > 0 {
 		slice = append(slice, "--", "/bin/sh", "-e")
 		if c.Debug {
