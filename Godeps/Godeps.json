@@ -1,7 +1,7 @@
 {
 	"ImportPath": "github.com/scaleway/scaleway-cli",
-	"GoVersion": "go1.6",
-	"GodepVersion": "v71",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
 	"Packages": [
 		"github.com/scaleway/scaleway-cli",
 		"github.com/scaleway/scaleway-cli/pkg/api",
@@ -213,6 +213,10 @@
 		{
 			"ImportPath": "golang.org/x/net/context",
 			"Rev": "dfd9ed699ea197b58a32e0d1dcfa2be66f127ec4"
+		},
+		{
+			"ImportPath": "golang.org/x/sync/errgroup",
+			"Rev": "316e794f7b5e3df4e95175a45a5fb8b12f85cb4f"
 		},
 		{
 			"ImportPath": "golang.org/x/sys/unix",
