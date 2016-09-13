@@ -64,7 +64,7 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command [
 		if useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", gatewayIPAddress)) {
 			return errors.New("gateway is not available, try again later")
 		}
-		if !useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:22", publicIPAddress)) {
+		if !useGateway && !IsTCPPortOpen(fmt.Sprintf("%s:%d", publicIPAddress, port)) {
 			return errors.New("server is not ready, try again later")
 		}
 	}
