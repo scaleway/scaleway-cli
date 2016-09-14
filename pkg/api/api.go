@@ -971,7 +971,7 @@ func (s *ScalewayAPI) GetResponsePaginate(apiURL, resource string, values url.Va
 			if i == 0 {
 				resp = res
 				content, err := ioutil.ReadAll(res.Body)
-				resp.Body.Close()
+				res.Body.Close()
 				if err != nil {
 					return nil, err
 				}
@@ -983,7 +983,7 @@ func (s *ScalewayAPI) GetResponsePaginate(apiURL, resource string, values url.Va
 				}
 			} else {
 				content, err := ioutil.ReadAll(res.Body)
-				resp.Body.Close()
+				res.Body.Close()
 				if err != nil {
 					return nil, err
 				}
