@@ -68,7 +68,7 @@ func ExampleNew() {
 
 func ExampleCommand_String() {
 	fmt.Println(New("1.2.3.4").String())
-	// Output: ssh 1.2.3.4
+	// Output: ssh 1.2.3.4 -p 22
 }
 
 func ExampleCommand_String_options() {
@@ -83,7 +83,7 @@ func ExampleCommand_String_options() {
 	fmt.Println(command.String())
 
 	// Output:
-	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no 1.2.3.4 -t -t -- /bin/sh -e -x -c "\"\\\"echo\\\" \\\"hello world\\\"\""
+	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no 1.2.3.4 -t -t -p 22 -- /bin/sh -e -x -c "\"\\\"echo\\\" \\\"hello world\\\"\""
 }
 
 func ExampleCommand_String_complex() {
@@ -104,17 +104,17 @@ func ExampleCommand_String_complex() {
 	fmt.Println(command.String())
 
 	// Output:
-	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t" 1.2.3.4 -t -t -- /bin/sh -e -c "\"\\\"echo\\\" \\\"hello world\\\"\""
+	// ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t -p 22" 1.2.3.4 -t -t -p 22 -- /bin/sh -e -c "\"\\\"echo\\\" \\\"hello world\\\"\""
 }
 
 func ExampleCommand_Slice() {
 	fmt.Println(New("1.2.3.4").Slice())
-	// Output: [ssh 1.2.3.4]
+	// Output: [ssh 1.2.3.4 -p 22]
 }
 
 func ExampleCommand_Slice_user() {
 	fmt.Println(New("root@1.2.3.4").Slice())
-	// Output: [ssh -l root 1.2.3.4]
+	// Output: [ssh -l root 1.2.3.4 -p 22]
 }
 
 func ExampleCommand_Slice_options() {
@@ -130,7 +130,7 @@ func ExampleCommand_Slice_options() {
 	fmt.Printf("%q\n", command.Slice())
 
 	// Output:
-	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-l" "root" "1.2.3.4" "-t" "-t" "--" "/bin/sh" "-e" "-x" "-c" "\"\\\"echo\\\" \\\"hello world\\\"\""]
+	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-l" "root" "1.2.3.4" "-t" "-t" "-p" "22" "--" "/bin/sh" "-e" "-x" "-c" "\"\\\"echo\\\" \\\"hello world\\\"\""]
 }
 
 func ExampleCommand_Slice_gateway() {
@@ -141,7 +141,7 @@ func ExampleCommand_Slice_gateway() {
 	fmt.Printf("%q\n", command.Slice())
 
 	// Output:
-	// ["ssh" "-o" "ProxyCommand=ssh -W %h:%p 5.6.7.8" "1.2.3.4"]
+	// ["ssh" "-o" "ProxyCommand=ssh -W %h:%p 5.6.7.8 -p 22" "1.2.3.4" "-p" "22"]
 }
 
 func ExampleCommand_Slice_complex() {
@@ -163,7 +163,7 @@ func ExampleCommand_Slice_complex() {
 	fmt.Printf("%q\n", command.Slice())
 
 	// Output:
-	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-o" "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t" "1.2.3.4" "-t" "-t" "--" "/bin/sh" "-e" "-c" "\"echo hello world\""]
+	// ["ssh" "-q" "-o" "UserKnownHostsFile=/dev/null" "-o" "StrictHostKeyChecking=no" "-o" "ProxyCommand=ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -l toor 5.6.7.8 -t -t -p 22" "1.2.3.4" "-t" "-t" "-p" "22" "--" "/bin/sh" "-e" "-c" "\"echo hello world\""]
 }
 
 func TestCommand_defaults(t *testing.T) {
