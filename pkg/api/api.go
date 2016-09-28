@@ -927,22 +927,31 @@ func (s *ScalewayAPI) GetResponsePaginate(apiURL, resource string, values url.Va
 	if err != nil {
 		return nil, err
 	}
-	count := ""
-	if count = resp.Header.Get("X-Total-Count"); count == "" { // not paginated
+
+	count := resp.Header.Get("X-Total-Count")
+	var maxElem int
+	if count == "" {
+		maxElem = 0
+	} else {
+		maxElem, err = strconv.Atoi(count)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	get := maxElem / perPage
+
+	if get <= 1 { // If there is 0 or 1 page of result, the response is not paginated
 		if len(values) == 0 {
 			return s.response("GET", fmt.Sprintf("%s/%s", strings.TrimRight(apiURL, "/"), resource), nil)
 		}
 		return s.response("GET", fmt.Sprintf("%s/%s?%s", strings.TrimRight(apiURL, "/"), resource, values.Encode()), nil)
 	}
+
 	fetchAll := !(values.Get("per_page") != "" || values.Get("page") != "")
 	if fetchAll {
-		maxElem, err := strconv.Atoi(count)
-		if err != nil {
-			return nil, err
-		}
 		var g errgroup.Group
 
-		get := maxElem / perPage
 		ch := make(chan *http.Response, get)
 		for i := 1; i <= get; i++ {
 			i := i // closure tricks
