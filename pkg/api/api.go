@@ -102,8 +102,10 @@ func (e ScalewayAPIError) Error() string {
 
 	fmt.Fprintf(&b, "StatusCode: %v, ", e.StatusCode)
 	fmt.Fprintf(&b, "Type: %v, ", e.Type)
-	fmt.Fprintf(&b, "APIMessage: %v, ", e.APIMessage)
-	fmt.Fprintf(&b, "Details: %v", e.Fields)
+	fmt.Fprintf(&b, "APIMessage: \x1b[31m%v\x1b[0m", e.APIMessage)
+	if len(e.Fields) > 0 {
+		fmt.Fprintf(&b, ", Details: %v", e.Fields)
+	}
 	return b.String()
 }
 
