@@ -614,9 +614,7 @@ func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 	}
 
 	if err = api.PostServerAction(server, "poweron"); err != nil {
-		if err.Error() == "server should be stopped" {
-			return fmt.Errorf("server %s is already started: %v", server, err)
-		}
+		return err
 	}
 
 	if wait {
@@ -629,16 +627,14 @@ func StartServer(api *ScalewayAPI, needle string, wait bool) error {
 }
 
 // StartServerOnce wraps StartServer for golang channel
-func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan chan bool, errChan chan error) {
+func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan chan string, errChan chan error) {
 	err := StartServer(api, needle, wait)
 
 	if err != nil {
 		errChan <- err
 		return
 	}
-
-	fmt.Println(needle)
-	successChan <- true
+	successChan <- needle
 }
 
 // DeleteServerSafe tries to delete a server using multiple ways

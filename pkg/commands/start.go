@@ -25,7 +25,7 @@ type StartArgs struct {
 func RunStart(ctx CommandContext, args StartArgs) error {
 	hasError := false
 	errChan := make(chan error)
-	successChan := make(chan bool)
+	successChan := make(chan string)
 	remainingItems := len(args.Servers)
 
 	for _, needle := range args.Servers {
@@ -42,7 +42,8 @@ func RunStart(ctx CommandContext, args StartArgs) error {
 
 	for {
 		select {
-		case _ = <-successChan:
+		case name := <-successChan:
+			fmt.Println(name)
 			remainingItems--
 		case err := <-errChan:
 			logrus.Errorf("%s", err)
