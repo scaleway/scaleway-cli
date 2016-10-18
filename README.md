@@ -1203,6 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* API rename `deleteServerSafe` -> `deleteServerForce`
 * API support paginate
 * API more verbose with `-V`
 * Better handling of secondary volumes size ([361](https://github.com/scaleway/scaleway-cli/issues/361))

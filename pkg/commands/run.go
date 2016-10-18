@@ -186,7 +186,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 	logrus.Debugf("PrivateDNS %s", serverID+api.URLPrivateDNS)
 
 	if args.AutoRemove {
-		defer ctx.API.DeleteServerSafe(serverID)
+		defer ctx.API.DeleteServerForce(serverID)
 	}
 
 	// start SERVER

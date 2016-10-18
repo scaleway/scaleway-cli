@@ -637,8 +637,8 @@ func StartServerOnce(api *ScalewayAPI, needle string, wait bool, successChan cha
 	successChan <- needle
 }
 
-// DeleteServerSafe tries to delete a server using multiple ways
-func (a *ScalewayAPI) DeleteServerSafe(serverID string) error {
+// DeleteServerForce tries to delete a server using multiple ways
+func (a *ScalewayAPI) DeleteServerForce(serverID string) error {
 	// FIXME: also delete attached volumes and ip address
 	// FIXME: call delete and stop -t in parallel to speed up process
 	err := a.DeleteServer(serverID)
