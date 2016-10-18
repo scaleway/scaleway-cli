@@ -25,7 +25,7 @@ func RunRm(ctx CommandContext, args RmArgs) error {
 			return err
 		}
 		if args.Force {
-			err = ctx.API.DeleteServerSafe(server)
+			err = ctx.API.DeleteServerForce(server)
 		} else {
 			err = ctx.API.DeleteServer(server)
 		}
