@@ -660,6 +660,11 @@ type ScalewayTokensDefinition struct {
 	Token ScalewayTokenDefinition `json:"token"`
 }
 
+// ScalewayGetTokens represents a list of Scaleway Tokens
+type ScalewayGetTokens struct {
+	Tokens []ScalewayTokenDefinition `json:"tokens"`
+}
+
 // ScalewayContainerData represents a Scaleway container data (S3)
 type ScalewayContainerData struct {
 	LastModified string `json:"last_modified"`
@@ -1908,7 +1913,6 @@ func (s *ScalewayAPI) GetTasks() (*[]ScalewayTask, error) {
 // CheckCredentials performs a dummy check to ensure we can contact the API
 func (s *ScalewayAPI) CheckCredentials() error {
 	query := url.Values{}
-	query.Set("token_id", s.Token)
 
 	resp, err := s.GetResponsePaginate(AccountAPI, "tokens", query)
 	if resp != nil {
@@ -1917,9 +1921,24 @@ func (s *ScalewayAPI) CheckCredentials() error {
 	if err != nil {
 		return err
 	}
-
-	if _, err := s.handleHTTPError([]int{http.StatusOK}, resp); err != nil {
+	body, err := s.handleHTTPError([]int{http.StatusOK}, resp)
+	if err != nil {
 		return err
+	}
+	found := false
+	var tokens ScalewayGetTokens
+
+	if err = json.Unmarshal(body, &tokens); err != nil {
+		return err
+	}
+	for _, token := range tokens.Tokens {
+		if token.ID == s.Token {
+			found = true
+			break
+		}
+	}
+	if !found {
+		return fmt.Errorf("Invalid token %v", s.Token)
 	}
 	return nil
 }

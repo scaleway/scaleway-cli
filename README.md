@@ -1203,7 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-* No entry
+* `scw login` fix CheckCredentials ([418](https://github.com/scaleway/scaleway-cli/issues/418))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10...master)
 
