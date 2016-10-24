@@ -1201,11 +1201,11 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.10.1 (2016-10-24)
 
 * `scw login` fix CheckCredentials ([418](https://github.com/scaleway/scaleway-cli/issues/418))
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10...v1.10.1)
 
 ### v1.10 (2016-10-24)
 
