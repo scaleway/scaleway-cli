@@ -1201,6 +1201,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10...master)
+
 ### v1.10 (2016-10-24)
 
 * API rename `deleteServerSafe` -> `deleteServerForce`
