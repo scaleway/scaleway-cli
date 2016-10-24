@@ -1201,7 +1201,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.10 (2016-10-24)
 
 * API rename `deleteServerSafe` -> `deleteServerForce`
 * API support paginate
@@ -1237,7 +1237,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * `scw _userdata` handles `@~/path/to/file` ([#321](https://github.com/scaleway/scaleway-cli/issues/321))
 * Update `scw _billing` for new instance types ([#293](https://github.com/scaleway/scaleway-cli/issues/293))
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.9.0...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.9.0...v1.10)
 
 ### v1.9.0 (2016-04-01)
 
