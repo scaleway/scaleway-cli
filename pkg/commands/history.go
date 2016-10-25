@@ -50,7 +50,7 @@ func RunHistory(ctx CommandContext, args HistoryArgs) error {
 	creationDateStr := units.HumanDuration(time.Now().UTC().Sub(creationDate))
 
 	volumeName := utils.TruncIf(image.RootVolume.Name, 25, !args.NoTrunc)
-	size := units.HumanSize(float64(image.RootVolume.Size))
+	size := units.HumanSize(image.RootVolume.Size.(float64))
 
 	fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", identifier, creationDateStr, volumeName, size)
 	return nil

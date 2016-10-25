@@ -445,6 +445,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			return "", err
 		}
 		currentVolume := createdServer.Volumes["0"]
+		size := currentVolume.Size.(uint64)
 
 		var volumePayload ScalewayVolumePutDefinition
 		newName := fmt.Sprintf("%s-%s", createdServer.Hostname, currentVolume.Name)
@@ -454,7 +455,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		volumePayload.Server.Identifier = &currentVolume.Server.Identifier
 		volumePayload.Server.Name = &currentVolume.Server.Name
 		volumePayload.Identifier = &currentVolume.Identifier
-		volumePayload.Size = &currentVolume.Size
+		volumePayload.Size = &size
 		volumePayload.ModificationDate = &currentVolume.ModificationDate
 		volumePayload.ExportURI = &currentVolume.ExportURI
 		volumePayload.VolumeType = &currentVolume.VolumeType

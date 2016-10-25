@@ -142,7 +142,7 @@ type ScalewayVolume struct {
 	Identifier string `json:"id,omitempty"`
 
 	// Size is the allocated size of the volume
-	Size uint64 `json:"size,omitempty"`
+	Size interface{} `json:"size,omitempty"`
 
 	// CreationDate is the creation date of the volume
 	CreationDate string `json:"creation_date,omitempty"`
@@ -1667,6 +1667,7 @@ func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	var volumes ScalewayVolumes
 
 	if err = json.Unmarshal(body, &volumes); err != nil {
