@@ -153,7 +153,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Identifier:   val.Identifier,
 						Name:         val.Name,
 						Tag:          "<volume>",
-						VirtualSize:  float64(val.Size),
+						VirtualSize:  val.Size.(float64),
 						Public:       false,
 						Organization: val.Organization,
 						// FIXME the region should not be hardcoded
