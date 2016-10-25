@@ -533,6 +533,7 @@ type ScalewayServer struct {
 		Hypervisor string `json:"hypervisor_id,omitempty"`
 		Blade      string `json:"blade_id,omitempty"`
 		Node       string `json:"node_id,omitempty"`
+		ZoneID     string `json:"zone_id,omitempty"`
 	} `json:"location,omitempty"`
 
 	IPV6 *ScalewayIPV6Definition `json:"ipv6,omitempty"`
@@ -1128,10 +1129,10 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		return nil, err
 	}
 	for i, server := range servers.Servers {
-		// FIXME region, arch, owner, title
+		// FIXME arch, owner, title
 		servers.Servers[i].DNSPublic = server.Identifier + URLPublicDNS
 		servers.Servers[i].DNSPrivate = server.Identifier + URLPrivateDNS
-		s.Cache.InsertServer(server.Identifier, "fr-1", server.Arch, server.Organization, server.Name)
+		s.Cache.InsertServer(server.Identifier, server.Location.ZoneID, server.Arch, server.Organization, server.Name)
 	}
 	// FIXME: when API limit is ready, remove the following code
 	if limit > 0 && limit < len(servers.Servers) {
@@ -1177,10 +1178,10 @@ func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
 	if err = json.Unmarshal(body, &oneServer); err != nil {
 		return nil, err
 	}
-	// FIXME region, arch, owner, title
+	// FIXME arch, owner, title
 	oneServer.Server.DNSPublic = oneServer.Server.Identifier + URLPublicDNS
 	oneServer.Server.DNSPrivate = oneServer.Server.Identifier + URLPrivateDNS
-	s.Cache.InsertServer(oneServer.Server.Identifier, "fr-1", oneServer.Server.Arch, oneServer.Server.Organization, oneServer.Server.Name)
+	s.Cache.InsertServer(oneServer.Server.Identifier, oneServer.Server.Location.ZoneID, oneServer.Server.Arch, oneServer.Server.Organization, oneServer.Server.Name)
 	return &oneServer.Server, nil
 }
 
@@ -1239,8 +1240,8 @@ func (s *ScalewayAPI) PostServer(definition ScalewayServerDefinition) (string, e
 	if err = json.Unmarshal(body, &server); err != nil {
 		return "", err
 	}
-	// FIXME region, arch, owner, title
-	s.Cache.InsertServer(server.Server.Identifier, "fr-1", server.Server.Arch, server.Server.Organization, server.Server.Name)
+	// FIXME arch, owner, title
+	s.Cache.InsertServer(server.Server.Identifier, server.Server.Location.ZoneID, server.Server.Arch, server.Server.Organization, server.Server.Name)
 	return server.Server.Identifier, nil
 }
 
@@ -1299,8 +1300,8 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 	if err = json.Unmarshal(body, &snapshot); err != nil {
 		return "", err
 	}
-	// FIXME region, arch, owner, title
-	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, "fr-1", "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
+	// FIXME arch, owner, title
+	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, "", "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
 	return snapshot.Snapshot.Identifier, nil
 }
 
@@ -1334,7 +1335,7 @@ func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string,
 		return "", err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(image.Image.Identifier, "fr-1", image.Image.Arch, image.Image.Organization, image.Image.Name, "")
+	s.Cache.InsertImage(image.Image.Identifier, "", image.Image.Arch, image.Image.Organization, image.Image.Name, "")
 	return image.Image.Identifier, nil
 }
 
@@ -1491,7 +1492,7 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 		return nil, err
 	}
 	for _, orgaImage := range OrgaImages.Images {
-		s.Cache.InsertImage(orgaImage.Identifier, "fr-1", orgaImage.Arch, orgaImage.Organization, orgaImage.Name, "")
+		s.Cache.InsertImage(orgaImage.Identifier, "", orgaImage.Arch, orgaImage.Organization, orgaImage.Name, "")
 		images.Images = append(images.Images, MarketImage{
 			Categories:           []string{"MyImages"},
 			CreationDate:         orgaImage.CreationDate,
@@ -1510,7 +1511,7 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 								{
 									Arch: orgaImage.Arch,
 									ID:   orgaImage.Identifier,
-									Zone: "fr-1",
+									Zone: "",
 								},
 							},
 						},
@@ -1542,7 +1543,7 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(oneImage.Image.Identifier, "fr-1", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name, "")
+	s.Cache.InsertImage(oneImage.Image.Identifier, "", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name, "")
 	return &oneImage.Image, nil
 }
 
@@ -1621,7 +1622,7 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 	}
 	for _, snapshot := range snapshots.Snapshots {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertSnapshot(snapshot.Identifier, "fr-1", "", snapshot.Organization, snapshot.Name)
+		s.Cache.InsertSnapshot(snapshot.Identifier, "", "", snapshot.Organization, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
 }
@@ -1646,7 +1647,7 @@ func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) 
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, "fr-1", "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
+	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, "", "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
 	return &oneSnapshot.Snapshot, nil
 }
 
@@ -1675,7 +1676,7 @@ func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
 	}
 	for _, volume := range volumes.Volumes {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertVolume(volume.Identifier, "fr-1", "", volume.Organization, volume.Name)
+		s.Cache.InsertVolume(volume.Identifier, "", "", volume.Organization, volume.Name)
 	}
 	return &volumes.Volumes, nil
 }
@@ -1700,7 +1701,7 @@ func (s *ScalewayAPI) GetVolume(volumeID string) (*ScalewayVolume, error) {
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertVolume(oneVolume.Volume.Identifier, "fr-1", "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
+	s.Cache.InsertVolume(oneVolume.Volume.Identifier, "", "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
 	return &oneVolume.Volume, nil
 }
 
@@ -1728,7 +1729,7 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 	}
 	for _, bootscript := range bootscripts.Bootscripts {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertBootscript(bootscript.Identifier, "fr-1", bootscript.Arch, bootscript.Organization, bootscript.Title)
+		s.Cache.InsertBootscript(bootscript.Identifier, "", bootscript.Arch, bootscript.Organization, bootscript.Title)
 	}
 	return &bootscripts.Bootscripts, nil
 }
@@ -1753,7 +1754,7 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "fr-1", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
+	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
 }
 
@@ -2153,7 +2154,7 @@ func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier,
 			Identifier: images[0].Identifier,
 			Arch:       images[0].Arch,
 			// FIXME region, owner hardcoded
-			Region: "fr-1",
+			Region: "",
 			Owner:  "",
 		}, nil
 	}
