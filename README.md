@@ -1203,11 +1203,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* API: Add ZoneID field in server location
+* `scw image -a -f type=volume` fix unmarshal error on size field
 * `scw ps` do not display empty server with --filter
 
 ### v1.10.1 (2016-10-24)
 
-* `scw image -a -f type=volume` fix unmarshal error on size field
 * `scw login` fix CheckCredentials ([418](https://github.com/scaleway/scaleway-cli/issues/418))
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10...v1.10.1)
