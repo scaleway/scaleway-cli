@@ -41,7 +41,7 @@ type ScalewayImageInterface struct {
 	Type         string
 	Organization string
 	Archs        []string
-	Region       string
+	Region       []string
 }
 
 // ResolveGateway tries to resolve a server public ip address, else returns the input string, i.e. IPv4, hostname

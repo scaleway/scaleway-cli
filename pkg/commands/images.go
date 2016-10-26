@@ -51,14 +51,25 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 					errChan <- fmt.Errorf("unable to parse creation date from the Scaleway API: %v", err)
 					return
 				}
-				archs := []string{}
+				archAvailable := make(map[string]struct{})
+				zoneAvailable := make(map[string]struct{})
+
 				for _, version := range val.Versions {
 					if val.CurrentPublicVersion == version.ID {
 						for _, local := range version.LocalImages {
-							archs = append(archs, local.Arch)
+							archAvailable[local.Arch] = struct{}{}
+							zoneAvailable[local.Zone] = struct{}{}
 						}
 						break
 					}
+				}
+				regions := []string{}
+				for k := range zoneAvailable {
+					regions = append(regions, k)
+				}
+				archs := []string{}
+				for k := range archAvailable {
+					archs = append(archs, k)
 				}
 				chEntries <- api.ScalewayImageInterface{
 					Type:         "image",
@@ -68,9 +79,8 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 					Tag:          "latest",
 					Organization: val.Organization.ID,
 					Public:       val.Public,
-					// FIXME the region should not be hardcoded
-					Region: "fr-1",
-					Archs:  archs,
+					Region:       regions,
+					Archs:        archs,
 				}
 			}
 		}()
@@ -102,7 +112,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Public:       false,
 						Organization: val.Organization,
 						// FIXME the region should not be hardcoded
-						Region: "fr-1",
+						Region: []string{"fr-1"},
 					}
 				}
 			}()
@@ -125,7 +135,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Tag:        "<bootscript>",
 						Public:     false,
 						// FIXME the region should not be hardcoded
-						Region: "fr-1",
+						Region: []string{"fr-1"},
 						Archs:  []string{val.Arch},
 					}
 				}
@@ -157,7 +167,7 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Public:       false,
 						Organization: val.Organization,
 						// FIXME the region should not be hardcoded
-						Region: "fr-1",
+						Region: []string{"fr-1"},
 					}
 				}
 			}()
