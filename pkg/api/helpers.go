@@ -445,7 +445,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			return "", err
 		}
 		currentVolume := createdServer.Volumes["0"]
-		size := currentVolume.Size.(uint64)
+		size := uint64(currentVolume.Size.(float64))
 
 		var volumePayload ScalewayVolumePutDefinition
 		newName := fmt.Sprintf("%s-%s", createdServer.Hostname, currentVolume.Name)

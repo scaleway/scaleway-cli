@@ -74,6 +74,8 @@ type ScalewayAPI struct {
 	client     *http.Client
 	verbose    bool
 	computeAPI string
+
+	Region string
 	//
 	Logger
 }
@@ -889,6 +891,7 @@ func NewScalewayAPI(organization, token, userAgent, region string, options ...fu
 	default:
 		return nil, fmt.Errorf("%s isn't a valid region", region)
 	}
+	s.Region = region
 	if url := os.Getenv("SCW_COMPUTE_API"); url != "" {
 		s.computeAPI = url
 	}
@@ -2816,4 +2819,13 @@ func (s *ScalewayAPI) DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLo
 	}
 	_, err = s.handleHTTPError([]int{http.StatusNoContent}, resp)
 	return err
+}
+
+// ResolveTTYUrl return an URL to get a tty
+func (s *ScalewayAPI) ResolveTTYUrl() string {
+	switch s.Region {
+	case "par1", "":
+		return "https://tty.scaleway.com/v2/"
+	}
+	return ""
 }

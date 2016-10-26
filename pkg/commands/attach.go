@@ -18,7 +18,7 @@ func RunAttach(ctx CommandContext, args AttachArgs) error {
 	if err != nil {
 		return err
 	}
-	_, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+	_, done, err := utils.AttachToSerial(serverID, ctx.API.Token, ctx.API.ResolveTTYUrl())
 	if err != nil {
 		return err
 	}
