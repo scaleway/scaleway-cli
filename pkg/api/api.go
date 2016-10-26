@@ -2084,11 +2084,12 @@ func showResolverResults(needle string, results ScalewayResolverResults) error {
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	sort.Sort(results)
+	fmt.Fprintf(w, "  IMAGEID\tFROM\tNAME\tZONE\tARCH\n")
 	for _, result := range results {
 		if result.Arch == "" {
 			result.Arch = "n/a"
 		}
-		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, result.Arch)
+		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, result.Region, result.Arch)
 	}
 	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
@@ -2142,6 +2143,19 @@ func FilterImagesByArch(res ScalewayResolverResults, arch string) (ret ScalewayR
 	return
 }
 
+// FilterImagesByRegion removes entry that doesn't match with region
+func FilterImagesByRegion(res ScalewayResolverResults, region string) (ret ScalewayResolverResults) {
+	if region == "*" {
+		return res
+	}
+	for _, result := range res {
+		if result.Region == region {
+			ret = append(ret, result)
+		}
+	}
+	return
+}
+
 // GetImageID returns exactly one image matching
 func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
@@ -2152,12 +2166,13 @@ func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier,
 		return nil, fmt.Errorf("Unable to resolve image %s: %s", needle, err)
 	}
 	images = FilterImagesByArch(images, arch)
+	images = FilterImagesByRegion(images, s.Region)
 	if len(images) == 1 {
 		return &ScalewayImageIdentifier{
 			Identifier: images[0].Identifier,
 			Arch:       images[0].Arch,
 			// FIXME region, owner hardcoded
-			Region: "",
+			Region: images[0].Region,
 			Owner:  "",
 		}, nil
 	}
