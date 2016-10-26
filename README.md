@@ -1203,6 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* API: Support multi-zone
 * API: Add ZoneID field in server location
 * `scw image -a -f type=volume` fix unmarshal error on size field
 * `scw ps` do not display empty server with --filter
