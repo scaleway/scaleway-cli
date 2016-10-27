@@ -1210,7 +1210,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11.
 ### v1.11 (2016-10-27)
 
 * new Compute URL `api.scaleway.com` -> `cp-par1.scaleway.com`
-* new TTY URL `tty.scaleway.com/v2` -> `https://tty-par1.scaleway.com/v2`
+* new TTY URL `tty.scaleway.com/v2` -> `tty-par1.scaleway.com/v2`
 * Region: add `ams1`, you can start a server at Amsterdam with `scw --region="ams1" run yakkety`
 * API: Support multi-zone
 * API: Add ZoneID field in server location
