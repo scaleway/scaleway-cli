@@ -1201,6 +1201,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### master (unreleased)
+
+* No entry
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)
+
 ### v1.11 (2016-10-27)
 
 * new Compute URL `api.scaleway.com` -> `cp-par1.scaleway.com`
