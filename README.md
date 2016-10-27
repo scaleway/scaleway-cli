@@ -1201,7 +1201,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.11 (2016-10-27)
 
 * new Compute URL `api.scaleway.com` -> `cp-par1.scaleway.com`
 * new TTY URL `tty.scaleway.com/v2` -> `https://tty-par1.scaleway.com/v2`
@@ -1210,6 +1210,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * API: Add ZoneID field in server location
 * `scw image -a -f type=volume` fix unmarshal error on size field
 * `scw ps` do not display empty server with --filter
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.10.1...v1.11)
 
 ### v1.10.1 (2016-10-24)
 
