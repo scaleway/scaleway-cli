@@ -24,7 +24,7 @@ func ExampleRunCreate_complex() {
 		Bootscript: "rescue",
 		Tags:       []string{"tag1", "tag2"},
 		Volumes:    []string{},
-		Image:      "ubuntu-vivid",
+		Image:      "ubuntu-wily",
 		TmpSSHKey:  false,
 	}
 	RunCreate(ctx, args)
@@ -59,11 +59,12 @@ func TestRunCreate_realAPI(t *testing.T) {
 			})
 		*/
 
-		Convey("--name=unittest-create-standard ubuntu-vivid", func() {
+		Convey("--name=unittest-create-standard wily", func() {
 			args := CreateArgs{
 				Name:           "unittest-create-standard",
-				Image:          "ubuntu-wily",
+				Image:          "wily",
 				CommercialType: "VC1S",
+				IP:             "dynamic",
 			}
 
 			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)

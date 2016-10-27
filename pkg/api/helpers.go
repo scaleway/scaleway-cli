@@ -237,6 +237,7 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 			break
 		}
 		idents.Identifiers = FilterImagesByArch(idents.Identifiers, arch)
+		idents.Identifiers = FilterImagesByRegion(idents.Identifiers, api.Region)
 		if len(idents.Identifiers) != 1 {
 			if len(idents.Identifiers) == 0 {
 				log.Errorf("Unable to resolve identifier %s", idents.Needle)

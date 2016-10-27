@@ -1576,8 +1576,8 @@ func (s *ScalewayAPI) GetImage(imageID string) (*ScalewayImage, error) {
 	if err = json.Unmarshal(body, &oneImage); err != nil {
 		return nil, err
 	}
-	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(oneImage.Image.Identifier, "", oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name, "")
+	// FIXME owner, title
+	s.Cache.InsertImage(oneImage.Image.Identifier, s.Region, oneImage.Image.Arch, oneImage.Image.Organization, oneImage.Image.Name, "")
 	return &oneImage.Image, nil
 }
 
