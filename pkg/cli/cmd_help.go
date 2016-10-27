@@ -43,7 +43,7 @@ Options:
  -q, --quiet=false            Enable quiet mode
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
- --region=par1                Change the default region	
+ --region=par1                Change the default region (e.g. ams1)
 
 Commands:
 {{range .}}{{if not .Hidden}}    {{.Name | printf "%-9s"}} {{.Description}}

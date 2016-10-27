@@ -182,7 +182,7 @@ Options:
  -q, --quiet=false            Enable quiet mode
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
- --region=par1                Change the default region
+ --region=par1                Change the default region (e.g. ams1)
 
 Commands:
     help      help of the scw command line
@@ -1203,6 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* Region: add `ams1`, you can start a server at Amsterdam with `scw --region="ams1" run yakkety`
 * API: Support multi-zone
 * API: Add ZoneID field in server location
 * `scw image -a -f type=volume` fix unmarshal error on size field

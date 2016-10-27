@@ -32,7 +32,7 @@ var (
 	flVersion   = flag.Bool([]string{"v", "-version"}, false, "Print version information and quit")
 	flQuiet     = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
 	flSensitive = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
-	flRegion    = flag.String([]string{"-region"}, "par1", "Change the default region")
+	flRegion    = flag.String([]string{"-region"}, "par1", "Change the default region (e.g. ams1)")
 )
 
 // Start is the entrypoint
