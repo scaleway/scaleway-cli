@@ -35,7 +35,7 @@ var (
 	AccountAPI     = "https://account.scaleway.com/"
 	MetadataAPI    = "http://169.254.42.42/"
 	MarketplaceAPI = "https://api-marketplace.scaleway.com"
-	ComputeAPIPar1 = "https://api.scaleway.com/"
+	ComputeAPIPar1 = "https://cp-par1.scaleway.com/"
 	ComputeAPIAms1 = "https://cp-ams1.scaleway.com"
 
 	URLPublicDNS  = ".pub.cloud.scaleway.com"
@@ -2871,7 +2871,7 @@ func (s *ScalewayAPI) DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLo
 func (s *ScalewayAPI) ResolveTTYUrl() string {
 	switch s.Region {
 	case "par1", "":
-		return "https://tty.scaleway.com/v2/"
+		return "https://tty-par1.scaleway.com/v2/"
 	case "ams1":
 		return "https://tty-ams1.scaleway.com"
 	}

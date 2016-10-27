@@ -1203,6 +1203,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* new Compute URL `api.scaleway.com` -> `cp-par1.scaleway.com`
+* new TTY URL `tty.scaleway.com/v2` -> `https://tty-par1.scaleway.com/v2`
 * Region: add `ams1`, you can start a server at Amsterdam with `scw --region="ams1" run yakkety`
 * API: Support multi-zone
 * API: Add ZoneID field in server location
