@@ -35,8 +35,11 @@ var (
 	AccountAPI     = "https://account.scaleway.com/"
 	MetadataAPI    = "http://169.254.42.42/"
 	MarketplaceAPI = "https://api-marketplace.scaleway.com"
-	URLPublicDNS   = ".pub.cloud.scaleway.com"
-	URLPrivateDNS  = ".priv.cloud.scaleway.com"
+	ComputeAPIPar1 = "https://cp-par1.scaleway.com/"
+	ComputeAPIAms1 = "https://cp-ams1.scaleway.com"
+
+	URLPublicDNS  = ".pub.cloud.scaleway.com"
+	URLPrivateDNS = ".priv.cloud.scaleway.com"
 )
 
 func init() {
@@ -74,6 +77,8 @@ type ScalewayAPI struct {
 	client     *http.Client
 	verbose    bool
 	computeAPI string
+
+	Region string
 	//
 	Logger
 }
@@ -885,10 +890,13 @@ func NewScalewayAPI(organization, token, userAgent, region string, options ...fu
 	}
 	switch region {
 	case "par1", "":
-		s.computeAPI = "https://api.scaleway.com/"
+		s.computeAPI = ComputeAPIPar1
+	case "ams1":
+		s.computeAPI = ComputeAPIAms1
 	default:
 		return nil, fmt.Errorf("%s isn't a valid region", region)
 	}
+	s.Region = region
 	if url := os.Getenv("SCW_COMPUTE_API"); url != "" {
 		s.computeAPI = url
 	}
@@ -1098,6 +1106,30 @@ func (s *ScalewayAPI) handleHTTPError(goodStatusCode []int, resp *http.Response)
 	return body, nil
 }
 
+func (s *ScalewayAPI) fetchServers(api string, query url.Values, out chan<- ScalewayServers) func() error {
+	return func() error {
+		resp, err := s.GetResponsePaginate(api, "servers", query)
+		if resp != nil {
+			defer resp.Body.Close()
+		}
+		if err != nil {
+			return err
+		}
+
+		body, err := s.handleHTTPError([]int{http.StatusOK}, resp)
+		if err != nil {
+			return err
+		}
+		var servers ScalewayServers
+
+		if err = json.Unmarshal(body, &servers); err != nil {
+			return err
+		}
+		out <- servers
+		return nil
+	}
+}
+
 // GetServers gets the list of servers from the ScalewayAPI
 func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error) {
 	query := url.Values{}
@@ -1112,31 +1144,33 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 	if all && limit == 0 {
 		s.Cache.ClearServers()
 	}
-	resp, err := s.GetResponsePaginate(s.computeAPI, "servers", query)
-	if resp != nil {
-		defer resp.Body.Close()
-	}
-	if err != nil {
-		return nil, err
+	var (
+		g    errgroup.Group
+		apis = []string{
+			ComputeAPIPar1,
+			ComputeAPIAms1,
+		}
+	)
+
+	serverChan := make(chan ScalewayServers, 2)
+	for _, api := range apis {
+		g.Go(s.fetchServers(api, query, serverChan))
 	}
 
-	body, err := s.handleHTTPError([]int{http.StatusOK}, resp)
-	if err != nil {
+	if err := g.Wait(); err != nil {
 		return nil, err
 	}
+	close(serverChan)
 	var servers ScalewayServers
-	if err = json.Unmarshal(body, &servers); err != nil {
-		return nil, err
+
+	for server := range serverChan {
+		servers.Servers = append(servers.Servers, server.Servers...)
 	}
+
 	for i, server := range servers.Servers {
-		// FIXME arch, owner, title
 		servers.Servers[i].DNSPublic = server.Identifier + URLPublicDNS
 		servers.Servers[i].DNSPrivate = server.Identifier + URLPrivateDNS
 		s.Cache.InsertServer(server.Identifier, server.Location.ZoneID, server.Arch, server.Organization, server.Name)
-	}
-	// FIXME: when API limit is ready, remove the following code
-	if limit > 0 && limit < len(servers.Servers) {
-		servers.Servers = servers.Servers[0:limit]
 	}
 	return &servers.Servers, nil
 }
@@ -2081,11 +2115,12 @@ func showResolverResults(needle string, results ScalewayResolverResults) error {
 	w := tabwriter.NewWriter(os.Stderr, 20, 1, 3, ' ', 0)
 	defer w.Flush()
 	sort.Sort(results)
+	fmt.Fprintf(w, "  IMAGEID\tFROM\tNAME\tZONE\tARCH\n")
 	for _, result := range results {
 		if result.Arch == "" {
 			result.Arch = "n/a"
 		}
-		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, result.Arch)
+		fmt.Fprintf(w, "- %s\t%s\t%s\t%s\t%s\n", result.TruncIdentifier(), result.CodeName(), result.Name, result.Region, result.Arch)
 	}
 	return fmt.Errorf("Too many candidates for %s (%d)", needle, len(results))
 }
@@ -2139,6 +2174,19 @@ func FilterImagesByArch(res ScalewayResolverResults, arch string) (ret ScalewayR
 	return
 }
 
+// FilterImagesByRegion removes entry that doesn't match with region
+func FilterImagesByRegion(res ScalewayResolverResults, region string) (ret ScalewayResolverResults) {
+	if region == "*" {
+		return res
+	}
+	for _, result := range res {
+		if result.Region == region {
+			ret = append(ret, result)
+		}
+	}
+	return
+}
+
 // GetImageID returns exactly one image matching
 func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier, error) {
 	// Parses optional type prefix, i.e: "image:name" -> "name"
@@ -2149,17 +2197,18 @@ func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier,
 		return nil, fmt.Errorf("Unable to resolve image %s: %s", needle, err)
 	}
 	images = FilterImagesByArch(images, arch)
+	images = FilterImagesByRegion(images, s.Region)
 	if len(images) == 1 {
 		return &ScalewayImageIdentifier{
 			Identifier: images[0].Identifier,
 			Arch:       images[0].Arch,
 			// FIXME region, owner hardcoded
-			Region: "",
+			Region: images[0].Region,
 			Owner:  "",
 		}, nil
 	}
 	if len(images) == 0 {
-		return nil, fmt.Errorf("No such image: %s", needle)
+		return nil, fmt.Errorf("No such image (zone %s, arch %s) : %s", s.Region, arch, needle)
 	}
 	return nil, showResolverResults(needle, images)
 }
@@ -2816,4 +2865,15 @@ func (s *ScalewayAPI) DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLo
 	}
 	_, err = s.handleHTTPError([]int{http.StatusNoContent}, resp)
 	return err
+}
+
+// ResolveTTYUrl return an URL to get a tty
+func (s *ScalewayAPI) ResolveTTYUrl() string {
+	switch s.Region {
+	case "par1", "":
+		return "https://tty-par1.scaleway.com/v2/"
+	case "ams1":
+		return "https://tty-ams1.scaleway.com"
+	}
+	return ""
 }

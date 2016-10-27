@@ -99,10 +99,10 @@ func addUserData(ctx CommandContext, userdatas []string, serverID string) {
 	}
 }
 
-func runShowBoot(ctx CommandContext, args RunArgs, serverID string, closeTimeout chan struct{}, timeoutExit chan struct{}) error {
+func runShowBoot(ctx CommandContext, args RunArgs, serverID, region string, closeTimeout chan struct{}, timeoutExit chan struct{}) error {
 	// Attach to server serial
 	logrus.Info("Attaching to server console ...")
-	gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+	gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token, ctx.API.ResolveTTYUrl())
 	if err != nil {
 		close(closeTimeout)
 		return fmt.Errorf("cannot attach to server serial: %v", err)
@@ -242,11 +242,11 @@ func Run(ctx CommandContext, args RunArgs) error {
 		}()
 	}
 	if args.ShowBoot {
-		return runShowBoot(ctx, args, serverID, closeTimeout, timeoutExit)
+		return runShowBoot(ctx, args, serverID, ctx.API.Region, closeTimeout, timeoutExit)
 	} else if args.Attach {
 		// Attach to server serial
 		logrus.Info("Attaching to server console ...")
-		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token)
+		gottycli, done, err := utils.AttachToSerial(serverID, ctx.API.Token, ctx.API.ResolveTTYUrl())
 		close(closeTimeout)
 		if err != nil {
 			return fmt.Errorf("cannot attach to server serial: %v", err)
