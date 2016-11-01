@@ -36,7 +36,7 @@ type ScalewayImageInterface struct {
 	Identifier   string
 	Name         string
 	Tag          string
-	VirtualSize  float64
+	VirtualSize  uint64
 	Public       bool
 	Type         string
 	Organization string
@@ -372,13 +372,8 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			return "", fmt.Errorf("%s wrong commercial type", server.CommercialType)
 		}
 	}
-	region := os.Getenv("SCW_TARGET_REGION")
-	if region == "" {
-		region = "fr-1"
-	}
 	imageIdentifier := &ScalewayImageIdentifier{
-		Arch:   arch,
-		Region: region,
+		Arch: arch,
 	}
 	server.Name = c.Name
 	inheritingVolume := false
@@ -446,7 +441,6 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 			return "", err
 		}
 		currentVolume := createdServer.Volumes["0"]
-		size := uint64(currentVolume.Size.(float64))
 
 		var volumePayload ScalewayVolumePutDefinition
 		newName := fmt.Sprintf("%s-%s", createdServer.Hostname, currentVolume.Name)
@@ -456,7 +450,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		volumePayload.Server.Identifier = &currentVolume.Server.Identifier
 		volumePayload.Server.Name = &currentVolume.Server.Name
 		volumePayload.Identifier = &currentVolume.Identifier
-		volumePayload.Size = &size
+		volumePayload.Size = &currentVolume.Size
 		volumePayload.ModificationDate = &currentVolume.ModificationDate
 		volumePayload.ExportURI = &currentVolume.ExportURI
 		volumePayload.VolumeType = &currentVolume.VolumeType

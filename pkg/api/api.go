@@ -147,7 +147,7 @@ type ScalewayVolume struct {
 	Identifier string `json:"id,omitempty"`
 
 	// Size is the allocated size of the volume
-	Size interface{} `json:"size,omitempty"`
+	Size uint64 `json:"size,omitempty"`
 
 	// CreationDate is the creation date of the volume
 	CreationDate string `json:"creation_date,omitempty"`
@@ -985,8 +985,8 @@ func (s *ScalewayAPI) GetResponsePaginate(apiURL, resource string, values url.Va
 		if err = g.Wait(); err != nil {
 			return nil, err
 		}
-		newBody := make(map[string][]interface{})
-		body := make(map[string][]interface{})
+		newBody := make(map[string]json.RawMessage)
+		body := make(map[string]json.RawMessage)
 		key := ""
 		for i := 0; i < get; i++ {
 			res := <-ch
