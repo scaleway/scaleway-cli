@@ -108,11 +108,11 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Identifier:   val.Identifier,
 						Name:         val.Name,
 						Tag:          "<snapshot>",
-						VirtualSize:  float64(val.Size),
+						VirtualSize:  val.Size,
 						Public:       false,
 						Organization: val.Organization,
 						// FIXME the region should not be hardcoded
-						Region: []string{"fr-1"},
+						Region: []string{"par1"},
 					}
 				}
 			}()
@@ -134,9 +134,8 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Name:       val.Title,
 						Tag:        "<bootscript>",
 						Public:     false,
-						// FIXME the region should not be hardcoded
-						Region: []string{"fr-1"},
-						Archs:  []string{val.Arch},
+						Region:     []string{""},
+						Archs:      []string{val.Arch},
 					}
 				}
 			}()
@@ -163,11 +162,11 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 						Identifier:   val.Identifier,
 						Name:         val.Name,
 						Tag:          "<volume>",
-						VirtualSize:  val.Size.(float64),
+						VirtualSize:  val.Size,
 						Public:       false,
 						Organization: val.Organization,
 						// FIXME the region should not be hardcoded
-						Region: []string{"fr-1"},
+						Region: []string{"par1"},
 					}
 				}
 			}()

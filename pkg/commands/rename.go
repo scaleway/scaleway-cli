@@ -29,7 +29,7 @@ func RunRename(ctx CommandContext, args RenameArgs) error {
 		return fmt.Errorf("cannot rename server: %v", err)
 	}
 	if server, err := ctx.API.GetServer(serverID); err == nil {
-		ctx.API.Cache.InsertServer(serverID, "fr-1", server.Arch, server.Organization, server.Name)
+		ctx.API.Cache.InsertServer(serverID, server.Location.ZoneID, server.Arch, server.Organization, server.Name)
 	}
 	return nil
 }
