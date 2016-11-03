@@ -179,11 +179,11 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 	}()
 
 	for {
-		if entry, ok := <-chEntries; !ok {
+		entry, ok := <-chEntries
+		if !ok {
 			break
-		} else {
-			entries = append(entries, entry)
 		}
+		entries = append(entries, entry)
 	}
 	select {
 	case err := <-errChan:
