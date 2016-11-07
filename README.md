@@ -1203,6 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* API: hotfix region with user images
 * API: fix filter on paginate page
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)
