@@ -1523,8 +1523,8 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 	if err = json.Unmarshal(body, &OrgaImages); err != nil {
 		return nil, err
 	}
+
 	for _, orgaImage := range OrgaImages.Images {
-		s.Cache.InsertImage(orgaImage.Identifier, "", orgaImage.Arch, orgaImage.Organization, orgaImage.Name, "")
 		images.Images = append(images.Images, MarketImage{
 			Categories:           []string{"MyImages"},
 			CreationDate:         orgaImage.CreationDate,
@@ -1543,7 +1543,8 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 								{
 									Arch: orgaImage.Arch,
 									ID:   orgaImage.Identifier,
-									Zone: "",
+									// TODO: fecth images from ams1 and par1
+									Zone: s.Region,
 								},
 							},
 						},
@@ -1551,6 +1552,7 @@ func (s *ScalewayAPI) GetImages() (*[]MarketImage, error) {
 				},
 			},
 		})
+		s.Cache.InsertImage(orgaImage.Identifier, s.Region, orgaImage.Arch, orgaImage.Organization, orgaImage.Name, "")
 	}
 	return &images.Images, nil
 }
