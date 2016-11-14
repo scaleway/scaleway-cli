@@ -536,12 +536,12 @@ func WaitForServerReady(api *ScalewayAPI, serverID, gateway string) (*ScalewaySe
 				promise <- false
 				return
 			}
+			log.Debugf("Check for SSH port through the gateway: %s", server.PrivateIP)
 			timeout := time.Tick(120 * time.Second)
 			for {
 				select {
 				case <-timeout:
 					err = fmt.Errorf("Timeout: unable to ping %s", server.PrivateIP)
-					fmt.Println("timeout")
 					goto OUT
 				default:
 					if utils.SSHExec("", server.PrivateIP, "root", 22, []string{
@@ -554,15 +554,14 @@ func WaitForServerReady(api *ScalewayAPI, serverID, gateway string) (*ScalewaySe
 					}, false, gateway) == nil {
 						goto OUT
 					}
+					time.Sleep(2 * time.Second)
 				}
 			}
 		OUT:
 			if err != nil {
-				promise <- false
-				return
+				logrus.Info(err)
+				err = nil
 			}
-			log.Debugf("Check for SSH port through the gateway: %s", server.PrivateIP)
-
 		}
 		promise <- true
 	}()
