@@ -1203,6 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
+* API: try to connect trough the gateway when nc doesn't work
 * API: hotfix region with user images
 * API: fix filter on paginate page
 
