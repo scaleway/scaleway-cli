@@ -1,0 +1,22 @@
+# Doesn't work yet
+
+name: scw
+version: 1.11
+summary: Manage BareMetal Servers from Command Line (as easily as with Docker)
+description:
+  Interact with Scaleway API from the command line.
+confinement: strict
+grade: stable
+
+apps:
+  scw:
+    command: bin/scw
+    plugs: [network]
+
+parts:
+  scw:
+    plugin: go
+    source: https://github.com/scaleway/scaleway-cli
+    source-type: git
+    source-tag: v1.11
+    go-importpath: github.com/scaleway/scaleway-cli
