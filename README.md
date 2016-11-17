@@ -1201,13 +1201,13 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### master (unreleased)
+### v1.11.1 (2016-11-17)
 
 * API: try to connect trough the gateway when nc doesn't work
 * API: hotfix region with user images
 * API: fix filter on paginate page
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...v1.11.1)
 
 ### v1.11 (2016-10-27)
 
