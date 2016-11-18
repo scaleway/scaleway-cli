@@ -1203,7 +1203,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-# No entry
+* No entry
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)
 
