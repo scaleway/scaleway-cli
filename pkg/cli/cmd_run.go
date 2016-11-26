@@ -51,7 +51,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runIPV6, []string{"-ipv6"}, false, "Enable IPV6")
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
-	cmdRun.Flag.IntVar(&runSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdRun.Flag.IntVar(&runSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 	// FIXME: handle start --timeout
 }
 

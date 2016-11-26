@@ -31,7 +31,7 @@ func init() {
 	cmdExec.Flag.BoolVar(&execW, []string{"w", "-wait"}, false, "Wait for SSH to be ready")
 	cmdExec.Flag.StringVar(&execGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdExec.Flag.StringVar(&execSSHUser, []string{"-user"}, "root", "Specify SSH user")
-	cmdExec.Flag.IntVar(&execSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdExec.Flag.IntVar(&execSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 }
 
 // Flags

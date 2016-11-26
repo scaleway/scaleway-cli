@@ -17,7 +17,7 @@ func init() {
 	cmdLogs.Flag.BoolVar(&logsHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdLogs.Flag.StringVar(&logsGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdLogs.Flag.StringVar(&logsSSHUser, []string{"-user"}, "root", "Specify SSH user")
-	cmdLogs.Flag.IntVar(&logsSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdLogs.Flag.IntVar(&logsSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 }
 
 // FLags

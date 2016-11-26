@@ -17,7 +17,7 @@ func init() {
 	cmdKill.Flag.BoolVar(&killHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdKill.Flag.StringVar(&killGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdKill.Flag.StringVar(&killSSHUser, []string{"u", "-user"}, "root", "Specify SSH user")
-	cmdKill.Flag.IntVar(&killSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdKill.Flag.IntVar(&killSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 	// FIXME: add --signal option
 }
 

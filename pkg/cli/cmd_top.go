@@ -17,7 +17,7 @@ func init() {
 	cmdTop.Flag.BoolVar(&topHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdTop.Flag.StringVar(&topGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdTop.Flag.StringVar(&topSSHUser, []string{"-user"}, "root", "Specify SSH user")
-	cmdTop.Flag.IntVar(&topSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdTop.Flag.IntVar(&topSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 }
 
 // Flags

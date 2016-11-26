@@ -32,7 +32,7 @@ func init() {
 	cmdCp.Flag.BoolVar(&cpHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCp.Flag.StringVar(&cpGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdCp.Flag.StringVar(&cpSSHUser, []string{"-user"}, "root", "Specify SSH user")
-	cmdCp.Flag.IntVar(&cpSSHPort, []string{"-p", "-port"}, 22, "Specify SSH port")
+	cmdCp.Flag.IntVar(&cpSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 }
 
 // Flags
