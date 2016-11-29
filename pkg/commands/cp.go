@@ -95,7 +95,7 @@ func TarFromSource(ctx CommandContext, source, gateway, user string, port int) (
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway, false)
 		logrus.Debugf("Executing: %s", sshCommand)
 		spawnSrc := exec.Command("ssh", sshCommand.Slice()[1:]...)
 
@@ -195,7 +195,7 @@ func UntarToDest(ctx CommandContext, sourceStream *io.ReadCloser, destination, g
 		}
 
 		// execCmd contains the ssh connection + the remoteCommand
-		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway)
+		sshCommand := utils.NewSSHExecCmd(server.PublicAddress.IP, server.PrivateIP, user, port, false, remoteCommand, gateway, false)
 		logrus.Debugf("Executing: %s", sshCommand)
 		spawnDst := exec.Command("ssh", sshCommand.Slice()[1:]...)
 

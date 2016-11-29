@@ -47,7 +47,7 @@ func RunLogs(ctx CommandContext, args LogsArgs) error {
 	}
 
 	command := []string{"dmesg"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway, false)
 	if err != nil {
 		return fmt.Errorf("command execution failed: %v", err)
 	}
