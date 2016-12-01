@@ -87,7 +87,9 @@ func runPatch(cmd *Command, args []string) error {
 			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.SecurityGroup.Identifier, fieldName, newValue)
 			if currentServer.SecurityGroup.Identifier != newValue {
 				changes++
-				payload.SecurityGroup.Identifier = newValue
+				payload.SecurityGroup = &api.ScalewaySecurityGroup{
+					Identifier: newValue,
+				}
 			}
 		case "tags":
 			newTags := strings.Split(newValue, " ")
