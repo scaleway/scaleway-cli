@@ -793,7 +793,6 @@ Options:
 #### `scw stop`
 
 ```console
-➜  scaleway-cli git:(master) ✗ clear; scw help stop
 Usage: scw stop [OPTIONS] SERVER [SERVER...]
 
 Stop a running server.
@@ -861,7 +860,6 @@ Options:
 #### `scw wait`
 
 ```console
-➜  scaleway-cli git:(master) ✗ clear; scw help wait
 Usage: scw wait [OPTIONS] SERVER [SERVER...]
 
 Block until a server stops.
