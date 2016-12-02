@@ -295,7 +295,7 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   --user=root           Specify SSH user
 
 Examples:
@@ -367,9 +367,10 @@ Run a command on a running server.
 
 Options:
 
+  -A=false              Enable SSH keys forwarding
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   -T, --timeout=0       Set timeout values to seconds
   --user=root           Specify SSH user
   -w, --wait=false      Wait for SSH to be ready
@@ -566,7 +567,7 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   --user=root           Specify SSH user
 ```
 
@@ -582,7 +583,7 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   --user=root           Specify SSH user
 ```
 
@@ -716,7 +717,7 @@ Options:
   --ip-address=""       Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
   --ipv6=false          Enable IPV6
   --name=""             Assign a name
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   --rm=false            Automatically remove the server when it exits
   --show-boot=false     Allows to show the boot
   -T, --timeout=0       Set timeout value to seconds
@@ -839,7 +840,7 @@ Options:
 
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
-  -p, --port=22        Specify SSH port
+  -p, --port=22         Specify SSH port
   --user=root           Specify SSH user
 ```
 
@@ -1201,7 +1202,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### master (unreleased)
 
-
+* cmd: exec, add -A flag to forward ssh keys
 * cmd: fix typo `-p` flag port instead of `--p`
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)

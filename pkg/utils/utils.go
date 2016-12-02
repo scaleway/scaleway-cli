@@ -39,7 +39,7 @@ type SpawnRedirection struct {
 }
 
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command []string, checkConnection bool, gateway string) error {
+func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command []string, checkConnection bool, gateway string, enableSSHKeyForwarding bool) error {
 	gatewayUser := "root"
 	gatewayIPAddress := gateway
 	if strings.Contains(gateway, "@") {
@@ -69,7 +69,7 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command [
 		}
 	}
 
-	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, port, isatty.IsTerminal(os.Stdin.Fd()), command, gateway)
+	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, port, isatty.IsTerminal(os.Stdin.Fd()), command, gateway, enableSSHKeyForwarding)
 
 	log.Debugf("Executing: %s", sshCommand)
 
@@ -81,7 +81,7 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command [
 }
 
 // NewSSHExecCmd computes execve compatible arguments to run a command via ssh
-func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, port int, allocateTTY bool, command []string, gatewayIPAddress string) *sshcommand.Command {
+func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, port int, allocateTTY bool, command []string, gatewayIPAddress string, enableSSHKeyForwarding bool) *sshcommand.Command {
 	quiet := os.Getenv("DEBUG") != "1"
 	secureExec := os.Getenv("SCW_SECURE_EXEC") == "1"
 	sshCommand := &sshcommand.Command{
@@ -93,6 +93,7 @@ func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, port int, all
 		User:                user,
 		NoEscapeCommand:     true,
 		Port:                port,
+		EnableSSHKeyForwarding: enableSSHKeyForwarding,
 	}
 	if gatewayIPAddress != "" {
 		sshCommand.Host = privateIPAddress

@@ -45,7 +45,7 @@ func RunPort(ctx CommandContext, args PortArgs) error {
 	}
 
 	command := []string{"netstat -lutn 2>/dev/null | grep LISTEN"}
-	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway)
+	err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, command, true, gateway, false)
 	if err != nil {
 		return fmt.Errorf("command execution failed: %v", err)
 	}
