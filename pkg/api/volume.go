@@ -7,6 +7,15 @@ import (
 	"net/url"
 )
 
+type VolumeAPI interface {
+	DeleteVolume(volumeID string) error
+	GetVolumes() (*[]ScalewayVolume, error)
+	GetVolume(volumeID string) (*ScalewayVolume, error)
+	PostVolume(definition ScalewayVolumeDefinition) (string, error)
+	PutVolume(volumeID string, definition ScalewayVolumePutDefinition) error
+	ResolveVolume(needle string) (ScalewayResolverResults, error)
+}
+
 // DeleteVolume deletes a volume
 func (s *ScalewayAPI) DeleteVolume(volumeID string) error {
 	defer s.Cache.RemoveVolume(volumeID)

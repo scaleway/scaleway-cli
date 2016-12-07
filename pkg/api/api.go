@@ -58,6 +58,16 @@ const (
 	perPage = 50
 )
 
+type API interface {
+	BootscriptsAPI
+	ImagesAPI
+	IPAPI
+	SecurityAPI
+	ServerAPI
+	UserAPI
+	VolumeAPI
+}
+
 // ScalewayAPI is the interface used to communicate with the Scaleway API
 type ScalewayAPI struct {
 	// Organization is the identifier of the Scaleway organization

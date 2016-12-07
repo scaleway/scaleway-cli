@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+type UserAPI interface {
+	PatchUserSSHKey(UserID string, definition ScalewayUserPatchSSHKeyDefinition) error
+}
+
 // PatchUserSSHKey updates a user
 func (s *ScalewayAPI) PatchUserSSHKey(UserID string, definition ScalewayUserPatchSSHKeyDefinition) error {
 	resp, err := s.PatchResponse(AccountAPI, fmt.Sprintf("users/%s", UserID), definition)

@@ -7,6 +7,15 @@ import (
 	"net/url"
 )
 
+type IPAPI interface {
+	GetIPS() (*ScalewayGetIPS, error)
+	NewIP() (*ScalewayGetIP, error)
+	AttachIP(ipID, serverID string) error
+	DetachIP(ipID string) error
+	DeleteIP(ipID string) error
+	GetIP(ipID string) (*ScalewayGetIP, error)
+}
+
 // GetIPS returns a ScalewayGetIPS
 func (s *ScalewayAPI) GetIPS() (*ScalewayGetIPS, error) {
 	resp, err := s.GetResponsePaginate(s.computeAPI, "ips", url.Values{})

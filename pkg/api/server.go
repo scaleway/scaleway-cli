@@ -19,6 +19,21 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+type ServerAPI interface {
+	GetServer(serverID string) (*ScalewayServer, error)
+	GetServers(all bool, limit int) (*[]ScalewayServer, error)
+	PostServer(definition ScalewayServerDefinition) (string, error)
+	PostServerAction(serverID, action string) error
+	DeleteServer(serverID string) error
+
+	PatchServer(serverID string, definition ScalewayServerPatchDefinition) error
+	ResolveServer(needle string) (ScalewayResolverResults, error)
+	GetUserdatas(serverID string, metadata bool) (*ScalewayUserdatas, error)
+	GetUserdata(serverID, key string, metadata bool) (*ScalewayUserdata, error)
+	PatchUserdata(serverID, key string, value []byte, metadata bool) error
+	DeleteUserdata(serverID, key string, metadata bool) error
+}
+
 func (s *ScalewayAPI) fetchServers(api string, query url.Values, out chan<- ScalewayServers) func() error {
 	return func() error {
 		resp, err := s.GetResponsePaginate(api, "servers", query)

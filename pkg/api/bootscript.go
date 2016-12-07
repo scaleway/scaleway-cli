@@ -7,6 +7,11 @@ import (
 	"net/url"
 )
 
+type BootscriptsAPI interface {
+	GetBootscripts() (*[]ScalewayBootscript, error)
+	GetBootscript(id string) (*ScalewayBootscript, error)
+}
+
 // ResolveBootscript attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveBootscript(needle string) (ScalewayResolverResults, error) {
 	bootscripts, err := s.Cache.LookUpBootscripts(needle, true)
@@ -20,6 +25,25 @@ func (s *ScalewayAPI) ResolveBootscript(needle string) (ScalewayResolverResults,
 		bootscripts, err = s.Cache.LookUpBootscripts(needle, true)
 	}
 	return bootscripts, err
+}
+
+// GetBootscriptID returns exactly one bootscript matching
+func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
+	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
+	_, needle = parseNeedle(needle)
+
+	bootscripts, err := s.ResolveBootscript(needle)
+	if err != nil {
+		return "", fmt.Errorf("Unable to resolve bootscript %s: %s", needle, err)
+	}
+	bootscripts.FilterByArch(arch)
+	if len(bootscripts) == 1 {
+		return bootscripts[0].Identifier, nil
+	}
+	if len(bootscripts) == 0 {
+		return "", fmt.Errorf("No such bootscript: %s", needle)
+	}
+	return "", showResolverResults(needle, bootscripts)
 }
 
 // GetBootscripts gets the list of bootscripts from the ScalewayAPI
@@ -69,23 +93,4 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 	// FIXME region, arch, owner, title
 	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
-}
-
-// GetBootscriptID returns exactly one bootscript matching
-func (s *ScalewayAPI) GetBootscriptID(needle, arch string) (string, error) {
-	// Parses optional type prefix, i.e: "bootscript:name" -> "name"
-	_, needle = parseNeedle(needle)
-
-	bootscripts, err := s.ResolveBootscript(needle)
-	if err != nil {
-		return "", fmt.Errorf("Unable to resolve bootscript %s: %s", needle, err)
-	}
-	bootscripts.FilterByArch(arch)
-	if len(bootscripts) == 1 {
-		return bootscripts[0].Identifier, nil
-	}
-	if len(bootscripts) == 0 {
-		return "", fmt.Errorf("No such bootscript: %s", needle)
-	}
-	return "", showResolverResults(needle, bootscripts)
 }

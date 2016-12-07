@@ -7,6 +7,27 @@ import (
 	"net/url"
 )
 
+type ImagesAPI interface {
+	GetImages() (*[]MarketImage, error)
+	GetImage(id string) (*ScalewayImage, error)
+	PostImage(volumeID string, name string, bootscript string, arch string) (string, error)
+
+	GetMarketPlaceImages(uuidImage string) (*MarketImages, error)
+	PostMarketPlaceImage(images MarketImage) error
+	PutMarketPlaceImage(uudiImage string, images MarketImage) error
+	DeleteMarketPlaceImage(uudImage string) error
+
+	GetMarketPlaceImageVersions(uuidImage, uuidVersion string) (*MarketVersions, error)
+	PostMarketPlaceImageVersion(uuidImage string, version MarketVersion) error
+	PutMarketPlaceImageVersion(uuidImage, uuidVersion string, version MarketVersion) error
+	DeleteMarketPlaceImageVersion(uuidImage, uuidVersion string) error
+
+	GetMarketPlaceLocalImages(uuidImage, uuidVersion, uuidLocalImage string) (*MarketLocalImages, error)
+	PostMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error
+	PutMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string, local MarketLocalImage) error
+	DeleteMarketPlaceLocalImage(uuidImage, uuidVersion, uuidLocalImage string) error
+}
+
 // ResolveImage attempts to find a matching Identifier for the input string
 func (s *ScalewayAPI) ResolveImage(needle string) (ScalewayResolverResults, error) {
 	images, err := s.Cache.LookUpImages(needle, true)

@@ -7,6 +7,20 @@ import (
 	"net/url"
 )
 
+type SecurityAPI interface {
+	GetSecurityGroups() (*ScalewayGetSecurityGroups, error)
+	GetASecurityGroup(groupsID string) (*ScalewayGetSecurityGroup, error)
+	PutSecurityGroup(group ScalewayUpdateSecurityGroup, securityGroupID string) error
+	PostSecurityGroup(group ScalewayNewSecurityGroup) error
+	DeleteSecurityGroup(securityGroupID string) error
+
+	GetSecurityGroupRules(groupID string) (*ScalewayGetSecurityGroupRules, error)
+	GetASecurityGroupRule(groupID string, rulesID string) (*ScalewayGetSecurityGroupRule, error)
+	PostSecurityGroupRule(SecurityGroupID string, rules ScalewayNewSecurityGroupRule) error
+	PutSecurityGroupRule(rules ScalewayNewSecurityGroupRule, securityGroupID, RuleID string) error
+	DeleteSecurityGroupRule(SecurityGroupID, RuleID string) error
+}
+
 // GetSecurityGroups returns a ScalewaySecurityGroups
 func (s *ScalewayAPI) GetSecurityGroups() (*ScalewayGetSecurityGroups, error) {
 	resp, err := s.GetResponsePaginate(s.computeAPI, "security_groups", url.Values{})

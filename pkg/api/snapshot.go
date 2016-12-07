@@ -7,6 +7,13 @@ import (
 	"net/url"
 )
 
+type SnapshotAPI interface {
+	DeleteSnapshot(snapshotID string) error
+	GetSnapshots() (*[]ScalewaySnapshot, error)
+	GetSnapshot(snapshotID string) (*ScalewaySnapshot, error)
+	PostSnapshot(volumeID string, name string) (string, error)
+}
+
 // DeleteSnapshot deletes a snapshot
 func (s *ScalewayAPI) DeleteSnapshot(snapshotID string) error {
 	defer s.Cache.RemoveSnapshot(snapshotID)
