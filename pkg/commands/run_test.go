@@ -8,7 +8,7 @@ func ExampleRun() {
 	ctx := testCommandContext()
 	args := RunArgs{
 		Image:          "ubuntu-trusty",
-		CommercialType: "VC1S",
+		CommercialType: "X64-2GB",
 	}
 	Run(ctx, args)
 }
@@ -23,7 +23,7 @@ func ExampleRun_complex() {
 		Gateway:        "my-gateway",
 		Image:          "ubuntu-trusty",
 		Name:           "my-test-server",
-		CommercialType: "VC1S",
+		CommercialType: "X64-2GB",
 		Tags:           []string{"testing", "fake"},
 		Volumes:        []string{"50G", "1G"},
 	}

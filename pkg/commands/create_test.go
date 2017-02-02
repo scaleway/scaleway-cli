@@ -63,7 +63,7 @@ func TestRunCreate_realAPI(t *testing.T) {
 			args := CreateArgs{
 				Name:           "unittest-create-standard",
 				Image:          "wily",
-				CommercialType: "VC1S",
+				CommercialType: "X64-2GB",
 				IP:             "dynamic",
 			}
 
