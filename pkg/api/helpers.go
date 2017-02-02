@@ -337,12 +337,12 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		server.Tags = strings.Split(c.Env, " ")
 	}
 	switch c.CommercialType {
-	case "VC1M":
+	case "VC1M", "X64-4GB":
 		if c.AdditionalVolumes == "" {
 			c.AdditionalVolumes = "50G"
 			log.Debugf("This server needs a least 50G")
 		}
-	case "VC1L":
+	case "VC1L", "X64-8GB":
 		if c.AdditionalVolumes == "" {
 			c.AdditionalVolumes = "150G"
 			log.Debugf("This server needs a least 150G")
