@@ -1204,6 +1204,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 * cmd: exec, add -A flag to forward ssh keys
 * cmd: fix typo `-p` flag port instead of `--p`
+* API: add new commercial type
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11...master)
 
