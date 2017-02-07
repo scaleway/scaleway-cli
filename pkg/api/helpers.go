@@ -337,15 +337,25 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		server.Tags = strings.Split(c.Env, " ")
 	}
 	switch c.CommercialType {
-	case "VC1M":
+	case "VC1M", "X64-4GB":
 		if c.AdditionalVolumes == "" {
 			c.AdditionalVolumes = "50G"
 			log.Debugf("This server needs a least 50G")
 		}
-	case "VC1L":
+	case "VC1L", "X64-8GB":
 		if c.AdditionalVolumes == "" {
 			c.AdditionalVolumes = "150G"
 			log.Debugf("This server needs a least 150G")
+		}
+	case "X64-60GB":
+		if c.AdditionalVolumes == "" {
+			c.AdditionalVolumes = "50G 150G 150G"
+			log.Debugf("This server needs a least 400G")
+		}
+	case "X64-120GB":
+		if c.AdditionalVolumes == "" {
+			c.AdditionalVolumes = "150G 150G 150G"
+			log.Debugf("This server needs a least 500G")
 		}
 	}
 	if c.AdditionalVolumes != "" {
@@ -366,7 +376,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		switch server.CommercialType[:2] {
 		case "C1":
 			arch = "arm"
-		case "C2", "VC":
+		case "C2", "VC", "X6":
 			arch = "x86_64"
 		default:
 			return "", fmt.Errorf("%s wrong commercial type", server.CommercialType)

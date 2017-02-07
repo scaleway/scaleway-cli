@@ -45,7 +45,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
-	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "VC1S", "Start a server with specific commercial-type C1, VC1[S|M|L], C2[S|M|L]")
+	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "X64-2GB", "Start a server with specific commercial-type C1, X64-[2|4|8|60|120]GB, C2[S|M|L]")
 	cmdRun.Flag.StringVar(&runSSHUser, []string{"-user"}, "root", "Specify SSH User")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	cmdRun.Flag.BoolVar(&runIPV6, []string{"-ipv6"}, false, "Enable IPV6")
