@@ -259,6 +259,10 @@ func RunImages(ctx CommandContext, args ImagesArgs) error {
 				image.Archs = []string{"n/a"}
 			}
 			sort.Strings(image.Archs)
+			if len(image.Region) == 1 {
+				image.Region = append(image.Region, "    ")
+			}
+			sort.Strings(image.Region)
 			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%v\n", shortName, tag, shortID, creationDate, image.Region, image.Archs)
 		}
 
