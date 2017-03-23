@@ -326,7 +326,7 @@ Create a new server but do not start it.
 Options:
 
   --bootscript=""           Assign a bootscript
-  --commercial-type=X64-2GB Create a server with specific commercial-type C1, X64-[2|4|8|60|120]GB, C2[S|M|L]
+  --commercial-type=X64-2GB Create a server with specific commercial-type C1, X64-[2|4|8|15|30|60|120]GB, C2[S|M|L]
   -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -h, --help=false          Print usage
   --ip-address=dynamic      Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -709,7 +709,7 @@ Options:
 
   -a, --attach=false        Attach to serial console
   --bootscript=""           Assign a bootscript
-  --commercial-type=X64-2GB Start a server with specific commercial-type C1, X64-[2|4|8|60|120]GB, C2[S|M|L]
+  --commercial-type=X64-2GB Start a server with specific commercial-type C1, X64-[2|4|8|15|30|60|120]GB, C2[S|M|L]
   -d, --detach=false        Run server in background and print server ID
   -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""          Use a SSH gateway
