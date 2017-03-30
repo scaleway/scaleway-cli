@@ -4,7 +4,7 @@ class Scw < Formula
   desc "Manage BareMetal Servers from Command Line (as easily as with Docker)"
   homepage "https://github.com/scaleway/scaleway-cli"
   url "https://github.com/scaleway/scaleway-cli/archive/v1.12.tar.gz"
-  sha256 "a63f73d6781498bd438381f223eea47b47cb49bc0a93cf0b639042cecc48c91a"
+  sha256 "7a23ef6960fe280dd19f8e2e9b0fff6ffaf4b8446ddc7833b530901875652e2e"
   version "1.12"
 
   head "https://github.com/scaleway/scaleway-cli.git"
