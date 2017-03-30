@@ -1200,6 +1200,13 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### v1.12+dev (unreleased)
+
+This is the current development version. Update below with your changes. Remove
+this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.12...master)
+
 ### v1.12 (2017-03-30)
 
 * cmd: exec, add -A flag to forward ssh keys
@@ -1207,7 +1214,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 * API: add new commercial type
 * cmd: add new commercial type
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.12...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.11.1...v1.12)
 
 ### v1.11.1 (2016-11-17)
 
