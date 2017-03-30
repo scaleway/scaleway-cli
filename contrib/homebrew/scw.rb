@@ -3,9 +3,9 @@ require "language/go"
 class Scw < Formula
   desc "Manage BareMetal Servers from Command Line (as easily as with Docker)"
   homepage "https://github.com/scaleway/scaleway-cli"
-  url "https://github.com/scaleway/scaleway-cli/archive/v1.11.tar.gz"
-  sha256 "4d27d0b0dc0dc28dd8df36c10e4afc7e3f884b26926dcdf7b889525025209ff6"
-  version "1.11"
+  url "https://github.com/scaleway/scaleway-cli/archive/v1.12.tar.gz"
+  sha256 "a63f73d6781498bd438381f223eea47b47cb49bc0a93cf0b639042cecc48c91a"
+  version "1.12"
 
   head "https://github.com/scaleway/scaleway-cli.git"
 
