@@ -65,10 +65,6 @@ test: $(TEST_LIST)
 fmt: $(FMT_LIST)
 
 
-.git:
-	touch $@
-
-
 $(BUILD_LIST): %_build: %_fmt
 	@go tool vet --all=true $(SOURCES)
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
