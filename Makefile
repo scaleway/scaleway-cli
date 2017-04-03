@@ -9,18 +9,19 @@ GOTEST ?=	$(GO) test $(GOTESTFLAGS)
 GOFMT ?=	gofmt -w -s
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
-FPM_VERSION ?=	$(shell ./dist/scw-Darwin-i386 --version | sed 's/.*v\([0-9.]*\),.*/\1/g')
-FPM_DOCKER ?=	\
+
+# FPM is a simple way to create debian/rpm/... packages.
+FPM_DOCKER =	\
 	-it --rm \
-	-v $(PWD)/dist:/output \
+	-v $(PWD)/dist/latest:/output \
 	-w /output \
-	tenzer/fpm fpm
-FPM_ARGS ?=	\
+	tenzer/fpm
+
+FPM_ARGS =	\
 	-C /input/ \
 	-s dir \
 	--name=scw \
 	--no-depends \
-	--version=$(FPM_VERSION) \
 	--license=mit \
 	-m "Scaleway <opensource@scaleway.com>"
 
@@ -32,9 +33,7 @@ COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
 REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
 REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
-VERSION =	$(shell cat .goxc.json | grep "PackageVersion" | egrep -o "([0-9]{1,}\.)+[0-9]{1,}")
 REV =		$(shell git rev-parse --short HEAD || echo "nogit")
-TAG =		$(shell git describe --tags --always || echo $(VERSION) || echo "nogit")
 LDFLAGS = "-X `go list ./pkg/scwversion`.GITCOMMIT=$(REV) -s"
 BUILDER =	scaleway-cli-builder
 
@@ -65,71 +64,63 @@ test: $(TEST_LIST)
 fmt: $(FMT_LIST)
 
 
-.git:
-	touch $@
-
-
 $(BUILD_LIST): %_build: %_fmt
 	@go tool vet --all=true $(SOURCES)
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
+
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
+
 $(INSTALL_LIST): %_install:
 	$(GOINSTALL) $(subst $(GODIR),./,$*)
+
 $(TEST_LIST): %_test:
 	$(GOTEST) -ldflags $(LDFLAGS) -v $(subst $(GODIR),.,$*)
+
 $(FMT_LIST): %_fmt:
 	@$(GOFMT) $(SOURCES)
 
+prepare-release: build
+	### Prepare dist/ directory ###
+	$(eval VERSION := $(shell ./scw version | sed -n 's/Client version: v\(.*\)/\1/p'))
+	rm -rf dist/$(VERSION)
+	rm -rf dist/latest
+	mkdir -p dist/$(VERSION)
+	ln -s -f $(VERSION) dist/latest
 
+	### Cross compile scaleway-cli ###
+	GOOS=linux  GOARCH=386    go build -o dist/latest/scw-linux-i386        github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=linux  GOARCH=amd64  go build -o dist/latest/scw-linux-amd64       github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=linux  GOARCH=arm    go build -o dist/latest/scw-linux-arm         github.com/scaleway/scaleway-cli/cmd/scw
 
-release-docker:
-	docker push scaleway/cli
+	GOOS=darwin  GOARCH=386   go build -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=darwin  GOARCH=amd64 go build -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
 
+	GOOS=freebsd GOARCH=386   go build -o dist/latest/scw-freebsd-i386      github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=freebsd GOARCH=amd64 go build -o dist/latest/scw-freebsd-amd64     github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=freebsd GOARCH=arm   go build -o dist/latest/scw-freebsd-arm       github.com/scaleway/scaleway-cli/cmd/scw
 
-goxc:
-	rm -rf dist/$(shell cat .goxc.json| jq -r .PackageVersion)
-	rm -f dist/latest
-	mkdir -p dist/$(shell cat .goxc.json| jq -r .PackageVersion)
-	ln -s -f $(shell cat .goxc.json| jq -r .PackageVersion) dist/latest
+	GOOS=netbsd GOARCH=386    go build -o dist/latest/scw-netbsd-i386       github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=netbsd GOARCH=amd64  go build -o dist/latest/scw-netbsd-amd64      github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=netbsd GOARCH=arm    go build -o dist/latest/scw-netbsd-arm        github.com/scaleway/scaleway-cli/cmd/scw
 
-	$(GOENV) goxc -build-ldflags $(LDFLAGS)
+	GOOS=windows GOARCH=386   go build -o dist/latest/scw-windows-i386.exe  github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=windows GOARCH=amd64 go build -o dist/latest/scw-windows-amd64.exe github.com/scaleway/scaleway-cli/cmd/scw
 
-	-mv dist/latest/darwin_386/scw         dist/latest/scw-Darwin-i386
-	-mv dist/latest/darwin_amd64/scw       dist/latest/scw-Darwin-amd64
-	-mv dist/latest/freebsd_386/scw        dist/latest/scw-Freebsd-i386
-	-mv dist/latest/freebsd_amd64/scw      dist/latest/scw-Freebsd-x86_64
-	-mv dist/latest/freebsd_arm/scw        dist/latest/scw-Freebsd-arm
-	-mv dist/latest/linux_386/scw          dist/latest/scw-Linux-i386
-	-mv dist/latest/linux_amd64/scw        dist/latest/scw-Linux-x86_64
-	-mv dist/latest/linux_arm/scw          dist/latest/scw-Linux-arm
-	-mv dist/latest/netbsd_386/scw         dist/latest/scw-Netbsd-i386
-	-mv dist/latest/netbsd_amd64/scw       dist/latest/scw-Netbsd-x86_64
-	-mv dist/latest/netbsd_arm/scw         dist/latest/scw-Netbsd-arm
-	-mv dist/latest/windows_386/scw.exe    dist/latest/scw-Windows-i386.exe
-	-mv dist/latest/windows_amd64/scw.exe  dist/latest/scw-Windows-x86_64.exe
-
-	-cp dist/latest/scw-Linux-arm dist/latest/scw-Linux-armv7l
-
-	@rmdir dist/latest/* || true
-
-	docker run --rm golang tar -cf - /etc/ssl > dist/latest/ssl.tar
+	### Prepare scaleway-cli Docker image ###
+	docker run --rm golang tar -cf - /etc/ssl > dist/ssl.tar
 	docker build -t scaleway/cli dist
 	docker run scaleway/cli version
-	docker tag -f scaleway/cli:latest scaleway/cli:$(TAG)
+	docker tag scaleway/cli:latest scaleway/cli:$(TAG)
 
-	@echo "Now you can run 'goxc publish-github', 'goxc bintray' and 'make release-docker'"
+	### Build debian packages ###
+	docker run -v $(PWD)/dist/latest/scw-linux-amd64:/input/usr/bin/scw $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a x86_64 ./
+	docker run -v $(PWD)/dist/latest/scw-linux-i386:/input/usr/bin/scw  $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a i386 ./
+	docker run -v $(PWD)/dist/latest/scw-linux-arm:/input/usr/bin/scw   $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm ./
 
-
-packages:
-	rm -f dist/*.deb
-	docker run -v $(PWD)/dist/scw-Linux-x86_64:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a x86_64 ./
-	docker run -v $(PWD)/dist/scw-Linux-i386:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a i386 ./
-	docker run -v $(PWD)/dist/scw-Linux-arm:/input/scw $(FPM_DOCKER) $(FPM_ARGS) -t deb -a arm ./
-
-
-#publish_packages:
-#	docker run -v $(PWD)/dist moul/dput ppa:moul/scw dist/scw_$(FPM_VERSION)_arm.changes
+	### DONE ###
+	@echo "Release files have been created into dist/latest. See MAINTAINERS.md."
+	@echo "The scaleway-cli Docker image has been created. See MAINTAINERS.md."
 
 
 .PHONY: golint
