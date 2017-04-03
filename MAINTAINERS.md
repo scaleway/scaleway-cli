@@ -64,7 +64,7 @@ at the latest version available. This file needs to be updated.
 
 ```
 $> echo '42.8' > VERSION
-$> s3cmd put VERSION s3://scaleway/scaleway-cli/VERSION
+$> s3cmd put VERSION s3://scaleway/scaleway-cli/VERSION --acl-public
 # Ensure it's at the latest version
 $> curl https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION
 # Should display "42.8".
