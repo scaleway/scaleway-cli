@@ -1,9 +1,2 @@
-# Run in Docker
-
-You can run scaleway-cli in a sandboxed way using Docker.
-
-**warning: caching is disabled**
-
-```console
-$ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
-```
+This directory is used when preparing a new release of scaleway-cli. See
+[MAINTAINERS.md](../MAINTAINERS.md) for more details.
