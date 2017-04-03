@@ -112,7 +112,7 @@ goxc:
 	docker run --rm golang tar -cf - /etc/ssl > dist/latest/ssl.tar
 	docker build -t scaleway/cli dist
 	docker run scaleway/cli version
-	docker tag -f scaleway/cli:latest scaleway/cli:$(TAG)
+	docker tag scaleway/cli:latest scaleway/cli:$(TAG)
 
 	@echo "Now you can run 'goxc publish-github', 'goxc bintray' and 'make release-docker'"
 
