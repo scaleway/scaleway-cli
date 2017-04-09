@@ -1188,6 +1188,9 @@ func (s ScalewaySortServers) Less(i, j int) bool {
 
 // GetServer gets a server from the ScalewayAPI
 func (s *ScalewayAPI) GetServer(serverID string) (*ScalewayServer, error) {
+	if serverID == "" {
+		return nil, fmt.Errorf("cannot get server without serverID")
+	}
 	resp, err := s.GetResponsePaginate(s.computeAPI, "servers/"+serverID, url.Values{})
 	if err != nil {
 		return nil, err
