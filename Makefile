@@ -33,7 +33,7 @@ COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
 PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
 REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
 REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
-REV =		$(shell git rev-parse --short HEAD || echo "nogit")
+REV =		$(shell git rev-parse --short HEAD 2>/dev/null || echo "nogit")
 LDFLAGS = "-X `go list ./pkg/scwversion`.GITCOMMIT=$(REV) -s"
 BUILDER =	scaleway-cli-builder
 
