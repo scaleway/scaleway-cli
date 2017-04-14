@@ -52,6 +52,12 @@ func init() {
 	if url := os.Getenv("SCW_MARKETPLACE_API"); url != "" {
 		MarketplaceAPI = url
 	}
+	if url := os.Getenv("SCW_COMPUTE_PAR1_API"); url != "" {
+		ComputeAPIPar1 = url
+	}
+	if url := os.Getenv("SCW_COMPUTE_AMS1_API"); url != "" {
+		ComputeAPIAms1 = url
+	}
 }
 
 const (
