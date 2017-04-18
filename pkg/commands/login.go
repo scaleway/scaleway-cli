@@ -9,8 +9,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -84,25 +86,86 @@ func selectKey(args *LoginArgs) error {
 	return nil
 }
 
-func getToken(connect api.ScalewayConnect) (string, error) {
+func postToken(connect api.ScalewayConnectInterface) (*http.Response, error) {
 	FakeConnection, err := api.NewScalewayAPI("", "", scwversion.UserAgent(), "", clilogger.SetupLogger)
 	if err != nil {
-		return "", fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
+		return nil, fmt.Errorf("Unable to create a fake ScalewayAPI: %s", err)
 	}
-	FakeConnection.SetPassword(connect.Password)
+	FakeConnection.SetPassword(connect.GetPassword())
 
 	resp, err := FakeConnection.PostResponse(api.AccountAPI, "tokens", connect)
-	if resp != nil {
-		defer resp.Body.Close()
-	}
+	return resp, err
+}
+
+func getToken(connect api.ScalewayConnect) (string, error) {
+	var resp *http.Response
+	var err error
+
+	resp, err = postToken(&connect)
 	if err != nil {
-		return "", fmt.Errorf("unable to connect %v", err)
+		return "", err
 	}
 
-	// Succeed POST code
+	defer resp.Body.Close()
+
+	// HTTP/403 error: check if the error is a 2FA_error. If it is, we need to
+	// provide a 2FA_token or a 2FA_backup_code to complete authentication.
+	if resp.StatusCode == 403 {
+		var data api.ScalewayAPIError
+
+		decoder := json.NewDecoder(resp.Body)
+		err = decoder.Decode(&data)
+		if err != nil {
+			return "", err
+		}
+
+		if data.Type == "2FA_error" {
+			authToken := ""
+
+			if err = promptUser("Two-Factor auth token (or backup code): ", &authToken, true); err != nil {
+				return "", err
+			}
+
+			// If the input contains a letter, consider it is a backup code.
+			// Otherwise consider it's an OTP.
+			isBackupCode, err := regexp.MatchString("[a-zA-Z]", authToken)
+			if err != nil {
+				return "", err
+			}
+
+			authToken = strings.Trim(authToken, "\r\n")
+
+			if isBackupCode {
+				resp, err = postToken(
+					&api.ScalewayConnectByBackupCode{
+						ScalewayConnect: connect,
+						TwoFABackupCode: authToken})
+			} else {
+				resp, err = postToken(
+					&api.ScalewayConnectByOTP{
+						ScalewayConnect: connect,
+						TwoFAToken:      authToken})
+			}
+
+			if err != nil {
+				return "", err
+			}
+			defer resp.Body.Close()
+
+			if resp.StatusCode != 201 {
+				if isBackupCode {
+					return "", fmt.Errorf("[%d] Invalid backup code. Maybe it has already been used?", resp.StatusCode)
+				}
+				return "", fmt.Errorf("[%d] Invalid OTP token", resp.StatusCode)
+			}
+		}
+	}
+
+	// Either non HTTP/403 error or HTTP/403 error different from "2FA_error".
 	if resp.StatusCode != 201 {
 		return "", fmt.Errorf("[%d] maybe your email or your password is not valid", resp.StatusCode)
 	}
+
 	var data api.ScalewayConnectResponse
 
 	decoder := json.NewDecoder(resp.Body)

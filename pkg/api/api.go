@@ -714,6 +714,26 @@ type ScalewayConnect struct {
 	Expires     bool   `json:"expires"`
 }
 
+// ScalewayConnectInterface is the interface implemented by ScalewayConnect,
+// ScalewayConnectByOTP and ScalewayConnectByBackupCode
+type ScalewayConnectInterface interface {
+	GetPassword() string
+}
+
+func (s *ScalewayConnect) GetPassword() string {
+	return s.Password
+}
+
+type ScalewayConnectByOTP struct {
+	ScalewayConnect
+	TwoFAToken string `json:"2FA_token"`
+}
+
+type ScalewayConnectByBackupCode struct {
+	ScalewayConnect
+	TwoFABackupCode string `json:"2FA_backup_code"`
+}
+
 // ScalewayOrganizationDefinition represents a Scaleway Organization
 type ScalewayOrganizationDefinition struct {
 	ID    string                   `json:"id"`
