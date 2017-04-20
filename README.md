@@ -326,7 +326,7 @@ Create a new server but do not start it.
 Options:
 
   --bootscript=""           Assign a bootscript
-  --commercial-type=X64-2GB Create a server with specific commercial-type C1, X64-[2|4|8|15|30|60|120]GB, C2[S|M|L]
+  --commercial-type=X64-2GB Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
   -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -h, --help=false          Print usage
   --ip-address=dynamic      Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -709,7 +709,7 @@ Options:
 
   -a, --attach=false        Attach to serial console
   --bootscript=""           Assign a bootscript
-  --commercial-type=X64-2GB Start a server with specific commercial-type C1, X64-[2|4|8|15|30|60|120]GB, C2[S|M|L]
+  --commercial-type=X64-2GB Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
   -d, --detach=false        Run server in background and print server ID
   -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""          Use a SSH gateway
@@ -1204,6 +1204,7 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 This is the current development version. Update below with your changes. Remove
 this line when releasing the package.
+* Add new ARM64 offers
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.12...master)
 
