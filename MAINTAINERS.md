@@ -42,7 +42,12 @@ during the previous step.
   256`.
 * Clone the homebrew Github repository: `git clone
   git@github.com:Homebrew/brew.git` to you personal account.
-* Edit *Formula/scw.rb* and fix the *url* and the *sha256* on top of the file.
+* Edit *Formula/scw.rb* and fix the *url* and the *sha256* **on top** of the
+  file. You don't need to edit the SHAsums below. They will be updated
+  automatically by Homebrew maintainers when the PR will be merged.
+* Ensure the formula works: `brew install --build-from-source /path/to/scw.rb`.
+  You will probably need to uninstall your current installation of scaleway-cli
+  before installing the formula.
 * Make a pull request from your repository to
   [homebrew](https://github.com/Homebrew/homebrew-core) to make your new
   version official.
