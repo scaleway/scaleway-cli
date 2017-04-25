@@ -28,9 +28,13 @@ FPM_ARGS =	\
 
 NAME =		scw
 
-SOURCES :=	$(shell find ./pkg ./cmd -type f -name "*.go" | grep -v "_test.go$$")
-COMMANDS :=	$(shell go list ./... | grep -v /vendor/ | grep /cmd/)
-PACKAGES :=	$(shell go list ./... | grep -v /vendor/ | grep -v /cmd/)
+rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
+
+SOURCES :=	$(call rwildcard,./pkg ./cmd,*.go)
+COMMANDS :=	$(call uniq,$(dir $(call rwildcard,./cmd/,*.go)))
+PACKAGES :=	$(call uniq,$(dir $(call rwildcard,./pkg/,*.go))) .
+
 REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
 REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
 REV =		$(shell git rev-parse --short HEAD 2>/dev/null || echo "nogit")
@@ -65,8 +69,8 @@ fmt: $(FMT_LIST)
 
 
 $(BUILD_LIST): %_build: %_fmt
-	@go tool vet --all=true $(SOURCES)
-	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) $(subst $(GODIR),.,$*)
+	@go tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go)
+	$(GOBUILD) -i -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
 
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
