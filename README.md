@@ -1200,6 +1200,13 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### v1.13+dev (unreleased)
+
+This is the current development version. Update below with your changes. Remove
+this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.13...master)
+
 ### v1.13 (2017-05-10)
 
 * Add new ARM64 offers
