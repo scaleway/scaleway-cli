@@ -70,7 +70,7 @@ fmt: $(FMT_LIST)
 
 $(BUILD_LIST): %_build: %_fmt
 	@go tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go)
-	$(GOBUILD) -i -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
+	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
 
 $(CLEAN_LIST): %_clean:
 	$(GOCLEAN) $(subst $(GODIR),./,$*)
@@ -84,7 +84,7 @@ $(TEST_LIST): %_test:
 $(FMT_LIST): %_fmt:
 	@$(GOFMT) $(SOURCES)
 
-prepare-release: build
+prepare-release-dist: build
 	### Prepare dist/ directory ###
 	$(eval VERSION := $(shell ./scw version | sed -n 's/Client version: v\(.*\)/\1/p'))
 	rm -rf dist/$(VERSION)
@@ -111,20 +111,20 @@ prepare-release: build
 	GOOS=windows GOARCH=386   go build -o dist/latest/scw-windows-i386.exe  github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=windows GOARCH=amd64 go build -o dist/latest/scw-windows-amd64.exe github.com/scaleway/scaleway-cli/cmd/scw
 
+prepare-release-docker-image: dist/latest/scw-linux-i386
+	@echo ${VERSION} | grep -qv 'v' || ( echo "ERROR: VERSION not set or contains a leading 'v'" >&2 && exit 1 )
 	### Prepare scaleway-cli Docker image ###
 	docker run --rm golang tar -cf - /etc/ssl > dist/ssl.tar
 	docker build -t scaleway/cli dist
 	docker run scaleway/cli version
-	docker tag scaleway/cli:latest scaleway/cli:$(TAG)
+	docker tag scaleway/cli:latest scaleway/cli:v$(VERSION)
 
+prepare-release-debian-packages: dist/latest/scw-linux-amd64 dist/latest/scw-linux-i386 dist/latest/scw-linux-arm
+	@echo ${VERSION} | grep -qv 'v' || ( echo "ERROR: VERSION not set or contains a leading 'v'" >&2 && exit 1 )
 	### Build debian packages ###
 	docker run -v $(PWD)/dist/latest/scw-linux-amd64:/input/usr/bin/scw $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a x86_64 ./
 	docker run -v $(PWD)/dist/latest/scw-linux-i386:/input/usr/bin/scw  $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a i386 ./
 	docker run -v $(PWD)/dist/latest/scw-linux-arm:/input/usr/bin/scw   $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm ./
-
-	### DONE ###
-	@echo "Release files have been created into dist/latest. See MAINTAINERS.md."
-	@echo "The scaleway-cli Docker image has been created. See MAINTAINERS.md."
 
 
 .PHONY: golint

@@ -24,15 +24,15 @@ For the sake of the example, we assume you want to release the version `42.8`.
 
 * [Draft a new release](https://github.com/scaleway/scaleway-cli/releases) on
   Github.
-* Build release files: `make prepare-release`.
-* Upload the generated files in *dist/42.8/* to github.
-* Publish the release.
+* Build cross-compiled files: `make prepare-release-dist`.
+* Build debian packages: `make prepare-release-debian-packages VERSION=42.8`.
+  **The VERSION should not include the leading "v"**.
+* Upload the generated files in `dist/latest` and publish the release.
 
 ### Docker image
 
-The image *scaleway/cli* has been created by `make prepare-release` called
-during the previous step.
-
+* Call `make prepare-release-docker-image VERSION=42.8`. **The VERSION should
+  not include the leading "v"**.
 * Push the local Docker image to the Docker hub: `docker push scaleway/cli`.
 
 ### Homebrew (OSX) package
