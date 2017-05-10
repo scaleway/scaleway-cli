@@ -1200,13 +1200,14 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.12+dev (unreleased)
+### v1.13 (2017-05-10)
 
-This is the current development version. Update below with your changes. Remove
-this line when releasing the package.
 * Add new ARM64 offers
+* For scaleway-cli developers: build time is improved, and standard tools are
+  used to cross-compile the project
+* Ask two-factor authentication token on `scw login`
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.12...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.13...v1.12)
 
 ### v1.12 (2017-03-30)
 

@@ -11,9 +11,16 @@ For the sake of the example, we assume you want to release the version `42.8`.
 
 ### Commit release
 
-* Edit the Changelog in [README.md](README.md), ensure it is up to date and
-  fill the current date. Also update the link in the line "View full commits
-  list": replace *master* with *v42.8*.
+* Edit the Changelog at the bottom of [README.md](README.md).
+
+  - Header: change the version from *v42.7* (or whatever is the previous
+    version) to *v42.8*
+  - Header: replace "unreleased" with the current date
+  - Content: read commits history, and fill the changelog if it's not already
+    done
+  - Footer: edit the "View full commit list" link from */compare/v42.7..master*
+    to */compare/v42.8..v42.7*
+
 * Edit [pkg/scwversion/version.go](pkg/scwversion/version.go) and update the
   *VERSION* to *v42.8*.
 * Make the commit release: `git commit -m 'Release v42.8'`.
