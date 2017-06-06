@@ -96,6 +96,7 @@ prepare-release-dist: build
 	GOOS=linux  GOARCH=386    go build -o dist/latest/scw-linux-i386        github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=linux  GOARCH=amd64  go build -o dist/latest/scw-linux-amd64       github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=linux  GOARCH=arm    go build -o dist/latest/scw-linux-arm         github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=linux  GOARCH=arm64  go build -o dist/latest/scw-linux-arm64       github.com/scaleway/scaleway-cli/cmd/scw
 
 	GOOS=darwin  GOARCH=386   go build -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=darwin  GOARCH=amd64 go build -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
@@ -119,12 +120,13 @@ prepare-release-docker-image: dist/latest/scw-linux-i386
 	docker run scaleway/cli version
 	docker tag scaleway/cli:latest scaleway/cli:v$(VERSION)
 
-prepare-release-debian-packages: dist/latest/scw-linux-amd64 dist/latest/scw-linux-i386 dist/latest/scw-linux-arm
+prepare-release-debian-packages: dist/latest/scw-linux-amd64 dist/latest/scw-linux-i386 dist/latest/scw-linux-arm dist/latest/scw-linux-arm64
 	@echo ${VERSION} | grep -qv 'v' || ( echo "ERROR: VERSION not set or contains a leading 'v'" >&2 && exit 1 )
 	### Build debian packages ###
 	docker run -v $(PWD)/dist/latest/scw-linux-amd64:/input/usr/bin/scw $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a x86_64 ./
 	docker run -v $(PWD)/dist/latest/scw-linux-i386:/input/usr/bin/scw  $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a i386 ./
 	docker run -v $(PWD)/dist/latest/scw-linux-arm:/input/usr/bin/scw   $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm ./
+	docker run -v $(PWD)/dist/latest/scw-linux-arm64:/input/usr/bin/scw $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm64 ./
 
 
 .PHONY: golint
