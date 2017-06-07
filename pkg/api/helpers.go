@@ -336,45 +336,6 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	if c.Env != "" {
 		server.Tags = strings.Split(c.Env, " ")
 	}
-	switch c.CommercialType {
-	case "VC1M", "X64-4GB", "ARM64-4GB":
-		if c.AdditionalVolumes == "" {
-			c.AdditionalVolumes = "50G"
-			log.Debugf("This server needs a least 50G")
-		}
-	case "VC1L", "X64-8GB", "X64-15GB", "ARM64-8GB":
-		if c.AdditionalVolumes == "" {
-			c.AdditionalVolumes = "150G"
-			log.Debugf("This server needs a least 150G")
-		}
-	case "X64-30GB":
-		if c.AdditionalVolumes == "" {
-			c.AdditionalVolumes = "100G 150G"
-			log.Debugf("This server needs a least 300G")
-		}
-	case "X64-60GB":
-		if c.AdditionalVolumes == "" {
-			c.AdditionalVolumes = "50G 150G 150G"
-			log.Debugf("This server needs a least 400G")
-		}
-	case "X64-120GB":
-		if c.AdditionalVolumes == "" {
-			c.AdditionalVolumes = "150G 150G 150G"
-			log.Debugf("This server needs a least 500G")
-		}
-	}
-	if c.AdditionalVolumes != "" {
-		volumes := strings.Split(c.AdditionalVolumes, " ")
-		for i := range volumes {
-			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
-			if err != nil {
-				return "", err
-			}
-
-			volumeIDx := fmt.Sprintf("%d", i+1)
-			server.Volumes[volumeIDx] = *volumeID
-		}
-	}
 	arch := os.Getenv("SCW_TARGET_ARCH")
 	if arch == "" {
 		server.CommercialType = strings.ToUpper(server.CommercialType)
@@ -428,6 +389,50 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 				}
 				server.Volumes["0"] = snapshot.BaseVolume.Identifier
 			}
+		}
+	}
+
+	primaryVolume, err := api.GetVolume(server.Volumes["0"])
+	if err != nil {
+		return "", err
+	}
+	switch c.CommercialType {
+	case "VC1M", "X64-4GB", "ARM64-4GB":
+		if c.AdditionalVolumes == "" && primaryVolume.Size < 50000000000 {
+			c.AdditionalVolumes = "50G"
+			log.Debugf("This server needs a least 50G")
+		}
+	case "VC1L", "X64-8GB", "X64-15GB", "ARM64-8GB":
+		if c.AdditionalVolumes == "" && primaryVolume.Size < 150000000000 {
+			c.AdditionalVolumes = "150G"
+			log.Debugf("This server needs a least 150G")
+		}
+	case "X64-30GB":
+		if c.AdditionalVolumes == "" && primaryVolume.Size < 300000000000 {
+			c.AdditionalVolumes = "100G 150G"
+			log.Debugf("This server needs a least 300G")
+		}
+	case "X64-60GB":
+		if c.AdditionalVolumes == "" && primaryVolume.Size < 400000000000 {
+			c.AdditionalVolumes = "50G 150G 150G"
+			log.Debugf("This server needs a least 400G")
+		}
+	case "X64-120GB":
+		if c.AdditionalVolumes == "" && primaryVolume.Size < 500000000000 {
+			c.AdditionalVolumes = "150G 150G 150G"
+			log.Debugf("This server needs a least 500G")
+		}
+	}
+	if c.AdditionalVolumes != "" {
+		volumes := strings.Split(c.AdditionalVolumes, " ")
+		for i := range volumes {
+			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
+			if err != nil {
+				return "", err
+			}
+
+			volumeIDx := fmt.Sprintf("%d", i+1)
+			server.Volumes[volumeIDx] = *volumeID
 		}
 	}
 
