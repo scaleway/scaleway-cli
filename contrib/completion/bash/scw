@@ -628,6 +628,17 @@ _scw_port() {
 	esac
 }
 
+_scw_products() {
+	case "$cur" in
+		-*)
+			COMPREPLY=( $( compgen -W "--help -s --short" -- "$cur" ) )
+			;;
+		*)
+			COMPREPLY=( $( compgen -W "servers" -- "$cur" ) )
+			;;
+	esac
+}
+
 _scw_ps() {
 	case "$prev" in
 		--before|--since)
@@ -1130,6 +1141,7 @@ _scw() {
 		logs
 #		pause
 		port
+		products
 		ps
 #		pull
 #		push

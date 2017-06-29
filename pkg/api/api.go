@@ -273,6 +273,41 @@ type ScalewayImages struct {
 	Images []ScalewayImage `json:"images,omitempty"`
 }
 
+// ProductNetworkInterface gives interval and external allowed bandwidth
+type ProductNetworkInterface struct {
+	InternalBandwidth uint64 `json:"internal_bandwidth,omitempty"`
+	InternetBandwidth uint64 `json:"internet_bandwidth,omitempty"`
+}
+
+// ProductNetwork lists all the network interfaces
+type ProductNetwork struct {
+	Interfaces             []ProductNetworkInterface `json:"interfaces,omitempty"`
+	TotalInternalBandwidth uint64                    `json:"sum_internal_bandwidth,omitempty"`
+	TotalInternetBandwidth uint64                    `json:"sum_internet_bandwidth,omitempty"`
+	IPv6_Support           bool                      `json:"ipv6_support,omitempty"`
+}
+
+// ProductVolumeConstraint contains any volume constraint that the offer has
+type ProductVolumeConstraint struct {
+	MinSize uint64 `json:"min_size,omitempty"`
+	MaxSize uint64 `json:"max_size,omitempty"`
+}
+
+// ProductServerOffer represents a specific offer
+type ProductServer struct {
+	Arch              string                  `json:"arch,omitempty"`
+	Ncpus             uint64                  `json:"ncpus,omitempty"`
+	Ram               uint64                  `json:"ram,omitempty"`
+	Baremetal         bool                    `json:"baremetal,omitempty"`
+	VolumesConstraint ProductVolumeConstraint `json:"volumes_constraint,omitempty"`
+	Network           ProductNetwork          `json:"network,omitempty"`
+}
+
+// Products holds a map of all Scaleway servers
+type ScalewayProductsServers struct {
+	Servers map[string]ProductServer `json:"servers"`
+}
+
 // ScalewaySnapshot represents a Scaleway Snapshot
 type ScalewaySnapshot struct {
 	// Identifier is a unique identifier for the snapshot
@@ -2780,4 +2815,25 @@ func (s *ScalewayAPI) ResolveTTYUrl() string {
 		return "https://tty-ams1.scaleway.com"
 	}
 	return ""
+}
+
+// GetProductServers Fetches all the server type and their constraints from the Products API
+func (s *ScalewayAPI) GetProductsServers() (*ScalewayProductsServers, error) {
+	resp, err := s.GetResponsePaginate(s.computeAPI, "products/servers", url.Values{})
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := s.handleHTTPError([]int{http.StatusOK}, resp)
+	if err != nil {
+		return nil, err
+	}
+
+	var productServers ScalewayProductsServers
+	if err = json.Unmarshal(body, &productServers); err != nil {
+		return nil, err
+	}
+
+	return &productServers, nil
 }

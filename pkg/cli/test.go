@@ -12,9 +12,9 @@ var (
 		"help", "attach", "commit", "cp", "create",
 		"events", "exec", "history", "images", "info",
 		"inspect", "kill", "login", "logout", "logs",
-		"port", "ps", "rename", "restart", "rm", "rmi",
-		"run", "search", "start", "stop", "tag", "top",
-		"version", "wait",
+		"port", "products", "ps", "rename", "restart",
+		"rm", "rmi", "run", "search", "start", "stop",
+		"tag", "top", "version", "wait",
 	}
 	secretCommands = []string{
 		"_patch", "_completion", "_flush-cache", "_userdata", "_billing",

@@ -201,6 +201,11 @@ __scw_subcommand () {
                 '1:servers:__scw_runningservers' \
                 '2:port:_ports'
             ;;
+        (products)
+            _arguments \
+                {-s,--short}'[Display only commercial types]' \
+                '*:products:(servers)'
+            ;;
         (start)
             _arguments \
                 {-T,--timeout=0}'[Set timeout values to seconds]' \

@@ -26,6 +26,7 @@ var Commands = []*Command{
 	cmdLogout,
 	cmdLogs,
 	cmdPort,
+	cmdProducts,
 	cmdPs,
 	cmdRename,
 	cmdRestart,

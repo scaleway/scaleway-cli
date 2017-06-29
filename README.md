@@ -45,6 +45,7 @@ Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-serve
     * [`logout [OPTIONS]`](#scw-logout)
     * [`logs [OPTIONS] SERVER`](#scw-logs)
     * [`port [OPTIONS] SERVER [PRIVATE_PORT[/PROTO]]`](#scw-port)
+    * [`products [OPTIONS]`] PRODUCT(#scw-products)
     * [`ps [OPTIONS]`](#scw-ps)
     * [`rename [OPTIONS] SERVER NEW_NAME`](#scw-rename)
     * [`restart [OPTIONS] SERVER [SERVER...]`](#scw-restart)
@@ -201,6 +202,7 @@ Commands:
     logout    Log out from the Scaleway API
     logs      Fetch the logs of a server
     port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT
+    products  Display products information
     ps        List servers
     rename    Rename a server
     restart   Restart a running server
@@ -585,6 +587,19 @@ Options:
   -h, --help=false      Print usage
   -p, --port=22         Specify SSH port
   --user=root           Specify SSH user
+```
+
+
+#### `scw products`
+
+```console
+Usage: scw products [OPTIONS] PRODUCT
+
+Display products PRODUCT information.
+
+Options:
+
+  -s, --short           Print only commercial names
 ```
 
 
