@@ -300,6 +300,7 @@ type ProductServer struct {
 	Ram               uint64                  `json:"ram,omitempty"`
 	Baremetal         bool                    `json:"baremetal,omitempty"`
 	VolumesConstraint ProductVolumeConstraint `json:"volumes_constraint,omitempty"`
+	AltNames          []string                `json:"alt_names,omitempty"`
 	Network           ProductNetwork          `json:"network,omitempty"`
 }
 
