@@ -415,16 +415,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 
 	arch := os.Getenv("SCW_TARGET_ARCH")
 	if arch == "" {
-		switch server.CommercialType[:2] {
-		case "C1":
-			arch = "arm"
-		case "C2", "VC", "X6":
-			arch = "x86_64"
-		case "AR":
-			arch = "arm64"
-		default:
-			return "", fmt.Errorf("%s wrong commercial type", server.CommercialType)
-		}
+		arch = offer.Arch
 	}
 	imageIdentifier := &ScalewayImageIdentifier{
 		Arch: arch,
