@@ -16,7 +16,7 @@ fi
 NAME=$(basename "${URL}")
 SNAPSHOT_NAME=${NAME%.*}-$(date +%Y-%m-%d_%H:%M)
 IMAGE_NAME=${IMAGE_NAME:-$SNAPSHOT_NAME}
-IMAGE_BOOTSCRIPT=${IMAGE_BOOTSCRIPT:stable}
+IMAGE_BOOTSCRIPT=${IMAGE_BOOTSCRIPT:latest}
 SCW_COMMERCIAL_TYPE=${SCW_COMMERCIAL_TYPE:-VC1S}
 VOLUME_SIZE=${VOLUME_SIZE:-50GB}
 SCW_TARGET_ARCH=x86_64
@@ -72,11 +72,13 @@ echo "[+] Snapshot ${SNAPSHOT} created"
 
 
 echo "[+] Creating an image based of the snapshot"
-if [ -n "${IMAGE_ARCH}" ]; then
-    IMAGE=$(scw tag --arch="${IMAGE_ARCH}" --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
-else
-    IMAGE=$(scw tag --bootscript="${IMAGE_BOOTSCRIPT}" "${SNAPSHOT}" "${IMAGE_NAME}")
-fi
+tag_args=()
+
+[ -n "${IMAGE_ARCH}" ]       && tag_args+=(--arch="${IMAGE_ARCH}")
+[ -n "${IMAGE_BOOTSCRIPT}" ] && tag_args+=(--bootscript="${IMAGE_BOOTSCRIPT}")
+
+IMAGE=$(scw tag "${tag_args[@]}" "${SNAPSHOT}" "${IMAGE_NAME}")
+
 echo "[+] Image created: ${IMAGE}"
 
 
