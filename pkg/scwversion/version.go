@@ -4,7 +4,7 @@ import "fmt"
 
 var (
 	// VERSION represents the semver version of the package
-	VERSION = "v1.13+dev"
+	VERSION = "v1.14"
 
 	// GITCOMMIT represents the git commit hash of the package, it is configured at build time
 	GITCOMMIT string

@@ -1212,12 +1212,17 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.13+dev (unreleased)
+### v1.14 (2017-07-18)
 
-This is the current development version. Update below with your changes. Remove
-this line when releasing the package.
+* Add the new command "scw products servers" to list the servers types
+  available.
+* Dynamically discover the volumes to create to start servers of some
+  commercial types. For instance, VC1L instances require to have 200GB of disk.
+  Instead of hardcoding the extra volume creation, use the product API to know
+  an extra volume of 150GB needs to be created.
+* Release packages on arm64.
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.13...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14...v1.13)
 
 ### v1.13 (2017-05-10)
 
