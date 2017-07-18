@@ -1212,6 +1212,13 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### v1.14+dev (unreleased)
+
+This is the current development version. Update below with your changes. Remove
+this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14...master)
+
 ### v1.14 (2017-07-18)
 
 * Add the new command "scw products servers" to list the servers types
