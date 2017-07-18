@@ -19,7 +19,7 @@ For the sake of the example, we assume you want to release the version `42.8`.
   - Content: read commits history, and fill the changelog if it's not already
     done
   - Footer: edit the "View full commit list" link from */compare/v42.7..master*
-    to */compare/v42.8..v42.7*
+    to */compare/v42.7..v42.8*
 
 * Edit [pkg/scwversion/version.go](pkg/scwversion/version.go) and update the
   *VERSION* to *v42.8*.

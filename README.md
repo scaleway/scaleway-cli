@@ -1229,7 +1229,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14.
   an extra volume of 150GB needs to be created.
 * Release packages on arm64.
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14...v1.13)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.13...v1.14)
 
 ### v1.13 (2017-05-10)
 
@@ -1238,7 +1238,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14.
   used to cross-compile the project
 * Ask two-factor authentication token on `scw login`
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.13...v1.12)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.12...v1.13)
 
 ### v1.12 (2017-03-30)
 
