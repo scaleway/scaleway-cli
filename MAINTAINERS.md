@@ -31,15 +31,23 @@ For the sake of the example, we assume you want to release the version `42.8`.
 
 * [Draft a new release](https://github.com/scaleway/scaleway-cli/releases) on
   Github.
-* Build cross-compiled files: `make prepare-release-dist`.
+* Build cross-compiled files: `make prepare-release-dist`. *This step relies on
+  the go compiler, which is able to cross compile go projects. If you hack on
+  the scaleway-cli in a Docker container, you can run this step from your
+  container.*
 * Build debian packages: `make prepare-release-debian-packages VERSION=42.8`.
-  **The VERSION should not include the leading "v"**.
-* Upload the generated files in `dist/latest` and publish the release.
+  **The VERSION should not include the leading "v"**. *This step runs Docker
+  containers. If you are hacking on scaleway-cli with Docker, you need to build
+  the Debian packages from the Docker host, and not from your container.*
+* Upload the Debian packages generated in `dist/latest`.
+* Publish the release.
 
 ### Docker image
 
 * Call `make prepare-release-docker-image VERSION=42.8`. **The VERSION should
-  not include the leading "v"**.
+  not include the leading "v"**. *This step runs Docker containers. If you are
+  hacking on scaleway-cli with Docker, run this step from the Docker host and
+  not from your container.*
 * Push the local Docker image to the Docker hub: `docker push scaleway/cli`.
 
 ### Homebrew (OSX) package
@@ -49,15 +57,15 @@ For the sake of the example, we assume you want to release the version `42.8`.
   256`.
 * Clone the homebrew Github repository: `git clone
   git@github.com:Homebrew/brew.git` to you personal account.
-* Edit *Formula/scw.rb* and fix the *url* and the *sha256* **on top** of the
-  file. You don't need to edit the SHAsums below. They will be updated
+* Edit *Formula/scw.rb* and fix the *URL* **AND** the *sha256* **on top** of
+  the file. You don't need to edit the SHAsums below. They will be updated
   automatically by Homebrew maintainers when the PR will be merged.
-* Ensure the formula works: `brew install --build-from-source /path/to/scw.rb`.
+* Ensure the formula works: `brew install --build-from-source Formula/scw.rb`.
   You will probably need to uninstall your current installation of scaleway-cli
   before installing the formula.
-* Make a pull request from your repository to
-  [homebrew](https://github.com/Homebrew/homebrew-core) to make your new
-  version official.
+* Commit with `git commit -a -m 'scw 42.8'` and make a pull request from your
+  repository to [homebrew](https://github.com/Homebrew/homebrew-core) to make
+  your new version official.
 
 ### Archlinux package
 
@@ -73,6 +81,10 @@ by "moscar". We should probably ping him when we make a new release.
 From time to time, scaleway-cli makes a HTTP query to
 https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION to check if it is
 at the latest version available. This file needs to be updated.
+
+**PLEASE WAIT UNTIL THE HOMEBREW PULL REQUEST IS ACCEPTED BEFORE UPDATING THE
+VERSION FILE.**
+
 
 ```
 $> echo '42.8' > VERSION
