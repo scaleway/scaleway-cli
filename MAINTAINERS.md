@@ -23,7 +23,7 @@ For the sake of the example, we assume you want to release the version `42.8`.
 
 * Edit [pkg/scwversion/version.go](pkg/scwversion/version.go) and update the
   *VERSION* to *v42.8*.
-* Make the commit release: `git commit -m 'Release v42.8'`.
+* Make the commit release: `git commit -a -m 'Release v42.8'`.
 * Tag the commit: `git tag v42.8`.
 * Push: `git push && git push --tags`.
 
