@@ -45,7 +45,7 @@ Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-serve
     * [`logout [OPTIONS]`](#scw-logout)
     * [`logs [OPTIONS] SERVER`](#scw-logs)
     * [`port [OPTIONS] SERVER [PRIVATE_PORT[/PROTO]]`](#scw-port)
-    * [`products [OPTIONS]`] PRODUCT(#scw-products)
+    * [`products [OPTIONS]` PRODUCT](#scw-products)
     * [`ps [OPTIONS]`](#scw-ps)
     * [`rename [OPTIONS] SERVER NEW_NAME`](#scw-rename)
     * [`restart [OPTIONS] SERVER [SERVER...]`](#scw-restart)
