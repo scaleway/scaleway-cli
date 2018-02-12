@@ -14,8 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Sirupsen/logrus"
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/docker/docker/pkg/namesgenerator"
 	"github.com/dustin/go-humanize"
 	"github.com/moul/anonuuid"
@@ -273,7 +272,7 @@ func InspectIdentifiers(api *ScalewayAPI, ci chan ScalewayResolvedIdentifier, cj
 			if len(idents.Identifiers) == 0 {
 				log.Errorf("Unable to resolve identifier %s", idents.Needle)
 			} else {
-				logrus.Fatal(showResolverResults(idents.Needle, idents.Identifiers))
+				log.Fatal(showResolverResults(idents.Needle, idents.Identifiers))
 			}
 		} else {
 			ident := idents.Identifiers[0]
@@ -608,7 +607,7 @@ func WaitForServerReady(api *ScalewayAPI, serverID, gateway string) (*ScalewaySe
 			}
 		OUT:
 			if err != nil {
-				logrus.Info(err)
+				log.Info(err)
 				err = nil
 			}
 		}
@@ -687,19 +686,19 @@ func (a *ScalewayAPI) DeleteServerForce(serverID string) error {
 	// FIXME: call delete and stop -t in parallel to speed up process
 	err := a.DeleteServer(serverID)
 	if err == nil {
-		logrus.Infof("Server '%s' successfully deleted", serverID)
+		log.Infof("Server '%s' successfully deleted", serverID)
 		return nil
 	}
 
 	err = a.PostServerAction(serverID, "terminate")
 	if err == nil {
-		logrus.Infof("Server '%s' successfully terminated", serverID)
+		log.Infof("Server '%s' successfully terminated", serverID)
 		return nil
 	}
 
 	// FIXME: retry in a loop until timeout or Control+C
-	logrus.Errorf("Failed to delete server %s", serverID)
-	logrus.Errorf("Try to run 'scw rm -f %s' later", serverID)
+	log.Errorf("Failed to delete server %s", serverID)
+	log.Errorf("Try to run 'scw rm -f %s' later", serverID)
 	return err
 }
 
