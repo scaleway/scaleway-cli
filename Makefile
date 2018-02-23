@@ -1,5 +1,5 @@
 # Go parameters
-GOENV ?=	GO15VENDOREXPERIMENT=1
+GOENV ?=
 GO ?=		$(GOENV) go
 GODEP ?=	$(GOENV) godep
 GOBUILD ?=	$(GO) build
@@ -41,13 +41,6 @@ REV =		$(shell git rev-parse --short HEAD 2>/dev/null || echo "nogit")
 LDFLAGS = "-X `go list ./pkg/scwversion`.GITCOMMIT=$(REV) -s"
 BUILDER =	scaleway-cli-builder
 
-# Check go version
-GOVERSIONMAJOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f1)
-GOVERSIONMINOR = $(shell go version | grep -o '[1-9].[0-9]' | cut -d '.' -f2)
-VERSION_GE_1_5 = $(shell [ $(GOVERSIONMAJOR) -gt 1 -o $(GOVERSIONMINOR) -ge 5 ] && echo true)
-ifneq ($(VERSION_GE_1_5),true)
-	$(error Bad go version, please install a version greater than or equal to 1.5)
-endif
 
 BUILD_LIST =		$(foreach int, $(COMMANDS), $(int)_build)
 CLEAN_LIST =		$(foreach int, $(COMMANDS) $(PACKAGES), $(int)_clean)
