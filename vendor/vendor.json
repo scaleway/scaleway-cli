@@ -3,10 +3,16 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "XD32TFkwUQg4C0yJs40A8f2xSeA=",
-			"comment": "v0.10.0-18-g6d9ae30",
-			"path": "github.com/Sirupsen/logrus",
-			"revision": "6d9ae300aaf85d6acd2e5424081c7fcddb21dab8"
+			"checksumSHA1": "9NFR6RG8H2fNyKHscGmuGLQhRm4=",
+			"path": "github.com/Azure/go-ansiterm",
+			"revision": "d6e3b3328b783f23731bc4d058875b0371ff8109",
+			"revisionTime": "2017-09-29T23:40:23Z"
+		},
+		{
+			"checksumSHA1": "3/UphB+6Hbx5otA4PjFjvObT+L4=",
+			"path": "github.com/Azure/go-ansiterm/winterm",
+			"revision": "d6e3b3328b783f23731bc4d058875b0371ff8109",
+			"revisionTime": "2017-09-29T23:40:23Z"
 		},
 		{
 			"checksumSHA1": "inZ0T0oUL1KU9KqirU2GzYuLyCI=",
@@ -85,6 +91,12 @@
 			"revision": "1e4068713bdc7ac57c5134ae0469dc7ecefb8445"
 		},
 		{
+			"checksumSHA1": "RbKd6O8P1UnaoxbdmV6eukac69M=",
+			"path": "github.com/docker/docker/pkg/term/windows",
+			"revision": "66e6beeb249948634e2815ef5cac97984d5c0d56",
+			"revisionTime": "2018-02-23T03:12:10Z"
+		},
+		{
 			"checksumSHA1": "HbqQOZa0qqtYp9AHhQCjOiFLdFc=",
 			"comment": "v0.3.0-2-g09dda9d",
 			"path": "github.com/docker/go-units",
@@ -128,16 +140,23 @@
 			"revision": "56b76bdf51f7708750eac80fa38b952bb9f32639"
 		},
 		{
+			"checksumSHA1": "m6E62r796Nb/80CGII5hBCse8jg=",
+			"path": "github.com/moby/moby/pkg/term",
+			"revision": "66e6beeb249948634e2815ef5cac97984d5c0d56",
+			"revisionTime": "2018-02-23T03:12:10Z"
+		},
+		{
 			"checksumSHA1": "KhOVzKefFYORHdIVe+/gNAHB23A=",
 			"comment": "v1.0.0-21-g609b752",
 			"path": "github.com/moul/anonuuid",
 			"revision": "609b752a95effbbef26d134ac18ed6f57e01b98e"
 		},
 		{
-			"checksumSHA1": "slLTPMchYWDMkL7wF8vOaQdTVz0=",
+			"checksumSHA1": "0Bbwkph/wbFwqyhLTvwjp4tIU2Y=",
 			"comment": "v1.6.0-4-g92f0c24",
 			"path": "github.com/moul/gotty-client",
-			"revision": "92f0c24d5b2985522174e3ff5ad882a1c4d7f1d9"
+			"revision": "fdaa7034e2bdddd51df7553070501c55bb133083",
+			"revisionTime": "2018-02-23T13:54:43Z"
 		},
 		{
 			"checksumSHA1": "O7lIX71vTepwRVcnXbV3Fzq0z5U=",
@@ -160,6 +179,12 @@
 			"comment": "v1.0.0-2-g2d205ac",
 			"path": "github.com/renstrom/fuzzysearch/fuzzy",
 			"revision": "2d205ac6ec17a839a94bdbfd16d2fa6c6dada2e0"
+		},
+		{
+			"checksumSHA1": "9y/iQh3/YtX31wAu7eJravtjTro=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "8c0189d9f6bbf301e5d055d34268156b317016af",
+			"revisionTime": "2018-02-13T14:31:10Z"
 		},
 		{
 			"checksumSHA1": "h/HMhokbQHTdLUbruoBBTee+NYw=",
@@ -249,9 +274,10 @@
 			"revision": "316e794f7b5e3df4e95175a45a5fb8b12f85cb4f"
 		},
 		{
-			"checksumSHA1": "csU3yh1Emel9jd6kWCwuT2vZ6hQ=",
+			"checksumSHA1": "tCy9RLKw/qpHBpGosqvWbs+kByc=",
 			"path": "golang.org/x/sys/unix",
-			"revision": "d4feaf1a7e61e1d9e79e6c4e76c6349e9cab0a03"
+			"revision": "c1138c84af3a9927aee1a1b8b7ce06c9b7ea52bc",
+			"revisionTime": "2018-02-02T09:03:09Z"
 		}
 	],
 	"rootPath": "github.com/scaleway/scaleway-cli"

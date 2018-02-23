@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/sirupsen/logrus"
 )
 
 // RunArgs are flags for the `Run` function
