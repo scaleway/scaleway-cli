@@ -31,7 +31,7 @@ var cmdSecurityGroups = &Command{
 
 	$ scw _security-groups list-rules SGID
 	$ scw _security-groups show-rule SGID RULEID
-	$ scw _security-gruops delete-rule SGID RULEID
+	$ scw _security-groups delete-rule SGID RULEID
 	$ scw _security-groups new-rule SGID ACTION
 	$ scw _security-groups update-rule SGID RULEID ACTION`,
 }
