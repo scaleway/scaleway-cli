@@ -7,7 +7,7 @@ package commands
 import (
 	"fmt"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 // RmArgs are flags for the `RunRm` function

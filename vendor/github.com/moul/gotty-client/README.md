@@ -5,6 +5,7 @@
 
 [![Build Status](https://travis-ci.org/moul/gotty-client.svg?branch=master)](https://travis-ci.org/moul/gotty-client)
 [![GoDoc](https://godoc.org/github.com/moul/gotty-client?status.svg)](https://godoc.org/github.com/moul/gotty-client)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client?ref=badge_shield)
 
 ```ruby
                                                              ┌─────────────────┐
@@ -100,16 +101,22 @@ $ brew install https://raw.githubusercontent.com/moul/gotty-client/master/contri
 or the latest released version
 
 ```console
-$ brew install https://raw.githubusercontent.com/moul/ssh2docker/master/contrib/homebrew/assh.rb
+$ brew install https://raw.githubusercontent.com/moul/gotty-client/master/contrib/homebrew/gotty-client.rb
 ```
 
 ## Changelog
 
 ### master (unreleased)
 
-* No entry
+* Add `--detach-keys` option ([#52](https://github.com/moul/gotty-client/issues/52))
 
-[full commits list](https://github.com/moul/gotty-client/compare/v1.6.0...master)
+[full commits list](https://github.com/moul/gotty-client/compare/v1.6.1...master)
+
+### [v1.6.1](https://github.com/moul/gotty-client/releases/tag/v1.6.1) (2017-01-19)
+
+* Do not exit on EOF ([#45](https://github.com/moul/gotty-client/pull/45)) ([@gurjeet](https://github.com/gurjeet))
+
+[full commits list](https://github.com/moul/gotty-client/compare/v1.6.0...v1.6.1)
 
 ### [v1.6.0](https://github.com/moul/gotty-client/releases/tag/v1.6.0) (2016-05-23)
 
@@ -193,3 +200,6 @@ Compatible with [GoTTY](https://github.com/yudai/gotty) version: [v0.0.10](https
 ## License
 
 MIT
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client?ref=badge_large)

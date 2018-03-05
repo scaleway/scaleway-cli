@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/sirupsen/logrus"
 )
 
 // CreateArgs are arguments passed to `RunCreate`

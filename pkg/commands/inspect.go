@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"text/template"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/sirupsen/logrus"
 	"github.com/skratchdot/open-golang/open"
 )
 

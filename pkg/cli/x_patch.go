@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 
 	api "github.com/scaleway/scaleway-cli/pkg/api"
 )

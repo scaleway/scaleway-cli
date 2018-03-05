@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/sirupsen/logrus"
 )
 
 // StopArgs are flags for the `RunStop` function

@@ -11,9 +11,9 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/docker/go-units"
 	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"

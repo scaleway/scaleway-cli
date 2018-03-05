@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	flag "github.com/docker/docker/pkg/mflag"
+	"github.com/sirupsen/logrus"
 
 	version "github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/pkg/api"

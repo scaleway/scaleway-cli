@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/sirupsen/logrus"
 )
 
 // StartArgs are flags for the `RunStart` function

@@ -11,8 +11,8 @@ package main
 import (
 	"os"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/scaleway/scaleway-cli/pkg/cli"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
