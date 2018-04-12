@@ -1973,20 +1973,9 @@ func (s *ScalewayAPI) CheckCredentials() error {
 	if err != nil {
 		return err
 	}
-	found := false
 	var tokens ScalewayGetTokens
-
 	if err = json.Unmarshal(body, &tokens); err != nil {
 		return err
-	}
-	for _, token := range tokens.Tokens {
-		if token.ID == s.Token {
-			found = true
-			break
-		}
-	}
-	if !found {
-		return fmt.Errorf("Invalid token %v", s.Token)
 	}
 	return nil
 }
