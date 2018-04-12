@@ -1212,12 +1212,15 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.14+dev (unreleased)
+### v1.15 (2018-04-12)
 
-This is the current development version. Update below with your changes. Remove
-this line when releasing the package.
+* Fix typo
+* Fix `WaitForServerReady` with IPv6
+* Fix bash completion
+* Switch from godep to govendor
+* Remove check that the current token is returned on a GET of all tokens.
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.14...v1.15)
 
 ### v1.14 (2017-07-18)
 
