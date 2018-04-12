@@ -1212,6 +1212,13 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### v1.15+dev (unreleased)
+
+This is the current development version. Update below with your changes. Remove
+this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.15...master)
+
 ### v1.15 (2018-04-12)
 
 * Fix typo
