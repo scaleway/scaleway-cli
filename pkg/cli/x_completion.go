@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
-	utils "github.com/scaleway/scaleway-cli/pkg/utils"
+	"github.com/scaleway/scaleway-cli/pkg/utils"
 )
 
 var cmdCompletion = &Command{
