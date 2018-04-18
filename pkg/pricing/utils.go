@@ -41,7 +41,7 @@ func ratMin(x, y *big.Rat) *big.Rat {
 	return x
 }
 
-// PriceString returns a human reprensetation of a price with a currency
+// PriceString returns a human representation of a price with a currency
 func PriceString(price *big.Rat, currency string) string {
 	floatVal, _ := price.Float64()
 	return fmt.Sprintf("%s %s", humanize.Ftoa(floatVal), currency)
