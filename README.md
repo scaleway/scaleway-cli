@@ -1212,12 +1212,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.15+dev (unreleased)
+### v1.16 (2018-04-20)
 
-This is the current development version. Update below with your changes. Remove
-this line when releasing the package.
+* Fix netbsd build
+* Allow region filtering
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.15...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.15...v1.16)
 
 ### v1.15 (2018-04-12)
 
