@@ -1208,7 +1208,7 @@ func (s *ScalewayAPI) GetServers(all bool, limit int) (*[]ScalewayServer, error)
 		}
 	)
 
-	serverChan := make(chan ScalewayServers, 2)
+	serverChan := make(chan ScalewayServers, len(apis))
 	for _, api := range apis {
 		g.Go(s.fetchServers(api, query, serverChan))
 	}
