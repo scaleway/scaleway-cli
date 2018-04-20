@@ -140,10 +140,10 @@
 			"revision": "56b76bdf51f7708750eac80fa38b952bb9f32639"
 		},
 		{
-			"checksumSHA1": "m6E62r796Nb/80CGII5hBCse8jg=",
+			"checksumSHA1": "J5De1zKM4N6xs+kkksfODlDQQjU=",
 			"path": "github.com/moby/moby/pkg/term",
-			"revision": "66e6beeb249948634e2815ef5cac97984d5c0d56",
-			"revisionTime": "2018-02-23T03:12:10Z"
+			"revision": "d6706dddd5c40f47ecb529422446152039934a84",
+			"revisionTime": "2018-04-20T02:41:36Z"
 		},
 		{
 			"checksumSHA1": "KhOVzKefFYORHdIVe+/gNAHB23A=",
