@@ -9,5 +9,6 @@ dist/
 .#*
 profile.cov
 profile.out
+.DS_STORE
 .vendor
 /.vscode
