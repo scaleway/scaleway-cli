@@ -16,7 +16,7 @@ import (
 	flag "github.com/docker/docker/pkg/mflag"
 	"github.com/sirupsen/logrus"
 
-	version "github.com/hashicorp/go-version"
+	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/clilogger"
 	"github.com/scaleway/scaleway-cli/pkg/commands"

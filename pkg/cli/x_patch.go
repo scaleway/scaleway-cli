@@ -10,7 +10,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	api "github.com/scaleway/scaleway-cli/pkg/api"
+	"github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 var cmdPatch = &Command{
