@@ -653,7 +653,7 @@ type ScalewayServerDefinition struct {
 
 	SecurityGroup string `json:"security_group,omitempty"`
 
-  BootType string `json:"boot_type,omitempty"`
+	BootType string `json:"boot_type,omitempty"`
 }
 
 // ScalewayOneServer represents the response of a GET /servers/UUID API call

@@ -32,6 +32,7 @@ type RunArgs struct {
 	CommercialType string
 	State          string
 	SSHUser        string
+	BootType       string
 	Timeout        int64
 	SSHPort        int
 	AutoRemove     bool
@@ -170,6 +171,7 @@ func Run(ctx CommandContext, args RunArgs) error {
 		IP:                args.IP,
 		CommercialType:    args.CommercialType,
 		EnableIPV6:        args.IPV6,
+		BootType:          args.BootType,
 	}
 	if args.IP == "dynamic" || (args.IP == "" && args.Gateway == "") {
 		config.DynamicIPRequired = true
