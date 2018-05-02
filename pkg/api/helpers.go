@@ -351,7 +351,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 		return "", errors.New("Invalid commercial type")
 	}
 
-	if !(c.BootType == "local" || c.BootType == "bootscript") {
+	if c.BootType != "local" && c.BootType != "bootscript" {
 		return "", errors.New("Invalid boot type")
 	}
 
