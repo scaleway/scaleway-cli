@@ -545,6 +545,9 @@ type ScalewayServer struct {
 	// State is the current status of the server
 	State string `json:"state,omitempty"`
 
+	// BootType is the boot method used, can be local or bootscript
+	BootType string `json:"boot_type,omitempty"`
+
 	// StateDetail is the detailed status of the server
 	StateDetail string `json:"state_detail,omitempty"`
 
@@ -619,6 +622,7 @@ type ScalewayServerPatchDefinition struct {
 	Tags              *[]string                  `json:"tags,omitempty"`
 	IPV6              *ScalewayIPV6Definition    `json:"ipv6,omitempty"`
 	EnableIPV6        *bool                      `json:"enable_ipv6,omitempty"`
+	BootType          *string                    `json:"boot_type,omitempty"`
 }
 
 // ScalewayServerDefinition represents a Scaleway server with image definition
