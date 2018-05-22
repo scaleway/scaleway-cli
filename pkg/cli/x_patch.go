@@ -83,6 +83,10 @@ func runPatch(cmd *Command, args []string) error {
 				changes++
 				payload.Bootscript = &newValue
 			}
+		case "boot_type":
+			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.BootType, fieldName, newValue)
+			changes++
+			payload.BootType = &newValue
 		case "security_group":
 			log.Debugf("%s=%s  =>  %s=%s", fieldName, currentServer.SecurityGroup.Identifier, fieldName, newValue)
 			if currentServer.SecurityGroup.Identifier != newValue {
