@@ -67,19 +67,21 @@ NAME:
 USAGE:
    gotty-client [global options] command [command options] GOTTY_URL
 
-VERSION:
-   1.3.0+
-
-AUTHOR(S):
+AUTHOR:
    Manfred Touron <https://github.com/moul/gotty-client>
 
 COMMANDS:
-   help, h	Shows a list of commands or help for one command
+     help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --debug, -D		Enable debug mode [$GOTTY_CLIENT_DEBUG]
-   --help, -h		show help
-   --version, -v	print the version
+   --debug, -D                  Enable debug mode [$GOTTY_CLIENT_DEBUG]
+   --skip-tls-verify            Skip TLS verify [$SKIP_TLS_VERIFY]
+   --use-proxy-from-env         Use Proxy from environment [$USE_PROXY_FROM_ENV]
+   --detach-keys value          Key sequence for detaching gotty-client (default: "ctrl-p,ctrl-q")
+   --v2                         For Gotty 2.0 [$GOTTY_CLIENT_GOTTY2]
+   --ws-origin value, -w value  WebSocket Origin URL [$GOTTY_CLIENT_WS_ORIGIN]
+   --help, -h                   show help
+   --version, -v                print the version
 ```
 
 ## Install
@@ -108,9 +110,19 @@ $ brew install https://raw.githubusercontent.com/moul/gotty-client/master/contri
 
 ### master (unreleased)
 
-* Add `--detach-keys` option ([#52](https://github.com/moul/gotty-client/issues/52))
+* Fix TTY restoring by switching to [`github.com/moby/moby/pkg/term`](https://github.com/moby/moby/tree/master/pkg/term) ([#59](https://github.com/moul/gotty-client/pull/59) + ([#60](https://github.com/moul/gotty-client/pull/60) + ([#62](https://github.com/moul/gotty-client/pull/62) ([@Sh4d1](https://github.com/Sh4d1))
 
-[full commits list](https://github.com/moul/gotty-client/compare/v1.6.1...master)
+[full commits list](https://github.com/moul/gotty-client/compare/v1.7.0...master)
+
+### [v1.7.0](https://github.com/moul/gotty-client/releases/tag/v1.7.0) (2018-04-11)
+
+* Add `--detach-keys` option ([#52](https://github.com/moul/gotty-client/issues/52))
+* Cross build on Solaris ([#55](https://github.com/moul/gotty-client/pull/55) ([@dimtion](https://github.com/dimtion))
+* Fix terminal resizing issue ([#56](https://github.com/moul/gotty-client/pull/56) ([@byung2](https://github.com/byung2))
+* Support for gotty v2.0 ([#58](https://github.com/moul/gotty-client/pull/58) ([@byung2](https://github.com/byung2))
+* Support ws-origin (CORS) ([#58](https://github.com/moul/gotty-client/pull/58) ([@byung2](https://github.com/byung2))
+
+[full commits list](https://github.com/moul/gotty-client/compare/v1.6.1...v1.7.0)
 
 ### [v1.6.1](https://github.com/moul/gotty-client/releases/tag/v1.6.1) (2017-01-19)
 
