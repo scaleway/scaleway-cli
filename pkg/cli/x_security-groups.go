@@ -21,7 +21,7 @@ var cmdSecurityGroups = &Command{
 	Examples: `
 
 	SGID = SecurityGroupID
-	ACTION = "{\"action\":"string", \"direction\": \"string\", \"ip_range\": \"string\", \"protocol\": \"string\", \"dest_port_from\": \"int\"}"
+	ACTION = "{\"action\":\"string\", \"direction\": \"string\", \"ip_range\": \"string\", \"protocol\": \"string\", \"dest_port_from\": int}"
 
 	$ scw _security-groups list-groups
 	$ scw _security-groups show-group SGID
