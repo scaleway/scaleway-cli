@@ -64,9 +64,9 @@ func TestBasket_Total(t *testing.T) {
 			basket.Add(NewUsageByPath("/compute/c2s/run"))
 			basket.Add(NewUsageByPath("/compute/c2m/run"))
 			basket.Add(NewUsageByPath("/compute/c2l/run"))
-			basket.Add(NewUsageByPath("/compute/vc1s/run"))
-			basket.Add(NewUsageByPath("/compute/vc1m/run"))
-			basket.Add(NewUsageByPath("/compute/vc1l/run"))
+			basket.Add(NewUsageByPath("/compute/start1-s/run"))
+			basket.Add(NewUsageByPath("/compute/start1-m/run"))
+			basket.Add(NewUsageByPath("/compute/start1-l/run"))
 
 			basket.SetDuration(1 * time.Minute)
 			So(basket.Total(), ShouldEqualBigRat, big.NewRat(116, 1000)) // 0.116
