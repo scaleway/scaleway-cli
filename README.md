@@ -106,7 +106,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.13/scw-darwin-amd64" -O /usr/local/bin/scw
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.16/scw-darwin-amd64" -O /usr/local/bin/scw
 
 # test
 scw version

@@ -7,17 +7,19 @@ instead.**
 Ready to deploy a new version to users? Let's make a checklist of what you need
 to do.
 
-For the sake of the example, we assume you want to release the version `42.8`.
+For the sake of the example, we assume you want to release the version `42.8`
+and the previous version was `42.7`.
 
 ### Commit release
 
 * Edit the Changelog at the bottom of [README.md](README.md).
 
-  - Header: change the version from *v42.7* (or whatever is the previous
-    version) to *v42.8*
+  - Header: change the version from *v42.7* version) to *v42.8*
   - Header: replace "unreleased" with the current date
   - Content: read commits history, and fill the changelog if it's not already
     done
+  - In the "To install a release" section, grep *v42.7* and replace with
+    *v42.8*
   - Footer: edit the "View full commit list" link from */compare/v42.7..master*
     to */compare/v42.7..v42.8*
 
