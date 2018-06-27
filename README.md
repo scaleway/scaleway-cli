@@ -213,6 +213,7 @@ Commands:
     top       Lookup the running processes of a server
     version   Show the version information
     wait      Block until a server stops
+    s3        Access to s3 bucket
 
 Run 'scw COMMAND --help' for more information on a command.
 ```
@@ -876,6 +877,19 @@ Options:
 Usage: scw wait [OPTIONS] SERVER [SERVER...]
 
 Block until a server stops.
+
+Options:
+
+  -h, --help=false      Print usage
+```
+
+
+#### `scw s3`
+
+```console
+Usage: scw s3 [OPTIONS]
+
+Access to s3 bucket.
 
 Options:
 
@@ -1635,6 +1649,7 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
 * Support of `top` command
 * Support of `version` command
 * Support of `wait` command
+* Support of `s3` command
 
 [gopkg.in/scaleway/scaleway-cli.v1](http://gopkg.in/scaleway/scaleway-cli.v1)
 
@@ -1659,7 +1674,7 @@ Feel free to contribute :smiley::beers:
   * `export PATH=$PATH:$GOPATH/bin`
 3. Fetch the project: `go get -d github.com/scaleway/scaleway-cli/...`
 4. Go to scaleway-cli directory: `cd $GOPATH/src/github.com/scaleway/scaleway-cli`
-5. Hack: `emacs`
+5. Hack: `vim`
 6. Build: `make`
 7. Run: `./scw`
 
