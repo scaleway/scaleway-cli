@@ -50,4 +50,5 @@ var Commands = []*Command{
 	cmdSecurityGroups,
 	cmdIPS,
 	cmdCS,
+	cmdS3,
 }
