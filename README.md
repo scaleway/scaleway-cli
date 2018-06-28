@@ -1214,8 +1214,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### v1.16+dev (unreleased)
 
-This is the current development version. Update below with your changes. Remove
-this line when releasing the package.
+* Fix: it is now possible to `scw inspect` snapshots
+* Fix: add region details in cache for snapshots, images, bootscripts and volumes.
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.16...master)
 
