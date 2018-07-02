@@ -57,8 +57,7 @@ and the previous version was `42.7`.
 * Get the released archive's sha256sum: `curl -sL
   https://github.com/scaleway/scaleway-cli/archive/v42.8.tar.gz | shasum -a
   256`.
-* Clone the homebrew Github repository: `git clone
-  git@github.com:Homebrew/brew.git` to you personal account.
+* Clone the homebrew Github repository: `git clone git@github.com:Homebrew/homebrew-core.git` to you personal account.
 * Edit *Formula/scw.rb* and fix the *URL* **AND** the *sha256* **on top** of
   the file. You don't need to edit the SHAsums below. They will be updated
   automatically by Homebrew maintainers when the PR will be merged.
