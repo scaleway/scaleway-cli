@@ -1212,6 +1212,12 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
+### v1.17+dev (unreleased)
+
+* This is the current development version. Update below with your changes. Remove this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.17...master)
+
 ### v1.17 (2018-07-02)
 
 * Fix: it is now possible to `scw inspect` snapshots [#510](https://github.com/scaleway/scaleway-cli/issues/510)
