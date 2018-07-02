@@ -106,7 +106,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.16/scw-darwin-amd64" -O /usr/local/bin/scw
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.17/scw-darwin-amd64" -O /usr/local/bin/scw
 
 # test
 scw version
@@ -117,7 +117,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.16/scw_1.16_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.17/scw_1.16_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1212,12 +1212,14 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.16+dev (unreleased)
+### v1.17 (2018-07-02)
 
-* Fix: it is now possible to `scw inspect` snapshots
-* Fix: add region details in cache for snapshots, images, bootscripts and volumes.
+* Fix: it is now possible to `scw inspect` snapshots [#510](https://github.com/scaleway/scaleway-cli/issues/510)
+* Fix: add region details in cache for snapshots, images, bootscripts and volumes [#510](https://github.com/scaleway/scaleway-cli/issues/510)
+* Fix: `scw attach` works again [#508](https://github.com/scaleway/scaleway-cli/issues/508) 
+* Fix unittests
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.16...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.16...v1.17)
 
 ### v1.16 (2018-04-20)
 
