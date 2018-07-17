@@ -16,11 +16,13 @@ var cmdS3 = &Command{
 }
 
 func init() {
+	cmdS3.Flag.StringVar(&s3Profile, []string{"-profile"}, "", "Specify a profile")
 	cmdS3.Flag.BoolVar(&s3Help, []string{"h", "-help"}, false, "Print usage")
 }
 
 // Flags
-var s3Help bool // -h, --help flag
+var s3Help bool      // -h, --help flag
+var s3Profile string // -p, --profile flag
 
 func runS3(cmd *Command, rawArgs []string) error {
 	if s3Help {
