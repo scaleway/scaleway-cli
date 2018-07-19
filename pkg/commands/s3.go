@@ -5,8 +5,9 @@
 package commands
 
 import (
-	minio "github.com/minio/mc/cmd"
 	"os"
+
+	minio "github.com/minio/mc/cmd"
 )
 
 // VersionArgs are flags for the `RunVersion` function

@@ -4,7 +4,9 @@
 
 package cli
 
-import "github.com/scaleway/scaleway-cli/pkg/commands"
+import (
+	"github.com/scaleway/scaleway-cli/pkg/commands"
+)
 
 var cmdRm = &Command{
 	Exec:        runRm,
