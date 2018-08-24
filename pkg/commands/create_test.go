@@ -62,7 +62,7 @@ func TestRunCreate_realAPI(t *testing.T) {
 		Convey("--name=unittest-create-standard wily", func() {
 			args := CreateArgs{
 				Name:           "unittest-create-standard",
-				Image:          "xenial",
+				Image:          "ubuntu-mini-xenial-25g",
 				CommercialType: "X64-2GB",
 				IP:             "dynamic",
 			}

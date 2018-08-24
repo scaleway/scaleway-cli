@@ -1382,7 +1382,7 @@ func (s *ScalewayAPI) PostSnapshot(volumeID string, name string) (string, error)
 		return "", err
 	}
 	// FIXME arch, owner, title
-	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, "", "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
+	s.Cache.InsertSnapshot(snapshot.Snapshot.Identifier, s.Region, "", snapshot.Snapshot.Organization, snapshot.Snapshot.Name)
 	return snapshot.Snapshot.Identifier, nil
 }
 
@@ -1414,7 +1414,7 @@ func (s *ScalewayAPI) PostImage(volumeID string, name string, bootscript string,
 		return "", err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertImage(image.Image.Identifier, "", image.Image.Arch, image.Image.Organization, image.Image.Name, "")
+	s.Cache.InsertImage(image.Image.Identifier, s.Region, image.Image.Arch, image.Image.Organization, image.Image.Name, "")
 	return image.Image.Identifier, nil
 }
 
@@ -1690,7 +1690,7 @@ func (s *ScalewayAPI) GetSnapshots() (*[]ScalewaySnapshot, error) {
 	}
 	for _, snapshot := range snapshots.Snapshots {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertSnapshot(snapshot.Identifier, "", "", snapshot.Organization, snapshot.Name)
+		s.Cache.InsertSnapshot(snapshot.Identifier, s.Region, "", snapshot.Organization, snapshot.Name)
 	}
 	return &snapshots.Snapshots, nil
 }
@@ -1713,7 +1713,7 @@ func (s *ScalewayAPI) GetSnapshot(snapshotID string) (*ScalewaySnapshot, error) 
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, "", "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
+	s.Cache.InsertSnapshot(oneSnapshot.Snapshot.Identifier, s.Region, "", oneSnapshot.Snapshot.Organization, oneSnapshot.Snapshot.Name)
 	return &oneSnapshot.Snapshot, nil
 }
 
@@ -1740,7 +1740,7 @@ func (s *ScalewayAPI) GetVolumes() (*[]ScalewayVolume, error) {
 	}
 	for _, volume := range volumes.Volumes {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertVolume(volume.Identifier, "", "", volume.Organization, volume.Name)
+		s.Cache.InsertVolume(volume.Identifier, s.Region, "", volume.Organization, volume.Name)
 	}
 	return &volumes.Volumes, nil
 }
@@ -1763,7 +1763,7 @@ func (s *ScalewayAPI) GetVolume(volumeID string) (*ScalewayVolume, error) {
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertVolume(oneVolume.Volume.Identifier, "", "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
+	s.Cache.InsertVolume(oneVolume.Volume.Identifier, s.Region, "", oneVolume.Volume.Organization, oneVolume.Volume.Name)
 	return &oneVolume.Volume, nil
 }
 
@@ -1789,7 +1789,7 @@ func (s *ScalewayAPI) GetBootscripts() (*[]ScalewayBootscript, error) {
 	}
 	for _, bootscript := range bootscripts.Bootscripts {
 		// FIXME region, arch, owner, title
-		s.Cache.InsertBootscript(bootscript.Identifier, "", bootscript.Arch, bootscript.Organization, bootscript.Title)
+		s.Cache.InsertBootscript(bootscript.Identifier, s.Region, bootscript.Arch, bootscript.Organization, bootscript.Title)
 	}
 	return &bootscripts.Bootscripts, nil
 }
@@ -1812,7 +1812,7 @@ func (s *ScalewayAPI) GetBootscript(bootscriptID string) (*ScalewayBootscript, e
 		return nil, err
 	}
 	// FIXME region, arch, owner, title
-	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, "", oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
+	s.Cache.InsertBootscript(oneBootscript.Bootscript.Identifier, s.Region, oneBootscript.Bootscript.Arch, oneBootscript.Bootscript.Organization, oneBootscript.Bootscript.Title)
 	return &oneBootscript.Bootscript, nil
 }
 
