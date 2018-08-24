@@ -59,6 +59,7 @@ Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-serve
     * [`top [OPTIONS] SERVER`](#scw-top)
     * [`version [OPTIONS]`](#scw-version)
     * [`wait [OPTIONS] SERVER [SERVER...]`](#scw-wait)
+    * [`s3 [OPTIONS]`](#scw-s3)
   * [Examples](#examples)
 5. [Changelog](#changelog)
 6. [Development](#development)
