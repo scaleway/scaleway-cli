@@ -5,9 +5,6 @@
 package cli
 
 import (
-	"fmt"
-	"reflect"
-
 	"github.com/scaleway/scaleway-cli/pkg/commands"
 )
 
@@ -19,7 +16,6 @@ var cmdS3 = &Command{
 }
 
 func init() {
-	fmt.Println("reflect =", reflect.TypeOf(cmdS3))
 	cmdS3.Flag.StringVar(&s3Profile, []string{"-profile"}, "scw", "Specify a profile")
 	cmdS3.Flag.BoolVar(&s3Help, []string{"h", "-help"}, false, "Print usage")
 }
@@ -33,7 +29,6 @@ func runS3(cmd *Command, rawArgs []string) error {
 		return cmd.PrintUsage()
 	}
 
-	fmt.Println("s3Profile =", s3Profile)
 	args := commands.S3Args{}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.S3(ctx, args)

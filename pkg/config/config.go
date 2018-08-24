@@ -87,7 +87,7 @@ func GetConfigFilePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(path, ".scwrc"), nil
+	return filepath.Join(path, ".scw/config.json"), nil
 }
 
 // GetHomeDir returns the path to your home
