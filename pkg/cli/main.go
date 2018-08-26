@@ -47,6 +47,8 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 	}
 	flag.CommandLine.Parse(rawArgs)
 
+	config.MigrateConfig()
+
 	config, cfgErr := config.GetConfig()
 	if cfgErr != nil && !os.IsNotExist(cfgErr) {
 		return 1, fmt.Errorf("unable to open .scwrc config file: %v", cfgErr)

@@ -29,6 +29,41 @@ type Config struct {
 	Version string `json:"version"`
 }
 
+// migrate config from home to ~/.scw/
+func MigrateConfig() {
+	// Get old config Path
+	oldConfigPath, err := GetHomeDir()
+	if err != nil {
+		fmt.Errorf("%s\n", err)
+	}
+	oldConfigPath = filepath.Join(oldConfigPath, ".scwrc")
+
+	// Get new config Path
+	newConfigPath, err := GetConfigFilePath()
+	if err != nil {
+		fmt.Errorf("Unable to get scwrc config file path: %s", err)
+	}
+
+	// Check if file exist
+	_, err = os.Stat(oldConfigPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return
+		}
+		fmt.Errorf("%s\n", err)
+		return
+	}
+
+	// mv file to new Path
+	err = os.Rename(oldConfigPath, newConfigPath)
+	if err != nil {
+		fmt.Errorf("%s\n", err)
+	}
+	fmt.Printf("%s moved to %s\n", oldConfigPath, newConfigPath)
+
+	return
+}
+
 // Save write the config file
 func (c *Config) Save() error {
 	scwrcPath, err := GetConfigFilePath()
@@ -87,7 +122,7 @@ func GetConfigFilePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(path, ".scw/config.json"), nil
+	return filepath.Join(path, ".scw/scwrc"), nil
 }
 
 // GetHomeDir returns the path to your home

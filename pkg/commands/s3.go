@@ -5,8 +5,6 @@
 package commands
 
 import (
-	"os"
-
 	minio "github.com/minio/mc/cmd"
 )
 
@@ -15,8 +13,6 @@ type S3Args struct{}
 
 // Version is the handler for 'scw version'
 func S3(ctx CommandContext, args S3Args) error {
-	// remove "s3" from arg list
-	os.Args = append(os.Args[:1], os.Args[2:]...)
 	minio.Main()
 	return nil
 }
