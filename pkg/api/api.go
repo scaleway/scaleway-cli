@@ -458,6 +458,7 @@ type ScalewaySecurityGroups struct {
 	Servers               []ScalewaySecurityGroup `json:"servers"`
 	EnableDefaultSecurity bool                    `json:"enable_default_security"`
 	OrganizationDefault   bool                    `json:"organization_default"`
+	Stateful              bool                    `json:"stateful"`
 }
 
 // ScalewayGetSecurityGroups represents the response of a GET /security_groups/
@@ -506,6 +507,7 @@ type ScalewayNewSecurityGroup struct {
 	Organization string `json:"organization"`
 	Name         string `json:"name"`
 	Description  string `json:"description"`
+	Stateful     bool   `json:"stateful"`
 }
 
 // ScalewayUpdateSecurityGroup definition PUT request /security_groups
@@ -514,6 +516,7 @@ type ScalewayUpdateSecurityGroup struct {
 	Name                string `json:"name"`
 	Description         string `json:"description"`
 	OrganizationDefault bool   `json:"organization_default"`
+	Stateful            bool   `json:"stateful"`
 }
 
 // ScalewayServer represents a Scaleway server

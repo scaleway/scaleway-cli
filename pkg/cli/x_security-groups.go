@@ -42,6 +42,7 @@ func init() {
 	cmdSecurityGroups.Flag.BoolVar(&securityGroupsHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdSecurityGroups.Flag.StringVar(&securityGroupsName, []string{"n", "-name"}, "", "SecurityGroup's name")
 	cmdSecurityGroups.Flag.StringVar(&securityGroupsDesc, []string{"d", "-description"}, "", "SecurityGroup's description")
+	cmdSecurityGroups.Flag.BoolVar(&securityGroupsStateful, []string{"s", "-stateful"}, false, "is SecurityGroup stateful")
 	subCmdSecurityGroup = map[string]func(cmd *Command, args []string) error{
 		"list-groups":  listSecurityGroup,
 		"new-group":    newSecurityGroup,
@@ -60,6 +61,7 @@ func init() {
 var securityGroupsHelp bool   // -h, --help flag
 var securityGroupsName string // -n, --name flag
 var securityGroupsDesc string // -d, --description flag
+var securityGroupsStateful bool   // -s, --stateful flag
 
 // SubCommand
 var subCmdSecurityGroup map[string]func(cmd *Command, args []string) error
@@ -91,6 +93,7 @@ func newSecurityGroup(cmd *Command, args []string) error {
 		Organization: cmd.API.Organization,
 		Name:         securityGroupsName,
 		Description:  securityGroupsDesc,
+		Stateful:     securityGroupsStateful,
 	})
 }
 
@@ -103,6 +106,7 @@ func updateSecurityGroup(cmd *Command, args []string) error {
 		Organization: cmd.API.Organization,
 		Name:         securityGroupsName,
 		Description:  securityGroupsDesc,
+		Stateful:     securityGroupsStateful,
 	}, args[0])
 }
 
