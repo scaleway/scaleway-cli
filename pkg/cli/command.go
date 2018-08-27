@@ -51,15 +51,19 @@ type Command struct {
 	// API is the interface used to communicate with Scaleway's API
 	API *api.ScalewayAPI
 
+	// ConfigPath for -c, --config parameter
+	ConfigPath string
+
 	streams *commands.Streams
 }
 
 // GetContext returns a standard context, with real stdin, stdout, stderr, a configured API and raw arguments
 func (c *Command) GetContext(rawArgs []string) commands.CommandContext {
 	ctx := commands.CommandContext{
-		Env:     os.Environ(),
-		RawArgs: rawArgs,
-		API:     c.API,
+		Env:        os.Environ(),
+		RawArgs:    rawArgs,
+		API:        c.API,
+		ConfigPath: c.ConfigPath,
 	}
 
 	if c.streams != nil {

@@ -30,10 +30,14 @@ type Config struct {
 }
 
 // Save write the config file
-func (c *Config) Save() error {
-	scwrcPath, err := GetConfigFilePath()
-	if err != nil {
-		return fmt.Errorf("Unable to get scwrc config file path: %s", err)
+func (c *Config) Save(configPath string) error {
+	scwrcPath := configPath
+	var err error
+	if configPath == "" {
+		scwrcPath, err = GetConfigFilePath()
+		if err != nil {
+			return fmt.Errorf("Unable to get scwrc config file path: %s", err)
+		}
 	}
 	scwrc, err := os.OpenFile(scwrcPath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
 	if err != nil {
@@ -49,10 +53,13 @@ func (c *Config) Save() error {
 }
 
 // GetConfig returns the Scaleway CLI config file for the current user
-func GetConfig() (*Config, error) {
-	scwrcPath, err := GetConfigFilePath()
-	if err != nil {
-		return nil, err
+func GetConfig(scwrcPath string) (*Config, error) {
+	var err error
+	if scwrcPath == "" {
+		scwrcPath, err = GetConfigFilePath()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Don't check permissions on Windows, Go knows nothing about them on this platform
@@ -63,7 +70,7 @@ func GetConfig() (*Config, error) {
 		if errStat == nil {
 			perm := stat.Mode().Perm()
 			if perm&0066 != 0 {
-				return nil, fmt.Errorf("permissions %#o for .scwrc are too open", perm)
+				return nil, fmt.Errorf("permissions %#o for %s are too open", perm, scwrcPath)
 			}
 		}
 	}

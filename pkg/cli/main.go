@@ -48,11 +48,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 	}
 	flag.CommandLine.Parse(rawArgs)
 
-	if *flConfig != "" {
-		os.Setenv("SCW_CONFIG_PATH", *flConfig)
-	}
-
-	config, cfgErr := config.GetConfig()
+	config, cfgErr := config.GetConfig(*flConfig)
 	if cfgErr != nil && !os.IsNotExist(cfgErr) {
 		return 1, fmt.Errorf("unable to open .scwrc config file: %v", cfgErr)
 	}
@@ -98,12 +94,13 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 			if err != nil {
 				return 1, fmt.Errorf("usage: scw %s", cmd.UsageLine)
 			}
+			cmd.ConfigPath = *flConfig
 			switch cmd.Name() {
 			case "login", "help", "version":
 				// commands that don't need API
 			case "_userdata":
 				// commands that may need API
-				api, _ := getScalewayAPI(*flRegion)
+				api, _ := getScalewayAPI(*flRegion, *flConfig)
 				cmd.API = api
 			default:
 				// commands that do need API
@@ -114,7 +111,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 						return 1, nil
 					}
 				}
-				api, errGet := getScalewayAPI(*flRegion)
+				api, errGet := getScalewayAPI(*flRegion, *flConfig)
 				if errGet != nil {
 					return 1, fmt.Errorf("unable to initialize scw api: %v", errGet)
 				}
@@ -123,7 +120,7 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 			// clean cache between versions
 			if cmd.API != nil && config.Version != scwversion.VERSION {
 				cmd.API.ClearCache()
-				config.Save()
+				config.Save(*flConfig)
 			}
 			err = cmd.Exec(cmd, cmd.Flag.Args())
 			switch err {
@@ -145,9 +142,9 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 }
 
 // getScalewayAPI returns a ScalewayAPI using the user config file
-func getScalewayAPI(region string) (*api.ScalewayAPI, error) {
+func getScalewayAPI(region string, configPath string) (*api.ScalewayAPI, error) {
 	// We already get config globally, but whis way we can get explicit error when trying to create a ScalewayAPI object
-	config, err := config.GetConfig()
+	config, err := config.GetConfig(configPath)
 	if err != nil {
 		return nil, err
 	}
