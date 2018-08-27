@@ -15,6 +15,7 @@ import (
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
+	"github.com/sirupsen/logrus"
 )
 
 // Config is a Scaleway CLI configuration file
@@ -34,7 +35,7 @@ func MigrateConfig() {
 	// Get old config Path
 	oldConfigPath, err := GetHomeDir()
 	if err != nil {
-		fmt.Errorf("%s\n", err)
+		fmt.Errorf("%s", err)
 	}
 	oldConfigPath = filepath.Join(oldConfigPath, ".scwrc")
 
@@ -50,16 +51,16 @@ func MigrateConfig() {
 		if os.IsNotExist(err) {
 			return
 		}
-		fmt.Errorf("%s\n", err)
+		fmt.Errorf("%s", err)
 		return
 	}
 
 	// mv file to new Path
 	err = os.Rename(oldConfigPath, newConfigPath)
 	if err != nil {
-		fmt.Errorf("%s\n", err)
+		fmt.Errorf("%s", err)
 	}
-	fmt.Printf("%s moved to %s\n", oldConfigPath, newConfigPath)
+	logrus.Info(oldConfigPath, " moved to ", newConfigPath)
 
 	return
 }
