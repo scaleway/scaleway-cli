@@ -33,6 +33,7 @@ var (
 	flQuiet     = flag.Bool([]string{"q", "-quiet"}, false, "Enable quiet mode")
 	flSensitive = flag.Bool([]string{"-sensitive"}, false, "Show sensitive data in outputs, i.e. API Token/Organization")
 	flRegion    = flag.String([]string{"-region"}, "par1", "Change the default region (e.g. ams1)")
+	flConfig    = flag.String([]string{"c", "-config"}, "", "Optional config file path")
 )
 
 // Start is the entrypoint
@@ -46,6 +47,10 @@ func Start(rawArgs []string, streams *commands.Streams) (int, error) {
 		}
 	}
 	flag.CommandLine.Parse(rawArgs)
+
+	if *flConfig != "" {
+		os.Setenv("SCW_CONFIG_PATH", *flConfig)
+	}
 
 	config, cfgErr := config.GetConfig()
 	if cfgErr != nil && !os.IsNotExist(cfgErr) {

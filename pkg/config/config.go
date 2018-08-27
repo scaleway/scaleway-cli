@@ -83,6 +83,10 @@ func GetConfig() (*Config, error) {
 
 // GetConfigFilePath returns the path to the Scaleway CLI config file
 func GetConfigFilePath() (string, error) {
+	path := os.Getenv("SCW_CONFIG_PATH")
+	if path != "" {
+		return path, nil
+	}
 	path, err := GetHomeDir()
 	if err != nil {
 		return "", err

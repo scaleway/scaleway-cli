@@ -44,6 +44,7 @@ Options:
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
  --region=par1                Change the default region (e.g. ams1)
+ -c, --config=<config path>   Option config file path (default to ~/.scwrc)
 
 Commands:
 {{range .}}{{if not .Hidden}}    {{.Name | printf "%-9s"}} {{.Description}}
