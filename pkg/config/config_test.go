@@ -58,14 +58,14 @@ func TestGetConfig(t *testing.T) {
 		So(err, ShouldBeNil)
 		So(cfg.Organization, ShouldEqual, randOrg)
 		So(cfg.Token, ShouldEqual, randToken)
-		os.Setenv("SCW_API_ORGID", randOrg)
-		os.Setenv("SCW_API_TOKEN", randToken)
+		os.Setenv("SCW_ORGANIZATION", randOrg)
+		os.Setenv("SCW_TOKEN", randToken)
 		cfg, err = GetConfig("")
 		So(err, ShouldBeNil)
 		So(cfg.Organization, ShouldEqual, randOrg)
 		So(cfg.Token, ShouldEqual, randToken)
-		os.Unsetenv("SCW_API_ORGID")
-		os.Unsetenv("SCW_API_TOKEN")
+		os.Unsetenv("SCW_ORGANIZATION")
+		os.Unsetenv("SCW_TOKEN")
 	})
 }
 

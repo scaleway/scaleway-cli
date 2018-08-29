@@ -57,8 +57,8 @@ func (c *Config) Save(configPath string) error {
 func GetConfig(scwrcPath string) (*Config, error) {
 	var err error
 
-	orgid := os.Getenv("SCW_API_ORGID")
-	token := os.Getenv("SCW_API_TOKEN")
+	orgid := os.Getenv("SCW_ORGANIZATION")
+	token := os.Getenv("SCW_TOKEN")
 	if token != "" && orgid != "" {
 		cfg := Config{
 			Organization: strings.Trim(orgid, "\n"),
