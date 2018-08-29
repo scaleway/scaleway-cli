@@ -6,11 +6,11 @@ package config
 
 import (
 	"math/rand"
-	"time"
 	"os"
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	. "github.com/smartystreets/goconvey/convey"
@@ -40,21 +40,32 @@ func TestGetConfigFilePathEnv(t *testing.T) {
 
 func TestGetConfig(t *testing.T) {
 	Convey("Testing GetConfig() with and without env variable", t, func() {
-		os.Setenv("SCW_CONFIG_PATH", "./config_testdata1")
+		rand.Seed(time.Now().UTC().UnixNano())
+		randOrg := strconv.FormatInt(rand.Int63(), 16)
+		randToken := strconv.FormatInt(rand.Int63(), 16)
 		cfg := &Config{
-			Organization: strings.Trim("test_orgID", "\n"),
-			Token:        strings.Trim("test_token", "\n"),
+			Organization: strings.Trim(randOrg, "\n"),
+			Token:        strings.Trim(randToken, "\n"),
 		}
+		os.Setenv("SCW_CONFIG_PATH", "./config_testdata1")
 		err := cfg.Save("")
 		So(err, ShouldBeNil)
 		cfg, err = GetConfig("./config_testdata1")
-		So(cfg.Organization, ShouldEqual, "test_orgID")
-		So(cfg.Token, ShouldEqual, "test_token")
+		So(cfg.Organization, ShouldEqual, randOrg)
+		So(cfg.Token, ShouldEqual, randToken)
 		os.Unsetenv("SCW_CONFIG_PATH")
 		cfg, err = GetConfig("./config_testdata1")
 		So(err, ShouldBeNil)
-		So(cfg.Organization, ShouldEqual, "test_orgID")
-		So(cfg.Token, ShouldEqual, "test_token")
+		So(cfg.Organization, ShouldEqual, randOrg)
+		So(cfg.Token, ShouldEqual, randToken)
+		os.Setenv("SCW_API_ORGID", randOrg)
+		os.Setenv("SCW_API_TOKEN", randToken)
+		cfg, err = GetConfig("")
+		So(err, ShouldBeNil)
+		So(cfg.Organization, ShouldEqual, randOrg)
+		So(cfg.Token, ShouldEqual, randToken)
+		os.Unsetenv("SCW_API_ORGID")
+		os.Unsetenv("SCW_API_TOKEN")
 	})
 }
 

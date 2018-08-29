@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 )
@@ -55,6 +56,18 @@ func (c *Config) Save(configPath string) error {
 // GetConfig returns the Scaleway CLI config file for the current user
 func GetConfig(scwrcPath string) (*Config, error) {
 	var err error
+
+	orgid := os.Getenv("SCW_API_ORGID")
+	token := os.Getenv("SCW_API_TOKEN")
+	if token != "" && orgid != "" {
+		cfg := Config{
+			Organization: strings.Trim(orgid, "\n"),
+			Token:        strings.Trim(token, "\n"),
+			Version:      scwversion.VERSION,
+		}
+		return &cfg, nil
+	}
+
 	if scwrcPath == "" {
 		scwrcPath, err = GetConfigFilePath()
 		if err != nil {
