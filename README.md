@@ -181,6 +181,7 @@ Options:
  --sensitive=false            Show sensitive data in outputs, i.e. API Token/Organization
  -v, --version=false          Print version information and quit
  --region=par1                Change the default region (e.g. ams1)
+ -c, --config=<config path>   Option config file path (default to ~/.scwrc)
 
 Commands:
     help      help of the scw command line
@@ -1214,6 +1215,8 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ### v1.17+dev (unreleased)
 
+* Add the ability to use an arbitrary config file using `-c`,`--config` option.
+* Add the ability to specify a token and organiationId from the environnement using `SCW_TOKEN` and `SCW_ORGANIZATION` variables.
 * This is the current development version. Update below with your changes. Remove this line when releasing the package.
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.17...master)
