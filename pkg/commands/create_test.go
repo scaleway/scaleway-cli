@@ -65,6 +65,7 @@ func TestRunCreate_realAPI(t *testing.T) {
 				Image:          "ubuntu-mini-xenial-25g",
 				CommercialType: "X64-2GB",
 				IP:             "dynamic",
+				BootType:       "bootscript",
 			}
 
 			scopedCtx, scopedStdout, scopedStderr := getScopedCtx(ctx)

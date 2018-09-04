@@ -46,6 +46,7 @@ func init() {
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
 	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "X64-2GB", "Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB")
+	cmdRun.Flag.StringVar(&runBootType, []string{"-boot-type"}, "local", "Choose between 'local' and 'bootscript' boot")
 	cmdRun.Flag.StringVar(&runSSHUser, []string{"-user"}, "root", "Specify SSH User")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
 	cmdRun.Flag.BoolVar(&runIPV6, []string{"-ipv6"}, false, "Enable IPV6")
@@ -68,6 +69,7 @@ var runDetachFlag bool         // -d, --detach flag
 var runGateway string          // -g, --gateway flag
 var runUserdatas string        // -u, --userdata flag
 var runCommercialType string   // --commercial-type flag
+var runBootType string         // --boot-type flag
 var runTmpSSHKey bool          // --tmp-ssh-key flag
 var runShowBoot bool           // --show-boot flag
 var runIPV6 bool               // --ipv6 flag
@@ -124,6 +126,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		IPV6:           runIPV6,
 		SSHUser:        runSSHUser,
 		SSHPort:        runSSHPort,
+		BootType:       runBootType,
 		// FIXME: Timeout
 	}
 
