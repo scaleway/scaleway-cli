@@ -37,6 +37,12 @@ func MigrateConfig() {
 	if err != nil {
 		fmt.Errorf("%s", err)
 	}
+	// Create scw folder
+	err = os.Mkdir(oldConfigPath+"/.scw", os.ModePerm)
+	if err != nil {
+		fmt.Errorf("Unable to make directory: %s", err)
+	}
+
 	oldConfigPath = filepath.Join(oldConfigPath, ".scwrc")
 
 	// Get new config Path
