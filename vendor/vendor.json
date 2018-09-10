@@ -181,6 +181,12 @@
 			"revision": "2d205ac6ec17a839a94bdbfd16d2fa6c6dada2e0"
 		},
 		{
+			"checksumSHA1": "JtcR/VUodXvJ7I9i0i11LkHHHEU=",
+			"path": "github.com/minio/mc",
+			"revision": "8901430fe3983fdfecb4a718b98fb3b0775dfa6f",
+			"revisionTime": "2018-09-02T00:26:20Z"
+		},
+		{
 			"checksumSHA1": "9y/iQh3/YtX31wAu7eJravtjTro=",
 			"path": "github.com/sirupsen/logrus",
 			"revision": "8c0189d9f6bbf301e5d055d34268156b317016af",

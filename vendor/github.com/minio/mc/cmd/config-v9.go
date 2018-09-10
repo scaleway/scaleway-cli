@@ -1,0 +1,133 @@
+/*
+ * Minio Client (C) 2015 Minio, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package cmd
+
+import (
+	"sync"
+
+	"github.com/minio/mc/pkg/probe"
+	"github.com/minio/minio/pkg/quick"
+)
+
+const (
+	defaultAccessKey = "YOUR-ACCESS-KEY-HERE"
+	defaultSecretKey = "YOUR-SECRET-KEY-HERE"
+)
+
+var (
+	// set once during first load.
+	cacheCfgV9 *configV9
+	// All access to mc config file should be synchronized.
+	cfgMutex = &sync.RWMutex{}
+)
+
+// hostConfig configuration of a host.
+type hostConfigV9 struct {
+	URL       string `json:"url"`
+	AccessKey string `json:"accessKey"`
+	SecretKey string `json:"secretKey"`
+	API       string `json:"api"`
+	Lookup    string `json:"lookup"`
+}
+
+// configV8 config version.
+type configV9 struct {
+	Version string                  `json:"minio-version"`
+	Hosts   map[string]hostConfigV9 `json:"hosts"`
+}
+
+// newConfigV9 - new config version.
+func newConfigV9() *configV9 {
+	cfg := new(configV9)
+	cfg.Version = globalMCConfigVersion
+	cfg.Hosts = make(map[string]hostConfigV9)
+	return cfg
+}
+
+// SetHost sets host config if not empty.
+func (c *configV9) setHost(alias string, cfg hostConfigV9) {
+	if _, ok := c.Hosts[alias]; !ok {
+		c.Hosts[alias] = cfg
+	}
+}
+
+// load default values for missing entries.
+func (c *configV9) loadDefaults() {
+	// Minio server running locally.
+	c.setHost("scw", hostConfigV9{
+		URL:       "http://192.168.43.9:9000",
+		AccessKey: "GVPGBJPC6WV9VP7PPPBK",
+		SecretKey: "/Rl10FB7MkeCHnbIIjwZUeJ6gIbe8Lv8n7Zjd6FN",
+		API:       "S3v4",
+		Lookup:    "auto",
+	})
+}
+
+// loadConfigV9 - loads a new config.
+func loadConfigV9() (*configV9, *probe.Error) {
+	cfgMutex.RLock()
+	defer cfgMutex.RUnlock()
+
+	// If already cached, return the cached value.
+	if cacheCfgV9 != nil {
+		return cacheCfgV9, nil
+	}
+
+	if !isMcConfigExists() {
+		return nil, errInvalidArgument().Trace()
+	}
+
+	// Initialize a new config loader.
+	qc, e := quick.New(newConfigV9())
+	if e != nil {
+		return nil, probe.NewError(e)
+	}
+
+	// Load config at configPath, fails if config is not
+	// accessible, malformed or version missing.
+	if e = qc.Load(mustGetMcConfigPath()); e != nil {
+		return nil, probe.NewError(e)
+	}
+
+	cfgV9 := qc.Data().(*configV9)
+
+	// Cache config.
+	cacheCfgV9 = cfgV9
+
+	// Success.
+	return cfgV9, nil
+}
+
+// saveConfigV8 - saves an updated config.
+func saveConfigV9(cfgV9 *configV9) *probe.Error {
+	cfgMutex.Lock()
+	defer cfgMutex.Unlock()
+
+	qs, e := quick.New(cfgV9)
+	if e != nil {
+		return probe.NewError(e)
+	}
+
+	// update the cache.
+	cacheCfgV9 = cfgV9
+
+	e = qs.Save(mustGetMcConfigPath())
+	if e != nil {
+		return probe.NewError(e).Trace(mustGetMcConfigPath())
+	}
+	return nil
+}
