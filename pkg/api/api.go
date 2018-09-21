@@ -459,6 +459,8 @@ type ScalewaySecurityGroups struct {
 	EnableDefaultSecurity bool                    `json:"enable_default_security"`
 	OrganizationDefault   bool                    `json:"organization_default"`
 	Stateful              bool                    `json:"stateful"`
+	InboundDefaultPolicy  string                  `json:"inbound_default_policy"`
+	OutboundDefaultPolicy string                  `json:"outbound_default_policy"`
 }
 
 // ScalewayGetSecurityGroups represents the response of a GET /security_groups/
@@ -504,19 +506,23 @@ type ScalewaySecurityGroup struct {
 
 // ScalewayNewSecurityGroup definition POST request /security_groups
 type ScalewayNewSecurityGroup struct {
-	Organization string `json:"organization"`
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	Stateful     bool   `json:"stateful"`
+	Organization          string `json:"organization"`
+	Name                  string `json:"name"`
+	Description           string `json:"description"`
+	Stateful              bool   `json:"stateful"`
+	InboundDefaultPolicy  string `json:"inbound_default_policy"`
+	OutboundDefaultPolicy string `json:"outbound_default_policy"`
 }
 
 // ScalewayUpdateSecurityGroup definition PUT request /security_groups
 type ScalewayUpdateSecurityGroup struct {
-	Organization        string `json:"organization"`
-	Name                string `json:"name"`
-	Description         string `json:"description"`
-	OrganizationDefault bool   `json:"organization_default"`
-	Stateful            bool   `json:"stateful"`
+	Organization          string `json:"organization"`
+	Name                  string `json:"name"`
+	Description           string `json:"description"`
+	OrganizationDefault   bool   `json:"organization_default"`
+	Stateful              bool   `json:"stateful"`
+	InboundDefaultPolicy  string `json:"inbound_default_policy"`
+	OutboundDefaultPolicy string `json:"outbound_default_policy"`
 }
 
 // ScalewayServer represents a Scaleway server

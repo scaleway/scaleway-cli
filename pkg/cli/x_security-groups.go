@@ -25,8 +25,8 @@ var cmdSecurityGroups = &Command{
 
 	$ scw _security-groups list-groups
 	$ scw _security-groups show-group SGID
-	$ scw _security-groups new-group --name=NAME --desc=DESC
-	$ scw _security-groups update-group SGID --name=NAME --desc=DESC
+	$ scw _security-groups new-group --name=NAME --description=DESC --stateful=[true, false] --inbound=[accept, drop] --outbound=[accept, drop]
+	$ scw _security-groups update-group SGID --name=NAME --desc=DESC --stateful=[true, false] --inbound=[accept, drop] --outbound=[accept, drop]
 	$ scw _security-groups delete-group SGID
 
 	$ scw _security-groups list-rules SGID
@@ -43,6 +43,8 @@ func init() {
 	cmdSecurityGroups.Flag.StringVar(&securityGroupsName, []string{"n", "-name"}, "", "SecurityGroup's name")
 	cmdSecurityGroups.Flag.StringVar(&securityGroupsDesc, []string{"d", "-description"}, "", "SecurityGroup's description")
 	cmdSecurityGroups.Flag.BoolVar(&securityGroupsStateful, []string{"s", "-stateful"}, false, "is SecurityGroup stateful")
+	cmdSecurityGroups.Flag.StringVar(&securityGroupsInboundDefaultPolicy, []string{"i", "-inbound"}, "accept", "Inbound default policy")
+	cmdSecurityGroups.Flag.StringVar(&securityGroupsOutboundDefaultPolicy, []string{"o", "-outbound"}, "accept", "Outbound default policy")
 	subCmdSecurityGroup = map[string]func(cmd *Command, args []string) error{
 		"list-groups":  listSecurityGroup,
 		"new-group":    newSecurityGroup,
@@ -58,10 +60,12 @@ func init() {
 }
 
 // Flags
-var securityGroupsHelp bool   // -h, --help flag
-var securityGroupsName string // -n, --name flag
-var securityGroupsDesc string // -d, --description flag
-var securityGroupsStateful bool   // -s, --stateful flag
+var securityGroupsHelp bool                    // -h, --help flag
+var securityGroupsName string                  // -n, --name flag
+var securityGroupsDesc string                  // -d, --description flag
+var securityGroupsStateful bool                // -s, --stateful flag
+var securityGroupsInboundDefaultPolicy string  // -i, --inbound flag
+var securityGroupsOutboundDefaultPolicy string // -o, --outbound flag
 
 // SubCommand
 var subCmdSecurityGroup map[string]func(cmd *Command, args []string) error
@@ -83,17 +87,31 @@ func printRawMode(out io.Writer, data interface{}) error {
 	return nil
 }
 
+func isValidPolicy(policy string) bool {
+	switch policy {
+	case
+		"accept",
+		"drop":
+		return true
+	}
+	return false
+}
+
 func newSecurityGroup(cmd *Command, args []string) error {
 	fmt.Println(securityGroupsDesc)
 	fmt.Println(securityGroupsName)
-	if securityGroupsName == "" || securityGroupsDesc == "" {
+	if securityGroupsName == "" || securityGroupsDesc == "" ||
+		!isValidPolicy(securityGroupsInboundDefaultPolicy) ||
+		!isValidPolicy(securityGroupsOutboundDefaultPolicy) {
 		return cmd.PrintShortUsage()
 	}
 	return cmd.API.PostSecurityGroup(api.ScalewayNewSecurityGroup{
-		Organization: cmd.API.Organization,
-		Name:         securityGroupsName,
-		Description:  securityGroupsDesc,
-		Stateful:     securityGroupsStateful,
+		Organization:          cmd.API.Organization,
+		Name:                  securityGroupsName,
+		Description:           securityGroupsDesc,
+		Stateful:              securityGroupsStateful,
+		InboundDefaultPolicy:  securityGroupsInboundDefaultPolicy,
+		OutboundDefaultPolicy: securityGroupsOutboundDefaultPolicy,
 	})
 }
 
@@ -103,10 +121,12 @@ func updateSecurityGroup(cmd *Command, args []string) error {
 		return cmd.PrintShortUsage()
 	}
 	return cmd.API.PutSecurityGroup(api.ScalewayUpdateSecurityGroup{
-		Organization: cmd.API.Organization,
-		Name:         securityGroupsName,
-		Description:  securityGroupsDesc,
-		Stateful:     securityGroupsStateful,
+		Organization:          cmd.API.Organization,
+		Name:                  securityGroupsName,
+		Description:           securityGroupsDesc,
+		Stateful:              securityGroupsStateful,
+		InboundDefaultPolicy:  securityGroupsInboundDefaultPolicy,
+		OutboundDefaultPolicy: securityGroupsOutboundDefaultPolicy,
 	}, args[0])
 }
 
