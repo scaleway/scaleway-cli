@@ -268,7 +268,7 @@ func uploadSSHKeys(apiConnection *api.ScalewayAPI, newKey string) {
 
 // RunLogin is the handler for 'scw login'
 func RunLogin(ctx CommandContext, args LoginArgs) error {
-	if config, cfgErr := config.GetConfig(); cfgErr == nil {
+	if config, cfgErr := config.GetConfig(ctx.ConfigPath); cfgErr == nil {
 		if TestConnection, err := api.NewScalewayAPI(config.Organization, config.Token, scwversion.UserAgent(), "", clilogger.SetupLogger); err == nil {
 			if user, err := TestConnection.GetUser(); err == nil {
 				fmt.Println("You are already logged as", user.Fullname)
@@ -317,7 +317,7 @@ func RunLogin(ctx CommandContext, args LoginArgs) error {
 	fmt.Println("You can list your existing servers using `scw ps` or create a new one using `scw run ubuntu-xenial`.")
 	fmt.Println("You can get a list of all available commands using `scw -h` and get more usage examples on github.com/scaleway/scaleway-cli.")
 	fmt.Println("Happy cloud riding.")
-	return cfg.Save()
+	return cfg.Save(ctx.ConfigPath)
 }
 
 func promptUser(prompt string, output *string, echo bool) error {

@@ -39,7 +39,7 @@ func RealAPIContext() *CommandContext {
 	if os.Getenv("TEST_WITH_REAL_API") == "0" {
 		return nil
 	}
-	config, err := config.GetConfig()
+	config, err := config.GetConfig("")
 	if err != nil {
 		logrus.Warnf("RealAPIContext: failed to call config.GetConfig(): %v", err)
 		return nil

@@ -23,9 +23,10 @@ type Streams struct {
 type CommandContext struct {
 	Streams
 
-	Env     []string
-	RawArgs []string
-	API     *api.ScalewayAPI
+	Env        []string
+	RawArgs    []string
+	API        *api.ScalewayAPI
+	ConfigPath string
 }
 
 // Getenv returns the equivalent of os.Getenv for the CommandContext.Env
