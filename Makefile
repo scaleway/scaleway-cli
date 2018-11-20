@@ -91,8 +91,8 @@ prepare-release-dist: build
 	GOOS=linux  GOARCH=arm    go build -o dist/latest/scw-linux-arm         github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=linux  GOARCH=arm64  go build -o dist/latest/scw-linux-arm64       github.com/scaleway/scaleway-cli/cmd/scw
 
-	GOOS=darwin  GOARCH=386   go build -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=darwin  GOARCH=amd64 go build -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=darwin  GOARCH=386   go build --tags kqueue -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=darwin  GOARCH=amd64 go build --tags kqueue -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
 
 	GOOS=freebsd GOARCH=386   go build -o dist/latest/scw-freebsd-i386      github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=freebsd GOARCH=amd64 go build -o dist/latest/scw-freebsd-amd64     github.com/scaleway/scaleway-cli/cmd/scw
