@@ -85,14 +85,14 @@ func NewSSHExecCmd(publicIPAddress, privateIPAddress, user string, port int, all
 	quiet := os.Getenv("DEBUG") != "1"
 	secureExec := os.Getenv("SCW_SECURE_EXEC") == "1"
 	sshCommand := &sshcommand.Command{
-		AllocateTTY:         allocateTTY,
-		Command:             command,
-		Host:                publicIPAddress,
-		Quiet:               quiet,
-		SkipHostKeyChecking: !secureExec,
-		User:                user,
-		NoEscapeCommand:     true,
-		Port:                port,
+		AllocateTTY:            allocateTTY,
+		Command:                command,
+		Host:                   publicIPAddress,
+		Quiet:                  quiet,
+		SkipHostKeyChecking:    !secureExec,
+		User:                   user,
+		NoEscapeCommand:        true,
+		Port:                   port,
 		EnableSSHKeyForwarding: enableSSHKeyForwarding,
 	}
 	if gatewayIPAddress != "" {
