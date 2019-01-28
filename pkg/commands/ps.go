@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/docker/go-units"
-	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 	"github.com/sirupsen/logrus"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"

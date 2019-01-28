@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 )

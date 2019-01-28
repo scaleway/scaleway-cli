@@ -177,7 +177,7 @@
 		{
 			"checksumSHA1": "DF3jZEw4lCq/SEaC7DIl/R+7S70=",
 			"comment": "v1.0.0-2-g2d205ac",
-			"path": "github.com/renstrom/fuzzysearch/fuzzy",
+			"path": "github.com/lithammer/fuzzysearch/fuzzy",
 			"revision": "2d205ac6ec17a839a94bdbfd16d2fa6c6dada2e0"
 		},
 		{
