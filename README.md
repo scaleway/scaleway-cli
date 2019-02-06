@@ -237,6 +237,8 @@ $ scw run --name=my-ubuntu ubuntu-trusty bash
 root@my-ubuntu:~#
 ```
 
+:warning: when running a command through ssh (top, kill, run, cp, logs, exec,...), make sure your ssh key permissions are correctly set or you know the root password.
+
 ### Workflows
 
 See [./examples/](https://github.com/scaleway/scaleway-cli/tree/master/examples) directory
