@@ -12,6 +12,7 @@ profile.out
 .DS_STORE
 .vendor
 /.vscode
+/.idea
 
 # Vim Swapfiles
 [._]*.s[a-v][a-z]
