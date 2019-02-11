@@ -200,7 +200,7 @@ func checkVersion() {
 		req := http.Client{
 			Timeout: 1 * time.Second,
 		}
-		resp, err := req.Get("https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION")
+		resp, err := req.Get("https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-version")
 		if resp != nil {
 			defer resp.Body.Close()
 		}

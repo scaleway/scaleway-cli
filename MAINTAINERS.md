@@ -50,7 +50,7 @@ There is a Archlinux community package (aka. "AUR" — Archlinux User Repositor
 
 ### Update VERSION file
 
-From time to time, scaleway-cli makes a HTTP query to https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION to check if it is at the latest version available. This file needs to be updated.
+From time to time, scaleway-cli makes a HTTP query to `https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-version` to check if it is at the latest version available. This file needs to be updated.
 
 **PLEASE WAIT UNTIL THE HOMEBREW PULL REQUEST IS ACCEPTED BEFORE UPDATING THE VERSION FILE.**
 
@@ -59,7 +59,7 @@ From time to time, scaleway-cli makes a HTTP query to https://fr-1.storage.onlin
 $> echo '42.8' > VERSION
 $> s3cmd put VERSION s3://scaleway/scaleway-cli/VERSION --acl-public
 # Ensure it's at the latest version
-$> curl https://fr-1.storage.online.net/scaleway/scaleway-cli/VERSION
+$> curl https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-version
 # Should display "42.8".
 ```
 
