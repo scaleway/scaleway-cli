@@ -322,7 +322,7 @@ type ConfigCreateServer struct {
 	BootType          string
 }
 
-// Return offer from any of the product name or alternate names
+// OfferNameFromName returns offer from any of the product name or alternate names
 func OfferNameFromName(name string, products *ScalewayProductsServers) (*ProductServer, error) {
 	offer, ok := products.Servers[name]
 	if ok {
