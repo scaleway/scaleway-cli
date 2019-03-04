@@ -341,6 +341,24 @@ func OfferNameFromName(name string, products *ScalewayProductsServers) (*Product
 	return nil, fmt.Errorf("Unknow commercial type: %v", name)
 }
 
+var legacyInstantTypes = map[string]struct{}{
+	"START1-XS":   {},
+	"START1-S":    {},
+	"START1-M":    {},
+	"START1-L":    {},
+	"C1":          {},
+	"C2S":         {},
+	"C2M":         {},
+	"C2L":         {},
+	"ARM64-2GB":   {},
+	"ARM64-4GB":   {},
+	"ARM64-8GB":   {},
+	"ARM64-16GB":  {},
+	"ARM64-32GB":  {},
+	"ARM64-64GB":  {},
+	"ARM64-128GB": {},
+}
+
 // CreateServer creates a server using API based on typical server fields
 func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	commercialType := os.Getenv("SCW_COMMERCIAL_TYPE")
@@ -349,6 +367,15 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	}
 	if len(commercialType) < 2 {
 		return "", errors.New("Invalid commercial type")
+	}
+	commercialType = strings.ToUpper(commercialType)
+
+	if c.BootType == "auto" {
+		if _, exist := legacyInstantTypes[commercialType]; exist {
+			c.BootType = "bootscript"
+		} else {
+			c.BootType = "local"
+		}
 	}
 
 	if c.BootType != "local" && c.BootType != "bootscript" {
@@ -361,7 +388,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 
 	var server ScalewayServerDefinition
 
-	server.CommercialType = strings.ToUpper(commercialType)
+	server.CommercialType = commercialType
 	server.Volumes = make(map[string]string)
 	server.DynamicIPRequired = &c.DynamicIPRequired
 	server.EnableIPV6 = c.EnableIPV6
