@@ -327,14 +327,16 @@ Create a new server but do not start it.
 
 Options:
 
-  --bootscript=""           Assign a bootscript
+  --boot-type=auto      Choose between 'local' and 'bootscript' boot
+  --bootscript=""       Assign a bootscript
   --commercial-type=X64-2GB Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
-  -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -h, --help=false          Print usage
-  --ip-address=dynamic      Assign a reserved public IP, a 'dynamic' one or 'none'
-  --name=""                 Assign a name
-  --tmp-ssh-key=false       Access your server without uploading your SSH key to your account
-  -v, --volume=""           Attach additional volume (i.e., 50G)
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -h, --help=false      Print usage
+  --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
+  --ipv6=false          Enable IPV6
+  --name=""             Assign a name
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
@@ -722,24 +724,25 @@ Run a command in a new server.
 
 Options:
 
-  -a, --attach=false        Attach to serial console
-  --bootscript=""           Assign a bootscript
+  -a, --attach=false    Attach to serial console
+  --boot-type=auto      Choose between 'local' and 'bootscript' boot
+  --bootscript=""       Assign a bootscript
   --commercial-type=X64-2GB Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
-  -d, --detach=false        Run server in background and print server ID
-  -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -g, --gateway=""          Use a SSH gateway
-  -h, --help=false          Print usage
-  --ip-address=""           Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
-  --ipv6=false              Enable IPV6
-  --name=""                 Assign a name
-  -p, --port=22             Specify SSH port
-  --rm=false                Automatically remove the server when it exits
-  --show-boot=false         Allows to show the boot
-  -T, --timeout=0           Set timeout value to seconds
-  --tmp-ssh-key=false       Access your server without uploading your SSH key to your account
-  -u, --userdata=""         Start a server with userdata predefined
-  --user=root               Specify SSH User
-  -v, --volume=""           Attach additional volume (i.e., 50G)
+  -d, --detach=false    Run server in background and print server ID
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -g, --gateway=""      Use a SSH gateway
+  -h, --help=false      Print usage
+  --ip-address=""       Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
+  --ipv6=false          Enable IPV6
+  --name=""             Assign a name
+  -p, --port=22         Specify SSH port
+  --rm=false            Automatically remove the server when it exits
+  --show-boot=false     Allows to show the boot
+  -T, --timeout=0       Set timeout value to seconds
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -u, --userdata=""     Start a server with userdata predefined
+  --user=root           Specify SSH User
+  -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
