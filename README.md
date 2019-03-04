@@ -106,7 +106,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.17/scw-darwin-amd64" -O /usr/local/bin/scw
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.18/scw-darwin-amd64" -O /usr/local/bin/scw
 
 # test
 scw version
@@ -117,7 +117,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.17/scw_1.17_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.18/scw_1.17_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -327,14 +327,16 @@ Create a new server but do not start it.
 
 Options:
 
-  --bootscript=""           Assign a bootscript
+  --boot-type=auto      Choose between 'local' and 'bootscript' boot
+  --bootscript=""       Assign a bootscript
   --commercial-type=X64-2GB Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
-  -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -h, --help=false          Print usage
-  --ip-address=dynamic      Assign a reserved public IP, a 'dynamic' one or 'none'
-  --name=""                 Assign a name
-  --tmp-ssh-key=false       Access your server without uploading your SSH key to your account
-  -v, --volume=""           Attach additional volume (i.e., 50G)
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -h, --help=false      Print usage
+  --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
+  --ipv6=false          Enable IPV6
+  --name=""             Assign a name
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
@@ -722,24 +724,25 @@ Run a command in a new server.
 
 Options:
 
-  -a, --attach=false        Attach to serial console
-  --bootscript=""           Assign a bootscript
+  -a, --attach=false    Attach to serial console
+  --boot-type=auto      Choose between 'local' and 'bootscript' boot
+  --bootscript=""       Assign a bootscript
   --commercial-type=X64-2GB Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
-  -d, --detach=false        Run server in background and print server ID
-  -e, --env=""              Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -g, --gateway=""          Use a SSH gateway
-  -h, --help=false          Print usage
-  --ip-address=""           Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
-  --ipv6=false              Enable IPV6
-  --name=""                 Assign a name
-  -p, --port=22             Specify SSH port
-  --rm=false                Automatically remove the server when it exits
-  --show-boot=false         Allows to show the boot
-  -T, --timeout=0           Set timeout value to seconds
-  --tmp-ssh-key=false       Access your server without uploading your SSH key to your account
-  -u, --userdata=""         Start a server with userdata predefined
-  --user=root               Specify SSH User
-  -v, --volume=""           Attach additional volume (i.e., 50G)
+  -d, --detach=false    Run server in background and print server ID
+  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -g, --gateway=""      Use a SSH gateway
+  -h, --help=false      Print usage
+  --ip-address=""       Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
+  --ipv6=false          Enable IPV6
+  --name=""             Assign a name
+  -p, --port=22         Specify SSH port
+  --rm=false            Automatically remove the server when it exits
+  --show-boot=false     Allows to show the boot
+  -T, --timeout=0       Set timeout value to seconds
+  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
+  -u, --userdata=""     Start a server with userdata predefined
+  --user=root           Specify SSH User
+  -v, --volume=""       Attach additional volume (i.e., 50G)
 
 Examples:
 
@@ -1215,13 +1218,22 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.17+dev (unreleased)
+### v1.18+dev (unreleased)
+
+* This is the current development version. Update below with your changes. Remove this line when releasing the package.
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.18...master)
+
+### v1.18 (2019-03-04)
 
 * Add the ability to use an arbitrary config file using `-c`,`--config` option.
 * Add the ability to specify a token and organiationId from the environnement using `SCW_TOKEN` and `SCW_ORGANIZATION` variables.
-* This is the current development version. Update below with your changes. Remove this line when releasing the package.
+* Add security group stateful flag.
+* Add security group default outbound/inbound policy.
+* Fix cli version link (auto update).
+* Add compute boottype flag.
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.17...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.17...v1.18)
 
 ### v1.17 (2018-07-02)
 
