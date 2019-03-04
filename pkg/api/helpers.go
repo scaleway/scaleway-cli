@@ -357,6 +357,13 @@ var legacyInstantTypes = map[string]struct{}{
 	"ARM64-32GB":  {},
 	"ARM64-64GB":  {},
 	"ARM64-128GB": {},
+	"X64-15GB":    {},
+	"X64-30GB":    {},
+	"X64-60GB":    {},
+	"X64-120GB":   {},
+	"VC1S":        {},
+	"VC1M":        {},
+	"VC1L":        {},
 }
 
 // CreateServer creates a server using API based on typical server fields
