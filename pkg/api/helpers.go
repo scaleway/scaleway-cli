@@ -432,9 +432,9 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	//
 	// Find the correct root size
 	//
-	// First: try to use user defined root size
-	// Second: use the largest size possible (leverage compute image resizing)
-	// Third: the user specified additional volumes (50G max)
+	// 1- the user define a custom root size
+	// 2- (default) use the largest possible size ==> min(categoryMaxSize,volumeMaxSize)
+	// 3- the user specify additional volumes ==> min(50G,volumeMaxSize)
 	//
 	isUserDefinedRootSize := true
 	rootVolumeSize, err := humanize.ParseBytes(c.ImageName)

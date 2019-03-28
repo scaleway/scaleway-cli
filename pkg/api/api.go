@@ -640,6 +640,10 @@ type ScalewayServerPatchDefinition struct {
 	BootType          *string                    `json:"boot_type,omitempty"`
 }
 
+type ScalewayServerVolumeDefinition interface {
+	isScalewayServerVolumeDefinition()
+}
+
 type ScalewayServerVolumeDefinitionNew struct {
 	Name           string `json:"name"`
 	OrganizationId string `json:"organization"`
@@ -660,10 +664,6 @@ func (*ScalewayServerVolumeDefinitionResize) isScalewayServerVolumeDefinition() 
 type ScalewayServerVolumeDefinitionFromId string
 
 func (ScalewayServerVolumeDefinitionFromId) isScalewayServerVolumeDefinition() {
-}
-
-type ScalewayServerVolumeDefinition interface {
-	isScalewayServerVolumeDefinition()
 }
 
 // ScalewayServerDefinition represents a Scaleway server with image definition
