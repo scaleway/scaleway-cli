@@ -15,7 +15,7 @@ var cmdPs = &Command{
 	Exec:        runPs,
 	UsageLine:   "ps [OPTIONS]",
 	Description: "List servers",
-	Help:        "List servers. By default, only running servers are displayed.",
+	Help:        "List servers. By default, only running and stopped in place servers are displayed.",
 	Examples: `
     $ scw ps
     $ scw ps -a

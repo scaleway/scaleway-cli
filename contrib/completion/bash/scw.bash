@@ -401,7 +401,7 @@ _scw_products ()
 
 _scw_ps ()
 {
-    # List servers. By default, only running servers are displayed.
+    # List servers. By default, only running and stopped in place servers are displayed.
 
     local cur prev grps words=() #split=false
 
