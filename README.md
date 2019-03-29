@@ -610,7 +610,7 @@ Options:
 ```console
 Usage: scw ps [OPTIONS]
 
-List servers. By default, only running servers are displayed.
+List servers. By default, only running and stopped in place servers are displayed.
 
 Options:
 
