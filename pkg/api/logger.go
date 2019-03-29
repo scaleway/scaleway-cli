@@ -36,20 +36,20 @@ func (l *defaultLogger) LogHTTP(r *http.Request) {
 }
 
 func (l *defaultLogger) Fatalf(format string, v ...interface{}) {
-	l.Printf("[FATAL] %s\n", fmt.Sprintf(format, v))
+	l.Printf("[FATAL] %s\n", fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
 func (l *defaultLogger) Debugf(format string, v ...interface{}) {
-	l.Printf("[DEBUG] %s\n", fmt.Sprintf(format, v))
+	l.Printf("[DEBUG] %s\n", fmt.Sprintf(format, v...))
 }
 
 func (l *defaultLogger) Infof(format string, v ...interface{}) {
-	l.Printf("[INFO ] %s\n", fmt.Sprintf(format, v))
+	l.Printf("[INFO ] %s\n", fmt.Sprintf(format, v...))
 }
 
 func (l *defaultLogger) Warnf(format string, v ...interface{}) {
-	l.Printf("[WARN ] %s\n", fmt.Sprintf(format, v))
+	l.Printf("[WARN ] %s\n", fmt.Sprintf(format, v...))
 }
 
 type disableLogger struct {
@@ -64,7 +64,7 @@ func (d *disableLogger) LogHTTP(r *http.Request) {
 }
 
 func (d *disableLogger) Fatalf(format string, v ...interface{}) {
-	panic(fmt.Sprintf(format, v))
+	panic(fmt.Sprintf(format, v...))
 }
 
 func (d *disableLogger) Debugf(format string, v ...interface{}) {

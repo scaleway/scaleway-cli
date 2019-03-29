@@ -293,15 +293,21 @@ type ProductVolumeConstraint struct {
 	MaxSize uint64 `json:"max_size,omitempty"`
 }
 
+// ProductVolumeConstraint contains any per volume constraint that the offer has
+type ProductPerVolumeConstraint struct {
+	LSsdConstraint ProductVolumeConstraint `json:"l_ssd,omitempty"`
+}
+
 // ProductServerOffer represents a specific offer
 type ProductServer struct {
-	Arch              string                  `json:"arch,omitempty"`
-	Ncpus             uint64                  `json:"ncpus,omitempty"`
-	Ram               uint64                  `json:"ram,omitempty"`
-	Baremetal         bool                    `json:"baremetal,omitempty"`
-	VolumesConstraint ProductVolumeConstraint `json:"volumes_constraint,omitempty"`
-	AltNames          []string                `json:"alt_names,omitempty"`
-	Network           ProductNetwork          `json:"network,omitempty"`
+	Arch                 string                     `json:"arch,omitempty"`
+	Ncpus                uint64                     `json:"ncpus,omitempty"`
+	Ram                  uint64                     `json:"ram,omitempty"`
+	Baremetal            bool                       `json:"baremetal,omitempty"`
+	VolumesConstraint    ProductVolumeConstraint    `json:"volumes_constraint,omitempty"`
+	PerVolumesConstraint ProductPerVolumeConstraint `json:"per_volume_constraint,omitempty"`
+	AltNames             []string                   `json:"alt_names,omitempty"`
+	Network              ProductNetwork             `json:"network,omitempty"`
 }
 
 // Products holds a map of all Scaleway servers
@@ -634,6 +640,32 @@ type ScalewayServerPatchDefinition struct {
 	BootType          *string                    `json:"boot_type,omitempty"`
 }
 
+type ScalewayServerVolumeDefinition interface {
+	isScalewayServerVolumeDefinition()
+}
+
+type ScalewayServerVolumeDefinitionNew struct {
+	Name           string `json:"name"`
+	OrganizationId string `json:"organization"`
+	Size           uint64 `json:"size"`
+	VolumeType     string `json:"volume_type"`
+}
+
+func (*ScalewayServerVolumeDefinitionNew) isScalewayServerVolumeDefinition() {
+}
+
+type ScalewayServerVolumeDefinitionResize struct {
+	Size uint64 `json:"size"`
+}
+
+func (*ScalewayServerVolumeDefinitionResize) isScalewayServerVolumeDefinition() {
+}
+
+type ScalewayServerVolumeDefinitionFromId string
+
+func (ScalewayServerVolumeDefinitionFromId) isScalewayServerVolumeDefinition() {
+}
+
 // ScalewayServerDefinition represents a Scaleway server with image definition
 type ScalewayServerDefinition struct {
 	// Name is the user-defined name of the server
@@ -643,7 +675,7 @@ type ScalewayServerDefinition struct {
 	Image *string `json:"image,omitempty"`
 
 	// Volumes are the attached volumes
-	Volumes map[string]string `json:"volumes,omitempty"`
+	Volumes map[string]ScalewayServerVolumeDefinition `json:"volumes,omitempty"`
 
 	// DynamicIPRequired is a flag that defines a server with a dynamic ip address attached
 	DynamicIPRequired *bool `json:"dynamic_ip_required,omitempty"`

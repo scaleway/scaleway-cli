@@ -7,7 +7,6 @@ package api
 import (
 	"errors"
 	"fmt"
-	"math"
 	"os"
 	"sort"
 	"strings"
@@ -95,34 +94,29 @@ func CreateVolumeFromHumanSize(api *ScalewayAPI, size string) (*string, error) {
 	return &volumeID, nil
 }
 
+func min(a, b uint64) uint64 {
+	if a > b {
+		return b
+	}
+	return a
+}
+
+const Giga = 1000000000
+
 // VolumesFromSize returns a string of standard sized volumes from a given size
-func VolumesFromSize(size uint64) string {
-	const DefaultVolumeSize float64 = 50000000000
-	StdVolumeSizes := []struct {
-		kind     string
-		capacity float64
-	}{
-		{"150G", 150000000000},
-		{"100G", 100000000000},
-		{"50G", 50000000000},
+func VolumesFromSize(rootVolumeSize, targetSize, perVolumeMaxSize uint64) string {
+	if targetSize <= rootVolumeSize {
+		return ""
 	}
-
-	RequiredSize := float64(size) - DefaultVolumeSize
-	Volumes := ""
-	for _, v := range StdVolumeSizes {
-		q := RequiredSize / v.capacity
-		r := math.Mod(RequiredSize, v.capacity)
-		RequiredSize = r
-
-		if q > 0 {
-			Volumes += strings.Repeat(v.kind+" ", int(q))
-		}
-		if r == 0 {
-			break
-		}
+	targetSize -= rootVolumeSize
+	q := targetSize / perVolumeMaxSize
+	r := targetSize % perVolumeMaxSize
+	humanSize := fmt.Sprintf("%dG", perVolumeMaxSize/Giga)
+	volumes := strings.Repeat(humanSize+" ", int(q))
+	if r != 0 {
+		volumes += fmt.Sprintf("%dG", r/Giga)
 	}
-
-	return strings.TrimSpace(Volumes)
+	return strings.TrimSpace(volumes)
 }
 
 // fillIdentifierCache fills the cache by fetching from the API
@@ -396,7 +390,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	var server ScalewayServerDefinition
 
 	server.CommercialType = commercialType
-	server.Volumes = make(map[string]string)
+	server.Volumes = make(map[string]ScalewayServerVolumeDefinition)
 	server.DynamicIPRequired = &c.DynamicIPRequired
 	server.EnableIPV6 = c.EnableIPV6
 	server.BootType = c.BootType
@@ -435,21 +429,59 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("Unknow commercial type %v: %v", server.CommercialType, err)
 	}
-	if offer.VolumesConstraint.MinSize > 0 && c.AdditionalVolumes == "" {
-		c.AdditionalVolumes = VolumesFromSize(offer.VolumesConstraint.MinSize)
-		log.Debugf("%s needs at least %s. Automatically creates the following volumes: %s",
-			server.CommercialType, humanize.Bytes(offer.VolumesConstraint.MinSize), c.AdditionalVolumes)
+	//
+	// Find the correct root size
+	//
+	// 1- the user define a custom root size
+	// 2- (default) use the largest possible size ==> min(categoryMaxSize,volumeMaxSize)
+	// 3- the user specify additional volumes ==> min(50G,volumeMaxSize)
+	//
+	isUserDefinedRootSize := true
+	rootVolumeSize, err := humanize.ParseBytes(c.ImageName)
+	if err != nil {
+		isUserDefinedRootSize = false
+		rootVolumeSize = min(offer.PerVolumesConstraint.LSsdConstraint.MaxSize, offer.VolumesConstraint.MaxSize)
+		if c.AdditionalVolumes != "" {
+			rootVolumeSize = min(50*Giga, offer.VolumesConstraint.MaxSize) // create a volume up to 50GB
+		}
 	}
+
+	if isUserDefinedRootSize {
+		// create a new volume from scratch
+		server.Volumes["0"] = &ScalewayServerVolumeDefinitionNew{
+			OrganizationId: api.Organization,
+			VolumeType:     "l_ssd",
+			Name:           "Volume-0",
+			Size:           rootVolumeSize,
+		}
+	} else {
+		// leverage compute image resizing
+		server.Volumes["0"] = &ScalewayServerVolumeDefinitionResize{
+			Size: rootVolumeSize,
+		}
+	}
+
+	if offer.VolumesConstraint.MinSize > 0 && c.AdditionalVolumes == "" {
+		c.AdditionalVolumes = VolumesFromSize(rootVolumeSize, offer.VolumesConstraint.MinSize, offer.PerVolumesConstraint.LSsdConstraint.MaxSize)
+		log.Debugf("%s needs at least %s. Automatically creates the following volumes: %dG %s",
+			server.CommercialType, humanize.Bytes(offer.VolumesConstraint.MinSize), rootVolumeSize/Giga, c.AdditionalVolumes)
+	}
+
 	if c.AdditionalVolumes != "" {
 		volumes := strings.Split(c.AdditionalVolumes, " ")
 		for i := range volumes {
-			volumeID, err := CreateVolumeFromHumanSize(api, volumes[i])
+			rootSize, err := humanize.ParseBytes(volumes[i])
 			if err != nil {
 				return "", err
 			}
 
 			volumeIDx := fmt.Sprintf("%d", i+1)
-			server.Volumes[volumeIDx] = *volumeID
+			server.Volumes[volumeIDx] = &ScalewayServerVolumeDefinitionNew{
+				OrganizationId: api.Organization,
+				VolumeType:     "l_ssd",
+				Name:           "Volume-" + volumeIDx,
+				Size:           rootSize,
+			}
 		}
 	}
 
@@ -462,15 +494,8 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 	}
 	server.Name = c.Name
 	inheritingVolume := false
-	_, err = humanize.ParseBytes(c.ImageName)
-	if err == nil {
-		// Create a new root volume
-		volumeID, errCreateVol := CreateVolumeFromHumanSize(api, c.ImageName)
-		if errCreateVol != nil {
-			return "", errCreateVol
-		}
-		server.Volumes["0"] = *volumeID
-	} else {
+
+	if !isUserDefinedRootSize {
 		// Use an existing image
 		inheritingVolume = true
 		if anonuuid.IsUUID(c.ImageName) == nil {
@@ -494,7 +519,7 @@ func CreateServer(api *ScalewayAPI, c *ConfigCreateServer) (string, error) {
 				if snapshot.BaseVolume.Identifier == "" {
 					return "", fmt.Errorf("snapshot %v does not have base volume", snapshot.Name)
 				}
-				server.Volumes["0"] = snapshot.BaseVolume.Identifier
+				server.Volumes["0"] = ScalewayServerVolumeDefinitionFromId(snapshot.BaseVolume.Identifier)
 			}
 		}
 	}
