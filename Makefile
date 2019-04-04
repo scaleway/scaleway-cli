@@ -105,6 +105,11 @@ prepare-release-dist: build
 	GOOS=windows GOARCH=386   go build -o dist/latest/scw-windows-i386.exe  github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=windows GOARCH=amd64 go build -o dist/latest/scw-windows-amd64.exe github.com/scaleway/scaleway-cli/cmd/scw
 
+	@cd ./dist/$(VERSION) && \
+	for f in $(shell cd ./dist/$(VERSION) && find .); do \
+		shasum -a 512 "$$f" > "$$f.sha512sum" ; \
+	done
+
 prepare-release-docker-image: dist/latest/scw-linux-i386
 	@echo ${VERSION} | grep -qv 'v' || ( echo "ERROR: VERSION not set or contains a leading 'v'" >&2 && exit 1 )
 	### Prepare scaleway-cli Docker image ###
