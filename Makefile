@@ -105,11 +105,6 @@ prepare-release-dist: build
 	GOOS=windows GOARCH=386   go build -o dist/latest/scw-windows-i386.exe  github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=windows GOARCH=amd64 go build -o dist/latest/scw-windows-amd64.exe github.com/scaleway/scaleway-cli/cmd/scw
 
-	@cd ./dist/$(VERSION) && \
-	for f in $(shell cd ./dist/$(VERSION) && find .); do \
-		shasum -a 512 "$$f" > "$$f.sha512sum" ; \
-	done
-
 prepare-release-docker-image: dist/latest/scw-linux-i386
 	@echo ${VERSION} | grep -qv 'v' || ( echo "ERROR: VERSION not set or contains a leading 'v'" >&2 && exit 1 )
 	### Prepare scaleway-cli Docker image ###
@@ -126,6 +121,14 @@ prepare-release-debian-packages: dist/latest/scw-linux-amd64 dist/latest/scw-lin
 	docker run -v $(PWD)/dist/latest/scw-linux-arm:/input/usr/bin/scw   $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm ./
 	docker run -v $(PWD)/dist/latest/scw-linux-arm64:/input/usr/bin/scw $(FPM_DOCKER) $(FPM_ARGS) --version $(VERSION) -t deb -a arm64 ./
 
+prepare-release-shasums: dist/latest/*
+	rm -rf dist/latest/SHA*SUMS
+
+	@cd dist/latest && \
+	for f in $(shell cd dist/latest && find . ! -name "SHA*SUMS" -type f -exec basename {} \;); do \
+		echo "Generate checksums for $$f" && \
+		shasum -a 512 "$$f" >> SHA512SUMS && shasum -a 256 "$$f" >> SHA256SUMS ; \
+	done
 
 .PHONY: golint
 golint:

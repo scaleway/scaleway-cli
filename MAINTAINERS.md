@@ -26,7 +26,8 @@ For the sake of the example, we assume you want to release the version `42.8` an
 * [Draft a new release](https://github.com/scaleway/scaleway-cli/releases) on Github.
 * Build cross-compiled files: `make prepare-release-dist`. *This step relies on the go compiler, which is able to cross compile go projects. If you hack on the scaleway-cli in a Docker container, you can run this step from your container.*
 * Build debian packages: `make prepare-release-debian-packages VERSION=42.8`. **The VERSION should not include the leading "v"**. *This step runs Docker containers. If you are hacking on scaleway-cli with Docker, you need to build the Debian packages from the Docker host, and not from your container.*
-* Upload the Debian packages generated in `dist/latest`.
+* Prepare shasums: `make prepare-release-shasums`.
+* Upload the generated artifacts in `dist/latest`.
 * Publish the release.
 
 ### Docker image
