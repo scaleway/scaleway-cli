@@ -125,6 +125,15 @@ dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 scw version
 ```
 
+Install the latest release on Windows with [Chocolatey](https://chocolatey.org) ([Automatically built](https://chocolatey.org/packages/scaleway-cli/)):
+
+```powershell
+# Install latest version
+choco install scaleway-cli
+
+# test
+scw version
+```
 
 ### Requirements
 
