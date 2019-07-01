@@ -16,7 +16,7 @@ var cmdStop = &Command{
     $ scw stop -t my-running-server my-second-running-server
     $ scw stop $(scw ps -q)
     $ scw stop $(scw ps | grep mysql | awk '{print $1}')
-    $ scw stop server && stop wait server
+    $ scw stop server && scw wait server
     $ scw stop -w server
 `,
 }
