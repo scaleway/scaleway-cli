@@ -74,30 +74,13 @@ For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway
 
 ## Setup
 
-We recommend to use the latest version, using:
-
-:warning: Ensure you have a go version `>= 1.5`
-
-```shell
-GO15VENDOREXPERIMENT=1 go get -u github.com/scaleway/scaleway-cli/cmd/scw
-```
-
-or
-
-```shell
-brew tap scaleway/scaleway
-brew install scaleway/scaleway/scw --HEAD
-```
-
----
-
-To install a release, checkout the [latest release page](https://github.com/scaleway/scaleway-cli/releases/latest).
-
 Install the latest stable release on Mac OS X using [Homebrew](http://brew.sh):
 
 ```bash
 brew install scw
 ```
+
+All release artifacts are available on the [latest release page](https://github.com/scaleway/scaleway-cli/releases/latest).
 
 Install the latest stable release on Mac OS X manually:
 
