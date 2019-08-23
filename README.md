@@ -321,16 +321,16 @@ Create a new server but do not start it.
 
 Options:
 
-  --boot-type=auto      Choose between 'local' and 'bootscript' boot
-  --bootscript=""       Assign a bootscript
-  --commercial-type=X64-2GB Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
-  -e, --env=""          Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
-  -h, --help=false      Print usage
-  --ip-address=dynamic  Assign a reserved public IP, a 'dynamic' one or 'none'
-  --ipv6=false          Enable IPV6
-  --name=""             Assign a name
-  --tmp-ssh-key=false   Access your server without uploading your SSH key to your account
-  -v, --volume=""       Attach additional volume (i.e., 50G)
+  --boot-type=auto         Choose between 'local' and 'bootscript' boot
+  --bootscript=""          Assign a bootscript
+  --commercial-type=DEV1-S Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
+  -e, --env=""             Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
+  -h, --help=false         Print usage
+  --ip-address=dynamic     Assign a reserved public IP, a 'dynamic' one or 'none'
+  --ipv6=false             Enable IPV6
+  --name=""                Assign a name
+  --tmp-ssh-key=false      Access your server without uploading your SSH key to your account
+  -v, --volume=""          Attach additional volume (i.e., 50G)
 
 Examples:
 
