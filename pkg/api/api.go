@@ -2248,6 +2248,20 @@ func (s *ScalewayAPI) GetImageID(needle, arch string) (*ScalewayImageIdentifier,
 	if len(images) == 0 {
 		return nil, fmt.Errorf("No such image (zone %s, arch %s) : %s", s.Region, arch, needle)
 	}
+
+	// If one image is an exact match we pick it
+	for _, image := range images {
+		if image.CodeName() == "image:"+needle {
+			return &ScalewayImageIdentifier{
+				Identifier: image.Identifier,
+				Arch:       image.Arch,
+				// FIXME region, owner hardcoded
+				Region: image.Region,
+				Owner:  "",
+			}, nil
+		}
+	}
+
 	return nil, showResolverResults(needle, images)
 }
 
