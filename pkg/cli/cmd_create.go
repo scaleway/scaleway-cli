@@ -31,7 +31,7 @@ func init() {
 	cmdCreate.Flag.StringVar(&createEnv, []string{"e", "-env"}, "", "Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)")
 	cmdCreate.Flag.StringVar(&createVolume, []string{"v", "-volume"}, "", "Attach additional volume (i.e., 50G)")
 	cmdCreate.Flag.StringVar(&createIPAddress, []string{"-ip-address"}, "dynamic", "Assign a reserved public IP, a 'dynamic' one or 'none'")
-	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "X64-2GB", "Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB")
+	cmdCreate.Flag.StringVar(&createCommercialType, []string{"-commercial-type"}, "DEV1-S", "Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB")
 	cmdCreate.Flag.StringVar(&createBootType, []string{"-boot-type"}, "auto", "Choose between 'local' and 'bootscript' boot")
 	cmdCreate.Flag.BoolVar(&createHelp, []string{"h", "-help"}, false, "Print usage")
 	cmdCreate.Flag.BoolVar(&createIPV6, []string{"-ipv6"}, false, "Enable IPV6")
