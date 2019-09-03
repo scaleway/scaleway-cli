@@ -1,17 +1,25 @@
-# AnonUUID
+# anonuuid
 
-[![Build Status](https://travis-ci.org/moul/anonuuid.svg)](https://travis-ci.org/moul/anonuuid)
-[![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
-[![Coverage Status](https://coveralls.io/repos/moul/anonuuid/badge.svg?branch=master&service=github)](https://coveralls.io/github/moul/anonuuid?branch=master)
+:wrench: anonymize UUIDs
 
-:wrench: Anonymize UUIDs outputs (written in Golang)
+![anonuuid Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
 
-![AnonUUID Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
+[![CircleCI](https://circleci.com/gh/moul/anonuuid.svg?style=shield)](https://circleci.com/gh/moul/anonuuid)
+[![GoDoc](https://godoc.org/moul.io/anonuuid?status.svg)](https://godoc.org/moul.io/anonuuid)
+[![License](https://img.shields.io/github/license/moul/anonuuid.svg)](https://github.com/moul/anonuuid/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/moul/anonuuid.svg)](https://github.com/moul/anonuuid/releases)
+[![Go Report Card](https://goreportcard.com/badge/moul.io/anonuuid)](https://goreportcard.com/report/moul.io/anonuuid)
+[![CodeFactor](https://www.codefactor.io/repository/github/moul/anonuuid/badge)](https://www.codefactor.io/repository/github/moul/anonuuid)
+[![codecov](https://codecov.io/gh/moul/anonuuid/branch/master/graph/badge.svg)](https://codecov.io/gh/moul/anonuuid)
+[![Docker Metrics](https://images.microbadger.com/badges/image/moul/anonuuid.svg)](https://microbadger.com/images/moul/anonuuid)
+[![Sourcegraph](https://sourcegraph.com/github.com/moul/anonuuid/-/badge.svg)](https://sourcegraph.com/github.com/moul/anonuuid?badge)
+[![Made by Manfred Touron](https://img.shields.io/badge/made%20by-Manfred%20Touron-blue.svg?style=flat)](https://manfred.life/)
+
 
 **anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
 new one.
 
-The fake UUIDs are cached, so if AnonUUID encounter the same real UUIDs multiple
+The fake UUIDs are cached, so if `anonuuid` encounter the same real UUIDs multiple
 times, the translation will be the same.
 
 ## Usage
@@ -28,7 +36,7 @@ VERSION:
    1.0.0-dev
 
 AUTHOR(S):
-   Manfred Touron <https://github.com/moul>
+   Manfred Touron <https://moul.io/anonuuid>
 
 COMMANDS:
    help, h	Shows a list of commands or help for one command
@@ -137,34 +145,19 @@ $ curl -s https://api.pathwar.net/achievements\?max_results\=2 | anonuuid | jq .
 
 ## Install
 
-Using go
+### Using go
 
-- `go get github.com/moul/anonuuid/...`
+- `go get moul.io/anonuuid/cmd/anonuuid`
 
-## Changelog
+### Using brew
 
-### master (unreleased)
+- `brew install moul/moul/anonuuid`
 
-* Add mutex to protect the cache field ([@QuentinPerez](https://github.com/QuentinPerez))
-* Switch from `Party` to `Godep`
-* Support of `--suffix=xxx`, `--keep-beginning` and `--keep-end` options ([#4](https://github.com/moul/anonuuid/issues/4))
-* Using **party** to stabilize vendor package versions ([#8](https://github.com/moul/anonuuid/issues/8))
-* Add homebrew package ([#6](https://github.com/moul/anonuuid/issues/6))
+### Download release
 
-[full commits list](https://github.com/moul/anonuuid/compare/v1.0.0...master)
-
-### [v1.0.0](https://github.com/moul/anonuuid/releases/tag/v1.0.0) (2015-10-07)
-
-**Initial release**
-
-#### Features
-
-* Support of `--hexspeak` option
-* Support of `--random` option
-* Support of `--prefix` option
-* Anonymize input stream
-* Anonymize files
+https://github.com/moul/anonuuid/releases
 
 ## License
 
-MIT
+© 2015-2019 [Manfred Touron](https://manfred.life) -
+[Apache-2.0 License](https://github.com/moul/anonuuid/blob/master/LICENSE)

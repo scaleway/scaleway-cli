@@ -15,7 +15,7 @@ import (
 
 	"github.com/docker/docker/pkg/namesgenerator"
 	"github.com/dustin/go-humanize"
-	"github.com/moul/anonuuid"
+	"moul.io/anonuuid"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"

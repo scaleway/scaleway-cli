@@ -7,7 +7,7 @@ package commands
 import (
 	"fmt"
 
-	"github.com/moul/anonuuid"
+	"moul.io/anonuuid"
 )
 
 // TagArgs are flags for the `RunTag` function
