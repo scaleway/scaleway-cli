@@ -11,12 +11,6 @@ env:
 
 matrix:
   include:  # WARNING remove -cpu=* with TEST_WITH_REAL_API=1
-    - go:   1.7
-      env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
-    - go:   1.8
-      env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
-    - go:   1.9
-      env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
     - go:   "1.10"
       env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
     - go:   "1.10"
