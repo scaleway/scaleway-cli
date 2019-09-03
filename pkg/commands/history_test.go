@@ -34,11 +34,11 @@ func TestRunHistory_realAPI(t *testing.T) {
 		t.Skip()
 	}
 	Convey("Testing RunHistory() on real API", t, func() {
-		Convey("ubuntu-wily", func() {
+		Convey("ubuntu-bionic", func() {
 			args := HistoryArgs{
 				NoTrunc: false,
 				Quiet:   false,
-				Image:   "ubuntu-wily",
+				Image:   "ubuntu-bionic",
 				Arch:    "arm",
 			}
 

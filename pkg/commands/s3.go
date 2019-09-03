@@ -7,12 +7,13 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
-	minio "github.com/minio/mc/cmd"
-	"github.com/scaleway/scaleway-cli/pkg/config"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
+
+	minio "github.com/minio/mc/cmd"
+	"github.com/scaleway/scaleway-cli/pkg/config"
 )
 
 type clientHost struct {

@@ -36,11 +36,11 @@ func TestRunInspect_realAPI(t *testing.T) {
 		t.Skip()
 	}
 	Convey("Testing RunInspect() on real API", t, func() {
-		Convey("image:ubuntu-wily", func() {
+		Convey("image:ubuntu-bionic", func() {
 			args := InspectArgs{
 				Format:      "",
 				Browser:     false,
-				Identifiers: []string{"image:ubuntu-wily"},
+				Identifiers: []string{"image:ubuntu-bionic"},
 				Arch:        "arm",
 			}
 
@@ -54,13 +54,13 @@ func TestRunInspect_realAPI(t *testing.T) {
 			So(err, ShouldBeNil)
 			So(len(results), ShouldEqual, 1)
 			So(strings.ToLower(results[0].Name), ShouldContainSubstring, "ubuntu")
-			So(strings.ToLower(results[0].Name), ShouldContainSubstring, "wily")
+			So(strings.ToLower(results[0].Name), ShouldContainSubstring, "bionic")
 
-			Convey("-f \"{{.Identifier}}\" image:ubuntu-wily", func() {
+			Convey("-f \"{{.Identifier}}\" image:ubuntu-bionic", func() {
 				args := InspectArgs{
 					Format:      "{{.Identifier}}",
 					Browser:     false,
-					Identifiers: []string{"image:ubuntu-wily"},
+					Identifiers: []string{"image:ubuntu-bionic"},
 					Arch:        "arm",
 				}
 

@@ -15,10 +15,10 @@ import (
 
 	"github.com/docker/docker/pkg/namesgenerator"
 	"github.com/dustin/go-humanize"
-	"moul.io/anonuuid"
 	"github.com/scaleway/scaleway-cli/pkg/utils"
 	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
+	"moul.io/anonuuid"
 )
 
 // ScalewayResolvedIdentifier represents a list of matching identifier for a specifier pattern
