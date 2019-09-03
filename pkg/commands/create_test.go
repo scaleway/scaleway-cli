@@ -59,11 +59,11 @@ func TestRunCreate_realAPI(t *testing.T) {
 			})
 		*/
 
-		Convey("--name=unittest-create-standard ubuntu-xenial", func() {
+		Convey("--name=unittest-create-standard ubuntu-bionic", func() {
 			args := CreateArgs{
 				Name:           "unittest-create-standard",
-				Image:          "ubuntu-xenial",
-				CommercialType: "X64-15GB",
+				Image:          "ubuntu-bionic",
+				CommercialType: "DEV1-S",
 				IP:             "dynamic",
 				BootType:       "bootscript",
 			}
