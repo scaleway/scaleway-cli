@@ -124,10 +124,11 @@
 			"revision": "0181db47023708a38c2d20d2fe25a5fa034d5743"
 		},
 		{
-			"checksumSHA1": "tewA7jXVGCw1zb5mA0BDecWi4iQ=",
+			"checksumSHA1": "cIiyvAduLLFvu+tg1Qr5Jw3jeWo=",
 			"comment": "v4.2.0",
 			"path": "github.com/jtolds/gls",
-			"revision": "8ddce2a84170772b95dd5d576c48d517b22cac63"
+			"revision": "b4936e06046bbecbb94cae9c18127ebe510a2cb9",
+			"revisionTime": "2018-11-10T20:28:10Z"
 		},
 		{
 			"checksumSHA1": "6nmAJBw2phU9MUmkUnqFvbO5urg=",
@@ -211,6 +212,12 @@
 			"revision": "40711f7748186bbf9c99977cd89f21ce1a229447"
 		},
 		{
+			"checksumSHA1": "/5sXd6Ct8b5NVudDFR85uEQSMGk=",
+			"path": "github.com/smartystreets/goconvey",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
 			"checksumSHA1": "/mwAihy9AmznMzmbPQ5nWJXBiRU=",
 			"comment": "1.6.2-2-gc53abc9",
 			"path": "github.com/smartystreets/goconvey/convey",
@@ -227,6 +234,48 @@
 			"comment": "1.6.2-2-gc53abc9",
 			"path": "github.com/smartystreets/goconvey/convey/reporting",
 			"revision": "c53abc99456fa3402dd33c15ee51c3e545e04a3f"
+		},
+		{
+			"checksumSHA1": "DjCJPoeFDfYI7LsteLMhxwDEnoE=",
+			"path": "github.com/smartystreets/goconvey/web/server/api",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "Z+Mne86XlzUBRu8yCIoZVvRbieQ=",
+			"path": "github.com/smartystreets/goconvey/web/server/contract",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "pWkPFCaZP+x5SZVw/QG/FKl94SA=",
+			"path": "github.com/smartystreets/goconvey/web/server/executor",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "yaYihYltKDF/h2vuiUx8KbnsWMU=",
+			"path": "github.com/smartystreets/goconvey/web/server/messaging",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "eq6QaILIjLAbT+PsxeI9YzIhZeY=",
+			"path": "github.com/smartystreets/goconvey/web/server/parser",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "msXwJmK2tEpVWDyOETUCs3cHaho=",
+			"path": "github.com/smartystreets/goconvey/web/server/system",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
+		},
+		{
+			"checksumSHA1": "3GcDERpXpjAF3Y/tRRGnfZ0suOk=",
+			"path": "github.com/smartystreets/goconvey/web/server/watch",
+			"revision": "505e419363375c0dc132d3ac02632a4ee32199ca",
+			"revisionTime": "2019-07-31T23:36:26Z"
 		},
 		{
 			"checksumSHA1": "Bn333k9lTndxU3D6n/G5c+GMcYY=",
@@ -279,6 +328,48 @@
 			"path": "golang.org/x/sys/unix",
 			"revision": "c1138c84af3a9927aee1a1b8b7ce06c9b7ea52bc",
 			"revisionTime": "2018-02-02T09:03:09Z"
+		},
+		{
+			"checksumSHA1": "6lzLm5eIswP0fziPs74p+lb0QUo=",
+			"path": "golang.org/x/tools/go/gcexportdata",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "ZqrtupmBx5hoPhckvqP2yEkckhw=",
+			"path": "golang.org/x/tools/go/internal/gcimporter",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "qIa2Ow6uCdXhD+aELo9ZxgOz7tU=",
+			"path": "golang.org/x/tools/go/internal/packagesdriver",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "dHL+T0EuMtyY7xg+yx9pr0umOpg=",
+			"path": "golang.org/x/tools/go/packages",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "dC7MpahR/U0T8CRcTypgrwO1Lg0=",
+			"path": "golang.org/x/tools/internal/fastwalk",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "3XJu0CybZAY48wsVDOI43Ah9MQ4=",
+			"path": "golang.org/x/tools/internal/gopathwalk",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
+		},
+		{
+			"checksumSHA1": "Lcm5y2VtSqdVuOjhBFEeAHNI+ug=",
+			"path": "golang.org/x/tools/internal/semver",
+			"revision": "afe7f8212f0d48598f7ba258eba2127cbfb7c3e9",
+			"revisionTime": "2019-08-29T19:28:51Z"
 		},
 		{
 			"checksumSHA1": "zed1b1fX7CdJQeWcNaU2PzO+AHY=",
