@@ -142,7 +142,7 @@ $ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
 
 ### Manual build
 
-1. [Install go](https://golang.org/doc/install) a version `>= 1.5`
+1. [Install go](https://golang.org/doc/install) a version `>= 1.10`
 2. Ensure you have `$GOPATH` and `$PATH` well configured, something like:
   * `export GOPATH=$HOME/go`
   * `export PATH=$PATH:$GOPATH/bin`
