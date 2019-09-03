@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/moul/anonuuid"
+	"moul.io/anonuuid"
 	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 

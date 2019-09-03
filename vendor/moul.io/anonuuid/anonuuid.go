@@ -162,7 +162,7 @@ func IsUUID(input string) error {
 		return err
 	}
 	if !matched {
-		return fmt.Errorf("String '%s' is not a valid UUID", input)
+		return fmt.Errorf("string '%s' is not a valid UUID", input)
 	}
 	return nil
 }
@@ -170,7 +170,7 @@ func IsUUID(input string) error {
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
 func FormatUUID(part string) (string, error) {
 	if len(part) < 1 {
-		return "", fmt.Errorf("Empty UUID")
+		return "", fmt.Errorf("empty UUID")
 	}
 	if len(part) < 32 {
 		part = strings.Repeat(part, 32)

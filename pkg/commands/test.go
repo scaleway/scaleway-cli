@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/moul/anonuuid"
+	"moul.io/anonuuid"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"

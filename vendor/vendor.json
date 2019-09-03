@@ -146,12 +146,6 @@
 			"revisionTime": "2018-04-20T02:41:36Z"
 		},
 		{
-			"checksumSHA1": "KhOVzKefFYORHdIVe+/gNAHB23A=",
-			"comment": "v1.0.0-21-g609b752",
-			"path": "github.com/moul/anonuuid",
-			"revision": "609b752a95effbbef26d134ac18ed6f57e01b98e"
-		},
-		{
 			"checksumSHA1": "60Dm2YTO4MhmHYZxlkeLuqMYfS8=",
 			"comment": "v1.6.0-4-g92f0c24",
 			"path": "github.com/moul/gotty-client",
@@ -285,6 +279,12 @@
 			"path": "golang.org/x/sys/unix",
 			"revision": "c1138c84af3a9927aee1a1b8b7ce06c9b7ea52bc",
 			"revisionTime": "2018-02-02T09:03:09Z"
+		},
+		{
+			"checksumSHA1": "zed1b1fX7CdJQeWcNaU2PzO+AHY=",
+			"path": "moul.io/anonuuid",
+			"revision": "f11074c9f6e9bff20f85bfaf77d0a9f6e25a465f",
+			"revisionTime": "2019-08-13T07:35:29Z"
 		}
 	],
 	"rootPath": "github.com/scaleway/scaleway-cli"
