@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"moul.io/anonuuid"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/config"
 	"github.com/scaleway/scaleway-cli/pkg/scwversion"
 	"github.com/sirupsen/logrus"
+	"moul.io/anonuuid"
 )
 
 func shouldBeAnUUID(actual interface{}, expected ...interface{}) string {

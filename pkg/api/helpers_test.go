@@ -1,8 +1,9 @@
 package api
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 type VolumesFromSizeCase struct {
