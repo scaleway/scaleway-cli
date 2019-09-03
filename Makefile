@@ -6,6 +6,8 @@ GOBUILD ?=	$(GO) build
 GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
 GOTEST ?=	$(GO) test $(GOTESTFLAGS)
+GOMINORVERSION ?= $(shell $(GO) version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
+GOVET ?= $(GO) $(shell if [ $(GOMINORVERSION) -lt 12 ]; then echo "tools"; fi) vet # https://golang.org/doc/go1.12#vet
 GOFMT ?=	gofmt -w -s
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
@@ -31,12 +33,12 @@ NAME =		scw
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 
+
+
 SOURCES :=	$(call rwildcard,./pkg ./cmd,*.go)
 COMMANDS :=	$(call uniq,$(dir $(call rwildcard,./cmd/,*.go)))
 PACKAGES :=	$(call uniq,$(dir $(call rwildcard,./pkg/,*.go))) .
 
-REL_COMMANDS :=	$(subst $(GODIR),.,$(COMMANDS))
-REL_PACKAGES :=	$(subst $(GODIR),.,$(PACKAGES))
 REV =		$(shell git rev-parse --short HEAD 2>/dev/null || echo "nogit")
 LDFLAGS = "-X `go list ./pkg/scwversion`.GITCOMMIT=$(REV) -s"
 BUILDER =	scaleway-cli-builder
@@ -62,7 +64,7 @@ fmt: $(FMT_LIST)
 
 
 $(BUILD_LIST): %_build: %_fmt
-	@go tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go)
+	@$(GOVET) ./...
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
 
 $(CLEAN_LIST): %_clean:
