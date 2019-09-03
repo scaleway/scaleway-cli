@@ -87,7 +87,7 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 
 	// --timeout
 	if args.Timeout > 0 {
-		logrus.Debugf("Setting up a global timeout of %d seconds", args.Timeout)
+		logrus.Debugf("Setting up a global timeout of %f seconds", args.Timeout)
 		// FIXME: avoid use of log.Fatalf here
 		go func() {
 			time.Sleep(time.Duration(args.Timeout*1000) * time.Millisecond)
