@@ -7,7 +7,6 @@ GOCLEAN ?=	$(GO) clean
 GOINSTALL ?=	$(GO) install
 GOTEST ?=	$(GO) test $(GOTESTFLAGS)
 GOMINORVERSION ?= $(shell $(GO) version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
-GOVET ?= $(GO) $(shell if [ $(GOMINORVERSION) -lt 12 ]; then echo "tools"; fi) vet # https://golang.org/doc/go1.12#vet
 GOFMT ?=	gofmt -w -s
 GODIR ?=	github.com/scaleway/scaleway-cli
 GOCOVER ?=	$(GOTEST) -covermode=count -v
@@ -64,7 +63,12 @@ fmt: $(FMT_LIST)
 
 
 $(BUILD_LIST): %_build: %_fmt
-	@$(GOVET) ./...
+	# https://golang.org/doc/go1.12#vet
+	@if [ $(GOMINORVERSION) -lt 12 ]; then \
+		$(GO) tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go); \
+	else \
+		$(GO) vet ./...; \
+	fi
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
 
 $(CLEAN_LIST): %_clean:
