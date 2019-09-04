@@ -1,5 +1,5 @@
 # build
-FROM            golang:1.9 as builder
+FROM golang:1.12 as builder
 RUN             apt update && apt -y install jq
 COPY            . /go/src/github.com/moul/gotty-client
 WORKDIR         /go/src/github.com/moul/gotty-client

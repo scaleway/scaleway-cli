@@ -6,25 +6,26 @@
 [![Build Status](https://travis-ci.org/moul/gotty-client.svg?branch=master)](https://travis-ci.org/moul/gotty-client)
 [![GoDoc](https://godoc.org/github.com/moul/gotty-client?status.svg)](https://godoc.org/github.com/moul/gotty-client)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client?ref=badge_shield)
+[![Sourcegraph](https://sourcegraph.com/github.com/moul/gotty-client/-/badge.svg)](https://sourcegraph.com/github.com/moul/gotty-client?badge)
 
 ```ruby
-                                                             ┌─────────────────┐
-                                                     ┌──────▶│    /bin/bash    │
-                                                     │       └─────────────────┘
-                ┌──────────────┐               ┌──────────┐
-                │              │               │  Gotty   │
-┌───────┐   ┌──▶│   Browser    │───────┐       │          │
-│       │   │   │              │       │       │          │
-│       │   │   └──────────────┘       │       │          │  ┌─────────────────┐
-│  Bob  │───┤                      websockets─▶│          │─▶│ emacs /var/www  │
-│       │   │   ╔═ ══ ══ ══ ══ ╗       │       │          │  └─────────────────┘
-│       │   │   ║              ║       │       │          │
-└───────┘   └──▶║ gotty-client  ───────┘       │          │
-                               ║               │          │
-                ╚═ ══ ══ ══ ══ ╝               └──────────┘
-                                                     │       ┌─────────────────┐
-                                                     └──────▶│   tmux attach   │
-                                                             └─────────────────┘
+                                                               ┌─────────────────┐
+                                                      ┌──────➤│    /bin/bash    │
+                                                      │        └─────────────────┘
+                 ┌──────────────┐                ┌──────────┐
+                 │              │                │  Gotty   │
+┌───────┐   ┌──➤│   Browser    │───────┐        │          │
+│       │   │    │              │       │        │          │
+│       │   │    └──────────────┘       │        │          │   ┌─────────────────┐
+│  Bob  │───┤                       websockets─➤│          │─➤│ emacs /var/www  │
+│       │   │    ╔═ ══ ══ ══ ══ ╗       │        │          │   └─────────────────┘
+│       │   │    ║              ║       │        │          │
+└───────┘   └──➤║ gotty-client ║───────┘        │          │
+                 ║              ║                │          │
+                 ╚═ ══ ══ ══ ══ ╝                └──────────┘
+                                                      │        ┌─────────────────┐
+                                                      └──────➤│   tmux attach   │
+                                                               └─────────────────┘
 ```
 
 ## Example
