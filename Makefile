@@ -64,10 +64,11 @@ fmt: $(FMT_LIST)
 
 $(BUILD_LIST): %_build: %_fmt
 	# https://golang.org/doc/go1.12#vet
-	@if [ $(GOMINORVERSION) -lt 12 ]; then \
-		$(GO) tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go); \
-	else \
+	# vel = go tip version
+	@if [ $(GOMINORVERSION) = vel ] || [ $(GOMINORVERSION) -gt 11 ]; then \
 		$(GO) vet ./...; \
+	else \
+		$(GO) tool vet --all=true $(shell echo $(SOURCES) | tr " " "\n" | grep -v test.go); \
 	fi
 	$(GOBUILD) -ldflags $(LDFLAGS) -o $(NAME) ./cmd/$(NAME)
 
