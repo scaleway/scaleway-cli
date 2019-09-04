@@ -15,9 +15,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/containerd/console"
 	"github.com/creack/goselect"
 	"github.com/gorilla/websocket"
-	"github.com/moby/moby/pkg/term"
 	"github.com/sirupsen/logrus"
 )
 
@@ -310,16 +310,12 @@ func (c *Client) Loop() error {
 			return err
 		}
 	}
-
-	fd, isTerm := term.GetFdInfo(c.Output)
-	if !isTerm {
-		return fmt.Errorf("c.Output is not a valid terminal")
-	}
-	termios, err := term.SetRawTerminal(fd)
+	term := console.Current()
+	err := term.SetRaw()
 	if err != nil {
 		return fmt.Errorf("Error setting raw terminal: %v", err)
 	}
-	defer term.RestoreTerminal(fd, termios)
+	defer term.Reset()
 
 	wg := &sync.WaitGroup{}
 
