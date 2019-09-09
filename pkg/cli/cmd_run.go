@@ -45,7 +45,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
-	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "DEV1-S", "Start a server with specific commercial-type DEV1-[S|M|L|XL], GP1-[XS|S|M|L|XL]")
+	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "DEV1-S", "Start a server with specific commercial-type DEV1-[S|M|L|XL], GP1-[XS|S|M|L|XL], RENDER-S")
 	cmdRun.Flag.StringVar(&runBootType, []string{"-boot-type"}, "auto", "Choose between 'local' and 'bootscript' boot")
 	cmdRun.Flag.StringVar(&runSSHUser, []string{"-user"}, "root", "Specify SSH User")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")
