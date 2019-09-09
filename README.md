@@ -323,7 +323,7 @@ Options:
 
   --boot-type=auto         Choose between 'local' and 'bootscript' boot
   --bootscript=""          Assign a bootscript
-  --commercial-type=DEV1-S Create a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
+  --commercial-type=DEV1-S Create a server with specific commercial-type DEV1-[S|M|L|XL], GP1-[XS|S|M|L|XL], RENDER-S
   -e, --env=""             Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -h, --help=false         Print usage
   --ip-address=dynamic     Assign a reserved public IP, a 'dynamic' one or 'none'
@@ -721,7 +721,7 @@ Options:
   -a, --attach=false       Attach to serial console
   --boot-type=auto         Choose between 'local' and 'bootscript' boot
   --bootscript=""          Assign a bootscript
-  --commercial-type=DEV1-S Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB
+  --commercial-type=DEV1-S Start a server with specific commercial-type DEV1-[S|M|L|XL], GP1-[XS|S|M|L|XL], RENDER-S
   -d, --detach=false       Run server in background and print server ID
   -e, --env=""             Provide metadata tags passed to initrd (i.e., boot=rescue INITRD_DEBUG=1)
   -g, --gateway=""         Use a SSH gateway
@@ -741,8 +741,8 @@ Options:
 Examples:
 
     $ scw run ubuntu-trusty
-    $ scw run --commercial-type=C2S ubuntu-trusty
-    $ scw run --show-boot --commercial-type=C2S ubuntu-trusty
+    $ scw run --commercial-type=DEV1-S ubuntu-trusty
+    $ scw run --show-boot --commercial-type=DEV1-S ubuntu-trusty
     $ scw run --rm ubuntu-trusty
     $ scw run -a --rm ubuntu-trusty
     $ scw run --gateway=myotherserver ubuntu-trusty
