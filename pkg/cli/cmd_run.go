@@ -17,13 +17,13 @@ var cmdRun = &Command{
 	Description: "Run a command in a new server",
 	Help:        "Run a command in a new server.",
 	Examples: `
-    $ scw run ubuntu-trusty
-    $ scw run --commercial-type=C2S ubuntu-trusty
-    $ scw run --show-boot --commercial-type=C2S ubuntu-trusty
-    $ scw run --rm ubuntu-trusty
-    $ scw run -a --rm ubuntu-trusty
-    $ scw run --gateway=myotherserver ubuntu-trusty
-    $ scw run ubuntu-trusty bash
+    $ scw run ubuntu-bionic
+    $ scw run --commercial-type=DEV1-S ubuntu-bionic
+    $ scw run --show-boot --commercial-type=DEV1-S ubuntu-bionic
+    $ scw run --rm ubuntu-bionic
+    $ scw run -a --rm ubuntu-bionic
+    $ scw run --gateway=myotherserver ubuntu-bionic
+    $ scw run ubuntu-bionic bash
     $ scw run --name=mydocker docker docker run moul/nyancat:armhf
     $ scw run --bootscript=3.2.34 --env="boot=live rescue_image=http://j.mp/scaleway-ubuntu-trusty-tarball" 50GB bash
     $ scw run --attach alpine
@@ -45,7 +45,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runDetachFlag, []string{"d", "-detach"}, false, "Run server in background and print server ID")
 	cmdRun.Flag.StringVar(&runGateway, []string{"g", "-gateway"}, "", "Use a SSH gateway")
 	cmdRun.Flag.StringVar(&runUserdatas, []string{"u", "-userdata"}, "", "Start a server with userdata predefined")
-	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "DEV1-S", "Start a server with specific commercial-type C1, C2[S|M|L], X64-[2|4|8|15|30|60|120]GB, ARM64-[2|4|8]GB")
+	cmdRun.Flag.StringVar(&runCommercialType, []string{"-commercial-type"}, "DEV1-S", "Start a server with specific commercial-type DEV1-[S|M|L|XL], GP1-[XS|S|M|L|XL]")
 	cmdRun.Flag.StringVar(&runBootType, []string{"-boot-type"}, "auto", "Choose between 'local' and 'bootscript' boot")
 	cmdRun.Flag.StringVar(&runSSHUser, []string{"-user"}, "root", "Specify SSH User")
 	cmdRun.Flag.BoolVar(&runAutoRemove, []string{"-rm"}, false, "Automatically remove the server when it exits")

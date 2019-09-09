@@ -7,8 +7,8 @@ package commands
 func ExampleRun() {
 	ctx := testCommandContext()
 	args := RunArgs{
-		Image:          "ubuntu-trusty",
-		CommercialType: "X64-2GB",
+		Image:          "ubuntu-bionic",
+		CommercialType: "DEV1-S",
 	}
 	Run(ctx, args)
 }
@@ -21,11 +21,11 @@ func ExampleRun_complex() {
 		Command:        []string{"ls", "-la"},
 		Detach:         false,
 		Gateway:        "my-gateway",
-		Image:          "ubuntu-trusty",
+		Image:          "ubuntu-bionic",
 		Name:           "my-test-server",
-		CommercialType: "X64-2GB",
+		CommercialType: "DEV1-S",
 		Tags:           []string{"testing", "fake"},
-		Volumes:        []string{"50G", "1G"},
+		Volumes:        []string{"10G", "10G"},
 	}
 	Run(ctx, args)
 }

@@ -14,7 +14,7 @@ var cmdAttach = &Command{
 	Examples: `
     $ scw attach my-running-server
     $ scw attach $(scw start my-stopped-server)
-    $ scw attach $(scw start $(scw create ubuntu-vivid))
+    $ scw attach $(scw start $(scw create ubuntu-bionic))
 `,
 }
 
