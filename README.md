@@ -89,7 +89,7 @@ mkdir -p /usr/local/bin
 mv /usr/local/bin/scw /tmp/scw.old
 
 # get latest release
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.19/scw-darwin-amd64" -O /usr/local/bin/scw
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.20/scw-darwin-amd64" -O /usr/local/bin/scw
 
 # test
 scw version
@@ -100,7 +100,7 @@ Install the latest release on Linux:
 ```bash
 # get latest release
 export ARCH=amd64  # can be 'i386', 'amd64' or 'armhf'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.19/scw_1.19_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v1.20/scw_1.20_${ARCH}.deb" -O /tmp/scw.deb
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 # test
@@ -1210,11 +1210,28 @@ $ scw inspect myserver | jq '.[0].public_ip.address'
 
 ## Changelog
 
-### v1.19+dev (unreleased)
+### v1.20+dev (unreleased)
 
 * This is the current development version. Update below with your changes. Remove this line when releasing the package.
 
-View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.19...master)
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.20...master)
+
+### v1.20 (2019-09-10)
+
+* feat: add support for exact match when looking for an image ([#562](https://github.com/scaleway/scaleway-cli/pull/562))
+* feat: change default server type to DEV1-S ([#561](https://github.com/scaleway/scaleway-cli/pull/561))
+* feat: drop go 1.7, 1.8 and 1.9 support ([#564](https://github.com/scaleway/scaleway-cli/pull/564))
+* feat: drop go@1.10 support ([#571](https://github.com/scaleway/scaleway-cli/pull/571))
+* feat: add go@1.11 support ([#565](https://github.com/scaleway/scaleway-cli/pull/565))
+* feat: add go@1.12 support ([#566](https://github.com/scaleway/scaleway-cli/pull/566))
+* feat: add go@1.13 support ([#572](https://github.com/scaleway/scaleway-cli/pull/572))
+* feat: drop freebsd and netbsd support for go1.12+ ([#570](https://github.com/scaleway/scaleway-cli/pull/570))
+* doc: add reference to Chocolatey package ([#551](https://github.com/scaleway/scaleway-cli/pull/551))
+* doc: remove brew tap installation instructions ([#560](https://github.com/scaleway/scaleway-cli/pull/560))
+* doc: update to new instances and images ([#569](https://github.com/scaleway/scaleway-cli/pull/569))
+* test: fix integration tests ([#568](https://github.com/scaleway/scaleway-cli/pull/568))
+
+View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.19...v1.20)
 
 ### v1.19 (2019-03-29)
 
