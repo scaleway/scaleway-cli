@@ -98,8 +98,8 @@ prepare-release-dist: build
 	GOOS=linux  GOARCH=arm    go build -o dist/latest/scw-linux-arm         github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=linux  GOARCH=arm64  go build -o dist/latest/scw-linux-arm64       github.com/scaleway/scaleway-cli/cmd/scw
 
-	GOOS=darwin  GOARCH=386   go build --tags kqueue -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=darwin  GOARCH=amd64 go build --tags kqueue -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=darwin  GOARCH=386   go build -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
+	GOOS=darwin  GOARCH=amd64 go build -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
 
 	# Issue with mody and [free|net]bsd for go1.12+ https://github.com/moby/moby/pull/38818
 	if [ $(GOMINORVERSION) -lt 12 ]; then \

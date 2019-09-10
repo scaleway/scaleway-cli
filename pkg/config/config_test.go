@@ -18,7 +18,6 @@ import (
 
 func TestGetConfigFilePath(t *testing.T) {
 	Convey("Testing GetConfigFilePath()", t, func() {
-		os.Unsetenv("SCW_CONFIG_PATH")
 		configPath, err := GetConfigFilePath()
 		So(err, ShouldBeNil)
 		So(configPath, ShouldNotEqual, "")

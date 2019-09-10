@@ -33,7 +33,6 @@ var Commands = []*Command{
 	cmdRm,
 	cmdRmi,
 	cmdRun,
-	cmdS3,
 	cmdSearch,
 	cmdStart,
 	cmdStop,
