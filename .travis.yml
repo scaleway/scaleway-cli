@@ -11,10 +11,6 @@ env:
 
 matrix:
   include:  # WARNING remove -cpu=* with TEST_WITH_REAL_API=1
-    - go:   "1.10"
-      env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
-    - go:   "1.10"
-      env:  TEST_WITH_REAL_API=1
     - go:   "1.11"
       env:  TEST_WITH_REAL_API=0 GOTESTFLAGS="-race -cpu=1,2,4"
     - go:   "1.11"
@@ -34,7 +30,7 @@ before_install:
   - go get -u github.com/axw/gocov/gocov
   - go get -u github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
-  - GO15VENDOREXPERIMENT=1 go get moul.io/anonuuid/cmd/anonuuid
+  - go get -u moul.io/anonuuid/cmd/anonuuid
 
 
 script:
