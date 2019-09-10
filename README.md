@@ -52,7 +52,6 @@ Read the [blog post](https://blog.scaleway.com/2015/05/20/manage-baremetal-serve
     * [`rm [OPTIONS] SERVER [SERVER...]`](#scw-rm)
     * [`rmi [OPTIONS] IMAGE [IMAGE...]`](#scw-rmi)
     * [`run [OPTIONS] IMAGE [COMMAND] [ARGS...]`](#scw-run)
-    * [`s3 [OPTIONS]`](#scw-s3)
     * [`search [OPTIONS] TERM`](#scw-search)
     * [`start [OPTIONS] SERVER [SERVER...]`](#scw-start)
     * [`stop [OPTIONS] SERVER [SERVER...]`](#scw-stop)
@@ -200,7 +199,6 @@ Commands:
     rm        Remove one or more servers
     rmi       Remove one or more image(s)/volume(s)/snapshot(s)
     run       Run a command in a new server
-    s3        Access to s3 bucket
     search    Search the Scaleway Hub for images
     start     Start a stopped server
     stop      Stop a running server
@@ -774,80 +772,6 @@ Examples:
  ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
 ```
 
-#### `scw s3`
-
-Integration of object storage to the scaleway CLI is done using the minio client. This is not a long term solution and we think about providing our own S3 cli, but it will probably not be compliant with minio client.
-Please understand that we will put priority on innovation regarding our cloud rather than doing another full s3 client.
-
- ```console
- NAME:
-   scw s3 - Minio Client for cloud storage and filesystems.
-
- USAGE:
-   scw s3 [FLAGS] COMMAND [COMMAND FLAGS | -h] [ARGUMENTS...]
-
- COMMANDS:
-   ls       List files and folders.
-   mb       Make a bucket or a folder.
-   cat      Display file and object contents.
-   pipe     Redirect STDIN to an object or file or STDOUT.
-   share    Generate URL for sharing.
-   cp       Copy files and objects.
-   mirror   Mirror buckets and folders.
-   find     Search for files and objects.
-   stat     Stat contents of objects and folders.
-   diff     List differences in object name, size, and date between folders.
-   rm       Remove files and objects.
-   session  Manage saved sessions for cp command.
-   config   Manage mc configuration file.
-
- GLOBAL FLAGS:
-   --config-folder value, -C value  Path to configuration folder. (default: "/home/atom/.mc")
-   --quiet, -q                      Disable progress bar display.
-   --no-color                       Disable color theme.
-   --json                           Enable JSON formatted output.
-   --debug                          Enable debug output.
-   --insecure                       Disable SSL certificate verification.
-   --help, -h                       Show help.
-```
-
-To begin with, you will need to configure your credentials, using the following command:
-
-```console
-$> scw s3 config
-AccessKey: <YOUR-ACCESS-KEY>
-SecretKey: <YOUR-SECRET-KEY>
-```
-
-This call will configure two minio profiles, ams and par, respectively for 'nl-ams' and
-'fr-par' regions, currently, the 'fr-par' region is not usable, but will be soon.
-
-The following examples show basic s3 operations on 'nl-ams' region:
-
-Creating a bucket:
-```console
-$> scw s3 mb ams/minio-test-bucket
-Bucket created successfully `ams/minio-test-bucket`.
-```
-
-Listing:
-```console
-$> scw s3 ls ams/
-[2018-11-20 11:06:32 CET]     0B minio-test-bucket/
-```
-
-Put an object:
-```console
-$> scw s3 cp /etc/hosts ams/minio-test-bucket/hosts
-`/etc/hosts` -> `ams/minio-test-bucket/hosts`
-```
-
-Removing an object / bucket:
-```console
-$> scw s3 rm ams/minio-test-bucket/hosts           
-Removing `ams/minio-test-bucket/hosts`.
-```
-
 #### `scw search`
 
 ```console
@@ -1313,7 +1237,7 @@ View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.17.
 
 * Fix: it is now possible to `scw inspect` snapshots [#510](https://github.com/scaleway/scaleway-cli/issues/510)
 * Fix: add region details in cache for snapshots, images, bootscripts and volumes [#510](https://github.com/scaleway/scaleway-cli/issues/510)
-* Fix: `scw attach` works again [#508](https://github.com/scaleway/scaleway-cli/issues/508)
+* Fix: `scw attach` works again [#508](https://github.com/scaleway/scaleway-cli/issues/508) 
 * Fix unittests
 
 View full [commits list](https://github.com/scaleway/scaleway-cli/compare/v1.16...v1.17)
@@ -1723,7 +1647,6 @@ For previous Node.js versions, see [scaleway-cli-node](https://github.com/moul/s
   * Support of `run -e, --env` option
   * Support of `run --name` option
   * Support of `run -v, --volume` option
-* Support of `s3` command
 * Support of `search` command
   * Support of `search --no-trunc` option
 * Support of `start` command
