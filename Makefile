@@ -101,13 +101,16 @@ prepare-release-dist: build
 	GOOS=darwin  GOARCH=386   go build --tags kqueue -o dist/latest/scw-darwin-i386       github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=darwin  GOARCH=amd64 go build --tags kqueue -o dist/latest/scw-darwin-amd64      github.com/scaleway/scaleway-cli/cmd/scw
 
-	GOOS=freebsd GOARCH=386   go build -o dist/latest/scw-freebsd-i386      github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=freebsd GOARCH=amd64 go build -o dist/latest/scw-freebsd-amd64     github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=freebsd GOARCH=arm   go build -o dist/latest/scw-freebsd-arm       github.com/scaleway/scaleway-cli/cmd/scw
-
-	GOOS=netbsd GOARCH=386    go build -o dist/latest/scw-netbsd-i386       github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=netbsd GOARCH=amd64  go build -o dist/latest/scw-netbsd-amd64      github.com/scaleway/scaleway-cli/cmd/scw
-	GOOS=netbsd GOARCH=arm    go build -o dist/latest/scw-netbsd-arm        github.com/scaleway/scaleway-cli/cmd/scw
+	# Issue with mody and [free|net]bsd for go1.12+ https://github.com/moby/moby/pull/38818
+	if [ $(GOMINORVERSION) -lt 12 ]; then \
+		GOOS=freebsd GOARCH=386   go build -o dist/latest/scw-freebsd-i386      github.com/scaleway/scaleway-cli/cmd/scw && \
+		GOOS=freebsd GOARCH=amd64 go build -o dist/latest/scw-freebsd-amd64     github.com/scaleway/scaleway-cli/cmd/scw && \
+		GOOS=freebsd GOARCH=arm   go build -o dist/latest/scw-freebsd-arm       github.com/scaleway/scaleway-cli/cmd/scw && \
+		\
+		GOOS=netbsd GOARCH=386    go build -o dist/latest/scw-netbsd-i386       github.com/scaleway/scaleway-cli/cmd/scw && \
+		GOOS=netbsd GOARCH=amd64  go build -o dist/latest/scw-netbsd-amd64      github.com/scaleway/scaleway-cli/cmd/scw && \
+		GOOS=netbsd GOARCH=arm    go build -o dist/latest/scw-netbsd-arm        github.com/scaleway/scaleway-cli/cmd/scw; \
+	fi
 
 	GOOS=windows GOARCH=386   go build -o dist/latest/scw-windows-i386.exe  github.com/scaleway/scaleway-cli/cmd/scw
 	GOOS=windows GOARCH=amd64 go build -o dist/latest/scw-windows-amd64.exe github.com/scaleway/scaleway-cli/cmd/scw
