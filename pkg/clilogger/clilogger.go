@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/moul/http2curl"
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/sirupsen/logrus"
+	"moul.io/http2curl"
 )
 
 type cliLogger struct {

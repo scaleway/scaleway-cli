@@ -160,11 +160,6 @@
 			"revisionTime": "2019-07-23T22:15:00Z"
 		},
 		{
-			"checksumSHA1": "O7lIX71vTepwRVcnXbV3Fzq0z5U=",
-			"path": "github.com/moul/http2curl",
-			"revision": "b1479103caacaa39319f75e7f57fc545287fca0d"
-		},
-		{
 			"checksumSHA1": "3AoPMXlmVq2+iWMpsdJZkcUKHB8=",
 			"comment": "v0.1.1-131-g57b9972",
 			"path": "github.com/opencontainers/runc/libcontainer/user",
@@ -387,6 +382,12 @@
 			"path": "moul.io/anonuuid",
 			"revision": "f11074c9f6e9bff20f85bfaf77d0a9f6e25a465f",
 			"revisionTime": "2019-08-13T07:35:29Z"
+		},
+		{
+			"checksumSHA1": "QThwgYm7h263luXublnwE07dgiY=",
+			"path": "moul.io/http2curl",
+			"revision": "5cd742060b0e0de91f875277b77dd7d7e68b23ca",
+			"revisionTime": "2019-09-25T09:05:45Z"
 		}
 	],
 	"rootPath": "github.com/scaleway/scaleway-cli"
