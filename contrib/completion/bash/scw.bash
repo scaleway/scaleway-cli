@@ -10,6 +10,13 @@ shopt -s extglob
 servers=""
 images=""
 
+# Test whether the noquote option is supported
+_noquote=""
+if complete -o noquote scw &>/dev/null
+then
+    _noquote="-o noquote"
+fi
+
 # If you want to remove the inserted space after bash completion uncomment this line
 # and comment the line just after it
 #_nospace="-o nospace"
@@ -775,4 +782,4 @@ _scw ()
 
     return 0
 } &&
-complete -F _scw ${_nospace} -o noquote -o filenames scw
+complete -F _scw ${_nospace} ${_noquote} -o filenames scw
