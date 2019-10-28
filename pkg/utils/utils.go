@@ -39,7 +39,7 @@ type SpawnRedirection struct {
 }
 
 // SSHExec executes a command over SSH and redirects file-descriptors
-func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command []string, checkConnection bool, gateway string, enableSSHKeyForwarding bool) error {
+func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command []string, checkConnection bool, gateway string, enableSSHKeyForwarding bool, noTTY bool) error {
 	gatewayUser := "root"
 	gatewayIPAddress := gateway
 	if strings.Contains(gateway, "@") {
@@ -69,7 +69,9 @@ func SSHExec(publicIPAddress, privateIPAddress, user string, port int, command [
 		}
 	}
 
-	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, port, isatty.IsTerminal(os.Stdin.Fd()), command, gateway, enableSSHKeyForwarding)
+	allocateTTY := isatty.IsTerminal(os.Stdin.Fd()) && !noTTY
+
+	sshCommand := NewSSHExecCmd(publicIPAddress, privateIPAddress, user, port, allocateTTY, command, gateway, enableSSHKeyForwarding)
 
 	log.Debugf("Executing: %s", sshCommand)
 

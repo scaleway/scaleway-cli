@@ -665,7 +665,7 @@ func WaitForServerReady(api *ScalewayAPI, serverID, gateway string) (*ScalewaySe
 						"1",
 						server.PrivateIP,
 						"22",
-					}, false, gateway, false) == nil {
+					}, false, gateway, false, false) == nil {
 						goto OUT
 					}
 					time.Sleep(2 * time.Second)
