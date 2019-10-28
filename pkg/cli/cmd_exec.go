@@ -22,6 +22,7 @@ var cmdExec = &Command{
     $ scw exec myserver tmux new -d sleep 10
     $ scw exec myserver ls -la | grep password
     $ cat local-file | scw exec myserver 'cat > remote/path'
+    $ MYVAR=$(scw exec myserver echo hello)
 `,
 }
 
@@ -33,6 +34,7 @@ func init() {
 	cmdExec.Flag.StringVar(&execSSHUser, []string{"-user"}, "root", "Specify SSH user")
 	cmdExec.Flag.IntVar(&execSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 	cmdExec.Flag.BoolVar(&execEnableSSHKeyForwarding, []string{"A"}, false, "Enable SSH keys forwarding")
+	cmdExec.Flag.BoolVar(&noTTY, []string{"-no-tty"}, false, "Disable pseudo-terminal allocation")
 }
 
 // Flags
@@ -43,6 +45,7 @@ var execGateway string              // -g, --gateway flag
 var execSSHUser string              // --user flag
 var execSSHPort int                 // -p, --port flag
 var execEnableSSHKeyForwarding bool // -A flag
+var noTTY bool                      // -no-tty flag
 
 func runExec(cmd *Command, rawArgs []string) error {
 	if execHelp {
@@ -61,6 +64,7 @@ func runExec(cmd *Command, rawArgs []string) error {
 		SSHUser:                execSSHUser,
 		SSHPort:                execSSHPort,
 		EnableSSHKeyForwarding: execEnableSSHKeyForwarding,
+		NoTTY:                  noTTY,
 	}
 	ctx := cmd.GetContext(rawArgs)
 	return commands.RunExec(ctx, args)

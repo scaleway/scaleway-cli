@@ -24,6 +24,7 @@ type ExecArgs struct {
 	SSHUser                string
 	SSHPort                int
 	EnableSSHKeyForwarding bool
+	NoTTY                  bool
 }
 
 // RunExec is the handler for 'scw exec'
@@ -103,7 +104,7 @@ func RunExec(ctx CommandContext, args ExecArgs) error {
 	}
 	logrus.Debugf("PublicDNS %s", serverID+api.URLPublicDNS)
 	logrus.Debugf("PrivateDNS %s", serverID+api.URLPrivateDNS)
-	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, !args.Wait, gateway, args.EnableSSHKeyForwarding); err != nil {
+	if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, !args.Wait, gateway, args.EnableSSHKeyForwarding, args.NoTTY); err != nil {
 		return fmt.Errorf("Failed to run the command: %v", err)
 	}
 

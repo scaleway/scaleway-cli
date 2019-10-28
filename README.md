@@ -366,6 +366,7 @@ Options:
   -A=false              Enable SSH keys forwarding
   -g, --gateway=""      Use a SSH gateway
   -h, --help=false      Print usage
+  --no-tty=false        Disable pseudo-terminal allocation
   -p, --port=22         Specify SSH port
   -T, --timeout=0       Set timeout values to seconds
   --user=root           Specify SSH user
@@ -378,11 +379,12 @@ Examples:
     $ scw exec --gateway=myotherserver myserver bash
     $ scw exec myserver 'tmux a -t joe || tmux new -s joe || bash'
     $ SCW_SECURE_EXEC=1 scw exec myserver bash
-    $ scw exec -w $(scw start $(scw create ubuntu-trusty)) bash
-    $ scw exec $(scw start -w $(scw create ubuntu-trusty)) bash
+    $ scw exec -w $(scw start $(scw create ubuntu-bionic)) bash
+    $ scw exec $(scw start -w $(scw create ubuntu-bionic)) bash
     $ scw exec myserver tmux new -d sleep 10
     $ scw exec myserver ls -la | grep password
     $ cat local-file | scw exec myserver 'cat > remote/path'
+    $ MYVAR=$(scw exec myserver echo hello)
 ```
 
 
@@ -727,6 +729,7 @@ Options:
   --ip-address=""          Assign a reserved public IP, a 'dynamic' one or 'none' (default to 'none' if gateway specified, 'dynamic' otherwise)
   --ipv6=false             Enable IPV6
   --name=""                Assign a name
+  --no-tty=false           Disable pseudo-terminal allocation
   -p, --port=22            Specify SSH port
   --rm=false               Automatically remove the server when it exits
   --show-boot=false        Allows to show the boot
