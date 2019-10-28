@@ -34,7 +34,7 @@ func init() {
 	cmdExec.Flag.StringVar(&execSSHUser, []string{"-user"}, "root", "Specify SSH user")
 	cmdExec.Flag.IntVar(&execSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
 	cmdExec.Flag.BoolVar(&execEnableSSHKeyForwarding, []string{"A"}, false, "Enable SSH keys forwarding")
-	cmdExec.Flag.BoolVar(&noTTY, []string{"-no-tty"}, false, "Disable pseudo-terminal allocation.")
+	cmdExec.Flag.BoolVar(&noTTY, []string{"-no-tty"}, false, "Disable pseudo-terminal allocation")
 }
 
 // Flags

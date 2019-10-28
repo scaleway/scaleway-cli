@@ -41,6 +41,7 @@ type RunArgs struct {
 	Detach         bool
 	Attach         bool
 	IPV6           bool
+	NoTTY          bool
 }
 
 // AddSSHKeyToTags adds the ssh key in the tags
@@ -137,7 +138,7 @@ func runShowBoot(ctx CommandContext, args RunArgs, serverID, region string, clos
 		}
 		server := sshConnection.server
 		logrus.Info("Connecting to server ...")
-		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway, false, false); err != nil {
+		if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway, false, args.NoTTY); err != nil {
 			return fmt.Errorf("Connection to server failed: %v", err)
 		}
 	}
@@ -278,12 +279,12 @@ func Run(ctx CommandContext, args RunArgs) error {
 			// exec -w SERVER COMMAND ARGS...
 			if len(args.Command) < 1 {
 				logrus.Info("Connecting to server ...")
-				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway, false, false); err != nil {
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, []string{}, false, gateway, false, args.NoTTY); err != nil {
 					return fmt.Errorf("Connection to server failed: %v", err)
 				}
 			} else {
 				logrus.Infof("Executing command: %s ...", args.Command)
-				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, false, gateway, false, false); err != nil {
+				if err = utils.SSHExec(server.PublicAddress.IP, server.PrivateIP, args.SSHUser, args.SSHPort, args.Command, false, gateway, false, args.NoTTY); err != nil {
 					return fmt.Errorf("command execution failed: %v", err)
 				}
 				logrus.Info("Command successfully executed")

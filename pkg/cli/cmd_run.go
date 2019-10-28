@@ -53,6 +53,7 @@ func init() {
 	cmdRun.Flag.BoolVar(&runTmpSSHKey, []string{"-tmp-ssh-key"}, false, "Access your server without uploading your SSH key to your account")
 	cmdRun.Flag.BoolVar(&runShowBoot, []string{"-show-boot"}, false, "Allows to show the boot")
 	cmdRun.Flag.IntVar(&runSSHPort, []string{"p", "-port"}, 22, "Specify SSH port")
+	cmdRun.Flag.BoolVar(&runNoTTY, []string{"-no-tty"}, false, "Disable pseudo-terminal allocation")
 	// FIXME: handle start --timeout
 }
 
@@ -77,6 +78,7 @@ var runTimeout int64           // --timeout flag
 var runSetState string         // --set-state flag
 var runSSHUser string          // --user flag
 var runSSHPort int             // -p, --port flag
+var runNoTTY bool              // -no-tty flag
 
 func runRun(cmd *Command, rawArgs []string) error {
 	if runHelpFlag {
@@ -127,6 +129,7 @@ func runRun(cmd *Command, rawArgs []string) error {
 		SSHUser:        runSSHUser,
 		SSHPort:        runSSHPort,
 		BootType:       runBootType,
+		NoTTY:          runNoTTY,
 		// FIXME: Timeout
 	}
 
