@@ -1,0 +1,42 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  -
+    goos: [linux, darwin, windows]
+    goarch: [386, amd64, arm, arm64]
+    main: ./cmd/anonuuid/main.go
+    flags:
+      - "-a"
+    ldflags:
+      - '-extldflags "-static"'
+    env:
+      - CGO_ENABLED=0
+archives:
+  - wrap_in_directory: true
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+brew:
+  name: golang-repo-template
+  github:
+    owner: moul
+    name: homebrew-moul
+  commit_author:
+    name: moul-bot
+    email: "m+bot@42.am"
+  homepage: https://manfred.life/
+  description: "golang-repo-template"
