@@ -13,7 +13,7 @@ import (
 	"strings"
 	"text/template"
 
-	flag "github.com/docker/docker/pkg/mflag"
+	flag "github.com/docker/libnetwork/client/mflag"
 
 	"github.com/scaleway/scaleway-cli/pkg/api"
 	"github.com/scaleway/scaleway-cli/pkg/commands"
