@@ -30,11 +30,10 @@ matrix:
 
 
 before_install:
-  - go get github.com/golang/go/src/cmd/vet
   - go get -u github.com/axw/gocov/gocov
   - go get -u github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
-  - go get -u moul.io/anonuuid/cmd/anonuuid
+  - env GO111MODULE="on" go get moul.io/anonuuid/cmd/anonuuid
 
 
 script:
