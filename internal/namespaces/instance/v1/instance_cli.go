@@ -353,19 +353,19 @@ func instanceServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "List all servers on your default zone",
+				Short:   "List all servers on your default zone",
 				Request: `null`,
 			},
 			{
-				Title:   "List servers of this commercial type",
+				Short:   "List servers of this commercial type",
 				Request: `{"commercial_type":"DEV1-S"}`,
 			},
 			{
-				Title:   "List servers that are not attached to a public IP",
+				Short:   "List servers that are not attached to a public IP",
 				Request: `{"without_ip":true}`,
 			},
 			{
-				Title:   "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
+				Short:   "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
 				Request: `{"name":"server1"}`,
 			},
 		},
@@ -428,7 +428,7 @@ func instanceServerGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Get a server with the given ID",
+				Short:   "Get a server with the given ID",
 				Request: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
 			},
 		},
@@ -578,7 +578,7 @@ func instanceImageList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "List all public images in your default zone",
+				Short:   "List all public images in your default zone",
 				Request: `null`,
 			},
 		},
@@ -885,23 +885,23 @@ func instanceVolumeList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "List all volumes",
+				Short:   "List all volumes",
 				Request: `null`,
 			},
 			{
-				Title:   "List all block storage volumes",
+				Short:   "List all block storage volumes",
 				Request: `{"volume_type":"b_ssd"}`,
 			},
 			{
-				Title:   "List all local storage volumes",
+				Short:   "List all local storage volumes",
 				Request: `{"volume_type":"l_ssd"}`,
 			},
 			{
-				Title:   "List all volumes that match a name",
+				Short:   "List all volumes that match a name",
 				Request: `{"name":"foobar"}`,
 			},
 			{
-				Title:   "List all block storage volumes that match a name",
+				Short:   "List all block storage volumes that match a name",
 				Request: `{"name":"foobar","volume_type":"b_ssd"}`,
 			},
 		},
@@ -1005,15 +1005,15 @@ func instanceVolumeCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Create a volume called 'my-volume'",
+				Short:   "Create a volume called 'my-volume'",
 				Request: `{"name":"my-volume"}`,
 			},
 			{
-				Title:   "Create a volume with a size of 50GB",
+				Short:   "Create a volume with a size of 50GB",
 				Request: `{"size":50000000000}`,
 			},
 			{
-				Title:   "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
+				Short:   "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
 				Request: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
 			},
 		},
@@ -1046,7 +1046,7 @@ func instanceVolumeGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Get a volume with the given ID",
+				Short:   "Get a volume with the given ID",
 				Request: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
 			},
 		},
@@ -1082,7 +1082,7 @@ func instanceVolumeDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Delete a volume with the given ID",
+				Short:   "Delete a volume with the given ID",
 				Request: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
 			},
 		},
@@ -1119,7 +1119,7 @@ func instanceSecurityGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "List all security groups that match the given name",
+				Short:   "List all security groups that match the given name",
 				Request: `{"name":"foobar"}`,
 			},
 		},
@@ -1187,23 +1187,23 @@ func instanceSecurityGroupCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Create a Security Group with the given name and description",
+				Short:   "Create a Security Group with the given name and description",
 				Request: `{"description":"foobar foobar","name":"foobar"}`,
 			},
 			{
-				Title:   "Create a Security Group that will be applied as a default on instances of your organization",
+				Short:   "Create a Security Group that will be applied as a default on instances of your organization",
 				Request: `{"organization_default":true}`,
 			},
 			{
-				Title:   "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
+				Short:   "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
 				Request: `{"inbound_default_policy":"drop"}`,
 			},
 			{
-				Title:   "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
+				Short:   "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
 				Request: `{"outbound_default_policy":"drop"}`,
 			},
 			{
-				Title:   "Create a stateless Security Group",
+				Short:   "Create a stateless Security Group",
 				Request: `{"stateful":false}`,
 			},
 		},
@@ -1236,7 +1236,7 @@ func instanceSecurityGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Get a security group with the given ID",
+				Short:   "Get a security group with the given ID",
 				Request: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
 			},
 		},
@@ -1272,7 +1272,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Delete a security group with the given ID",
+				Short:   "Delete a security group with the given ID",
 				Request: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
 			},
 		},
@@ -1357,23 +1357,23 @@ func instanceSecurityGroupRuleCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Allow incoming SSH",
+				Short:   "Allow incoming SSH",
 				Request: `{"action":"accept","dest_port_from":22,"direction":"inbound","protocol":"TCP","security_group_id":"1248283f-17de-464a-b03b-3f975ada3fa8"}`,
 			},
 			{
-				Title:   "Allow HTTP",
+				Short:   "Allow HTTP",
 				Request: `{"action":"accept","dest_port_from":80,"direction":"inbound","protocol":"TCP","security_group_id":"e8ba77c1-9ccb-4c0c-b08d-555cfd7f57e4"}`,
 			},
 			{
-				Title:   "Allow HTTPS",
+				Short:   "Allow HTTPS",
 				Request: `{"action":"accept","dest_port_from":443,"direction":"inbound","protocol":"TCP","security_group_id":"e5906437-8650-4fe2-8ca7-32e1d7320c1b"}`,
 			},
 			{
-				Title:   "Allow a specific IP range",
+				Short:   "Allow a specific IP range",
 				Request: `{"action":"accept","direction":"inbound","ip_range":"10.0.0.0/16","protocol":"ANY","security_group_id":"b6a58155-a2f8-48bd-9da9-3ff9783fa0d4"}`,
 			},
 			{
-				Title:   "Allow FTP",
+				Short:   "Allow FTP",
 				Request: `{"action":"accept","dest_port_from":20,"dest_port_to":21,"direction":"inbound","protocol":"TCP","security_group_id":"9c46df03-83c2-46fb-936c-16ecb44860e1"}`,
 			},
 		},
@@ -1415,7 +1415,7 @@ func instanceSecurityGroupRuleDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Delete a Security Group Rule with the given ID",
+				Short:   "Delete a Security Group Rule with the given ID",
 				Request: `{"security_group_id":"a01a36e5-5c0c-42c1-ae06-167e587b7ac4","security_group_rule_id":"b8c773ef-a6ea-4b50-a7c1-737864290a3f"}`,
 			},
 		},
@@ -1454,7 +1454,7 @@ func instanceSecurityGroupRuleGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Get details of a security group rule with the given ID",
+				Short:   "Get details of a security group rule with the given ID",
 				Request: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
 			},
 		},
@@ -1491,11 +1491,11 @@ func instancePlacementGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "List all placement groups in your default zone",
+				Short:   "List all placement groups in your default zone",
 				Request: `null`,
 			},
 			{
-				Title:   "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
+				Short:   "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
 				Request: `{"name":"cluster1"}`,
 			},
 		},
@@ -1543,27 +1543,27 @@ func instancePlacementGroupCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Create a placement group with default name",
+				Short:   "Create a placement group with default name",
 				Request: `null`,
 			},
 			{
-				Title:   "Create a placement group with the given name",
+				Short:   "Create a placement group with the given name",
 				Request: `{"name":"foobar"}`,
 			},
 			{
-				Title:   "Create an enforced placement group",
+				Short:   "Create an enforced placement group",
 				Request: `{"policy_mode":"enforced"}`,
 			},
 			{
-				Title:   "Create an optional placement group",
+				Short:   "Create an optional placement group",
 				Request: `{"policy_mode":"optional"}`,
 			},
 			{
-				Title:   "Create an optional low latency placement group",
+				Short:   "Create an optional low latency placement group",
 				Request: `{"policy_mode":"optional","policy_type":"low_latency"}`,
 			},
 			{
-				Title:   "Create an enforced low latency placement group",
+				Short:   "Create an enforced low latency placement group",
 				Request: `{"policy_mode":"enforced","policy_type":"low_latency"}`,
 			},
 		},
@@ -1596,7 +1596,7 @@ func instancePlacementGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Get a placement group with the given ID",
+				Short:   "Get a placement group with the given ID",
 				Request: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
 			},
 		},
@@ -1649,15 +1649,15 @@ func instancePlacementGroupUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Update the name of a placement group",
+				Short:   "Update the name of a placement group",
 				Request: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
 			},
 			{
-				Title:   "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
+				Short:   "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
 				Request: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
 			},
 			{
-				Title:   "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
+				Short:   "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
 				Request: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
 			},
 		},
@@ -1726,7 +1726,7 @@ func instancePlacementGroupServerSet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "Update the complete set of instances in a given placement group. (All instances must be down)",
+				Short:   "Update the complete set of instances in a given placement group. (All instances must be down)",
 				Request: `{"placement_group_id":"ced0fd4d-bcf0-4479-85b6-7027e54456e6","servers":["5a250608-24ec-4c31-9631-b3ded8c861cb","e54fd249-0787-4794-ab14-af6ee74df274"]}`,
 			},
 		},

@@ -117,7 +117,7 @@ func buildExamples(cmd *Command) string {
 
 	for _, cmdExample := range cmd.Examples {
 		// Build title.
-		title := fmt.Sprintf("  %s", cmdExample.Title)
+		title := fmt.Sprintf("  %s", cmdExample.Short)
 
 		//  Query and path parameters don't have json tag,
 		//  so we need to enforce a JSON tag on every field to make this work.
