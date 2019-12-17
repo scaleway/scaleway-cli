@@ -394,7 +394,7 @@ func instanceServerDelete() *core.Command {
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					multierror.Append(multiErr, err)
+					multiErr = multierror.Append(multiErr, err)
 				}
 			}
 
@@ -405,12 +405,15 @@ func instanceServerDelete() *core.Command {
 						VolumeID: volume.ID,
 					})
 					if err != nil {
-						multierror.Append(multiErr, err)
+						multiErr = multierror.Append(multiErr, err)
 					}
 				}
 			}
 			if multiErr != nil {
-				return nil, multiErr
+				return nil, &core.CliError{
+					Err:  multiErr,
+					Hint: "Make sure these resources have been deleted or try to delete it manually.",
+				}
 			}
 
 			return &core.SuccessResult{}, nil
