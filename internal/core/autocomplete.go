@@ -15,7 +15,7 @@ type AutocompleteSuggestions []string
 
 // AutocompleteResponse contains the autocomplete suggestions
 type AutocompleteResponse struct {
-	Propositions AutocompleteSuggestions
+	Suggestions AutocompleteSuggestions
 }
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
@@ -36,7 +36,7 @@ type AutoCompleteNode struct {
 func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 	sort.Strings(suggestions)
 	return &AutocompleteResponse{
-		Propositions: suggestions,
+		Suggestions: suggestions,
 	}
 }
 

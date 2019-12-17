@@ -46,9 +46,9 @@ var autocompleteScripts = map[string]autocompleteScript{
 	"bash": {
 		// If `scw` is the first word on the command line,
 		// after hitting [tab] arguments are sent to `scw autocomplete complete bash`:
-		//  - COMP_LINE :  the complete command line
-		//  - COMP_CWORD : the index of the word being completed
-		//  - COMP_WORDS : the words composing the command line
+		//  - COMP_LINE: the complete command line
+		//  - cword:     the index of the word being completed (source COMP_CWORD)
+		//  - words:     the words composing the command line (source COMP_WORDS)
 		//
 		// Note that `=` signs are excluding from $COMP_WORDBREAKS. As a result, they are NOT be
 		// considered as breaking words and arguments like `image=` will not be split.
@@ -56,9 +56,10 @@ var autocompleteScripts = map[string]autocompleteScript{
 		// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
 		// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
 		CompleteFunc: `
-			local COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
 			_scw() {
-				output=$(scw autocomplete complete bash "$COMP_LINE" "$COMP_CWORD" "${COMP_WORDS[@]}")
+				_get_comp_words_by_ref -n = cword words
+
+				output=$(scw autocomplete complete bash "$COMP_LINE" "$cword" "${words[@]}")
 				COMPREPLY=($output)
 				[[ $COMPREPLY == *= ]] && compopt -o nospace
 				return
@@ -235,8 +236,17 @@ func autocompleteCompleteBashCommand() *core.Command {
 			wordToComplete := words[wordIndex]
 			rightWords := words[wordIndex+1:]
 
+			// If the wordToComplete is an argument label (cf. `arg=`), remove
+			// this prefix for all suggestions.
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
-			return strings.Join(res.Propositions, " "), nil
+			if strings.Contains(wordToComplete, "=") {
+				prefix := strings.SplitAfterN(wordToComplete, "=", 2)[0]
+				for k, p := range res.Suggestions {
+					res.Suggestions[k] = strings.TrimPrefix(p, prefix)
+				}
+			}
+
+			return strings.Join(res.Suggestions, " "), nil
 		},
 	}
 }
@@ -267,7 +277,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 			// TODO: decide if we want to add descriptions
 			// see https://stackoverflow.com/a/20879411
 			// "followed optionally by a tab and a short description."
-			return strings.Join(res.Propositions, "\n"), nil
+			return strings.Join(res.Suggestions, "\n"), nil
 		},
 	}
 }
@@ -308,7 +318,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 			rightWords := []string(nil)
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
-			return strings.Join(res.Propositions, " "), nil
+			return strings.Join(res.Suggestions, " "), nil
 		},
 	}
 }
