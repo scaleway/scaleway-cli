@@ -195,7 +195,7 @@ func testHumanCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Title:   "create a dwarf",
+				Short:   "create a dwarf",
 				Request: `{"height":125}`,
 			},
 		},
