@@ -1,0 +1,24 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/golang:1.13
+    steps:
+      - checkout
+      - run: go mod download
+      - run:
+          name: Run unit tests
+          command: go test -v ./...
+      - run:
+          name: Execute main binary
+          command: go run cmd/scw/main.go -h
+
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
