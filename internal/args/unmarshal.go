@@ -194,6 +194,7 @@ func set(dest reflect.Value, keys []string, value string) error {
 		newValue := reflect.New(dest.Type().Elem())
 		dest.Set(newValue)
 		return set(newValue.Elem(), keys, value)
+
 	case reflect.Slice:
 		// If type is a slice:
 		// We check if keys[0] is an number to handle cases like keys.0.value=12
@@ -221,17 +222,21 @@ func set(dest reflect.Value, keys []string, value string) error {
 		err := set(newValue.Elem(), keys, value)
 		dest.Set(reflect.Append(dest, newValue.Elem()))
 		return err
+
 	case reflect.Map:
 		// If map is nil we create it.
 		if dest.IsNil() {
 			dest.Set(reflect.MakeMap(dest.Type()))
 		}
-
+		if len(keys) == 0 {
+			return fmt.Errorf("cannot handle map with no subkey, value '%v'", value)
+		}
 		// Create a new value call set and add result in the map
 		newValue := reflect.New(dest.Type().Elem())
 		err := set(newValue.Elem(), keys[1:], value)
 		dest.SetMapIndex(reflect.ValueOf(keys[0]), newValue.Elem())
 		return err
+
 	case reflect.Struct:
 		if len(keys) == 0 {
 			return fmt.Errorf("cannot unmarshal a struct %T with not field name", dest.Interface())
@@ -245,6 +250,7 @@ func set(dest reflect.Value, keys []string, value string) error {
 		}
 		// Set the value of the field
 		return set(field, keys[1:], value)
+
 	default:
 		return fmt.Errorf("don't know how to unmarshal type %T", dest.Interface())
 	}
