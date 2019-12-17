@@ -77,7 +77,7 @@ func TestAutocomplete(t *testing.T) {
 			rightWord := words[wordToCompleteIndex+1:]
 
 			result := AutoComplete(ctx, leftWords, wordToComplete, rightWord)
-			assert.Equal(t, tc.Suggestions, result.Propositions)
+			assert.Equal(t, tc.Suggestions, result.Suggestions)
 		}
 	}
 
