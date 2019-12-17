@@ -351,16 +351,18 @@ func instanceServerDelete() *core.Command {
 				Required: true,
 			},
 			{
-				Name: "delete-ip",
+				Name:  "delete-ip",
+				Short: "Delete the IP attached to the server as well",
 			},
 			{
-				Name: "delete-volumes",
+				Name:  "delete-volumes",
+				Short: "Delete the volumes attached to the server as well",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
-				"scw instance server stop",
-				"Stop a running server",
+				Command: "scw instance server stop",
+				Short:   "Stop a running server",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
@@ -385,13 +387,14 @@ func instanceServerDelete() *core.Command {
 				return nil, err
 			}
 
+			var multiErr error
 			if args.DeleteIP && server.Server.PublicIP != nil {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: args.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					return nil, err
+					multierror.Append(multiErr, err)
 				}
 			}
 
@@ -402,12 +405,12 @@ func instanceServerDelete() *core.Command {
 						VolumeID: volume.ID,
 					})
 					if err != nil {
-						multierror.Append(err, err)
+						multierror.Append(multiErr, err)
 					}
 				}
 			}
-			if err != nil {
-				return nil, err
+			if multiErr != nil {
+				return nil, multiErr
 			}
 
 			return &core.SuccessResult{}, nil
