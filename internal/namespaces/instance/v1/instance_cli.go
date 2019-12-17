@@ -27,7 +27,6 @@ func GetGeneratedCommands() *core.Commands {
 		instanceVolume(),
 		instanceServerTypeList(),
 		instanceServerList(),
-		instanceServerDelete(),
 		instanceServerGet(),
 		instanceServerUpdate(),
 		instanceImageList(),
@@ -371,37 +370,6 @@ func instanceServerList() *core.Command {
 		},
 	}
 }
-
-func instanceServerDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete server`,
-		Long:      `Delete a server with the given ID.`,
-		Namespace: "instance",
-		Verb:      "delete",
-		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instance.DeleteServerRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Short:      ``,
-				Required:   true,
-				EnumValues: []string{},
-			},
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteServerRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			e = api.DeleteServer(args)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{}, nil
-		},
-	}
-}
-
 func instanceServerGet() *core.Command {
 	return &core.Command{
 		Short:     `Get server`,
