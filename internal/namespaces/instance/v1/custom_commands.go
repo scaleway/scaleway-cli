@@ -30,6 +30,7 @@ func getCustomCommands() *core.Commands {
 		instanceUserDataSet(),
 		instanceUserDataDelete(),
 		instanceUserDataGet(),
+		instanceServerDelete(),
 	)
 }
 
@@ -324,6 +325,97 @@ func instanceUserDataSet() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+			return &core.SuccessResult{}, nil
+		},
+	}
+}
+
+type customeDeleteServerRequest struct {
+	Zone          scw.Zone
+	ServerID      string
+	DeleteIP      bool
+	DeleteVolumes bool
+}
+
+func instanceServerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete server`,
+		Long:      `Delete a server with the given ID.`,
+		Namespace: "instance",
+		Verb:      "delete",
+		Resource:  "server",
+		ArgsType:  reflect.TypeOf(customeDeleteServerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Required: true,
+			},
+			{
+				Name:  "delete-ip",
+				Short: "Delete the IP attached to the server as well",
+			},
+			{
+				Name:  "delete-volumes",
+				Short: "Delete the volumes attached to the server as well",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw instance server stop",
+				Short:   "Stop a running server",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*customeDeleteServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			server, err := api.GetServer(&instance.GetServerRequest{
+				Zone:     args.Zone,
+				ServerID: args.ServerID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			err = api.DeleteServer(&instance.DeleteServerRequest{
+				Zone:     args.Zone,
+				ServerID: args.ServerID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			var multiErr error
+			if args.DeleteIP && server.Server.PublicIP != nil {
+				err = api.DeleteIP(&instance.DeleteIPRequest{
+					Zone: args.Zone,
+					IP:   server.Server.PublicIP.ID,
+				})
+				if err != nil {
+					multiErr = multierror.Append(multiErr, err)
+				}
+			}
+
+			if args.DeleteVolumes {
+				for _, volume := range server.Server.Volumes {
+					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+						Zone:     args.Zone,
+						VolumeID: volume.ID,
+					})
+					if err != nil {
+						multiErr = multierror.Append(multiErr, err)
+					}
+				}
+			}
+			if multiErr != nil {
+				return nil, &core.CliError{
+					Err:  multiErr,
+					Hint: "Make sure these resources have been deleted or try to delete it manually.",
+				}
+			}
+
 			return &core.SuccessResult{}, nil
 		},
 	}
