@@ -1,0 +1,20 @@
+package terminal
+
+import (
+	"os"
+
+	"github.com/fatih/color"
+	"golang.org/x/crypto/ssh/terminal"
+)
+
+func Style(msg string, styles ...color.Attribute) string {
+	return color.New(styles...).Sprint(msg)
+}
+
+func GetWidth() int {
+	w, _, err := terminal.GetSize(int(os.Stderr.Fd()))
+	if err != nil {
+		return -1
+	}
+	return w
+}

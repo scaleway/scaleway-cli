@@ -1,0 +1,31 @@
+Create a new human.
+
+USAGE:
+  scw [global-flags] test human create [flags] [args]
+
+EXAMPLES:
+  create a dwarf
+    scw test create human height=125
+
+ARGS:
+  [height]                   
+  [shoe-size]                
+  [altitude-in-meter]        
+  [altitude-in-millimeter]   
+  [fingers-count]            
+  [hair-count]               
+  [is-happy]                 
+  [eyes-color=unknown]        (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+      --access-key string        Scaleway access key
+  -D, --debug                    Enable debug mode
+      --organization-id string   Scaleway organization ID
+  -o, --output PrinterType       Output format: json or human
+  -p, --profile string           The config profile to use
+  -r, --region string            The Scaleway region
+      --secret-key string        Scaleway secret key
+  -z, --zone string              The Scaleway zone

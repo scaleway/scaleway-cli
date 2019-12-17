@@ -1,0 +1,7 @@
+Quota exceeded for resources 'human'
+
+Details:
+- human has reached its quota (10/10)
+
+Hint:
+Quotas are defined by organization. You should either delete unused resources or contact support to obtain bigger quotas.
