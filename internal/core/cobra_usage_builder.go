@@ -27,9 +27,9 @@ func buildUsageArgs(cmd *Command) string {
 
 	err := _buildUsageArgs(tw, cmd.ArgSpecs, cmd.ArgsType, nil)
 	if err != nil {
-		// TODO: decide if we want to propagate this error
+		// TODO: decide how to propagate this error
 		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)
-		logger.Warningf("%v", err)
+		logger.Debugf("%v", err)
 	}
 	tw.Flush()
 
@@ -44,6 +44,7 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgNa
 
 	// related to protoc_gen_mordor.IsIgnoredFieldType()
 	// TODO: make this relation explicit
+	// TODO: decide what arguments to ignore
 	ignoreKey := false
 	if len(parentArgName) > 0 {
 		lastKey := parentArgName[len(parentArgName)-1]
@@ -97,8 +98,10 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgNa
 			}
 		}
 		return nil
+
+	default:
+		return fmt.Errorf("'%v' has no usage or is not ignored", parentArgName)
 	}
-	return fmt.Errorf("no usage for %v", parentArgName)
 }
 
 // _buildArgShort builds the arg short string.
