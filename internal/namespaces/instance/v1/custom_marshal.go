@@ -3,6 +3,7 @@ package instance
 import (
 	"fmt"
 	"net"
+	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -19,17 +20,41 @@ import (
 func init() {
 	// register external types custom human marshaler func
 	// for internal types use the human.Marshaler interface (see code at the end of file)
-	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
+
+	// Image
+	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
+
+	// IP
+	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
+
+	// Placement Group
+	human.RegisterMarshalerFunc(instance.CreatePlacementGroupResponse{}, marshallNestedField("PlacementGroup"))
+
+	// Security Group
+	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
+
+	// Security Group Rule
+	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.BindAttributesMarshalFunc(securityGroupRuleActionAttribute))
+
+	// Server
+	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
+	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshallerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshallerFunc)
-	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshallerFunc)
 	human.RegisterMarshalerFunc([]*instance.ServerSummary{}, serverSummariesMarshallerFunc)
+	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshallerFunc)
+
+	// Snapshot
+	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
+
+	// Volume
+	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
+	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
+	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshallerFunc)
+	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshallerFunc)
 }
 
 // serverStateMarshallerFunc marshals a instance.ServerState.
@@ -216,6 +241,17 @@ func orderVolumes(v map[string]*instance.Volume) []*instance.Volume {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
 	return orderedVolumes
+}
+
+// marshallNestedField will marshal only the given field of a struct.
+func marshallNestedField(nestedKey string) human.MarshalerFunc {
+	return func(i interface{}, opt *human.MarshalOpt) (s string, err error) {
+		if reflect.TypeOf(i).Kind() != reflect.Struct {
+			return "", fmt.Errorf("%T must be a struct", i)
+		}
+		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
+		return human.Marshal(nestedValue.Interface(), opt)
+	}
 }
 
 ////
