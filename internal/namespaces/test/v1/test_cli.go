@@ -14,20 +14,38 @@ import (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		testRoot(),
+		testUser(),
 		testHuman(),
-		testHumanRegister(),
+		testUserRegister(),
 		testHumanList(),
 		testHumanGet(),
 		testHumanCreate(),
 		testHumanUpdate(),
 		testHumanDelete(),
+		testHumanRun(),
 	)
 }
 func testRoot() *core.Command {
 	return &core.Command{
-		Short:     `No Auth Service for end-to-end testing`,
+		Short: `No Auth Service for end-to-end testing`,
+		Long: `Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
+
+This service don't use the Scaleway authentication service but a fake one. It allows to use this test
+service publicly without requiring a Scaleway account.
+
+First, you need to register a user with ` + "`" + `scw test human register` + "`" + ` to get an access-key. Then, you can use
+other test commands by setting the SCW_SECRET_KEY env variable.
+`,
+		Namespace: "test",
+	}
+}
+
+func testUser() *core.Command {
+	return &core.Command{
+		Short:     ``,
 		Long:      ``,
 		Namespace: "test",
+		Resource:  "user",
 	}
 }
 
@@ -40,13 +58,16 @@ func testHuman() *core.Command {
 	}
 }
 
-func testHumanRegister() *core.Command {
+func testUserRegister() *core.Command {
 	return &core.Command{
-		Short:     `Register a human`,
-		Long:      `Register a human.`,
+		Short: `Register a user`,
+		Long: `Register a human and return a access-key and a secret-key that must be used in all other commands.
+
+Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
+`,
 		Namespace: "test",
 		Verb:      "register",
-		Resource:  "human",
+		Resource:  "user",
 		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -300,6 +321,33 @@ func testHumanDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
 			return api.DeleteHuman(args)
+
+		},
+	}
+}
+
+func testHumanRun() *core.Command {
+	return &core.Command{
+		Short:     `Start a 1h running for the given human`,
+		Long:      `Start a one hour running for the given human.`,
+		Namespace: "test",
+		Verb:      "run",
+		Resource:  "human",
+		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "human-id",
+				Short:      ``,
+				Required:   false,
+				EnumValues: []string{},
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			args := argsI.(*test.RunHumanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := test.NewAPI(client)
+			return api.RunHuman(args)
 
 		},
 	}
