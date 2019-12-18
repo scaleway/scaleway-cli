@@ -20,7 +20,6 @@ func GetGeneratedCommands() *core.Commands {
 		instancePlacementGroup(),
 		instancePlacementGroupServer(),
 		instanceSecurityGroup(),
-		instanceSecurityGroupRule(),
 		instanceServer(),
 		instanceServerType(),
 		instanceSnapshot(),
@@ -45,9 +44,6 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
 		instanceSecurityGroupDelete(),
-		instanceSecurityGroupRuleCreate(),
-		instanceSecurityGroupRuleDelete(),
-		instanceSecurityGroupRuleGet(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
@@ -160,15 +156,6 @@ As a contrary, you have to switch in a stateless mode to define explicitly allow
 `,
 		Namespace: "instance",
 		Resource:  "security-group",
-	}
-}
-
-func instanceSecurityGroupRule() *core.Command {
-	return &core.Command{
-		Short:     `A security group rule group is a set of firewall rules`,
-		Long:      `A security group rule group is a set of firewall rules.`,
-		Namespace: "instance",
-		Resource:  "security-group-rule",
 	}
 }
 
@@ -370,6 +357,7 @@ func instanceServerList() *core.Command {
 		},
 	}
 }
+
 func instanceServerGet() *core.Command {
 	return &core.Command{
 		Short:     `Get server`,
@@ -482,6 +470,18 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "protected",
+				Short:      ``,
+				Required:   false,
+				EnumValues: []string{},
+			},
+			{
+				Name:       "security-group.id",
+				Short:      ``,
+				Required:   false,
+				EnumValues: []string{},
+			},
+			{
+				Name:       "security-group.name",
 				Short:      ``,
 				Required:   false,
 				EnumValues: []string{},
@@ -1068,7 +1068,7 @@ func instanceSecurityGroupList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      ``,
+				Short:      `Name of the security group`,
 				Required:   false,
 				EnumValues: []string{},
 			},
@@ -1242,188 +1242,6 @@ func instanceSecurityGroupDelete() *core.Command {
 			{
 				Short:   "Delete a security group with the given ID",
 				Request: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
-			},
-		},
-	}
-}
-
-func instanceSecurityGroupRuleCreate() *core.Command {
-	return &core.Command{
-		Short:     `Create rule`,
-		Long:      `Create rule.`,
-		Namespace: "instance",
-		Verb:      "create",
-		Resource:  "security-group-rule",
-		ArgsType:  reflect.TypeOf(instance.CreateSecurityGroupRuleRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "security-group-id",
-				Short:      `UUID of the security group`,
-				Required:   true,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "protocol",
-				Short:      ``,
-				Required:   true,
-				Default:    core.DefaultValueSetter("TCP"),
-				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
-			},
-			{
-				Name:       "direction",
-				Short:      ``,
-				Required:   true,
-				Default:    core.DefaultValueSetter("inbound"),
-				EnumValues: []string{"inbound", "outbound"},
-			},
-			{
-				Name:       "action",
-				Short:      ``,
-				Required:   true,
-				Default:    core.DefaultValueSetter("accept"),
-				EnumValues: []string{"accept", "drop"},
-			},
-			{
-				Name:       "ip-range",
-				Short:      ``,
-				Required:   true,
-				Default:    core.DefaultValueSetter("0.0.0.0/0"),
-				EnumValues: []string{},
-			},
-			{
-				Name:       "dest-port-from",
-				Short:      ``,
-				Required:   false,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "dest-port-to",
-				Short:      ``,
-				Required:   false,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "position",
-				Short:      ``,
-				Required:   false,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "editable",
-				Short:      ``,
-				Required:   false,
-				EnumValues: []string{},
-			},
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateSecurityGroupRuleRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.CreateSecurityGroupRule(args)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:   "Allow incoming SSH",
-				Request: `{"action":"accept","dest_port_from":22,"direction":"inbound","protocol":"TCP","security_group_id":"1248283f-17de-464a-b03b-3f975ada3fa8"}`,
-			},
-			{
-				Short:   "Allow HTTP",
-				Request: `{"action":"accept","dest_port_from":80,"direction":"inbound","protocol":"TCP","security_group_id":"e8ba77c1-9ccb-4c0c-b08d-555cfd7f57e4"}`,
-			},
-			{
-				Short:   "Allow HTTPS",
-				Request: `{"action":"accept","dest_port_from":443,"direction":"inbound","protocol":"TCP","security_group_id":"e5906437-8650-4fe2-8ca7-32e1d7320c1b"}`,
-			},
-			{
-				Short:   "Allow a specific IP range",
-				Request: `{"action":"accept","direction":"inbound","ip_range":"10.0.0.0/16","protocol":"ANY","security_group_id":"b6a58155-a2f8-48bd-9da9-3ff9783fa0d4"}`,
-			},
-			{
-				Short:   "Allow FTP",
-				Request: `{"action":"accept","dest_port_from":20,"dest_port_to":21,"direction":"inbound","protocol":"TCP","security_group_id":"9c46df03-83c2-46fb-936c-16ecb44860e1"}`,
-			},
-		},
-	}
-}
-
-func instanceSecurityGroupRuleDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete rule`,
-		Long:      `Delete a security group rule with the given ID.`,
-		Namespace: "instance",
-		Verb:      "delete",
-		Resource:  "security-group-rule",
-		ArgsType:  reflect.TypeOf(instance.DeleteSecurityGroupRuleRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "security-group-id",
-				Short:      ``,
-				Required:   true,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "security-group-rule-id",
-				Short:      ``,
-				Required:   true,
-				EnumValues: []string{},
-			},
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteSecurityGroupRuleRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroupRule(args)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{}, nil
-		},
-		Examples: []*core.Example{
-			{
-				Short:   "Delete a Security Group Rule with the given ID",
-				Request: `{"security_group_id":"a01a36e5-5c0c-42c1-ae06-167e587b7ac4","security_group_rule_id":"b8c773ef-a6ea-4b50-a7c1-737864290a3f"}`,
-			},
-		},
-	}
-}
-
-func instanceSecurityGroupRuleGet() *core.Command {
-	return &core.Command{
-		Short:     `Get rule`,
-		Long:      `Get details of a security group rule with the given ID.`,
-		Namespace: "instance",
-		Verb:      "get",
-		Resource:  "security-group-rule",
-		ArgsType:  reflect.TypeOf(instance.GetSecurityGroupRuleRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "security-group-id",
-				Short:      ``,
-				Required:   true,
-				EnumValues: []string{},
-			},
-			{
-				Name:       "security-group-rule-id",
-				Short:      ``,
-				Required:   true,
-				EnumValues: []string{},
-			},
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetSecurityGroupRuleRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.GetSecurityGroupRule(args)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:   "Get details of a security group rule with the given ID",
-				Request: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
 			},
 		},
 	}
@@ -1712,7 +1530,7 @@ func instanceIPList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      ``,
+				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
 				Required:   false,
 				EnumValues: []string{},
 			},
@@ -1769,7 +1587,7 @@ func instanceIPCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server",
-				Short:      ``,
+				Short:      `UUID of the server you want to attach the IP to`,
 				Required:   false,
 				EnumValues: []string{},
 			},
