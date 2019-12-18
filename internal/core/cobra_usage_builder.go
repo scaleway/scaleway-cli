@@ -49,11 +49,12 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgNa
 	if len(parentArgName) > 0 {
 		lastKey := parentArgName[len(parentArgName)-1]
 		ignoredKeys := map[string]bool{
-			"page":      true,
-			"per-page":  true,
-			"zone":      true,
-			"region":    true,
-			"page-size": true,
+			"page":         true,
+			"per-page":     true,
+			"zone":         true,
+			"region":       true,
+			"page-size":    true,
+			"organization": true,
 		}
 		_, ignoreKey = ignoredKeys[lastKey]
 	}
