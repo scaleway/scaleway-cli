@@ -27,7 +27,7 @@ func buildUsageArgs(cmd *Command) string {
 
 	err := _buildUsageArgs(tw, cmd.ArgSpecs, cmd.ArgsType, nil)
 	if err != nil {
-		// TODO: decide how to propagate this error
+		// TODO: decide how to handle this error
 		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)
 		logger.Debugf("%v", err)
 	}
