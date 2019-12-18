@@ -100,7 +100,7 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgNa
 		return nil
 
 	default:
-		return fmt.Errorf("'%v' has no usage or is not ignored", parentArgName)
+		return fmt.Errorf("'%v' has no usage and is not ignored", parentArgName)
 	}
 }
 
