@@ -42,6 +42,8 @@ func buildUsageArgs(cmd *Command) string {
 // This should not be called directly.
 func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgName []string) error {
 
+	// related to protoc_gen_mordor.IsIgnoredFieldType()
+	// TODO: make this relation explicit
 	ignoreKey := false
 	if len(parentArgName) > 0 {
 		lastKey := parentArgName[len(parentArgName)-1]
