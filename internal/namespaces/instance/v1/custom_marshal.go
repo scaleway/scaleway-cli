@@ -44,7 +44,6 @@ func init() {
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshallerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshallerFunc)
-	human.RegisterMarshalerFunc([]*instance.ServerSummary{}, serverSummariesMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshallerFunc)
 
 	// Snapshot
@@ -187,10 +186,6 @@ func volumeSummaryMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 func volumeMapMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
 	return fmt.Sprintf("%v", len(volumes)), nil
-}
-
-func serverSummariesMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	return strconv.Itoa(len(i.([]*instance.ServerSummary))), nil
 }
 
 func getServerResponseMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -346,5 +341,16 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	}
 	outboundRulesView := terminal.Style(fmt.Sprintf("Outbound Rules (default policy %s):\n", defaultOutboundPolicy), color.Bold) + outboundRulesContent
 
-	return strings.Join([]string{securityGroupView, inboundRulesView, outboundRulesView}, "\n\n"), nil
+	serversContent, err := human.Marshal(sg.Servers, nil)
+	if err != nil {
+		return "", err
+	}
+	serversView := terminal.Style("Servers:\n", color.Bold) + serversContent
+
+	return strings.Join([]string{
+		securityGroupView,
+		inboundRulesView,
+		outboundRulesView,
+		serversView,
+	}, "\n\n"), nil
 }
