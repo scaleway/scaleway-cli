@@ -350,5 +350,13 @@ func testHumanRun() *core.Command {
 			return api.RunHuman(args)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short: "Create a human and make it run",
+				Raw: `scw test human create
+scw test human run human-id=xxxxx
+`,
+			},
+		},
 	}
 }
