@@ -265,7 +265,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	return formatGrid(grid)
 }
 
-// marshalInlineSlice transform nested scalar slices in an inline string representation
+// marshalInlineSlice transforms nested scalar slices in an inline string representation
 // and other types of slices in a count representation.
 func marshalInlineSlice(slice reflect.Value) (string, error) {
 	itemType := slice.Type().Elem()
