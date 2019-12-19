@@ -237,10 +237,24 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		item := slice.Index(i)
 		row := []string(nil)
 		for _, fieldSpec := range opt.Fields {
-			value := getFieldValue(item, fieldSpec.FieldName)
+			fieldValue := getFieldValue(item, fieldSpec.FieldName)
 			str := ""
-			if value.IsValid() {
-				str, _ = Marshal(value.Interface(), opt)
+			if fieldValue.IsValid() {
+				err := error(nil)
+				switch {
+				// Handle inline slice.
+				case fieldValue.Type().Kind() == reflect.Slice:
+					str, err = marshalInlineSlice(fieldValue)
+					if err != nil {
+						return "", err
+					}
+
+				default:
+					str, err = Marshal(fieldValue.Interface(), opt)
+					if err != nil {
+						return "", err
+					}
+				}
 			} else {
 				logger.Debugf("invalid getFieldValue(): '%v' might not be exported", fieldSpec.FieldName)
 			}
@@ -249,6 +263,32 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		grid = append(grid, row)
 	}
 	return formatGrid(grid)
+}
+
+// marshalInlineSlice transform nested scalar slices in an inline string representation
+// and other types of slices in a count representation.
+func marshalInlineSlice(slice reflect.Value) (string, error) {
+	itemType := slice.Type().Elem()
+	for itemType.Kind() == reflect.Ptr {
+		itemType = itemType.Elem()
+	}
+
+	switch {
+	// If marshaler func is available.
+	// As we cannot set MarshalOpt of a nested slice opt will always be nil here.
+	case marshalerFuncs[itemType] != nil:
+		return marshalerFuncs[itemType](slice.Interface(), nil)
+
+	// If it's a scalar value we marshall it inline.
+	case itemType.Kind() != reflect.Slice &&
+		itemType.Kind() != reflect.Map &&
+		itemType.Kind() != reflect.Struct:
+		return fmt.Sprint(slice), nil
+
+	// Use slice count by default.
+	default:
+		return strconv.Itoa(slice.Len()), nil
+	}
 }
 
 // marshalSection transforms a field from a struct into a section.

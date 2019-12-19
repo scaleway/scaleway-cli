@@ -12,7 +12,6 @@ func updateCommands(commands *core.Commands) {
 }
 
 func updateInstancePlacementGroupGet(c *core.Command) {
-
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		req := argsI.(*instance.GetPlacementGroupRequest)
 

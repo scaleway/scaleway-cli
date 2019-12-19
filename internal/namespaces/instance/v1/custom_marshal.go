@@ -44,7 +44,6 @@ func init() {
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshallerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshallerFunc)
-	human.RegisterMarshalerFunc([]*instance.ServerSummary{}, serverSummariesMarshallerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshallerFunc)
 
 	// Snapshot
@@ -114,10 +113,11 @@ func serversMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 		Zone              scw.Zone
 		PublicIP          net.IP
 		PrivateIP         *string
+		ImageName         string
+		Tags              []string
 		ModificationDate  time.Time
 		CreationDate      time.Time
 		ImageId           string
-		ImageName         string
 		Protected         bool
 		Volumes           int
 		SecurityGroupId   string
@@ -166,6 +166,7 @@ func serversMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,
 			PlacementGroup:    server.PlacementGroup,
+			Tags:              server.Tags,
 		})
 	}
 	return human.Marshal(humanServers, opt)
@@ -187,10 +188,6 @@ func volumeSummaryMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 func volumeMapMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
 	return fmt.Sprintf("%v", len(volumes)), nil
-}
-
-func serverSummariesMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	return strconv.Itoa(len(i.([]*instance.ServerSummary))), nil
 }
 
 func getServerResponseMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
