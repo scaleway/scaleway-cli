@@ -240,7 +240,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			fieldValue := getFieldValue(item, fieldSpec.FieldName)
 			str := ""
 			if fieldValue.IsValid() {
-				err := error(nil)
+				var err error
 				switch {
 				// Handle inline slice.
 				case fieldValue.Type().Kind() == reflect.Slice:
