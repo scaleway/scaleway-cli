@@ -325,23 +325,25 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	if err != nil {
 		return "", err
 	}
+	defaultInboundPolicy = terminal.Style(defaultInboundPolicy, color.Bold)
 
 	defaultOutboundPolicy, err := human.Marshal(sg.OutboundDefaultPolicy, nil)
 	if err != nil {
 		return "", err
 	}
+	defaultOutboundPolicy = terminal.Style(defaultOutboundPolicy, color.Bold)
 
 	inboundRulesContent, err := human.Marshal(inboundRules, nil)
 	if err != nil {
 		return "", err
 	}
-	inboundRulesView := terminal.Style(fmt.Sprintf("Inbound Rules (default policy %s):\n", defaultInboundPolicy), color.Bold) + inboundRulesContent
+	inboundRulesView := terminal.Style("Inbound Rules (default policy ", color.Bold) + defaultInboundPolicy + terminal.Style("):\n", color.Bold) + inboundRulesContent
 
 	outboundRulesContent, err := human.Marshal(outboundRules, nil)
 	if err != nil {
 		return "", err
 	}
-	outboundRulesView := terminal.Style(fmt.Sprintf("Outbound Rules (default policy %s):\n", defaultOutboundPolicy), color.Bold) + outboundRulesContent
+	outboundRulesView := terminal.Style("Outbound Rules (default policy ", color.Bold) + defaultOutboundPolicy + terminal.Style("):\n", color.Bold) + outboundRulesContent
 
 	return strings.Join([]string{securityGroupView, inboundRulesView, outboundRulesView}, "\n\n"), nil
 }
