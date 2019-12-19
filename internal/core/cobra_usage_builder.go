@@ -10,6 +10,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
@@ -124,28 +125,40 @@ func buildExamples(cmd *Command) string {
 	for _, cmdExample := range cmd.Examples {
 		// Build title.
 		title := fmt.Sprintf("  %s", cmdExample.Short)
+		commandLine := ""
+		switch {
+		case cmdExample.Raw != "":
+			commandLine = cmdExample.Raw
+			commandLine = strings.Trim(commandLine, "\n")
+			commandLine = interactive.RemoveIndent(commandLine)
+		case cmdExample.Request != "":
+			//  Query and path parameters don't have json tag,
+			//  so we need to enforce a JSON tag on every field to make this work.
+			var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
 
-		//  Query and path parameters don't have json tag,
-		//  so we need to enforce a JSON tag on every field to make this work.
-		var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
+			if err := json.Unmarshal([]byte(cmdExample.Request), cmdArgs); err != nil {
+				panic(err)
+			}
+			var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
+			if err != nil {
+				panic(err)
+			}
 
-		if err := json.Unmarshal([]byte(cmdExample.Request), cmdArgs); err != nil {
-			panic(err)
-		}
-		var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
-		if err != nil {
-			panic(err)
+			// Build command line example.
+			commandParts := []string{
+				"scw",
+				cmd.Namespace,
+				cmd.Verb,
+				cmd.Resource,
+			}
+			commandParts = append(commandParts, cmdArgsAsStrings...)
+			commandLine = strings.Join(commandParts, " ")
+		default:
+			panic(fmt.Errorf("invalid example, it should either have a Request or a Raw"))
 		}
 
-		// Build command line example.
-		commandParts := []string{
-			"    scw",
-			cmd.Namespace,
-			cmd.Verb,
-			cmd.Resource,
-		}
-		commandParts = append(commandParts, cmdArgsAsStrings...)
-		commandLine := strings.Join(commandParts, " ")
+		commandLine = interactive.Indent(commandLine, 4)
+		commandLine = strings.Trim(commandLine, "\n")
 
 		// Add the whole example as a single string.
 		exampleLines := []string{

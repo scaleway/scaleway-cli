@@ -173,3 +173,15 @@ func TestHumanDelete(t *testing.T) {
 		),
 	}))
 }
+
+func TestHumanRun(t *testing.T) {
+
+	t.Run("usage", core.Test(&core.TestConfig{
+		Commands: test.GetCommands(),
+		Cmd:      "scw test human run -h",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
