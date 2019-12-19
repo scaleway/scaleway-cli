@@ -279,7 +279,7 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	case marshalerFuncs[itemType] != nil:
 		return marshalerFuncs[itemType](slice.Interface(), nil)
 
-	// If it's a scalar value we marshall it inline.
+	// If it is a slice of scalar values.
 	case itemType.Kind() != reflect.Slice &&
 		itemType.Kind() != reflect.Map &&
 		itemType.Kind() != reflect.Struct:
