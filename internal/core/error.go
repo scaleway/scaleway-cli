@@ -10,6 +10,7 @@ import (
 )
 
 func init() {
+	human.RegisterMarshalerFunc((*sdk.ResponseError)(nil), sdkResponseErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.InvalidArgumentsError)(nil), sdkInvalidArgumentsErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.QuotasExceededError)(nil), sdkQuotasExceededErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshallerFunc())
@@ -69,6 +70,16 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		Details: s.Details,
 		Hint:    s.Hint,
 	})
+}
+
+func sdkResponseErrorHumanMarshallerFunc() human.MarshalerFunc {
+	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
+		responseError := i.(*sdk.ResponseError)
+
+		return human.Marshal(&CliError{
+			Err: fmt.Errorf(responseError.Message),
+		}, opt)
+	}
 }
 
 func sdkInvalidArgumentsErrorHumanMarshallerFunc() human.MarshalerFunc {
