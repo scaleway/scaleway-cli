@@ -321,27 +321,35 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		}
 	}
 
+	// defaultInboundPolicy will already be colored in green or red by the marshaler.
 	defaultInboundPolicy, err := human.Marshal(sg.InboundDefaultPolicy, nil)
 	if err != nil {
 		return "", err
 	}
 
+	// defaultOutboundPolicy will already be colored in green or red by the marshaler.
 	defaultOutboundPolicy, err := human.Marshal(sg.OutboundDefaultPolicy, nil)
 	if err != nil {
 		return "", err
 	}
 
+	// b returns the given string in bold.
+	// For inboundRulesView and outboundRulesView, this function must be called for every
+	// concatenated part of the string because of the color package escaping at the end of
+	// a color resulting in a non-bold format after the default{In|Out}boundPolicy.
+	b := color.New(color.Bold).SprintFunc()
+
 	inboundRulesContent, err := human.Marshal(inboundRules, nil)
 	if err != nil {
 		return "", err
 	}
-	inboundRulesView := terminal.Style(fmt.Sprintf("Inbound Rules (default policy %s):\n", defaultInboundPolicy), color.Bold) + inboundRulesContent
+	inboundRulesView := b("Inbound Rules (default policy ") + b(defaultInboundPolicy) + b("):\n") + inboundRulesContent
 
 	outboundRulesContent, err := human.Marshal(outboundRules, nil)
 	if err != nil {
 		return "", err
 	}
-	outboundRulesView := terminal.Style(fmt.Sprintf("Outbound Rules (default policy %s):\n", defaultOutboundPolicy), color.Bold) + outboundRulesContent
+	outboundRulesView := b("Outbound Rules (default policy ") + b(defaultOutboundPolicy) + b("):\n") + outboundRulesContent
 
 	return strings.Join([]string{securityGroupView, inboundRulesView, outboundRulesView}, "\n\n"), nil
 }
