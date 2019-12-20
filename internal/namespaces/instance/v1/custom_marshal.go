@@ -263,18 +263,20 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		Description           string
 		EnableDefaultSecurity bool
 		OrganizationID        string
-		UseByDefault          bool
+		OrganizationDefault   bool
 		CreationDate          time.Time
 		ModificationDate      time.Time
+		Stateful              bool
 	}{
 		ID:                    sg.ID,
 		Name:                  sg.Name,
 		Description:           sg.Description,
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
 		OrganizationID:        sg.Organization,
-		UseByDefault:          sg.OrganizationDefault,
+		OrganizationDefault:   sg.OrganizationDefault,
 		CreationDate:          sg.CreationDate,
 		ModificationDate:      sg.ModificationDate,
+		Stateful:              sg.Stateful,
 	}
 
 	securityGroupView, err := human.Marshal(humanSecurityGroup, nil)
