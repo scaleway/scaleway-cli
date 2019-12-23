@@ -171,7 +171,7 @@ func sdkResourceExpiredHumanMarshallFunc() human.MarshalerFunc {
 		var hint string
 		switch resourceName := resourceExpiredError.Resource; resourceName {
 		case "account_token":
-			hint = "Try to generate a new token here [URL credential de la console]"
+			hint = "Try to generate a new token here https://console.scaleway.com/account/credentials"
 		default:
 			hint = "Try to re-create the expired resource"
 		}
