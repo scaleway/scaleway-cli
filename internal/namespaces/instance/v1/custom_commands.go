@@ -205,10 +205,12 @@ func instanceSecurityGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "inbound-default-policy",
+				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
 			{
 				Name:       "outbound-default-policy",
+				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
 		},
