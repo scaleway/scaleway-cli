@@ -15,7 +15,7 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191212172953-d7f2fd79c006
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191223140015-d93f0d4a8dd1
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5

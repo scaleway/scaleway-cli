@@ -16,6 +16,7 @@ func init() {
 	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.ResourceNotFoundError)(nil), sdkResourceNotFoundErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.OutOfStockError)(nil), sdkOutOfStockErrorHumanMarshallerFunc())
+	human.RegisterMarshalerFunc((*sdk.ResourceExpiredError)(nil), sdkResourceExpiredHumanMarshallFunc())
 }
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
@@ -159,6 +160,25 @@ func sdkOutOfStockErrorHumanMarshallerFunc() human.MarshalerFunc {
 		return human.Marshal(&CliError{
 			Err:  fmt.Errorf("resource out of stock '%v'", outOfStockError.Resource),
 			Hint: "Try again later :-)",
+		}, opt)
+	}
+}
+
+func sdkResourceExpiredHumanMarshallFunc() human.MarshalerFunc {
+	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
+		resourceExpiredError := i.(*sdk.ResourceExpiredError)
+
+		var hint string
+		switch resourceName := resourceExpiredError.Resource; resourceName {
+		case "account_token":
+			hint = "Try to generate a new token here https://console.scaleway.com/account/credentials"
+		default:
+			hint = "Try to re-create the expired resource"
+		}
+
+		return human.Marshal(&CliError{
+			Err:  fmt.Errorf("resource %s with ID %s expired since %s", resourceExpiredError.Resource, resourceExpiredError.ResourceID, resourceExpiredError.ExpiredSince.String()),
+			Hint: hint,
 		}, opt)
 	}
 }
