@@ -96,6 +96,10 @@ func instanceServerCreate() *core.Command {
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun,
+		SeeAlsos: []*core.SeeAlso{{
+			Short:   "List marketplace label images",
+			Command: "scw marketplace image list",
+		}},
 		Examples: []*core.Example{}, // TODO: Add examples [APIGW-1371]
 	}
 }
