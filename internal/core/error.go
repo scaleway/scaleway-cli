@@ -168,9 +168,17 @@ func sdkResourceExpiredHumanMarshallFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		resourceExpiredError := i.(*sdk.ResourceExpiredError)
 
+		var hint string
+		switch resourceName := resourceExpiredError.Resource; resourceName {
+		case "account_token":
+			hint = "Try to generate a new token here [URL credential de la console]"
+		default:
+			hint = "Try to re-create the expired resource"
+		}
+
 		return human.Marshal(&CliError{
 			Err:  fmt.Errorf("resource %s with ID %s expired since %s", resourceExpiredError.Resource, resourceExpiredError.ResourceID, resourceExpiredError.ExpiredSince.String()),
-			Hint: "Try to generate a new token.",
+			Hint: hint,
 		}, opt)
 	}
 }
