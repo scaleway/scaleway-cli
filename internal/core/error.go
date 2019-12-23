@@ -16,6 +16,7 @@ func init() {
 	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.ResourceNotFoundError)(nil), sdkResourceNotFoundErrorHumanMarshallerFunc())
 	human.RegisterMarshalerFunc((*sdk.OutOfStockError)(nil), sdkOutOfStockErrorHumanMarshallerFunc())
+	human.RegisterMarshalerFunc((*sdk.ResourceExpiredError)(nil), sdkResourceExpiredHumanMarshallFunc())
 }
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
@@ -159,6 +160,17 @@ func sdkOutOfStockErrorHumanMarshallerFunc() human.MarshalerFunc {
 		return human.Marshal(&CliError{
 			Err:  fmt.Errorf("resource out of stock '%v'", outOfStockError.Resource),
 			Hint: "Try again later :-)",
+		}, opt)
+	}
+}
+
+func sdkResourceExpiredHumanMarshallFunc() human.MarshalerFunc {
+	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
+		resourceExpiredError := i.(*sdk.ResourceExpiredError)
+
+		return human.Marshal(&CliError{
+			Err:  fmt.Errorf("resource %s with ID %s expired since %s", resourceExpiredError.Resource, resourceExpiredError.ResourceID, resourceExpiredError.ExpiredSince.String()),
+			Hint: "Try to generate a new token.",
 		}, opt)
 	}
 }
