@@ -353,5 +353,16 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	}
 	outboundRulesView := b("Outbound Rules (default policy ") + b(defaultOutboundPolicy) + b("):\n") + outboundRulesContent
 
-	return strings.Join([]string{securityGroupView, inboundRulesView, outboundRulesView}, "\n\n"), nil
+	serversContent, err := human.Marshal(sg.Servers, nil)
+	if err != nil {
+		return "", err
+	}
+	serversView := terminal.Style("Servers:\n", color.Bold) + serversContent
+
+	return strings.Join([]string{
+		securityGroupView,
+		inboundRulesView,
+		outboundRulesView,
+		serversView,
+	}, "\n\n"), nil
 }
