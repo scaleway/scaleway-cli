@@ -8,6 +8,7 @@ import (
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -213,11 +214,79 @@ func instanceSecurityGroupUpdate() *core.Command {
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
+			{
+				Name: "organization-default",
+			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			return instance.NewAPI(core.ExtractClient(ctx)).UpdateSecurityGroup(argsI.(*instance.UpdateSecurityGroupRequest))
+			req := argsI.(*instance.UpdateSecurityGroupRequest)
+
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			res, err := api.UpdateSecurityGroup(req)
+			if err == nil {
+				return res, nil
+			}
+
+			resErr, isResErr := err.(*scw.ResponseError)
+			if !isResErr {
+				return nil, err
+			}
+
+			// Try to find the error type and create a more user friendly one.
+			switch resErr.Message {
+			case "default security group can't be stateful":
+				return nil, &core.CliError{
+					Err: fmt.Errorf("your default security group cannot be stateful"),
+					Details: interactive.RemoveIndent(`
+						You have to make this security group stateless to use it as an organization default.
+						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
+					`),
+					Hint: "scw instance security-group update security-group-id=" + req.SecurityGroupID + " organization-default=true stateful=false",
+				}
+
+			case "cannot have more than one organization default":
+				defaultSG, err := getDefaultOrganizationSecurityGroup(ctx)
+				if err != nil {
+					// Abort and return the original error.
+					return nil, resErr
+				}
+
+				return nil, &core.CliError{
+					Err: fmt.Errorf("you cannot have more than one organization default"),
+					Details: interactive.RemoveIndent(`
+						You already have an organization default security-group (` + defaultSG.ID + `).
+
+						First, you need to set your current organization default security-group as non-default with:
+						scw instance security-group update security-group-id=` + defaultSG.ID + ` organization-default=false
+
+						Then, retry this command:
+						scw instance security-group update security-group-id=` + req.SecurityGroupID + ` organization-default=true stateful=false
+					`),
+				}
+			default:
+				// Unknown error, use default behavior.
+				return nil, resErr
+			}
 		},
 	}
+}
+
+func getDefaultOrganizationSecurityGroup(ctx context.Context) (*instance.SecurityGroup, error) {
+	api := instance.NewAPI(core.ExtractClient(ctx))
+
+	orgID := core.GetOrganizationIdFromContext(ctx)
+	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{Organization: scw.StringPtr(orgID)}, scw.WithAllPages())
+	if err != nil {
+		return nil, err
+	}
+
+	for _, sg := range sgList.SecurityGroups {
+		if sg.OrganizationDefault {
+			return sg, nil
+		}
+	}
+
+	return nil, fmt.Errorf("%s organization does not have a default security group", orgID)
 }
 
 func instanceUserDataList() *core.Command {
