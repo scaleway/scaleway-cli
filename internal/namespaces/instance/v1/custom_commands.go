@@ -236,7 +236,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 			switch resErr.Message {
 			case "default security group can't be stateful":
 				return nil, &core.CliError{
-					Err: fmt.Errorf("your default security group can't be stateful"),
+					Err: fmt.Errorf("your default security group cannot be stateful"),
 					Details: interactive.RemoveIndent(`
 						You have to make this security group stateless to use it as an organization default.
 						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
@@ -286,7 +286,7 @@ func getDefaultOrganizationSecurityGroup(ctx context.Context) (*instance.Securit
 		}
 	}
 
-	return nil, fmt.Errorf("%s organization doesn't have a default security group", orgID)
+	return nil, fmt.Errorf("%s organization does not have a default security group", orgID)
 }
 
 func instanceUserDataList() *core.Command {
