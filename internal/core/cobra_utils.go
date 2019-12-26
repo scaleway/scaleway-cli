@@ -57,6 +57,9 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if cmd.Run != nil {
 			data, err := cmd.Run(ctx, cmdArgs)
 			if err != nil {
+				if cmd.ConvertErrorFunc != nil {
+					return cmd.ConvertErrorFunc(ctx, cmdArgs, err)
+				}
 				return err
 			}
 			waitFlag, err := cobraCmd.PersistentFlags().GetBool("wait")
