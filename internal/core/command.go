@@ -157,3 +157,7 @@ func (cmd *Command) seeAlsosAsStr() string {
 
 	return strings.Join(seeAlsos, "\n\n")
 }
+
+func (cmd *Commands) GetAll() []*Command {
+	return cmd.command
+}

@@ -10,6 +10,7 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/util"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
 
@@ -32,6 +33,7 @@ func main() {
 	commands.Merge(marketplace.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(version.GetCommands())
+	commands.Merge(util.GetCommands())
 
 	exitCode := core.Bootstrap(&core.BootstrapConfig{
 		Args:     os.Args,
