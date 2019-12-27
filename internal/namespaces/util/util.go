@@ -8,6 +8,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/scaleway/scaleway-sdk-go/strcase"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -67,6 +69,17 @@ func (e *ArgumentMissingFromCreateError) Error() string {
 	return fmt.Sprintf("[MISS-FROM-CREATE] argument '%s' is used in '%v.update' but not in '%v.create' ", e.ArgSpec.Name, path, path)
 }
 
+type MissingArgumentInArgSpecsError struct {
+	Command       *core.Command
+	ParentArgName string
+}
+
+func (e *MissingArgumentInArgSpecsError) Error() string {
+	return fmt.Sprintf("[MISSING-ARGUMENT] for '%s', parameter '%s' is defined in Request, is not ignored, and has no matching argument in ArgSpecs",
+		getCommandPath(e.Command),
+		e.ParentArgName)
+}
+
 // Represents a group of command having the same namespace and resource
 type Group struct {
 	namespace     string
@@ -113,7 +126,13 @@ func utilReport() *core.Command {
 				}
 			}
 
-			// Append errors for Long and Short fields
+			//
+			for _, command := range commands.GetAll() {
+				checkUsageArgsErrors := checkArgSpecsMatchRequests(command.ArgSpecs, command.ArgsType, command, nil, nil)
+				errors = append(errors, checkUsageArgsErrors...)
+			}
+
+			// Append errors to string result
 			strs = append(strs, "# Errors")
 			for _, e := range errors {
 				strs = append(strs, fmt.Sprintf("%v", e))
@@ -306,4 +325,67 @@ func getCommandPath(c *core.Command) string {
 		path = append(path, c.Verb)
 	}
 	return strings.Join(path, ".")
+}
+
+// copied from mordor/scaleway-cli/internal/core/cobra_usage_builder.go
+const (
+	sliceSchema = "{idx}"
+	mapSchema   = "{key}"
+)
+
+// copied and modified from mordor/scaleway-cli/internal/core/cobra_usage_builder.go _buildUsageArgs()
+func checkArgSpecsMatchRequests(argSpecs core.ArgSpecs, t reflect.Type, c *core.Command, parentArgName []string, errors []error) []error {
+
+	if errors == nil {
+		errors = []error{}
+	}
+
+	// related to protoc_gen_mordor.IsIgnoredFieldType()
+	// TODO: make this relation explicit
+	// TODO: decide what arguments to ignore
+	ignoreKey := false
+	if len(parentArgName) > 0 {
+		lastKey := parentArgName[len(parentArgName)-1]
+		ignoredKeys := map[string]bool{
+			//"page":      true,
+			//"per-page":  true,
+			//"zone":      true,
+			//"region":    true,
+			//"page-size": true,
+			//"organization": true,
+		}
+		_, ignoreKey = ignoredKeys[lastKey]
+	}
+
+	switch {
+	case argSpecs == nil:
+		return errors
+
+	case ignoreKey:
+		return errors
+
+	case argSpecs.GetByName(strcase.ToBashArg(strings.Join(parentArgName, "."))) != nil:
+		return errors
+
+	case t.Kind() == reflect.Ptr:
+		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, parentArgName, errors)
+
+	case t.Kind() == reflect.Slice:
+		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, append(parentArgName, sliceSchema), errors)
+
+	case t.Kind() == reflect.Map:
+		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, append(parentArgName, mapSchema), errors)
+
+	case t.Kind() == reflect.Struct:
+		for i := 0; i < t.NumField(); i++ {
+			errors = checkArgSpecsMatchRequests(argSpecs, t.Field(i).Type, c, append(parentArgName, strcase.ToBashArg(t.Field(i).Name)), errors)
+		}
+		return errors
+
+	default:
+		return append(errors, &MissingArgumentInArgSpecsError{
+			Command:       c,
+			ParentArgName: strings.Join(parentArgName, "."),
+		})
+	}
 }
