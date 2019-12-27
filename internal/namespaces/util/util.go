@@ -159,9 +159,8 @@ func utilReport() *core.Command {
 				grid := [][]string{}
 				grid = append(grid, []string{})
 				grid[0] = append(grid[0], "verbs/args")
-				for _, argKey := range mapSortedKeys(group.args) {
-					grid[0] = append(grid[0], argKey)
-				}
+				grid[0] = append(grid[0], mapSortedKeys(group.args)...)
+
 				for i, verbKey := range mapSortedKeys(group.verbsCommands) {
 					command := group.verbsCommands[verbKey]
 					grid = append(grid, []string{})
@@ -203,7 +202,7 @@ func utilReport() *core.Command {
 						}
 						str_ := ""
 						if len(warnings) == 0 {
-							for _ = range argKey {
+							for range argKey {
 								str_ += char
 							}
 						} else {
