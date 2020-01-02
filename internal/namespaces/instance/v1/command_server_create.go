@@ -96,11 +96,21 @@ func instanceServerCreate() *core.Command {
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun,
-		SeeAlsos: []*core.SeeAlso{{
-			Short:   "List marketplace label images",
-			Command: "scw marketplace image list",
-		}},
-		Examples: []*core.Example{}, // TODO: Add examples [APIGW-1371]
+		Examples: []*core.Example{
+			{
+				Short:   "Create a DEV1-L server",
+				Request: `{"image":"ubuntu_bionic","type":"DEV1-L"}`,
+			},
+			{
+				Short:   "Create a server with tags",
+				Request: `{"image":"ubuntu_bionic","tags":["prod","euw","red"]}`,
+			},
+			//			{
+			//				Short: "Create a server using an existing volume",
+			//				Raw: `volume_id=$(scw instance volume get volume-id=cdf4d67f-68a9-44cf-aa69-266287605c14 | grep id | awk '{ print $2 }')
+			//scw instance server create image=ubuntu_bionic volumes.1=$volume_id`,
+			//			},
+		}, // TODO: Add examples [APIGW-1371]
 	}
 }
 
@@ -305,6 +315,10 @@ func createInitialVolumeMap(api *instance.API, organizationID string, argsVolume
 	var volumes []*instance.VolumeTemplate
 
 	for _, v := range argsVolumes {
+		if v == "" {
+			volumes = append(volumes, nil)
+			continue
+		}
 		for _, flagV := range strings.Split(v, ",") {
 			flagV = strings.TrimSpace(flagV)
 			vt, err := buildVolumeTemplate(api, organizationID, flagV)
@@ -392,9 +406,17 @@ func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTempl
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
+		if volume == nil {
+			continue
+		}
 		if volume.VolumeType == instance.VolumeTypeLSSD {
 			localVolumeTotalSize += volume.Size
 		}
+	}
+
+	// root local volume will be computed on API side
+	if volumes[0] == nil && localVolumeTotalSize == 0 {
+		return nil
 	}
 
 	// Get server types.
@@ -429,6 +451,10 @@ func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTempl
 }
 
 func validateRootVolume(api *instance.API, image string, rootVolume *instance.VolumeTemplate) error {
+	if rootVolume == nil {
+		return nil
+	}
+
 	if rootVolume.VolumeType != instance.VolumeTypeLSSD {
 		return fmt.Errorf("First volume must be local.")
 	}
@@ -456,6 +482,9 @@ func buildVolumeMap(serverName string, volumes []*instance.VolumeTemplate) map[s
 	m := make(map[string]*instance.VolumeTemplate)
 
 	for k, v := range volumes {
+		if v == nil {
+			continue
+		}
 		idx := strconv.Itoa(k)
 		v.Name = serverName + "-" + idx
 
