@@ -101,10 +101,10 @@ func utilReport() *core.Command {
 			commands := core.ExtractCommands(ctx)
 
 			// Strings to be returned by this command
-			strs := []string{}
+			strs := []string(nil)
 
 			// Build errors for Longs and Short fields
-			errors := []error{}
+			errors := []error(nil)
 			for _, command := range commands.GetAll() {
 				if command.Short == "" {
 					errors = append(errors, &NoCommandShortError{
@@ -128,7 +128,7 @@ func utilReport() *core.Command {
 
 			//
 			for _, command := range commands.GetAll() {
-				checkUsageArgsErrors := checkArgSpecsMatchRequests(command.ArgSpecs, command.ArgsType, command, nil, nil)
+				checkUsageArgsErrors := checkArgSpecsMatchRequests(command.ArgsType, command, nil, nil)
 				errors = append(errors, checkUsageArgsErrors...)
 			}
 
@@ -334,7 +334,7 @@ const (
 )
 
 // copied and modified from mordor/scaleway-cli/internal/core/cobra_usage_builder.go _buildUsageArgs()
-func checkArgSpecsMatchRequests(argSpecs core.ArgSpecs, t reflect.Type, c *core.Command, parentArgName []string, errors []error) []error {
+func checkArgSpecsMatchRequests(t reflect.Type, c *core.Command, parentArgName []string, errors []error) []error {
 
 	if errors == nil {
 		errors = []error{}
@@ -358,27 +358,27 @@ func checkArgSpecsMatchRequests(argSpecs core.ArgSpecs, t reflect.Type, c *core.
 	}
 
 	switch {
-	case argSpecs == nil:
+	case c.ArgSpecs == nil:
 		return errors
 
 	case ignoreKey:
 		return errors
 
-	case argSpecs.GetByName(strcase.ToBashArg(strings.Join(parentArgName, "."))) != nil:
+	case c.ArgSpecs.GetByName(strcase.ToBashArg(strings.Join(parentArgName, "."))) != nil:
 		return errors
 
 	case t.Kind() == reflect.Ptr:
-		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, parentArgName, errors)
+		return checkArgSpecsMatchRequests(t.Elem(), c, parentArgName, errors)
 
 	case t.Kind() == reflect.Slice:
-		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, append(parentArgName, sliceSchema), errors)
+		return checkArgSpecsMatchRequests(t.Elem(), c, append(parentArgName, sliceSchema), errors)
 
 	case t.Kind() == reflect.Map:
-		return checkArgSpecsMatchRequests(argSpecs, t.Elem(), c, append(parentArgName, mapSchema), errors)
+		return checkArgSpecsMatchRequests(t.Elem(), c, append(parentArgName, mapSchema), errors)
 
 	case t.Kind() == reflect.Struct:
 		for i := 0; i < t.NumField(); i++ {
-			errors = checkArgSpecsMatchRequests(argSpecs, t.Field(i).Type, c, append(parentArgName, strcase.ToBashArg(t.Field(i).Name)), errors)
+			errors = checkArgSpecsMatchRequests(t.Field(i).Type, c, append(parentArgName, strcase.ToBashArg(t.Field(i).Name)), errors)
 		}
 		return errors
 
