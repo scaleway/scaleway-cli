@@ -4,12 +4,17 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/dnaeon/go-vcr/cassette"
+	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -69,7 +74,15 @@ func panicIfErr(err error) {
 	}
 }
 
-func getTestClient(t *testing.T, e2eClient bool) *scw.Client {
+// Return a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
+func getTestFilePath(t *testing.T, suffix string) string {
+	fileName := t.Name()
+	fileName = strings.Replace(fileName, "/", "-", -1)
+	fileName = strcase.ToBashArg(fileName)
+	return filepath.Join(".", "testdata", fileName+suffix)
+}
+
+func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup func()) {
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
@@ -78,29 +91,40 @@ func getTestClient(t *testing.T, e2eClient bool) *scw.Client {
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 	}
 
-	client, err := scw.NewClient(clientOpts...)
-	panicIfErr(err)
-
 	if !e2eClient {
-		return client
+		httpClient, cleanup, err := getHttpRecoder(t, updateGolden)
+		panicIfErr(err)
+		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
+		client, err := scw.NewClient(clientOpts...)
+		panicIfErr(err)
+		return client, cleanup
 	}
 
+	client, err := scw.NewClient(clientOpts...)
+	panicIfErr(err)
 	res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
 	panicIfErr(err)
 
 	client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
 	panicIfErr(err)
 
-	return client
+	return client, func() {}
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
 
+		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
+		// Here we return a constant string. We may need to find a better place to put this.
+		human.RegisterMarshalerFunc(time.Time{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
+			return "few seconds ago", nil
+		})
+
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
-		client := getTestClient(t, config.UseE2EClient)
+		client, cleanup := getTestClient(t, config.UseE2EClient)
+		defer cleanup()
 
 		executeCmd := func(cmd string) {
 			exitCode := Bootstrap(&BootstrapConfig{
@@ -170,20 +194,14 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 // TestCheckStderrGolden assert stderr using golden
 func TestCheckStderrGolden() TestCheck {
 	return func(t *testing.T, result *TestResult) {
-		testName := t.Name()
-		testName = strings.Replace(testName, "/", "-", -1)
-		testName = strcase.ToBashArg(testName)
-		testGolden(t, testName+".stderr", result.Stderr)
+		testGolden(t, getTestFilePath(t, ".stderr.golden"), result.Stderr)
 	}
 }
 
 // TestCheckStdoutGolden assert stdout using golden
 func TestCheckStdoutGolden() TestCheck {
 	return func(t *testing.T, result *TestResult) {
-		testName := t.Name()
-		testName = strings.Replace(testName, "/", "-", -1)
-		testName = strcase.ToBashArg(testName)
-		testGolden(t, testName+".stdout", result.Stdout)
+		testGolden(t, getTestFilePath(t, ".stdout.golden"), result.Stdout)
 	}
 }
 
@@ -195,8 +213,7 @@ func TestCheckGolden() TestCheck {
 	)
 }
 
-func testGolden(t *testing.T, goldenName string, actual []byte) {
-	goldenPath := filepath.Join(".", "testdata", goldenName+".golden")
+func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
 	if updateGolden {
@@ -219,4 +236,35 @@ func testGolden(t *testing.T, goldenName string, actual []byte) {
 		assert.Equal(t, string(actual), string(expected))
 	}
 
+}
+
+// CreateRecordedScwClient creates a new httpClient that records all HTTP requests in a cassette.
+// This cassette is then replayed whenever tests are executed again. This means that once the
+// requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
+//
+// It is important to call add a `defer cleanup()` so the given cassette files are correctly
+// closed and saved after the requests.
+func getHttpRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
+
+	recorderMode := recorder.ModeReplaying
+	if update {
+		recorderMode = recorder.ModeRecording
+	}
+
+	// Setup recorder and scw client
+	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// Add a filter which removes Authorization headers from all requests:
+	r.AddFilter(func(i *cassette.Interaction) error {
+		delete(i.Request.Headers, "x-auth-token")
+		delete(i.Request.Headers, "X-Auth-Token")
+		return nil
+	})
+
+	return &http.Client{Transport: r}, func() {
+		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
+	}, nil
 }

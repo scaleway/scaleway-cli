@@ -1,0 +1,2 @@
+ID                                    NAME               STATE    ZONE      PUBLIC IP      PRIVATE IP     IMAGE NAME            TAGS  MODIFICATION DATE  CREATION DATE    IMAGE ID  PROTECTED  VOLUMES  SECURITY GROUP ID  SECURITY GROUP NAME     STATE DETAIL    ARCH
+e20d912b-88a4-453d-90b7-7f97c8e92283  scw-epic-robinson  running  fr-par-1  51.158.121.43  10.12.152.219  Ubuntu Bionic Beaver  []    few seconds ago    few seconds ago            false      1                           Default security group  booting kernel  x86_64
