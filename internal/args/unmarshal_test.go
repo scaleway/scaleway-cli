@@ -91,7 +91,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"testCase=12",
 		},
 		expected: &Basic{},
-		error:    "invalid argument with name testCase: argument must only contain lowercase letter and dash",
+		error:    "invalid argument 'testCase': must only contain lowercase letter, number or dash",
 	}))
 
 	t.Run("field-do-not-exist", run(TestCase{
@@ -99,7 +99,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"unknown-field=12",
 		},
 		expected: &Basic{},
-		error:    "unknown argument with name unknown-field",
+		error:    "unknown argument 'unknown-field'",
 	}))
 
 	t.Run("invalid-bool", run(TestCase{
@@ -110,30 +110,77 @@ func TestUnmarshalStruct(t *testing.T) {
 		error:    "invalid value invalid: valid values are true or false",
 	}))
 
+	t.Run("missing-slice-index", run(TestCase{
+		args: []string{
+			"strings.1=2",
+		},
+		expected: &Slice{},
+		error:    "missing index in the array: trying to set array at index 1 before index 0",
+	}))
+
+	t.Run("missing-slice-indices", run(TestCase{
+		args: []string{
+			"strings.5=2",
+		},
+		expected: &Slice{},
+		error:    "missing indices in the array: trying to set array at index 5 before indices 4,3,2,1,0",
+	}))
+
+	t.Run("missing-slice-indices-overflow", run(TestCase{
+		args: []string{
+			"strings.99999=2",
+		},
+		expected: &Slice{},
+		error:    "missing indices in the array: trying to set array at index 99999 before indices 99998,99997,99996,99995,99994,99993,99992,99991,99990,...",
+	}))
+
+	t.Run("duplicate-slice-index", run(TestCase{
+		args: []string{
+			"basics.0.string=2",
+			"basics.0.string=2",
+		},
+		expected: &Slice{},
+		error:    "duplicate argument 'basics.0.string'",
+	}))
+
+	t.Run("slice-with-negative-index", run(TestCase{
+		args: []string{
+			"strings.0=2",
+			"strings.-1=2",
+		},
+		expected: &Slice{},
+		error:    "invalid index: '-1' is not a positive integer",
+	}))
+
+	t.Run("nested-slice-with-invalid-index", run(TestCase{
+		args: []string{
+			"basics.string=test",
+		},
+		expected: &Slice{},
+		error:    "invalid index: 'string' is not a positive integer",
+	}))
+
 	t.Run("basic-slice", run(TestCase{
 		args: []string{
-			"strings=1",
-			"strings=2",
-			"strings.3=3",
-			"strings=4",
-			"strings=erased",
-			"strings.5=5",
-			"strings-ptr=test",
-			"strings-ptr=test",
+			"strings.0=1",
+			"strings.1=2",
+			"strings.2=3",
+			"strings.3=test",
+			"strings-ptr.0=test",
+			"strings-ptr.1=test",
 			"basics.0.string=test",
 			"basics.0.int=42",
-			"basics.2.string=test",
-			"basics.2.int=42",
+			"basics.1.string=test",
+			"basics.1.int=42",
 		},
 		expected: &Slice{
-			Strings:    []string{"1", "2", "", "3", "4", "5"},
+			Strings:    []string{"1", "2", "3", "test"},
 			StringsPtr: []*string{&stringPtr, &stringPtr},
 			Basics: []Basic{
 				{
 					String: "test",
 					Int:    42,
 				},
-				{},
 				{
 					String: "test",
 					Int:    42,
@@ -149,14 +196,6 @@ func TestUnmarshalStruct(t *testing.T) {
 		expected: &WellKnownTypes{
 			Size: 20 * scw.GB,
 		},
-	}))
-
-	t.Run("nested-slice-without-index", run(TestCase{
-		args: []string{
-			"basics.string=test",
-		},
-		expected: &Slice{},
-		error:    "cannot handle nested struct without a slice index",
 	}))
 
 	t.Run("nested-basic", run(TestCase{
@@ -263,7 +302,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"custom-string=test",
 		},
 		data:  &CustomWrapper{},
-		error: "duplicate argument 'custom-struct='",
+		error: "duplicate argument 'custom-struct'",
 	}))
 
 	t.Run("duplicate-keys-insane", run(TestCase{
@@ -272,7 +311,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"map.key1.key2.basic.string=test2",
 		},
 		data:  &Insane{},
-		error: "duplicate argument 'map.key1.key2.basic.string='",
+		error: "duplicate argument 'map.key1.key2.basic.string'",
 	}))
 }
 
