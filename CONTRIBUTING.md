@@ -84,3 +84,31 @@ Keep in mind only the **pull request title** will be used as commit message as w
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 Thank you for reading through all of this, if you have any question feel free to [reach us](README.md#reach-us)!
+
+## Developer documentation
+
+### Commands notation
+
+In this CLI, we use dash `"-"` for:
+- command namespaces, resource, verb
+- argument names
+- key names in the human formatted results
+- UUID
+
+In this CLI, we use underscore `"_"` for:
+- response value results, except UUID
+- argument values
+
+Example: 
+```bash
+> scw my-namespace my-resource get id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+id               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+some-key         some_value
+other-key        other_value
+```
+
+### Commands validation
+
+For the namespaces, resources, and verbs, the validation is done in Scaleway's internal `mordor` repository, in `mordor/protoc-gen-mordor/validate.go`.
+
+The rest is manually checked for now as it is too difficult to automate it.
