@@ -54,7 +54,7 @@ func MarshalStruct(data interface{}) (args []string, err error) {
 // MarshalValue marshals a single value. While MarshalStruct will convert a go struct to an argument list like ["arg1=1", "arg2=2"],
 // MarshalValue will only marshal a single argument an return the arg value ( right part of the `=` )
 func MarshalValue(data interface{}) (string, error) {
-	if data == nil {
+	if isNil(data) {
 		return "", nil
 	}
 
@@ -256,5 +256,19 @@ func isDefaultValue(value reflect.Value) (bool, error) {
 		return value.String() == "", nil
 	default:
 		return false, fmt.Errorf("unknown kind %s", value.Kind())
+	}
+}
+
+func isNil(data interface{}) bool {
+	if data == nil {
+		return true
+	}
+
+	value := reflect.ValueOf(data)
+	switch value.Kind() {
+	case reflect.Ptr, reflect.Slice, reflect.Map:
+		return value.IsNil()
+	default:
+		return false
 	}
 }

@@ -253,6 +253,11 @@ func TestMarshalValue(t *testing.T) {
 		expected: "",
 	}))
 
+	t.Run("typed-nil", run(TestCase{
+		data:     []string(nil),
+		expected: "",
+	}))
+
 	t.Run("custom-func", run(TestCase{
 		data:     height(42),
 		expected: "42cm",
