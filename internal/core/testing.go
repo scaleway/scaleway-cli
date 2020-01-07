@@ -103,16 +103,18 @@ func Test(config *TestConfig) func(t *testing.T) {
 		client := getTestClient(t, config.UseE2EClient)
 
 		executeCmd := func(cmd string) {
+			stdoutBuffer := &bytes.Buffer{}
+			stderrBuffer := &bytes.Buffer{}
 			exitCode := Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmd, " "),
 				Commands:  config.Commands,
 				BuildInfo: &BuildInfo{},
-				Stdout:    &bytes.Buffer{},
-				Stderr:    &bytes.Buffer{},
+				Stdout:    stdoutBuffer,
+				Stderr:    stderrBuffer,
 				Client:    client,
 			})
 			if exitCode != 0 {
-				panic(fmt.Errorf("invalid exit code %d for command %s", exitCode, cmd))
+				panic(fmt.Errorf("Stdout:\n%s\n\nStderr:\n%s", stdoutBuffer, stderrBuffer))
 			}
 		}
 
