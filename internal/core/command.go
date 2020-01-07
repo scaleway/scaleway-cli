@@ -64,7 +64,7 @@ type Command struct {
 	WaitFunc WaitFunc
 
 	// ConvertErrorFunc will be used to convert CommandRunner error into a CliError.
-	// It is useful for non standard errors of the instance product.
+	// It is useful for instance non-standard errors.
 	ConvertErrorFunc ConvertErrorFunc
 }
 
