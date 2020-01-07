@@ -1,3 +1,3 @@
 # Scaleway's API
 
-## Deprecated in favor of https://github.com/scaleway/go-scaleway
+## Deprecated in favor of https://github.com/scaleway/scaleway-sdk-go
