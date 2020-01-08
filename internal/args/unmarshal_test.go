@@ -123,7 +123,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.5=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices in the array: trying to set array at index 5 before indices 4,3,2,1,0",
+		error:    "missing indices in the array: trying to set array at index 5 before indices 0,1,2,3,4",
 	}))
 
 	t.Run("missing-slice-indices-overflow", run(TestCase{
@@ -131,7 +131,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.99999=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices in the array: trying to set array at index 99999 before indices 99998,99997,99996,99995,99994,99993,99992,99991,99990,...",
+		error:    "missing indices in the array: trying to set array at index 99999 before indices 0,1,2,3,4,5,6,7,8,9,...",
 	}))
 
 	t.Run("duplicate-slice-index", run(TestCase{

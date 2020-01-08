@@ -40,7 +40,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	},
 }
 
-// UnmarshalStruct parse args like ["arg1=1", "arg2=2"] to a Go structure using reflection.
+// UnmarshalStruct parses args like ["arg1=1", "arg2=2"] to a Go structure using reflection.
 //
 // args: slice of args passed through the command line
 // data: Go structure to fill
@@ -61,7 +61,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	dest = dest.Elem()
 
 	// Map arg names to their values.
-	// ["arg1=1", "arg2=2", "arg3"] => {"arg1": "1", "arg2": "2", "arg3":"" }
+	// ["arg1=1", "arg2=2", "arg3"] => [ ["arg1","1"], ["arg2","2"], ["arg3",""] ]
 	argsSlice := SplitRaw(args)
 
 	processedArgNames := make(map[string]bool)
@@ -86,7 +86,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 		}
 		processedArgNames[argName] = true
 
-		// Set will recursively found the correct field to set.
+		// Set will recursively find the correct field to set.
 		err := set(dest, strings.Split(argName, "."), argValue)
 		if err != nil {
 			return err
@@ -96,6 +96,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	return nil
 }
 
+// fieldExist digs into the given type to find if the arg name matches with any subfield of it.
 func fieldExist(t reflect.Type, argNameWords []string) bool {
 
 	switch {
@@ -161,10 +162,10 @@ func RegisterUnmarshalFunc(i interface{}, unmarshalFunc UnmarshalFunc) {
 // It uses reflection to go as deep as necessary into the data struct, following the arg name passed.
 //
 // dest: the structure to be completed
-// argNameWords: the argument name to set
+// argNameWords: the name of the argument to set
 // value: the value to be set, represented as a string
 //
-// Example: argNameWords ["contacts", "0", "address", "city"] will set value city for your first contact in your phone book.
+// Example: argNameWords ["contacts", "0", "address", "city"] will set value "city" for your first contact in your phone book.
 func set(dest reflect.Value, argNameWords []string, value string) error {
 
 	// If dest has a custom unmarshaller, we use it.
@@ -212,7 +213,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		diff := int(index) - dest.Len()
 		switch {
 		case diff > 2:
-			return fmt.Errorf("missing indices in the array: trying to set array at index %d before indices %v", index, missingIndices(int(index), dest.Len()))
+			return fmt.Errorf("missing indices in the array: trying to set array at index %d before indices %s", index, missingIndices(int(index), dest.Len()))
 		case diff == 1:
 			return fmt.Errorf("missing index in the array: trying to set array at index %d before index %d", index, index-1)
 		case diff == 0:
@@ -258,16 +259,16 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 }
 
 // missingIndices returns a string of all the missing indices between index and length.
-// e.g.: missingIndices(index=5, length=0) should return "3,2,1,0"
-// e.g.: missingIndices(index=5, length=2) should return "3,2"
-// e.g.: missingIndices(index=99999, length=0) should return "99998,99997,99996,99995,99994,99993,99992,99991,99990,..."
+// e.g.: missingIndices(index=5, length=0) should return "0,1,2,3"
+// e.g.: missingIndices(index=5, length=2) should return "2,3"
+// e.g.: missingIndices(index=99999, length=0) should return "0,1,2,3,4,5,6,7,8,9,..."
 func missingIndices(index, length int) string {
 	s := ""
-	for i := index - 1; i >= length; i-- {
+	for i := length; i < index; i++ {
 		if s != "" {
 			s += ","
 		}
-		if index-i == 10 {
+		if i-length == 10 {
 			s += "..."
 			break
 		}
@@ -335,13 +336,9 @@ func isUnmarshalableValue(dest reflect.Value) bool {
 
 	_, isUnmarshaller := interface_.(Unmarshaller)
 	_, hasUnmarshalFunc := unmarshalFuncs[dest.Type()]
-
-	return isUnmarshaller || hasUnmarshalFunc || isScalar(dest)
-}
-
-func isScalar(dest reflect.Value) bool {
 	_, isScalar := scalarKinds[dest.Kind()]
-	return isScalar
+
+	return isUnmarshaller || hasUnmarshalFunc || isScalar
 }
 
 func unmarshalValue(value string, dest reflect.Value) error {
