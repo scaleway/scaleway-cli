@@ -2,6 +2,8 @@ package instance
 
 import (
 	"context"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -10,8 +12,11 @@ import (
 )
 
 func applyCustomRuns(c *core.Commands) {
-	c.MustFind("instance", "security-group", "get").Run = customInstanceGetSecurityGroupRun
-	c.MustFind("instance", "image", "list").Run = customInstanceListImagesRun
+	c.MustFind("instance", "security-group", "get").Run = customInstanceSecurityGroupGetRun
+	deleteCmd := c.MustFind("instance", "security-group", "delete")
+	deleteCmd.Run = customInstanceSecurityGroupDeleteRun(deleteCmd.Run)
+
+	c.MustFind("instance", "image", "list").Run = customInstanceImageListRun
 }
 
 type customSecurityGroupResponse struct {
@@ -20,7 +25,7 @@ type customSecurityGroupResponse struct {
 	Rules []*instance.SecurityGroupRule
 }
 
-func customInstanceGetSecurityGroupRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func customInstanceSecurityGroupGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	req := argsI.(*instance.GetSecurityGroupRequest)
 
 	client := core.ExtractClient(ctx)
@@ -43,9 +48,51 @@ func customInstanceGetSecurityGroupRun(ctx context.Context, argsI interface{}) (
 	}, nil
 }
 
-// customInstanceListImages list the images for a given organization.
+func customInstanceSecurityGroupDeleteRun(originalRun core.CommandRunner) core.CommandRunner {
+	return func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		res, originalErr := originalRun(ctx, argsI)
+		if originalErr == nil {
+			return res, nil
+		}
+
+		strErr := strings.ToLower(originalErr.Error())
+
+		switch {
+		case strings.HasSuffix(strErr, "group is in use. you cannot delete it."):
+			req := argsI.(*instance.DeleteSecurityGroupRequest)
+			api := instance.NewAPI(core.ExtractClient(ctx))
+
+			newError := &core.CliError{
+				Err: fmt.Errorf("cannot delete security-group currently in use"),
+			}
+
+			// Get security-group.
+			sg, err := api.GetSecurityGroup(&instance.GetSecurityGroupRequest{
+				SecurityGroupID: req.SecurityGroupID,
+			})
+			if err != nil {
+				// Ignore API error and return a minimal error.
+				return nil, newError
+			}
+
+			// Create detail message.
+			hint := "Attach all these instances to another security-group before deleting this one:"
+			for _, s := range sg.SecurityGroup.Servers {
+				hint += "\nscw instance server update server-id=" + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
+			}
+
+			newError.Hint = hint
+			return nil, newError
+
+		default:
+			return nil, originalErr
+		}
+	}
+}
+
+// customInstanceImageListRun list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
-func customInstanceListImagesRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func customInstanceImageListRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// customImage is based on instance.Image, with additional information about the server
 	type customImage struct {
 		ID                string

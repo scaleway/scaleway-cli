@@ -20,9 +20,6 @@ func GetCommands() *core.Commands {
 	// apply custom runs on generated commands only
 	applyCustomRuns(instanceCommands)
 
-	// apply custom error handling on generated commands only
-	applyCustomErrors(instanceCommands)
-
 	// merge custom commands
 	instanceCommands.Merge(getCustomCommands())
 

@@ -62,16 +62,11 @@ type Command struct {
 
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
-
-	// ConvertErrorFunc will be used to convert CommandRunner error into a CliError.
-	// It is useful for instance non-standard errors.
-	ConvertErrorFunc ConvertErrorFunc
 }
 
 type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
 type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, error)
 type WaitFunc func(ctx context.Context, argsI, respI interface{}) error
-type ConvertErrorFunc func(ctx context.Context, argsI interface{}, currentError error) error
 
 const indexCommandSeparator = "."
 
