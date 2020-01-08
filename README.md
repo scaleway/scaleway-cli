@@ -71,7 +71,7 @@ For Windows, [this official guide](https://docs.microsoft.com/en-us/previous-ver
 First, download [the `.deb` file](https://github.com/scaleway/scaleway-cli/releases/latest) compatible with your architecture:
 
 ```bash
-export ARCH=amd64 # Can be 'i386', 'amd64' or 'armhf'
+export ARCH=amd64 # Can be 'amd64', 'arm', 'arm64' or 'i386'
 wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha.1/scw_2.0.0-alpha.1_${ARCH}.deb" -O /tmp/scw.deb
 ```
 
