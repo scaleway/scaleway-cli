@@ -263,18 +263,15 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 // e.g.: missingIndices(index=5, length=2) should return "2,3"
 // e.g.: missingIndices(index=99999, length=0) should return "0,1,2,3,4,5,6,7,8,9,..."
 func missingIndices(index, length int) string {
-	s := ""
+	s := []string(nil)
 	for i := length; i < index; i++ {
-		if s != "" {
-			s += ","
-		}
 		if i-length == 10 {
-			s += "..."
+			s = append(s, "...")
 			break
 		}
-		s += strconv.Itoa(i)
+		s = append(s, strconv.Itoa(i))
 	}
-	return s
+	return strings.Join(s, ",")
 }
 
 // unmarshalScalar handles unmarshaling from a string to a scalar type .
