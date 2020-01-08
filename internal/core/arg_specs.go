@@ -35,3 +35,42 @@ type ArgSpec struct {
 }
 
 type DefaultFunc func() (value string, doc string)
+
+var (
+	ZoneArgSpec = &ArgSpec{
+		Name:     "zone",
+		Short:    "Zone to target. If none is passed will use default zone from the config",
+		Required: false,
+		// TODO: Default:          nil,
+		// TODO: EnumValues:       nil,
+		// TODO: AutoCompleteFunc: nil,
+		// TODO: ValidateFunc:
+	}
+	RegionArgSpec = &ArgSpec{
+		Name:     "region",
+		Short:    "Region to target. If none is passed will use default region from the config",
+		Required: false,
+		// TODO: Default:          nil,
+		// TODO: EnumValues:       nil,
+		// TODO: AutoCompleteFunc: nil,
+		// TODO: ValidateFunc:
+	}
+	OrganizationIDArgSpec = &ArgSpec{
+		Name:     "organization_id",
+		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
+		Required: false,
+		// TODO: Default:          nil,
+		// TODO: EnumValues:       nil,
+		// TODO: AutoCompleteFunc: nil,
+		// TODO: ValidateFunc:
+	}
+	OrganizationArgSpec = &ArgSpec{
+		Name:     "organization",
+		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
+		Required: false,
+		// TODO: Default:          nil,
+		// TODO: EnumValues:       nil,
+		// TODO: AutoCompleteFunc: nil,
+		// TODO: ValidateFunc:
+	}
+)

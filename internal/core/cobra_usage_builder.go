@@ -47,17 +47,14 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgNa
 	// TODO: make this relation explicit
 	// TODO: decide what arguments to ignore
 	ignoreKey := false
-	if len(parentArgName) > 0 {
-		lastKey := parentArgName[len(parentArgName)-1]
-		ignoredKeys := map[string]bool{
-			"page":         true,
-			"per-page":     true,
-			"zone":         true,
-			"region":       true,
-			"page-size":    true,
-			"organization": true,
+	if len(parentArgName) == 1 {
+		firstWord := parentArgName[0] // pagination args are primary fields
+		ignoredArgs := map[string]bool{
+			"page":      true,
+			"per-page":  true,
+			"page-size": true,
 		}
-		_, ignoreKey = ignoredKeys[lastKey]
+		_, ignoreKey = ignoredArgs[firstWord]
 	}
 
 	switch {

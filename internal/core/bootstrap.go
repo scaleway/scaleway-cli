@@ -64,9 +64,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 
 	rootCmd.PersistentFlags().StringVarP(&m.AccessKeyFlag, "access-key", "", "", "Scaleway access key")
 	rootCmd.PersistentFlags().StringVarP(&m.SecretKeyFlag, "secret-key", "", "", "Scaleway secret key")
-	rootCmd.PersistentFlags().StringVarP(&m.OrganizationIDFlag, "organization-id", "", "", "Scaleway organization ID")
-	rootCmd.PersistentFlags().StringVarP(&m.ZoneFlag, "zone", "z", "", "The Scaleway zone")
-	rootCmd.PersistentFlags().StringVarP(&m.RegionFlag, "region", "r", "", "The Scaleway region")
 	rootCmd.PersistentFlags().StringVarP(&m.ProfileFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().VarP(&m.PrinterTypeFlag, "output", "o", "Output format: json or human")
 	rootCmd.PersistentFlags().BoolVarP(&m.DebugModeFlag, "debug", "D", false, "Enable debug mode")

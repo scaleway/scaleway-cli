@@ -52,6 +52,11 @@ var serverActionArgSpecs = core.ArgSpecs{
 		Short:    `ID of the server affected by the action.`,
 		Required: true,
 	},
+	{
+		Name:     "zone",
+		Short:    `ID of the server affected by the action.`,
+		Required: true,
+	},
 }
 
 func instanceServerStart() *core.Command {
