@@ -74,7 +74,7 @@ func panicIfErr(err error) {
 	}
 }
 
-// Return a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
+// getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
 	fileName := t.Name()
 	fileName = strings.Replace(fileName, "/", "-", -1)
@@ -238,7 +238,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 
 }
 
-// CreateRecordedScwClient creates a new httpClient that records all HTTP requests in a cassette.
+// getHttpRecoder creates a new httpClient that records all HTTP requests in a cassette.
 // This cassette is then replayed whenever tests are executed again. This means that once the
 // requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
 //
