@@ -305,15 +305,13 @@ func createInitialVolumeMap(api *instance.API, organizationID string, argsVolume
 	var volumes []*instance.VolumeTemplate
 
 	for _, v := range argsVolumes {
-		for _, flagV := range strings.Split(v, ",") {
-			flagV = strings.TrimSpace(flagV)
-			vt, err := buildVolumeTemplate(api, organizationID, flagV)
-			if err != nil {
-				return nil, err
-			}
-
-			volumes = append(volumes, vt)
+		flagV := strings.TrimSpace(v)
+		vt, err := buildVolumeTemplate(api, organizationID, flagV)
+		if err != nil {
+			return nil, err
 		}
+
+		volumes = append(volumes, vt)
 	}
 
 	return volumes, nil
@@ -321,10 +319,7 @@ func createInitialVolumeMap(api *instance.API, organizationID string, argsVolume
 
 // buildVolumeTemplate creates a instance.VolumeTemplate from a 'volumes' argument item.
 //
-// Volumes definition could be:
-// - multiple arguments (eg: volumes="l:20GB" volumes="b:100GB")
-// - a single argument representing an array (eg: volumes="l:20GB, b:100GB")
-// - a mix (eg: volumes="l:10GB, local:10GB" volumes="b:100GB")
+// Volumes definition must be through multiple arguments (eg: volumes.0="l:20GB" volumes.1="b:100GB")
 //
 // A valid volume format is either
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
