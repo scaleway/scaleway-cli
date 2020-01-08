@@ -84,3 +84,33 @@ Keep in mind only the **pull request title** will be used as commit message as w
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 Thank you for reading through all of this, if you have any question feel free to [reach us](README.md#reach-us)!
+
+## Developer documentation
+
+### When to use dash vs underscore
+
+We SHOULD use dash `"-"` for:
+- command namespaces, resource, verb
+- argument names
+- key names in the human formatted results
+- UUID
+
+We SHOULD use underscore `"_"` for:
+- response value results, except UUID
+- argument values
+
+Example: 
+```bash
+> scw my-namespace my-resource get id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+id               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+some-key         some_value
+other-key        other_value
+```
+
+### Commands validation
+
+Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/master/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
+This is true for: 
+- command namespaces, resource, verb
+
+The rest is manually checked for now.
