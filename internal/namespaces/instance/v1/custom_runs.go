@@ -55,10 +55,7 @@ func customInstanceSecurityGroupDeleteRun(originalRun core.CommandRunner) core.C
 			return res, nil
 		}
 
-		strErr := strings.ToLower(originalErr.Error())
-
-		switch {
-		case strings.HasSuffix(strErr, "group is in use. you cannot delete it."):
+		if strings.HasSuffix(originalErr.Error(), "group is in use. you cannot delete it.") {
 			req := argsI.(*instance.DeleteSecurityGroupRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
@@ -83,10 +80,9 @@ func customInstanceSecurityGroupDeleteRun(originalRun core.CommandRunner) core.C
 
 			newError.Hint = hint
 			return nil, newError
-
-		default:
-			return nil, originalErr
 		}
+
+		return nil, originalErr
 	}
 }
 
