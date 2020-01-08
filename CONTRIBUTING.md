@@ -87,15 +87,15 @@ Thank you for reading through all of this, if you have any question feel free to
 
 ## Developer documentation
 
-### Commands notation
+### When to use dash vs underscore
 
-In this CLI, we use dash `"-"` for:
+We SHOULD use dash `"-"` for:
 - command namespaces, resource, verb
 - argument names
 - key names in the human formatted results
 - UUID
 
-In this CLI, we use underscore `"_"` for:
+We SHOULD use underscore `"_"` for:
 - response value results, except UUID
 - argument values
 
@@ -109,6 +109,8 @@ other-key        other_value
 
 ### Commands validation
 
-For the namespaces, resources, and verbs, the validation is done in Scaleway's internal `mordor` repository, in `mordor/protoc-gen-mordor/validate.go`.
+Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/master/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
+This is true for: 
+- command namespaces, resource, verb
 
 The rest is manually checked for now as it is too difficult to automate it.
