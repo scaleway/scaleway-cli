@@ -113,4 +113,4 @@ Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs
 This is true for: 
 - command namespaces, resource, verb
 
-The rest is manually checked for now as it is too difficult to automate it.
+The rest is manually checked for now.
