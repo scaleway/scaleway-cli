@@ -99,7 +99,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"unknown-field=12",
 		},
 		expected: &Basic{},
-		error:    "unknown argument 'unknown-field'",
+		error:    "unknown argument with name 'unknown-field'",
 	}))
 
 	t.Run("invalid-bool", run(TestCase{
@@ -107,7 +107,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"bool=invalid",
 		},
 		expected: &Basic{},
-		error:    "invalid value invalid: valid values are true or false",
+		error:    "invalid value 'invalid': valid values are true or false",
 	}))
 
 	t.Run("missing-slice-index", run(TestCase{
