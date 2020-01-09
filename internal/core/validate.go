@@ -79,6 +79,14 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 		if err != nil {
 			return err
 		}
+
+		// When an enum is not provided as an argument args.MarshalValue will in most cases return "" (go default value)
+		// In those cases we ignore validation. This is not ideal but covers most of the use cases.
+		// The only caveat would be that `my-enum=""` would not trigger an error, which is acceptable.
+		if strValue == "" {
+			return nil
+		}
+
 		if !stringExists(argSpec.EnumValues, strValue) {
 			return InvalidValueForEnumError(argSpec.Name, argSpec.EnumValues, strValue)
 		}
