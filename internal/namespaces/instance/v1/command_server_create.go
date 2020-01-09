@@ -19,6 +19,8 @@ import (
 
 // TODO: Add cloud-init
 type instanceCreateServerRequest struct {
+	Zone             scw.Zone
+	OrganizationID   string
 	Image            string
 	Type             string
 	Name             string
@@ -42,6 +44,8 @@ func instanceServerCreate() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(instanceCreateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
+			core.OrganizationIDArgSpec,
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
@@ -104,8 +108,9 @@ func instanceServerCreate() *core.Command {
 	}
 }
 
-func instanceWaitServerCreateRun(ctx context.Context, _, respI interface{}) error {
+func instanceWaitServerCreateRun(ctx context.Context, argsI, respI interface{}) error {
 	_, err := instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+		Zone:     argsI.(*instanceCreateServerRequest).Zone,
 		ServerID: respI.(*instance.Server).ID,
 		Timeout:  serverActionTimeout,
 	})
@@ -122,6 +127,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	needIPCreation := false
 
 	serverReq := &instance.CreateServerRequest{
+		Zone:           args.Zone,
+		Organization:   args.OrganizationID,
 		Name:           args.Name,
 		CommercialType: args.Type,
 		EnableIPv6:     args.IPv6,
@@ -143,6 +150,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	case !validation.IsUUID(args.Image):
 		// Find the corresponding local image UUID.
 		imageId, err := apiMarketplace.GetLocalImageIDByLabel(&marketplace.GetLocalImageIDByLabelRequest{
+			Zone:           args.Zone,
 			ImageLabel:     args.Image,
 			CommercialType: serverReq.CommercialType,
 		})
@@ -172,7 +180,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	case net.ParseIP(args.IP) != nil:
 		// Find the corresponding flexible IP UUID.
 		logger.Infof("finding public IP UUID from address: %s", args.IP)
-		res, err := apiInstance.GetIP(&instance.GetIPRequest{IP: args.IP})
+		res, err := apiInstance.GetIP(&instance.GetIPRequest{
+			Zone: args.Zone,
+			IP:   args.IP,
+		})
 		if err != nil { // FIXME: isNotFoundError
 			return nil, fmt.Errorf("%s does not belongs to you.", args.IP)
 		}
@@ -190,22 +201,25 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// More format details in buildVolumeTemplate function.
 	//
 	if len(args.Volumes) > 0 {
-		// Get organization ID.
-		organizationID := core.GetOrganizationIdFromContext(ctx)
+		// Get default organization ID.
+		organizationID := args.OrganizationID
+		if organizationID == "" {
+			organizationID = core.GetOrganizationIdFromContext(ctx)
+		}
 
 		// Create initial volume template map.
-		volumes, err := createInitialVolumeMap(apiInstance, organizationID, args.Volumes)
+		volumes, err := createInitialVolumeMap(apiInstance, args.Zone, organizationID, args.Volumes)
 		if err != nil {
 			return nil, err
 		}
 
 		// Validate root volume type and size.
-		if err := validateRootVolume(apiInstance, serverReq.Image, volumes[0]); err != nil {
+		if err := validateRootVolume(apiInstance, args.Zone, serverReq.Image, volumes[0]); err != nil {
 			return nil, err
 		}
 
 		// Validate total local volume sizes.
-		if err := validateLocalVolumeSizes(apiInstance, volumes, serverReq.CommercialType); err != nil {
+		if err := validateLocalVolumeSizes(apiInstance, volumes, args.Zone, serverReq.CommercialType); err != nil {
 			return nil, err
 		}
 
@@ -220,7 +234,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if !validation.IsUUID(args.BootscriptID) {
 			return nil, fmt.Errorf("Bootscript ID %s is not a valid UUID.", args.BootscriptID)
 		}
-		_, err := apiInstance.GetBootscript(&instance.GetBootscriptRequest{BootscriptID: args.BootscriptID})
+		_, err := apiInstance.GetBootscript(&instance.GetBootscriptRequest{
+			Zone:         args.Zone,
+			BootscriptID: args.BootscriptID,
+		})
 		if err != nil { // FIXME: isNotFoundError
 			return nil, fmt.Errorf("Bootscript ID %s does not exists.", args.BootscriptID)
 		}
@@ -251,7 +268,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if needIPCreation {
 		logger.Infof("creating IP")
-		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{})
+		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
+			Zone:         args.Zone,
+			Organization: args.OrganizationID,
+		})
 		if err != nil {
 			return nil, fmt.Errorf("Error while creating your public IP: %s.", err)
 		}
@@ -268,7 +288,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if needIPCreation && serverReq.PublicIP != nil {
 			// Delete the created IP
 			logger.Infof("deleting created IP: %s", serverReq.PublicIP)
-			err := apiInstance.DeleteIP(&instance.DeleteIPRequest{IP: *serverReq.PublicIP})
+			err := apiInstance.DeleteIP(&instance.DeleteIPRequest{
+				Zone: args.Zone,
+				IP:   *serverReq.PublicIP,
+			})
 			if err != nil {
 				logger.Warningf("cannot delete the create IP %s: %s.", serverReq.PublicIP, err)
 			}
@@ -286,6 +309,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		// TODO: Use the wait flag when it will be implemented [APIGW-1313]
 		logger.Infof("starting server")
 		_, err := apiInstance.ServerAction(&instance.ServerActionRequest{
+			Zone:     args.Zone,
 			ServerID: server.ID,
 			Action:   instance.ServerActionPoweron,
 		})
@@ -301,12 +325,12 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 // createInitialVolumeMap creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
-func createInitialVolumeMap(api *instance.API, organizationID string, argsVolumes []string) ([]*instance.VolumeTemplate, error) {
+func createInitialVolumeMap(api *instance.API, zone scw.Zone, organizationID string, argsVolumes []string) ([]*instance.VolumeTemplate, error) {
 	var volumes []*instance.VolumeTemplate
 
 	for _, v := range argsVolumes {
 		flagV := strings.TrimSpace(v)
-		vt, err := buildVolumeTemplate(api, organizationID, flagV)
+		vt, err := buildVolumeTemplate(api, zone, organizationID, flagV)
 		if err != nil {
 			return nil, err
 		}
@@ -325,7 +349,7 @@ func createInitialVolumeMap(api *instance.API, organizationID string, argsVolume
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a UUID format
 //
-func buildVolumeTemplate(api *instance.API, orgID, flagV string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) (*instance.VolumeTemplate, error) {
 	parts := strings.Split(flagV, ":")
 
 	// Create volume.
@@ -354,7 +378,7 @@ func buildVolumeTemplate(api *instance.API, orgID, flagV string) (*instance.Volu
 
 	// UUID format.
 	if len(parts) == 1 && validation.IsUUID(parts[0]) {
-		return buildVolumeTemplateFromUUID(api, parts[0])
+		return buildVolumeTemplateFromUUID(api, zone, parts[0])
 	}
 
 	return nil, fmt.Errorf("Invalid volume format '%s'.", flagV) // TODO: improve msg [APIGW-1371]
@@ -364,8 +388,11 @@ func buildVolumeTemplate(api *instance.API, orgID, flagV string) (*instance.Volu
 // Add volume types and sizes allow US to treat UUID volumes like the others and simplify the implementation.
 // The instance API refuse the type and the size for UUID volumes, therefore,
 // buildVolumeMap function will remove them.
-func buildVolumeTemplateFromUUID(api *instance.API, volumeUUID string) (*instance.VolumeTemplate, error) {
-	res, err := api.GetVolume(&instance.GetVolumeRequest{VolumeID: volumeUUID})
+func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeTemplate, error) {
+	res, err := api.GetVolume(&instance.GetVolumeRequest{
+		Zone:     zone,
+		VolumeID: volumeUUID,
+	})
 	if err != nil { // FIXME: isNotFoundError
 		return nil, fmt.Errorf("Volume %s does not exist.", volumeUUID)
 	}
@@ -383,7 +410,7 @@ func buildVolumeTemplateFromUUID(api *instance.API, volumeUUID string) (*instanc
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTemplate, commercialType string) error {
+func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTemplate, zone scw.Zone, commercialType string) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -393,7 +420,9 @@ func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTempl
 	}
 
 	// Get server types.
-	serverTypesRes, err := api.ListServersTypes(&instance.ListServersTypesRequest{})
+	serverTypesRes, err := api.ListServersTypes(&instance.ListServersTypesRequest{
+		Zone: zone,
+	})
 	if err != nil {
 		// Ignore root volume size check.
 		logger.Warningf("cannot get server types: %s", err)
@@ -423,7 +452,7 @@ func validateLocalVolumeSizes(api *instance.API, volumes []*instance.VolumeTempl
 	return nil
 }
 
-func validateRootVolume(api *instance.API, image string, rootVolume *instance.VolumeTemplate) error {
+func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolume *instance.VolumeTemplate) error {
 	if rootVolume.VolumeType != instance.VolumeTypeLSSD {
 		return fmt.Errorf("First volume must be local.")
 	}
@@ -433,7 +462,10 @@ func validateRootVolume(api *instance.API, image string, rootVolume *instance.Vo
 		return fmt.Errorf("You cannot use an existing volume as a root volume. You must create an image of this volume and use its ID in the 'image' argument.")
 	}
 
-	res, err := api.GetImage(&instance.GetImageRequest{ImageID: image})
+	res, err := api.GetImage(&instance.GetImageRequest{
+		Zone:    zone,
+		ImageID: image,
+	})
 	if err != nil {
 		logger.Warningf("cannot get image %s: %s", image, err)
 		logger.Warningf("skip root volume size validation")

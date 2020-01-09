@@ -23,6 +23,7 @@ func updateInstancePlacementGroupGet(c *core.Command) {
 		}
 
 		placementGroupServersResponse, err := api.GetPlacementGroupServers(&instance.GetPlacementGroupServersRequest{
+			Zone:             req.Zone,
 			PlacementGroupID: req.PlacementGroupID,
 		})
 		if err != nil {
