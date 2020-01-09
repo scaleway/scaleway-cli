@@ -56,7 +56,7 @@ var (
 		// TODO: ValidateFunc:
 	}
 	OrganizationIDArgSpec = &ArgSpec{
-		Name:     "organization_id",
+		Name:     "organization-id",
 		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
 		Required: false,
 		// TODO: Default:          nil,

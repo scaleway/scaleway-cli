@@ -134,7 +134,7 @@ func buildExamples(cmd *Command) string {
 			var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
 
 			if err := json.Unmarshal([]byte(cmdExample.Request), cmdArgs); err != nil {
-				panic(err)
+				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}
 			var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
 			if err != nil {

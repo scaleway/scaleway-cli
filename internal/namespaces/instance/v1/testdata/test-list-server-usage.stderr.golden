@@ -16,22 +16,12 @@ EXAMPLES:
   List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
     scw instance list server name=server1
 
-ARGS:
-  [name]              Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")
-  [private-ip]        List servers by private_ip
-  [without-ip]        List servers that are not attached to a public IP
-  [commercial-type]   List servers of this commercial type
-  [state=running]     List servers in this state (running | stopped | stopped in place | starting | stopping | locked)
-
 FLAGS:
   -h, --help   help for list
 
 GLOBAL FLAGS:
-      --access-key string        Scaleway access key
-  -D, --debug                    Enable debug mode
-      --organization-id string   Scaleway organization ID
-  -o, --output PrinterType       Output format: json or human
-  -p, --profile string           The config profile to use
-  -r, --region string            The Scaleway region
-      --secret-key string        Scaleway secret key
-  -z, --zone string              The Scaleway zone
+      --access-key string    Scaleway access key
+  -D, --debug                Enable debug mode
+  -o, --output PrinterType   Output format: json or human
+  -p, --profile string       The config profile to use
+      --secret-key string    Scaleway secret key
