@@ -8,6 +8,7 @@ EXAMPLES:
     scw test create human height=125
 
 ARGS:
+  [region]                   Region to target. If none is passed will use default region from the config
   [height]                   
   [shoe-size]                
   [altitude-in-meter]        
@@ -16,16 +17,14 @@ ARGS:
   [hair-count]               
   [is-happy]                 
   [eyes-color=unknown]        (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+  [organization-id]          Organization ID to use. If none is passed will use default organization ID from the config
 
 FLAGS:
   -h, --help   help for create
 
 GLOBAL FLAGS:
-      --access-key string        Scaleway access key
-  -D, --debug                    Enable debug mode
-      --organization-id string   Scaleway organization ID
-  -o, --output PrinterType       Output format: json or human
-  -p, --profile string           The config profile to use
-  -r, --region string            The Scaleway region
-      --secret-key string        Scaleway secret key
-  -z, --zone string              The Scaleway zone
+      --access-key string    Scaleway access key
+  -D, --debug                Enable debug mode
+  -o, --output PrinterType   Output format: json or human
+  -p, --profile string       The config profile to use
+      --secret-key string    Scaleway secret key

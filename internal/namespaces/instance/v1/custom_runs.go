@@ -36,6 +36,7 @@ func customInstanceSecurityGroupGetRun(ctx context.Context, argsI interface{}) (
 	}
 
 	securityGroupRules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
+		Zone:            req.Zone,
 		SecurityGroupID: securityGroup.SecurityGroup.ID,
 	}, scw.WithAllPages())
 	if err != nil {

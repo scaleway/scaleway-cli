@@ -43,6 +43,7 @@ func instanceUserData() *core.Command {
 }
 
 type instanceActionRequest struct {
+	Zone     scw.Zone
 	ServerID string
 }
 
@@ -52,6 +53,7 @@ var serverActionArgSpecs = core.ArgSpecs{
 		Short:    `ID of the server affected by the action.`,
 		Required: true,
 	},
+	core.ZoneArgSpec,
 }
 
 func instanceServerStart() *core.Command {
@@ -108,6 +110,7 @@ func instanceServerReboot() *core.Command {
 
 func waitForServerFunc(ctx context.Context, argsI, _ interface{}) error {
 	_, err := instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+		Zone:     argsI.(*instanceActionRequest).Zone,
 		ServerID: argsI.(*instanceActionRequest).ServerID,
 		Timeout:  serverActionTimeout,
 	})
@@ -122,6 +125,7 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 		api := instance.NewAPI(client)
 
 		_, err := api.ServerAction(&instance.ServerActionRequest{
+			Zone:     args.Zone,
 			ServerID: args.ServerID,
 			Action:   action,
 		})
@@ -130,6 +134,7 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 }
 
 type instanceResetSecurityGroupArgs struct {
+	Zone            scw.Zone
 	SecurityGroupID string
 }
 
@@ -147,6 +152,7 @@ func instanceSecurityGroupClear() *core.Command {
 			api := instance.NewAPI(client)
 
 			rules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
+				Zone:            args.Zone,
 				SecurityGroupID: args.SecurityGroupID,
 			}, scw.WithAllPages())
 			if err != nil {
@@ -159,6 +165,7 @@ func instanceSecurityGroupClear() *core.Command {
 					continue
 				}
 				err = api.DeleteSecurityGroupRule(&instance.DeleteSecurityGroupRuleRequest{
+					Zone:                args.Zone,
 					SecurityGroupID:     args.SecurityGroupID,
 					SecurityGroupRuleID: rule.ID,
 				})
@@ -190,6 +197,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to update`,
@@ -245,7 +253,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 				}
 
 			case "cannot have more than one organization default":
-				defaultSG, err := getDefaultOrganizationSecurityGroup(ctx)
+				defaultSG, err := getDefaultOrganizationSecurityGroup(ctx, req.Zone)
 				if err != nil {
 					// Abort and return the original error.
 					return nil, resErr
@@ -271,11 +279,14 @@ func instanceSecurityGroupUpdate() *core.Command {
 	}
 }
 
-func getDefaultOrganizationSecurityGroup(ctx context.Context) (*instance.SecurityGroup, error) {
+func getDefaultOrganizationSecurityGroup(ctx context.Context, zone scw.Zone) (*instance.SecurityGroup, error) {
 	api := instance.NewAPI(core.ExtractClient(ctx))
 
 	orgID := core.GetOrganizationIdFromContext(ctx)
-	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{Organization: scw.StringPtr(orgID)}, scw.WithAllPages())
+	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{
+		Zone:         zone,
+		Organization: scw.StringPtr(orgID),
+	}, scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -298,6 +309,7 @@ func instanceUserDataList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -319,6 +331,7 @@ func instanceUserDataDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -349,6 +362,7 @@ func instanceUserDataGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -375,6 +389,7 @@ func instanceUserDataSet() *core.Command {
 		Verb:      "set",
 		ArgsType:  reflect.TypeOf(instance.SetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -417,6 +432,7 @@ func instanceServerDelete() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(customeDeleteServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec,
 			{
 				Name:     "server-id",
 				Required: true,

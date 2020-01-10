@@ -44,15 +44,6 @@ func createClient(meta *meta) (*scw.Client, error) {
 	if meta.SecretKeyFlag != "" {
 		flagProfile.SecretKey = scw.StringPtr(meta.SecretKeyFlag)
 	}
-	if meta.OrganizationIDFlag != "" {
-		flagProfile.DefaultOrganizationID = scw.StringPtr(meta.OrganizationIDFlag)
-	}
-	if meta.ZoneFlag != "" {
-		flagProfile.DefaultZone = scw.StringPtr(meta.ZoneFlag)
-	}
-	if meta.RegionFlag != "" {
-		flagProfile.DefaultRegion = scw.StringPtr(meta.RegionFlag)
-	}
 
 	profile := scw.MergeProfiles(activeProfile, envProfile, flagProfile)
 

@@ -172,9 +172,6 @@ func removeClientFlags(flags *flag.FlagSet, noClient string) *flag.FlagSet {
 	if noClient == "true" {
 		panicOnError(flags.MarkHidden("access-key"))
 		panicOnError(flags.MarkHidden("secret-key"))
-		panicOnError(flags.MarkHidden("organization-id"))
-		panicOnError(flags.MarkHidden("region"))
-		panicOnError(flags.MarkHidden("zone"))
 	}
 	return flags
 }
