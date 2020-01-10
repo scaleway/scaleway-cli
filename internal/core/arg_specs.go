@@ -1,5 +1,7 @@
 package core
 
+import "github.com/scaleway/scaleway-sdk-go/scw"
+
 type ArgSpecs []*ArgSpec
 
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
@@ -36,7 +38,11 @@ type ArgSpec struct {
 
 type DefaultFunc func() (value string, doc string)
 
-func ZoneArgSpec(enumValues ...string) *ArgSpec {
+func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
+	enumValues := []string(nil)
+	for _, zone := range zones {
+		enumValues = append(enumValues, zone.String())
+	}
 	return &ArgSpec{
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
@@ -49,7 +55,11 @@ func ZoneArgSpec(enumValues ...string) *ArgSpec {
 	}
 }
 
-func RegionArgSpec(enumValues ...string) *ArgSpec {
+func RegionArgSpec(regions ...scw.Region) *ArgSpec {
+	enumValues := []string(nil)
+	for _, region := range regions {
+		enumValues = append(enumValues, region.String())
+	}
 	return &ArgSpec{
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
