@@ -18,7 +18,7 @@ EXAMPLES:
 
 ARGS:
   [zone]              Zone to target. If none is passed will use default zone from the config
-  [organization]      
+  [organization]      List only servers of this organization
   [name]              Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")
   [private-ip]        List servers by private_ip
   [without-ip]        List servers that are not attached to a public IP
