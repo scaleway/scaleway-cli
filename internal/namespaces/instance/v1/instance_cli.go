@@ -298,6 +298,7 @@ func instanceServerList() *core.Command {
 			core.ZoneArgSpec,
 			{
 				Name:     "organization",
+				Short:    `List only servers of this organization`,
 				Required: false,
 			},
 			{
@@ -808,15 +809,16 @@ func instanceVolumeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec,
 			{
-				Name:     "organization",
-				Required: false,
-			},
-			{
 				Name:       "volume-type",
 				Short:      `Filter by volume type`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
+			},
+			{
+				Name:     "organization",
+				Short:    `Filter volume by organization`,
+				Required: false,
 			},
 			{
 				Name:     "name",
@@ -1033,12 +1035,13 @@ func instanceSecurityGroupList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec,
 			{
-				Name:     "organization",
+				Name:     "name",
+				Short:    `Name of the security group`,
 				Required: false,
 			},
 			{
-				Name:     "name",
-				Short:    `Name of the security group`,
+				Name:     "organization",
+				Short:    `The security group organization ID`,
 				Required: false,
 			},
 		},
@@ -1224,6 +1227,7 @@ func instancePlacementGroupList() *core.Command {
 			core.ZoneArgSpec,
 			{
 				Name:     "organization",
+				Short:    `List only placement groups of this organization`,
 				Required: false,
 			},
 			{
@@ -1376,7 +1380,6 @@ func instancePlacementGroupUpdate() *core.Command {
 				Short:    `Name of the placement group`,
 				Required: false,
 			},
-			core.OrganizationArgSpec,
 			{
 				Name:       "policy-mode",
 				Required:   false,
@@ -1492,6 +1495,7 @@ func instanceIPList() *core.Command {
 			core.ZoneArgSpec,
 			{
 				Name:     "organization",
+				Short:    `The organization ID the IPs are reserved in`,
 				Required: false,
 			},
 			{
