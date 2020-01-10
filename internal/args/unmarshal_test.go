@@ -99,7 +99,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"unknown-field=12",
 		},
 		expected: &Basic{},
-		error:    "unknown argument with name 'unknown-field'",
+		error:    "unknown argument 'unknown-field'",
 	}))
 
 	t.Run("invalid-bool", run(TestCase{

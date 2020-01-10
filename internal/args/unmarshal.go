@@ -211,10 +211,8 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// Make sure array is big enough to access the correct index.
 		diff := int(index) - dest.Len()
 		switch {
-		case diff > 2:
-			return &MissingIndicesInArrayError{Index: index, MissingIndices: missingIndices(int(index), dest.Len())}
-		case diff == 1:
-			return &MissingIndexInArrayError{index}
+		case diff >= 1:
+			return &MissingIndicesInArrayError{IndexToInsert: int(index), CurrentLength: dest.Len()}
 		case diff == 0:
 			// Append one element to our slice.
 			dest.Set(reflect.AppendSlice(dest, reflect.MakeSlice(dest.Type(), 1, 1)))
@@ -255,22 +253,6 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 
 	}
 	return &CannotUnmarshalTypeError{Interface: dest.Interface()}
-}
-
-// missingIndices returns a string of all the missing indices between index and length.
-// e.g.: missingIndices(index=5, length=0) should return "0,1,2,3"
-// e.g.: missingIndices(index=5, length=2) should return "2,3"
-// e.g.: missingIndices(index=99999, length=0) should return "0,1,2,3,4,5,6,7,8,9,..."
-func missingIndices(index, length int) string {
-	s := []string(nil)
-	for i := length; i < index; i++ {
-		if i-length == 10 {
-			s = append(s, "...")
-			break
-		}
-		s = append(s, strconv.Itoa(i))
-	}
-	return strings.Join(s, ",")
 }
 
 // unmarshalScalar handles unmarshaling from a string to a scalar type .

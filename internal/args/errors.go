@@ -3,6 +3,8 @@ package args
 import (
 	"fmt"
 	"reflect"
+	"strconv"
+	"strings"
 )
 
 //
@@ -52,7 +54,7 @@ type InvalidArgumentError struct {
 }
 
 func (e *InvalidArgumentError) Error() string {
-	return fmt.Sprintf("invalid argument '%s': must only contain lowercase letter, number or dash", e.ArgumentName)
+	return fmt.Sprintf("invalid argument '%s': must only contain lowercase letters, numbers or dashes", e.ArgumentName)
 }
 
 type UnknowArgumentError struct {
@@ -110,20 +112,17 @@ func (e *InvalidIndexError) Error() string {
 }
 
 type MissingIndicesInArrayError struct {
-	Index          uint64
-	MissingIndices string
+	IndexToInsert int
+	CurrentLength int
 }
 
 func (e *MissingIndicesInArrayError) Error() string {
-	return fmt.Sprintf("missing indices in the array: trying to set array at index %d before indices %s", e.Index, e.MissingIndices)
-}
-
-type MissingIndexInArrayError struct {
-	Index uint64
-}
-
-func (e *MissingIndexInArrayError) Error() string {
-	return fmt.Sprintf("missing index in the array: trying to set array at index %d before index %d", e.Index, e.Index-1)
+	switch {
+	case e.IndexToInsert-e.CurrentLength == 1:
+		return fmt.Sprintf("missing index %d: all indices prior to %d must be set as well", e.CurrentLength, e.IndexToInsert)
+	default:
+		return fmt.Sprintf("missing indices %s: all indices prior to %d must be set as well", missingIndices(int(e.IndexToInsert), e.CurrentLength), e.IndexToInsert)
+	}
 }
 
 type NoSubKeyForMapError struct {
@@ -164,4 +163,20 @@ type CannotUnmarshalError struct {
 
 func (e *CannotUnmarshalError) Error() string {
 	return fmt.Sprintf("%T is not unmarshalable", e.Interface)
+}
+
+// missingIndices returns a string of all the missing indices between index and length.
+// e.g.: missingIndices(index=5, length=0) should return "0,1,2,3"
+// e.g.: missingIndices(index=5, length=2) should return "2,3"
+// e.g.: missingIndices(index=99999, length=0) should return "0,1,2,3,4,5,6,7,8,9,..."
+func missingIndices(index, length int) string {
+	s := []string(nil)
+	for i := length; i < index; i++ {
+		if i-length == 10 {
+			s = append(s, "...")
+			break
+		}
+		s = append(s, strconv.Itoa(i))
+	}
+	return strings.Join(s, ",")
 }
