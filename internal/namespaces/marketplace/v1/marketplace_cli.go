@@ -41,8 +41,8 @@ func marketplaceImageList() *core.Command {
 		Short:     `List marketplace images`,
 		Long:      `List marketplace images.`,
 		Namespace: "marketplace",
-		Verb:      "list",
 		Resource:  "image",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(marketplace.ListImagesRequest{}),
 		ArgSpecs:  core.ArgSpecs{},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -71,8 +71,8 @@ func marketplaceImageGet() *core.Command {
 		Short:     `Get a specific marketplace image`,
 		Long:      `Get a specific marketplace image.`,
 		Namespace: "marketplace",
-		Verb:      "get",
 		Resource:  "image",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(marketplace.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

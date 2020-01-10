@@ -30,11 +30,11 @@ func testRoot() *core.Command {
 		Short: `No Auth Service for end-to-end testing`,
 		Long: `Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
 
-This service don't use the Scaleway authentication service but a fake one. It allows to use this test
-service publicly without requiring a Scaleway account.
+This service don't use the Scaleway authentication service but a fake one.
+It allows to use this test service publicly without requiring a Scaleway account.
 
-First, you need to register a user with ` + "`" + `scw test human register` + "`" + ` to get an access-key. Then, you can use
-other test commands by setting the SCW_SECRET_KEY env variable.
+First, you need to register a user with ` + "`" + `scw test human register` + "`" + ` to get an access-key.
+Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.
 `,
 		Namespace: "test",
 	}
@@ -66,8 +66,8 @@ func testUserRegister() *core.Command {
 Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
 `,
 		Namespace: "test",
-		Verb:      "register",
 		Resource:  "user",
+		Verb:      "register",
 		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -93,8 +93,8 @@ func testHumanList() *core.Command {
 		Short:     `List all your humans`,
 		Long:      `List all your humans.`,
 		Namespace: "test",
-		Verb:      "list",
 		Resource:  "human",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(test.ListHumansRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -125,8 +125,8 @@ func testHumanGet() *core.Command {
 		Short:     `Get human details`,
 		Long:      `Get the human details associated with the given id.`,
 		Namespace: "test",
-		Verb:      "get",
 		Resource:  "human",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(test.GetHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -152,8 +152,8 @@ func testHumanCreate() *core.Command {
 		Short:     `Create a new human`,
 		Long:      `Create a new human.`,
 		Namespace: "test",
-		Verb:      "create",
 		Resource:  "human",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(test.CreateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -228,8 +228,8 @@ func testHumanUpdate() *core.Command {
 		Short:     `Update an existing human`,
 		Long:      `Update the human associated with the given id.`,
 		Namespace: "test",
-		Verb:      "update",
 		Resource:  "human",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(test.UpdateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -304,8 +304,8 @@ func testHumanDelete() *core.Command {
 		Short:     `Delete an existing human`,
 		Long:      `Delete the human associated with the given id.`,
 		Namespace: "test",
-		Verb:      "delete",
 		Resource:  "human",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(test.DeleteHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -331,8 +331,8 @@ func testHumanRun() *core.Command {
 		Short:     `Start a 1h running for the given human`,
 		Long:      `Start a one hour running for the given human.`,
 		Namespace: "test",
-		Verb:      "run",
 		Resource:  "human",
+		Verb:      "run",
 		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
