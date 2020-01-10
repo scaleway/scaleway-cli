@@ -62,7 +62,7 @@ type UnknowArgumentError struct {
 }
 
 func (e *UnknowArgumentError) Error() string {
-	return fmt.Sprintf("unknown argument with name '%s'", e.ArgumentName)
+	return fmt.Sprintf("unknown argument '%s'", e.ArgumentName)
 }
 
 type DuplicateArgumentError struct {

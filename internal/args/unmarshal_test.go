@@ -91,7 +91,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"testCase=12",
 		},
 		expected: &Basic{},
-		error:    "invalid argument 'testCase': must only contain lowercase letter, number or dash",
+		error:    "invalid argument 'testCase': must only contain lowercase letters, numbers or dashes",
 	}))
 
 	t.Run("field-do-not-exist", run(TestCase{
@@ -115,7 +115,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.1=2",
 		},
 		expected: &Slice{},
-		error:    "missing index in the array: trying to set array at index 1 before index 0",
+		error:    "missing index 0: all indices prior to 1 must be set as well",
 	}))
 
 	t.Run("missing-slice-indices", run(TestCase{
@@ -123,7 +123,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.5=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices in the array: trying to set array at index 5 before indices 0,1,2,3,4",
+		error:    "missing indices 0,1,2,3,4: all indices prior to 5 must be set as well",
 	}))
 
 	t.Run("missing-slice-indices-overflow", run(TestCase{
@@ -131,7 +131,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.99999=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices in the array: trying to set array at index 99999 before indices 0,1,2,3,4,5,6,7,8,9,...",
+		error:    "missing indices 0,1,2,3,4,5,6,7,8,9,...: all indices prior to 99999 must be set as well",
 	}))
 
 	t.Run("duplicate-slice-index", run(TestCase{
