@@ -55,7 +55,10 @@ func Indent(str string, indent int) string {
 	lines := strings.Split(str, "\n")
 	result := ""
 	for _, line := range lines {
-		result += padding + line + "\n"
+		if line != "" {
+			line = padding + line
+		}
+		result += line + "\n"
 	}
 	return result
 }
