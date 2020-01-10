@@ -50,58 +50,75 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-// Completes instanceServerUpdate()
 func updateInstanceServerUpdate(c *core.Command) {
 
-	// See
-	type instanceUpdateServerRequest struct {
-		ServerID          string
-		Name              string
-		BootType          string
-		Tags              []string
-		Volumes           []string
-		Bootscript        string
-		DynamicIPRequired bool
-		EnableIPv6        bool
-		Protected         bool
-		SecurityGroupID   string
-		PlacementGroupID  string
-		IP                string
+	type instanceUpdateServerRequestCustom struct {
+		*instance.UpdateServerRequest
+		IP *instance.NullableStringValue
 	}
 
-	ipArgSpec := &core.ArgSpec{
-		Name:       "ip",
-		Short:      `IP`,
-		Required:   true,
-		EnumValues: []string{},
+	type instanceUpdateServerResponseCustom struct {
+		*instance.UpdateServerResponse
+		*instance.UpdateIPResponse
 	}
-	c.ArgSpecs = append(c.ArgSpecs, ipArgSpec)
-	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequest{})
+
+	IPArgSpec := &core.ArgSpec{
+		Name:  "ip",
+		Short: `IP that should be attached to the server (use ip=none to remove)`,
+	}
+
+	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
+
+	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
+
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
-		args := argsI.(instanceUpdateServerRequest)
+		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
-		updateServerRequest := &instance.UpdateServerRequest{
-			ServerID: args.ServerID,
-		}
+		updateServerRequest := customRequest.UpdateServerRequest
 
-		updateIPRequest := &instance.UpdateIPRequest{
-			IP      string               `json:"-"`
+		updateIPRequest := (*instance.UpdateIPRequest)(nil)
+		switch {
+		case customRequest.IP == nil:
+			// ip is not set
+			// do nothing
+		case customRequest.IP.Null == true:
+			// ip=none
+			// remove server from ip
+			updateIPRequest = &instance.UpdateIPRequest{
+				IP: customRequest.IP.Value,
+				ServerID: instance.NullableStringValue{
+					Null: true,
+				},
+			}
+		default:
+			// ip=<anything>
+			// update ip
+			updateIPRequest = &instance.UpdateIPRequest{
+				IP:       customRequest.IP.Value,
+				ServerID: customRequest.ServerID,
+			}
 		}
 
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 
-		_, err := api.UpdateServer(updateServerRequest)
+		updateServerResponse, err := api.UpdateServer(updateServerRequest)
 		if err != nil {
-			return nil, err
+			return "", err
 		}
 
-		_, err = api.UpdateIP(updateIPRequest)
-		if err != nil {
-			return nil, err
+		updateIPResponse := (*instance.UpdateIPResponse)(nil)
+		if updateIPRequest != nil {
+			updateIPResponse, err = api.UpdateIP(updateIPRequest)
+			if err != nil {
+				return "", err
+			}
 		}
 
-		return "", nil
+		return &instanceUpdateServerResponseCustom{
+			updateServerResponse,
+			updateIPResponse,
+		}, nil
 	}
 }
