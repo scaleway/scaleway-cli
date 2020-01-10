@@ -19,6 +19,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
@@ -68,12 +69,6 @@ type TestConfig struct {
 	Check TestCheck
 }
 
-func panicIfErr(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
 	fileName := t.Name()
@@ -93,20 +88,27 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 
 	if !e2eClient {
 		httpClient, cleanup, err := getHttpRecoder(t, updateGolden)
-		panicIfErr(err)
+		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
+		config, err := scw.LoadConfig()
+		if err == nil {
+			p, err := config.GetActiveProfile()
+			require.NoError(t, err)
+			clientOpts = append(clientOpts, scw.WithProfile(p))
+		}
+
 		client, err := scw.NewClient(clientOpts...)
-		panicIfErr(err)
+		require.NoError(t, err)
 		return client, cleanup
 	}
 
 	client, err := scw.NewClient(clientOpts...)
-	panicIfErr(err)
+	require.NoError(t, err)
 	res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
-	panicIfErr(err)
+	require.NoError(t, err)
 
 	client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
-	panicIfErr(err)
+	require.NoError(t, err)
 
 	return client, func() {}
 }
@@ -143,11 +145,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		if config.BeforeFunc != nil {
-			err := config.BeforeFunc(&BeforeFuncCtx{
+			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				Client:     client,
 				ExecuteCmd: executeCmd,
-			})
-			panicIfErr(err)
+			}))
 		}
 
 		exitCode := Bootstrap(&BootstrapConfig{
@@ -168,11 +169,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 		config.Check(t, result)
 
 		if config.AfterFunc != nil {
-			err := config.AfterFunc(&AfterFuncCtx{
+			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				Client:     client,
 				ExecuteCmd: executeCmd,
-			})
-			panicIfErr(err)
+			}))
 		}
 	}
 }
@@ -223,10 +223,8 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		if actualIsEmpty {
 			_ = os.Remove(goldenPath)
 		} else {
-			err := os.MkdirAll(path.Dir(goldenPath), 0755)
-			panicIfErr(err)
-			err = ioutil.WriteFile(goldenPath, actual, 0644)
-			panicIfErr(err)
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644))
 		}
 	}
 
@@ -234,7 +232,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	if actualIsEmpty {
 		assert.NotNil(t, err)
 	} else {
-		panicIfErr(err)
+		require.NoError(t, err)
 		assert.Equal(t, string(actual), string(expected))
 	}
 
