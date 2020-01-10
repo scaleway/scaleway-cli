@@ -70,7 +70,7 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 		Verb:      "register",
 		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:     "username",
 				Required: false,
@@ -96,7 +96,7 @@ func testHumanList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(test.ListHumansRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:       "order-by",
 				Required:   false,
@@ -132,7 +132,7 @@ func testHumanGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(test.GetHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:     "human-id",
 				Required: false,
@@ -158,8 +158,8 @@ func testHumanCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(test.CreateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
-			core.OrganizationIDArgSpec,
+			core.RegionArgSpec(),
+			core.OrganizationIDArgSpec(),
 			{
 				Name:     "height",
 				Required: false,
@@ -221,7 +221,7 @@ func testHumanUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(test.UpdateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:     "human-id",
 				Required: false,
@@ -281,7 +281,7 @@ func testHumanDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(test.DeleteHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:     "human-id",
 				Required: false,
@@ -307,7 +307,7 @@ func testHumanRun() *core.Command {
 		Verb:      "run",
 		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec,
+			core.RegionArgSpec(),
 			{
 				Name:     "human-id",
 				Required: false,

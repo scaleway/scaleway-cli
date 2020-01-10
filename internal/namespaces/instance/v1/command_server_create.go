@@ -44,8 +44,8 @@ func instanceServerCreate() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(instanceCreateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
-			core.OrganizationIDArgSpec,
+			core.ZoneArgSpec(),
+			core.OrganizationIDArgSpec(),
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",

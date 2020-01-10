@@ -53,7 +53,7 @@ var serverActionArgSpecs = core.ArgSpecs{
 		Short:    `ID of the server affected by the action.`,
 		Required: true,
 	},
-	core.ZoneArgSpec,
+	core.ZoneArgSpec(),
 }
 
 func instanceServerStart() *core.Command {
@@ -197,7 +197,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to update`,
@@ -309,7 +309,7 @@ func instanceUserDataList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -331,7 +331,7 @@ func instanceUserDataDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -362,7 +362,7 @@ func instanceUserDataGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -389,7 +389,7 @@ func instanceUserDataSet() *core.Command {
 		Verb:      "set",
 		ArgsType:  reflect.TypeOf(instance.SetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "server-id",
 				Short:    `ID of a server`,
@@ -432,7 +432,7 @@ func instanceServerDelete() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(customeDeleteServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec,
+			core.ZoneArgSpec(),
 			{
 				Name:     "server-id",
 				Required: true,
