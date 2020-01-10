@@ -269,8 +269,8 @@ func instanceServerTypeList() *core.Command {
 		Short:     `List server types`,
 		Long:      `Get server types technical details.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "server-type",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServersTypesRequest{}),
 		ArgSpecs:  core.ArgSpecs{},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -289,8 +289,8 @@ func instanceServerList() *core.Command {
 		Short:     `List servers`,
 		Long:      `List servers.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "server",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -363,8 +363,8 @@ func instanceServerGet() *core.Command {
 		Short:     `Get server`,
 		Long:      `Get the details of a specified Server.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "server",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -396,8 +396,8 @@ func instanceServerUpdate() *core.Command {
 		Short:     `Update server`,
 		Long:      `Update server.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "server",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -427,25 +427,25 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "volumes.{key}.id",
-				Short:      `Display the volumes unique ID`,
+				Short:      `The volumes unique ID`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "volumes.{key}.name",
-				Short:      `Display the volumes name`,
+				Short:      `The volumes name`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "volumes.{key}.size",
-				Short:      `Display the volumes disk size`,
+				Short:      `The volumes disk size`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "volumes.{key}.volume-type",
-				Short:      `Display the volumes type`,
+				Short:      `The volumes type`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
@@ -509,8 +509,8 @@ func instanceImageList() *core.Command {
 		Short:     `List images`,
 		Long:      `List all images available in an account.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "image",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -564,8 +564,8 @@ func instanceImageGet() *core.Command {
 		Short:     `Get image`,
 		Long:      `Get details of an image with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "image",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -591,8 +591,8 @@ func instanceImageCreate() *core.Command {
 		Short:     `Create image`,
 		Long:      `Create image.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "image",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -623,25 +623,25 @@ func instanceImageCreate() *core.Command {
 			},
 			{
 				Name:       "extra-volumes.{key}.id",
-				Short:      `Display the volumes unique ID`,
+				Short:      `The volumes unique ID`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "extra-volumes.{key}.name",
-				Short:      `Display the volumes name`,
+				Short:      `The volumes name`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "extra-volumes.{key}.size",
-				Short:      `Display the volumes disk size`,
+				Short:      `The volumes disk size`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "extra-volumes.{key}.volume-type",
-				Short:      `Display the volumes type`,
+				Short:      `The volumes type`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
@@ -669,8 +669,8 @@ func instanceImageDelete() *core.Command {
 		Short:     `Delete image`,
 		Long:      `Delete the image with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "image",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -699,8 +699,8 @@ func instanceSnapshotList() *core.Command {
 		Short:     `List snapshots`,
 		Long:      `List snapshots.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "snapshot",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -730,8 +730,8 @@ func instanceSnapshotCreate() *core.Command {
 		Short:     `Create snapshot`,
 		Long:      `Create snapshot.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "snapshot",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -764,8 +764,8 @@ func instanceSnapshotGet() *core.Command {
 		Short:     `Get snapshot`,
 		Long:      `Get details of a snapshot with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "snapshot",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -791,8 +791,8 @@ func instanceSnapshotDelete() *core.Command {
 		Short:     `Delete snapshot`,
 		Long:      `Delete the snapshot with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "snapshot",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -821,8 +821,8 @@ func instanceVolumeList() *core.Command {
 		Short:     `List volumes`,
 		Long:      `List volumes.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "volume",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListVolumesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -927,8 +927,8 @@ func instanceVolumeCreate() *core.Command {
 		Short:     `Create volume`,
 		Long:      `Create volume.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "volume",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -993,8 +993,8 @@ func instanceVolumeGet() *core.Command {
 		Short:     `Get volume`,
 		Long:      `Get details of a volume with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "volume",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1026,8 +1026,8 @@ func instanceVolumeDelete() *core.Command {
 		Short:     `Delete volume`,
 		Long:      `Delete the volume with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "volume",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1062,8 +1062,8 @@ func instanceSecurityGroupList() *core.Command {
 		Short:     `List security groups`,
 		Long:      `List all security groups available in an account.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "security-group",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1099,8 +1099,8 @@ func instanceSecurityGroupCreate() *core.Command {
 		Short:     `Create security group`,
 		Long:      `Create security group.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "security-group",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1112,34 +1112,34 @@ func instanceSecurityGroupCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      ``,
+				Short:      `Description of the security group`,
 				Required:   false,
 				EnumValues: []string{},
 			},
 			{
 				Name:       "organization-default",
-				Short:      ``,
+				Short:      `Whether this security group becomes the default security group for new instances`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("false"),
 				EnumValues: []string{},
 			},
 			{
 				Name:       "stateful",
-				Short:      ``,
+				Short:      `Whether the security group is stateful or not`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("true"),
 				EnumValues: []string{},
 			},
 			{
 				Name:       "inbound-default-policy",
-				Short:      ``,
+				Short:      `Default policy for inbound rules`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
 			{
 				Name:       "outbound-default-policy",
-				Short:      ``,
+				Short:      `Default policy for outbound rules`,
 				Required:   false,
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
@@ -1183,8 +1183,8 @@ func instanceSecurityGroupGet() *core.Command {
 		Short:     `Get security group`,
 		Long:      `Get the details of a Security Group with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "security-group",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1216,8 +1216,8 @@ func instanceSecurityGroupDelete() *core.Command {
 		Short:     `Delete security group`,
 		Long:      `Delete security group.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "security-group",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1252,8 +1252,8 @@ func instancePlacementGroupList() *core.Command {
 		Short:     `List placement groups`,
 		Long:      `List all placement groups.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "placement-group",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1293,8 +1293,8 @@ func instancePlacementGroupCreate() *core.Command {
 		Short:     `Create placement group`,
 		Long:      `Create a new placement group.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "placement-group",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1361,8 +1361,8 @@ func instancePlacementGroupGet() *core.Command {
 		Short:     `Get placement group`,
 		Long:      `Get the given placement group.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "placement-group",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetPlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1394,8 +1394,8 @@ func instancePlacementGroupUpdate() *core.Command {
 		Short:     `Update placement group`,
 		Long:      `Update one or more parameter of the given placement group.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "placement-group",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1455,8 +1455,8 @@ func instancePlacementGroupDelete() *core.Command {
 		Short:     `Delete the given placement group`,
 		Long:      `Delete the given placement group.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "placement-group",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1485,8 +1485,8 @@ func instancePlacementGroupServerSet() *core.Command {
 		Short:     `Set placement group servers`,
 		Long:      `Set all servers belonging to the given placement group.`,
 		Namespace: "instance",
-		Verb:      "set",
 		Resource:  "placement-group-server",
+		Verb:      "set",
 		ArgsType:  reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1524,8 +1524,8 @@ func instanceIPList() *core.Command {
 		Short:     `List IPs`,
 		Long:      `List IPs.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "ip",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1581,8 +1581,8 @@ func instanceIPCreate() *core.Command {
 		Short:     `Reserve an IP`,
 		Long:      `Reserve an IP.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "ip",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1608,8 +1608,8 @@ func instanceIPGet() *core.Command {
 		Short:     `Get IP`,
 		Long:      `Get details of an IP with the given ID or address.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "ip",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1635,8 +1635,8 @@ func instanceIPUpdate() *core.Command {
 		Short:     `Update IP`,
 		Long:      `Update IP.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "ip",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1668,8 +1668,8 @@ func instanceIPDelete() *core.Command {
 		Short:     `Delete IP`,
 		Long:      `Delete the IP with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "ip",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
