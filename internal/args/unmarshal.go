@@ -211,7 +211,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// Make sure array is big enough to access the correct index.
 		diff := int(index) - dest.Len()
 		switch {
-		case diff >= 1:
+		case diff > 1:
 			return &MissingIndicesInArrayError{IndexToInsert: int(index), CurrentLength: dest.Len()}
 		case diff == 0:
 			// Append one element to our slice.
