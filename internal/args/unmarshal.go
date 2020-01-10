@@ -5,7 +5,6 @@ package args
 // into CLI arguments represented as Go data.
 
 import (
-	"fmt"
 	"io"
 	"reflect"
 	"strconv"
@@ -55,7 +54,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	// Second make sure data is a pointer to a struct or a map.
 	dest := reflect.ValueOf(data)
 	if !(dest.Kind() == reflect.Ptr && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
-		return fmt.Errorf("data must be a pointer to a struct")
+		return &DataMustBeAPointerError{}
 	}
 
 	dest = dest.Elem()
@@ -74,15 +73,15 @@ func UnmarshalStruct(args []string, data interface{}) error {
 		// We enforce this check to avoid not well formatted argument name to work by "accident"
 		// as we use ToPublicGoName on the argument name later on.
 		if !validArgNameRegex.MatchString(argName) {
-			return fmt.Errorf("invalid argument '%s': must only contain lowercase letter, number or dash", argName)
+			return &InvalidArgumentError{ArgumentName: argName}
 		}
 
 		if !fieldExist(dest.Type(), strings.Split(argName, ".")) {
-			return fmt.Errorf("unknown argument '%s'", argName)
+			return &UnknowArgumentError{ArgumentName: argName}
 		}
 
 		if processedArgNames[argName] {
-			return fmt.Errorf("duplicate argument '%s'", argName)
+			return &DuplicateArgumentError{ArgumentName: argName}
 		}
 		processedArgNames[argName] = true
 
@@ -128,11 +127,11 @@ func UnmarshalValue(argValue string, data interface{}) error {
 	dest := reflect.ValueOf(data)
 
 	if dest.IsNil() || !dest.IsValid() {
-		return fmt.Errorf("data must be not be nil")
+		return &DataIsNilError{}
 	}
 
 	if dest.Kind() != reflect.Ptr {
-		return fmt.Errorf("data must be a pointer")
+		return &DataIsNotAPointerError{}
 	}
 
 	return set(dest.Elem(), nil, argValue)
@@ -174,7 +173,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 	if isUnmarshalableValue(dest) {
 		if len(argNameWords) != 0 {
 			// Trying to unmarshal a nested field inside an unmarshalable type
-			return fmt.Errorf("cannot set nested field %s for unmarshalable type %T", strings.Join(argNameWords, "."), dest.Interface())
+			return &CannotSetNestedFieldError{ArgumentName: strings.Join(argNameWords, "."), Interface: dest.Interface()}
 		}
 
 		for dest.Kind() == reflect.Ptr {
@@ -200,22 +199,20 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 
 		// We cannot handle slice without an index notation.
 		if len(argNameWords) == 0 {
-			return fmt.Errorf("missing index on the array")
+			return &MissingIndexOnArrayError{}
 		}
 
 		// Make sure index is a positive integer.
 		index, err := strconv.ParseUint(argNameWords[0], 10, 64)
 		if err != nil {
-			return fmt.Errorf("invalid index: '%s' is not a positive integer", argNameWords[0])
+			return &InvalidIndexError{Index: argNameWords[0]}
 		}
 
 		// Make sure array is big enough to access the correct index.
 		diff := int(index) - dest.Len()
 		switch {
-		case diff > 2:
-			return fmt.Errorf("missing indices in the array: trying to set array at index %d before indices %s", index, missingIndices(int(index), dest.Len()))
-		case diff == 1:
-			return fmt.Errorf("missing index in the array: trying to set array at index %d before index %d", index, index-1)
+		case diff > 0:
+			return &MissingIndicesInArrayError{IndexToInsert: int(index), CurrentLength: dest.Len()}
 		case diff == 0:
 			// Append one element to our slice.
 			dest.Set(reflect.AppendSlice(dest, reflect.MakeSlice(dest.Type(), 1, 1)))
@@ -232,7 +229,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			dest.Set(reflect.MakeMap(dest.Type()))
 		}
 		if len(argNameWords) == 0 {
-			return fmt.Errorf("cannot handle map with no subkey, value '%v'", value)
+			return &NoSubKeyForMapError{Value: value}
 		}
 		// Create a new value call set and add result in the map
 		newValue := reflect.New(dest.Type().Elem())
@@ -242,36 +239,20 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 
 	case reflect.Struct:
 		if len(argNameWords) == 0 {
-			return fmt.Errorf("cannot unmarshal a struct %T with not field name", dest.Interface())
+			return &MissingFieldNameForStructError{Interface: dest.Interface()}
 		}
 
 		// try to find the correct field in the struct.
 		fieldName := strcase.ToPublicGoName(argNameWords[0])
 		field := dest.FieldByName(fieldName)
 		if !field.IsValid() {
-			return fmt.Errorf("unknown argument with name %s", argNameWords[0])
+			return &UnknowArgumentError{ArgumentName: argNameWords[0]}
 		}
 		// Set the value of the field
 		return set(field, argNameWords[1:], value)
 
 	}
-	return fmt.Errorf("don't know how to unmarshal type %T", dest.Interface())
-}
-
-// missingIndices returns a string of all the missing indices between index and length.
-// e.g.: missingIndices(index=5, length=0) should return "0,1,2,3"
-// e.g.: missingIndices(index=5, length=2) should return "2,3"
-// e.g.: missingIndices(index=99999, length=0) should return "0,1,2,3,4,5,6,7,8,9,..."
-func missingIndices(index, length int) string {
-	s := []string(nil)
-	for i := length; i < index; i++ {
-		if i-length == 10 {
-			s = append(s, "...")
-			break
-		}
-		s = append(s, strconv.Itoa(i))
-	}
-	return strings.Join(s, ",")
+	return &CannotUnmarshalTypeError{Interface: dest.Interface()}
 }
 
 // unmarshalScalar handles unmarshaling from a string to a scalar type .
@@ -312,14 +293,14 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		case "false":
 			dest.SetBool(false)
 		default:
-			return fmt.Errorf("invalid value %s: valid values are true or false", value)
+			return &InvalidValueError{Value: value}
 		}
 		return nil
 	case reflect.String:
 		dest.SetString(value)
 		return nil
 	default:
-		return fmt.Errorf("unknown kind %s", dest.Kind())
+		return &UnknownKindError{Kind: dest.Kind()}
 	}
 }
 
@@ -357,5 +338,5 @@ func unmarshalValue(value string, dest reflect.Value) error {
 		return unmarshalScalar(value, dest)
 	}
 
-	return fmt.Errorf("%T is not unmarshalable", dest.Interface())
+	return &CannotUnmarshalError{Interface: dest.Interface()}
 }

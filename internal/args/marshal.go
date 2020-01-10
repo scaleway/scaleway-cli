@@ -45,7 +45,7 @@ func MarshalStruct(data interface{}) (args []string, err error) {
 	// Second make sure data is a pointer to a struct or a map.
 	src := reflect.ValueOf(data)
 	if !(src.Kind() == reflect.Ptr && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
-		return nil, fmt.Errorf("data must be a pointer to a struct")
+		return nil, &DataMustBeAPointerError{}
 	}
 
 	return marshal(src, nil)
@@ -74,7 +74,7 @@ func MarshalValue(data interface{}) (string, error) {
 
 	// If we do not get a single key this is probably because we try to marshal a struct
 	if len(m) != 1 {
-		return "", fmt.Errorf("data must be a marshable value (a scalar type or a Marshaler)")
+		return "", &DataMustBeAmArshalableValueError{}
 	}
 
 	return m[0], nil
@@ -217,7 +217,7 @@ func marshalValue(src reflect.Value) (string, error) {
 		return stringer.String(), nil
 	}
 
-	return "", fmt.Errorf("%T is not marshalable", src.Interface())
+	return "", &ValueIsNotMarshalableError{Interface: src.Interface()}
 }
 
 // marshalKeyValue transforms a list of nested keys and the corresponding value
@@ -255,7 +255,7 @@ func isDefaultValue(value reflect.Value) (bool, error) {
 	case reflect.String:
 		return value.String() == "", nil
 	default:
-		return false, fmt.Errorf("unknown kind %s", value.Kind())
+		return false, &UnknownKindError{Kind: value.Kind()}
 	}
 }
 
