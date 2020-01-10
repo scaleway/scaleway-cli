@@ -1,5 +1,7 @@
 package core
 
+import "github.com/scaleway/scaleway-sdk-go/scw"
+
 type ArgSpecs []*ArgSpec
 
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
@@ -36,26 +38,42 @@ type ArgSpec struct {
 
 type DefaultFunc func() (value string, doc string)
 
-var (
-	ZoneArgSpec = &ArgSpec{
-		Name:     "zone",
-		Short:    "Zone to target. If none is passed will use default zone from the config",
-		Required: false,
+func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
+	enumValues := []string(nil)
+	for _, zone := range zones {
+		enumValues = append(enumValues, zone.String())
+	}
+	return &ArgSpec{
+		Name:       "zone",
+		Short:      "Zone to target. If none is passed will use default zone from the config",
+		Required:   false,
+		EnumValues: enumValues,
 		// TODO: Default:          nil,
 		// TODO: EnumValues:       nil,
 		// TODO: AutoCompleteFunc: nil,
 		// TODO: ValidateFunc:
 	}
-	RegionArgSpec = &ArgSpec{
-		Name:     "region",
-		Short:    "Region to target. If none is passed will use default region from the config",
-		Required: false,
+}
+
+func RegionArgSpec(regions ...scw.Region) *ArgSpec {
+	enumValues := []string(nil)
+	for _, region := range regions {
+		enumValues = append(enumValues, region.String())
+	}
+	return &ArgSpec{
+		Name:       "region",
+		Short:      "Region to target. If none is passed will use default region from the config",
+		Required:   false,
+		EnumValues: enumValues,
 		// TODO: Default:          nil,
 		// TODO: EnumValues:       nil,
 		// TODO: AutoCompleteFunc: nil,
 		// TODO: ValidateFunc:
 	}
-	OrganizationIDArgSpec = &ArgSpec{
+}
+
+func OrganizationIDArgSpec() *ArgSpec {
+	return &ArgSpec{
 		Name:     "organization-id",
 		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
 		Required: false,
@@ -64,7 +82,10 @@ var (
 		// TODO: AutoCompleteFunc: nil,
 		// TODO: ValidateFunc:
 	}
-	OrganizationArgSpec = &ArgSpec{
+}
+
+func OrganizationArgSpec() *ArgSpec {
+	return &ArgSpec{
 		Name:     "organization",
 		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
 		Required: false,
@@ -73,4 +94,4 @@ var (
 		// TODO: AutoCompleteFunc: nil,
 		// TODO: ValidateFunc:
 	}
-)
+}
