@@ -141,7 +141,7 @@ func buildExamples(cmd *Command) string {
 			}
 			var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
 			if err != nil {
-				panic(err)
+				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}
 
 			// Build command line example.
@@ -154,7 +154,7 @@ func buildExamples(cmd *Command) string {
 			commandParts = append(commandParts, cmdArgsAsStrings...)
 			commandLine = strings.Join(commandParts, " ")
 		default:
-			panic(fmt.Errorf("invalid example, it should either have a Request or a Raw"))
+			panic(fmt.Errorf("in command '%s' invalid example '%s', it should either have a Request or a Raw", cmd.getPath(), cmdExample.Short))
 		}
 
 		commandLine = interactive.Indent(commandLine, 4)
