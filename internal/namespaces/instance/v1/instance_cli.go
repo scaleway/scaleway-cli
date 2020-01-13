@@ -269,11 +269,11 @@ func instanceServerTypeList() *core.Command {
 		Short:     `List server types`,
 		Long:      `Get server types technical details.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "server-type",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServersTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*instance.ListServersTypesRequest)
@@ -291,11 +291,11 @@ func instanceServerList() *core.Command {
 		Short:     `List servers`,
 		Long:      `List servers.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "server",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "organization",
 				Short:    `List only servers of this organization`,
@@ -325,7 +325,6 @@ func instanceServerList() *core.Command {
 				Name:       "state",
 				Short:      `List servers in this state`,
 				Required:   false,
-				Default:    core.DefaultValueSetter("running"),
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 		},
@@ -367,11 +366,11 @@ func instanceServerGet() *core.Command {
 		Short:     `Get server`,
 		Long:      `Get the details of a specified Server.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "server",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "server-id",
 				Required: true,
@@ -399,11 +398,11 @@ func instanceServerUpdate() *core.Command {
 		Short:     `Update server`,
 		Long:      `Update server.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "server",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "server-id",
 				Short:    `UUID of the server`,
@@ -417,7 +416,6 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "boot-type",
 				Required:   false,
-				Default:    core.DefaultValueSetter("local"),
 				EnumValues: []string{"local", "bootscript", "rescue"},
 			},
 			{
@@ -444,7 +442,6 @@ func instanceServerUpdate() *core.Command {
 				Name:       "volumes.{key}.volume-type",
 				Short:      `The volumes type`,
 				Required:   false,
-				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
@@ -498,11 +495,11 @@ func instanceImageList() *core.Command {
 		Short:     `List images`,
 		Long:      `List all images available in an account.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "image",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "organization",
 				Required: false,
@@ -552,11 +549,11 @@ func instanceImageGet() *core.Command {
 		Short:     `Get image`,
 		Long:      `Get details of an image with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "image",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "image-id",
 				Required: true,
@@ -578,11 +575,11 @@ func instanceImageCreate() *core.Command {
 		Short:     `Create image`,
 		Long:      `Create image.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "image",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Required: false,
@@ -595,7 +592,6 @@ func instanceImageCreate() *core.Command {
 			{
 				Name:       "arch",
 				Required:   true,
-				Default:    core.DefaultValueSetter("x86_64"),
 				EnumValues: []string{"x86_64", "arm"},
 			},
 			{
@@ -621,7 +617,6 @@ func instanceImageCreate() *core.Command {
 				Name:       "extra-volumes.{key}.volume-type",
 				Short:      `The volumes type`,
 				Required:   false,
-				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
@@ -629,7 +624,7 @@ func instanceImageCreate() *core.Command {
 				Short:    `The organization ID`,
 				Required: false,
 			},
-			core.OrganizationIDArgSpec(),
+			core.OrganizationArgSpec(),
 			{
 				Name:     "public",
 				Required: false,
@@ -651,11 +646,11 @@ func instanceImageDelete() *core.Command {
 		Short:     `Delete image`,
 		Long:      `Delete the image with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "image",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "image-id",
 				Required: true,
@@ -680,11 +675,11 @@ func instanceSnapshotList() *core.Command {
 		Short:     `List snapshots`,
 		Long:      `List snapshots.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "snapshot",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "organization",
 				Required: false,
@@ -714,11 +709,11 @@ func instanceSnapshotCreate() *core.Command {
 		Short:     `Create snapshot`,
 		Long:      `Create snapshot.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "snapshot",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the snapshot`,
@@ -730,7 +725,7 @@ func instanceSnapshotCreate() *core.Command {
 				Short:    `UUID of the volume`,
 				Required: true,
 			},
-			core.OrganizationIDArgSpec(),
+			core.OrganizationArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*instance.CreateSnapshotRequest)
@@ -748,11 +743,11 @@ func instanceSnapshotGet() *core.Command {
 		Short:     `Get snapshot`,
 		Long:      `Get details of a snapshot with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "snapshot",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "snapshot-id",
 				Required: true,
@@ -774,11 +769,11 @@ func instanceSnapshotDelete() *core.Command {
 		Short:     `Delete snapshot`,
 		Long:      `Delete the snapshot with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "snapshot",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "snapshot-id",
 				Required: true,
@@ -803,16 +798,15 @@ func instanceVolumeList() *core.Command {
 		Short:     `List volumes`,
 		Long:      `List volumes.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "volume",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListVolumesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:       "volume-type",
 				Short:      `Filter by volume type`,
 				Required:   false,
-				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
@@ -903,20 +897,19 @@ func instanceVolumeCreate() *core.Command {
 		Short:     `Create volume`,
 		Long:      `Create volume.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "volume",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Required: false,
 			},
-			core.OrganizationIDArgSpec(),
+			core.OrganizationArgSpec(),
 			{
 				Name:       "volume-type",
 				Required:   false,
-				Default:    core.DefaultValueSetter("l_ssd"),
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
@@ -962,11 +955,11 @@ func instanceVolumeGet() *core.Command {
 		Short:     `Get volume`,
 		Long:      `Get details of a volume with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "volume",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "volume-id",
 				Required: true,
@@ -994,11 +987,11 @@ func instanceVolumeDelete() *core.Command {
 		Short:     `Delete volume`,
 		Long:      `Delete the volume with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "volume",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "volume-id",
 				Required: true,
@@ -1029,11 +1022,11 @@ func instanceSecurityGroupList() *core.Command {
 		Short:     `List security groups`,
 		Long:      `List all security groups available in an account.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "security-group",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the security group`,
@@ -1071,11 +1064,11 @@ func instanceSecurityGroupCreate() *core.Command {
 		Short:     `Create security group`,
 		Long:      `Create security group.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "security-group",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the security group`,
@@ -1087,7 +1080,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Short:    `Description of the security group`,
 				Required: false,
 			},
-			core.OrganizationIDArgSpec(),
+			core.OrganizationArgSpec(),
 			{
 				Name:     "organization-default",
 				Short:    `Whether this security group becomes the default security group for new instances`,
@@ -1153,11 +1146,11 @@ func instanceSecurityGroupGet() *core.Command {
 		Short:     `Get security group`,
 		Long:      `Get the details of a Security Group with the given ID.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "security-group",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "security-group-id",
 				Required: true,
@@ -1185,11 +1178,11 @@ func instanceSecurityGroupDelete() *core.Command {
 		Short:     `Delete security group`,
 		Long:      `Delete security group.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "security-group",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "security-group-id",
 				Required: true,
@@ -1220,11 +1213,11 @@ func instancePlacementGroupList() *core.Command {
 		Short:     `List placement groups`,
 		Long:      `List all placement groups.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "placement-group",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "organization",
 				Short:    `List only placement groups of this organization`,
@@ -1266,28 +1259,26 @@ func instancePlacementGroupCreate() *core.Command {
 		Short:     `Create placement group`,
 		Long:      `Create a new placement group.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "placement-group",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the placement group`,
 				Required: false,
 				Default:  core.RandomValueGenerator("pg"),
 			},
-			core.OrganizationIDArgSpec(),
+			core.OrganizationArgSpec(),
 			{
 				Name:       "policy-mode",
 				Required:   false,
-				Default:    core.DefaultValueSetter("optional"),
 				EnumValues: []string{"optional", "enforced"},
 			},
 			{
 				Name:       "policy-type",
 				Required:   false,
-				Default:    core.DefaultValueSetter("max_availability"),
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 		},
@@ -1333,11 +1324,11 @@ func instancePlacementGroupGet() *core.Command {
 		Short:     `Get placement group`,
 		Long:      `Get the given placement group.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "placement-group",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetPlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
@@ -1365,11 +1356,11 @@ func instancePlacementGroupUpdate() *core.Command {
 		Short:     `Update placement group`,
 		Long:      `Update one or more parameter of the given placement group.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "placement-group",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Short:    `UUID of the placement group`,
@@ -1383,13 +1374,11 @@ func instancePlacementGroupUpdate() *core.Command {
 			{
 				Name:       "policy-mode",
 				Required:   false,
-				Default:    core.DefaultValueSetter("optional"),
 				EnumValues: []string{"optional", "enforced"},
 			},
 			{
 				Name:       "policy-type",
 				Required:   false,
-				Default:    core.DefaultValueSetter("max_availability"),
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 		},
@@ -1423,11 +1412,11 @@ func instancePlacementGroupDelete() *core.Command {
 		Short:     `Delete the given placement group`,
 		Long:      `Delete the given placement group.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "placement-group",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
@@ -1452,11 +1441,11 @@ func instancePlacementGroupServerSet() *core.Command {
 		Short:     `Set placement group servers`,
 		Long:      `Set all servers belonging to the given placement group.`,
 		Namespace: "instance",
-		Verb:      "set",
 		Resource:  "placement-group-server",
+		Verb:      "set",
 		ArgsType:  reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
@@ -1488,11 +1477,11 @@ func instanceIPList() *core.Command {
 		Short:     `List IPs`,
 		Long:      `List IPs.`,
 		Namespace: "instance",
-		Verb:      "list",
 		Resource:  "ip",
+		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "organization",
 				Short:    `The organization ID the IPs are reserved in`,
@@ -1544,12 +1533,12 @@ func instanceIPCreate() *core.Command {
 		Short:     `Reserve an IP`,
 		Long:      `Reserve an IP.`,
 		Namespace: "instance",
-		Verb:      "create",
 		Resource:  "ip",
+		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
-			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+			core.OrganizationArgSpec(),
 			{
 				Name:     "server",
 				Short:    `UUID of the server you want to attach the IP to`,
@@ -1572,11 +1561,11 @@ func instanceIPGet() *core.Command {
 		Short:     `Get IP`,
 		Long:      `Get details of an IP with the given ID or address.`,
 		Namespace: "instance",
-		Verb:      "get",
 		Resource:  "ip",
+		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `The IP ID or address to get`,
@@ -1599,11 +1588,11 @@ func instanceIPUpdate() *core.Command {
 		Short:     `Update IP`,
 		Long:      `Update IP.`,
 		Namespace: "instance",
-		Verb:      "update",
 		Resource:  "ip",
+		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `IP ID or IP address`,
@@ -1631,11 +1620,11 @@ func instanceIPDelete() *core.Command {
 		Short:     `Delete IP`,
 		Long:      `Delete the IP with the given ID.`,
 		Namespace: "instance",
-		Verb:      "delete",
 		Resource:  "ip",
+		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `The ID or the address of the IP to delete`,
