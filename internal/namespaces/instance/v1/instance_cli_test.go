@@ -1,7 +1,6 @@
 package instance
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -39,9 +38,7 @@ func Test_GetServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			fmt.Println("bob")
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
-			fmt.Println("bob2")
 			return nil
 		},
 		Cmd: "scw instance server get server-id={{ .Server.id }}",
