@@ -2,7 +2,7 @@ package core
 
 import (
 	"bytes"
-	"fmt"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"text/template"
 	"time"
 
 	"github.com/dnaeon/go-vcr/cassette"
@@ -41,12 +42,14 @@ type TestCheck func(*testing.T, *TestResult)
 
 type BeforeFuncCtx struct {
 	Client     *scw.Client
-	ExecuteCmd func(cmd string)
+	ExecuteCmd func(cmd string) interface{}
+	Meta       map[string]interface{}
 }
 
 type AfterFuncCtx struct {
 	Client     *scw.Client
-	ExecuteCmd func(cmd string)
+	ExecuteCmd func(cmd string) interface{}
+	Meta       map[string]interface{}
 }
 
 // TestConfig contain configuration that can be used with the Test function
@@ -55,15 +58,17 @@ type TestConfig struct {
 	// Array of command to load (see main.go)
 	Commands *Commands
 
-	// The command line you want to test
-	Cmd string
-
 	// If set to true the client will be initialize to use a e2e token.
 	UseE2EClient bool
 
-	// Hook that will be called before and after test is run. You can use this function to bootstrap and teardown resources.
+	// Hook that will be called before test is run. You can use this function to bootstrap resources.
 	BeforeFunc func(ctx *BeforeFuncCtx) error
-	AfterFunc  func(ctx *AfterFuncCtx) error
+
+	// The command line you want to test
+	Cmd string
+
+	//  Hook that will be called after test is run. You can use this function to teardown resources.
+	AfterFunc func(ctx *AfterFuncCtx) error
 
 	// A list of check function that will be run on result
 	Check TestCheck
@@ -123,36 +128,50 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		stdout := &bytes.Buffer{}
-		stderr := &bytes.Buffer{}
 		client, cleanup := getTestClient(t, config.UseE2EClient)
 		defer cleanup()
 
-		executeCmd := func(cmd string) {
+		meta := map[string]interface{}{}
+
+		cmdTemplate := func(cmd string) string {
+			cmdBuf := &bytes.Buffer{}
+			require.NoError(t, template.Must(template.New("cmd").Parse(cmd)).Execute(cmdBuf, meta))
+			return cmdBuf.String()
+		}
+
+		executeCmd := func(cmd string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
+
 			exitCode := Bootstrap(&BootstrapConfig{
-				Args:      strings.Split(cmd, " "),
+				Args:      append(strings.Split(cmdTemplate(cmd), " "), "-o", "json"),
 				Commands:  config.Commands,
 				BuildInfo: &BuildInfo{},
 				Stdout:    stdoutBuffer,
 				Stderr:    stderrBuffer,
 				Client:    client,
 			})
-			if exitCode != 0 {
-				panic(fmt.Errorf("Stdout:\n%s\n\nStderr:\n%s", stdoutBuffer, stderrBuffer))
-			}
+			require.Equal(t, 0, exitCode, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
+
+			result := map[string]interface{}{}
+			require.NoError(t, json.Unmarshal(stdoutBuffer.Bytes(), &result))
+
+			return result
 		}
 
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				Client:     client,
 				ExecuteCmd: executeCmd,
+				Meta:       meta,
 			}))
 		}
 
+		stdout := &bytes.Buffer{}
+		stderr := &bytes.Buffer{}
+
 		exitCode := Bootstrap(&BootstrapConfig{
-			Args:      strings.Split(config.Cmd, " "),
+			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
 			Commands:  config.Commands,
 			BuildInfo: &BuildInfo{},
 			Stdout:    stdout,
@@ -172,6 +191,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				Client:     client,
 				ExecuteCmd: executeCmd,
+				Meta:       meta,
 			}))
 		}
 	}
