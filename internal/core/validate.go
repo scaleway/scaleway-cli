@@ -34,8 +34,8 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 // validateArgValues validates values passed to the different args of a Command.
 func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 	for _, argSpec := range cmd.ArgSpecs {
-		fieldName := strings.ReplaceAll(strcase.ToPublicGoName(argSpec.Name), ".{idx}", "")
-		fieldName = strings.ReplaceAll(fieldName, ".{key}", "")
+		fieldName := strings.ReplaceAll(strcase.ToPublicGoName(argSpec.Name), "."+sliceSchema, "")
+		fieldName = strings.ReplaceAll(fieldName, "."+mapSchema, "")
 		fieldValue, fieldExists := getValueForFieldByName(cmdArgs, fieldName)
 		if !fieldExists {
 			logger.Warningf("could not validate arg value for '%v': invalid fieldName: %v", argSpec.Name, fieldName)
