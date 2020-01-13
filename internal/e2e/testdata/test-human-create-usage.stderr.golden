@@ -8,7 +8,7 @@ EXAMPLES:
     scw test create human height=125
 
 ARGS:
-  [region]                   Region to target. If none is passed will use default region from the config
+  [region]                   Region to target. If none is passed will use default region from the config (fr-par)
   [height]                   
   [shoe-size]                
   [altitude-in-meter]        
@@ -16,7 +16,7 @@ ARGS:
   [fingers-count]            
   [hair-count]               
   [is-happy]                 
-  [eyes-color=unknown]        (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+  [eyes-color]                (unknown | amber | blue | brown | gray | green | hazel | red | violet)
   [organization-id]          Organization ID to use. If none is passed will use default organization ID from the config
 
 FLAGS:
