@@ -9,8 +9,8 @@ EXAMPLES:
     scw test human run human-id=xxxxx
 
 ARGS:
-  [region]     Region to target. If none is passed will use default region from the config
-  [human-id]   
+  [region]   Region to target. If none is passed will use default region from the config (fr-par)
+  human-id   
 
 FLAGS:
   -h, --help   help for run

@@ -76,10 +76,9 @@ func marketplaceImageGet() *core.Command {
 		ArgsType:  reflect.TypeOf(marketplace.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "image-id",
-				Short:      `Display the image name`,
-				Required:   true,
-				EnumValues: []string{},
+				Name:     "image-id",
+				Short:    `Display the image name`,
+				Required: true,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
