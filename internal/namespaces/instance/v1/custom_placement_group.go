@@ -84,7 +84,7 @@ func updateInstanceServerUpdate(c *core.Command) {
 			// ip is not set
 			// do nothing
 
-		case customRequest.IP.Null == true:
+		case customRequest.IP.Null:
 			// ip=none
 			// remove server from ip
 			updateIPRequest = &instance.UpdateIPRequest{
