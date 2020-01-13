@@ -78,25 +78,30 @@ func updateInstanceServerUpdate(c *core.Command) {
 		updateServerRequest := customRequest.UpdateServerRequest
 
 		updateIPRequest := (*instance.UpdateIPRequest)(nil)
+
 		switch {
 		case customRequest.IP == nil:
 			// ip is not set
 			// do nothing
+
 		case customRequest.IP.Null == true:
 			// ip=none
 			// remove server from ip
 			updateIPRequest = &instance.UpdateIPRequest{
 				IP: customRequest.IP.Value,
-				ServerID: instance.NullableStringValue{
+				Server: &instance.NullableStringValue{
 					Null: true,
 				},
 			}
+
 		default:
 			// ip=<anything>
 			// update ip
 			updateIPRequest = &instance.UpdateIPRequest{
-				IP:       customRequest.IP.Value,
-				ServerID: customRequest.ServerID,
+				IP: customRequest.IP.Value,
+				Server: &instance.NullableStringValue{
+					Value: customRequest.ServerID,
+				},
 			}
 		}
 
