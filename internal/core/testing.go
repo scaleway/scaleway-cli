@@ -159,6 +159,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return result
 		}
 
+		// Run config.BeforeFunc
+
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				Client:     client,
@@ -167,9 +169,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}))
 		}
 
+		// Run config.Cmd
+
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
-
 		exitCode := Bootstrap(&BootstrapConfig{
 			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
 			Commands:  config.Commands,
@@ -186,6 +189,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		config.Check(t, result)
+
+		// Run config.AfterFunc
 
 		if config.AfterFunc != nil {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
