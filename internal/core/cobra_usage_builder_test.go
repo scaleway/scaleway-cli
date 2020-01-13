@@ -37,7 +37,7 @@ func Test_buildUsageArgs(t *testing.T) {
   [color=red]                       Filter by color (blue | red | pink | green)
   [multi-word-arg]                  Useless multi word argument
   [root-volume.name]                Root volume name
-  [additional-volumes.{idx}.name]   Additional volume name`
+  [additional-volumes.{index}.name]   Additional volume name`
 
 	got := buildUsageArgs(&Command{
 		ArgsType: reflect.TypeOf(instanceListServerArgs{}),
@@ -71,7 +71,7 @@ func Test_buildUsageArgs(t *testing.T) {
 				Short: "Root volume name",
 			},
 			{
-				Name:  "additional-volumes.{idx}.name",
+				Name:  "additional-volumes.{index}.name",
 				Short: "Additional volume name",
 			},
 		},

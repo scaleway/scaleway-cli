@@ -31,7 +31,7 @@ func testAutocompleteGetCommands() *Commands {
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
 				{
-					Name:       "colours.{idx}",
+					Name:       "colours.{index}",
 					EnumValues: []string{"blue", "red", "pink"},
 				},
 				{
