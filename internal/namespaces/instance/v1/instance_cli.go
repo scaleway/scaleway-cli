@@ -12,6 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// always import dependencies
+var (
+	_ = scw.RegionFrPar
+)
+
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		instanceRoot(),
@@ -1452,7 +1457,7 @@ func instancePlacementGroupServerSet() *core.Command {
 				Required: true,
 			},
 			{
-				Name:     "servers.{idx}",
+				Name:     "servers.{index}",
 				Required: false,
 			},
 		},
