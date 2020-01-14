@@ -1,6 +1,6 @@
 Server:
-id                        a188869f-2a9e-4577-8246-947a2b3b59a5
-name                      cli-srv-gallant-shirley
+id                        fae9d30f-61a0-499c-9fc6-c35c2f590ea2
+name                      cli-srv-confident-feynman
 organization              aba2d0d0-b01d-4d88-b322-935edc96d0fd
 allowed-actions.0         poweron
 allowed-actions.1         backup
@@ -8,7 +8,7 @@ commercial-type           DEV1-S
 creation-date             few seconds ago
 dynamic-ip-required       false
 enable-ipv6               false
-hostname                  cli-srv-gallant-shirley
+hostname                  cli-srv-confident-feynman
 image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 image.name                Ubuntu Bionic Beaver
 image.arch                x86_64
@@ -22,8 +22,8 @@ image.public              true
 image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 image.state               available
 protected                 false
-public-ip.id              4dcf394f-2e8b-4817-93c1-a7cfb6e54765
-public-ip.address         163.172.177.30
+public-ip.id              68b4c67c-4b65-4058-9ce5-b3a740de75d9
+public-ip.address         163.172.172.168
 public-ip.dynamic         false
 modification-date         few seconds ago
 state                     archived
@@ -54,4 +54,4 @@ Server - Allowed Actions:
 
 Volumes:
 ID                                    NAME                                                            EXPORT URI  SIZE   VOLUME TYPE  CREATION DATE    MODIFICATION DATE  ORGANIZATION                          STATE
-a7f4fb00-f76c-467a-af30-8623cc941aea  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13              20 GB  l_ssd        few seconds ago  few seconds ago    aba2d0d0-b01d-4d88-b322-935edc96d0fd  available
+9e554620-d8d2-48e3-9f28-d07d3dcc2738  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13              20 GB  l_ssd        few seconds ago  few seconds ago    aba2d0d0-b01d-4d88-b322-935edc96d0fd  available
