@@ -829,7 +829,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:33 GMT
+      - Mon, 13 Jan 2020 16:10:44 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -857,21 +857,21 @@ interactions:
     method: POST
   response:
     body: '{"ip": {"organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "reverse":
-      null, "id": "68b4c67c-4b65-4058-9ce5-b3a740de75d9", "server": null, "address":
-      "163.172.172.168"}}'
+      null, "id": "4dcf394f-2e8b-4817-93c1-a7cfb6e54765", "server": null, "address":
+      "163.172.177.30"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "173"
+      - "172"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:34 GMT
+      - Mon, 13 Jan 2020 16:10:45 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/68b4c67c-4b65-4058-9ce5-b3a740de75d9
+      - https://cp-par1.scaleway.com/ips/4dcf394f-2e8b-4817-93c1-a7cfb6e54765
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -884,7 +884,7 @@ interactions:
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-confident-feynman","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"68b4c67c-4b65-4058-9ce5-b3a740de75d9","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
+    body: '{"name":"cli-srv-gallant-shirley","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"4dcf394f-2e8b-4817-93c1-a7cfb6e54765","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
     headers:
       Content-Type:
@@ -906,11 +906,11 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-14T14:50:34.805438+00:00",
-      "public_ip": {"dynamic": false, "id": "68b4c67c-4b65-4058-9ce5-b3a740de75d9",
-      "address": "163.172.172.168"}, "private_ip": null, "id": "fae9d30f-61a0-499c-9fc6-c35c2f590ea2",
-      "dynamic_ip_required": false, "modification_date": "2020-01-14T14:50:35.044579+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-confident-feynman", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-13T16:10:45.798152+00:00",
+      "public_ip": {"dynamic": false, "id": "4dcf394f-2e8b-4817-93c1-a7cfb6e54765",
+      "address": "163.172.177.30"}, "private_ip": null, "id": "a188869f-2a9e-4577-8246-947a2b3b59a5",
+      "dynamic_ip_required": false, "modification_date": "2020-01-13T16:10:46.011674+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-gallant-shirley", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
@@ -918,13 +918,13 @@ interactions:
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
       "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-confident-feynman", "protected":
+      [], "compute_cluster": null, "name": "cli-srv-gallant-shirley", "protected":
       false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
       "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-14T14:50:35.032438+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-14T14:50:34.805438+00:00", "id":
-      "9e554620-d8d2-48e3-9f28-d07d3dcc2738", "volume_type": "l_ssd", "server": {"id":
-      "fae9d30f-61a0-499c-9fc6-c35c2f590ea2", "name": "cli-srv-confident-feynman"}}},
+      "2020-01-13T16:10:46.003092+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-13T16:10:45.798152+00:00", "id":
+      "a7f4fb00-f76c-467a-af30-8623cc941aea", "volume_type": "l_ssd", "server": {"id":
+      "a188869f-2a9e-4577-8246-947a2b3b59a5", "name": "cli-srv-gallant-shirley"}}},
       "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
       security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
       []}}'
@@ -932,15 +932,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2863"
+      - "2856"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:34 GMT
+      - Mon, 13 Jan 2020 16:10:45 GMT
       Location:
-      - https://cp-par1.scaleway.com/servers/fae9d30f-61a0-499c-9fc6-c35c2f590ea2
+      - https://cp-par1.scaleway.com/servers/a188869f-2a9e-4577-8246-947a2b3b59a5
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -958,7 +958,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/fae9d30f-61a0-499c-9fc6-c35c2f590ea2
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a188869f-2a9e-4577-8246-947a2b3b59a5
     method: GET
   response:
     body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
@@ -973,11 +973,11 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-14T14:50:34.805438+00:00",
-      "public_ip": {"dynamic": false, "id": "68b4c67c-4b65-4058-9ce5-b3a740de75d9",
-      "address": "163.172.172.168"}, "private_ip": null, "id": "fae9d30f-61a0-499c-9fc6-c35c2f590ea2",
-      "dynamic_ip_required": false, "modification_date": "2020-01-14T14:50:35.044579+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-confident-feynman", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-13T16:10:45.798152+00:00",
+      "public_ip": {"dynamic": false, "id": "4dcf394f-2e8b-4817-93c1-a7cfb6e54765",
+      "address": "163.172.177.30"}, "private_ip": null, "id": "a188869f-2a9e-4577-8246-947a2b3b59a5",
+      "dynamic_ip_required": false, "modification_date": "2020-01-13T16:10:46.011674+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-gallant-shirley", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
@@ -985,13 +985,13 @@ interactions:
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
       "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-confident-feynman", "protected":
+      [], "compute_cluster": null, "name": "cli-srv-gallant-shirley", "protected":
       false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
       "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-14T14:50:35.032438+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-14T14:50:34.805438+00:00", "id":
-      "9e554620-d8d2-48e3-9f28-d07d3dcc2738", "volume_type": "l_ssd", "server": {"id":
-      "fae9d30f-61a0-499c-9fc6-c35c2f590ea2", "name": "cli-srv-confident-feynman"}}},
+      "2020-01-13T16:10:46.003092+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-13T16:10:45.798152+00:00", "id":
+      "a7f4fb00-f76c-467a-af30-8623cc941aea", "volume_type": "l_ssd", "server": {"id":
+      "a188869f-2a9e-4577-8246-947a2b3b59a5", "name": "cli-srv-gallant-shirley"}}},
       "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
       security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
       []}}'
@@ -999,13 +999,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2863"
+      - "2856"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:34 GMT
+      - Mon, 13 Jan 2020 16:10:45 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1023,7 +1023,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/fae9d30f-61a0-499c-9fc6-c35c2f590ea2
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a188869f-2a9e-4577-8246-947a2b3b59a5
     method: GET
   response:
     body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
@@ -1038,11 +1038,11 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-14T14:50:34.805438+00:00",
-      "public_ip": {"dynamic": false, "id": "68b4c67c-4b65-4058-9ce5-b3a740de75d9",
-      "address": "163.172.172.168"}, "private_ip": null, "id": "fae9d30f-61a0-499c-9fc6-c35c2f590ea2",
-      "dynamic_ip_required": false, "modification_date": "2020-01-14T14:50:35.044579+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-confident-feynman", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-13T16:10:45.798152+00:00",
+      "public_ip": {"dynamic": false, "id": "4dcf394f-2e8b-4817-93c1-a7cfb6e54765",
+      "address": "163.172.177.30"}, "private_ip": null, "id": "a188869f-2a9e-4577-8246-947a2b3b59a5",
+      "dynamic_ip_required": false, "modification_date": "2020-01-13T16:10:46.011674+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-gallant-shirley", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
@@ -1050,13 +1050,13 @@ interactions:
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
       "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-confident-feynman", "protected":
+      [], "compute_cluster": null, "name": "cli-srv-gallant-shirley", "protected":
       false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
       "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-14T14:50:35.032438+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-14T14:50:34.805438+00:00", "id":
-      "9e554620-d8d2-48e3-9f28-d07d3dcc2738", "volume_type": "l_ssd", "server": {"id":
-      "fae9d30f-61a0-499c-9fc6-c35c2f590ea2", "name": "cli-srv-confident-feynman"}}},
+      "2020-01-13T16:10:46.003092+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-13T16:10:45.798152+00:00", "id":
+      "a7f4fb00-f76c-467a-af30-8623cc941aea", "volume_type": "l_ssd", "server": {"id":
+      "a188869f-2a9e-4577-8246-947a2b3b59a5", "name": "cli-srv-gallant-shirley"}}},
       "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
       security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
       []}}'
@@ -1064,13 +1064,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2863"
+      - "2856"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:35 GMT
+      - Mon, 13 Jan 2020 16:10:45 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1088,7 +1088,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/fae9d30f-61a0-499c-9fc6-c35c2f590ea2
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a188869f-2a9e-4577-8246-947a2b3b59a5
     method: DELETE
   response:
     body: ""
@@ -1100,7 +1100,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 14 Jan 2020 14:50:35 GMT
+      - Mon, 13 Jan 2020 16:10:46 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
