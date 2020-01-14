@@ -103,3 +103,14 @@ func Test_CreateVolume(t *testing.T) {
 	}))
 
 }
+
+func Test_ServerUpdate(t *testing.T) {
+	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
+		Commands:     GetCommands(),
+		UseE2EClient: true,
+		BeforeFunc:   nil,
+		Cmd:          "",
+		AfterFunc:    nil,
+		Check:        nil,
+	}))
+}
