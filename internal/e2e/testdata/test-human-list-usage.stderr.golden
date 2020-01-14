@@ -1,7 +1,7 @@
 List all your humans.
 
 USAGE:
-  scw [global-flags] test human list [flags] [args]
+  scw [global-flags] test human list [flags] [arg=value ...]
 
 ARGS:
   [region]            Region to target. If none is passed will use default region from the config (fr-par)

@@ -134,7 +134,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations["CommandUsage"] += " [flags]"
 	}
 	if len(cmd.ArgSpecs) > 0 {
-		cobraCmd.Annotations["CommandUsage"] += " [args]"
+		cobraCmd.Annotations["CommandUsage"] += " [arg=value ...]"
 	}
 }
 

@@ -1,7 +1,7 @@
 Update the human associated with the given id.
 
 USAGE:
-  scw [global-flags] test human update [flags] [args]
+  scw [global-flags] test human update [flags] [arg=value ...]
 
 ARGS:
   [region]                   Region to target. If none is passed will use default region from the config (fr-par)

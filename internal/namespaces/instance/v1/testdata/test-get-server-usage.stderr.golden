@@ -1,7 +1,7 @@
 Get the details of a specified Server.
 
 USAGE:
-  scw [global-flags] instance server get [flags] [args]
+  scw [global-flags] instance server get [flags] [arg=value ...]
 
 EXAMPLES:
   Get a server with the given ID
