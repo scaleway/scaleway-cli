@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	sliceSchema = "{idx}"
+	sliceSchema = "{index}"
 	mapSchema   = "{key}"
 )
 

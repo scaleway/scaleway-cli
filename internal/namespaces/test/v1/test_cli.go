@@ -12,6 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// always import dependencies
+var (
+	_ = scw.RegionFrPar
+)
+
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		testRoot(),

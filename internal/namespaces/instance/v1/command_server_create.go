@@ -64,7 +64,7 @@ func instanceServerCreate() *core.Command {
 				Default: core.RandomValueGenerator("srv"),
 			},
 			{
-				Name:  "volumes.{idx}",
+				Name:  "volumes.{index}",
 				Short: "Local and short volumes attached to your server", // TODO: Add examples [APIGW-1371]
 			},
 			{
@@ -74,7 +74,7 @@ func instanceServerCreate() *core.Command {
 				EnumValues: []string{"new", "dynamic", "none", "<id>", "<address>"},
 			},
 			{
-				Name:  "tags.{idx}",
+				Name:  "tags.{index}",
 				Short: "Server tags",
 			},
 			{
@@ -483,8 +483,8 @@ func buildVolumeMap(serverName string, volumes []*instance.VolumeTemplate) map[s
 	m := make(map[string]*instance.VolumeTemplate)
 
 	for k, v := range volumes {
-		idx := strconv.Itoa(k)
-		v.Name = serverName + "-" + idx
+		index := strconv.Itoa(k)
+		v.Name = serverName + "-" + index
 
 		// Remove extra data for API validation.
 		if v.ID != "" {
@@ -496,7 +496,7 @@ func buildVolumeMap(serverName string, volumes []*instance.VolumeTemplate) map[s
 			v = &instance.VolumeTemplate{Size: v.Size}
 		}
 
-		m[idx] = v
+		m[index] = v
 	}
 
 	return m
