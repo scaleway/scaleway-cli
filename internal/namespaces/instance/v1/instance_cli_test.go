@@ -105,12 +105,48 @@ func Test_CreateVolume(t *testing.T) {
 }
 
 func Test_ServerUpdate(t *testing.T) {
+	t.Run("Usage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server update -h",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	// TODO: Run test when `placement-group=none` is supported
+	t.Skip("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: "scw instance server update server-id={{ .Server.id }} placement-group=none",
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
 	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
-		Commands:     GetCommands(),
-		UseE2EClient: true,
-		BeforeFunc:   nil,
-		Cmd:          "",
-		AfterFunc:    nil,
-		Check:        nil,
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: "scw instance server update server-id={{ .Server.id }} placement-group=none",
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
 	}))
 }
