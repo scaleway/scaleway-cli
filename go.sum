@@ -68,6 +68,8 @@ github.com/scaleway/scaleway-sdk-go v1.0.0-beta.4.0.20191202110520-7972939af767 
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.4.0.20191202110520-7972939af767/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.4.0.20191203102950-5bdfb4fe1146 h1:M6oj7MOfs7f5wPoljtp3yv2ieXyMszY/Q2/+NIrNV9U=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.4.0.20191203102950-5bdfb4fe1146/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5 h1:SA3bNpLHWnRScBXQoIkb9wMXQFRn0nrThe5vDhSN/0A=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191210130719-3c6b21d91fa0 h1:zvcviL9O/GSZvkVSKjsD6sxt057bgWHKRt0/TTMvzhM=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191210130719-3c6b21d91fa0/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191212172953-d7f2fd79c006 h1:owSgkv0MTPCq4usfnDvi4IviDK9pS7UrE6I0oD57bT4=
@@ -76,6 +78,8 @@ github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191223140015-d93f0d4a8dd1 
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20191223140015-d93f0d4a8dd1/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200113135420-072ba433a0f0 h1:OQ2HLAxz9HsnLu/cjuD5Z/o6Jgf7SXtAyc5FUZ8tu1o=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200113135420-072ba433a0f0/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200114124125-0aeab3e37542 h1:bwqqQfep1XNOdAmJItMAMDVEutVIP4i2ba7ZjfOK1lk=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200114124125-0aeab3e37542/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/spf13/afero v1.1.2 h1:m8/z1t7/fwjysjQRYbP0RD+bUIF/8tJwPdEZsI83ACI=
