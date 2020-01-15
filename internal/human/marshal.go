@@ -111,7 +111,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 
 		switch {
 
-		// If data as a registered MarshalerFunc call it.
+		// If data has a registered MarshalerFunc call it.
 		case marshalerFuncs[rType] != nil:
 			str, err := marshalerFuncs[rType](value.Interface(), subOpts)
 			return [][]string{{strings.Join(keys, "."), str}}, err
