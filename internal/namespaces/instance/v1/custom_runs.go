@@ -12,53 +12,41 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func applyCustomRuns(c *core.Commands) {
-	// Security Group
-	c.MustFind("instance", "security-group", "get").Run = customInstanceSecurityGroupGetRun
-	instanceSecurityGroupDeleteCmd := c.MustFind("instance", "security-group", "delete")
-	instanceSecurityGroupDeleteCmd.Run = customInstanceSecurityGroupDeleteRun(instanceSecurityGroupDeleteCmd.Run)
-
-	// Image
-	c.MustFind("instance", "image", "list").Run = customInstanceImageListRun
-
-	// Server Type
-	instanceServerTypeList := c.MustFind("instance", "server-type", "list")
-	instanceServerTypeList.Run = customInstanceServerTypeListRun(instanceServerTypeList.Run)
-}
-
 type customSecurityGroupResponse struct {
 	instance.SecurityGroup
 
 	Rules []*instance.SecurityGroupRule
 }
 
-func customInstanceSecurityGroupGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	req := argsI.(*instance.GetSecurityGroupRequest)
+func instanceSecurityGroupGetRunBuilder(c *core.Command) core.CommandRunner {
+	return func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		req := argsI.(*instance.GetSecurityGroupRequest)
 
-	client := core.ExtractClient(ctx)
-	api := instance.NewAPI(client)
-	securityGroup, err := api.GetSecurityGroup(req)
-	if err != nil {
-		return nil, err
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
+		securityGroup, err := api.GetSecurityGroup(req)
+		if err != nil {
+			return nil, err
+		}
+
+		securityGroupRules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
+			Zone:            req.Zone,
+			SecurityGroupID: securityGroup.SecurityGroup.ID,
+		}, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+
+		return &customSecurityGroupResponse{
+			SecurityGroup: *securityGroup.SecurityGroup,
+			Rules:         securityGroupRules.Rules,
+		}, nil
 	}
-
-	securityGroupRules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
-		Zone:            req.Zone,
-		SecurityGroupID: securityGroup.SecurityGroup.ID,
-	}, scw.WithAllPages())
-	if err != nil {
-		return nil, err
-	}
-
-	return &customSecurityGroupResponse{
-		SecurityGroup: *securityGroup.SecurityGroup,
-		Rules:         securityGroupRules.Rules,
-	}, nil
 }
 
-func customInstanceSecurityGroupDeleteRun(originalRun core.CommandRunner) core.CommandRunner {
+func instanceSecurityGroupDeleteRunBuilder(c *core.Command) core.CommandRunner {
 	return func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		res, originalErr := originalRun(ctx, argsI)
+		res, originalErr := c.Run(ctx, argsI)
 		if originalErr == nil {
 			return res, nil
 		}
@@ -94,81 +82,83 @@ func customInstanceSecurityGroupDeleteRun(originalRun core.CommandRunner) core.C
 	}
 }
 
-// customInstanceImageListRun list the images for a given organization.
+// instanceImageListRunBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
-func customInstanceImageListRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	// customImage is based on instance.Image, with additional information about the server
-	type customImage struct {
-		ID                string
-		Name              string
-		Arch              instance.Arch
-		CreationDate      time.Time
-		ModificationDate  time.Time
-		DefaultBootscript *instance.Bootscript
-		ExtraVolumes      map[string]*instance.Volume
-		Organization      string
-		Public            bool
-		RootVolume        *instance.VolumeSummary
-		State             instance.ImageState
-		// Replace Image.FromServer
-		ServerID   string
-		ServerName string
-		Zone       scw.Zone
-	}
-
-	// Get images
-	req := argsI.(*instance.ListImagesRequest)
-	req.Public = scw.BoolPtr(false)
-	client := core.ExtractClient(ctx)
-	api := instance.NewAPI(client)
-	listImagesResponse, err := api.ListImages(req, scw.WithAllPages())
-	if err != nil {
-		return nil, err
-	}
-	images := listImagesResponse.Images
-
-	// Builds customImages
-	customImages := []*customImage(nil)
-	for _, image := range images {
-		customImage_ := &customImage{
-			ID:                image.ID,
-			Name:              image.Name,
-			Arch:              image.Arch,
-			CreationDate:      image.CreationDate,
-			ModificationDate:  image.ModificationDate,
-			DefaultBootscript: image.DefaultBootscript,
-			ExtraVolumes:      image.ExtraVolumes,
-			Organization:      image.Organization,
-			Public:            image.Public,
-			RootVolume:        image.RootVolume,
-			State:             image.State,
+func instanceImageListRunBuilder(c *core.Command) core.CommandRunner {
+	return func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		// customImage is based on instance.Image, with additional information about the server
+		type customImage struct {
+			ID                string
+			Name              string
+			Arch              instance.Arch
+			CreationDate      time.Time
+			ModificationDate  time.Time
+			DefaultBootscript *instance.Bootscript
+			ExtraVolumes      map[string]*instance.Volume
+			Organization      string
+			Public            bool
+			RootVolume        *instance.VolumeSummary
+			State             instance.ImageState
+			// Replace Image.FromServer
+			ServerID   string
+			ServerName string
+			Zone       scw.Zone
 		}
 
-		if image.FromServer != "" {
-			serverReq := instance.GetServerRequest{
-				Zone:     req.Zone,
-				ServerID: image.FromServer,
+		// Get images
+		req := argsI.(*instance.ListImagesRequest)
+		req.Public = scw.BoolPtr(false)
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
+		listImagesResponse, err := api.ListImages(req, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+		images := listImagesResponse.Images
+
+		// Builds customImages
+		customImages := []*customImage(nil)
+		for _, image := range images {
+			customImage_ := &customImage{
+				ID:                image.ID,
+				Name:              image.Name,
+				Arch:              image.Arch,
+				CreationDate:      image.CreationDate,
+				ModificationDate:  image.ModificationDate,
+				DefaultBootscript: image.DefaultBootscript,
+				ExtraVolumes:      image.ExtraVolumes,
+				Organization:      image.Organization,
+				Public:            image.Public,
+				RootVolume:        image.RootVolume,
+				State:             image.State,
 			}
-			getServerResponse, err := api.GetServer(&serverReq)
-			if err != nil {
-				return nil, err
-			}
-			zone := scw.Zone("")
-			if getServerResponse.Server.Location != nil {
-				zone_, err := scw.ParseZone(getServerResponse.Server.Location.ZoneID)
+
+			if image.FromServer != "" {
+				serverReq := instance.GetServerRequest{
+					Zone:     req.Zone,
+					ServerID: image.FromServer,
+				}
+				getServerResponse, err := api.GetServer(&serverReq)
 				if err != nil {
 					return nil, err
 				}
-				zone = zone_
+				zone := scw.Zone("")
+				if getServerResponse.Server.Location != nil {
+					zone_, err := scw.ParseZone(getServerResponse.Server.Location.ZoneID)
+					if err != nil {
+						return nil, err
+					}
+					zone = zone_
+				}
+				customImage_.ServerID = getServerResponse.Server.ID
+				customImage_.ServerName = getServerResponse.Server.Name
+				customImage_.Zone = zone
 			}
-			customImage_.ServerID = getServerResponse.Server.ID
-			customImage_.ServerName = getServerResponse.Server.Name
-			customImage_.Zone = zone
+			customImages = append(customImages, customImage_)
 		}
-		customImages = append(customImages, customImage_)
-	}
 
-	return customImages, nil
+		return customImages, nil
+	}
 }
 
 // customInstanceServerTypeListRun transforms the server map into a list to display a

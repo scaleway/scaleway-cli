@@ -17,24 +17,6 @@ const (
 	serverActionTimeout = 10 * time.Minute
 )
 
-func getCustomCommands() *core.Commands {
-	return core.NewCommands(
-		instanceServerCreate(),
-		instanceServerStart(),
-		instanceServerStop(),
-		instanceServerStandby(),
-		instanceServerReboot(),
-		instanceSecurityGroupClear(),
-		instanceSecurityGroupUpdate(),
-		instanceUserData(),
-		instanceUserDataList(),
-		instanceUserDataSet(),
-		instanceUserDataDelete(),
-		instanceUserDataGet(),
-		instanceServerDelete(),
-	)
-}
-
 func instanceUserData() *core.Command {
 	return &core.Command{
 		Namespace: "instance",

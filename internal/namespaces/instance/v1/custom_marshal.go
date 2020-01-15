@@ -17,45 +17,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func init() {
-	// register external types custom human marshaler func
-	// for internal types use the human.Marshaler interface (see code at the end of file)
-
-	// Image
-	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
-
-	// IP
-	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
-
-	// Placement Group
-	human.RegisterMarshalerFunc(instance.CreatePlacementGroupResponse{}, marshallNestedField("PlacementGroup"))
-
-	// Security Group
-	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
-
-	// Security Group Rule
-	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.BindAttributesMarshalFunc(securityGroupRuleActionAttribute))
-
-	// Server
-	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
-	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
-
-	// Snapshot
-	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
-
-	// Volume
-	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
-	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
-	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
-	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
-}
-
 // serverStateMarshalerFunc marshals a instance.ServerState.
 var (
 	serverStateAttributes = human.Attributes{

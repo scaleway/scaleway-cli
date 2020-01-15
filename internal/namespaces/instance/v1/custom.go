@@ -2,26 +2,102 @@ package instance
 
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-// custom_commands: contains handwritten commands
-// custom_runs: contains handwritten Run functions
-// custom_marshal: contains all the registered MarshalFunc and the human.Marshaler implementations
-
-// GetCommands gets the generated commands, apply custom runs on it,
-// merge it with custom commands and return the result.
+// GetCommands returns instance commands.
+//
+// This function:
+// - Gets the generated commands
+// - Register handwritten marshalers
+// - Apply handwritten overrides (of Command.Run and Command.View)
+// - Merge handwritten commands
 func GetCommands() *core.Commands {
-	// get generated commands
-	instanceCommands := GetGeneratedCommands()
+	cmds := GetGeneratedCommands()
 
-	// updates commands with custom fields
-	updateCommands(instanceCommands)
+	//
+	// Server
+	//
+	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
+	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
+	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
-	// apply custom runs on generated commands only
-	applyCustomRuns(instanceCommands)
+	cmds.Merge(core.NewCommands(
+		instanceServerCreate(),
+		instanceServerStart(),
+		instanceServerStop(),
+		instanceServerStandby(),
+		instanceServerReboot(),
+		instanceServerDelete(),
+	))
 
-	// merge custom commands
-	instanceCommands.Merge(getCustomCommands())
+	//
+	// IP
+	//
+	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
 
-	return instanceCommands
+	cmds.MustFind("instance", "image", "list").OverrideRun(instanceImageListRunBuilder)
+
+	//
+	// Image
+	//
+	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
+
+	//
+	// Snapshot
+	//
+	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
+
+	//
+	// Volume
+	//
+	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
+	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
+	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshallerFunc)
+	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshallerFunc)
+
+	//
+	// Security Group
+	//
+	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
+	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
+
+	cmds.MustFind("instance", "security-group", "get").OverrideRun(instanceSecurityGroupGetRunBuilder)
+	cmds.MustFind("instance", "security-group", "delete").OverrideRun(instanceSecurityGroupDeleteRunBuilder)
+
+	cmds.Merge(core.NewCommands(
+		instanceSecurityGroupClear(),
+		instanceSecurityGroupUpdate(),
+	))
+
+	//
+	// Security Group Rule
+	//
+	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
+	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.BindAttributesMarshalFunc(securityGroupRuleActionAttribute))
+
+	//
+	// Placement Group
+	//
+	human.RegisterMarshalerFunc(instance.CreatePlacementGroupResponse{}, marshallNestedField("PlacementGroup"))
+
+	cmds.MustFind("instance", "placement-group", "get").OverrideRun(placementGroupGetRunBuilder)
+	cmds.MustFind("instance", "placement-group", "get").OverrideView(placementGroupGetViewBuilder)
+
+	//
+	// User Data
+	//
+	cmds.Merge(core.NewCommands(
+		instanceUserData(),
+		instanceUserDataList(),
+		instanceUserDataSet(),
+		instanceUserDataDelete(),
+		instanceUserDataGet(),
+	))
+
+	return cmds
 }
