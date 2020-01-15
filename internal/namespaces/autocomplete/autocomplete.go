@@ -61,7 +61,8 @@ var autocompleteScripts = map[string]autocompleteScript{
 
 				output=$(scw autocomplete complete bash "$COMP_LINE" "$cword" "${words[@]}")
 				COMPREPLY=($output)
-				[[ $COMPREPLY == *= ]] && compopt -o nospace
+				# apply compopt option and ignore failure for older bash versions
+				[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true
 				return
 			}
 			complete -F _scw scw
