@@ -15,7 +15,7 @@ import (
 func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgs []string) error {
 		var err error
-		opt := cmd.getHumanMarshallerOpt()
+		opt := cmd.getHumanMarshalerOpt()
 		metaPrinter := extractPrinter(ctx)
 		ctx = injectRawArgs(ctx, rawArgs)
 		ctx = injectCommand(ctx, cmd)

@@ -25,7 +25,7 @@ type ViewSection struct {
 	FieldName string
 }
 
-func (v *View) getHumanMarshallerOpt() *human.MarshalOpt {
+func (v *View) getHumanMarshalerOpt() *human.MarshalOpt {
 	if v == nil {
 		return nil
 	}

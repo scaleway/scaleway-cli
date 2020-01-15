@@ -85,7 +85,7 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 
 func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 
-	// subOpts that will be passed down to sub marshaller (field, sub struct, slice item ...)
+	// subOpts that will be passed down to sub marshaler (field, sub struct, slice item ...)
 	subOpts := &MarshalOpt{}
 
 	// Marshal sections

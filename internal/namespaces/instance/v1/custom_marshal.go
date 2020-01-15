@@ -40,11 +40,11 @@ func init() {
 
 	// Server
 	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshallerFunc)
-	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshallerFunc)
-	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshallerFunc)
+	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
+	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
 	// Snapshot
 	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
@@ -52,11 +52,11 @@ func init() {
 	// Volume
 	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
 	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
-	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshallerFunc)
-	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshallerFunc)
+	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
+	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 }
 
-// serverStateMarshallerFunc marshals a instance.ServerState.
+// serverStateMarshalerFunc marshals a instance.ServerState.
 var (
 	serverStateAttributes = human.Attributes{
 		instance.ServerStateRunning:        color.FgGreen,
@@ -83,8 +83,8 @@ var (
 	}
 )
 
-// serverLocationMarshallerFunc marshals a instance.ServerLocation.
-func serverLocationMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// serverLocationMarshalerFunc marshals a instance.ServerLocation.
+func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	location := i.(instance.ServerLocation)
 	zone, err := scw.ParseZone(location.ZoneID)
 	if err != nil {
@@ -94,8 +94,8 @@ func serverLocationMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	return zoneStr, nil
 }
 
-// serverStateMarshallerFunc marshals a instance.ServerState.
-func serverStateMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// serverStateMarshalerFunc marshals a instance.ServerState.
+func serverStateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// The Scaleway console shows "archived" for a stopped server.
 	if i.(instance.ServerState) == instance.ServerStateStopped {
 		return terminal.Style("archived", color.Faint), nil
@@ -103,8 +103,8 @@ func serverStateMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, er
 	return human.BindAttributesMarshalFunc(serverStateAttributes)(i, opt)
 }
 
-// serversMarshallerFunc marshals a Server.
-func serversMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// serversMarshalerFunc marshals a Server.
+func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// humanServerInList is the custom Server type used for list view.
 	type humanServerInList struct {
 		ID                string
@@ -172,25 +172,25 @@ func serversMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 	return human.Marshal(humanServers, opt)
 }
 
-// serversMarshallerFunc marshals a BootscriptID.
-func bootscriptMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// serversMarshalerFunc marshals a BootscriptID.
+func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
 	return bootscript.Title, nil
 }
 
-// serversMarshallerFunc marshals a VolumeSummary.
-func volumeSummaryMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// serversMarshalerFunc marshals a VolumeSummary.
+func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	volumeSummary := i.(instance.VolumeSummary)
 	return human.Marshal(volumeSummary.ID, opt)
 }
 
-// volumeMapMarshallerFunc returns the length of the map.
-func volumeMapMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// volumeMapMarshalerFunc returns the length of the map.
+func volumeMapMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
 	return fmt.Sprintf("%v", len(volumes)), nil
 }
 
-func getServerResponseMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	serverResponse := i.(instance.GetServerResponse)
 
 	// Sections

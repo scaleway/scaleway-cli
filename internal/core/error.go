@@ -10,17 +10,17 @@ import (
 )
 
 func init() {
-	human.RegisterMarshalerFunc((*sdk.ResponseError)(nil), sdkResponseErrorHumanMarshallerFunc())
-	human.RegisterMarshalerFunc((*sdk.InvalidArgumentsError)(nil), sdkInvalidArgumentsErrorHumanMarshallerFunc())
-	human.RegisterMarshalerFunc((*sdk.QuotasExceededError)(nil), sdkQuotasExceededErrorHumanMarshallerFunc())
-	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshallerFunc())
-	human.RegisterMarshalerFunc((*sdk.ResourceNotFoundError)(nil), sdkResourceNotFoundErrorHumanMarshallerFunc())
-	human.RegisterMarshalerFunc((*sdk.OutOfStockError)(nil), sdkOutOfStockErrorHumanMarshallerFunc())
+	human.RegisterMarshalerFunc((*sdk.ResponseError)(nil), sdkResponseErrorHumanMarshalerFunc())
+	human.RegisterMarshalerFunc((*sdk.InvalidArgumentsError)(nil), sdkInvalidArgumentsErrorHumanMarshalerFunc())
+	human.RegisterMarshalerFunc((*sdk.QuotasExceededError)(nil), sdkQuotasExceededErrorHumanMarshalerFunc())
+	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshalerFunc())
+	human.RegisterMarshalerFunc((*sdk.ResourceNotFoundError)(nil), sdkResourceNotFoundErrorHumanMarshalerFunc())
+	human.RegisterMarshalerFunc((*sdk.OutOfStockError)(nil), sdkOutOfStockErrorHumanMarshalerFunc())
 	human.RegisterMarshalerFunc((*sdk.ResourceExpiredError)(nil), sdkResourceExpiredHumanMarshallFunc())
 }
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
-// CliError implements JSON and human marshaller for a smooth experience.
+// CliError implements JSON and human marshaler for a smooth experience.
 type CliError struct {
 	Err     error
 	Details string
@@ -73,7 +73,7 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func sdkResponseErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkResponseErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		responseError := i.(*sdk.ResponseError)
 
@@ -83,7 +83,7 @@ func sdkResponseErrorHumanMarshallerFunc() human.MarshalerFunc {
 	}
 }
 
-func sdkInvalidArgumentsErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkInvalidArgumentsErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		invalidArgumentsError := i.(*sdk.InvalidArgumentsError)
 		reasonsMap := map[string]string{
@@ -110,7 +110,7 @@ func sdkInvalidArgumentsErrorHumanMarshallerFunc() human.MarshalerFunc {
 	}
 }
 
-func sdkQuotasExceededErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkQuotasExceededErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		quotasExceededError := i.(*sdk.QuotasExceededError)
 
@@ -129,7 +129,7 @@ func sdkQuotasExceededErrorHumanMarshallerFunc() human.MarshalerFunc {
 	}
 }
 
-func sdkTransientStateErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkTransientStateErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		transientStateError := i.(*sdk.TransientStateError)
 
@@ -143,7 +143,7 @@ func sdkTransientStateErrorHumanMarshallerFunc() human.MarshalerFunc {
 	}
 }
 
-func sdkResourceNotFoundErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkResourceNotFoundErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		resourceNotFoundError := i.(*sdk.ResourceNotFoundError)
 
@@ -153,7 +153,7 @@ func sdkResourceNotFoundErrorHumanMarshallerFunc() human.MarshalerFunc {
 	}
 }
 
-func sdkOutOfStockErrorHumanMarshallerFunc() human.MarshalerFunc {
+func sdkOutOfStockErrorHumanMarshalerFunc() human.MarshalerFunc {
 	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		outOfStockError := i.(*sdk.OutOfStockError)
 
