@@ -11,17 +11,30 @@ func Test_ListServer(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check:    core.TestCheckGolden(),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ListServerTypes(t *testing.T) {
+
+	t.Run("Usage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server-type list -h",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:     GetCommands(),
+		Cmd:          "scw instance server-type list",
+		UseE2EClient: true,
+		Check:        core.TestCheckGolden(),
 	}))
 
 }

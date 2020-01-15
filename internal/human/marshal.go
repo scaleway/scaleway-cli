@@ -111,7 +111,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 
 		switch {
 
-		// If data as a register MarshalerFunc call it
+		// If data as a registered MarshalerFunc call it.
 		case marshalerFuncs[rType] != nil:
 			str, err := marshalerFuncs[rType](value.Interface(), subOpts)
 			return [][]string{{strings.Join(keys, "."), str}}, err
@@ -123,6 +123,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			}
 			// If type is a pointer we Marshal pointer.Elem()
 			return marshal(value.Elem(), keys)
+
 		case rType.Kind() == reflect.Slice:
 			// If type is a slice:
 			// We loop through all items and marshal them with key = key.0, key.1, ....
@@ -212,7 +213,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		itemType = itemType.Elem()
 	}
 
-	// if itemType is not a struct (e.g []string) we just stringify it
+	// If itemType is not a struct (e.g []string) we just stringify it
 	if itemType.Kind() != reflect.Struct {
 		return fmt.Sprint(slice.Interface()), nil
 	}
@@ -379,6 +380,7 @@ func getFieldValue(value reflect.Value, fieldName string) reflect.Value {
 		if !value.IsValid() {
 			return value
 		}
+
 		// If value is Nil return invalid value
 		if value.Kind() == reflect.Ptr && value.IsNil() {
 			return reflect.Value{}
