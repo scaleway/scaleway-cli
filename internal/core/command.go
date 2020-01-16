@@ -40,7 +40,7 @@ type Command struct {
 	ArgSpecs ArgSpecs
 
 	// View defines the View for this command.
-	// It is used to create the different options for the different Marshallers.
+	// It is used to create the different options for the different Marshalers.
 	View *View
 
 	// Examples defines Examples for this command.
@@ -133,9 +133,9 @@ func (c *Commands) Merge(cmds *Commands) {
 	}
 }
 
-func (c *Command) getHumanMarshallerOpt() *human.MarshalOpt {
+func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 	if c.View != nil {
-		return c.View.getHumanMarshallerOpt()
+		return c.View.getHumanMarshalerOpt()
 	}
 	return nil
 }

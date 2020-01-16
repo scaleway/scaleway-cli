@@ -16,7 +16,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-type Marshaller interface {
+type Marshaler interface {
 	MarshalArgs() (string, error)
 }
 
@@ -122,6 +122,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		}
 		// If type is a pointer we Marshal pointer.Elem()
 		return marshal(src.Elem(), keys)
+
 	case reflect.Slice:
 		// If type is a slice:
 		// We loop through all items and marshal them with key = key.0, key.1, ....
@@ -193,10 +194,10 @@ func marshalValue(src reflect.Value) (string, error) {
 
 	interface_ := getInterfaceFromReflectValue(src)
 
-	// If src implements Marshaller we call MarshalArgs with the value
-	marshaller, isMarshaller := interface_.(Marshaller)
-	if isMarshaller && marshaller != nil {
-		value, err := marshaller.MarshalArgs()
+	// If src implements Marshaler we call MarshalArgs with the value
+	marshaler, isMarshaler := interface_.(Marshaler)
+	if isMarshaler && marshaler != nil {
+		value, err := marshaler.MarshalArgs()
 		if err != nil {
 			return "", err
 		}
@@ -235,11 +236,11 @@ func marshalKeyValue(keys []string, value interface{}) string {
 func isMarshalableValue(src reflect.Value) bool {
 	interface_ := getInterfaceFromReflectValue(src)
 
-	_, isMarshaller := interface_.(Marshaller)
+	_, isMarshaler := interface_.(Marshaler)
 	_, hasMarshalFunc := marshalFuncs[src.Type()]
 	_, isStringer := interface_.(fmt.Stringer)
 
-	return isMarshaller || hasMarshalFunc || isStringer
+	return isMarshaler || hasMarshalFunc || isStringer
 }
 
 func isDefaultValue(value reflect.Value) (bool, error) {

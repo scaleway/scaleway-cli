@@ -15,7 +15,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-type Unmarshaller interface {
+type Unmarshaler interface {
 	UnmarshalArgs(value string) error
 }
 
@@ -167,8 +167,8 @@ func RegisterUnmarshalFunc(i interface{}, unmarshalFunc UnmarshalFunc) {
 // Example: argNameWords ["contacts", "0", "address", "city"] will set value "city" for your first contact in your phone book.
 func set(dest reflect.Value, argNameWords []string, value string) error {
 
-	// If dest has a custom unmarshaller, we use it.
-	// dest can either implement Unmarshaller
+	// If dest has a custom unmarshaler, we use it.
+	// dest can either implement Unmarshaler
 	// or have an UnmarshalFunc() registered.
 	if isUnmarshalableValue(dest) {
 		if len(argNameWords) != 0 {
@@ -305,28 +305,28 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 }
 
 // A type is unmarshalable if:
-// - it implement Unmarshaller
+// - it implement Unmarshaler
 // - it has an unmarshalFunc
 // - it is a scalar type
 func isUnmarshalableValue(dest reflect.Value) bool {
 
 	interface_ := getInterfaceFromReflectValue(dest)
 
-	_, isUnmarshaller := interface_.(Unmarshaller)
+	_, isUnmarshaler := interface_.(Unmarshaler)
 	_, hasUnmarshalFunc := unmarshalFuncs[dest.Type()]
 	_, isScalar := scalarKinds[dest.Kind()]
 
-	return isUnmarshaller || hasUnmarshalFunc || isScalar
+	return isUnmarshaler || hasUnmarshalFunc || isScalar
 }
 
 func unmarshalValue(value string, dest reflect.Value) error {
 
 	interface_ := getInterfaceFromReflectValue(dest)
 
-	// If src implements Marshaller we call MarshalArgs with the value
-	unmarshaller, isUnmarshaller := interface_.(Unmarshaller)
-	if isUnmarshaller && unmarshaller != nil {
-		return unmarshaller.UnmarshalArgs(value)
+	// If src implements Marshaler we call MarshalArgs with the value
+	unmarshaler, isUnmarshaler := interface_.(Unmarshaler)
+	if isUnmarshaler && unmarshaler != nil {
+		return unmarshaler.UnmarshalArgs(value)
 	}
 
 	// If src has a registered MarshalFunc(), use it.

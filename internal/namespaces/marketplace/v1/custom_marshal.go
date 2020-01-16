@@ -14,12 +14,12 @@ import (
 func init() {
 	// register external types custom human marshaler func
 	// for internal types use the human.Marshaler interface (see code at the end of file)
-	human.RegisterMarshalerFunc([]*marketplace.Image{}, imagesMarshallerFunc)
-	human.RegisterMarshalerFunc(marketplace.Image{}, imageMarshallerFunc)
+	human.RegisterMarshalerFunc([]*marketplace.Image{}, imagesMarshalerFunc)
+	human.RegisterMarshalerFunc(marketplace.Image{}, imageMarshalerFunc)
 }
 
-// imagesMarshallerFunc marshals []*marketplace.Image.
-func imagesMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// imagesMarshalerFunc marshals []*marketplace.Image.
+func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// humanServerInList is the custom Server type used for list view.
 	type humanImageInList struct {
 		Label            string
@@ -61,8 +61,8 @@ func imagesMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return human.Marshal(humanImages, opt)
 }
 
-// imagesMarshallerFunc marshals marketplace.Image.
-func imageMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+// imagesMarshalerFunc marshals marketplace.Image.
+func imageMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// Image
 	image := i.(marketplace.Image)
 	humanImage := struct {
