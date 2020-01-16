@@ -53,13 +53,8 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 func updateInstanceServerUpdate(c *core.Command) {
 
 	type instanceUpdateServerRequestCustom struct {
-		*instance.UpdateServerRequest
-		IP *instance.NullableStringValue
-	}
-
-	type instanceUpdateServerResponseCustom struct {
-		*instance.UpdateServerResponse
-		*instance.UpdateIPResponse
+		updateServerRequest *instance.UpdateServerRequest
+		IP                  *instance.NullableStringValue
 	}
 
 	IPArgSpec := &core.ArgSpec{
@@ -75,7 +70,7 @@ func updateInstanceServerUpdate(c *core.Command) {
 
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
-		updateServerRequest := customRequest.UpdateServerRequest
+		updateServerRequest := customRequest.updateServerRequest
 
 		updateIPRequest := (*instance.UpdateIPRequest)(nil)
 
@@ -100,7 +95,7 @@ func updateInstanceServerUpdate(c *core.Command) {
 			updateIPRequest = &instance.UpdateIPRequest{
 				IP: customRequest.IP.Value,
 				Server: &instance.NullableStringValue{
-					Value: customRequest.ServerID,
+					Value: customRequest.updateServerRequest.ServerID,
 				},
 			}
 		}
@@ -108,22 +103,18 @@ func updateInstanceServerUpdate(c *core.Command) {
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 
-		updateServerResponse, err := api.UpdateServer(updateServerRequest)
-		if err != nil {
-			return "", err
-		}
-
-		updateIPResponse := (*instance.UpdateIPResponse)(nil)
 		if updateIPRequest != nil {
-			updateIPResponse, err = api.UpdateIP(updateIPRequest)
+			_, err := api.UpdateIP(updateIPRequest)
 			if err != nil {
 				return "", err
 			}
 		}
 
-		return &instanceUpdateServerResponseCustom{
-			updateServerResponse,
-			updateIPResponse,
-		}, nil
+		updateServerResponse, err := api.UpdateServer(updateServerRequest)
+		if err != nil {
+			return "", err
+		}
+
+		return updateServerResponse, nil
 	}
 }

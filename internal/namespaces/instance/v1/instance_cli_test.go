@@ -241,3 +241,29 @@ func Test_ServerUpdate(t *testing.T) {
 		),
 	}))
 }
+
+func Test_InstanceServerUpdate(t *testing.T) {
+	t.Run("Usage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server update -h",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: "scw instance server update server-id={{ .Server.id }}",
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+}
