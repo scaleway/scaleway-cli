@@ -203,7 +203,7 @@ func customInstanceServerTypeListRun(originalRun core.CommandRunner) core.Comman
 				LocalVolumeSize: serverType.VolumesConstraint.MinSize,
 				CPU:             serverType.Ncpus,
 				GPU:             serverType.Gpu,
-				RAM:             scw.Size(serverType.RAM/1024*1024*1024) * scw.GB, // Manually handle IEC size notation.
+				RAM:             scw.Size(serverType.RAM),
 				Arch:            serverType.Arch,
 			})
 		}

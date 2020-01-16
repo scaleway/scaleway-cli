@@ -33,7 +33,13 @@ var marshalerFuncs = map[reflect.Type]MarshalerFunc{
 		return humanize.Time(i.(time.Time)), nil
 	},
 	reflect.TypeOf(scw.Size(0)): func(i interface{}, opt *MarshalOpt) (string, error) {
-		return humanize.Bytes(uint64(i.(scw.Size))), nil
+		size := uint64(i.(scw.Size))
+
+		if isIECNotation := size%1000 != 0; isIECNotation {
+			return humanize.IBytes(size), nil
+		}
+
+		return humanize.Bytes(size), nil
 	},
 	reflect.TypeOf(net.IP{}): func(i interface{}, opt *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil
