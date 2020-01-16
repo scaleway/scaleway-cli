@@ -38,10 +38,6 @@ type AutoCompleteNode struct {
 	Command  *Command
 	ArgSpec  *ArgSpec
 	Type     AutoCompleteNodeType
-	// IsArg    bool
-	// IsFlag          bool
-	// FlagValuesCount int
-	// TODO: support flags in the autocomplete node
 }
 
 func (n *AutoCompleteNode) addGlobalFlags() {
