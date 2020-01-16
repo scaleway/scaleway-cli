@@ -35,7 +35,7 @@ var marshalerFuncs = map[reflect.Type]MarshalerFunc{
 	reflect.TypeOf(scw.Size(0)): func(i interface{}, opt *MarshalOpt) (string, error) {
 		size := uint64(i.(scw.Size))
 
-		if isIECNotation := size%1000 != 0; isIECNotation {
+		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
 			return humanize.IBytes(size), nil
 		}
 
