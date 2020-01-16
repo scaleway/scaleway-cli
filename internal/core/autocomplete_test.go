@@ -129,6 +129,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create name=p -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower create name=p -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 	t.Run("scw test -o json flower create ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "name=", "size=", "species="}}))
+	// TODO: t.Run("scw test flower create name=p --secret-key xxxx ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 }
 
 func TestWordIndex(t *testing.T) {

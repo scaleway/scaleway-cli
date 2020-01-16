@@ -121,6 +121,7 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 }
 
 // isLeafCommand returns true only if n is a command (namespace or verb or resource) but has no child command
+// a leaf command can have 2 types of children: arguments or flags
 func (n *AutoCompleteNode) isLeafCommand() bool {
 	if n.Type != AutoCompleteNodeTypeCommand {
 		return false
@@ -133,7 +134,7 @@ func (n *AutoCompleteNode) isLeafCommand() bool {
 	return true
 }
 
-// BuildAutoCompleteTree builds the Autocomplete Tree from the commands, subcomands and arguments
+// BuildAutoCompleteTree builds the autocomplete tree from the commands, subcomands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteNode()
 	scwCommand := root.GetChildOrCreate("scw")
@@ -173,21 +174,21 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
-	for i := 0; i < len(leftWords); i++ {
-		word := leftWords[i]
-		children, exist := node.Children[word]
+	for _, word := range leftWords {
+		children, childrenExist := node.Children[word]
 
 		switch {
-		case !exist && node.isLeafCommand():
+		case !childrenExist && node.isLeafCommand():
 			// word is probably an unknown argument
 			// Just skip it
 
-		case !exist:
-			// we did not reach a leaf command, and word is unknown
+		case !childrenExist:
+			// We did not reach a leaf command, and word is unknown
 			return &AutocompleteResponse{}
 
 		case children.Type == AutoCompleteNodeTypeArgument:
 			// Do nothing
+			// Arguments do not have children: they are not used to go deeper into the tree
 
 		default:
 			// word is a namespace or verb or resource or flag or flag value
@@ -251,8 +252,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			}
 
 			switch {
-			//case isFlag(key):
-			// TODO: flag suggestion
 			case strings.Contains(key, sliceSchema):
 				suggestions = append(suggestions, keySuggestion(key, sliceSchema, completedArgs))
 			case strings.Contains(key, mapSchema):
