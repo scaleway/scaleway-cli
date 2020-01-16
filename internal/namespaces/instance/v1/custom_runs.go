@@ -18,8 +18,8 @@ type customSecurityGroupResponse struct {
 	Rules []*instance.SecurityGroupRule
 }
 
-func instanceSecurityGroupGetRunBuilder(c *core.Command) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (interface{}, error) {
+func instanceSecurityGroupGetBuilder(c *core.Command) *core.Command {
+	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		req := argsI.(*instance.GetSecurityGroupRequest)
 
 		client := core.ExtractClient(ctx)
@@ -42,10 +42,11 @@ func instanceSecurityGroupGetRunBuilder(c *core.Command) core.CommandRunner {
 			Rules:         securityGroupRules.Rules,
 		}, nil
 	}
+	return c
 }
 
-func instanceSecurityGroupDeleteRunBuilder(c *core.Command) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (interface{}, error) {
+func instanceSecurityGroupDeleteBuilder(c *core.Command) *core.Command {
+	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		res, originalErr := c.Run(ctx, argsI)
 		if originalErr == nil {
 			return res, nil
@@ -80,12 +81,13 @@ func instanceSecurityGroupDeleteRunBuilder(c *core.Command) core.CommandRunner {
 
 		return nil, originalErr
 	}
+	return c
 }
 
-// instanceImageListRunBuilder list the images for a given organization.
+// instanceImageListBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
-func instanceImageListRunBuilder(c *core.Command) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func instanceImageListBuilder(c *core.Command) *core.Command {
+	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		// customImage is based on instance.Image, with additional information about the server
 		type customImage struct {
 			ID                string
@@ -159,6 +161,7 @@ func instanceImageListRunBuilder(c *core.Command) core.CommandRunner {
 
 		return customImages, nil
 	}
+	return c
 }
 
 // customInstanceServerTypeListRun transforms the server map into a list to display a

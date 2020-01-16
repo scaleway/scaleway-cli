@@ -7,8 +7,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-func placementGroupGetRunBuilder(c *core.Command) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func placementGroupGetBuilder(c *core.Command) *core.Command {
+	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		req := argsI.(*instance.GetPlacementGroupRequest)
 
 		client := core.ExtractClient(ctx)
@@ -35,13 +35,12 @@ func placementGroupGetRunBuilder(c *core.Command) core.CommandRunner {
 		}, nil
 	}
 
-}
-
-func placementGroupGetViewBuilder(c *core.Command) *core.View {
-	return &core.View{
+	c.View = &core.View{
 		Sections: []*core.ViewSection{
 			{FieldName: "PlacementGroup", Title: "Placement Group"},
 			{FieldName: "servers", Title: "Servers"},
 		},
 	}
+
+	return c
 }

@@ -70,14 +70,10 @@ type WaitFunc func(ctx context.Context, argsI, respI interface{}) error
 
 const indexCommandSeparator = "."
 
-// OverrideRun overrides the CommandRunner function via a builder function.
-func (c *Command) OverrideRun(runBuilder func(command *Command) CommandRunner) {
-	c.Run = runBuilder(c)
-}
-
-// OverrideView overrides the Command View via a builder function.
-func (c *Command) OverrideView(viewBuilder func(command *Command) *View) {
-	c.View = viewBuilder(c)
+// Override replaces or mutates the Command via a builder function.
+func (c *Command) Override(builder func(command *Command) *Command) {
+	// Assign the value in case the builder creates a new Command object.
+	*c = *builder(c)
 }
 
 func (c *Command) getPath() string {

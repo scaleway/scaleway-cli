@@ -40,7 +40,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
 
-	cmds.MustFind("instance", "image", "list").OverrideRun(instanceImageListRunBuilder)
+	cmds.MustFind("instance", "image", "list").Override(instanceImageListBuilder)
 
 	//
 	// Image
@@ -66,8 +66,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
 
-	cmds.MustFind("instance", "security-group", "get").OverrideRun(instanceSecurityGroupGetRunBuilder)
-	cmds.MustFind("instance", "security-group", "delete").OverrideRun(instanceSecurityGroupDeleteRunBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(instanceSecurityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(instanceSecurityGroupDeleteBuilder)
 
 	cmds.Merge(core.NewCommands(
 		instanceSecurityGroupClear(),
@@ -85,8 +85,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreatePlacementGroupResponse{}, marshallNestedField("PlacementGroup"))
 
-	cmds.MustFind("instance", "placement-group", "get").OverrideRun(placementGroupGetRunBuilder)
-	cmds.MustFind("instance", "placement-group", "get").OverrideView(placementGroupGetViewBuilder)
+	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 
 	//
 	// User Data
