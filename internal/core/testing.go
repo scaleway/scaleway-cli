@@ -70,8 +70,11 @@ type TestConfig struct {
 	//  Hook that will be called after test is run. You can use this function to teardown resources.
 	AfterFunc func(ctx *AfterFuncCtx) error
 
-	// A list of check function that will be run on result
+	// A list of check function that will be run on result.
 	Check TestCheck
+
+	// Run tests in parallel.
+	Parallel bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -121,6 +124,9 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
+		if config.Parallel {
+			t.Parallel()
+		}
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
