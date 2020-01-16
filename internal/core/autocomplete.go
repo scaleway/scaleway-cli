@@ -18,6 +18,15 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
+type AutoCompleteNodeType int
+
+const (
+	AutoCompleteNodeTypeCommand = iota
+	AutoCompleteNodeTypeArgument
+	AutoCompleteNodeTypeFlag
+	AutoCompleteNodeTypeFlagValue
+)
+
 // AutoCompleteArgFunc is the function called to complete arguments values.
 // It is retrieved from core.ArgSpec.AutoCompleteFunc.
 type AutoCompleteArgFunc func(ctx context.Context, prefix string) AutocompleteSuggestions
@@ -28,8 +37,24 @@ type AutoCompleteNode struct {
 	Children map[string]*AutoCompleteNode
 	Command  *Command
 	ArgSpec  *ArgSpec
-	IsArg    bool
+	Type     AutoCompleteNodeType
+	// IsArg    bool
+	// IsFlag          bool
+	// FlagValuesCount int
 	// TODO: support flags in the autocomplete node
+}
+
+func (n *AutoCompleteNode) addGlobalFlags() {
+	n.Children["--access-key"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["-D"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["--debug"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["-h"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["--help"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["-o"] = NewFlagAutoCompleteNode(n, []string{"json", "human"})
+	n.Children["--output"] = NewFlagAutoCompleteNode(n, []string{"json", "human"})
+	n.Children["-p"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["--profile"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["--secret-key"] = NewFlagAutoCompleteNode(n, nil)
 }
 
 // newAutoCompleteResponse builds a new AutocompleteResponse
@@ -45,6 +70,7 @@ func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 func NewAutoCompleteNode() *AutoCompleteNode {
 	return &AutoCompleteNode{
 		Children: map[string]*AutoCompleteNode{},
+		Type:     AutoCompleteNodeTypeCommand,
 	}
 }
 
@@ -53,7 +79,21 @@ func NewAutoCompleteNode() *AutoCompleteNode {
 func NewArgAutoCompleteNode(argSpec *ArgSpec) *AutoCompleteNode {
 	node := NewAutoCompleteNode()
 	node.ArgSpec = argSpec
-	node.IsArg = true
+	node.Type = AutoCompleteNodeTypeArgument
+	return node
+}
+
+func NewFlagAutoCompleteNode(parent *AutoCompleteNode, values []string) *AutoCompleteNode {
+	node := NewAutoCompleteNode()
+	node.Type = AutoCompleteNodeTypeFlag
+	for _, v := range values {
+		node.Children[v] = NewAutoCompleteNode()
+		node.Children[v].Children = parent.Children
+		node.Children[v].Type = AutoCompleteNodeTypeFlagValue
+	}
+	if len(node.Children) == 0 {
+		node.Children = parent.Children
+	}
 	return node
 }
 
@@ -84,16 +124,32 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	return nil, false
 }
 
-// BuildAutoCompleteTree builds the Autocomplete Tree from the commands, subcommands and arguments
+// isLeafCommand returns true only if n is a command (namespace or verb or resource) but has no child command
+func (n *AutoCompleteNode) isLeafCommand() bool {
+	if n.Type != AutoCompleteNodeTypeCommand {
+		return false
+	}
+	for _, child := range n.Children {
+		if child.Type == AutoCompleteNodeTypeCommand {
+			return false
+		}
+	}
+	return true
+}
+
+// BuildAutoCompleteTree builds the Autocomplete Tree from the commands, subcomands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteNode()
 	scwCommand := root.GetChildOrCreate("scw")
+	scwCommand.addGlobalFlags()
 	for _, cmd := range commands.command {
 		node := scwCommand
 
+		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
 			if part != "" {
 				node = node.GetChildOrCreate(part)
+				node.addGlobalFlags()
 			}
 		}
 
@@ -101,6 +157,11 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		// We consider ArgSpecs as leaf in the autocomplete tree.
 		for _, argSpec := range cmd.ArgSpecs {
 			node.Children[argSpec.Name+"="] = NewArgAutoCompleteNode(argSpec)
+		}
+
+		if cmd.WaitFunc != nil {
+			node.Children["-w"] = NewFlagAutoCompleteNode(node, nil)
+			node.Children["--wait"] = NewFlagAutoCompleteNode(node, nil)
 		}
 	}
 
@@ -116,11 +177,27 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
-	for i, word := range leftWords {
+	for i := 0; i < len(leftWords); i++ {
+		word := leftWords[i]
 		children, exist := node.Children[word]
-		if i < len(leftWords) && exist && !children.IsArg {
+
+		switch {
+		case !exist && node.isLeafCommand():
+			// word is probably an unknown argument
+			// Just skip it
+
+		case !exist:
+			// we did not reach a leaf command, and word is unknown
+			return &AutocompleteResponse{}
+
+		case children.Type == AutoCompleteNodeTypeArgument:
+			// Do nothing
+
+		default:
+			// word is a namespace or verb or resource or flag or flag value
 			node = children
 		}
+
 	}
 
 	// keep track of the completed args
@@ -147,7 +224,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		// handle boolean arg
 		default:
 			children, exist := node.Children[word+"="]
-			if exist && children.IsArg {
+			if exist && children.Type == AutoCompleteNodeTypeArgument {
 				completedArgs[word+"="] = struct{}{}
 			}
 		}
@@ -169,7 +246,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 		return newAutoCompleteResponse(suggestions)
 	} else {
-		// We are trying to complete either a command name or an arg name
+		// We are trying to complete a node: either a command name or an arg name or a flagname
 
 		suggestions := []string(nil)
 		for key, _ := range node.Children {
@@ -178,14 +255,25 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			}
 
 			switch {
-			case isFlag(key):
-				// TODO: flag suggestion
+			//case isFlag(key):
+			// TODO: flag suggestion
 			case strings.Contains(key, sliceSchema):
 				suggestions = append(suggestions, keySuggestion(key, sliceSchema, completedArgs))
 			case strings.Contains(key, mapSchema):
 				suggestions = append(suggestions, keySuggestion(key, mapSchema, completedArgs))
 			default:
 				if _, exists := completedArgs[key]; exists {
+					continue
+				}
+				if _, exists := completedFlags[key]; exists {
+					continue
+				}
+				if isFlag(key) && wordToComplete == "" {
+					// skip autocomplete flag on empty string
+					// command: scw <tab>
+					// suggestions: instance
+					// command: scw -<tab>
+					// suggestions: -o
 					continue
 				}
 				suggestions = append(suggestions, key)
