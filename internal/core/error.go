@@ -42,7 +42,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 	}
 
 	if s.Details != "" {
-		str, err := human.Marshal(s.Details, &human.MarshalOpt{Title: "Details"})
+		str, err := human.Marshal(human.Capitalize(s.Details), &human.MarshalOpt{Title: "Details"})
 		if err != nil {
 			return "", err
 		}
@@ -50,7 +50,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 	}
 
 	if s.Hint != "" {
-		str, err := human.Marshal(s.Hint, &human.MarshalOpt{Title: "Hint"})
+		str, err := human.Marshal(human.Capitalize(s.Hint), &human.MarshalOpt{Title: "Hint"})
 		if err != nil {
 			return "", err
 		}
@@ -98,7 +98,7 @@ func sdkInvalidArgumentsErrorHumanMarshalerFunc() human.MarshalerFunc {
 		hints := make([]string, len(invalidArgumentsError.Details))
 		for i, d := range invalidArgumentsError.Details {
 			arguments[i] = "'" + d.ArgumentName + "'"
-			reasons[i] = "- " + d.ArgumentName + " " + reasonsMap[d.Reason]
+			reasons[i] = "- '" + d.ArgumentName + "' " + reasonsMap[d.Reason]
 			hints[i] = d.HelpMessage
 		}
 

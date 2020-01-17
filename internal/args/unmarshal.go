@@ -5,6 +5,7 @@ package args
 // into CLI arguments represented as Go data.
 
 import (
+	"fmt"
 	"io"
 	"reflect"
 	"strconv"
@@ -13,6 +14,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type Unmarshaler interface {
@@ -73,22 +75,46 @@ func UnmarshalStruct(args []string, data interface{}) error {
 		// We enforce this check to avoid not well formatted argument name to work by "accident"
 		// as we use ToPublicGoName on the argument name later on.
 		if !validArgNameRegex.MatchString(argName) {
-			return &InvalidArgumentError{ArgumentName: argName}
+			err := error(&InvalidArgNameError{})
+
+			// Make an exception for users that try to pass resource UUID without corresponding ID argument.
+			// TODO: return a special error to advice user to use the ID argument.
+			if validation.IsUUID(argName) {
+				err = &UnknownArgError{}
+			}
+
+			return &UnmarshalArgError{
+				ArgName:  argName,
+				ArgValue: argValue,
+				Err:      err,
+			}
 		}
 
 		if !fieldExist(dest.Type(), strings.Split(argName, ".")) {
-			return &UnknowArgumentError{ArgumentName: argName}
+			return &UnmarshalArgError{
+				ArgName:  argName,
+				ArgValue: argValue,
+				Err:      &UnknownArgError{},
+			}
 		}
 
 		if processedArgNames[argName] {
-			return &DuplicateArgumentError{ArgumentName: argName}
+			return &UnmarshalArgError{
+				ArgName:  argName,
+				ArgValue: argValue,
+				Err:      &DuplicateArgError{},
+			}
 		}
 		processedArgNames[argName] = true
 
 		// Set will recursively find the correct field to set.
 		err := set(dest, strings.Split(argName, "."), argValue)
 		if err != nil {
-			return err
+			return &UnmarshalArgError{
+				ArgName:  argName,
+				ArgValue: argValue,
+				Err:      err,
+			}
 		}
 	}
 
@@ -118,23 +144,6 @@ func fieldExist(t reflect.Type, argNameWords []string) bool {
 	default:
 		return false
 	}
-}
-
-// UnmarshalValue unmarshals a single value into the data interface.
-// While UnmarshalStruct will convert an argument list like ["arg1=1", "arg2=2"] to a go struct,
-// UnmarshalValue will only unmarshal a single arg value ( right part of the `=` ).
-func UnmarshalValue(argValue string, data interface{}) error {
-	dest := reflect.ValueOf(data)
-
-	if dest.IsNil() || !dest.IsValid() {
-		return &DataIsNilError{}
-	}
-
-	if dest.Kind() != reflect.Ptr {
-		return &DataIsNotAPointerError{}
-	}
-
-	return set(dest.Elem(), nil, argValue)
 }
 
 // IsUmarshalableValue returns true if data type could be unmarshalled with args.UnmarshalValue
@@ -173,7 +182,9 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 	if isUnmarshalableValue(dest) {
 		if len(argNameWords) != 0 {
 			// Trying to unmarshal a nested field inside an unmarshalable type
-			return &CannotSetNestedFieldError{ArgumentName: strings.Join(argNameWords, "."), Interface: dest.Interface()}
+			return &CannotSetNestedFieldError{
+				Dest: dest.Interface(),
+			}
 		}
 
 		for dest.Kind() == reflect.Ptr {
@@ -229,7 +240,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			dest.Set(reflect.MakeMap(dest.Type()))
 		}
 		if len(argNameWords) == 0 {
-			return &NoSubKeyForMapError{Value: value}
+			return &MissingMapKeyError{}
 		}
 		// Create a new value call set and add result in the map
 		newValue := reflect.New(dest.Type().Elem())
@@ -239,20 +250,20 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 
 	case reflect.Struct:
 		if len(argNameWords) == 0 {
-			return &MissingFieldNameForStructError{Interface: dest.Interface()}
+			return &MissingStructFieldError{Dest: dest.Interface()}
 		}
 
 		// try to find the correct field in the struct.
 		fieldName := strcase.ToPublicGoName(argNameWords[0])
 		field := dest.FieldByName(fieldName)
 		if !field.IsValid() {
-			return &UnknowArgumentError{ArgumentName: argNameWords[0]}
+			return &UnknownArgError{}
 		}
 		// Set the value of the field
 		return set(field, argNameWords[1:], value)
 
 	}
-	return &CannotUnmarshalTypeError{Interface: dest.Interface()}
+	return &UnmarshalableTypeError{Dest: dest.Interface()}
 }
 
 // unmarshalScalar handles unmarshaling from a string to a scalar type .
@@ -293,14 +304,14 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		case "false":
 			dest.SetBool(false)
 		default:
-			return &InvalidValueError{Value: value}
+			return fmt.Errorf("invalid boolean value")
 		}
 		return nil
 	case reflect.String:
 		dest.SetString(value)
 		return nil
 	default:
-		return &UnknownKindError{Kind: dest.Kind()}
+		return &UnmarshalableTypeError{Dest: dest.Interface()}
 	}
 }
 
@@ -331,12 +342,30 @@ func unmarshalValue(value string, dest reflect.Value) error {
 
 	// If src has a registered MarshalFunc(), use it.
 	if unmarshalFunc, exists := unmarshalFuncs[dest.Type()]; exists {
-		return unmarshalFunc(value, dest.Addr().Interface())
+		err := unmarshalFunc(value, dest.Addr().Interface())
+		if err != nil {
+			return &CannotUnmarshalError{
+				Dest: dest.Addr().Interface(),
+				Err:  err,
+			}
+		}
+
+		return nil
 	}
 
 	if scalarKinds[dest.Kind()] {
-		return unmarshalScalar(value, dest)
+		err := unmarshalScalar(value, dest)
+		if err != nil {
+			return &CannotUnmarshalError{
+				Dest: dest.Addr().Interface(),
+				Err:  err,
+			}
+		}
+
+		return nil
 	}
 
-	return &CannotUnmarshalError{Interface: dest.Interface()}
+	return &CannotUnmarshalError{
+		Dest: dest.Interface(),
+	}
 }

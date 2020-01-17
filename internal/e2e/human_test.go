@@ -50,6 +50,17 @@ func TestHumanCreate(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
+
+	t.Run("invalid boolean", core.Test(&core.TestConfig{
+		Commands:     test.GetCommands(),
+		Cmd:          "scw test human create is-happy=so-so",
+		UseE2EClient: true,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+	}))
+
 }
 
 func TestHumanList(t *testing.T) {
@@ -143,6 +154,26 @@ func TestHumanGet(t *testing.T) {
 		Cmd: "scw test human get human-id=0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("pass human UUID without arg", core.Test(&core.TestConfig{
+		Commands:     test.GetCommands(),
+		UseE2EClient: true,
+		Cmd:          "scw test human get 11111111-1111-1111-1111-111111111111",
+		Check:        core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("invalid arg name", core.Test(&core.TestConfig{
+		Commands:     test.GetCommands(),
+		UseE2EClient: true,
+		Cmd:          "scw test human get invalid=true",
+		Check:        core.TestCheckCombine(
+			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
 	}))

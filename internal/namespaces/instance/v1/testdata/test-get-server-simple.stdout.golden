@@ -1,14 +1,14 @@
 Server:
-id                        9a0fbacf-6324-4e16-b38a-6d0deb60097c
-name                      cli-srv-adoring-kepler
-organization              b2593aa3-d0e8-4366-89c3-6e666abe1f6f
+id                        6783fbb9-c7e0-4efd-ba84-effa6b98448e
+name                      cli-srv-charming-elbakyan
+organization              14d2f7ae-9775-414c-9bed-6810e060d500
 allowed-actions.0         poweron
 allowed-actions.1         backup
 commercial-type           DEV1-S
 creation-date             few seconds ago
 dynamic-ip-required       false
 enable-ipv6               false
-hostname                  cli-srv-adoring-kepler
+hostname                  cli-srv-charming-elbakyan
 image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 image.name                Ubuntu Bionic Beaver
 image.arch                x86_64
@@ -22,15 +22,15 @@ image.public              true
 image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 image.state               available
 protected                 false
-public-ip.id              902dae7f-302d-4be3-a821-f361b652f308
-public-ip.address         51.15.134.93
+public-ip.id              febae361-dcf5-428d-a8ca-5ee64fc46190
+public-ip.address         51.158.117.222
 public-ip.dynamic         false
 modification-date         few seconds ago
 state                     archived
 bootscript                x86_64 mainline 4.9.93 rev1
 boot-type                 local
 volumes                   1
-security-group.id         980142a3-a959-4aee-8325-91a6ba787439
+security-group.id         e5bf4522-94b4-4933-bebb-9b21f786b4af
 security-group.name       Default security group
 state-detail              
 arch                      x86_64
@@ -54,4 +54,4 @@ Server - Allowed Actions:
 
 Volumes:
 ID                                    NAME                                                            EXPORT URI  SIZE   VOLUME TYPE  CREATION DATE    MODIFICATION DATE  ORGANIZATION                          STATE
-29508261-7038-437a-953a-80a0ed899d6b  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13              20 GB  l_ssd        few seconds ago  few seconds ago    b2593aa3-d0e8-4366-89c3-6e666abe1f6f  available
+5063e7a0-5d8a-4af5-8c54-4edf962d66d9  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13              20 GB  l_ssd        few seconds ago  few seconds ago    14d2f7ae-9775-414c-9bed-6810e060d500  available

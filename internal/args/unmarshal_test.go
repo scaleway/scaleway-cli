@@ -1,7 +1,6 @@
 package args
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -91,7 +90,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"testCase=12",
 		},
 		expected: &Basic{},
-		error:    "invalid argument 'testCase': must only contain lowercase letters, numbers or dashes",
+		error:    "cannot unmarshal arg 'testCase=12': arg name must only contain lowercase letters, numbers or dashes",
 	}))
 
 	t.Run("field-do-not-exist", run(TestCase{
@@ -99,7 +98,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"unknown-field=12",
 		},
 		expected: &Basic{},
-		error:    "unknown argument 'unknown-field'",
+		error:    "cannot unmarshal arg 'unknown-field=12': unknown argument",
 	}))
 
 	t.Run("invalid-bool", run(TestCase{
@@ -107,7 +106,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"bool=invalid",
 		},
 		expected: &Basic{},
-		error:    "invalid value 'invalid': valid values are true or false",
+		error:    "cannot unmarshal arg 'bool=invalid': *bool is not unmarshalable: invalid boolean value",
 	}))
 
 	t.Run("missing-slice-index", run(TestCase{
@@ -115,7 +114,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.1=2",
 		},
 		expected: &Slice{},
-		error:    "missing index 0: all indices prior to 1 must be set as well",
+		error:    "cannot unmarshal arg 'strings.1=2': missing index 0, all indices prior to 1 must be set as well",
 	}))
 
 	t.Run("missing-slice-indices", run(TestCase{
@@ -123,7 +122,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.5=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices 0,1,2,3,4: all indices prior to 5 must be set as well",
+		error:    "cannot unmarshal arg 'strings.5=2': missing indices, 0,1,2,3,4 all indices prior to 5 must be set as well",
 	}))
 
 	t.Run("missing-slice-indices-overflow", run(TestCase{
@@ -131,7 +130,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.99999=2",
 		},
 		expected: &Slice{},
-		error:    "missing indices 0,1,2,3,4,5,6,7,8,9,...: all indices prior to 99999 must be set as well",
+		error:    "cannot unmarshal arg 'strings.99999=2': missing indices, 0,1,2,3,4,5,6,7,8,9,... all indices prior to 99999 must be set as well",
 	}))
 
 	t.Run("duplicate-slice-index", run(TestCase{
@@ -140,7 +139,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"basics.0.string=2",
 		},
 		expected: &Slice{},
-		error:    "duplicate argument 'basics.0.string'",
+		error:    "cannot unmarshal arg 'basics.0.string=2': duplicate argument",
 	}))
 
 	t.Run("slice-with-negative-index", run(TestCase{
@@ -149,7 +148,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.-1=2",
 		},
 		expected: &Slice{},
-		error:    "invalid index: '-1' is not a positive integer",
+		error:    "cannot unmarshal arg 'strings.-1=2': invalid index '-1' is not a positive integer",
 	}))
 
 	t.Run("nested-slice-with-invalid-index", run(TestCase{
@@ -157,7 +156,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"basics.string=test",
 		},
 		expected: &Slice{},
-		error:    "invalid index: 'string' is not a positive integer",
+		error:    "cannot unmarshal arg 'basics.string=test': invalid index 'string' is not a positive integer",
 	}))
 
 	t.Run("basic-slice", run(TestCase{
@@ -302,7 +301,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"custom-string=test",
 		},
 		data:  &CustomWrapper{},
-		error: "duplicate argument 'custom-struct'",
+		error: "cannot unmarshal arg 'custom-struct=test2': duplicate argument",
 	}))
 
 	t.Run("duplicate-keys-insane", run(TestCase{
@@ -311,75 +310,11 @@ func TestUnmarshalStruct(t *testing.T) {
 			"map.key1.key2.basic.string=test2",
 		},
 		data:  &Insane{},
-		error: "duplicate argument 'map.key1.key2.basic.string'",
+		error: "cannot unmarshal arg 'map.key1.key2.basic.string=test2': duplicate argument",
 	}))
 }
 
-func TestUnmarshalValue(t *testing.T) {
-	type TestCase struct {
-		argValue string
-		error    string
-		expected interface{}
-		data     interface{}
-	}
-
-	run := func(testCase TestCase) func(t *testing.T) {
-		return func(t *testing.T) {
-
-			//var str string
-
-			//err := UnmarshalValue("test", &str)
-
-			//fmt.Println("DSDDS", str)
-			//
-			if testCase.data == nil {
-				testCase.data = reflect.New(reflect.TypeOf(testCase.expected)).Interface()
-			}
-
-			err := UnmarshalValue(testCase.argValue, testCase.data)
-
-			if testCase.error == "" {
-				assert.NoError(t, err)
-				fmt.Println(err)
-				assert.Equal(t, testCase.expected, reflect.ValueOf(testCase.data).Elem().Interface())
-			} else {
-				assert.Equal(t, testCase.error, err.Error())
-			}
-		}
-	}
-	t.Run("string", run(TestCase{
-		argValue: "test",
-		expected: "test",
-	}))
-	t.Run("string", run(TestCase{
-		argValue: "42",
-		expected: 42,
-	}))
-	t.Run("custom-type", run(TestCase{
-		argValue: "test",
-		expected: CustomString("TEST"),
-	}))
-
-	t.Run("custom-struct", run(TestCase{
-		argValue: "test",
-		expected: CustomStruct{
-			value: "TEST",
-		},
-	}))
-
-	t.Run("custom-struct", run(TestCase{
-		argValue: "test",
-		expected: &CustomWrapper{},
-		error:    "cannot unmarshal a struct args.CustomWrapper with not field name",
-	}))
-
-	t.Run("human size", run(TestCase{
-		argValue: "10G",
-		expected: scw.GB * 10,
-	}))
-}
-
-func TestIsUnmarshalValue(t *testing.T) {
+func TestIsUmarshalableValue(t *testing.T) {
 
 	type TestCase struct {
 		expected bool
