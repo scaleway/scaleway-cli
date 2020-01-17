@@ -829,7 +829,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Jan 2020 11:41:02 GMT
+      - Thu, 16 Jan 2020 16:09:57 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -846,124 +846,16 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: '{"organization":"b2593aa3-d0e8-4366-89c3-6e666abe1f6f"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
-    method: POST
-  response:
-    body: '{"ip": {"organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f", "reverse":
-      null, "id": "902dae7f-302d-4be3-a821-f361b652f308", "server": null, "address":
-      "51.15.134.93"}}'
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Length:
-      - "170"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 16 Jan 2020 11:41:02 GMT
-      Location:
-      - https://cp-par1.scaleway.com/ips/902dae7f-302d-4be3-a821-f361b652f308
-      Server:
-      - scaleway_api
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status: 201 Created
-    code: 201
-    duration: ""
-- request:
-    body: '{"name":"cli-srv-adoring-kepler","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"902dae7f-302d-4be3-a821-f361b652f308","boot_type":"local","organization":"b2593aa3-d0e8-4366-89c3-6e666abe1f6f"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
-    method: POST
-  response:
-    body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
-      "state_detail": "", "image": {"creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "default_bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
-      false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
-      "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
-      "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "public": false}, "from_server": null, "arch": "x86_64", "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
-      "root_volume": {"size": 10000000000, "id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
-      "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
-      "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
-      "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-16T11:41:03.322327+00:00",
-      "public_ip": {"dynamic": false, "id": "902dae7f-302d-4be3-a821-f361b652f308",
-      "address": "51.15.134.93"}, "private_ip": null, "id": "9a0fbacf-6324-4e16-b38a-6d0deb60097c",
-      "dynamic_ip_required": false, "modification_date": "2020-01-16T11:41:03.983839+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-adoring-kepler", "state": "stopped",
-      "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
-      false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
-      "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
-      "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-adoring-kepler", "protected":
-      false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
-      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-16T11:41:03.646635+00:00", "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f",
-      "export_uri": null, "creation_date": "2020-01-16T11:41:03.322327+00:00", "id":
-      "29508261-7038-437a-953a-80a0ed899d6b", "volume_type": "l_ssd", "server": {"id":
-      "9a0fbacf-6324-4e16-b38a-6d0deb60097c", "name": "cli-srv-adoring-kepler"}}},
-      "security_group": {"id": "980142a3-a959-4aee-8325-91a6ba787439", "name": "Default
-      security group"}, "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f", "private_nics":
-      []}}'
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Length:
-      - "2851"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 16 Jan 2020 11:41:03 GMT
-      Location:
-      - https://cp-par1.scaleway.com/servers/9a0fbacf-6324-4e16-b38a-6d0deb60097c
-      Server:
-      - scaleway_api
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status: 201 Created
-    code: 201
-    duration: ""
-- request:
     body: ""
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/9a0fbacf-6324-4e16-b38a-6d0deb60097c
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/f974feac-abae-4365-b988-8ec7d1cec10d
     method: GET
   response:
-    body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
-      "state_detail": "", "image": {"creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "default_bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
+    body: '{"image": {"creation_date": "2019-03-05T10:13:15.974944+00:00", "default_bootscript":
+      {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
       "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
@@ -973,39 +865,18 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-16T11:41:03.322327+00:00",
-      "public_ip": {"dynamic": false, "id": "902dae7f-302d-4be3-a821-f361b652f308",
-      "address": "51.15.134.93"}, "private_ip": null, "id": "9a0fbacf-6324-4e16-b38a-6d0deb60097c",
-      "dynamic_ip_required": false, "modification_date": "2020-01-16T11:41:03.983839+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-adoring-kepler", "state": "stopped",
-      "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
-      false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
-      "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
-      "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-adoring-kepler", "protected":
-      false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
-      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-16T11:41:03.646635+00:00", "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f",
-      "export_uri": null, "creation_date": "2020-01-16T11:41:03.322327+00:00", "id":
-      "29508261-7038-437a-953a-80a0ed899d6b", "volume_type": "l_ssd", "server": {"id":
-      "9a0fbacf-6324-4e16-b38a-6d0deb60097c", "name": "cli-srv-adoring-kepler"}}},
-      "security_group": {"id": "980142a3-a959-4aee-8325-91a6ba787439", "name": "Default
-      security group"}, "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f", "private_nics":
-      []}}'
+      "extra_volumes": {}, "public": true}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2851"
+      - "1004"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Jan 2020 11:41:03 GMT
+      - Thu, 16 Jan 2020 16:09:57 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1023,54 +894,308 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/9a0fbacf-6324-4e16-b38a-6d0deb60097c
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/products/servers
     method: GET
   response:
-    body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
-      "state_detail": "", "image": {"creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "default_bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
-      false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
-      "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
-      "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "public": false}, "from_server": null, "arch": "x86_64", "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
-      "root_volume": {"size": 10000000000, "id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
-      "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
-      "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
-      "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-16T11:41:03.322327+00:00",
-      "public_ip": {"dynamic": false, "id": "902dae7f-302d-4be3-a821-f361b652f308",
-      "address": "51.15.134.93"}, "private_ip": null, "id": "9a0fbacf-6324-4e16-b38a-6d0deb60097c",
-      "dynamic_ip_required": false, "modification_date": "2020-01-16T11:41:03.983839+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-adoring-kepler", "state": "stopped",
-      "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
-      false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
-      "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
-      "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": null, "tags": [], "arch": "x86_64", "extra_networks":
-      [], "compute_cluster": null, "name": "cli-srv-adoring-kepler", "protected":
-      false, "volumes": {"0": {"size": 20000000000, "state": "available", "name":
-      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "modification_date":
-      "2020-01-16T11:41:03.646635+00:00", "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f",
-      "export_uri": null, "creation_date": "2020-01-16T11:41:03.322327+00:00", "id":
-      "29508261-7038-437a-953a-80a0ed899d6b", "volume_type": "l_ssd", "server": {"id":
-      "9a0fbacf-6324-4e16-b38a-6d0deb60097c", "name": "cli-srv-adoring-kepler"}}},
-      "security_group": {"id": "980142a3-a959-4aee-8325-91a6ba787439", "name": "Default
-      security group"}, "organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f", "private_nics":
-      []}}'
+    body: '{"servers": {"VC1S": {"monthly_price": 2.99, "per_volume_constraint": {"l_ssd":
+      {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 2, "ram": 2147483648,
+      "arch": "x86_64", "volumes_constraint": {"min_size": 50000000000, "max_size":
+      50000000000}, "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      209715200}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 209715200,
+      "ipv6_support": true}, "hourly_price": 0.006, "alt_names": ["X64-2GB"], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "GP1-XS":
+      {"monthly_price": 39.0, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 800000000000}}, "ncpus": 4, "ram": 17179869184, "arch": "x86_64",
+      "volumes_constraint": {"min_size": 150000000000, "max_size": 150000000000},
+      "network": {"interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      null}, {"internal_bandwidth": null, "internet_bandwidth": 524288000}], "sum_internal_bandwidth":
+      104857600, "sum_internet_bandwidth": 524288000, "ipv6_support": true}, "hourly_price":
+      0.078, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "DEV1-M": {"monthly_price": 7.99, "per_volume_constraint": {"l_ssd":
+      {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 3, "ram": 4294967296,
+      "arch": "x86_64", "volumes_constraint": {"min_size": 40000000000, "max_size":
+      40000000000}, "network": {"interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      null}, {"internal_bandwidth": null, "internet_bandwidth": 314572800}], "sum_internal_bandwidth":
+      104857600, "sum_internet_bandwidth": 314572800, "ipv6_support": true}, "hourly_price":
+      0.016, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "DEV1-L": {"monthly_price": 15.99, "per_volume_constraint": {"l_ssd":
+      {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 4, "ram": 8589934592,
+      "arch": "x86_64", "volumes_constraint": {"min_size": 80000000000, "max_size":
+      80000000000}, "network": {"interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      null}, {"internal_bandwidth": null, "internet_bandwidth": 419430400}], "sum_internal_bandwidth":
+      104857600, "sum_internet_bandwidth": 419430400, "ipv6_support": true}, "hourly_price":
+      0.032, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "START1-XS": {"monthly_price": 1.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 1, "ram":
+      1073741824, "arch": "x86_64", "volumes_constraint": {"min_size": 25000000000,
+      "max_size": 25000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 104857600}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      104857600, "ipv6_support": true}, "hourly_price": 0.004, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "ARM64-8GB":
+      {"monthly_price": 11.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 8, "ram": 8589934592, "arch": "arm64",
+      "volumes_constraint": {"min_size": 200000000000, "max_size": 200000000000},
+      "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      209715200}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 209715200,
+      "ipv6_support": true}, "hourly_price": 0.024, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": false, "gpu": null}, "DEV1-S": {"monthly_price":
+      2.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      800000000000}}, "ncpus": 2, "ram": 2147483648, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 20000000000, "max_size": 20000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": 104857600, "internet_bandwidth": null}, {"internal_bandwidth":
+      null, "internet_bandwidth": 209715200}], "sum_internal_bandwidth": 104857600,
+      "sum_internet_bandwidth": 209715200, "ipv6_support": true}, "hourly_price":
+      0.006, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "RENDER-S": {"monthly_price": 499.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 10,
+      "ram": 48318382080, "arch": "x86_64", "volumes_constraint": {"min_size": 400000000000,
+      "max_size": 400000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      1073741824}], "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
+      1073741824, "ipv6_support": true}, "hourly_price": 1.0, "alt_names": [], "capabilities":
+      {"boot_types": ["local", "rescue"], "hot_snapshots_local_volume": true, "placement_groups":
+      true, "block_storage": true, "default_boot_type": "local", "private_network":
+      8}, "baremetal": false, "gpu": 1}, "GP1-XL": {"monthly_price": 569.0, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 48,
+      "ram": 274877906944, "arch": "x86_64", "volumes_constraint": {"min_size": 600000000000,
+      "max_size": 600000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      10737418240}], "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
+      10737418240, "ipv6_support": true}, "hourly_price": 1.138, "alt_names": [],
+      "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": true, "default_boot_type":
+      "local", "private_network": 8}, "baremetal": false, "gpu": null}, "C2S": {"monthly_price":
+      11.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 4, "ram": 8589934592, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 50000000000, "max_size": 1000000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": 2684354560, "internet_bandwidth": 314572800}], "sum_internal_bandwidth":
+      2684354560, "sum_internet_bandwidth": 314572800, "ipv6_support": true}, "hourly_price":
+      0.024, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue"],
+      "hot_snapshots_local_volume": false, "placement_groups": false, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      true, "gpu": null}, "X64-15GB": {"monthly_price": 24.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 6, "ram":
+      16106127360, "arch": "x86_64", "volumes_constraint": {"min_size": 200000000000,
+      "max_size": 200000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 262144000}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      262144000, "ipv6_support": true}, "hourly_price": 0.05, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "ARM64-2GB":
+      {"monthly_price": 2.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 4, "ram": 2147483648, "arch": "arm64",
+      "volumes_constraint": {"min_size": 50000000000, "max_size": 50000000000}, "network":
+      {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth": 209715200}],
+      "sum_internal_bandwidth": null, "sum_internet_bandwidth": 209715200, "ipv6_support":
+      true}, "hourly_price": 0.006, "alt_names": [], "capabilities": {"boot_types":
+      ["bootscript", "rescue"], "hot_snapshots_local_volume": true, "placement_groups":
+      true, "block_storage": false, "default_boot_type": "bootscript", "private_network":
+      0}, "baremetal": false, "gpu": null}, "DEV1-XL": {"monthly_price": 23.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 4, "ram":
+      12884901888, "arch": "x86_64", "volumes_constraint": {"min_size": 120000000000,
+      "max_size": 120000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      524288000}], "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
+      524288000, "ipv6_support": true}, "hourly_price": 0.048, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": true, "default_boot_type":
+      "local", "private_network": 8}, "baremetal": false, "gpu": null}, "C1": {"monthly_price":
+      2.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 4, "ram": 2147483648, "arch": "arm", "volumes_constraint":
+      {"min_size": 50000000000, "max_size": 1000000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": 1073741824, "internet_bandwidth": 209715200}], "sum_internal_bandwidth":
+      1073741824, "sum_internet_bandwidth": 209715200, "ipv6_support": false}, "hourly_price":
+      0.006, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue"],
+      "hot_snapshots_local_volume": false, "placement_groups": false, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      true, "gpu": null}, "VC1M": {"monthly_price": 5.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 4, "ram":
+      4294967296, "arch": "x86_64", "volumes_constraint": {"min_size": 100000000000,
+      "max_size": 100000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 209715200}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      209715200, "ipv6_support": true}, "hourly_price": 0.012, "alt_names": ["X64-4GB"],
+      "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "C2L":
+      {"monthly_price": 23.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 8, "ram": 34359738368, "arch": "x86_64",
+      "volumes_constraint": {"min_size": 50000000000, "max_size": 1000000000000},
+      "network": {"interfaces": [{"internal_bandwidth": 2684354560, "internet_bandwidth":
+      629145600}, {"internal_bandwidth": 2684354560, "internet_bandwidth": null}],
+      "sum_internal_bandwidth": 5368709120, "sum_internet_bandwidth": 629145600, "ipv6_support":
+      true}, "hourly_price": 0.048, "alt_names": [], "capabilities": {"boot_types":
+      ["bootscript", "rescue"], "hot_snapshots_local_volume": false, "placement_groups":
+      false, "block_storage": false, "default_boot_type": "bootscript", "private_network":
+      0}, "baremetal": true, "gpu": null}, "C2M": {"monthly_price": 17.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 8, "ram":
+      17179869184, "arch": "x86_64", "volumes_constraint": {"min_size": 50000000000,
+      "max_size": 1000000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      2684354560, "internet_bandwidth": 524288000}, {"internal_bandwidth": 2684354560,
+      "internet_bandwidth": null}], "sum_internal_bandwidth": 5368709120, "sum_internet_bandwidth":
+      524288000, "ipv6_support": true}, "hourly_price": 0.036, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": false,
+      "placement_groups": false, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": true, "gpu": null}, "ARM64-4GB": {"monthly_price":
+      5.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 6, "ram": 4294967296, "arch": "arm64", "volumes_constraint":
+      {"min_size": 100000000000, "max_size": 100000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": null, "internet_bandwidth": 209715200}], "sum_internal_bandwidth":
+      null, "sum_internet_bandwidth": 209715200, "ipv6_support": true}, "hourly_price":
+      0.012, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue"],
+      "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      false, "gpu": null}, "ARM64-128GB": {"monthly_price": 279.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 64,
+      "ram": 137438953472, "arch": "arm64", "volumes_constraint": {"min_size": 500000000000,
+      "max_size": 1000000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 1073741824}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      1073741824, "ipv6_support": true}, "hourly_price": 0.56, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": false, "gpu": null}, "START1-S": {"monthly_price":
+      3.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 2, "ram": 2147483648, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 50000000000, "max_size": 50000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": null, "internet_bandwidth": 209715200}], "sum_internal_bandwidth":
+      null, "sum_internet_bandwidth": 209715200, "ipv6_support": true}, "hourly_price":
+      0.008, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      false, "gpu": null}, "X64-30GB": {"monthly_price": 49.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 8, "ram":
+      32212254720, "arch": "x86_64", "volumes_constraint": {"min_size": 300000000000,
+      "max_size": 400000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 524288000}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      524288000, "ipv6_support": true}, "hourly_price": 0.1, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "GP1-L":
+      {"monthly_price": 299.0, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 800000000000}}, "ncpus": 32, "ram": 137438953472, "arch": "x86_64",
+      "volumes_constraint": {"min_size": 600000000000, "max_size": 600000000000},
+      "network": {"interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      null}, {"internal_bandwidth": null, "internet_bandwidth": 5368709120}], "sum_internal_bandwidth":
+      104857600, "sum_internet_bandwidth": 5368709120, "ipv6_support": true}, "hourly_price":
+      0.598, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "GP1-M": {"monthly_price": 159.0, "per_volume_constraint": {"l_ssd":
+      {"min_size": 1000000000, "max_size": 800000000000}}, "ncpus": 16, "ram": 68719476736,
+      "arch": "x86_64", "volumes_constraint": {"min_size": 600000000000, "max_size":
+      600000000000}, "network": {"interfaces": [{"internal_bandwidth": 104857600,
+      "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      1610612736}], "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
+      1610612736, "ipv6_support": true}, "hourly_price": 0.318, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": true, "default_boot_type":
+      "local", "private_network": 8}, "baremetal": false, "gpu": null}, "ARM64-64GB":
+      {"monthly_price": 139.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 48, "ram": 68719476736, "arch": "arm64",
+      "volumes_constraint": {"min_size": 400000000000, "max_size": 800000000000},
+      "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      1073741824}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 1073741824,
+      "ipv6_support": true}, "hourly_price": 0.28, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": false, "gpu": null}, "GP1-S": {"monthly_price":
+      79.0, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      800000000000}}, "ncpus": 8, "ram": 34359738368, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 300000000000, "max_size": 300000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": 104857600, "internet_bandwidth": null}, {"internal_bandwidth":
+      null, "internet_bandwidth": 838860800}], "sum_internal_bandwidth": 104857600,
+      "sum_internet_bandwidth": 838860800, "ipv6_support": true}, "hourly_price":
+      0.158, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      true, "default_boot_type": "local", "private_network": 8}, "baremetal": false,
+      "gpu": null}, "START1-L": {"monthly_price": 15.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 8, "ram":
+      8589934592, "arch": "x86_64", "volumes_constraint": {"min_size": 200000000000,
+      "max_size": 200000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 419430400}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      419430400, "ipv6_support": true}, "hourly_price": 0.032, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "START1-M":
+      {"monthly_price": 7.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 4, "ram": 4294967296, "arch": "x86_64",
+      "volumes_constraint": {"min_size": 100000000000, "max_size": 100000000000},
+      "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      314572800}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 314572800,
+      "ipv6_support": true}, "hourly_price": 0.016, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "VC1L":
+      {"monthly_price": 9.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 6, "ram": 8589934592, "arch": "x86_64",
+      "volumes_constraint": {"min_size": 200000000000, "max_size": 200000000000},
+      "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      209715200}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 209715200,
+      "ipv6_support": true}, "hourly_price": 0.02, "alt_names": ["X64-8GB"], "capabilities":
+      {"boot_types": ["bootscript", "rescue", "local"], "hot_snapshots_local_volume":
+      true, "placement_groups": true, "block_storage": false, "default_boot_type":
+      "bootscript", "private_network": 0}, "baremetal": false, "gpu": null}, "ARM64-32GB":
+      {"monthly_price": 69.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
+      "max_size": 200000000000}}, "ncpus": 32, "ram": 34359738368, "arch": "arm64",
+      "volumes_constraint": {"min_size": 300000000000, "max_size": 600000000000},
+      "network": {"interfaces": [{"internal_bandwidth": null, "internet_bandwidth":
+      524288000}], "sum_internal_bandwidth": null, "sum_internet_bandwidth": 524288000,
+      "ipv6_support": true}, "hourly_price": 0.14, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": false, "gpu": null}, "X64-120GB": {"monthly_price":
+      179.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 12, "ram": 128849018880, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 500000000000, "max_size": 1000000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": null, "internet_bandwidth": 1073741824}], "sum_internal_bandwidth":
+      null, "sum_internet_bandwidth": 1073741824, "ipv6_support": true}, "hourly_price":
+      0.36, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      false, "gpu": null}, "ARM64-16GB": {"monthly_price": 34.99, "per_volume_constraint":
+      {"l_ssd": {"min_size": 1000000000, "max_size": 200000000000}}, "ncpus": 16,
+      "ram": 17179869184, "arch": "arm64", "volumes_constraint": {"min_size": 200000000000,
+      "max_size": 400000000000}, "network": {"interfaces": [{"internal_bandwidth":
+      null, "internet_bandwidth": 524288000}], "sum_internal_bandwidth": null, "sum_internet_bandwidth":
+      524288000, "ipv6_support": true}, "hourly_price": 0.07, "alt_names": [], "capabilities":
+      {"boot_types": ["bootscript", "rescue"], "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": false, "default_boot_type": "bootscript",
+      "private_network": 0}, "baremetal": false, "gpu": null}, "X64-60GB": {"monthly_price":
+      89.99, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
+      200000000000}}, "ncpus": 10, "ram": 64424509440, "arch": "x86_64", "volumes_constraint":
+      {"min_size": 400000000000, "max_size": 700000000000}, "network": {"interfaces":
+      [{"internal_bandwidth": null, "internet_bandwidth": 1073741824}], "sum_internal_bandwidth":
+      null, "sum_internet_bandwidth": 1073741824, "ipv6_support": true}, "hourly_price":
+      0.18, "alt_names": [], "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
+      false, "default_boot_type": "bootscript", "private_network": 0}, "baremetal":
+      false, "gpu": null}}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2851"
+      - "23636"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Jan 2020 11:41:03 GMT
+      - Thu, 16 Jan 2020 16:09:57 GMT
+      Link:
+      - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1079,36 +1204,8 @@ interactions:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Total-Count:
+      - "32"
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/9a0fbacf-6324-4e16-b38a-6d0deb60097c
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 16 Jan 2020 11:41:04 GMT
-      Server:
-      - scaleway_api
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status: 204 No Content
-    code: 204
     duration: ""
