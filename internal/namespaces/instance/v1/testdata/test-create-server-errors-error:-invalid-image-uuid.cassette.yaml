@@ -1,0 +1,104 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"organization":"b2593aa3-d0e8-4366-89c3-6e666abe1f6f"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
+    method: POST
+  response:
+    body: '{"ip": {"organization": "b2593aa3-d0e8-4366-89c3-6e666abe1f6f", "reverse":
+      null, "id": "64f12779-5d07-465b-8276-0c0db3b621d0", "server": null, "address":
+      "51.158.114.1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "170"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Jan 2020 16:09:57 GMT
+      Location:
+      - https://cp-par1.scaleway.com/ips/64f12779-5d07-465b-8276-0c0db3b621d0
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"name":"cli-srv-great-goldstine","commercial_type":"DEV1-S","image":"7a892c1a-bbdc-491f-9974-4008e3708664","public_ip":"64f12779-5d07-465b-8276-0c0db3b621d0","boot_type":"local","organization":"b2593aa3-d0e8-4366-89c3-6e666abe1f6f"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
+    method: POST
+  response:
+    body: '{"message": "\"7a892c1a-bbdc-491f-9974-4008e3708664\" not found", "type":
+      "unknown_resource"}'
+    headers:
+      Content-Length:
+      - "93"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Jan 2020 16:09:58 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status: 404 Not Found
+    code: 404
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/64f12779-5d07-465b-8276-0c0db3b621d0
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Jan 2020 16:09:58 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status: 204 No Content
+    code: 204
+    duration: ""
