@@ -1,0 +1,4 @@
+Invalid volume format '20GB'.
+
+Hint:
+You must provide either a UUID ("7a892c1a-bbdc-491f-9974-4008e3708664"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").
