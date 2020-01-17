@@ -85,11 +85,16 @@ func NewArgAutoCompleteNode(argSpec *ArgSpec) *AutoCompleteNode {
 	return node
 }
 
-func NewFlagAutoCompleteNode(name string, parent *AutoCompleteNode, values []string, hasVariableValue bool) *AutoCompleteNode {
+// NewFlagAutoCompleteNode returns a node representing a Flag.
+// It creates the children node with possible values if they exist.
+// It sets parent.children as children of the lowest nodes:
+//  the lowest node is the flag if it has no possible value ;
+//  or the lowest nodes are the possible values if the exist.
+func NewFlagAutoCompleteNode(name string, parent *AutoCompleteNode, possibleValues []string, hasVariableValue bool) *AutoCompleteNode {
 	node := NewAutoCompleteNode()
 	node.Type = AutoCompleteNodeTypeFlag
 	node.Name = name
-	for _, value := range values {
+	for _, value := range possibleValues {
 		node.Children[value] = NewAutoCompleteNode()
 		node.Children[value].Children = parent.Children
 		node.Children[value].Type = AutoCompleteNodeTypeFlagValueConst
