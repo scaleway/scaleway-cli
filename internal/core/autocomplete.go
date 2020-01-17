@@ -18,7 +18,7 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
-const variableFlagValueSuffix = "-value"
+const variableFlagValueNodeId = "*"
 
 type AutoCompleteNodeType int
 
@@ -129,7 +129,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 		Name:     flagSpec.Name,
 	}
 	if flagSpec.HasVariableValue {
-		node.Children[flagSpec.Name+variableFlagValueSuffix] = &AutoCompleteNode{
+		node.Children[variableFlagValueNodeId] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueVariable,
 		}
@@ -234,8 +234,11 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
-	for i, word := range leftWords {
+	for _, word := range leftWords {
 		children, childrenExists := node.Children[word]
+		if !childrenExists {
+			children, childrenExists = node.Children[variableFlagValueNodeId]
+		}
 
 		switch {
 		case !childrenExists && node.isLeafCommand():
@@ -244,15 +247,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 		case !childrenExists:
 			// We did not find a child matching exactly the word
-
-			// Maybe we are in the special case where word==<variable value for a flag>
-			previousWord := leftWords[i-1]
-			children2, childrenExists2 := node.Children[previousWord+variableFlagValueSuffix]
-			if childrenExists2 {
-				node = children2
-				break
-			}
-
 			// We did not reach a leaf command, and word is unknown
 			return &AutocompleteResponse{}
 
