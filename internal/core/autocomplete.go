@@ -223,6 +223,9 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 }
 
 // AutoComplete process a command line and returns autocompletion suggestions.
+//
+// command <flag name>=<flag value beginning><tab> gives no suggestion for now
+// eg: scw test flower create name=p -o=jso
 func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
 	commands := ExtractCommands(ctx)
 
