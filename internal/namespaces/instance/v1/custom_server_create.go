@@ -73,10 +73,9 @@ func serverCreateCommand() *core.Command {
 				Short: "Additional local and block volumes attached to your server", // TODO: Add examples [APIGW-1371]
 			},
 			{
-				Name:       "ip",
-				Short:      "Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP",
-				Default:    core.DefaultValueSetter("new"),
-				EnumValues: []string{"new", "dynamic", "none", "<id>", "<address>"},
+				Name:    "ip",
+				Short:   `Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>)`,
+				Default: core.DefaultValueSetter("new"),
 			},
 			{
 				Name:  "tags.{index}",
@@ -113,13 +112,12 @@ func serverCreateCommand() *core.Command {
 	}
 }
 
-func instanceWaitServerCreateRun(ctx context.Context, argsI, respI interface{}) error {
-	_, err := instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+func instanceWaitServerCreateRun(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
 		Zone:     argsI.(*instanceCreateServerRequest).Zone,
 		ServerID: respI.(*instance.Server).ID,
 		Timeout:  serverActionTimeout,
 	})
-	return err
 }
 
 func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
