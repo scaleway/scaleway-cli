@@ -16,18 +16,30 @@ type MarshalerFunc func(interface{}, *MarshalOpt) (string, error)
 
 // marshalerFuncs is the register of all marshal func bindings
 var marshalerFuncs = map[reflect.Type]MarshalerFunc{
-	reflect.TypeOf(int(0)):     defaultMarshalerFunc,
-	reflect.TypeOf(int32(0)):   defaultMarshalerFunc,
-	reflect.TypeOf(int64(0)):   defaultMarshalerFunc,
-	reflect.TypeOf(uint32(0)):  defaultMarshalerFunc,
-	reflect.TypeOf(uint64(0)):  defaultMarshalerFunc,
-	reflect.TypeOf(string("")): defaultMarshalerFunc,
-
+	reflect.TypeOf(int(0)):      defaultMarshalerFunc,
+	reflect.TypeOf(int32(0)):    defaultMarshalerFunc,
+	reflect.TypeOf(int64(0)):    defaultMarshalerFunc,
+	reflect.TypeOf(uint32(0)):   defaultMarshalerFunc,
+	reflect.TypeOf(uint64(0)):   defaultMarshalerFunc,
+	reflect.TypeOf(string("")):  defaultMarshalerFunc,
+	reflect.TypeOf(bool(false)): defaultMarshalerFunc,
+	reflect.TypeOf(scw.Size(0)): defaultMarshalerFunc,
+	reflect.TypeOf(scw.Money{}): func(i interface{}, opt *MarshalOpt) (s string, err error) {
+		// TODO: Refactor me in APIGW-1747.
+		tmp := i.(scw.Money)
+		return (&tmp).String(), nil
+	},
 	reflect.TypeOf(time.Time{}): func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	},
 	reflect.TypeOf(scw.Size(0)): func(i interface{}, opt *MarshalOpt) (string, error) {
-		return humanize.Bytes(uint64(i.(scw.Size))), nil
+		size := uint64(i.(scw.Size))
+
+		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
+			return humanize.IBytes(size), nil
+		}
+
+		return humanize.Bytes(size), nil
 	},
 	reflect.TypeOf(net.IP{}): func(i interface{}, opt *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil

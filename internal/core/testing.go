@@ -244,7 +244,6 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
 	if updateGolden {
-
 		if actualIsEmpty {
 			_ = os.Remove(goldenPath)
 		} else {
@@ -258,7 +257,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		assert.NotNil(t, err)
 	} else {
 		require.NoError(t, err)
-		assert.Equal(t, string(actual), string(expected))
+		assert.Equal(t, string(expected), string(actual))
 	}
 
 }
