@@ -3,11 +3,13 @@ package core
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -19,6 +21,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -50,6 +53,19 @@ type AfterFuncCtx struct {
 	Client     *scw.Client
 	ExecuteCmd func(cmd string) interface{}
 	Meta       map[string]interface{}
+
+	testResult *TestResult
+}
+
+var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
+
+// ExtractResourceID extracts resource ID from Stdout or returns an error if not found.
+func (ctx *AfterFuncCtx) ExtractResourceID() (string, error) {
+	results := idExtractorRegex.FindStringSubmatch(string(ctx.testResult.Stdout))
+	if len(results) != 2 || !validation.IsUUID(results[1]) {
+		return "", fmt.Errorf("cannot find attribute 'id' in '%s'", string(ctx.testResult.Stdout))
+	}
+	return results[1], nil
 }
 
 // TestConfig contain configuration that can be used with the Test function
@@ -203,6 +219,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Client:     client,
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
+				testResult: result,
 			}))
 		}
 	}
