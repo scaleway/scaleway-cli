@@ -18,13 +18,16 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
+const variableFlagValueSuffix = "-value"
+
 type AutoCompleteNodeType int
 
 const (
 	AutoCompleteNodeTypeCommand = iota
 	AutoCompleteNodeTypeArgument
 	AutoCompleteNodeTypeFlag
-	AutoCompleteNodeTypeFlagValue
+	AutoCompleteNodeTypeFlagValueConst
+	AutoCompleteNodeTypeFlagValueVariable
 )
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
@@ -38,19 +41,22 @@ type AutoCompleteNode struct {
 	Command  *Command
 	ArgSpec  *ArgSpec
 	Type     AutoCompleteNodeType
+
+	// Name of the current node. Useful for debugging.
+	Name string
 }
 
 func (n *AutoCompleteNode) addGlobalFlags() {
-	n.Children["--access-key"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["-D"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["--debug"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["-h"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["--help"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["-o"] = NewFlagAutoCompleteNode(n, []string{"json", "human"})
-	n.Children["--output"] = NewFlagAutoCompleteNode(n, []string{"json", "human"})
-	n.Children["-p"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["--profile"] = NewFlagAutoCompleteNode(n, nil)
-	n.Children["--secret-key"] = NewFlagAutoCompleteNode(n, nil)
+	n.Children["--access-key"] = NewFlagAutoCompleteNode("--access-key", n, nil, true)
+	n.Children["-D"] = NewFlagAutoCompleteNode("-D", n, nil, false)
+	n.Children["--debug"] = NewFlagAutoCompleteNode("--debug", n, nil, false)
+	n.Children["-h"] = NewFlagAutoCompleteNode("-h", n, nil, false)
+	n.Children["--help"] = NewFlagAutoCompleteNode("--help", n, nil, false)
+	n.Children["-o"] = NewFlagAutoCompleteNode("-o", n, []string{"json", "human"}, false)
+	n.Children["--output"] = NewFlagAutoCompleteNode("--output", n, []string{"json", "human"}, false)
+	n.Children["-p"] = NewFlagAutoCompleteNode("-p", n, nil, false)
+	n.Children["--profile"] = NewFlagAutoCompleteNode("--profile", n, nil, false)
+	n.Children["--secret-key"] = NewFlagAutoCompleteNode("--secret-key", n, nil, true)
 }
 
 // newAutoCompleteResponse builds a new AutocompleteResponse
@@ -79,13 +85,20 @@ func NewArgAutoCompleteNode(argSpec *ArgSpec) *AutoCompleteNode {
 	return node
 }
 
-func NewFlagAutoCompleteNode(parent *AutoCompleteNode, values []string) *AutoCompleteNode {
+func NewFlagAutoCompleteNode(name string, parent *AutoCompleteNode, values []string, hasVariableValue bool) *AutoCompleteNode {
 	node := NewAutoCompleteNode()
 	node.Type = AutoCompleteNodeTypeFlag
-	for _, v := range values {
-		node.Children[v] = NewAutoCompleteNode()
-		node.Children[v].Children = parent.Children
-		node.Children[v].Type = AutoCompleteNodeTypeFlagValue
+	node.Name = name
+	for _, value := range values {
+		node.Children[value] = NewAutoCompleteNode()
+		node.Children[value].Children = parent.Children
+		node.Children[value].Type = AutoCompleteNodeTypeFlagValueConst
+	}
+	if hasVariableValue {
+		childName := name + variableFlagValueSuffix
+		node.Children[childName] = NewAutoCompleteNode()
+		node.Children[childName].Children = parent.Children
+		node.Children[childName].Type = AutoCompleteNodeTypeFlagValueVariable
 	}
 	if len(node.Children) == 0 {
 		node.Children = parent.Children
@@ -157,8 +170,8 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		}
 
 		if cmd.WaitFunc != nil {
-			node.Children["-w"] = NewFlagAutoCompleteNode(node, nil)
-			node.Children["--wait"] = NewFlagAutoCompleteNode(node, nil)
+			node.Children["-w"] = NewFlagAutoCompleteNode("-w", node, nil, false)
+			node.Children["--wait"] = NewFlagAutoCompleteNode("--wait", node, nil, false)
 		}
 	}
 
@@ -174,15 +187,25 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
-	for _, word := range leftWords {
-		children, childrenExist := node.Children[word]
+	for i, word := range leftWords {
+		children, childrenExists := node.Children[word]
 
 		switch {
-		case !childrenExist && node.isLeafCommand():
+		case !childrenExists && node.isLeafCommand():
 			// word is probably an unknown argument
 			// Just skip it
 
-		case !childrenExist:
+		case !childrenExists:
+			// We did not find a child matching exactly the word
+
+			// Maybe we are in the special case where word==<variable value for a flag>
+			previousWord := leftWords[i-1]
+			children2, childrenExists2 := node.Children[previousWord+variableFlagValueSuffix]
+			if childrenExists2 {
+				node = children2
+				break
+			}
+
 			// We did not reach a leaf command, and word is unknown
 			return &AutocompleteResponse{}
 
