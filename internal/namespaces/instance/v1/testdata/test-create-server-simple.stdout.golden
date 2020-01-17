@@ -1,0 +1,35 @@
+id                        0216a926-4534-4dc5-a980-f5695c8e1a49
+name                      cli-srv-quizzical-ptolemy
+organization              b2593aa3-d0e8-4366-89c3-6e666abe1f6f
+allowed-actions.0         poweron
+allowed-actions.1         backup
+commercial-type           DEV1-S
+creation-date             few seconds ago
+dynamic-ip-required       false
+enable-ipv6               false
+hostname                  cli-srv-quizzical-ptolemy
+image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
+image.name                Ubuntu Bionic Beaver
+image.arch                x86_64
+image.creation-date       few seconds ago
+image.modification-date   few seconds ago
+image.default-bootscript  x86_64 mainline 4.9.93 rev1
+image.extra-volumes       0
+image.from-server         
+image.organization        51b656e3-4865-41e8-adbc-0c45bdd780db
+image.public              true
+image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
+image.state               available
+protected                 false
+public-ip.id              4ff500c6-163a-4079-aff7-923bc2dee5db
+public-ip.address         51.158.103.52
+public-ip.dynamic         false
+modification-date         few seconds ago
+state                     archived
+bootscript                x86_64 mainline 4.9.93 rev1
+boot-type                 local
+volumes                   1
+security-group.id         980142a3-a959-4aee-8325-91a6ba787439
+security-group.name       Default security group
+state-detail              
+arch                      x86_64

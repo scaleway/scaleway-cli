@@ -6,10 +6,32 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
+func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
+	// Get ID of the created server.
+	serverID, err := ctx.ExtractResourceID()
+	if err != nil {
+		return err
+	}
+
+	// Delete the test volume.
+	ctx.ExecuteCmd("scw instance server delete server-id=" + serverID)
+	return nil
+}
+
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
 
-	// TODO
+	////
+	// Image
+	////
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:  GetCommands(),
+		Cmd:       "scw instance server create image=ubuntu-bionic",
+		AfterFunc: deleteServerAfterFunc,
+		Check:     core.TestCheckGolden(),
+	}))
+
+	// TODO: add all success cases
 }
 
 // None of the tests below should succeed to create an instance.
