@@ -46,17 +46,48 @@ type AutoCompleteNode struct {
 	Name string
 }
 
+type FlagSpec struct {
+	Name             string
+	HasVariableValue bool
+	EnumValues       []string
+}
+
 func (n *AutoCompleteNode) addGlobalFlags() {
-	n.Children["--access-key"] = NewAutoCompleteFlagNode("--access-key", n, true)
-	n.Children["-D"] = NewAutoCompleteFlagNode("-D", n, false)
-	n.Children["--debug"] = NewAutoCompleteFlagNode("--debug", n, false)
-	n.Children["-h"] = NewAutoCompleteFlagNode("-h", n, false)
-	n.Children["--help"] = NewAutoCompleteFlagNode("--help", n, false)
-	n.Children["-o"] = NewAutoCompleteFlagNode("-o", n, false, "json", "human")
-	n.Children["--output"] = NewAutoCompleteFlagNode("--output", n, false, "json", "human")
-	n.Children["-p"] = NewAutoCompleteFlagNode("-p", n, false)
-	n.Children["--profile"] = NewAutoCompleteFlagNode("--profile", n, false)
-	n.Children["--secret-key"] = NewAutoCompleteFlagNode("--secret-key", n, true)
+	n.Children["--access-key"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name:             "--access-key",
+		HasVariableValue: true,
+	})
+	n.Children["-D"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "-D",
+	})
+	n.Children["--debug"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "--debug",
+	})
+	n.Children["-h"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "-h",
+	})
+	n.Children["--help"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "--help",
+	})
+	n.Children["-o"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name:       "-o",
+		EnumValues: []string{"json", "human"},
+	})
+	n.Children["--output"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name:       "--output",
+		EnumValues: []string{"json", "human"},
+	})
+	n.Children["-p"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "-p",
+	})
+	n.Children["--profile"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name: "--profile",
+	})
+	n.Children["--secret-key"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+		Name:             "--secret-key",
+		HasVariableValue: true,
+	})
+
 }
 
 // newAutoCompleteResponse builds a new AutocompleteResponse
@@ -71,7 +102,7 @@ func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 // These nodes are not necessarily leaf nodes.
 func NewAutoCompleteCommandNode() *AutoCompleteNode {
 	return &AutoCompleteNode{
-		Children: map[string]*AutoCompleteNode{},
+		Children: make(map[string]*AutoCompleteNode),
 		Type:     AutoCompleteNodeTypeCommand,
 	}
 }
@@ -80,7 +111,7 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 // These nodes are leaf nodes.
 func NewAutoCompleteArgNode(argSpec *ArgSpec) *AutoCompleteNode {
 	return &AutoCompleteNode{
-		Children: map[string]*AutoCompleteNode{},
+		Children: make(map[string]*AutoCompleteNode),
 		ArgSpec:  argSpec,
 		Type:     AutoCompleteNodeTypeArgument,
 	}
@@ -91,19 +122,19 @@ func NewAutoCompleteArgNode(argSpec *ArgSpec) *AutoCompleteNode {
 // It sets parent.children as children of the lowest nodes:
 //  the lowest node is the flag if it has no possible value ;
 //  or the lowest nodes are the possible values if the exist.
-func NewAutoCompleteFlagNode(name string, parent *AutoCompleteNode, hasVariableValue bool, possibleValues ...string) *AutoCompleteNode {
+func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *AutoCompleteNode {
 	node := &AutoCompleteNode{
-		Children: map[string]*AutoCompleteNode{},
+		Children: make(map[string]*AutoCompleteNode),
 		Type:     AutoCompleteNodeTypeFlag,
-		Name:     name,
+		Name:     flagSpec.Name,
 	}
-	if hasVariableValue {
-		node.Children[name+variableFlagValueSuffix] = &AutoCompleteNode{
+	if flagSpec.HasVariableValue {
+		node.Children[flagSpec.Name+variableFlagValueSuffix] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueVariable,
 		}
 	}
-	for _, value := range possibleValues {
+	for _, value := range flagSpec.EnumValues {
 		node.Children[value] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueConst,
@@ -179,8 +210,12 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		}
 
 		if cmd.WaitFunc != nil {
-			node.Children["-w"] = NewAutoCompleteFlagNode("-w", node, false)
-			node.Children["--wait"] = NewAutoCompleteFlagNode("--wait", node, false)
+			node.Children["-w"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+				Name: "-w",
+			})
+			node.Children["--wait"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+				Name: "--wait",
+			})
 		}
 	}
 
@@ -315,6 +350,9 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
 func AutoCompleteArgValue(ctx context.Context, argSpec *ArgSpec, argValuePrefix string) []string {
+	if argSpec == nil {
+		return nil
+	}
 	if argSpec.AutoCompleteFunc != nil {
 		return argSpec.AutoCompleteFunc(ctx, argValuePrefix)
 	}
