@@ -74,7 +74,7 @@ type TestConfig struct {
 	Check TestCheck
 
 	// Run tests in parallel.
-	Parallel bool
+	DisableParallel bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -124,7 +124,7 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
-		if config.Parallel {
+		if config.DisableParallel {
 			t.Parallel()
 		}
 

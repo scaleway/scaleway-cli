@@ -65,11 +65,11 @@ func instanceServerCreate() *core.Command {
 				Default: core.RandomValueGenerator("srv"),
 			},
 			{
-				Name:  "root_volume",
+				Name:  "root-volume",
 				Short: "Local root volume of the server", // TODO: Add examples [APIGW-1371]
 			},
 			{
-				Name:  "additional_volumes.{index}",
+				Name:  "additional-volumes.{index}",
 				Short: "Additional local and block volumes attached to your server", // TODO: Add examples [APIGW-1371]
 			},
 			{
@@ -219,7 +219,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate root volume type and size.
-		if err := validateRootVolume(apiInstance, args.Zone, serverReq.Image, volumes); err != nil {
+		if err := validateRootVolume(apiInstance, args.Zone, serverReq.Image, volumes["0"]); err != nil {
 			return nil, err
 		}
 
@@ -228,7 +228,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, err
 		}
 
-		// sanitize the volume map to respect API schemas
+		// Sanitize the volume map to respect API schemas
 		serverReq.Volumes = sanitizeVolumeMap(serverReq.Name, volumes)
 	}
 
@@ -401,9 +401,9 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 	}
 
 	return nil, &core.CliError{
-		Err:     fmt.Errorf("Invalid volume format '%s'.", flagV),
+		Err:     fmt.Errorf("invalid volume format '%s'", flagV),
 		Details: "",
-		Hint:    `You must provide either a UUID ("7a892c1a-bbdc-491f-9974-4008e3708664"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").`,
+		Hint:    `You must provide either a UUID ("11111111-1111-1111-1111-111111111111"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").`,
 	}
 }
 
@@ -457,8 +457,9 @@ func validateLocalVolumeSizes(api *instance.API, volumes map[string]*instance.Vo
 	if serverType, exists := serverTypesRes.Servers[commercialType]; exists {
 		volumeConstraint := serverType.VolumesConstraint
 
-		if rootVolume, exist := volumes["0"]; !exist || rootVolume == nil {
-			localVolumeTotalSize += volumeConstraint.MinSize // this is the default size for root volume
+		// If no root volume provided, count the default root volume size added by the API.
+		if rootVolume := volumes["0"]; rootVolume == nil {
+			localVolumeTotalSize += volumeConstraint.MinSize
 		}
 
 		if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
@@ -478,9 +479,8 @@ func validateLocalVolumeSizes(api *instance.API, volumes map[string]*instance.Vo
 	return nil
 }
 
-func validateRootVolume(api *instance.API, zone scw.Zone, image string, volumes map[string]*instance.VolumeTemplate) error {
-	rootVolume, exist := volumes["0"]
-	if !exist || rootVolume == nil {
+func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolume *instance.VolumeTemplate) error {
+	if rootVolume == nil {
 		return nil
 	}
 
