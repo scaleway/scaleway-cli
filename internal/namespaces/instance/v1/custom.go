@@ -1,6 +1,9 @@
 package instance
 
 import (
+	"fmt"
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -27,20 +30,25 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(
-		instanceServerCreate(),
-		instanceServerStart(),
-		instanceServerStop(),
-		instanceServerStandby(),
-		instanceServerReboot(),
-		instanceServerDelete(),
+		serverCreateCommand(),
+		serverStartCommand(),
+		serverStopCommand(),
+		serverStandbyCommand(),
+		serverRebootCommand(),
+		serverDeleteCommand(),
 	))
+
+	//
+	// Server-Type
+	//
+	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
 
 	//
 	// IP
 	//
 	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
 
-	cmds.MustFind("instance", "image", "list").Override(instanceImageListBuilder)
+	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 
 	//
 	// Image
@@ -57,8 +65,8 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
 	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
-	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshallerFunc)
-	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshallerFunc)
+	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
+	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
 	//
 	// Security Group
@@ -66,12 +74,12 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
 
-	cmds.MustFind("instance", "security-group", "get").Override(instanceSecurityGroupGetBuilder)
-	cmds.MustFind("instance", "security-group", "delete").Override(instanceSecurityGroupDeleteBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
 
 	cmds.Merge(core.NewCommands(
-		instanceSecurityGroupClear(),
-		instanceSecurityGroupUpdate(),
+		securityGroupClearCommand(),
+		securityGroupUpdateCommand(),
 	))
 
 	//
@@ -91,12 +99,23 @@ func GetCommands() *core.Commands {
 	// User Data
 	//
 	cmds.Merge(core.NewCommands(
-		instanceUserData(),
-		instanceUserDataList(),
-		instanceUserDataSet(),
-		instanceUserDataDelete(),
-		instanceUserDataGet(),
+		userDataCommand(),
+		userDataListCommand(),
+		userDataSetCommand(),
+		userDataDeleteCommand(),
+		userDataGetCommand(),
 	))
 
 	return cmds
+}
+
+// marshallNestedField will marshal only the given field of a struct.
+func marshallNestedField(nestedKey string) human.MarshalerFunc {
+	return func(i interface{}, opt *human.MarshalOpt) (s string, err error) {
+		if reflect.TypeOf(i).Kind() != reflect.Struct {
+			return "", fmt.Errorf("%T must be a struct", i)
+		}
+		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
+		return human.Marshal(nestedValue.Interface(), opt)
+	}
 }

@@ -7,6 +7,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
+//
+// Builders
+//
+
 func placementGroupGetBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		req := argsI.(*instance.GetPlacementGroupRequest)

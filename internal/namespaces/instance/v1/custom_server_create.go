@@ -36,7 +36,7 @@ type instanceCreateServerRequest struct {
 }
 
 // TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
-func instanceServerCreate() *core.Command {
+func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
 		Long:      `Create an instance server.`, // TODO: Add examples [APIGW-1371]
