@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -70,6 +71,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()
+
+	switch err.(type) {
+	case *interactive.InterruptError:
+		return 130
+	}
+
 	if err != nil {
 		err = m.Printer.Print(err, nil)
 		if err != nil {

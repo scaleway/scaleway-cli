@@ -153,7 +153,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 			case "Interrupt":
 				return "", &InterruptError{}
 			case "EOF":
-				return "", &InterruptError{}
+				return "", nil
 			default:
 				return "", err
 			}
