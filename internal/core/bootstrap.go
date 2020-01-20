@@ -76,7 +76,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 	case *interactive.InterruptError:
 		return 130
 	}
-	fmt.Println("e", err)
 
 	if err != nil {
 		err = m.Printer.Print(err, nil)
