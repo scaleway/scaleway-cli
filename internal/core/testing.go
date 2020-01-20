@@ -211,10 +211,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		var i interface{}
-		err := json.Unmarshal(stdout.Bytes(), &i)
-		if err != nil {
-			fmt.Println(err)
-		}
+		_ = json.Unmarshal(stdout.Bytes(), &i)
 		meta["Result"] = i
 
 		config.Check(t, result, meta)
