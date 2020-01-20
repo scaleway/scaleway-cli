@@ -36,6 +36,26 @@ type Nested struct {
 	Basic Basic
 }
 
+type Merge1 struct {
+	All       string
+	Merge1    string
+	MergeOnly string
+}
+
+type Merge2 struct {
+	All       string
+	Merge2    string
+	MergeOnly string
+}
+
+type Merge struct {
+	Merge1
+	*Merge2
+
+	// override nested field
+	All string
+}
+
 type Map struct {
 	Map map[string]string
 }

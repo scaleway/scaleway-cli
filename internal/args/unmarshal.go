@@ -90,14 +90,6 @@ func UnmarshalStruct(args []string, data interface{}) error {
 			}
 		}
 
-		if !fieldExist(dest.Type(), strings.Split(argName, ".")) {
-			return &UnmarshalArgError{
-				ArgName:  argName,
-				ArgValue: argValue,
-				Err:      &UnknownArgError{},
-			}
-		}
-
 		if processedArgNames[argName] {
 			return &UnmarshalArgError{
 				ArgName:  argName,
@@ -119,31 +111,6 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	}
 
 	return nil
-}
-
-// fieldExist digs into the given type to find if the arg name matches with any subfield of it.
-func fieldExist(t reflect.Type, argNameWords []string) bool {
-
-	switch {
-	case len(argNameWords) == 0:
-		return true
-
-	case t.Kind() == reflect.Ptr:
-		return fieldExist(t.Elem(), argNameWords)
-
-	case t.Kind() == reflect.Slice || t.Kind() == reflect.Map:
-		return fieldExist(t.Elem(), argNameWords[1:])
-
-	case t.Kind() == reflect.Struct:
-		field, exists := t.FieldByName(strcase.ToPublicGoName(argNameWords[0]))
-		if !exists {
-			return false
-		}
-		return fieldExist(field.Type, argNameWords[1:])
-
-	default:
-		return false
-	}
 }
 
 // IsUmarshalableValue returns true if data type could be unmarshalled with args.UnmarshalValue
@@ -253,15 +220,50 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			return &MissingStructFieldError{Dest: dest.Interface()}
 		}
 
-		// try to find the correct field in the struct.
-		fieldName := strcase.ToPublicGoName(argNameWords[0])
-		field := dest.FieldByName(fieldName)
-		if !field.IsValid() {
-			return &UnknownArgError{}
-		}
-		// Set the value of the field
-		return set(field, argNameWords[1:], value)
+		// We cannot rely on dest.GetFieldByName() as reflect library is doing deep traversing when using anonymous field.
+		// Because of that we should rely on our own logic
+		//
+		// - First we try to find a field with the correct name in the current struct
+		// - If it does not exist we try to find it in all nested anonymous field
+		//   Anonymous fields are traversed from last to first as the last one in the struct declaration should take precedence
 
+		// We construct two cache:
+		anonymousFieldIndex := []int(nil)
+		fieldIndexByName := map[string]int{}
+		for i := 0; i < dest.Type().NumField(); i++ {
+			field := dest.Type().Field(i)
+			if field.Anonymous {
+				anonymousFieldIndex = append(anonymousFieldIndex, i)
+			} else {
+				fieldIndexByName[field.Name] = i
+			}
+		}
+
+		// Try to find the correct field in the current struct.
+		fieldName := strcase.ToPublicGoName(argNameWords[0])
+		if fieldIndex, exist := fieldIndexByName[fieldName]; exist {
+			return set(dest.Field(fieldIndex), argNameWords[1:], value)
+		}
+
+		//  If it do not exist we try to find it in nested anonymous field
+		for i := len(anonymousFieldIndex) - 1; i >= 0; i-- {
+			err := set(dest.Field(anonymousFieldIndex[i]), argNameWords, value)
+			switch err.(type) {
+			case nil:
+				// If we got no error the field was correctly set we return nil.
+				return nil
+			case *UnknownArgError:
+				// If err is an UnknownArgError this could mean the field in in another anonymous field
+				// we continue to the anonymous field
+				continue
+			default:
+				// If we get any other error this mean something went wrong we return an error.
+				return err
+			}
+		}
+
+		// We look in all struct fields + all anonymous fields without success.
+		return &UnknownArgError{}
 	}
 	return &UnmarshalableTypeError{Dest: dest.Interface()}
 }
