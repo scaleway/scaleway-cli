@@ -41,7 +41,7 @@ type TestResult struct {
 }
 
 // TestCheck is a function that perform assertion on a TestResult
-type TestCheck func(*testing.T, *TestResult)
+type TestCheck func(t *testing.T, result *TestResult, meta map[string]interface{})
 
 type BeforeFuncCtx struct {
 	Client     *scw.Client
@@ -210,7 +210,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 			Stderr:   stderr.Bytes(),
 		}
 
-		config.Check(t, result)
+		var i interface{}
+		err := json.Unmarshal(stdout.Bytes(), &i)
+		if err != nil {
+			fmt.Println(err)
+		}
+		meta["Result"] = i
+
+		config.Check(t, result, meta)
 
 		// Run config.AfterFunc
 
@@ -227,30 +234,30 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 // TestCheckCombine Combine multiple check function into one
 func TestCheckCombine(checks ...TestCheck) TestCheck {
-	return func(t *testing.T, result *TestResult) {
+	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
 		for _, check := range checks {
-			check(t, result)
+			check(t, result, meta)
 		}
 	}
 }
 
 // TestCheckExitCode assert exitCode
 func TestCheckExitCode(expectedCode int) TestCheck {
-	return func(t *testing.T, result *TestResult) {
+	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
 		assert.Equal(t, expectedCode, result.ExitCode, "Invalid exit code")
 	}
 }
 
 // TestCheckStderrGolden assert stderr using golden
 func TestCheckStderrGolden() TestCheck {
-	return func(t *testing.T, result *TestResult) {
+	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
 		testGolden(t, getTestFilePath(t, ".stderr.golden"), result.Stderr)
 	}
 }
 
 // TestCheckStdoutGolden assert stdout using golden
 func TestCheckStdoutGolden() TestCheck {
-	return func(t *testing.T, result *TestResult) {
+	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
 		testGolden(t, getTestFilePath(t, ".stdout.golden"), result.Stdout)
 	}
 }
@@ -261,6 +268,19 @@ func TestCheckGolden() TestCheck {
 		TestCheckStdoutGolden(),
 		TestCheckStderrGolden(),
 	)
+}
+
+func TestCheckEqual(expected string, actual string) TestCheck {
+	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
+		parse := func(str string, meta map[string]interface{}) string {
+			strBuf := &bytes.Buffer{}
+			require.NoError(t, template.Must(template.New("str").Parse(str)).Execute(strBuf, meta))
+			return strBuf.String()
+		}
+		expectedParsed := parse(expected, meta)
+		actualParsed := parse(actual, meta)
+		assert.Equal(t, expectedParsed, actualParsed)
+	}
 }
 
 func testGolden(t *testing.T, goldenPath string, actual []byte) {

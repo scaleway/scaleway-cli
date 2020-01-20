@@ -119,13 +119,13 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
-		Cmd: "scw instance server update server-id={{ .Server.id }} placement-group=none",
+		Cmd: "scw -o json instance server update server-id={{ .Server.id }} placement-group=none",
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group}}", "<no value>"),
 		),
 	}))
 
@@ -135,13 +135,13 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=`,
+		Cmd: `scw -o json instance server update server-id={{ .Server.id }} placement-group=`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group}}", "<no value>"),
 		),
 	}))
 
@@ -152,14 +152,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
+		Cmd: `scw -o json instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group.id}}", "{{ .PlacementGroup.placement_group.id }}"),
 		),
 	}))
 
@@ -202,14 +202,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=none`,
+		Cmd: `scw -o json instance server update server-id={{ .Server.id }} placement-group=none`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group}}", "<no value>"),
 		),
 	}))
 
@@ -220,14 +220,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
+		Cmd: `scw -o json instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group.id}}", "{{.PlacementGroup.placement_group.id}}"),
 		),
 	}))
 
@@ -239,14 +239,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup2.placement_group.id }}`,
+		Cmd: `scw -o json instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup2.placement_group.id }}`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckEqual("{{.Result.server.placement_group.id}}", "{{ .PlacementGroup2.placement_group.id }}"),
 		),
 	}))
 }

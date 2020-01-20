@@ -2,7 +2,7 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"cli-pg-loving-bassi","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","policy_mode":"optional","policy_type":"max_availability"}'
+    body: '{"name":"cli-pg-sharp-hugle","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","policy_mode":"optional","policy_type":"max_availability"}'
     form: {}
     headers:
       Content-Type:
@@ -12,22 +12,22 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/placement_groups
     method: POST
   response:
-    body: '{"placement_group": {"name": "cli-pg-loving-bassi", "policy_mode": "optional",
+    body: '{"placement_group": {"name": "cli-pg-sharp-hugle", "policy_mode": "optional",
       "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "policy_respected": true, "id": "12d4a3dc-efbf-4777-bdcd-baabae6a0c2f"}}'
+      "policy_respected": true, "id": "0f37bac8-a484-4175-8ca4-6cdf0c61c6cd"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "242"
+      - "241"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:14 GMT
+      - Mon, 20 Jan 2020 15:55:53 GMT
       Location:
-      - https://cp-par1.scaleway.com/placement_groups/12d4a3dc-efbf-4777-bdcd-baabae6a0c2f
+      - https://cp-par1.scaleway.com/placement_groups/0f37bac8-a484-4175-8ca4-6cdf0c61c6cd
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -40,7 +40,7 @@ interactions:
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-pg-silly-swirles","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","policy_mode":"optional","policy_type":"max_availability"}'
+    body: '{"name":"cli-pg-fervent-lamarr","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","policy_mode":"optional","policy_type":"max_availability"}'
     form: {}
     headers:
       Content-Type:
@@ -50,22 +50,22 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/placement_groups
     method: POST
   response:
-    body: '{"placement_group": {"name": "cli-pg-silly-swirles", "policy_mode": "optional",
+    body: '{"placement_group": {"name": "cli-pg-fervent-lamarr", "policy_mode": "optional",
       "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "policy_respected": true, "id": "48476111-e225-4093-98a4-0e069b4d0980"}}'
+      "policy_respected": true, "id": "e219d493-c426-4435-96ab-432c5e5173c6"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "243"
+      - "244"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:14 GMT
+      - Mon, 20 Jan 2020 15:55:53 GMT
       Location:
-      - https://cp-par1.scaleway.com/placement_groups/48476111-e225-4093-98a4-0e069b4d0980
+      - https://cp-par1.scaleway.com/placement_groups/e219d493-c426-4435-96ab-432c5e5173c6
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -908,7 +908,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:14 GMT
+      - Mon, 20 Jan 2020 15:55:53 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -936,8 +936,8 @@ interactions:
     method: POST
   response:
     body: '{"ip": {"organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "reverse":
-      null, "id": "f64679f7-9c33-4246-bbbf-eba3f0017649", "server": null, "address":
-      "51.158.126.164"}}'
+      null, "id": "80c791be-e6d5-41d3-a440-25dbf7a58a7a", "server": null, "address":
+      "51.158.125.104"}}'
     headers:
       Cache-Control:
       - no-cache
@@ -948,9 +948,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:15 GMT
+      - Mon, 20 Jan 2020 15:55:54 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/f64679f7-9c33-4246-bbbf-eba3f0017649
+      - https://cp-par1.scaleway.com/ips/80c791be-e6d5-41d3-a440-25dbf7a58a7a
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -963,7 +963,7 @@ interactions:
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-magical-cori","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"f64679f7-9c33-4246-bbbf-eba3f0017649","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","placement_group":"12d4a3dc-efbf-4777-bdcd-baabae6a0c2f"}'
+    body: '{"name":"cli-srv-silly-goldstine","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"80c791be-e6d5-41d3-a440-25dbf7a58a7a","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","placement_group":"0f37bac8-a484-4175-8ca4-6cdf0c61c6cd"}'
     form: {}
     headers:
       Content-Type:
@@ -985,44 +985,45 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T11:03:15.803946+00:00",
-      "public_ip": {"dynamic": false, "id": "f64679f7-9c33-4246-bbbf-eba3f0017649",
-      "address": "51.158.126.164"}, "private_ip": null, "id": "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b",
-      "dynamic_ip_required": false, "modification_date": "2020-01-20T11:03:16.151122+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-magical-cori", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T15:55:54.819911+00:00",
+      "public_ip": {"dynamic": false, "id": "80c791be-e6d5-41d3-a440-25dbf7a58a7a",
+      "address": "51.158.125.104"}, "private_ip": null, "id": "36996a9b-e303-4101-8545-8b887121fa04",
+      "dynamic_ip_required": false, "modification_date": "2020-01-20T15:55:55.091677+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-silly-goldstine", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
       "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": {"name": "cli-pg-loving-bassi", "policy_mode":
-      "optional", "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "policy_respected": true, "id": "12d4a3dc-efbf-4777-bdcd-baabae6a0c2f"}, "tags":
-      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-loving-bassi",
+      "DEV1-S", "placement_group": {"name": "cli-pg-sharp-hugle", "policy_mode": "optional",
+      "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "policy_respected": true, "id": "0f37bac8-a484-4175-8ca4-6cdf0c61c6cd"}, "tags":
+      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-sharp-hugle",
       "policy_mode": "optional", "policy_type": "max_availability", "organization":
-      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "12d4a3dc-efbf-4777-bdcd-baabae6a0c2f"},
-      "name": "cli-srv-magical-cori", "protected": false, "volumes": {"0": {"size":
+      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "0f37bac8-a484-4175-8ca4-6cdf0c61c6cd"},
+      "name": "cli-srv-silly-goldstine", "protected": false, "volumes": {"0": {"size":
       20000000000, "state": "available", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "modification_date": "2020-01-20T11:03:16.132940+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-20T11:03:15.803946+00:00", "id":
-      "ed35996b-3455-46dc-a55c-661f05614d3d", "volume_type": "l_ssd", "server": {"id":
-      "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b", "name": "cli-srv-magical-cori"}}}, "security_group":
-      {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default security group"},
-      "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics": []}}'
+      "modification_date": "2020-01-20T15:55:55.082332+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-20T15:55:54.819911+00:00", "id":
+      "035625aa-f169-427f-b8dd-eef402a127ed", "volume_type": "l_ssd", "server": {"id":
+      "36996a9b-e303-4101-8545-8b887121fa04", "name": "cli-srv-silly-goldstine"}}},
+      "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
+      security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
+      []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3281"
+      - "3288"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:54 GMT
       Location:
-      - https://cp-par1.scaleway.com/servers/cddc0cd4-b759-482f-b1ae-22e59ebfeb8b
+      - https://cp-par1.scaleway.com/servers/36996a9b-e303-4101-8545-8b887121fa04
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1035,14 +1036,14 @@ interactions:
     code: 201
     duration: ""
 - request:
-    body: '{"placement_group":"48476111-e225-4093-98a4-0e069b4d0980"}'
+    body: '{"placement_group":"e219d493-c426-4435-96ab-432c5e5173c6"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/cddc0cd4-b759-482f-b1ae-22e59ebfeb8b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/36996a9b-e303-4101-8545-8b887121fa04
     method: PATCH
   response:
     body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
@@ -1057,42 +1058,43 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T11:03:15.803946+00:00",
-      "public_ip": {"dynamic": false, "id": "f64679f7-9c33-4246-bbbf-eba3f0017649",
-      "address": "51.158.126.164"}, "private_ip": null, "id": "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b",
-      "dynamic_ip_required": false, "modification_date": "2020-01-20T11:03:16.474125+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-magical-cori", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T15:55:54.819911+00:00",
+      "public_ip": {"dynamic": false, "id": "80c791be-e6d5-41d3-a440-25dbf7a58a7a",
+      "address": "51.158.125.104"}, "private_ip": null, "id": "36996a9b-e303-4101-8545-8b887121fa04",
+      "dynamic_ip_required": false, "modification_date": "2020-01-20T15:55:55.308997+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-silly-goldstine", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
       "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": {"name": "cli-pg-silly-swirles", "policy_mode":
+      "DEV1-S", "placement_group": {"name": "cli-pg-fervent-lamarr", "policy_mode":
       "optional", "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "policy_respected": true, "id": "48476111-e225-4093-98a4-0e069b4d0980"}, "tags":
-      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-silly-swirles",
+      "policy_respected": true, "id": "e219d493-c426-4435-96ab-432c5e5173c6"}, "tags":
+      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-fervent-lamarr",
       "policy_mode": "optional", "policy_type": "max_availability", "organization":
-      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "48476111-e225-4093-98a4-0e069b4d0980"},
-      "name": "cli-srv-magical-cori", "protected": false, "volumes": {"0": {"size":
+      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "e219d493-c426-4435-96ab-432c5e5173c6"},
+      "name": "cli-srv-silly-goldstine", "protected": false, "volumes": {"0": {"size":
       20000000000, "state": "available", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "modification_date": "2020-01-20T11:03:16.132940+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-20T11:03:15.803946+00:00", "id":
-      "ed35996b-3455-46dc-a55c-661f05614d3d", "volume_type": "l_ssd", "server": {"id":
-      "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b", "name": "cli-srv-magical-cori"}}}, "security_group":
-      {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default security group"},
-      "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics": []}}'
+      "modification_date": "2020-01-20T15:55:55.082332+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-20T15:55:54.819911+00:00", "id":
+      "035625aa-f169-427f-b8dd-eef402a127ed", "volume_type": "l_ssd", "server": {"id":
+      "36996a9b-e303-4101-8545-8b887121fa04", "name": "cli-srv-silly-goldstine"}}},
+      "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
+      security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
+      []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3283"
+      - "3294"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:54 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1110,7 +1112,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/cddc0cd4-b759-482f-b1ae-22e59ebfeb8b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/36996a9b-e303-4101-8545-8b887121fa04
     method: GET
   response:
     body: '{"server": {"allowed_actions": ["poweron", "backup"], "maintenances": [],
@@ -1125,42 +1127,43 @@ interactions:
       "volume_type": "l_ssd", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"},
       "name": "Ubuntu Bionic Beaver", "modification_date": "2019-03-05T13:32:29.274319+00:00",
       "state": "available", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T11:03:15.803946+00:00",
-      "public_ip": {"dynamic": false, "id": "f64679f7-9c33-4246-bbbf-eba3f0017649",
-      "address": "51.158.126.164"}, "private_ip": null, "id": "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b",
-      "dynamic_ip_required": false, "modification_date": "2020-01-20T11:03:16.474125+00:00",
-      "enable_ipv6": false, "hostname": "cli-srv-magical-cori", "state": "stopped",
+      "extra_volumes": {}, "public": true}, "creation_date": "2020-01-20T15:55:54.819911+00:00",
+      "public_ip": {"dynamic": false, "id": "80c791be-e6d5-41d3-a440-25dbf7a58a7a",
+      "address": "51.158.125.104"}, "private_ip": null, "id": "36996a9b-e303-4101-8545-8b887121fa04",
+      "dynamic_ip_required": false, "modification_date": "2020-01-20T15:55:55.308997+00:00",
+      "enable_ipv6": false, "hostname": "cli-srv-silly-goldstine", "state": "stopped",
       "bootscript": {"kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz", "default":
       false, "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "architecture":
       "x86_64", "title": "x86_64 mainline 4.9.93 rev1", "dtb": "", "organization":
       "11111111-1111-4111-8111-111111111111", "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
       "public": false}, "location": null, "boot_type": "local", "ipv6": null, "commercial_type":
-      "DEV1-S", "placement_group": {"name": "cli-pg-silly-swirles", "policy_mode":
+      "DEV1-S", "placement_group": {"name": "cli-pg-fervent-lamarr", "policy_mode":
       "optional", "policy_type": "max_availability", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "policy_respected": true, "id": "48476111-e225-4093-98a4-0e069b4d0980"}, "tags":
-      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-silly-swirles",
+      "policy_respected": true, "id": "e219d493-c426-4435-96ab-432c5e5173c6"}, "tags":
+      [], "arch": "x86_64", "extra_networks": [], "compute_cluster": {"name": "cli-pg-fervent-lamarr",
       "policy_mode": "optional", "policy_type": "max_availability", "organization":
-      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "48476111-e225-4093-98a4-0e069b4d0980"},
-      "name": "cli-srv-magical-cori", "protected": false, "volumes": {"0": {"size":
+      "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "policy_respected": true, "id": "e219d493-c426-4435-96ab-432c5e5173c6"},
+      "name": "cli-srv-silly-goldstine", "protected": false, "volumes": {"0": {"size":
       20000000000, "state": "available", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "modification_date": "2020-01-20T11:03:16.132940+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-01-20T11:03:15.803946+00:00", "id":
-      "ed35996b-3455-46dc-a55c-661f05614d3d", "volume_type": "l_ssd", "server": {"id":
-      "cddc0cd4-b759-482f-b1ae-22e59ebfeb8b", "name": "cli-srv-magical-cori"}}}, "security_group":
-      {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default security group"},
-      "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics": []}}'
+      "modification_date": "2020-01-20T15:55:55.082332+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-01-20T15:55:54.819911+00:00", "id":
+      "035625aa-f169-427f-b8dd-eef402a127ed", "volume_type": "l_ssd", "server": {"id":
+      "36996a9b-e303-4101-8545-8b887121fa04", "name": "cli-srv-silly-goldstine"}}},
+      "security_group": {"id": "49822f6c-1d32-465c-a017-720691d159b2", "name": "Default
+      security group"}, "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "private_nics":
+      []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3283"
+      - "3294"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:55 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1178,7 +1181,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/cddc0cd4-b759-482f-b1ae-22e59ebfeb8b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/36996a9b-e303-4101-8545-8b887121fa04
     method: DELETE
   response:
     body: ""
@@ -1190,7 +1193,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:57 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1208,7 +1211,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/f64679f7-9c33-4246-bbbf-eba3f0017649
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/80c791be-e6d5-41d3-a440-25dbf7a58a7a
     method: DELETE
   response:
     body: ""
@@ -1220,7 +1223,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:57 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1238,7 +1241,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/ed35996b-3455-46dc-a55c-661f05614d3d
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/035625aa-f169-427f-b8dd-eef402a127ed
     method: DELETE
   response:
     body: ""
@@ -1250,7 +1253,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:57 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1268,7 +1271,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/placement_groups/12d4a3dc-efbf-4777-bdcd-baabae6a0c2f
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/placement_groups/0f37bac8-a484-4175-8ca4-6cdf0c61c6cd
     method: DELETE
   response:
     body: ""
@@ -1280,7 +1283,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Jan 2020 11:03:16 GMT
+      - Mon, 20 Jan 2020 15:55:57 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
