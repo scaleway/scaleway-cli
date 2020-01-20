@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"regexp"
 	"sort"
 	"strconv"
@@ -284,12 +285,14 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 		// handle boolean arg
 		default:
-			children, exist := node.Children[word+"="]
+			children, exist := node.Children[word]
 			if exist && children.Type == AutoCompleteNodeTypeArgument {
-				completedArgs[word+"="] = struct{}{}
+				completedArgs[word] = struct{}{}
 			}
 		}
 	}
+
+	fmt.Println(completedArgs)
 
 	if isCompletingArgValue(wordToComplete) {
 		argName, argValuePrefix := splitArgWord(wordToComplete)
