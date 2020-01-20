@@ -1,0 +1,35 @@
+server.id                        279467f2-4c5a-4693-9b1f-6ec4df7ce96e
+server.name                      cli-srv-cocky-cohen
+server.organization              aba2d0d0-b01d-4d88-b322-935edc96d0fd
+server.allowed-actions.0         poweron
+server.allowed-actions.1         backup
+server.commercial-type           DEV1-S
+server.creation-date             few seconds ago
+server.dynamic-ip-required       false
+server.enable-ipv6               false
+server.hostname                  cli-srv-cocky-cohen
+server.image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
+server.image.name                Ubuntu Bionic Beaver
+server.image.arch                x86_64
+server.image.creation-date       few seconds ago
+server.image.modification-date   few seconds ago
+server.image.default-bootscript  x86_64 mainline 4.9.93 rev1
+server.image.extra-volumes       0
+server.image.from-server         
+server.image.organization        51b656e3-4865-41e8-adbc-0c45bdd780db
+server.image.public              true
+server.image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
+server.image.state               available
+server.protected                 false
+server.public-ip.id              f64679f7-9c33-4246-bbbf-eba3f0017649
+server.public-ip.address         51.158.126.164
+server.public-ip.dynamic         false
+server.modification-date         few seconds ago
+server.state                     archived
+server.bootscript                x86_64 mainline 4.9.93 rev1
+server.boot-type                 local
+server.volumes                   1
+server.security-group.id         49822f6c-1d32-465c-a017-720691d159b2
+server.security-group.name       Default security group
+server.state-detail              
+server.arch                      x86_64
