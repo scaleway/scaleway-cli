@@ -113,17 +113,48 @@ func Test_ServerUpdate(t *testing.T) {
 		),
 	}))
 
-	// TODO: Run test when `placement-group=none` is supported
-	t.Skip("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
+	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.id }} placement-group=none",
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`No initial placement group & placement-group-id=`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`No initial placement group & placement-group-id=<existing pg id>`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},
@@ -132,16 +163,85 @@ func Test_ServerUpdate(t *testing.T) {
 		),
 	}))
 
-	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
+	t.Run(`No initial placement group & placement-group-id=<valid, but non existing pg id>`, core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
-		Cmd: "scw instance server update server-id={{ .Server.id }} placement-group=none",
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=11111111-1111-1111-1111-111111111111`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`No initial placement group & placement-group-id=<invalid pg id>`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=1111111`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`Initial placement group & placement-group-id=none`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group=none`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`Initial placement group & placement-group-id=<current pg id>`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup.placement_group.id }}`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run(`Initial placement group & placement-group-id=<new pg id>`, core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["PlacementGroup2"] = ctx.ExecuteCmd("scw instance placement-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.placement_group.id }}")
+			return nil
+		},
+		Cmd: `scw instance server update server-id={{ .Server.id }} placement-group={{ .PlacementGroup2.placement_group.id }}`,
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.placement_group.id }}")
 			return nil
 		},

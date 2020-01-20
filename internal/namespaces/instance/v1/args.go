@@ -21,7 +21,9 @@ func unmarshalNullableStringValue() args.UnmarshalFunc {
 	return func(value string, dest interface{}) error {
 		nullableStringValue := dest.(*instance.NullableStringValue)
 		nullableStringValue.Value = value
-		nullableStringValue.Null = value == ""
+		if value == "" || value == "none" {
+			nullableStringValue.Null = true
+		}
 		return nil
 	}
 }
