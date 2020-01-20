@@ -25,6 +25,12 @@ type UnmarshalFunc func(value string, dest interface{}) error
 
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest interface{}) error {
+		// Only support G, GB for now (case insensitive).
+		value = strings.ToLower(value)
+		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
+			return fmt.Errorf("size must be defined using the G or GB unit")
+		}
+
 		bytes, err := humanize.ParseBytes(value)
 		if err != nil {
 			return err

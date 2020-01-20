@@ -103,6 +103,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 			Err:  fmt.Errorf("unknown argument '%s'", unmarshalErr.ArgName),
 			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
 		}
+
 	default:
 		return &CliError{Err: unmarshalErr}
 	}

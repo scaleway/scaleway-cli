@@ -265,6 +265,6 @@ func TestMarshalValue(t *testing.T) {
 
 	t.Run("a-struct", run(TestCase{
 		data:  &Basic{},
-		error: "data must be a marshable value (a scalar type or a Marshaler)",
+		error: "data must be a marshalable value (a scalar type or a Marshaler)",
 	}))
 }

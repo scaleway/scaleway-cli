@@ -21,11 +21,11 @@ func (e *DataMustBeAPointerError) Error() string {
 // Marshal Errors
 //
 
-type DataMustBeAmArshalableValueError struct {
+type DataMustBeAMarshalableValueError struct {
 }
 
-func (e *DataMustBeAmArshalableValueError) Error() string {
-	return fmt.Sprintf("data must be a marshable value (a scalar type or a Marshaler)")
+func (e *DataMustBeAMarshalableValueError) Error() string {
+	return fmt.Sprintf("data must be a marshalable value (a scalar type or a Marshaler)")
 }
 
 type ValueIsNotMarshalableError struct {

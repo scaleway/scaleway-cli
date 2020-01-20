@@ -74,7 +74,7 @@ func MarshalValue(data interface{}) (string, error) {
 
 	// If we do not get a single key this is probably because we try to marshal a struct
 	if len(m) != 1 {
-		return "", &DataMustBeAmArshalableValueError{}
+		return "", &DataMustBeAMarshalableValueError{}
 	}
 
 	return m[0], nil
