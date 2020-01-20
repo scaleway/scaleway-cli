@@ -6,11 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
-//
-// Server
-//
-
-func Test_ListServer(t *testing.T) {
+func Test_ServerList(t *testing.T) {
 
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -26,24 +22,27 @@ func Test_ListServer(t *testing.T) {
 
 }
 
-func Test_ListServerTypes(t *testing.T) {
-
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server-type list -h",
-		Check:    core.TestCheckGolden(),
-	}))
+func Test_ServerReboot(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:     GetCommands(),
-		Cmd:          "scw instance server-type list",
-		UseE2EClient: true,
-		Check:        core.TestCheckGolden(),
+		Commands: GetCommands(),
+		Cmd:      "scw instance server reboot",
+		Check:    core.TestCheckGolden(),
 	}))
 
 }
 
-func Test_GetServer(t *testing.T) {
+func Test_ServerStandby(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server standby",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerGet(t *testing.T) {
 
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -71,25 +70,31 @@ func Test_GetServer(t *testing.T) {
 
 }
 
-//
-// Volume
-//
-
-func Test_CreateVolume(t *testing.T) {
+func Test_ServerDelete(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20G",
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Volume.ID }}")
-			return nil
-		},
-		Check: core.TestCheckGolden(),
+		Cmd:      "scw instance server delete",
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("Bad size unit", core.Test(&core.TestConfig{
+}
+
+func Test_ServerStart(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20",
+		Cmd:      "scw instance server start",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerStop(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server stop",
 		Check:    core.TestCheckGolden(),
 	}))
 
