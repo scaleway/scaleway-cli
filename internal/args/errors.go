@@ -2,7 +2,6 @@ package args
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
 	"strings"
 )
@@ -16,14 +15,6 @@ type DataMustBeAPointerError struct {
 
 func (e *DataMustBeAPointerError) Error() string {
 	return fmt.Sprintf("data must be a pointer to a struct")
-}
-
-type UnknownKindError struct {
-	Kind reflect.Kind
-}
-
-func (e *UnknownKindError) Error() string {
-	return fmt.Sprintf("unknown kind '%s'", e.Kind)
 }
 
 //
@@ -45,55 +36,68 @@ func (e *ValueIsNotMarshalableError) Error() string {
 	return fmt.Sprintf("%T is not marshalable", e.Interface)
 }
 
+type NotMarshalableTypeError struct {
+	Src interface{}
+}
+
+func (e *NotMarshalableTypeError) Error() string {
+	return fmt.Sprintf("cannot marshal type '%T'", e.Src)
+}
+
 //
 // Unmarshal Errors
 //
 
-type InvalidArgumentError struct {
-	ArgumentName string
+type UnmarshalArgError struct {
+	// ArgName is the name of the argument which causes the error.
+	ArgName string
+
+	// ArgValue is the value of the argument which causes the error.
+	ArgValue string
+
+	// Err is the wrapped error.
+	Err error
 }
 
-func (e *InvalidArgumentError) Error() string {
-	return fmt.Sprintf("invalid argument '%s': must only contain lowercase letters, numbers or dashes", e.ArgumentName)
+func (e *UnmarshalArgError) Error() string {
+	arg := e.ArgName
+	if e.ArgValue != "" {
+		arg += "=" + e.ArgValue
+	}
+	return fmt.Sprintf("cannot unmarshal arg '%s': %s", arg, e.Err)
 }
 
-type UnknowArgumentError struct {
-	ArgumentName string
+func (e *UnmarshalArgError) Unwrap() error {
+	return e.Err
 }
 
-func (e *UnknowArgumentError) Error() string {
-	return fmt.Sprintf("unknown argument '%s'", e.ArgumentName)
+type InvalidArgNameError struct {
 }
 
-type DuplicateArgumentError struct {
-	ArgumentName string
+func (e *InvalidArgNameError) Error() string {
+	return fmt.Sprintf("arg name must only contain lowercase letters, numbers or dashes")
 }
 
-func (e *DuplicateArgumentError) Error() string {
-	return fmt.Sprintf("duplicate argument '%s'", e.ArgumentName)
+type UnknownArgError struct {
 }
 
-type DataIsNilError struct {
+func (e *UnknownArgError) Error() string {
+	return fmt.Sprintf("unknown argument")
 }
 
-func (e *DataIsNilError) Error() string {
-	return fmt.Sprintf("data must be not be nil")
+type DuplicateArgError struct {
 }
 
-type DataIsNotAPointerError struct {
-}
-
-func (e *DataIsNotAPointerError) Error() string {
-	return fmt.Sprintf("data must be a pointer")
+func (e *DuplicateArgError) Error() string {
+	return fmt.Sprintf("duplicate argument")
 }
 
 type CannotSetNestedFieldError struct {
-	ArgumentName string
-	Interface    interface{}
+	Dest interface{}
 }
 
 func (e *CannotSetNestedFieldError) Error() string {
-	return fmt.Sprintf("cannot set nested field %s for unmarshalable type %T", e.ArgumentName, e.Interface)
+	return fmt.Sprintf("cannot set nested field for unmarshalable type %T", e.Dest)
 }
 
 type MissingIndexOnArrayError struct {
@@ -108,7 +112,7 @@ type InvalidIndexError struct {
 }
 
 func (e *InvalidIndexError) Error() string {
-	return fmt.Sprintf("invalid index: '%s' is not a positive integer", e.Index)
+	return fmt.Sprintf("invalid index '%s' is not a positive integer", e.Index)
 }
 
 type MissingIndicesInArrayError struct {
@@ -119,50 +123,42 @@ type MissingIndicesInArrayError struct {
 func (e *MissingIndicesInArrayError) Error() string {
 	switch {
 	case e.IndexToInsert-e.CurrentLength == 1:
-		return fmt.Sprintf("missing index %d: all indices prior to %d must be set as well", e.CurrentLength, e.IndexToInsert)
+		return fmt.Sprintf("missing index %d, all indices prior to %d must be set as well", e.CurrentLength, e.IndexToInsert)
 	default:
-		return fmt.Sprintf("missing indices %s: all indices prior to %d must be set as well", missingIndices(int(e.IndexToInsert), e.CurrentLength), e.IndexToInsert)
+		return fmt.Sprintf("missing indices, %s all indices prior to %d must be set as well", missingIndices(int(e.IndexToInsert), e.CurrentLength), e.IndexToInsert)
 	}
 }
 
-type NoSubKeyForMapError struct {
-	Value string
+type MissingMapKeyError struct {
 }
 
-func (e *NoSubKeyForMapError) Error() string {
-	return fmt.Sprintf("cannot handle map with no subkey, value '%v'", e.Value)
+func (e *MissingMapKeyError) Error() string {
+	return fmt.Sprintf("missing map key")
 }
 
-type MissingFieldNameForStructError struct {
-	Interface interface{}
+type MissingStructFieldError struct {
+	Dest interface{}
 }
 
-func (e *MissingFieldNameForStructError) Error() string {
-	return fmt.Sprintf("cannot unmarshal a struct %T with not field name", e.Interface)
+func (e *MissingStructFieldError) Error() string {
+	return fmt.Sprintf("missing field name for type %T", e.Dest)
 }
 
-type CannotUnmarshalTypeError struct {
-	Interface interface{}
+type UnmarshalableTypeError struct {
+	Dest interface{}
 }
 
-func (e *CannotUnmarshalTypeError) Error() string {
-	return fmt.Sprintf("don't know how to unmarshal type %T", e.Interface)
-}
-
-type InvalidValueError struct {
-	Value string
-}
-
-func (e *InvalidValueError) Error() string {
-	return fmt.Sprintf("invalid value '%s': valid values are true or false", e.Value)
+func (e *UnmarshalableTypeError) Error() string {
+	return fmt.Sprintf("do not know how to unmarshal type %T", e.Dest)
 }
 
 type CannotUnmarshalError struct {
-	Interface interface{}
+	Dest interface{}
+	Err  error
 }
 
 func (e *CannotUnmarshalError) Error() string {
-	return fmt.Sprintf("%T is not unmarshalable", e.Interface)
+	return fmt.Sprintf("%T is not unmarshalable: %s", e.Dest, e.Err)
 }
 
 // missingIndices returns a string of all the missing indices between index and length.

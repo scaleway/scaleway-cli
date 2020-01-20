@@ -256,7 +256,7 @@ func isDefaultValue(value reflect.Value) (bool, error) {
 	case reflect.String:
 		return value.String() == "", nil
 	default:
-		return false, &UnknownKindError{Kind: value.Kind()}
+		return false, &NotMarshalableTypeError{Src: value.Interface()}
 	}
 }
 

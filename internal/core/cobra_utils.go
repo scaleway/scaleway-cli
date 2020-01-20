@@ -2,8 +2,10 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/printer"
@@ -32,6 +34,9 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// and will be working with cmdArgs.
 		err = args.UnmarshalStruct(rawArgs, cmdArgs)
 		if err != nil {
+			if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
+				return handleUnmarshalErrors(cmd, unmarshalError)
+			}
 			return err
 		}
 
@@ -70,6 +75,36 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		}
 
 		return nil
+	}
+}
+
+func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) error {
+	wrappedErr := errors.Unwrap(unmarshalErr)
+
+	switch e := wrappedErr.(type) {
+	case *args.CannotUnmarshalError:
+		hint := ""
+		if _, ok := e.Dest.(*bool); ok {
+			hint = "Possible values: true, false"
+		}
+
+		return &CliError{
+			Err:  fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
+			Hint: hint,
+		}
+
+	case *args.UnknownArgError:
+		argNames := []string(nil)
+		for _, argSpec := range cmd.ArgSpecs {
+			argNames = append(argNames, argSpec.Name)
+		}
+
+		return &CliError{
+			Err:  fmt.Errorf("unknown argument '%s'", unmarshalErr.ArgName),
+			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
+		}
+	default:
+		return &CliError{Err: unmarshalErr}
 	}
 }
 
