@@ -22,6 +22,47 @@ func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list",
+func Test_ServerList(t *testing.T) {
+
+	t.Run("Usage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server list -h",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server list",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerReboot(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server reboot",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerStandby(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server standby",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerGet(t *testing.T) {
+
+	t.Run("Usage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server get -h",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -59,9 +100,29 @@ func Test_CreateVolume(t *testing.T) {
 			ctx.ExecuteCmd("scw instance volume delete volume-id=" + ctx.CmdResult.(*instance.CreateVolumeResponse).Volume.ID)
 			return nil
 		},
+func Test_ServerDelete(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server delete",
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("Bad size unit", core.Test(&core.TestConfig{
+}
+
+func Test_ServerStart(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server start",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
+func Test_ServerStop(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20",
 		Check: core.TestCheckCombine(

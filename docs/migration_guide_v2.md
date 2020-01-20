@@ -35,11 +35,11 @@ The goal of this document is to help you migrate from CLI v1 to CLI v2.
   * [`scw rmi`](#scw-rmi)
   * [`scw run`](#scw-run)
   * [`scw search`](#scw-search)
-  * [`scw start`](#scw-start)
+     * [`scw start`](#scw-start)
   * [`scw stop`](#scw-stop)
-  * [`scw tag`](#scw-tag)
+     * [`scw tag`](#scw-tag)
   * [`scw top`](#scw-top)
-  * [`scw version`](#scw-version)
+     * [`scw version`](#scw-version)
   * [`scw wait`](#scw-wait)
 
 ## Justification for a v2
