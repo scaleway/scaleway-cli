@@ -29,6 +29,7 @@ const (
 	rawArgsContextKey  = "__RAW_ARGS__"
 	commandContextKey  = "__COMMAND__"
 	commandsContextKey = "__COMMANDS__"
+	resultContextKey   = "__RESULT__"
 )
 
 // injectMeta creates a child of ctx with injected meta and returns it.
@@ -89,4 +90,14 @@ func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 
 func extractPrinter(ctx context.Context) printer.Printer {
 	return extractMeta(ctx).Printer
+}
+
+func injectResultSetter(ctx context.Context, result *interface{}) context.Context {
+	return context.WithValue(ctx, resultContextKey, func(r interface{}) {
+		*result = r
+	})
+}
+
+func setContextResult(ctx context.Context, result interface{}) {
+	ctx.Value(resultContextKey).(func(interface{}))(result)
 }

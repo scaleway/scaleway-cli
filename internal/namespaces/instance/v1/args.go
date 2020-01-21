@@ -17,11 +17,17 @@ func marshalNullableStringValue() args.MarshalFunc {
 	}
 }
 
+// unmarshalNullableStringValue unmarshal an arg into a nullableStringValue
+//
+// value=   	=> instance.NullableStringValue{ Null:  true, Value: "", }
+// value=none	=> instance.NullableStringValue{ Null:  true, Value: "none", }
 func unmarshalNullableStringValue() args.UnmarshalFunc {
 	return func(value string, dest interface{}) error {
 		nullableStringValue := dest.(*instance.NullableStringValue)
 		nullableStringValue.Value = value
-		nullableStringValue.Null = value == ""
+		if value == "" || value == "none" {
+			nullableStringValue.Null = true
+		}
 		return nil
 	}
 }

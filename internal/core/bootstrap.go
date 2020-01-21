@@ -33,13 +33,14 @@ type BootstrapConfig struct {
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
-// args is usually os.Args and commands is a list of command available in CLI.
-func Bootstrap(config *BootstrapConfig) (exitCode int) {
+// BootstrapConfig.Args is usually os.Args
+// BootstrapConfig.Commands is a list of command available in CLI.
+func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
 
 	printer_, err := printer.New(printer.Human, config.Stdout, config.Stderr)
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err)
-		return 1
+		return 1, nil, err
 	}
 
 	// Meta store globally available variables like SDK client.
@@ -53,6 +54,10 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 	}
 	ctx := injectMeta(context.Background(), m)
 	ctx = injectCommands(ctx, config.Commands)
+
+	// Allocate space in ctx for command result
+	// result is later injected by cobra_utils.go/cobraRun()
+	ctx = injectResultSetter(ctx, &result)
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{
@@ -74,7 +79,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 
 	switch err.(type) {
 	case *interactive.InterruptError:
-		return 130
+		return 130, result, err
 	}
 
 	if err != nil {
@@ -82,7 +87,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int) {
 		if err != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
-		return 1
+		return 1, result, err
 	}
-	return 0
+	return 0, result, err
 }
