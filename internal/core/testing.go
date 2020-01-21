@@ -2,8 +2,6 @@ package core
 
 import (
 	"bytes"
-	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -21,14 +19,13 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-	"github.com/scaleway/scaleway-sdk-go/validation"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
 
-// TODO: replace TestResult by CheckFuncCtx
+// TODO: replace CheckFuncCtx by CheckFuncCtx
 // CheckFuncCtx contain the result of a command execution
 /*type CheckFuncCtx struct {
 	// Exit code return by the CLI
@@ -40,11 +37,11 @@ var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
 	// Content print on stderr
 	Stderr []byte
 
-	Meta map[string]interface{}
+
 }*/
 
-// TestResult contain the result of a command execution
-type TestResult struct {
+// CheckFuncCtx contain the result of a command execution
+type CheckFuncCtx struct {
 	// Exit code return by the CLI
 	ExitCode int
 
@@ -53,10 +50,19 @@ type TestResult struct {
 
 	// Content print on stderr
 	Stderr []byte
+
+	// Error returned by the command
+	Err error
+
+	// Command result
+	Result interface{}
+
+	// Meta bag
+	Meta map[string]interface{}
 }
 
-// TestCheck is a function that perform assertion on a TestResult
-type TestCheck func(t *testing.T, result *TestResult, meta map[string]interface{})
+// TestCheck is a function that perform assertion on a CheckFuncCtx
+type TestCheck func(t *testing.T, ctx *CheckFuncCtx)
 
 type BeforeFuncCtx struct {
 	Client     *scw.Client
@@ -69,19 +75,10 @@ type AfterFuncCtx struct {
 	ExecuteCmd func(cmd string) interface{}
 	Meta       map[string]interface{}
 
-	testResult *TestResult
+	CmdResult interface{}
 }
 
 var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
-
-// ExtractResourceID extracts resource ID from Stdout or returns an error if not found.
-func (ctx *AfterFuncCtx) ExtractResourceID() (string, error) {
-	results := idExtractorRegex.FindStringSubmatch(string(ctx.testResult.Stdout))
-	if len(results) != 2 || !validation.IsUUID(results[1]) {
-		return "", fmt.Errorf("cannot find attribute 'id' in '%s'", string(ctx.testResult.Stdout))
-	}
-	return results[1], nil
-}
 
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
@@ -180,18 +177,15 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
 
-			exitCode := Bootstrap(&BootstrapConfig{
-				Args:      append(strings.Split(cmdTemplate(cmd), " "), "-o", "json"),
+			_, result, err := Bootstrap(&BootstrapConfig{
+				Args:      strings.Split(cmdTemplate(cmd), " "),
 				Commands:  config.Commands,
 				BuildInfo: &BuildInfo{},
 				Stdout:    stdoutBuffer,
 				Stderr:    stderrBuffer,
 				Client:    client,
 			})
-			require.Equal(t, 0, exitCode, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
-
-			result := map[string]interface{}{}
-			require.NoError(t, json.Unmarshal(stdoutBuffer.Bytes(), &result))
+			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
 			return result
 		}
@@ -210,7 +204,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
-		exitCode := Bootstrap(&BootstrapConfig{
+		exitCode, result, err := Bootstrap(&BootstrapConfig{
 			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
 			Commands:  config.Commands,
 			BuildInfo: &BuildInfo{},
@@ -219,17 +213,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 			Client:    client,
 		})
 
-		result := &TestResult{
+		config.Check(t, &CheckFuncCtx{
 			ExitCode: exitCode,
 			Stdout:   stdout.Bytes(),
 			Stderr:   stderr.Bytes(),
-		}
-
-		var i interface{}
-		_ = json.Unmarshal(stdout.Bytes(), &i)
-		meta["Result"] = i
-
-		config.Check(t, result, meta)
+			Meta:     meta,
+			Result:   result,
+			Err:      err,
+		})
 
 		// Run config.AfterFunc
 
@@ -238,7 +229,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Client:     client,
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
-				testResult: result,
+				CmdResult:  result,
 			}))
 		}
 	}
@@ -246,31 +237,31 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 // TestCheckCombine Combine multiple check function into one
 func TestCheckCombine(checks ...TestCheck) TestCheck {
-	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
+	return func(t *testing.T, result *CheckFuncCtx) {
 		for _, check := range checks {
-			check(t, result, meta)
+			check(t, result)
 		}
 	}
 }
 
 // TestCheckExitCode assert exitCode
 func TestCheckExitCode(expectedCode int) TestCheck {
-	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
-		assert.Equal(t, expectedCode, result.ExitCode, "Invalid exit code")
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		assert.Equal(t, expectedCode, ctx.ExitCode, "Invalid exit code")
 	}
 }
 
 // TestCheckStderrGolden assert stderr using golden
 func TestCheckStderrGolden() TestCheck {
-	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
-		testGolden(t, getTestFilePath(t, ".stderr.golden"), result.Stderr)
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		testGolden(t, getTestFilePath(t, ".stderr.golden"), ctx.Stderr)
 	}
 }
 
 // TestCheckStdoutGolden assert stdout using golden
 func TestCheckStdoutGolden() TestCheck {
-	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
-		testGolden(t, getTestFilePath(t, ".stdout.golden"), result.Stdout)
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		testGolden(t, getTestFilePath(t, ".stdout.golden"), ctx.Stdout)
 	}
 }
 
@@ -280,19 +271,6 @@ func TestCheckGolden() TestCheck {
 		TestCheckStdoutGolden(),
 		TestCheckStderrGolden(),
 	)
-}
-
-func TestCheckEqual(expected string, actual string) TestCheck {
-	return func(t *testing.T, result *TestResult, meta map[string]interface{}) {
-		parse := func(str string, meta map[string]interface{}) string {
-			strBuf := &bytes.Buffer{}
-			require.NoError(t, template.Must(template.New("str").Parse(str)).Execute(strBuf, meta))
-			return strBuf.String()
-		}
-		expectedParsed := parse(expected, meta)
-		actualParsed := parse(actual, meta)
-		assert.Equal(t, expectedParsed, actualParsed)
-	}
 }
 
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
@@ -346,4 +324,26 @@ func getHttpRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	return &http.Client{Transport: r}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
+}
+
+func TestCheckEqual(expectedKey string, actualKey string) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		parse := func(str string, data interface{}) string {
+			if !strings.HasPrefix(str, ".") {
+				return str
+			}
+
+			str = "{{" + str + "}}"
+			strBuf := &bytes.Buffer{}
+			require.NoError(t, template.Must(template.New("str").Parse(str)).Execute(strBuf, data))
+			return strBuf.String()
+		}
+		expectedValue := parse(expectedKey, ctx.Meta)
+		actualValue := parse(actualKey, ctx.Result)
+		assert.Equal(t, expectedValue, actualValue)
+	}
+}
+
+func TestCheckNil(actualKey string) TestCheck {
+	return TestCheckEqual("<nil>", actualKey)
 }

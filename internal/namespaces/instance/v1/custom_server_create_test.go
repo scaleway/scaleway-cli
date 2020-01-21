@@ -3,18 +3,14 @@ package instance
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	// Get ID of the created server.
-	serverID, err := ctx.ExtractResourceID()
-	if err != nil {
-		return err
-	}
-
-	// Delete the test server.
-	ctx.ExecuteCmd("scw instance server delete server-id=" + serverID)
+	// Delete the test volume.
+	ctx.ExecuteCmd("scw instance server delete server-id=" + ctx.CmdResult.(*instance.Server).ID)
 	return nil
 }
 
@@ -121,12 +117,12 @@ func Test_CreateServerErrors(t *testing.T) {
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
+			ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
 			return nil
 		},
-		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .response.volume.id }} additional-volumes.0=local:10GB",
+		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .Response.Volume.ID }} additional-volumes.0=local:10GB",
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .response.volume.id }}")
+			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Response.Volume.ID }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
@@ -156,12 +152,12 @@ func Test_CreateServerErrors(t *testing.T) {
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
+			ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
 			return nil
 		},
-		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .response.volume.id }}",
+		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .Response.Volume.ID }}",
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .response.volume.id }}")
+			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Response.Volume.ID }}")
 			return nil
 		},
 		Check: core.TestCheckCombine(
@@ -182,10 +178,10 @@ func Test_CreateServerErrors(t *testing.T) {
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["server"] = ctx.ExecuteCmd("scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G")
 			return nil
 		},
-		Cmd: `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .server.volumes "1").id }}`,
+		Cmd: `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }}`,
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .server.id }} delete-volumes delete-ip")
 			return nil

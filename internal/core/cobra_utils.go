@@ -71,6 +71,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 					return err
 				}
 			}
+			setContextResult(ctx, data)
 			return metaPrinter.Print(data, opt)
 		}
 

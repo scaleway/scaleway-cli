@@ -33,7 +33,7 @@ func main() {
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(version.GetCommands())
 
-	exitCode := core.Bootstrap(&core.BootstrapConfig{
+	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:     os.Args,
 		Commands: commands,
 		BuildInfo: &core.BuildInfo{
