@@ -7,11 +7,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-func updateCommands(commands *core.Commands) {
-	updateInstancePlacementGroupGet(commands.MustFind("instance", "placement-group", "get"))
-}
+//
+// Builders
+//
 
-func updateInstancePlacementGroupGet(c *core.Command) {
+func placementGroupGetBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		req := argsI.(*instance.GetPlacementGroupRequest)
 
@@ -45,4 +45,6 @@ func updateInstancePlacementGroupGet(c *core.Command) {
 			{FieldName: "servers", Title: "Servers"},
 		},
 	}
+
+	return c
 }

@@ -70,6 +70,12 @@ type WaitFunc func(ctx context.Context, argsI, respI interface{}) error
 
 const indexCommandSeparator = "."
 
+// Override replaces or mutates the Command via a builder function.
+func (c *Command) Override(builder func(command *Command) *Command) {
+	// Assign the value in case the builder creates a new Command object.
+	*c = *builder(c)
+}
+
 func (c *Command) getPath() string {
 	path := []string(nil)
 	if c.Namespace != "" {
@@ -83,6 +89,24 @@ func (c *Command) getPath() string {
 	}
 
 	return strings.Join(path, indexCommandSeparator)
+}
+
+// seeAlsosAsStr returns all See Alsos as a single string
+func (c *Command) seeAlsosAsStr() string {
+	var seeAlsos []string
+
+	for _, cmdSeeAlso := range c.SeeAlsos {
+		short := fmt.Sprintf("  # %s", cmdSeeAlso.Short)
+		commandStr := fmt.Sprintf("  %s", cmdSeeAlso.Command)
+
+		seeAlsoLines := []string{
+			short,
+			commandStr,
+		}
+		seeAlsos = append(seeAlsos, strings.Join(seeAlsoLines, "\n"))
+	}
+
+	return strings.Join(seeAlsos, "\n\n")
 }
 
 // Commands represent a list of CLI commands, with a index to allow searching.
@@ -102,15 +126,6 @@ func NewCommands(cmds ...*Command) *Commands {
 	}
 
 	return c
-}
-
-// find must take the command path, eg. find("instance","get","server")
-func (c *Commands) find(path ...string) (*Command, bool) {
-	cmd, exist := c.commandIndex[strings.Join(path, indexCommandSeparator)]
-	if exist {
-		return cmd, true
-	}
-	return nil, false
 }
 
 func (c *Commands) MustFind(path ...string) *Command {
@@ -133,27 +148,18 @@ func (c *Commands) Merge(cmds *Commands) {
 	}
 }
 
+// find must take the command path, eg. find("instance","get","server")
+func (c *Commands) find(path ...string) (*Command, bool) {
+	cmd, exist := c.commandIndex[strings.Join(path, indexCommandSeparator)]
+	if exist {
+		return cmd, true
+	}
+	return nil, false
+}
+
 func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 	if c.View != nil {
 		return c.View.getHumanMarshalerOpt()
 	}
 	return nil
-}
-
-// seeAlsosAsStr returns all See Alsos as a single string
-func (cmd *Command) seeAlsosAsStr() string {
-	var seeAlsos []string
-
-	for _, cmdSeeAlso := range cmd.SeeAlsos {
-		short := fmt.Sprintf("  # %s", cmdSeeAlso.Short)
-		commandStr := fmt.Sprintf("  %s", cmdSeeAlso.Command)
-
-		seeAlsoLines := []string{
-			short,
-			commandStr,
-		}
-		seeAlsos = append(seeAlsos, strings.Join(seeAlsoLines, "\n"))
-	}
-
-	return strings.Join(seeAlsos, "\n\n")
 }
