@@ -41,8 +41,7 @@ func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	if err != nil {
 		return "", err
 	}
-	zoneStr := fmt.Sprintf("%s", zone)
-	return zoneStr, nil
+	return string(zone), nil
 }
 
 // serversMarshalerFunc marshals a Server.
