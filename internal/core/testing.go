@@ -25,21 +25,6 @@ import (
 
 var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
 
-// TODO: replace CheckFuncCtx by CheckFuncCtx
-// CheckFuncCtx contain the result of a command execution
-/*type CheckFuncCtx struct {
-	// Exit code return by the CLI
-	ExitCode int
-
-	// Content print on stdout
-	Stdout []byte
-
-	// Content print on stderr
-	Stderr []byte
-
-
-}*/
-
 // CheckFuncCtx contain the result of a command execution
 type CheckFuncCtx struct {
 	// Exit code return by the CLI
@@ -74,8 +59,7 @@ type AfterFuncCtx struct {
 	Client     *scw.Client
 	ExecuteCmd func(cmd string) interface{}
 	Meta       map[string]interface{}
-
-	CmdResult interface{}
+	CmdResult  interface{}
 }
 
 var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
@@ -237,9 +221,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 // TestCheckCombine Combine multiple check function into one
 func TestCheckCombine(checks ...TestCheck) TestCheck {
-	return func(t *testing.T, result *CheckFuncCtx) {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
 		for _, check := range checks {
-			check(t, result)
+			check(t, ctx)
 		}
 	}
 }

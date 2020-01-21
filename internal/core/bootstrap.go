@@ -33,7 +33,8 @@ type BootstrapConfig struct {
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
-// args is usually os.Args and commands is a list of command available in CLI.
+// BootstrapConfig.Args is usually os.Args
+// BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
 
 	printer_, err := printer.New(printer.Human, config.Stdout, config.Stderr)

@@ -3,9 +3,8 @@ package instance
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
