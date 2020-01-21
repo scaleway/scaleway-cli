@@ -77,23 +77,14 @@ func Test_GetServer(t *testing.T) {
 
 func Test_CreateVolume(t *testing.T) {
 
-	deleteVolumeAfterFunc := func(ctx *core.AfterFuncCtx) error {
-		// Get ID of the created volume.
-		volumeID, err := ctx.ExtractResourceID()
-		if err != nil {
-			return err
-		}
-
-		// Delete the test volume.
-		ctx.ExecuteCmd("scw instance volume delete volume-id=" + volumeID)
-		return nil
-	}
-
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:  GetCommands(),
-		Cmd:       "scw instance volume create name=test size=20G",
-		AfterFunc: deleteVolumeAfterFunc,
-		Check:     core.TestCheckGolden(),
+		Commands: GetCommands(),
+		Cmd:      "scw instance volume create name=test size=20G",
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Volume.ID }}")
+			return nil
+		},
+		Check: core.TestCheckGolden(),
 	}))
 
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
