@@ -28,6 +28,21 @@ import (
 
 var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
 
+// TODO: replace TestResult by CheckFuncCtx
+// CheckFuncCtx contain the result of a command execution
+/*type CheckFuncCtx struct {
+	// Exit code return by the CLI
+	ExitCode int
+
+	// Content print on stdout
+	Stdout []byte
+
+	// Content print on stderr
+	Stderr []byte
+
+	Meta map[string]interface{}
+}*/
+
 // TestResult contain the result of a command execution
 type TestResult struct {
 	// Exit code return by the CLI
