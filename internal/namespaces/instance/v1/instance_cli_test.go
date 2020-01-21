@@ -56,7 +56,7 @@ func Test_GetServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
 		Cmd: "scw instance server get server-id={{ .Server.ID }}",
