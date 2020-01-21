@@ -13,7 +13,7 @@ func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
 		return err
 	}
 
-	// Delete the test volume.
+	// Delete the test server.
 	ctx.ExecuteCmd("scw instance server delete server-id=" + serverID)
 	return nil
 }
