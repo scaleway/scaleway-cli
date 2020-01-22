@@ -2,7 +2,6 @@ package instance
 
 import (
 	"context"
-	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -48,73 +47,4 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
-}
-
-func updateInstanceServerUpdate(c *core.Command) {
-
-	type instanceUpdateServerRequestCustom struct {
-		updateServerRequest *instance.UpdateServerRequest
-		IP                  *instance.NullableStringValue
-	}
-
-	IPArgSpec := &core.ArgSpec{
-		Name:  "ip",
-		Short: `IP that should be attached to the server (use ip=none to remove)`,
-	}
-
-	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
-
-	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
-
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
-		customRequest := argsI.(*instanceUpdateServerRequestCustom)
-
-		updateServerRequest := customRequest.updateServerRequest
-
-		updateIPRequest := (*instance.UpdateIPRequest)(nil)
-
-		switch {
-		case customRequest.IP == nil:
-			// ip is not set
-			// do nothing
-
-		case customRequest.IP.Null:
-			// ip=none
-			// remove server from ip
-			updateIPRequest = &instance.UpdateIPRequest{
-				IP: customRequest.IP.Value,
-				Server: &instance.NullableStringValue{
-					Null: true,
-				},
-			}
-
-		default:
-			// ip=<anything>
-			// update ip
-			updateIPRequest = &instance.UpdateIPRequest{
-				IP: customRequest.IP.Value,
-				Server: &instance.NullableStringValue{
-					Value: customRequest.updateServerRequest.ServerID,
-				},
-			}
-		}
-
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
-
-		if updateIPRequest != nil {
-			_, err := api.UpdateIP(updateIPRequest)
-			if err != nil {
-				return "", err
-			}
-		}
-
-		updateServerResponse, err := api.UpdateServer(updateServerRequest)
-		if err != nil {
-			return "", err
-		}
-
-		return updateServerResponse, nil
-	}
 }

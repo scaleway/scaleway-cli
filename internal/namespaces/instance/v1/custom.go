@@ -29,6 +29,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
+	cmds.MustFind("instance", "server", "update").Override(serverUpdateBuilder)
+
 	cmds.Merge(core.NewCommands(
 		serverCreateCommand(),
 		serverStartCommand(),
