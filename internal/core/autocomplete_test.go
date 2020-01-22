@@ -47,7 +47,11 @@ func testAutocompleteGetCommands() *Commands {
 			Namespace: "test",
 			Resource:  "flower",
 			Verb:      "delete",
-			ArgSpecs:  nil,
+			ArgSpecs: ArgSpecs{
+				{
+					Name: "flower",
+				},
+			},
 		},
 	)
 }
@@ -120,6 +124,8 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create leaves.0.", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size="}}))
 	t.Run("scw test flower create leaves.0.size=M leaves", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.1.size="}}))
 	t.Run("scw test flower create leaves.0.size=M leaves leaves.1.size=M", run(&testCase{WordToCompleteIndex: 5, Suggestions: AutocompleteSuggestions{"leaves.2.size="}}))
+	t.Run("scw test flower delete f", run(&testCase{Suggestions: AutocompleteSuggestions{"flower="}}))
+	t.Run("scw test flower delete flower f", run(&testCase{Suggestions: nil}))
 	// TODO: t.Run("scw test flower create leaves.0.size=", run(&testCase{Suggestions: AutocompleteSuggestions{"L", "M", "S", "XL", "XXL"}}))
 
 	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--access-key", "--debug", "--help", "--output", "--profile", "--secret-key", "-D", "-h", "-o", "-p"}}))
