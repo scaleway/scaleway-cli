@@ -224,16 +224,16 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// Because of that we should rely on our own logic
 		//
 		// - First we try to find a field with the correct name in the current struct
-		// - If it does not exist we try to find it in all nested anonymous field
+		// - If it does not exist we try to find it in all nested anonymous fields
 		//   Anonymous fields are traversed from last to first as the last one in the struct declaration should take precedence
 
-		// We construct two cache:
-		anonymousFieldIndex := []int(nil)
+		// We construct two caches:
+		anonymousFieldIndexes := []int(nil)
 		fieldIndexByName := map[string]int{}
 		for i := 0; i < dest.Type().NumField(); i++ {
 			field := dest.Type().Field(i)
 			if field.Anonymous {
-				anonymousFieldIndex = append(anonymousFieldIndex, i)
+				anonymousFieldIndexes = append(anonymousFieldIndexes, i)
 			} else {
 				fieldIndexByName[field.Name] = i
 			}
@@ -245,16 +245,16 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			return set(dest.Field(fieldIndex), argNameWords[1:], value)
 		}
 
-		//  If it do not exist we try to find it in nested anonymous field
-		for i := len(anonymousFieldIndex) - 1; i >= 0; i-- {
-			err := set(dest.Field(anonymousFieldIndex[i]), argNameWords, value)
+		// If it does not exist we try to find it in nested anonymous field
+		for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
+			err := set(dest.Field(anonymousFieldIndexes[i]), argNameWords, value)
 			switch err.(type) {
 			case nil:
 				// If we got no error the field was correctly set we return nil.
 				return nil
 			case *UnknownArgError:
-				// If err is an UnknownArgError this could mean the field in in another anonymous field
-				// we continue to the anonymous field
+				// If err is an UnknownArgError this could mean the field is in another anonymous field
+				// We continue to the previous anonymous field.
 				continue
 			default:
 				// If we get any other error this mean something went wrong we return an error.
