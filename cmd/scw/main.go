@@ -40,6 +40,7 @@ func main() {
 	defer sentry.RecoverPanicAndSendReport(buildInfo)
 
 	// Import all commands available in CLI from various packages.
+	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommands()
 	commands.Merge(instance.GetCommands())
 	commands.Merge(marketplace.GetCommands())
