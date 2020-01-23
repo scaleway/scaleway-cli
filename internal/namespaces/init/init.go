@@ -75,9 +75,18 @@ func initCommand() *core.Command {
 				Name:         "secret-key",
 				ValidateFunc: core.ValidateSecretKey(),
 			},
-			core.RegionArgSpec(),
-			core.ZoneArgSpec(),
-			core.OrganizationIDArgSpec(),
+			{
+				Name:       "region",
+				EnumValues: []string{"fr-par", "nl-ams"},
+			},
+			{
+				Name:       "zone",
+				EnumValues: []string{"fr-par-1", "fr-par-2", "nl-ams-1"},
+			},
+			{
+				Name:         "organization-id",
+				ValidateFunc: core.ValidateOrganisationIDRequired(),
+			},
 			{
 				Name: "send-usage",
 			},

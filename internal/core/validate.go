@@ -120,6 +120,16 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 func ValidateOrganisationID() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
 		value := valueI.(string)
+		if value == "" {
+			return nil
+		}
+		return ValidateOrganisationIDRequired()(argSpec, valueI)
+	}
+}
+
+func ValidateOrganisationIDRequired() ArgSpecValidateFunc {
+	return func(argSpec *ArgSpec, valueI interface{}) error {
+		value := valueI.(string)
 		err := DefaultArgSpecValidateFunc()(argSpec, value)
 		if err != nil {
 			return err
