@@ -312,6 +312,28 @@ func TestUnmarshalStruct(t *testing.T) {
 		data:  &Insane{},
 		error: "cannot unmarshal arg 'map.key1.key2.basic.string=test2': duplicate argument",
 	}))
+
+	t.Run("anonymous-nested-field", run(TestCase{
+		args: []string{
+			"all=all",
+			"merge1=1",
+			"merge2=2",
+			"merge-only=2",
+		},
+		expected: &Merge{
+			Merge1: Merge1{
+				All:       "",
+				Merge1:    "1",
+				MergeOnly: "",
+			},
+			Merge2: &Merge2{
+				All:       "",
+				Merge2:    "2",
+				MergeOnly: "2",
+			},
+			All: "all",
+		},
+	}))
 }
 
 func TestIsUmarshalableValue(t *testing.T) {
