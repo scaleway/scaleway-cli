@@ -66,7 +66,7 @@ func OrganizationIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization-id",
 		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
-		ValidateFunc: ValidateOrganisationID(),
+		ValidateFunc: ValidateOrganizationID(),
 	}
 }
 
@@ -74,6 +74,6 @@ func OrganizationArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization",
 		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
-		ValidateFunc: ValidateOrganisationID(),
+		ValidateFunc: ValidateOrganizationID(),
 	}
 }

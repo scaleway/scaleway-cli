@@ -83,9 +83,14 @@ func initCommand() *core.Command {
 				Name:       "zone",
 				EnumValues: []string{"fr-par-1", "fr-par-2", "nl-ams-1"},
 			},
+			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
+			// See workflow in cobra_utils.go/cobraRun().
+			// It is not required in the command line: the user is not obliged to type it.
+			// But it is required to make the request: this is why we use `ValidateOrganizationIDRequired().
+			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
 			{
 				Name:         "organization-id",
-				ValidateFunc: core.ValidateOrganisationIDRequired(),
+				ValidateFunc: core.ValidateOrganizationIDRequired(),
 			},
 			{
 				Name: "send-usage",
