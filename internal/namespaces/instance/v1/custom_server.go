@@ -238,6 +238,7 @@ func serverRebootCommand() *core.Command {
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
+
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
@@ -296,7 +297,7 @@ func serverDeleteCommand() *core.Command {
 			},
 			{
 				Name:  "force-shutdown",
-				Short: "Delete the server even if it is running",
+				Short: "Force shutdown of the instance server before deleting it",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

@@ -24,9 +24,12 @@ func Test_CreateServer(t *testing.T) {
 			Commands:  GetCommands(),
 			Cmd:       "scw instance server create image=ubuntu-bionic",
 			AfterFunc: deleteServerAfterFunc,
-			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
-			},
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+				},
+			),
 		}))
 
 		t.Run("GP1-XS", core.Test(&core.TestConfig{
