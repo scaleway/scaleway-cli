@@ -244,8 +244,8 @@ We have two different types of volume (` + "`" + `volume_type` + "`" + `):
     or detach a volume.
   - ` + "`" + `b_ssd` + "`" + ` is a remote block storage: your data is stored on a
     centralised cluster. You can plug and unplug a volume while
-    your instance is running. As of today, ` + "`" + `b_ssd` + "`" + ` is only available in
-    the ` + "`" + `fr-par-1` + "`" + ` region for ` + "`" + `DEV1` + "`" + `, ` + "`" + `GP1` + "`" + ` and ` + "`" + `RENDER` + "`" + ` offers.
+    your instance is running. As of today, ` + "`" + `b_ssd` + "`" + ` is only available
+    for ` + "`" + `DEV1` + "`" + `, ` + "`" + `GP1` + "`" + ` and ` + "`" + `RENDER` + "`" + ` offers.
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
@@ -281,12 +281,12 @@ func instanceServerTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListServersTypesRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListServersTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.ListServersTypes(args)
+			return api.ListServersTypes(request)
 
 		},
 	}
@@ -334,12 +334,12 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListServersRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListServers(args)
+			resp, err := api.ListServers(request)
 			if err != nil {
 				return nil, err
 			}
@@ -382,12 +382,12 @@ func instanceServerGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetServerRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetServer(args)
+			return api.GetServer(request)
 
 		},
 		Examples: []*core.Example{
@@ -485,12 +485,12 @@ func instanceServerUpdate() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.UpdateServerRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.UpdateServer(args)
+			return api.UpdateServer(request)
 
 		},
 	}
@@ -523,12 +523,12 @@ func instanceImageList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListImagesRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListImagesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListImages(args)
+			resp, err := api.ListImages(request)
 			if err != nil {
 				return nil, err
 			}
@@ -565,12 +565,12 @@ func instanceImageGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetImageRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetImageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetImage(args)
+			return api.GetImage(request)
 
 		},
 	}
@@ -636,12 +636,12 @@ func instanceImageCreate() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateImageRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateImageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreateImage(args)
+			return api.CreateImage(request)
 
 		},
 	}
@@ -662,12 +662,12 @@ func instanceImageDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteImageRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteImageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteImage(args)
+			e = api.DeleteImage(request)
 			if e != nil {
 				return nil, e
 			}
@@ -695,12 +695,12 @@ func instanceSnapshotList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListSnapshotsRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSnapshots(args)
+			resp, err := api.ListSnapshots(request)
 			if err != nil {
 				return nil, err
 			}
@@ -733,12 +733,12 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			core.OrganizationArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateSnapshotRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreateSnapshot(args)
+			return api.CreateSnapshot(request)
 
 		},
 	}
@@ -759,12 +759,12 @@ func instanceSnapshotGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetSnapshotRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetSnapshot(args)
+			return api.GetSnapshot(request)
 
 		},
 	}
@@ -785,12 +785,12 @@ func instanceSnapshotDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteSnapshotRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSnapshot(args)
+			e = api.DeleteSnapshot(request)
 			if e != nil {
 				return nil, e
 			}
@@ -826,12 +826,12 @@ func instanceVolumeList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListVolumesRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListVolumesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListVolumes(args)
+			resp, err := api.ListVolumes(request)
 			if err != nil {
 				return nil, err
 			}
@@ -931,12 +931,12 @@ func instanceVolumeCreate() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateVolumeRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreateVolume(args)
+			return api.CreateVolume(request)
 
 		},
 		Examples: []*core.Example{
@@ -971,12 +971,12 @@ func instanceVolumeGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetVolumeRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetVolume(args)
+			return api.GetVolume(request)
 
 		},
 		Examples: []*core.Example{
@@ -1003,12 +1003,12 @@ func instanceVolumeDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteVolumeRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteVolume(args)
+			e = api.DeleteVolume(request)
 			if e != nil {
 				return nil, e
 			}
@@ -1044,12 +1044,12 @@ func instanceSecurityGroupList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListSecurityGroupsRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListSecurityGroupsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSecurityGroups(args)
+			resp, err := api.ListSecurityGroups(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1114,12 +1114,12 @@ func instanceSecurityGroupCreate() *core.Command {
 				EnumValues: []string{"accept", "drop"},
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateSecurityGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateSecurityGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreateSecurityGroup(args)
+			return api.CreateSecurityGroup(request)
 
 		},
 		Examples: []*core.Example{
@@ -1162,12 +1162,12 @@ func instanceSecurityGroupGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetSecurityGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetSecurityGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetSecurityGroup(args)
+			return api.GetSecurityGroup(request)
 
 		},
 		Examples: []*core.Example{
@@ -1194,12 +1194,12 @@ func instanceSecurityGroupDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteSecurityGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteSecurityGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroup(args)
+			e = api.DeleteSecurityGroup(request)
 			if e != nil {
 				return nil, e
 			}
@@ -1235,12 +1235,12 @@ func instancePlacementGroupList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListPlacementGroupsRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListPlacementGroupsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListPlacementGroups(args)
+			resp, err := api.ListPlacementGroups(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1288,12 +1288,12 @@ func instancePlacementGroupCreate() *core.Command {
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreatePlacementGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreatePlacementGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreatePlacementGroup(args)
+			return api.CreatePlacementGroup(request)
 
 		},
 		Examples: []*core.Example{
@@ -1340,12 +1340,12 @@ func instancePlacementGroupGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetPlacementGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetPlacementGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetPlacementGroup(args)
+			return api.GetPlacementGroup(request)
 
 		},
 		Examples: []*core.Example{
@@ -1388,12 +1388,12 @@ func instancePlacementGroupUpdate() *core.Command {
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.UpdatePlacementGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdatePlacementGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.UpdatePlacementGroup(args)
+			return api.UpdatePlacementGroup(request)
 
 		},
 		Examples: []*core.Example{
@@ -1428,12 +1428,12 @@ func instancePlacementGroupDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeletePlacementGroupRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeletePlacementGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeletePlacementGroup(args)
+			e = api.DeletePlacementGroup(request)
 			if e != nil {
 				return nil, e
 			}
@@ -1461,12 +1461,12 @@ func instancePlacementGroupServerSet() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.SetPlacementGroupServersRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.SetPlacementGroupServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.SetPlacementGroupServers(args)
+			return api.SetPlacementGroupServers(request)
 
 		},
 		Examples: []*core.Example{
@@ -1499,12 +1499,12 @@ func instanceIPList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.ListIPsRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListIPsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListIPs(args)
+			resp, err := api.ListIPs(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1551,12 +1551,12 @@ func instanceIPCreate() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.CreateIPRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.CreateIP(args)
+			return api.CreateIP(request)
 
 		},
 	}
@@ -1578,12 +1578,12 @@ func instanceIPGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.GetIPRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.GetIP(args)
+			return api.GetIP(request)
 
 		},
 	}
@@ -1610,12 +1610,12 @@ func instanceIPUpdate() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.UpdateIPRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.UpdateIP(args)
+			return api.UpdateIP(request)
 
 		},
 	}
@@ -1637,12 +1637,12 @@ func instanceIPDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*instance.DeleteIPRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteIP(args)
+			e = api.DeleteIP(request)
 			if e != nil {
 				return nil, e
 			}

@@ -83,12 +83,12 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.RegisterRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.RegisterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.Register(args)
+			return api.Register(request)
 
 		},
 	}
@@ -114,12 +114,12 @@ func testHumanList() *core.Command {
 				Required: false,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.ListHumansRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.ListHumansRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			resp, err := api.ListHumans(args)
+			resp, err := api.ListHumans(request)
 			if err != nil {
 				return nil, err
 			}
@@ -144,12 +144,12 @@ func testHumanGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.GetHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.GetHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.GetHuman(args)
+			return api.GetHuman(request)
 
 		},
 	}
@@ -200,12 +200,12 @@ func testHumanCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.CreateHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.CreateHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.CreateHuman(args)
+			return api.CreateHuman(request)
 
 		},
 		Examples: []*core.Example{
@@ -265,12 +265,12 @@ func testHumanUpdate() *core.Command {
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.UpdateHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.UpdateHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.UpdateHuman(args)
+			return api.UpdateHuman(request)
 
 		},
 	}
@@ -291,12 +291,12 @@ func testHumanDelete() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.DeleteHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.DeleteHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.DeleteHuman(args)
+			return api.DeleteHuman(request)
 
 		},
 	}
@@ -317,20 +317,19 @@ func testHumanRun() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.RunHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.RunHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.RunHuman(args)
+			return api.RunHuman(request)
 
 		},
 		Examples: []*core.Example{
 			{
 				Short: "Create a human and make it run",
 				Raw: `scw test human create
-scw test human run human-id=xxxxx
-`,
+scw test human run human-id=xxxxx`,
 			},
 		},
 	}
@@ -351,12 +350,12 @@ func testHumanSmoke() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*test.SmokeHumanRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*test.SmokeHumanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.SmokeHuman(args)
+			return api.SmokeHuman(request)
 
 		},
 	}

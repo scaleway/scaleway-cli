@@ -51,12 +51,12 @@ func marketplaceImageList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(marketplace.ListImagesRequest{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*marketplace.ListImagesRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.ListImagesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			resp, err := api.ListImages(args)
+			resp, err := api.ListImages(request)
 			if err != nil {
 				return nil, err
 			}
@@ -87,12 +87,12 @@ func marketplaceImageGet() *core.Command {
 				Required: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*marketplace.GetImageRequest)
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.GetImageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			return api.GetImage(args)
+			return api.GetImage(request)
 
 		},
 	}
