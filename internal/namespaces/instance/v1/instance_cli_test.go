@@ -5,6 +5,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 func init() {
@@ -89,7 +90,9 @@ func Test_CreateVolume(t *testing.T) {
 			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Volume.ID }}")
 			return nil
 		},
-		Check: core.TestCheckGolden(),
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			assert.Equal(t, "test", ctx.Result.(*instance.CreateVolumeResponse).Volume.Name)
+		},
 	}))
 
 	t.Run("Bad size unit", core.Test(&core.TestConfig{

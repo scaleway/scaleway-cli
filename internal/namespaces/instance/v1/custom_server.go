@@ -268,6 +268,7 @@ type customDeleteServerRequest struct {
 	ServerID      string
 	DeleteIP      bool
 	DeleteVolumes bool
+	ForceShutdown bool
 }
 
 func serverDeleteCommand() *core.Command {
@@ -292,6 +293,10 @@ func serverDeleteCommand() *core.Command {
 				Name:  "delete-volumes",
 				Short: "Delete the volumes attached to the server as well",
 			},
+			{
+				Name:  "force-shutdown",
+				Short: "Delete the server even if it is running",
+			},
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -311,6 +316,27 @@ func serverDeleteCommand() *core.Command {
 			})
 			if err != nil {
 				return nil, err
+			}
+
+			if args.ForceShutdown {
+				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
+					Zone:     args.Zone,
+					ServerID: args.ServerID,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				if finalStateServer.State != instance.ServerStateStopped {
+					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
+						Zone:     args.Zone,
+						ServerID: args.ServerID,
+						Action:   instance.ServerActionPoweroff,
+					})
+					if err != nil {
+						return nil, err
+					}
+				}
 			}
 
 			err = api.DeleteServer(&instance.DeleteServerRequest{
