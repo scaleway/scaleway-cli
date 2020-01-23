@@ -23,7 +23,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var updateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
+var UpdateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
 
 // CheckFuncCtx contain the result of a command execution
 type CheckFuncCtx struct {
@@ -107,7 +107,7 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 	}
 
 	if !e2eClient {
-		httpClient, cleanup, err := getHttpRecoder(t, updateGolden)
+		httpClient, cleanup, err := getHttpRecoder(t, UpdateGolden)
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 		config, err := scw.LoadConfig()
@@ -260,7 +260,7 @@ func TestCheckGolden() TestCheck {
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
-	if updateGolden {
+	if UpdateGolden {
 		if actualIsEmpty {
 			_ = os.Remove(goldenPath)
 		} else {

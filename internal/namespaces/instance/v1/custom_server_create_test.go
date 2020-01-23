@@ -3,30 +3,73 @@ package instance
 import (
 	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	// Delete the test volume.
-	ctx.ExecuteCmd("scw instance server delete server-id=" + ctx.CmdResult.(*instance.Server).ID)
+	// Delete volumes, ips and the server
+	ctx.ExecuteCmd("scw instance server delete delete-volumes delete-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
 	return nil
 }
 
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
-
 	////
-	// Image
+	// Simple use cases
 	////
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:  GetCommands(),
-		Cmd:       "scw instance server create image=ubuntu-bionic",
-		AfterFunc: deleteServerAfterFunc,
-		Check:     core.TestCheckGolden(),
-	}))
+	t.Run("Simple", func(t *testing.T) {
+		t.Run("Default", core.Test(&core.TestConfig{
+			Commands:  GetCommands(),
+			Cmd:       "scw instance server create image=ubuntu-bionic",
+			AfterFunc: deleteServerAfterFunc,
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+				},
+			),
+		}))
 
-	// TODO: add all success cases
+		t.Run("GP1-XS", core.Test(&core.TestConfig{
+			Commands:  GetCommands(),
+			Cmd:       "scw instance server create type=GP1-XS image=ubuntu-bionic",
+			AfterFunc: deleteServerAfterFunc,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "GP1-XS", ctx.Result.(*instance.Server).CommercialType)
+			},
+		}))
+
+		t.Run("With name", core.Test(&core.TestConfig{
+			Commands:  GetCommands(),
+			Cmd:       "scw instance server create image=ubuntu-bionic name=yo",
+			AfterFunc: deleteServerAfterFunc,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "yo", ctx.Result.(*instance.Server).Name)
+			},
+		}))
+
+		t.Run("With bootscript", core.Test(&core.TestConfig{
+			Commands:  GetCommands(),
+			Cmd:       "scw instance server create image=ubuntu-bionic bootscript-id=eb760e3c-30d8-49a3-b3ad-ad10c3aa440b",
+			AfterFunc: deleteServerAfterFunc,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instance.Server).Bootscript.ID)
+			},
+		}))
+
+		t.Run("With start", core.Test(&core.TestConfig{
+			Commands:  GetCommands(),
+			Cmd:       "scw instance server create image=ubuntu-bionic start -w",
+			AfterFunc: deleteServerAfterFunc,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, instance.ServerStateRunning, ctx.Result.(*instance.Server).State)
+			},
+		}))
+	})
+
+	// TODO: finish to add all success cases
 }
 
 // None of the tests below should succeed to create an instance.
@@ -201,6 +244,32 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	////
-	// TODO: IP errors
+	// IP errors
 	////
+	t.Run("Error: not found ip ID", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create image=ubuntu-bionic ip=23165951-13fd-4a3b-84ed-22c2e96658f2",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
+
+	t.Run("Error: forbidden IP", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create image=ubuntu-bionic ip=51.15.242.82",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
+
+	t.Run("Error: invalid ip", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create image=ubuntu-bionic ip=yo",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
 }

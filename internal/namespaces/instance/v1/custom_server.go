@@ -195,7 +195,7 @@ func serverStartCommand() *core.Command {
 		Verb:      "start",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionPoweron),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -208,7 +208,7 @@ func serverStopCommand() *core.Command {
 		Verb:      "stop",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionPoweroff),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -221,7 +221,7 @@ func serverStandbyCommand() *core.Command {
 		Verb:      "standby",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionStopInPlace),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -234,18 +234,19 @@ func serverRebootCommand() *core.Command {
 		Verb:      "reboot",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionReboot),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
 
-func waitForServerFunc(ctx context.Context, argsI, _ interface{}) error {
-	_, err := instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-		Zone:     argsI.(*instanceActionRequest).Zone,
-		ServerID: argsI.(*instanceActionRequest).ServerID,
-		Timeout:  serverActionTimeout,
-	})
-	return err
+func waitForServerFunc() core.WaitFunc {
+	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+			Zone:     argsI.(*instanceActionRequest).Zone,
+			ServerID: argsI.(*instanceActionRequest).ServerID,
+			Timeout:  serverActionTimeout,
+		})
+	}
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {
@@ -269,6 +270,7 @@ type customDeleteServerRequest struct {
 	ServerID      string
 	DeleteIP      bool
 	DeleteVolumes bool
+	ForceShutdown bool
 }
 
 func serverDeleteCommand() *core.Command {
@@ -293,6 +295,10 @@ func serverDeleteCommand() *core.Command {
 				Name:  "delete-volumes",
 				Short: "Delete the volumes attached to the server as well",
 			},
+			{
+				Name:  "force-shutdown",
+				Short: "Force shutdown of the instance server before deleting it",
+			},
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -312,6 +318,27 @@ func serverDeleteCommand() *core.Command {
 			})
 			if err != nil {
 				return nil, err
+			}
+
+			if args.ForceShutdown {
+				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
+					Zone:     args.Zone,
+					ServerID: args.ServerID,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				if finalStateServer.State != instance.ServerStateStopped {
+					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
+						Zone:     args.Zone,
+						ServerID: args.ServerID,
+						Action:   instance.ServerActionPoweroff,
+					})
+					if err != nil {
+						return nil, err
+					}
+				}
 			}
 
 			err = api.DeleteServer(&instance.DeleteServerRequest{
