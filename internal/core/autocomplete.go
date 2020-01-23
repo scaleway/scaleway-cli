@@ -234,6 +234,8 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
+	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
+	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
 	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
