@@ -42,9 +42,9 @@ func main() {
 	// Import all commands available in CLI from various packages.
 	commands := core.NewCommands()
 	commands.Merge(instance.GetCommands())
+	commands.Merge(marketplace.GetCommands())
 	commands.Merge(initNamespace.GetCommands())
 	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(marketplace.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(versionNamespace.GetCommands())
 
