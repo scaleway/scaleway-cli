@@ -39,8 +39,8 @@ func testAutocompleteGetCommands() *Commands {
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
 			},
-			WaitFunc: func(ctx context.Context, argsI, respI interface{}) error {
-				return nil
+			WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+				return nil, nil
 			},
 		},
 		&Command{

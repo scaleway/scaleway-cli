@@ -188,7 +188,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			IP:   args.IP,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("%s does not belongs to you.", args.IP)
+			return nil, fmt.Errorf("%s does not belong to you.", args.IP)
 		}
 		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
 	case args.IP == "dynamic":
@@ -309,7 +309,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// Start
 	//
 	if args.Start {
-		// TODO: Use the wait flag when it will be implemented [APIGW-1313]
 		logger.Infof("starting server")
 		_, err := apiInstance.ServerAction(&instance.ServerActionRequest{
 			Zone:     args.Zone,

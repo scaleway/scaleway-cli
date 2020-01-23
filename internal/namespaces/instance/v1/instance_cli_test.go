@@ -4,12 +4,18 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
+
+func init() {
+	if !core.UpdateGolden {
+		instance.RetryInterval = 0
+	}
+}
 
 //
 // Server
 //
-
 func Test_ListServer(t *testing.T) {
 
 	t.Run("Usage", core.Test(&core.TestConfig{
@@ -74,7 +80,6 @@ func Test_GetServer(t *testing.T) {
 //
 // Volume
 //
-
 func Test_CreateVolume(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{

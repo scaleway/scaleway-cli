@@ -239,13 +239,12 @@ func serverRebootCommand() *core.Command {
 	}
 }
 
-func waitForServerFunc(ctx context.Context, argsI, _ interface{}) error {
-	_, err := instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+func waitForServerFunc(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
 		Zone:     argsI.(*instanceActionRequest).Zone,
 		ServerID: argsI.(*instanceActionRequest).ServerID,
 		Timeout:  serverActionTimeout,
 	})
-	return err
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {
