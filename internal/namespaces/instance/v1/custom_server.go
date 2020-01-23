@@ -195,7 +195,7 @@ func serverStartCommand() *core.Command {
 		Verb:      "start",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionPoweron),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -208,7 +208,7 @@ func serverStopCommand() *core.Command {
 		Verb:      "stop",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionPoweroff),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -221,7 +221,7 @@ func serverStandbyCommand() *core.Command {
 		Verb:      "standby",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionStopInPlace),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
@@ -234,17 +234,18 @@ func serverRebootCommand() *core.Command {
 		Verb:      "reboot",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run:       getRunServerAction(instance.ServerActionReboot),
-		WaitFunc:  waitForServerFunc,
+		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
 	}
 }
-
-func waitForServerFunc(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
-	return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-		Zone:     argsI.(*instanceActionRequest).Zone,
-		ServerID: argsI.(*instanceActionRequest).ServerID,
-		Timeout:  serverActionTimeout,
-	})
+func waitForServerFunc() core.WaitFunc {
+	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+			Zone:     argsI.(*instanceActionRequest).Zone,
+			ServerID: argsI.(*instanceActionRequest).ServerID,
+			Timeout:  serverActionTimeout,
+		})
+	}
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {

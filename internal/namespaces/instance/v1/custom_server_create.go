@@ -103,7 +103,7 @@ func serverCreateCommand() *core.Command {
 			},
 		},
 		Run:      instanceServerCreateRun,
-		WaitFunc: instanceWaitServerCreateRun,
+		WaitFunc: instanceWaitServerCreateRun(),
 		SeeAlsos: []*core.SeeAlso{{
 			Short:   "List marketplace label images",
 			Command: "scw marketplace image list",
@@ -112,12 +112,14 @@ func serverCreateCommand() *core.Command {
 	}
 }
 
-func instanceWaitServerCreateRun(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-	return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-		Zone:     argsI.(*instanceCreateServerRequest).Zone,
-		ServerID: respI.(*instance.Server).ID,
-		Timeout:  serverActionTimeout,
-	})
+func instanceWaitServerCreateRun() core.WaitFunc {
+	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+			Zone:     argsI.(*instanceCreateServerRequest).Zone,
+			ServerID: respI.(*instance.Server).ID,
+			Timeout:  serverActionTimeout,
+		})
+	}
 }
 
 func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {

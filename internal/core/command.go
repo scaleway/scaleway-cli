@@ -64,7 +64,7 @@ type Command struct {
 	WaitFunc WaitFunc
 }
 
-// CommandPreValidateFunc returns an error if command validation failed.
+// CommandPreValidateFunc allows to manipulate args before validation.
 type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
 
 // CommandRunner returns the command response or an error.
