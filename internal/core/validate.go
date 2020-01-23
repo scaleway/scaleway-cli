@@ -117,7 +117,22 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 	}
 }
 
-func ValidateOrganisationID() ArgSpecValidateFunc {
+// ValidateOrganizationID validates a non-required organization ID.
+// By default, for most command, the organization ID is not required.
+// In that case, we allow the empty-string value "".
+func ValidateOrganizationID() ArgSpecValidateFunc {
+	return func(argSpec *ArgSpec, valueI interface{}) error {
+		value := valueI.(string)
+		if value == "" && !argSpec.Required {
+			return nil
+		}
+		return ValidateOrganizationIDRequired()(argSpec, valueI)
+	}
+}
+
+// ValidateOrganizationIDRequired validates a required organization ID.
+// We do not allow empty-string value "".
+func ValidateOrganizationIDRequired() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
 		value := valueI.(string)
 		err := DefaultArgSpecValidateFunc()(argSpec, value)

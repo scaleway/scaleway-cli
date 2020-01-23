@@ -46,12 +46,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 	return &ArgSpec{
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
-		Required:   false,
 		EnumValues: enumValues,
-		// TODO: Default:          nil,
-		// TODO: EnumValues:       nil,
-		// TODO: AutoCompleteFunc: nil,
-		// TODO: ValidateFunc:
 	}
 }
 
@@ -63,35 +58,22 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 	return &ArgSpec{
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
-		Required:   false,
 		EnumValues: enumValues,
-		// TODO: Default:          nil,
-		// TODO: EnumValues:       nil,
-		// TODO: AutoCompleteFunc: nil,
-		// TODO: ValidateFunc:
 	}
 }
 
 func OrganizationIDArgSpec() *ArgSpec {
 	return &ArgSpec{
-		Name:     "organization-id",
-		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
-		Required: false,
-		// TODO: Default:          nil,
-		// TODO: EnumValues:       nil,
-		// TODO: AutoCompleteFunc: nil,
-		// TODO: ValidateFunc:
+		Name:         "organization-id",
+		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+		ValidateFunc: ValidateOrganizationID(),
 	}
 }
 
 func OrganizationArgSpec() *ArgSpec {
 	return &ArgSpec{
-		Name:     "organization",
-		Short:    "Organization ID to use. If none is passed will use default organization ID from the config",
-		Required: false,
-		// TODO: Default:          nil,
-		// TODO: EnumValues:       nil,
-		// TODO: AutoCompleteFunc: nil,
-		// TODO: ValidateFunc:
+		Name:         "organization",
+		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+		ValidateFunc: ValidateOrganizationID(),
 	}
 }
