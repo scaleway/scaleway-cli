@@ -257,13 +257,13 @@ func Test_InstanceServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
 			return nil
 		},
-		Cmd: "scw instance server update server-id={{ .Server.id }}",
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.id }}")
-			return nil
-		},
+		Cmd: "scw instance server update server-id={{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
+			return nil
+		},
 	}))
 }

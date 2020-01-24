@@ -207,12 +207,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.Cmd
 		var result interface{}
+		var exitCode int
+		var err error
 
-		if config.Cmd != "" && config.Check != nil {
+		if config.Cmd != "" {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
 			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
-			exitCode, result, err := Bootstrap(&BootstrapConfig{
+			exitCode, result, err = Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmdTemplate(config.Cmd), " "),
 				Commands:  config.Commands,
 				BuildInfo: &config.BuildInfo,
