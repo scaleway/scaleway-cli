@@ -42,7 +42,6 @@ func buildUsageArgs(cmd *Command) string {
 // _buildUsageArgs recursively builds the arg usage list.
 // This should not be called directly.
 func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs, t reflect.Type, parentArgName []string) error {
-
 	// related to protoc_gen_mordor.IsIgnoredFieldType()
 	// TODO: make this relation explicit
 	// TODO: decide what arguments to ignore

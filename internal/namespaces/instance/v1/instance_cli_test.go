@@ -18,7 +18,6 @@ func init() {
 // Server
 //
 func Test_ListServer(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list -h",
@@ -30,11 +29,9 @@ func Test_ListServer(t *testing.T) {
 		Cmd:      "scw instance server list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_ListServerTypes(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server-type list -h",
@@ -47,11 +44,9 @@ func Test_ListServerTypes(t *testing.T) {
 		UseE2EClient: true,
 		Check:        core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_GetServer(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server get -h",
@@ -75,14 +70,12 @@ func Test_GetServer(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
-
 }
 
 //
 // Volume
 //
 func Test_CreateVolume(t *testing.T) {
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20G",
@@ -100,7 +93,6 @@ func Test_CreateVolume(t *testing.T) {
 		Cmd:      "scw instance volume create name=test size=20",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_ServerUpdate(t *testing.T) {

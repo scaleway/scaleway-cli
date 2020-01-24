@@ -41,11 +41,11 @@ FLAGS:
   -w, --wait   wait until the server is ready
 
 GLOBAL FLAGS:
-      --access-key string    Scaleway access key
-  -D, --debug                Enable debug mode
-  -o, --output PrinterType   Output format: json or human
-  -p, --profile string       The config profile to use
-      --secret-key string    Scaleway secret key
+      --access-key string   Scaleway access key
+  -D, --debug               Enable debug mode
+  -o, --output string       Output format: json or human
+  -p, --profile string      The config profile to use
+      --secret-key string   Scaleway secret key
 
 SEE ALSO:
   # List marketplace label images

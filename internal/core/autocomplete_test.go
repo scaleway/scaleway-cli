@@ -67,7 +67,6 @@ func TestAutocomplete(t *testing.T) {
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
-
 			words := tc.Words
 			if len(words) == 0 {
 				name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)

@@ -9,7 +9,6 @@ import (
 )
 
 func TestUnmarshalStruct(t *testing.T) {
-
 	type TestCase struct {
 		args     []string
 		error    string
@@ -21,7 +20,6 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-
 			if testCase.data == nil {
 				testCase.data = reflect.New(reflect.TypeOf(testCase.expected).Elem()).Interface()
 			}
@@ -33,7 +31,6 @@ func TestUnmarshalStruct(t *testing.T) {
 			} else {
 				assert.Equal(t, testCase.error, err.Error())
 			}
-
 		}
 	}
 
@@ -337,7 +334,6 @@ func TestUnmarshalStruct(t *testing.T) {
 }
 
 func TestIsUmarshalableValue(t *testing.T) {
-
 	type TestCase struct {
 		expected bool
 		data     interface{}
@@ -345,7 +341,6 @@ func TestIsUmarshalableValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-
 			value := IsUmarshalableValue(testCase.data)
 			assert.Equal(t, testCase.expected, value)
 		}

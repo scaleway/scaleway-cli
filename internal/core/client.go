@@ -17,13 +17,11 @@ func createClient(meta *meta) (*scw.Client, error) {
 	}
 
 	config, err := scw.LoadConfig()
-	if err != nil {
-		// If the config file do not exist, don't return an error as we may find config in ENV or flags.
-		if _, isNotFoundError := err.(*scw.ConfigFileNotFoundError); isNotFoundError {
-			config = &scw.Config{}
-		} else {
-			return nil, err
-		}
+	// If the config file do not exist, don't return an error as we may find config in ENV or flags.
+	if _, isNotFoundError := err.(*scw.ConfigFileNotFoundError); isNotFoundError {
+		config = &scw.Config{}
+	} else if err != nil {
+		return nil, err
 	}
 
 	if meta.ProfileFlag != "" {

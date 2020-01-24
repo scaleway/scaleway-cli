@@ -19,7 +19,7 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 		message += "."
 	}
 	message = strcase.TitleFirstWord(message)
-	return "✅ " + terminal.Style(s.getMessage(), color.FgGreen), nil
+	return "✅ " + terminal.Style(message, color.FgGreen), nil
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {

@@ -8,7 +8,6 @@ import (
 )
 
 func TestTestCommand(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands:     test.GetCommands(),
 		Cmd:          "scw test -h",
@@ -21,7 +20,6 @@ func TestTestCommand(t *testing.T) {
 }
 
 func TestHumanCreate(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human create -h",
@@ -60,11 +58,9 @@ func TestHumanCreate(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
-
 }
 
 func TestHumanList(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human list -h",
@@ -89,11 +85,9 @@ func TestHumanList(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
-
 }
 
 func TestHumanUpdate(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human update -h",
@@ -130,11 +124,9 @@ func TestHumanUpdate(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
-
 }
 
 func TestHumanGet(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human get -h",
@@ -162,7 +154,7 @@ func TestHumanGet(t *testing.T) {
 		Commands:     test.GetCommands(),
 		UseE2EClient: true,
 		Cmd:          "scw test human get 11111111-1111-1111-1111-111111111111",
-		Check:        core.TestCheckCombine(
+		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
@@ -172,7 +164,7 @@ func TestHumanGet(t *testing.T) {
 		Commands:     test.GetCommands(),
 		UseE2EClient: true,
 		Cmd:          "scw test human get invalid=true",
-		Check:        core.TestCheckCombine(
+		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
@@ -180,7 +172,6 @@ func TestHumanGet(t *testing.T) {
 }
 
 func TestHumanDelete(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human delete -h",
@@ -206,7 +197,6 @@ func TestHumanDelete(t *testing.T) {
 }
 
 func TestHumanRun(t *testing.T) {
-
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human run -h",

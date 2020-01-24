@@ -58,10 +58,10 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		Tags              []string
 		ModificationDate  time.Time
 		CreationDate      time.Time
-		ImageId           string
+		ImageID           string
 		Protected         bool
 		Volumes           int
-		SecurityGroupId   string
+		SecurityGroupID   string
 		SecurityGroupName string
 		StateDetail       string
 		Arch              instance.Arch
@@ -73,11 +73,11 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	for _, server := range servers {
 		var zone scw.Zone
 		if server.Location != nil {
-			zone_, err := scw.ParseZone(server.Location.ZoneID)
+			parsedZone, err := scw.ParseZone(server.Location.ZoneID)
 			if err != nil {
 				return "", err
 			}
-			zone = zone_
+			zone = parsedZone
 		}
 		publicIPAddress := net.IP(nil)
 		if server.PublicIP != nil {
@@ -96,13 +96,13 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			Zone:              zone,
 			ModificationDate:  server.ModificationDate,
 			CreationDate:      server.CreationDate,
-			ImageId:           serverImageID,
+			ImageID:           serverImageID,
 			ImageName:         serverImageName,
 			Protected:         server.Protected,
 			PublicIP:          publicIPAddress,
 			PrivateIP:         server.PrivateIP,
 			Volumes:           len(server.Volumes),
-			SecurityGroupId:   server.SecurityGroup.ID,
+			SecurityGroupID:   server.SecurityGroup.ID,
 			SecurityGroupName: server.SecurityGroup.Name,
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,

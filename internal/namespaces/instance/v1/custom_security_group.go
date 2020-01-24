@@ -380,7 +380,7 @@ func securityGroupUpdateCommand() *core.Command {
 func getDefaultOrganizationSecurityGroup(ctx context.Context, zone scw.Zone) (*instance.SecurityGroup, error) {
 	api := instance.NewAPI(core.ExtractClient(ctx))
 
-	orgID := core.GetOrganizationIdFromContext(ctx)
+	orgID := core.GetOrganizationIDFromContext(ctx)
 	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{
 		Zone:         zone,
 		Organization: scw.StringPtr(orgID),

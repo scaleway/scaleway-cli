@@ -39,7 +39,6 @@ type Human struct {
 }
 
 func TestMarshal(t *testing.T) {
-
 	type testCase struct {
 		data   interface{}
 		opt    *MarshalOpt
@@ -141,5 +140,4 @@ func TestMarshal(t *testing.T) {
 		`,
 		err: nil,
 	}))
-
 }

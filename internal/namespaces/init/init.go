@@ -55,7 +55,7 @@ func GetCommands() *core.Commands {
 	return core.NewCommands(initCommand())
 }
 
-type InitArgs struct {
+type initArgs struct {
 	SecretKey      string
 	Region         scw.Region
 	Zone           scw.Zone
@@ -69,7 +69,7 @@ func initCommand() *core.Command {
 		Long:      `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
 		Namespace: "init",
 		NoClient:  true,
-		ArgsType:  reflect.TypeOf(InitArgs{}),
+		ArgsType:  reflect.TypeOf(initArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
@@ -97,7 +97,7 @@ func initCommand() *core.Command {
 			},
 		},
 		PreValidateFunc: func(ctx context.Context, argsI interface{}) error {
-			args := argsI.(*InitArgs)
+			args := argsI.(*initArgs)
 
 			// Show logo banner, or simple welcome message
 			if terminal.GetWidth() >= 80 {
@@ -116,7 +116,7 @@ func initCommand() *core.Command {
 
 			// If it is not a new config, ask if we want to override the existing config
 			if !newConfig {
-				interactive.PrintlnWithoutIndent(`
+				_, _ = interactive.PrintlnWithoutIndent(`
 					Current config is located at ` + scw.GetConfigPath() + `
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
 				`)
@@ -152,6 +152,9 @@ func initCommand() *core.Command {
 						return nil
 					},
 				})
+				if err != nil {
+					return err
+				}
 				args.Zone, err = scw.ParseZone(zone)
 				if err != nil {
 					return err
@@ -177,8 +180,8 @@ func initCommand() *core.Command {
 
 			// Ask for send usage permission
 			if args.SendUsage == nil {
-				interactive.Println()
-				interactive.PrintlnWithoutIndent(`
+				_, _ = interactive.Println()
+				_, _ = interactive.PrintlnWithoutIndent(`
 					To improve this tools we rely on diagnostic and usage data.
 					Sending such data is optional and can be disable at any time by running "scw config set send_usage false"
 				`)
@@ -195,7 +198,7 @@ func initCommand() *core.Command {
 			return nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*InitArgs)
+			args := argsI.(*initArgs)
 
 			// Check if a config exists
 			// Creates a new one if it does not

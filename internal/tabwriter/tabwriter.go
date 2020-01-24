@@ -606,7 +606,6 @@ func (b *Writer) Write(buf []byte) (n int, err error) {
 					b.startEscape(ch)
 				}
 			}
-
 		} else {
 			// inside escape
 			if ch == b.endChar {

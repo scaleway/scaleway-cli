@@ -2,8 +2,9 @@ package interactive
 
 import (
 	"bytes"
-	"github.com/alecthomas/assert"
 	"testing"
+
+	"github.com/alecthomas/assert"
 )
 
 func TestPrint(t *testing.T) {

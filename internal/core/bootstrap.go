@@ -36,8 +36,7 @@ type BootstrapConfig struct {
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
-
-	printer_, err := printer.New(printer.Human, config.Stdout, config.Stderr)
+	globalPrinter, err := printer.New(printer.Human, config.Stdout, config.Stderr)
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err)
 		return 1, nil, err
@@ -46,7 +45,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be pass to all commands.
 	m := &meta{
-		Printer:   printer_,
+		Printer:   globalPrinter,
 		BuildInfo: config.BuildInfo,
 		Client:    config.Client,
 		stdout:    config.Stdout,

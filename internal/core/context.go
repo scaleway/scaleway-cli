@@ -14,7 +14,7 @@ type meta struct {
 	SecretKeyFlag   string
 	ProfileFlag     string
 	DebugModeFlag   bool
-	PrinterTypeFlag printer.PrinterType
+	PrinterTypeFlag printer.Type
 
 	BuildInfo *BuildInfo
 	Client    *scw.Client
@@ -24,12 +24,12 @@ type meta struct {
 	stderr io.Writer
 }
 
+type contextKey int
+
 const (
-	metaContextKey     = "__META__"
-	rawArgsContextKey  = "__RAW_ARGS__"
-	commandContextKey  = "__COMMAND__"
-	commandsContextKey = "__COMMANDS__"
-	resultContextKey   = "__RESULT__"
+	metaContextKey contextKey = iota
+	commandsContextKey
+	resultContextKey
 )
 
 // injectMeta creates a child of ctx with injected meta and returns it.
@@ -47,22 +47,6 @@ func extractMeta(ctx context.Context) *meta {
 	return ctx.Value(metaContextKey).(*meta)
 }
 
-func injectRawArgs(ctx context.Context, rawArgs []string) context.Context {
-	return context.WithValue(ctx, rawArgsContextKey, rawArgs)
-}
-
-func extractRawArgs(ctx context.Context) []string {
-	return ctx.Value(rawArgsContextKey).([]string)
-}
-
-func injectCommand(ctx context.Context, cmd *Command) context.Context {
-	return context.WithValue(ctx, commandContextKey, cmd)
-}
-
-func extractCommand(ctx context.Context) *Command {
-	return ctx.Value(commandContextKey).(*Command)
-}
-
 func injectCommands(ctx context.Context, cmds *Commands) context.Context {
 	return context.WithValue(ctx, commandsContextKey, cmds)
 }
@@ -71,7 +55,7 @@ func ExtractCommands(ctx context.Context) *Commands {
 	return ctx.Value(commandsContextKey).(*Commands)
 }
 
-func GetOrganizationIdFromContext(ctx context.Context) (organizationID string) {
+func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
 	client := ExtractClient(ctx)
 	organizationID, exists := client.GetDefaultOrganizationID()
 	if !exists {

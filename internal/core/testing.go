@@ -109,7 +109,7 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 	}
 
 	if !e2eClient {
-		httpClient, cleanup, err := getHttpRecoder(t, UpdateCassettes)
+		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 		config, err := scw.LoadConfig()
@@ -278,17 +278,15 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		require.NoError(t, err)
 		assert.Equal(t, string(expected), string(actual))
 	}
-
 }
 
-// getHttpRecoder creates a new httpClient that records all HTTP requests in a cassette.
+// getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
 // This cassette is then replayed whenever tests are executed again. This means that once the
 // requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
 //
 // It is important to call add a `defer cleanup()` so the given cassette files are correctly
 // closed and saved after the requests.
-func getHttpRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
-
+func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
 	recorderMode := recorder.ModeReplaying
 	if update {
 		recorderMode = recorder.ModeRecording

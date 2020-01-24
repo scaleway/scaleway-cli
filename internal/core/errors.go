@@ -24,7 +24,7 @@ func InvalidSecretKeyError(value string) *CliError {
 	}
 }
 
-func InvalidOrganizationIdError(value string) *CliError {
+func InvalidOrganizationIDError(value string) *CliError {
 	return &CliError{
 		Err:  fmt.Errorf("invalid organization-id '%v'", value),
 		Hint: "organization-id should be a valid UUID, formatted as: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.",

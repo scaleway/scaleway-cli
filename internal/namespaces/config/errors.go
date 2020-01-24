@@ -17,7 +17,7 @@ func defaultCliError(err error) *core.CliError {
 	}
 }
 
-func invalidDefaultOrganizationIdError(value string) *core.CliError {
+func invalidDefaultOrganizationIDError(value string) *core.CliError {
 	return &core.CliError{
 		Err:  fmt.Errorf("invalid default_organization_id '%v'", value),
 		Hint: "default_organization_id should be a valid UUID, formatted as: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.",

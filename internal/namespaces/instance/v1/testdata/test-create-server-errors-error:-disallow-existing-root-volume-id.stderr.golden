@@ -1,1 +1,4 @@
-You cannot use an existing volume as a root volume. You must create an image of this volume and use its ID in the 'image' argument.
+You cannot use an existing volume as a root volume
+
+Details:
+You must create an image of this volume and use its ID in the 'image' argument.
