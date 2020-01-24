@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	if !core.UpdateGolden {
+	if !core.UpdateCassettes {
 		instance.RetryInterval = 0
 	}
 }
