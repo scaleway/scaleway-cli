@@ -156,7 +156,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("run with dynamic IP", core.Test(&core.TestConfig{
 			Commands:  GetCommands(),
-			Cmd:       "scw instance server create image=ubuntu_bionic ip=dynamic start -w",
+			Cmd:       "scw instance server create image=ubuntu_bionic ip=dynamic start -w", // dynamic IP is created at runtime
 			AfterFunc: deleteServerAfterFunc,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -194,7 +194,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands:  GetCommands(),
-			Cmd:       "scw instance server create image=ubuntu_bionic ipv6 start -w",
+			Cmd:       "scw instance server create image=ubuntu_bionic ipv6 start -w", // IPv6 is created at runtime
 			AfterFunc: deleteServerAfterFunc,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.NotEmpty(t, ctx.Result.(*instance.Server).IPv6.Address)
