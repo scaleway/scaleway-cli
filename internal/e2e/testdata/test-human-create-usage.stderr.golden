@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   create a dwarf
-    scw test create human height=125
+    scw test human create height=125
 
 ARGS:
   [region]                   Region to target. If none is passed will use default region from the config (fr-par)

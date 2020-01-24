@@ -132,7 +132,6 @@ func buildExamples(cmd *Command) string {
 			//  Query and path parameters don't have json tag,
 			//  so we need to enforce a JSON tag on every field to make this work.
 			var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
-
 			if err := json.Unmarshal([]byte(cmdExample.Request), cmdArgs); err != nil {
 				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}
@@ -145,8 +144,8 @@ func buildExamples(cmd *Command) string {
 			commandParts := []string{
 				"scw",
 				cmd.Namespace,
-				cmd.Verb,
 				cmd.Resource,
+				cmd.Verb,
 			}
 			commandParts = append(commandParts, cmdArgsAsStrings...)
 			commandLine = strings.Join(commandParts, " ")
