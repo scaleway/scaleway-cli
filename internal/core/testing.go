@@ -7,7 +7,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -23,7 +22,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var UpdateGolden = os.Getenv("UPDATE_GOLDEN") == "true"
+var (
+	// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
+	// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
+	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
+	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
+)
 
 // CheckFuncCtx contain the result of a command execution
 type CheckFuncCtx struct {
@@ -61,8 +65,6 @@ type AfterFuncCtx struct {
 	Meta       map[string]interface{}
 	CmdResult  interface{}
 }
-
-var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
 
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
@@ -107,7 +109,7 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 	}
 
 	if !e2eClient {
-		httpClient, cleanup, err := getHttpRecoder(t, UpdateGolden)
+		httpClient, cleanup, err := getHttpRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 		config, err := scw.LoadConfig()
@@ -260,7 +262,7 @@ func TestCheckGolden() TestCheck {
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
-	if UpdateGolden {
+	if UpdateGoldens {
 		if actualIsEmpty {
 			_ = os.Remove(goldenPath)
 		} else {

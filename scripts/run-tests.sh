@@ -28,8 +28,17 @@ function usage() {
 
   color yellow "Options:"
 
-  color green "  --update"
+  color green "  -u, --update"
+  echo -e "\tUpdate goldens and record cassettes during integration tests."
+
+  color green "  -g, --update-goldens"
   echo -e "\tUpdate goldens during integration tests."
+
+  color green "  -c, --update-cassettes"
+  echo -e "\tRecord cassettes during integration tests. Warning: a valid Scaleway token is required in your environment in order to record cassettes."
+
+  color green "  -D, --debug"
+  echo -e "\tEnable CLI debug mode."
 
   color green "  -h, --help"
   echo -e "\tDisplay this help."
@@ -38,7 +47,9 @@ function usage() {
   exit $1;
 }
 
+SCW_DEBUG="false"
 OPT_UPDATE_GOLDENS="false"
+OPT_UPDATE_CASSETTES="false"
 
 ##
 # Parse arguments
@@ -46,11 +57,22 @@ OPT_UPDATE_GOLDENS="false"
 while [[ $# > 0 ]]
 do
   case "$1" in
-	-h|--help) usage ;;
-    --update)
+    -u|--update)
       OPT_UPDATE_GOLDENS="true"
+      OPT_UPDATE_CASSETTES="true"
+      ;;
+    -g|--update-goldens)
+      OPT_UPDATE_GOLDENS="true"
+      ;;
+    -c|--update-cassettes)
+      OPT_UPDATE_CASSETTES="true"
+      ;;
+    -D|--debug)
+      SCW_DEBUG="true"
+      ;;
+	-h|--help) usage
   esac
   shift
 done
 
-UPDATE_GOLDEN=$OPT_UPDATE_GOLDENS go test $ROOT_DIR/...
+SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_UPDATE_CASSETTES go test -v $ROOT_DIR/...
