@@ -39,7 +39,7 @@ type instanceCreateServerRequest struct {
 func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
-		Long:      `Create an instance server.`, // TODO: Add examples [APIGW-1371]
+		Long:      `Create an instance server.`,
 		Namespace: "instance",
 		Verb:      "create",
 		Resource:  "server",
@@ -66,11 +66,11 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:  "root-volume",
-				Short: "Local root volume of the server", // TODO: Add examples [APIGW-1371]
+				Short: "Local root volume of the server",
 			},
 			{
 				Name:  "additional-volumes.{index}",
-				Short: "Additional local and block volumes attached to your server", // TODO: Add examples [APIGW-1371]
+				Short: "Additional local and block volumes attached to your server",
 			},
 			{
 				Name:    "ip",
