@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a server with the given ID
-    scw instance get server server-id=94ededdf-358d-4019-9886-d754f8a2e78d
+    scw instance server get server-id=94ededdf-358d-4019-9886-d754f8a2e78d
 
 ARGS:
   [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)

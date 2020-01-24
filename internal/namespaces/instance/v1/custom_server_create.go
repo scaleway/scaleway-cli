@@ -39,7 +39,7 @@ type instanceCreateServerRequest struct {
 func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
-		Long:      `Create an instance server.`, // TODO: Add examples [APIGW-1371]
+		Long:      `Create an instance server.`,
 		Namespace: "instance",
 		Verb:      "create",
 		Resource:  "server",
@@ -66,11 +66,11 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:  "root-volume",
-				Short: "Local root volume of the server", // TODO: Add examples [APIGW-1371]
+				Short: "Local root volume of the server",
 			},
 			{
 				Name:  "additional-volumes.{index}",
-				Short: "Additional local and block volumes attached to your server", // TODO: Add examples [APIGW-1371]
+				Short: "Additional local and block volumes attached to your server",
 			},
 			{
 				Name:    "ip",
@@ -108,7 +108,29 @@ func serverCreateCommand() *core.Command {
 			Short:   "List marketplace label images",
 			Command: "scw marketplace image list",
 		}},
-		Examples: []*core.Example{}, // TODO: Add examples [APIGW-1371]
+		Examples: []*core.Example{
+			{
+				Short:   "Create and start an instance on Ubuntu Bionic",
+				Request: `{"image":"ubuntu_bionic","start":true}`,
+			},
+			{
+				Short:   "Create a GP1-XS instance, give it a name and add tags",
+				Request: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
+			},
+			{
+				Short:   "Create an instance with 2 additional block volumes (50GB and 100GB)",
+				Request: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
+			},
+			{
+				Short:   "Create an instance with 2 local volumes (10GB and 10GB)",
+				Request: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
+			},
+			{
+				Short: "Use an existing IP",
+				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
+scw instance server create image=ubuntu_bionic ip=$ip`,
+			},
+		},
 	}
 }
 

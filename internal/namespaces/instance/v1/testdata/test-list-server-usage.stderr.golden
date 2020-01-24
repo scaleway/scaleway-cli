@@ -5,16 +5,16 @@ USAGE:
 
 EXAMPLES:
   List all servers on your default zone
-    scw instance list server
+    scw instance server list
 
   List servers of this commercial type
-    scw instance list server commercial-type=DEV1-S
+    scw instance server list commercial-type=DEV1-S
 
   List servers that are not attached to a public IP
-    scw instance list server without-ip=true
+    scw instance server list without-ip=true
 
   List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
-    scw instance list server name=server1
+    scw instance server list name=server1
 
 ARGS:
   [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
