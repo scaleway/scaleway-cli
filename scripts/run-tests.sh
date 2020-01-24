@@ -29,13 +29,13 @@ function usage() {
   color yellow "Options:"
 
   color green "  -u, --update"
-  echo -e "\tUpdate goldens during integration tests."
+  echo -e "\tUpdate goldens and record cassettes during integration tests."
 
   color green "  -g, --update-goldens"
   echo -e "\tUpdate goldens during integration tests."
 
   color green "  -c, --update-cassettes"
-  echo -e "\tRecord cassettes during integration tests. This requires a valid Scaleway token in your environment."
+  echo -e "\tRecord cassettes during integration tests. Warning: a valid Scaleway token is required in your environment in order to record cassettes."
 
   color green "  -D, --debug"
   echo -e "\tEnable CLI debug mode."
@@ -75,4 +75,4 @@ do
   shift
 done
 
-SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_RECORD_CASSETTES go test -v $ROOT_DIR/...
+SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_UPDATE_CASSETTES go test -v $ROOT_DIR/...
