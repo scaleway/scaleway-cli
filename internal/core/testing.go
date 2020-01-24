@@ -2,6 +2,7 @@ package core
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -13,6 +14,9 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/scaleway/scaleway-sdk-go/logger"
+
+	// test "github.com/scaleway/scaleway-sdk-go/api/test/v1alpha1"
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/scaleway/scaleway-cli/internal/human"
@@ -67,6 +71,14 @@ type AfterFuncCtx struct {
 	CmdResult  interface{}
 }
 
+type CustomFuncCtx struct {
+	Client     *scw.Client
+	ExecuteCmd func(cmd string) interface{}
+	Meta       map[string]interface{}
+}
+
+var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
+
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
 
@@ -93,6 +105,9 @@ type TestConfig struct {
 
 	// Fake build info for this test.
 	BuildInfo BuildInfo
+
+	// Custom hook that will be called at the end
+	CustomFunc func(t *testing.T, ctx *CustomFuncCtx) error
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -166,7 +181,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(cmd string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-
+			fmt.Println("command:", cmdTemplate(cmd))
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmdTemplate(cmd), " "),
 				Commands:  config.Commands,
@@ -191,26 +206,30 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.Cmd
+		var result interface{}
 
-		stdout := &bytes.Buffer{}
-		stderr := &bytes.Buffer{}
-		exitCode, result, err := Bootstrap(&BootstrapConfig{
-			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
-			Commands:  config.Commands,
-			BuildInfo: &config.BuildInfo,
-			Stdout:    stdout,
-			Stderr:    stderr,
-			Client:    client,
-		})
+		if config.Cmd != "" && config.Check != nil {
+			stdout := &bytes.Buffer{}
+			stderr := &bytes.Buffer{}
+			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
+			exitCode, result, err := Bootstrap(&BootstrapConfig{
+				Args:      strings.Split(cmdTemplate(config.Cmd), " "),
+				Commands:  config.Commands,
+				BuildInfo: &config.BuildInfo,
+				Stdout:    stdout,
+				Stderr:    stderr,
+				Client:    client,
+			})
 
-		config.Check(t, &CheckFuncCtx{
-			ExitCode: exitCode,
-			Stdout:   stdout.Bytes(),
-			Stderr:   stderr.Bytes(),
-			Meta:     meta,
-			Result:   result,
-			Err:      err,
-		})
+			config.Check(t, &CheckFuncCtx{
+				ExitCode: exitCode,
+				Stdout:   stdout.Bytes(),
+				Stderr:   stderr.Bytes(),
+				Meta:     meta,
+				Result:   result,
+				Err:      err,
+			})
+		}
 
 		// Run config.AfterFunc
 
@@ -220,6 +239,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
 				CmdResult:  result,
+			}))
+		}
+
+		//
+
+		if config.CustomFunc != nil {
+			require.NoError(t, config.CustomFunc(t, &CustomFuncCtx{
+				Client:     client,
+				ExecuteCmd: executeCmd,
+				Meta:       meta,
 			}))
 		}
 	}

@@ -176,8 +176,8 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 func serverUpdateBuilder(c *core.Command) *core.Command {
 
 	type instanceUpdateServerRequestCustom struct {
-		updateServerRequest *instance.UpdateServerRequest
-		IP                  *instance.NullableStringValue
+		*instance.UpdateServerRequest
+		IP *instance.NullableStringValue
 	}
 
 	IPArgSpec := &core.ArgSpec{
@@ -193,9 +193,22 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
-		updateServerRequest := customRequest.updateServerRequest
+		updateServerRequest := customRequest.UpdateServerRequest
 
-		updateIPRequest := (*instance.UpdateIPRequest)(nil)
+		attachIPRequest := (*instance.UpdateIPRequest)(nil)
+
+		detachIP := false
+
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
+
+		getServerResponse, err := api.GetServer(&instance.GetServerRequest{
+			Zone:     "",
+			ServerID: customRequest.ServerID,
+		})
+		if err != nil {
+			return "", err
+		}
 
 		switch {
 		case customRequest.IP == nil:
@@ -204,30 +217,43 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		case customRequest.IP.Null:
 			// ip=none
-			// remove server from ip
-			updateIPRequest = &instance.UpdateIPRequest{
-				IP: customRequest.IP.Value,
-				Server: &instance.NullableStringValue{
-					Null: true,
-				},
+			// remove server from ip, only if a Server and an IP are linked.
+			if getServerResponse.Server.PublicIP != nil {
+				detachIP = true
 			}
 
 		default:
 			// ip=<anything>
 			// update ip
-			updateIPRequest = &instance.UpdateIPRequest{
+			if getServerResponse.Server.PublicIP != nil {
+				detachIP = true
+			}
+			attachIPRequest = &instance.UpdateIPRequest{
 				IP: customRequest.IP.Value,
 				Server: &instance.NullableStringValue{
-					Value: customRequest.updateServerRequest.ServerID,
+					Value: customRequest.ServerID,
 				},
 			}
 		}
 
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
+		// Instance API does not support detaching the existing IP and then attaching a new one to the same server
+		// in 1 call only.
+		// We need to do it manually in 2 calls.
 
-		if updateIPRequest != nil {
-			_, err := api.UpdateIP(updateIPRequest)
+		if detachIP {
+			_, err = api.UpdateIP(&instance.UpdateIPRequest{
+				IP: getServerResponse.Server.PublicIP.ID,
+				Server: &instance.NullableStringValue{
+					Null: true,
+				},
+			})
+			if err != nil {
+				return "", err
+			}
+		}
+
+		if attachIPRequest != nil {
+			_, err = api.UpdateIP(attachIPRequest)
 			if err != nil {
 				return "", err
 			}
