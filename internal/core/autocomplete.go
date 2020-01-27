@@ -234,7 +234,10 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
-	for _, word := range leftWords {
+	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
+	// see test 'scw test flower delete f'
+	nodeIndexInWords := 0
+	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
 			children, childrenExists = node.Children[variableFlagValueNodeId]
@@ -257,6 +260,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		default:
 			// word is a namespace or verb or resource or flag or flag value
 			node = children
+			nodeIndexInWords = i
 		}
 
 	}
@@ -270,7 +274,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// We loop through all other words in order to find existing args and flags.
 	// When a flag is found it populates `completedFlags`.
 	// When an argument is found it populates `completedArgs`.
-	for _, word := range append(leftWords, rightWords...) {
+	for i, word := range append(leftWords, rightWords...) {
 		logger.Debugf("word: '%v'", word)
 		switch {
 
@@ -285,7 +289,12 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		// handle boolean arg
 		default:
 			children, exist := node.Children[word+"="]
-			if exist && children.Type == AutoCompleteNodeTypeArgument {
+			if exist && children.Type == AutoCompleteNodeTypeArgument && i > nodeIndexInWords {
+				// We need to check i > nodeIndexInWords
+				// because the same word may be used for both a command and an argument.
+				// example:
+				//	scw instance ip delete ip<tab>
+				//	Here, we don't want to register the first `ip` into `completedArgs`
 				completedArgs[word+"="] = struct{}{}
 			}
 		}
