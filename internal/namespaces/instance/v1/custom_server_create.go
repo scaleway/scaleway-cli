@@ -510,7 +510,6 @@ func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolu
 	}
 
 	if rootVolume.ID != "" {
-		// TODO: Improve error message [APIGW-1371]
 		return &core.CliError{
 			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
 			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
