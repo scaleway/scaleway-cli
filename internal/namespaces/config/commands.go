@@ -6,8 +6,10 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -29,10 +31,50 @@ func GetCommands() *core.Commands {
 }
 
 func configRoot() *core.Command {
+	configPath := scw.GetConfigPath()
+
 	return &core.Command{
-		Short:     `Config file management`,
-		Long:      `Manage your Scaleway CLI config file.`,
+		Short: `Config file management`,
+		Long: `Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK,... ). It allows to handle your Scaleway config through two ways: environment variables or/and config file.
+
+Scaleway config file is self-documented, we recommend you to have a look at it at least once before using Scaleway developer tools: ` + terminal.Style(configPath, color.Bold, color.FgBlue) + `
+
+In this CLI, ` + terminal.Style(`config file attributes are applied prior to the environment variables`, color.Bold) + `: environment variable > config attribute.
+
+The following environment variables are supported:
+- ` + terminal.Style("SCW_ACCESS_KEY", color.Bold, color.FgBlue) + ` the access key of a token
+- ` + terminal.Style("SCW_SECRET_KEY", color.Bold, color.FgBlue) + ` the secret key of a token
+- ` + terminal.Style("SCW_DEFAULT_ORGANIZATION_ID", color.Bold, color.FgBlue) + ` your default organization ID
+- ` + terminal.Style("SCW_DEFAULT_REGION", color.Bold, color.FgBlue) + ` your default region
+- ` + terminal.Style("SCW_DEFAULT_ZONE", color.Bold, color.FgBlue) + ` your default availability zone
+- ` + terminal.Style("SCW_API_URL", color.Bold, color.FgBlue) + ` URL of the API
+- ` + terminal.Style("SCW_INSECURE", color.Bold, color.FgBlue) + ` set this to true to enable the insecure mode
+- ` + terminal.Style("SCW_PROFILE", color.Bold, color.FgBlue) + ` set the config profile to use
+
+Read more about the config management engine on https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config`,
 		Namespace: "config",
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Init your Scaleway config",
+				Command: "scw config init",
+			},
+			{
+				Short:   "Set a config attribute",
+				Command: "scw config set --help",
+			},
+			{
+				Short:   "Set a config attribute",
+				Command: "scw config get --help",
+			},
+			{
+				Short:   "Dump the config",
+				Command: "scw config dump",
+			},
+			{
+				Short:   "Display the actual config file",
+				Command: "cat " + configPath,
+			},
+		},
 	}
 }
 
@@ -44,6 +86,22 @@ func configGetCommand() *core.Command {
 		Resource:  "get",
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Examples: []*core.Example{
+			{
+				Short: "Get the default organization ID",
+				Raw:   "scw config get default_organization_id",
+			},
+			{
+				Short: "Get the default region of the profile 'prod'",
+				Raw:   "scw config get prod.default_region",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config --help",
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 			// profileKeyValue is a custom type used for displaying configGetCommand result
@@ -96,6 +154,22 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Resource:  "set",
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Examples: []*core.Example{
+			{
+				Short: "Update the default organization ID",
+				Raw:   "scw config set default_organization_id 12903058-d0e8-4366-89c3-6e666abe1f6f",
+			},
+			{
+				Short: "Update the default region of the profile 'prod'",
+				Raw:   "scw config set prod.default_region nl-ams",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config --help",
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			// Validate arguments
 			rawArgs := *(argsI.(*args.RawArgs))
@@ -188,6 +262,12 @@ func configDumpCommand() *core.Command {
 		Resource:  "dump",
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config --help",
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			config, err := scw.LoadConfig()
 			if err != nil {

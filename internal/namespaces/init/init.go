@@ -96,6 +96,12 @@ func initCommand() *core.Command {
 				Name: "send-usage",
 			},
 		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config --help",
+			},
+		},
 		PreValidateFunc: func(ctx context.Context, argsI interface{}) error {
 			args := argsI.(*InitArgs)
 
