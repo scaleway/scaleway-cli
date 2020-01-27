@@ -1,0 +1,14 @@
+Test Anonymous Fields.
+
+USAGE:
+  scw [global-flags] test anonymous-fields [flags] [arg=value ...]
+
+FLAGS:
+  -h, --help   help for anonymous-fields
+
+GLOBAL FLAGS:
+      --access-key string    Scaleway access key
+  -D, --debug                Enable debug mode
+  -o, --output PrinterType   Output format: json or human
+  -p, --profile string       The config profile to use
+      --secret-key string    Scaleway secret key
