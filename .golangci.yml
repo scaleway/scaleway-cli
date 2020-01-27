@@ -46,4 +46,3 @@ issues:
       linters:
         - unused
         - errcheck
-        -
