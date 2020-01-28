@@ -82,6 +82,10 @@ func (c *Command) Override(builder func(command *Command) *Command) {
 }
 
 func (c *Command) getPath() string {
+	if c == nil {
+		return ""
+	}
+
 	path := []string(nil)
 	if c.Namespace != "" {
 		path = append(path, c.Namespace)

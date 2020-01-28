@@ -6,7 +6,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"github.com/spf13/cobra"
 )
 
 // meta store globally available variables like sdk client or global Flags.
@@ -17,15 +16,15 @@ type meta struct {
 	DebugModeFlag   bool
 	PrinterTypeFlag printer.Type
 
-	BuildInfo  *BuildInfo
-	Client     *scw.Client
-	Printer    printer.Printer
-	Commands   *Commands
-	RunCommand *cobra.Command
+	BuildInfo *BuildInfo
+	Client    *scw.Client
+	Printer   printer.Printer
+	Commands  *Commands
 
-	stdout io.Writer
-	stderr io.Writer
-	result *interface{}
+	runCommand *Command
+	stdout     io.Writer
+	stderr     io.Writer
+	result     interface{}
 }
 
 type contextKey int
@@ -40,11 +39,6 @@ func newMetaContext(meta *meta) context.Context {
 }
 
 // extractMeta extracts meta from a given context.
-// It should not be used directly.
-// Use ExtractClient(), ExtractBuildInfo() instead,
-// or create new Extract__() methods if necessary.
-//
-// TODO: remove usage from cobraPreRunInitMeta()
 func extractMeta(ctx context.Context) *meta {
 	return ctx.Value(metaContextKey).(*meta)
 }
@@ -68,12 +62,4 @@ func ExtractClient(ctx context.Context) *scw.Client {
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
-}
-
-func extractPrinter(ctx context.Context) printer.Printer {
-	return extractMeta(ctx).Printer
-}
-
-func setContextResult(ctx context.Context, result interface{}) {
-	*extractMeta(ctx).result = result
 }
