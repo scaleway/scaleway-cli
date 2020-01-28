@@ -1,6 +1,7 @@
 package config
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"reflect"
@@ -9,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -32,24 +34,31 @@ func GetCommands() *core.Commands {
 
 func configRoot() *core.Command {
 	configPath := scw.GetConfigPath()
-
+	envVarTable := bytes.Buffer{}
+	w := tabwriter.NewWriter(&envVarTable, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+	for _, envVar := range [][2]string{
+		{"SCW_ACCESS_KEY", "The access key of a token (create a token on https://console.scaleway.com/account/credentials)"},
+		{"SCW_SECRET_KEY", "The secret key of a token (create a token on https://console.scaleway.com/account/credentials)"},
+		{"SCW_DEFAULT_ORGANIZATION_ID", "The default organization ID"},
+		{"SCW_DEFAULT_REGION", "The default region"},
+		{"SCW_DEFAULT_ZONE", "The default availability zone"},
+		{"SCW_API_URL", "URL of the API"},
+		{"SCW_INSECURE", "Set this to true to enable the insecure mode"},
+		{"SCW_PROFILE", "Set the config profile to use"},
+	} {
+		fmt.Fprintf(w, "  %s\t%s\n", terminal.Style(envVar[0], color.Bold, color.FgBlue), envVar[1])
+	}
+	w.Flush()
 	return &core.Command{
 		Short: `Config file management`,
-		Long: `Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK,... ). It allows to handle your Scaleway config through two ways: environment variables or/and config file.
+		Long: `Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables or/and config file.
 
 Scaleway config file is self-documented, we recommend you to have a look at it at least once before using Scaleway developer tools: ` + terminal.Style(configPath, color.Bold, color.FgBlue) + `
 
-In this CLI, ` + terminal.Style(`config file attributes are applied prior to the environment variables`, color.Bold) + `: environment variable > config attribute.
+In this CLI, ` + terminal.Style(`environment variables have priority over the configuration file`, color.Bold) + `.
 
 The following environment variables are supported:
-- ` + terminal.Style("SCW_ACCESS_KEY", color.Bold, color.FgBlue) + ` the access key of a token
-- ` + terminal.Style("SCW_SECRET_KEY", color.Bold, color.FgBlue) + ` the secret key of a token
-- ` + terminal.Style("SCW_DEFAULT_ORGANIZATION_ID", color.Bold, color.FgBlue) + ` your default organization ID
-- ` + terminal.Style("SCW_DEFAULT_REGION", color.Bold, color.FgBlue) + ` your default region
-- ` + terminal.Style("SCW_DEFAULT_ZONE", color.Bold, color.FgBlue) + ` your default availability zone
-- ` + terminal.Style("SCW_API_URL", color.Bold, color.FgBlue) + ` URL of the API
-- ` + terminal.Style("SCW_INSECURE", color.Bold, color.FgBlue) + ` set this to true to enable the insecure mode
-- ` + terminal.Style("SCW_PROFILE", color.Bold, color.FgBlue) + ` set the config profile to use
+` + envVarTable.String() + `
 
 Read more about the config management engine on https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config`,
 		Namespace: "config",
