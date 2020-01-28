@@ -13,7 +13,6 @@ type NullableStringValueRequest struct {
 }
 
 func TestNullableStringValueUnmarshal(t *testing.T) {
-
 	type testCase struct {
 		args           []string
 		data           interface{}
@@ -66,7 +65,6 @@ func TestNullableStringValueUnmarshal(t *testing.T) {
 }
 
 func TestNullableStringValueMarshal(t *testing.T) {
-
 	type testCase struct {
 		data           interface{}
 		expectedStruct interface{}
@@ -75,9 +73,9 @@ func TestNullableStringValueMarshal(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			args_, err := args.MarshalStruct(tc.data)
+			args, err := args.MarshalStruct(tc.data)
 			assert.Equal(t, tc.expectedError, err)
-			assert.Equal(t, tc.expectedStruct, args_)
+			assert.Equal(t, tc.expectedStruct, args)
 		}
 	}
 

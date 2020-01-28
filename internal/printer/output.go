@@ -8,31 +8,31 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/human"
 )
 
-// FormatterType defines an formatter format.
-type PrinterType string
+// Type defines an formatter format.
+type Type string
 
 // String returns the formatter format converted in a string.
-func (o *PrinterType) String() string {
+func (o *Type) String() string {
 	return string(*o)
 }
 
 // Set sets the formatter format from a string.
-func (o *PrinterType) Set(v string) error {
-	*o = PrinterType(v)
+func (o *Type) Set(v string) error {
+	*o = Type(v)
 	return nil
 }
 
 // Type returns the FormatterType string type.
-func (o *PrinterType) Type() string {
-	return "PrinterType"
+func (o *Type) Type() string {
+	return "string"
 }
 
 var (
 	// JSON defines a JSON formatter.
-	JSON = PrinterType("json")
+	JSON = Type("json")
 
 	// Human defines a human readable formatted formatter.
-	Human = PrinterType("human")
+	Human = Type("human")
 )
 
 // Printer contains all the formatter logic for a given format.
@@ -41,14 +41,14 @@ type Printer interface {
 }
 
 // New returns an initialized formatter corresponding to a given FormatterType.
-func New(formatterType PrinterType, writer io.Writer, errorWriter io.Writer) (Printer, error) {
-	if formatterType == "" {
-		formatterType = Human
+func New(printerType Type, writer io.Writer, errorWriter io.Writer) (Printer, error) {
+	if printerType == "" {
+		printerType = Human
 	}
 
-	formatterType = PrinterType(strings.ToLower(string(formatterType)))
+	printerType = Type(strings.ToLower(string(printerType)))
 
-	switch formatterType {
+	switch printerType {
 	case JSON:
 		return &jsonPrinter{
 			Writer:      writer,
@@ -60,6 +60,6 @@ func New(formatterType PrinterType, writer io.Writer, errorWriter io.Writer) (Pr
 			ErrorWriter: errorWriter,
 		}, nil
 	default:
-		return nil, fmt.Errorf("invalid format: %s", formatterType)
+		return nil, fmt.Errorf("invalid format: %s", printerType)
 	}
 }

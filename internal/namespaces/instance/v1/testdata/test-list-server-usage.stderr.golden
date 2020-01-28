@@ -29,8 +29,8 @@ FLAGS:
   -h, --help   help for list
 
 GLOBAL FLAGS:
-      --access-key string    Scaleway access key
-  -D, --debug                Enable debug mode
-  -o, --output PrinterType   Output format: json or human
-  -p, --profile string       The config profile to use
-      --secret-key string    Scaleway secret key
+      --access-key string   Scaleway access key
+  -D, --debug               Enable debug mode
+  -o, --output string       Output format: json or human
+  -p, --profile string      The config profile to use
+      --secret-key string   Scaleway secret key

@@ -206,7 +206,6 @@ func Test_CreateServer(t *testing.T) {
 
 // None of the tests below should succeed to create an instance.
 func Test_CreateServerErrors(t *testing.T) {
-
 	////
 	// Image errors
 	////

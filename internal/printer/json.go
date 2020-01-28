@@ -28,7 +28,10 @@ func (o *jsonPrinter) Print(data interface{}, opt *human.MarshalOpt) error {
 	}
 
 	if isError || isStandardError {
-		json.NewEncoder(o.ErrorWriter).Encode(data)
+		err := json.NewEncoder(o.ErrorWriter).Encode(data)
+		if err != nil {
+			return err
+		}
 	}
 
 	return json.NewEncoder(o.Writer).Encode(data)

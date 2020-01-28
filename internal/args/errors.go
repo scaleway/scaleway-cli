@@ -125,7 +125,7 @@ func (e *MissingIndicesInArrayError) Error() string {
 	case e.IndexToInsert-e.CurrentLength == 1:
 		return fmt.Sprintf("missing index %d, all indices prior to %d must be set as well", e.CurrentLength, e.IndexToInsert)
 	default:
-		return fmt.Sprintf("missing indices, %s all indices prior to %d must be set as well", missingIndices(int(e.IndexToInsert), e.CurrentLength), e.IndexToInsert)
+		return fmt.Sprintf("missing indices, %s all indices prior to %d must be set as well", missingIndices(e.IndexToInsert, e.CurrentLength), e.IndexToInsert)
 	}
 }
 

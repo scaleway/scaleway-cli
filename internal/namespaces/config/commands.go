@@ -45,7 +45,6 @@ func configGetCommand() *core.Command {
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 			// profileKeyValue is a custom type used for displaying configGetCommand result
 			type profileKeyValue struct {
 				Profile string `json:"profile"`
@@ -256,11 +255,11 @@ func configResetCommand() *core.Command {
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			config, err := scw.LoadConfig()
+			_, err := scw.LoadConfig()
 			if err != nil {
 				return nil, err
 			}
-			config = &scw.Config{}
+			config := &scw.Config{}
 			err = config.Save()
 			if err != nil {
 				return nil, err
@@ -282,9 +281,8 @@ func getProfile(config *scw.Config, profileName string) (profile *scw.Profile, e
 			return nil, err
 		}
 		return profile, nil
-	} else {
-		return &config.Profile, nil
 	}
+	return &config.Profile, nil
 }
 
 // splitProfileKey splits a "profile.key" string into ("profile", "key")
@@ -301,7 +299,7 @@ func splitProfileKey(arg string) (profileName string, key string, err error) {
 
 func getProfileValue(profile *scw.Profile, fieldName string) (string, error) {
 	field := reflect.ValueOf(profile).Elem().FieldByName(strcase.ToPublicGoName(fieldName))
-	if field.IsValid() == false {
+	if !field.IsValid() {
 		return "", invalidProfileKeyIdentifierError(fieldName)
 	}
 	if field.IsNil() {
@@ -334,7 +332,7 @@ func unsetProfileValue(profile *scw.Profile, key string) error {
 
 func getProfileAttribute(profile *scw.Profile, key string) (reflect.Value, error) {
 	field := reflect.ValueOf(profile).Elem().FieldByName(strcase.ToPublicGoName(key))
-	if field.IsValid() == false {
+	if !field.IsValid() {
 		return reflect.ValueOf(nil), invalidProfileAttributeError(key)
 	}
 	return field, nil

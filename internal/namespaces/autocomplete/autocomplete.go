@@ -1,4 +1,4 @@
-package namespace_autocomplete
+package autocomplete
 
 import (
 	"context"
@@ -199,7 +199,10 @@ func autocompleteInstallCommand() *core.Command {
 			}
 
 			// Create destination folder if it doesn't exist
-			os.MkdirAll(destinationFolder, executePermission)
+			err = os.MkdirAll(destinationFolder, executePermission)
+			if err != nil {
+				return nil, err
+			}
 
 			// Write script
 			err = ioutil.WriteFile(destinationPath, []byte(trimText(script.CompleteScript)), readWritePermission)
@@ -208,7 +211,7 @@ func autocompleteInstallCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Autocomplete function for %v installed succesfully.\nCopied %v to %v.\n%v",
+				Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nCopied %v to %v.\n%v",
 					shellName, script.FileName, destinationPath, script.SuccessHelp),
 			}, nil
 		},

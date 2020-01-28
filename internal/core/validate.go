@@ -140,7 +140,7 @@ func ValidateOrganizationIDRequired() ArgSpecValidateFunc {
 			return err
 		}
 		if !validation.IsOrganizationID(value) {
-			return InvalidOrganizationIdError(value)
+			return InvalidOrganizationIDError(value)
 		}
 		return nil
 	}

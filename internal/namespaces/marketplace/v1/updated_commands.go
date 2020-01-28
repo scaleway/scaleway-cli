@@ -34,7 +34,6 @@ func updateMarketplaceListImages(c *core.Command) {
 // TODO : use generated command with label 'param'
 // marketplaceGetImagesCustom is the custom command for scw marketplace get image
 func updateMarketplaceGetImage(c *core.Command) {
-
 	type getImagesArgs struct {
 		Label string
 	}

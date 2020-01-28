@@ -1,4 +1,4 @@
-package namespace_autocomplete
+package autocomplete
 
 import (
 	"fmt"

@@ -18,7 +18,7 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
-const variableFlagValueNodeId = "*"
+const variableFlagValueNodeID = "*"
 
 type AutoCompleteNodeType int
 
@@ -52,42 +52,41 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-func (n *AutoCompleteNode) addGlobalFlags() {
-	n.Children["--access-key"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+func (node *AutoCompleteNode) addGlobalFlags() {
+	node.Children["--access-key"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:             "--access-key",
 		HasVariableValue: true,
 	})
-	n.Children["-D"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["-D"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-D",
 	})
-	n.Children["--debug"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["--debug"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "--debug",
 	})
-	n.Children["-h"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["-h"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-h",
 	})
-	n.Children["--help"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["--help"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "--help",
 	})
-	n.Children["-o"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["-o"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "-o",
 		EnumValues: []string{"json", "human"},
 	})
-	n.Children["--output"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["--output"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "--output",
 		EnumValues: []string{"json", "human"},
 	})
-	n.Children["-p"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["-p"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-p",
 	})
-	n.Children["--profile"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["--profile"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "--profile",
 	})
-	n.Children["--secret-key"] = NewAutoCompleteFlagNode(n, &FlagSpec{
+	node.Children["--secret-key"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:             "--secret-key",
 		HasVariableValue: true,
 	})
-
 }
 
 // newAutoCompleteResponse builds a new AutocompleteResponse
@@ -129,7 +128,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 		Name:     flagSpec.Name,
 	}
 	if flagSpec.HasVariableValue {
-		node.Children[variableFlagValueNodeId] = &AutoCompleteNode{
+		node.Children[variableFlagValueNodeID] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueVariable,
 		}
@@ -175,11 +174,11 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 
 // isLeafCommand returns true only if n is a command (namespace or verb or resource) but has no child command
 // a leaf command can have 2 types of children: arguments or flags
-func (n *AutoCompleteNode) isLeafCommand() bool {
-	if n.Type != AutoCompleteNodeTypeCommand {
+func (node *AutoCompleteNode) isLeafCommand() bool {
+	if node.Type != AutoCompleteNodeTypeCommand {
 		return false
 	}
-	for _, child := range n.Children {
+	for _, child := range node.Children {
 		if child.Type == AutoCompleteNodeTypeCommand {
 			return false
 		}
@@ -240,7 +239,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
-			children, childrenExists = node.Children[variableFlagValueNodeId]
+			children, childrenExists = node.Children[variableFlagValueNodeID]
 		}
 
 		switch {
@@ -262,7 +261,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			node = children
 			nodeIndexInWords = i
 		}
-
 	}
 
 	// keep track of the completed args
@@ -277,7 +275,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	for i, word := range append(leftWords, rightWords...) {
 		logger.Debugf("word: '%v'", word)
 		switch {
-
 		// handle --flag=value and --flag
 		case isFlag(word):
 			completedFlags[wordKey(word)] = struct{}{}
@@ -315,41 +312,41 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		}
 
 		return newAutoCompleteResponse(suggestions)
-	} else {
-		// We are trying to complete a node: either a command name or an arg name or a flagname
+	}
 
-		suggestions := []string(nil)
-		for key, _ := range node.Children {
-			if !hasPrefix(key, wordToComplete) {
-				continue
-			}
+	// We are trying to complete a node: either a command name or an arg name or a flagname
 
-			switch {
-			case strings.Contains(key, sliceSchema):
-				suggestions = append(suggestions, keySuggestion(key, sliceSchema, completedArgs))
-			case strings.Contains(key, mapSchema):
-				suggestions = append(suggestions, keySuggestion(key, mapSchema, completedArgs))
-			default:
-				if _, exists := completedArgs[key]; exists {
-					continue
-				}
-				if _, exists := completedFlags[key]; exists {
-					continue
-				}
-				if isFlag(key) && wordToComplete == "" {
-					// skip autocomplete flag on empty string
-					// command: scw <tab>
-					// suggestions: instance
-					// command: scw -<tab>
-					// suggestions: -o
-					continue
-				}
-				suggestions = append(suggestions, key)
-			}
+	suggestions := []string(nil)
+	for key := range node.Children {
+		if !hasPrefix(key, wordToComplete) {
+			continue
 		}
 
-		return newAutoCompleteResponse(suggestions)
+		switch {
+		case strings.Contains(key, sliceSchema):
+			suggestions = append(suggestions, keySuggestion(key, sliceSchema, completedArgs))
+		case strings.Contains(key, mapSchema):
+			suggestions = append(suggestions, keySuggestion(key, mapSchema, completedArgs))
+		default:
+			if _, exists := completedArgs[key]; exists {
+				continue
+			}
+			if _, exists := completedFlags[key]; exists {
+				continue
+			}
+			if isFlag(key) && wordToComplete == "" {
+				// skip autocomplete flag on empty string
+				// command: scw <tab>
+				// suggestions: instance
+				// command: scw -<tab>
+				// suggestions: -o
+				continue
+			}
+			suggestions = append(suggestions, key)
+		}
 	}
+
+	return newAutoCompleteResponse(suggestions)
 }
 
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.

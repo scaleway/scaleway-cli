@@ -19,8 +19,6 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		var err error
 		opt := cmd.getHumanMarshalerOpt()
 		metaPrinter := extractPrinter(ctx)
-		ctx = injectRawArgs(ctx, rawArgs)
-		ctx = injectCommand(ctx, cmd)
 
 		// create a new Args interface{}
 		// unmarshalled arguments will be store in this interface

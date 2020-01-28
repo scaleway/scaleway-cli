@@ -8,9 +8,7 @@ import (
 )
 
 func TestMarshal(t *testing.T) {
-
 	type TestCase struct {
-		name     string
 		error    string
 		expected []string
 		data     interface{}
@@ -20,7 +18,6 @@ func TestMarshal(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-
 			args, err := MarshalStruct(testCase.data)
 
 			if testCase.error == "" {
@@ -29,7 +26,6 @@ func TestMarshal(t *testing.T) {
 			} else {
 				assert.Equal(t, testCase.error, err.Error())
 			}
-
 		}
 	}
 
@@ -210,7 +206,6 @@ func TestMarshal(t *testing.T) {
 }
 
 func TestMarshalValue(t *testing.T) {
-
 	type TestCase struct {
 		error    string
 		expected string
@@ -219,7 +214,6 @@ func TestMarshalValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-
 			value, err := MarshalValue(testCase.data)
 
 			if testCase.error == "" {

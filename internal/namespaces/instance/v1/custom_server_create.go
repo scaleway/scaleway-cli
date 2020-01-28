@@ -176,15 +176,15 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	switch {
 	case !validation.IsUUID(args.Image):
 		// Find the corresponding local image UUID.
-		imageId, err := apiMarketplace.GetLocalImageIDByLabel(&marketplace.GetLocalImageIDByLabelRequest{
+		imageID, err := apiMarketplace.GetLocalImageIDByLabel(&marketplace.GetLocalImageIDByLabelRequest{
 			Zone:           args.Zone,
 			ImageLabel:     args.Image,
 			CommercialType: serverReq.CommercialType,
 		})
 		if err != nil {
-			return nil, fmt.Errorf("Bad image label '%s' for %s.", args.Image, serverReq.CommercialType)
+			return nil, fmt.Errorf("bad image label '%s' for %s", args.Image, serverReq.CommercialType)
 		}
-		serverReq.Image = imageId
+		serverReq.Image = imageID
 	default:
 		serverReq.Image = args.Image
 	}
@@ -212,14 +212,14 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			IP:   args.IP,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("%s does not belong to you.", args.IP)
+			return nil, fmt.Errorf("%s does not belong to you", args.IP)
 		}
 		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
 	case args.IP == "dynamic":
 		serverReq.DynamicIPRequired = scw.BoolPtr(true)
 	case args.IP == "none":
 	default:
-		return nil, fmt.Errorf(`Invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address.`, args.IP)
+		return nil, fmt.Errorf(`invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, args.IP)
 	}
 
 	//
@@ -231,7 +231,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		// Get default organization ID.
 		organizationID := args.OrganizationID
 		if organizationID == "" {
-			organizationID = core.GetOrganizationIdFromContext(ctx)
+			organizationID = core.GetOrganizationIDFromContext(ctx)
 		}
 
 		// Create initial volume template map.
@@ -259,14 +259,14 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if args.BootscriptID != "" {
 		if !validation.IsUUID(args.BootscriptID) {
-			return nil, fmt.Errorf("Bootscript ID %s is not a valid UUID.", args.BootscriptID)
+			return nil, fmt.Errorf("bootscript ID %s is not a valid UUID", args.BootscriptID)
 		}
 		_, err := apiInstance.GetBootscript(&instance.GetBootscriptRequest{
 			Zone:         args.Zone,
 			BootscriptID: args.BootscriptID,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("Bootscript ID %s does not exists.", args.BootscriptID)
+			return nil, fmt.Errorf("bootscript ID %s does not exists", args.BootscriptID)
 		}
 
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
@@ -300,7 +300,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			Organization: args.OrganizationID,
 		})
 		if err != nil {
-			return nil, fmt.Errorf("Error while creating your public IP: %s.", err)
+			return nil, fmt.Errorf("error while creating your public IP: %s", err)
 		}
 		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
 		logger.Infof("IP created: %s", serverReq.PublicIP)
@@ -324,7 +324,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			}
 		}
 
-		return nil, fmt.Errorf("Cannot create the server: %s.", err)
+		return nil, fmt.Errorf("cannot create the server: %s", err)
 	}
 	server := serverRes.Server
 	logger.Infof("server created %s", server.ID)
@@ -402,12 +402,12 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 		case "b", "block":
 			vt.VolumeType = instance.VolumeTypeBSSD
 		default:
-			return nil, fmt.Errorf("Invalid volume type %s in %s volume.", parts[0], flagV)
+			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
 
 		size, err := humanize.ParseBytes(parts[1])
 		if err != nil {
-			return nil, fmt.Errorf("Invalid size format %s in %s volume.", parts[1], flagV) // TODO: improve msg [APIGW-1371]
+			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV) // TODO: improve msg [APIGW-1371]
 		}
 		vt.Size = scw.Size(size)
 
@@ -438,12 +438,12 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 		VolumeID: volumeUUID,
 	})
 	if err != nil { // FIXME: isNotFoundError
-		return nil, fmt.Errorf("Volume %s does not exist.", volumeUUID)
+		return nil, fmt.Errorf("volume %s does not exist", volumeUUID)
 	}
 
 	// Check that volume is not already attached to a server.
 	if res.Volume.Server != nil {
-		return nil, fmt.Errorf("Volume %s is already attached to %s server.", res.Volume.ID, res.Volume.Server.ID)
+		return nil, fmt.Errorf("volume %s is already attached to %s server", res.Volume.ID, res.Volume.Server.ID)
 	}
 
 	return &instance.VolumeTemplate{
@@ -486,11 +486,11 @@ func validateLocalVolumeSizes(api *instance.API, volumes map[string]*instance.Vo
 		if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
 			min := humanize.Bytes(uint64(volumeConstraint.MinSize))
 			if volumeConstraint.MinSize == volumeConstraint.MaxSize {
-				return fmt.Errorf("%s total local volume size must be equal to %s.", commercialType, min)
+				return fmt.Errorf("%s total local volume size must be equal to %s", commercialType, min)
 			}
 
 			max := humanize.Bytes(uint64(volumeConstraint.MaxSize))
-			return fmt.Errorf("%s total local volume size must be between %s and %s.", commercialType, min, max)
+			return fmt.Errorf("%s total local volume size must be between %s and %s", commercialType, min, max)
 		}
 	} else {
 		logger.Warningf("unrecognized server type: %s", commercialType)
@@ -506,12 +506,14 @@ func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolu
 	}
 
 	if rootVolume.VolumeType != instance.VolumeTypeLSSD {
-		return fmt.Errorf("First volume must be local.")
+		return fmt.Errorf("first volume must be local")
 	}
 
 	if rootVolume.ID != "" {
-		// TODO: Improve error message [APIGW-1371]
-		return fmt.Errorf("You cannot use an existing volume as a root volume. You must create an image of this volume and use its ID in the 'image' argument.")
+		return &core.CliError{
+			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
+			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
+		}
 	}
 
 	res, err := api.GetImage(&instance.GetImageRequest{
@@ -524,7 +526,7 @@ func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolu
 	}
 
 	if rootVolume.Size < res.Image.RootVolume.Size {
-		return fmt.Errorf("First volume size must be at least %s for this image.", humanize.Bytes(uint64(res.Image.RootVolume.Size)))
+		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(res.Image.RootVolume.Size)))
 	}
 
 	return nil

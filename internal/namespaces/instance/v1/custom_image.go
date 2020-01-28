@@ -50,7 +50,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		// Builds customImages
 		customImages := []*customImage(nil)
 		for _, image := range images {
-			customImage_ := &customImage{
+			newCustomImage := &customImage{
 				ID:                image.ID,
 				Name:              image.Name,
 				Arch:              image.Arch,
@@ -75,17 +75,17 @@ func imageListBuilder(c *core.Command) *core.Command {
 				}
 				zone := scw.Zone("")
 				if getServerResponse.Server.Location != nil {
-					zone_, err := scw.ParseZone(getServerResponse.Server.Location.ZoneID)
+					parsedZone, err := scw.ParseZone(getServerResponse.Server.Location.ZoneID)
 					if err != nil {
 						return nil, err
 					}
-					zone = zone_
+					zone = parsedZone
 				}
-				customImage_.ServerID = getServerResponse.Server.ID
-				customImage_.ServerName = getServerResponse.Server.Name
-				customImage_.Zone = zone
+				newCustomImage.ServerID = getServerResponse.Server.ID
+				newCustomImage.ServerName = getServerResponse.Server.Name
+				newCustomImage.Zone = zone
 			}
-			customImages = append(customImages, customImage_)
+			customImages = append(customImages, newCustomImage)
 		}
 
 		return customImages, nil

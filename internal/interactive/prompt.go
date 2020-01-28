@@ -111,7 +111,7 @@ type ReadlineConfig struct {
 }
 
 func Readline(config *ReadlineConfig) (string, error) {
-	promptFunc := func(s string) string {
+	promptFunc := func(string) string {
 		return config.Prompt
 	}
 	if config.PromptFunc != nil {
@@ -172,12 +172,14 @@ func Readline(config *ReadlineConfig) (string, error) {
 			if err != nil {
 				return "", err
 			}
-			Println(s)
+			_, err = Println(s)
+			if err != nil {
+				return "", err
+			}
 			continue
 		}
 
 		// If there was no validation error return the result
 		return s, nil
 	}
-
 }

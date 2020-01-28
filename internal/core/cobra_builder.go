@@ -25,7 +25,6 @@ type cobraBuilder struct {
 
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
-
 	index := map[string]*cobra.Command{}
 	commandsIndex := map[string]*Command{}
 
@@ -41,7 +40,6 @@ func (b *cobraBuilder) build() *cobra.Command {
 	rootCmd.SetOut(b.meta.stderr)
 
 	for _, cmd := range b.commands {
-
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
 		if _, namespaceExist := index[cmd.Namespace]; !namespaceExist {
 			cobraCmd := &cobra.Command{Use: cmd.Namespace}

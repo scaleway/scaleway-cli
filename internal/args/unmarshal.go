@@ -52,7 +52,6 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 // args: slice of args passed through the command line
 // data: Go structure to fill
 func UnmarshalStruct(args []string, data interface{}) error {
-
 	// First check if we want to retrieve a simple []string
 	if raw, ok := data.(*RawArgs); ok {
 		*raw = args
@@ -148,7 +147,6 @@ func RegisterUnmarshalFunc(i interface{}, unmarshalFunc UnmarshalFunc) {
 //
 // Example: argNameWords ["contacts", "0", "address", "city"] will set value "city" for your first contact in your phone book.
 func set(dest reflect.Value, argNameWords []string, value string) error {
-
 	// If dest has a custom unmarshaler, we use it.
 	// dest can either implement Unmarshaler
 	// or have an UnmarshalFunc() registered.
@@ -328,10 +326,9 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 // - it has an unmarshalFunc
 // - it is a scalar type
 func isUnmarshalableValue(dest reflect.Value) bool {
+	value := getInterfaceFromReflectValue(dest)
 
-	interface_ := getInterfaceFromReflectValue(dest)
-
-	_, isUnmarshaler := interface_.(Unmarshaler)
+	_, isUnmarshaler := value.(Unmarshaler)
 	_, hasUnmarshalFunc := unmarshalFuncs[dest.Type()]
 	_, isScalar := scalarKinds[dest.Kind()]
 
@@ -339,11 +336,10 @@ func isUnmarshalableValue(dest reflect.Value) bool {
 }
 
 func unmarshalValue(value string, dest reflect.Value) error {
-
-	interface_ := getInterfaceFromReflectValue(dest)
+	iValue := getInterfaceFromReflectValue(dest)
 
 	// If src implements Marshaler we call MarshalArgs with the value
-	unmarshaler, isUnmarshaler := interface_.(Unmarshaler)
+	unmarshaler, isUnmarshaler := iValue.(Unmarshaler)
 	if isUnmarshaler && unmarshaler != nil {
 		return unmarshaler.UnmarshalArgs(value)
 	}

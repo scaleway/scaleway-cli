@@ -41,7 +41,7 @@ func validateRawArgsForConfigSet(rawArgs args.RawArgs) (profile string, key stri
 
 func validateProfileKey(fieldName string) error {
 	field := reflect.ValueOf(&scw.Profile{}).Elem().FieldByName(strcase.ToPublicGoName(fieldName))
-	if field.IsValid() == false {
+	if !field.IsValid() {
 		return invalidProfileKeyError(fieldName)
 	}
 	return nil
@@ -51,7 +51,7 @@ func validateProfileValue(fieldName string, value string) error {
 	switch fieldName {
 	case "default_organization_id":
 		if !validation.IsOrganizationID(value) {
-			return invalidDefaultOrganizationIdError(value)
+			return invalidDefaultOrganizationIDError(value)
 		}
 	case "secret_key":
 		if !validation.IsSecretKey(value) {

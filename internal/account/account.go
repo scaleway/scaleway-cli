@@ -37,7 +37,7 @@ type organization struct {
 }
 
 var (
-	accountUrl = "https://account.scaleway.com"
+	accountURL = "https://account.scaleway.com"
 )
 
 // Login creates a new token
@@ -48,7 +48,7 @@ func Login(req *LoginRequest) (t *Token, twoFactorRequired bool, err error) {
 		return nil, false, err
 	}
 
-	resp, err := http.Post(accountUrl+"/tokens", "application/json", bytes.NewReader(rawJSON))
+	resp, err := http.Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
 	if err != nil {
 		return nil, false, err
 	}
@@ -69,7 +69,7 @@ func Login(req *LoginRequest) (t *Token, twoFactorRequired bool, err error) {
 }
 
 func GetAccessKey(secretKey string) (string, error) {
-	resp, err := http.Get(accountUrl + "/tokens/" + secretKey)
+	resp, err := http.Get(accountURL + "/tokens/" + secretKey)
 	if err != nil {
 		return "", err
 	}
@@ -93,7 +93,10 @@ func GetAccessKey(secretKey string) (string, error) {
 }
 
 func getOrganizations(secretKey string) ([]organization, error) {
-	req, err := http.NewRequest("GET", accountUrl+"/organizations", nil)
+	req, err := http.NewRequest("GET", accountURL+"/organizations", nil)
+	if err != nil {
+		return nil, err
+	}
 	req.Header.Add("X-Auth-Token", secretKey)
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -101,7 +104,7 @@ func getOrganizations(secretKey string) ([]organization, error) {
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("could not get organizations from %s", accountUrl)
+		return nil, fmt.Errorf("could not get organizations from %s", accountURL)
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

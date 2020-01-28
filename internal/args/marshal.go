@@ -36,7 +36,6 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 // If you wish to unmarshal a single value ( the part on the right of the `=` in arg notation )
 // you should use MarshalValue instead.
 func MarshalStruct(data interface{}) (args []string, err error) {
-
 	// First check if data is just a []string
 	if raw, ok := data.(*RawArgs); ok {
 		return *raw, nil
@@ -101,7 +100,6 @@ func RegisterMarshalFunc(i interface{}, marshalFunc MarshalFunc) {
 // args: the CLI arguments as a slice of key-value pairs, each represented as a string
 // err: an error if the function failed
 func marshal(src reflect.Value, keys []string) (args []string, err error) {
-
 	if src.IsValid() && isMarshalableValue(src) {
 		value, err := marshalValue(src)
 		if err != nil {
@@ -191,11 +189,10 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 }
 
 func marshalValue(src reflect.Value) (string, error) {
-
-	interface_ := getInterfaceFromReflectValue(src)
+	value := getInterfaceFromReflectValue(src)
 
 	// If src implements Marshaler we call MarshalArgs with the value
-	marshaler, isMarshaler := interface_.(Marshaler)
+	marshaler, isMarshaler := value.(Marshaler)
 	if isMarshaler && marshaler != nil {
 		value, err := marshaler.MarshalArgs()
 		if err != nil {
@@ -213,7 +210,7 @@ func marshalValue(src reflect.Value) (string, error) {
 		return value, nil
 	}
 
-	stringer, isStringer := interface_.(fmt.Stringer)
+	stringer, isStringer := value.(fmt.Stringer)
 	if isStringer && stringer != nil {
 		return stringer.String(), nil
 	}
@@ -234,11 +231,11 @@ func marshalKeyValue(keys []string, value interface{}) string {
 }
 
 func isMarshalableValue(src reflect.Value) bool {
-	interface_ := getInterfaceFromReflectValue(src)
+	value := getInterfaceFromReflectValue(src)
 
-	_, isMarshaler := interface_.(Marshaler)
+	_, isMarshaler := value.(Marshaler)
 	_, hasMarshalFunc := marshalFuncs[src.Type()]
-	_, isStringer := interface_.(fmt.Stringer)
+	_, isStringer := value.(fmt.Stringer)
 
 	return isMarshaler || hasMarshalFunc || isStringer
 }
@@ -252,7 +249,7 @@ func isDefaultValue(value reflect.Value) (bool, error) {
 	case reflect.Float32, reflect.Float64:
 		return value.Float() == 0, nil
 	case reflect.Bool:
-		return value.Bool() == false, nil
+		return !value.Bool(), nil
 	case reflect.String:
 		return value.String() == "", nil
 	default:

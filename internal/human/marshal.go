@@ -24,7 +24,6 @@ type Marshaler interface {
 }
 
 func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
-
 	// Debug infos
 	logger.Debugf("marshalling type '%v'", reflect.TypeOf(data))
 
@@ -48,7 +47,6 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	rType := rValue.Type()
 
 	switch {
-
 	// If data has a registered MarshalerFunc call it
 	case marshalerFuncs[rType] != nil:
 		return marshalerFuncs[rType](rValue.Interface(), opt)
@@ -84,7 +82,6 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 }
 
 func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
-
 	// subOpts that will be passed down to sub marshaler (field, sub struct, slice item ...)
 	subOpts := &MarshalOpt{}
 
@@ -103,14 +100,12 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 	var marshal func(reflect.Value, []string) ([][]string, error)
 
 	marshal = func(value reflect.Value, keys []string) ([][]string, error) {
-
 		if _, isSection := sectionFieldNames[strings.Join(keys, ".")]; isSection {
 			return nil, nil
 		}
 		rType := value.Type()
 
 		switch {
-
 		// If data has a registered MarshalerFunc call it.
 		case marshalerFuncs[rType] != nil:
 			str, err := marshalerFuncs[rType](value.Interface(), subOpts)
@@ -206,7 +201,6 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 }
 
 func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
-
 	// Resole itemType and get rid of all pointer level if needed.
 	itemType := slice.Type().Elem()
 	for itemType.Kind() == reflect.Ptr {
@@ -346,7 +340,6 @@ func computeMaxCols(grid [][]string) int {
 // Generate default []*MarshalFieldOpt using reflect
 // It will detect item type of a slice an keep all root level field that are marshalable
 func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
-
 	results := []*MarshalFieldOpt(nil)
 	// Loop through all struct field
 	for fieldIdx := 0; fieldIdx < t.NumField(); fieldIdx++ {
