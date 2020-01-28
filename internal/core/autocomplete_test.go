@@ -57,7 +57,9 @@ func testAutocompleteGetCommands() *Commands {
 }
 
 func TestAutocomplete(t *testing.T) {
-	ctx := injectCommands(context.Background(), testAutocompleteGetCommands())
+	ctx := newMetaContext(&meta{
+		Commands: testAutocompleteGetCommands(),
+	})
 
 	type testCase struct {
 		Suggestions         AutocompleteSuggestions

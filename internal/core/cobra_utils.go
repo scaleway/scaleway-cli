@@ -110,7 +110,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 
 // cobraPreRunInitMeta returns a cobraPreRun command that will initialize meta.
 func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Command, args []string) error {
-	return func(_ *cobra.Command, args []string) error {
+	return func(c *cobra.Command, args []string) error {
 		var err error
 		meta := extractMeta(ctx)
 
@@ -118,6 +118,7 @@ func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Comm
 		if meta.DebugModeFlag {
 			logger.EnableDebugMode()
 		}
+		meta.RunCommand = c
 
 		meta.Printer, err = printer.New(meta.PrinterTypeFlag, meta.stdout, meta.stderr)
 		if err != nil {

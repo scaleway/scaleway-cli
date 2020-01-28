@@ -1,7 +1,6 @@
 package core
 
 import (
-	"context"
 	"fmt"
 	"io"
 	"os"
@@ -36,6 +35,7 @@ type BootstrapConfig struct {
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
+	// The global printer must be the first thing set in order to print errors
 	globalPrinter, err := printer.New(printer.Human, config.Stdout, config.Stderr)
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err)
@@ -43,50 +43,43 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	// Meta store globally available variables like SDK client.
-	// Meta is injected in a context object that will be pass to all commands.
-	m := &meta{
-		Printer:   globalPrinter,
+	// Meta is injected in a context object that will be passed to all commands.
+	meta := &meta{
 		BuildInfo: config.BuildInfo,
-		Client:    config.Client,
 		stdout:    config.Stdout,
 		stderr:    config.Stderr,
+		Client:    config.Client,
+		Commands:  config.Commands,
+		Printer:   globalPrinter,
+		result:    &result, // result is later injected by cobra_utils.go/cobraRun()
 	}
-	ctx := injectMeta(context.Background(), m)
-	ctx = injectCommands(ctx, config.Commands)
-
-	// Allocate space in ctx for command result
-	// result is later injected by cobra_utils.go/cobraRun()
-	ctx = injectResultSetter(ctx, &result)
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{
-		ctx:      ctx,
 		commands: config.Commands.command,
-		meta:     m,
+		meta:     meta,
 	}
 
 	rootCmd := builder.build()
 
-	rootCmd.PersistentFlags().StringVarP(&m.AccessKeyFlag, "access-key", "", "", "Scaleway access key")
-	rootCmd.PersistentFlags().StringVarP(&m.SecretKeyFlag, "secret-key", "", "", "Scaleway secret key")
-	rootCmd.PersistentFlags().StringVarP(&m.ProfileFlag, "profile", "p", "", "The config profile to use")
-	rootCmd.PersistentFlags().VarP(&m.PrinterTypeFlag, "output", "o", "Output format: json or human")
-	rootCmd.PersistentFlags().BoolVarP(&m.DebugModeFlag, "debug", "D", false, "Enable debug mode")
+	rootCmd.PersistentFlags().StringVarP(&meta.AccessKeyFlag, "access-key", "", "", "Scaleway access key")
+	rootCmd.PersistentFlags().StringVarP(&meta.SecretKeyFlag, "secret-key", "", "", "Scaleway secret key")
+	rootCmd.PersistentFlags().StringVarP(&meta.ProfileFlag, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().VarP(&meta.PrinterTypeFlag, "output", "o", "Output format: json or human")
+	rootCmd.PersistentFlags().BoolVarP(&meta.DebugModeFlag, "debug", "D", false, "Enable debug mode")
 
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()
 
-	switch err.(type) {
-	case *interactive.InterruptError:
-		return 130, result, err
-	}
-
 	if err != nil {
-		err = m.Printer.Print(err, nil)
+		if _, ok := err.(*interactive.InterruptError); ok {
+			return 130, result, err
+		}
+		err = meta.Printer.Print(err, nil)
 		if err != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
 		return 1, result, err
 	}
-	return 0, result, err
+	return 0, result, nil
 }
