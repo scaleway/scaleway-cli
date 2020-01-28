@@ -1,6 +1,3 @@
-// This file was automatically generated. DO NOT EDIT.
-// If you have any remark or suggestion do not hesitate to open an issue.
-
 package test
 
 import (
@@ -8,12 +5,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
-)
-
-// always import dependencies
-var (
-	_ = scw.RegionFrPar
 )
 
 func GetCustomCommands() *core.Commands {
