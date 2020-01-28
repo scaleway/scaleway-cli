@@ -23,7 +23,6 @@ func CustomTestRoot() *core.Command {
 }
 
 func CustomTestAnonymousFields() *core.Command {
-
 	type testAnonymousFields struct {
 		FieldA string // this field is overridden by testAnonymousFieldsCustom.FieldA
 		FieldB string
