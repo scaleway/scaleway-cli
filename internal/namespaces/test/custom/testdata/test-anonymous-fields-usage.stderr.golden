@@ -3,6 +3,11 @@ Test Anonymous Fields.
 USAGE:
   scw [global-flags] test anonymous-fields [flags] [arg=value ...]
 
+ARGS:
+  [field-b]   Field B
+  [field-c]   Field C
+  [field-a]   Field A
+
 FLAGS:
   -h, --help   help for anonymous-fields
 

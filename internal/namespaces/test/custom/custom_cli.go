@@ -18,12 +18,12 @@ var (
 
 func GetCustomCommands() *core.Commands {
 	return core.NewCommands(
-		TestRoot(),
-		TestAnonymousFields(),
+		CustomTestRoot(),
+		CustomTestAnonymousFields(),
 	)
 }
 
-func TestRoot() *core.Command {
+func CustomTestRoot() *core.Command {
 	return &core.Command{
 		Namespace: "test",
 		Short:     "Custom tests",
@@ -31,15 +31,16 @@ func TestRoot() *core.Command {
 	}
 }
 
-func TestAnonymousFields() *core.Command {
+func CustomTestAnonymousFields() *core.Command {
 
 	type testAnonymousFields struct {
-		FieldA string
+		FieldA string // this field is overridden by testAnonymousFieldsCustom.FieldA
 		FieldB string
 	}
 	type testAnonymousFieldsCustom struct {
 		*testAnonymousFields
 		FieldC string
+		FieldA string
 	}
 
 	return &core.Command{
@@ -50,16 +51,18 @@ func TestAnonymousFields() *core.Command {
 		ArgsType:  reflect.TypeOf(testAnonymousFieldsCustom{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:  "field-a",
-				Short: `Field A`,
-			},
-			{
 				Name:  "field-b",
 				Short: `Field B`,
 			},
 			{
 				Name:  "field-c",
 				Short: `Field C`,
+			},
+			// Because testAnonymousFields.FieldA is overridden by testAnonymousFieldsCustom.FieldA
+			// the usage for FieldA should be at the end
+			{
+				Name:  "field-a",
+				Short: `Field A`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
