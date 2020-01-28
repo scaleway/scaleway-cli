@@ -1,6 +1,9 @@
 package human
 
-import "unicode"
+import (
+	"reflect"
+	"unicode"
+)
 
 // Capitalize returns the given string with a first character in uppercase.
 func Capitalize(s string) string {
@@ -8,4 +11,18 @@ func Capitalize(s string) string {
 		return string(unicode.ToUpper(c)) + s[i+1:]
 	}
 	return ""
+}
+
+func isInterfaceNil(data interface{}) bool {
+	if data == nil {
+		return true
+	}
+
+	value := reflect.ValueOf(data)
+	switch value.Kind() {
+	case reflect.Ptr, reflect.Slice, reflect.Map:
+		return value.IsNil()
+	default:
+		return false
+	}
 }
