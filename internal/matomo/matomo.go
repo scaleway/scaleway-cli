@@ -17,8 +17,8 @@ import (
 
 const (
 	// full reference API https://developer.matomo.org/api-reference/tracking-api
-	endpoint     = "kindermoumoute.matomo.cloud/matomo.php"
-	project      = "4"
+	endpoint     = "https://stats.cloud.online.net/matomo.php"
+	siteID       = "32"
 	enableRecord = "1"
 	apiVersion   = "1"
 )
@@ -53,7 +53,7 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	query := url.Values{}
 
 	// required
-	query.Add("idsite", project)
+	query.Add("idsite", siteID)
 	query.Add("rec", enableRecord)
 
 	// recommended
