@@ -18,7 +18,8 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 	return func(cobraCmd *cobra.Command, rawArgs []string) error {
 		var err error
 		opt := cmd.getHumanMarshalerOpt()
-		metaPrinter := extractPrinter(ctx)
+		meta := extractMeta(ctx)
+		meta.command = cmd
 
 		// create a new Args interface{}
 		// unmarshalled arguments will be store in this interface
@@ -69,8 +70,8 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 					return err
 				}
 			}
-			setContextResult(ctx, data)
-			return metaPrinter.Print(data, opt)
+			meta.result = data
+			return meta.Printer.Print(data, opt)
 		}
 
 		return nil

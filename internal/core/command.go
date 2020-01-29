@@ -30,6 +30,9 @@ type Command struct {
 	// NoClient defines whether the SDK client is not required to run the command.
 	NoClient bool
 
+	// DisableTelemetry disable telemetry for the command.
+	DisableTelemetry bool
+
 	// Hidden hides the command form usage and auto-complete.
 	Hidden bool
 

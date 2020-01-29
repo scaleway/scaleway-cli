@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	Version   = "v2.0.0-alpha1+dev" //${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+	Version   = "v2.0.0-alpha1+dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
 	BuildDate = "unknown"           // date -u '+%Y-%m-%d_%I:%M:%S%p'
 	GitBranch = "unknown"           // git symbolic-ref -q --short HEAD || echo HEAD"
 	GitCommit = "unknown"           // git rev-parse --short HEAD

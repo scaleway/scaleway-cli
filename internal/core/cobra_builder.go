@@ -1,7 +1,6 @@
 package core
 
 import (
-	"context"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -18,7 +17,6 @@ func init() {
 // Cobra root command is a tree data struct. During the build process we
 // use an index to attache leaf command to their parent.
 type cobraBuilder struct {
-	ctx      context.Context
 	commands []*Command
 	meta     *meta
 }
@@ -114,10 +112,12 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 	}
 
-	cobraCmd.PreRunE = cobraPreRunInitMeta(b.ctx, cmd)
+	ctx := newMetaContext(b.meta)
+
+	cobraCmd.PreRunE = cobraPreRunInitMeta(ctx, cmd)
 
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(b.ctx, cmd)
+		cobraCmd.RunE = cobraRun(ctx, cmd)
 	}
 
 	if cmd.WaitFunc != nil {

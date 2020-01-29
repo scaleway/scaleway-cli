@@ -18,3 +18,11 @@ func GetWidth() int {
 	}
 	return w
 }
+
+func GetHeight() int {
+	_, h, err := terminal.GetSize(int(os.Stderr.Fd()))
+	if err != nil {
+		return -1
+	}
+	return h
+}
