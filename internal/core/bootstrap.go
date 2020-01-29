@@ -57,17 +57,23 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		result:    nil, // result is later injected by cobra_utils.go/cobraRun()
 	}
 
-	// Send Matomo report when exiting the bootstrap
-	if (matomo.ForceTracking || config.BuildInfo.isRelease()) && matomo.IsTelemetryEnabled() {
+	// Send Matomo telemetry when exiting the bootstrap
+	if (matomo.ForceTelemetry || config.BuildInfo.isRelease()) && matomo.IsTelemetryEnabled() {
 		start := time.Now()
 		defer func() {
-			matomoErr := matomo.TrackCommand(&matomo.TrackCommandRequest{
+			if meta.runCommand == nil || meta.runCommand.DisableTelemetry {
+				logger.Debugf("skipping telemetry report")
+				return
+			}
+			matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
 				RunCommand:    meta.runCommand.getPath(),
 				Version:       config.BuildInfo.Version,
 				ExecutionTime: time.Since(start),
 			})
 			if matomoErr != nil {
-				logger.Warningf("Error during telemetry reporting: %s", matomoErr)
+				logger.Debugf("error during telemetry reporting: %s", matomoErr)
+			} else {
+				logger.Debugf("telemetry successfully sent")
 			}
 		}()
 	}

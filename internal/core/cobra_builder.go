@@ -112,10 +112,12 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 	}
 
-	cobraCmd.PreRunE = cobraPreRunInitMeta(newMetaContext(b.meta), cmd)
+	ctx := newMetaContext(b.meta)
+
+	cobraCmd.PreRunE = cobraPreRunInitMeta(ctx, cmd)
 
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(newMetaContext(b.meta), cmd)
+		cobraCmd.RunE = cobraRun(ctx, cmd)
 	}
 
 	if cmd.WaitFunc != nil {

@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/terminal"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -24,21 +23,18 @@ const (
 	apiVersion   = "1"
 )
 
-var ForceTracking = os.Getenv("SCW_FORCE_TRACKING") == "true"
+// ForceTelemetry is used to send telemetry even from a non-released CLI.
+// This will not bypass user policy set in send_telemetry attribute.
+var ForceTelemetry = os.Getenv("SCW_FORCE_TELEMETRY") == "true"
 
-type TrackCommandRequest struct {
+type SendCommandTelemetryRequest struct {
 	RunCommand    string
 	Version       string
 	ExecutionTime time.Duration
 }
 
-func TrackCommand(request *TrackCommandRequest) error {
-	// disable tracking when no command was run, or on completion command
-	if request.RunCommand == "" || strings.HasPrefix(request.RunCommand, "autocomplete complete") {
-		return nil
-	}
-
-	// compute or retrieve tracking parameters
+func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
+	// compute or retrieve telemetry parameters
 	terminalResolution := fmt.Sprintf("%dx%d", terminal.GetWidth(), terminal.GetHeight())
 	commandDurationInMs := fmt.Sprintf("%d", request.ExecutionTime/time.Millisecond)
 	randNumber := generateRandNumber()
@@ -87,8 +83,6 @@ func TrackCommand(request *TrackCommandRequest) error {
 		return fmt.Errorf("non-success status code %d: %s", resp.StatusCode, matomoURL.String())
 	}
 
-	logger.Debugf("Telemetry successfully sent %s", matomoURL.String())
-
 	return nil
 }
 
@@ -109,7 +103,7 @@ func generateRandNumber() string {
 	return bigRand.String()
 }
 
-// IsTelemetryEnabled returns true when the Opt-In send_usage attribute in the config is set.
+// IsTelemetryEnabled returns true when the Opt-In send_telemetry attribute in the config is set.
 func IsTelemetryEnabled() bool {
 	config, err := scw.LoadConfig()
 	if err != nil {
