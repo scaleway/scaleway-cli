@@ -21,10 +21,10 @@ type meta struct {
 	Printer   printer.Printer
 	Commands  *Commands
 
-	runCommand *Command
-	stdout     io.Writer
-	stderr     io.Writer
-	result     interface{}
+	command *Command
+	stdout  io.Writer
+	stderr  io.Writer
+	result  interface{}
 }
 
 type contextKey int

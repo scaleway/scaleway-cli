@@ -19,7 +19,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		var err error
 		opt := cmd.getHumanMarshalerOpt()
 		meta := extractMeta(ctx)
-		meta.runCommand = cmd
+		meta.command = cmd
 
 		// create a new Args interface{}
 		// unmarshalled arguments will be store in this interface

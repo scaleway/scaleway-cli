@@ -48,26 +48,26 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		BuildInfo:  config.BuildInfo,
-		stdout:     config.Stdout,
-		stderr:     config.Stderr,
-		Client:     config.Client,
-		Commands:   config.Commands,
-		Printer:    globalPrinter,
-		result:     nil, // result is later injected by cobra_utils.go/cobraRun()
-		runCommand: nil, // runCommand is later injected by cobra_utils.go/cobraRun()
+		BuildInfo: config.BuildInfo,
+		stdout:    config.Stdout,
+		stderr:    config.Stderr,
+		Client:    config.Client,
+		Commands:  config.Commands,
+		Printer:   globalPrinter,
+		result:    nil, // result is later injected by cobra_utils.go/cobraRun()
+		command:   nil, // command is later injected by cobra_utils.go/cobraRun()
 	}
 
 	// Send Matomo telemetry when exiting the bootstrap
 	if (matomo.ForceTelemetry || config.BuildInfo.isRelease()) && matomo.IsTelemetryEnabled() {
 		start := time.Now()
 		defer func() {
-			if meta.runCommand == nil || meta.runCommand.DisableTelemetry {
+			if meta.command == nil || meta.command.DisableTelemetry {
 				logger.Debugf("skipping telemetry report")
 				return
 			}
 			matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
-				RunCommand:    meta.runCommand.getPath(),
+				Command:       meta.command.getPath(),
 				Version:       config.BuildInfo.Version,
 				ExecutionTime: time.Since(start),
 			})

@@ -29,7 +29,7 @@ const (
 var ForceTelemetry = os.Getenv("SCW_FORCE_TELEMETRY") == "true"
 
 type SendCommandTelemetryRequest struct {
-	RunCommand    string
+	Command       string
 	Version       string
 	ExecutionTime time.Duration
 }
@@ -40,7 +40,7 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	terminalResolution := fmt.Sprintf("%dx%d", terminal.GetWidth(), terminal.GetHeight())
 	commandDurationInMs := fmt.Sprintf("%d", request.ExecutionTime/time.Millisecond)
 	randNumber := generateRandNumber()
-	action, actionURL := commandToAction(request.RunCommand)
+	action, actionURL := commandToAction(request.Command)
 	userAgent := fakeUserAgent(request.Version)
 	organizationID := ""
 	config, err := scw.LoadConfig()
@@ -77,9 +77,9 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	}
 
 	// send the report
-	resp, err := http.Client{
+	resp, err := (&http.Client{
 		Timeout: timeout,
-	}.Get(matomoURL.String())
+	}).Get(matomoURL.String())
 	if err != nil {
 		return err
 	}
