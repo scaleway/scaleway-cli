@@ -4,7 +4,6 @@ USAGE:
   scw [global-flags] instance server update [flags] [arg=value ...]
 
 ARGS:
-  [zone]                         Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
   server-id                      UUID of the server
   [name]                         Name of the server
   [boot-type]                     (local | bootscript | rescue)
@@ -21,6 +20,7 @@ ARGS:
   [security-group.id]            
   [security-group.name]          
   [placement-group]              Placement group ID if server must be part of a placement group
+  [zone]                         Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for update

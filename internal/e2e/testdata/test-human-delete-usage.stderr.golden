@@ -4,8 +4,8 @@ USAGE:
   scw [global-flags] test human delete [flags] [arg=value ...]
 
 ARGS:
-  [region]   Region to target. If none is passed will use default region from the config (fr-par)
   human-id   
+  [region]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for delete
