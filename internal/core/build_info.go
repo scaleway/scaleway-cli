@@ -16,7 +16,7 @@ type BuildInfo struct {
 
 // isRelease returns true when the version of the CLI is an official release:
 // - version must be non-empty (exclude tests)
-// - version must not contain '+dev' label
+// - version must not contain label (e.g. '+dev')
 func (b *BuildInfo) isRelease() bool {
 	return b.Version != "" && !strings.Contains(b.Version, "+")
 }

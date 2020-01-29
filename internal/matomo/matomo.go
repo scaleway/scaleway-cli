@@ -17,14 +17,15 @@ import (
 
 const (
 	// full reference API https://developer.matomo.org/api-reference/tracking-api
-	endpoint     = "https://stats.cloud.online.net/matomo.php"
+	endpoint     = "stats.cloud.online.net/matomo.php"
+	timeout      = 5 * time.Second
 	siteID       = "32"
 	enableRecord = "1"
 	apiVersion   = "1"
 )
 
 // ForceTelemetry is used to send telemetry even from a non-released CLI.
-// This will not bypass user policy set in send_telemetry attribute.
+// This WILL NOT bypass user policy set in send_telemetry attribute.
 var ForceTelemetry = os.Getenv("SCW_FORCE_TELEMETRY") == "true"
 
 type SendCommandTelemetryRequest struct {
@@ -33,6 +34,7 @@ type SendCommandTelemetryRequest struct {
 	ExecutionTime time.Duration
 }
 
+// SendCommandTelemetry will send the telemetry report or return an error on failure.
 func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	// compute or retrieve telemetry parameters
 	terminalResolution := fmt.Sprintf("%dx%d", terminal.GetWidth(), terminal.GetHeight())
@@ -75,7 +77,9 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	}
 
 	// send the report
-	resp, err := http.Get(matomoURL.String())
+	resp, err := http.Client{
+		Timeout: timeout,
+	}.Get(matomoURL.String())
 	if err != nil {
 		return err
 	}
@@ -86,15 +90,19 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	return nil
 }
 
+// fakeUserAgent creates a fake user agent that follows Matomo requirements.
+// We don't use the actual SDK user agent because it is not exposed publicly.
 func fakeUserAgent(version string) string {
 	return fmt.Sprintf("scaleway-cli/%s (%s; %s; %s)", version, runtime.Version(), runtime.GOOS, runtime.GOARCH)
 }
 
+// commandToAction will convert the command path to an action (space-separated) and an action URL (required by Matomo).
 func commandToAction(command string) (action string, url string) {
 	command = "scw " + strings.Replace(command, ".", " ", -1)
 	return command, "https://" + strings.Replace(command, " ", "/", -1)
 }
 
+// generateRandNumber will generate true random number in order to matomo requests to be cached by a proxy.
 func generateRandNumber() string {
 	bigRand, err := rand.Int(rand.Reader, big.NewInt(int64(1<<uint64(32))-1))
 	if err != nil {
