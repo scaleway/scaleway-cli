@@ -4,7 +4,6 @@ USAGE:
   scw [global-flags] test human update [flags] [arg=value ...]
 
 ARGS:
-  [region]                   Region to target. If none is passed will use default region from the config (fr-par)
   human-id                   
   [height]                   
   [shoe-size]                
@@ -14,6 +13,7 @@ ARGS:
   [hair-count]               
   [is-happy]                 
   [eyes-color]                (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+  [region]                   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

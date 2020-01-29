@@ -301,12 +301,6 @@ func instanceServerList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			{
-				Name:     "organization",
-				Short:    `List only servers of this organization`,
-				Required: false,
-			},
 			{
 				Name:     "name",
 				Short:    `Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")`,
@@ -333,6 +327,12 @@ func instanceServerList() *core.Command {
 				Required:   false,
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
+			{
+				Name:     "organization",
+				Short:    `List only servers of this organization`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServersRequest)
@@ -376,11 +376,11 @@ func instanceServerGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "server-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetServerRequest)
@@ -408,7 +408,6 @@ func instanceServerUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "server-id",
 				Short:    `UUID of the server`,
@@ -484,6 +483,7 @@ func instanceServerUpdate() *core.Command {
 				Short:    `Placement group ID if server must be part of a placement group`,
 				Required: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdateServerRequest)
@@ -505,11 +505,6 @@ func instanceImageList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			{
-				Name:     "organization",
-				Required: false,
-			},
 			{
 				Name:     "name",
 				Required: false,
@@ -522,6 +517,11 @@ func instanceImageList() *core.Command {
 				Name:     "arch",
 				Required: false,
 			},
+			{
+				Name:     "organization",
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListImagesRequest)
@@ -559,11 +559,11 @@ func instanceImageGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "image-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetImageRequest)
@@ -585,7 +585,6 @@ func instanceImageCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Required: false,
@@ -630,11 +629,12 @@ func instanceImageCreate() *core.Command {
 				Short:    `The organization ID`,
 				Required: false,
 			},
-			core.OrganizationArgSpec(),
 			{
 				Name:     "public",
 				Required: false,
 			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateImageRequest)
@@ -656,11 +656,11 @@ func instanceImageDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "image-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteImageRequest)
@@ -685,15 +685,15 @@ func instanceSnapshotList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			{
-				Name:     "organization",
-				Required: false,
-			},
 			{
 				Name:     "name",
 				Required: false,
 			},
+			{
+				Name:     "organization",
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListSnapshotsRequest)
@@ -719,7 +719,6 @@ func instanceSnapshotCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the snapshot`,
@@ -732,6 +731,7 @@ func instanceSnapshotCreate() *core.Command {
 				Required: true,
 			},
 			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateSnapshotRequest)
@@ -753,11 +753,11 @@ func instanceSnapshotGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "snapshot-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetSnapshotRequest)
@@ -779,11 +779,11 @@ func instanceSnapshotDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "snapshot-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteSnapshotRequest)
@@ -808,7 +808,6 @@ func instanceVolumeList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListVolumesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:       "volume-type",
 				Short:      `Filter by volume type`,
@@ -816,15 +815,16 @@ func instanceVolumeList() *core.Command {
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
-				Name:     "organization",
-				Short:    `Filter volume by organization`,
-				Required: false,
-			},
-			{
 				Name:     "name",
 				Short:    `Filter volume by name (for eg. "vol" will return "myvolume" but not "data")`,
 				Required: false,
 			},
+			{
+				Name:     "organization",
+				Short:    `Filter volume by organization`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListVolumesRequest)
@@ -907,12 +907,10 @@ func instanceVolumeCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Required: false,
 			},
-			core.OrganizationArgSpec(),
 			{
 				Name:       "volume-type",
 				Required:   false,
@@ -930,6 +928,8 @@ func instanceVolumeCreate() *core.Command {
 				Name:     "base-snapshot",
 				Required: false,
 			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateVolumeRequest)
@@ -965,11 +965,11 @@ func instanceVolumeGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "volume-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetVolumeRequest)
@@ -997,11 +997,11 @@ func instanceVolumeDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "volume-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteVolumeRequest)
@@ -1032,7 +1032,6 @@ func instanceSecurityGroupList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the security group`,
@@ -1043,6 +1042,7 @@ func instanceSecurityGroupList() *core.Command {
 				Short:    `The security group organization ID`,
 				Required: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListSecurityGroupsRequest)
@@ -1074,7 +1074,6 @@ func instanceSecurityGroupCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the security group`,
@@ -1086,7 +1085,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Short:    `Description of the security group`,
 				Required: false,
 			},
-			core.OrganizationArgSpec(),
 			{
 				Name:     "organization-default",
 				Short:    `Whether this security group becomes the default security group for new instances`,
@@ -1113,6 +1111,8 @@ func instanceSecurityGroupCreate() *core.Command {
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateSecurityGroupRequest)
@@ -1156,11 +1156,11 @@ func instanceSecurityGroupGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "security-group-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetSecurityGroupRequest)
@@ -1188,11 +1188,11 @@ func instanceSecurityGroupDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "security-group-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteSecurityGroupRequest)
@@ -1223,17 +1223,17 @@ func instancePlacementGroupList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			{
-				Name:     "organization",
-				Short:    `List only placement groups of this organization`,
-				Required: false,
-			},
 			{
 				Name:     "name",
 				Short:    `Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")`,
 				Required: false,
 			},
+			{
+				Name:     "organization",
+				Short:    `List only placement groups of this organization`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListPlacementGroupsRequest)
@@ -1269,14 +1269,12 @@ func instancePlacementGroupCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "name",
 				Short:    `Name of the placement group`,
 				Required: false,
 				Default:  core.RandomValueGenerator("pg"),
 			},
-			core.OrganizationArgSpec(),
 			{
 				Name:       "policy-mode",
 				Required:   false,
@@ -1287,6 +1285,8 @@ func instancePlacementGroupCreate() *core.Command {
 				Required:   false,
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreatePlacementGroupRequest)
@@ -1334,11 +1334,11 @@ func instancePlacementGroupGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetPlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetPlacementGroupRequest)
@@ -1366,7 +1366,6 @@ func instancePlacementGroupUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Short:    `UUID of the placement group`,
@@ -1387,6 +1386,7 @@ func instancePlacementGroupUpdate() *core.Command {
 				Required:   false,
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdatePlacementGroupRequest)
@@ -1422,11 +1422,11 @@ func instancePlacementGroupDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeletePlacementGroupRequest)
@@ -1451,7 +1451,6 @@ func instancePlacementGroupServerSet() *core.Command {
 		Verb:      "set",
 		ArgsType:  reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "placement-group-id",
 				Required: true,
@@ -1460,6 +1459,7 @@ func instancePlacementGroupServerSet() *core.Command {
 				Name:     "servers.{index}",
 				Required: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.SetPlacementGroupServersRequest)
@@ -1487,17 +1487,17 @@ func instanceIPList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			{
-				Name:     "organization",
-				Short:    `The organization ID the IPs are reserved in`,
-				Required: false,
-			},
 			{
 				Name:     "name",
 				Short:    `Filter on the IP address (Works as a LIKE operation on the IP address)`,
 				Required: false,
 			},
+			{
+				Name:     "organization",
+				Short:    `The organization ID the IPs are reserved in`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListIPsRequest)
@@ -1543,13 +1543,13 @@ func instanceIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-			core.OrganizationArgSpec(),
 			{
 				Name:     "server",
 				Short:    `UUID of the server you want to attach the IP to`,
 				Required: false,
 			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateIPRequest)
@@ -1571,12 +1571,12 @@ func instanceIPGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(instance.GetIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `The IP ID or address to get`,
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetIPRequest)
@@ -1598,7 +1598,6 @@ func instanceIPUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `IP ID or IP address`,
@@ -1609,6 +1608,7 @@ func instanceIPUpdate() *core.Command {
 				Short:    `Reverse domain name`,
 				Required: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdateIPRequest)
@@ -1630,12 +1630,12 @@ func instanceIPDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(instance.DeleteIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 			{
 				Name:     "ip",
 				Short:    `The ID or the address of the IP to delete`,
 				Required: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteIPRequest)

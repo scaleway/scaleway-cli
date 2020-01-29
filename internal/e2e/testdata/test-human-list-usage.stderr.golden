@@ -4,9 +4,9 @@ USAGE:
   scw [global-flags] test human list [flags] [arg=value ...]
 
 ARGS:
-  [region]            Region to target. If none is passed will use default region from the config (fr-par)
   [order-by]           (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | height_asc | height_desc)
   [organization-id]   
+  [region]            Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for list
