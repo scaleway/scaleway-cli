@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -39,7 +40,7 @@ func configRoot() *core.Command {
 	for _, envVar := range [][2]string{
 		{"SCW_ACCESS_KEY", "The access key of a token (create a token at https://console.scaleway.com/account/credentials)"},
 		{"SCW_SECRET_KEY", "The secret key of a token (create a token at https://console.scaleway.com/account/credentials)"},
-		{"SCW_DEFAULT_ORGANIZATION_ID", "The default organization ID"},
+		{"SCW_DEFAULT_ORGANIZATION_ID", "The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)"},
 		{"SCW_DEFAULT_REGION", "The default region"},
 		{"SCW_DEFAULT_ZONE", "The default availability zone"},
 		{"SCW_API_URL", "URL of the API"},
@@ -51,16 +52,17 @@ func configRoot() *core.Command {
 	w.Flush()
 	return &core.Command{
 		Short: `Config file management`,
-		Long: `Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
+		Long: interactive.RemoveIndent(`
+			Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
 
-Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: ` + terminal.Style(configPath, color.Bold, color.FgBlue) + `
+			Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: ` + terminal.Style(configPath, color.Bold, color.FgBlue) + `
 
-In this CLI, ` + terminal.Style(`environment variables have priority over the configuration file`, color.Bold) + `.
+			In this CLI, ` + terminal.Style(`environment variables have priority over the configuration file`, color.Bold) + `.
 
-The following environment variables are supported:
-` + envVarTable.String() + `
-
-Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config`,
+			The following environment variables are supported:
+			` + envVarTable.String() + `
+			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
+		`),
 		Namespace: "config",
 		SeeAlsos: []*core.SeeAlso{
 			{
