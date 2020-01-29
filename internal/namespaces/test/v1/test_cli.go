@@ -77,11 +77,11 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 		Verb:      "register",
 		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "username",
 				Required: false,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RegisterRequest)
@@ -103,7 +103,6 @@ func testHumanList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(test.ListHumansRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:       "order-by",
 				Required:   false,
@@ -113,6 +112,7 @@ func testHumanList() *core.Command {
 				Name:     "organization-id",
 				Required: false,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.ListHumansRequest)
@@ -138,11 +138,11 @@ func testHumanGet() *core.Command {
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(test.GetHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "human-id",
 				Required: true,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.GetHumanRequest)
@@ -164,7 +164,6 @@ func testHumanCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(test.CreateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "height",
 				Required: false,
@@ -199,6 +198,7 @@ func testHumanCreate() *core.Command {
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 			core.OrganizationIDArgSpec(),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.CreateHumanRequest)
@@ -226,7 +226,6 @@ func testHumanUpdate() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(test.UpdateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "human-id",
 				Required: true,
@@ -264,6 +263,7 @@ func testHumanUpdate() *core.Command {
 				Required:   false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.UpdateHumanRequest)
@@ -285,11 +285,11 @@ func testHumanDelete() *core.Command {
 		Verb:      "delete",
 		ArgsType:  reflect.TypeOf(test.DeleteHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "human-id",
 				Required: true,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.DeleteHumanRequest)
@@ -311,11 +311,11 @@ func testHumanRun() *core.Command {
 		Verb:      "run",
 		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "human-id",
 				Required: true,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RunHumanRequest)
@@ -344,11 +344,11 @@ func testHumanSmoke() *core.Command {
 		Verb:      "smoke",
 		ArgsType:  reflect.TypeOf(test.SmokeHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
 			{
 				Name:     "human-id",
 				Required: true,
 			},
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.SmokeHumanRequest)
