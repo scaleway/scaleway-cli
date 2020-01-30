@@ -16,7 +16,6 @@ const (
 // It must be called with the defer built-in.
 func RecoverPanicAndSendReport(buildInfo *core.BuildInfo) {
 	e := recover()
-
 	if e == nil {
 		return
 	}
