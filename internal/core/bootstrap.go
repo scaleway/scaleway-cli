@@ -59,7 +59,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	// Send Matomo telemetry when exiting the bootstrap
-	if (matomo.ForceTelemetry || config.BuildInfo.isRelease()) && matomo.IsTelemetryEnabled() {
+	if (matomo.ForceTelemetry || config.BuildInfo.IsRelease()) && matomo.IsTelemetryEnabled() {
 		start := time.Now()
 		defer func() {
 			if meta.command == nil || meta.command.DisableTelemetry {
