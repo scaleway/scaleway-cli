@@ -87,8 +87,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	rootCmd := builder.build()
 
-	rootCmd.PersistentFlags().StringVarP(&meta.AccessKeyFlag, "access-key", "", "", "Scaleway access key")
-	rootCmd.PersistentFlags().StringVarP(&meta.SecretKeyFlag, "secret-key", "", "", "Scaleway secret key")
 	rootCmd.PersistentFlags().StringVarP(&meta.ProfileFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().VarP(&meta.PrinterTypeFlag, "output", "o", "Output format: json or human")
 	rootCmd.PersistentFlags().BoolVarP(&meta.DebugModeFlag, "debug", "D", false, "Enable debug mode")
