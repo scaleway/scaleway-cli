@@ -4,13 +4,14 @@ import (
 	"os"
 	"runtime"
 
+	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/version"
+	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/internal/sentry"
 )
 
@@ -26,7 +27,7 @@ var (
 
 func main() {
 	buildInfo := &core.BuildInfo{
-		Version:   Version,
+		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
 		BuildDate: BuildDate,
 		GoVersion: GoVersion,
 		GitBranch: GitBranch,
@@ -45,7 +46,7 @@ func main() {
 	commands.Merge(configNamespace.GetCommands())
 	commands.Merge(marketplace.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(version.GetCommands())
+	commands.Merge(versionNamespace.GetCommands())
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,

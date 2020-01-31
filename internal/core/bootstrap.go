@@ -68,7 +68,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			}
 			matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
 				Command:       meta.command.getPath(),
-				Version:       config.BuildInfo.Version,
+				Version:       config.BuildInfo.Version.String(),
 				ExecutionTime: time.Since(start),
 			})
 			if matomoErr != nil {
@@ -76,6 +76,13 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			} else {
 				logger.Debugf("telemetry successfully sent")
 			}
+		}()
+	}
+
+	// Check CLI new version
+	if interactive.IsInteractive {
+		defer func() {
+			config.BuildInfo.checkVersion()
 		}()
 	}
 

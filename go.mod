@@ -15,11 +15,12 @@ require (
 	github.com/fatih/color v1.7.0
 	github.com/getsentry/raven-go v0.2.0
 	github.com/hashicorp/go-multierror v1.0.0
+	github.com/hashicorp/go-version v1.2.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200129095835-23f29e96b36e
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.5.0.20200130170711-05d27d10a3b8
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5

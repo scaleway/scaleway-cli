@@ -8,6 +8,7 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/color"
+	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -41,6 +42,10 @@ var marshalerFuncs = map[reflect.Type]MarshalerFunc{
 	},
 	reflect.TypeOf(scw.IPNet{}): func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
+		return v.String(), nil
+	},
+	reflect.TypeOf(version.Version{}): func(i interface{}, opt *MarshalOpt) (string, error) {
+		v := i.(version.Version)
 		return v.String(), nil
 	},
 }
