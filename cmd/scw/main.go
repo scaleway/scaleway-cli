@@ -36,7 +36,7 @@ func main() {
 		GoArch:    GoArch,
 	}
 
-	// catch every panic after this line
+	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
 	defer sentry.RecoverPanicAndSendReport(buildInfo)
 
 	// Import all commands available in CLI from various packages.
