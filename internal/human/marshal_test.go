@@ -10,15 +10,17 @@ import (
 )
 
 type Struct struct {
-	String  string
-	Int     int
-	Bool    bool
-	Strings []string
-	Time    time.Time
-	Struct  *Struct
-	Nil     *Struct
-	Structs []*Struct
-	Map     map[string]string
+	String      string
+	Int         int
+	Bool        bool
+	Strings     []string
+	Time        time.Time
+	Struct      *Struct
+	Nil         *Struct
+	Structs     []*Struct
+	Map         map[string]string
+	Stringer    Stringer
+	StringerPtr *Stringer
 }
 
 type Address struct {
@@ -36,6 +38,12 @@ type Human struct {
 	Age           int
 	Address       *Address
 	Acquaintances []*Acquaintance
+}
+
+type Stringer struct{}
+
+func (s Stringer) String() string {
+	return "a stringer"
 }
 
 func TestMarshal(t *testing.T) {
@@ -84,25 +92,31 @@ func TestMarshal(t *testing.T) {
 				"key1": "v1",
 				"key2": "v2",
 			},
+			Stringer:    Stringer{},
+			StringerPtr: &Stringer{},
 		},
 		opt: nil,
 		result: `
-			string            This is a string
-			int               42
-			bool              true
-			strings.0         s1
-			strings.1         s2
-			time              ` + humanDate + `
-			struct.string     
-			struct.int        0
-			struct.bool       false
-			struct.time       a long while ago
-			structs.0.string  Nested string
-			structs.0.int     0
-			structs.0.bool    false
-			structs.0.time    a long while ago
-			map.key1          v1
-			map.key2          v2
+			string              This is a string
+			int                 42
+			bool                true
+			strings.0           s1
+			strings.1           s2
+			time                ` + humanDate + `
+			struct.string       
+			struct.int          0
+			struct.bool         false
+			struct.time         a long while ago
+			struct.stringer     a stringer
+			structs.0.string    Nested string
+			structs.0.int       0
+			structs.0.bool      false
+			structs.0.time      a long while ago
+			structs.0.stringer  a stringer
+			map.key1            v1
+			map.key2            v2
+			stringer            a stringer
+			stringer-ptr        a stringer
 		`,
 		err: nil,
 	}))

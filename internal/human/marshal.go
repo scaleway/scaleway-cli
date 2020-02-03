@@ -27,11 +27,6 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	// Debug infos
 	logger.Debugf("marshalling type '%v'", reflect.TypeOf(data))
 
-	// If data is nil there is nothing to print
-	if data == nil {
-		return "", nil
-	}
-
 	if opt == nil {
 		opt = &MarshalOpt{}
 	}
@@ -47,6 +42,10 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	rType := rValue.Type()
 
 	switch {
+	// If data is nil
+	case isInterfaceNil(data):
+		return "", nil
+
 	// If data has a registered MarshalerFunc call it
 	case marshalerFuncs[rType] != nil:
 		return marshalerFuncs[rType](rValue.Interface(), opt)
@@ -106,16 +105,20 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		rType := value.Type()
 
 		switch {
+		// If data is nil
+		case isInterfaceNil(value.Interface()):
+			return nil, nil
+
 		// If data has a registered MarshalerFunc call it.
 		case marshalerFuncs[rType] != nil:
 			str, err := marshalerFuncs[rType](value.Interface(), subOpts)
 			return [][]string{{strings.Join(keys, "."), str}}, err
 
+		// If data is a stringers
+		case rType.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()):
+			return [][]string{{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()}}, nil
+
 		case rType.Kind() == reflect.Ptr:
-			// If src is nil we do not marshal it
-			if value.IsNil() {
-				return nil, nil
-			}
 			// If type is a pointer we Marshal pointer.Elem()
 			return marshal(value.Elem(), keys)
 
@@ -133,10 +136,6 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			return data, nil
 
 		case rType.Kind() == reflect.Map:
-			// If map is nil we do not marshal it
-			if value.IsNil() {
-				return nil, nil
-			}
 
 			// If type is a map:
 			// We loop through all items and marshal them with key = key.0, key.1, ....

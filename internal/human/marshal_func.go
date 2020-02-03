@@ -24,11 +24,6 @@ var marshalerFuncs = map[reflect.Type]MarshalerFunc{
 	reflect.TypeOf(string("")):  defaultMarshalerFunc,
 	reflect.TypeOf(bool(false)): defaultMarshalerFunc,
 	reflect.TypeOf(scw.Size(0)): defaultMarshalerFunc,
-	reflect.TypeOf(scw.Money{}): func(i interface{}, opt *MarshalOpt) (s string, err error) {
-		// TODO: Refactor me in APIGW-1747.
-		tmp := i.(scw.Money)
-		return (&tmp).String(), nil
-	},
 	reflect.TypeOf(time.Time{}): func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	},
