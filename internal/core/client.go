@@ -35,15 +35,7 @@ func createClient(meta *meta) (*scw.Client, error) {
 
 	envProfile := scw.LoadEnvProfile()
 
-	flagProfile := &scw.Profile{}
-	if meta.AccessKeyFlag != "" {
-		flagProfile.AccessKey = scw.StringPtr(meta.AccessKeyFlag)
-	}
-	if meta.SecretKeyFlag != "" {
-		flagProfile.SecretKey = scw.StringPtr(meta.SecretKeyFlag)
-	}
-
-	profile := scw.MergeProfiles(activeProfile, envProfile, flagProfile)
+	profile := scw.MergeProfiles(activeProfile, envProfile)
 
 	if err := validateProfile(profile); err != nil {
 		return nil, err

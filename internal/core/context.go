@@ -10,8 +10,6 @@ import (
 
 // meta store globally available variables like sdk client or global Flags.
 type meta struct {
-	AccessKeyFlag   string
-	SecretKeyFlag   string
 	ProfileFlag     string
 	DebugModeFlag   bool
 	PrinterTypeFlag printer.Type
