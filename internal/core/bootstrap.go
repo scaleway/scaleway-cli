@@ -80,11 +80,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	// Check CLI new version
-	if interactive.IsInteractive {
-		defer func() {
-			config.BuildInfo.checkVersion()
-		}()
-	}
+	defer func() {
+		config.BuildInfo.checkVersion()
+	}()
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{

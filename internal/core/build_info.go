@@ -46,7 +46,7 @@ func (b *BuildInfo) checkVersion() {
 	latestVersionUpdateFilePath := filepath.Join(scw.GetCacheDirectory(), latestVersionUpdateFileLocalName)
 
 	// do nothing if last refresh at during the last 24h
-	if fileUpdateLast24h(latestVersionUpdateFilePath) {
+	if wasFileModifiedLast24h(latestVersionUpdateFilePath) {
 		logger.Debugf("version was already checked during past 24 hours")
 		return
 	}
@@ -89,8 +89,8 @@ func getLatestVersion() (*version.Version, error) {
 	return version.NewSemver(strings.Trim(string(body), "\n"))
 }
 
-// fileUpdateLast24h creates a file and close it. It returns true on succeed, false on failure.
-func fileUpdateLast24h(path string) bool {
+// wasFileModifiedLast24h checks that the file has been updated during last 24 hours.
+func wasFileModifiedLast24h(path string) bool {
 	stat, err := os.Stat(path)
 	if err != nil {
 		return false
