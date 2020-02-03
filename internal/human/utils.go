@@ -13,6 +13,7 @@ func Capitalize(s string) string {
 	return ""
 }
 
+// isInterfaceNil return true if data is nil no matter it's type
 func isInterfaceNil(data interface{}) bool {
 	if data == nil {
 		return true
