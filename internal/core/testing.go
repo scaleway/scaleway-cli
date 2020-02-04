@@ -14,13 +14,11 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/scaleway/scaleway-sdk-go/logger"
-
-	// test "github.com/scaleway/scaleway-sdk-go/api/test/v1alpha1"
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/stretchr/testify/assert"
