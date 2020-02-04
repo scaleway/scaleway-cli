@@ -174,7 +174,6 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 //
 
 func serverUpdateBuilder(c *core.Command) *core.Command {
-
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest
 		IP *instance.NullableStringValue
@@ -190,7 +189,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest

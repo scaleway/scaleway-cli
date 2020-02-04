@@ -8,7 +8,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -74,8 +73,6 @@ type CustomFuncCtx struct {
 	ExecuteCmd func(cmd string) interface{}
 	Meta       map[string]interface{}
 }
-
-var idExtractorRegex = regexp.MustCompile(`id +(.*)\n`)
 
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
