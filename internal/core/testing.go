@@ -239,7 +239,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}))
 		}
 
-		// Run config.CustomFunc, composed of alternating commands and tests.
+		// Run config.CustomFunc, made of alternating commands and asserts.
 
 		if config.CustomFunc != nil {
 			require.NoError(t, config.CustomFunc(t, &CustomFuncCtx{
