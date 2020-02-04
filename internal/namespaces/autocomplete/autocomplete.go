@@ -160,7 +160,11 @@ func autocompleteInstallCommand() *core.Command {
 		},
 		ArgsType: reflect.TypeOf(autocompleteInstallArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			shellName := filepath.Base(argsI.(*autocompleteInstallArgs).Shell)
+
+			shell := os.Getenv("SHELL")
+			// shell := argsI.(*autocompleteInstallArgs).Shell
+
+			shellName := filepath.Base(shell)
 
 			// Detect shell and OS
 			script, exists := autocompleteScripts[shellName]
