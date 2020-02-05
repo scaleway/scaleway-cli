@@ -28,17 +28,10 @@ func GetCommands() *core.Commands {
 }
 
 type autocompleteScript struct {
-	CompleteScript    string
-	CompleteFunc      string
-	FileName          string
-	DestinationFolder map[string]string
-	SuccessHelp       string
+	CompleteScript         string
+	CompleteFunc           string
+	ShellConfigurationFile map[string]string
 }
-
-const (
-	readWritePermission = 0644
-	executePermission   = 0755
-)
 
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
@@ -68,11 +61,9 @@ var autocompleteScripts = map[string]autocompleteScript{
 			complete -F _scw scw
 		`,
 		CompleteScript: `eval "$(scw autocomplete script shell=bash)"`,
-		FileName:       "scw-completion.bash",
-		DestinationFolder: map[string]string{
-			"darwin": "/usr/local/etc/bash_completion.d/",
+		ShellConfigurationFile: map[string]string{
+			"darwin": path.Join(os.Getenv("HOME"), ".bash_profile"),
 		},
-		SuccessHelp: "You might want to run 'source ~/.bash_profile'.",
 	},
 	"fish": {
 		// (commandline)                             complete command line
@@ -93,11 +84,9 @@ var autocompleteScripts = map[string]autocompleteScript{
 			complete --command scw --arguments '(scw autocomplete complete fish (commandline) (commandline --cursor) (commandline --current-token) (commandline --tokenize --cut-at-cursor))';
 		`,
 		CompleteScript: `eval (scw autocomplete script shell=fish)`,
-		FileName:       "scw-completion.fish",
-		DestinationFolder: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), "/.config/fish/completions/"),
+		ShellConfigurationFile: map[string]string{
+			"darwin": path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
 		},
-		SuccessHelp: "You might want to add 'source ~/.config/fish/completions/scw-completion.fish' to ~/.config/fish/config.fish.",
 	},
 	"zsh": {
 		// If you are using an alias for scw, such as :
@@ -130,14 +119,9 @@ var autocompleteScripts = map[string]autocompleteScript{
 			compdef _scw scw
 		`,
 		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
-		FileName:       "_scw",
-		DestinationFolder: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), "/.zsh/completion/"),
+		ShellConfigurationFile: map[string]string{
+			"darwin": path.Join(os.Getenv("HOME"), ".zshrc"),
 		},
-		SuccessHelp: "Make sure the completion directory is in your $fpath by adding in ~/.zshrc:\n" +
-			"  fpath=(~/.zsh/completion $fpath)\n" +
-			"Make sure compinit is loaded or do it by adding in ~/.zshrc:\n" +
-			"  autoload -U compinit && compinit",
 	},
 }
 
@@ -154,69 +138,88 @@ func autocompleteInstallCommand() *core.Command {
 		NoClient:  true,
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:    "shell",
-				Default: core.DefaultValueSetter(os.Getenv("SHELL")),
+				Name: "shell",
 			},
 		},
 		ArgsType: reflect.TypeOf(autocompleteInstallArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
-			shell := os.Getenv("SHELL")
-			// shell := argsI.(*autocompleteInstallArgs).Shell
+			// Warning
+			_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
 
-			shellName := filepath.Base(shell)
+			// If `shell=` is empty, we ask for a value
+			shellName := ""
+			shellArg := filepath.Base(argsI.(*autocompleteInstallArgs).Shell)
+			if shellArg == "" {
+				defaultShellName := filepath.Base(os.Getenv("SHELL"))
 
-			// Detect shell and OS
+				promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Prompt:          "What type of shell are you using",
+					DefaultValue:    defaultShellName,
+					DefaultValueDoc: defaultShellName,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				shellName = filepath.Base(promptedShell)
+
+			} else {
+				shellName = filepath.Base(shellArg)
+			}
+
 			script, exists := autocompleteScripts[shellName]
 			if !exists {
 				return nil, unsupportedShellError(shellName)
 			}
-			destinationFolder, exists := script.DestinationFolder[runtime.GOOS]
+
+			// Find destination file depending on the OS.
+			shellConfigurationFilePath, exists := script.ShellConfigurationFile[runtime.GOOS]
 			if !exists {
 				return nil, unsupportedOsError(runtime.GOOS)
 			}
 
-			// Compute destinationPath
-			destinationPath := path.Join(destinationFolder, script.FileName)
-
-			// Inform user and ask for confirmation
-			_, err := interactive.Printf(trimText(fmt.Sprintf(`
-				To enable autocomplete, scw needs to add a script to your file system.
-				Shell: %v
-				Destination path: %v
-				Content: %v`,
-				shellName, destinationPath, script.CompleteScript)) + "\n\n")
+			// Early exit if eval line is already present in the shell configuration.
+			shellConfigurationFileContent, err := ioutil.ReadFile(shellConfigurationFilePath)
 			if err != nil {
 				return nil, err
 			}
+			if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
+				_, _ = interactive.Println("It looks like the autocompletion is already installed. If it doesn't work properly, try to open a new shell.")
+				return nil, nil
+			}
+
+			// Warning
+			_, _ = interactive.Println("To enable autocompletion we need to append to " + shellConfigurationFilePath + " the following line:\n\t" + script.CompleteScript)
+
+			// Early exit if user disagrees
 			continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       fmt.Sprintf("Do you want to install autocomplete for %v?", shellName),
+				Prompt:       fmt.Sprintf("Do you want to proceed with theses changes ?"),
 				DefaultValue: true,
 			})
 			if err != nil {
 				return nil, err
 			}
-
-			// Early exit if user disagrees
 			if !continueInstallation {
 				return nil, installationCancelledError(shellName, script.CompleteScript)
 			}
 
-			// Create destination folder if it doesn't exist
-			err = os.MkdirAll(destinationFolder, executePermission)
+			// If the file doesn't exist, create it, or append to the file
+			f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if err != nil {
 				return nil, err
 			}
-
-			// Write script
-			err = ioutil.WriteFile(destinationPath, []byte(trimText(script.CompleteScript)), readWritePermission)
-			if err != nil {
+			if _, err := f.Write([]byte(script.CompleteScript + "\n")); err != nil {
+				f.Close()
+				return nil, err
+			}
+			if err := f.Close(); err != nil {
 				return nil, err
 			}
 
+			// Ack
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nCopied %v to %v.\n%v",
-					shellName, script.FileName, destinationPath, script.SuccessHelp),
+				Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nUpdated %v.", shellName, shellConfigurationFilePath),
 			}, nil
 		},
 	}
