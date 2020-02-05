@@ -29,7 +29,7 @@ type instanceCreateServerRequest struct {
 	IP                string
 	Tags              []string
 	IPv6              bool
-	Start             bool
+	Stopped           bool
 	SecurityGroupID   string
 	PlacementGroupID  string
 	BootscriptID      string
@@ -86,8 +86,8 @@ func serverCreateCommand() *core.Command {
 				Short: "Enable IPv6",
 			},
 			{
-				Name:  "start",
-				Short: "Start the server after its creation",
+				Name:  "stopped",
+				Short: "Do not start server after its creation",
 			},
 			{
 				Name:  "security-group-id",
@@ -330,9 +330,9 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	logger.Infof("server created %s", server.ID)
 
 	//
-	// Start
+	// Start server by default
 	//
-	if args.Start {
+	if !args.Stopped {
 		logger.Infof("starting server")
 		_, err := apiInstance.ServerAction(&instance.ServerActionRequest{
 			Zone:     args.Zone,

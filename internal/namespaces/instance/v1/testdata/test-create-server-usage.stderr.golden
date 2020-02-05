@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Create and start an instance on Ubuntu Bionic
-    scw instance server create image=ubuntu_bionic start=true
+    scw instance server create image=ubuntu_bionic
 
   Create a GP1-XS instance, give it a name and add tags
     scw instance server create image=ubuntu_bionic type=GP1-XS name=foo tags.0=prod tags.1=blue
@@ -31,7 +31,7 @@ ARGS:
   [ip=new]                       Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>)
   [tags.{index}]                 Server tags
   [ipv6]                         Enable IPv6
-  [start]                        Start the server after its creation
+  [stopped]                      Do not start server after its creation
   [security-group-id]            The security group ID it use for this server
   [placement-group-id]           The security group ID in witch the server has to be created
   [bootscript-id]                The bootscript ID to use, if empty the local boot will be used
