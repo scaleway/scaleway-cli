@@ -58,7 +58,7 @@ func Test_GetServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: "scw instance server get server-id={{ .Server.ID }}",
@@ -107,7 +107,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group=none",
@@ -123,7 +123,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run(`No initial placement group & placement-group-id=`, core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=`,
@@ -140,7 +140,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
@@ -157,7 +157,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run(`No initial placement group & placement-group-id=<valid, but non existing pg id>`, core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=11111111-1111-1111-1111-111111111111`,
@@ -173,7 +173,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run(`No initial placement group & placement-group-id=<invalid pg id>`, core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=1111111`,
@@ -190,7 +190,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=none`,
@@ -208,7 +208,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
@@ -227,7 +227,7 @@ func Test_ServerUpdate(t *testing.T) {
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			ctx.Meta["PlacementGroup"] = ctx.ExecuteCmd("scw instance placement-group create")
 			ctx.Meta["PlacementGroup2"] = ctx.ExecuteCmd("scw instance placement-group create")
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup2.PlacementGroup.ID }}`,
