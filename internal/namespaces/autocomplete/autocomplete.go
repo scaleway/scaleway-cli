@@ -12,6 +12,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/scaleway/scaleway-sdk-go/logger"
+
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -143,13 +145,13 @@ func autocompleteInstallCommand() *core.Command {
 		},
 		ArgsType: reflect.TypeOf(autocompleteInstallArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 			// Warning
 			_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
 
-			// If `shell=` is empty, we ask for a value
+			// If `shell=` is empty, ask for a value for `shell=`.
 			shellName := ""
-			shellArg := filepath.Base(argsI.(*autocompleteInstallArgs).Shell)
+			shellArg := argsI.(*autocompleteInstallArgs).Shell
+			logger.Debugf("shellArg: %v", shellArg)
 			if shellArg == "" {
 				defaultShellName := filepath.Base(os.Getenv("SHELL"))
 
@@ -186,7 +188,7 @@ func autocompleteInstallCommand() *core.Command {
 			}
 			if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
 				_, _ = interactive.Println("It looks like the autocompletion is already installed. If it doesn't work properly, try to open a new shell.")
-				return nil, nil
+				return "", nil
 			}
 
 			// Warning
