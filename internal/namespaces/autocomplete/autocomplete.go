@@ -165,7 +165,6 @@ func autocompleteInstallCommand() *core.Command {
 				}
 
 				shellName = filepath.Base(promptedShell)
-
 			} else {
 				shellName = filepath.Base(shellArg)
 			}
