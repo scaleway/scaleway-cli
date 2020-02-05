@@ -43,7 +43,7 @@ func (b *BuildInfo) checkVersion() {
 		return
 	}
 
-	latestVersionUpdateFilePath := filepath.Join(scw.GetCacheDirectory(), latestVersionUpdateFileLocalName)
+	latestVersionUpdateFilePath := getLatestVersionUpdateFilePath()
 
 	// do nothing if last refresh at during the last 24h
 	if wasFileModifiedLast24h(latestVersionUpdateFilePath) {
@@ -64,10 +64,14 @@ func (b *BuildInfo) checkVersion() {
 	}
 
 	if b.Version.LessThan(latestVersion) {
-		logger.Infof("a new version of scw is available (%s), beware that you are currently running %v", b.Version, latestVersion)
+		logger.Infof("a new version of scw is available (%s), beware that you are currently running %v", latestVersion, b.Version)
 	} else {
-		logger.Infof("version is up to date (%s)", b.Version)
+		logger.Debugf("version is up to date (%s)", b.Version)
 	}
+}
+
+func getLatestVersionUpdateFilePath() string {
+	return filepath.Join(scw.GetCacheDirectory(), latestVersionUpdateFileLocalName)
 }
 
 // getLatestVersion attempt to read the latest version of the remote file at latestVersionFileURL.
@@ -89,7 +93,7 @@ func getLatestVersion() (*version.Version, error) {
 	return version.NewSemver(strings.Trim(string(body), "\n"))
 }
 
-// wasFileModifiedLast24h checks that the file has been updated during last 24 hours.
+// wasFileModifiedLast24h checks whether the file has been updated during last 24 hours.
 func wasFileModifiedLast24h(path string) bool {
 	stat, err := os.Stat(path)
 	if err != nil {
@@ -101,7 +105,7 @@ func wasFileModifiedLast24h(path string) bool {
 	return lastUpdate.After(yesterday)
 }
 
-// createAndCloseFile creates a file and close it. It returns true on succeed, false on failure.
+// createAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
 func createAndCloseFile(path string) bool {
 	err := os.MkdirAll(filepath.Dir(path), 0700)
 	if err != nil {

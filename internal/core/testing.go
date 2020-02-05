@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -89,6 +90,9 @@ type TestConfig struct {
 
 	// Run tests in parallel.
 	DisableParallel bool
+
+	// Fake build info for this test.
+	BuildInfo BuildInfo
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -166,7 +170,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmdTemplate(cmd), " "),
 				Commands:  config.Commands,
-				BuildInfo: &BuildInfo{},
+				BuildInfo: &config.BuildInfo,
 				Stdout:    stdoutBuffer,
 				Stderr:    stderrBuffer,
 				Client:    client,
@@ -193,7 +197,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		exitCode, result, err := Bootstrap(&BootstrapConfig{
 			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
 			Commands:  config.Commands,
-			BuildInfo: &BuildInfo{},
+			BuildInfo: &config.BuildInfo,
 			Stdout:    stdout,
 			Stderr:    stderr,
 			Client:    client,
@@ -261,7 +265,7 @@ func TestCheckGolden() TestCheck {
 
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
-
+	actual = uniformLogTimestamps(actual)
 	if UpdateGoldens {
 		if actualIsEmpty {
 			_ = os.Remove(goldenPath)
@@ -278,6 +282,12 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		require.NoError(t, err)
 		assert.Equal(t, string(expected), string(actual))
 	}
+}
+
+var regLogTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
+
+func uniformLogTimestamps(input []byte) []byte {
+	return regLogTimestamp.ReplaceAll(input, []byte("2019/12/09 16:04:07"))
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
