@@ -6,12 +6,11 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
-
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -273,7 +272,7 @@ func initCommand() *core.Command {
 			successMessage := "Initialisation completed with success"
 
 			if *args.InstallAutocomplete {
-				_, err := autocomplete.AutocompleteInstallCommandRun(ctx, &autocomplete.AutocompleteInstallArgs{})
+				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
 					successMessage += " except for autocomplete:\n" + err.Error()
 				}

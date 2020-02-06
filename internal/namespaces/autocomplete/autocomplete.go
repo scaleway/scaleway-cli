@@ -126,7 +126,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 	},
 }
 
-type AutocompleteInstallArgs struct {
+type InstallArgs struct {
 	Shell string
 }
 
@@ -142,18 +142,18 @@ func autocompleteInstallCommand() *core.Command {
 				Name: "shell",
 			},
 		},
-		ArgsType: reflect.TypeOf(AutocompleteInstallArgs{}),
-		Run:      AutocompleteInstallCommandRun,
+		ArgsType: reflect.TypeOf(InstallArgs{}),
+		Run:      InstallCommandRun,
 	}
 }
 
-func AutocompleteInstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
 	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellName := ""
-	shellArg := argsI.(*AutocompleteInstallArgs).Shell
+	shellArg := argsI.(*InstallArgs).Shell
 	logger.Debugf("shellArg: %v", shellArg)
 	if shellArg == "" {
 		defaultShellName := filepath.Base(os.Getenv("SHELL"))
