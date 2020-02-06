@@ -213,7 +213,7 @@ func initCommand() *core.Command {
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To fully enjoy Scaleway CLI recommend you to install autocomplete support in your shell.
+					To fully enjoy Scaleway CLI we recommend you to install autocomplete support in your shell.
 				`)
 
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
