@@ -31,8 +31,8 @@ func TestHumanCreate(t *testing.T) {
 
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:     test.GetCommands(),
-		Cmd:          "scw test human create",
 		UseE2EClient: true,
+		Cmd:          "scw test human create",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -41,8 +41,8 @@ func TestHumanCreate(t *testing.T) {
 
 	t.Run("with args", core.Test(&core.TestConfig{
 		Commands:     test.GetCommands(),
-		Cmd:          "scw test human create height=170.5 shoe-size=35.1 altitude-in-meter=-12 altitude-in-millimeter=-12050 fingers-count=21 hair-count=9223372036854775808 is-happy=true eyes-color=amber organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
 		UseE2EClient: true,
+		Cmd:          "scw test human create height=170.5 shoe-size=35.1 altitude-in-meter=-12 altitude-in-millimeter=-12050 fingers-count=21 hair-count=9223372036854775808 is-happy=true eyes-color=amber organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -51,8 +51,8 @@ func TestHumanCreate(t *testing.T) {
 
 	t.Run("invalid boolean", core.Test(&core.TestConfig{
 		Commands:     test.GetCommands(),
-		Cmd:          "scw test human create is-happy=so-so",
 		UseE2EClient: true,
+		Cmd:          "scw test human create is-happy=so-so",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
@@ -71,15 +71,15 @@ func TestHumanList(t *testing.T) {
 	}))
 
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: test.GetCommands(),
+		Commands:     test.GetCommands(),
+		UseE2EClient: true,
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			ctx.ExecuteCmd("scw test human create")
 			ctx.ExecuteCmd("scw test human create")
 			ctx.ExecuteCmd("scw test human create")
 			return nil
 		},
-		Cmd:          "scw test human list",
-		UseE2EClient: true,
+		Cmd: "scw test human list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
