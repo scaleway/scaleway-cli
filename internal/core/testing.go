@@ -82,11 +82,11 @@ type TestConfig struct {
 	// The command line you want to test
 	Cmd string
 
-	//  Hook that will be called after test is run. You can use this function to teardown resources.
-	AfterFunc func(ctx *AfterFuncCtx) error
-
 	// A list of check function that will be run on result.
 	Check TestCheck
+
+	//  Hook that will be called after test is run. You can use this function to teardown resources.
+	AfterFunc func(ctx *AfterFuncCtx) error
 
 	// Run tests in parallel.
 	DisableParallel bool

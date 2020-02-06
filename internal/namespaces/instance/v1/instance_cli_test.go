@@ -111,13 +111,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group=none",
+		Check: core.TestCheckCombine(
+			core.TestCheckNil(".Server.PlacementGroup"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
 	}))
 
 	t.Run(`No initial placement group & placement-group-id=`, core.Test(&core.TestConfig{
@@ -127,13 +127,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=`,
+		Check: core.TestCheckCombine(
+			core.TestCheckNil(".Server.PlacementGroup"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
 	}))
 
 	t.Run(`No initial placement group & placement-group-id=<existing pg id>`, core.Test(&core.TestConfig{
@@ -144,14 +144,14 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
 	}))
 
 	t.Run(`No initial placement group & placement-group-id=<valid, but non existing pg id>`, core.Test(&core.TestConfig{
@@ -161,13 +161,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=11111111-1111-1111-1111-111111111111`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
 	}))
 
 	t.Run(`No initial placement group & placement-group-id=<invalid pg id>`, core.Test(&core.TestConfig{
@@ -177,13 +177,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=1111111`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
 	}))
 
 	t.Run(`Initial placement group & placement-group-id=none`, core.Test(&core.TestConfig{
@@ -194,14 +194,14 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=none`,
+		Check: core.TestCheckCombine(
+			core.TestCheckNil(".Server.PlacementGroup"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
 	}))
 
 	t.Run(`Initial placement group & placement-group-id=<current pg id>`, core.Test(&core.TestConfig{
@@ -212,14 +212,14 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
 	}))
 
 	t.Run(`Initial placement group & placement-group-id=<new pg id>`, core.Test(&core.TestConfig{
@@ -231,13 +231,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup2.PlacementGroup.ID }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckEqual(".PlacementGroup2.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup2.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
 	}))
 }
