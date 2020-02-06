@@ -68,12 +68,6 @@ type AfterFuncCtx struct {
 	CmdResult  interface{}
 }
 
-type CustomFuncCtx struct {
-	Client     *scw.Client
-	ExecuteCmd func(cmd string) interface{}
-	Meta       map[string]interface{}
-}
-
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
 
@@ -100,9 +94,6 @@ type TestConfig struct {
 
 	// Fake build info for this test.
 	BuildInfo BuildInfo
-
-	// Custom hook that will be called at the end
-	CustomFunc func(t *testing.T, ctx *CustomFuncCtx) error
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -234,15 +225,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
 				CmdResult:  result,
-			}))
-		}
-
-		// Run config.CustomFunc, made of alternating commands and asserts.
-		if config.CustomFunc != nil {
-			require.NoError(t, config.CustomFunc(t, &CustomFuncCtx{
-				Client:     client,
-				ExecuteCmd: executeCmd,
-				Meta:       meta,
 			}))
 		}
 	}
