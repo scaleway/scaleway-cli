@@ -152,7 +152,6 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
 
 	// If `shell=` is empty, ask for a value for `shell=`.
-	shellName := ""
 	shellArg := argsI.(*InstallArgs).Shell
 	logger.Debugf("shellArg: %v", shellArg)
 	if shellArg == "" {
@@ -166,11 +165,10 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		if err != nil {
 			return nil, err
 		}
-
-		shellName = filepath.Base(promptedShell)
-	} else {
-		shellName = filepath.Base(shellArg)
+		shellArg = promptedShell
 	}
+
+	shellName := filepath.Base(shellArg)
 
 	script, exists := autocompleteScripts[shellName]
 	if !exists {

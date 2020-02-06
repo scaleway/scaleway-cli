@@ -197,30 +197,34 @@ func initCommand() *core.Command {
 					To improve this tools we rely on diagnostic and usage data.
 					Sending such data is optional and can be disable at any time by running "scw config set send_usage false"
 				`)
+
 				sendUsage, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to send usage statistics and diagnostics?",
 					DefaultValue: true,
 				})
-				args.SendUsage = scw.BoolPtr(sendUsage)
 				if err != nil {
 					return err
 				}
+
+				args.SendUsage = scw.BoolPtr(sendUsage)
 			}
 
 			// Ask whether we should install autocomplete
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To fully enjoy Scaleway CLI we recoomend that you install sutocomplete support in your shell.
+					To fully enjoy Scaleway CLI recommend you to install autocomplete support in your shell.
 				`)
+
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to install autocomplete?",
 					DefaultValue: true,
 				})
-				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 				if err != nil {
 					return err
 				}
+
+				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
 			return nil
@@ -269,7 +273,7 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			successMessage := "Initialisation completed with success"
+			successMessage := "Initialization completed with success"
 
 			if *args.InstallAutocomplete {
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
