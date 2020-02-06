@@ -215,7 +215,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		case customRequest.IP.Null:
 			// ip=none
-			// remove server from ip, only if a Server and an IP are linked.
+			// detach IP from the server, only if it was attached.
 			if getServerResponse.Server.PublicIP != nil {
 				detachIP = true
 			}

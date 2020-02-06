@@ -2,12 +2,12 @@ package core
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -176,7 +176,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(cmd string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			fmt.Println("command:", cmdTemplate(cmd))
+			logger.Debugf("command: %s", cmdTemplate(cmd))
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmdTemplate(cmd), " "),
 				Commands:  config.Commands,
@@ -191,7 +191,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.BeforeFunc
-
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				Client:     client,
@@ -229,7 +228,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.AfterFunc
-
 		if config.AfterFunc != nil {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				Client:     client,
@@ -240,7 +238,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.CustomFunc, made of alternating commands and asserts.
-
 		if config.CustomFunc != nil {
 			require.NoError(t, config.CustomFunc(t, &CustomFuncCtx{
 				Client:     client,
