@@ -265,6 +265,8 @@ func TestCheckGolden() TestCheck {
 
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
+
+	// In order to avoid diff in goldens we set all timestamp to the same date
 	actual = uniformLogTimestamps(actual)
 	if UpdateGoldens {
 		if actualIsEmpty {
@@ -286,6 +288,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 
 var regLogTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
 
+// uniformLogTimestamps replace all log timestamp to the date "2019/12/09 16:04:07"
 func uniformLogTimestamps(input []byte) []byte {
 	return regLogTimestamp.ReplaceAll(input, []byte("2019/12/09 16:04:07"))
 }

@@ -84,7 +84,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}()
 
 	// Check CLI new version when exiting the bootstrap
-	defer func() {
+	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
 		config.BuildInfo.checkVersion()
 	}()
 
