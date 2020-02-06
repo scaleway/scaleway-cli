@@ -126,7 +126,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 	},
 }
 
-type autocompleteInstallArgs struct {
+type AutocompleteInstallArgs struct {
 	Shell string
 }
 
@@ -142,88 +142,90 @@ func autocompleteInstallCommand() *core.Command {
 				Name: "shell",
 			},
 		},
-		ArgsType: reflect.TypeOf(autocompleteInstallArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			// Warning
-			_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
-
-			// If `shell=` is empty, ask for a value for `shell=`.
-			shellName := ""
-			shellArg := argsI.(*autocompleteInstallArgs).Shell
-			logger.Debugf("shellArg: %v", shellArg)
-			if shellArg == "" {
-				defaultShellName := filepath.Base(os.Getenv("SHELL"))
-
-				promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Prompt:          "What type of shell are you using",
-					DefaultValue:    defaultShellName,
-					DefaultValueDoc: defaultShellName,
-				})
-				if err != nil {
-					return nil, err
-				}
-
-				shellName = filepath.Base(promptedShell)
-			} else {
-				shellName = filepath.Base(shellArg)
-			}
-
-			script, exists := autocompleteScripts[shellName]
-			if !exists {
-				return nil, unsupportedShellError(shellName)
-			}
-
-			// Find destination file depending on the OS.
-			shellConfigurationFilePath, exists := script.ShellConfigurationFile[runtime.GOOS]
-			if !exists {
-				return nil, unsupportedOsError(runtime.GOOS)
-			}
-
-			// Early exit if eval line is already present in the shell configuration.
-			shellConfigurationFileContent, err := ioutil.ReadFile(shellConfigurationFilePath)
-			if err != nil {
-				return nil, err
-			}
-			if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
-				_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
-				return "", nil
-			}
-
-			// Warning
-			_, _ = interactive.Println("To enable autocompletion we need to append to " + shellConfigurationFilePath + " the following line:\n\t" + script.CompleteScript)
-
-			// Early exit if user disagrees
-			continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       fmt.Sprintf("Do you want to proceed with theses changes ?"),
-				DefaultValue: true,
-			})
-			if err != nil {
-				return nil, err
-			}
-			if !continueInstallation {
-				return nil, installationCancelledError(shellName, script.CompleteScript)
-			}
-
-			// If the file doesn't exist, create it, or append to the file
-			f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-			if f != nil {
-				defer f.Close()
-			}
-			if err != nil {
-				return nil, err
-			}
-
-			_, err = f.Write([]byte(script.CompleteScript + "\n"))
-			if err != nil {
-				return nil, err
-			}
-
-			// Ack
-			return &core.SuccessResult{
-				Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nUpdated %v.", shellName, shellConfigurationFilePath),
-			}, nil
-		},
+		ArgsType: reflect.TypeOf(AutocompleteInstallArgs{}),
+		Run:      AutocompleteInstallCommandRun,
 	}
+}
+
+func AutocompleteInstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	// Warning
+	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
+
+	// If `shell=` is empty, ask for a value for `shell=`.
+	shellName := ""
+	shellArg := argsI.(*AutocompleteInstallArgs).Shell
+	logger.Debugf("shellArg: %v", shellArg)
+	if shellArg == "" {
+		defaultShellName := filepath.Base(os.Getenv("SHELL"))
+
+		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+			Prompt:          "What type of shell are you using",
+			DefaultValue:    defaultShellName,
+			DefaultValueDoc: defaultShellName,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		shellName = filepath.Base(promptedShell)
+	} else {
+		shellName = filepath.Base(shellArg)
+	}
+
+	script, exists := autocompleteScripts[shellName]
+	if !exists {
+		return nil, unsupportedShellError(shellName)
+	}
+
+	// Find destination file depending on the OS.
+	shellConfigurationFilePath, exists := script.ShellConfigurationFile[runtime.GOOS]
+	if !exists {
+		return nil, unsupportedOsError(runtime.GOOS)
+	}
+
+	// Early exit if eval line is already present in the shell configuration.
+	shellConfigurationFileContent, err := ioutil.ReadFile(shellConfigurationFilePath)
+	if err != nil {
+		return nil, err
+	}
+	if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
+		_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
+		return "", nil
+	}
+
+	// Warning
+	_, _ = interactive.Println("To enable autocompletion we need to append to " + shellConfigurationFilePath + " the following line:\n\t" + script.CompleteScript)
+
+	// Early exit if user disagrees
+	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		Prompt:       fmt.Sprintf("Do you want to proceed with theses changes ?"),
+		DefaultValue: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if !continueInstallation {
+		return nil, installationCancelledError(shellName, script.CompleteScript)
+	}
+
+	// If the file doesn't exist, create it, or append to the file
+	f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if f != nil {
+		defer f.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = f.Write([]byte(script.CompleteScript + "\n"))
+	if err != nil {
+		return nil, err
+	}
+
+	// Ack
+	return &core.SuccessResult{
+		Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nUpdated %v.", shellName, shellConfigurationFilePath),
+	}, nil
 }
 
 func autocompleteCompleteBashCommand() *core.Command {

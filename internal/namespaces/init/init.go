@@ -6,6 +6,8 @@ import (
 	"os"
 	"reflect"
 
+	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -56,11 +58,12 @@ func GetCommands() *core.Commands {
 }
 
 type initArgs struct {
-	SecretKey      string
-	Region         scw.Region
-	Zone           scw.Zone
-	OrganizationID string
-	SendUsage      *bool
+	SecretKey           string
+	Region              scw.Region
+	Zone                scw.Zone
+	OrganizationID      string
+	SendUsage           *bool
+	InstallAutocomplete *bool
 }
 
 func initCommand() *core.Command {
@@ -94,6 +97,10 @@ func initCommand() *core.Command {
 			},
 			{
 				Name: "send-usage",
+			},
+			{
+				Name:  "install-autocomplete",
+				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -201,6 +208,22 @@ func initCommand() *core.Command {
 				}
 			}
 
+			// Ask whether we should install autocomplete
+			if args.InstallAutocomplete == nil {
+				_, _ = interactive.Println()
+				_, _ = interactive.PrintlnWithoutIndent(`
+					To fully enjoy Scaleway CLI we recoomend that you install sutocomplete support in your shell.
+				`)
+				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Prompt:       "Do you want to install autocomplete?",
+					DefaultValue: true,
+				})
+				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
+				if err != nil {
+					return err
+				}
+			}
+
 			return nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -247,7 +270,18 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			return &core.SuccessResult{}, nil
+			successMessage := "Initialisation completed with success"
+
+			if *args.InstallAutocomplete {
+				_, err := autocomplete.AutocompleteInstallCommandRun(ctx, &autocomplete.AutocompleteInstallArgs{})
+				if err != nil {
+					successMessage += " except for autocomplete:\n" + err.Error()
+				}
+			}
+
+			return &core.SuccessResult{
+				Message: successMessage,
+			}, nil
 		},
 	}
 }
