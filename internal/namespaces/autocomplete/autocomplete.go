@@ -181,8 +181,17 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		return nil, unsupportedOsError(runtime.GOOS)
 	}
 
+	// If the file doesn't exist, create it
+	f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if f != nil {
+		defer f.Close()
+	}
+	if err != nil {
+		return nil, err
+	}
+
 	// Early exit if eval line is already present in the shell configuration.
-	shellConfigurationFileContent, err := ioutil.ReadFile(shellConfigurationFilePath)
+	shellConfigurationFileContent, err := ioutil.ReadAll(f)
 	if err != nil {
 		return nil, err
 	}
@@ -206,15 +215,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		return nil, installationCancelledError(shellName, script.CompleteScript)
 	}
 
-	// If the file doesn't exist, create it, or append to the file
-	f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if f != nil {
-		defer f.Close()
-	}
-	if err != nil {
-		return nil, err
-	}
-
+	// Append to file
 	_, err = f.Write([]byte(script.CompleteScript + "\n"))
 	if err != nil {
 		return nil, err
