@@ -12,11 +12,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-sdk-go/logger"
-
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 
 func GetCommands() *core.Commands {
@@ -186,7 +185,7 @@ func autocompleteInstallCommand() *core.Command {
 				return nil, err
 			}
 			if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
-				_, _ = interactive.Println("It looks like the autocompletion is already installed. If it doesn't work properly, try to open a new shell.")
+				_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
 				return "", nil
 			}
 
@@ -207,14 +206,15 @@ func autocompleteInstallCommand() *core.Command {
 
 			// If the file doesn't exist, create it, or append to the file
 			f, err := os.OpenFile(shellConfigurationFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			if f != nil {
+				defer f.Close()
+			}
 			if err != nil {
 				return nil, err
 			}
-			if _, err := f.Write([]byte(script.CompleteScript + "\n")); err != nil {
-				f.Close()
-				return nil, err
-			}
-			if err := f.Close(); err != nil {
+
+			_, err = f.Write([]byte(script.CompleteScript + "\n"))
+			if err != nil {
 				return nil, err
 			}
 
