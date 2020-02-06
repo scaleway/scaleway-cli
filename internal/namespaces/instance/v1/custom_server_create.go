@@ -206,7 +206,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		serverReq.PublicIP = scw.StringPtr(args.IP)
 	case net.ParseIP(args.IP) != nil:
 		// Find the corresponding flexible IP UUID.
-		logger.Infof("finding public IP UUID from address: %s", args.IP)
+		logger.Debugf("finding public IP UUID from address: %s", args.IP)
 		res, err := apiInstance.GetIP(&instance.GetIPRequest{
 			Zone: args.Zone,
 			IP:   args.IP,
@@ -294,7 +294,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// IP
 	//
 	if needIPCreation {
-		logger.Infof("creating IP")
+		logger.Debugf("creating IP")
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
 			Zone:         args.Zone,
 			Organization: args.OrganizationID,
@@ -303,18 +303,18 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
 		}
 		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
-		logger.Infof("IP created: %s", serverReq.PublicIP)
+		logger.Debugf("IP created: %s", serverReq.PublicIP)
 	}
 
 	//
 	// Server
 	//
-	logger.Infof("creating server")
+	logger.Debugf("creating server")
 	serverRes, err := apiInstance.CreateServer(serverReq)
 	if err != nil {
 		if needIPCreation && serverReq.PublicIP != nil {
 			// Delete the created IP
-			logger.Infof("deleting created IP: %s", serverReq.PublicIP)
+			logger.Debugf("deleting created IP: %s", serverReq.PublicIP)
 			err := apiInstance.DeleteIP(&instance.DeleteIPRequest{
 				Zone: args.Zone,
 				IP:   *serverReq.PublicIP,
@@ -327,13 +327,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, fmt.Errorf("cannot create the server: %s", err)
 	}
 	server := serverRes.Server
-	logger.Infof("server created %s", server.ID)
+	logger.Debugf("server created %s", server.ID)
 
 	//
 	// Start server by default
 	//
 	if !args.Stopped {
-		logger.Infof("starting server")
+		logger.Debugf("starting server")
 		_, err := apiInstance.ServerAction(&instance.ServerActionRequest{
 			Zone:     args.Zone,
 			ServerID: server.ID,
@@ -342,7 +342,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if err != nil {
 			logger.Warningf("Cannot start the server: %s. Note that the server is successfully created.", err)
 		} else {
-			logger.Infof("server started")
+			logger.Debugf("server started")
 		}
 	}
 

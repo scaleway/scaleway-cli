@@ -54,7 +54,7 @@ func createClient(meta *meta) (*scw.Client, error) {
 	}
 
 	opts := []scw.ClientOption{
-		scw.WithUserAgent("scaleway-cli/" + meta.BuildInfo.Version),
+		scw.WithUserAgent("scaleway-cli/" + meta.BuildInfo.Version.String()),
 		scw.WithProfile(profile),
 	}
 

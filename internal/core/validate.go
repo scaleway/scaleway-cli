@@ -38,7 +38,7 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 		fieldName = strings.ReplaceAll(fieldName, "."+mapSchema, "")
 		fieldValue, fieldExists := getValueForFieldByName(cmdArgs, fieldName)
 		if !fieldExists {
-			logger.Warningf("could not validate arg value for '%v': invalid fieldName: %v", argSpec.Name, fieldName)
+			logger.Debugf("could not validate arg value for '%v': invalid fieldName: %v", argSpec.Name, fieldName)
 			continue
 		}
 		validateFunc := DefaultArgSpecValidateFunc()

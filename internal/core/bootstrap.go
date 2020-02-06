@@ -59,25 +59,34 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	// Send Matomo telemetry when exiting the bootstrap
-	if (matomo.ForceTelemetry || config.BuildInfo.IsRelease()) && matomo.IsTelemetryEnabled() {
-		start := time.Now()
-		defer func() {
-			if meta.command == nil || meta.command.DisableTelemetry {
-				logger.Debugf("skipping telemetry report")
-				return
-			}
-			matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
-				Command:       meta.command.getPath(),
-				Version:       config.BuildInfo.Version,
-				ExecutionTime: time.Since(start),
-			})
-			if matomoErr != nil {
-				logger.Debugf("error during telemetry reporting: %s", matomoErr)
-			} else {
-				logger.Debugf("telemetry successfully sent")
-			}
-		}()
-	}
+	start := time.Now()
+	defer func() {
+		// skip telemetry report when at least one of the following criteria matches:
+		// - version is not a release
+		// - telemetry is disabled on the current command
+		// - telemetry is disabled from the config (user must consent)
+		if (!matomo.ForceTelemetry && !config.BuildInfo.IsRelease()) ||
+			(meta.command == nil || meta.command.DisableTelemetry) ||
+			!matomo.IsTelemetryEnabled() {
+			logger.Debugf("skipping telemetry report")
+			return
+		}
+		matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
+			Command:       meta.command.getPath(),
+			Version:       config.BuildInfo.Version.String(),
+			ExecutionTime: time.Since(start),
+		})
+		if matomoErr != nil {
+			logger.Debugf("error during telemetry reporting: %s", matomoErr)
+		} else {
+			logger.Debugf("telemetry successfully sent")
+		}
+	}()
+
+	// Check CLI new version when exiting the bootstrap
+	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
+		config.BuildInfo.checkVersion()
+	}()
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{

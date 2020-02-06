@@ -52,7 +52,7 @@ func newSentryClient(buildInfo *core.BuildInfo) (*raven.Client, error) {
 	}
 
 	tagsContext := map[string]string{
-		"version":    buildInfo.Version,
+		"version":    buildInfo.Version.String(),
 		"go_arch":    buildInfo.GoArch,
 		"go_os":      buildInfo.GoOS,
 		"go_version": buildInfo.GoVersion,
