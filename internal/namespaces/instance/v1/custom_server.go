@@ -176,13 +176,15 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 func serverUpdateBuilder(c *core.Command) *core.Command {
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest
-		IP *instance.NullableStringValue
+		IP               *instance.NullableStringValue
+		PlacementGroupID *instance.NullableStringValue
 	}
 
 	IPArgSpec := &core.ArgSpec{
 		Name:  "ip",
 		Short: `IP that should be attached to the server (use ip=none to remove)`,
 	}
+	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
@@ -192,6 +194,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest
+		updateServerRequest.PlacementGroup = customRequest.PlacementGroupID
 
 		attachIPRequest := (*instance.UpdateIPRequest)(nil)
 
