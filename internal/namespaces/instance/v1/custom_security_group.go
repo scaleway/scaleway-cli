@@ -246,7 +246,7 @@ func securityGroupClearCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Remove all rules of the given security group",
-				Request: `{"security_group_id": "f8a5139c-6487-492d-a402-a9b9ffa21602"}`,
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -332,32 +332,28 @@ func securityGroupUpdateCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Change the name of the given security group",
-				Request: `{"security_group_id": "da1550ea-af6c-4441-9ddc-7565c5e8a7dc", "name": "foobar"}`,
-			},
-			{
-				Short:   "Change the description of the given security group",
-				Request: `{"security_group_id": "69e03584-613b-49b9-87ec-a57d540a91d6", "description": "foobar"}`,
-			},
-			{
-				Short:   "Enable stateful security group",
-				Request: `{"security_group_id": "ceadfe27-d186-4c50-bc4f-ff84f14cce4d", "stateful": true}`,
-			},
-			{
-				Short:   "Disable stateful security group",
-				Request: `{"security_group_id": "2d5c6dfb-3e1d-4642-be57-906768122df8", "stateful": false}`,
-			},
-			{
-				Short:   "Set the default inbound policy as drop",
-				Request: `{"security_group_id": "8b81fab4-17df-4cef-a795-6c4b8d7a77f9", "inbound_default_policy": "drop"}`,
-			},
-			{
 				Short:   "Set the default outbound policy as drop",
-				Request: `{"security_group_id": "d1023839-9d81-49a1-b9b3-489ca9eea7f7", "outbound_default_policy": "drop"}`,
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
 			},
 			{
 				Short:   "Set the given security group as the default for the organization",
-				Request: `{"security_group_id": "56fd1cff-1daa-46b8-a9f7-aecf1fa17009", "organization_default": true}`,
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "organization_default": true}`,
+			},
+			{
+				Short:   "Change the name of the given security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "name": "foobar"}`,
+			},
+			{
+				Short:   "Change the description of the given security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "description": "foobar"}`,
+			},
+			{
+				Short:   "Enable stateful security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "stateful": true}`,
+			},
+			{
+				Short:   "Set the default inbound policy as drop",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "inbound_default_policy": "drop"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
