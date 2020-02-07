@@ -197,6 +197,16 @@ func serverStartCommand() *core.Command {
 		Run:       getRunServerAction(instance.ServerActionPoweron),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:   "Start a server in the default zone with a given id",
+				Request: `{"server_id": "4fbb5119-4542-489c-9443-aa8b574bb6ad"}`,
+			},
+			{
+				Short:   "Start a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "3f38e99f-07bd-458a-9512-b1d15433a102"}`,
+			},
+		},
 	}
 }
 
@@ -210,6 +220,16 @@ func serverStopCommand() *core.Command {
 		Run:       getRunServerAction(instance.ServerActionPoweroff),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:   "Stop a server in the default zone with a given id",
+				Request: `{"server_id": "db21e0d5-f0f0-4535-8815-88b80abac8a9"}`,
+			},
+			{
+				Short:   "Stop a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "1a147062-b8f8-410c-91f7-c150f356e38f"}`,
+			},
+		},
 	}
 }
 
@@ -223,6 +243,16 @@ func serverStandbyCommand() *core.Command {
 		Run:       getRunServerAction(instance.ServerActionStopInPlace),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:   "Put in standby a server in the default zone with a given id",
+				Request: `{"server_id": "d9439f78-df31-411b-b292-8ef56dd2920c"}`,
+			},
+			{
+				Short:   "Put in standby a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "d36cfc02-5d79-417f-a785-79da256c53d0"}`,
+			},
+		},
 	}
 }
 
@@ -236,6 +266,16 @@ func serverRebootCommand() *core.Command {
 		Run:       getRunServerAction(instance.ServerActionReboot),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:   "Reboot a server in the default zone with a given id",
+				Request: `{"server_id": "887274a9-dd80-41ff-aab9-764e935b77b8"}`,
+			},
+			{
+				Short:   "Reboot a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "bde358bc-298f-43b5-9093-683645fbae95"}`,
+			},
+		},
 	}
 }
 
@@ -298,6 +338,16 @@ func serverDeleteCommand() *core.Command {
 			{
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
+			},
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete a server in the default zone with a given id",
+				Request: `{"server_id": "c5a72f0e-d768-414f-95d3-f58a07e83147"}`,
+			},
+			{
+				Short:   "Delete a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "6bc6479d-5cda-4a25-b279-67e44b606eac"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
