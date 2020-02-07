@@ -119,7 +119,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 			}
 			compdef _scw scw
 		`,
-		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
+		CompleteScript: `autoload -U compinit && compinit && eval "$(scw autocomplete script shell=zsh)"`,
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(os.Getenv("HOME"), ".zshrc"),
 		},
