@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -56,11 +57,12 @@ func GetCommands() *core.Commands {
 }
 
 type initArgs struct {
-	SecretKey      string
-	Region         scw.Region
-	Zone           scw.Zone
-	OrganizationID string
-	SendUsage      *bool
+	SecretKey           string
+	Region              scw.Region
+	Zone                scw.Zone
+	OrganizationID      string
+	SendUsage           *bool
+	InstallAutocomplete *bool
 }
 
 func initCommand() *core.Command {
@@ -94,6 +96,10 @@ func initCommand() *core.Command {
 			},
 			{
 				Name: "send-usage",
+			},
+			{
+				Name:  "install-autocomplete",
+				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -191,14 +197,34 @@ func initCommand() *core.Command {
 					To improve this tools we rely on diagnostic and usage data.
 					Sending such data is optional and can be disable at any time by running "scw config set send_usage false"
 				`)
+
 				sendUsage, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to send usage statistics and diagnostics?",
 					DefaultValue: true,
 				})
-				args.SendUsage = scw.BoolPtr(sendUsage)
 				if err != nil {
 					return err
 				}
+
+				args.SendUsage = scw.BoolPtr(sendUsage)
+			}
+
+			// Ask whether we should install autocomplete
+			if args.InstallAutocomplete == nil {
+				_, _ = interactive.Println()
+				_, _ = interactive.PrintlnWithoutIndent(`
+					To fully enjoy Scaleway CLI we recommend you to install autocomplete support in your shell.
+				`)
+
+				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Prompt:       "Do you want to install autocomplete?",
+					DefaultValue: true,
+				})
+				if err != nil {
+					return err
+				}
+
+				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
 			return nil
@@ -247,7 +273,18 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			return &core.SuccessResult{}, nil
+			successMessage := "Initialization completed with success"
+
+			if *args.InstallAutocomplete {
+				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
+				if err != nil {
+					successMessage += " except for autocomplete:\n" + err.Error()
+				}
+			}
+
+			return &core.SuccessResult{
+				Message: successMessage,
+			}, nil
 		},
 	}
 }
