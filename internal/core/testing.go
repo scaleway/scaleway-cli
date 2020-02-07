@@ -17,6 +17,7 @@ import (
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/stretchr/testify/assert"
@@ -166,7 +167,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(cmd string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-
+			logger.Debugf("command: %s", cmdTemplate(cmd))
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:      strings.Split(cmdTemplate(cmd), " "),
 				Commands:  config.Commands,
@@ -181,7 +182,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.BeforeFunc
-
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				Client:     client,
@@ -191,29 +191,34 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.Cmd
+		var result interface{}
+		var exitCode int
+		var err error
 
-		stdout := &bytes.Buffer{}
-		stderr := &bytes.Buffer{}
-		exitCode, result, err := Bootstrap(&BootstrapConfig{
-			Args:      strings.Split(cmdTemplate(config.Cmd), " "),
-			Commands:  config.Commands,
-			BuildInfo: &config.BuildInfo,
-			Stdout:    stdout,
-			Stderr:    stderr,
-			Client:    client,
-		})
+		if config.Cmd != "" {
+			stdout := &bytes.Buffer{}
+			stderr := &bytes.Buffer{}
+			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
+			exitCode, result, err = Bootstrap(&BootstrapConfig{
+				Args:      strings.Split(cmdTemplate(config.Cmd), " "),
+				Commands:  config.Commands,
+				BuildInfo: &config.BuildInfo,
+				Stdout:    stdout,
+				Stderr:    stderr,
+				Client:    client,
+			})
 
-		config.Check(t, &CheckFuncCtx{
-			ExitCode: exitCode,
-			Stdout:   stdout.Bytes(),
-			Stderr:   stderr.Bytes(),
-			Meta:     meta,
-			Result:   result,
-			Err:      err,
-		})
+			config.Check(t, &CheckFuncCtx{
+				ExitCode: exitCode,
+				Stdout:   stdout.Bytes(),
+				Stderr:   stderr.Bytes(),
+				Meta:     meta,
+				Result:   result,
+				Err:      err,
+			})
+		}
 
 		// Run config.AfterFunc
-
 		if config.AfterFunc != nil {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				Client:     client,

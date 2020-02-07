@@ -170,6 +170,105 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 }
 
 //
+// Builders
+//
+
+func serverUpdateBuilder(c *core.Command) *core.Command {
+	type instanceUpdateServerRequestCustom struct {
+		*instance.UpdateServerRequest
+		IP *instance.NullableStringValue
+	}
+
+	IPArgSpec := &core.ArgSpec{
+		Name:  "ip",
+		Short: `IP that should be attached to the server (use ip=none to remove)`,
+	}
+
+	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
+
+	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
+
+	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		customRequest := argsI.(*instanceUpdateServerRequestCustom)
+
+		updateServerRequest := customRequest.UpdateServerRequest
+
+		attachIPRequest := (*instance.UpdateIPRequest)(nil)
+
+		detachIP := false
+
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
+
+		getServerResponse, err := api.GetServer(&instance.GetServerRequest{
+			Zone:     "",
+			ServerID: customRequest.ServerID,
+		})
+		if err != nil {
+			return "", err
+		}
+
+		switch {
+		case customRequest.IP == nil:
+			// ip is not set
+			// do nothing
+
+		case customRequest.IP.Null:
+			// ip=none
+			// detach IP from the server, only if it was attached.
+			if getServerResponse.Server.PublicIP != nil {
+				detachIP = true
+			}
+
+		default:
+			// ip=<anything>
+			// update ip
+			if getServerResponse.Server.PublicIP != nil {
+				detachIP = true
+			}
+			attachIPRequest = &instance.UpdateIPRequest{
+				IP: customRequest.IP.Value,
+				Server: &instance.NullableStringValue{
+					Value: customRequest.ServerID,
+				},
+			}
+		}
+
+		// Instance API does not support detaching the existing IP and then attaching a new one to the same server
+		// in 1 call only.
+		// We need to do it manually in 2 calls.
+
+		if detachIP {
+			_, err = api.UpdateIP(&instance.UpdateIPRequest{
+				IP: getServerResponse.Server.PublicIP.ID,
+				Server: &instance.NullableStringValue{
+					Null: true,
+				},
+			})
+			if err != nil {
+				return "", err
+			}
+		}
+
+		if attachIPRequest != nil {
+			_, err = api.UpdateIP(attachIPRequest)
+			if err != nil {
+				return "", err
+			}
+		}
+
+		updateServerResponse, err := api.UpdateServer(updateServerRequest)
+		if err != nil {
+			return "", err
+		}
+
+		return updateServerResponse, nil
+	}
+
+	return c
+}
+
+//
 // Commands
 //
 
