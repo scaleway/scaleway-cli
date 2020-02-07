@@ -6,6 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func init() {
@@ -107,11 +108,12 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }}",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
@@ -127,9 +129,10 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group=none",
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			require.NoError(t, ctx.Err)
+			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
 			return nil
@@ -143,9 +146,10 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=`,
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			require.NoError(t, ctx.Err)
+			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
@@ -159,10 +163,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}`,
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			require.NoError(t, ctx.Err)
+			assert.Equal(t,
+				ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+			)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
@@ -176,8 +184,9 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=11111111-1111-1111-1111-111111111111`,
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id=11111111-1111-1111-1111-111111111111`,
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
@@ -192,8 +201,9 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=1111111`,
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id=1111111`,
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
@@ -209,10 +219,11 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=none`,
-		Check: core.TestCheckCombine(
-			core.TestCheckNil(".Server.PlacementGroup"),
-		),
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id=none`,
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			require.NoError(t, ctx.Err)
+			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
@@ -227,10 +238,14 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup.PlacementGroup.ID }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}`,
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			require.NoError(t, ctx.Err)
+			assert.Equal(t,
+				ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+			)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
