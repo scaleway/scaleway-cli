@@ -452,7 +452,7 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			var multiErr error
-			if args.DeleteIP && server.Server.PublicIP != nil && server.Server.PublicIP.Dynamic == false {
+			if args.DeleteIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: args.Zone,
 					IP:   server.Server.PublicIP.ID,
