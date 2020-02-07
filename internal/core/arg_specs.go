@@ -4,6 +4,15 @@ import "github.com/scaleway/scaleway-sdk-go/scw"
 
 type ArgSpecs []*ArgSpec
 
+func (s ArgSpecs) DeleteByName(name string) ArgSpecs {
+	for i, spec := range s {
+		if spec.Name == name {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
+}
+
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	for _, spec := range s {
 		if spec.Name == name {

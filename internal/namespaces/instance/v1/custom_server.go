@@ -6,6 +6,7 @@ import (
 	"net"
 	"reflect"
 	"sort"
+	"strconv"
 	"time"
 
 	"github.com/fatih/color"
@@ -176,19 +177,25 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 func serverUpdateBuilder(c *core.Command) *core.Command {
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest
-		IP               *instance.NullableStringValue
-		PlacementGroupID *instance.NullableStringValue
+		IP                  *instance.NullableStringValue
+		PlacementGroupID    *instance.NullableStringValue
+		AdditionalVolumeIDs *[]string
 	}
-
-	IPArgSpec := &core.ArgSpec{
-		Name:  "ip",
-		Short: `IP that should be attached to the server (use ip=none to remove)`,
-	}
-	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
-	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
+	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
+
+	// Reuse existing argspecs to control order display in help
+	c.ArgSpecs.GetByName("volumes.{key}.name").Name = "additional-volume-ids.{index}"
+	c.ArgSpecs.GetByName("volumes.{key}.size").Name = "ip"
+	c.ArgSpecs = c.ArgSpecs.DeleteByName("volumes.{key}.id")
+	c.ArgSpecs = c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
+	c.ArgSpecs = c.ArgSpecs.DeleteByName("volumes.{key}.organization")
+
+	// Update short descriptions
+	c.ArgSpecs.GetByName("additional-volume-ids.{index}").Short = "All additional local or block volume ids to attach to your server. Keep in mind that root volume won't be updated through this command"
+	c.ArgSpecs.GetByName("ip").Short = `IP that should be attached to the server (use ip=none to remove)`
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
@@ -201,16 +208,44 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		detachIP := false
 
 		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
+		apiInstance := instance.NewAPI(client)
 
-		getServerResponse, err := api.GetServer(&instance.GetServerRequest{
-			Zone:     "",
+		getServerResponse, err := apiInstance.GetServer(&instance.GetServerRequest{
 			ServerID: customRequest.ServerID,
 		})
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
+		//
+		// Additional volumes. Only volume IDs are allowed in the API.
+		//
+		if customRequest.AdditionalVolumeIDs != nil {
+			volumes := make(map[string]*instance.VolumeTemplate)
+
+			// Root volume must be included to avoid detaching it.
+			rootVolume := getServerResponse.Server.Volumes["0"]
+			if rootVolume != nil {
+				volumes["0"] = &instance.VolumeTemplate{ID: rootVolume.ID, Name: rootVolume.Name}
+			}
+
+			// Attach all valid volume IDs, and detach empty string.
+			for i, additionalVolumeIDs := range *customRequest.AdditionalVolumeIDs {
+				index := strconv.Itoa(i + 1)
+				switch additionalVolumeIDs {
+				case "":
+					// Detach the volume. Not adding the volume in the map will detach it.
+				default:
+					volumes[index] = &instance.VolumeTemplate{ID: additionalVolumeIDs, Name: getServerResponse.Server.Name + "-" + index}
+				}
+			}
+
+			customRequest.Volumes = &volumes
+		}
+
+		//
+		// IP.
+		//
 		switch {
 		case customRequest.IP == nil:
 			// ip is not set
@@ -242,27 +277,27 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		// We need to do it manually in 2 calls.
 
 		if detachIP {
-			_, err = api.UpdateIP(&instance.UpdateIPRequest{
+			_, err = apiInstance.UpdateIP(&instance.UpdateIPRequest{
 				IP: getServerResponse.Server.PublicIP.ID,
 				Server: &instance.NullableStringValue{
 					Null: true,
 				},
 			})
 			if err != nil {
-				return "", err
+				return nil, err
 			}
 		}
 
 		if attachIPRequest != nil {
-			_, err = api.UpdateIP(attachIPRequest)
+			_, err = apiInstance.UpdateIP(attachIPRequest)
 			if err != nil {
-				return "", err
+				return nil, err
 			}
 		}
 
-		updateServerResponse, err := api.UpdateServer(updateServerRequest)
+		updateServerResponse, err := apiInstance.UpdateServer(updateServerRequest)
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		return updateServerResponse, nil
