@@ -83,6 +83,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t,
 					ctx.Meta["PlacementGroupResponse2"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
@@ -91,8 +92,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
-			ctx.ExecuteCmd("scw instance server delete placement-group-id={{ .PlacementGroupResponse.PlacementGroup.ID }}")
-			ctx.ExecuteCmd("scw instance server delete placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroupResponse.PlacementGroup.ID }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}")
 			return nil
 		},
 	}))

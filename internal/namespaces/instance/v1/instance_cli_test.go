@@ -80,12 +80,12 @@ func Test_CreateVolume(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20G",
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Volume.ID }}")
-			return nil
-		},
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 			assert.Equal(t, "test", ctx.Result.(*instance.CreateVolumeResponse).Volume.Name)
+		},
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance volume delete volume-id=" + ctx.CmdResult.(*instance.CreateVolumeResponse).Volume.ID)
+			return nil
 		},
 	}))
 
