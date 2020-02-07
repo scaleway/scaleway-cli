@@ -243,6 +243,12 @@ func securityGroupClearCommand() *core.Command {
 		Resource:  "security-group",
 		Verb:      "clear",
 		ArgsType:  reflect.TypeOf(instanceResetSecurityGroupArgs{}),
+		Examples: []*core.Example{
+			{
+				Short:   "Remove all rules of the given security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*instanceResetSecurityGroupArgs)
 
@@ -322,6 +328,32 @@ func securityGroupUpdateCommand() *core.Command {
 			},
 			{
 				Name: "organization-default",
+			},
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Set the default outbound policy as drop",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
+			},
+			{
+				Short:   "Set the given security group as the default for the organization",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "organization_default": true}`,
+			},
+			{
+				Short:   "Change the name of the given security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "name": "foobar"}`,
+			},
+			{
+				Short:   "Change the description of the given security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "description": "foobar"}`,
+			},
+			{
+				Short:   "Enable stateful security group",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "stateful": true}`,
+			},
+			{
+				Short:   "Set the default inbound policy as drop",
+				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "inbound_default_policy": "drop"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
