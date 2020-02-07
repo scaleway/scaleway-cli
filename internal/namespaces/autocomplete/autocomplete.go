@@ -53,7 +53,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 			_scw() {
 				_get_comp_words_by_ref -n = cword words
 
-				output=$(scw autocomplete complete bash "$COMP_LINE" "$cword" "${words[@]}")
+				output=$(scw autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
 				COMPREPLY=($output)
 				# apply compopt option and ignore failure for older bash versions
 				[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true
@@ -82,7 +82,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		CompleteFunc: `
 			complete --erase --command scw;
 			complete --command scw --no-files;
-			complete --command scw --arguments '(scw autocomplete complete fish (commandline) (commandline --cursor) (commandline --current-token) (commandline --tokenize --cut-at-cursor))';
+			complete --command scw --arguments '(scw autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --tokenize --cut-at-cursor))';
 		`,
 		CompleteScript: `eval (scw autocomplete script shell=fish)`,
 		ShellConfigurationFile: map[string]string{
@@ -110,7 +110,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 					# we replace 'EMPTY_WORD' by '' later in go code
 					words+=('EMPTY_WORD')
 				fi
-				output=($(scw autocomplete complete zsh $CURSOR $words))
+				output=($(scw autocomplete complete zsh -- $CURSOR $words))
 				opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
