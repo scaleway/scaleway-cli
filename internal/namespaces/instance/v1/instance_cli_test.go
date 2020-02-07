@@ -246,13 +246,18 @@ func Test_ServerUpdate(t *testing.T) {
 			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.PlacementGroup.ID }} stopped")
 			return nil
 		},
-		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group={{ .PlacementGroup2.PlacementGroup.ID }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckEqual(".PlacementGroup2.PlacementGroup.ID", ".Server.PlacementGroup.ID"),
-		),
+		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup2.PlacementGroup.ID }}`,
+		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			assert.NoError(t, ctx.Err)
+			assert.Equal(t,
+				ctx.Meta["PlacementGroup2"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+			)
+		},
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup2.PlacementGroup.ID }}")
 			return nil
 		},
 	}))
