@@ -327,25 +327,3 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
 }
-
-func TestCheckEqual(expectedKey string, actualKey string) TestCheck {
-	return func(t *testing.T, ctx *CheckFuncCtx) {
-		parse := func(str string, data interface{}) string {
-			if !strings.HasPrefix(str, ".") {
-				return str
-			}
-
-			str = "{{" + str + "}}"
-			strBuf := &bytes.Buffer{}
-			require.NoError(t, template.Must(template.New("str").Parse(str)).Execute(strBuf, data))
-			return strBuf.String()
-		}
-		expectedValue := parse(expectedKey, ctx.Meta)
-		actualValue := parse(actualKey, ctx.Result)
-		assert.Equal(t, expectedValue, actualValue)
-	}
-}
-
-func TestCheckNil(actualKey string) TestCheck {
-	return TestCheckEqual("<nil>", actualKey)
-}

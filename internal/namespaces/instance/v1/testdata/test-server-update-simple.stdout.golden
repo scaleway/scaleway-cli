@@ -1,13 +1,13 @@
-server.id                        7c353562-92a2-4340-b7ee-1212cdae714c
-server.name                      cli-srv-serene-buck
-server.organization              aba2d0d0-b01d-4d88-b322-935edc96d0fd
+server.id                        2cbc1a9a-9aab-4f04-b1cc-6b20046a0761
+server.name                      cli-srv-cool-poitras
+server.organization              b2593aa3-d0e8-4366-89c3-6e666abe1f6f
 server.allowed-actions.0         poweron
 server.allowed-actions.1         backup
 server.commercial-type           DEV1-S
 server.creation-date             few seconds ago
 server.dynamic-ip-required       false
 server.enable-ipv6               false
-server.hostname                  cli-srv-serene-buck
+server.hostname                  cli-srv-cool-poitras
 server.image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 server.image.name                Ubuntu Bionic Beaver
 server.image.arch                x86_64
@@ -21,15 +21,15 @@ server.image.public              true
 server.image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 server.image.state               available
 server.protected                 false
-server.public-ip.id              95c94531-cba7-4e57-aa5e-b6a4dd7a816c
-server.public-ip.address         163.172.170.53
+server.public-ip.id              e8086eeb-cca1-4fc9-ada3-1495741cdea4
+server.public-ip.address         163.172.146.186
 server.public-ip.dynamic         false
 server.modification-date         few seconds ago
 server.state                     archived
 server.bootscript                x86_64 mainline 4.9.93 rev1
 server.boot-type                 local
 server.volumes                   1
-server.security-group.id         49822f6c-1d32-465c-a017-720691d159b2
+server.security-group.id         980142a3-a959-4aee-8325-91a6ba787439
 server.security-group.name       Default security group
 server.state-detail              
 server.arch                      x86_64

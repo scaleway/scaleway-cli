@@ -158,6 +158,7 @@ func Test_CreateServer(t *testing.T) {
 			Commands: GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=dynamic -w", // dynamic IP is created at runtime
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.NoError(t, ctx.Err)
 				assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
 				assert.Equal(t, true, ctx.Result.(*instance.Server).DynamicIPRequired)
 			},
@@ -360,7 +361,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance server delete server-id={{ .server.id }} delete-volumes delete-ip")
+			ctx.ExecuteCmd("scw instance server delete server-id=" + ctx.Meta["Server"].(*instance.Server).ID + " delete-volumes delete-ip")
 			return nil
 		},
 	}))

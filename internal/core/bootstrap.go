@@ -105,13 +105,13 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	if err != nil {
 		if _, ok := err.(*interactive.InterruptError); ok {
-			return 130, meta.result, err
+			return 130, nil, err
 		}
-		err = meta.Printer.Print(err, nil)
-		if err != nil {
+		printErr := meta.Printer.Print(err, nil)
+		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
-		return 1, meta.result, err
+		return 1, nil, err
 	}
 	return 0, meta.result, nil
 }

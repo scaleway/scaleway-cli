@@ -12,7 +12,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} ip=none",
@@ -30,7 +30,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server without ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			ctx.Meta["CreateIPResponse"] = ctx.ExecuteCmd("scw instance ip create")
 			return nil
 		},
@@ -49,7 +49,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server with ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu-bionic stopped")
 			ctx.Meta["CreateIPResponse"] = ctx.ExecuteCmd("scw instance ip create")
 			ctx.Meta["ServerUpdated"] = ctx.ExecuteCmd("scw instance server update server-id={{ .Server.ID }} ip={{ .CreateIPResponse.IP.Address }}")
 			ctx.Meta["CreateIPResponse2"] = ctx.ExecuteCmd("scw instance ip create")
@@ -83,6 +83,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t,
 					ctx.Meta["PlacementGroupResponse2"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
@@ -91,8 +92,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
-			ctx.ExecuteCmd("scw instance server delete placement-group-id={{ .PlacementGroupResponse.PlacementGroup.ID }}")
-			ctx.ExecuteCmd("scw instance server delete placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroupResponse.PlacementGroup.ID }}")
+			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroupResponse2.PlacementGroup.ID }}")
 			return nil
 		},
 	}))
