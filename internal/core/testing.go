@@ -233,6 +233,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 // TestCheckCombine Combine multiple check function into one
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		assert.Equal(t, false, len(checks) < 2)
 		for _, check := range checks {
 			check(t, ctx)
 		}

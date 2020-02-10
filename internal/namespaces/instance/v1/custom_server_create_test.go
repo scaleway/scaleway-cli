@@ -22,9 +22,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server create -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check:    core.TestCheckGolden(),
 	}))
 
 	////
@@ -82,23 +80,21 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("Image UUID", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped",
-			Check: core.TestCheckCombine(
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
-				},
-			),
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+			},
+
 			AfterFunc: deleteServerAfterFunc,
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic tags.0=prod tags.1=blue stopped",
-			Check: core.TestCheckCombine(
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.Equal(t, "prod", ctx.Result.(*instance.Server).Tags[0])
-					assert.Equal(t, "blue", ctx.Result.(*instance.Server).Tags[1])
-				},
-			),
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "prod", ctx.Result.(*instance.Server).Tags[0])
+				assert.Equal(t, "blue", ctx.Result.(*instance.Server).Tags[1])
+			},
+
 			AfterFunc: deleteServerAfterFunc,
 		}))
 	})

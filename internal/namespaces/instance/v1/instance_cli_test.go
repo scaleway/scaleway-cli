@@ -51,9 +51,7 @@ func Test_GetServer(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server get -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check:    core.TestCheckGolden(),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -67,9 +65,7 @@ func Test_GetServer(t *testing.T) {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
 			return nil
 		},
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check: core.TestCheckGolden(),
 	}))
 }
 
@@ -100,9 +96,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server update -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-		),
+		Check:    core.TestCheckGolden(),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
