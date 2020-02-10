@@ -64,6 +64,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		CompleteScript: `eval "$(scw autocomplete script shell=bash)"`,
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(os.Getenv("HOME"), ".bash_profile"),
+			"linux":  path.Join(os.Getenv("HOME"), ".bashrc"),
 		},
 	},
 	"fish": {
@@ -87,6 +88,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		CompleteScript: `eval (scw autocomplete script shell=fish)`,
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
+			"linux":  path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
 		},
 	},
 	"zsh": {
@@ -123,6 +125,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(os.Getenv("HOME"), ".zshrc"),
+			"linux":  path.Join(os.Getenv("HOME"), ".zshrc"),
 		},
 	},
 }
