@@ -169,12 +169,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stderrBuffer := &bytes.Buffer{}
 			logger.Debugf("command: %s", cmdTemplate(cmd))
 			_, result, err := Bootstrap(&BootstrapConfig{
-				Args:      strings.Split(cmdTemplate(cmd), " "),
-				Commands:  config.Commands,
-				BuildInfo: &config.BuildInfo,
-				Stdout:    stdoutBuffer,
-				Stderr:    stderrBuffer,
-				Client:    client,
+				Args:             strings.Split(cmdTemplate(cmd), " "),
+				Commands:         config.Commands,
+				BuildInfo:        &config.BuildInfo,
+				Stdout:           stdoutBuffer,
+				Stderr:           stderrBuffer,
+				Client:           client,
+				DisableTelemetry: true,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -200,12 +201,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stderr := &bytes.Buffer{}
 			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
-				Args:      strings.Split(cmdTemplate(config.Cmd), " "),
-				Commands:  config.Commands,
-				BuildInfo: &config.BuildInfo,
-				Stdout:    stdout,
-				Stderr:    stderr,
-				Client:    client,
+				Args:             strings.Split(cmdTemplate(config.Cmd), " "),
+				Commands:         config.Commands,
+				BuildInfo:        &config.BuildInfo,
+				Stdout:           stdout,
+				Stderr:           stderr,
+				Client:           client,
+				DisableTelemetry: true,
 			})
 
 			config.Check(t, &CheckFuncCtx{
