@@ -33,7 +33,7 @@ type BootstrapConfig struct {
 	// If not a client will be automatically created by the CLI using Config, Env and flags see createClient().
 	Client *scw.Client
 
-	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config sent_telemetry is set to.
+	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
 }
@@ -66,14 +66,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	start := time.Now()
 	defer func() {
 		// skip telemetry report when at least one of the following criteria matches:
-		// - telemetry is disabled from the config (user must consent)
-		// - no valid command was executed
-		// - telemetry is disabled on the ran command
 		// - telemetry is explicitly disable in bootstrap config
-		if !matomo.IsTelemetryEnabled() ||
+		// - no command was executed
+		// - telemetry is disabled on the ran command
+		// - telemetry is disabled from the config (user must consent)
+		if config.DisableTelemetry ||
 			meta.command == nil ||
 			meta.command.DisableTelemetry ||
-			config.DisableTelemetry {
+			matomo.IsTelemetryDisabled() {
 			logger.Debugf("skipping telemetry report")
 			return
 		}
