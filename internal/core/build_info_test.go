@@ -33,9 +33,7 @@ func Test_CheckVersion(t *testing.T) {
 		},
 		BeforeFunc: deleteLatestVersionUpdateFile,
 		Cmd:        "scw plop",
-		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
-		),
+		Check:      TestCheckStderrGolden(),
 	}))
 
 	t.Run("Up to date version", Test(&TestConfig{
@@ -45,9 +43,7 @@ func Test_CheckVersion(t *testing.T) {
 		},
 		BeforeFunc: deleteLatestVersionUpdateFile,
 		Cmd:        "scw plop -D",
-		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
-		),
+		Check:      TestCheckStderrGolden(),
 	}))
 
 	t.Run("Already checked", Test(&TestConfig{
@@ -61,9 +57,7 @@ func Test_CheckVersion(t *testing.T) {
 			}
 			return fmt.Errorf("failed to create latestVersionUpdateFile")
 		},
-		Cmd: "scw plop -D",
-		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
-		),
+		Cmd:   "scw plop -D",
+		Check: TestCheckStderrGolden(),
 	}))
 }
