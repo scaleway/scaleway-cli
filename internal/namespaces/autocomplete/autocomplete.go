@@ -94,6 +94,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
 		// you might want to run 'compdef _scw go' during development.
 		CompleteFunc: `
+			autoload -U compinit && compinit
 			_scw () {
 				# splits $BUFFER, i.e. the complete command line,
 				# into shell words using shell parsing rules by Expansion Flag (z) and puts it into an array
