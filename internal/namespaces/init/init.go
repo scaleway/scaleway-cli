@@ -194,7 +194,7 @@ func initCommand() *core.Command {
 			if args.SendTelemetry == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To improve this tools we rely on diagnostic and usage data.
+					To improve this tool we rely on diagnostic and usage data.
 					Sending such data is optional and can be disable at any time by running "scw config set send_telemetry false"
 				`)
 
