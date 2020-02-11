@@ -166,21 +166,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	apiMarketplace := marketplace.NewAPI(client)
 	apiInstance := instance.NewAPI(client)
 
-	//
-	// Server Type
-	//
-	serverType := (*instance.ServerType)(nil)
-	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
-		Zone: serverReq.Zone,
-	})
-	if err != nil {
-		logger.Warningf("cannot get server types: %s", err)
-	} else {
-		serverType = serverTypesRes.Servers[serverReq.CommercialType]
-		if serverType == nil {
-			logger.Warningf("unrecognized server type: %s", serverReq.CommercialType)
-		}
-	}
+	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
 
 	//
 	// Image.
@@ -601,4 +587,23 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 	}
 
 	return suggestions
+}
+
+// getServeType is a util to get a instance.ServerType by its commercialType
+func getServeType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
+	serverType := (*instance.ServerType)(nil)
+
+	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
+		Zone: zone,
+	})
+	if err != nil {
+		logger.Warningf("cannot get server types: %s", err)
+	} else {
+		serverType = serverTypesRes.Servers[commercialType]
+		if serverType == nil {
+			logger.Warningf("unrecognized server type: %s", commercialType)
+		}
+	}
+
+	return serverType
 }
