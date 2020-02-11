@@ -38,6 +38,8 @@ func GetCommands() *core.Commands {
 		serverStandbyCommand(),
 		serverRebootCommand(),
 		serverDeleteCommand(),
+		serverAttachVolumeCommand(),
+		serverDetachVolumeCommand(),
 	))
 
 	//

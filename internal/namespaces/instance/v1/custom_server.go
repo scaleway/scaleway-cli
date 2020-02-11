@@ -275,6 +275,65 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 // Commands
 //
 
+func serverAttachVolumeCommand() *core.Command {
+	return &core.Command{
+		Short:     `Attach a volume to a server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "attach-volume",
+		ArgsType:  reflect.TypeOf(instance.AttachVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `ID of the server.`,
+				Required: true,
+			},
+			{
+				Name:     "volume-id",
+				Short:    `ID of the volume to attach.`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			return instance.NewAPI(core.ExtractClient(ctx)).AttachVolume(argsI.(*instance.AttachVolumeRequest))
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Attach a volume to a server",
+				Request: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
+			},
+		},
+	}
+}
+
+func serverDetachVolumeCommand() *core.Command {
+	return &core.Command{
+		Short:     `Detach a volume from its server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "detach-volume",
+		ArgsType:  reflect.TypeOf(instance.DetachVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "volume-id",
+				Short:    `ID of the volume to detach.`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			return instance.NewAPI(core.ExtractClient(ctx)).DetachVolume(argsI.(*instance.DetachVolumeRequest))
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Detach a volume from its server",
+				Request: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
+			},
+		},
+	}
+}
+
 type instanceActionRequest struct {
 	Zone     scw.Zone
 	ServerID string
