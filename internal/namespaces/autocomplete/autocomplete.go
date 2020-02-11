@@ -236,9 +236,10 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Resource:  "complete",
 		Verb:      "bash",
 		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient: false,
-		Hidden:   true,
-		ArgsType: reflect.TypeOf(args.RawArgs{}),
+		NoClient:         false,
+		Hidden:           true,
+		DisableTelemetry: true,
+		ArgsType:         reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			wordIndex, err := strconv.Atoi(rawArgs[1])
@@ -273,9 +274,10 @@ func autocompleteCompleteFishCommand() *core.Command {
 		Resource:  "complete",
 		Verb:      "fish",
 		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient: false,
-		Hidden:   true,
-		ArgsType: reflect.TypeOf(args.RawArgs{}),
+		NoClient:         false,
+		Hidden:           true,
+		DisableTelemetry: true,
+		ArgsType:         reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			leftWords := rawArgs[3:]
@@ -304,9 +306,10 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Resource:  "complete",
 		Verb:      "zsh",
 		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient: false,
-		Hidden:   true,
-		ArgsType: reflect.TypeOf(args.RawArgs{}),
+		NoClient:         false,
+		Hidden:           true,
+		DisableTelemetry: true,
+		ArgsType:         reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 
@@ -343,11 +346,12 @@ type autocompleteShowArgs struct {
 
 func autocompleteScriptCommand() *core.Command {
 	return &core.Command{
-		Short:     `Show autocomplete script for current shell`,
-		Long:      `Show autocomplete script for current shell.`,
-		Namespace: "autocomplete",
-		Resource:  "script",
-		NoClient:  true,
+		Short:            `Show autocomplete script for current shell`,
+		Long:             `Show autocomplete script for current shell.`,
+		Namespace:        "autocomplete",
+		Resource:         "script",
+		NoClient:         true,
+		DisableTelemetry: true,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:    "shell",
