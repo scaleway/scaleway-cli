@@ -12,9 +12,8 @@ import (
 )
 
 var fakeCommand = &Command{
-	Namespace:        "plop",
-	DisableTelemetry: true,
-	ArgsType:         reflect.TypeOf(args.RawArgs{}),
+	Namespace: "plop",
+	ArgsType:  reflect.TypeOf(args.RawArgs{}),
 	Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return &SuccessResult{}, nil
 	},
