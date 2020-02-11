@@ -20,6 +20,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, (*instance.ServerIP)(nil), ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP)
 			},
+			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
@@ -39,6 +40,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, ctx.Meta["CreateIPResponse"].(*instance.CreateIPResponse).IP.Address, ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
 			},
+			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
@@ -65,6 +67,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 					ctx.Meta["CreateIPResponse2"].(*instance.CreateIPResponse).IP.Address,
 					ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
 			},
+			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")

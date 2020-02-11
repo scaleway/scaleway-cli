@@ -24,8 +24,6 @@ func TestInterruptError(t *testing.T) {
 		),
 		UseE2EClient: true,
 		Cmd:          "scw test interrupt error",
-		Check: TestCheckCombine(
-			TestCheckExitCode(130),
-		),
+		Check:        TestCheckExitCode(130),
 	}))
 }

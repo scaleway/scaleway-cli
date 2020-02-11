@@ -34,6 +34,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd:        "scw plop",
 		Check: TestCheckCombine(
 			TestCheckStderrGolden(),
+			TestCheckExitCode(0),
 		),
 	}))
 
@@ -46,6 +47,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd:        "scw plop -D",
 		Check: TestCheckCombine(
 			TestCheckStderrGolden(),
+			TestCheckExitCode(0),
 		),
 	}))
 
@@ -63,6 +65,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop -D",
 		Check: TestCheckCombine(
 			TestCheckStderrGolden(),
+			TestCheckExitCode(0),
 		),
 	}))
 }
