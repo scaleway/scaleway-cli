@@ -16,10 +16,12 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} ip=none",
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			assert.Equal(t, (*instance.ServerIP)(nil), ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP)
-		},
-
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, (*instance.ServerIP)(nil), ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
@@ -34,10 +36,12 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} ip={{ .CreateIPResponse.IP.Address }}",
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			assert.Equal(t, ctx.Meta["CreateIPResponse"].(*instance.CreateIPResponse).IP.Address, ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
-		},
-
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, ctx.Meta["CreateIPResponse"].(*instance.CreateIPResponse).IP.Address, ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
@@ -54,14 +58,17 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} ip={{ .CreateIPResponse2.IP.Address }}",
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			assert.Equal(t,
-				ctx.Meta["CreateIPResponse"].(*instance.CreateIPResponse).IP.Address,
-				ctx.Meta["ServerUpdated"].(*instance.UpdateServerResponse).Server.PublicIP.Address)
-			assert.Equal(t,
-				ctx.Meta["CreateIPResponse2"].(*instance.CreateIPResponse).IP.Address,
-				ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t,
+					ctx.Meta["CreateIPResponse"].(*instance.CreateIPResponse).IP.Address,
+					ctx.Meta["ServerUpdated"].(*instance.UpdateServerResponse).Server.PublicIP.Address)
+				assert.Equal(t,
+					ctx.Meta["CreateIPResponse2"].(*instance.CreateIPResponse).IP.Address,
+					ctx.Result.(*instance.UpdateServerResponse).Server.PublicIP.Address)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance ip delete ip={{ .CreateIPResponse.IP.Address }}")

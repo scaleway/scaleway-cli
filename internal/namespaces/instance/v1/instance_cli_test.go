@@ -22,13 +22,19 @@ func Test_ListServer(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list -h",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 }
 
@@ -36,14 +42,20 @@ func Test_ListServerTypes(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server-type list -h",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:     GetCommands(),
 		Cmd:          "scw instance server-type list",
 		UseE2EClient: true,
-		Check:        core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 }
 
@@ -51,7 +63,10 @@ func Test_GetServer(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server get -h",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -61,11 +76,14 @@ func Test_GetServer(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server get server-id={{ .Server.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
 			return nil
 		},
-		Check: core.TestCheckGolden(),
 	}))
 }
 
@@ -76,9 +94,12 @@ func Test_CreateVolume(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20G",
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			assert.Equal(t, "test", ctx.Result.(*instance.CreateVolumeResponse).Volume.Name)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "test", ctx.Result.(*instance.CreateVolumeResponse).Volume.Name)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance volume delete volume-id=" + ctx.CmdResult.(*instance.CreateVolumeResponse).Volume.ID)
 			return nil
@@ -88,7 +109,10 @@ func Test_CreateVolume(t *testing.T) {
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
 	}))
 }
 
@@ -96,7 +120,10 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server update -h",
-		Check:    core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 	}))
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -123,10 +150,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: "scw instance server update server-id={{ .Server.ID }} placement-group=none",
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			require.NoError(t, ctx.Err)
-			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }}")
 			return nil
@@ -140,10 +170,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group=`,
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			require.NoError(t, ctx.Err)
-			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			return nil
@@ -158,13 +191,16 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}`,
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			require.NoError(t, ctx.Err)
-			assert.Equal(t,
-				ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
-				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
-			)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t,
+					ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+					ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+				)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
@@ -214,10 +250,13 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id=none`,
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			require.NoError(t, ctx.Err)
-			assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Nil(t, ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
@@ -233,13 +272,16 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}`,
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			require.NoError(t, ctx.Err)
-			assert.Equal(t,
-				ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
-				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
-			)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t,
+					ctx.Meta["PlacementGroup"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+					ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+				)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
@@ -256,13 +298,16 @@ func Test_ServerUpdate(t *testing.T) {
 			return nil
 		},
 		Cmd: `scw instance server update server-id={{ .Server.ID }} placement-group-id={{ .PlacementGroup2.PlacementGroup.ID }}`,
-		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-			assert.NoError(t, ctx.Err)
-			assert.Equal(t,
-				ctx.Meta["PlacementGroup2"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
-				ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
-			)
-		},
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.NoError(t, ctx.Err)
+				assert.Equal(t,
+					ctx.Meta["PlacementGroup2"].(*instance.CreatePlacementGroupResponse).PlacementGroup.ID,
+					ctx.Result.(*instance.UpdateServerResponse).Server.PlacementGroup.ID,
+				)
+			},
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
 			ctx.ExecuteCmd("scw instance placement-group delete placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}")
