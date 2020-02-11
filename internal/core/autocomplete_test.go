@@ -129,19 +129,19 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower delete flower f", run(&testCase{Suggestions: nil}))
 	// TODO: t.Run("scw test flower create leaves.0.size=", run(&testCase{Suggestions: AutocompleteSuggestions{"L", "M", "S", "XL", "XXL"}}))
 
-	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--access-key", "--debug", "--help", "--output", "--profile", "--secret-key", "-D", "-h", "-o", "-p"}}))
+	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-o", "-p"}}))
 	t.Run("scw test -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower -o ", run(&testCase{Suggestions: AutocompleteSuggestions{"human", "json"}}))
-	t.Run("scw test flower -o json create -", run(&testCase{Suggestions: AutocompleteSuggestions{"--access-key", "--debug", "--help", "--output", "--profile", "--secret-key", "--wait", "-D", "-h", "-p", "-w"}}))
+	t.Run("scw test flower -o json create -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "--wait", "-D", "-h", "-p", "-w"}}))
 	t.Run("scw test flower create name=p -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower create name=p -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 	t.Run("scw test flower create name=p -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 	t.Run("scw test flower create name=p -o=jso", run(&testCase{Suggestions: nil}))
 	t.Run("scw test flower create name=p -o", run(&testCase{Suggestions: AutocompleteSuggestions{"-o"}}))
 	t.Run("scw test -o json flower create ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "name=", "size=", "species="}}))
-	t.Run("scw test flower create name=p --secret-key xxxx ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
-	t.Run("scw test --secret-key xxxx flower create name=p ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
-	t.Run("scw test flower create name=p --secret-key xxxx", run(&testCase{Suggestions: nil}))
+	t.Run("scw test flower create name=p --profile xxxx ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
+	t.Run("scw test --profile xxxx flower create name=p ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
+	t.Run("scw test flower create name=p --profile xxxx", run(&testCase{Suggestions: nil}))
 }
 
 func TestWordIndex(t *testing.T) {

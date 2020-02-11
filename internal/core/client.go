@@ -67,14 +67,13 @@ func createClient(meta *meta) (*scw.Client, error) {
 }
 
 // configErrorDetails generate a detailed error message for an invalid client option.
-func configErrorDetails(configKey, varEnv, flagName string) string {
+func configErrorDetails(configKey, varEnv string) string {
 	// TODO: update the more info link
 	return fmt.Sprintf(`%s can be initialised using the command "scw init".
 
 After initialisation, there are three ways to provide %s:
 - with the Scaleway config file, in the %s key: %s;
 - with the %s environement variable;
-- with %s global CLI flag.
 
 Note that the last method has the highest priority.
 
@@ -84,7 +83,6 @@ More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-
 		configKey,
 		scw.GetConfigPath(),
 		varEnv,
-		flagName,
 	)
 }
 
@@ -95,7 +93,7 @@ func validateProfile(profile *scw.Profile) error {
 	if profile.AccessKey == nil || *profile.AccessKey == "" {
 		return &CliError{
 			Err:     fmt.Errorf("access key is required"),
-			Details: configErrorDetails("access_key", "SCW_ACCESS_KEY", "access-key"),
+			Details: configErrorDetails("access_key", "SCW_ACCESS_KEY"),
 			Hint:    credentialsHint,
 		}
 	}
@@ -110,7 +108,7 @@ func validateProfile(profile *scw.Profile) error {
 	if profile.SecretKey == nil || *profile.SecretKey == "" {
 		return &CliError{
 			Err:     fmt.Errorf("secret key is required"),
-			Details: configErrorDetails("secret_key", "SCW_SECRET_KEY", "secret-key"),
+			Details: configErrorDetails("secret_key", "SCW_SECRET_KEY"),
 			Hint:    credentialsHint,
 		}
 	}
@@ -125,7 +123,7 @@ func validateProfile(profile *scw.Profile) error {
 	if profile.DefaultOrganizationID == nil || *profile.DefaultOrganizationID == "" {
 		return &CliError{
 			Err:     fmt.Errorf("organization ID is required"),
-			Details: configErrorDetails("default_organization_id", "SCW_DEFAULT_ORGANIZATION_ID", "organization-id"),
+			Details: configErrorDetails("default_organization_id", "SCW_DEFAULT_ORGANIZATION_ID"),
 			Hint:    credentialsHint,
 		}
 	}
@@ -140,7 +138,7 @@ func validateProfile(profile *scw.Profile) error {
 	if profile.DefaultZone == nil || *profile.DefaultZone == "" {
 		return &CliError{
 			Err:     fmt.Errorf("zone is required"),
-			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE", "zone"),
+			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE"),
 			Hint:    credentialsHint,
 		}
 	}
