@@ -101,6 +101,17 @@ func TestMarshal(t *testing.T) {
 		},
 	}))
 
+	t.Run("empty-slice", run(TestCase{
+		data: &Slice{
+			Strings:    []string{},
+			StringsPtr: []*string{},
+		},
+		expected: []string{
+			"strings=none",
+			"strings-ptr=none",
+		},
+	}))
+
 	t.Run("well-known-types", run(TestCase{
 		data: &WellKnownTypes{
 			Size: 20 * scw.GB,
@@ -247,9 +258,14 @@ func TestMarshalValue(t *testing.T) {
 		expected: "",
 	}))
 
-	t.Run("typed-nil", run(TestCase{
+	t.Run("nil-slice", run(TestCase{
 		data:     []string(nil),
 		expected: "",
+	}))
+
+	t.Run("empty-slice", run(TestCase{
+		data:     []string{},
+		expected: "none",
 	}))
 
 	t.Run("custom-func", run(TestCase{

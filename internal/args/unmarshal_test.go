@@ -185,6 +185,35 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 	}))
 
+	t.Run("empty-slice", run(TestCase{
+		args: []string{
+			"strings=none",
+			"strings-ptr=none",
+		},
+		expected: &Slice{
+			Strings:    []string{},
+			StringsPtr: []*string{},
+		},
+	}))
+
+	t.Run("simple-parent-child-conflict", run(TestCase{
+		args: []string{
+			"strings=none",
+			"strings.0=none",
+		},
+		error: "arguments 'strings' and 'strings.0' cannot be used simultaneously",
+		data:  &Slice{},
+	}))
+
+	t.Run("simple-child-parent-conflict", run(TestCase{
+		args: []string{
+			"strings.0=none",
+			"strings=none",
+		},
+		error: "arguments 'strings.0' and 'strings' cannot be used simultaneously",
+		data:  &Slice{},
+	}))
+
 	t.Run("well-known-types", run(TestCase{
 		args: []string{
 			"size=20gb",
