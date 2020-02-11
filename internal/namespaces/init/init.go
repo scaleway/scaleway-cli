@@ -61,7 +61,7 @@ type initArgs struct {
 	Region              scw.Region
 	Zone                scw.Zone
 	OrganizationID      string
-	SendUsage           *bool
+	SendTelemetry       *bool
 	InstallAutocomplete *bool
 }
 
@@ -191,14 +191,14 @@ func initCommand() *core.Command {
 			}
 
 			// Ask for send usage permission
-			if args.SendUsage == nil {
+			if args.SendTelemetry == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disable at any time by running "scw config set send_usage false"
+					To improve this tools we rely on diagnostic and usage data.
+					Sending such data is optional and can be disable at any time by running "scw config set send_telemetry false"
 				`)
 
-				sendUsage, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to send usage statistics and diagnostics?",
 					DefaultValue: true,
 				})
@@ -206,7 +206,7 @@ func initCommand() *core.Command {
 					return err
 				}
 
-				args.SendUsage = scw.BoolPtr(sendUsage)
+				args.SendTelemetry = scw.BoolPtr(sendTelemetry)
 			}
 
 			// Ask whether we should install autocomplete
@@ -240,8 +240,8 @@ func initCommand() *core.Command {
 				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
 			}
 
-			if args.SendUsage != nil {
-				config.SendUsage = *args.SendUsage
+			if args.SendTelemetry != nil {
+				config.SendTelemetry = *args.SendTelemetry
 			}
 
 			// Update active profile

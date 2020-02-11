@@ -117,5 +117,5 @@ func IsTelemetryDisabled() bool {
 	if err != nil {
 		return false
 	}
-	return !config.SendUsage
+	return !config.SendTelemetry
 }
