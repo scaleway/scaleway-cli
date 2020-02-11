@@ -476,7 +476,7 @@ func validateImageServerTypeCompatibility(getImageResponse *instance.GetImageRes
 		return nil
 	}
 
-	if /*getImageResponse.Image.RootVolume.Size < serverType.VolumesConstraint.MinSize || */ getImageResponse.Image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+	if getImageResponse.Image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume for %s is constraigned between %s and %s",
 			getImageResponse.Image.ID,
 			getImageResponse.Image.RootVolume.Size,
