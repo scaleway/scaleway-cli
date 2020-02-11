@@ -431,18 +431,3 @@ func keySuggestion(key, keySchema string, completedArg map[string]struct{}) stri
 	}
 	return strings.ReplaceAll(key, "([0-9]+)", strconv.Itoa(i))
 }
-
-func WordIndex(charIndex int, words []string) int {
-	wordIndex := len(words)
-	charCount := 0
-	for i, word := range words {
-		charCount += len(word)
-		if charIndex <= charCount {
-			wordIndex = i
-			break
-		}
-
-		charCount++ // space character
-	}
-	return wordIndex
-}

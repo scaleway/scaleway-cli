@@ -96,22 +96,7 @@ var autocompleteScripts = map[string]autocompleteScript{
 		CompleteFunc: `
 			autoload -U compinit && compinit
 			_scw () {
-				# splits $BUFFER, i.e. the complete command line,
-				# into shell words using shell parsing rules by Expansion Flag (z) and puts it into an array
-				words=("${(z)BUFFER}")
-
-				# If the last char of the line is a space, a last empty word is not added to words.
-				# We need to add it manually.
-				lastChar="${BUFFER: -1}"
-				if [[ $lastChar = *[!\ ]* ]]; then # if $lastChar contains something else than spaces
-					: # do nothing
-				else
-					# words+=('') does not work
-					# couldn't find a way to add an empty string to an array
-					# we replace 'EMPTY_WORD' by '' later in go code
-					words+=('EMPTY_WORD')
-				fi
-				output=($(scw autocomplete complete zsh -- $CURSOR $words))
+				output=($(scw autocomplete complete zsh -- ${CURRENT} ${words}))
 				opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
@@ -313,26 +298,22 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 
-			words := rawArgs[1:]
-			charIndex, err := strconv.Atoi(rawArgs[0])
+			// First arg is the word index.
+			wordIndex, err := strconv.Atoi(rawArgs[0])
 			if err != nil {
 				return nil, err
 			}
-			wordIndex := core.WordIndex(charIndex, words)
-			leftWords := words[:wordIndex]
-			wordToComplete := words[wordIndex]
+			wordIndex-- // In zsh word index starts at 1.
 
-			// In zsh, couldn't find a way to add an empty string to an array.
-			// We added "EMPTY_WORD" instead.
-			// "EMPTY_WORD" is replaced by "".
-			// see the zsh script, line 106:
-			//     words+=('EMPTY_WORD')
-			if wordToComplete == "EMPTY_WORD" {
-				wordToComplete = ""
+			// Other args are all the words.
+			words := rawArgs[1:]
+			if len(words) <= wordIndex {
+				words = append(words, "") // Handle case when last word is empty.
 			}
 
-			// TODO: compute rightWords once used by core.AutoComplete()
-			rightWords := []string(nil)
+			leftWords := words[:wordIndex]
+			wordToComplete := words[wordIndex]
+			rightWords := words[wordIndex+1:]
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			return strings.Join(res.Suggestions, " "), nil
