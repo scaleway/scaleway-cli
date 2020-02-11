@@ -4,13 +4,11 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	flag "github.com/spf13/pflag"
 )
 
 func init() {
 	// we disable cobra command sorting to position important commands at the top when looking at the usage.
 	cobra.EnableCommandSorting = false
-	cobra.AddTemplateFunc("removeClientFlags", removeClientFlags)
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -155,7 +153,7 @@ FLAGS:
 {{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .HasAvailableInheritedFlags}}
 
 GLOBAL FLAGS:
-{{ (removeClientFlags .InheritedFlags .Annotations.NoClient).FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .Annotations.SeeAlsos}}
+{{ .InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .Annotations.SeeAlsos}}
 
 SEE ALSO:
 {{.Annotations.SeeAlsos}}{{end}}{{if .HasHelpSubCommands}}
@@ -165,14 +163,6 @@ Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
 
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
 `
-
-func removeClientFlags(flags *flag.FlagSet, noClient string) *flag.FlagSet {
-	if noClient == "true" {
-		panicOnError(flags.MarkHidden("access-key"))
-		panicOnError(flags.MarkHidden("secret-key"))
-	}
-	return flags
-}
 
 func panicOnError(err error) {
 	if err != nil {

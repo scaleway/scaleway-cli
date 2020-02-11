@@ -6,8 +6,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-
-	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 
 // AutocompleteSuggestions is a list of words to be set to the shell as autocomplete suggestions.
@@ -53,10 +51,6 @@ type FlagSpec struct {
 }
 
 func (node *AutoCompleteNode) addGlobalFlags() {
-	node.Children["--access-key"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:             "--access-key",
-		HasVariableValue: true,
-	})
 	node.Children["-D"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-D",
 	})
@@ -78,13 +72,11 @@ func (node *AutoCompleteNode) addGlobalFlags() {
 		EnumValues: []string{"json", "human"},
 	})
 	node.Children["-p"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "-p",
+		Name:             "-p",
+		HasVariableValue: true,
 	})
 	node.Children["--profile"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "--profile",
-	})
-	node.Children["--secret-key"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:             "--secret-key",
+		Name:             "--profile",
 		HasVariableValue: true,
 	})
 }
@@ -273,7 +265,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// When a flag is found it populates `completedFlags`.
 	// When an argument is found it populates `completedArgs`.
 	for i, word := range append(leftWords, rightWords...) {
-		logger.Debugf("word: '%v'", word)
 		switch {
 		// handle --flag=value and --flag
 		case isFlag(word):
