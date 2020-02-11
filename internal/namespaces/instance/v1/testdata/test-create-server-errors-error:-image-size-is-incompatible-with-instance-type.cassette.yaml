@@ -307,7 +307,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:05 GMT
+      - Tue, 11 Feb 2020 15:36:15 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -354,7 +354,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:05 GMT
+      - Tue, 11 Feb 2020 15:36:15 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

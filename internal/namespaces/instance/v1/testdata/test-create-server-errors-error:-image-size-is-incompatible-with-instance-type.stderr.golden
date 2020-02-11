@@ -1,1 +1,1 @@
-Image d4067cdc-dc9d-4810-8a26-0dae51d7df42 requires 50000000000 on root volume, but root volume for DEV1-S is constraigned between 20000000000 and 20000000000
+Image d4067cdc-dc9d-4810-8a26-0dae51d7df42 requires 50 GB on root volume, but root volume is constrained between 20 GB and 20 GB on DEV1-S

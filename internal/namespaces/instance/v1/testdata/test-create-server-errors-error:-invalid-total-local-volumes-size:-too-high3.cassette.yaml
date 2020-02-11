@@ -13,9 +13,9 @@ interactions:
     method: POST
   response:
     body: '{"volume": {"size": 20000000000, "state": "available", "name": "cli-test",
-      "modification_date": "2020-02-11T13:55:00.043208+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-02-11T13:55:00.043208+00:00", "id":
-      "685406de-e4a8-4168-9a67-177cdc90729b", "volume_type": "l_ssd", "server": null}}'
+      "modification_date": "2020-02-11T15:31:20.403908+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-02-11T15:31:20.403908+00:00", "id":
+      "bd91b6d8-ba6d-4a98-bf2c-841cb1e9d38d", "volume_type": "l_ssd", "server": null}}'
     headers:
       Cache-Control:
       - no-cache
@@ -26,9 +26,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:59 GMT
+      - Tue, 11 Feb 2020 15:31:20 GMT
       Location:
-      - https://cp-par1.scaleway.com/volumes/685406de-e4a8-4168-9a67-177cdc90729b
+      - https://cp-par1.scaleway.com/volumes/bd91b6d8-ba6d-4a98-bf2c-841cb1e9d38d
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -346,7 +346,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:59 GMT
+      - Tue, 11 Feb 2020 15:31:20 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -998,7 +998,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:00 GMT
+      - Tue, 11 Feb 2020 15:31:20 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -1045,7 +1045,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:00 GMT
+      - Tue, 11 Feb 2020 15:31:20 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1063,13 +1063,13 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/685406de-e4a8-4168-9a67-177cdc90729b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/bd91b6d8-ba6d-4a98-bf2c-841cb1e9d38d
     method: GET
   response:
     body: '{"volume": {"size": 20000000000, "state": "available", "name": "cli-test",
-      "modification_date": "2020-02-11T13:55:00.043208+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-02-11T13:55:00.043208+00:00", "id":
-      "685406de-e4a8-4168-9a67-177cdc90729b", "volume_type": "l_ssd", "server": null}}'
+      "modification_date": "2020-02-11T15:31:20.403908+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+      "export_uri": null, "creation_date": "2020-02-11T15:31:20.403908+00:00", "id":
+      "bd91b6d8-ba6d-4a98-bf2c-841cb1e9d38d", "volume_type": "l_ssd", "server": null}}'
     headers:
       Cache-Control:
       - no-cache
@@ -1080,7 +1080,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:00 GMT
+      - Tue, 11 Feb 2020 15:31:20 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1098,7 +1098,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/685406de-e4a8-4168-9a67-177cdc90729b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/bd91b6d8-ba6d-4a98-bf2c-841cb1e9d38d
     method: DELETE
   response:
     body: ""
@@ -1110,7 +1110,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:00 GMT
+      - Tue, 11 Feb 2020 15:31:21 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

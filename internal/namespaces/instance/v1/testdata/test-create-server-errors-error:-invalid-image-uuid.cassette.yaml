@@ -307,7 +307,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:57 GMT
+      - Tue, 11 Feb 2020 15:37:53 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -342,7 +342,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:57 GMT
+      - Tue, 11 Feb 2020 15:37:53 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -366,21 +366,21 @@ interactions:
     method: POST
   response:
     body: '{"ip": {"organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd", "reverse":
-      null, "id": "7f7e5c46-ed0a-425f-8d43-d0cfd77386dc", "server": null, "address":
-      "163.172.182.243"}}'
+      null, "id": "95c94531-cba7-4e57-aa5e-b6a4dd7a816c", "server": null, "address":
+      "163.172.170.53"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "173"
+      - "172"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:57 GMT
+      - Tue, 11 Feb 2020 15:37:54 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/7f7e5c46-ed0a-425f-8d43-d0cfd77386dc
+      - https://cp-par1.scaleway.com/ips/95c94531-cba7-4e57-aa5e-b6a4dd7a816c
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -393,7 +393,7 @@ interactions:
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-clever-roentgen","commercial_type":"DEV1-S","image":"7a892c1a-bbdc-491f-9974-4008e3708664","public_ip":"7f7e5c46-ed0a-425f-8d43-d0cfd77386dc","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
+    body: '{"name":"cli-srv-infallible-kilby","commercial_type":"DEV1-S","image":"7a892c1a-bbdc-491f-9974-4008e3708664","public_ip":"95c94531-cba7-4e57-aa5e-b6a4dd7a816c","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
     headers:
       Content-Type:
@@ -413,7 +413,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:58 GMT
+      - Tue, 11 Feb 2020 15:37:54 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -431,7 +431,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/7f7e5c46-ed0a-425f-8d43-d0cfd77386dc
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/95c94531-cba7-4e57-aa5e-b6a4dd7a816c
     method: DELETE
   response:
     body: ""
@@ -443,7 +443,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:54:58 GMT
+      - Tue, 11 Feb 2020 15:37:54 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

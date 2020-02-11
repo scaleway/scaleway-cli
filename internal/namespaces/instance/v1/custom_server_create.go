@@ -477,12 +477,12 @@ func validateImageServerTypeCompatibility(getImageResponse *instance.GetImageRes
 	}
 
 	if getImageResponse.Image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
-		return fmt.Errorf("image %s requires %s on root volume, but root volume for %s is constraigned between %s and %s",
+		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			getImageResponse.Image.ID,
-			getImageResponse.Image.RootVolume.Size,
+			humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)),
+			humanize.Bytes(uint64(serverType.VolumesConstraint.MinSize)),
+			humanize.Bytes(uint64(serverType.VolumesConstraint.MaxSize)),
 			CommercialType,
-			serverType.VolumesConstraint.MinSize,
-			serverType.VolumesConstraint.MaxSize,
 		)
 	}
 
@@ -536,12 +536,12 @@ func validateRootVolume(getImageResponse *instance.GetImageResponse, rootVolume 
 	if rootVolume.ID != "" {
 		return &core.CliError{
 			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
-			Details: "You must create an imageID of this volume and use its ID in the 'imageID' argument.",
+			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
 		}
 	}
 
 	if rootVolume.Size < getImageResponse.Image.RootVolume.Size {
-		return fmt.Errorf("first volume size must be at least %s for this imageID", humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)))
+		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)))
 	}
 
 	return nil
