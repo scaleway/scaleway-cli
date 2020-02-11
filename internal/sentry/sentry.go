@@ -42,10 +42,6 @@ func logAndSentry(sentryClient *raven.Client, err error) {
 
 // newSentryClient create a sentry client with build info tags.
 func newSentryClient(buildInfo *core.BuildInfo) (*raven.Client, error) {
-	if !buildInfo.IsRelease() {
-		return nil, nil
-	}
-
 	client, err := raven.New(dsn)
 	if err != nil {
 		return nil, err
