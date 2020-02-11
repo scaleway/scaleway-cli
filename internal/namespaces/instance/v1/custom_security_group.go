@@ -292,6 +292,11 @@ func securityGroupClearCommand() *core.Command {
 	}
 }
 
+// securityGroupUpdateCommand updates a security-group.
+// Because the API for SecurityGroup works with a PUT but not a PATCH,
+// the method UpdateSecurityGroup() is not generated.
+// Instead, setSecurityGroup() is generated, and a custom UpdateSecurityGroup() method is handwritten the SDK.
+// This is why 'scw instance security-group update' needs to be written by hand.
 func securityGroupUpdateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Update security group`,
