@@ -209,7 +209,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// If type is a slice:
 
 		// We handle special case where array=none creates an empty slice.
-		if len(argNameWords) == 0 && value == "none" {
+		if len(argNameWords) == 0 && value == emptySliceValue {
 			dest.Set(reflect.MakeSlice(dest.Type(), 0, 0))
 			return nil
 		}

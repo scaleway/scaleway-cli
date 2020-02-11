@@ -126,7 +126,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 
 		// If we explicitly try to marshal a non-nil empty slice we marshal it as args=none
 		if src.Len() == 0 && !src.IsNil() {
-			return append(args, marshalKeyValue(keys, "none")), nil
+			return append(args, marshalKeyValue(keys, emptySliceValue)), nil
 		}
 
 		// We loop through all items and marshal them with key = key.0, key.1, ....
