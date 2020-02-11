@@ -143,33 +143,3 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test --profile xxxx flower create name=p ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 	t.Run("scw test flower create name=p --profile xxxx", run(&testCase{Suggestions: nil}))
 }
-
-func TestWordIndex(t *testing.T) {
-	type testCase struct {
-		CharIndex int
-		Words     []string
-		WordIndex int
-	}
-
-	run := func(tc *testCase) func(*testing.T) {
-		return func(t *testing.T) {
-			words := tc.Words
-			if len(words) == 0 {
-				name := strings.ReplaceAll(t.Name(), "TestWordIndex/", "")
-				name = strings.ReplaceAll(name, " ", "_")
-				words = strings.Split(name, "_")
-			}
-
-			assert.Equal(t, tc.WordIndex, WordIndex(tc.CharIndex, words))
-		}
-	}
-
-	t.Run("scw", run(&testCase{CharIndex: 3, WordIndex: 0}))
-	t.Run("scw ", run(&testCase{CharIndex: 3, WordIndex: 0}))
-	t.Run("scw ", run(&testCase{CharIndex: 4, WordIndex: 1}))
-	t.Run("scw plop", run(&testCase{CharIndex: 4, WordIndex: 1}))
-	t.Run("scw plop", run(&testCase{CharIndex: 8, WordIndex: 1}))
-	t.Run("scw in security-groups list", run(&testCase{CharIndex: 6, WordIndex: 1}))
-	t.Run("scw in security-groups list", run(&testCase{CharIndex: 27, WordIndex: 3}))
-	t.Run("scw in security-groups list ", run(&testCase{CharIndex: 28, WordIndex: 4}))
-}
