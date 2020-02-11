@@ -167,6 +167,22 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	apiInstance := instance.NewAPI(client)
 
 	//
+	// Server Type
+	//
+	serverType := (*instance.ServerType)(nil)
+	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
+		Zone: serverReq.Zone,
+	})
+	if err != nil {
+		logger.Warningf("cannot get server types: %s", err)
+	} else {
+		serverType, _ = serverTypesRes.Servers[serverReq.CommercialType]
+		if serverType == nil {
+			logger.Warningf("unrecognized server type: %s", serverReq.CommercialType)
+		}
+	}
+
+	//
 	// Image.
 	//
 	// Could be:
@@ -187,6 +203,21 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		serverReq.Image = imageID
 	default:
 		serverReq.Image = args.Image
+	}
+
+	getImageResponse, err := apiInstance.GetImage(&instance.GetImageRequest{
+		Zone:    args.Zone,
+		ImageID: serverReq.Image,
+	})
+	if err != nil {
+		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
+	}
+
+	//
+	// Check Image / Server-Type compatibility
+	//
+	if err := validateImageServerTypeCompatibility(getImageResponse, serverType, serverReq.CommercialType); err != nil {
+		return nil, err
 	}
 
 	//
@@ -241,12 +272,12 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate root volume type and size.
-		if err := validateRootVolume(apiInstance, args.Zone, serverReq.Image, volumes["0"]); err != nil {
+		if err := validateRootVolume(getImageResponse, volumes["0"]); err != nil {
 			return nil, err
 		}
 
 		// Validate total local volume sizes.
-		if err := validateLocalVolumeSizes(apiInstance, volumes, args.Zone, serverReq.CommercialType); err != nil {
+		if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
 			return nil, err
 		}
 
@@ -453,8 +484,32 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 	}, nil
 }
 
+func validateImageServerTypeCompatibility(getImageResponse *instance.GetImageResponse, serverType *instance.ServerType, CommercialType string) error {
+	if serverType == nil || getImageResponse == nil {
+		logger.Warningf("skipping image server-type compatibility validation")
+		return nil
+	}
+
+	if /*getImageResponse.Image.RootVolume.Size < serverType.VolumesConstraint.MinSize || */ getImageResponse.Image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+		return fmt.Errorf("image %s requires %s on root volume, but root volume for %s is constraigned between %s and %s",
+			getImageResponse.Image.ID,
+			getImageResponse.Image.RootVolume.Size,
+			CommercialType,
+			serverType.VolumesConstraint.MinSize,
+			serverType.VolumesConstraint.MaxSize,
+		)
+	}
+
+	return nil
+}
+
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(api *instance.API, volumes map[string]*instance.VolumeTemplate, zone scw.Zone, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serverType *instance.ServerType, commercialType string) error {
+	if serverType == nil {
+		logger.Warningf("skip local volume size validation")
+		return nil
+	}
+
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -463,44 +518,27 @@ func validateLocalVolumeSizes(api *instance.API, volumes map[string]*instance.Vo
 		}
 	}
 
-	// Get server types.
-	serverTypesRes, err := api.ListServersTypes(&instance.ListServersTypesRequest{
-		Zone: zone,
-	})
-	if err != nil {
-		// Ignore root volume size check.
-		logger.Warningf("cannot get server types: %s", err)
-		logger.Warningf("skip local volume size validation")
-		return nil
+	volumeConstraint := serverType.VolumesConstraint
+
+	// If no root volume provided, count the default root volume size added by the API.
+	if rootVolume := volumes["0"]; rootVolume == nil {
+		localVolumeTotalSize += volumeConstraint.MinSize
 	}
 
-	// Validate total size.
-	if serverType, exists := serverTypesRes.Servers[commercialType]; exists {
-		volumeConstraint := serverType.VolumesConstraint
-
-		// If no root volume provided, count the default root volume size added by the API.
-		if rootVolume := volumes["0"]; rootVolume == nil {
-			localVolumeTotalSize += volumeConstraint.MinSize
+	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
+		min := humanize.Bytes(uint64(volumeConstraint.MinSize))
+		if volumeConstraint.MinSize == volumeConstraint.MaxSize {
+			return fmt.Errorf("%s total local volume size must be equal to %s", commercialType, min)
 		}
 
-		if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
-			min := humanize.Bytes(uint64(volumeConstraint.MinSize))
-			if volumeConstraint.MinSize == volumeConstraint.MaxSize {
-				return fmt.Errorf("%s total local volume size must be equal to %s", commercialType, min)
-			}
-
-			max := humanize.Bytes(uint64(volumeConstraint.MaxSize))
-			return fmt.Errorf("%s total local volume size must be between %s and %s", commercialType, min, max)
-		}
-	} else {
-		logger.Warningf("unrecognized server type: %s", commercialType)
-		logger.Warningf("skip local volume size validation")
+		max := humanize.Bytes(uint64(volumeConstraint.MaxSize))
+		return fmt.Errorf("%s total local volume size must be between %s and %s", commercialType, min, max)
 	}
 
 	return nil
 }
 
-func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolume *instance.VolumeTemplate) error {
+func validateRootVolume(getImageResponse *instance.GetImageResponse, rootVolume *instance.VolumeTemplate) error {
 	if rootVolume == nil {
 		return nil
 	}
@@ -512,21 +550,12 @@ func validateRootVolume(api *instance.API, zone scw.Zone, image string, rootVolu
 	if rootVolume.ID != "" {
 		return &core.CliError{
 			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
-			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
+			Details: "You must create an imageID of this volume and use its ID in the 'imageID' argument.",
 		}
 	}
 
-	res, err := api.GetImage(&instance.GetImageRequest{
-		Zone:    zone,
-		ImageID: image,
-	})
-	if err != nil {
-		logger.Warningf("cannot get image %s: %s", image, err)
-		logger.Warningf("skip root volume size validation")
-	}
-
-	if rootVolume.Size < res.Image.RootVolume.Size {
-		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(res.Image.RootVolume.Size)))
+	if rootVolume.Size < getImageResponse.Image.RootVolume.Size {
+		return fmt.Errorf("first volume size must be at least %s for this imageID", humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)))
 	}
 
 	return nil
