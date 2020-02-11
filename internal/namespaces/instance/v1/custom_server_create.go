@@ -176,7 +176,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	if err != nil {
 		logger.Warningf("cannot get server types: %s", err)
 	} else {
-		serverType, _ = serverTypesRes.Servers[serverReq.CommercialType]
+		serverType = serverTypesRes.Servers[serverReq.CommercialType]
 		if serverType == nil {
 			logger.Warningf("unrecognized server type: %s", serverReq.CommercialType)
 		}
