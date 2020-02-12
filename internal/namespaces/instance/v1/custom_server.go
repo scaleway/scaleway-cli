@@ -178,6 +178,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		*instance.UpdateServerRequest
 		IP               *instance.NullableStringValue
 		PlacementGroupID *instance.NullableStringValue
+		SecurityGroupID  string
 	}
 
 	IPArgSpec := &core.ArgSpec{
@@ -189,12 +190,17 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
 	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
+	c.ArgSpecs.DeleteByName("security-group.name")
+	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest
 		updateServerRequest.PlacementGroup = customRequest.PlacementGroupID
+		updateServerRequest.SecurityGroup = &instance.SecurityGroupTemplate{
+			ID: customRequest.SecurityGroupID,
+		}
 
 		attachIPRequest := (*instance.UpdateIPRequest)(nil)
 

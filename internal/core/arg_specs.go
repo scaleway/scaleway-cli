@@ -13,6 +13,15 @@ func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	return nil
 }
 
+func (s *ArgSpecs) DeleteByName(name string) {
+	for i, spec := range *s {
+		if spec.Name == name {
+			*s = append((*s)[:i], (*s)[i+1:]...)
+			return
+		}
+	}
+}
+
 type ArgSpec struct {
 	// Name of the argument.
 	Name string

@@ -208,4 +208,29 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			return nil
 		},
 	}))
+
+	t.Run("Update server security-group-id from server with security-group-id", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			ctx.Meta["SecurityGroupResponse"] = ctx.ExecuteCmd("scw instance security-group create")
+			ctx.Meta["SecurityGroupResponse2"] = ctx.ExecuteCmd("scw instance security-group create")
+			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create stopped=true image=ubuntu-bionic security-group-id={{ .SecurityGroupResponse.SecurityGroup.ID }}")
+			return nil
+		},
+		Cmd: "scw instance server update server-id={{ .Server.ID }} security-group-id={{ .SecurityGroupResponse2.SecurityGroup.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t,
+					ctx.Meta["SecurityGroupResponse2"].(*instance.CreateSecurityGroupResponse).SecurityGroup.ID,
+					ctx.Result.(*instance.UpdateServerResponse).Server.SecurityGroup.ID)
+			},
+		),
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
+			ctx.ExecuteCmd("scw instance security-group delete security-group-id={{ .SecurityGroupResponse.SecurityGroup.ID }}")
+			ctx.ExecuteCmd("scw instance security-group delete security-group-id={{ .SecurityGroupResponse2.SecurityGroup.ID }}")
+			return nil
+		},
+	}))
 }
