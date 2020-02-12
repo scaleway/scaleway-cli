@@ -296,7 +296,11 @@ func serverAttachVolumeCommand() *core.Command {
 			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			return instance.NewAPI(core.ExtractClient(ctx)).AttachVolume(argsI.(*instance.AttachVolumeRequest))
+			request := argsI.(*instance.AttachVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.AttachVolume(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -323,7 +327,11 @@ func serverDetachVolumeCommand() *core.Command {
 			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			return instance.NewAPI(core.ExtractClient(ctx)).DetachVolume(argsI.(*instance.DetachVolumeRequest))
+			request := argsI.(*instance.DetachVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.DetachVolume(request)
 		},
 		Examples: []*core.Example{
 			{

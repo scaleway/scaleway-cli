@@ -22,6 +22,15 @@ func deleteVanillaServer(ctx *core.AfterFuncCtx) error {
 
 func Test_ServerVolumeUpdate(t *testing.T) {
 	t.Run("Attach", func(t *testing.T) {
+		t.Run("help", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			Cmd:      "scw instance server attach-volume -h",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+			),
+		}))
+
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
@@ -66,6 +75,15 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		}))
 	})
 	t.Run("Detach", func(t *testing.T) {
+		t.Run("help", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			Cmd:      "scw instance server detach-volume -h",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+			),
+		}))
+
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
