@@ -166,8 +166,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	apiMarketplace := marketplace.NewAPI(client)
 	apiInstance := instance.NewAPI(client)
 
-	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
-
 	//
 	// Image.
 	//
@@ -199,11 +197,14 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
 	}
 
-	//
-	// Check Image / Server-Type compatibility
-	//
-	if err := validateImageServerTypeCompatibility(getImageResponse, serverType, serverReq.CommercialType); err != nil {
-		return nil, err
+	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
+
+	if serverType != nil && getImageResponse != nil {
+		if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
+			return nil, err
+		}
+	} else {
+		logger.Warningf("skipping image server-type compatibility validation")
 	}
 
 	//
@@ -258,13 +259,17 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate root volume type and size.
-		if err := validateRootVolume(getImageResponse, volumes["0"]); err != nil {
+		if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
 			return nil, err
 		}
 
 		// Validate total local volume sizes.
-		if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
-			return nil, err
+		if serverType != nil {
+			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
+				return nil, err
+			}
+		} else {
+			logger.Warningf("skip local volume size validation")
 		}
 
 		// Sanitize the volume map to respect API schemas
@@ -470,16 +475,11 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 	}, nil
 }
 
-func validateImageServerTypeCompatibility(getImageResponse *instance.GetImageResponse, serverType *instance.ServerType, CommercialType string) error {
-	if serverType == nil || getImageResponse == nil {
-		logger.Warningf("skipping image server-type compatibility validation")
-		return nil
-	}
-
-	if getImageResponse.Image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, CommercialType string) error {
+	if image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
-			getImageResponse.Image.ID,
-			humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)),
+			image.ID,
+			humanize.Bytes(uint64(image.RootVolume.Size)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MinSize)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MaxSize)),
 			CommercialType,
@@ -491,11 +491,6 @@ func validateImageServerTypeCompatibility(getImageResponse *instance.GetImageRes
 
 // validateLocalVolumeSizes validates the total size of local volumes.
 func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serverType *instance.ServerType, commercialType string) error {
-	if serverType == nil {
-		logger.Warningf("skip local volume size validation")
-		return nil
-	}
-
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -524,7 +519,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serve
 	return nil
 }
 
-func validateRootVolume(getImageResponse *instance.GetImageResponse, rootVolume *instance.VolumeTemplate) error {
+func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeTemplate) error {
 	if rootVolume == nil {
 		return nil
 	}
@@ -540,8 +535,8 @@ func validateRootVolume(getImageResponse *instance.GetImageResponse, rootVolume 
 		}
 	}
 
-	if rootVolume.Size < getImageResponse.Image.RootVolume.Size {
-		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(getImageResponse.Image.RootVolume.Size)))
+	if rootVolume.Size < imageRequiredSize {
+		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(imageRequiredSize)))
 	}
 
 	return nil
