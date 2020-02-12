@@ -285,12 +285,12 @@ func serverAttachVolumeCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "server-id",
-				Short:    `ID of the server.`,
+				Short:    `ID of the server`,
 				Required: true,
 			},
 			{
 				Name:     "volume-id",
-				Short:    `ID of the volume to attach.`,
+				Short:    `ID of the volume to attach`,
 				Required: true,
 			},
 			core.ZoneArgSpec(),
@@ -321,7 +321,7 @@ func serverDetachVolumeCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "volume-id",
-				Short:    `ID of the volume to detach.`,
+				Short:    `ID of the volume to detach`,
 				Required: true,
 			},
 			core.ZoneArgSpec(),

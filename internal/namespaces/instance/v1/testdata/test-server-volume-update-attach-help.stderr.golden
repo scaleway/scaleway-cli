@@ -8,8 +8,8 @@ EXAMPLES:
     scw instance server attach-volume server-id=11111111-1111-1111-1111-111111111111 volume-id=22222222-1111-5555-2222-666666111111
 
 ARGS:
-  server-id   ID of the server.
-  volume-id   ID of the volume to attach.
+  server-id   ID of the server
+  volume-id   ID of the volume to attach
   [zone]      Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
