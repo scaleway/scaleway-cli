@@ -6,7 +6,115 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
+
+func createVanillaServer(ctx *core.BeforeFuncCtx) error {
+	ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create stopped=true image=ubuntu-bionic")
+	return nil
+}
+
+func deleteVanillaServer(ctx *core.AfterFuncCtx) error {
+	ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true")
+	return nil
+}
+
+func Test_ServerVolumeUpdate(t *testing.T) {
+	t.Run("Attach", func(t *testing.T) {
+		t.Run("help", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			Cmd:      "scw instance server attach-volume -h",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+			),
+		}))
+
+		t.Run("simple block volume", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=10G volume-type=b_ssd")
+				return createVanillaServer(ctx)
+			},
+			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Response.Volume.ID }}",
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
+				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
+				assert.Equal(t, instance.VolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+			},
+			AfterFunc: deleteVanillaServer,
+		}))
+
+		t.Run("simple local volume", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=10G volume-type=l_ssd")
+				return createVanillaServer(ctx)
+			},
+			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Response.Volume.ID }}",
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
+				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
+				assert.Equal(t, instance.VolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+			},
+			AfterFunc: deleteVanillaServer,
+		}))
+
+		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
+			Commands:   GetCommands(),
+			BeforeFunc: createVanillaServer,
+			Cmd:        "scw instance server attach-volume server-id={{ .Server.ID }} volume-id=11111111-1111-1111-1111-111111111111",
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(1),
+			),
+			AfterFunc: deleteVanillaServer,
+		}))
+	})
+	t.Run("Detach", func(t *testing.T) {
+		t.Run("help", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			Cmd:      "scw instance server detach-volume -h",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+			),
+		}))
+
+		t.Run("simple block volume", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")
+				return nil
+			},
+			Cmd: `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.NotZero(t, ctx.Result.(*instance.DetachVolumeResponse).Server.Volumes["0"])
+				assert.Nil(t, ctx.Result.(*instance.DetachVolumeResponse).Server.Volumes["1"])
+				assert.Equal(t, 1, len(ctx.Result.(*instance.DetachVolumeResponse).Server.Volumes))
+			},
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				ctx.ExecuteCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "1").ID }}`)
+				return deleteVanillaServer(ctx)
+			},
+		}))
+
+		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
+			Commands:   GetCommands(),
+			BeforeFunc: createVanillaServer,
+			Cmd:        "scw instance server detach-volume volume-id=11111111-1111-1111-1111-111111111111",
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(1),
+			),
+			AfterFunc: deleteVanillaServer,
+		}))
+	})
+}
 
 func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
