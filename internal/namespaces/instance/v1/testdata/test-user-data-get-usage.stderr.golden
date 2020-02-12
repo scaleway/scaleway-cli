@@ -1,0 +1,17 @@
+Get the content of a user data with the given key on a server.
+
+USAGE:
+  scw [global-flags] instance user-data get [flags] [arg=value ...]
+
+ARGS:
+  server-id   UUID of the server
+  key         Key of the user data to get
+  [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
