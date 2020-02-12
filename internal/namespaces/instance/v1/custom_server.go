@@ -192,7 +192,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
 	c.ArgSpecs.DeleteByName("security-group.name")
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
-	c.ArgSpecs.GetByName("security-group-id").Short = "Security group ID of the server"
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
