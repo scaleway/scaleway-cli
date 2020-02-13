@@ -102,13 +102,8 @@ func GetCommands() *core.Commands {
 	//
 	// User Data
 	//
-	cmds.Merge(core.NewCommands(
-		userDataCommand(),
-		userDataListCommand(),
-		userDataSetCommand(),
-		userDataDeleteCommand(),
-		userDataGetCommand(),
-	))
+	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
+	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
 
 	return cmds
 }

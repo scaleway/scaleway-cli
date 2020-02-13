@@ -29,11 +29,16 @@ func GetGeneratedCommands() *core.Commands {
 		instanceServer(),
 		instanceServerType(),
 		instanceSnapshot(),
+		instanceUserData(),
 		instanceVolume(),
 		instanceServerTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
 		instanceServerUpdate(),
+		instanceUserDataList(),
+		instanceUserDataDelete(),
+		instanceUserDataSet(),
+		instanceUserDataGet(),
 		instanceImageList(),
 		instanceImageGet(),
 		instanceImageCreate(),
@@ -228,6 +233,26 @@ snapshots will be available starting 2020.
 `,
 		Namespace: "instance",
 		Resource:  "snapshot",
+	}
+}
+
+func instanceUserData() *core.Command {
+	return &core.Command{
+		Short: `User data is a key value store API you can use to provide data from and to your server without authentication`,
+		Long: `User data is a key value store API you can use to provide data from and to your server without authentication.
+
+As an example of use, Scaleway images contain the script scw-generate-ssh-keys which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
+This way, our users can ensure they are really connecting to their Scaleway instance and they are not victim of a man-in-the-middle attack.
+
+There are two endpoints to access user data:
+ - **From a running instance**, by using the metadata API at http://169.254.42.42/user_data.
+   To enhance security, we only allow user data viewing and editing as root.
+   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can’t bind ports below 1024).
+   To specify the local port with cURL, use ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `
+ - **From the compute API** at using methods described bellow.
+`,
+		Namespace: "instance",
+		Resource:  "user-data",
 	}
 }
 
@@ -491,6 +516,147 @@ func instanceServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateServer(request)
+
+		},
+	}
+}
+
+func instanceUserDataList() *core.Command {
+	return &core.Command{
+		Short:     `List user data`,
+		Long:      `List all user data keys registered on a given server.`,
+		Namespace: "instance",
+		Resource:  "user-data",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(instance.ListServerUserDataRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `UUID of the server`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListServerUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ListServerUserData(request)
+
+		},
+	}
+}
+
+func instanceUserDataDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete user data`,
+		Long:      `Delete the given key from a server user data.`,
+		Namespace: "instance",
+		Resource:  "user-data",
+		Verb:      "delete",
+		ArgsType:  reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `UUID of the server`,
+				Required: true,
+			},
+			{
+				Name:     "key",
+				Short:    `Key of the user data to delete`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteServerUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			e = api.DeleteServerUserData(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{}, nil
+		},
+	}
+}
+
+func instanceUserDataSet() *core.Command {
+	return &core.Command{
+		Short:     `Add/Set user data`,
+		Long:      `Add or update a user data with the given key on a server.`,
+		Namespace: "instance",
+		Resource:  "user-data",
+		Verb:      "set",
+		ArgsType:  reflect.TypeOf(instance.SetServerUserDataRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `UUID of the server`,
+				Required: true,
+			},
+			{
+				Name:     "key",
+				Short:    `Key of the user data to set`,
+				Required: true,
+			},
+			{
+				Name:     "content.name",
+				Required: false,
+			},
+			{
+				Name:     "content.content-type",
+				Required: false,
+			},
+			{
+				Name:     "content.content",
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.SetServerUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			e = api.SetServerUserData(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{}, nil
+		},
+	}
+}
+
+func instanceUserDataGet() *core.Command {
+	return &core.Command{
+		Short:     `Get user data`,
+		Long:      `Get the content of a user data with the given key on a server.`,
+		Namespace: "instance",
+		Resource:  "user-data",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(instance.GetServerUserDataRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `UUID of the server`,
+				Required: true,
+			},
+			{
+				Name:     "key",
+				Short:    `Key of the user data to get`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetServerUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.GetServerUserData(request)
 
 		},
 	}
