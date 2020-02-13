@@ -213,10 +213,17 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		if len(argNameWords) == 0 {
 			return &MissingMapKeyError{}
 		}
-		// Create a new value call set and add result in the map
-		newValue := reflect.New(dest.Type().Elem())
-		err := set(newValue.Elem(), argNameWords[1:], value)
-		dest.SetMapIndex(reflect.ValueOf(argNameWords[0]), newValue.Elem())
+
+		// Create a new value if it does not exist, then call set and add result in the map
+		mapKey := reflect.ValueOf(argNameWords[0])
+		mapValue := dest.MapIndex(mapKey)
+
+		if !mapValue.IsValid() {
+			mapValue = reflect.New(dest.Type().Elem()).Elem()
+		}
+		err := set(mapValue, argNameWords[1:], value)
+		dest.SetMapIndex(mapKey, mapValue)
+
 		return err
 
 	case reflect.Struct:

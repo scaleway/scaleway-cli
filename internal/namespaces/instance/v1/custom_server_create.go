@@ -259,8 +259,12 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate root volume type and size.
-		if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
-			return nil, err
+		if getImageResponse != nil {
+			if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
+				return nil, err
+			}
+		} else {
+			logger.Warningf("skipping root volume validation")
 		}
 
 		// Validate total local volume sizes.
