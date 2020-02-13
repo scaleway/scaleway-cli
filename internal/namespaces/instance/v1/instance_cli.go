@@ -455,28 +455,28 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:     "volumes.{key}.id",
-				Short:    `The volumes unique ID`,
+				Short:    `UUID of the volume`,
 				Required: false,
 			},
 			{
 				Name:     "volumes.{key}.name",
-				Short:    `The volumes name`,
+				Short:    `Name of the volume`,
 				Required: false,
 			},
 			{
 				Name:     "volumes.{key}.size",
-				Short:    `The volumes disk size`,
+				Short:    `Disk size of the volume`,
 				Required: false,
 			},
 			{
 				Name:       "volumes.{key}.volume-type",
-				Short:      `The volumes type`,
+				Short:      `Type of the volume`,
 				Required:   false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
 				Name:     "volumes.{key}.organization",
-				Short:    `The organization ID`,
+				Short:    `Organization ID of the volume`,
 				Required: false,
 			},
 			{
@@ -753,50 +753,55 @@ func instanceImageCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "name",
+				Short:    `Name of the image`,
 				Required: false,
 				Default:  core.RandomValueGenerator("img"),
 			},
 			{
 				Name:     "root-volume",
+				Short:    `UUID of the snapshot`,
 				Required: true,
 			},
 			{
 				Name:       "arch",
+				Short:      `Architecture of the image`,
 				Required:   true,
 				EnumValues: []string{"x86_64", "arm"},
 			},
 			{
 				Name:     "default-bootscript",
+				Short:    `Default bootscript of the image`,
 				Required: false,
 			},
 			{
 				Name:     "extra-volumes.{key}.id",
-				Short:    `The volumes unique ID`,
+				Short:    `UUID of the volume`,
 				Required: false,
 			},
 			{
 				Name:     "extra-volumes.{key}.name",
-				Short:    `The volumes name`,
+				Short:    `Name of the volume`,
 				Required: false,
 			},
 			{
 				Name:     "extra-volumes.{key}.size",
-				Short:    `The volumes disk size`,
+				Short:    `Disk size of the volume`,
 				Required: false,
 			},
 			{
 				Name:       "extra-volumes.{key}.volume-type",
-				Short:      `The volumes type`,
+				Short:      `Type of the volume`,
 				Required:   false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
 				Name:     "extra-volumes.{key}.organization",
-				Short:    `The organization ID`,
+				Short:    `Organization ID of the volume`,
 				Required: false,
 			},
 			{
 				Name:     "public",
+				Short:    `True to create a public image`,
 				Required: false,
 			},
 			core.OrganizationArgSpec(),
