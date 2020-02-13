@@ -80,7 +80,7 @@ scw init
 
 ```bash
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Linux-$(uname -m)"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Linux-x86_64"
 
 # Start configuration wizard
 scw init
