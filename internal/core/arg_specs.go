@@ -1,6 +1,10 @@
 package core
 
-import "github.com/scaleway/scaleway-sdk-go/scw"
+import (
+	"fmt"
+
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
 
 type ArgSpecs []*ArgSpec
 
@@ -20,9 +24,10 @@ func (s *ArgSpecs) DeleteByName(name string) {
 			return
 		}
 	}
+	panic(fmt.Errorf("in DeleteByName: %s not found"))
 }
 
-func (s *ArgSpecs) AddBefore(argSpec *ArgSpec, name string) {
+func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 	for i, spec := range *s {
 		if spec.Name == name {
 			newSpecs := ArgSpecs(nil)
@@ -33,6 +38,7 @@ func (s *ArgSpecs) AddBefore(argSpec *ArgSpec, name string) {
 			return
 		}
 	}
+	panic(fmt.Errorf("in AddBefore: %s not found"))
 }
 
 type ArgSpec struct {

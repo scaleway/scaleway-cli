@@ -198,14 +198,14 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
 
 	// Add new arg specs.
-	c.ArgSpecs.AddBefore(&core.ArgSpec{
+	c.ArgSpecs.AddBefore("placement-group-id", &core.ArgSpec{
 		Name:  "volume-ids.{index}",
-		Short: "Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time.",
-	}, "placement-group-id")
-	c.ArgSpecs.AddBefore(&core.ArgSpec{
+		Short: "Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes)",
+	})
+	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
 		Name:  "ip",
-		Short: `IP that should be attached to the server (use ip=none to remove)`,
-	}, "boot-type")
+		Short: `IP that should be attached to the server (use ip=none to detach)`,
+	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
