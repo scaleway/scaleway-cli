@@ -419,7 +419,6 @@ func TestUnmarshalStruct(t *testing.T) {
 			},
 		},
 	}))
-}
 
 	t.Run("common-prefix-args", run(TestCase{
 		args: []string{
