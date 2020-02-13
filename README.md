@@ -72,7 +72,7 @@ echo $PATH
 # Download the release from github 
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-darwin-x86_64"
 
-# Start configuration wizard
+# Init the CLI
 scw init
 ```
 
@@ -82,7 +82,7 @@ scw init
 # Download the release from github 
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-linux-x86_64"
 
-# Start configuration wizard
+# Init the CLI
 scw init
 ```
 
@@ -130,9 +130,9 @@ Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modu
 # Examples
 
 ## Create an instance server
-`
-scw instance server create type=DEV1-S zone=fr-par-1 tags.0="scw-cli"
-`
+```
+scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+```
 
 TODO: Add more examples here.
 
