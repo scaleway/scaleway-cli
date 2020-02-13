@@ -13,6 +13,16 @@ Scaleway is a single way to create, deploy and scale your infrastructure in the 
 
 If you are looking for a stable version, [see the version 1](https://github.com/scaleway/scaleway-sdk-go).
 
+# Getting Started
+
+After you [installed](#Installation) the latest release just run the initialization command and let yourself be guided! :dancer:
+
+```bash
+scw init
+```
+
+It will set up your profile, the authentication, and the auto-completion.
+
 # Installation
 
 <!--- TODO:
@@ -106,16 +116,6 @@ go get github.com/scaleway/scaleway-cli/cmd/scw
 ```
 
 Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
-
-# Getting Started
-
-Just run the initialization command and let yourself be guided! :dancer:
-
-```bash
-scw init
-```
-
-It will set up your profile, the authentication, and the auto-completion.
 
 # Examples
 
