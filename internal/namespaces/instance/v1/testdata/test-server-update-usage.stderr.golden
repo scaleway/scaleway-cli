@@ -8,7 +8,7 @@ ARGS:
   [name]                  Name of the server
   [boot-type]              (local | bootscript | rescue)
   [tags]                  Tags of the server
-  [volume-ids.{index}]    Will update all volume ids at once. See examples below to attach / detach a single volume at a time.
+  [volume-ids.{index}]    Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time.
   [ip]                    IP that should be attached to the server (use ip=none to remove)
   [bootscript]            
   [dynamic-ip-required]   

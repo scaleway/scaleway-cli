@@ -179,7 +179,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		*instance.UpdateServerRequest
 		IP               *instance.NullableStringValue
 		PlacementGroupID *instance.NullableStringValue
-		SecurityGroupID  string
+		SecurityGroupID  *string
 		VolumeIDs        *[]string
 	}
 
@@ -189,6 +189,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.DeleteByName("security-group.name")
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
+	c.ArgSpecs.GetByName("security-group-id").Required = false
 
 	// Reuse existing argspecs to control order display in help
 	c.ArgSpecs.GetByName("volumes.{key}.name").Name = "volume-ids.{index}"
@@ -198,7 +199,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
 
 	// Update short descriptions
-	c.ArgSpecs.GetByName("volume-ids.{index}").Short = "Will update all volume ids at once. See examples below to attach / detach a single volume at a time."
+	c.ArgSpecs.GetByName("volume-ids.{index}").Short = "Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time."
 	c.ArgSpecs.GetByName("ip").Short = `IP that should be attached to the server (use ip=none to remove)`
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -206,8 +207,10 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		updateServerRequest := customRequest.UpdateServerRequest
 		updateServerRequest.PlacementGroup = customRequest.PlacementGroupID
-		updateServerRequest.SecurityGroup = &instance.SecurityGroupTemplate{
-			ID: customRequest.SecurityGroupID,
+		if customRequest.SecurityGroupID != nil {
+			updateServerRequest.SecurityGroup = &instance.SecurityGroupTemplate{
+				ID: *customRequest.SecurityGroupID,
+			}
 		}
 
 		attachIPRequest := (*instance.UpdateIPRequest)(nil)
@@ -278,7 +281,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		if customRequest.VolumeIDs != nil {
 			volumes := make(map[string]*instance.VolumeTemplate)
 			for i, volumeID := range *customRequest.VolumeIDs {
-				index := strconv.Itoa(i + 1)
+				index := strconv.Itoa(i)
 				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
 			}
 			customRequest.Volumes = &volumes
