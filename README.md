@@ -105,7 +105,7 @@ Note that this development version could include bugs, use [tagged releases](htt
 go get github.com/scaleway/scaleway-cli/cmd/scw
 ```
 
-Dependancies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
+Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
 # Getting Started
 
