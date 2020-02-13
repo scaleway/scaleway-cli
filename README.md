@@ -88,7 +88,7 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Windows-x86_64
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Windows-x86_64<br/>
 [This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
 
 <!-- TODO:
