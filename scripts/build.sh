@@ -18,3 +18,4 @@ LDFLAGS=(
 export CGO_ENABLED=0
 GOOS=linux  GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-linux-x86_64"  cmd/scw/main.go
 GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-darwin-x86_64" cmd/scw/main.go
+GOOS=windows GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-windows-x86_64" cmd/scw/main.go
