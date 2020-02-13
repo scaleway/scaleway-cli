@@ -16,6 +16,7 @@ ARGS:
   [hair-count]               
   [is-happy]                 
   [eyes-color]                (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+  [name]                     
   [organization-id]          Organization ID to use. If none is passed will use default organization ID from the config
   [region]                   Region to target. If none is passed will use default region from the config (fr-par)
 
