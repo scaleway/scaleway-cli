@@ -18,7 +18,7 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	stringPtr := "test"
 	slicePtr := []string{"0", "1", "2"}
-	emptySlicePtr := []string{}
+	emptySlicePtr := []string(nil)
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -193,32 +193,32 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	t.Run("empty-slice", run(TestCase{
 		args: []string{
-			"strings=none",
+			//"strings=none",
 			"slice-ptr=none",
-			"strings-ptr=none",
+			//"strings-ptr=none",
 		},
 		expected: &Slice{
-			Strings:    []string{},
+			Strings:    []string(nil),
 			SlicePtr:   &emptySlicePtr,
-			StringsPtr: []*string{},
+			StringsPtr: []*string(nil),
 		},
 	}))
 
 	t.Run("simple-parent-child-conflict", run(TestCase{
 		args: []string{
-			"strings=none",
-			"strings.0=none",
+			"slice-ptr=none",
+			"slice-ptr.0=none",
 		},
-		error: "arguments 'strings' and 'strings.0' cannot be used simultaneously",
+		error: "arguments 'slice-ptr' and 'slice-ptr.0' cannot be used simultaneously",
 		data:  &Slice{},
 	}))
 
 	t.Run("simple-child-parent-conflict", run(TestCase{
 		args: []string{
-			"strings.0=none",
-			"strings=none",
+			"slice-ptr.0=none",
+			"slice-ptr=none",
 		},
-		error: "arguments 'strings.0' and 'strings' cannot be used simultaneously",
+		error: "arguments 'slice-ptr.0' and 'slice-ptr' cannot be used simultaneously",
 		data:  &Slice{},
 	}))
 

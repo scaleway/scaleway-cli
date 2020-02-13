@@ -16,7 +16,7 @@ func TestMarshal(t *testing.T) {
 
 	stringPtr := "test"
 	slicePtr := []string{"0", "1", "2"}
-	emptySlicePtr := []string{}
+	emptySlicePtr := []string(nil)
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -114,8 +114,6 @@ func TestMarshal(t *testing.T) {
 			StringsPtr: []*string{},
 		},
 		expected: []string{
-			"strings=none",
-			"strings-ptr=none",
 			"slice-ptr=none",
 		},
 	}))

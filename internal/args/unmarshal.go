@@ -193,17 +193,20 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			dest.Set(reflect.New(dest.Type().Elem()))
 		}
 
+		// When:
+		// - dest is a pointer to a slice
+		// - there is no more argNameWords left
+		// - value == none
+		// we let the slice empty and return
+		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
+			return nil
+		}
+
 		// Call set with the pointer.Elem()
 		return set(dest.Elem(), argNameWords, value)
 
 	case reflect.Slice:
 		// If type is a slice:
-
-		// When array=none we creates an empty slice.
-		if len(argNameWords) == 0 && value == emptySliceValue {
-			dest.Set(reflect.MakeSlice(dest.Type(), 0, 0))
-			return nil
-		}
 
 		// We cannot handle slice without an index notation.
 		if len(argNameWords) == 0 {
