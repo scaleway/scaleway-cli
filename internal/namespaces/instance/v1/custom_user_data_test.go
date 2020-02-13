@@ -32,13 +32,10 @@ func Test_UserDataGet(t *testing.T) {
 	}))
 
 	t.Run("Get an nonexistent key", core.Test(&core.TestConfig{
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu_bionic stopped")
-			return nil
-		},
-		Commands:  GetCommands(),
-		Cmd:       "scw instance user-data get server-id={{.Server.ID}} key=happy",
-		AfterFunc: deleteVanillaServer,
+		BeforeFunc: createVanillaServer,
+		Commands:   GetCommands(),
+		Cmd:        "scw instance user-data get server-id={{.Server.ID}} key=happy",
+		AfterFunc:  deleteVanillaServer,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
