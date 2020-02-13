@@ -331,6 +331,38 @@ func TestUnmarshalStruct(t *testing.T) {
 			All: "all",
 		},
 	}))
+
+	t.Run("recursive-with-map-of-recursive-with-one-field-set", run(TestCase{
+		args: []string{
+			"name=coucou",
+			"elements.0.name=bob",
+		},
+		expected: &RecursiveWithMapOfRecursive{
+			Name: "coucou",
+			Elements: map[string]*RecursiveWithMapOfRecursive{
+				"0": {
+					Name: "bob",
+				},
+			},
+		},
+	}))
+
+	t.Run("recursive-with-map-of-recursive-with-multiple-fields-set", run(TestCase{
+		args: []string{
+			"name=coucou",
+			"elements.0.id=1453",
+			"elements.0.name=bob",
+		},
+		expected: &RecursiveWithMapOfRecursive{
+			Name: "coucou",
+			Elements: map[string]*RecursiveWithMapOfRecursive{
+				"0": {
+					ID:   1453,
+					Name: "bob",
+				},
+			},
+		},
+	}))
 }
 
 func TestIsUmarshalableValue(t *testing.T) {

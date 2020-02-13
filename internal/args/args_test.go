@@ -81,6 +81,13 @@ type Enum struct {
 	Size  Size
 }
 
+type RecursiveWithMapOfRecursive struct {
+	ID       int
+	Name     string
+	Short    string
+	Elements map[string]*RecursiveWithMapOfRecursive
+}
+
 func (c *CustomStruct) UnmarshalArgs(value string) error {
 	c.value = strings.ToUpper(value)
 	return nil
