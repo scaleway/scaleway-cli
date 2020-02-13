@@ -18,7 +18,6 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	stringPtr := "test"
 	slicePtr := []string{"0", "1", "2"}
-	emptySlicePtr := []string(nil)
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -193,15 +192,21 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	t.Run("empty-slice", run(TestCase{
 		args: []string{
-			//"strings=none",
 			"slice-ptr=none",
-			//"strings-ptr=none",
 		},
 		expected: &Slice{
 			Strings:    []string(nil),
-			SlicePtr:   &emptySlicePtr,
+			SlicePtr:   scw.StringsPtr(nil),
 			StringsPtr: []*string(nil),
 		},
+	}))
+
+	t.Run("none-on-non-pointer-slice", run(TestCase{
+		args: []string{
+			"strings=none",
+		},
+		error: "cannot unmarshal arg 'strings=none': missing index on the array",
+		data:  &Slice{},
 	}))
 
 	t.Run("simple-parent-child-conflict", run(TestCase{
