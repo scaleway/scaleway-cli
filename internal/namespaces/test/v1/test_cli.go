@@ -197,6 +197,10 @@ func testHumanCreate() *core.Command {
 				Required:   false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
+			{
+				Name:     "name",
+				Required: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -262,6 +266,10 @@ func testHumanUpdate() *core.Command {
 				Name:       "eyes-color",
 				Required:   false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
+			},
+			{
+				Name:     "name",
+				Required: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
