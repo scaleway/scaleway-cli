@@ -22,6 +22,19 @@ func (s *ArgSpecs) DeleteByName(name string) {
 	}
 }
 
+func (s *ArgSpecs) AddBefore(argSpec *ArgSpec, name string) {
+	for i, spec := range *s {
+		if spec.Name == name {
+			newSpecs := ArgSpecs(nil)
+			newSpecs = append(newSpecs, (*s)[:i]...)
+			newSpecs = append(newSpecs, argSpec)
+			newSpecs = append(newSpecs, (*s)[i:]...)
+			*s = newSpecs
+			return
+		}
+	}
+}
+
 type ArgSpec struct {
 	// Name of the argument.
 	Name string

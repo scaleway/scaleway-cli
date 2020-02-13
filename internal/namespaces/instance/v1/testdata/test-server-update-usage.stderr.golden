@@ -6,15 +6,15 @@ USAGE:
 ARGS:
   server-id               UUID of the server
   [name]                  Name of the server
+  [ip]                    IP that should be attached to the server (use ip=none to remove)
   [boot-type]              (local | bootscript | rescue)
   [tags]                  Tags of the server
-  [volume-ids.{index}]    Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time.
-  [ip]                    IP that should be attached to the server (use ip=none to remove)
   [bootscript]            
   [dynamic-ip-required]   
   [enable-ipv6]           
   [protected]             
   [security-group-id]     
+  [volume-ids.{index}]    Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time.
   [placement-group-id]    Placement group ID if server must be part of a placement group
   [zone]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 

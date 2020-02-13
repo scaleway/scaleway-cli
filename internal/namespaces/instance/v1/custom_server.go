@@ -183,24 +183,29 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		VolumeIDs        *[]string
 	}
 
-	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
-
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
-	c.ArgSpecs.DeleteByName("security-group.name")
+	// Rename modified arg specs.
+	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
-	c.ArgSpecs.GetByName("security-group-id").Required = false
 
-	// Reuse existing argspecs to control order display in help
-	c.ArgSpecs.GetByName("volumes.{key}.name").Name = "volume-ids.{index}"
-	c.ArgSpecs.GetByName("volumes.{key}.size").Name = "ip"
+	// Delete unused arg specs.
+	c.ArgSpecs.DeleteByName("security-group.name")
+	c.ArgSpecs.DeleteByName("volumes.{key}.name")
+	c.ArgSpecs.DeleteByName("volumes.{key}.size")
 	c.ArgSpecs.DeleteByName("volumes.{key}.id")
 	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
 	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
 
-	// Update short descriptions
-	c.ArgSpecs.GetByName("volume-ids.{index}").Short = "Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time."
-	c.ArgSpecs.GetByName("ip").Short = `IP that should be attached to the server (use ip=none to remove)`
+	// Add new arg specs.
+	c.ArgSpecs.AddBefore(&core.ArgSpec{
+		Name:  "volume-ids.{index}",
+		Short: "Will update ALL volume IDs at once, including the root volume of the server. See examples below to attach / detach a single volume at a time.",
+	}, "placement-group-id")
+	c.ArgSpecs.AddBefore(&core.ArgSpec{
+		Name:  "ip",
+		Short: `IP that should be attached to the server (use ip=none to remove)`,
+	}, "boot-type")
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
