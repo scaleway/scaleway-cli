@@ -60,19 +60,29 @@ TODO: Add other package managers:
 ### Released Binaries
 
 We provide [static-compiled binaries](https://github.com/scaleway/scaleway-cli/releases/latest) for darwin (macOS), GNU/Linux, and Windows platforms.
-
-#### Mac OS / Linux
-
 You just have to download the binary compatible with your platform to a directory available in your `PATH`:
+
+#### Mac OS
+
 ```bash
 # Check that /usr/local/bin is in your PATH
 echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-$(uname -s)-$(uname -m)"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-darwin-x86_64"
 
-# Start configuration wizzard
+# Start configuration wizard
+scw init
+```
+
+#### Linux
+
+```bash
+# Download the release from github 
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Linux-$(uname -m)"
+
+# Start configuration wizard
 scw init
 ```
 
