@@ -316,21 +316,3 @@ func Test_ServerUpdate(t *testing.T) {
 		},
 	}))
 }
-
-// TODO: add proper test
-func Test_ImageCreate(t *testing.T) {
-	t.Run(`Create image`, core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			return nil
-		},
-		Cmd: `scw instance -D image create name=foobar root-volume=6fd63468-b198-42cf-8462-81df850a7a8e arch=x86_64 extra-volumes.0.id=6fd63468-b198-42cf-8462-81df850a7a8e extra-volumes.0.name=foobar extra-volumes.0.volume-type=l_ssd`,
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-			core.TestCheckGolden(),
-		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			return nil
-		},
-	}))
-}
