@@ -64,7 +64,7 @@ func (b *BuildInfo) checkVersion() {
 	}
 
 	if b.Version.LessThan(latestVersion) {
-		logger.Infof("a new version of scw is available (%s), beware that you are currently running %v", latestVersion, b.Version)
+		logger.Warningf("a new version of scw is available (%s), beware that you are currently running %v", latestVersion, b.Version)
 	} else {
 		logger.Debugf("version is up to date (%s)", b.Version)
 	}

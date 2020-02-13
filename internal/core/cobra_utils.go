@@ -115,7 +115,7 @@ func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Comm
 		var err error
 		meta := extractMeta(ctx)
 
-		logLevel := logger.LogLevelInfo
+		logLevel := logger.LogLevelWarning
 		if meta.DebugModeFlag {
 			logLevel = logger.LogLevelDebug // enable debug mode
 		}
