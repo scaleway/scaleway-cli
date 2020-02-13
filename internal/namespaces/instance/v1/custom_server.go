@@ -6,6 +6,7 @@ import (
 	"net"
 	"reflect"
 	"sort"
+	"strconv"
 	"time"
 
 	"github.com/fatih/color"
@@ -179,19 +180,26 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		IP               *instance.NullableStringValue
 		PlacementGroupID *instance.NullableStringValue
 		SecurityGroupID  string
+		VolumeIDs        *[]string
 	}
 
-	IPArgSpec := &core.ArgSpec{
-		Name:  "ip",
-		Short: `IP that should be attached to the server (use ip=none to remove)`,
-	}
 	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
-	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
 	c.ArgSpecs.DeleteByName("security-group.name")
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
+
+	// Reuse existing argspecs to control order display in help
+	c.ArgSpecs.GetByName("volumes.{key}.name").Name = "volume-ids.{index}"
+	c.ArgSpecs.GetByName("volumes.{key}.size").Name = "ip"
+	c.ArgSpecs.DeleteByName("volumes.{key}.id")
+	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
+	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
+
+	// Update short descriptions
+	c.ArgSpecs.GetByName("volume-ids.{index}").Short = "Will update all volume ids at once. See examples below to attach / detach a single volume at a time."
+	c.ArgSpecs.GetByName("ip").Short = `IP that should be attached to the server (use ip=none to remove)`
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
@@ -210,11 +218,11 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		api := instance.NewAPI(client)
 
 		getServerResponse, err := api.GetServer(&instance.GetServerRequest{
-			Zone:     "",
+			Zone:     updateServerRequest.Zone,
 			ServerID: customRequest.ServerID,
 		})
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		switch {
@@ -255,20 +263,30 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 				},
 			})
 			if err != nil {
-				return "", err
+				return nil, err
 			}
 		}
 
 		if attachIPRequest != nil {
 			_, err = api.UpdateIP(attachIPRequest)
 			if err != nil {
-				return "", err
+				return nil, err
 			}
+		}
+
+		// Update all volume IDs at once.
+		if customRequest.VolumeIDs != nil {
+			volumes := make(map[string]*instance.VolumeTemplate)
+			for i, volumeID := range *customRequest.VolumeIDs {
+				index := strconv.Itoa(i + 1)
+				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
+			}
+			customRequest.Volumes = &volumes
 		}
 
 		updateServerResponse, err := api.UpdateServer(updateServerRequest)
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		return updateServerResponse, nil
