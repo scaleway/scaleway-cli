@@ -17,6 +17,7 @@ func TestUnmarshalStruct(t *testing.T) {
 	}
 
 	stringPtr := "test"
+	slicePtr := []string{"0", "1", "2"}
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -164,6 +165,9 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.3=test",
 			"strings-ptr.0=test",
 			"strings-ptr.1=test",
+			"slice-ptr.0=0",
+			"slice-ptr.1=1",
+			"slice-ptr.2=2",
 			"basics.0.string=test",
 			"basics.0.int=42",
 			"basics.1.string=test",
@@ -172,6 +176,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		expected: &Slice{
 			Strings:    []string{"1", "2", "3", "test"},
 			StringsPtr: []*string{&stringPtr, &stringPtr},
+			SlicePtr:   &slicePtr,
 			Basics: []Basic{
 				{
 					String: "test",
@@ -183,6 +188,43 @@ func TestUnmarshalStruct(t *testing.T) {
 				},
 			},
 		},
+	}))
+
+	t.Run("empty-slice", run(TestCase{
+		args: []string{
+			"slice-ptr=none",
+		},
+		expected: &Slice{
+			Strings:    []string(nil),
+			SlicePtr:   scw.StringsPtr(nil),
+			StringsPtr: []*string(nil),
+		},
+	}))
+
+	t.Run("none-on-non-pointer-slice", run(TestCase{
+		args: []string{
+			"strings=none",
+		},
+		error: "cannot unmarshal arg 'strings=none': missing index on the array",
+		data:  &Slice{},
+	}))
+
+	t.Run("simple-parent-child-conflict", run(TestCase{
+		args: []string{
+			"slice-ptr=none",
+			"slice-ptr.0=none",
+		},
+		error: "arguments 'slice-ptr' and 'slice-ptr.0' cannot be used simultaneously",
+		data:  &Slice{},
+	}))
+
+	t.Run("simple-child-parent-conflict", run(TestCase{
+		args: []string{
+			"slice-ptr.0=none",
+			"slice-ptr=none",
+		},
+		error: "arguments 'slice-ptr.0' and 'slice-ptr' cannot be used simultaneously",
+		data:  &Slice{},
 	}))
 
 	t.Run("well-known-types", run(TestCase{
@@ -377,8 +419,18 @@ func TestUnmarshalStruct(t *testing.T) {
 			},
 		},
 	}))
-}
 
+	t.Run("common-prefix-args", run(TestCase{
+		args: []string{
+			"ip=ip",
+			"ipv6=ipv6",
+		},
+		expected: &SamePrefixArgName{
+			IP:   "ip",
+			IPv6: "ipv6",
+		},
+	}))
+}
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
 		expected bool

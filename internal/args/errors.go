@@ -161,6 +161,17 @@ func (e *CannotUnmarshalError) Error() string {
 	return fmt.Sprintf("%T is not unmarshalable: %s", e.Dest, e.Err)
 }
 
+// ConflictArgError is return when two args that are in conflict with each other are used together.
+// e.g cluster=prod cluster.name=test are conflicting args
+type ConflictArgError struct {
+	ArgName1 string
+	ArgName2 string
+}
+
+func (e *ConflictArgError) Error() string {
+	return fmt.Sprintf("arguments '%s' and '%s' cannot be used simultaneously", e.ArgName1, e.ArgName2)
+}
+
 // missingIndices returns a string of all the missing indices between index and length.
 // e.g.: missingIndices(index=5, length=0) should return "0,1,2,3"
 // e.g.: missingIndices(index=5, length=2) should return "2,3"

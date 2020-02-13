@@ -75,6 +75,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	// Loop through all arguments
 	for _, kv := range argsSlice {
 		argName, argValue := kv[0], kv[1]
+		argNameWords := strings.Split(argName, ".")
 
 		// Make sure argument name is correct.
 		// We enforce this check to avoid not well formatted argument name to work by "accident"
@@ -102,10 +103,30 @@ func UnmarshalStruct(args []string, data interface{}) error {
 				Err:      &DuplicateArgError{},
 			}
 		}
+
+		// We check that we did not already handle an argument value set on a child or a parent
+		// Example `cluster=premium cluster.volume.size=12` cannot be valid as both args are in conflict.
+		// Example `cluster.volume.size=12 cluster=premium` should also be invalid.
+		for processedArgName := range processedArgNames {
+			// We put the longest argName in long and the shortest in short.
+			short, long := argName, processedArgName
+			if len(long) < len(short) {
+				short, long = long, short
+			}
+
+			// We check if the longest starts with short+"."
+			// If it does this mean we have a conflict.
+			if strings.HasPrefix(long, short+".") {
+				return &ConflictArgError{
+					ArgName1: processedArgName,
+					ArgName2: argName,
+				}
+			}
+		}
 		processedArgNames[argName] = true
 
 		// Set will recursively find the correct field to set.
-		err := set(dest, strings.Split(argName, "."), argValue)
+		err := set(dest, argNameWords, argValue)
 		if err != nil {
 			return &UnmarshalArgError{
 				ArgName:  argName,
@@ -172,19 +193,27 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			dest.Set(reflect.New(dest.Type().Elem()))
 		}
 
+		// When:
+		// - dest is a pointer to a slice
+		// - there is no more argNameWords left
+		// - value == none
+		// we let the slice empty and return
+		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
+			return nil
+		}
+
 		// Call set with the pointer.Elem()
 		return set(dest.Elem(), argNameWords, value)
 
 	case reflect.Slice:
 		// If type is a slice:
-		// We check if argNameWords[0] is an number to handle cases like keys.0.value=12
 
 		// We cannot handle slice without an index notation.
 		if len(argNameWords) == 0 {
 			return &MissingIndexOnArrayError{}
 		}
 
-		// Make sure index is a positive integer.
+		// We check if argNameWords[0] is a positive integer to handle cases like keys.0.value=12
 		index, err := strconv.ParseUint(argNameWords[0], 10, 64)
 		if err != nil {
 			return &InvalidIndexError{Index: argNameWords[0]}

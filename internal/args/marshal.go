@@ -118,11 +118,21 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		if src.IsNil() {
 			return nil, nil
 		}
+
+		// When:
+		// - dest is a pointer to a slice
+		// - The slice is empty
+		// we return slice=none
+		if src.Elem().Kind() == reflect.Slice && src.Elem().Len() == 0 {
+			return append(args, marshalKeyValue(keys, emptySliceValue)), nil
+		}
+
 		// If type is a pointer we Marshal pointer.Elem()
 		return marshal(src.Elem(), keys)
 
 	case reflect.Slice:
 		// If type is a slice:
+
 		// We loop through all items and marshal them with key = key.0, key.1, ....
 		args := []string(nil)
 		for i := 0; i < src.Len(); i++ {

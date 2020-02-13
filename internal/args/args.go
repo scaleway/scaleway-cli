@@ -9,6 +9,8 @@ import (
 // validArgNameRegex regex to check that args words are lower-case or digit starting and ending with a letter.
 var validArgNameRegex = regexp.MustCompile(`^([a-z][a-z0-9-]*)(\.[a-z0-9-]*)*$`)
 
+const emptySliceValue = "none"
+
 // RawArgs allows to retrieve a simple []string using UnmarshalStruct()
 type RawArgs []string
 

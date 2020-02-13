@@ -25,6 +25,7 @@ type Basic struct {
 type Slice struct {
 	Strings    []string
 	StringsPtr []*string
+	SlicePtr   *[]string
 	Basics     []Basic
 }
 
@@ -128,4 +129,9 @@ func unmarshalHeight(value string, dest interface{}) error {
 	h := dest.(*height)
 	_, err := fmt.Sscanf(value, "%dcm", h)
 	return err
+}
+
+type SamePrefixArgName struct {
+	IP   string
+	IPv6 string
 }
