@@ -80,7 +80,7 @@ scw init
 
 ```bash
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-linux-x86_64"
 
 # Start configuration wizard
 scw init
@@ -88,7 +88,7 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Windows-x86_64<br/>
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-windows-x86_64<br/>
 [This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
 
 <!-- TODO:
