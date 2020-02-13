@@ -117,6 +117,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 }
 
 func Test_ServerUpdateCustom(t *testing.T) {
+
+	// IP cases.
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
@@ -184,6 +186,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		},
 	}))
 
+	// Placement group cases.
 	t.Run("Update server placement-group-id from server with placement-group-id", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
@@ -209,6 +212,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		},
 	}))
 
+	// Security group cases.
 	t.Run("Update server security-group-id from server with security-group-id", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
@@ -233,4 +237,40 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			return nil
 		},
 	}))
+
+	// Volumes cases.
+	t.Run("Volumes", func(t *testing.T) {
+		t.Run("valid simple block volume", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=10G volume-type=b_ssd")
+				return createVanillaServer(ctx)
+			},
+			Cmd: `scw instance server update server-id={{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Response.Volume.ID }}`,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.UpdateServerResponse).Server.Volumes["0"].Size)
+				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.UpdateServerResponse).Server.Volumes["1"].Size)
+			},
+			AfterFunc: deleteVanillaServer,
+		}))
+
+		t.Run("detach all volumes", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")
+				return nil
+			},
+			Cmd: `scw instance server update server-id={{ .Server.ID }} volume-ids=none`,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t, 0, len(ctx.Result.(*instance.UpdateServerResponse).Server.Volumes))
+			},
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				ctx.ExecuteCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`)
+				ctx.ExecuteCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`)
+				return deleteVanillaServer(ctx)
+			},
+		}))
+	})
 }

@@ -6,6 +6,7 @@ import (
 	"net"
 	"reflect"
 	"sort"
+	"strconv"
 	"time"
 
 	"github.com/fatih/color"
@@ -178,28 +179,43 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		*instance.UpdateServerRequest
 		IP               *instance.NullableStringValue
 		PlacementGroupID *instance.NullableStringValue
-		SecurityGroupID  string
+		SecurityGroupID  *string
+		VolumeIDs        *[]string
 	}
-
-	IPArgSpec := &core.ArgSpec{
-		Name:  "ip",
-		Short: `IP that should be attached to the server (use ip=none to remove)`,
-	}
-	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
-	c.ArgSpecs = append(c.ArgSpecs, IPArgSpec)
-	c.ArgSpecs.DeleteByName("security-group.name")
+	// Rename modified arg specs.
+	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
+
+	// Delete unused arg specs.
+	c.ArgSpecs.DeleteByName("security-group.name")
+	c.ArgSpecs.DeleteByName("volumes.{key}.name")
+	c.ArgSpecs.DeleteByName("volumes.{key}.size")
+	c.ArgSpecs.DeleteByName("volumes.{key}.id")
+	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
+	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
+
+	// Add new arg specs.
+	c.ArgSpecs.AddBefore("placement-group-id", &core.ArgSpec{
+		Name:  "volume-ids.{index}",
+		Short: "Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes)",
+	})
+	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
+		Name:  "ip",
+		Short: `IP that should be attached to the server (use ip=none to detach)`,
+	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest
 		updateServerRequest.PlacementGroup = customRequest.PlacementGroupID
-		updateServerRequest.SecurityGroup = &instance.SecurityGroupTemplate{
-			ID: customRequest.SecurityGroupID,
+		if customRequest.SecurityGroupID != nil {
+			updateServerRequest.SecurityGroup = &instance.SecurityGroupTemplate{
+				ID: *customRequest.SecurityGroupID,
+			}
 		}
 
 		attachIPRequest := (*instance.UpdateIPRequest)(nil)
@@ -210,11 +226,11 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		api := instance.NewAPI(client)
 
 		getServerResponse, err := api.GetServer(&instance.GetServerRequest{
-			Zone:     "",
+			Zone:     updateServerRequest.Zone,
 			ServerID: customRequest.ServerID,
 		})
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		switch {
@@ -255,20 +271,30 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 				},
 			})
 			if err != nil {
-				return "", err
+				return nil, err
 			}
 		}
 
 		if attachIPRequest != nil {
 			_, err = api.UpdateIP(attachIPRequest)
 			if err != nil {
-				return "", err
+				return nil, err
 			}
+		}
+
+		// Update all volume IDs at once.
+		if customRequest.VolumeIDs != nil {
+			volumes := make(map[string]*instance.VolumeTemplate)
+			for i, volumeID := range *customRequest.VolumeIDs {
+				index := strconv.Itoa(i)
+				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
+			}
+			customRequest.Volumes = &volumes
 		}
 
 		updateServerResponse, err := api.UpdateServer(updateServerRequest)
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		return updateServerResponse, nil
