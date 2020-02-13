@@ -199,7 +199,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 	case reflect.Slice:
 		// If type is a slice:
 
-		// We handle special case where array=none creates an empty slice.
+		// When array=none we creates an empty slice.
 		if len(argNameWords) == 0 && value == emptySliceValue {
 			dest.Set(reflect.MakeSlice(dest.Type(), 0, 0))
 			return nil
@@ -210,7 +210,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			return &MissingIndexOnArrayError{}
 		}
 
-		// We check if argNameWords[0] is an positive integer to handle cases like keys.0.value=12
+		// We check if argNameWords[0] is a positive integer to handle cases like keys.0.value=12
 		index, err := strconv.ParseUint(argNameWords[0], 10, 64)
 		if err != nil {
 			return &InvalidIndexError{Index: argNameWords[0]}

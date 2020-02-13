@@ -25,6 +25,7 @@ type Basic struct {
 type Slice struct {
 	Strings    []string
 	StringsPtr []*string
+	SlicePtr   *[]string
 	Basics     []Basic
 }
 

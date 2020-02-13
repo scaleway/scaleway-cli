@@ -17,6 +17,8 @@ func TestUnmarshalStruct(t *testing.T) {
 	}
 
 	stringPtr := "test"
+	slicePtr := []string{"0", "1", "2"}
+	emptySlicePtr := []string{}
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -164,6 +166,9 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings.3=test",
 			"strings-ptr.0=test",
 			"strings-ptr.1=test",
+			"slice-ptr.0=0",
+			"slice-ptr.1=1",
+			"slice-ptr.2=2",
 			"basics.0.string=test",
 			"basics.0.int=42",
 			"basics.1.string=test",
@@ -172,6 +177,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		expected: &Slice{
 			Strings:    []string{"1", "2", "3", "test"},
 			StringsPtr: []*string{&stringPtr, &stringPtr},
+			SlicePtr:   &slicePtr,
 			Basics: []Basic{
 				{
 					String: "test",
@@ -188,10 +194,12 @@ func TestUnmarshalStruct(t *testing.T) {
 	t.Run("empty-slice", run(TestCase{
 		args: []string{
 			"strings=none",
+			"slice-ptr=none",
 			"strings-ptr=none",
 		},
 		expected: &Slice{
 			Strings:    []string{},
+			SlicePtr:   &emptySlicePtr,
 			StringsPtr: []*string{},
 		},
 	}))

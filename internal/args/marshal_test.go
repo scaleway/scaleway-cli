@@ -15,6 +15,8 @@ func TestMarshal(t *testing.T) {
 	}
 
 	stringPtr := "test"
+	slicePtr := []string{"0", "1", "2"}
+	emptySlicePtr := []string{}
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
@@ -76,6 +78,7 @@ func TestMarshal(t *testing.T) {
 		data: &Slice{
 			Strings:    []string{"1", "2", "", "3"},
 			StringsPtr: []*string{&stringPtr, &stringPtr},
+			SlicePtr:   &slicePtr,
 			Basics: []Basic{
 				{
 					String: "test",
@@ -94,6 +97,9 @@ func TestMarshal(t *testing.T) {
 			"strings.3=3",
 			"strings-ptr.0=test",
 			"strings-ptr.1=test",
+			"slice-ptr.0=0",
+			"slice-ptr.1=1",
+			"slice-ptr.2=2",
 			"basics.0.string=test",
 			"basics.0.int=42",
 			"basics.2.string=test",
@@ -104,11 +110,13 @@ func TestMarshal(t *testing.T) {
 	t.Run("empty-slice", run(TestCase{
 		data: &Slice{
 			Strings:    []string{},
+			SlicePtr:   &emptySlicePtr,
 			StringsPtr: []*string{},
 		},
 		expected: []string{
 			"strings=none",
 			"strings-ptr=none",
+			"slice-ptr=none",
 		},
 	}))
 
