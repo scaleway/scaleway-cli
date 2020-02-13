@@ -24,7 +24,7 @@ func (s *ArgSpecs) DeleteByName(name string) {
 			return
 		}
 	}
-	panic(fmt.Errorf("in DeleteByName: %s not found"))
+	panic(fmt.Errorf("in DeleteByName: %s not found", name))
 }
 
 func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
@@ -38,7 +38,7 @@ func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 			return
 		}
 	}
-	panic(fmt.Errorf("in AddBefore: %s not found"))
+	panic(fmt.Errorf("in AddBefore: %s not found", name))
 }
 
 type ArgSpec struct {
