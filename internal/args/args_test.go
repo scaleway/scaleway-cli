@@ -129,3 +129,8 @@ func unmarshalHeight(value string, dest interface{}) error {
 	_, err := fmt.Sscanf(value, "%dcm", h)
 	return err
 }
+
+type SamePrefixArgName struct {
+	IP   string
+	IPv6 string
+}

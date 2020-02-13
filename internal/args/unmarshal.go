@@ -104,34 +104,25 @@ func UnmarshalStruct(args []string, data interface{}) error {
 			}
 		}
 
-		// We check that we did not already handle an argument value set on a parent
-		// Example `cluster.volume.size=12 cluster=premium` cannot be valid as both args are in conflict.
-		// We loop through all possible parent and check that they are not present in processedArgNames
-		// If argName=cluster.volume.0.size we will check ["cluster", "cluster.volume" "cluster.volume.0"]
-		// Duplicate args are handle above.
-		for index := range argNameWords {
-			processedArgName := strings.Join(argNameWords[:index+1], ".")
-			if processedArgNames[processedArgName] {
-				return &ConflictArgError{
-					ArgName1: processedArgName,
-					ArgName2: argName,
-				}
-			}
-		}
-
-		// We check that we did not already handle an argument value set on a child
+		// We check that we did not already handle an argument value set on a child or a parent
 		// Example `cluster=premium cluster.volume.size=12` cannot be valid as both args are in conflict.
-		// We loop through all processedArgNames and if argName starts we one of them we consider it as duplicate
-		// If processedArgNames=["cluster"] and argName=cluster.volume.size we return an error because `cluster.volume.size` as `cluster.` prefix
+		// Example `cluster.volume.size=12 cluster=premium` should also be invalid.
 		for processedArgName := range processedArgNames {
-			if strings.HasPrefix(processedArgName+".", argName) {
+			// We put the longest argName in long and the shortest in short.
+			short, long := argName, processedArgName
+			if len(long) < len(short) {
+				short, long = long, short
+			}
+
+			// We check if the longest starts with short+"."
+			// If it does this mean we have a conflict.
+			if strings.HasPrefix(long, short+".") {
 				return &ConflictArgError{
 					ArgName1: processedArgName,
 					ArgName2: argName,
 				}
 			}
 		}
-
 		processedArgNames[argName] = true
 
 		// Set will recursively find the correct field to set.

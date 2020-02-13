@@ -408,6 +408,17 @@ func TestUnmarshalStruct(t *testing.T) {
 	}))
 }
 
+	t.Run("common-prefix-args", run(TestCase{
+		args: []string{
+			"ip=ip",
+			"ipv6=ipv6",
+		},
+		expected: &SamePrefixArgName{
+			IP:   "ip",
+			IPv6: "ipv6",
+		},
+	}))
+}
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
 		expected bool
