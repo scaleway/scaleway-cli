@@ -7,7 +7,7 @@
 
 # Scaleway CLI (v2)
 
-**:warning: This version is under active development, keep in mind that things can break. We advise you to not use this version in production.** 
+**:warning: This version is under active development, keep in mind that things can break.** 
 
 Scaleway is a single way to create, deploy and scale your infrastructure in the cloud. We help thousands of businesses to run their infrastructures easily.
 
@@ -47,24 +47,31 @@ TODO: Add other package managers:
 
 ## Manually
 
-### Compiled Release Binaries
+### Released Binaries
 
-We provide [static-compiled release binaries](https://github.com/scaleway/scaleway-cli/releases/latest) for darwin (macOS), GNU/Linux, and Windows platforms.
+We provide [static-compiled binaries](https://github.com/scaleway/scaleway-cli/releases/latest) for darwin (macOS), GNU/Linux, and Windows platforms.
+
+#### Mac OS / Linux
 
 You just have to download the binary compatible with your platform to a directory available in your `PATH`:
 ```bash
-# /usr/local/bin is in my PATH
+# Check that /usr/local/bin is in your PATH
 echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# With wget
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha.1/scw-darwin-amd64" -O /usr/local/bin/scw
+# Download the release from github 
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-$(uname -s)-$(uname -m)"
 
-# With curl
-curl -o /usr/local/bin/scw -L https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha.1/scw-darwin-amd64
+# Start configuration wizzard
+scw init
 ```
 
-For Windows, [this official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
+#### Windows
+
+[This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-Windows-x86_64
+
+<!-- TODO:
 
 ### Debian
 
@@ -80,7 +87,6 @@ Then, run the installation and remove the `.deb` file:
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 ```
 
-<!-- TODO:
 ## With a Docker Image
 
 For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
@@ -92,7 +98,7 @@ docker run scaleway/cli version
 
 ## Build Locally
 
-If you have a >= Go 1.11 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
+If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
@@ -113,7 +119,12 @@ It will set up your profile, the authentication, and the auto-completion.
 
 # Examples
 
-TODO: Add a list of examples here.
+## Create an instance server
+`
+scw instance server create type=DEV1-S zone=fr-par-1 tags.0="scw-cli"
+`
+
+TODO: Add more examples here.
 
 # Tutorials
 
@@ -127,4 +138,6 @@ If you are looking for a way to contribute please read [CONTRIBUTING.md](CONTRIB
 # Reach Us
 
 We love feedback.
-Feel free to reach us on [Scaleway Slack community](https://slack.scaleway.com/), we are waiting for you on [#opensource](https://scaleway-community.slack.com/app_redirect?channel=opensource).
+Don't hesitate to open a [Github issue](https://github.com/scaleway/scaleway-cli/issues/new) or
+feel free to reach us on [Scaleway Slack community](https://slack.scaleway.com/),
+we are waiting for you on [#opensource](https://scaleway-community.slack.com/app_redirect?channel=opensource).
