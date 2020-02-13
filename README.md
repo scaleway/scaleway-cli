@@ -1,3 +1,4 @@
+
 <p align="center"><img width="50%" src="docs/static_files/cli-artwork.png" /></p>
 
 <p align="center">
