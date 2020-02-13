@@ -254,5 +254,23 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			},
 			AfterFunc: deleteVanillaServer,
 		}))
+
+		t.Run("detach all volumes", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")
+				return nil
+			},
+			Cmd: `scw instance server update server-id={{ .Server.ID }} volume-ids=none`,
+			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NoError(t, ctx.Err)
+				assert.Equal(t, 0, len(ctx.Result.(*instance.UpdateServerResponse).Server.Volumes))
+			},
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				ctx.ExecuteCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`)
+				ctx.ExecuteCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`)
+				return deleteVanillaServer(ctx)
+			},
+		}))
 	})
 }
