@@ -444,4 +444,13 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 	}))
+
+	t.Run("Error: image size is incompatible with instance type", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create image=d4067cdc-dc9d-4810-8a26-0dae51d7df42 type=DEV1-S",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
 }
