@@ -16,10 +16,17 @@ import (
 )
 
 var (
-	Version   = "v2.0.0-beta.1" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
-	BuildDate = "unknown"       // date -u '+%Y-%m-%d_%I:%M:%S%p'
-	GitBranch = "unknown"       // git symbolic-ref -q --short HEAD || echo HEAD"
-	GitCommit = "unknown"       // git rev-parse --short HEAD
+	// Version is updated manually
+	Version = "v2.0.0-beta.1+dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+
+	// These are initialized by the build script
+
+	BuildDate = "unknown" // date -u '+%Y-%m-%d_%I:%M:%S%p'
+	GitBranch = "unknown" // git symbolic-ref -q --short HEAD || echo HEAD"
+	GitCommit = "unknown" // git rev-parse --short HEAD
+
+	// These are GO constants
+
 	GoVersion = runtime.Version()
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
