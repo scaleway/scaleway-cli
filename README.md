@@ -70,7 +70,7 @@ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-darwin-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-darwin-x86_64"
 
 # Init the CLI
 scw init
@@ -80,7 +80,7 @@ scw init
 
 ```bash
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-linux-x86_64"
 
 # Init the CLI
 scw init
@@ -88,7 +88,7 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha1/scw-windows-x86_64<br/>
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-windows-x86_64<br/>
 [This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
 
 <!-- TODO:
@@ -99,7 +99,7 @@ First, download [the `.deb` file](https://github.com/scaleway/scaleway-cli/relea
 
 ```bash
 export ARCH=amd64 # Can be 'amd64', 'arm', 'arm64' or 'i386'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-alpha.1/scw_2.0.0-alpha.1_${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-${ARCH}.deb" -O /tmp/scw.deb
 ```
 
 Then, run the installation and remove the `.deb` file:
