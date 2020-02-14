@@ -25,6 +25,19 @@ var (
 	GoArch    = runtime.GOARCH
 )
 
+func getCommands() *core.Commands {
+	// Import all commands available in CLI from various packages.
+	// NB: Merge order impacts scw usage sort.
+	commands := core.NewCommands()
+	commands.Merge(instance.GetCommands())
+	commands.Merge(marketplace.GetCommands())
+	commands.Merge(initNamespace.GetCommands())
+	commands.Merge(configNamespace.GetCommands())
+	commands.Merge(autocompleteNamespace.GetCommands())
+	commands.Merge(versionNamespace.GetCommands())
+	return commands
+}
+
 func main() {
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
@@ -39,18 +52,9 @@ func main() {
 	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
 	defer sentry.RecoverPanicAndSendReport(buildInfo)
 
-	// Import all commands available in CLI from various packages.
-	commands := core.NewCommands()
-	commands.Merge(instance.GetCommands())
-	commands.Merge(initNamespace.GetCommands())
-	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(marketplace.GetCommands())
-	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(versionNamespace.GetCommands())
-
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  commands,
+		Commands:  getCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    os.Stdout,
 		Stderr:    os.Stderr,

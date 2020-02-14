@@ -76,6 +76,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 		b.hydrateCobra(index[k], commandsIndex[k])
 	}
 
+	b.hydrateCobra(rootCmd, &Command{})
 	return rootCmd
 }
 
