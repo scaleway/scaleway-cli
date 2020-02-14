@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -14,13 +15,23 @@ import (
 )
 
 type BuildInfo struct {
-	Version   *version.Version
-	BuildDate string
-	GoVersion string
-	GitBranch string
-	GitCommit string
-	GoArch    string
-	GoOS      string
+	Version   *version.Version `json:"-"`
+	BuildDate string           `json:"build_date"`
+	GoVersion string           `json:"go_version"`
+	GitBranch string           `json:"git_branch"`
+	GitCommit string           `json:"git_commit"`
+	GoArch    string           `json:"go_arch"`
+	GoOS      string           `json:"go_os"`
+}
+
+func (b *BuildInfo) MarshalJSON() ([]byte, error) {
+	type Tmp BuildInfo
+	return json.Marshal(
+		struct {
+			Tmp
+			Version string `json:"version"`
+		}{Tmp(*b), b.Version.String()},
+	)
 }
 
 const (
