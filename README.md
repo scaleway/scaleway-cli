@@ -11,7 +11,7 @@
 
 Scaleway is a single way to create, deploy and scale your infrastructure in the cloud. We help thousands of businesses to run their infrastructures easily.
 
-If you are looking for a stable version, [see the version 1](https://github.com/scaleway/scaleway-sdk-go).
+If you are looking for a stable version, [see the version 1](https://github.com/scaleway/scaleway-cli/tree/master).
 
 # Getting Started
 
