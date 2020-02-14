@@ -1,7 +1,7 @@
-Usage:
-  scw [command]
+USAGE:
+  scw [global-flags] <command> [flags]
 
-Available Commands:
+AVAILABLE COMMANDS:
   instance     Instance API
   marketplace  Marketplace API
   init         Initialize the config
@@ -10,7 +10,7 @@ Available Commands:
   version      Display cli version
   help         Help about any command
 
-Flags:
+FLAGS:
   -D, --debug            Enable debug mode
   -h, --help             help for scw
   -o, --output string    Output format: json or human
