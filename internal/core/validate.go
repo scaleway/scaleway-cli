@@ -1,6 +1,9 @@
 package core
 
 import (
+	"reflect"
+	"strings"
+
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -33,20 +36,20 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
-		// fieldName := strings.ReplaceAll(strcase.ToPublicGoName(argSpec.Name), "."+sliceSchema, "")
-		// fieldName = strings.ReplaceAll(fieldName, "."+mapSchema, "")
-		fieldValue, fieldExists := getValueForFieldByName(cmdArgs, fieldName)
-		if !fieldExists {
-			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v", argSpec.Name, fieldName)
+		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		if err != nil {
+			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", argSpec.Name, fieldName, err.Error())
 			continue
 		}
 		validateFunc := DefaultArgSpecValidateFunc()
 		if argSpec.ValidateFunc != nil {
 			validateFunc = argSpec.ValidateFunc
 		}
-		err := validateFunc(argSpec, fieldValue.Interface())
-		if err != nil {
-			return err
+		for _, fieldValue := range fieldValues {
+			err := validateFunc(argSpec, fieldValue.Interface())
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
