@@ -316,3 +316,16 @@ func Test_ServerUpdate(t *testing.T) {
 		},
 	}))
 }
+
+func Test_ImageCreate(t *testing.T) {
+	t.Run("test", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance image create -D",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
+}
+
+//scw instance image create -D

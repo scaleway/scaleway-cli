@@ -20,7 +20,6 @@ type elementCustom struct {
 }
 
 func Test_DefaultCommandValidateFunc(t *testing.T) {
-
 	type TestCase struct {
 		command         *Command
 		parsedArguments interface{}
@@ -202,5 +201,4 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 			},
 		},
 	}))
-
 }

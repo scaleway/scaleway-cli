@@ -30,7 +30,6 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 	}
 
 	switch value.Kind() {
-
 	case reflect.Ptr:
 		return getValuesForFieldByName(value.Elem(), parts)
 
@@ -46,15 +45,12 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 		return values, nil
 
 	case reflect.Map:
-		// If map is nil we do not marshal it
 		if value.IsNil() {
 			return nil, nil
 		}
-		// If type is a map:
-		// We loop through all items and marshal them with key = key.0, key.1, ....
+
 		values := []reflect.Value(nil)
 
-		// Get all map keys and sort them. We assume keys are string
 		mapKeys := value.MapKeys()
 		sort.Slice(mapKeys, func(i, j int) bool {
 			return mapKeys[i].String() < mapKeys[j].String()
@@ -90,7 +86,7 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		// If it does not exist we try to find it in nested anonymous field
 		for fieldIndex := len(anonymousFieldIndexes) - 1; fieldIndex >= 0; fieldIndex-- {
-			newValues, err := getValuesForFieldByName(value.Field(fieldIndex), parts) //set(dest.Field(anonymousFieldIndexes[i]), argNameWords, value)
+			newValues, err := getValuesForFieldByName(value.Field(fieldIndex), parts)
 			switch err.(type) {
 			case nil:
 				// If we got no error the field was correctly set we return nil.

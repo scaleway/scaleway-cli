@@ -1,0 +1,5 @@
+DEBUG: 2019/12/09 16:04:07 marshalling type '*core.CliError'
+DEBUG: 2019/12/09 16:04:07 marshalling type '*errors.errorString'
+Missing required argument 'root-volume'
+DEBUG: 2019/12/09 16:04:07 skipping check version
+DEBUG: 2019/12/09 16:04:07 skipping telemetry report
