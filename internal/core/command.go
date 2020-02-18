@@ -99,6 +99,10 @@ func (c *Command) getPath() string {
 	return strings.Join(path, indexCommandSeparator)
 }
 
+func (c *Command) GetCommandLine() string {
+	return strings.ReplaceAll(c.getPath(), indexCommandSeparator, " ")
+}
+
 // seeAlsosAsStr returns all See Alsos as a single string
 func (c *Command) seeAlsosAsStr() string {
 	var seeAlsos []string
@@ -154,6 +158,10 @@ func (c *Commands) Merge(cmds *Commands) {
 	for _, cmd := range cmds.command {
 		c.Add(cmd)
 	}
+}
+
+func (c *Commands) GetAll() []*Command {
+	return c.command
 }
 
 // find must take the command path, eg. find("instance","get","server")

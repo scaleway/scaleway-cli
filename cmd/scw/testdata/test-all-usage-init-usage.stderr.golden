@@ -1,0 +1,24 @@
+Initialize the active profile of the config located in /Users/lbourgois/.config/scw/config.yaml
+
+USAGE:
+  scw [global-flags] init [flags] [arg=value ...]
+
+ARGS:
+  [secret-key]             
+  [region]                  (fr-par | nl-ams)
+  [zone]                    (fr-par-1 | fr-par-2 | nl-ams-1)
+  [organization-id]        
+  [send-usage]             
+  [install-autocomplete]   Whether the autocomplete script should be installed during initialisation
+
+FLAGS:
+  -h, --help   help for init
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Config management help
+  scw config --help

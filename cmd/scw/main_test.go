@@ -16,3 +16,17 @@ func Test_MainUsage(t *testing.T) {
 		),
 	}))
 }
+
+func Test_AllUsage(t *testing.T) {
+	for _, command := range getCommands().GetAll() {
+		commandLine := command.GetCommandLine()
+		t.Run(commandLine+" usage", core.Test(&core.TestConfig{
+			Commands: getCommands(),
+			Cmd:      "scw " + commandLine + " -h",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+			),
+		}))
+	}
+}

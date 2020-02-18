@@ -18,16 +18,6 @@ func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
 
-	// Usage
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server create -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	////
 	// Simple use cases
 	////
