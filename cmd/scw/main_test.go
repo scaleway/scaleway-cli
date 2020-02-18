@@ -18,7 +18,7 @@ func Test_MainUsage(t *testing.T) {
 }
 
 func Test_AllUsage(t *testing.T) {
-
+	// The help for these commands can not be tested because it depends on the environment
 	automatedTestExceptions := map[string]bool{
 		"init":                true,
 		"config":              true,
