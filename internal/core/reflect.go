@@ -1,7 +1,9 @@
 package core
 
 import (
+	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -20,14 +22,80 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 	return reflect.New(reflect.StructOf(structFieldsCopy)).Interface()
 }
 
-// getValueForFieldByName search for a field in a cmdArgs and returns its value if this field exists.
+// getValuesForFieldByName recursively search for fields in a cmdArgs' value and returns its values if they exist.
 // The search is based on the name of the field.
-func getValueForFieldByName(cmdArgs interface{}, fieldName string) (value reflect.Value, isValid bool) {
-	field := reflect.ValueOf(cmdArgs).Elem().FieldByName(fieldName)
-	if !field.IsValid() {
-		return field, false
+func getValuesForFieldByName(value reflect.Value, parts []string) (values []reflect.Value, err error) {
+	if len(parts) == 0 {
+		return []reflect.Value{value}, nil
 	}
-	return field, true
+
+	switch value.Kind() {
+	case reflect.Ptr:
+		return getValuesForFieldByName(value.Elem(), parts)
+
+	case reflect.Slice:
+		values := []reflect.Value(nil)
+		for i := 0; i < value.Len(); i++ {
+			newValues, err := getValuesForFieldByName(value.Index(i), parts[1:])
+			if err != nil {
+				return nil, err
+			}
+			values = append(values, newValues...)
+		}
+		return values, nil
+
+	case reflect.Map:
+		if value.IsNil() {
+			return nil, nil
+		}
+
+		values := []reflect.Value(nil)
+
+		mapKeys := value.MapKeys()
+		sort.Slice(mapKeys, func(i, j int) bool {
+			return mapKeys[i].String() < mapKeys[j].String()
+		})
+
+		for _, mapKey := range mapKeys {
+			mapValue := value.MapIndex(mapKey)
+			newValues, err := getValuesForFieldByName(mapValue, parts[1:])
+			if err != nil {
+				return nil, err
+			}
+			values = append(values, newValues...)
+		}
+		return values, nil
+
+	case reflect.Struct:
+		anonymousFieldIndexes := []int(nil)
+		fieldIndexByName := map[string]int{}
+
+		for i := 0; i < value.NumField(); i++ {
+			field := value.Type().Field(i)
+			if field.Anonymous {
+				anonymousFieldIndexes = append(anonymousFieldIndexes, i)
+			} else {
+				fieldIndexByName[field.Name] = i
+			}
+		}
+
+		fieldName := strcase.ToPublicGoName(parts[0])
+		if fieldIndex, exist := fieldIndexByName[fieldName]; exist {
+			return getValuesForFieldByName(value.Field(fieldIndex), parts[1:])
+		}
+
+		// If it does not exist we try to find it in nested anonymous field
+		for fieldIndex := len(anonymousFieldIndexes) - 1; fieldIndex >= 0; fieldIndex-- {
+			newValues, err := getValuesForFieldByName(value.Field(fieldIndex), parts)
+			if err == nil {
+				return newValues, nil
+			}
+		}
+
+		return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Type().Name())
+	}
+
+	return nil, fmt.Errorf("case is not handled")
 }
 
 // isFieldZero returns whether a field is set to its zero value
