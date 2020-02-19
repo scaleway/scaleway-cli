@@ -104,34 +104,6 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 		},
 	}))
 
-	t.Run("slice", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
-				{
-					Name: "elements-slice.{index}.id",
-				},
-				{
-					Name: "elements-slice.{index}.name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
-						return fmt.Errorf("arg validation called")
-					},
-				},
-			},
-		},
-		parsedArguments: &Element{
-			ElementsSlice: []Element{
-				{
-					ID:   1,
-					Name: "first",
-				},
-				{
-					ID:   2,
-					Name: "second",
-				},
-			},
-		},
-	}))
-
 	t.Run("slice-of-slice", run(TestCase{
 		command: &Command{
 			ArgSpecs: ArgSpecs{
