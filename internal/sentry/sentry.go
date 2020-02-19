@@ -26,7 +26,7 @@ func RecoverPanicAndSendReport(buildInfo *core.BuildInfo) {
 	}
 
 	err, isError := e.(error)
-	if !isError {
+	if isError {
 		logAndSentry(sentryClient, err)
 	} else {
 		logAndSentry(sentryClient, fmt.Errorf("unknownw error: %v", e))
