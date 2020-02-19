@@ -9,8 +9,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	// Delete volumes, ips and the server
 	ctx.ExecuteCmd("scw instance server delete delete-volumes delete-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
 	return nil
 }
@@ -197,12 +197,9 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("existing IP", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["MyIP"] = ctx.ExecuteCmd("scw instance ip create")
-				return nil
-			},
-			Cmd: "scw instance server create image=ubuntu_bionic ip={{ .MyIP.IP.Address }} stopped",
+			Commands:   GetCommands(),
+			BeforeFunc: createIP("IP"),
+			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.Address }} stopped",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -214,12 +211,9 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("existing IP ID", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["MyIP"] = ctx.ExecuteCmd("scw instance ip create")
-				return nil
-			},
-			Cmd: "scw instance server create image=ubuntu_bionic ip={{ .MyIP.IP.ID }} stopped",
+			Commands:   GetCommands(),
+			BeforeFunc: createIP("IP"),
+			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.ID }} stopped",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -329,20 +323,14 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
-			return nil
-		},
-		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .Response.Volume.ID }} additional-volumes.0=local:10GB",
+		Commands:   GetCommands(),
+		BeforeFunc: createVolume("Volume", 20, instance.VolumeTypeLSSD),
+		Cmd:        "scw instance server create image=ubuntu_bionic root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Response.Volume.ID }}")
-			return nil
-		},
+		AfterFunc: deleteVolume("Volume"),
 	}))
 
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
@@ -364,20 +352,14 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Response"] = ctx.ExecuteCmd("scw instance volume create name=cli-test size=20G volume-type=l_ssd")
-			return nil
-		},
-		Cmd: "scw instance server create image=ubuntu_bionic root-volume={{ .Response.Volume.ID }}",
+		Commands:   GetCommands(),
+		BeforeFunc: createVolume("Volume", 20, instance.VolumeTypeLSSD),
+		Cmd:        "scw instance server create image=ubuntu_bionic root-volume={{ .Volume.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Response.Volume.ID }}")
-			return nil
-		},
+		AfterFunc: deleteVolume("Volume"),
 	}))
 
 	t.Run("Error: invalid root volume ID", core.Test(&core.TestConfig{
@@ -390,20 +372,14 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G stopped")
-			return nil
-		},
-		Cmd: `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped`,
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G stopped"),
+		Cmd:        `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance server delete server-id=" + ctx.Meta["Server"].(*instance.Server).ID + " delete-volumes delete-ip")
-			return nil
-		},
+		AfterFunc: deleteServer("Server"),
 	}))
 
 	t.Run("Error: invalid root volume format", core.Test(&core.TestConfig{

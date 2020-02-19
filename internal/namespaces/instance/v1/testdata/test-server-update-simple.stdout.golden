@@ -1,13 +1,13 @@
-server.id                        d81e4089-5bb5-462c-adc5-a0072950a1bd
-server.name                      cli-srv-hopeful-kalam
-server.organization              aba2d0d0-b01d-4d88-b322-935edc96d0fd
+server.id                        d925d8bf-3e26-49c7-ac3d-5c44c7070b78
+server.name                      cli-srv-silly-neumann
+server.organization              14d2f7ae-9775-414c-9bed-6810e060d500
 server.allowed-actions.0         poweron
 server.allowed-actions.1         backup
 server.commercial-type           DEV1-S
 server.creation-date             few seconds ago
 server.dynamic-ip-required       false
 server.enable-ipv6               false
-server.hostname                  cli-srv-hopeful-kalam
+server.hostname                  cli-srv-silly-neumann
 server.image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 server.image.name                Ubuntu Bionic Beaver
 server.image.arch                x86_64
@@ -21,15 +21,15 @@ server.image.public              true
 server.image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 server.image.state               available
 server.protected                 false
-server.public-ip.id              a89c1b75-e965-4cba-96f1-483c0a0517d0
-server.public-ip.address         51.158.101.198
+server.public-ip.id              febae361-dcf5-428d-a8ca-5ee64fc46190
+server.public-ip.address         51.158.117.222
 server.public-ip.dynamic         false
 server.modification-date         few seconds ago
 server.state                     archived
 server.bootscript                x86_64 mainline 4.9.93 rev1
 server.boot-type                 local
 server.volumes                   1
-server.security-group.id         49822f6c-1d32-465c-a017-720691d159b2
+server.security-group.id         e5bf4522-94b4-4933-bebb-9b21f786b4af
 server.security-group.name       Default security group
 server.state-detail              
 server.arch                      x86_64
