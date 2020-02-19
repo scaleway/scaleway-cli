@@ -19,7 +19,7 @@ func Test_MainUsage(t *testing.T) {
 
 func Test_AllUsage(t *testing.T) {
 	// The help for these commands can not be tested because it depends on the environment
-	automatedTestExceptions := map[string]bool{
+	excludedCommands := map[string]bool{
 		"init":                true,
 		"config":              true,
 		"autocomplete script": true,
@@ -27,7 +27,7 @@ func Test_AllUsage(t *testing.T) {
 
 	for _, command := range getCommands().GetAll() {
 		commandLine := command.GetCommandLine()
-		if _, exists := automatedTestExceptions[commandLine]; exists {
+		if _, exists := excludedCommands[commandLine]; exists {
 			continue
 		}
 

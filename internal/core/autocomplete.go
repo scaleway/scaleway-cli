@@ -183,7 +183,7 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
 	scwCommand := root.GetChildOrCreate("scw")
 	scwCommand.addGlobalFlags()
-	for _, cmd := range commands.command {
+	for _, cmd := range commands.commands {
 		node := scwCommand
 
 		// Creates nodes for namespaces, resources, verbs
