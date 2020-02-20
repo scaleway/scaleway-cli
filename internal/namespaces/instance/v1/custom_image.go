@@ -107,7 +107,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(CreateImageRequestCustom{})
 
 	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
-		requestCustom := args.(CreateImageRequestCustom)
+		requestCustom := args.(*CreateImageRequestCustom)
 
 		request := requestCustom.CreateImageRequest
 		request.RootVolume = requestCustom.SnapshotID

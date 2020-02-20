@@ -1,0 +1,10 @@
+id                 4e6d9927-23f2-4d21-ac08-4e9c5e98c081
+name               cli-snp-loving-hawking
+organization       aba2d0d0-b01d-4d88-b322-935edc96d0fd
+volume-type        l_ssd
+size               20 GB
+state              available
+base-volume.id     0f9ed18c-19f9-4119-8108-bf7ba047b43a
+base-volume.name   snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13
+creation-date      few seconds ago
+modification-date  few seconds ago

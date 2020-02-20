@@ -1,0 +1,11 @@
+id                 d228e4c4-4299-4f93-a2a5-a7f0aec5a03c
+name               cli-img-xenodochial-swartz
+arch               x86_64
+creation-date      few seconds ago
+modification-date  few seconds ago
+extra-volumes      0
+from-server        
+organization       aba2d0d0-b01d-4d88-b322-935edc96d0fd
+public             false
+root-volume        452265c9-5417-4e0a-b6fa-e77d113c9ffc
+state              available
