@@ -35,23 +35,27 @@
 
 ## Justification for a v2
 
-### Docker oriented
+### Design Docker oriented
 
 CLI v1 was designed to offer a syntax close to the Docker syntax.
+For instance running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that don't fit in this paradigm.
-For instance, attaching volumes, security groups and other sub resources management are not performed easily using this version.
+For instance, attaching to a running server sub resources such as a volumes or a security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
 In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
+Action are organized around a set of verb such as `list`, `get`, 'create', 'update' that can be used with a wide-variety of products and does not suppose any preconceived workflow.
 
 ### No design for multiple products
 
-CLI v1 was created at a time targeting a single product instance.
-Scaleway got many more products that need to be available from the CLI.
+CLI v1 was created at a time targeting a single Scaleway Elements product: instance.
+Scaleway got many more products in its Elements ecosystem that need to be available from the CLI.
 Having ad-hoc commands for all our products was not going to be scalable solution.
 We needed to have a more systematic approach across all products.
 
-In CLI v2, we have a common syntax across all our products:
+In CLI v2, we have a common syntax across all our products: service sub-resource verb.
+As an example:
 
+    # v2
     scw instance server list
 
 - **instance**: Refers to a resource API
@@ -60,10 +64,11 @@ In CLI v2, we have a common syntax across all our products:
 
 In English it would be: "list all servers available on the instance API".
 
-### No automation
+### No automated code generation
 
-CLI v1 didn't have any code generation features to easily create supports in all SDKs and developper tools we support.
-In CLI v2, we invested in our code generation features to be able to synchronize support and fixes across all our tools:
+CLI v1 didn't have any code generation features to easily create supports in all SDKs and developer tools we support.
+We invested in our code generation features to be able to synchronize support and fixes across all our tools:
+
   - [scaleway-cli](https://github.com/scaleway/scaleway-cli)
   - [scaleway-sdk-go](https://github.com/scaleway/scaleway-sdk-go)
   - [scaleway provider for Terraform](https://github.com/terraform-providers/terraform-provider-scaleway/)
@@ -71,8 +76,8 @@ In CLI v2, we invested in our code generation features to be able to synchronize
 ### Old unmaintained dependencies
 
 CLI v1 required a lot of dependencies that are not actively maintained anymore.
-As a team we don't have the bandwidth to maintain all the dependencies, regular audit and open source management required to make all those dependencies thrive.
-The CLIv2 we want to focus only on well-supported external libraries and minimize them as much as possible.
+As a team we don't have the bandwidth to maintain all the dependencies, perform regular audits and open source management required to make all those dependencies thrive.
+With the CLIv2, we want minimize them as much as possible and focus only on well-supported external libraries when required.
 
 ### Few tests
 
@@ -104,23 +109,27 @@ scw
 ### `scw attach`
 
 `scw attach` will connect to the serial port of your Scaleway instance.
+It will create a serial connection to your Scaleway server and make it available in your terminal.
+For instance if you want to open a serial port to the `foobar` instance you would use
 
 ```
 # v1
+scw attach foobar
 ```
 
-In CLI v2,
-
-```
-# v2
-```
+In CLI v2, we don't offer at the moment any support for connecting to serial port.
+We strongly encourage you to connect to your instance using SSH.
+In case your SSH server configuration is broken and you cannot connect to your instance, we encourage you to use the [rescue mode](https://www.scaleway.com/en/docs/activate-rescue-mode-on-my-server/) and fix your SSH server configuration.
+You can still use the serial port in your console.
 
 ### `scw commit`
 
 `scw commit` creates a new snapshot from a server's volume.
+Let's suppose we have an instance named `foobar`, you would create a snapshot using:
 
 ```
 # v1
+scw commit foobar
 ```
 
 In CLI v2,
@@ -316,7 +325,8 @@ Check out `scw init --help` to know more about this command.
 `scw logout` deletes the scaleway-cli v1 configuration file (usually stored at `$(HOME)/.scwrc`).
 If you want to delete your configuration file you can do so by manually removing this file.
 
-On v2, the configuration file are stored in `$(HOME)/.config/scw/config.yaml`.
+On v2, the command `scw config reset` will overwrite your configuration file (stored in `$(HOME)/.config/scw/config.yaml`) with a blank one.
+All your credentials will be erased.
 
 ### `scw logs`
 
