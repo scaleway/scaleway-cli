@@ -278,12 +278,9 @@ func Test_ServerUpdate(t *testing.T) {
 //
 func Test_SnapshotCreate(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.Meta["Server"] = ctx.ExecuteCmd("scw instance server create image=ubuntu_bionic stopped")
-			return nil
-		},
-		Cmd: `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
+		Commands:   GetCommands(),
+		BeforeFunc: createVanillaServer,
+		Cmd:        `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -291,7 +288,7 @@ func Test_SnapshotCreate(t *testing.T) {
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance snapshot delete snapshot-id=" + ctx.CmdResult.(*instance.CreateSnapshotResponse).Snapshot.ID)
 			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true force-shutdown=true")
-			return nil
+			return deleteVanillaServer(ctx)
 		},
 	}))
 }
