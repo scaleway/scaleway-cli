@@ -287,7 +287,6 @@ func Test_SnapshotCreate(t *testing.T) {
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			ctx.ExecuteCmd("scw instance snapshot delete snapshot-id=" + ctx.CmdResult.(*instance.CreateSnapshotResponse).Snapshot.ID)
-			ctx.ExecuteCmd("scw instance server delete server-id={{ .Server.ID }} delete-ip=true delete-volumes=true force-shutdown=true")
 			return deleteVanillaServer(ctx)
 		},
 	}))
