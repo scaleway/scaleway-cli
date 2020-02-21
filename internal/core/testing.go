@@ -2,6 +2,7 @@ package core
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -55,6 +56,10 @@ type CheckFuncCtx struct {
 // TestCheck is a function that perform assertion on a CheckFuncCtx
 type TestCheck func(t *testing.T, ctx *CheckFuncCtx)
 
+type BeforeFunc func(ctx *BeforeFuncCtx) error
+
+type AfterFunc func(ctx *AfterFuncCtx) error
+
 type BeforeFuncCtx struct {
 	Client     *scw.Client
 	ExecuteCmd func(cmd string) interface{}
@@ -77,8 +82,8 @@ type TestConfig struct {
 	// If set to true the client will be initialize to use a e2e token.
 	UseE2EClient bool
 
-	// Hook that will be called before test is run. You can use this function to bootstrap resources.
-	BeforeFunc func(ctx *BeforeFuncCtx) error
+	// BeforeFunc is a hook that will be called before test is run. You can use this function to bootstrap resources.
+	BeforeFunc BeforeFunc
 
 	// The command line you want to test
 	Cmd string
@@ -86,8 +91,8 @@ type TestConfig struct {
 	// A list of check function that will be run on result.
 	Check TestCheck
 
-	//  Hook that will be called after test is run. You can use this function to teardown resources.
-	AfterFunc func(ctx *AfterFuncCtx) error
+	// AfterFunc is a hook that will be called after test is run. You can use this function to teardown resources.
+	AfterFunc AfterFunc
 
 	// Run tests in parallel.
 	DisableParallel bool
@@ -232,7 +237,64 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-// TestCheckCombine Combine multiple check function into one
+// BeforeFuncCombine combines multiple before functions into one.
+func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		if len(beforeFuncs) < 2 {
+			panic(fmt.Errorf("BeforeFuncCombine must be used to combine more than one BeforeFunc"))
+		}
+		for _, beforeFunc := range beforeFuncs {
+			err := beforeFunc(ctx)
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+}
+
+// AfterFuncCombine combines multiple after functions into one.
+func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
+	return func(ctx *AfterFuncCtx) error {
+		if len(afterFuncs) < 2 {
+			panic(fmt.Errorf("AfterFuncCombine must be used to combine more than one AfterFunc"))
+		}
+		for _, afterFunc := range afterFuncs {
+			err := afterFunc(ctx)
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+}
+
+// ExecStoreBeforeCmd executes the given before command and register the result
+// in the context Meta at metaKey.
+func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
+		return nil
+	}
+}
+
+// ExecBeforeCmd executes the given before command.
+func ExecBeforeCmd(cmd string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		ctx.ExecuteCmd(cmd)
+		return nil
+	}
+}
+
+// ExecAfterCmd executes the given before command.
+func ExecAfterCmd(cmd string) AfterFunc {
+	return func(ctx *AfterFuncCtx) error {
+		ctx.ExecuteCmd(cmd)
+		return nil
+	}
+}
+
+// TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		assert.Equal(t, true, len(checks) > 1)
