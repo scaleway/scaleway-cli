@@ -17,6 +17,7 @@ func updateCommands(commands *core.Commands) {
 }
 
 // customMarketplaceListImagesRun is the custom Run for scw marketplace list images
+// TODO: remove when [APIGW-1959] is done
 func updateMarketplaceListImages(c *core.Command) {
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		client := core.ExtractClient(ctx)
