@@ -106,15 +106,15 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(CreateImageRequestCustom{})
 
+	oldRun := c.Run
+
 	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
 		requestCustom := args.(*CreateImageRequestCustom)
 
 		request := requestCustom.CreateImageRequest
 		request.RootVolume = requestCustom.SnapshotID
 
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
-		return api.CreateImage(request)
+		return oldRun(ctx, request)
 	}
 
 	return c
