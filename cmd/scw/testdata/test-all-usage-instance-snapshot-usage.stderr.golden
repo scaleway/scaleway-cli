@@ -1,0 +1,30 @@
+Snapshots contain the data of a specific volume at a particular point in time.
+The data can include the instance's operating system,
+configuration information or files stored on the volume.
+
+A snapshot can be done from a specific volume (for example you
+have a server with a volume containing the OS and another one
+containing the application data, and you want to use different
+snapshot strategies on both volumes).
+
+Snapshots only work on `l_ssd` volume type at the moment. `b_ssd`
+snapshots will be available starting 2020.
+
+USAGE:
+  scw [global-flags] instance snapshot <command> [flags]
+
+AVAILABLE COMMANDS:
+  list        List snapshots
+  create      Create snapshot
+  get         Get snapshot
+  delete      Delete snapshot
+
+FLAGS:
+  -h, --help   help for snapshot
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+Use "scw instance snapshot [command] --help" for more information about a command.

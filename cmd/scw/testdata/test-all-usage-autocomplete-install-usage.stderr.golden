@@ -1,0 +1,15 @@
+Install autocompletion script for a given shell and OS.
+
+USAGE:
+  scw [global-flags] autocomplete install [flags] [arg=value ...]
+
+ARGS:
+  [shell]   
+
+FLAGS:
+  -h, --help   help for install
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

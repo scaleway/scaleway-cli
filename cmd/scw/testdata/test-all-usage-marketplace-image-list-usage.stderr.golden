@@ -1,0 +1,16 @@
+List marketplace images.
+
+USAGE:
+  scw [global-flags] marketplace image list [flags]
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # List all images available in an account
+  scw instance list images

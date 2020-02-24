@@ -99,6 +99,10 @@ func (c *Command) getPath() string {
 	return strings.Join(path, indexCommandSeparator)
 }
 
+func (c *Command) GetCommandLine() string {
+	return strings.ReplaceAll(c.getPath(), indexCommandSeparator, " ")
+}
+
 // seeAlsosAsStr returns all See Alsos as a single string
 func (c *Command) seeAlsosAsStr() string {
 	var seeAlsos []string
@@ -119,13 +123,13 @@ func (c *Command) seeAlsosAsStr() string {
 
 // Commands represent a list of CLI commands, with a index to allow searching.
 type Commands struct {
-	command      []*Command
+	commands     []*Command
 	commandIndex map[string]*Command
 }
 
 func NewCommands(cmds ...*Command) *Commands {
 	c := &Commands{
-		command:      []*Command(nil),
+		commands:     []*Command(nil),
 		commandIndex: map[string]*Command{},
 	}
 
@@ -146,14 +150,18 @@ func (c *Commands) MustFind(path ...string) *Command {
 }
 
 func (c *Commands) Add(cmd *Command) {
-	c.command = append(c.command, cmd)
+	c.commands = append(c.commands, cmd)
 	c.commandIndex[cmd.getPath()] = cmd
 }
 
 func (c *Commands) Merge(cmds *Commands) {
-	for _, cmd := range cmds.command {
+	for _, cmd := range cmds.commands {
 		c.Add(cmd)
 	}
+}
+
+func (c *Commands) GetAll() []*Command {
+	return c.commands
 }
 
 // find must take the command path, eg. find("instance","get","server")

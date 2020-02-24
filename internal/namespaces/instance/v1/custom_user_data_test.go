@@ -7,15 +7,6 @@ import (
 )
 
 func Test_UserDataGet(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance user-data get -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	t.Run("Get an existing key", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			createServer("Server"),
@@ -38,17 +29,6 @@ func Test_UserDataGet(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
-		),
-	}))
-}
-
-func Test_UserDataSet(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance user-data set -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 	}))
 }

@@ -19,15 +19,6 @@ func init() {
 // Server
 //
 func Test_ListServer(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server list -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list",
@@ -39,15 +30,6 @@ func Test_ListServer(t *testing.T) {
 }
 
 func Test_ListServerTypes(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server-type list -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:     GetCommands(),
 		Cmd:          "scw instance server-type list",
@@ -60,15 +42,6 @@ func Test_ListServerTypes(t *testing.T) {
 }
 
 func Test_GetServer(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server get -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createServer("Server"),
@@ -111,15 +84,6 @@ func Test_CreateVolume(t *testing.T) {
 }
 
 func Test_ServerUpdate(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server update -h",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createServer("Server"),
