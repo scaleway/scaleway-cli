@@ -16,7 +16,7 @@ func testGetCommands() *Commands {
 			Namespace: "test",
 			ArgSpecs: ArgSpecs{
 				{
-					Name: "name",
+					Name: "name-id",
 				},
 			},
 			ArgsType: reflect.TypeOf(testType{}),
@@ -30,14 +30,14 @@ func testGetCommands() *Commands {
 func Test_handleUnmarshalErrors(t *testing.T) {
 	t.Run("underscore", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test ubuntu_bionic",
+		Cmd:      "scw test name_id",
 		Check: TestCheckCombine(
 			TestCheckGolden(),
 			TestCheckExitCode(1),
 		),
 	}))
 
-	t.Run("no underscore", Test(&TestConfig{
+	t.Run("value only", Test(&TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test ubuntu-bionic",
 		Check: TestCheckCombine(
