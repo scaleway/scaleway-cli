@@ -3,6 +3,7 @@ package instance
 import (
 	"context"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -13,6 +14,49 @@ import (
 //
 // Builders
 //
+
+// imageCreateBuilder overrides 'instance image create' to
+// - rename extra-volumes arguments into additional-volumes
+// - rename the argument 'root-volume' into 'snapshot-id'
+func imageCreateBuilder(c *core.Command) *core.Command {
+
+	type customCreateImageRequest struct {
+		*instance.CreateImageRequest
+		AdditionalVolumes map[string]*instance.VolumeTemplate
+		SnapshotID        string
+	}
+
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-volumes.{key}.id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-volumes.{key}.name"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-volumes.{key}.size"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-volumes.{key}.volume-type"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{key}.organization"
+
+	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
+
+	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
+
+	originalRun := c.Run
+
+	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		args := argsI.(*customCreateImageRequest)
+
+		request := args.CreateImageRequest
+		request.RootVolume = args.SnapshotID
+		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
+
+		// Extra volumes need to start at volumeIndex 1.
+		volumeIndex := 1
+		for _, volume := range args.AdditionalVolumes {
+			request.ExtraVolumes[strconv.Itoa(volumeIndex)] = volume
+			volumeIndex++
+		}
+
+		return originalRun(ctx, request)
+	}
+
+	return c
+}
 
 // imageListBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
@@ -31,6 +75,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 			Public            bool
 			RootVolume        *instance.VolumeSummary
 			State             instance.ImageState
+
 			// Replace Image.FromServer
 			ServerID   string
 			ServerName string
@@ -82,31 +127,6 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		return customImages, nil
-	}
-
-	return c
-}
-
-// imageCreateBuilder overrides 'instance image create' to rename the argument 'root-volume' into 'snapshot-id'.
-func imageCreateBuilder(c *core.Command) *core.Command {
-	type CreateImageRequestCustom struct {
-		*instance.CreateImageRequest
-		SnapshotID string
-	}
-
-	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
-
-	c.ArgsType = reflect.TypeOf(CreateImageRequestCustom{})
-
-	oldRun := c.Run
-
-	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
-		requestCustom := args.(*CreateImageRequestCustom)
-
-		request := requestCustom.CreateImageRequest
-		request.RootVolume = requestCustom.SnapshotID
-
-		return oldRun(ctx, request)
 	}
 
 	return c
