@@ -1701,6 +1701,12 @@ func instanceIPList() *core.Command {
 			{
 				FieldName: "server.name",
 			},
+			{
+				FieldName: "tags",
+			},
+			{
+				FieldName: "zone",
+			},
 		}},
 	}
 }
@@ -1717,6 +1723,11 @@ func instanceIPCreate() *core.Command {
 			{
 				Name:     "server",
 				Short:    `UUID of the server you want to attach the IP to`,
+				Required: false,
+			},
+			{
+				Name:     "tags.{index}",
+				Short:    `An array of keywords you want to tag this IP with`,
 				Required: false,
 			},
 			core.OrganizationArgSpec(),
@@ -1777,6 +1788,11 @@ func instanceIPUpdate() *core.Command {
 			{
 				Name:     "reverse",
 				Short:    `Reverse domain name`,
+				Required: false,
+			},
+			{
+				Name:     "tags",
+				Short:    `An array of keywords you want to tag this IP with`,
 				Required: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
