@@ -1,0 +1,3 @@
+The IPs failovers could be attach to any server in the same zone.
+A server could be linked with multiple failovers.
+.

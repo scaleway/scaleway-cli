@@ -1,0 +1,24 @@
+List all created servers.
+
+USAGE:
+  scw [global-flags] baremetal server list [flags] [arg=value ...]
+
+EXAMPLES:
+  List all servers on your default zone
+    scw baremetal server list
+
+ARGS:
+  [order-by]          Order of the servers (created_at_asc | created_at_desc)
+  [tags.{index}]      Filter servers by tags
+  [status.{index}]    Filter servers by status
+  [name]              Filter servers by name
+  [organization-id]   Filter servers by organization ID
+  [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
