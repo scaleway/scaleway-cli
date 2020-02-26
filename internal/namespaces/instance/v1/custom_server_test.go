@@ -229,3 +229,37 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		}))
 	})
 }
+
+func Test_ServerDelete(t *testing.T) {
+	t.Run("with all volumes", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Cmd:        `scw instance server delete server-id={{ .Server.ID }} with-ip=true with-volumes=all`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+	}))
+
+	t.Run("only block volumes", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Cmd:        `scw instance server delete server-id={{ .Server.ID }} with-ip=true with-volumes=block`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`),
+	}))
+
+	t.Run("only local volumes", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Cmd:        `scw instance server delete server-id={{ .Server.ID }} with-ip=true with-volumes=local`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`),
+	}))
+}

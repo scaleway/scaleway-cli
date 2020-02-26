@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -629,6 +630,8 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
+			deleteResources := []string(nil)
+
 			var multiErr error
 			if args.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
@@ -637,6 +640,8 @@ func serverDeleteCommand() *core.Command {
 				})
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
+				} else {
+					deleteResources = append(deleteResources, "ip "+server.Server.PublicIP.Address.String())
 				}
 			}
 
@@ -665,6 +670,8 @@ func serverDeleteCommand() *core.Command {
 				})
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
+				} else {
+					deleteResources = append(deleteResources, "volume "+volume.ID+" ("+volume.VolumeType.String()+")")
 				}
 			}
 			if multiErr != nil {
@@ -674,7 +681,12 @@ func serverDeleteCommand() *core.Command {
 				}
 			}
 
-			return &core.SuccessResult{}, nil
+			message := ""
+			if len(deleteResources) > 0 {
+				message = "Seleted the following resources as well: " + strings.Join(deleteResources, ", ")
+			}
+
+			return &core.SuccessResult{message}, nil
 		},
 	}
 }
