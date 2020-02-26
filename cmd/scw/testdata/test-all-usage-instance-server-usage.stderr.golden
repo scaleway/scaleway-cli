@@ -37,6 +37,7 @@ AVAILABLE COMMANDS:
   stop          Power off server
   standby       Put server in standby mode
   reboot        Reboot server
+  wait          Wait for server to reach a stable state
   delete        Delete server
   attach-volume Attach a volume to a server
   detach-volume Detach a volume from its server
