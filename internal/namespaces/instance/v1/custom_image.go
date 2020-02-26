@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"reflect"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -89,6 +90,31 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		return customImages, nil
+	}
+
+	return c
+}
+
+// imageCreateBuilder overrides 'instance image create' to rename the argument 'root-volume' into 'snapshot-id'.
+func imageCreateBuilder(c *core.Command) *core.Command {
+	type CreateImageRequestCustom struct {
+		*instance.CreateImageRequest
+		SnapshotID string
+	}
+
+	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
+
+	c.ArgsType = reflect.TypeOf(CreateImageRequestCustom{})
+
+	oldRun := c.Run
+
+	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		requestCustom := args.(*CreateImageRequestCustom)
+
+		request := requestCustom.CreateImageRequest
+		request.RootVolume = requestCustom.SnapshotID
+
+		return oldRun(ctx, request)
 	}
 
 	return c
