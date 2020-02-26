@@ -530,8 +530,8 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 type customDeleteServerRequest struct {
 	Zone          scw.Zone
 	ServerID      string
-	DeleteIP      bool
-	DeleteVolumes bool
+	WithVolumes   string
+	WithIP        bool
 	ForceShutdown bool
 }
 
@@ -550,12 +550,20 @@ func serverDeleteCommand() *core.Command {
 				Required: true,
 			},
 			{
-				Name:  "delete-ip",
-				Short: "Delete the IP attached to the server as well",
+				Name:    "with-volumes",
+				Short:   "Delete the volumes attached to the server as well",
+				Default: core.DefaultValueSetter("none"),
+				EnumValues: []string{
+					"none",
+					"local",
+					"block",
+					"root_only",
+					"all",
+				},
 			},
 			{
-				Name:  "delete-volumes",
-				Short: "Delete the volumes attached to the server as well",
+				Name:  "with-ip",
+				Short: "Delete the IP attached to the server as well",
 			},
 			{
 				Name:  "force-shutdown",
@@ -622,7 +630,7 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			var multiErr error
-			if args.DeleteIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+			if args.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: args.Zone,
 					IP:   server.Server.PublicIP.ID,
@@ -632,15 +640,31 @@ func serverDeleteCommand() *core.Command {
 				}
 			}
 
-			if args.DeleteVolumes {
-				for _, volume := range server.Server.Volumes {
-					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-						Zone:     args.Zone,
-						VolumeID: volume.ID,
-					})
-					if err != nil {
-						multiErr = multierror.Append(multiErr, err)
+			for index, volume := range server.Server.Volumes {
+				switch args.WithVolumes {
+				case "none":
+					break
+				case "local":
+					if volume.VolumeType != instance.VolumeTypeLSSD {
+						continue
 					}
+				case "block":
+					if volume.VolumeType != instance.VolumeTypeBSSD {
+						continue
+					}
+				case "root_only":
+					if index != "0" {
+						continue
+					}
+				case "all":
+					// always delete
+				}
+				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+					Zone:     args.Zone,
+					VolumeID: volume.ID,
+				})
+				if err != nil {
+					multiErr = multierror.Append(multiErr, err)
 				}
 			}
 			if multiErr != nil {
