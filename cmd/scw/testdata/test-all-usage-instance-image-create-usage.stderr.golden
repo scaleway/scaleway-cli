@@ -5,7 +5,7 @@ USAGE:
 
 ARGS:
   [name=<generated>]                   Name of the image
-  root-volume                          UUID of the snapshot
+  snapshot-id                          UUID of the snapshot
   arch                                 Architecture of the image (x86_64 | arm)
   [default-bootscript]                 Default bootscript of the image
   [extra-volumes.{key}.id]             UUID of the volume

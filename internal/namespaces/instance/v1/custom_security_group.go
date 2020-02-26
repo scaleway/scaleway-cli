@@ -8,16 +8,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/internal/terminal"
-	"github.com/scaleway/scaleway-sdk-go/logger"
-
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/human"
-
 	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -283,6 +281,7 @@ func securityGroupClearCommand() *core.Command {
 			return &core.SuccessResult{Message: "Successful reset of the security group rules"}, err
 		},
 		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to reset.`,
