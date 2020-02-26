@@ -483,7 +483,7 @@ func serverRebootCommand() *core.Command {
 func serverWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for server to reach a stable state`,
-		Long:      `Wait for server to reach a stable state. This command is equivalent to using the --wait flag when performing an action on a server.`,
+		Long:      `Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "wait",
