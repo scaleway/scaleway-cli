@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -32,8 +33,11 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Commands: testGetCommands(),
 		Cmd:      "scw test name_id",
 		Check: TestCheckCombine(
-			TestCheckGolden(),
 			TestCheckExitCode(1),
+			TestCheckError(&CliError{
+				Err:  fmt.Errorf("unknown argument 'name_id'"),
+				Hint: fmt.Sprintf("Valid arguments are: name-id"),
+			}),
 		),
 	}))
 
@@ -41,8 +45,11 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Commands: testGetCommands(),
 		Cmd:      "scw test ubuntu-bionic",
 		Check: TestCheckCombine(
-			TestCheckGolden(),
 			TestCheckExitCode(1),
+			TestCheckError(&CliError{
+				Err:  fmt.Errorf("unknown argument 'ubuntu-bionic'"),
+				Hint: fmt.Sprintf("Valid arguments are: name-id"),
+			}),
 		),
 	}))
 }

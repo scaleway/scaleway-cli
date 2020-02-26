@@ -333,6 +333,13 @@ func TestCheckGolden() TestCheck {
 	)
 }
 
+// TestCheckError asserts error
+func TestCheckError(err error) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		assert.Equal(t, err, ctx.Err, "Invalid error")
+	}
+}
+
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
