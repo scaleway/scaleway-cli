@@ -480,6 +480,27 @@ func serverRebootCommand() *core.Command {
 	}
 }
 
+func serverWaitCommand() *core.Command {
+	return &core.Command{
+		Short:     `Wait for server to reach a stable state`,
+		Long:      `Wait for server to reach a stable state. This command is equivalent to using the --wait flag when performing an action on a server.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "wait",
+		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			return waitForServerFunc()(ctx, argsI, nil)
+		},
+		ArgSpecs: serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:   "Wait for a server to reach a stable state",
+				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
