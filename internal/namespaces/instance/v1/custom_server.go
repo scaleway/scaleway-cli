@@ -16,6 +16,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -588,23 +589,23 @@ func serverDeleteCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			args := argsI.(*customDeleteServerRequest)
+			deleteServerRequest := argsI.(*customDeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
 			server, err := api.GetServer(&instance.GetServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
+				Zone:     deleteServerRequest.Zone,
+				ServerID: deleteServerRequest.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
-			if args.ForceShutdown {
+			if deleteServerRequest.ForceShutdown {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:     args.Zone,
-					ServerID: args.ServerID,
+					Zone:     deleteServerRequest.Zone,
+					ServerID: deleteServerRequest.ServerID,
 				})
 				if err != nil {
 					return nil, err
@@ -612,8 +613,8 @@ func serverDeleteCommand() *core.Command {
 
 				if finalStateServer.State != instance.ServerStateStopped {
 					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:     args.Zone,
-						ServerID: args.ServerID,
+						Zone:     deleteServerRequest.Zone,
+						ServerID: deleteServerRequest.ServerID,
 						Action:   instance.ServerActionPoweroff,
 					})
 					if err != nil {
@@ -623,51 +624,49 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			err = api.DeleteServer(&instance.DeleteServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
+				Zone:     deleteServerRequest.Zone,
+				ServerID: deleteServerRequest.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
 			var multiErr error
-			if args.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+			if deleteServerRequest.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
-					Zone: args.Zone,
+					Zone: deleteServerRequest.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
 				} else {
-					_, err = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
-					if err != nil {
-						fmt.Println(err)
-					}
+					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
 			}
 
 			for index, volume := range server.Server.Volumes {
 				switch {
-				case args.WithVolumes == "none":
+				case deleteServerRequest.WithVolumes == "none":
 					break
-				case args.WithVolumes == "root" && index != "0":
+				case deleteServerRequest.WithVolumes == "root" && index != "0":
 					continue
-				case args.WithVolumes == "local" && volume.VolumeType != instance.VolumeTypeLSSD:
+				case deleteServerRequest.WithVolumes == "local" && volume.VolumeType != instance.VolumeTypeLSSD:
 					continue
-				case args.WithVolumes == "block" && volume.VolumeType != instance.VolumeTypeBSSD:
+				case deleteServerRequest.WithVolumes == "block" && volume.VolumeType != instance.VolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-					Zone:     args.Zone,
+					Zone:     deleteServerRequest.Zone,
 					VolumeID: volume.ID,
 				})
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
 				} else {
-					_, err = interactive.Printf("successfully deleted volume %s (%s %s)\n", volume.Name, volume.Size, volume.VolumeType)
+					humanSize, err := human.Marshal(volume.Size, nil)
 					if err != nil {
-						fmt.Println(err)
+						logger.Debugf("cannot marshal human size %v", volume.Size)
 					}
+					_, _ = interactive.Printf("successfully deleted volume %s (%s %s)\n", volume.Name, humanSize, volume.VolumeType)
 				}
 			}
 			if multiErr != nil {
