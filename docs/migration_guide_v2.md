@@ -55,12 +55,14 @@ We needed to have a more systematic approach across all products.
 In CLI v2, we have a common syntax across all our products: service sub-resource verb.
 As an example:
 
-    # v2
-    scw instance server list
+```shell
+# v2
+scw instance server list
+```
 
-- **instance**: Refers to a resource API
-- **server**: Refers to a sub-resource maintained by this API
-- **list**: Refers to a verb apply to the current selected API
+* **instance**: Refers to a resource API
+* **server**: Refers to a sub-resource maintained by this API
+* **list**: Refers to a verb apply to the current selected API
 
 In English it would be: "list all servers available on the instance API".
 
@@ -69,9 +71,9 @@ In English it would be: "list all servers available on the instance API".
 CLI v1 didn't have any code generation features to easily create supports in all SDKs and developer tools we support.
 We invested in our code generation features to be able to synchronize support and fixes across all our tools:
 
-  - [scaleway-cli](https://github.com/scaleway/scaleway-cli)
-  - [scaleway-sdk-go](https://github.com/scaleway/scaleway-sdk-go)
-  - [scaleway provider for Terraform](https://github.com/terraform-providers/terraform-provider-scaleway/)
+* [scaleway-cli](https://github.com/scaleway/scaleway-cli)
+* [scaleway-sdk-go](https://github.com/scaleway/scaleway-sdk-go)
+* [scaleway provider for Terraform](https://github.com/terraform-providers/terraform-provider-scaleway/)
 
 ### Old unmaintained dependencies
 
@@ -91,14 +93,14 @@ We also support different types of tests: unit test, conformance test, End to En
 
 In CLI v1, the `--help` is required to print the help
 
-```
+```shell
 # v1
 scw run --help
 ```
 
 In CLI v2, the help can be printed using `--help` as before but can also be printed by not specifying any arguments:
 
-```
+```shell
 # v2
 scw --help
 
@@ -112,7 +114,7 @@ scw
 It will create a serial connection to your Scaleway server and make it available in your terminal.
 For instance if you want to open a serial port to the `foobar` instance you would use
 
-```
+```shell
 # v1
 scw attach foobar
 ```
@@ -127,23 +129,25 @@ You can still use the serial port in your console.
 `scw commit` creates a new snapshot from a server's volume.
 Let's suppose we have an instance named `foobar`, you would create a snapshot using:
 
-```
+```shell
 # v1
 scw commit foobar
 ```
 
 In CLI v2,
 
-```
+```shell
 # v2
+TODO
 ```
 
 ### `scw cp`
 
 `scw cp` provides a wrapper around the `scp` command.
 
-```
+```shell
 # v1
+TODO
 ```
 
 Let's suppose you want to receive a file `my_file` with the absolute path `/my_file` from your home directory you would do:
@@ -157,8 +161,9 @@ scp root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.add
 
 `scw create` creates an Scaleway Elements Instance.
 
-```
+```shell
 # v1
+TODO
 ```
 
 In the CLI v2, you can use `scw instance server create` to create a server.
@@ -182,8 +187,9 @@ scw instance server create image=ubuntu_bionic root-volume=local:10GB additional
 
 `scw create` provides a audit log of all the actions performed by the user on Scaleway Elements Instance.
 
-```
+```shell
 # v1
+TODO
 ```
 
 You can still access those data using the API:
@@ -210,23 +216,25 @@ ssh -t root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.
 
 Provide the history of an image.
 
-```
+```shell
 # v1
+TODO
 ```
 
 In CLI v2,
 
-```
+```shell
 # v2
+TODO
 ```
-
 
 ### `scw images`
 
 `scw images` will output the most common images available on Scaleway Elements Instances.
 
-```
+```shell
 # v1
+TODO
 ```
 
 This command will print all the image available across regions.
@@ -247,11 +255,11 @@ scw marketplace image list
 The constant URLs are not changing with the new CLI.
 You can still access them using their address.
 
-| Service     | URL                                  |
-|-------------|--------------------------------------|
-| account     | https://account.scaleway.com/        |
-| metadata    | http://169.254.42.42/                |
-| marketplace | https://api-marketplace.scaleway.com |
+| Service     | URL                                    |
+|-------------|----------------------------------------|
+| account     | <https://account.scaleway.com>         |
+| metadata    | <http://169.254.42.42>                 |
+| marketplace | <https://api-marketplace.scaleway.com> |
 
 #### Quotas
 
@@ -275,8 +283,9 @@ curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://account.scaleway.com/tokens/$SCW
 
 `scw inspect` returns information about a server as a JSON format.
 
-```
+```shell
 # v1
+TODO
 ```
 
 In CLI v2, you can access your server information details using its Instance ID:
@@ -299,8 +308,9 @@ This UUID is also visible in the instance information page of your server in the
 
 `scw kill` will connect to your instance using SSH and run a `halt` command to shutdown your machine.
 
-```
+```shell
 # v1
+TODO
 ```
 
 Let's suppose you want to connect to an instance named `foobar`, you would use a command similar such as:
@@ -310,8 +320,8 @@ Let's suppose you want to connect to an instance named `foobar`, you would use a
 ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address") halt
 ```
 
-- The `ssh -t` command will create a terminal output inside your own terminal.
-- `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
+* The `ssh -t` command will create a terminal output inside your own terminal.
+* `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
 
 ### `scw login`
 
@@ -338,8 +348,8 @@ Let's suppose you want to connect to an instance named `foobar`, you would use a
 ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address") dmesg
 ```
 
-- The `ssh -t` command will create a terminal output inside your own terminal.
-- `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
+* The `ssh -t` command will create a terminal output inside your own terminal.
+* `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
 
 ### `scw port`
 
@@ -352,8 +362,8 @@ Let's suppose you want to connect to an instance named `foobar`, you would use a
 ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address") netstat -lutn 2>/dev/null | grep LISTEN
 ```
 
-- The `ssh -t` command will create a terminal output inside your own terminal.
-- `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
+* The `ssh -t` command will create a terminal output inside your own terminal.
+* `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
 
 ### `scw products`
 
@@ -465,21 +475,21 @@ scw instance image delete image-id=11111111-1111-1111-1111-111111111111
 
 `scw run` is a command that will perform several tasks:
 
-- Instantiate a Scaleway Elements Instance
-- Open an SSH connection to the instance
-- Run a given command
+* Instantiate a Scaleway Elements Instance
+* Open an SSH connection to the instance
+* Run a given command
 
 Using CLIv2 you would:
 
-- First create an instance:
+1. Create an instance:
 
     ```shell
     # v2
     scw instance server create image=ubuntu_bionic
     ```
 
-  You can add `--wait` to make this command returns only when your server is ready.
-  This command will output an IP address in the field `public-ip.address`.
+    You can add `--wait` to make this command returns only when your server is ready.
+    This command will output an IP address in the field `public-ip.address`.
 
     ```text
     id                        11111111-1111-1111-1111-111111111111
@@ -489,7 +499,7 @@ Using CLIv2 you would:
     public-ip.address         51.15.253.183
     ```
 
-- Second run your command (let's say `uname -a`) on your instance using the `public-ip.address` address.
+1. Run your command (let's say `uname -a`) on your instance using the `public-ip.address` address.
 
     ```shell
     ssh root@51.15.253.183 uname -a
@@ -572,8 +582,8 @@ Let's suppose you want to connect to an instance named `foobar`, you would use a
 ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address") top
 ```
 
-- The `ssh -t` command will create a terminal output inside your own terminal.
-- `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
+* The `ssh -t` command will create a terminal output inside your own terminal.
+* `$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")` will find the first server named foobar in your account and extract its IP address.
 
 ### `scw version`
 
