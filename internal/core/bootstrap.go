@@ -50,8 +50,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
-	interactive.SetOutputWriter(config.Stderr)
-
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
