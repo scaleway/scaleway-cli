@@ -5,6 +5,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -231,6 +232,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 }
 
 func Test_ServerDelete(t *testing.T) {
+	interactive.IsInteractive = true
+
 	t.Run("with all volumes", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
@@ -262,4 +265,6 @@ func Test_ServerDelete(t *testing.T) {
 		),
 		AfterFunc: core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`),
 	}))
+
+	interactive.IsInteractive = false
 }

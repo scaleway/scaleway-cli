@@ -13,8 +13,8 @@ EXAMPLES:
 ARGS:
   [zone]                Zone to target. If none is passed will use default zone from the config
   server-id             
-  [with-volumes=none]   Delete the volumes attached to the server as well (none | local | block | root_only | all)
-  [with-ip]             Delete the IP attached to the server as well
+  [with-volumes=none]   Delete the volumes attached to the server (none | local | block | root | all)
+  [with-ip]             Delete the IP attached to the server
   [force-shutdown]      Force shutdown of the instance server before deleting it
 
 FLAGS:

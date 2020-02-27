@@ -7,13 +7,13 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
 	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -552,19 +552,19 @@ func serverDeleteCommand() *core.Command {
 			},
 			{
 				Name:    "with-volumes",
-				Short:   "Delete the volumes attached to the server as well",
+				Short:   "Delete the volumes attached to the server",
 				Default: core.DefaultValueSetter("none"),
 				EnumValues: []string{
 					"none",
 					"local",
 					"block",
-					"root_only",
+					"root",
 					"all",
 				},
 			},
 			{
 				Name:  "with-ip",
-				Short: "Delete the IP attached to the server as well",
+				Short: "Delete the IP attached to the server",
 			},
 			{
 				Name:  "force-shutdown",
@@ -630,8 +630,6 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
-			deleteResources := []string(nil)
-
 			var multiErr error
 			if args.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
@@ -641,28 +639,23 @@ func serverDeleteCommand() *core.Command {
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
 				} else {
-					deleteResources = append(deleteResources, "ip "+server.Server.PublicIP.Address.String())
+					_, err = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
+					if err != nil {
+						fmt.Println(err)
+					}
 				}
 			}
 
 			for index, volume := range server.Server.Volumes {
-				switch args.WithVolumes {
-				case "none":
+				switch {
+				case args.WithVolumes == "none":
 					break
-				case "local":
-					if volume.VolumeType != instance.VolumeTypeLSSD {
-						continue
-					}
-				case "block":
-					if volume.VolumeType != instance.VolumeTypeBSSD {
-						continue
-					}
-				case "root_only":
-					if index != "0" {
-						continue
-					}
-				case "all":
-					// always delete
+				case args.WithVolumes == "root" && index != "0":
+					continue
+				case args.WithVolumes == "local" && volume.VolumeType != instance.VolumeTypeLSSD:
+					continue
+				case args.WithVolumes == "block" && volume.VolumeType != instance.VolumeTypeBSSD:
+					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
 					Zone:     args.Zone,
@@ -671,7 +664,10 @@ func serverDeleteCommand() *core.Command {
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
 				} else {
-					deleteResources = append(deleteResources, "volume "+volume.ID+" ("+volume.VolumeType.String()+")")
+					_, err = interactive.Printf("successfully deleted volume %s (%s %s)\n", volume.Name, volume.Size, volume.VolumeType)
+					if err != nil {
+						fmt.Println(err)
+					}
 				}
 			}
 			if multiErr != nil {
@@ -681,12 +677,7 @@ func serverDeleteCommand() *core.Command {
 				}
 			}
 
-			message := ""
-			if len(deleteResources) > 0 {
-				message = "Seleted the following resources as well: " + strings.Join(deleteResources, ", ")
-			}
-
-			return &core.SuccessResult{message}, nil
+			return &core.SuccessResult{}, nil
 		},
 	}
 }
