@@ -644,6 +644,7 @@ func serverDeleteCommand() *core.Command {
 				}
 			}
 
+			deletedVolumeMessages := [][2]string(nil)
 			for index, volume := range server.Server.Volumes {
 				switch {
 				case deleteServerRequest.WithVolumes == "none":
@@ -666,7 +667,10 @@ func serverDeleteCommand() *core.Command {
 					if err != nil {
 						logger.Debugf("cannot marshal human size %v", volume.Size)
 					}
-					_, _ = interactive.Printf("successfully deleted volume %s (%s %s)\n", volume.Name, humanSize, volume.VolumeType)
+					deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
+						index,
+						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+					})
 				}
 			}
 			if multiErr != nil {
@@ -674,6 +678,14 @@ func serverDeleteCommand() *core.Command {
 					Err:  multiErr,
 					Hint: "Make sure these resources have been deleted or try to delete it manually.",
 				}
+			}
+
+			// Sort and print deleted volume messages
+			sort.Slice(deletedVolumeMessages, func(i, j int) bool {
+				return deletedVolumeMessages[i][0] < deletedVolumeMessages[j][0]
+			})
+			for _, message := range deletedVolumeMessages {
+				_, _ = interactive.Println(message[1])
 			}
 
 			return &core.SuccessResult{}, nil
