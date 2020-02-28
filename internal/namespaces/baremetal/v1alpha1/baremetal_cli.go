@@ -21,6 +21,10 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		baremetalRoot(),
 		baremetalServer(),
+		baremetalOs(),
+		baremetalIP(),
+		baremetalBmc(),
+		baremetalOffer(),
 		baremetalServerList(),
 	)
 }
@@ -38,6 +42,46 @@ func baremetalServer() *core.Command {
 		Long:      `A server is a denomination of a type of instances provided by Scaleway.`,
 		Namespace: "baremetal",
 		Resource:  "server",
+	}
+}
+
+func baremetalOs() *core.Command {
+	return &core.Command{
+		Short:     `An Operating System (OS) is the underlying software installed on your server`,
+		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
+		Namespace: "baremetal",
+		Resource:  "os",
+	}
+}
+
+func baremetalIP() *core.Command {
+	return &core.Command{
+		Short: `The IPs failovers could be attach to any server in the same zone.
+A server could be linked with multiple failovers.
+`,
+		Long: `The IPs failovers could be attach to any server in the same zone.
+A server could be linked with multiple failovers.
+.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+	}
+}
+
+func baremetalBmc() *core.Command {
+	return &core.Command{
+		Short:     `Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance`,
+		Long:      `Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance.`,
+		Namespace: "baremetal",
+		Resource:  "bmc",
+	}
+}
+
+func baremetalOffer() *core.Command {
+	return &core.Command{
+		Short:     `Commercial offers`,
+		Long:      `Commercial offers.`,
+		Namespace: "baremetal",
+		Resource:  "offer",
 	}
 }
 
@@ -83,7 +127,7 @@ func baremetalServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListServers(request)
+			resp, err := api.ListServers(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
