@@ -532,10 +532,20 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 type customDeleteServerRequest struct {
 	Zone          scw.Zone
 	ServerID      string
-	WithVolumes   string
+	WithVolumes   withVolumes
 	WithIP        bool
 	ForceShutdown bool
 }
+
+type withVolumes string
+
+const (
+	withVolumesNone  = withVolumes("none")
+	withVolumesLocal = withVolumes("local")
+	withVolumesBlock = withVolumes("block")
+	withVolumesRoot  = withVolumes("root")
+	withVolumesAll   = withVolumes("all")
+)
 
 func serverDeleteCommand() *core.Command {
 	return &core.Command{
@@ -556,11 +566,11 @@ func serverDeleteCommand() *core.Command {
 				Short:   "Delete the volumes attached to the server",
 				Default: core.DefaultValueSetter("none"),
 				EnumValues: []string{
-					"none",
-					"local",
-					"block",
-					"root",
-					"all",
+					string(withVolumesNone),
+					string(withVolumesLocal),
+					string(withVolumesBlock),
+					string(withVolumesRoot),
+					string(withVolumesAll),
 				},
 			},
 			{
@@ -589,23 +599,23 @@ func serverDeleteCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			deleteServerRequest := argsI.(*customDeleteServerRequest)
+			deleteServerArgs := argsI.(*customDeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
 			server, err := api.GetServer(&instance.GetServerRequest{
-				Zone:     deleteServerRequest.Zone,
-				ServerID: deleteServerRequest.ServerID,
+				Zone:     deleteServerArgs.Zone,
+				ServerID: deleteServerArgs.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
-			if deleteServerRequest.ForceShutdown {
+			if deleteServerArgs.ForceShutdown {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:     deleteServerRequest.Zone,
-					ServerID: deleteServerRequest.ServerID,
+					Zone:     deleteServerArgs.Zone,
+					ServerID: deleteServerArgs.ServerID,
 				})
 				if err != nil {
 					return nil, err
@@ -613,8 +623,8 @@ func serverDeleteCommand() *core.Command {
 
 				if finalStateServer.State != instance.ServerStateStopped {
 					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:     deleteServerRequest.Zone,
-						ServerID: deleteServerRequest.ServerID,
+						Zone:     deleteServerArgs.Zone,
+						ServerID: deleteServerArgs.ServerID,
 						Action:   instance.ServerActionPoweroff,
 					})
 					if err != nil {
@@ -624,17 +634,17 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			err = api.DeleteServer(&instance.DeleteServerRequest{
-				Zone:     deleteServerRequest.Zone,
-				ServerID: deleteServerRequest.ServerID,
+				Zone:     deleteServerArgs.Zone,
+				ServerID: deleteServerArgs.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
 			var multiErr error
-			if deleteServerRequest.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
-					Zone: deleteServerRequest.Zone,
+					Zone: deleteServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
@@ -647,17 +657,17 @@ func serverDeleteCommand() *core.Command {
 			deletedVolumeMessages := [][2]string(nil)
 			for index, volume := range server.Server.Volumes {
 				switch {
-				case deleteServerRequest.WithVolumes == "none":
+				case deleteServerArgs.WithVolumes == withVolumesNone:
 					break
-				case deleteServerRequest.WithVolumes == "root" && index != "0":
+				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
-				case deleteServerRequest.WithVolumes == "local" && volume.VolumeType != instance.VolumeTypeLSSD:
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeTypeLSSD:
 					continue
-				case deleteServerRequest.WithVolumes == "block" && volume.VolumeType != instance.VolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-					Zone:     deleteServerRequest.Zone,
+					Zone:     deleteServerArgs.Zone,
 					VolumeID: volume.ID,
 				})
 				if err != nil {
