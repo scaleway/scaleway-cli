@@ -3,6 +3,7 @@ package instance
 import (
 	"context"
 	"sort"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -52,11 +53,20 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		}
 
 		sort.Slice(serverTypes, func(i, j int) bool {
-			return serverTypes[i].Name < serverTypes[j].Name
+			categoryA := serverTypeCategory(serverTypes[i].Name)
+			categoryB := serverTypeCategory(serverTypes[j].Name)
+			if categoryA != categoryB {
+				return categoryA < categoryB
+			}
+			return serverTypes[i].MonthlyPrice.ToFloat() < serverTypes[j].MonthlyPrice.ToFloat()
 		})
 
 		return serverTypes, nil
 	}
 
 	return c
+}
+
+func serverTypeCategory(serverTypeName string) (category string) {
+	return strings.Split(serverTypeName, "-")[0]
 }
