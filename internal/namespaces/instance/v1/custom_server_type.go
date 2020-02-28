@@ -53,10 +53,10 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		}
 
 		sort.Slice(serverTypes, func(i, j int) bool {
-			catA := serverTypeCategory(serverTypes[i].Name)
-			catB := serverTypeCategory(serverTypes[j].Name)
-			if catA != catB {
-				return catA < catB
+			categoryA := serverTypeCategory(serverTypes[i].Name)
+			categoryB := serverTypeCategory(serverTypes[j].Name)
+			if categoryA != categoryB {
+				return categoryA < categoryB
 			}
 			return serverTypes[i].MonthlyPrice.ToFloat() < serverTypes[j].MonthlyPrice.ToFloat()
 		})
