@@ -63,6 +63,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 				Public:            image.Public,
 				RootVolume:        image.RootVolume,
 				State:             image.State,
+				Zone:              image.Zone,
 			}
 
 			if image.FromServer != "" {
@@ -74,17 +75,8 @@ func imageListBuilder(c *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				zone := scw.Zone("")
-				if getServerResponse.Server.Location != nil {
-					parsedZone, err := scw.ParseZone(getServerResponse.Server.Location.ZoneID)
-					if err != nil {
-						return nil, err
-					}
-					zone = parsedZone
-				}
 				newCustomImage.ServerID = getServerResponse.Server.ID
 				newCustomImage.ServerName = getServerResponse.Server.Name
-				newCustomImage.Zone = zone
 			}
 			customImages = append(customImages, newCustomImage)
 		}

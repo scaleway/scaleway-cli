@@ -20,6 +20,7 @@ server.image.organization        51b656e3-4865-41e8-adbc-0c45bdd780db
 server.image.public              true
 server.image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 server.image.state               available
+server.image.zone                fr-par-1
 server.protected                 false
 server.public-ip.id              febae361-dcf5-428d-a8ca-5ee64fc46190
 server.public-ip.address         51.158.117.222
@@ -33,3 +34,4 @@ server.security-group.id         e5bf4522-94b4-4933-bebb-9b21f786b4af
 server.security-group.name       Default security group
 server.state-detail              
 server.arch                      x86_64
+server.zone                      fr-par-1

@@ -72,14 +72,6 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	servers := i.([]*instance.Server)
 	humanServers := make([]*humanServerInList, 0)
 	for _, server := range servers {
-		var zone scw.Zone
-		if server.Location != nil {
-			parsedZone, err := scw.ParseZone(server.Location.ZoneID)
-			if err != nil {
-				return "", err
-			}
-			zone = parsedZone
-		}
 		publicIPAddress := net.IP(nil)
 		if server.PublicIP != nil {
 			publicIPAddress = server.PublicIP.Address
@@ -94,7 +86,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			ID:                server.ID,
 			Name:              server.Name,
 			State:             server.State,
-			Zone:              zone,
+			Zone:              server.Zone,
 			ModificationDate:  server.ModificationDate,
 			CreationDate:      server.CreationDate,
 			ImageID:           serverImageID,
