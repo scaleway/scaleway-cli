@@ -1,0 +1,31 @@
+LABEL                  NAME                   ZONES                ARCHS               MODIFICATION DATE  CREATION DATE
+ubuntu_bionic          Ubuntu Bionic          [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+ubuntu_xenial          Ubuntu Xenial          [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+debian_stretch         Debian Stretch         [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+debian_jessie          Debian Jessie          [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+centos_7.6             CentOS 7.6             [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+centos_7.4             CentOS 7.4             [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+fedora_29              Fedora 29              [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+fedora_28              Fedora 28              [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+fedora_27              Fedora 27              [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+arch_linux             Arch Linux             [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+alpine_linux           Alpine Linux           [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+debian_buster          Debian Buster          [fr-par-1 nl-ams-1]  [arm64 x86_64]      few seconds ago    few seconds ago
+docker                 Docker                 [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+gitlab                 GitLab                 [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+gogs                   Gogs                   [fr-par-1 nl-ams-1]  [arm x86_64]        few seconds ago    few seconds ago
+golang                 Golang                 [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+java                   Java                   [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+lemp_stack             LEMP stack             [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+mattermost             Mattermost             [fr-par-1 nl-ams-1]  [x86_64]            few seconds ago    few seconds ago
+nextcloud              NextCloud              [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+node.js                Node.js                [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+openvpn                OpenVPN                [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+owncloud               ownCloud               [fr-par-1 nl-ams-1]  [arm x86_64]        few seconds ago    few seconds ago
+prestashop             PrestaShop             [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+python                 Python                 [fr-par-1 nl-ams-1]  [arm x86_64]        few seconds ago    few seconds ago
+ruby                   Ruby                   [fr-par-1 nl-ams-1]  [arm x86_64]        few seconds ago    few seconds ago
+torrents               Torrents               [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago
+ubuntu_bionic_ml_10.1  Ubuntu Bionic ML 10.1  [fr-par-1]           [x86_64]            few seconds ago    few seconds ago
+ubuntu_bionic_ml_9.2   Ubuntu Bionic ML 9.2   [fr-par-1]           [x86_64]            few seconds ago    few seconds ago
+wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x86_64]  few seconds ago    few seconds ago

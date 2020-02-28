@@ -28,7 +28,6 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		Archs            []string
 		ModificationDate time.Time
 		CreationDate     time.Time
-		ValidUntil       time.Time
 	}
 
 	images := i.([]*marketplace.Image)
@@ -55,7 +54,6 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			Archs:            archs,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
-			ValidUntil:       image.ValidUntil,
 		})
 	}
 	return human.Marshal(humanImages, opt)
