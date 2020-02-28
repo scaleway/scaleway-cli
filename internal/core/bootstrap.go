@@ -48,6 +48,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		_, _ = fmt.Fprintln(os.Stderr, err)
 		return 1, nil, err
 	}
+	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
