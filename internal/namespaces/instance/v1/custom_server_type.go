@@ -16,7 +16,23 @@ import (
 
 // serverTypeListBuilder transforms the server map into a list to display a
 // table of server types instead of a flat key/value list.
+// We need it for:
+// - [APIGW-1932] hide deprecated instance for scw instance server-type list
 func serverTypeListBuilder(c *core.Command) *core.Command {
+	deprecatedNames := map[string]struct{}{
+		"START1-L":  {},
+		"START1-M":  {},
+		"START1-S":  {},
+		"START1-XS": {},
+		"VC1L":      {},
+		"VC1M":      {},
+		"VC1S":      {},
+		"X64-120GB": {},
+		"X64-15GB":  {},
+		"X64-30GB":  {},
+		"X64-60GB":  {},
+	}
+
 	originalRun := c.Run
 
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
@@ -40,6 +56,12 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		for name, serverType := range listServersTypesResponse.Servers {
+
+			_, isDeprecated := deprecatedNames[name]
+			if isDeprecated {
+				continue
+			}
+
 			serverTypes = append(serverTypes, &customServerType{
 				Name:            name,
 				MonthlyPrice:    scw.NewMoneyFromFloat(float64(serverType.MonthlyPrice), "EUR", 2),
