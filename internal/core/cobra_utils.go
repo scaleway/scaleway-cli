@@ -93,7 +93,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 			Hint: hint,
 		}
 
-	case *args.UnknownArgError:
+	case *args.UnknownArgError, *args.InvalidArgNameError:
 		argNames := []string(nil)
 		for _, argSpec := range cmd.ArgSpecs {
 			argNames = append(argNames, argSpec.Name)
