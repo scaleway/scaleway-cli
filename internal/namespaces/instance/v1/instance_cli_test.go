@@ -29,18 +29,6 @@ func Test_ListServer(t *testing.T) {
 	}))
 }
 
-func Test_ListServerTypes(t *testing.T) {
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:     GetCommands(),
-		Cmd:          "scw instance server-type list",
-		UseE2EClient: true,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
-}
-
 func Test_GetServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
