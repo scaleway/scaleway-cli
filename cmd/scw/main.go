@@ -5,6 +5,7 @@ import (
 	"runtime"
 
 	"github.com/hashicorp/go-version"
+	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
@@ -63,8 +64,8 @@ func main() {
 		Args:      os.Args,
 		Commands:  getCommands(),
 		BuildInfo: buildInfo,
-		Stdout:    os.Stdout,
-		Stderr:    os.Stderr,
+		Stdout:    colorable.NewColorableStdout(),
+		Stderr:    colorable.NewColorableStderr(),
 	})
 
 	os.Exit(exitCode)

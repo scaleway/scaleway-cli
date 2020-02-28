@@ -5,22 +5,29 @@ import (
 	"io"
 	"os"
 
-	"github.com/scaleway/scaleway-sdk-go/validation"
-
 	"github.com/chzyer/readline"
 	isatty "github.com/mattn/go-isatty"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
-
-var IsInteractive = false
-var outputWriter io.Writer = os.Stderr
 
 type ValidateFunc func(string) error
 
-var defaultValidateFunc = func(string) error { return nil }
-
-func init() {
+var (
+	// IsInteractive must be set to print anything with Printer functions (Print, Printf,...).
 	IsInteractive = isInteractive()
-	readline.Stdout = os.Stderr
+
+	// outputWriter is the writer used by Printer functions (Print, Printf,...).
+	outputWriter io.Writer
+
+	// defaultValidateFunc is used by readline to validate user input.
+	defaultValidateFunc ValidateFunc = func(string) error { return nil }
+)
+
+// SetOutputWriter set the output writer that will be used by both Printer functions (Print, Printf,...) and
+// readline prompter. This should be called once from the bootstrap function.
+func SetOutputWriter(w io.Writer) {
+	outputWriter = w
+	readline.Stdout = newWriteCloser(w)
 }
 
 // we should expect both Stdin and Stderr to enable interactive mode
@@ -36,4 +43,19 @@ func ValidateOrganizationID() ValidateFunc {
 		}
 		return nil
 	}
+}
+
+func newWriteCloser(w io.Writer) io.WriteCloser {
+	return &writeCloser{w}
+}
+
+type writeCloser struct {
+	io.Writer
+}
+
+func (wc *writeCloser) Close() error {
+	if closer, ok := wc.Writer.(io.Closer); ok {
+		return closer.Close()
+	}
+	return nil
 }
