@@ -15,7 +15,7 @@ func Test_ImageCreate(t *testing.T) {
 			core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		),
 		Commands: GetCommands(),
-		Cmd:      "scw instance image create root-volume={{ .Snapshot.Snapshot.ID }} arch=x86_64",
+		Cmd:      "scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

@@ -38,7 +38,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	originalRun := c.Run
 
-	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		args := argsI.(*customCreateImageRequest)
 
 		request := args.CreateImageRequest
