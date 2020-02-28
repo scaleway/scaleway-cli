@@ -19,7 +19,6 @@ import (
 // - rename extra-volumes arguments into additional-volumes
 // - rename the argument 'root-volume' into 'snapshot-id'
 func imageCreateBuilder(c *core.Command) *core.Command {
-
 	type customCreateImageRequest struct {
 		*instance.CreateImageRequest
 		AdditionalVolumes map[string]*instance.VolumeTemplate
