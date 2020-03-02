@@ -103,7 +103,7 @@ func TestMarshal(t *testing.T) {
 			strings.0           s1
 			strings.1           s2
 			time                ` + humanDate + `
-			struct.string       
+			struct.string       -
 			struct.int          0
 			struct.bool         false
 			struct.time         a long while ago
@@ -153,5 +153,17 @@ func TestMarshal(t *testing.T) {
 			Mrs. Hudson  Landlady
 		`,
 		err: nil,
+	}))
+
+	t.Run("empty string", run(&testCase{
+		data:   "",
+		result: `-`,
+		err:    nil,
+	}))
+
+	t.Run("nil", run(&testCase{
+		data:   nil,
+		result: `-`,
+		err:    nil,
 	}))
 }

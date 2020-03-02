@@ -58,6 +58,17 @@ func RegisterMarshalerFunc(i interface{}, f MarshalerFunc) {
 
 // DefaultMarshalerFunc is used by default for all non-registered type
 func defaultMarshalerFunc(i interface{}, opt *MarshalOpt) (string, error) {
+	if i == nil {
+		i = "-"
+	}
+
+	switch v := i.(type) {
+	case string:
+		if v == "" {
+			i = "-"
+		}
+	}
+
 	return fmt.Sprint(i), nil
 }
 

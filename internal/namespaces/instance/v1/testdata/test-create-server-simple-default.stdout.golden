@@ -15,7 +15,7 @@ image.creation-date       few seconds ago
 image.modification-date   few seconds ago
 image.default-bootscript  x86_64 mainline 4.9.93 rev1
 image.extra-volumes       0
-image.from-server         
+image.from-server         -
 image.organization        51b656e3-4865-41e8-adbc-0c45bdd780db
 image.public              true
 image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
@@ -32,6 +32,6 @@ boot-type                 local
 volumes                   1
 security-group.id         980142a3-a959-4aee-8325-91a6ba787439
 security-group.name       Default security group
-state-detail              
+state-detail              -
 arch                      x86_64
 zone                      fr-par-1
