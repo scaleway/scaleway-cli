@@ -45,7 +45,7 @@ While this can be useful for some tasks, there are plenty of actions that don't 
 For instance, attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
 In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
-Actions are organized around a set of verbs such as `list`, `get`, 'create', 'update' that can be used with a wide variety of products and do not suppose any preconceived workflow.
+Actions are organized around a set of verbs such as `list`, `get`, `create`, `update` that can be used with a wide variety of products and do not suppose any preconceived workflow.
 
 ### No design for multiple products
 
