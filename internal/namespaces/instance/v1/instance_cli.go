@@ -20,7 +20,6 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		instanceRoot(),
-		instanceBootscript(),
 		instanceImage(),
 		instanceIP(),
 		instancePlacementGroup(),
@@ -73,24 +72,6 @@ func instanceRoot() *core.Command {
 		Short:     `Instance API`,
 		Long:      ``,
 		Namespace: "instance",
-	}
-}
-
-func instanceBootscript() *core.Command {
-	return &core.Command{
-		Short: `A bootscript is a combination of a Kernel and of an initrd`,
-		Long: `Bootscripts are a combination of a [Kernel](https://en.wikipedia.org/wiki/Kernel_(operating_system)) and of an [initrd](https://en.wikipedia.org/wiki/Initial_ramdisk).
-They tell to the instance how to start and configure its starting process and settings.
-
-Bootscripts are available on all of instances types (DEV, GP, RENDER, ARM).
-
-Scaleway recommends that you take the "localboot" boot method that will automatically launch your instance with your locally installed kernel.
-It gives you full control over the booting process of your instance.
-
-Scaleway also provides a "rescue" bootscript that can be used when your instance gets a failure and if you need a clean operating system to access your data.
-`,
-		Namespace: "instance",
-		Resource:  "bootscript",
 	}
 }
 
@@ -364,7 +345,7 @@ func instanceServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListServers(request)
+			resp, err := api.ListServers(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -694,7 +675,7 @@ func instanceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListImages(request)
+			resp, err := api.ListImages(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -871,7 +852,7 @@ func instanceSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSnapshots(request)
+			resp, err := api.ListSnapshots(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -1002,7 +983,7 @@ func instanceVolumeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListVolumes(request)
+			resp, err := api.ListVolumes(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -1220,7 +1201,7 @@ func instanceSecurityGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSecurityGroups(request)
+			resp, err := api.ListSecurityGroups(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -1411,7 +1392,7 @@ func instancePlacementGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListPlacementGroups(request)
+			resp, err := api.ListPlacementGroups(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -1675,7 +1656,7 @@ func instanceIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListIPs(request)
+			resp, err := api.ListIPs(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
