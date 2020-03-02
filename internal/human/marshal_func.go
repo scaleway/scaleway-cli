@@ -61,9 +61,14 @@ func defaultMarshalerFunc(i interface{}, opt *MarshalOpt) (string, error) {
 	if i == nil {
 		i = "-"
 	}
-	if i.(string) == "" {
-		i = "-"
+
+	switch v := i.(type) {
+	case string:
+		if v == "" {
+			i = "-"
+		}
 	}
+
 	return fmt.Sprint(i), nil
 }
 
