@@ -42,7 +42,7 @@ The goal of this document is to help you migrate from CLI v1 to CLI v2.
 CLI v1 was designed to offer a syntax close to the Docker syntax.
 For instance, running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
-For instance, attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
+E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
 In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
 Actions are organized around a set of verbs such as `list`, `get`, `create`, `update` that can be used with a wide variety of products and do not suppose any preconceived workflow.
