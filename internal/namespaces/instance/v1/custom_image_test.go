@@ -8,27 +8,24 @@ import (
 )
 
 func Test_ImageCreate(t *testing.T) {
-	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+	t.Run("Create simple image", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			createServer("Server"),
-			func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["SnapshotResponse"] = ctx.ExecuteCmd(`scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`)
-				return nil
-			},
+			core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		),
-		Cmd: "scw instance image create snapshot-id={{ .SnapshotResponse.Snapshot.ID }} arch=x86_64",
+		Commands: GetCommands(),
+		Cmd:      "scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
+			deleteServer("Server"),
 			func(ctx *core.AfterFuncCtx) error {
 				ctx.ExecuteCmd("scw instance image delete image-id=" + ctx.CmdResult.(*instance.CreateImageResponse).Image.ID)
-				ctx.ExecuteCmd("scw instance snapshot delete snapshot-id={{ .SnapshotResponse.Snapshot.ID }}")
 				return nil
 			},
-			deleteServer("Server"),
+			deleteSnapshot("Snapshot"),
 		),
 	}))
 }

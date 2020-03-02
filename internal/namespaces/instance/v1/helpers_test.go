@@ -107,3 +107,12 @@ func createSecurityGroup(metaKey string) core.BeforeFunc {
 func deleteSecurityGroup(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance security-group delete security-group-id={{ ." + metaKey + ".ID }}")
 }
+
+//
+// Snapshot
+//
+
+// deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
+func deleteSnapshot(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw instance snapshot delete snapshot-id={{ ." + metaKey + ".Snapshot.ID }}")
+}

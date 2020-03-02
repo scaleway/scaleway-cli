@@ -58,8 +58,8 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
 
-	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
+	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 
 	//
 	// Snapshot
