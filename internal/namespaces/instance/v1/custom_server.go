@@ -53,22 +53,23 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	type humanServerInList struct {
 		ID                string
 		Name              string
+		Type              string
 		State             instance.ServerState
 		Zone              scw.Zone
 		PublicIP          net.IP
 		PrivateIP         *string
-		ImageName         string
 		Tags              []string
+		ImageName         string
+		PlacementGroup    *instance.PlacementGroup
 		ModificationDate  time.Time
 		CreationDate      time.Time
-		ImageID           string
-		Protected         bool
 		Volumes           int
-		SecurityGroupID   string
+		Protected         bool
 		SecurityGroupName string
+		SecurityGroupID   string
 		StateDetail       string
 		Arch              instance.Arch
-		PlacementGroup    *instance.PlacementGroup
+		ImageID           string
 	}
 
 	servers := i.([]*instance.Server)
@@ -87,22 +88,23 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		humanServers = append(humanServers, &humanServerInList{
 			ID:                server.ID,
 			Name:              server.Name,
+			Type:              server.CommercialType,
 			State:             server.State,
 			Zone:              server.Zone,
-			ModificationDate:  server.ModificationDate,
-			CreationDate:      server.CreationDate,
-			ImageID:           serverImageID,
-			ImageName:         serverImageName,
-			Protected:         server.Protected,
 			PublicIP:          publicIPAddress,
 			PrivateIP:         server.PrivateIP,
+			Tags:              server.Tags,
+			ImageName:         serverImageName,
+			PlacementGroup:    server.PlacementGroup,
+			ModificationDate:  server.ModificationDate,
+			CreationDate:      server.CreationDate,
 			Volumes:           len(server.Volumes),
-			SecurityGroupID:   server.SecurityGroup.ID,
+			Protected:         server.Protected,
 			SecurityGroupName: server.SecurityGroup.Name,
+			SecurityGroupID:   server.SecurityGroup.ID,
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,
-			PlacementGroup:    server.PlacementGroup,
-			Tags:              server.Tags,
+			ImageID:           serverImageID,
 		})
 	}
 	return human.Marshal(humanServers, opt)
