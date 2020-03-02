@@ -120,7 +120,7 @@ For instance, if you want to open a serial port to the `foobar` instance you wou
 scw attach foobar
 ```
 
-In CLI v2, we don't offer at the moment any support for connecting to a serial port.
+In CLI v2, we do not offer at the moment any support for connecting to a serial port.
 We strongly encourage you to connect to your instance using SSH.
 In case your SSH server configuration is broken and you cannot connect to your instance, we encourage you to use the [rescue mode](https://www.scaleway.com/en/docs/activate-rescue-mode-on-my-server/) and fix your SSH server configuration.
 You can still use the serial port in your console.
