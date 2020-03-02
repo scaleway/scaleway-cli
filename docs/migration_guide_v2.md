@@ -62,8 +62,8 @@ As an example:
 scw instance server list
 ```
 
-* **instance**: Refers to a resource API
-* **server**: Refers to a sub-resource maintained by this API
+* **instance**: Refers to the product namespace
+* **server**: Refers to a resource maintained in the product namespace
 * **list**: Refers to a verb apply to the currently selected API
 
 In English, it would be: "list all servers available on the instance API".
