@@ -39,12 +39,16 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	}
 
 	rValue := reflect.ValueOf(data)
+	if !rValue.IsValid() {
+		return defaultMarshalerFunc(nil, opt)
+	}
+
 	rType := rValue.Type()
 
 	switch {
 	// If data is nil
 	case isInterfaceNil(data):
-		return "", nil
+		return defaultMarshalerFunc(nil, opt)
 
 	// If data has a registered MarshalerFunc call it
 	case marshalerFuncs[rType] != nil:
