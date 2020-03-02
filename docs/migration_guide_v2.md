@@ -113,7 +113,7 @@ scw
 
 `scw attach` will connect to the serial port of your Scaleway instance.
 It will create a serial connection to your Scaleway server and make it available in your terminal.
-For instance, if you want to open a serial port to the `foobar` instance you would use
+For instance, if you want to open a serial port to the `foobar` instance you would use the following command:
 
 ```shell
 # v1
