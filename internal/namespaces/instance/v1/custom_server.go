@@ -53,7 +53,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	type humanServerInList struct {
 		ID                string
 		Name              string
-		CommercialType    string
+		Type              string
 		State             instance.ServerState
 		Zone              scw.Zone
 		PublicIP          net.IP
@@ -88,7 +88,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		humanServers = append(humanServers, &humanServerInList{
 			ID:                server.ID,
 			Name:              server.Name,
-			CommercialType:    server.CommercialType,
+			Type:              server.CommercialType,
 			State:             server.State,
 			Zone:              server.Zone,
 			PublicIP:          publicIPAddress,
