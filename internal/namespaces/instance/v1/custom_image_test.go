@@ -8,7 +8,6 @@ import (
 )
 
 func Test_ImageCreate(t *testing.T) {
-
 	t.Run("Create simple image", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			createServer("Server"),
@@ -29,5 +28,4 @@ func Test_ImageCreate(t *testing.T) {
 			deleteSnapshot("Snapshot"),
 		),
 	}))
-
 }
