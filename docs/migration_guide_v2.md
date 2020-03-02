@@ -1,5 +1,7 @@
 # Migrating from v1 to v2
 
+The goal of this document is to help you migrate from CLI v1 to CLI v2.
+
 ## Quick links
 
 * [`scw help`](#scw-help)
@@ -38,18 +40,18 @@
 ### Design Docker oriented
 
 CLI v1 was designed to offer a syntax close to the Docker syntax.
-For instance running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
+For instance, running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that don't fit in this paradigm.
-For instance, attaching to a running server sub resources such as a volumes or a security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
+For instance, attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
 In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
-Action are organized around a set of verb such as `list`, `get`, 'create', 'update' that can be used with a wide-variety of products and does not suppose any preconceived workflow.
+Actions are organized around a set of verbs such as `list`, `get`, 'create', 'update' that can be used with a wide variety of products and do not suppose any preconceived workflow.
 
 ### No design for multiple products
 
 CLI v1 was created at a time targeting a single Scaleway Elements product: instance.
 Scaleway got many more products in its Elements ecosystem that need to be available from the CLI.
-Having ad-hoc commands for all our products was not going to be scalable solution.
+Having ad-hoc commands for all our products was not going to be a scalable solution.
 We needed to have a more systematic approach across all products.
 
 In CLI v2, we have a common syntax across all our products: service sub-resource verb.
@@ -62,9 +64,9 @@ scw instance server list
 
 * **instance**: Refers to a resource API
 * **server**: Refers to a sub-resource maintained by this API
-* **list**: Refers to a verb apply to the current selected API
+* **list**: Refers to a verb apply to the currently selected API
 
-In English it would be: "list all servers available on the instance API".
+In English, it would be: "list all servers available on the instance API".
 
 ### No automated code generation
 
@@ -78,13 +80,13 @@ We invested in our code generation features to be able to synchronize support an
 ### Old unmaintained dependencies
 
 CLI v1 required a lot of dependencies that are not actively maintained anymore.
-As a team we don't have the bandwidth to maintain all the dependencies, perform regular audits and open source management required to make all those dependencies thrive.
-With the CLIv2, we want minimize them as much as possible and focus only on well-supported external libraries when required.
+As a team, we don't have the bandwidth to maintain all the dependencies, perform regular audits and open-source management required to make all those dependencies thrive.
+With the CLIv2, we want to minimize them as much as possible and focus only on well-supported external libraries when required.
 
 ### Few tests
 
-CLI v1 didn't have a high test coverage and no test generation that could be inferred from an underlying SDK.
-CLI v2 builds on top of a the tests infrastructure of the code generation we have to increase test coverage.
+CLI v1 didn't have high test coverage and no test generation that could be inferred from an underlying SDK.
+CLI v2 builds on top of the tests infrastructure of the code generation we have to increase test coverage.
 We also support different types of tests: unit test, conformance test, End to End testing.
 
 ## Commands
@@ -112,14 +114,14 @@ scw
 
 `scw attach` will connect to the serial port of your Scaleway instance.
 It will create a serial connection to your Scaleway server and make it available in your terminal.
-For instance if you want to open a serial port to the `foobar` instance you would use
+For instance, if you want to open a serial port to the `foobar` instance you would use
 
 ```shell
 # v1
 scw attach foobar
 ```
 
-In CLI v2, we don't offer at the moment any support for connecting to serial port.
+In CLI v2, we don't offer at the moment any support for connecting to a serial port.
 We strongly encourage you to connect to your instance using SSH.
 In case your SSH server configuration is broken and you cannot connect to your instance, we encourage you to use the [rescue mode](https://www.scaleway.com/en/docs/activate-rescue-mode-on-my-server/) and fix your SSH server configuration.
 You can still use the serial port in your console.
@@ -159,7 +161,7 @@ scp root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.add
 
 ### `scw create`
 
-`scw create` creates an Scaleway Elements Instance.
+`scw create` creates a Scaleway Elements Instance.
 
 ```shell
 # v1
@@ -185,7 +187,7 @@ scw instance server create image=ubuntu_bionic root-volume=local:10GB additional
 
 ### `scw events`
 
-`scw create` provides a audit log of all the actions performed by the user on Scaleway Elements Instance.
+`scw create` provides an audit log of all the actions performed by the user on Scaleway Elements Instance.
 
 ```shell
 # v1
@@ -204,7 +206,7 @@ curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://cp-ams1.scaleway.com/tasks
 
 ### `scw exec`
 
-`scw exec` provides an SSH access on a Scaleway Elements Instance.
+`scw exec` provides SSH access on a Scaleway Elements Instance.
 You can obtain an access to a server named `foo` through a command such as:
 
 ```shell
@@ -237,7 +239,7 @@ TODO
 TODO
 ```
 
-This command will print all the image available across regions.
+This command will print all the images available across regions.
 You can filter the architecture and the region parameter to only get the information about the image you are interested in.
 For instance:
 
@@ -264,7 +266,7 @@ You can still access them using their address.
 #### Quotas
 
 CLI v2 does not support quotas at the moment.
-Your quotas can still be accessed through the [console](https://console.scaleway.com/account/user/profile) and through the API:
+Your quotas can still be accessed through the [console](https://console.scaleway.com/account/user/profile) and the API:
 
 ```shell
 curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://account.scaleway.com/organizations/$SCW_DEFAULT_ORGANIZATION_ID/quotas
@@ -306,7 +308,7 @@ This UUID is also visible in the instance information page of your server in the
 
 ### `scw kill`
 
-`scw kill` will connect to your instance using SSH and run a `halt` command to shutdown your machine.
+`scw kill` will connect to your instance using SSH and run a `halt` command to shut down your machine.
 
 ```shell
 # v1
@@ -325,7 +327,7 @@ ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_
 
 ### `scw login`
 
-`scw login` asks interactively for user email and password, authenticate on the [Scaleway console](https://console.scaleway.com) and save a configuration file at .
+`scw login` asks interactively for user email and password, authenticate on the [Scaleway console](https://console.scaleway.com) and save a configuration file.
 
 In CLI v2, `scw init` will perform the same authentication, configuration file creation task for you.
 Check out `scw init --help` to know more about this command.
@@ -367,7 +369,7 @@ ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_
 
 ### `scw products`
 
-`scw products` shows all the products available on Scaleway Elements console.
+`scw products` shows all the products available on the Scaleway Elements console.
 This command only supported `scw products servers` which gave for each instance type its main characteristics: architecture (x86_64, arm64, arm), CPU cores, RAM and whether an instance is a bare-metal one.
 
 ```shell
@@ -447,7 +449,7 @@ scw instance server delete server-id=11111111-1111-1111-1111-111111111111
 
 ### `scw rmi`
 
-`scw rmi` deletes an image/snapshot/volume that match a given name.
+`scw rmi` deletes an image/snapshot/volume that matches a given name.
 You would use it like:
 
 ```shell
@@ -507,7 +509,7 @@ Using CLIv2 you would:
 
 ### `scw search`
 
-`scw search` searches through the marketplace to find an image that match a given name.
+`scw search` searches through the marketplace to find an image that matches a given name.
 Let's suppose that you are looking for ubuntu image, in v1 you would do this:
 
 ```shell
@@ -587,7 +589,7 @@ ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_
 
 ### `scw version`
 
-This command exists in both version.
+This command exists in both versions.
 
 In version 1.X:
 
