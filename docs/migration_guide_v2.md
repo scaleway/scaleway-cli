@@ -86,7 +86,7 @@ With the CLIv2, we want to minimize them as much as possible and focus only on w
 
 CLI v1 didn't have high test coverage and no test generation that could be inferred from an underlying SDK.
 CLI v2 builds on top of the tests infrastructure of the code generation we have to increase test coverage.
-We also support different types of tests: unit test, conformance test, End to End testing.
+We also support different types of test: unit test, acceptance test, and end-to-end test.
 
 ## Commands
 
