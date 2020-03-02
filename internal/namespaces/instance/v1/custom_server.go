@@ -53,22 +53,23 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	type humanServerInList struct {
 		ID                string
 		Name              string
+		CommercialType    string
 		State             instance.ServerState
 		Zone              scw.Zone
 		PublicIP          net.IP
 		PrivateIP         *string
-		ImageName         string
 		Tags              []string
+		ImageName         string
+		PlacementGroup    *instance.PlacementGroup
 		ModificationDate  time.Time
 		CreationDate      time.Time
-		ImageID           string
-		Protected         bool
 		Volumes           int
-		SecurityGroupID   string
+		Protected         bool
 		SecurityGroupName string
+		SecurityGroupID   string
 		StateDetail       string
 		Arch              instance.Arch
-		PlacementGroup    *instance.PlacementGroup
+		ImageID           string
 	}
 
 	servers := i.([]*instance.Server)
@@ -87,6 +88,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		humanServers = append(humanServers, &humanServerInList{
 			ID:                server.ID,
 			Name:              server.Name,
+			CommercialType:    server.CommercialType,
 			State:             server.State,
 			Zone:              server.Zone,
 			ModificationDate:  server.ModificationDate,
