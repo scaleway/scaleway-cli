@@ -4,7 +4,7 @@ arch               x86_64
 creation-date      few seconds ago
 modification-date  few seconds ago
 extra-volumes      0
-from-server        
+from-server        -
 organization       aba2d0d0-b01d-4d88-b322-935edc96d0fd
 public             false
 root-volume        26a882cd-62d5-47d6-b52f-c3e677c806b5
