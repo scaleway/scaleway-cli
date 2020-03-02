@@ -20,7 +20,7 @@ func createServer(metaKey string) core.BeforeFunc {
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete server-id={{ ." + metaKey + ".ID }} delete-ip=true delete-volumes=true")
+	return core.ExecAfterCmd("scw instance server delete server-id={{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")
 }
 
 //

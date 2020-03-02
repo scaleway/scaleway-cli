@@ -13,8 +13,10 @@ import (
 	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -522,10 +524,20 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 type customDeleteServerRequest struct {
 	Zone          scw.Zone
 	ServerID      string
-	DeleteIP      bool
-	DeleteVolumes bool
+	WithVolumes   withVolumes
+	WithIP        bool
 	ForceShutdown bool
 }
+
+type withVolumes string
+
+const (
+	withVolumesNone  = withVolumes("none")
+	withVolumesLocal = withVolumes("local")
+	withVolumesBlock = withVolumes("block")
+	withVolumesRoot  = withVolumes("root")
+	withVolumesAll   = withVolumes("all")
+)
 
 func serverDeleteCommand() *core.Command {
 	return &core.Command{
@@ -542,12 +554,20 @@ func serverDeleteCommand() *core.Command {
 				Required: true,
 			},
 			{
-				Name:  "delete-ip",
-				Short: "Delete the IP attached to the server as well",
+				Name:    "with-volumes",
+				Short:   "Delete the volumes attached to the server",
+				Default: core.DefaultValueSetter("none"),
+				EnumValues: []string{
+					string(withVolumesNone),
+					string(withVolumesLocal),
+					string(withVolumesBlock),
+					string(withVolumesRoot),
+					string(withVolumesAll),
+				},
 			},
 			{
-				Name:  "delete-volumes",
-				Short: "Delete the volumes attached to the server as well",
+				Name:  "with-ip",
+				Short: "Delete the IP attached to the server",
 			},
 			{
 				Name:  "force-shutdown",
@@ -571,23 +591,23 @@ func serverDeleteCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			args := argsI.(*customDeleteServerRequest)
+			deleteServerArgs := argsI.(*customDeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
 			server, err := api.GetServer(&instance.GetServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
+				Zone:     deleteServerArgs.Zone,
+				ServerID: deleteServerArgs.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
-			if args.ForceShutdown {
+			if deleteServerArgs.ForceShutdown {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:     args.Zone,
-					ServerID: args.ServerID,
+					Zone:     deleteServerArgs.Zone,
+					ServerID: deleteServerArgs.ServerID,
 				})
 				if err != nil {
 					return nil, err
@@ -595,8 +615,8 @@ func serverDeleteCommand() *core.Command {
 
 				if finalStateServer.State != instance.ServerStateStopped {
 					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:     args.Zone,
-						ServerID: args.ServerID,
+						Zone:     deleteServerArgs.Zone,
+						ServerID: deleteServerArgs.ServerID,
 						Action:   instance.ServerActionPoweroff,
 					})
 					if err != nil {
@@ -606,33 +626,53 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			err = api.DeleteServer(&instance.DeleteServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
+				Zone:     deleteServerArgs.Zone,
+				ServerID: deleteServerArgs.ServerID,
 			})
 			if err != nil {
 				return nil, err
 			}
 
 			var multiErr error
-			if args.DeleteIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
-					Zone: args.Zone,
+					Zone: deleteServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
 					multiErr = multierror.Append(multiErr, err)
+				} else {
+					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
 			}
 
-			if args.DeleteVolumes {
-				for _, volume := range server.Server.Volumes {
-					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-						Zone:     args.Zone,
-						VolumeID: volume.ID,
-					})
+			deletedVolumeMessages := [][2]string(nil)
+			for index, volume := range server.Server.Volumes {
+				switch {
+				case deleteServerArgs.WithVolumes == withVolumesNone:
+					break
+				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
+					continue
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeTypeLSSD:
+					continue
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeTypeBSSD:
+					continue
+				}
+				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+					Zone:     deleteServerArgs.Zone,
+					VolumeID: volume.ID,
+				})
+				if err != nil {
+					multiErr = multierror.Append(multiErr, err)
+				} else {
+					humanSize, err := human.Marshal(volume.Size, nil)
 					if err != nil {
-						multiErr = multierror.Append(multiErr, err)
+						logger.Debugf("cannot marshal human size %v", volume.Size)
 					}
+					deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
+						index,
+						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+					})
 				}
 			}
 			if multiErr != nil {
@@ -640,6 +680,14 @@ func serverDeleteCommand() *core.Command {
 					Err:  multiErr,
 					Hint: "Make sure these resources have been deleted or try to delete it manually.",
 				}
+			}
+
+			// Sort and print deleted volume messages
+			sort.Slice(deletedVolumeMessages, func(i, j int) bool {
+				return deletedVolumeMessages[i][0] < deletedVolumeMessages[j][0]
+			})
+			for _, message := range deletedVolumeMessages {
+				_, _ = interactive.Println(message[1])
 			}
 
 			return &core.SuccessResult{}, nil

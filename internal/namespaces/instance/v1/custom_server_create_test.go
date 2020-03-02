@@ -11,7 +11,7 @@ import (
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	ctx.ExecuteCmd("scw instance server delete delete-volumes delete-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
+	ctx.ExecuteCmd("scw instance server delete with-volumes=all with-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
 	return nil
 }
 
