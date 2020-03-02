@@ -70,7 +70,7 @@ In English, it would be: "list all servers available on the instance API".
 
 ### No automated code generation
 
-CLI v1 didn't have any code generation features to easily create supports in all SDKs and developer tools we support.
+CLI v1 did not have any code generation features to easily create supports in all SDKs and developer tools we support.
 We invested in our code generation features to be able to synchronize support and fixes across all our tools:
 
 * [scaleway-cli](https://github.com/scaleway/scaleway-cli)
