@@ -7,7 +7,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers?page=1
     method: GET
   response:
     body: '{"servers": [{"allowed_actions": ["poweron", "backup"], "maintenances":
