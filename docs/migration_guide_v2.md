@@ -80,7 +80,6 @@ We invested in our code generation features to be able to synchronize support an
 ### Old unmaintained dependencies
 
 CLI v1 required a lot of dependencies that are not actively maintained anymore.
-As a team, we don't have the bandwidth to maintain all the dependencies, perform regular audits and open-source management required to make all those dependencies thrive.
 With the CLIv2, we want to minimize them as much as possible and focus only on well-supported external libraries when required.
 
 ### Few tests
