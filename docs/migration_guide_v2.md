@@ -88,16 +88,18 @@ CLI v1 did not have high test coverage and no test generation that could be infe
 CLI v2 builds on top of the tests infrastructure of the code generation we have to increase test coverage.
 We also support different types of test: unit test, acceptance test, and end-to-end test.
 
-## Commands
+## Commands Migration
 
 ### `scw help`
 
-In CLI v1, the `--help` is required to print the help
+`scw help` displays the help of the CLI.
 
 ```shell
 # v1
 scw run --help
 ```
+
+In CLI v1, the `--help` is required to print the help.
 
 In CLI v2, the help can be printed using `--help` as before but can also be printed by not specifying any arguments:
 
@@ -111,14 +113,14 @@ scw
 
 ### `scw attach`
 
-`scw attach` will connect to the serial port of your Scaleway instance.
-It will create a serial connection to your Scaleway server and make it available in your terminal.
-For instance, if you want to open a serial port to the `foobar` instance you would use the following command:
+`scw attach` opens a serial port connection to your Scaleway instance.
 
 ```shell
 # v1
 scw attach foobar
 ```
+
+This command will create a connection through a websocket to your `foobar` Scaleway instance serial port and make it available in your terminal.
 
 In CLI v2, we do not offer at the moment any support for connecting to a serial port.
 We strongly encourage you to connect to your instance using SSH.
@@ -128,19 +130,25 @@ You can still use the serial port in your console.
 ### `scw commit`
 
 `scw commit` creates a new snapshot from a server's volume.
-Let's suppose we have an instance named `foobar`, you would create a snapshot using:
 
 ```shell
 # v1
 scw commit foobar
 ```
 
-In CLI v2,
+This command will create a snapshot of the local volume of the instance named `foobar`.
+
+In CLI v2, a volume-id is required to create a snapshot.
 
 ```shell
 # v2
-TODO
+scw instance snapshot create volume-id=$(scw instance server list name=foobar -o json | jq -r '.[0].volumes["0"].id')
 ```
+
+`scw instance snapshot create volume-id=` creates a snapshot for the targeted volume id.
+`scw instance server list name=foobar -o json | jq -r '.[0].volumes["0"].id'` will filter all your server, output it as a JSON and pipe it to the `jq` program.
+`jq` will then extract from the server information your volume id.
+If you want to change the volume index and target a different volume, change the `volumes["0"]` to `volumes["X"]` where `X` is the volume index you want.
 
 ### `scw cp`
 
@@ -148,7 +156,7 @@ TODO
 
 ```shell
 # v1
-TODO
+scw cp myserver:path/to/file path/to/my/local/dir
 ```
 
 Let's suppose you want to receive a file `my_file` with the absolute path `/my_file` from your home directory you would do:
@@ -164,7 +172,7 @@ scp root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.add
 
 ```shell
 # v1
-TODO
+scw create ubuntu-bionic
 ```
 
 In the CLI v2, you can use `scw instance server create` to create a server.
@@ -190,7 +198,7 @@ scw instance server create image=ubuntu_bionic root-volume=local:10GB additional
 
 ```shell
 # v1
-TODO
+scw events
 ```
 
 You can still access those data using the API:
@@ -206,27 +214,33 @@ curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://cp-ams1.scaleway.com/tasks
 ### `scw exec`
 
 `scw exec` provides SSH access on a Scaleway Elements Instance.
-You can obtain an access to a server named `foo` through a command such as:
+
+```shell
+# v1
+scw exec foobar
+```
+
+In CLI v2, You can obtain an access to a server named `foobar` through a command such as:
 
 ```shell
 # v2
-ssh -t root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.address")
+ssh -t root@$(scw instance server list name=foobar -o json | jq -r ".[0].public_ip.address")
 ```
 
 ### `scw history`
 
-Provide the history of an image.
+`scw history` provides the history of an image.
 
 ```shell
 # v1
-TODO
+scw history foobar
 ```
 
-In CLI v2,
+In CLI v2, you can access the same information using the `scw instance image get` command:
 
 ```shell
 # v2
-TODO
+scw instance image get image-id=$(scw instance image list name=foobar -o json | jq -r '.[0].ID')
 ```
 
 ### `scw images`
@@ -235,12 +249,13 @@ TODO
 
 ```shell
 # v1
-TODO
+scw images
 ```
 
 This command will print all the images available across regions.
 You can filter the architecture and the region parameter to only get the information about the image you are interested in.
-For instance:
+
+In CLI v2, you would use the `scw marketplace image list`.
 
 ```shell
 # v2
@@ -286,24 +301,15 @@ curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://account.scaleway.com/tokens/$SCW
 
 ```shell
 # v1
-TODO
+scw inspect foobar
 ```
 
 In CLI v2, you can access your server information details using its Instance ID:
 
 ```shell
 # v2
-scw instance server list name=foo -o json | jq -r ".[0].id"
+scw instance server list name=foobar -o json
 ```
-
-Once you got the Instance ID of the server (let's suppose it is 11111111-1111-1111-1111-111111111111), you can access information about it using the following command:
-
-```shell
-# v2
-scw instance server get server-id=11111111-1111-1111-1111-111111111111
-```
-
-This UUID is also visible in the instance information page of your server in the console as **Instance ID**.
 
 ### `scw kill`
 
@@ -311,7 +317,7 @@ This UUID is also visible in the instance information page of your server in the
 
 ```shell
 # v1
-TODO
+scw kill foobar
 ```
 
 Let's suppose you want to connect to an instance named `foobar`, you would use a command similar such as:
