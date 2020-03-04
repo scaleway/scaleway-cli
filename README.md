@@ -73,7 +73,7 @@ echo $PATH
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-darwin-x86_64"
 
 # Allow executing file as program
-chmod +x scw-v2.0.0-beta.1-darwin-x86_64
+chmod +x /usr/local/bin/scw
 
 # Init the CLI
 scw init
@@ -86,7 +86,7 @@ scw init
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-linux-x86_64"
 
 # Allow executing file as program
-chmod +x scw-v2.0.0-beta.1-linux-x86_64
+chmod +x /usr/local/bin/scw
 
 # Init the CLI
 scw init
