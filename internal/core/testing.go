@@ -82,10 +82,10 @@ type TestConfig struct {
 	// If set to true the client will be initialize to use a e2e token.
 	UseE2EClient bool
 
-	// DefaultRegion to use with scw client (default scw.ZoneFrPar)
+	// DefaultRegion to use with scw client (default: scw.RegionFrPar)
 	DefaultRegion scw.Region
 
-	// DefaultZone to use with scw client (default scw.ZoneFrPar1)
+	// DefaultZone to use with scw client (default: scw.ZoneFrPar1)
 	DefaultZone scw.Zone
 
 	// BeforeFunc is a hook that will be called before test is run. You can use this function to bootstrap resources.
