@@ -37,19 +37,9 @@ The goal of this document is to help you migrate from CLI v1 to CLI v2.
 
 ## Justification for a v2
 
-### Design Docker oriented
+### Multiple products design
 
-CLI v1 was designed to offer a syntax close to the Docker syntax.
-For instance, running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
-While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
-E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
-
-In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
-Actions are organized around a set of verbs such as `list`, `get`, `create`, `update` that can be used with a wide variety of products and do not suppose any preconceived workflow.
-
-### No design for multiple products
-
-CLI v1 was created at a time targeting a single Scaleway Elements product: instance.
+CLI v1 was created while targeting a single Scaleway Elements product: instance.
 Scaleway got many more products in its Elements ecosystem that need to be available from the CLI.
 Having ad-hoc commands for all our products was not going to be a scalable solution.
 We needed to have a more systematic approach across all products.
@@ -68,23 +58,36 @@ scw instance server list
 
 In English, it would be: "list all servers available on the instance API".
 
-### No automated code generation
+### Consistent workflow across products
+
+CLI v1 was designed to offer a syntax close to the Docker syntax.
+For instance, running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
+While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
+E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
+
+In CLI v2 we offer support for a wide range of actions on all resources present and coming in the Scaleway Elements ecosystem.
+Actions are organized around a set of verbs such as `list`, `get`, `create`, `update` that can be used with a wide variety of products and do not suppose any preconceived workflow.
+
+### Automated code generation
 
 CLI v1 did not have any code generation features to easily create supports in all SDKs and developer tools we support.
+
 We invested in our code generation features to be able to synchronize support and fixes across all our tools:
 
 * [scaleway-cli](https://github.com/scaleway/scaleway-cli)
 * [scaleway-sdk-go](https://github.com/scaleway/scaleway-sdk-go)
 * [scaleway provider for Terraform](https://github.com/terraform-providers/terraform-provider-scaleway/)
 
-### Old unmaintained dependencies
+### Cleanup of old and unmaintained dependencies
 
 CLI v1 required a lot of dependencies that are not actively maintained anymore.
+
 With the CLIv2, we want to minimize them as much as possible and focus only on well-supported external libraries when required.
 
-### Few tests
+### New tests infrastructure
 
 CLI v1 did not have high test coverage and no test generation that could be inferred from an underlying SDK.
+
 CLI v2 builds on top of the tests infrastructure of the code generation we have to increase test coverage.
 We also support different types of test: unit test, acceptance test, and end-to-end test.
 
