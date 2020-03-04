@@ -166,4 +166,10 @@ func TestMarshal(t *testing.T) {
 		result: `-`,
 		err:    nil,
 	}))
+
+	t.Run("nil2", run(&testCase{
+		data:   (*testCase)(nil),
+		result: `-`,
+		err:    nil,
+	}))
 }
