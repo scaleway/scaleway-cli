@@ -2868,7 +2868,7 @@ func (s *ScalewayAPI) ResolveTTYUrl() string {
 	return ""
 }
 
-// GetProductServers Fetches all the server type and their constraints from the Products API
+// GetProductsServers Fetches all the server type and their constraints from the Products API
 func (s *ScalewayAPI) GetProductsServers() (*ScalewayProductsServers, error) {
 	resp, err := s.GetResponsePaginate(s.computeAPI, "products/servers", url.Values{})
 	if err != nil {
