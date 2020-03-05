@@ -82,6 +82,12 @@ type TestConfig struct {
 	// If set to true the client will be initialize to use a e2e token.
 	UseE2EClient bool
 
+	// DefaultRegion to use with scw client (default: scw.RegionFrPar)
+	DefaultRegion scw.Region
+
+	// DefaultZone to use with scw client (default: scw.ZoneFrPar1)
+	DefaultZone scw.Zone
+
 	// BeforeFunc is a hook that will be called before test is run. You can use this function to bootstrap resources.
 	BeforeFunc BeforeFunc
 
@@ -109,7 +115,7 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	return filepath.Join(".", "testdata", fileName+suffix)
 }
 
-func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup func()) {
+func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
@@ -118,7 +124,15 @@ func getTestClient(t *testing.T, e2eClient bool) (client *scw.Client, cleanup fu
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 	}
 
-	if !e2eClient {
+	if testConfig.DefaultRegion != "" {
+		clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
+	}
+
+	if testConfig.DefaultZone != "" {
+		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
+	}
+
+	if !testConfig.UseE2EClient {
 		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
@@ -158,7 +172,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		client, cleanup := getTestClient(t, config.UseE2EClient)
+		client, cleanup := getTestClient(t, config)
 		defer cleanup()
 
 		meta := map[string]interface{}{}
