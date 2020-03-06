@@ -61,9 +61,9 @@ scw instance server list
 
 * **instance**: Refers to the product namespace
 * **server**: Refers to a resource maintained in the product namespace
-* **list**: Refers to a verb apply to the currently selected API
+* **list**: Refers to a verb applied to the currently selected API
 
-In English, it would be: "list all servers available on the instance API".
+In plain English, it would be: "list all servers available on the instance API".
 
 ### Consistent workflow across products
 
@@ -89,7 +89,7 @@ We invested in our code generation features to be able to synchronize support an
 
 CLI v1 required a lot of dependencies that are not actively maintained anymore.
 
-With the CLIv2, we want to minimize them as much as possible and focus only on well-supported external libraries when required.
+With the CLI v2, we want to minimize them as much as possible and focus only on well-supported external libraries when required.
 
 ### New tests infrastructure
 
