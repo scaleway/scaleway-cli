@@ -14,10 +14,11 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
+
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -116,6 +117,10 @@ func getTestFilePath(t *testing.T, suffix string) string {
 }
 
 func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
+	var err error
+	cleanup = func() {}
+
+	// Init default options
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
@@ -124,37 +129,42 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 	}
 
+	// If client is NOT an E2E client we init http recorder and load configuration.
 	if !testConfig.UseE2EClient {
-		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
+		var httpClient *http.Client
+		httpClient, cleanup, err = getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
+
 		config, err := scw.LoadConfig()
 		if err == nil {
 			p, err := config.GetActiveProfile()
 			require.NoError(t, err)
 			clientOpts = append(clientOpts, scw.WithProfile(p))
 		}
-		if testConfig.DefaultRegion != "" {
-			clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
-		}
-
-		if testConfig.DefaultZone != "" {
-			clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
-		}
-		client, err := scw.NewClient(clientOpts...)
-		require.NoError(t, err)
-		return client, cleanup
 	}
 
-	client, err := scw.NewClient(clientOpts...)
-	require.NoError(t, err)
-	res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
+	// We handle default zone and region configured specifically for a test
+	if testConfig.DefaultRegion != "" {
+		clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
+	}
+	if testConfig.DefaultZone != "" {
+		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
+	}
+
+	client, err = scw.NewClient(clientOpts...)
 	require.NoError(t, err)
 
-	client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
-	require.NoError(t, err)
+	// If client is an E2E client we must register and use returned credential.
+	if testConfig.UseE2EClient {
+		res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
+		require.NoError(t, err)
 
-	return client, func() {}
+		client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
+		require.NoError(t, err)
+	}
+
+	return client, cleanup
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
