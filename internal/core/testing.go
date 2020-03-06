@@ -124,14 +124,6 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 	}
 
-	if testConfig.DefaultRegion != "" {
-		clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
-	}
-
-	if testConfig.DefaultZone != "" {
-		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
-	}
-
 	if !testConfig.UseE2EClient {
 		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
@@ -142,7 +134,13 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 			require.NoError(t, err)
 			clientOpts = append(clientOpts, scw.WithProfile(p))
 		}
+		if testConfig.DefaultRegion != "" {
+			clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
+		}
 
+		if testConfig.DefaultZone != "" {
+			clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
+		}
 		client, err := scw.NewClient(clientOpts...)
 		require.NoError(t, err)
 		return client, cleanup
