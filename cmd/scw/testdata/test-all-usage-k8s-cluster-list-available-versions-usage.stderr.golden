@@ -1,0 +1,16 @@
+This method allows to list the versions that a specific Kubernetes cluster is allowed to upgrade to. Note that it will be every patch version greater than the actual one as well a one minor version ahead of the actual one. Upgrades skipping a minor version will not work.
+
+USAGE:
+  scw [global-flags] k8s cluster list-available-versions [flags] [arg=value ...]
+
+ARGS:
+  cluster-id   The ID of the cluster which the available Kuberentes versions will be listed from
+  [region]     Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for list-available-versions
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

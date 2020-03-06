@@ -3,6 +3,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   instance     Instance API
+  k8s          This API allows you to manage your Kapsule clusters
   marketplace  Marketplace API
   init         Initialize the config
   config       Config file management

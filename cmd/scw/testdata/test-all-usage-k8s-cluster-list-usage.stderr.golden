@@ -1,0 +1,29 @@
+This method allows to list all the existing Kubernetes clusters in an account.
+
+USAGE:
+  scw [global-flags] k8s cluster list [flags] [arg=value ...]
+
+EXAMPLES:
+  List all the clusters on your default region
+    scw k8s cluster list
+
+  List the ready clusters on your default region
+    scw k8s cluster list status=ready
+
+  List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+    scw k8s cluster list region=fr-par name=cluster1
+
+ARGS:
+  [order-by]          The sort order of the returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
+  [name]              The name on which to filter the returned clusters
+  [status]            The status on which to filter the returned clusters (unknown | creating | ready | deleting | deleted | updating | warning | error | locked)
+  [organization-id]   The organization ID on which to filter the returned clusters
+  [region]            Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
