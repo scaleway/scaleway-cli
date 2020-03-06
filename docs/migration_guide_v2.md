@@ -51,7 +51,7 @@ Scaleway got many more products in its Elements ecosystem that need to be availa
 Having ad-hoc commands for all our products was not going to be a scalable solution.
 We needed to have a more systematic approach across all products.
 
-In CLI v2, we have a common syntax across all our products: service sub-resource verb.
+In CLI v2, we have a common syntax across all our products: *namespace*, *resource* and *verb*.
 As an example:
 
 ```shell
@@ -59,9 +59,9 @@ As an example:
 scw instance server list
 ```
 
-* **instance**: Refers to the product namespace
-* **server**: Refers to a resource maintained in the product namespace
-* **list**: Refers to a verb applied to the currently selected API
+* **instance**: Refers to the product *namespace*
+* **server**: Refers to a *resource* maintained in the product namespace
+* **list**: Refers to a *verb* applied to the currently selected API
 
 In plain English, it would be: "list all servers available on the instance API".
 
@@ -77,7 +77,7 @@ Actions are organized around a set of verbs such as `list`, `get`, `create`, `up
 
 ### Automated code generation
 
-CLI v1 did not have any code generation features to easily create supports in all SDKs and developer tools we support.
+CLI v1 did not take advantage of code generation features to easily create supports like in SDKs and other developper tools.
 
 We invested in our code generation features to be able to synchronize support and fixes across all our tools:
 
