@@ -3,6 +3,25 @@ Update server.
 USAGE:
   scw [global-flags] instance server update [flags] [arg=value ...]
 
+EXAMPLES:
+  Update the name of a given server
+    scw instance server update
+
+  Put a given instance in rescue mode (reboot is required to access rescue mode)
+    scw instance server update
+
+  Overwrite tags of a given server
+    scw instance server update
+
+  Enable IPv6 on a given server
+    scw instance server update
+
+  Apply the given security group to a given server
+    scw instance server update
+
+  Put a given server in the given placement group. Server must be off
+    scw instance server update
+
 ARGS:
   server-id               UUID of the server
   [name]                  Name of the server

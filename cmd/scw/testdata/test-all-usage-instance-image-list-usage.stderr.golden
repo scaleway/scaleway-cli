@@ -4,7 +4,7 @@ USAGE:
   scw [global-flags] instance image list [flags] [arg=value ...]
 
 EXAMPLES:
-  List all public images in your default zone
+  List all public images in the default zone
     scw instance image list
 
 ARGS:
