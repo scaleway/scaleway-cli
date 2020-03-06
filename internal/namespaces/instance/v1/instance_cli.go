@@ -77,7 +77,7 @@ func instanceRoot() *core.Command {
 
 func instanceImage() *core.Command {
 	return &core.Command{
-		Short: `An image is a backups of an instance`,
+		Short: `An image is a backup of an instance`,
 		Long: `Images are backups of your instances.
 You can reuse that image to restore your data or create a series of instances with a predefined configuration.
 
@@ -295,6 +295,16 @@ func instanceServerTypeList() *core.Command {
 			return api.ListServersTypes(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all server-types in the default zone",
+				Request: `null`,
+			},
+			{
+				Short:   "List all server-types in fr-par-1 zone",
+				Request: `{"zone":"fr-par-1"}`,
+			},
+		},
 	}
 }
 
@@ -499,6 +509,32 @@ func instanceServerUpdate() *core.Command {
 			return api.UpdateServer(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Update the name of a given server",
+				Request: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Put a given instance in rescue mode (reboot is required to access rescue mode)",
+				Request: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Overwrite tags of a given server",
+				Request: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
+			},
+			{
+				Short:   "Enable IPv6 on a given server",
+				Request: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Apply the given security group to a given server",
+				Request: `null`,
+			},
+			{
+				Short:   "Put a given server in the given placement group. Server must be off",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -684,7 +720,7 @@ func instanceImageList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all public images in your default zone",
+				Short:   "List all public images in the default zone",
 				Request: `null`,
 			},
 		},
@@ -719,6 +755,16 @@ func instanceImageGet() *core.Command {
 			api := instance.NewAPI(client)
 			return api.GetImage(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get an image in the default zone with the given ID",
+				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Get an image in fr-par-1 zone with the given ID",
+				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
@@ -796,6 +842,12 @@ func instanceImageCreate() *core.Command {
 			return api.CreateImage(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)",
+				Request: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }
 
@@ -824,6 +876,16 @@ func instanceImageDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete an image in the default zone with the given ID",
+				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Delete an image in fr-par-1 zone with the given ID",
+				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
@@ -859,6 +921,16 @@ func instanceSnapshotList() *core.Command {
 			return resp.Snapshots, nil
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all snapshots in the default zone",
+				Request: `null`,
+			},
+			{
+				Short:   "List all snapshots in fr-par-1 zone",
+				Request: `{"zone":"fr-par-1"}`,
+			},
+		},
 	}
 }
 
@@ -893,6 +965,20 @@ func instanceSnapshotCreate() *core.Command {
 			return api.CreateSnapshot(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Create a snapshot in the default zone from the given volume ID",
+				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Create a snapshot in fr-par-1 zone from the given volume ID",
+				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+			{
+				Short:   "Create a named snapshot from the given volume ID",
+				Request: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }
 
@@ -918,6 +1004,16 @@ func instanceSnapshotGet() *core.Command {
 			api := instance.NewAPI(client)
 			return api.GetSnapshot(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get a snapshot in the default zone with the given ID",
+				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Get a snapshot in fr-par-1 zone with the given ID",
+				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
@@ -947,6 +1043,16 @@ func instanceSnapshotDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete a snapshot in the default zone with the given ID",
+				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Delete a snapshot in fr-par-1 zone with the given ID",
+				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
@@ -1401,7 +1507,7 @@ func instancePlacementGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all placement groups in your default zone",
+				Short:   "List all placement groups in the default zone",
 				Request: `null`,
 			},
 			{
@@ -1591,6 +1697,16 @@ func instancePlacementGroupDelete() *core.Command {
 			}
 			return &core.SuccessResult{}, nil
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete a placement group in the default zone with the given ID",
+				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Delete a placement group in fr-par-1 zone with the given ID",
+				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
 	}
 }
 
@@ -1663,6 +1779,16 @@ func instanceIPList() *core.Command {
 			return resp.IPs, nil
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all IPs in the default zone",
+				Request: `null`,
+			},
+			{
+				Short:   "List all IPs in fr-par-1 zone",
+				Request: `{"zone":"fr-par-1"}`,
+			},
+		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
 				FieldName: "id",
@@ -1722,6 +1848,20 @@ func instanceIPCreate() *core.Command {
 			return api.CreateIP(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Create an IP in the default zone",
+				Request: `null`,
+			},
+			{
+				Short:   "Create an IP in fr-par-1 zone",
+				Request: `{"zone":"fr-par-1"}`,
+			},
+			{
+				Short:   "Create an IP and attach it to the given server",
+				Request: `{"server":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }
 
@@ -1748,6 +1888,20 @@ func instanceIPGet() *core.Command {
 			api := instance.NewAPI(client)
 			return api.GetIP(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get an IP in the default zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Get an IP in fr-par-1 zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+			{
+				Short:   "Get an IP using directly the given IP address",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -1786,6 +1940,20 @@ func instanceIPUpdate() *core.Command {
 			return api.UpdateIP(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Update an IP in the default zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
+			},
+			{
+				Short:   "Update an IP in fr-par-1 zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
+			},
+			{
+				Short:   "Update an IP using directly the given IP address",
+				Request: `{"ip":"51.15.253.183","reverse":"example.com"}`,
+			},
+		},
 	}
 }
 
@@ -1815,6 +1983,20 @@ func instanceIPDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete an IP in the default zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Delete an IP in fr-par-1 zone with the given ID",
+				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+			{
+				Short:   "Delete an IP using directly the given IP address",
+				Request: `{"ip":"51.15.253.183"}`,
+			},
 		},
 	}
 }

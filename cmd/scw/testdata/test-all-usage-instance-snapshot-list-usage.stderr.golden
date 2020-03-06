@@ -3,6 +3,13 @@ List snapshots.
 USAGE:
   scw [global-flags] instance snapshot list [flags] [arg=value ...]
 
+EXAMPLES:
+  List all snapshots in the default zone
+    scw instance snapshot list
+
+  List all snapshots in fr-par-1 zone
+    scw instance snapshot list zone=fr-par-1
+
 ARGS:
   [name]           
   [organization]   

@@ -4,7 +4,7 @@ USAGE:
   scw [global-flags] instance placement-group list [flags] [arg=value ...]
 
 EXAMPLES:
-  List all placement groups in your default zone
+  List all placement groups in the default zone
     scw instance placement-group list
 
   List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')

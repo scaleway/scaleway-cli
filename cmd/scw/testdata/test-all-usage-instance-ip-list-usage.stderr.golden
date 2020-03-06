@@ -3,6 +3,13 @@ List IPs.
 USAGE:
   scw [global-flags] instance ip list [flags] [arg=value ...]
 
+EXAMPLES:
+  List all IPs in the default zone
+    scw instance ip list
+
+  List all IPs in fr-par-1 zone
+    scw instance ip list zone=fr-par-1
+
 ARGS:
   [name]           Filter on the IP address (Works as a LIKE operation on the IP address)
   [organization]   The organization ID the IPs are reserved in

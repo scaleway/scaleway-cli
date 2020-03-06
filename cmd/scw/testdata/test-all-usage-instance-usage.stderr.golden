@@ -4,7 +4,7 @@ USAGE:
   scw [global-flags] instance <command> [flags]
 
 AVAILABLE COMMANDS:
-  image                  An image is a backups of an instance
+  image                  An image is a backup of an instance
   ip                     A flexible IP address is an IP address which holden independently of any server
   placement-group        A placement group allows to express a preference regarding the physical position of a group of instances
   placement-group-server A placement group allows to express a preference regarding the physical position of a group of instances
