@@ -68,7 +68,7 @@ In plain English, it would be: "list all servers available on the instance API".
 ### Consistent workflow across products
 
 CLI v1 was designed to offer a syntax close to the Docker syntax.
-For instance, running a command such as `echo foobar` on a remote server is `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
+For instance, to run a command such as `echo foobar` on a remote server, we can write `scw run ubuntu-bionic echo foobar` which mimic `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
 E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
