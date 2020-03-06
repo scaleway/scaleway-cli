@@ -215,10 +215,10 @@ You can still access those data using the API:
 
 ```shell
 # On fr-par-1
-curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://cp-par1.scaleway.com/tasks
+curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://api.scaleway.com/instance/v1/zones/fr-par-1/tasks
 
 # On nl-ams-1
-curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://cp-ams1.scaleway.com/tasks
+curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://api.scaleway.com/instance/v1/zones/nl-ams-1/tasks
 ```
 
 ### `scw exec`
