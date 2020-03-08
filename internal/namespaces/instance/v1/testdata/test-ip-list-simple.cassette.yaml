@@ -1,0 +1,109 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips?page=1
+    method: GET
+  response:
+    body: '{"ips": [{"id": "6dbcc5ac-d8d2-4ea9-847b-f03fbc1dd719", "address": "212.47.242.161",
+      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "da0627ab-9083-460f-9203-24f8815e01a7",
+      "address": "212.47.234.248", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "ba066024-ed49-43d3-bb11-ce2946ad2848", "address": "212.47.233.150", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "3817aab0-72fd-4b87-8520-4f7e9e90e468",
+      "address": "212.47.226.205", "reverse": null, "server": {"id": "97165b33-61f8-4b56-aa8d-d5ffdd4cf673",
+      "name": "cli-srv-competent-volhard"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "57d32a52-8884-4a99-93d4-89984760cbc5",
+      "address": "163.172.178.220", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "2b787244-b127-449b-92cd-a0784a46a154", "address": "163.172.143.144", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "8879fe17-353c-4dd9-b1a3-516683b98d95",
+      "address": "163.172.141.78", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "cfeb12e8-de9f-4a64-924c-47c6e1203da2", "address": "51.158.127.102", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "1840a2c1-481d-431b-a4bf-7f7c8ea782c9",
+      "address": "51.158.126.120", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "fd91b5f1-b3f9-4dbc-a6c0-d33c24898a13", "address": "51.158.126.73", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "0e8829e8-666c-42e9-8235-a467894640cb",
+      "address": "51.158.126.17", "reverse": null, "server": {"id": "764b1814-9b29-4a72-a423-87dfbdbd9d4e",
+      "name": "cli-srv-awesome-archimedes"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "5128dddf-f3d2-45d0-bee0-aacdff00d467",
+      "address": "51.158.117.27", "reverse": null, "server": {"id": "de275cd9-9578-4e75-8fb4-00543db83bf8",
+      "name": "cli-srv-jovial-kepler"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "00d420a8-676a-4f21-8821-d4b030b0aad7",
+      "address": "51.158.114.78", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address": "51.158.108.20", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "4695f4cd-d066-4b41-b6b5-0ff2158227e6",
+      "address": "51.158.74.63", "reverse": null, "server": {"id": "e8977860-18f8-4835-a7dc-6aa504c0468e",
+      "name": "cli-srv-angry-cori"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "090af8bd-0a17-4ccf-8d20-49639e2c1862",
+      "address": "51.158.70.44", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "0e484d01-6278-44ad-ab66-346a9e0478ca", "address": "51.158.66.185", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "8ed1c207-86db-4e60-84cd-0a4e84031239",
+      "address": "51.15.253.183", "reverse": null, "server": {"id": "fa37ff62-4665-4b94-93bf-385d264a7b4d",
+      "name": "scw-kind-roentgen"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "687f1b17-1d8d-4267-9b69-22025f6a52e8",
+      "address": "51.15.251.251", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "4dddf9cd-14ba-411d-97ca-0596175342c1",
+      "address": "51.15.221.7", "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "b2df4740-4321-4a1b-90b8-d2c508b3e78a",
+      "address": "51.15.218.174", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "7635037a-910e-4586-a3d6-7c0b5e68f0cf", "address": "51.15.216.206", "reverse":
+      null, "server": {"id": "3391c8bd-514a-443f-bd8c-dd2adc824480", "name": "cli-srv-wonderful-moser"},
+      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1",
+      "tags": []}, {"id": "c1aa9d6c-bfbc-4e02-9e86-e3becdd20650", "address": "51.15.196.101",
+      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "f91ebb99-a124-4098-90cf-7fd76db61b78",
+      "address": "51.15.133.191", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "3e5919f8-a641-421c-b134-646860763233", "address": "51.15.131.65", "reverse":
+      null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "edb87e2b-3637-4cb3-bca6-afaab47f6a30",
+      "address": "51.15.129.58", "reverse": null, "server": {"id": "9a55f4ad-f3d8-4788-ad56-05cd5d629e7f",
+      "name": "cli-srv-elated-jennings"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}]}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "5864"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 08 Mar 2020 16:40:17 GMT
+      Link:
+      - </ips?page=1&per_page=50&>; rel="last"
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Total-Count:
+      - "27"
+    status: 200 OK
+    code: 200
+    duration: ""
