@@ -7,7 +7,6 @@ import (
 )
 
 func Test_IpCreate(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip create -h",
@@ -22,7 +21,6 @@ func Test_IpCreate(t *testing.T) {
 }
 
 func Test_IpDelete(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip delete -h",
@@ -37,7 +35,6 @@ func Test_IpDelete(t *testing.T) {
 }
 
 func Test_IpGet(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip get -h",
@@ -52,7 +49,6 @@ func Test_IpGet(t *testing.T) {
 }
 
 func Test_IpList(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip list -h",
@@ -67,7 +63,6 @@ func Test_IpList(t *testing.T) {
 }
 
 func Test_IpUpdate(t *testing.T) {
-
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip update -h",
