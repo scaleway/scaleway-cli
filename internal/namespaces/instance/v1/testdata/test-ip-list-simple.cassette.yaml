@@ -1,0 +1,58 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips?page=1
+    method: GET
+  response:
+    body: '{"ips": [{"id": "4695f4cd-d066-4b41-b6b5-0ff2158227e6", "address": "51.158.74.63",
+      "reverse": null, "server": {"id": "e8977860-18f8-4835-a7dc-6aa504c0468e", "name":
+      "cli-srv-angry-cori"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "0e484d01-6278-44ad-ab66-346a9e0478ca",
+      "address": "51.158.66.185", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "8ed1c207-86db-4e60-84cd-0a4e84031239", "address": "51.15.253.183", "reverse":
+      null, "server": {"id": "fa37ff62-4665-4b94-93bf-385d264a7b4d", "name": "scw-kind-roentgen"},
+      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1",
+      "tags": []}, {"id": "687f1b17-1d8d-4267-9b69-22025f6a52e8", "address": "51.15.251.251",
+      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}, {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b",
+      "address": "51.15.248.118", "reverse": null, "server": null, "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}, {"id":
+      "7635037a-910e-4586-a3d6-7c0b5e68f0cf", "address": "51.15.216.206", "reverse":
+      null, "server": {"id": "3391c8bd-514a-443f-bd8c-dd2adc824480", "name": "cli-srv-wonderful-moser"},
+      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1",
+      "tags": []}, {"id": "c1aa9d6c-bfbc-4e02-9e86-e3becdd20650", "address": "51.15.196.101",
+      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}]}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "1607"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 08 Mar 2020 15:05:26 GMT
+      Link:
+      - </ips?page=1&per_page=50&>; rel="last"
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Total-Count:
+      - "7"
+    status: 200 OK
+    code: 200
+    duration: ""

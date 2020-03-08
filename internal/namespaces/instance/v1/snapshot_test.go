@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 func Test_SnapshotList(t *testing.T) {
@@ -66,6 +67,23 @@ func Test_SnapshotCreate(t *testing.T) {
 		Commands: GetCommands(),
 		Cmd:      "scw instance snapshot create",
 		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createServer("Server"),
+		Cmd:        `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			func(ctx *core.AfterFuncCtx) error {
+				ctx.ExecuteCmd("scw instance snapshot delete snapshot-id=" + ctx.CmdResult.(*instance.CreateSnapshotResponse).Snapshot.ID)
+				return nil
+			},
+			deleteServer("Server"),
+		),
 	}))
 
 }

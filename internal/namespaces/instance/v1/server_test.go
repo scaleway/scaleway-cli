@@ -22,7 +22,8 @@ func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server list",
-func Test_ServerList(t *testing.T) {
+		Check:    core.TestCheckGolden(),
+	}))
 
 	t.Run("Usage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -83,6 +84,16 @@ func Test_GetServer(t *testing.T) {
 	}))
 }
 
+func Test_ServerStart(t *testing.T) {
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server start",
+		Check:    core.TestCheckGolden(),
+	}))
+
+}
+
 //
 // Volume
 //
@@ -100,24 +111,7 @@ func Test_CreateVolume(t *testing.T) {
 			ctx.ExecuteCmd("scw instance volume delete volume-id=" + ctx.CmdResult.(*instance.CreateVolumeResponse).Volume.ID)
 			return nil
 		},
-func Test_ServerDelete(t *testing.T) {
-
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server delete",
-		Check:    core.TestCheckGolden(),
 	}))
-
-}
-
-func Test_ServerStart(t *testing.T) {
-
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server start",
-		Check:    core.TestCheckGolden(),
-	}))
-
 }
 
 func Test_ServerStop(t *testing.T) {
@@ -282,28 +276,6 @@ func Test_ServerUpdate(t *testing.T) {
 			deleteServer("Server"),
 			deletePlacementGroup("PlacementGroup1"),
 			deletePlacementGroup("PlacementGroup2"),
-		),
-	}))
-}
-
-//
-// Snapshot
-//
-func Test_SnapshotCreate(t *testing.T) {
-	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: createServer("Server"),
-		Cmd:        `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				ctx.ExecuteCmd("scw instance snapshot delete snapshot-id=" + ctx.CmdResult.(*instance.CreateSnapshotResponse).Snapshot.ID)
-				return nil
-			},
-			deleteServer("Server"),
 		),
 	}))
 }
