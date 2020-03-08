@@ -20,16 +20,6 @@ func Test_VolumeCreate(t *testing.T) {
 		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20G",
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete volume-id={{ .Volume.ID }}")
-			return nil
-		},
-		Check: core.TestCheckGolden(),
-	}))
-
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance volume create name=test size=20",

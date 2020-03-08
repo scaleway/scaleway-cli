@@ -13,7 +13,11 @@ interactions:
     body: '{"security_groups": [{"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e", "creation_date":
       "2015-01-23T13:24:29.162033+00:00", "modification_date": "2019-11-06T14:23:27.051999+00:00",
       "name": "Default security group", "description": "Auto generated security group.",
-      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "servers": [{"id": "3391c8bd-514a-443f-bd8c-dd2adc824480",
+      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "servers": [{"id": "97165b33-61f8-4b56-aa8d-d5ffdd4cf673",
+      "name": "cli-srv-competent-volhard"}, {"id": "764b1814-9b29-4a72-a423-87dfbdbd9d4e",
+      "name": "cli-srv-awesome-archimedes"}, {"id": "f0f5212b-e1a7-404c-b1f1-2653f3984053",
+      "name": "cli-srv-epic-mcnulty"}, {"id": "de275cd9-9578-4e75-8fb4-00543db83bf8",
+      "name": "cli-srv-jovial-kepler"}, {"id": "3391c8bd-514a-443f-bd8c-dd2adc824480",
       "name": "cli-srv-wonderful-moser"}, {"id": "705195d7-5ca8-4736-b2d4-710f0c2eb60a",
       "name": "cli-srv-suspicious-beaver"}, {"id": "e8977860-18f8-4835-a7dc-6aa504c0468e",
       "name": "cli-srv-angry-cori"}, {"id": "755855d3-a0f6-466b-8115-69a0fd6dd1c6",
@@ -32,18 +36,33 @@ interactions:
       "name": "cli-sg-loving-driscoll", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "servers": [], "stateful": true, "inbound_default_policy": "accept", "outbound_default_policy":
       "accept", "organization_default": false, "enable_default_security": true, "zone":
+      "fr-par-1"}, {"id": "6a75d166-f483-4a83-a94a-6e1183ca7f18", "creation_date":
+      "2020-03-08T15:55:16.446487+00:00", "modification_date": "2020-03-08T15:55:16.446487+00:00",
+      "name": "cli-sg-magical-wilson", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "servers": [], "stateful": true, "inbound_default_policy": "accept", "outbound_default_policy":
+      "accept", "organization_default": false, "enable_default_security": true, "zone":
+      "fr-par-1"}, {"id": "2d4d184a-c5c5-47d5-ac83-8ddb1b1ac094", "creation_date":
+      "2020-03-08T16:06:07.679085+00:00", "modification_date": "2020-03-08T16:06:07.679085+00:00",
+      "name": "cli-sg-epic-shtern", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "servers": [], "stateful": true, "inbound_default_policy": "accept", "outbound_default_policy":
+      "accept", "organization_default": false, "enable_default_security": true, "zone":
+      "fr-par-1"}, {"id": "717dda7f-0f49-4851-92fc-1e56e95069b6", "creation_date":
+      "2020-03-08T16:15:43.476820+00:00", "modification_date": "2020-03-08T16:15:43.476820+00:00",
+      "name": "cli-sg-cranky-meninsky", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "servers": [], "stateful": true, "inbound_default_policy": "accept", "outbound_default_policy":
+      "accept", "organization_default": false, "enable_default_security": true, "zone":
       "fr-par-1"}]}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2023"
+      - "3727"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2020 15:05:27 GMT
+      - Sun, 08 Mar 2020 16:15:44 GMT
       Link:
       - </security_groups?page=1&per_page=50&>; rel="last"
       Server:
@@ -55,7 +74,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Total-Count:
-      - "3"
+      - "6"
     status: 200 OK
     code: 200
     duration: ""

@@ -1,14 +1,14 @@
 Server:
-id                        730700bf-9ccf-4db7-bfcd-a5aadc0753ea
-name                      cli-srv-affectionate-shannon
-organization              14d2f7ae-9775-414c-9bed-6810e060d500
+id                        9a6d1388-b8ff-4cae-b6d4-489ff7bc86d8
+name                      cli-srv-determined-greider
+organization              951df375-e094-4d26-97c1-ba548eeb9c42
 allowed-actions.0         poweron
 allowed-actions.1         backup
 commercial-type           DEV1-S
 creation-date             few seconds ago
 dynamic-ip-required       false
 enable-ipv6               false
-hostname                  cli-srv-affectionate-shannon
+hostname                  cli-srv-determined-greider
 image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 image.name                Ubuntu Bionic Beaver
 image.arch                x86_64
@@ -23,15 +23,15 @@ image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 image.state               available
 image.zone                fr-par-1
 protected                 false
-public-ip.id              febae361-dcf5-428d-a8ca-5ee64fc46190
-public-ip.address         51.158.117.222
+public-ip.id              a7a92556-71c0-40eb-8e8b-3e08877bb7f2
+public-ip.address         51.15.139.159
 public-ip.dynamic         false
 modification-date         few seconds ago
 state                     archived
 bootscript                x86_64 mainline 4.9.93 rev1
 boot-type                 local
 volumes                   1
-security-group.id         e5bf4522-94b4-4933-bebb-9b21f786b4af
+security-group.id         54e2d5f6-d79c-44cc-b19f-613699b9cc7e
 security-group.name       Default security group
 state-detail              -
 arch                      x86_64
@@ -57,4 +57,4 @@ Server - Allowed Actions:
 
 Volumes:
 ID                                    NAME                                                            EXPORT URI  SIZE   VOLUME TYPE  CREATION DATE    MODIFICATION DATE  ORGANIZATION                          STATE      ZONE
-db2275ad-aed3-4150-a106-0044e86b1e6b  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13  -           20 GB  l_ssd        few seconds ago  few seconds ago    14d2f7ae-9775-414c-9bed-6810e060d500  available  fr-par-1
+e538801d-150b-4a67-bfaf-03d53c01c724  snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13  -           20 GB  l_ssd        few seconds ago  few seconds ago    951df375-e094-4d26-97c1-ba548eeb9c42  available  fr-par-1

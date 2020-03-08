@@ -6,7 +6,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/marketplace/v1/images?page=1&per_page=100
     method: GET
   response:
@@ -631,7 +631,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Feb 2020 12:54:46 GMT
+      - Sun, 08 Mar 2020 16:11:47 GMT
       Link:
       - </images?page=1&per_page=100&>; rel="last"
       Server:

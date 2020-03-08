@@ -1,10 +1,10 @@
-id                 fb4dfd31-a1fa-44a2-b733-2a087a73cc93
-name               cli-snp-inspiring-leakey
-organization       aba2d0d0-b01d-4d88-b322-935edc96d0fd
+id                 e72f12bb-b275-4da6-b992-d46efd878914
+name               cli-snp-sad-poitras
+organization       951df375-e094-4d26-97c1-ba548eeb9c42
 volume-type        l_ssd
 size               20 GB
 state              available
-base-volume.id     ffa12de5-403d-49e2-befb-83bcf1c67e7d
+base-volume.id     d51f469d-041f-4d79-868f-f38efd4042df
 base-volume.name   snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13
 creation-date      few seconds ago
 modification-date  few seconds ago

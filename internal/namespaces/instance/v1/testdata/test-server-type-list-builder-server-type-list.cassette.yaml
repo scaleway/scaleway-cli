@@ -6,7 +6,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/products/servers
     method: GET
   response:
@@ -114,8 +114,8 @@ interactions:
       15.99, "hourly_price": 0.032, "capabilities": {"boot_types": ["bootscript",
       "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
       true, "placement_groups": true, "block_storage": true, "private_network": 8},
-      "network": {"ipv6_support": true, "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
-      419430400, "interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      "network": {"ipv6_support": true, "sum_internal_bandwidth": 419430400, "sum_internet_bandwidth":
+      419430400, "interfaces": [{"internal_bandwidth": 419430400, "internet_bandwidth":
       null}, {"internal_bandwidth": null, "internet_bandwidth": 419430400}]}}, "DEV1-M":
       {"alt_names": [], "arch": "x86_64", "ncpus": 3, "ram": 4294967296, "gpu": null,
       "volumes_constraint": {"min_size": 40000000000, "max_size": 40000000000}, "per_volume_constraint":
@@ -123,8 +123,8 @@ interactions:
       false, "monthly_price": 7.99, "hourly_price": 0.016, "capabilities": {"boot_types":
       ["bootscript", "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
       true, "placement_groups": true, "block_storage": true, "private_network": 8},
-      "network": {"ipv6_support": true, "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
-      314572800, "interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      "network": {"ipv6_support": true, "sum_internal_bandwidth": 314572800, "sum_internet_bandwidth":
+      314572800, "interfaces": [{"internal_bandwidth": 314572800, "internet_bandwidth":
       null}, {"internal_bandwidth": null, "internet_bandwidth": 314572800}]}}, "DEV1-S":
       {"alt_names": [], "arch": "x86_64", "ncpus": 2, "ram": 2147483648, "gpu": null,
       "volumes_constraint": {"min_size": 20000000000, "max_size": 20000000000}, "per_volume_constraint":
@@ -132,8 +132,8 @@ interactions:
       false, "monthly_price": 2.99, "hourly_price": 0.006, "capabilities": {"boot_types":
       ["bootscript", "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
       true, "placement_groups": true, "block_storage": true, "private_network": 8},
-      "network": {"ipv6_support": true, "sum_internal_bandwidth": 104857600, "sum_internet_bandwidth":
-      209715200, "interfaces": [{"internal_bandwidth": 104857600, "internet_bandwidth":
+      "network": {"ipv6_support": true, "sum_internal_bandwidth": 209715200, "sum_internet_bandwidth":
+      209715200, "interfaces": [{"internal_bandwidth": 209715200, "internet_bandwidth":
       null}, {"internal_bandwidth": null, "internet_bandwidth": 209715200}]}}, "DEV1-XL":
       {"alt_names": [], "arch": "x86_64", "ncpus": 4, "ram": 12884901888, "gpu": null,
       "volumes_constraint": {"min_size": 120000000000, "max_size": 120000000000},
@@ -142,8 +142,8 @@ interactions:
       {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type": "local",
       "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 524288000, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      524288000, "sum_internet_bandwidth": 524288000, "interfaces": [{"internal_bandwidth":
+      524288000, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       524288000}]}}, "GP1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 32, "ram":
       137438953472, "gpu": null, "volumes_constraint": {"min_size": 600000000000,
       "max_size": 600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
@@ -151,8 +151,8 @@ interactions:
       0.598, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 5368709120, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      5368709120, "sum_internet_bandwidth": 5368709120, "interfaces": [{"internal_bandwidth":
+      5368709120, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       5368709120}]}}, "GP1-M": {"alt_names": [], "arch": "x86_64", "ncpus": 16, "ram":
       68719476736, "gpu": null, "volumes_constraint": {"min_size": 600000000000, "max_size":
       600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
@@ -160,8 +160,8 @@ interactions:
       0.318, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 1610612736, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      1610612736, "sum_internet_bandwidth": 1610612736, "interfaces": [{"internal_bandwidth":
+      1610612736, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       1610612736}]}}, "GP1-S": {"alt_names": [], "arch": "x86_64", "ncpus": 8, "ram":
       34359738368, "gpu": null, "volumes_constraint": {"min_size": 300000000000, "max_size":
       300000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
@@ -169,8 +169,8 @@ interactions:
       "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 838860800, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      838860800, "sum_internet_bandwidth": 838860800, "interfaces": [{"internal_bandwidth":
+      838860800, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       838860800}]}}, "GP1-XL": {"alt_names": [], "arch": "x86_64", "ncpus": 48, "ram":
       274877906944, "gpu": null, "volumes_constraint": {"min_size": 600000000000,
       "max_size": 600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
@@ -178,8 +178,8 @@ interactions:
       1.138, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 10737418240, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      10737418240, "sum_internet_bandwidth": 10737418240, "interfaces": [{"internal_bandwidth":
+      10737418240, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       10737418240}]}}, "GP1-XS": {"alt_names": [], "arch": "x86_64", "ncpus": 4, "ram":
       17179869184, "gpu": null, "volumes_constraint": {"min_size": 150000000000, "max_size":
       150000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
@@ -187,8 +187,8 @@ interactions:
       "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 524288000, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      524288000, "sum_internet_bandwidth": 524288000, "interfaces": [{"internal_bandwidth":
+      524288000, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       524288000}]}}, "RENDER-S": {"alt_names": [], "arch": "x86_64", "ncpus": 10,
       "ram": 48318382080, "gpu": 1, "volumes_constraint": {"min_size": 400000000000,
       "max_size": 400000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
@@ -196,8 +196,8 @@ interactions:
       1.0, "capabilities": {"boot_types": ["local", "rescue"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
-      104857600, "sum_internet_bandwidth": 1073741824, "interfaces": [{"internal_bandwidth":
-      104857600, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
+      1073741824, "sum_internet_bandwidth": 1073741824, "interfaces": [{"internal_bandwidth":
+      1073741824, "internet_bandwidth": null}, {"internal_bandwidth": null, "internet_bandwidth":
       1073741824}]}}, "START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": null, "volumes_constraint": {"min_size": 200000000000,
       "max_size": 200000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
@@ -298,13 +298,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "23699"
+      - "23709"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Feb 2020 13:16:13 GMT
+      - Sun, 08 Mar 2020 16:15:38 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:

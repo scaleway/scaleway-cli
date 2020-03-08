@@ -12,7 +12,7 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
+    body: '{"ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address": "51.158.108.20",
       "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "zone": "fr-par-1", "tags": []}}'
     headers:
@@ -25,9 +25,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2020 15:05:25 GMT
+      - Sun, 08 Mar 2020 16:15:42 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+      - https://cp-par1.scaleway.com/ips/65ae2546-5893-40f2-bcc2-aabee4b4dc2f
       Server:
       - scaleway_api
       Strict-Transport-Security:

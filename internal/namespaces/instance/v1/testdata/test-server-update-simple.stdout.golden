@@ -1,13 +1,13 @@
-server.id                        d925d8bf-3e26-49c7-ac3d-5c44c7070b78
-server.name                      cli-srv-silly-neumann
-server.organization              14d2f7ae-9775-414c-9bed-6810e060d500
+server.id                        721fcf66-8652-4dc9-acef-5caa3ff72015
+server.name                      cli-srv-affectionate-haibt
+server.organization              951df375-e094-4d26-97c1-ba548eeb9c42
 server.allowed-actions.0         poweron
 server.allowed-actions.1         backup
 server.commercial-type           DEV1-S
 server.creation-date             few seconds ago
 server.dynamic-ip-required       false
 server.enable-ipv6               false
-server.hostname                  cli-srv-silly-neumann
+server.hostname                  cli-srv-affectionate-haibt
 server.image.id                  f974feac-abae-4365-b988-8ec7d1cec10d
 server.image.name                Ubuntu Bionic Beaver
 server.image.arch                x86_64
@@ -22,15 +22,15 @@ server.image.root-volume         dd5f5c10-23b1-4c9c-8445-eb6740957c84
 server.image.state               available
 server.image.zone                fr-par-1
 server.protected                 false
-server.public-ip.id              febae361-dcf5-428d-a8ca-5ee64fc46190
-server.public-ip.address         51.158.117.222
+server.public-ip.id              a5545da1-1ada-4b70-894d-49f5fa848d19
+server.public-ip.address         51.15.129.237
 server.public-ip.dynamic         false
 server.modification-date         few seconds ago
 server.state                     archived
 server.bootscript                x86_64 mainline 4.9.93 rev1
 server.boot-type                 local
 server.volumes                   1
-server.security-group.id         e5bf4522-94b4-4933-bebb-9b21f786b4af
+server.security-group.id         54e2d5f6-d79c-44cc-b19f-613699b9cc7e
 server.security-group.name       Default security group
 server.state-detail              -
 server.arch                      x86_64

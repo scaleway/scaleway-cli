@@ -2,33 +2,34 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"test","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","volume_type":"l_ssd","size":20000000000}'
+    body: '{"name":"test","organization":"951df375-e094-4d26-97c1-ba548eeb9c42","volume_type":"l_ssd","size":20000000000}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes
     method: POST
   response:
-    body: '{"volume": {"size": 20000000000, "state": "available", "name": "test",
-      "modification_date": "2020-02-11T13:55:18.688897+00:00", "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-      "export_uri": null, "creation_date": "2020-02-11T13:55:18.688897+00:00", "id":
-      "dc762eda-d8f8-4e96-8221-fc5c49580d0f", "volume_type": "l_ssd", "server": null}}'
+    body: '{"volume": {"id": "7e9a04db-2cb2-4aa5-a924-4e0f067aa44b", "name": "test",
+      "volume_type": "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:15:48.424411+00:00", "modification_date": "2020-03-08T16:15:48.424411+00:00",
+      "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "343"
+      - "363"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:18 GMT
+      - Sun, 08 Mar 2020 16:15:48 GMT
       Location:
-      - https://cp-par1.scaleway.com/volumes/dc762eda-d8f8-4e96-8221-fc5c49580d0f
+      - https://cp-par1.scaleway.com/volumes/7e9a04db-2cb2-4aa5-a924-4e0f067aa44b
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -45,8 +46,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/dc762eda-d8f8-4e96-8221-fc5c49580d0f
+      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/7e9a04db-2cb2-4aa5-a924-4e0f067aa44b
     method: DELETE
   response:
     body: ""
@@ -58,7 +59,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2020 13:55:18 GMT
+      - Sun, 08 Mar 2020 16:15:48 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

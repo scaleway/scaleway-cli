@@ -10,8 +10,68 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes?page=1&volume_type=l_ssd
     method: GET
   response:
-    body: '{"volumes": [{"id": "d8676f92-8957-4816-b458-d0dcea680bda", "name": "test",
+    body: '{"volumes": [{"id": "d05c9952-e4b6-4f5c-b5ca-a3d7c753c7cb", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:15:35.850151+00:00", "modification_date": "2020-03-08T16:15:36.942225+00:00",
+      "zone": "fr-par-1"}, {"id": "3d92511c-e6db-435c-9ed7-3827004c65a0", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:15:30.637644+00:00", "modification_date": "2020-03-08T16:15:31.793464+00:00",
+      "zone": "fr-par-1"}, {"id": "b919332e-a298-45a2-97f5-bce69ce4883d", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "97165b33-61f8-4b56-aa8d-d5ffdd4cf673", "name": "cli-srv-competent-volhard"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-03-08T16:14:16.014651+00:00",
+      "modification_date": "2020-03-08T16:14:16.276089+00:00", "zone": "fr-par-1"},
+      {"id": "5cf59dea-40d2-48af-8568-c4bb82860e32", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "volume_type": "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "764b1814-9b29-4a72-a423-87dfbdbd9d4e", "name": "cli-srv-awesome-archimedes"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-03-08T16:12:02.206303+00:00",
+      "modification_date": "2020-03-08T16:12:02.454619+00:00", "zone": "fr-par-1"},
+      {"id": "cefa2edd-c8d2-47f3-98cf-578bd92f1d4e", "name": "test", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:06:41.053462+00:00", "modification_date": "2020-03-08T16:06:41.053462+00:00",
+      "zone": "fr-par-1"}, {"id": "c4370b6a-bbb8-48c5-b6ab-c77e523bf177", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:05:59.400401+00:00", "modification_date": "2020-03-08T16:06:00.078205+00:00",
+      "zone": "fr-par-1"}, {"id": "7520d585-1da7-4c4d-85af-6999330d076e", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T16:05:54.788339+00:00", "modification_date": "2020-03-08T16:05:55.581307+00:00",
+      "zone": "fr-par-1"}, {"id": "85124047-9b0b-4491-bb07-5459c6a77c93", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "f0f5212b-e1a7-404c-b1f1-2653f3984053", "name": "cli-srv-epic-mcnulty"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-03-08T16:02:58.669514+00:00",
+      "modification_date": "2020-03-08T16:02:58.936607+00:00", "zone": "fr-par-1"},
+      {"id": "98ec1ad4-ea93-4a5c-a758-9e5cf91573d0", "name": "test", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T15:55:46.687218+00:00", "modification_date": "2020-03-08T15:55:46.687218+00:00",
+      "zone": "fr-par-1"}, {"id": "b5359083-bc8c-40ce-894f-89495aa01736", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T15:55:08.890847+00:00", "modification_date": "2020-03-08T15:55:09.517201+00:00",
+      "zone": "fr-par-1"}, {"id": "ac2bb185-75ea-45e4-9f48-f872aed95617", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": null, "size": 20000000000, "state": "available", "creation_date":
+      "2020-03-08T15:55:04.578428+00:00", "modification_date": "2020-03-08T15:55:05.322616+00:00",
+      "zone": "fr-par-1"}, {"id": "4e67ba4f-5e8a-42a8-8921-539cc1f3e42f", "name":
+      "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "de275cd9-9578-4e75-8fb4-00543db83bf8", "name": "cli-srv-jovial-kepler"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-03-08T15:50:08.861246+00:00",
+      "modification_date": "2020-03-08T15:50:09.132086+00:00", "zone": "fr-par-1"},
+      {"id": "d8676f92-8957-4816-b458-d0dcea680bda", "name": "test", "volume_type":
+      "l_ssd", "export_uri": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "server": null, "size": 20000000000, "state": "available", "creation_date":
       "2020-03-08T15:05:29.061451+00:00", "modification_date": "2020-03-08T15:05:29.061451+00:00",
       "zone": "fr-par-1"}, {"id": "a0000a57-6f9d-48a6-81ed-f470dfabedfb", "name":
@@ -64,13 +124,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "4596"
+      - "9720"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2020 15:05:29 GMT
+      - Sun, 08 Mar 2020 16:16:14 GMT
       Link:
       - </volumes?page=1&per_page=50&volume_type=l_ssd>; rel="last"
       Server:
@@ -82,7 +142,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Total-Count:
-      - "10"
+      - "22"
     status: 200 OK
     code: 200
     duration: ""

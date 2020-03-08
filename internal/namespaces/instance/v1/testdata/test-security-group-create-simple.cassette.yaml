@@ -2,7 +2,7 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"cli-sg-loving-driscoll","organization":"951df375-e094-4d26-97c1-ba548eeb9c42","stateful":true,"inbound_default_policy":"accept","outbound_default_policy":"accept"}'
+    body: '{"name":"cli-sg-cranky-meninsky","organization":"951df375-e094-4d26-97c1-ba548eeb9c42","stateful":true,"inbound_default_policy":"accept","outbound_default_policy":"accept"}'
     form: {}
     headers:
       Content-Type:
@@ -12,9 +12,9 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/security_groups
     method: POST
   response:
-    body: '{"security_group": {"id": "abf08196-1997-4554-b4f6-861739245430", "creation_date":
-      "2020-03-08T15:05:26.366805+00:00", "modification_date": "2020-03-08T15:05:26.366805+00:00",
-      "name": "cli-sg-loving-driscoll", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    body: '{"security_group": {"id": "717dda7f-0f49-4851-92fc-1e56e95069b6", "creation_date":
+      "2020-03-08T16:15:43.476820+00:00", "modification_date": "2020-03-08T16:15:43.476820+00:00",
+      "name": "cli-sg-cranky-meninsky", "description": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "servers": [], "stateful": true, "inbound_default_policy": "accept", "outbound_default_policy":
       "accept", "organization_default": false, "enable_default_security": true, "zone":
       "fr-par-1"}}'
@@ -28,9 +28,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2020 15:05:26 GMT
+      - Sun, 08 Mar 2020 16:15:44 GMT
       Location:
-      - https://cp-par1.scaleway.com/security_groups/abf08196-1997-4554-b4f6-861739245430
+      - https://cp-par1.scaleway.com/security_groups/717dda7f-0f49-4851-92fc-1e56e95069b6
       Server:
       - scaleway_api
       Strict-Transport-Security:
