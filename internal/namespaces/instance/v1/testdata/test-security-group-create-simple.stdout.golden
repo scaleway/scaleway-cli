@@ -1,0 +1,12 @@
+id                       6dfa90e2-c6fa-4315-afa3-23e8f7d33b9c
+name                     cli-sg-elastic-heisenberg
+description              -
+enable-default-security  true
+inbound-default-policy   accept
+outbound-default-policy  accept
+organization             951df375-e094-4d26-97c1-ba548eeb9c42
+organization-default     false
+creation-date            few seconds ago
+modification-date        few seconds ago
+stateful                 true
+zone                     fr-par-1
