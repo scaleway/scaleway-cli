@@ -1,0 +1,9 @@
+Invalid arguments 'name', 'size'
+
+Details:
+- 'name' does not respect constraint
+- 'size' does not respect constraint
+
+Hint:
+Required key not provided
+required key not provided

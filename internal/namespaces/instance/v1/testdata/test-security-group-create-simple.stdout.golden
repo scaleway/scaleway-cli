@@ -1,0 +1,12 @@
+id                       717dda7f-0f49-4851-92fc-1e56e95069b6
+name                     cli-sg-cranky-meninsky
+description              -
+enable-default-security  true
+inbound-default-policy   accept
+outbound-default-policy  accept
+organization             951df375-e094-4d26-97c1-ba548eeb9c42
+organization-default     false
+creation-date            few seconds ago
+modification-date        few seconds ago
+stateful                 true
+zone                     fr-par-1

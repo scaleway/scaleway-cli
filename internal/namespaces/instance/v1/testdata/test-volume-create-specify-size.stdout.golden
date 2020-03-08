@@ -1,0 +1,10 @@
+id                 cefa2edd-c8d2-47f3-98cf-578bd92f1d4e
+name               test
+export-uri         -
+size               20 GB
+volume-type        l_ssd
+creation-date      few seconds ago
+modification-date  few seconds ago
+organization       951df375-e094-4d26-97c1-ba548eeb9c42
+state              available
+zone               fr-par-1
