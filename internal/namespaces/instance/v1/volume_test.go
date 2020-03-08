@@ -50,7 +50,6 @@ func Test_VolumeDelete(t *testing.T) {
 		Cmd:      "scw instance volume delete",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_VolumeGet(t *testing.T) {
@@ -66,7 +65,6 @@ func Test_VolumeGet(t *testing.T) {
 		Cmd:      "scw instance volume get",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 func Test_VolumeList(t *testing.T) {
 
@@ -81,5 +79,4 @@ func Test_VolumeList(t *testing.T) {
 		Cmd:      "scw instance volume list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }

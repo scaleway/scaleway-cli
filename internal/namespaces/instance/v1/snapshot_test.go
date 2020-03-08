@@ -20,7 +20,6 @@ func Test_SnapshotList(t *testing.T) {
 		Cmd:      "scw instance snapshot list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_SnapshotGet(t *testing.T) {
@@ -36,7 +35,6 @@ func Test_SnapshotGet(t *testing.T) {
 		Cmd:      "scw instance snapshot get",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_SnapshotDelete(t *testing.T) {
@@ -52,7 +50,6 @@ func Test_SnapshotDelete(t *testing.T) {
 		Cmd:      "scw instance snapshot delete",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_SnapshotCreate(t *testing.T) {
@@ -85,5 +82,4 @@ func Test_SnapshotCreate(t *testing.T) {
 			deleteServer("Server"),
 		),
 	}))
-
 }

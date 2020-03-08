@@ -20,5 +20,4 @@ func Test_ServerTypesList(t *testing.T) {
 		UseE2EClient: true,
 		Check:        core.TestCheckGolden(),
 	}))
-
 }

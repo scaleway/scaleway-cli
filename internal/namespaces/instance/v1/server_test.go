@@ -36,7 +36,6 @@ func Test_ListServer(t *testing.T) {
 		Cmd:      "scw instance server list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_ServerReboot(t *testing.T) {
@@ -46,7 +45,6 @@ func Test_ServerReboot(t *testing.T) {
 		Cmd:      "scw instance server reboot",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_ServerStandby(t *testing.T) {
@@ -56,7 +54,6 @@ func Test_ServerStandby(t *testing.T) {
 		Cmd:      "scw instance server standby",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_ServerGet(t *testing.T) {
@@ -91,7 +88,6 @@ func Test_ServerStart(t *testing.T) {
 		Cmd:      "scw instance server start",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 //

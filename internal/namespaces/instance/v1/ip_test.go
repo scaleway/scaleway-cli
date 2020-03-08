@@ -19,7 +19,6 @@ func Test_IpCreate(t *testing.T) {
 		Cmd:      "scw instance ip create",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_IpDelete(t *testing.T) {
@@ -35,7 +34,6 @@ func Test_IpDelete(t *testing.T) {
 		Cmd:      "scw instance ip delete",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_IpGet(t *testing.T) {
@@ -51,7 +49,6 @@ func Test_IpGet(t *testing.T) {
 		Cmd:      "scw instance ip get",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_IpList(t *testing.T) {
@@ -67,7 +64,6 @@ func Test_IpList(t *testing.T) {
 		Cmd:      "scw instance ip list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
 
 func Test_IpUpdate(t *testing.T) {
@@ -83,5 +79,4 @@ func Test_IpUpdate(t *testing.T) {
 		Cmd:      "scw instance ip update",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }
