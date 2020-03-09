@@ -36,6 +36,10 @@ type BootstrapConfig struct {
 	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
+
+	// If set the ExtractEnv will return these value instead of os.GetEnv. This is useful for test as it allow overriding
+	// env without relying on global state.
+	OverrideEnv map[string]string
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -53,14 +57,19 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		BuildInfo: config.BuildInfo,
-		stdout:    config.Stdout,
-		stderr:    config.Stderr,
-		Client:    config.Client,
-		Commands:  config.Commands,
-		Printer:   globalPrinter,
-		result:    nil, // result is later injected by cobra_utils.go/cobraRun()
-		command:   nil, // command is later injected by cobra_utils.go/cobraRun()
+		BuildInfo:   config.BuildInfo,
+		stdout:      config.Stdout,
+		stderr:      config.Stderr,
+		Client:      config.Client,
+		Commands:    config.Commands,
+		Printer:     globalPrinter,
+		result:      nil, // result is later injected by cobra_utils.go/cobraRun()
+		command:     nil, // command is later injected by cobra_utils.go/cobraRun()
+		OverrideEnv: config.OverrideEnv,
+	}
+	// We make sur OverrideEnv is never nil in meta
+	if meta.OverrideEnv == nil {
+		meta.OverrideEnv = map[string]string{}
 	}
 
 	// Send Matomo telemetry when exiting the bootstrap

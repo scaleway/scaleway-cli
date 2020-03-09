@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"io"
+	"os"
 
 	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -14,10 +15,11 @@ type meta struct {
 	DebugModeFlag   bool
 	PrinterTypeFlag printer.Type
 
-	BuildInfo *BuildInfo
-	Client    *scw.Client
-	Printer   printer.Printer
-	Commands  *Commands
+	BuildInfo   *BuildInfo
+	Client      *scw.Client
+	Printer     printer.Printer
+	Commands    *Commands
+	OverrideEnv map[string]string
 
 	command *Command
 	stdout  io.Writer
@@ -60,4 +62,12 @@ func ExtractClient(ctx context.Context) *scw.Client {
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
+}
+
+func ExtractEnv(ctx context.Context, envKey string) string {
+	meta := extractMeta(ctx)
+	if value, exist := meta.OverrideEnv[envKey]; exist {
+		return value
+	}
+	return os.Getenv(envKey)
 }
