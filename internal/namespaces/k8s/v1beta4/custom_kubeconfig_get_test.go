@@ -1,0 +1,29 @@
+package k8s
+
+import (
+	"testing"
+
+	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/internal/core"
+	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
+)
+
+func Test_GetKubeconfig(t *testing.T) {
+
+	////
+	// Simple use cases
+	////
+	t.Run("simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		Cmd:        "scw k8s kubeconfig get cluster-id={{ .Cluster.ID }}",
+		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, ctx.Result.(string), string(ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig).GetRaw()))
+			},
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteCluster("Cluster"),
+	}))
+}

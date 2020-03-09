@@ -18,6 +18,13 @@ func GetCommands() *core.Commands {
 		k8sVersionGetCommand(),
 	))
 
+	cmds.Merge(core.NewCommands(
+		k8sKubeconfigCommand(),
+		k8sKubeconfigGetCommand(),
+		k8sKubeconfigInstallCommand(),
+		k8sKubeconfigUninstallCommand(),
+	))
+
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.BindAttributesMarshalFunc(clusterStatusAttributes))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(0), human.BindAttributesMarshalFunc(poolStatusAttributes))
 	human.RegisterMarshalerFunc(k8s.NodeStatus(0), human.BindAttributesMarshalFunc(nodeStatusAttributes))
