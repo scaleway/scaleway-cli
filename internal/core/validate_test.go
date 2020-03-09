@@ -8,10 +8,18 @@ import (
 )
 
 type Element struct {
-	ID            int
-	Name          string
-	ElementsMap   map[string]Element
-	ElementsSlice []Element
+	ID                 int
+	Name               string
+	ElementsMap        map[string]Element
+	ElementsSlice      []Element
+	FirstNestedElement *FirstNestedElement
+}
+
+type FirstNestedElement struct {
+	SecondNestedElement *SecondNestedElement
+}
+
+type SecondNestedElement struct {
 }
 
 type elementCustom struct {
@@ -173,4 +181,61 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 			},
 		},
 	}))
+}
+
+func Test_DefaultCommandRequiredFunc(t *testing.T) {
+	type TestCase struct {
+		command         *Command
+		parsedArguments interface{}
+	}
+
+	runOK := func(testCase TestCase) func(t *testing.T) {
+		return func(t *testing.T) {
+			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments)
+			assert.Equal(t, nil, err)
+		}
+	}
+
+	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
+		return func(t *testing.T) {
+			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments)
+			assert.Equal(t, MissingRequiredArgumentError(argName), err)
+		}
+	}
+
+	t.Run("required-struct", runOK(TestCase{
+		command: &Command{
+			ArgSpecs: ArgSpecs{
+				{
+					Name:     "first-nested-element.second-nested-element",
+					Required: true,
+				},
+			},
+		},
+		parsedArguments: &elementCustom{
+			Element: &Element{
+				Name: "nested",
+				FirstNestedElement: &FirstNestedElement{
+					SecondNestedElement: &SecondNestedElement{},
+				},
+			},
+		},
+	}))
+
+	t.Run("fail-required-struct", runErr(TestCase{
+		command: &Command{
+			ArgSpecs: ArgSpecs{
+				{
+					Name:     "first-nested-element.second-nested-element",
+					Required: true,
+				},
+			},
+		},
+		parsedArguments: &elementCustom{
+			Element: &Element{
+				Name:               "foo",
+				FirstNestedElement: &FirstNestedElement{},
+			},
+		},
+	}, "first-nested-element.second-nested-element"))
 }

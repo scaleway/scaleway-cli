@@ -61,9 +61,18 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
 	for _, arg := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldIsZero, fieldExists := isFieldZero(cmdArgs, fieldName)
-		if arg.Required && (fieldIsZero || !fieldExists) {
-			return MissingRequiredArgumentError(arg.Name)
+		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		if err != nil {
+			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", arg.Name, fieldName, err.Error())
+			if arg.Required {
+				return err
+			}
+			continue
+		}
+		for _, fieldValue := range fieldValues {
+			if arg.Required && (fieldValue.IsZero() || !fieldValue.IsValid()) {
+				return MissingRequiredArgumentError(arg.Name)
+			}
 		}
 	}
 	return nil
