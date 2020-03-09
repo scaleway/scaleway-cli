@@ -11,6 +11,9 @@ import (
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
 
+// GetCommands returns a list of all commands in the CLI.
+// It is used by both scw and scw-qa.
+// We can not put it in `core` package as it would result in a import cycle `core` -> `namespaces/autocomplete` -> `core.
 func GetCommands() *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
@@ -21,6 +24,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(initNamespace.GetCommands())
 	commands.Merge(configNamespace.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(versionNamespace.GetCommands())
+	commands.Merge(versionNamespace.GetCommands())``
 	return commands
 }
