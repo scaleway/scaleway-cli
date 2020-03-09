@@ -13,7 +13,7 @@ func main() {
 
 	errorCounts := map[string]int{}
 	for _, err := range errors {
-		errorCounts[fmt.Sprintf("%T", err)] += 1
+		errorCounts[fmt.Sprintf("%T", err)]++
 	}
 
 	fmt.Printf("Errors:\n")
