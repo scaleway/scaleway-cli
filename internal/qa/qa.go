@@ -6,11 +6,18 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
-type shortEndWithDotError struct {
+func LintCommands(commands *core.Commands) []interface{} {
+	errors := []interface{}(nil)
+	errors = append(errors, testShortEndWithDotError(commands)...)
+	errors = append(errors, testShortIsNotPresentError(commands)...)
+	return errors
+}
+
+type ShortEndWithDotError struct {
 	Command *core.Command
 }
 
-func (err shortEndWithDotError) Error() string {
+func (err ShortEndWithDotError) Error() string {
 	return "short ends with '.' for command '" + err.Command.GetCommandLine() + "'"
 }
 
@@ -18,7 +25,7 @@ func testShortEndWithDotError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
 		if strings.HasSuffix(command.Short, ".") {
-			errors = append(errors, &shortEndWithDotError{
+			errors = append(errors, &ShortEndWithDotError{
 				Command: command,
 			})
 		}
@@ -26,29 +33,22 @@ func testShortEndWithDotError(commands *core.Commands) []interface{} {
 	return errors
 }
 
-type shortIsNotPresent struct {
+type ShortIsNotPresent struct {
 	Command *core.Command
 }
 
-func (err shortIsNotPresent) Error() string {
+func (err ShortIsNotPresent) Error() string {
 	return "short is not present for command '" + err.Command.GetCommandLine() + "'"
 }
 
 func testShortIsNotPresentError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
-		if strings.HasSuffix(command.Short, ".") {
-			errors = append(errors, &shortIsNotPresent{
+		if command.Short == "" {
+			errors = append(errors, &ShortIsNotPresent{
 				Command: command,
 			})
 		}
 	}
-	return errors
-}
-
-func LintCommands(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
-	errors = append(errors, testShortEndWithDotError(commands)...)
-	errors = append(errors, testShortIsNotPresentError(commands)...)
 	return errors
 }

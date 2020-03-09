@@ -7,13 +7,6 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
-	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
-	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
-	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
-	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1beta4"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
-	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.
@@ -84,20 +77,6 @@ type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, er
 type WaitFunc func(ctx context.Context, argsI, respI interface{}) (interface{}, error)
 
 const indexCommandSeparator = "."
-
-func GetCommands() *Commands {
-	// Import all commands available in CLI from various packages.
-	// NB: Merge order impacts scw usage sort.
-	commands := NewCommands()
-	commands.Merge(instance.GetCommands())
-	commands.Merge(k8s.GetCommands())
-	commands.Merge(marketplace.GetCommands())
-	commands.Merge(initNamespace.GetCommands())
-	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(versionNamespace.GetCommands())
-	return commands
-}
 
 // Override replaces or mutates the Command via a builder function.
 func (c *Command) Override(builder func(command *Command) *Command) {
