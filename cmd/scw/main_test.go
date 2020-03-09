@@ -26,8 +26,8 @@ func Test_AllUsage(t *testing.T) {
 		"autocomplete script": true,
 	}
 
-	for _, command := range command.GetCommands().GetAll() {
-		commandLine := command.GetCommandLine()
+	for _, cmd := range command.GetCommands().GetAll() {
+		commandLine := cmd.GetCommandLine()
 		if _, exists := excludedCommands[commandLine]; exists {
 			continue
 		}
