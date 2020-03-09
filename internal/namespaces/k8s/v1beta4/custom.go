@@ -18,6 +18,10 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.BindAttributesMarshalFunc(clusterStatusAttributes))
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
+	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)
+	cmds.MustFind("k8s", "cluster", "update").Override(clusterUpdateBuilder)
+	cmds.MustFind("k8s", "cluster", "upgrade").Override(clusterUpgradeBuilder)
+	cmds.MustFind("k8s", "cluster", "delete").Override(clusterDeleteBuilder)
 
 	return cmds
 }

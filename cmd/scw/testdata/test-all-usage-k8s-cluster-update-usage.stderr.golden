@@ -33,6 +33,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for update
+  -w, --wait   wait until the cluster is ready
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode

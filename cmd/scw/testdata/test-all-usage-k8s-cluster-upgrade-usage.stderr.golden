@@ -11,6 +11,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for upgrade
+  -w, --wait   wait until the cluster is ready
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
