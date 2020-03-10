@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -11,7 +12,6 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"golang.org/x/xerrors"
 )
 
 const (
@@ -32,6 +32,10 @@ var (
 		k8s.ClusterStatusUpdating: color.FgBlue,
 		k8s.ClusterStatusWarning:  color.FgHiYellow,
 	}
+	clusterActionCreate  = "create"
+	clusterActionUpdate  = "update"
+	clusterActionUpgrade = "upgrade"
+	clusterActionDelete  = "delete"
 )
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
@@ -51,39 +55,48 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 }
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = waitForClusterFunc()
+	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
 	return c
 }
 
 func clusterDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = waitForClusterFunc()
+	c.WaitFunc = waitForClusterFunc(clusterActionDelete)
 	return c
 }
 
 func clusterUpgradeBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = waitForClusterFunc()
+	c.WaitFunc = waitForClusterFunc(clusterActionUpgrade)
 	return c
 }
 
 func clusterUpdateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = waitForClusterFunc()
+	c.WaitFunc = waitForClusterFunc(clusterActionUpdate)
 	return c
 }
 
-func waitForClusterFunc() core.WaitFunc {
+func waitForClusterFunc(action string) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
+		_, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
 			Region:    respI.(*k8s.Cluster).Region,
 			ClusterID: respI.(*k8s.Cluster).ID,
 			Timeout:   scw.DurationPtr(clusterActionTimeout),
 		})
-		if err != nil {
-			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if xerrors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || xerrors.As(err, &notFoundError) {
-				return fmt.Sprintf("Cluster %s successfully deleted.", respI.(*k8s.Cluster).ID), nil
+		switch action {
+		case clusterActionCreate:
+			return fmt.Sprintf("Custer %s successfully created.", respI.(*k8s.Cluster).ID), nil
+		case clusterActionUpdate:
+			return fmt.Sprintf("Custer %s successfully updated.", respI.(*k8s.Cluster).ID), nil
+		case clusterActionUpgrade:
+			return fmt.Sprintf("Custer %s successfully upgraded.", respI.(*k8s.Cluster).ID), nil
+		case clusterActionDelete:
+			if err != nil {
+				notFoundError := &scw.ResourceNotFoundError{}
+				responseError := &scw.ResponseError{}
+				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+					return fmt.Sprintf("Custer %s successfully deleted.", respI.(*k8s.Cluster).ID), nil
+				}
 			}
 		}
-		return cluster, nil
+		return nil, err
 	}
 }
