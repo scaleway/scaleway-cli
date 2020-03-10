@@ -1,7 +1,10 @@
 Initiliaze SHH key.
 
 USAGE:
-  scw [global-flags] ssh-key init [flags]
+  scw [global-flags] ssh-key init [flags] [arg=value ...]
+
+ARGS:
+  [add-ssh-key]   Whether the ssh key for managing instances should be uploaded automatically
 
 FLAGS:
   -h, --help   help for init

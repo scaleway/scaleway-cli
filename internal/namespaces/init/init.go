@@ -6,13 +6,12 @@ import (
 	"os"
 	"reflect"
 
-	sshkey "github.com/scaleway/scaleway-cli/internal/namespaces/ssh-key"
-
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
+	sshkey "github.com/scaleway/scaleway-cli/internal/namespaces/ssh-key"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -284,7 +283,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += "  except for autocomplete:\n" + err.Error()
+					successMessage += " except for autocomplete:\n" + err.Error()
 				}
 			}
 
