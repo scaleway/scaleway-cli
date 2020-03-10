@@ -88,7 +88,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 // E.g.: '[value b=true c=1]' will be mutated to '[a=value b=true c=1]'.
 // It returns errors when:
 // - no positional argument is found.
-// - a positional argument exists, but is not positional.
+// - an unknown positional argument exists in the comand.
 // - an argument duplicates a positional argument.
 func handlePositionalArg(cmd *Command, rawArgs []string) error {
 	positionalArg := cmd.ArgSpecs.GetPositionalArg()
