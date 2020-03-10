@@ -8,6 +8,15 @@ import (
 
 type ArgSpecs []*ArgSpec
 
+func (s ArgSpecs) GetPositionalArg() *ArgSpec {
+	for _, spec := range s {
+		if spec.Positional {
+			return spec
+		}
+	}
+	return nil
+}
+
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	for _, spec := range s {
 		if spec.Name == name {
@@ -62,6 +71,13 @@ type ArgSpec struct {
 
 	// ValidateFunc validates an argument.
 	ValidateFunc ArgSpecValidateFunc
+
+	// Positional defines whether the argument is a positional parameter.
+	Positional bool
+}
+
+func (a *ArgSpec) Prefix() string {
+	return a.Name + "="
 }
 
 type DefaultFunc func() (value string, doc string)

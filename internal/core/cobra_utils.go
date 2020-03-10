@@ -25,6 +25,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// unmarshalled arguments will be store in this interface
 		cmdArgs := reflect.New(cmd.ArgsType).Interface()
 
+		// Handle positional argument by catching first argument `<value>` and rewrite it to `<arg-name>=<value>`
+		if err = handlePositionalArg(cmd, rawArgs); err != nil {
+			return err
+		}
+
 		// Apply default values on missing args.
 		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
@@ -76,6 +81,65 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		return nil
 	}
+}
+
+// handlePositionalArg will catch positional argument if command has one.
+// When a positional argument is found it will mutate its value in rawArgs to match the argument unmarshaller format.
+// E.g.: '[value b=true c=1]' will be mutated to '[a=value b=true c=1]'.
+// It returns errors when:
+// - no positional argument is found.
+// - a positional argument exists, but is not positional.
+// - an argument duplicates a positional argument.
+func handlePositionalArg(cmd *Command, rawArgs []string) error {
+	positionalArg := cmd.ArgSpecs.GetPositionalArg()
+
+	// Command does not have a positional argument.
+	if positionalArg == nil {
+		return nil
+	}
+
+	// Positional argument is found condition.
+	positionalArgumentFound := len(rawArgs) > 0 && !strings.Contains(rawArgs[0], "=")
+
+	// Argument exists but is not positional.
+	for i, arg := range rawArgs {
+		if strings.HasPrefix(arg, positionalArg.Prefix()) {
+			return &CliError{
+				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Hint: positionalArgHint(cmd, strings.TrimLeft(arg, positionalArg.Prefix()), append(rawArgs[:i], rawArgs[i+1:]...), positionalArgumentFound),
+			}
+		}
+	}
+
+	// If positional argument is found, prefix it with `arg-name=`.
+	if positionalArgumentFound {
+		rawArgs[0] = positionalArg.Prefix() + rawArgs[0]
+		return nil
+	}
+
+	// No positional argument found.
+	return &CliError{
+		Err:  fmt.Errorf("a positional argument is required for this command"),
+		Hint: positionalArgHint(cmd, "<"+positionalArg.Name+">", rawArgs, false),
+	}
+}
+
+// positionalArgHint helps formatting the positional argument error.
+func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, positionalArgumentFound bool) string {
+	suggestedArgs := []string{}
+
+	// If no positional argument exists, suggest one.
+	if !positionalArgumentFound {
+		suggestedArgs = append(suggestedArgs, hintValue)
+	}
+
+	// Suggest to use the other arguments.
+	for _, arg := range otherArgs {
+		suggestedArgs = append(suggestedArgs, arg)
+	}
+
+	suggestedCommand := append([]string{"scw", cmd.getPath()}, suggestedArgs...)
+	return "Try running '" + strings.Join(suggestedCommand, " ") + "'."
 }
 
 func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) error {
