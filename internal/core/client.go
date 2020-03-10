@@ -9,8 +9,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// createClient creates a Scaleway SDK client.
-func createClient(meta *meta) (*scw.Client, error) {
+// CreateClient creates a Scaleway SDK client.
+func CreateClient(meta *meta) (*scw.Client, error) {
 	_, err := scw.MigrateLegacyConfig()
 	if err != nil {
 		return nil, err
@@ -24,7 +24,7 @@ func createClient(meta *meta) (*scw.Client, error) {
 		return nil, err
 	}
 
-	if meta.ProfileFlag != "" {
+	if meta != nil && meta.ProfileFlag != "" {
 		config.ActiveProfile = scw.StringPtr(meta.ProfileFlag)
 	}
 
@@ -53,8 +53,12 @@ func createClient(meta *meta) (*scw.Client, error) {
 		}
 	}
 
+	userAgent := "scaleway-cli/"
+	if meta != nil {
+		userAgent += meta.BuildInfo.Version.String()
+	}
 	opts := []scw.ClientOption{
-		scw.WithUserAgent("scaleway-cli/" + meta.BuildInfo.Version.String()),
+		scw.WithUserAgent(userAgent),
 		scw.WithProfile(profile),
 	}
 

@@ -2,7 +2,6 @@ package sshkey
 
 import (
 	"context"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -61,16 +60,6 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Explanation
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
-	// Get all SSH keys from Scaleway
-	client := core.ExtractClient(ctx)
-	api := account.NewAPI(client)
-	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Fprintf(os.Stderr, "number of foo")
-
 	// Get default SSH key locally
 	relativePath := ".ssh/id_rsa.pub"
 	filename := path.Join(os.Getenv("HOME"), relativePath)
@@ -88,10 +77,24 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return nil, err
 	}
 
+	// Get all SSH keys from Scaleway
+	client := core.ExtractClient(ctx)
+	if client == nil {
+		client, err = core.CreateClient(nil)
+		if err != nil {
+			return nil, err
+		}
+	}
+	api := account.NewAPI(client)
+	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
+	if err != nil {
+		return nil, err
+	}
+
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
 		if SSHKey.PublicKey == string(localSHHKeyContent) {
-			return "✅ Key " + shortenedFilename + " is already present on your scaleway account", nil
+			return "Key " + shortenedFilename + " is already present on your scaleway account", nil
 		}
 	}
 
@@ -123,5 +126,5 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return nil, err
 	}
 
-	return "✅ Key " + shortenedFilename + " successfully added", nil
+	return "Key " + shortenedFilename + " successfully added", nil
 }

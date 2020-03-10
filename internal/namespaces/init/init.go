@@ -73,8 +73,8 @@ func initCommand() *core.Command {
 		Short:     `Initialize the config`,
 		Long:      `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
 		Namespace: "init",
-		//NoClient:  true,
-		ArgsType: reflect.TypeOf(initArgs{}),
+		NoClient:  true,
+		ArgsType:  reflect.TypeOf(initArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
@@ -213,16 +213,6 @@ func initCommand() *core.Command {
 				args.SendTelemetry = scw.BoolPtr(sendTelemetry)
 			}
 
-			//
-			_, _ = interactive.Println()
-			result, err := sshkey.InitRun(ctx, &sshkey.InitArgs{
-				AddSHHKey: args.AddSHHKey,
-			})
-			if err != nil {
-				return err
-			}
-			_, _ = interactive.Println(result)
-
 			// Ask whether we should install autocomplete
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
@@ -287,14 +277,27 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			successMessage := "Initialization completed with success\n"
+			successMessage := "Initialization completed with success"
 
+			// Install autocomplete
 			if *args.InstallAutocomplete {
+				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
 					successMessage += "  except for autocomplete:\n" + err.Error()
 				}
 			}
+
+			// Init SSH Key
+			_, _ = interactive.Println()
+			result, err := sshkey.InitRun(ctx, &sshkey.InitArgs{
+				AddSHHKey: args.AddSHHKey,
+			})
+			if err != nil {
+				return err, nil
+			}
+			_, _ = interactive.Println(result)
+			_, _ = interactive.Println()
 
 			return &core.SuccessResult{
 				Message: successMessage,

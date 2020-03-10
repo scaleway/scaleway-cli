@@ -30,7 +30,7 @@ type BootstrapConfig struct {
 	Stderr io.Writer
 
 	// If provided this client will be passed to all commands.
-	// If not a client will be automatically created by the CLI using Config, Env and flags see createClient().
+	// If not a client will be automatically created by the CLI using Config, Env and flags see CreateClient().
 	Client *scw.Client
 
 	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.

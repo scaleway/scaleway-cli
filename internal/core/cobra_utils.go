@@ -211,7 +211,7 @@ func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Comm
 
 		// If command require a client and no client was provided in BootstrapConfig
 		if !cmd.NoClient && meta.Client == nil {
-			meta.Client, err = createClient(meta)
+			meta.Client, err = CreateClient(meta)
 			if err != nil {
 				return err
 			}
