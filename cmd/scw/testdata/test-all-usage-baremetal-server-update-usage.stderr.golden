@@ -1,0 +1,19 @@
+Update the server associated with the given ID.
+
+USAGE:
+  scw [global-flags] baremetal server update [flags] [arg=value ...]
+
+ARGS:
+  server-id       ID of the server to update
+  [name]          Name of the server (≠hostname), not updated if null
+  [description]   Description associated to the server, max 255 characters, not updated if null
+  [tags]          Tags associated to the server, not updated if null
+  [zone]          Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

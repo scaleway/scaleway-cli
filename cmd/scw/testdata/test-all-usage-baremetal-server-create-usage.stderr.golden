@@ -1,0 +1,20 @@
+Create a new server. Once the server is created, you probably want to install an OS.
+
+USAGE:
+  scw [global-flags] baremetal server create [flags] [arg=value ...]
+
+ARGS:
+  offer-id            Offer ID of the new server
+  name                Name of the server (≠hostname)
+  description         Description associated to the server, max 255 characters
+  [tags.{index}]      Tags to associate to the server
+  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

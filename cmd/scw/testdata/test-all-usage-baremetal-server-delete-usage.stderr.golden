@@ -1,0 +1,16 @@
+Delete the server associated with the given ID.
+
+USAGE:
+  scw [global-flags] baremetal server delete [flags] [arg=value ...]
+
+ARGS:
+  server-id   ID of the server to delete
+  [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for delete
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

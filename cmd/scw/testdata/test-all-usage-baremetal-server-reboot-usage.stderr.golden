@@ -1,0 +1,17 @@
+Reboot the server associated with the given ID, use boot param to reboot in rescue.
+
+USAGE:
+  scw [global-flags] baremetal server reboot [flags] [arg=value ...]
+
+ARGS:
+  server-id     ID of the server to reboot
+  [boot-type]   The type of boot (normal | rescue)
+  [zone]        Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for reboot
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

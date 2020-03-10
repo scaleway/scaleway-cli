@@ -1,0 +1,23 @@
+Baremetal API
+
+USAGE:
+  scw [global-flags] baremetal <command> [flags]
+
+AVAILABLE COMMANDS:
+  server      A server is a denomination of a type of instances provided by Scaleway
+
+FLAGS:
+  -h, --help   help for baremetal
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+Additional help topics:
+  scw baremetal os     An Operating System (OS) is the underlying software installed on your server
+  scw baremetal ip     IP fail-over management
+  scw baremetal bmc    Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance
+  scw baremetal offer  Commercial offers
+
+Use "scw baremetal [command] --help" for more information about a command.
