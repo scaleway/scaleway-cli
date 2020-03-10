@@ -145,4 +145,13 @@ func Test_PositionalArg(t *testing.T) {
 		Cmd:      "scw test-positional plop tag=world",
 		Check:    TestCheckExitCode(0),
 	}))
+
+	t.Run("full command", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test-positional -h",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckGolden(),
+		),
+	}))
 }

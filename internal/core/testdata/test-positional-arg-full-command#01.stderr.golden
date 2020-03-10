@@ -1,0 +1,14 @@
+USAGE:
+  scw [global-flags] test-positional <name-id> [flags] [arg=value ...]
+
+ARGS:
+  [name-id]   
+  [tag]       
+
+FLAGS:
+  -h, --help   help for test-positional
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
