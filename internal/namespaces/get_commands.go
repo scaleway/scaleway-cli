@@ -3,6 +3,7 @@ package namespaces
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
+	baremetal "github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1alpha1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
@@ -19,6 +20,7 @@ func GetCommands() *core.Commands {
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommands()
 	commands.Merge(instance.GetCommands())
+	commands.Merge(baremetal.GetCommands())
 	commands.Merge(k8s.GetCommands())
 	commands.Merge(marketplace.GetCommands())
 	commands.Merge(initNamespace.GetCommands())
