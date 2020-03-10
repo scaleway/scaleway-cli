@@ -1,4 +1,4 @@
-package command
+package namespaces
 
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"

@@ -13,19 +13,19 @@ func LintCommands(commands *core.Commands) []interface{} {
 	return errors
 }
 
-type ShortEndWithDotError struct {
+type ShortMustNotEndWithDotError struct {
 	Command *core.Command
 }
 
-func (err ShortEndWithDotError) Error() string {
-	return "short ends with '.' for command '" + err.Command.GetCommandLine() + "'"
+func (err ShortMustNotEndWithDotError) Error() string {
+	return "short must not end with '.' for command '" + err.Command.GetCommandLine() + "'"
 }
 
 func testShortEndWithDotError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
 		if strings.HasSuffix(command.Short, ".") {
-			errors = append(errors, &ShortEndWithDotError{
+			errors = append(errors, &ShortMustNotEndWithDotError{
 				Command: command,
 			})
 		}
@@ -33,19 +33,19 @@ func testShortEndWithDotError(commands *core.Commands) []interface{} {
 	return errors
 }
 
-type ShortIsNotPresent struct {
+type ShortMustBePresentError struct {
 	Command *core.Command
 }
 
-func (err ShortIsNotPresent) Error() string {
-	return "short is not present for command '" + err.Command.GetCommandLine() + "'"
+func (err ShortMustBePresentError) Error() string {
+	return "short must be present for command '" + err.Command.GetCommandLine() + "'"
 }
 
 func testShortIsNotPresentError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
 		if command.Short == "" {
-			errors = append(errors, &ShortIsNotPresent{
+			errors = append(errors, &ShortMustBePresentError{
 				Command: command,
 			})
 		}

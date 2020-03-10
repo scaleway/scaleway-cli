@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/internal/command"
+	"github.com/scaleway/scaleway-cli/internal/namespaces"
+
 	"github.com/scaleway/scaleway-cli/internal/qa"
 )
 
 func main() {
-	commands := command.GetCommands()
+	commands := namespaces.GetCommands()
 	errors := qa.LintCommands(commands)
 
 	errorCounts := map[string]int{}

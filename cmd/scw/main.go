@@ -4,9 +4,10 @@ import (
 	"os"
 	"runtime"
 
+	"github.com/scaleway/scaleway-cli/internal/namespaces"
+
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
-	"github.com/scaleway/scaleway-cli/internal/command"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/sentry"
 )
@@ -44,7 +45,7 @@ func main() {
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  command.GetCommands(),
+		Commands:  namespaces.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
