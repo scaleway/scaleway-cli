@@ -16,9 +16,7 @@ GLOBAL FLAGS:
 
 Additional help topics:
   scw baremetal os     An Operating System (OS) is the underlying software installed on your server
-  scw baremetal ip     The IPs failovers could be attach to any server in the same zone.
-A server could be linked with multiple failovers.
-
+  scw baremetal ip     IP fail-over management
   scw baremetal bmc    Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance
   scw baremetal offer  Commercial offers
 
