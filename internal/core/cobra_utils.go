@@ -124,7 +124,7 @@ func handlePositionalArg(cmd *Command, rawArgs []string) error {
 	}
 }
 
-// positionalArgHint helps formatting the positional argument error.
+// positionalArgHint formats the positional argument error hint.
 func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, positionalArgumentFound bool) string {
 	suggestedArgs := []string{}
 
