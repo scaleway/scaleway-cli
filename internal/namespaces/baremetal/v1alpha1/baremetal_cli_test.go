@@ -27,4 +27,14 @@ func Test_ListServer(t *testing.T) {
 		),
 		DefaultZone: scw.ZoneFrPar2,
 	}))
+
+	t.Run("List with tags", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw baremetal server list tags.0=a",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		DefaultZone: scw.ZoneFrPar2,
+	}))
 }

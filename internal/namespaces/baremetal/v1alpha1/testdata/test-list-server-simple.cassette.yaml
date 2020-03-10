@@ -10,16 +10,16 @@ interactions:
     url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers?order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"total_count":1,"servers":[{"id":"188b71df-4193-4f33-9151-df07234f3ef4","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"bm-determined-ellis","description":"","updated_at":"2020-02-24T09:55:20.021923Z","created_at":"2020-02-24T09:54:57.367412Z","status":"ready","offer_id":"737f18c8-febc-4408-b69e-776bca0a3f48","install":{"os_id":"f2aeab5d-6015-4b7c-b4ed-d76e89093621","hostname":"bm-determined-ellis","ssh_key_ids":["77021435-ad22-4748-8861-0a1c512154d0","90bf1977-43ab-4eb7-b178-3dd96963ce99"],"status":"completed"},"tags":[],"ips":[{"id":"80e3d13b-b5df-4c00-b38c-afc4e96f8ea5","address":"51.159.0.4","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"b7abae59-34a3-49fc-87b4-93e95da83207","address":"2001:0bc8:6005:0000:529a:4cff:fe84:ea3d","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}]}'
+    body: '{"total_count":2,"servers":[{"id":"188b71df-4193-4f33-9151-df07234f3ef4","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"bm-determined-ellis","description":"","updated_at":"2020-03-10T13:49:42.602599Z","created_at":"2020-02-24T09:54:57.367412Z","status":"ready","offer_id":"737f18c8-febc-4408-b69e-776bca0a3f48","install":{"os_id":"f2aeab5d-6015-4b7c-b4ed-d76e89093621","hostname":"bm-determined-ellis","ssh_key_ids":["77021435-ad22-4748-8861-0a1c512154d0","90bf1977-43ab-4eb7-b178-3dd96963ce99"],"status":"completed"},"tags":["a"],"ips":[{"id":"80e3d13b-b5df-4c00-b38c-afc4e96f8ea5","address":"51.159.0.4","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"b7abae59-34a3-49fc-87b4-93e95da83207","address":"2001:0bc8:6005:0000:529a:4cff:fe84:ea3d","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"},{"id":"eabed7e5-d03c-43f4-bc6d-e33f72fceb5b","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"bm-sad-gauss","description":"","updated_at":"2020-03-10T13:49:51.321889Z","created_at":"2020-03-10T13:43:43.978885Z","status":"ready","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["b"],"ips":[{"id":"15950a05-a378-470c-b0ab-6d8e06bd9875","address":"51.159.56.50","reverse":"eabed7e5-d03c-43f4-bc6d-e33f72fceb5b.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"718c1366-3b52-4409-a66c-84d67a2664e8","address":"2001:0bc8:1200:0000:aa1e:84ff:fef3:5cc4","reverse":"eabed7e5-d03c-43f4-bc6d-e33f72fceb5b.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"eabed7e5-d03c-43f4-bc6d-e33f72fceb5b.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}]}'
     headers:
       Content-Length:
-      - "1141"
+      - "2062"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 09 Mar 2020 13:22:06 GMT
+      - Tue, 10 Mar 2020 13:53:55 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5afb66a6-c9ff-4fe7-8c2a-61e2d83fc937
+      - af076dc3-2203-46d6-b9fc-02bcefc7223f
     status: 200 OK
     code: 200
     duration: ""
