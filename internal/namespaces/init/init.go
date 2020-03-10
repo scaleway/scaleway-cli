@@ -6,6 +6,8 @@ import (
 	"os"
 	"reflect"
 
+	sshkey "github.com/scaleway/scaleway-cli/internal/namespaces/ssh-key"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -62,6 +64,7 @@ type initArgs struct {
 	Zone                scw.Zone
 	OrganizationID      string
 	SendTelemetry       *bool
+	AddSHHKey           *bool
 	InstallAutocomplete *bool
 }
 
@@ -70,8 +73,8 @@ func initCommand() *core.Command {
 		Short:     `Initialize the config`,
 		Long:      `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
 		Namespace: "init",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(initArgs{}),
+		//NoClient:  true,
+		ArgsType: reflect.TypeOf(initArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
@@ -92,6 +95,10 @@ func initCommand() *core.Command {
 			},
 			{
 				Name: "send-usage",
+			},
+			{
+				Name:  "init-ssh-key",
+				Short: "Whether the ssh key for managing instances should be uploaded automatically",
 			},
 			{
 				Name:  "install-autocomplete",
@@ -206,6 +213,16 @@ func initCommand() *core.Command {
 				args.SendTelemetry = scw.BoolPtr(sendTelemetry)
 			}
 
+			//
+			_, _ = interactive.Println()
+			result, err := sshkey.InitRun(ctx, &sshkey.InitArgs{
+				AddSHHKey: args.AddSHHKey,
+			})
+			if err != nil {
+				return err
+			}
+			_, _ = interactive.Println(result)
+
 			// Ask whether we should install autocomplete
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
@@ -270,12 +287,12 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			successMessage := "Initialization completed with success"
+			successMessage := "Initialization completed with success\n"
 
 			if *args.InstallAutocomplete {
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += " except for autocomplete:\n" + err.Error()
+					successMessage += "  except for autocomplete:\n" + err.Error()
 				}
 			}
 

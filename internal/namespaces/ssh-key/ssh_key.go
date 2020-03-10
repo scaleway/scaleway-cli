@@ -2,6 +2,7 @@ package sshkey
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -33,18 +34,30 @@ func sshKeyCommand() *core.Command {
 	}
 }
 
+type InitArgs struct {
+	AddSHHKey *bool
+}
+
 func initCommand() *core.Command {
 	return &core.Command{
 		Short:     `Initiliaze SHH key`,
 		Long:      `Initiliaze SHH key.`,
 		Namespace: "ssh-key",
 		Resource:  "init",
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-		Run:       InitRun,
+		ArgsType:  reflect.TypeOf(InitArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  "add-ssh-key",
+				Short: "Whether the ssh key for managing instances should be uploaded automatically",
+			},
+		},
+		Run: InitRun,
 	}
 }
 
 func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	args := argsI.(*InitArgs)
+
 	// Explanation
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
@@ -55,6 +68,8 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Fprintf(os.Stderr, "number of foo")
 
 	// Get default SSH key locally
 	relativePath := ".ssh/id_rsa.pub"
@@ -81,12 +96,17 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	}
 
 	// Ask user
-	addSHHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
-		DefaultValue: true,
-	})
-	if err != nil {
-		return nil, err
+	addSHHKey := false
+	if args.AddSHHKey != nil {
+		addSHHKey = *args.AddSHHKey
+	} else {
+		addSHHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+			Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
+			DefaultValue: true,
+		})
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Early exit if user doesn't want to add the key
