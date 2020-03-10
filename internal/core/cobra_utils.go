@@ -104,9 +104,11 @@ func handlePositionalArg(cmd *Command, rawArgs []string) error {
 	// Argument exists but is not positional.
 	for i, arg := range rawArgs {
 		if strings.HasPrefix(arg, positionalArg.Prefix()) {
+			argumentValue := strings.TrimLeft(arg, positionalArg.Prefix())
+			otherArgs := append(rawArgs[:i], rawArgs[i+1:]...)
 			return &CliError{
 				Err:  fmt.Errorf("a positional argument is required for this command"),
-				Hint: positionalArgHint(cmd, strings.TrimLeft(arg, positionalArg.Prefix()), append(rawArgs[:i], rawArgs[i+1:]...), positionalArgumentFound),
+				Hint: positionalArgHint(cmd, argumentValue, otherArgs, positionalArgumentFound),
 			}
 		}
 	}
