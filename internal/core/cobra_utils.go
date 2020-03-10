@@ -25,7 +25,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// unmarshalled arguments will be store in this interface
 		cmdArgs := reflect.New(cmd.ArgsType).Interface()
 
-		// Handle positional argument by catching first argument `<value>` and rewrite it to `<arg-name>=<value>`
+		// Handle positional argument by catching first argument `<value>` and rewrite it to `<arg-name>=<value>`.
 		if err = handlePositionalArg(cmd, rawArgs); err != nil {
 			return err
 		}
