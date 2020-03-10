@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/internal/namespaces"
-
 	"github.com/scaleway/scaleway-cli/internal/qa"
 )
 

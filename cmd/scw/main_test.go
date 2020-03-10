@@ -3,9 +3,8 @@ package main
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/namespaces"
-
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/namespaces"
 )
 
 func Test_MainUsage(t *testing.T) {
