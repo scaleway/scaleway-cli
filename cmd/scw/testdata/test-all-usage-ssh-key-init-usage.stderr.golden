@@ -1,0 +1,12 @@
+Initiliaze SHH key.
+
+USAGE:
+  scw [global-flags] ssh-key init [flags]
+
+FLAGS:
+  -h, --help   help for init
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
