@@ -24,11 +24,12 @@ func (err ShortMustNotEndWithDotError) Error() string {
 func testShortEndWithDotError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
-		if strings.HasSuffix(command.Short, ".") {
-			errors = append(errors, &ShortMustNotEndWithDotError{
-				Command: command,
-			})
+		if !strings.HasSuffix(command.Short, ".") {
+			continue
 		}
+		errors = append(errors, &ShortMustNotEndWithDotError{
+			Command: command,
+		})
 	}
 	return errors
 }
@@ -44,11 +45,12 @@ func (err ShortMustBePresentError) Error() string {
 func testShortIsNotPresentError(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
-		if command.Short == "" {
-			errors = append(errors, &ShortMustBePresentError{
-				Command: command,
-			})
+		if command.Short != "" {
+			continue
 		}
+		errors = append(errors, &ShortMustBePresentError{
+			Command: command,
+		})
 	}
 	return errors
 }
