@@ -64,12 +64,8 @@ func baremetalOs() *core.Command {
 
 func baremetalIP() *core.Command {
 	return &core.Command{
-		Short: `The IPs failovers could be attach to any server in the same zone.
-A server could be linked with multiple failovers.
-`,
-		Long: `The IPs failovers could be attach to any server in the same zone.
-A server could be linked with multiple failovers.
-.`,
+		Short:     `IP fail-over management`,
+		Long:      `IP fail-over management.`,
 		Namespace: "baremetal",
 		Resource:  "ip",
 	}

@@ -23,7 +23,6 @@ func GetGeneratedCommands() *core.Commands {
 		instanceImage(),
 		instanceIP(),
 		instancePlacementGroup(),
-		instancePlacementGroupServer(),
 		instanceSecurityGroup(),
 		instanceServer(),
 		instanceServerType(),
@@ -59,7 +58,6 @@ func GetGeneratedCommands() *core.Commands {
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
-		instancePlacementGroupServerSet(),
 		instanceIPList(),
 		instanceIPCreate(),
 		instanceIPGet(),
@@ -125,15 +123,6 @@ The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` 
 `,
 		Namespace: "instance",
 		Resource:  "placement-group",
-	}
-}
-
-func instancePlacementGroupServer() *core.Command {
-	return &core.Command{
-		Short:     `A placement group allows to express a preference regarding the physical position of a group of instances`,
-		Long:      `A placement group allows to express a preference regarding the physical position of a group of instances.`,
-		Namespace: "instance",
-		Resource:  "placement-group-server",
 	}
 }
 
@@ -1705,42 +1694,6 @@ func instancePlacementGroupDelete() *core.Command {
 			{
 				Short:   "Delete a placement group in fr-par-1 zone with the given ID",
 				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
-			},
-		},
-	}
-}
-
-func instancePlacementGroupServerSet() *core.Command {
-	return &core.Command{
-		Short:     `Set placement group servers`,
-		Long:      `Set all servers belonging to the given placement group.`,
-		Namespace: "instance",
-		Resource:  "placement-group-server",
-		Verb:      "set",
-		ArgsType:  reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "placement-group-id",
-				Required: true,
-			},
-			{
-				Name:     "servers.{index}",
-				Required: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.SetPlacementGroupServersRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.SetPlacementGroupServers(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:   "Update the complete set of instances in a given placement group. (All instances must be down)",
-				Request: `{"placement_group_id":"ced0fd4d-bcf0-4479-85b6-7027e54456e6","servers":["5a250608-24ec-4c31-9631-b3ded8c861cb","e54fd249-0787-4794-ab14-af6ee74df274"]}`,
 			},
 		},
 	}
