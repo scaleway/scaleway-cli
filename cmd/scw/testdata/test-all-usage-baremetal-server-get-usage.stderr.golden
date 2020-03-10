@@ -1,0 +1,16 @@
+Get the server associated with the given ID.
+
+USAGE:
+  scw [global-flags] baremetal server get [flags] [arg=value ...]
+
+ARGS:
+  server-id   ID of the server
+  [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

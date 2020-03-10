@@ -5,6 +5,14 @@ USAGE:
 
 AVAILABLE COMMANDS:
   list        List servers
+  get         Get server
+  create      Create server
+  update      Update server
+  install     Install server
+  delete      Delete server
+  reboot      Reboot server
+  start       Start server
+  stop        Stop server
 
 FLAGS:
   -h, --help   help for server
