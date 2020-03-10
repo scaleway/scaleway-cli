@@ -9,12 +9,16 @@ import (
 type ArgSpecs []*ArgSpec
 
 func (s ArgSpecs) GetPositionalArg() *ArgSpec {
+	var positionalArg *ArgSpec
 	for _, spec := range s {
 		if spec.Positional {
-			return spec
+			if positionalArg != nil {
+				panic(fmt.Errorf("more than one positional parameter detected: %s and %s are flagged as positional arg", positionalArg.Name, spec.Name))
+			}
+			positionalArg = spec
 		}
 	}
-	return nil
+	return positionalArg
 }
 
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
