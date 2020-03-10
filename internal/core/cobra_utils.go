@@ -139,7 +139,7 @@ func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, posit
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
 	suggestedCommand := append([]string{"scw", cmd.getPath()}, suggestedArgs...)
-	return "Try running '" + strings.Join(suggestedCommand, " ") + "'."
+	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 
 func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) error {

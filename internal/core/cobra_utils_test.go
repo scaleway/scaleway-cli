@@ -80,7 +80,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running 'scw test-positional <name-id>'.",
+					Hint: "Try running: scw test-positional <name-id>",
 				}),
 			),
 		}))
@@ -92,7 +92,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running 'scw test-positional <name-id> tag=world'.",
+					Hint: "Try running: scw test-positional <name-id> tag=world",
 				}),
 			),
 		}))
@@ -104,7 +104,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running 'scw test-positional plop tag=world'.",
+					Hint: "Try running: scw test-positional plop tag=world",
 				}),
 			),
 		}))
@@ -116,7 +116,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running 'scw test-positional plop tag=world'."),
+					Hint: fmt.Sprintf("Try running: scw test-positional plop tag=world"),
 				}),
 			),
 		}))
@@ -128,7 +128,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running 'scw test-positional plop'."),
+					Hint: fmt.Sprintf("Try running: scw test-positional plop"),
 				}),
 			),
 		}))
