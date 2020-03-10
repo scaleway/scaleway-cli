@@ -19,7 +19,7 @@ import (
 func GetCommands() *core.Commands {
 	return core.NewCommands(
 		sshKeyCommand(),
-		sshKeyInitCommand(),
+		initCommand(),
 	)
 }
 
@@ -33,18 +33,18 @@ func sshKeyCommand() *core.Command {
 	}
 }
 
-func sshKeyInitCommand() *core.Command {
+func initCommand() *core.Command {
 	return &core.Command{
 		Short:     `Initiliaze SHH key`,
 		Long:      `Initiliaze SHH key.`,
 		Namespace: "ssh-key",
 		Resource:  "init",
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-		Run:       SSHKeyInitRun,
+		Run:       InitRun,
 	}
 }
 
-func SSHKeyInitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Explanation
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
