@@ -127,6 +127,9 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	if cobraCmd.HasAvailableSubCommands() || len(cobraCmd.Commands()) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " <command>"
 	}
+	if positionalArg := cmd.ArgSpecs.GetPositionalArg(); positionalArg != nil {
+		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + ">"
+	}
 	if cobraCmd.HasAvailableLocalFlags() || cobraCmd.HasAvailableFlags() || cobraCmd.LocalFlags() != nil {
 		cobraCmd.Annotations["CommandUsage"] += " [flags]"
 	}

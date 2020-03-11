@@ -59,7 +59,7 @@ func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs) error {
 			_, doc := argSpec.Default()
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
 		}
-		if !argSpec.Required {
+		if !argSpec.Required && !argSpec.Positional {
 			argSpecUsageLeftPart = fmt.Sprintf("[%s]", argSpecUsageLeftPart)
 		}
 
