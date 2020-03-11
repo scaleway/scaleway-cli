@@ -44,7 +44,7 @@ func SplitRawMap(rawArgs []string) map[string]struct{} {
 	return argsMap
 }
 
-// splitRaw creates a slice that maps arg names to their values.
+// SplitRawNoError creates a slice that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
 func SplitRawNoError(rawArgs []string) [][2]string {
 	keyValue := [][2]string{}
