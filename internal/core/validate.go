@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -65,8 +66,8 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
 		if err != nil {
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
-			        logger.Infof(validationErr.Error())
-			        continue
+				logger.Infof(validationErr.Error())
+				continue
 			}
 			panic(validationErr)
 		}
