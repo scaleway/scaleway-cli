@@ -32,10 +32,13 @@ var (
 		k8s.ClusterStatusUpdating: color.FgBlue,
 		k8s.ClusterStatusWarning:  color.FgHiYellow,
 	}
-	clusterActionCreate  = "create"
-	clusterActionUpdate  = "update"
-	clusterActionUpgrade = "upgrade"
-	clusterActionDelete  = "delete"
+)
+
+const (
+	clusterActionCreate = iota
+	clusterActionUpdate
+	clusterActionUpgrade
+	clusterActionDelete
 )
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
@@ -74,7 +77,7 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func waitForClusterFunc(action string) core.WaitFunc {
+func waitForClusterFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		_, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
 			Region:    respI.(*k8s.Cluster).Region,
@@ -83,17 +86,17 @@ func waitForClusterFunc(action string) core.WaitFunc {
 		})
 		switch action {
 		case clusterActionCreate:
-			return fmt.Sprintf("Custer %s successfully created.", respI.(*k8s.Cluster).ID), nil
+			return fmt.Sprintf("Cluster %s successfully created.", respI.(*k8s.Cluster).ID), nil
 		case clusterActionUpdate:
-			return fmt.Sprintf("Custer %s successfully updated.", respI.(*k8s.Cluster).ID), nil
+			return fmt.Sprintf("Cluster %s successfully updated.", respI.(*k8s.Cluster).ID), nil
 		case clusterActionUpgrade:
-			return fmt.Sprintf("Custer %s successfully upgraded.", respI.(*k8s.Cluster).ID), nil
+			return fmt.Sprintf("Cluster %s successfully upgraded.", respI.(*k8s.Cluster).ID), nil
 		case clusterActionDelete:
 			if err != nil {
 				notFoundError := &scw.ResourceNotFoundError{}
 				responseError := &scw.ResponseError{}
 				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
-					return fmt.Sprintf("Custer %s successfully deleted.", respI.(*k8s.Cluster).ID), nil
+					return fmt.Sprintf("Cluster %s successfully deleted.", respI.(*k8s.Cluster).ID), nil
 				}
 			}
 		}
