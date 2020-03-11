@@ -430,6 +430,55 @@ func TestUnmarshalStruct(t *testing.T) {
 			IPv6: "ipv6",
 		},
 	}))
+
+	t.Run("bool-without-equal", run(TestCase{
+		args: []string{
+			"bool",
+		},
+		data: &Basic{},
+		//error: "plop",
+	}))
+
+	t.Run("bool-without-value", run(TestCase{
+		args: []string{
+			"bool=",
+		},
+		data: &Basic{},
+		//error: "plop",
+	}))
+
+	t.Run("string-without-equal", run(TestCase{
+		args: []string{
+			"string",
+		},
+		data: &Basic{},
+		//error: "plop",
+	}))
+
+	t.Run("string-without-value", run(TestCase{
+		args: []string{
+			"string=",
+		},
+		data: &Basic{},
+		//error: "plop",
+	}))
+
+	t.Run("strings-without-equal", run(TestCase{
+		args: []string{
+			"strings",
+		},
+		data:  &Slice{},
+		error: "cannot unmarshal arg 'strings': missing index on the array",
+	}))
+
+	// TODO: fix it, this should not trigger an error
+	t.Run("strings-without-value", run(TestCase{
+		args: []string{
+			"strings=",
+		},
+		data:  &Slice{},
+		error: "cannot unmarshal arg 'strings': missing index on the array",
+	}))
 }
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
