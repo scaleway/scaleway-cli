@@ -9,9 +9,10 @@ import (
 
 func TestStandardErrors(t *testing.T) {
 	t.Run("unknown-command", core.Test(&core.TestConfig{
-		Commands:     test.GetCommands(),
-		UseE2EClient: true,
-		Cmd:          "scw bob",
+		Commands:        test.GetCommands(),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw bob",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
