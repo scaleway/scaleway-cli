@@ -96,7 +96,7 @@ func initCommand() *core.Command {
 				Name: "send-usage",
 			},
 			{
-				Name:  "init-ssh-key",
+				Name:  "add-ssh-key",
 				Short: "Whether the ssh key for managing instances should be uploaded automatically",
 			},
 			{
