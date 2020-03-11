@@ -28,6 +28,17 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// Apply default values on missing args.
 		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
+		// Check args exist valid
+		argsSlice := args.SplitRawNoError(rawArgs)
+		for _, arguments := range argsSlice {
+			if cmd.ArgSpecs.GetByName(arguments[0]) == nil {
+				return handleUnmarshalErrors(cmd, &args.UnmarshalArgError{
+					Err:     &args.UnknownArgError{},
+					ArgName: arguments[0],
+				})
+			}
+		}
+
 		// Unmarshal args.
 		// After that we are done working with rawArgs
 		// and will be working with cmdArgs.
