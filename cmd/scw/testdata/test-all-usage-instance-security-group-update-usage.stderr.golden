@@ -1,7 +1,7 @@
 Update security group.
 
 USAGE:
-  scw [global-flags] instance security-group update [flags] [arg=value ...]
+  scw instance security-group update [arg=value ...]
 
 EXAMPLES:
   Set the default outbound policy as drop

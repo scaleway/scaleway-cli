@@ -1,7 +1,7 @@
 Get details of a volume with the given ID.
 
 USAGE:
-  scw [global-flags] instance volume get [flags] [arg=value ...]
+  scw instance volume get [arg=value ...]
 
 EXAMPLES:
   Get a volume with the given ID

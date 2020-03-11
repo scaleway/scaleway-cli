@@ -1,7 +1,7 @@
 Baremetal API
 
 USAGE:
-  scw [global-flags] baremetal <command> [flags]
+  scw baremetal <command>
 
 AVAILABLE COMMANDS:
   server      A server is a denomination of a type of instances provided by Scaleway

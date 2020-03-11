@@ -1,7 +1,7 @@
 Reboot the server associated with the given ID, use boot param to reboot in rescue.
 
 USAGE:
-  scw [global-flags] baremetal server reboot [flags] [arg=value ...]
+  scw baremetal server reboot [arg=value ...]
 
 ARGS:
   server-id     ID of the server to reboot

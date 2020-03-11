@@ -1,7 +1,7 @@
 Reserve an IP.
 
 USAGE:
-  scw [global-flags] instance ip create [flags] [arg=value ...]
+  scw instance ip create [arg=value ...]
 
 EXAMPLES:
   Create an IP in the default zone

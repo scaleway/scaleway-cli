@@ -1,7 +1,7 @@
 Delete the server associated with the given ID.
 
 USAGE:
-  scw [global-flags] baremetal server delete [flags] [arg=value ...]
+  scw baremetal server delete [arg=value ...]
 
 ARGS:
   server-id   ID of the server to delete

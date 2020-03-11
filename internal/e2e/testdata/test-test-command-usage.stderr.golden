@@ -7,7 +7,7 @@ First, you need to register a user with `scw test human register` to get an acce
 Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.
 
 USAGE:
-  scw [global-flags] test <command> [flags]
+  scw test <command>
 
 AVAILABLE COMMANDS:
   user        

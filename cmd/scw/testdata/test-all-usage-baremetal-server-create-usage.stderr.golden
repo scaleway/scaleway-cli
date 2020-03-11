@@ -1,7 +1,7 @@
 Create a new server. Once the server is created, you probably want to install an OS.
 
 USAGE:
-  scw [global-flags] baremetal server create [flags] [arg=value ...]
+  scw baremetal server create [arg=value ...]
 
 ARGS:
   offer-id            Offer ID of the new server

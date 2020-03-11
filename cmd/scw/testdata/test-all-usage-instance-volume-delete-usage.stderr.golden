@@ -1,7 +1,7 @@
 Delete the volume with the given ID.
 
 USAGE:
-  scw [global-flags] instance volume delete [flags] [arg=value ...]
+  scw instance volume delete [arg=value ...]
 
 EXAMPLES:
   Delete a volume with the given ID

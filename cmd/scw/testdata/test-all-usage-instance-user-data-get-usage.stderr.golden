@@ -1,7 +1,7 @@
 Get the content of a user data with the given key on a server.
 
 USAGE:
-  scw [global-flags] instance user-data get [flags] [arg=value ...]
+  scw instance user-data get [arg=value ...]
 
 ARGS:
   server-id   UUID of the server

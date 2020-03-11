@@ -26,7 +26,7 @@ The GPU is dedicated to each instance and directly exposed through PCI-e.
 For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-instances/).
 
 USAGE:
-  scw [global-flags] instance server <command> [flags]
+  scw instance server <command>
 
 AVAILABLE COMMANDS:
   list          List servers

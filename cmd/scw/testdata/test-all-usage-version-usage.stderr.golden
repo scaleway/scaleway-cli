@@ -1,7 +1,7 @@
 Display cli version
 
 USAGE:
-  scw [global-flags] version [flags]
+  scw version
 
 FLAGS:
   -h, --help   help for version

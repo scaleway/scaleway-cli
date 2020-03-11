@@ -1,7 +1,7 @@
 This method allows to get details about a specific Kubernetes cluster.
 
 USAGE:
-  scw [global-flags] k8s cluster get [flags] [arg=value ...]
+  scw k8s cluster get [arg=value ...]
 
 EXAMPLES:
   Get the cluster with id 11111111-1111-1111-111111111111

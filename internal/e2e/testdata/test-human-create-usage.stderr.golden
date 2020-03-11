@@ -1,7 +1,7 @@
 Create a new human.
 
 USAGE:
-  scw [global-flags] test human create [flags] [arg=value ...]
+  scw test human create [arg=value ...]
 
 EXAMPLES:
   create a dwarf

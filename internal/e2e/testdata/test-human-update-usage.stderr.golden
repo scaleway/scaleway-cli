@@ -1,7 +1,7 @@
 Update the human associated with the given id.
 
 USAGE:
-  scw [global-flags] test human update [flags] [arg=value ...]
+  scw test human update [arg=value ...]
 
 ARGS:
   human-id                   

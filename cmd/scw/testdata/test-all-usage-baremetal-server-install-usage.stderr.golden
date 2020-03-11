@@ -1,7 +1,7 @@
 Install an OS on the server associated with the given ID.
 
 USAGE:
-  scw [global-flags] baremetal server install [flags] [arg=value ...]
+  scw baremetal server install [arg=value ...]
 
 ARGS:
   server-id             Server ID to install

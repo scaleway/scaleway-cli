@@ -1,7 +1,7 @@
 Install autocompletion script for a given shell and OS.
 
 USAGE:
-  scw [global-flags] autocomplete install [flags] [arg=value ...]
+  scw autocomplete install [arg=value ...]
 
 ARGS:
   [shell]   

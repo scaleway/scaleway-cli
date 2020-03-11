@@ -1,7 +1,7 @@
 This method allows to update a specific Kubernetes cluster. Note that this method is not made to upgrade a Kubernetes cluster.
 
 USAGE:
-  scw [global-flags] k8s cluster update [flags] [arg=value ...]
+  scw k8s cluster update [arg=value ...]
 
 EXAMPLES:
   Enable dashboard on cluster 11111111-1111-1111-111111111111

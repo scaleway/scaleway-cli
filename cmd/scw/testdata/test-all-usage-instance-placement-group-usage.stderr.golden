@@ -18,7 +18,7 @@ For each policy types, one of the two `policy_mode` may be selected:
 The `policy_mode` is set by default to `optional`.
 
 USAGE:
-  scw [global-flags] instance placement-group <command> [flags]
+  scw instance placement-group <command>
 
 AVAILABLE COMMANDS:
   list        List placement groups

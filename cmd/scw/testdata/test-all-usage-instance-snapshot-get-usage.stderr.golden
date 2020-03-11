@@ -1,7 +1,7 @@
 Get details of a snapshot with the given ID.
 
 USAGE:
-  scw [global-flags] instance snapshot get [flags] [arg=value ...]
+  scw instance snapshot get [arg=value ...]
 
 EXAMPLES:
   Get a snapshot in the default zone with the given ID

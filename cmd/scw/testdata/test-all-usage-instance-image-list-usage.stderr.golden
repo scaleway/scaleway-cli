@@ -1,7 +1,7 @@
 List all images available in an account.
 
 USAGE:
-  scw [global-flags] instance image list [flags] [arg=value ...]
+  scw instance image list [arg=value ...]
 
 EXAMPLES:
   List all public images in the default zone

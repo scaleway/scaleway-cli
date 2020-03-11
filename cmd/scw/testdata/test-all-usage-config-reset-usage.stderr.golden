@@ -1,7 +1,7 @@
 Reset the config
 
 USAGE:
-  scw [global-flags] config reset [flags]
+  scw config reset
 
 FLAGS:
   -h, --help   help for reset

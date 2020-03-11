@@ -11,7 +11,7 @@ Snapshots only work on `l_ssd` volume type at the moment. `b_ssd`
 snapshots will be available starting 2020.
 
 USAGE:
-  scw [global-flags] instance snapshot <command> [flags]
+  scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
   list        List snapshots

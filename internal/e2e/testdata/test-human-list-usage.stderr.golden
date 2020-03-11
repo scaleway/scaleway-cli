@@ -1,7 +1,7 @@
 List all your humans.
 
 USAGE:
-  scw [global-flags] test human list [flags] [arg=value ...]
+  scw test human list [arg=value ...]
 
 ARGS:
   [order-by]           (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | height_asc | height_desc)

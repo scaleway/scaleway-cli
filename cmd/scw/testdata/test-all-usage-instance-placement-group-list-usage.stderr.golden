@@ -1,7 +1,7 @@
 List all placement groups.
 
 USAGE:
-  scw [global-flags] instance placement-group list [flags] [arg=value ...]
+  scw instance placement-group list [arg=value ...]
 
 EXAMPLES:
   List all placement groups in the default zone

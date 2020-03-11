@@ -123,15 +123,12 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = strings.ReplaceAll(cobraCmd.CommandPath(), "scw", "scw [global-flags]")
+	cobraCmd.Annotations["CommandUsage"] = cobraCmd.CommandPath()
 	if cobraCmd.HasAvailableSubCommands() || len(cobraCmd.Commands()) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " <command>"
 	}
 	if positionalArg := cmd.ArgSpecs.GetPositionalArg(); positionalArg != nil {
 		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + ">"
-	}
-	if cobraCmd.HasAvailableLocalFlags() || cobraCmd.HasAvailableFlags() || cobraCmd.LocalFlags() != nil {
-		cobraCmd.Annotations["CommandUsage"] += " [flags]"
 	}
 	if len(cmd.ArgSpecs) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " [arg=value ...]"

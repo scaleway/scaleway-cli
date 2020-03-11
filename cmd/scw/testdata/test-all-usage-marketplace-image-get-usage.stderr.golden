@@ -1,7 +1,7 @@
 Get a specific marketplace image.
 
 USAGE:
-  scw [global-flags] marketplace image get [flags] [arg=value ...]
+  scw marketplace image get [arg=value ...]
 
 ARGS:
   label   

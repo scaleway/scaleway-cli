@@ -2,7 +2,7 @@ This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure
 
 USAGE:
-  scw [global-flags] config set [flags]
+  scw config set
 
 EXAMPLES:
   Update the default organization ID

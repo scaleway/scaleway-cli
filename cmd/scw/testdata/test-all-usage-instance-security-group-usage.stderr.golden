@@ -5,7 +5,7 @@ Security Groups are stateful by default which means return traffic is automatica
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
 
 USAGE:
-  scw [global-flags] instance security-group <command> [flags]
+  scw instance security-group <command>
 
 AVAILABLE COMMANDS:
   list        List security groups

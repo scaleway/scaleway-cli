@@ -1,7 +1,7 @@
 Autocomplete for Bash.
 
 USAGE:
-  scw [global-flags] autocomplete complete bash [flags]
+  scw autocomplete complete bash
 
 FLAGS:
   -h, --help   help for bash

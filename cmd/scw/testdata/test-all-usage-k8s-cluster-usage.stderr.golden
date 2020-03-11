@@ -3,7 +3,7 @@ A cluster is a fully managed Kubernetes cluster.
 It is composed of different pools, each pool containing the same kind of nodes.
 
 USAGE:
-  scw [global-flags] k8s cluster <command> [flags]
+  scw k8s cluster <command>
 
 AVAILABLE COMMANDS:
   list                    List all the clusters

@@ -4,7 +4,7 @@ You can attach it to any of your servers and do live migration of the IP address
 Be aware that attaching a flexible IP address to a server will remove the previous public IP address of the server and cut any ongoing public connection to the server.
 
 USAGE:
-  scw [global-flags] instance ip <command> [flags]
+  scw instance ip <command>
 
 AVAILABLE COMMANDS:
   list        List IPs

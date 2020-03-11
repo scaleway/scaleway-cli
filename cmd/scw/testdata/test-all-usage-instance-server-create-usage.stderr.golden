@@ -1,7 +1,7 @@
 Create an instance server.
 
 USAGE:
-  scw [global-flags] instance server create [flags] [arg=value ...]
+  scw instance server create [arg=value ...]
 
 EXAMPLES:
   Create and start an instance on Ubuntu Bionic

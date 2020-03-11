@@ -1,5 +1,5 @@
 USAGE:
-  scw [global-flags] <command> [flags]
+  scw <command>
 
 AVAILABLE COMMANDS:
   instance     Instance API

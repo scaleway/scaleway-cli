@@ -1,7 +1,7 @@
 Detach a volume from its server
 
 USAGE:
-  scw [global-flags] instance server detach-volume [flags] [arg=value ...]
+  scw instance server detach-volume [arg=value ...]
 
 EXAMPLES:
   Detach a volume from its server

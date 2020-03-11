@@ -1,7 +1,7 @@
 Unset a line from the config file
 
 USAGE:
-  scw [global-flags] config unset [flags]
+  scw config unset
 
 FLAGS:
   -h, --help   help for unset

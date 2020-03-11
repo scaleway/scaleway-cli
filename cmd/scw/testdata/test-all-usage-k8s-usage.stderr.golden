@@ -1,7 +1,7 @@
 This API allows you to manage your Kapsule clusters
 
 USAGE:
-  scw [global-flags] k8s <command> [flags]
+  scw k8s <command>
 
 AVAILABLE COMMANDS:
   cluster     A cluster is a Kubernetes Kapsule cluster

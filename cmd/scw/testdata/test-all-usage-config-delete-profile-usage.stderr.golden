@@ -1,7 +1,7 @@
 Delete a profile from the config file
 
 USAGE:
-  scw [global-flags] config delete profile [flags] [arg=value ...]
+  scw config delete profile [arg=value ...]
 
 ARGS:
   name   

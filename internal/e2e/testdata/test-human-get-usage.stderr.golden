@@ -1,7 +1,7 @@
 Get the human details associated with the given id.
 
 USAGE:
-  scw [global-flags] test human get [flags] [arg=value ...]
+  scw test human get [arg=value ...]
 
 ARGS:
   human-id   

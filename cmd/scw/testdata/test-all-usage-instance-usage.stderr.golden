@@ -1,7 +1,7 @@
 Instance API
 
 USAGE:
-  scw [global-flags] instance <command> [flags]
+  scw instance <command>
 
 AVAILABLE COMMANDS:
   image           An image is a backup of an instance
