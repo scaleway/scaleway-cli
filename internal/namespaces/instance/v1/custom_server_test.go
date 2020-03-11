@@ -223,8 +223,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				assert.Equal(t, 0, len(ctx.Result.(*instance.UpdateServerResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
-				core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`),
-				core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "0").ID }}`),
+				core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
 		}))
@@ -254,7 +254,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`),
+		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "0").ID }}`),
 		DisableParallel: true,
 	}))
 
@@ -266,7 +266,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`),
+		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "1").ID }}`),
 		DisableParallel: true,
 	}))
 
