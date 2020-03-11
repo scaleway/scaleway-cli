@@ -39,6 +39,7 @@ func Test_AllUsage(t *testing.T) {
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 			),
+			DisableParallel: true,
 		}))
 	}
 }
