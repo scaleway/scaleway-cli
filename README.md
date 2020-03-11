@@ -1,3 +1,5 @@
+<p align="center">👉️ Have a look at <a href="https://github.com/scaleway/scaleway-cli/blob/v2/README.md">the beta version of the CLI v2</a> 👈</p>
+
 # Scaleway CLI
 
 Interact with Scaleway API from the command line.
