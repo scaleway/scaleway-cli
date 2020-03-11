@@ -31,7 +31,10 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// Check args exist valid
 		argsSlice := args.SplitRawNoError(rawArgs)
 		for _, arguments := range argsSlice {
-			if cmd.ArgSpecs.GetByName(arguments[0]) == nil {
+			// TODO: handle args such as tags.index
+			if cmd.ArgSpecs.GetByName(arguments[0]) == nil &&
+				cmd.ArgSpecs.GetByName(arguments[0]+".{index}") == nil &&
+				!strings.Contains(arguments[0], ".") {
 				return handleUnmarshalErrors(cmd, &args.UnmarshalArgError{
 					Err:     &args.UnknownArgError{},
 					ArgName: arguments[0],
