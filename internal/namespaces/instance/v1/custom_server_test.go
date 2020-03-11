@@ -252,7 +252,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "0").ID }}`),
+		AfterFunc: core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "0").ID }}`),
 	}))
 
 	t.Run("only local volumes", core.Test(&core.TestConfig{
@@ -263,7 +263,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: core.ExecAfterCmd(`scw instance delete volume volume-id={{ (index .Server.Volumes "1").ID }}`),
+		AfterFunc: core.ExecAfterCmd(`scw instance volume delete volume-id={{ (index .Server.Volumes "1").ID }}`),
 	}))
 
 	interactive.IsInteractive = false
