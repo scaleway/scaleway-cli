@@ -45,14 +45,17 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 
 	rType := rValue.Type()
 
+	// safely get the marshalerFunc
+	marshalerFunc, _ := getMarshalerFunc(rType)
+
 	switch {
 	// If data is nil
 	case isInterfaceNil(data):
 		return defaultMarshalerFunc(nil, opt)
 
 	// If data has a registered MarshalerFunc call it
-	case marshalerFuncs[rType] != nil:
-		return marshalerFuncs[rType](rValue.Interface(), opt)
+	case marshalerFunc != nil:
+		return marshalerFunc(rValue.Interface(), opt)
 
 	// Handle special well known interface
 	case rType.Implements(reflect.TypeOf((*Marshaler)(nil)).Elem()):
@@ -108,14 +111,17 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		}
 		rType := value.Type()
 
+		// safely get the marshaler func
+		marshalerFunc, _ := getMarshalerFunc(rType)
+
 		switch {
 		// If data is nil
 		case isInterfaceNil(value.Interface()):
 			return nil, nil
 
 		// If data has a registered MarshalerFunc call it.
-		case marshalerFuncs[rType] != nil:
-			str, err := marshalerFuncs[rType](value.Interface(), subOpts)
+		case marshalerFunc != nil:
+			str, err := marshalerFunc(value.Interface(), subOpts)
 			return [][]string{{strings.Join(keys, "."), str}}, err
 
 		// If data is a stringers
@@ -271,11 +277,14 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 		itemType = itemType.Elem()
 	}
 
+	// safely get the marshalerFunc
+	marshalerFunc, _ := getMarshalerFunc(itemType)
+
 	switch {
 	// If marshaler func is available.
 	// As we cannot set MarshalOpt of a nested slice opt will always be nil here.
-	case marshalerFuncs[itemType] != nil:
-		return marshalerFuncs[itemType](slice.Interface(), nil)
+	case marshalerFunc != nil:
+		return marshalerFunc(slice.Interface(), nil)
 
 	// If it is a slice of scalar values.
 	case itemType.Kind() != reflect.Slice &&
