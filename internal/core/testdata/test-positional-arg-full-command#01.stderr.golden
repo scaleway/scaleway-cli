@@ -2,8 +2,8 @@ USAGE:
   scw [global-flags] test-positional <name-id> [flags] [arg=value ...]
 
 ARGS:
-  [name-id]   
-  [tag]       
+  name-id   
+  [tag]     
 
 FLAGS:
   -h, --help   help for test-positional

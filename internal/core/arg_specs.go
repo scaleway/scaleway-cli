@@ -76,7 +76,7 @@ type ArgSpec struct {
 	// ValidateFunc validates an argument.
 	ValidateFunc ArgSpecValidateFunc
 
-	// Positional defines whether the argument is a positional argument.
+	// Positional defines whether the argument is a positional argument. NB: a positional argument is required.
 	Positional bool
 }
 
