@@ -93,6 +93,8 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			return fmt.Sprintf("Cluster %s successfully upgraded.", respI.(*k8s.Cluster).ID), nil
 		case clusterActionDelete:
 			if err != nil {
+				// if we get a 404 here, it means the resource was successfully deleted
+				// so we return a successfull message
 				notFoundError := &scw.ResourceNotFoundError{}
 				responseError := &scw.ResponseError{}
 				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
