@@ -69,6 +69,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
 			}
 			continue
 		}
+
 		for _, fieldValue := range fieldValues {
 			if arg.Required && (fieldValue.IsZero() || !fieldValue.IsValid()) {
 				return MissingRequiredArgumentError(arg.Name)
