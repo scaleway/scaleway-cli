@@ -1,4 +1,4 @@
-package sshkey
+package account
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -25,7 +26,8 @@ func sshKeyCommand() *core.Command {
 	return &core.Command{
 		Short:     `Handle SHH key`,
 		Long:      `Handle SHH key.`,
-		Namespace: "ssh-key",
+		Namespace: "account",
+		Resource:  "ssh-key",
 		NoClient:  true,
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 	}
@@ -39,8 +41,9 @@ func initCommand() *core.Command {
 	return &core.Command{
 		Short:     `Initiliaze SHH key`,
 		Long:      `Initiliaze SHH key.`,
-		Namespace: "ssh-key",
-		Resource:  "init",
+		Namespace: "account",
+		Resource:  "ssh-key",
+		Verb:      "init",
 		ArgsType:  reflect.TypeOf(InitArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -68,9 +71,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Early exit if key is not present locally
 	if os.IsNotExist(err) {
-		return "We did not find an ssh key at " + shortenedFilename + "\n" +
-			"You can add one later using:\n" +
-			"  " + addKeyInstructions, nil
+		return nil, sshKeyNotFound(shortenedFilename, addKeyInstructions)
 	} else if err != nil {
 		return nil, err
 	}
@@ -91,8 +92,8 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
-		if SSHKey.PublicKey == string(localSHHKeyContent) {
-			return "Key " + shortenedFilename + " is already present on your scaleway account", nil
+		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSHHKeyContent)) {
+			return nil, sshKeyAlreadyPresent(shortenedFilename)
 		}
 	}
 
@@ -112,8 +113,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Early exit if user doesn't want to add the key
 	if !addSHHKey {
-		return "You can add it later using:\n" +
-			"  " + addKeyInstructions, nil
+		return nil, installationCanceled(addKeyInstructions)
 	}
 
 	// Add key
@@ -124,5 +124,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return nil, err
 	}
 
-	return "Key " + shortenedFilename + " successfully added", nil
+	return core.SuccessResult{
+		Message: "Key " + shortenedFilename + " successfully added",
+	}, nil
 }

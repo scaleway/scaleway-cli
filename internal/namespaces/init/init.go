@@ -10,8 +10,8 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	accountcommands "github.com/scaleway/scaleway-cli/internal/namespaces/account"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
-	sshkey "github.com/scaleway/scaleway-cli/internal/namespaces/ssh-key"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -283,17 +283,17 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += " except for autocomplete:\n" + err.Error()
+					successMessage += "\n  except for autocomplete: " + err.Error()
 				}
 			}
 
 			// Init SSH Key
 			_, _ = interactive.Println()
-			result, err := sshkey.InitRun(ctx, &sshkey.InitArgs{
+			result, err := accountcommands.InitRun(ctx, &accountcommands.InitArgs{
 				AddSHHKey: args.AddSHHKey,
 			})
 			if err != nil {
-				return err, nil
+				successMessage += "\n  except for ssh-key: " + err.Error()
 			}
 			_, _ = interactive.Println(result)
 			_, _ = interactive.Println()

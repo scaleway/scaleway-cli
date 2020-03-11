@@ -2,6 +2,7 @@ package namespaces
 
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/account"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	baremetal "github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1alpha1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
@@ -9,7 +10,6 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1beta4"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
-	sshkey "github.com/scaleway/scaleway-cli/internal/namespaces/ssh-key"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
 
@@ -26,7 +26,7 @@ func GetCommands() *core.Commands {
 	commands.Merge(marketplace.GetCommands())
 	commands.Merge(initNamespace.GetCommands())
 	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(sshkey.GetCommands())
+	commands.Merge(account.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(versionNamespace.GetCommands())
 	return commands
