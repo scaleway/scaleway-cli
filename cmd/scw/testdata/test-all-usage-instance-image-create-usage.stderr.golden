@@ -1,7 +1,7 @@
 Create image.
 
 USAGE:
-  scw [global-flags] instance image create [flags] [arg=value ...]
+  scw instance image create [arg=value ...]
 
 EXAMPLES:
   Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)

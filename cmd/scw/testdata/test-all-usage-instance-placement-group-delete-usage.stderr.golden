@@ -1,7 +1,7 @@
 Delete the given placement group.
 
 USAGE:
-  scw [global-flags] instance placement-group delete [flags] [arg=value ...]
+  scw instance placement-group delete [arg=value ...]
 
 EXAMPLES:
   Delete a placement group in the default zone with the given ID

@@ -1,7 +1,7 @@
 Create snapshot.
 
 USAGE:
-  scw [global-flags] instance snapshot create [flags] [arg=value ...]
+  scw instance snapshot create [arg=value ...]
 
 EXAMPLES:
   Create a snapshot in the default zone from the given volume ID

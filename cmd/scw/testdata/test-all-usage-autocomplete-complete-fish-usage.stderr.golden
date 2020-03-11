@@ -1,7 +1,7 @@
 Autocomplete for Fish.
 
 USAGE:
-  scw [global-flags] autocomplete complete fish [flags]
+  scw autocomplete complete fish
 
 FLAGS:
   -h, --help   help for fish

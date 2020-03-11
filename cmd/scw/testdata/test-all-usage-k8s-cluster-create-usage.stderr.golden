@@ -1,7 +1,7 @@
 This method allows to create a new Kubernetes cluster on an account.
 
 USAGE:
-  scw [global-flags] k8s cluster create [flags] [arg=value ...]
+  scw k8s cluster create [arg=value ...]
 
 ARGS:
   name                                                  The name of the cluster

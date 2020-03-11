@@ -1,7 +1,7 @@
 Remove all rules of a security group
 
 USAGE:
-  scw [global-flags] instance security-group clear [flags] [arg=value ...]
+  scw instance security-group clear [arg=value ...]
 
 EXAMPLES:
   Remove all rules of the given security group

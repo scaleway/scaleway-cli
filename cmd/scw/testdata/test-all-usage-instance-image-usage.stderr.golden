@@ -4,7 +4,7 @@ You can reuse that image to restore your data or create a series of instances wi
 An image is a complete backup of your server including all volumes.
 
 USAGE:
-  scw [global-flags] instance image <command> [flags]
+  scw instance image <command>
 
 AVAILABLE COMMANDS:
   list        List images

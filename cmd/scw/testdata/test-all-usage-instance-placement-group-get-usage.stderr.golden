@@ -1,7 +1,7 @@
 Get the given placement group.
 
 USAGE:
-  scw [global-flags] instance placement-group get [flags] [arg=value ...]
+  scw instance placement-group get [arg=value ...]
 
 EXAMPLES:
   Get a placement group with the given ID

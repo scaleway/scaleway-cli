@@ -1,7 +1,7 @@
 Get details of an IP with the given ID or address.
 
 USAGE:
-  scw [global-flags] instance ip get [flags] [arg=value ...]
+  scw instance ip get [arg=value ...]
 
 EXAMPLES:
   Get an IP in the default zone with the given ID

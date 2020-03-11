@@ -1,5 +1,5 @@
 USAGE:
-  scw [global-flags] marketplace image <command> [flags]
+  scw marketplace image <command>
 
 AVAILABLE COMMANDS:
   list        List marketplace images

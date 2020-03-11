@@ -1,7 +1,7 @@
 Create a new placement group.
 
 USAGE:
-  scw [global-flags] instance placement-group create [flags] [arg=value ...]
+  scw instance placement-group create [arg=value ...]
 
 EXAMPLES:
   Create a placement group with default name

@@ -1,7 +1,7 @@
 Attach a volume to a server
 
 USAGE:
-  scw [global-flags] instance server attach-volume [flags] [arg=value ...]
+  scw instance server attach-volume [arg=value ...]
 
 EXAMPLES:
   Attach a volume to a server

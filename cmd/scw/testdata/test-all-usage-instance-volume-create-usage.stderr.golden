@@ -1,7 +1,7 @@
 Create volume.
 
 USAGE:
-  scw [global-flags] instance volume create [flags] [arg=value ...]
+  scw instance volume create [arg=value ...]
 
 EXAMPLES:
   Create a volume called 'my-volume'

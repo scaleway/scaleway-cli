@@ -30,7 +30,7 @@ subject to change depending on the volumes order. Block devices
 UUIDs can be found in `/dev/disk/by-id/`.
 
 USAGE:
-  scw [global-flags] instance volume <command> [flags]
+  scw instance volume <command>
 
 AVAILABLE COMMANDS:
   list        List volumes

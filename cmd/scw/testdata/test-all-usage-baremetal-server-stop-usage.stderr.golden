@@ -1,7 +1,7 @@
 Stop the server associated with the given ID.
 
 USAGE:
-  scw [global-flags] baremetal server stop [flags] [arg=value ...]
+  scw baremetal server stop [arg=value ...]
 
 ARGS:
   server-id   ID of the server to stop

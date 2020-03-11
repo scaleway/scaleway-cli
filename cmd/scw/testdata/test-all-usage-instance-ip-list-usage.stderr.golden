@@ -1,7 +1,7 @@
 List IPs.
 
 USAGE:
-  scw [global-flags] instance ip list [flags] [arg=value ...]
+  scw instance ip list [arg=value ...]
 
 EXAMPLES:
   List all IPs in the default zone

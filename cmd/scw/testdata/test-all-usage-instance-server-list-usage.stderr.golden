@@ -1,7 +1,7 @@
 List servers.
 
 USAGE:
-  scw [global-flags] instance server list [flags] [arg=value ...]
+  scw instance server list [arg=value ...]
 
 EXAMPLES:
   List all servers on your default zone

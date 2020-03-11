@@ -1,7 +1,7 @@
 Add or update a user data with the given key on a server.
 
 USAGE:
-  scw [global-flags] instance user-data set [flags] [arg=value ...]
+  scw instance user-data set [arg=value ...]
 
 ARGS:
   server-id   UUID of the server

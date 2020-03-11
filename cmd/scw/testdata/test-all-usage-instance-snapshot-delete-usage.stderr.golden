@@ -1,7 +1,7 @@
 Delete the snapshot with the given ID.
 
 USAGE:
-  scw [global-flags] instance snapshot delete [flags] [arg=value ...]
+  scw instance snapshot delete [arg=value ...]
 
 EXAMPLES:
   Delete a snapshot in the default zone with the given ID

@@ -1,7 +1,7 @@
 Power on server
 
 USAGE:
-  scw [global-flags] instance server start [flags] [arg=value ...]
+  scw instance server start [arg=value ...]
 
 EXAMPLES:
   Start a server in the default zone with a given id

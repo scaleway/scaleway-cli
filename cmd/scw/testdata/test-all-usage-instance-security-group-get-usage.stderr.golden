@@ -1,7 +1,7 @@
 Get the details of a Security Group with the given ID.
 
 USAGE:
-  scw [global-flags] instance security-group get [flags] [arg=value ...]
+  scw instance security-group get [arg=value ...]
 
 EXAMPLES:
   Get a security group with the given ID

@@ -1,7 +1,7 @@
 Delete the human associated with the given id.
 
 USAGE:
-  scw [global-flags] test human delete [flags] [arg=value ...]
+  scw test human delete [arg=value ...]
 
 ARGS:
   human-id   

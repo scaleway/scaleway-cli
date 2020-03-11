@@ -1,7 +1,7 @@
 Dump the config file
 
 USAGE:
-  scw [global-flags] config dump [flags]
+  scw config dump
 
 FLAGS:
   -h, --help   help for dump

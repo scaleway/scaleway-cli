@@ -1,7 +1,7 @@
 A server is a denomination of a type of instances provided by Scaleway.
 
 USAGE:
-  scw [global-flags] baremetal server <command> [flags]
+  scw baremetal server <command>
 
 AVAILABLE COMMANDS:
   list        List servers

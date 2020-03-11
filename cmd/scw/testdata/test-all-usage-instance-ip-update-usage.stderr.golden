@@ -1,7 +1,7 @@
 Update IP.
 
 USAGE:
-  scw [global-flags] instance ip update [flags] [arg=value ...]
+  scw instance ip update [arg=value ...]
 
 EXAMPLES:
   Update an IP in the default zone with the given ID

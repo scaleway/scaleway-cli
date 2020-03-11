@@ -1,7 +1,7 @@
 Reboot server
 
 USAGE:
-  scw [global-flags] instance server reboot [flags] [arg=value ...]
+  scw instance server reboot [arg=value ...]
 
 EXAMPLES:
   Reboot a server in the default zone with a given id

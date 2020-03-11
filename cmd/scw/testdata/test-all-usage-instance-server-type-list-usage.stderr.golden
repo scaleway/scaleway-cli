@@ -1,7 +1,7 @@
 Get server types technical details.
 
 USAGE:
-  scw [global-flags] instance server-type list [flags] [arg=value ...]
+  scw instance server-type list [arg=value ...]
 
 EXAMPLES:
   List all server-types in the default zone

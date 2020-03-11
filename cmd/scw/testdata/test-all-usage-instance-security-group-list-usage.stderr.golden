@@ -1,7 +1,7 @@
 List all security groups available in an account.
 
 USAGE:
-  scw [global-flags] instance security-group list [flags] [arg=value ...]
+  scw instance security-group list [arg=value ...]
 
 EXAMPLES:
   List all security groups that match the given name

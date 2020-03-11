@@ -1,7 +1,7 @@
 Update server.
 
 USAGE:
-  scw [global-flags] instance server update [flags] [arg=value ...]
+  scw instance server update [arg=value ...]
 
 EXAMPLES:
   Update the name of a given server

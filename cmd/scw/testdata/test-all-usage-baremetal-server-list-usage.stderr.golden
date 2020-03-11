@@ -1,7 +1,7 @@
 List all created servers.
 
 USAGE:
-  scw [global-flags] baremetal server list [flags] [arg=value ...]
+  scw baremetal server list [arg=value ...]
 
 EXAMPLES:
   List all servers on your default zone

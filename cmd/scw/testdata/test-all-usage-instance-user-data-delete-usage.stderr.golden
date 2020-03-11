@@ -1,7 +1,7 @@
 Delete the given key from a server user data.
 
 USAGE:
-  scw [global-flags] instance user-data delete [flags] [arg=value ...]
+  scw instance user-data delete [arg=value ...]
 
 ARGS:
   server-id   UUID of the server

@@ -1,7 +1,7 @@
 List marketplace images.
 
 USAGE:
-  scw [global-flags] marketplace image list [flags]
+  scw marketplace image list
 
 FLAGS:
   -h, --help   help for list

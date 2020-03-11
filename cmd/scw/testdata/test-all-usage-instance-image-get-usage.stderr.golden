@@ -1,7 +1,7 @@
 Get details of an image with the given ID.
 
 USAGE:
-  scw [global-flags] instance image get [flags] [arg=value ...]
+  scw instance image get [arg=value ...]
 
 EXAMPLES:
   Get an image in the default zone with the given ID

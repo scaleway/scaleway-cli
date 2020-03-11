@@ -1,7 +1,7 @@
 List volumes.
 
 USAGE:
-  scw [global-flags] instance volume list [flags] [arg=value ...]
+  scw instance volume list [arg=value ...]
 
 EXAMPLES:
   List all volumes

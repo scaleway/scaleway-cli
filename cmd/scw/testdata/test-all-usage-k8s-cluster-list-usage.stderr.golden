@@ -1,7 +1,7 @@
 This method allows to list all the existing Kubernetes clusters in an account.
 
 USAGE:
-  scw [global-flags] k8s cluster list [flags] [arg=value ...]
+  scw k8s cluster list [arg=value ...]
 
 EXAMPLES:
   List all the clusters on your default region

@@ -1,7 +1,7 @@
 List all user data keys registered on a given server.
 
 USAGE:
-  scw [global-flags] instance user-data list [flags] [arg=value ...]
+  scw instance user-data list [arg=value ...]
 
 ARGS:
   server-id   UUID of the server

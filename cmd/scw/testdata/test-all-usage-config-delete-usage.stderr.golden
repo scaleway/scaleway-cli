@@ -1,7 +1,7 @@
 Allows the deletion of a profile from the config file
 
 USAGE:
-  scw [global-flags] config delete <command> [flags]
+  scw config delete <command>
 
 AVAILABLE COMMANDS:
   profile     Delete a profile from the config file

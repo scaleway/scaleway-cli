@@ -1,7 +1,7 @@
 Delete the image with the given ID.
 
 USAGE:
-  scw [global-flags] instance image delete [flags] [arg=value ...]
+  scw instance image delete [arg=value ...]
 
 EXAMPLES:
   Delete an image in the default zone with the given ID

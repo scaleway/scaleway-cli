@@ -1,7 +1,7 @@
 Marketplace API
 
 USAGE:
-  scw [global-flags] marketplace <command> [flags]
+  scw marketplace <command>
 
 AVAILABLE COMMANDS:
   image       

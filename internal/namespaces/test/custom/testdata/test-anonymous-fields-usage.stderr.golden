@@ -1,7 +1,7 @@
 Test Anonymous Fields.
 
 USAGE:
-  scw [global-flags] test anonymous-fields [flags] [arg=value ...]
+  scw test anonymous-fields [arg=value ...]
 
 ARGS:
   [field-b]   Field B

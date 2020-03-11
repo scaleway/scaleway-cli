@@ -1,7 +1,7 @@
 List snapshots.
 
 USAGE:
-  scw [global-flags] instance snapshot list [flags] [arg=value ...]
+  scw instance snapshot list [arg=value ...]
 
 EXAMPLES:
   List all snapshots in the default zone

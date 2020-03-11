@@ -1,7 +1,7 @@
 Delete the IP with the given ID.
 
 USAGE:
-  scw [global-flags] instance ip delete [flags] [arg=value ...]
+  scw instance ip delete [arg=value ...]
 
 EXAMPLES:
   Delete an IP in the default zone with the given ID
