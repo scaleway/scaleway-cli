@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
@@ -55,12 +56,9 @@ func TestNullableStringValueUnmarshal(t *testing.T) {
 		},
 		data: &NullableStringValueRequest{},
 		expectedStruct: &NullableStringValueRequest{
-			Reverse: &instance.NullableStringValue{
-				Null:  true,
-				Value: "",
-			},
+			Reverse: (*instance.NullableStringValue)(nil),
 		},
-		expectedError: nil,
+		expectedError: fmt.Errorf("arg 'reverse' must have a value"),
 	}))
 }
 

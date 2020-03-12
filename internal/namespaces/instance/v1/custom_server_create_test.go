@@ -11,7 +11,7 @@ import (
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	ctx.ExecuteCmd("scw instance server delete with-volumes=all with-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
+	ctx.ExecuteCmd("scw instance server delete with-volumes=all with-ip=true force-shutdown=true server-id=" + ctx.CmdResult.(*instance.Server).ID)
 	return nil
 }
 
@@ -24,7 +24,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic stopped=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -37,7 +37,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("GP1-XS", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_bionic stopped",
+			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_bionic stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "GP1-XS", ctx.Result.(*instance.Server).CommercialType)
@@ -49,7 +49,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic name=yo stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic name=yo stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "yo", ctx.Result.(*instance.Server).Name)
@@ -73,7 +73,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With bootscript", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic bootscript-id=eb760e3c-30d8-49a3-b3ad-ad10c3aa440b stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic bootscript-id=eb760e3c-30d8-49a3-b3ad-ad10c3aa440b stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instance.Server).Bootscript.ID)
@@ -85,7 +85,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Image UUID", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped",
+			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
@@ -97,7 +97,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic tags.0=prod tags.1=blue stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic tags.0=prod tags.1=blue stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*instance.Server).Tags[0])
@@ -116,7 +116,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid single local volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
@@ -128,7 +128,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
@@ -141,7 +141,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid additional block volumes", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, 1*scw.GB, ctx.Result.(*instance.Server).Volumes["1"].Size)
@@ -161,7 +161,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("explicit new IP", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic ip=new stopped",
+			Cmd:      "scw instance server create image=ubuntu_bionic ip=new stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -189,7 +189,7 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("existing IP", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
 			BeforeFunc: createIP("IP"),
-			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.Address }} stopped",
+			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.Address }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -203,7 +203,7 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("existing IP ID", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
 			BeforeFunc: createIP("IP"),
-			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.ID }} stopped",
+			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.ID }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
@@ -216,7 +216,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic ipv6 -w", // IPv6 is created at runtime
+			Cmd:      "scw instance server create image=ubuntu_bionic ipv6=true -w", // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotEmpty(t, ctx.Result.(*instance.Server).IPv6.Address)
@@ -363,8 +363,8 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G stopped"),
-		Cmd:        `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped`,
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create name=cli-test image=ubuntu_bionic root-volume=l:10G additional-volumes.0=l:10G stopped=true"),
+		Cmd:        `scw instance server create image=ubuntu_bionic root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),

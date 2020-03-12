@@ -68,7 +68,10 @@ func UnmarshalStruct(args []string, data interface{}) error {
 
 	// Map arg names to their values.
 	// ["arg1=1", "arg2=2", "arg3"] => [ ["arg1","1"], ["arg2","2"], ["arg3",""] ]
-	argsSlice := SplitRaw(args)
+	argsSlice, err := SplitRaw(args)
+	if err != nil {
+		return err
+	}
 
 	processedArgNames := make(map[string]bool)
 
