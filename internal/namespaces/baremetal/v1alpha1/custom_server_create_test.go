@@ -6,13 +6,12 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	ctx.ExecuteCmd("scw instance server delete with-volumes=all with-ip force-shutdown server-id=" + ctx.CmdResult.(*instance.Server).ID)
+	ctx.ExecuteCmd("scw baremetal server delete server-id=" + ctx.CmdResult.(*baremetal.Server).ID)
 	return nil
 }
 
@@ -36,7 +35,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=yo",
+			Cmd:      "scw baremetal server create name=yo zone=fr-par-2",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "yo", ctx.Result.(*baremetal.Server).Name)

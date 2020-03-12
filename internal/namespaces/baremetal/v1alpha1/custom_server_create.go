@@ -10,10 +10,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type CreateServerRequest struct {
+type createServerRequest struct {
 	Zone scw.Zone `json:"-"`
 	// OfferID offer ID of the new server
-	OfferID string `json:"offer_id"`
+	//OfferID string `json:"offer_id"`
 	// OrganizationID organization ID with which the server will be created
 	OrganizationID string `json:"organization_id"`
 	// Name name of the server (≠hostname)
@@ -33,7 +33,7 @@ func serverCreateCommand() *core.Command {
 		Namespace: "baremetal",
 		Verb:      "create",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(CreateServerRequest{}),
+		ArgsType:  reflect.TypeOf(createServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 			core.OrganizationIDArgSpec(),
@@ -104,7 +104,7 @@ func baremetalServerCreateRun(ctx context.Context, argsI interface{}) (i interfa
 	client := core.ExtractClient(ctx)
 	api := baremetal.NewAPI(client)
 
-	tmpRequest := argsI.(*CreateServerRequest)
+	tmpRequest := argsI.(*createServerRequest)
 	request := &baremetal.CreateServerRequest{
 		Zone:           tmpRequest.Zone,
 		OrganizationID: tmpRequest.OrganizationID,
