@@ -79,12 +79,12 @@ func serverCreateCommand() *core.Command {
 		}},
 		Examples: []*core.Example{
 			{
-				Short:   "Create and start an instance on Ubuntu Bionic",
-				Request: `{"image":"ubuntu_bionic","start":true}`,
+				Short:   "Create instance",
+				Request: `{}`,
 			},
 			{
-				Short:   "Create a GP1-XS instance, give it a name and add tags",
-				Request: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
+				Short:   "Create a GP-BM1-M instance, give it a name and add tags",
+				Request: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
 			},
 		},
 	}
