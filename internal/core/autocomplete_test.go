@@ -160,5 +160,4 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower delete -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus"}}))
 	t.Run("scw test flower delete -o json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
 	t.Run("scw test flower delete -o=json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
-
 }
