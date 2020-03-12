@@ -25,7 +25,7 @@ const (
 type AutoCompleteNodeType uint
 
 const (
-	AutoCompleteNodeTypeCommand AutoCompleteNodeType = 1 << iota
+	AutoCompleteNodeTypeCommand AutoCompleteNodeType = iota
 	AutoCompleteNodeTypePositionalArgument
 	AutoCompleteNodeTypeArgument
 	AutoCompleteNodeTypeFlag
@@ -186,12 +186,11 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 // isLeafCommand returns true only if n is a node with no child command (namespace, verb, resource) or a positional arg.
 // A leaf command can have 2 types of children: arguments or flags
 func (node *AutoCompleteNode) isLeafCommand() bool {
-	leafCommandTypes := AutoCompleteNodeTypeCommand | AutoCompleteNodeTypePositionalArgument
-	if node.Type&leafCommandTypes == 0 {
+	if node.Type != AutoCompleteNodeTypeCommand && node.Type != AutoCompleteNodeTypePositionalArgument {
 		return false
 	}
 	for _, child := range node.Children {
-		if child.Type&leafCommandTypes != 0 {
+		if child.Type == AutoCompleteNodeTypeCommand || child.Type == AutoCompleteNodeTypePositionalArgument {
 			return false
 		}
 	}
