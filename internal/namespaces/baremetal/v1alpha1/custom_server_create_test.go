@@ -17,7 +17,6 @@ func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
 
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
-
 	////
 	// Simple use cases
 	////
