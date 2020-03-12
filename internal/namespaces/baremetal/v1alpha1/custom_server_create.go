@@ -7,7 +7,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -144,23 +143,4 @@ func findOfferId(api *baremetal.API, zone scw.Zone, requestedType string) string
 		}
 	}
 	return ""
-}
-
-// getServeType is a util to get a instance.ServerType by its commercialType
-func getServeType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
-	serverType := (*instance.ServerType)(nil)
-
-	//serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
-	//	Zone: zone,
-	//})
-	//if err != nil {
-	//	logger.Warningf("cannot get server types: %s", err)
-	//} else {
-	//	serverType = serverTypesRes.Servers[commercialType]
-	//	if serverType == nil {
-	//		logger.Warningf("unrecognized server type: %s", commercialType)
-	//	}
-	//}
-
-	return serverType
 }
