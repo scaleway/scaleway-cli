@@ -22,7 +22,7 @@ type createServerRequest struct {
 	Description string `json:"description"`
 	// Tags associated with the server
 	Tags []string `json:"tags"`
-	// We want to run only with type
+	// Type of the server
 	Type string
 }
 
