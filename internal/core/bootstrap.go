@@ -37,7 +37,7 @@ type BootstrapConfig struct {
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
 
-        // OverrideEnv overrides environment variables returned by core.ExtractEnv function.
+	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
 	// This is useful for tests as it allows overriding env without relying on global state.
 	OverrideEnv map[string]string
 }
