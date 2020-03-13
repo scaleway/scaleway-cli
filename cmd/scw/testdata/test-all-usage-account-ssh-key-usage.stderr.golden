@@ -1,4 +1,4 @@
-Handle SHH key.
+Manage SHH key.
 
 USAGE:
   scw account ssh-key <command>
