@@ -1,7 +1,7 @@
 Handle SHH key.
 
 USAGE:
-  scw [global-flags] account ssh-key <command> [flags]
+  scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
   init        Initiliaze SHH key

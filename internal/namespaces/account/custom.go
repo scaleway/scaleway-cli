@@ -34,7 +34,7 @@ func sshKeyCommand() *core.Command {
 }
 
 type InitArgs struct {
-	AddSHHKey *bool
+	WithSHHKey *bool
 }
 
 func initCommand() *core.Command {
@@ -47,7 +47,7 @@ func initCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(InitArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:  "add-ssh-key",
+				Name:  "with-ssh-key",
 				Short: "Whether the ssh key for managing instances should be uploaded automatically",
 			},
 		},
@@ -99,8 +99,8 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Ask user
 	addSHHKey := false
-	if args.AddSHHKey != nil {
-		addSHHKey = *args.AddSHHKey
+	if args.WithSHHKey != nil {
+		addSHHKey = *args.WithSHHKey
 	} else {
 		addSHHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 			Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",

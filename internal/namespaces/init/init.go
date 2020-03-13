@@ -63,7 +63,7 @@ type initArgs struct {
 	Zone                scw.Zone
 	OrganizationID      string
 	SendTelemetry       *bool
-	AddSHHKey           *bool
+	WithSHHKey          *bool
 	InstallAutocomplete *bool
 }
 
@@ -96,7 +96,7 @@ func initCommand() *core.Command {
 				Name: "send-usage",
 			},
 			{
-				Name:  "add-ssh-key",
+				Name:  "with-ssh-key",
 				Short: "Whether the ssh key for managing instances should be uploaded automatically",
 			},
 			{
@@ -290,7 +290,7 @@ func initCommand() *core.Command {
 			// Init SSH Key
 			_, _ = interactive.Println()
 			result, err := accountcommands.InitRun(ctx, &accountcommands.InitArgs{
-				AddSHHKey: args.AddSHHKey,
+				WithSHHKey: args.WithSHHKey,
 			})
 			if err != nil {
 				successMessage += "\n  except for ssh-key: " + err.Error()
