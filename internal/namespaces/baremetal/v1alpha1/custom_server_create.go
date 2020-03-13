@@ -16,7 +16,7 @@ type createServerRequest struct {
 	//OfferID string `json:"offer_id"`
 	// OrganizationID with which the server will be created
 	OrganizationID string `json:"organization_id"`
-	// Name name of the server (≠hostname)
+	// Name of the server (≠hostname)
 	Name string `json:"name"`
 	// Description description associated to the server, max 255 characters
 	Description string `json:"description"`
