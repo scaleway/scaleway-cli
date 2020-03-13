@@ -35,8 +35,6 @@ func serverCreateCommand() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(createServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar2),
-			core.OrganizationIDArgSpec(),
 			{
 				Name:    "type",
 				Short:   "Server commercial type",
@@ -70,6 +68,8 @@ func serverCreateCommand() *core.Command {
 				Short:    `Tags to associate to the server`,
 				Required: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+			core.OrganizationIDArgSpec(),
 		},
 		Run:      baremetalServerCreateRun,
 		WaitFunc: baremetalWaitServerCreateRun(),
