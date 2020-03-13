@@ -1,0 +1,46 @@
+name: Unit Tests
+
+on:
+  pull_request:
+
+jobs:
+  os-unit-test:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - run:
+        name: Run unit tests
+        command: go test -v ./...
+    - run: # Test the runtime for potential panics.
+        name: Execute main binary
+        command: go run cmd/scw/main.go -h
+
+  build-arch-test:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        platform: [ubuntu-latest]
+        arch: [386, amd64, arm64]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Build binary
+        run: GOARCH=${{ matrix.arch }} go build ./...
