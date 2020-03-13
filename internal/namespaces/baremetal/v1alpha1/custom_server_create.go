@@ -18,7 +18,7 @@ type createServerRequest struct {
 	OrganizationID string `json:"organization_id"`
 	// Name of the server (≠hostname)
 	Name string `json:"name"`
-	// Description description associated to the server, max 255 characters
+	// Description associated to the server, max 255 characters
 	Description string `json:"description"`
 	// Tags associated with the server
 	Tags []string `json:"tags"`
