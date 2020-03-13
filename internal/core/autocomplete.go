@@ -105,16 +105,12 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 
 // NewAutoCompletePositionalArgNode creates a new node corresponding to a command positional argument.
 // These nodes are not necessarily leaf nodes.
-func NewAutoCompletePositionalArgNode(parent *AutoCompleteNode, argSpec *ArgSpec) *AutoCompleteNode {
-	positionalArgumentNode := &AutoCompleteNode{
+func NewAutoCompletePositionalArgNode(argSpec *ArgSpec) *AutoCompleteNode {
+	return &AutoCompleteNode{
 		Children: make(map[string]*AutoCompleteNode),
 		ArgSpec:  argSpec,
 		Type:     AutoCompleteNodeTypePositionalArgument,
 	}
-
-	parent.Children[positionalValueNodeID] = positionalArgumentNode
-
-	return positionalArgumentNode
 }
 
 // NewArgAutoCompleteNode creates a new node corresponding to a command argument.
@@ -218,7 +214,8 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		// Create node for positional argument if the command has one.
 		positionalArg := cmd.ArgSpecs.GetPositionalArg()
 		if positionalArg != nil {
-			node = NewAutoCompletePositionalArgNode(node, positionalArg)
+			node.Children[positionalValueNodeID] = NewAutoCompletePositionalArgNode(positionalArg)
+			node = node.Children[positionalValueNodeID]
 			node.addGlobalFlags()
 		}
 
