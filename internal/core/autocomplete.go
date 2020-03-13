@@ -16,12 +16,17 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
-const variableFlagValueNodeID = "*"
+const (
+	// positionalValueNodeID are flag values or positional argument.
+	// E.g.: `scw test create <value> --flag <value>`
+	positionalValueNodeID = "*"
+)
 
-type AutoCompleteNodeType int
+type AutoCompleteNodeType uint
 
 const (
-	AutoCompleteNodeTypeCommand = iota
+	AutoCompleteNodeTypeCommand AutoCompleteNodeType = iota
+	AutoCompleteNodeTypePositionalArgument
 	AutoCompleteNodeTypeArgument
 	AutoCompleteNodeTypeFlag
 	AutoCompleteNodeTypeFlagValueConst
@@ -98,6 +103,16 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 	}
 }
 
+// NewAutoCompletePositionalArgNode creates a new node corresponding to a command positional argument.
+// These nodes are not necessarily leaf nodes.
+func NewAutoCompletePositionalArgNode(argSpec *ArgSpec) *AutoCompleteNode {
+	return &AutoCompleteNode{
+		Children: make(map[string]*AutoCompleteNode),
+		ArgSpec:  argSpec,
+		Type:     AutoCompleteNodeTypePositionalArgument,
+	}
+}
+
 // NewArgAutoCompleteNode creates a new node corresponding to a command argument.
 // These nodes are leaf nodes.
 func NewAutoCompleteArgNode(argSpec *ArgSpec) *AutoCompleteNode {
@@ -120,7 +135,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 		Name:     flagSpec.Name,
 	}
 	if flagSpec.HasVariableValue {
-		node.Children[variableFlagValueNodeID] = &AutoCompleteNode{
+		node.Children[positionalValueNodeID] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueVariable,
 		}
@@ -164,21 +179,21 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	return nil, false
 }
 
-// isLeafCommand returns true only if n is a command (namespace or verb or resource) but has no child command
-// a leaf command can have 2 types of children: arguments or flags
+// isLeafCommand returns true only if n is a node with no child command (namespace, verb, resource) or a positional arg.
+// A leaf command can have 2 types of children: arguments or flags
 func (node *AutoCompleteNode) isLeafCommand() bool {
-	if node.Type != AutoCompleteNodeTypeCommand {
+	if node.Type != AutoCompleteNodeTypeCommand && node.Type != AutoCompleteNodeTypePositionalArgument {
 		return false
 	}
 	for _, child := range node.Children {
-		if child.Type == AutoCompleteNodeTypeCommand {
+		if child.Type == AutoCompleteNodeTypeCommand || child.Type == AutoCompleteNodeTypePositionalArgument {
 			return false
 		}
 	}
 	return true
 }
 
-// BuildAutoCompleteTree builds the autocomplete tree from the commands, subcomands and arguments
+// BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
 	scwCommand := root.GetChildOrCreate("scw")
@@ -195,8 +210,20 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		}
 
 		node.Command = cmd
+
+		// Create node for positional argument if the command has one.
+		positionalArg := cmd.ArgSpecs.GetPositionalArg()
+		if positionalArg != nil {
+			node.Children[positionalValueNodeID] = NewAutoCompletePositionalArgNode(positionalArg)
+			node = node.Children[positionalValueNodeID]
+			node.addGlobalFlags()
+		}
+
 		// We consider ArgSpecs as leaf in the autocomplete tree.
 		for _, argSpec := range cmd.ArgSpecs {
+			if argSpec == positionalArg {
+				continue
+			}
 			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(argSpec)
 		}
 
@@ -231,7 +258,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
-			children, childrenExists = node.Children[variableFlagValueNodeID]
+			children, childrenExists = node.Children[positionalValueNodeID]
 		}
 
 		switch {
@@ -247,6 +274,10 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		case children.Type == AutoCompleteNodeTypeArgument:
 			// Do nothing
 			// Arguments do not have children: they are not used to go deeper into the tree
+
+		case children.Type == AutoCompleteNodeTypePositionalArgument && isCompletingArgValue(word):
+		// Do nothing
+		// Setting a positional argument with `key=value` notation is not allowed.
 
 		default:
 			// word is a namespace or verb or resource or flag or flag value
@@ -286,6 +317,11 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 				completedArgs[word+"="] = struct{}{}
 			}
 		}
+	}
+
+	if isCompletingPositionalArgValue(node, wordToComplete) {
+		suggestions := AutoCompleteArgValue(ctx, node.Children[positionalValueNodeID].ArgSpec, wordToComplete)
+		return newAutoCompleteResponse(suggestions)
 	}
 
 	if isCompletingArgValue(wordToComplete) {
@@ -357,6 +393,35 @@ func AutoCompleteArgValue(ctx context.Context, argSpec *ArgSpec, argValuePrefix 
 		}
 	}
 	return suggestions
+}
+
+// isCompletingPositionalArgValue detects if the word to complete is a positional argument on a given node.
+// Returns false on the following cases:
+// - node has no positional argument
+// - a flag is being completed
+func isCompletingPositionalArgValue(node *AutoCompleteNode, wordToComplete string) bool {
+	// Return false if node has no value node children
+	valueNode, exist := node.Children[positionalValueNodeID]
+	if !exist {
+		return false
+	}
+
+	// return false if this value node children is not of type positional arg
+	if valueNode.Type != AutoCompleteNodeTypePositionalArgument {
+		return false
+	}
+
+	// Catch when a flag is being completed.
+	for child := range node.Children {
+		if child == positionalValueNodeID || wordToComplete == "" {
+			continue
+		}
+		if strings.HasPrefix(child, wordToComplete) {
+			return false
+		}
+	}
+
+	return true
 }
 
 func isCompletingArgValue(wordToComplete string) bool {
