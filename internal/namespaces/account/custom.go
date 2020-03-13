@@ -24,8 +24,8 @@ func GetCommands() *core.Commands {
 
 func sshKeyCommand() *core.Command {
 	return &core.Command{
-		Short:     `Handle SHH key`,
-		Long:      `Handle SHH key.`,
+		Short:     `Manage SHH key`,
+		Long:      `Manage SHH key.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		NoClient:  true,
