@@ -106,8 +106,8 @@ type TestConfig struct {
 	// Fake build info for this test.
 	BuildInfo BuildInfo
 
-	// This are environment variable that will be override during the test.
-	// Not that you should rely on core.ExtractEnv in you code for these to work.
+	// OverrideEnv contains environment variables that will be overridden during the test.
+	// Note that you should rely on core.ExtractEnv fucntion in your code for these to work.
 	OverrideEnv map[string]string
 }
 
