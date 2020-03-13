@@ -63,11 +63,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		Client:      config.Client,
 		Commands:    config.Commands,
 		Printer:     globalPrinter,
+		OverrideEnv: config.OverrideEnv,
 		result:      nil, // result is later injected by cobra_utils.go/cobraRun()
 		command:     nil, // command is later injected by cobra_utils.go/cobraRun()
-		OverrideEnv: config.OverrideEnv,
 	}
-	// We make sur OverrideEnv is never nil in meta
+
+	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
 		meta.OverrideEnv = map[string]string{}
 	}
