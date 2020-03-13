@@ -392,8 +392,11 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		assert.NotNil(t, err)
 	} else {
 		require.NoError(t, err)
+
+		// Replace Windows return carriage.
 		expected = bytes.ReplaceAll(expected, []byte("\r"), []byte(""))
 		actual = bytes.ReplaceAll(actual, []byte("\r"), []byte(""))
+
 		assert.Equal(t, string(expected), string(actual))
 	}
 }
