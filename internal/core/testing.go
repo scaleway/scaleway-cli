@@ -105,6 +105,9 @@ type TestConfig struct {
 
 	// Fake build info for this test.
 	BuildInfo BuildInfo
+
+	// OverrideEnv contains environment variables that will be overridden during the test.
+	OverrideEnv map[string]string
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -202,6 +205,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
+				OverrideEnv:      config.OverrideEnv,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -234,6 +238,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderr,
 				Client:           client,
 				DisableTelemetry: true,
+				OverrideEnv:      config.OverrideEnv,
 			})
 
 			config.Check(t, &CheckFuncCtx{
