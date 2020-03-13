@@ -120,7 +120,7 @@ func baremetalServerCreateRun(ctx context.Context, argsI interface{}) (i interfa
 	}
 
 	// We need to find the offer id.
-	// while baremetal does not have listoffer name filter we are force to iterate
+	// while baremetal does not have listoffer name filter we are forced to iterate
 	// on the list of offers provided
 	requestedType := tmpRequest.Type
 	offerID := findOfferID(api, tmpRequest.Zone, requestedType)
