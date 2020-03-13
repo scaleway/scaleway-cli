@@ -14,7 +14,7 @@ type createServerRequest struct {
 	Zone scw.Zone `json:"-"`
 	// OfferID offer ID of the new server
 	//OfferID string `json:"offer_id"`
-	// OrganizationID organization ID with which the server will be created
+	// OrganizationID with which the server will be created
 	OrganizationID string `json:"organization_id"`
 	// Name name of the server (≠hostname)
 	Name string `json:"name"`
