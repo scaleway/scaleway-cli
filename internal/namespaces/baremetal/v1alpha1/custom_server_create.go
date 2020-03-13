@@ -29,7 +29,7 @@ type createServerRequest struct {
 func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
-		Long:      `Create a new server. Once the server is created, you probably want to install an OS.`,
+		Long:      `Create a new server.`,
 		Namespace: "baremetal",
 		Verb:      "create",
 		Resource:  "server",
@@ -73,10 +73,16 @@ func serverCreateCommand() *core.Command {
 		},
 		Run:      baremetalServerCreateRun,
 		WaitFunc: baremetalWaitServerCreateRun(),
-		SeeAlsos: []*core.SeeAlso{{
-			Short:   "List os",
-			Command: "scw baremetal os list",
-		}},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "List os",
+				Command: "scw baremetal os list",
+			},
+			{
+				Short:   "Install an OS on your server",
+				Command: "scw baremetal server install ",
+			},
+		},
 		Examples: []*core.Example{
 			{
 				Short:   "Create instance",
