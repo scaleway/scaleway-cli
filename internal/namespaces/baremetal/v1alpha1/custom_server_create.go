@@ -20,7 +20,7 @@ type createServerRequest struct {
 	Name string `json:"name"`
 	// Description description associated to the server, max 255 characters
 	Description string `json:"description"`
-	// Tags tags to associate to the server
+	// Tags associated with the server
 	Tags []string `json:"tags"`
 	// We want to run only with type
 	Type string
