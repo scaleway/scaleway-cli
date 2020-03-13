@@ -97,12 +97,3 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 	return nil, fmt.Errorf("case is not handled")
 }
-
-// isFieldZero returns whether a field is set to its zero value
-func isFieldZero(cmdArgs interface{}, fieldName string) (isZero bool, isValid bool) {
-	field := reflect.ValueOf(cmdArgs).Elem().FieldByName(fieldName)
-	if !field.IsValid() {
-		return false, false
-	}
-	return field.IsZero(), true
-}

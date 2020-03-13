@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -61,9 +62,20 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
 	for _, arg := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldIsZero, fieldExists := isFieldZero(cmdArgs, fieldName)
-		if arg.Required && (fieldIsZero || !fieldExists) {
-			return MissingRequiredArgumentError(arg.Name)
+		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		if err != nil {
+			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
+			if !arg.Required {
+				logger.Infof(validationErr.Error())
+				continue
+			}
+			panic(validationErr)
+		}
+
+		for _, fieldValue := range fieldValues {
+			if arg.Required && (fieldValue.IsZero() || !fieldValue.IsValid()) {
+				return MissingRequiredArgumentError(arg.Name)
+			}
 		}
 	}
 	return nil
