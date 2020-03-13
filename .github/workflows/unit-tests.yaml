@@ -20,11 +20,11 @@ jobs:
       with:
         fetch-depth: 1
     - run:
-        name: Run unit tests
-        command: go test -v ./...
+      name: Run unit tests
+      command: go test -v ./...
     - run: # Test the runtime for potential panics.
-        name: Execute main binary
-        command: go run cmd/scw/main.go -h
+      name: Execute main binary
+      command: go run cmd/scw/main.go -h
 
   build-tests:
     strategy:
