@@ -107,7 +107,6 @@ type TestConfig struct {
 	BuildInfo BuildInfo
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
-	// Note that you should rely on core.ExtractEnv fucntion in your code for these to work.
 	OverrideEnv map[string]string
 }
 
