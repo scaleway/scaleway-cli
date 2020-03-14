@@ -14,6 +14,9 @@ import (
 // - Apply handwritten overrides (of Command.Run)
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+	cmds.Merge(core.NewCommands(
+		k8sVersionGetCommand(),
+	))
 
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.BindAttributesMarshalFunc(clusterStatusAttributes))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(0), human.BindAttributesMarshalFunc(poolStatusAttributes))
@@ -31,6 +34,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "pool", "delete").Override(poolDeleteBuilder)
 
 	cmds.MustFind("k8s", "node", "reboot").Override(nodeRebootBuilder)
+
+	cmds.MustFind("k8s", "version", "list").Override(versionListBuilder)
 
 	return cmds
 }
