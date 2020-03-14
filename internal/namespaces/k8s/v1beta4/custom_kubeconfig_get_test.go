@@ -9,7 +9,6 @@ import (
 )
 
 func Test_GetKubeconfig(t *testing.T) {
-
 	////
 	// Simple use cases
 	////

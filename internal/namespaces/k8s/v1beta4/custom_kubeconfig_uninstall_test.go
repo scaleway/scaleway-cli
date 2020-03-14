@@ -49,7 +49,6 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 }
 
 func Test_UninstallKubeconfig(t *testing.T) {
-
 	////
 	// Simple use cases
 	////
@@ -71,8 +70,8 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	}))
 	t.Run("empty file", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
-		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
+		Cmd:        "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
+		BeforeFunc: createClusterAndWaitAndKubeconfig("EmptyCluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -81,7 +80,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 			},
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteCluster("Cluster"),
+		AfterFunc: deleteCluster("EmptyCluster"),
 		OverrideEnv: map[string]string{
 			"KUBECONFIG": "/tmp/emptyfile",
 		},

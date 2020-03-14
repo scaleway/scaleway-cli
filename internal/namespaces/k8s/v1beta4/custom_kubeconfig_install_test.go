@@ -108,7 +108,6 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 }
 
 func Test_InstallKubeconfig(t *testing.T) {
-
 	////
 	// Simple use cases
 	////
