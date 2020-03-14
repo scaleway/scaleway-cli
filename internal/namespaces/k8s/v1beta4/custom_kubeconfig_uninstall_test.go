@@ -102,5 +102,4 @@ func Test_UninstallKubeconfig(t *testing.T) {
 			"KUBECONFIG": "/tmp/cli-uninstall-merge-test",
 		},
 	}))
-
 }
