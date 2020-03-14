@@ -54,7 +54,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 			return err
 		}
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		cmd = fmt.Sprintf("scw k8s kubeconfig install cluster-id=%s", cluster.ID)
+		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
 		_ = ctx.ExecuteCmd(cmd)
 		return nil
 	}
@@ -103,7 +103,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, 
 		if err != nil {
 			return err
 		}
-		cmd = fmt.Sprintf("scw k8s kubeconfig install cluster-id=%s", cluster.ID)
+		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
 		_ = ctx.ExecuteCmd(cmd)
 
 		return nil

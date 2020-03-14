@@ -114,7 +114,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig install cluster-id={{ .Cluster.ID }}",
+		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -131,7 +131,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 
 	t.Run("merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig install cluster-id={{ .Cluster.ID }}",
+		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, "/tmp/cli-merge-test", []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

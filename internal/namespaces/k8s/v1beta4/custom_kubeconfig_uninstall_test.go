@@ -55,7 +55,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	////
 	t.Run("uninstall", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig uninstall cluster-id={{ .Cluster.ID }}",
+		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndInstallKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -71,7 +71,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	}))
 	t.Run("empty file", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig uninstall cluster-id={{ .Cluster.ID }}",
+		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -88,7 +88,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	}))
 	t.Run("uninstall-merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		Cmd:        "scw k8s kubeconfig uninstall cluster-id={{ .Cluster.ID }}",
+		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, "/tmp/cli-uninstall-merge-test", []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

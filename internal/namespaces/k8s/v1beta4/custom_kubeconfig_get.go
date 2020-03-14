@@ -25,9 +25,10 @@ func k8sKubeconfigGetCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(),
 			{
-				Name:     "cluster-id",
-				Short:    "Cluster ID from which to retrieve the kubeconfig",
-				Required: true,
+				Name:       "cluster-id",
+				Short:      "Cluster ID from which to retrieve the kubeconfig",
+				Required:   true,
+				Positional: true,
 			},
 		},
 		Run: k8sKubeconfigGetRun,
