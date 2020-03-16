@@ -9,8 +9,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// CreateClient creates a Scaleway SDK client.
-func CreateClient(meta *meta) (*scw.Client, error) {
+// createClient creates a Scaleway SDK client.
+func createClient(meta *meta) (*scw.Client, error) {
 	_, err := scw.MigrateLegacyConfig()
 	if err != nil {
 		return nil, err

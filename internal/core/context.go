@@ -60,6 +60,18 @@ func ExtractClient(ctx context.Context) *scw.Client {
 	return extractMeta(ctx).Client
 }
 
+func ExtractClientOrCreate(ctx context.Context) (*scw.Client, error) {
+	client := ExtractClient(ctx)
+	if client == nil {
+		err := error(nil)
+		client, err = createClient(nil)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return client, nil
+}
+
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
 }
