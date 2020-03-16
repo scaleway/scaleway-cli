@@ -8,6 +8,12 @@ import (
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
 )
 
+func init() {
+	if !core.UpdateCassettes {
+		k8s.RetryInterval = 0
+	}
+}
+
 const (
 	kapsuleVersion = "1.17.3"
 )
