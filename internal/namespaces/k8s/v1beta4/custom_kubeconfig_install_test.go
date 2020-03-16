@@ -118,7 +118,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 			},
@@ -135,7 +135,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "", testKubeconfig)

@@ -58,7 +58,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndInstallKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 			},
@@ -74,7 +74,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfig("EmptyCluster", "Kubeconfig", kapsuleVersion),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				_, err := os.Stat(path.Join(os.TempDir(), "emptyfile"))
 				assert.True(t, os.IsNotExist(err))
@@ -91,7 +91,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-uninstall-merge-test"), []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "", testKubeconfig)
