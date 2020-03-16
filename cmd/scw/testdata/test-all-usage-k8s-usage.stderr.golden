@@ -5,6 +5,9 @@ USAGE:
 
 AVAILABLE COMMANDS:
   cluster     A cluster is a Kubernetes Kapsule cluster
+  pool        A pool is a virtual group of nodes in a cluster
+  node        A node is the representation of a Scaleway instance in a cluster
+  version     A version is a Kubernetes version
 
 FLAGS:
   -h, --help   help for k8s

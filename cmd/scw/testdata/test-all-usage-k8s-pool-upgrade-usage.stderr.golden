@@ -1,0 +1,17 @@
+This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
+
+USAGE:
+  scw k8s pool upgrade [arg=value ...]
+
+ARGS:
+  pool-id     The ID of the pool to upgrade
+  [version]   The new Kubernetes version for the pool
+  [region]    Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for upgrade
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

@@ -1,0 +1,16 @@
+This method allows to get details about a specific pool.
+
+USAGE:
+  scw k8s pool get [arg=value ...]
+
+ARGS:
+  pool-id    The ID of the requested pool
+  [region]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
