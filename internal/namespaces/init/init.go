@@ -81,10 +81,6 @@ func initCommand() *core.Command {
 				Name:       "region",
 				EnumValues: []string{"fr-par", "nl-ams"},
 			},
-			{
-				Name:       "zone",
-				EnumValues: []string{"fr-par-1", "fr-par-2", "nl-ams-1"},
-			},
 			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
 			// See workflow in cobra_utils.go/cobraRun().
 			// It is not required in the command line: the user is not obliged to type it.
@@ -101,6 +97,7 @@ func initCommand() *core.Command {
 				Name:  "install-autocomplete",
 				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
+			core.ZoneArgSpec(),
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
