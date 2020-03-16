@@ -2,7 +2,7 @@ package baremetal
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -12,8 +12,6 @@ import (
 
 type createServerRequest struct {
 	Zone scw.Zone `json:"-"`
-	// OfferID offer ID of the new server
-	//OfferID string `json:"offer_id"`
 	// OrganizationID with which the server will be created
 	OrganizationID string `json:"organization_id"`
 	// Name of the server (≠hostname)
@@ -56,7 +54,7 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:    "name",
-				Short:   `Name of the server (≠hostname)`,
+				Short:   `Name of the server`,
 				Default: core.RandomValueGenerator("bm"),
 			},
 			{
@@ -123,30 +121,17 @@ func baremetalServerCreateRun(ctx context.Context, argsI interface{}) (i interfa
 	// while baremetal does not have listoffer name filter we are forced to iterate
 	// on the list of offers provided
 	requestedType := tmpRequest.Type
-	offerID := findOfferID(api, tmpRequest.Zone, requestedType)
-	if offerID == "" {
-		log.Fatal("Could not match")
+	offer, err := api.GetOfferFromName(&baremetal.GetOfferIDFromOfferNameRequest{
+		OfferName: requestedType,
+		Zone:      tmpRequest.Zone,
+	})
+	if err != nil {
+		return nil, err
 	}
-	request.OfferID = offerID
+	if offer == nil {
+		return nil, fmt.Errorf("could not match an offer with the type: %s", requestedType)
+	}
+	request.OfferID = offer.ID
 
 	return api.CreateServer(request)
-}
-
-func findOfferID(api *baremetal.API, zone scw.Zone, requestedType string) string {
-	res, err := api.ListOffers(
-		&baremetal.ListOffersRequest{
-			Zone: zone},
-		scw.WithAllPages())
-
-	if err != nil {
-		log.Fatal("Could not fetch list of offers.")
-	}
-
-	for _, v := range res.Offers {
-		offerName := v.Name
-		if requestedType == offerName {
-			return v.ID
-		}
-	}
-	return ""
 }
