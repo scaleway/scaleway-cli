@@ -68,7 +68,6 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		OverrideEnv: map[string]string{
 			"KUBECONFIG": path.Join(os.TempDir(), "cli-uninstall-test"),
 		},
-		DisableParallel: true,
 	}))
 	t.Run("empty file", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
@@ -86,7 +85,6 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		OverrideEnv: map[string]string{
 			"KUBECONFIG": path.Join(os.TempDir(), "emptyfile"),
 		},
-		DisableParallel: true,
 	}))
 	t.Run("uninstall-merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
@@ -104,6 +102,5 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		OverrideEnv: map[string]string{
 			"KUBECONFIG": path.Join(os.TempDir(), "cli-uninstall-merge-test"),
 		},
-		DisableParallel: true,
 	}))
 }
