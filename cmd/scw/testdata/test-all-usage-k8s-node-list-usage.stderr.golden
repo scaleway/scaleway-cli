@@ -1,0 +1,20 @@
+This method allows to list all the existing nodes for a specific Kubernetes cluster.
+
+USAGE:
+  scw k8s node list [arg=value ...]
+
+ARGS:
+  cluster-id   The cluster ID from which the nodes will be listed from
+  [pool-id]    The pool ID on which to filter the returned nodes
+  [order-by]   The sort order of the returned nodes (created_at_asc | created_at_desc)
+  [name]       The name on which to filter the returned nodes
+  [status]     The status on which to filter the returned nodes (unknown | creating | rebuilding | notready | ready | deleting | deleted | warning | error | locked | rebooting | creation_error)
+  [region]     Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

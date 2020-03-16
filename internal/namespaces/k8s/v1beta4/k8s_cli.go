@@ -21,6 +21,9 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		k8sRoot(),
 		k8sCluster(),
+		k8sPool(),
+		k8sNode(),
+		k8sVersion(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -29,6 +32,17 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterUpgrade(),
 		k8sClusterListAvailableVersions(),
 		k8sClusterResetAdminToken(),
+		k8sPoolList(),
+		k8sPoolCreate(),
+		k8sPoolGet(),
+		k8sPoolUpgrade(),
+		k8sPoolUpdate(),
+		k8sPoolDelete(),
+		k8sNodeList(),
+		k8sNodeGet(),
+		k8sNodeReplace(),
+		k8sNodeReboot(),
+		k8sVersionList(),
 	)
 }
 func k8sRoot() *core.Command {
@@ -48,6 +62,44 @@ It is composed of different pools, each pool containing the same kind of nodes.
 `,
 		Namespace: "k8s",
 		Resource:  "cluster",
+	}
+}
+
+func k8sPool() *core.Command {
+	return &core.Command{
+		Short: `A pool is a virtual group of nodes in a cluster`,
+		Long: `A pool is a set of identical Nodes. A pool has a name, a size (its current number of nodes), nodes number limits (min, max) and a Scaleway instance type.
+Changing those limits increases/decreases the size of a pool. Thus, when autoscaling is enabled, the pool will grow or shrink inside those limits, depending on its load.
+A "default pool" is automatically created with every cluster.
+`,
+		Namespace: "k8s",
+		Resource:  "pool",
+	}
+}
+
+func k8sNode() *core.Command {
+	return &core.Command{
+		Short: `A node is the representation of a Scaleway instance in a cluster`,
+		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance.
+It is part of a pool and is instantiated by Scaleway, making Kubernetes software installed and configured automatically on it.
+Please note that Kubernetes nodes cannot be accessed with ssh.
+`,
+		Namespace: "k8s",
+		Resource:  "node",
+	}
+}
+
+func k8sVersion() *core.Command {
+	return &core.Command{
+		Short: `A version is a Kubernetes version`,
+		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `. 
+It is composed of a major version x, a minor version y and a patch version z.
+Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.
+
+Also each version have a different set of container runtimes, CNIs, ingresses, feature gates and admission plugins available.
+`,
+		Namespace: "k8s",
+		Resource:  "version",
 	}
 }
 
@@ -89,7 +141,7 @@ func k8sClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			resp, err := api.ListClusters(request, scw.WithAllPages())
+			resp, err := api.ListClusters(request)
 			if err != nil {
 				return nil, err
 			}
@@ -611,5 +663,535 @@ func k8sClusterResetAdminToken() *core.Command {
 			}
 			return &core.SuccessResult{}, nil
 		},
+	}
+}
+
+func k8sPoolList() *core.Command {
+	return &core.Command{
+		Short:     `List all the pools in a cluster`,
+		Long:      `This method allows to list all the existing pools for a specific Kubernetes cluster.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(k8s.ListPoolsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "cluster-id",
+				Short:    `The ID of the cluster from which the pools will be listed from`,
+				Required: true,
+			},
+			{
+				Name:       "order-by",
+				Short:      `The sort order of the returned pools`,
+				Required:   false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+			},
+			{
+				Name:     "name",
+				Short:    `The name on which to filter the returned pools`,
+				Required: false,
+			},
+			{
+				Name:       "status",
+				Short:      `The status on which to filter the returned pools`,
+				Required:   false,
+				EnumValues: []string{"unknown", "creating", "ready", "deleting", "deleted", "updating", "scaling", "warning", "error", "locked", "upgrading"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListPoolsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			resp, err := api.ListPools(request)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Pools, nil
+
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "id",
+			},
+			{
+				FieldName: "name",
+			},
+			{
+				FieldName: "status",
+			},
+			{
+				FieldName: "node_type",
+			},
+			{
+				FieldName: "size",
+			},
+			{
+				FieldName: "min_size",
+			},
+			{
+				FieldName: "max_size",
+			},
+			{
+				FieldName: "autoscaling",
+			},
+			{
+				FieldName: "autohealing",
+			},
+			{
+				FieldName: "version",
+			},
+			{
+				FieldName: "tags",
+			},
+			{
+				FieldName: "container_runtime",
+			},
+			{
+				FieldName: "cluster_id",
+			},
+			{
+				FieldName: "region",
+			},
+			{
+				FieldName: "placement_group_id",
+			},
+			{
+				FieldName: "created_at",
+			},
+			{
+				FieldName: "updated_at",
+			},
+		}},
+	}
+}
+
+func k8sPoolCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new pool in a cluster`,
+		Long:      `This method allows to create a new pool in a specific Kubernetes cluster.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "create",
+		ArgsType:  reflect.TypeOf(k8s.CreatePoolRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "cluster-id",
+				Short:    `The ID of the cluster in which the pool will be created`,
+				Required: true,
+			},
+			{
+				Name:     "name",
+				Short:    `The name of the pool`,
+				Required: true,
+			},
+			{
+				Name:     "node-type",
+				Short:    `The node type is the type of Scaleway Instance wanted for the pool`,
+				Required: true,
+			},
+			{
+				Name:     "placement-group-id",
+				Short:    `The placement group ID in which all the nodes of the pool will be created`,
+				Required: false,
+			},
+			{
+				Name:     "autoscaling",
+				Short:    `The enablement of the autoscaling feature for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "size",
+				Short:    `The size (number of nodes) of the pool`,
+				Required: true,
+			},
+			{
+				Name:     "min-size",
+				Short:    `The minimun size of the pool`,
+				Required: false,
+			},
+			{
+				Name:     "max-size",
+				Short:    `The maximum size of the pool`,
+				Required: false,
+			},
+			{
+				Name:       "container-runtime",
+				Short:      `The container runtime for the nodes of the pool`,
+				Required:   false,
+				EnumValues: []string{"unknown_runtime", "docker", "containerd", "crio"},
+			},
+			{
+				Name:     "autohealing",
+				Short:    `The enablement of the autohealing feature for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "tags.{index}",
+				Short:    `The tags associated with the pool`,
+				Required: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.CreatePoolRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.CreatePool(request)
+
+		},
+	}
+}
+
+func k8sPoolGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a pool in a cluster`,
+		Long:      `This method allows to get details about a specific pool.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(k8s.GetPoolRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "pool-id",
+				Short:    `The ID of the requested pool`,
+				Required: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.GetPoolRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.GetPool(request)
+
+		},
+	}
+}
+
+func k8sPoolUpgrade() *core.Command {
+	return &core.Command{
+		Short:     `Upgrade a pool in a cluster`,
+		Long:      `This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "upgrade",
+		ArgsType:  reflect.TypeOf(k8s.UpgradePoolRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "pool-id",
+				Short:    `The ID of the pool to upgrade`,
+				Required: true,
+			},
+			{
+				Name:     "version",
+				Short:    `The new Kubernetes version for the pool`,
+				Required: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.UpgradePoolRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.UpgradePool(request)
+
+		},
+	}
+}
+
+func k8sPoolUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a pool in a cluster`,
+		Long:      `This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(k8s.UpdatePoolRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "pool-id",
+				Short:    `The ID of the pool to update`,
+				Required: true,
+			},
+			{
+				Name:     "autoscaling",
+				Short:    `The new value for the enablement of autoscaling for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "size",
+				Short:    `The new size for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "min-size",
+				Short:    `The new minimun size for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "max-size",
+				Short:    `The new maximum size for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "autohealing",
+				Short:    `The new value for the enablement of autohealing for the pool`,
+				Required: false,
+			},
+			{
+				Name:     "tags",
+				Short:    `The new tags associated with the pool`,
+				Required: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.UpdatePoolRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.UpdatePool(request)
+
+		},
+	}
+}
+
+func k8sPoolDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a pool in a cluster`,
+		Long:      `This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "delete",
+		ArgsType:  reflect.TypeOf(k8s.DeletePoolRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "pool-id",
+				Short:    `The ID of the pool to delete`,
+				Required: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.DeletePoolRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.DeletePool(request)
+
+		},
+	}
+}
+
+func k8sNodeList() *core.Command {
+	return &core.Command{
+		Short:     `List all the nodes in a cluster`,
+		Long:      `This method allows to list all the existing nodes for a specific Kubernetes cluster.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(k8s.ListNodesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "cluster-id",
+				Short:    `The cluster ID from which the nodes will be listed from`,
+				Required: true,
+			},
+			{
+				Name:     "pool-id",
+				Short:    `The pool ID on which to filter the returned nodes`,
+				Required: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `The sort order of the returned nodes`,
+				Required:   false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:     "name",
+				Short:    `The name on which to filter the returned nodes`,
+				Required: false,
+			},
+			{
+				Name:       "status",
+				Short:      `The status on which to filter the returned nodes`,
+				Required:   false,
+				EnumValues: []string{"unknown", "creating", "rebuilding", "notready", "ready", "deleting", "deleted", "warning", "error", "locked", "rebooting", "creation_error"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListNodesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			resp, err := api.ListNodes(request)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Nodes, nil
+
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "id",
+			},
+			{
+				FieldName: "name",
+			},
+			{
+				FieldName: "status",
+			},
+			{
+				FieldName: "public_ip_v4",
+			},
+			{
+				FieldName: "public_ip_v6",
+			},
+			{
+				FieldName: "pool_id",
+			},
+			{
+				FieldName: "cluster_id",
+			},
+			{
+				FieldName: "region",
+			},
+			{
+				FieldName: "created_at",
+			},
+			{
+				FieldName: "updated_at",
+			},
+		}},
+	}
+}
+
+func k8sNodeGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a node in a cluster`,
+		Long:      `This method allows to get details about a specific Kubernetes node.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(k8s.GetNodeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "node-id",
+				Short:    `The ID of the requested node`,
+				Required: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.GetNodeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.GetNode(request)
+
+		},
+	}
+}
+
+func k8sNodeReplace() *core.Command {
+	return &core.Command{
+		Short:     `Replace a node in a cluster`,
+		Long:      `This method allows to replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "replace",
+		ArgsType:  reflect.TypeOf(k8s.ReplaceNodeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "node-id",
+				Short:    `The ID of the node to replace`,
+				Required: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ReplaceNodeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.ReplaceNode(request)
+
+		},
+	}
+}
+
+func k8sNodeReboot() *core.Command {
+	return &core.Command{
+		Short:     `Reboot a node in a cluster`,
+		Long:      `This method allows to reboot a specific node. This node will frist be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "reboot",
+		ArgsType:  reflect.TypeOf(k8s.RebootNodeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "node-id",
+				Short:    `The ID of the node to reboot`,
+				Required: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.RebootNodeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.RebootNode(request)
+
+		},
+	}
+}
+
+func k8sVersionList() *core.Command {
+	return &core.Command{
+		Short:     `List all available versions`,
+		Long:      `This method allows to list all available versions for the creation of a new Kubernetes cluster.`,
+		Namespace: "k8s",
+		Resource:  "version",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(k8s.ListVersionsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListVersionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.ListVersions(request)
+
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "name",
+			},
+			{
+				FieldName: "available_cnis",
+			},
+			{
+				FieldName: "available_ingresses",
+			},
+			{
+				FieldName: "available_container_runtimes",
+			},
+			{
+				FieldName: "available_feature_gates",
+			},
+			{
+				FieldName: "available_admission_plugins",
+			},
+		}},
 	}
 }

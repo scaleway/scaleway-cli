@@ -131,7 +131,7 @@ func baremetalServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListServers(request, scw.WithAllPages())
+			resp, err := api.ListServers(request)
 			if err != nil {
 				return nil, err
 			}

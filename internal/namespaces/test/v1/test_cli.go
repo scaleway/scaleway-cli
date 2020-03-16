@@ -119,7 +119,7 @@ func testHumanList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			resp, err := api.ListHumans(request, scw.WithAllPages())
+			resp, err := api.ListHumans(request)
 			if err != nil {
 				return nil, err
 			}

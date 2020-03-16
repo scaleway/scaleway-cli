@@ -344,7 +344,7 @@ func instanceServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListServers(request, scw.WithAllPages())
+			resp, err := api.ListServers(request)
 			if err != nil {
 				return nil, err
 			}
@@ -700,7 +700,7 @@ func instanceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListImages(request, scw.WithAllPages())
+			resp, err := api.ListImages(request)
 			if err != nil {
 				return nil, err
 			}
@@ -903,7 +903,7 @@ func instanceSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSnapshots(request, scw.WithAllPages())
+			resp, err := api.ListSnapshots(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1078,7 +1078,7 @@ func instanceVolumeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListVolumes(request, scw.WithAllPages())
+			resp, err := api.ListVolumes(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1296,7 +1296,7 @@ func instanceSecurityGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListSecurityGroups(request, scw.WithAllPages())
+			resp, err := api.ListSecurityGroups(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1487,7 +1487,7 @@ func instancePlacementGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListPlacementGroups(request, scw.WithAllPages())
+			resp, err := api.ListPlacementGroups(request)
 			if err != nil {
 				return nil, err
 			}
@@ -1725,7 +1725,7 @@ func instanceIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			resp, err := api.ListIPs(request, scw.WithAllPages())
+			resp, err := api.ListIPs(request)
 			if err != nil {
 				return nil, err
 			}

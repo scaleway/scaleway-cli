@@ -1,0 +1,1 @@
+Scaleway-sdk-go: error executing request: Get https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers?order_by=created_at_asc&tags=a: Requested interaction not found

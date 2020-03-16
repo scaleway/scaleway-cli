@@ -1,0 +1,1 @@
+Scaleway-sdk-go: error executing request: Get https://api.scaleway.com/instance/v1/zones/fr-par-1/servers: Requested interaction not found
