@@ -63,7 +63,7 @@ func ExtractClient(ctx context.Context) *scw.Client {
 func ExtractClientOrCreate(ctx context.Context) (*scw.Client, error) {
 	client := ExtractClient(ctx)
 	if client == nil {
-		err := error(nil)
+		var err error
 		client, err = createClient(nil)
 		if err != nil {
 			return nil, err
