@@ -3,6 +3,7 @@ package k8s
 import (
 	"io/ioutil"
 	"os"
+	"path"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -59,13 +60,13 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigNotInFile(t, "/tmp/cli-uninstall-test", "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 			},
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteCluster("Cluster"),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": "/tmp/cli-uninstall-test",
+			"KUBECONFIG": path.Join(os.TempDir(), "cli-uninstall-test"),
 		},
 	}))
 	t.Run("empty file", core.Test(&core.TestConfig{
@@ -75,31 +76,31 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				_, err := os.Stat("/tmp/emptyfile")
+				_, err := os.Stat(path.Join(os.TempDir(), "emptyfile"))
 				assert.True(t, os.IsNotExist(err))
 			},
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteCluster("EmptyCluster"),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": "/tmp/emptyfile",
+			"KUBECONFIG": path.Join(os.TempDir(), "emptyfile"),
 		},
 	}))
 	t.Run("uninstall-merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, "/tmp/cli-uninstall-merge-test", []byte(existingKubeconfigs)),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-uninstall-merge-test"), []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigNotInFile(t, "/tmp/cli-uninstall-merge-test", "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
-				testIfKubeconfigInFile(t, "/tmp/cli-uninstall-merge-test", "", testKubeconfig)
+				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "", testKubeconfig)
 			},
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteCluster("Cluster"),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": "/tmp/cli-uninstall-merge-test",
+			"KUBECONFIG": path.Join(os.TempDir(), "cli-uninstall-merge-test"),
 		},
 	}))
 }

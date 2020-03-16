@@ -2,6 +2,8 @@ package k8s
 
 import (
 	"io/ioutil"
+	"os"
+	"path"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -118,31 +120,31 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigInFile(t, "/tmp/cli-test", "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
 			},
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteCluster("Cluster"),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": "/tmp/cli-test",
+			"KUBECONFIG": path.Join(os.TempDir(), "cli-test"),
 		},
 	}))
 
 	t.Run("merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, "/tmp/cli-merge-test", []byte(existingKubeconfigs)),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfigs)),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigInFile(t, "/tmp/cli-merge-test", "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
-				testIfKubeconfigInFile(t, "/tmp/cli-merge-test", "", testKubeconfig)
+				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "", testKubeconfig)
 			},
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteCluster("Cluster"),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": "/tmp/cli-merge-test",
+			"KUBECONFIG": path.Join(os.TempDir(), "cli-merge-test"),
 		},
 	}))
 }
