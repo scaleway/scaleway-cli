@@ -1,0 +1,22 @@
+This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...
+
+USAGE:
+  scw k8s pool update [arg=value ...]
+
+ARGS:
+  pool-id         The ID of the pool to update
+  [autoscaling]   The new value for the enablement of autoscaling for the pool
+  [size]          The new size for the pool
+  [min-size]      The new minimun size for the pool
+  [max-size]      The new maximum size for the pool
+  [autohealing]   The new value for the enablement of autohealing for the pool
+  [tags]          The new tags associated with the pool
+  [region]        Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
