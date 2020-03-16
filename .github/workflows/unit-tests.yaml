@@ -19,12 +19,10 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
-    - run:
-        name: Run unit tests
-        command: go test -v ./...
-    - run: # Test the runtime for potential panics.
-        name: Execute main binary
-        command: go run cmd/scw/main.go -h
+    - name: Run unit tests
+      run: go test -v ./...
+    - name: Execute main binary # Test the runtime for potential panics.
+      run: go run cmd/scw/main.go -h
 
   build-tests:
     strategy:

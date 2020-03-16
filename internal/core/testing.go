@@ -112,10 +112,17 @@ type TestConfig struct {
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
-	fileName := t.Name()
-	fileName = strings.Replace(fileName, "/", "-", -1)
+	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
+
+	// Replace nested tests separators.
+	fileName := strings.Replace(t.Name(), "/", "-", -1)
+
 	fileName = strcase.ToBashArg(fileName)
-	return filepath.Join(".", "testdata", fileName+suffix)
+
+	// Replace special characters.
+	fileName = specialChars.ReplaceAllLiteralString(fileName, "") + suffix
+
+	return filepath.Join(".", "testdata", fileName)
 }
 
 func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
@@ -385,6 +392,11 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 		assert.NotNil(t, err)
 	} else {
 		require.NoError(t, err)
+
+		// Replace Windows return carriage.
+		expected = bytes.ReplaceAll(expected, []byte("\r"), []byte(""))
+		actual = bytes.ReplaceAll(actual, []byte("\r"), []byte(""))
+
 		assert.Equal(t, string(expected), string(actual))
 	}
 }
