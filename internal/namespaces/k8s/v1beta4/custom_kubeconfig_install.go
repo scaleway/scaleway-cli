@@ -114,10 +114,10 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	found = false
-	for _, context := range existingKubeconfig.Contexts {
-		if context.Name == kubeconfig.Contexts[0].Name+"-"+args.ClusterID {
+	for _, kubeconfigContext := range existingKubeconfig.Contexts {
+		if kubeconfigContext.Name == kubeconfig.Contexts[0].Name+"-"+args.ClusterID {
 			found = true
-			context.Context = k8s.KubeconfigContext{
+			kubeconfigContext.Context = k8s.KubeconfigContext{
 				Cluster: kubeconfig.Clusters[0].Name + "-" + args.ClusterID,
 				User:    kubeconfig.Users[0].Name + "-" + args.ClusterID,
 			}

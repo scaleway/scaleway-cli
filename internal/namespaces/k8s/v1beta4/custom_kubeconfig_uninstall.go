@@ -84,9 +84,9 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 	}
 
 	newContexts := []*k8s.KubeconfigContextWithName{}
-	for _, context := range existingKubeconfig.Contexts {
-		if !strings.HasSuffix(context.Name, args.ClusterID) {
-			newContexts = append(newContexts, context)
+	for _, kubeconfigContext := range existingKubeconfig.Contexts {
+		if !strings.HasSuffix(kubeconfigContext.Name, args.ClusterID) {
+			newContexts = append(newContexts, kubeconfigContext)
 		}
 	}
 
