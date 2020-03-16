@@ -79,18 +79,18 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 
 func waitForClusterFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		_, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
+		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
 			Region:    respI.(*k8s.Cluster).Region,
 			ClusterID: respI.(*k8s.Cluster).ID,
 			Timeout:   scw.DurationPtr(clusterActionTimeout),
 		})
 		switch action {
 		case clusterActionCreate:
-			return fmt.Sprintf("Cluster %s successfully created.", respI.(*k8s.Cluster).ID), nil
+			return cluster, err
 		case clusterActionUpdate:
-			return fmt.Sprintf("Cluster %s successfully updated.", respI.(*k8s.Cluster).ID), nil
+			return cluster, err
 		case clusterActionUpgrade:
-			return fmt.Sprintf("Cluster %s successfully upgraded.", respI.(*k8s.Cluster).ID), nil
+			return cluster, err
 		case clusterActionDelete:
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
