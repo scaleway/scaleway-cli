@@ -21,12 +21,12 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create",
+			Cmd:      "scw baremetal server create zone=fr-par-2",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc:   deleteServerAfterFunc,
+			//AfterFunc:   deleteServerAfterFunc,
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 
@@ -39,12 +39,13 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			DefaultZone: scw.ZoneFrPar2,
+			//AfterFunc: deleteServerAfterFunc,
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=fr-par-2",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*baremetal.Server).Tags[0])
@@ -52,12 +53,13 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			DefaultZone: scw.ZoneFrPar2,
+			//AfterFunc: deleteServerAfterFunc,
 		}))
 
 		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
 		//	Commands: GetCommands(),
-		//	Cmd:      "scw baremetal server create type=HC-BM1-L",
+		//	Cmd:      "scw baremetal server create type=HC-BM1-L zone=fr-par-2",
 		//	Check: core.TestCheckCombine(
 		//		func(t *testing.T, ctx *core.CheckFuncCtx) {
 		//			assert.Equal(t, "HC-BM1-L", ctx.Result.(*baremetal.Server).CommercialType)
