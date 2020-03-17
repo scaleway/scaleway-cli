@@ -3,6 +3,10 @@ This method allows to replace a specific node. The node will be set cordoned, me
 USAGE:
   scw k8s node replace [arg=value ...]
 
+EXAMPLES:
+  Replace a given node
+    scw k8s node replace
+
 ARGS:
   node-id    The ID of the node to replace
   [region]   Region to target. If none is passed will use default region from the config (fr-par)

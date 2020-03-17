@@ -3,6 +3,10 @@ This method allows to delete a specific pool from a cluster, deleting all the no
 USAGE:
   scw k8s pool delete [arg=value ...]
 
+EXAMPLES:
+  Delete a given pool
+    scw k8s pool delete
+
 ARGS:
   pool-id    The ID of the pool to delete
   [region]   Region to target. If none is passed will use default region from the config (fr-par)

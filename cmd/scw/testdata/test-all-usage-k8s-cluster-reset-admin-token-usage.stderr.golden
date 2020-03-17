@@ -3,6 +3,10 @@ This method allows to reset the admin token for a specific Kubernetes cluster. T
 USAGE:
   scw k8s cluster reset-admin-token [arg=value ...]
 
+EXAMPLES:
+  Reset the admin token for a given cluster
+    scw k8s cluster reset-admin-token
+
 ARGS:
   cluster-id   The ID of the cluster of which the admin token will be renewed
   [region]     Region to target. If none is passed will use default region from the config (fr-par)

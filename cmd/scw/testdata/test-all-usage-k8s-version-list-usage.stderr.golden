@@ -3,6 +3,10 @@ This method allows to list all available versions for the creation of a new Kube
 USAGE:
   scw k8s version list [arg=value ...]
 
+EXAMPLES:
+  List all available Kubernetes version in Kapsule
+    scw k8s version list
+
 ARGS:
   [region]   Region to target. If none is passed will use default region from the config (fr-par)
 

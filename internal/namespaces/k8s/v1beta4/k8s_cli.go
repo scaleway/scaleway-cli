@@ -369,6 +369,16 @@ func k8sClusterCreate() *core.Command {
 			return api.CreateCluster(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a default pool composed of 3 DEV1-M",
+				Raw:   `scw k8s cluster create name=foo version=1.17.4 default-pool-config.size=3 default-pool-config.node-type=RENDER-S`,
+			},
+			{
+				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged default pool composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
+				Raw:   `scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium default-pool-config.size=2 default-pool-config.node-type=RENDER-S default-pool-config.min-size=1 default-pool-config.max-size=10 default-pool-config.autohealing=true default-pool-config.autoscaling=true default-pool-config.tags.0=pooltag1 default-pool-config.tags.1=pooltag2`,
+			},
+		},
 	}
 }
 
@@ -398,8 +408,8 @@ func k8sClusterGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get the cluster with id 11111111-1111-1111-111111111111",
-				Request: `{"cluster-id":"11111111-1111-1111-111111111111"}`,
+				Short: "Get a given cluster",
+				Raw:   `scw k8s cluster get cluster-id=11111111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -520,12 +530,12 @@ func k8sClusterUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Enable dashboard on cluster 11111111-1111-1111-111111111111",
-				Request: `{"cluster-id":"11111111-1111-1111-111111111111","enable-dashboard":true}`,
+				Short: "Enable dashboard on a given cluster",
+				Raw:   `scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 enable-dashboard=true`,
 			},
 			{
-				Short:   "Add TTLAfterFinished Feature gates on cluster 11111111-1111-1111-111111111111",
-				Request: `{"cluster-id":"11111111-1111-1111-111111111111","feature-gates":["TTLAfterFinished"]}`,
+				Short: "Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster",
+				Raw:   `scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion`,
 			},
 		},
 	}
@@ -554,6 +564,12 @@ func k8sClusterDelete() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.DeleteCluster(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete a given cluster",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -592,6 +608,16 @@ func k8sClusterUpgrade() *core.Command {
 			return api.UpgradeCluster(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)",
+				Request: `null`,
+			},
+			{
+				Short:   "Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -618,6 +644,12 @@ func k8sClusterListAvailableVersions() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.ListClusterAvailableVersions(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all available versions for a given cluster to upgrade to",
+				Request: `null`,
+			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -662,6 +694,12 @@ func k8sClusterResetAdminToken() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Reset the admin token for a given cluster",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -710,6 +748,24 @@ func k8sPoolList() *core.Command {
 			}
 			return resp.Pools, nil
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all pools for a given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "List all scaling pools for a given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "List all pools for a given cluster that contain the word foo in the pool name",
+				Request: `null`,
+			},
+			{
+				Short:   "List all pools for a given cluster and order them by ascending creation date",
+				Request: `null`,
+			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -842,6 +898,20 @@ func k8sPoolCreate() *core.Command {
 			return api.CreatePool(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Create a pool named bar with 2 DEV1-XL on a given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -868,6 +938,12 @@ func k8sPoolGet() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.GetPool(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get a given pool",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -900,6 +976,12 @@ func k8sPoolUpgrade() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.UpgradePool(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Upgrade a given pool to the Kubernetes version 1.17.4",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -958,6 +1040,20 @@ func k8sPoolUpdate() *core.Command {
 			return api.UpdatePool(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Enable autoscaling on a given pool",
+				Request: `null`,
+			},
+			{
+				Short:   "Reduce the size and max size of a given pool to 4",
+				Request: `null`,
+			},
+			{
+				Short:   "Change the tags of the given pool",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -984,6 +1080,12 @@ func k8sPoolDelete() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.DeletePool(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Delete a given pool",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -1037,6 +1139,20 @@ func k8sNodeList() *core.Command {
 			}
 			return resp.Nodes, nil
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all the nodes in the given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster",
+				Request: `null`,
+			},
+			{
+				Short:   "List all ready nodes in the given cluster",
+				Request: `null`,
+			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1097,6 +1213,12 @@ func k8sNodeGet() *core.Command {
 			return api.GetNode(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get a given node",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -1123,6 +1245,12 @@ func k8sNodeReplace() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.ReplaceNode(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Replace a given node",
+				Request: `null`,
+			},
 		},
 	}
 }
@@ -1151,6 +1279,12 @@ func k8sNodeReboot() *core.Command {
 			return api.RebootNode(request)
 
 		},
+		Examples: []*core.Example{
+			{
+				Short:   "Reboot a given node",
+				Request: `null`,
+			},
+		},
 	}
 }
 
@@ -1172,6 +1306,12 @@ func k8sVersionList() *core.Command {
 			api := k8s.NewAPI(client)
 			return api.ListVersions(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "List all available Kubernetes version in Kapsule",
+				Request: `null`,
+			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{

@@ -3,6 +3,10 @@ This method allows to get details about a specific Kubernetes node.
 USAGE:
   scw k8s node get [arg=value ...]
 
+EXAMPLES:
+  Get a given node
+    scw k8s node get
+
 ARGS:
   node-id    The ID of the requested node
   [region]   Region to target. If none is passed will use default region from the config (fr-par)

@@ -3,6 +3,10 @@ This method allows to get details about a specific pool.
 USAGE:
   scw k8s pool get [arg=value ...]
 
+EXAMPLES:
+  Get a given pool
+    scw k8s pool get
+
 ARGS:
   pool-id    The ID of the requested pool
   [region]   Region to target. If none is passed will use default region from the config (fr-par)
