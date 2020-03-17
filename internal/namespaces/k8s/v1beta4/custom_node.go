@@ -15,10 +15,6 @@ const (
 	nodeActionTimeout = 10 * time.Minute
 )
 
-//
-// Marshalers
-//
-
 // nodeStatusMarshalerFunc marshals a k8s.NodeStatus.
 var (
 	nodeStatusAttributes = human.Attributes{
