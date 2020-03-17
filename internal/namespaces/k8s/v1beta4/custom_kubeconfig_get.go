@@ -10,8 +10,8 @@ import (
 )
 
 type k8sKubeconfigGetRequest struct {
-	Region    scw.Region
 	ClusterID string
+	Region    scw.Region
 }
 
 func k8sKubeconfigGetCommand() *core.Command {
@@ -23,24 +23,24 @@ func k8sKubeconfigGetCommand() *core.Command {
 		Resource:  "kubeconfig",
 		ArgsType:  reflect.TypeOf(k8sKubeconfigGetRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(),
 			{
 				Name:       "cluster-id",
 				Short:      "Cluster ID from which to retrieve the kubeconfig",
 				Required:   true,
 				Positional: true,
 			},
+			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigGetRun,
 	}
 }
 
 func k8sKubeconfigGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*k8sKubeconfigGetRequest)
+	request := argsI.(*k8sKubeconfigGetRequest)
 
 	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{
-		Region:    args.Region,
-		ClusterID: args.ClusterID,
+		Region:    request.Region,
+		ClusterID: request.ClusterID,
 	}
 
 	client := core.ExtractClient(ctx)

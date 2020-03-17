@@ -22,8 +22,8 @@ const (
 )
 
 type k8sKubeconfigInstallRequest struct {
-	Region    scw.Region
 	ClusterID string
+	Region    scw.Region
 }
 
 func k8sKubeconfigInstallCommand() *core.Command {
@@ -35,41 +35,45 @@ func k8sKubeconfigInstallCommand() *core.Command {
 		Resource:  "kubeconfig",
 		ArgsType:  reflect.TypeOf(k8sKubeconfigInstallRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(),
 			{
 				Name:       "cluster-id",
 				Short:      "Cluster ID from which to retrieve the kubeconfig",
 				Required:   true,
 				Positional: true,
 			},
+			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigInstallRun,
 	}
 }
 
 func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*k8sKubeconfigInstallRequest)
+	request := argsI.(*k8sKubeconfigInstallRequest)
 
 	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{
-		Region:    args.Region,
-		ClusterID: args.ClusterID,
+		Region:    request.Region,
+		ClusterID: request.ClusterID,
 	}
 
 	client := core.ExtractClient(ctx)
 	apiK8s := k8s.NewAPI(client)
 
+	// get the wanted kubeconfig
 	kubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
 	if err != nil {
 		return nil, err
 	}
 
+	// get the path to write the wanted kubeconfig on disk
+	// either the file pointed by the KUBECONFIG env variable (first one in case of a list)
+	// or the $HOME/.kube/config
 	var kubeconfigPath string
 	kubeconfigEnv := core.ExtractEnv(ctx, "KUBECONFIG")
 	if kubeconfigEnv != "" {
 		if runtime.GOOS == "windows" {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ";")[0]
+			kubeconfigPath = strings.Split(kubeconfigEnv, ";")[0] // list is separated by ; on windows
 		} else {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ":")[0]
+			kubeconfigPath = strings.Split(kubeconfigEnv, ":")[0] // list is separated by : on linux/macos
 		}
 	} else {
 		homeDir, err := homedir.Dir()
@@ -79,6 +83,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		kubeconfigPath = path.Join(homeDir, kubeLocationDir, "config")
 	}
 
+	// create the file if it does not exist
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
 		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0644)
 		if err != nil {
@@ -86,10 +91,14 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 		f.Close()
 	}
+
+	// reading the file
 	file, err := ioutil.ReadFile(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
+
+	// merging the wanted kubeconfig into the opened file
 
 	var existingKubeconfig k8s.Kubeconfig
 
@@ -98,60 +107,64 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	found := false
+	// loop through all clusters and insert the wanted one if it does not exist
+	clusterFoundInExistingKubeconfig := false
 	for _, cluster := range existingKubeconfig.Clusters {
-		if cluster.Name == kubeconfig.Clusters[0].Name+"-"+args.ClusterID {
-			found = true
+		if cluster.Name == kubeconfig.Clusters[0].Name+"-"+request.ClusterID {
+			clusterFoundInExistingKubeconfig = true
 			cluster.Cluster = kubeconfig.Clusters[0].Cluster
 			break
 		}
 	}
-	if !found {
+	if !clusterFoundInExistingKubeconfig {
 		existingKubeconfig.Clusters = append(existingKubeconfig.Clusters, &k8s.KubeconfigClusterWithName{
-			Name:    kubeconfig.Clusters[0].Name + "-" + args.ClusterID,
+			Name:    kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
 			Cluster: kubeconfig.Clusters[0].Cluster,
 		})
 	}
 
-	found = false
+	// loop through all contexts and insert the wanted one if it does not exist
+	contextFoundInExistingKubeconfig := false
 	for _, kubeconfigContext := range existingKubeconfig.Contexts {
-		if kubeconfigContext.Name == kubeconfig.Contexts[0].Name+"-"+args.ClusterID {
-			found = true
+		if kubeconfigContext.Name == kubeconfig.Contexts[0].Name+"-"+request.ClusterID {
+			contextFoundInExistingKubeconfig = true
 			kubeconfigContext.Context = k8s.KubeconfigContext{
-				Cluster: kubeconfig.Clusters[0].Name + "-" + args.ClusterID,
-				User:    kubeconfig.Users[0].Name + "-" + args.ClusterID,
+				Cluster: kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
+				User:    kubeconfig.Users[0].Name + "-" + request.ClusterID,
 			}
 			break
 		}
 	}
-
-	if !found {
+	if !contextFoundInExistingKubeconfig {
 		existingKubeconfig.Contexts = append(existingKubeconfig.Contexts, &k8s.KubeconfigContextWithName{
-			Name: kubeconfig.Contexts[0].Name + "-" + args.ClusterID,
+			Name: kubeconfig.Contexts[0].Name + "-" + request.ClusterID,
 			Context: k8s.KubeconfigContext{
-				Cluster: kubeconfig.Clusters[0].Name + "-" + args.ClusterID,
-				User:    kubeconfig.Users[0].Name + "-" + args.ClusterID,
+				Cluster: kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
+				User:    kubeconfig.Users[0].Name + "-" + request.ClusterID,
 			},
 		})
 	}
 
-	found = false
+	// loop through all users and insert the wanted one if it does not exist
+	userFoundInExistingKubeconfig := false
 	for _, user := range existingKubeconfig.Users {
-		if user.Name == kubeconfig.Users[0].Name+"-"+args.ClusterID {
-			found = true
+		if user.Name == kubeconfig.Users[0].Name+"-"+request.ClusterID {
+			userFoundInExistingKubeconfig = true
 			user.User = kubeconfig.Users[0].User
 			break
 		}
 	}
-
-	if !found {
+	if !userFoundInExistingKubeconfig {
 		existingKubeconfig.Users = append(existingKubeconfig.Users, &k8s.KubeconfigUserWithName{
-			Name: kubeconfig.Users[0].Name + "-" + args.ClusterID,
+			Name: kubeconfig.Users[0].Name + "-" + request.ClusterID,
 			User: kubeconfig.Users[0].User,
 		})
 	}
 
-	existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + args.ClusterID
+	// set the current context to the new one
+	existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + request.ClusterID
+
+	// if it's a new file, set the correct config in the file
 	if existingKubeconfig.APIVersion == "" {
 		existingKubeconfig.APIVersion = "v1"
 	}
@@ -159,15 +172,15 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		existingKubeconfig.Kind = "Config"
 	}
 
+	// marshal and write the file
 	newKubeconfig, err := yaml.Marshal(existingKubeconfig)
 	if err != nil {
 		return nil, err
 	}
-
 	err = ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0644)
 	if err != nil {
 		return nil, err
 	}
 
-	return fmt.Sprintf("Kubeconfig for cluster %s successfully written at %s", args.ClusterID, kubeconfigPath), nil
+	return fmt.Sprintf("Kubeconfig for cluster %s successfully written at %s", request.ClusterID, kubeconfigPath), nil
 }

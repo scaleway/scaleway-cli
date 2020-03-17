@@ -29,7 +29,6 @@ func k8sKubeconfigUninstallCommand() *core.Command {
 		Resource:  "kubeconfig",
 		ArgsType:  reflect.TypeOf(k8sKubeconfigUninstallRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(),
 			{
 				Name:       "cluster-id",
 				Short:      "Cluster ID from which to uninstall the kubeconfig",
@@ -42,8 +41,11 @@ func k8sKubeconfigUninstallCommand() *core.Command {
 }
 
 func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*k8sKubeconfigUninstallRequest)
+	request := argsI.(*k8sKubeconfigUninstallRequest)
 
+	// get the path to write the wanted kubeconfig on disk
+	// either the file pointed by the KUBECONFIG env variable (first one in case of a list)
+	// or the $HOME/.kube/config
 	var kubeconfigPath string
 	kubeconfigEnv := core.ExtractEnv(ctx, "KUBECONFIG")
 	if kubeconfigEnv != "" {
@@ -60,10 +62,12 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		kubeconfigPath = path.Join(homeDir, kubeLocationDir, "config")
 	}
 
+	// if the file does not exist, the cluster is not there
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
 		return fmt.Sprintf("File %s does not exists.", kubeconfigPath), nil
 	}
 
+	// getting the existing file
 	file, err := ioutil.ReadFile(kubeconfigPath)
 	if err != nil {
 		return nil, err
@@ -76,28 +80,34 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return nil, err
 	}
 
+	// delete the wanted cluster from the file
 	newClusters := []*k8s.KubeconfigClusterWithName{}
 	for _, cluster := range existingKubeconfig.Clusters {
-		if !strings.HasSuffix(cluster.Name, args.ClusterID) {
+		if !strings.HasSuffix(cluster.Name, request.ClusterID) {
 			newClusters = append(newClusters, cluster)
 		}
 	}
 
+	// delete the wanted context from the file
 	newContexts := []*k8s.KubeconfigContextWithName{}
 	for _, kubeconfigContext := range existingKubeconfig.Contexts {
-		if !strings.HasSuffix(kubeconfigContext.Name, args.ClusterID) {
+		if !strings.HasSuffix(kubeconfigContext.Name, request.ClusterID) {
 			newContexts = append(newContexts, kubeconfigContext)
 		}
 	}
 
+	// delete the wanted user from the file
 	newUsers := []*k8s.KubeconfigUserWithName{}
 	for _, user := range existingKubeconfig.Users {
-		if !strings.HasSuffix(user.Name, args.ClusterID) {
+		if !strings.HasSuffix(user.Name, request.ClusterID) {
 			newUsers = append(newUsers, user)
 		}
 	}
 
+	// reset the current context
 	existingKubeconfig.CurrentContext = ""
+
+	// write the modification
 	existingKubeconfig.Clusters = newClusters
 	existingKubeconfig.Contexts = newContexts
 	existingKubeconfig.Users = newUsers
@@ -112,5 +122,5 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return nil, err
 	}
 
-	return fmt.Sprintf("Cluster %s successfully deleted from %s", args.ClusterID, kubeconfigPath), nil
+	return fmt.Sprintf("Cluster %s successfully deleted from %s", request.ClusterID, kubeconfigPath), nil
 }
