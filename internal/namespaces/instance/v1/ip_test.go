@@ -7,12 +7,6 @@ import (
 )
 
 func Test_IpCreate(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance ip create -h",
-		Check:    core.TestCheckGolden(),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip create",
@@ -21,12 +15,6 @@ func Test_IpCreate(t *testing.T) {
 }
 
 func Test_IpDelete(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance ip delete -h",
-		Check:    core.TestCheckGolden(),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip delete",
@@ -35,12 +23,6 @@ func Test_IpDelete(t *testing.T) {
 }
 
 func Test_IpGet(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance ip get -h",
-		Check:    core.TestCheckGolden(),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip get",
@@ -49,12 +31,6 @@ func Test_IpGet(t *testing.T) {
 }
 
 func Test_IpList(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance ip list -h",
-		Check:    core.TestCheckGolden(),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip list",
@@ -63,12 +39,6 @@ func Test_IpList(t *testing.T) {
 }
 
 func Test_IpUpdate(t *testing.T) {
-	t.Run("Usage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance ip update -h",
-		Check:    core.TestCheckGolden(),
-	}))
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance ip update",
