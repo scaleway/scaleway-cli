@@ -372,7 +372,7 @@ func k8sClusterCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a default pool composed of 3 DEV1-M",
-				Raw:   `scw k8s cluster create name=foo version=1.17.4 default-pool-config.size=3 default-pool-config.node-type=RENDER-S`,
+				Raw:   `scw k8s cluster create name=foo version=1.17.4 default-pool-config.size=3 default-pool-config.node-type=DEV1-M`,
 			},
 			{
 				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged default pool composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
