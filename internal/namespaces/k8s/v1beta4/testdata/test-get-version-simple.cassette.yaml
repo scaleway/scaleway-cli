@@ -1,0 +1,37 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1beta4/regions/fr-par/versions
+    method: GET
+  response:
+    body: '{"versions":[{"region":"fr-par","name":"1.17.4","label":"Kubernetes 1.17.4","available_cnis":["cilium","calico","weave","flannel"],"available_ingresses":["none","nginx","traefik"],"available_container_runtimes":["docker","containerd","crio"],"available_feature_gates":["TTLAfterFinished","ServiceTopology","EndpointSlice","HPAScaleToZero","ServiceNodeExclusion"],"available_admission_plugins":["PodSecurityPolicy","MutatingAdmissionWebhook","PodNodeSelector","AlwaysPullImages"]},{"region":"fr-par","name":"1.16.8","label":"Kubernetes
+      1.16.8","available_cnis":["cilium","calico","weave","flannel"],"available_ingresses":["none","nginx","traefik"],"available_container_runtimes":["docker","containerd","crio"],"available_feature_gates":["TTLAfterFinished","EndpointSlice","HPAScaleToZero","ServiceNodeExclusion"],"available_admission_plugins":["PodSecurityPolicy","MutatingAdmissionWebhook","PodNodeSelector","AlwaysPullImages"]},{"region":"fr-par","name":"1.15.11","label":"Kubernetes
+      1.15.11","available_cnis":["cilium","calico","weave","flannel"],"available_ingresses":["none","nginx","traefik"],"available_container_runtimes":["docker","containerd","crio"],"available_feature_gates":["TTLAfterFinished","ServiceNodeExclusion"],"available_admission_plugins":["PodSecurityPolicy","MutatingAdmissionWebhook","PodNodeSelector","AlwaysPullImages"]}]}'
+    headers:
+      Content-Length:
+      - "1348"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 17 Mar 2020 10:46:45 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fb59bc0a-a3bc-425b-9db0-4ba947bc6c30
+    status: 200 OK
+    code: 200
+    duration: ""
