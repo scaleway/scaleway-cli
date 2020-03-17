@@ -4,8 +4,8 @@ USAGE:
   scw k8s version get <version> [arg=value ...]
 
 ARGS:
-  [region]   Region to target. If none is passed will use default region from the config
   version    Version from which to get details
+  [region]   Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help   help for get
