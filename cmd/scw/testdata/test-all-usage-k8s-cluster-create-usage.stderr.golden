@@ -3,6 +3,13 @@ This method allows to create a new Kubernetes cluster on an account.
 USAGE:
   scw k8s cluster create [arg=value ...]
 
+EXAMPLES:
+  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a default pool composed of 3 DEV1-M
+    scw k8s cluster create name=foo version=1.17.4 default-pool-config.size=3 default-pool-config.node-type=RENDER-S
+
+  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged default pool composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+    scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium default-pool-config.size=2 default-pool-config.node-type=RENDER-S default-pool-config.min-size=1 default-pool-config.max-size=10 default-pool-config.autohealing=true default-pool-config.autoscaling=true default-pool-config.tags.0=pooltag1 default-pool-config.tags.1=pooltag2
+
 ARGS:
   name                                                  The name of the cluster
   [description]                                         The description of the cluster

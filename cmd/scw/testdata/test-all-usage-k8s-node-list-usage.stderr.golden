@@ -3,6 +3,16 @@ This method allows to list all the existing nodes for a specific Kubernetes clus
 USAGE:
   scw k8s node list [arg=value ...]
 
+EXAMPLES:
+  List all the nodes in the given cluster
+    scw k8s node list
+
+  List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster
+    scw k8s node list
+
+  List all ready nodes in the given cluster
+    scw k8s node list
+
 ARGS:
   cluster-id   The cluster ID from which the nodes will be listed from
   [pool-id]    The pool ID on which to filter the returned nodes

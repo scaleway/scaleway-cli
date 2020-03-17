@@ -3,6 +3,10 @@ This method allows to list the versions that a specific Kubernetes cluster is al
 USAGE:
   scw k8s cluster list-available-versions [arg=value ...]
 
+EXAMPLES:
+  List all available versions for a given cluster to upgrade to
+    scw k8s cluster list-available-versions
+
 ARGS:
   cluster-id   The ID of the cluster which the available Kuberentes versions will be listed from
   [region]     Region to target. If none is passed will use default region from the config (fr-par)

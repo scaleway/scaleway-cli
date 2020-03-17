@@ -3,6 +3,10 @@ This method allows to delete a specific cluster and all its associated pools and
 USAGE:
   scw k8s cluster delete [arg=value ...]
 
+EXAMPLES:
+  Delete a given cluster
+    scw k8s cluster delete
+
 ARGS:
   cluster-id   The ID of the cluster to delete
   [region]     Region to target. If none is passed will use default region from the config (fr-par)

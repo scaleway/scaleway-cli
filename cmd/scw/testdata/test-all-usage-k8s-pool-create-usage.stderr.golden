@@ -3,6 +3,16 @@ This method allows to create a new pool in a specific Kubernetes cluster.
 USAGE:
   scw k8s pool create [arg=value ...]
 
+EXAMPLES:
+  Create a pool named bar with 2 DEV1-XL on a given cluster
+    scw k8s pool create
+
+  Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster
+    scw k8s pool create
+
+  Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster
+    scw k8s pool create
+
 ARGS:
   cluster-id             The ID of the cluster in which the pool will be created
   name                   The name of the pool

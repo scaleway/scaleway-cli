@@ -3,6 +3,10 @@ This method allows to reboot a specific node. This node will frist be cordoned, 
 USAGE:
   scw k8s node reboot [arg=value ...]
 
+EXAMPLES:
+  Reboot a given node
+    scw k8s node reboot
+
 ARGS:
   node-id    The ID of the node to reboot
   [region]   Region to target. If none is passed will use default region from the config (fr-par)
