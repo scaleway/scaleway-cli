@@ -10,10 +10,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-//
-// Marshalers
-//
-
 func versionListBuilder(c *core.Command) *core.Command {
 	originalRun := c.Run
 
