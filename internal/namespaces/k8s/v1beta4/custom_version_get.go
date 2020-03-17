@@ -55,5 +55,5 @@ func k8sVersionGetRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 			return version, nil
 		}
 	}
-	return nil, fmt.Errorf("version %s not found", args.Version)
+	return nil, fmt.Errorf("version '%s' not found", args.Version)
 }
