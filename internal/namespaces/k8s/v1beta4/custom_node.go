@@ -15,8 +15,8 @@ const (
 	nodeActionTimeout = 10 * time.Minute
 )
 
-// nodeStatusMarshalerFunc marshals a k8s.NodeStatus.
 var (
+	// nodeStatusAttributes allows to override the displayed status color
 	nodeStatusAttributes = human.Attributes{
 		k8s.NodeStatusCreating:      color.FgBlue,
 		k8s.NodeStatusRebooting:     color.FgBlue,
