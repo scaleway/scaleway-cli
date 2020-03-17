@@ -231,7 +231,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	})
 }
 
-// these tests needs to be run in sequence
+// These tests needs to be run in sequence.
 func Test_ServerDelete(t *testing.T) {
 	interactive.IsInteractive = true
 
