@@ -19,7 +19,7 @@ const (
 // Marshalers
 //
 
-// nodeStatusMarshalerFunc marshals a k8s.ClusterStatus.
+// nodeStatusMarshalerFunc marshals a k8s.NodeStatus.
 var (
 	nodeStatusAttributes = human.Attributes{
 		k8s.NodeStatusCreating:      color.FgBlue,
