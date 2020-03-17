@@ -16,9 +16,6 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	cmds.Merge(core.NewCommands(
 		k8sVersionGetCommand(),
-	))
-
-	cmds.Merge(core.NewCommands(
 		k8sKubeconfigCommand(),
 		k8sKubeconfigGetCommand(),
 		k8sKubeconfigInstallCommand(),
