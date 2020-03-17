@@ -24,13 +24,13 @@ func k8sVersionGetCommand() *core.Command {
 		Resource:  "version",
 		ArgsType:  reflect.TypeOf(k8sVersionGetRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(),
 			{
 				Name:       "version",
 				Short:      "Version from which to get details",
 				Required:   true,
 				Positional: true,
 			},
+			core.RegionArgSpec(),
 		},
 		Run: k8sVersionGetRun,
 	}
