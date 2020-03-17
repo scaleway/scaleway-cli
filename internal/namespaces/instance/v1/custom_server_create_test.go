@@ -230,7 +230,8 @@ func Test_CreateServer(t *testing.T) {
 }
 
 // None of the tests below should succeed to create an instance.
-// These tests need to be run in sequence.
+// These tests need to be run in sequence since they are having warnings in the stderr
+// and these warnings can be captured by other tests
 func Test_CreateServerErrors(t *testing.T) {
 	////
 	// Image errors
