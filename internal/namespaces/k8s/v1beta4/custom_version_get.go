@@ -37,13 +37,13 @@ func k8sVersionGetCommand() *core.Command {
 }
 
 func k8sVersionGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*k8sVersionGetRequest)
+	request := argsI.(*k8sVersionGetRequest)
 
 	client := core.ExtractClient(ctx)
 	apiK8s := k8s.NewAPI(client)
 
 	versions, err := apiK8s.ListVersions(&k8s.ListVersionsRequest{
-		Region: args.Region,
+		Region: request.Region,
 	})
 
 	if err != nil {
@@ -51,9 +51,9 @@ func k8sVersionGetRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 	}
 
 	for _, version := range versions.Versions {
-		if version.Name == args.Version {
+		if version.Name == request.Version {
 			return version, nil
 		}
 	}
-	return nil, fmt.Errorf("version '%s' not found", args.Version)
+	return nil, fmt.Errorf("version '%s' not found", request.Version)
 }

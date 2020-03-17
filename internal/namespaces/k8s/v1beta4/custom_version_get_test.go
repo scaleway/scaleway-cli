@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -23,7 +24,7 @@ func Test_GetVersion(t *testing.T) {
 		Commands: GetCommands(),
 		Cmd:      "scw k8s version get test",
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckError(fmt.Errorf("version 'test' not found")),
 			core.TestCheckExitCode(1),
 		),
 	}))

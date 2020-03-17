@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Mar 2020 10:46:45 GMT
+      - Tue, 17 Mar 2020 11:38:15 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -31,7 +31,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - fb59bc0a-a3bc-425b-9db0-4ba947bc6c30
+      - 7d321500-a3fd-4a89-ab8c-12caab3b8f4c
     status: 200 OK
     code: 200
     duration: ""
