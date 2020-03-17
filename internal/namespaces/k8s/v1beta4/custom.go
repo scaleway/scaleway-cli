@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.BindAttributesMarshalFunc(clusterStatusAttributes))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(0), human.BindAttributesMarshalFunc(poolStatusAttributes))
+	human.RegisterMarshalerFunc(k8s.NodeStatus(0), human.BindAttributesMarshalFunc(nodeStatusAttributes))
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
 	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)
@@ -28,6 +29,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "pool", "update").Override(poolUpdateBuilder)
 	cmds.MustFind("k8s", "pool", "upgrade").Override(poolUpgradeBuilder)
 	cmds.MustFind("k8s", "pool", "delete").Override(poolDeleteBuilder)
+
+	cmds.MustFind("k8s", "node", "reboot").Override(nodeRebootBuilder)
 
 	return cmds
 }
