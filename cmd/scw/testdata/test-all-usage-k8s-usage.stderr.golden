@@ -8,6 +8,7 @@ AVAILABLE COMMANDS:
   pool        A pool is a virtual group of nodes in a cluster
   node        A node is the representation of a Scaleway instance in a cluster
   version     A version is a Kubernetes version
+  kubeconfig  Manage your Kubernetes Kapsule cluster's kubeconfig files
 
 FLAGS:
   -h, --help   help for k8s
