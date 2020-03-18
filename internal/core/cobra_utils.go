@@ -33,17 +33,19 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// Apply default values on missing args.
 		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
-		// Check args exist valid
-		argsSlice := args.SplitRawNoError(rawArgs)
-		for _, arguments := range argsSlice {
-			// TODO: handle args such as tags.index
-			if cmd.ArgSpecs.GetByName(arguments[0]) == nil &&
-				cmd.ArgSpecs.GetByName(arguments[0]+".{index}") == nil &&
-				!strings.Contains(arguments[0], ".") {
-				return handleUnmarshalErrors(cmd, &args.UnmarshalArgError{
-					Err:     &args.UnknownArgError{},
-					ArgName: arguments[0],
-				})
+		// Check args exist valid if ArgsType is not args.RawArgs
+		if reflect.TypeOf(args.RawArgs{}) != cmd.ArgsType {
+			argsSlice := args.SplitRawNoError(rawArgs)
+			for _, arguments := range argsSlice {
+				// TODO: handle args such as tags.index
+				if cmd.ArgSpecs.GetByName(arguments[0]) == nil &&
+					cmd.ArgSpecs.GetByName(arguments[0]+".{index}") == nil &&
+					!strings.Contains(arguments[0], ".") {
+					return handleUnmarshalErrors(cmd, &args.UnmarshalArgError{
+						Err:     &args.UnknownArgError{},
+						ArgName: arguments[0],
+					})
+				}
 			}
 		}
 
