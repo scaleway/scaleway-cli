@@ -55,7 +55,6 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return nil, err
 	}
 
-	// delete the wanted cluster from the file
 	newClusters := []*k8s.KubeconfigClusterWithName{}
 	for _, cluster := range existingKubeconfig.Clusters {
 		if !strings.HasSuffix(cluster.Name, request.ClusterID) {
@@ -63,7 +62,6 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		}
 	}
 
-	// delete the wanted context from the file
 	newContexts := []*k8s.KubeconfigContextWithName{}
 	for _, kubeconfigContext := range existingKubeconfig.Contexts {
 		if !strings.HasSuffix(kubeconfigContext.Name, request.ClusterID) {
@@ -71,7 +69,6 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		}
 	}
 
-	// delete the wanted user from the file
 	newUsers := []*k8s.KubeconfigUserWithName{}
 	for _, user := range existingKubeconfig.Users {
 		if !strings.HasSuffix(user.Name, request.ClusterID) {
