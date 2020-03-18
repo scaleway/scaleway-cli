@@ -34,7 +34,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
 		// Check args exist valid if ArgsType is not args.RawArgs
-		if reflect.TypeOf(args.RawArgs{}) != cmd.ArgsType {
+		if cmd.ArgsType != reflect.TypeOf(args.RawArgs{}) {
 			argsSlice := args.SplitRawNoError(rawArgs)
 			for _, arguments := range argsSlice {
 				// TODO: handle args such as tags.index
