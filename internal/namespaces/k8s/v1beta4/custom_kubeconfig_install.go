@@ -3,22 +3,18 @@ package k8s
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"path"
 	"reflect"
-	"runtime"
-	"strings"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"gopkg.in/yaml.v2"
 )
 
 const (
-	kubeLocationDir = ".kube"
+	kubeLocationDir      = ".kube"
+	kubeconfigAPIVersion = "v1"
+	kubeconfigKind       = "config"
 )
 
 type k8sKubeconfigInstallRequest struct {
@@ -64,23 +60,9 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	// get the path to write the wanted kubeconfig on disk
-	// either the file pointed by the KUBECONFIG env variable (first one in case of a list)
-	// or the $HOME/.kube/config
-	var kubeconfigPath string
-	kubeconfigEnv := core.ExtractEnv(ctx, "KUBECONFIG")
-	if kubeconfigEnv != "" {
-		if runtime.GOOS == "windows" {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ";")[0] // list is separated by ; on windows
-		} else {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ":")[0] // list is separated by : on linux/macos
-		}
-	} else {
-		homeDir, err := homedir.Dir()
-		if err != nil {
-			return nil, err
-		}
-		kubeconfigPath = path.Join(homeDir, kubeLocationDir, "config")
+	kubeconfigPath, err := getKubeconfigPath(ctx)
+	if err != nil {
+		return nil, err
 	}
 
 	// create the kubeconfig file if it does not exist
@@ -92,17 +74,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		f.Close()
 	}
 
-	// reading the file
-	file, err := ioutil.ReadFile(kubeconfigPath)
-	if err != nil {
-		return nil, err
-	}
-
-	// merging the wanted kubeconfig into the opened file
-
-	var existingKubeconfig k8s.Kubeconfig
-
-	err = yaml.Unmarshal(file, &existingKubeconfig)
+	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
@@ -166,18 +138,13 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 
 	// if it's a new file, set the correct config in the file
 	if existingKubeconfig.APIVersion == "" {
-		existingKubeconfig.APIVersion = "v1"
+		existingKubeconfig.APIVersion = kubeconfigAPIVersion
 	}
 	if existingKubeconfig.Kind == "" {
-		existingKubeconfig.Kind = "Config"
+		existingKubeconfig.Kind = kubeconfigKind
 	}
 
-	// marshal and write the file
-	newKubeconfig, err := yaml.Marshal(existingKubeconfig)
-	if err != nil {
-		return nil, err
-	}
-	err = ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0644)
+	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}

@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	existingKubeconfigs = `apiVersion: v1
+	existingKubeconfig = `apiVersion: v1
 kind: Config
 current-context: test@test
 clusters:
@@ -34,8 +34,8 @@ users:
     password: test`
 
 	testKubeconfig = &k8s.Kubeconfig{
-		APIVersion: "v1",
-		Kind:       "config",
+		APIVersion: kubeconfigAPIVersion,
+		Kind:       kubeconfigKind,
 		Clusters: []*k8s.KubeconfigClusterWithName{
 			{
 				Name: "test",
@@ -67,6 +67,8 @@ users:
 	}
 )
 
+// testIfKubeconfigInFile checks if the given kubeconfig is in the given file
+// it test if the user, cluster and context of the kubeconfig file are in the given file
 func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig *k8s.Kubeconfig) {
 	kubeconfigBytes, err := ioutil.ReadFile(filePath)
 	assert.Nil(t, err)
@@ -94,7 +96,6 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			break
 		}
 	}
-
 	assert.True(t, found, "context not found in kubeconfig for cluster with suffix %s", suffix)
 
 	found = false
@@ -105,7 +106,6 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			break
 		}
 	}
-
 	assert.True(t, found, "user not found in kubeconfig with suffix %s", suffix)
 }
 
@@ -132,7 +132,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 
 	t.Run("merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfigs)),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfig)),
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific

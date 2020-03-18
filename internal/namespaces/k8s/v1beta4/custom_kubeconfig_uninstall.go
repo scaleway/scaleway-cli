@@ -3,17 +3,12 @@ package k8s
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"path"
 	"reflect"
-	"runtime"
 	"strings"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
-	"gopkg.in/yaml.v2"
 )
 
 type k8sKubeconfigUninstallRequest struct {
@@ -40,26 +35,14 @@ func k8sKubeconfigUninstallCommand() *core.Command {
 	}
 }
 
+// k8sKubeconfigUninstallRun use the specified cluster ID to remove it from the wanted kubeconfig file
+// it removes all the users, contexts and clusters that contains this ID from the file
 func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	request := argsI.(*k8sKubeconfigUninstallRequest)
 
-	// get the path to write the wanted kubeconfig on disk
-	// either the file pointed by the KUBECONFIG env variable (first one in case of a list)
-	// or the $HOME/.kube/config
-	var kubeconfigPath string
-	kubeconfigEnv := core.ExtractEnv(ctx, "KUBECONFIG")
-	if kubeconfigEnv != "" {
-		if runtime.GOOS == "windows" {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ";")[0]
-		} else {
-			kubeconfigPath = strings.Split(kubeconfigEnv, ":")[0]
-		}
-	} else {
-		homeDir, err := homedir.Dir()
-		if err != nil {
-			return nil, err
-		}
-		kubeconfigPath = path.Join(homeDir, kubeLocationDir, "config")
+	kubeconfigPath, err := getKubeconfigPath(ctx)
+	if err != nil {
+		return nil, err
 	}
 
 	// if the file does not exist, the cluster is not there
@@ -67,15 +50,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return fmt.Sprintf("File %s does not exists.", kubeconfigPath), nil
 	}
 
-	// getting the existing file
-	file, err := ioutil.ReadFile(kubeconfigPath)
-	if err != nil {
-		return nil, err
-	}
-
-	var existingKubeconfig k8s.Kubeconfig
-
-	err = yaml.Unmarshal(file, &existingKubeconfig)
+	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +87,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 	existingKubeconfig.Contexts = newContexts
 	existingKubeconfig.Users = newUsers
 
-	newKubeconfig, err := yaml.Marshal(existingKubeconfig)
-	if err != nil {
-		return nil, err
-	}
-
-	err = ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0644)
+	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}

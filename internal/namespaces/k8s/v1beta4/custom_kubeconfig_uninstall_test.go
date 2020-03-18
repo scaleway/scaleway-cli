@@ -12,6 +12,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
+// it test if the user, cluster and context of the kubeconfig file are not in the given file
 func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig *k8s.Kubeconfig) {
 	kubeconfigBytes, err := ioutil.ReadFile(filePath)
 	assert.Nil(t, err)
@@ -35,7 +37,6 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 			break
 		}
 	}
-
 	assert.False(t, found, "context found in kubeconfig for cluster with suffix %s", suffix)
 
 	found = false
@@ -45,7 +46,6 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 			break
 		}
 	}
-
 	assert.False(t, found, "user found in kubeconfig with suffix %s", suffix)
 }
 
@@ -88,7 +88,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	}))
 	t.Run("uninstall-merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-uninstall-merge-test"), []byte(existingKubeconfigs)),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-uninstall-merge-test"), []byte(existingKubeconfig)),
 		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
