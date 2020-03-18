@@ -3,11 +3,11 @@ package k8s
 import (
 	"context"
 	"io/ioutil"
+	"os"
 	"path"
 	"runtime"
 	"strings"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
 	"gopkg.in/yaml.v2"
@@ -26,7 +26,7 @@ func getKubeconfigPath(ctx context.Context) (string, error) {
 			kubeconfigPath = strings.Split(kubeconfigEnv, ":")[0] // list is separated by : on linux/macos
 		}
 	} else {
-		homeDir, err := homedir.Dir()
+		homeDir, err := os.UserHomeDir()
 		if err != nil {
 			return "", err
 		}

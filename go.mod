@@ -19,7 +19,6 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.4
 	github.com/mattn/go-isatty v0.0.11
-	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200317142453-2a0af47d63be
 	github.com/sergi/go-diff v1.0.0 // indirect
