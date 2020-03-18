@@ -25,7 +25,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:55:43 GMT
+      - Wed, 18 Mar 2020 10:17:37 GMT
       Location:
       - https://cp-par1.scaleway.com/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
       Server:
@@ -57,7 +57,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:55:44 GMT
+      - Wed, 18 Mar 2020 10:17:37 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

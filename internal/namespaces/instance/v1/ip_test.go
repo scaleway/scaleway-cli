@@ -25,7 +25,6 @@ func Test_IpDelete(t *testing.T) {
 		Commands:   GetCommands(),
 		Cmd:        "scw instance ip delete ip={{ .Ip.ID }}",
 		Check:      core.TestCheckGolden(),
-		//AfterFunc:  deleteIP("Ip"),
 	}))
 }
 
