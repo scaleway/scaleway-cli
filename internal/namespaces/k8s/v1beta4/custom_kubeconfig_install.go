@@ -83,7 +83,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		kubeconfigPath = path.Join(homeDir, kubeLocationDir, "config")
 	}
 
-	// create the file if it does not exist
+	// create the kubeconfig file if it does not exist
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
 		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0644)
 		if err != nil {
