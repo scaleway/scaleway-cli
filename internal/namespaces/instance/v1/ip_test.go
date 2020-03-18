@@ -23,9 +23,9 @@ func Test_IpDelete(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip delete ip-id={{ .Ip.ID }}",
+		Cmd:        "scw instance ip delete ip={{ .Ip.ID }}",
 		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteIP("Ip"),
+		//AfterFunc:  deleteIP("Ip"),
 	}))
 }
 
@@ -33,7 +33,7 @@ func Test_IpGet(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip get ip-id={{ .Ip.ID }}",
+		Cmd:        "scw instance ip get ip={{ .Ip.ID }}",
 		Check:      core.TestCheckGolden(),
 		AfterFunc:  deleteIP("Ip"),
 	}))
@@ -53,7 +53,7 @@ func Test_IpUpdate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip update ip-id={{ .Ip.ID }}",
+		Cmd:        "scw instance ip update ip={{ .Ip.ID }}",
 		Check:      core.TestCheckGolden(),
 		AfterFunc:  deleteIP("Ip"),
 	}))

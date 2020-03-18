@@ -12,7 +12,7 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "7635037a-910e-4586-a3d6-7c0b5e68f0cf", "address": "51.15.216.206",
+    body: '{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
       "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "zone": "fr-par-1", "tags": []}}'
     headers:
@@ -25,9 +25,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:47:47 GMT
+      - Wed, 18 Mar 2020 09:55:46 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/7635037a-910e-4586-a3d6-7c0b5e68f0cf
+      - https://cp-par1.scaleway.com/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -40,12 +40,48 @@ interactions:
     code: 201
     duration: ""
 - request:
+    body: '{}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+    method: PATCH
+  response:
+    body: '{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
+      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "zone": "fr-par-1", "tags": []}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "203"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 18 Mar 2020 09:55:46 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
     body: ""
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/51.15.216.206
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/51.15.248.118
     method: DELETE
   response:
     body: ""
@@ -57,7 +93,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:47:47 GMT
+      - Wed, 18 Mar 2020 09:55:46 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

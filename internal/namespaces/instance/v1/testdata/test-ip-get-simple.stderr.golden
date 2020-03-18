@@ -1,10 +1,31 @@
-DEBUG: 2019/12/09 16:04:07 marshalling type '*core.CliError'
-DEBUG: 2019/12/09 16:04:07 marshalling type '*errors.errorString'
-DEBUG: 2019/12/09 16:04:07 marshalling type 'string'
-DEBUG: 2019/12/09 16:04:07 marshalling type 'string'
-Unknown argument 'ip-id'
+DEBUG: 2019/12/09 16:04:07 creating GET request on https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+DEBUG: 2019/12/09 16:04:07 
+--------------- Scaleway SDK REQUEST 6 : ---------------
+GET /instance/v1/zones/fr-par-1/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b HTTP/1.1
+Host: api.scaleway.com
+User-Agent: scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+X-Auth-Token: 148499e0-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+Accept-Encoding: gzip
 
-Hint:
-Valid arguments are: ip, zone
+
+---------------------------------------------------------
+DEBUG: 2019/12/09 16:04:07 
+--------------- Scaleway SDK RESPONSE 6 : ---------------
+HTTP/1.0 200 OK
+Connection: close
+Content-Length: 203
+Cache-Control: no-cache
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+Content-Type: application/json
+Date: Wed, 18 Mar 2020 09:55:45 GMT
+Server: scaleway_api
+Strict-Transport-Security: max-age=63072000
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118", "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}}
+----------------------------------------------------------
+DEBUG: 2019/12/09 16:04:07 marshalling type '*instance.GetIPResponse'
+DEBUG: 2019/12/09 16:04:07 marshalling type 'instance.GetIPResponse'
 DEBUG: 2019/12/09 16:04:07 skipping check version
 DEBUG: 2019/12/09 16:04:07 skipping telemetry report
