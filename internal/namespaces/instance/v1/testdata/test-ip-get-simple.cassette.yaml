@@ -12,22 +12,22 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
+    body: '{"ip": {"id": "4695f4cd-d066-4b41-b6b5-0ff2158227e6", "address": "51.158.74.63",
       "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "zone": "fr-par-1", "tags": []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "203"
+      - "202"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:47:45 GMT
+      - Wed, 18 Mar 2020 09:47:46 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+      - https://cp-par1.scaleway.com/ips/4695f4cd-d066-4b41-b6b5-0ff2158227e6
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -45,7 +45,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/51.158.74.63
     method: DELETE
   response:
     body: ""
@@ -57,7 +57,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:47:45 GMT
+      - Wed, 18 Mar 2020 09:47:46 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:

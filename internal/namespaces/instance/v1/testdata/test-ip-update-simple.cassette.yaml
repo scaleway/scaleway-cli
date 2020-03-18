@@ -25,7 +25,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 09:47:46 GMT
+      - Wed, 18 Mar 2020 09:47:47 GMT
       Location:
       - https://cp-par1.scaleway.com/ips/7635037a-910e-4586-a3d6-7c0b5e68f0cf
       Server:
@@ -38,49 +38,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips?page=1
-    method: GET
-  response:
-    body: '{"ips": [{"id": "8ed1c207-86db-4e60-84cd-0a4e84031239", "address": "51.15.253.183",
-      "reverse": null, "server": {"id": "fa37ff62-4665-4b94-93bf-385d264a7b4d", "name":
-      "juju"}, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1",
-      "tags": []}, {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
-      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "zone": "fr-par-1", "tags": []}, {"id": "7635037a-910e-4586-a3d6-7c0b5e68f0cf",
-      "address": "51.15.216.206", "reverse": null, "server": null, "organization":
-      "951df375-e094-4d26-97c1-ba548eeb9c42", "zone": "fr-par-1", "tags": []}]}'
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Length:
-      - "658"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 18 Mar 2020 09:47:47 GMT
-      Link:
-      - </ips?page=1&per_page=50&>; rel="last"
-      Server:
-      - scaleway_api
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Total-Count:
-      - "3"
-    status: 200 OK
-    code: 200
     duration: ""
 - request:
     body: ""
