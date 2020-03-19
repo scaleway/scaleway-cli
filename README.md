@@ -116,7 +116,7 @@ dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 ## With a Docker Image
 
-### Official releases (Comigng soon..)
+### Official releases (Coming soon..)
 
 <!-- For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
 
