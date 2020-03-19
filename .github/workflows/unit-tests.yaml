@@ -45,7 +45,11 @@ jobs:
   docker-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Build image in Docker
-        run: docker build -t scaleway/cli .
-      - name: Test help command in docker
-        name: docker run -i scaleway/cli help
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: Build image in Docker
+      run: docker build -t scaleway/cli .
+    - name: Test help command in docker
+         name: docker run -i scaleway/cli help
