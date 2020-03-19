@@ -4,13 +4,13 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func init() {
 	if !core.UpdateCassettes {
-		instance.RetryInterval = 0
+		baremetal.RetryInterval = 0
 	}
 }
 
