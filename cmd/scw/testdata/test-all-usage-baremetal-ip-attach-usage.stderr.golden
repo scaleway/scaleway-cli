@@ -1,0 +1,17 @@
+Attach IP failovers to the given server ID.
+
+USAGE:
+  scw baremetal ip attach [arg=value ...]
+
+ARGS:
+  [ip-failover-ids.{index}]   IP failover IDs to attach to the server
+  [server-id]                 ID of the server to attach to the IP failovers
+  [zone]                      Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for attach
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

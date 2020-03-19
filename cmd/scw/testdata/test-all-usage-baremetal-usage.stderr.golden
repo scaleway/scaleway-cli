@@ -5,6 +5,8 @@ USAGE:
 
 AVAILABLE COMMANDS:
   server      A server is a denomination of a type of instances provided by Scaleway
+  os          An Operating System (OS) is the underlying software installed on your server
+  ip          IP fail-over management
 
 FLAGS:
   -h, --help   help for baremetal
@@ -15,8 +17,6 @@ GLOBAL FLAGS:
   -p, --profile string   The config profile to use
 
 Additional help topics:
-  scw baremetal os     An Operating System (OS) is the underlying software installed on your server
-  scw baremetal ip     IP fail-over management
   scw baremetal bmc    Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance
   scw baremetal offer  Commercial offers
 

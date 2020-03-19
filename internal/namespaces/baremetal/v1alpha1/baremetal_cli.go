@@ -34,6 +34,15 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerReboot(),
 		baremetalServerStart(),
 		baremetalServerStop(),
+		baremetalIPCreate(),
+		baremetalIPGet(),
+		baremetalIPList(),
+		baremetalIPDelete(),
+		baremetalIPUpdate(),
+		baremetalIPAttach(),
+		baremetalIPDetach(),
+		baremetalOsList(),
+		baremetalOsGet(),
 	)
 }
 func baremetalRoot() *core.Command {
@@ -410,6 +419,321 @@ func baremetalServerStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.StopServer(request)
+
+		},
+	}
+}
+
+func baremetalIPCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create IP failover`,
+		Long:      `Create an IP failover. Once the IP failover is created, you probably want to attach it to a server.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "create",
+		ArgsType:  reflect.TypeOf(baremetal.CreateIPFailoverRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "description",
+				Short:    `Description to associate to the IP failover, max 255 characters`,
+				Required: false,
+			},
+			{
+				Name:     "tags.{index}",
+				Short:    `Tags to associate to the IP failover`,
+				Required: false,
+			},
+			{
+				Name:       "mac-type",
+				Short:      `MAC type to use for the IP failover`,
+				Required:   false,
+				EnumValues: []string{"unknown_mac_type", "none", "duplicate", "vmware", "xen", "kvm"},
+			},
+			{
+				Name:     "duplicate-mac-from",
+				Short:    `ID of the IP failover which must be duplicate`,
+				Required: false,
+			},
+			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.CreateIPFailoverRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.CreateIPFailover(request)
+
+		},
+	}
+}
+
+func baremetalIPGet() *core.Command {
+	return &core.Command{
+		Short:     `Get IP failover`,
+		Long:      `Get the IP failover associated with the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(baremetal.GetIPFailoverRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "ip-failover-id",
+				Short:    `ID of the IP failover`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetIPFailoverRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetIPFailover(request)
+
+		},
+	}
+}
+
+func baremetalIPList() *core.Command {
+	return &core.Command{
+		Short:     `List IP failovers`,
+		Long:      `List all created IP failovers.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(baremetal.ListIPFailoversRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Order of the IP failovers`,
+				Required:   false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:     "tags.{index}",
+				Short:    `Filter IP failovers by tags`,
+				Required: false,
+			},
+			{
+				Name:     "status.{index}",
+				Short:    `Filter IP failovers by status`,
+				Required: false,
+			},
+			{
+				Name:     "server-ids.{index}",
+				Short:    `Filter IP failovers by server IDs`,
+				Required: false,
+			},
+			{
+				Name:     "organization-id",
+				Short:    `Filter servers by organization ID`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListIPFailoversRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			resp, err := api.ListIPFailovers(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Failovers, nil
+
+		},
+	}
+}
+
+func baremetalIPDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete IP failover`,
+		Long:      `Delete the IP failover associated with the given IP.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "delete",
+		ArgsType:  reflect.TypeOf(baremetal.DeleteIPFailoverRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "ip-failover-id",
+				Short:    `ID of the IP failover to delete`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.DeleteIPFailoverRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.DeleteIPFailover(request)
+
+		},
+	}
+}
+
+func baremetalIPUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update IP failover`,
+		Long:      `Update the IP failover associated with the given IP.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(baremetal.UpdateIPFailoverRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "ip-failover-id",
+				Short:    `ID of the IP failover to update`,
+				Required: true,
+			},
+			{
+				Name:     "description",
+				Short:    `Description to associate to the IP failover, max 255 characters, not updated if null`,
+				Required: false,
+			},
+			{
+				Name:     "tags",
+				Short:    `Tags to associate to the IP failover, not updated if null`,
+				Required: false,
+			},
+			{
+				Name:       "mac-type",
+				Short:      `MAC type to use for the IP failover, not updated if null`,
+				Required:   false,
+				EnumValues: []string{"unknown_mac_type", "none", "duplicate", "vmware", "xen", "kvm"},
+			},
+			{
+				Name:     "duplicate-mac-from",
+				Short:    `ID of the IP failover which must be duplicate, not updated if null`,
+				Required: false,
+			},
+			{
+				Name:     "reverse",
+				Short:    `New reverse IP to update, not updated if null`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.UpdateIPFailoverRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.UpdateIPFailover(request)
+
+		},
+	}
+}
+
+func baremetalIPAttach() *core.Command {
+	return &core.Command{
+		Short:     `Attach IP failovers`,
+		Long:      `Attach IP failovers to the given server ID.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "attach",
+		ArgsType:  reflect.TypeOf(baremetal.AttachIPFailoversRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "ip-failover-ids.{index}",
+				Short:    `IP failover IDs to attach to the server`,
+				Required: false,
+			},
+			{
+				Name:     "server-id",
+				Short:    `ID of the server to attach to the IP failovers`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.AttachIPFailoversRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.AttachIPFailovers(request)
+
+		},
+	}
+}
+
+func baremetalIPDetach() *core.Command {
+	return &core.Command{
+		Short:     `Detach IP failovers`,
+		Long:      `Detach IP failovers to the given server ID.`,
+		Namespace: "baremetal",
+		Resource:  "ip",
+		Verb:      "detach",
+		ArgsType:  reflect.TypeOf(baremetal.DetachIPFailoversRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "ip-failover-ids.{index}",
+				Short:    `IP failover IDs to detach to the server`,
+				Required: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.DetachIPFailoversRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.DetachIPFailovers(request)
+
+		},
+	}
+}
+
+func baremetalOsList() *core.Command {
+	return &core.Command{
+		Short:     `List OS`,
+		Long:      `List all available OS that can be install on a baremetal server.`,
+		Namespace: "baremetal",
+		Resource:  "os",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(baremetal.ListOsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListOsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			resp, err := api.ListOs(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Os, nil
+
+		},
+	}
+}
+
+func baremetalOsGet() *core.Command {
+	return &core.Command{
+		Short:     `Get OS`,
+		Long:      `Return specific OS for the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "os",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(baremetal.GetOsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "os-id",
+				Short:    `ID of the researched OS`,
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetOsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetOs(request)
 
 		},
 	}
