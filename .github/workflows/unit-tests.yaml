@@ -43,7 +43,7 @@ jobs:
         run: ./scripts/build.sh
 
   docker-tests:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Build image in Docker
         run: docker build -t scaleway/cli .
