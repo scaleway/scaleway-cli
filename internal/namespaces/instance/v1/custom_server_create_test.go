@@ -230,6 +230,8 @@ func Test_CreateServer(t *testing.T) {
 }
 
 // None of the tests below should succeed to create an instance.
+// These tests need to be run in sequence since they are having warnings in the stderr
+// and these warnings can be captured by other tests
 func Test_CreateServerErrors(t *testing.T) {
 	////
 	// Image errors
@@ -241,6 +243,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid image label", core.Test(&core.TestConfig{
@@ -250,6 +253,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid image UUID", core.Test(&core.TestConfig{
@@ -259,6 +263,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	////
@@ -271,6 +276,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	////
@@ -283,6 +289,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 2", core.Test(&core.TestConfig{
@@ -292,6 +299,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
@@ -301,6 +309,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
@@ -310,6 +319,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
@@ -320,7 +330,8 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: deleteVolume("Volume"),
+		AfterFunc:       deleteVolume("Volume"),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
@@ -330,6 +341,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid root volume type", core.Test(&core.TestConfig{
@@ -339,6 +351,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
@@ -349,7 +362,8 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: deleteVolume("Volume"),
+		AfterFunc:       deleteVolume("Volume"),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid root volume ID", core.Test(&core.TestConfig{
@@ -359,6 +373,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
@@ -369,7 +384,8 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc: deleteServer("Server"),
+		AfterFunc:       deleteServer("Server"),
+		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid root volume format", core.Test(&core.TestConfig{
@@ -379,6 +395,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		DisableParallel: true,
 	}))
 
 	////

@@ -24,6 +24,7 @@ func deleteLatestVersionUpdateFile(*BeforeFuncCtx) error {
 	return nil
 }
 
+// These tests needs to run in sequence since they are modifying a file on the filesystem
 func Test_CheckVersion(t *testing.T) {
 	t.Run("Outdated version", Test(&TestConfig{
 		Commands: NewCommands(fakeCommand),
@@ -36,6 +37,7 @@ func Test_CheckVersion(t *testing.T) {
 			TestCheckStderrGolden(),
 			TestCheckExitCode(0),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Up to date version", Test(&TestConfig{
@@ -49,6 +51,7 @@ func Test_CheckVersion(t *testing.T) {
 			TestCheckStderrGolden(),
 			TestCheckExitCode(0),
 		),
+		DisableParallel: true,
 	}))
 
 	t.Run("Already checked", Test(&TestConfig{
@@ -67,5 +70,6 @@ func Test_CheckVersion(t *testing.T) {
 			TestCheckStderrGolden(),
 			TestCheckExitCode(0),
 		),
+		DisableParallel: true,
 	}))
 }

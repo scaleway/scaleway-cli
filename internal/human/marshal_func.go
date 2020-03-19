@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"reflect"
+	"sync"
 	"time"
 
 	"github.com/dustin/go-humanize"
@@ -16,19 +17,21 @@ import (
 type MarshalerFunc func(interface{}, *MarshalOpt) (string, error)
 
 // marshalerFuncs is the register of all marshal func bindings
-var marshalerFuncs = map[reflect.Type]MarshalerFunc{
-	reflect.TypeOf(int(0)):      defaultMarshalerFunc,
-	reflect.TypeOf(int32(0)):    defaultMarshalerFunc,
-	reflect.TypeOf(int64(0)):    defaultMarshalerFunc,
-	reflect.TypeOf(uint32(0)):   defaultMarshalerFunc,
-	reflect.TypeOf(uint64(0)):   defaultMarshalerFunc,
-	reflect.TypeOf(string("")):  defaultMarshalerFunc,
-	reflect.TypeOf(bool(false)): defaultMarshalerFunc,
-	reflect.TypeOf(scw.Size(0)): defaultMarshalerFunc,
-	reflect.TypeOf(time.Time{}): func(i interface{}, opt *MarshalOpt) (string, error) {
+var marshalerFuncs sync.Map
+
+func init() {
+	marshalerFuncs.Store(reflect.TypeOf(int(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(int32(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(int64(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(uint32(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(bool(false)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
-	},
-	reflect.TypeOf(scw.Size(0)): func(i interface{}, opt *MarshalOpt) (string, error) {
+	})
+	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, opt *MarshalOpt) (string, error) {
 		size := uint64(i.(scw.Size))
 
 		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
@@ -36,24 +39,35 @@ var marshalerFuncs = map[reflect.Type]MarshalerFunc{
 		}
 
 		return humanize.Bytes(size), nil
-	},
-	reflect.TypeOf(net.IP{}): func(i interface{}, opt *MarshalOpt) (string, error) {
+	})
+	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil
-	},
-	reflect.TypeOf(scw.IPNet{}): func(i interface{}, opt *MarshalOpt) (string, error) {
+	})
+	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
 		return v.String(), nil
-	},
-	reflect.TypeOf(version.Version{}): func(i interface{}, opt *MarshalOpt) (string, error) {
+	})
+	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(version.Version)
 		return v.String(), nil
-	},
+	})
 }
 
 // TODO: implement the same logic as args.RegisterMarshalFunc(), where i must be a pointer
 // RegisterMarshalerFunc bind the given type of i with the given MarshalerFunc
 func RegisterMarshalerFunc(i interface{}, f MarshalerFunc) {
-	marshalerFuncs[reflect.TypeOf(i)] = f
+	marshalerFuncs.Store(reflect.TypeOf(i), f)
+}
+
+func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
+	value, _ := marshalerFuncs.Load(key)
+	if f, ok := value.(func(interface{}, *MarshalOpt) (string, error)); ok {
+		return MarshalerFunc(f), true
+	}
+	if mf, ok := value.(MarshalerFunc); ok {
+		return mf, true
+	}
+	return nil, false
 }
 
 // DefaultMarshalerFunc is used by default for all non-registered type
@@ -78,7 +92,7 @@ func defaultMarshalerFunc(i interface{}, opt *MarshalOpt) (string, error) {
 // - the type implements the Marshaler, error, or Stringer interface
 // - pointer of the type matches one of the above conditions
 func isMarshalable(t reflect.Type) bool {
-	_, hasMarshalerFunc := marshalerFuncs[t]
+	_, hasMarshalerFunc := getMarshalerFunc(t)
 
 	return (t.Kind() != reflect.Struct && t.Kind() != reflect.Map && t.Kind() != reflect.Ptr) ||
 		hasMarshalerFunc ||
