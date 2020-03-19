@@ -1,6 +1,7 @@
 package baremetal
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -87,9 +88,13 @@ func Test_CreateServerErrors(t *testing.T) {
 	////
 	t.Run("Error: invalid instance type", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance server create type=MACBOOK1-S image=ubuntu_bionic",
+		Cmd:      "scw baremetal server create type=foobar",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
+			core.TestCheckError(&core.CliError{
+				Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
+				Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
+			}),
 			core.TestCheckExitCode(1),
 		),
 	}))

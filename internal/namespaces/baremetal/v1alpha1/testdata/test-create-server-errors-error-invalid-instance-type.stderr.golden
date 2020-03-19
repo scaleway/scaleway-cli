@@ -1,1 +1,4 @@
-Unknown command "instance" for "scw"
+Invalid value 'foobar' for arg 'type'
+
+Hint:
+Accepted values for 'type' are [GP-BM1-L GP-BM1-M HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]
