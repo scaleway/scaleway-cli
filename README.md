@@ -134,18 +134,18 @@ docker build -t scaleway/cli .
 
 You can then use the CLI as you would run any image:
 ```sh
-docker run -i scaleway/cli
+docker run -i --rm scaleway/cli
 ```
 
 In order to use it you must mount the scaleway configuration file:
 ```sh
-docker run -i -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli
+docker run -i --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli
 ```
 
 If you want to use `scw` instead of `docker run` you can add the following in your `~/.bashrc`:
 ```bash
 scw() {
-    docker run -i -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
+    docker run -i --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
 }
 export -f scw
 ```
@@ -153,7 +153,7 @@ export -f scw
 Or if you use ZSH, add the following in your `~/.zshrc`:
 ```zsh
 scw() {
-    docker run -i -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli $@
+    docker run -i --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli $@
 }
 ```
 
@@ -161,7 +161,7 @@ You can still use autocompletion while running the CLI in Docker, you just need 
 For instance, your `~/.bashrc` will look like this:
 ```bash
 scw() {
-    docker run -i -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
+    docker run -i --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
 }
 export -f scw
 
