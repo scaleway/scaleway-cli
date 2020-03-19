@@ -116,14 +116,23 @@ dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 
 ## With a Docker Image
 
+### Official releases (Comigng soon..)
+
+<!-- For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
+
+```sh
+docker run scaleway/cli version
+```
+-->
+
 ### Manual installation
 
-You can build the `scw` cli with Docker. If you have Docker installed, you can run:
+You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
 ```sh
 docker build -t scaleway/cli .
 ```
 
-You can then use the cli as you would run any image:
+You can then use the CLI as you would run any image:
 ```sh
 docker run -i scaleway/cli
 ```
@@ -148,14 +157,16 @@ scw() {
 }
 ```
 
-You can still use autocompletion while running the cli in Docker, you just need to add the needed command after the definition of the new `scw` function.
+You can still use autocompletion while running the CLI in Docker, you just need to add the needed command after the definition of the new `scw` function.
+For instance, your `~/.bashrc` will look like this:
+```bash
+scw() {
+    docker run -i -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
+}
+export -f scw
 
-<!-- For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
-
-```sh
-docker run scaleway/cli version
+eval "$(scw autocomplete script shell=bash)"
 ```
--->
 
 ## Build Locally
 
