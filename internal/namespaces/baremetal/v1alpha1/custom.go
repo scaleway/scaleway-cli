@@ -7,6 +7,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		serverCreateCommand(),
+		serverWaitCommand(),
 	))
 
 	return cmds

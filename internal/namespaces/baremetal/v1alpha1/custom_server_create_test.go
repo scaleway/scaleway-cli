@@ -11,6 +11,14 @@ import (
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
+	_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+		ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+		Zone:     ctx.CmdResult.(*baremetal.Server).Zone,
+		Timeout:  serverActionTimeout,
+	})
+	if err != nil {
+		return err
+	}
 	ctx.ExecuteCmd("scw baremetal server delete server-id=" + ctx.CmdResult.(*baremetal.Server).ID)
 	return nil
 }
@@ -26,21 +34,21 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			//AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   deleteServerAfterFunc,
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=yo zone=fr-par-2",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=fr-par-2",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.Equal(t, "yo", ctx.Result.(*baremetal.Server).Name)
+					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetal.Server).Name)
 				},
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			//AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   deleteServerAfterFunc,
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -54,7 +62,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			//AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   deleteServerAfterFunc,
 		}))
 
 		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
