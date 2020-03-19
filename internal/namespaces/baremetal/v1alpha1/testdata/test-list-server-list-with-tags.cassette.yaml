@@ -6,20 +6,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.5+dev (go1.14; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers?order_by=created_at_asc&page=1&tags=a
     method: GET
   response:
-    body: '{"total_count":1,"servers":[{"id":"188b71df-4193-4f33-9151-df07234f3ef4","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"bm-determined-ellis","description":"","updated_at":"2020-03-10T13:49:42.602599Z","created_at":"2020-02-24T09:54:57.367412Z","status":"ready","offer_id":"737f18c8-febc-4408-b69e-776bca0a3f48","install":{"os_id":"f2aeab5d-6015-4b7c-b4ed-d76e89093621","hostname":"bm-determined-ellis","ssh_key_ids":["77021435-ad22-4748-8861-0a1c512154d0","90bf1977-43ab-4eb7-b178-3dd96963ce99"],"status":"completed"},"tags":["a"],"ips":[{"id":"80e3d13b-b5df-4c00-b38c-afc4e96f8ea5","address":"51.159.0.4","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"b7abae59-34a3-49fc-87b4-93e95da83207","address":"2001:0bc8:6005:0000:529a:4cff:fe84:ea3d","reverse":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"188b71df-4193-4f33-9151-df07234f3ef4.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}]}'
+    body: '{"total_count":0,"servers":[]}'
     headers:
       Content-Length:
-      - "1144"
+      - "30"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 10 Mar 2020 13:53:55 GMT
+      - Thu, 19 Mar 2020 11:22:48 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ca407d93-163d-4711-8993-d10b8e919490
+      - b44dc69b-5bf6-4d09-bf2c-d5490813041a
     status: 200 OK
     code: 200
     duration: ""

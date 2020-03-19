@@ -6,7 +6,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -22,7 +21,7 @@ func waitForServerFunc(action int) core.WaitFunc {
 		server, err := baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
 			ServerID: respI.(*baremetal.Server).ID,
 			Zone:     respI.(*baremetal.Server).Zone,
-			Timeout:  scw.DurationPtr(serverActionTimeout),
+			Timeout:  serverActionTimeout,
 		})
 		switch action {
 		case serverActionReboot:

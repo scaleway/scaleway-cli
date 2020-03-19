@@ -40,7 +40,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			//AfterFunc: deleteServerAfterFunc,
+			//AfterFunc:   deleteServerAfterFunc,
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -54,12 +54,12 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			//AfterFunc: deleteServerAfterFunc,
+			//AfterFunc:   deleteServerAfterFunc,
 		}))
 
 		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
 		//	Commands: GetCommands(),
-		//	Cmd:      "scw baremetal server create type=HC-BM1-L zone=fr-par-2",
+		//	Cmd:      "scw baremetal server create type=HC-BM1-L zone=fr-par-2 --wait",
 		//	Check: core.TestCheckCombine(
 		//		func(t *testing.T, ctx *core.CheckFuncCtx) {
 		//			assert.Equal(t, "HC-BM1-L", ctx.Result.(*baremetal.Server).CommercialType)
