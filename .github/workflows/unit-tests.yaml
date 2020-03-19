@@ -41,6 +41,7 @@ jobs:
           fetch-depth: 1
       - name: Build binaries
         run: ./scripts/build.sh
+
   docker-tests:
     runs-on:  ubuntu-latest
     steps:
