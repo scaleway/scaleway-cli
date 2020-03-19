@@ -10,13 +10,13 @@ interactions:
     url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/offers?page=1
     method: GET
   response:
-    body: '{"total_count":6,"offers":[{"id":"3ab0dc29-2fd4-486e-88bf-d08fbf49214b","name":"HC-BM1-L","stock":"empty","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":1,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":749,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+    body: '{"total_count":6,"offers":[{"id":"3ab0dc29-2fd4-486e-88bf-d08fbf49214b","name":"HC-BM1-L","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":1,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":749,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
       Xeon Gold 5120","cores":28,"threads":56,"frequency":2200},{"name":"Intel Xeon
       Gold 5120","cores":28,"threads":56,"frequency":2200}],"memory":[{"capacity":384,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":1,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":749,"nanos":990000000}},{"id":"5363865f-2266-40f9-a43f-4f3aba251524","name":"HM-BM1-XL","stock":"empty","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":2,"nanos":599900000},"price_by_month":{"currency_code":"EUR","units":1299,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
       Xeon Gold 6140","cores":36,"threads":72,"frequency":2300},{"name":"Intel Xeon
       Gold 6140","cores":36,"threads":72,"frequency":2300}],"memory":[{"capacity":768,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":2,"nanos":599900000},"price_per_month":{"currency_code":"EUR","units":1299,"nanos":990000000}},{"id":"737f18c8-febc-4408-b69e-776bca0a3f48","name":"HC-BM1-S","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":0,"nanos":659900000},"price_by_month":{"currency_code":"EUR","units":329,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
       Xeon Silver 4114","cores":10,"threads":20,"frequency":2200},{"name":"Intel Xeon
-      Silver 4114","cores":10,"threads":20,"frequency":2200}],"memory":[{"capacity":128,"type":"DDR4","frequency":2400,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":659900000},"price_per_month":{"currency_code":"EUR","units":329,"nanos":990000000}},{"id":"8090d302-3545-4905-9cf3-bcb77a299f47","name":"GP-BM1-L","stock":"empty","bandwidth":750,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":249,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
+      Silver 4114","cores":10,"threads":20,"frequency":2200}],"memory":[{"capacity":128,"type":"DDR4","frequency":2400,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":659900000},"price_per_month":{"currency_code":"EUR","units":329,"nanos":990000000}},{"id":"8090d302-3545-4905-9cf3-bcb77a299f47","name":"GP-BM1-L","stock":"available","bandwidth":750,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":249,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
       EPYC 7281","cores":16,"threads":32,"frequency":2100}],"memory":[{"capacity":96,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":249,"nanos":990000000}},{"id":"964f9b38-577e-470f-a220-7d762f9e8672","name":"GP-BM1-M","stock":"available","bandwidth":500,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":399900000},"price_by_month":{"currency_code":"EUR","units":199,"nanos":990000000},"disk":[{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"}],"enable":true,"cpu":[{"name":"Intel
       Xeon E3 1240v6","cores":4,"threads":8,"frequency":3700}],"memory":[{"capacity":64,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":399900000},"price_per_month":{"currency_code":"EUR","units":199,"nanos":990000000}},{"id":"c452f76a-2cda-4a1b-9658-a16952dc5ff0","name":"HM-BM1-M","stock":"available","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":0,"nanos":799900000},"price_by_month":{"currency_code":"EUR","units":399,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
       EPYC 7401P","cores":24,"threads":48,"frequency":2000}],"memory":[{"capacity":256,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":799900000},"price_per_month":{"currency_code":"EUR","units":399,"nanos":990000000}}]}'
@@ -26,7 +26,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 19 Mar 2020 11:22:48 GMT
+      - Thu, 19 Mar 2020 14:42:33 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -36,12 +36,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4c16f61f-14a1-40b9-9195-d623c19668f1
+      - 97fc9612-b0fa-4e65-aa09-0812f4bab160
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-poitras","description":"","tags":["prod","blue"]}'
+    body: '{"offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","tags":["prod","blue"]}'
     form: {}
     headers:
       Content-Type:
@@ -51,7 +51,7 @@ interactions:
     url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers
     method: POST
   response:
-    body: '{"id":"6ae68ed4-55eb-43a9-8223-e7bf3e886fc0","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-poitras","description":"","updated_at":"2020-03-19T11:22:48.835472949Z","created_at":"2020-03-19T11:22:48.835472949Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.232843878Z","created_at":"2020-03-19T14:42:34.232843878Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
     headers:
       Content-Length:
       - "417"
@@ -60,7 +60,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 19 Mar 2020 11:22:48 GMT
+      - Thu, 19 Mar 2020 14:42:34 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -70,7 +70,1127 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6176a805-2f8a-48f6-98a5-3f5c0164755e
+      - 910d44cb-2990-4b96-ba5f-2a2aa66efebf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.232844Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:34 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ddd32bbd-c07e-4bf3-b06f-b3010a7e6cb3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:39 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - da68576c-209c-4d29-aa8d-0481940b3e46
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:44 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 09704322-255c-4241-a581-4040db369236
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4e0474dc-03dc-4db3-b8f1-911f73075ffd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:54 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1cc993c6-97f1-4b5c-9861-c5ce1f533591
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:42:59 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d3c377b3-50f2-4dda-8549-2cfd75868052
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:04 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 67fdea5f-d675-401c-8ead-9f82f6f78c2a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:09 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - af099bcb-5bea-47f0-8efd-10d03518f959
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:14 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8977f4a4-654a-46ac-90b6-8d592594d13b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:19 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 486338b3-b303-4b26-a6d8-5af5e6ea70cb
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fe7428a6-d8bb-499f-8bd1-c7de64ea72c0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:29 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1174be13-e2e9-4512-998f-ab3643ad3963
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:34 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3c3316e8-e930-4cab-9af7-16a81c1490e3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:39 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4ee069b3-eb86-4940-aded-3e50e7600f0f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:44 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0fa7c816-eedc-4e26-8a70-ecc56a9a309e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 673dc977-273a-4140-85a7-86620e787764
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:54 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 86be6d84-2382-40a6-99ba-83807b369fc0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:43:59 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 94562027-0706-44cb-b752-5168175d4641
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:04 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 43ff5aab-d0db-4004-a3f8-caa9722acf89
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:09 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f1843e1b-fa2b-4b30-985d-c1d61ff5be5a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:14 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cb06453f-0ca9-4b62-9775-8aeadb8b4ff1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:19 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 40bdaa91-a7c4-41f0-8395-58a698ad4811
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:25 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7b9f033b-d06b-41a8-998d-f424d07e0215
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:30 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 486d6a9a-2b27-4db3-b182-983f352fba80
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:35 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 745e421e-c7cd-469d-b6f6-5ee1d6753ca4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:40 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1f69fb61-a576-45af-8945-ce68f0e6bc09
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:45 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 450c8ca7-4ce9-409f-98c4-e6cffdfd0ac8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:50 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2fef508c-589a-43fe-ac3e-e13c5cc6e8cd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:44:55 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 98534bdd-dbc2-4249-b198-071eb4160134
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:00 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0ac88eeb-e00b-4ceb-8e79-0135f3dfad26
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f29c8b6c-c109-4ebd-bf8d-c9b713c3e36b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 95de6d3f-966e-4163-9af9-6158d842c3f6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:42:34.892826Z","created_at":"2020-03-19T14:42:34.232844Z","status":"undelivered","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "411"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:15 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3485ac95-90d1-47d2-8d82-fcf2de10c78e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: GET
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:45:16.721321Z","created_at":"2020-03-19T14:42:34.232844Z","status":"ready","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[{"id":"cf3e22ce-429f-4034-ac3b-662d16659517","address":"51.159.56.113","reverse":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"f2fa09bd-2fd1-4587-82d3-4a3ff1dd6194","address":"2001:0bc8:1200:0000:dac4:97ff:fe5b:7aad","reverse":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "943"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:20 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7d13fb2b-7b13-4446-8434-0e19790d6353
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/be97d840-353b-47f6-8929-ebec8bc9e753
+    method: DELETE
+  response:
+    body: '{"id":"be97d840-353b-47f6-8929-ebec8bc9e753","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-wonderful-hamilton","description":"","updated_at":"2020-03-19T14:45:20.492789Z","created_at":"2020-03-19T14:42:34.232844Z","status":"deleting","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["prod","blue"],"ips":[{"id":"cf3e22ce-429f-4034-ac3b-662d16659517","address":"51.159.56.113","reverse":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"f2fa09bd-2fd1-4587-82d3-4a3ff1dd6194","address":"2001:0bc8:1200:0000:dac4:97ff:fe5b:7aad","reverse":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"be97d840-353b-47f6-8929-ebec8bc9e753.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "946"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 19 Mar 2020 14:45:20 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d253d393-3663-43b3-9343-e2714dc3c1f8
     status: 200 OK
     code: 200
     duration: ""
