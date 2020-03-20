@@ -29,7 +29,7 @@ func Test_initCommand(t *testing.T) {
 				}
 				// gives following error
 				//  open /var/folders/wh/z_3kj3ks32dfj9x58_b9c4s40000gn/T/.ssh/id_rsa.pub: permission denied
-				// err = ioutil.WriteFile(path_, []byte(content), 0644)
+				err = ioutil.WriteFile(path_, []byte(content), 0644)
 				return err
 			}
 			return err
