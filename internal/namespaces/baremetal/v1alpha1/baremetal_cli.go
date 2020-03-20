@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOffer(),
 		baremetalServerList(),
 		baremetalServerGet(),
+		baremetalServerCreate(),
 		baremetalServerUpdate(),
 		baremetalServerInstall(),
 		baremetalServerDelete(),

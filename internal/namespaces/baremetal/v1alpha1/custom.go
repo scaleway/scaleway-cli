@@ -6,9 +6,10 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	cmds.Merge(core.NewCommands(
-		serverCreateCommand(),
 		serverWaitCommand(),
 	))
+
+	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 
 	return cmds
 }
