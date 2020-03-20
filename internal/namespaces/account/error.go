@@ -13,9 +13,9 @@ func installationCanceled(addKeyInstructions string) *core.CliError {
 	}
 }
 
-func sshKeyNotFound(shortenedFilename string, addKeyInstructions string) *core.CliError {
+func sshKeyNotFound(filename string, addKeyInstructions string) *core.CliError {
 	return &core.CliError{
-		Err:  fmt.Errorf("could not find an ssh key at " + shortenedFilename),
+		Err:  fmt.Errorf("could not find an ssh key at " + filename),
 		Hint: "Add one later using " + addKeyInstructions,
 	}
 }
