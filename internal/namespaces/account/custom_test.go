@@ -34,5 +34,8 @@ func Test_initCommand(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
+		OverrideEnv: map[string]string{
+			"HOME": os.TempDir(),
+		},
 	}))
 }
