@@ -1,4 +1,4 @@
-Initiliaze SHH key.
+Initiliaze SSH key.
 
 USAGE:
   scw account ssh-key init [arg=value ...]

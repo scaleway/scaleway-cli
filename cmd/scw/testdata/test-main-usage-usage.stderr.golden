@@ -8,7 +8,7 @@ AVAILABLE COMMANDS:
   marketplace  Marketplace API
   init         Initialize the config
   config       Config file management
-  account      Manage SHH key
+  account      Manage SSH key
   autocomplete Install autocompletion script
   version      Display cli version
   help         Help about any command

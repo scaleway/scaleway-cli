@@ -1,10 +1,10 @@
-Manage SHH key.
+Manage SSH key.
 
 USAGE:
   scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
-  init        Initiliaze SHH key
+  init        Initiliaze SSH key
 
 FLAGS:
   -h, --help   help for ssh-key
