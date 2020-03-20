@@ -19,6 +19,15 @@ type baremetalActionRequest struct {
 	ServerID string
 }
 
+var serverActionArgSpecs = core.ArgSpecs{
+	{
+		Name:     "server-id",
+		Short:    `ID of the server affected by the action.`,
+		Required: true,
+	},
+	core.ZoneArgSpec(),
+}
+
 func serverWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for server to reach a stable state`,
@@ -38,15 +47,6 @@ func serverWaitCommand() *core.Command {
 			},
 		},
 	}
-}
-
-var serverActionArgSpecs = core.ArgSpecs{
-	{
-		Name:     "server-id",
-		Short:    `ID of the server affected by the action.`,
-		Required: true,
-	},
-	core.ZoneArgSpec(),
 }
 
 func waitForServerFunc() core.WaitFunc {
