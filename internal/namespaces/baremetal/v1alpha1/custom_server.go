@@ -2,7 +2,6 @@ package baremetal
 
 import (
 	"context"
-	"fmt"
 	"reflect"
 	"time"
 
@@ -60,92 +59,44 @@ func serverWaitCommand() *core.Command {
 	}
 }
 
-func serverStartCommand() *core.Command {
-	return &core.Command{
-		Short:     `Power on server`,
-		Namespace: "baremetal",
-		Resource:  "server",
-		Verb:      "start",
-		ArgsType:  reflect.TypeOf(baremetalActionRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*baremetalActionRequest)
+// serverStartBuilder overrides the baremetalServerStart command
+func serverStartBuilder(c *core.Command) *core.Command {
 
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-
-			_, err := api.StartServer(&baremetal.StartServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
-			})
-			return &core.SuccessResult{Message: fmt.Sprintf("%s successfully started", args.ServerID)}, err
-		},
-		WaitFunc: waitForServerFunc(),
-		ArgSpecs: serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:   "Start a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+			Zone:     argsI.(*baremetal.StartServerRequest).Zone,
+			ServerID: respI.(*baremetal.StartServerRequest).ServerID,
+			Timeout:  serverActionTimeout,
+		})
 	}
+
+	return c
 }
 
-func serverStopCommand() *core.Command {
-	return &core.Command{
-		Short:     `Power off server`,
-		Namespace: "baremetal",
-		Resource:  "server",
-		Verb:      "stop",
-		ArgsType:  reflect.TypeOf(baremetalActionRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*baremetalActionRequest)
+// serverStopBuilder overrides the baremetalServerStop command
+func serverStopBuilder(c *core.Command) *core.Command {
 
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-
-			_, err := api.StopServer(&baremetal.StopServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
-			})
-			return &core.SuccessResult{Message: fmt.Sprintf("%s successfully stopped", args.ServerID)}, err
-		},
-		WaitFunc: waitForServerFunc(),
-		ArgSpecs: serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:   "Stop a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+			Zone:     argsI.(*baremetal.StopServerRequest).Zone,
+			ServerID: respI.(*baremetal.StopServerRequest).ServerID,
+			Timeout:  serverActionTimeout,
+		})
 	}
+
+	return c
 }
 
-func serverRebootCommand() *core.Command {
-	return &core.Command{
-		Short:     `Reboot server`,
-		Namespace: "baremetal",
-		Resource:  "server",
-		Verb:      "reboot",
-		ArgsType:  reflect.TypeOf(baremetalActionRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*baremetalActionRequest)
+// serverRebootBuilder overrides the baremetalServerReboot command
+func serverRebootBuilder(c *core.Command) *core.Command {
 
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-
-			_, err := api.RebootServer(&baremetal.RebootServerRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
-			})
-			return &core.SuccessResult{Message: fmt.Sprintf("%s successfully rebooted", args.ServerID)}, err
-		},
-		WaitFunc: waitForServerFunc(),
-		ArgSpecs: serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:   "Reboot a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+			Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
+			ServerID: respI.(*baremetal.RebootServerRequest).ServerID,
+			Timeout:  serverActionTimeout,
+		})
 	}
+
+	return c
 }

@@ -10,8 +10,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
-func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
+// waitAndDeleteServerAfterFunc wait for the server to be in a stable state and delete it
+func waitAndDeleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
 	_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
 		ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 		Zone:     ctx.CmdResult.(*baremetal.Server).Zone,
@@ -35,7 +35,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   waitAndDeleteServerAfterFunc,
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 
@@ -49,7 +49,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   waitAndDeleteServerAfterFunc,
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -63,7 +63,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc:   deleteServerAfterFunc,
+			AfterFunc:   waitAndDeleteServerAfterFunc,
 		}))
 
 		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
@@ -75,7 +75,7 @@ func Test_CreateServer(t *testing.T) {
 		//		},
 		//		core.TestCheckExitCode(0),
 		//	),
-		//	AfterFunc:   deleteServerAfterFunc,
+		//	AfterFunc:   waitAndDeleteServerAfterFunc,
 		//	DefaultZone: scw.ZoneFrPar2,
 		//}))
 	})
