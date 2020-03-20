@@ -90,7 +90,6 @@ func Test_CreateServerErrors(t *testing.T) {
 		Commands: GetCommands(),
 		Cmd:      "scw baremetal server create type=foobar",
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
 			core.TestCheckError(&core.CliError{
 				Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
 				Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
