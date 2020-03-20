@@ -24,8 +24,8 @@ func GetCommands() *core.Commands {
 
 func sshKeyCommand() *core.Command {
 	return &core.Command{
-		Short:     `Manage SHH key`,
-		Long:      `Manage SHH key.`,
+		Short:     `Manage SSH key`,
+		Long:      `Manage SSH key.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		NoClient:  true,
@@ -34,13 +34,13 @@ func sshKeyCommand() *core.Command {
 }
 
 type InitArgs struct {
-	WithSHHKey *bool
+	WithSSHKey *bool
 }
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initiliaze SHH key`,
-		Long:      `Initiliaze SHH key.`,
+		Short:     `Initiliaze SSH key`,
+		Long:      `Initiliaze SSH key.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "init",
@@ -65,7 +65,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	relativePath := ".ssh/id_rsa.pub"
 	filename := path.Join(os.Getenv("HOME"), relativePath)
 	shortenedFilename := "~/" + relativePath
-	localSHHKeyContent, err := ioutil.ReadFile(filename)
+	localSSHKeyContent, err := ioutil.ReadFile(filename)
 
 	addKeyInstructions := `scw account ssh-key add name=my-key key="($)(cat path/to/my/key.pub)"`
 
@@ -90,17 +90,17 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
-		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSHHKeyContent)) {
+		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSSHKeyContent)) {
 			return nil, sshKeyAlreadyPresent(shortenedFilename)
 		}
 	}
 
 	// Ask user
-	addSHHKey := false
-	if args.WithSHHKey != nil {
-		addSHHKey = *args.WithSHHKey
+	addSSHKey := false
+	if args.WithSSHKey != nil {
+		addSSHKey = *args.WithSSHKey
 	} else {
-		addSHHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		addSSHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 			Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
 			DefaultValue: true,
 		})
@@ -110,13 +110,13 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	}
 
 	// Early exit if user doesn't want to add the key
-	if !addSHHKey {
+	if !addSSHKey {
 		return nil, installationCanceled(addKeyInstructions)
 	}
 
 	// Add key
 	_, err = api.CreateSSHKey(&account.CreateSSHKeyRequest{
-		PublicKey: string(localSHHKeyContent),
+		PublicKey: string(localSSHKeyContent),
 	})
 	if err != nil {
 		return nil, err

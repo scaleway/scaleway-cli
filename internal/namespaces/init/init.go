@@ -63,7 +63,7 @@ type initArgs struct {
 	Zone                scw.Zone
 	OrganizationID      string
 	SendTelemetry       *bool
-	WithSHHKey          *bool
+	WithSSHKey          *bool
 	InstallAutocomplete *bool
 }
 
@@ -290,7 +290,7 @@ func initCommand() *core.Command {
 			// Init SSH Key
 			_, _ = interactive.Println()
 			result, err := accountcommands.InitRun(ctx, &accountcommands.InitArgs{
-				WithSHHKey: args.WithSHHKey,
+				WithSSHKey: args.WithSSHKey,
 			})
 			if err != nil {
 				successMessage += "\n  except for ssh-key: " + err.Error()

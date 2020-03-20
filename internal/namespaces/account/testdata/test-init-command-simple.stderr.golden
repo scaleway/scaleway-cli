@@ -1,4 +1,7 @@
-Unknown argument 'with-ssh-key'
+Invalid arguments 'public_key'
+
+Details:
+- 'public_key' is wrongly formatted
 
 Hint:
-Valid arguments are: with-ssh-key
+Invalid SSH public key
