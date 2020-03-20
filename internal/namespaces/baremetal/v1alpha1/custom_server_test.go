@@ -18,7 +18,6 @@ func Test_StartServerErrors(t *testing.T) {
 		AfterFunc:   waitAndDeleteServerAfterFunc,
 		DefaultZone: scw.ZoneFrPar2,
 	}))
-
 }
 
 func Test_StopServerErrors(t *testing.T) {
@@ -32,7 +31,6 @@ func Test_StopServerErrors(t *testing.T) {
 		AfterFunc:   waitAndDeleteServerAfterFunc,
 		DefaultZone: scw.ZoneFrPar2,
 	}))
-
 }
 
 func Test_RebootServerErrors(t *testing.T) {
@@ -46,5 +44,4 @@ func Test_RebootServerErrors(t *testing.T) {
 		AfterFunc:   waitAndDeleteServerAfterFunc,
 		DefaultZone: scw.ZoneFrPar2,
 	}))
-
 }
