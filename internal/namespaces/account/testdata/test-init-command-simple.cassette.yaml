@@ -20,54 +20,19 @@ interactions:
       lbourgois@MacBook-Pro-de-Loic.local (ssh-rsa)","created_at":"2020-03-10T10:31:12.749497Z","updated_at":"2020-03-10T10:31:12.749497Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"},{"id":"6ff5bb48-add1-458a-95bf-a3f5eda3767c","name":"","public_key":"ssh-rsa
       AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6szqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
       lbourgois@MacBook-Pro-de-Loic.local\n","fingerprint":"2048 MD5:de:57:c6:c4:a5:4a:cc:cd:6f:00:33:99:94:7a:8b:08
-      lbourgois@MacBook-Pro-de-Loic.local (ssh-rsa)","created_at":"2020-03-20T14:00:34.537763Z","updated_at":"2020-03-20T14:00:34.537763Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}],"total_count":3}'
-    headers:
-      Content-Length:
-      - "2915"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 20 Mar 2020 16:30:54 GMT
-      Server:
-      - scaleway_api
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - bf69e9be-8e64-4378-848c-583b6bb6313a
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"name":"","public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6ssqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      email","organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/account/v2alpha1/ssh-keys
-    method: POST
-  response:
-    body: '{"id":"695899a9-2b74-4dd1-b806-4d56bd5828bd","name":"","public_key":"ssh-rsa
+      lbourgois@MacBook-Pro-de-Loic.local (ssh-rsa)","created_at":"2020-03-20T14:00:34.537763Z","updated_at":"2020-03-20T14:00:34.537763Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"},{"id":"695899a9-2b74-4dd1-b806-4d56bd5828bd","name":"","public_key":"ssh-rsa
       AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6ssqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
       email","fingerprint":"2048 MD5:b4:9f:bd:7b:fc:66:66:cc:b3:33:41:72:fc:be:05:c8
-      email (ssh-rsa)","created_at":"2020-03-20T16:30:55.236831Z","updated_at":"2020-03-20T16:30:55.236831Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
+      email (ssh-rsa)","created_at":"2020-03-20T16:30:55.236831Z","updated_at":"2020-03-20T16:30:55.236831Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}],"total_count":4}'
     headers:
       Content-Length:
-      - "754"
+      - "3670"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 20 Mar 2020 16:30:55 GMT
+      - Mon, 23 Mar 2020 17:20:55 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -77,7 +42,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6cb91a77-ebb3-4dc9-8124-0feedd860bc1
+      - 6c5644b0-353d-4b0f-9d46-099788835cfd
     status: 200 OK
     code: 200
     duration: ""
