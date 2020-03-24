@@ -40,20 +40,7 @@ func buildUsageArgs(cmd *Command) string {
 // _buildUsageArgs builds the arg usage list.
 // This should not be called directly.
 func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs) error {
-	// related to protoc_gen_mordor.IsIgnoredFieldType()
-	// TODO: make this relation explicit
-	// TODO: decide what arguments to ignore
-	ignoredArgs := map[string]bool{
-		"page":      true,
-		"per-page":  true,
-		"page-size": true,
-	}
-
 	for _, argSpec := range argSpecs {
-		if _, ignoreArg := ignoredArgs[argSpec.Name]; ignoreArg {
-			continue
-		}
-
 		argSpecUsageLeftPart := argSpec.Name
 		if argSpec.Default != nil {
 			_, doc := argSpec.Default()
