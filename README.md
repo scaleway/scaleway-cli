@@ -114,18 +114,32 @@ dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 ```
 -->
 
+<!-- TODO:
 ## With a Docker Image
 
 ### Official releases (Coming soon..)
 
-<!-- For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
+For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
 
 ```sh
 docker run scaleway/cli version
 ```
 -->
 
-### Manual installation
+## Build it yourself
+
+### Build Locally
+
+If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
+Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
+
+```bash
+go get github.com/scaleway/scaleway-cli/cmd/scw
+```
+
+Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
+
+### Build with Docker
 
 You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
 ```sh
@@ -138,17 +152,6 @@ docker run -i --rm scaleway/cli
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
-
-## Build Locally
-
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
-Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
-
-```bash
-go get github.com/scaleway/scaleway-cli/cmd/scw
-```
-
-Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
 # Examples
 
