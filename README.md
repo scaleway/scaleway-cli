@@ -126,6 +126,15 @@ docker run scaleway/cli version
 ```
 -->
 
+# Examples
+
+## Create an instance server
+```
+scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+```
+
+TODO: Add more examples here.
+
 ## Build it yourself
 
 ### Build Locally
@@ -152,15 +161,6 @@ docker run -i --rm scaleway/cli
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
-
-# Examples
-
-## Create an instance server
-```
-scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
-```
-
-TODO: Add more examples here.
 
 # Tutorials
 
