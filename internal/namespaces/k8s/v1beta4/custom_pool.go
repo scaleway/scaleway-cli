@@ -67,7 +67,7 @@ func waitForPoolFunc(action int) core.WaitFunc {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
 			Region:  respI.(*k8s.Pool).Region,
 			PoolID:  respI.(*k8s.Pool).ID,
-			Timeout: scw.DurationPtr(poolActionTimeout),
+			Timeout: scw.TimeDurationPtr(poolActionTimeout),
 		})
 		switch action {
 		case poolActionCreate:

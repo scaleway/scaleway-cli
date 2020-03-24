@@ -82,7 +82,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
 			Region:    respI.(*k8s.Cluster).Region,
 			ClusterID: respI.(*k8s.Cluster).ID,
-			Timeout:   scw.DurationPtr(clusterActionTimeout),
+			Timeout:   scw.TimeDurationPtr(clusterActionTimeout),
 		})
 		switch action {
 		case clusterActionCreate:
