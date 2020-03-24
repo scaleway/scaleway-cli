@@ -12,7 +12,7 @@ LDFLAGS=(
 
 export CGO_ENABLED=0
 
-if [[ "${1}" == "build-in-docker" ]]; then
+if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
     GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]}" ./cmd/scw
 else
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

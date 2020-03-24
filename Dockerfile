@@ -1,5 +1,7 @@
 FROM golang:1.14-alpine as builder
 
+ENV BUILD_IN_DOCKER true
+
 # ca-certificates is needed to add the certificates on the next image
 # since it's FROM scratch, it does not have any certificates
 # bash is needed to run the build script
@@ -16,7 +18,7 @@ COPY cmd/ cmd/
 COPY internal/ internal/
 COPY .git/ .git/
 
-RUN bash scripts/build.sh build-in-docker
+RUN ./scripts/build.sh
 
 FROM scratch
 WORKDIR /
