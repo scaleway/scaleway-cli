@@ -42,7 +42,7 @@ func waitForNodeFunc(action int) core.WaitFunc {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
 			Region:  respI.(*k8s.Node).Region,
 			NodeID:  respI.(*k8s.Node).ID,
-			Timeout: scw.DurationPtr(nodeActionTimeout),
+			Timeout: scw.TimeDurationPtr(nodeActionTimeout),
 		})
 		switch action {
 		case nodeActionReboot:
