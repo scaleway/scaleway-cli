@@ -1,6 +1,6 @@
 # Using the CLI with Docker
 
-The CLI can be used in Docker withou any problem.
+The CLI can be used in Docker without any problem.
 
 ## Basic usage
 
@@ -61,4 +61,3 @@ complete -F _scw scw
 ```
 
 The trick is to remove the `-t` when using docker inside the completion function.
-
