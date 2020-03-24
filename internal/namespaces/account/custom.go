@@ -62,9 +62,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
 	// Get default SSH key locally
-	// TODO: rename to /.ssh/id_rsa.pub when test is working with /.ssh/id_rsa.pub
-	// see custom_test/Test_initCommand
-	relativePath := "/id_rsa.pub"
+	relativePath := path.Join(".ssh", "id_rsa.pub")
 	filename := path.Join(core.ExtractEnv(ctx, "HOME"), relativePath)
 	shortenedFilename := "~/" + relativePath
 	localSSHKeyContent, err := ioutil.ReadFile(filename)
