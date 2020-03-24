@@ -1,8 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BIN_DIR="$ROOT_DIR/bin"
+BIN_DIR="./bin"
 
 mkdir -p $BIN_DIR
 
@@ -21,3 +19,9 @@ export CGO_ENABLED=0
 GOOS=linux  GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-linux-x86_64"  cmd/scw/main.go
 GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-darwin-x86_64" cmd/scw/main.go
 GOOS=windows GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-windows-x86_64.exe" cmd/scw/main.go
+
+shasum -a 256 \
+  "$BIN_DIR/scw-$VERSION-linux-x86_64" \
+  "$BIN_DIR/scw-$VERSION-darwin-x86_64" \
+  "$BIN_DIR/scw-$VERSION-windows-x86_64.exe" \
+  | sed -e 's#./bin/##' > "$BIN_DIR/SHA256SUMS"
