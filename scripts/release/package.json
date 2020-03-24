@@ -1,0 +1,17 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "external-editor": "^3.1.0",
+    "get-stream": "^5.1.0",
+    "git-raw-commits": "^2.0.2",
+    "open": "^7.0.2",
+    "semver": "^6.3.0"
+  },
+  "scripts": {
+    "release": "node release.js"
+  }
+}
