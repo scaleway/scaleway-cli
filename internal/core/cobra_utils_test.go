@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"reflect"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/internal/args"
 )
 
 type testType struct {
@@ -42,6 +44,21 @@ func testGetCommands() *Commands {
 				return "", nil
 			},
 		},
+		&Command{
+			Namespace: "test-raw-args",
+			ArgsType:  reflect.TypeOf(args.RawArgs{}),
+			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+				res := ""
+				rawArgs := *argsI.(*args.RawArgs)
+				for i, arg := range rawArgs {
+					res += arg
+					if i != len(rawArgs)-1 {
+						res += " "
+					}
+				}
+				return res, nil
+			},
+		},
 	)
 }
 
@@ -67,6 +84,25 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 				Err:  fmt.Errorf("unknown argument 'ubuntu-bionic'"),
 				Hint: fmt.Sprintf("Valid arguments are: name-id"),
 			}),
+		),
+	}))
+}
+
+func Test_RawArgs(t *testing.T) {
+	t.Run("Simple", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test-raw-args -- blabla",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckStdout("blabla\n"),
+		),
+	}))
+	t.Run("Multiple", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test-raw-args -- blabla foo bar",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckStdout("blabla foo bar\n"),
 		),
 	}))
 }

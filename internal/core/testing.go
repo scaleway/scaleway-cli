@@ -373,6 +373,13 @@ func TestCheckError(err error) TestCheck {
 	}
 }
 
+// TestCheckStdout asserts stdout using string
+func TestCheckStdout(stdout string) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		assert.Equal(t, stdout, string(ctx.Stdout), "Invalid stdout")
+	}
+}
+
 func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	actualIsEmpty := len(actual) == 0
 
