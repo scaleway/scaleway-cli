@@ -154,7 +154,7 @@ func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, posit
 	// Suggest to use the other arguments.
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
-	suggestedCommand := append([]string{"scw", cmd.getPath()}, suggestedArgs...)
+	suggestedCommand := append([]string{"scw", cmd.GetCommandLine()}, suggestedArgs...)
 	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 
