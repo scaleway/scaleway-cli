@@ -89,7 +89,7 @@ const S3_VERSION_OBJECT_NAME = "scw-cli-v2-version";
 /*
  * Usefull constant
  */
-const GITHUB_CLONE_URL = `git@github.com:${GITHUB_OWNER}/${GITHUB_REPO}.git"`;
+const GITHUB_CLONE_URL = `git@github.com:${GITHUB_OWNER}/${GITHUB_REPO}.git`;
 const GITHUB_REPO_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`;
 const _typeReg = /(?<type>[a-zA-Z]+)/;
 const _scopeReg = /(\((?<scope>.*)\))?/;
