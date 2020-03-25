@@ -67,6 +67,8 @@ const README_PATH = "./README.md";
 const CHANGELOG_PATH = "./CHANGELOG.md";
 // Go file that contain the version string to replace during release process.
 const GO_VERSION_PATH = "./cmd/scw/main.go";
+// Golden file used by test that checks whether the CLI is up to date or not.
+const VERSION_TEST_GOLDEN_PATH = "./internal/core/testdata/test-check-version-outdated-version.stderr.golden";
 // Name of the temporary branch that will be used during the release process.
 const TMP_BRANCH = "new-release";
 // Name of the temporary remote that will be used during the release process.
@@ -76,13 +78,13 @@ const GITHUB_OWNER = "scaleway";
 // Name of the github repo.
 const GITHUB_REPO = "scaleway-cli";
 // Name of the devtool bucket.
-const S3_DEVTOOL_BUCKET="scw-devtools";
+const S3_DEVTOOL_BUCKET = "scw-devtools";
 // Region of the devtool bucket .
-const S3_DEVTOOL_BUCKET_REGION="nl-ams";
+const S3_DEVTOOL_BUCKET_REGION = "nl-ams";
 // S3 object name of the version file that should be updated during release.
-const S3_VERSION_OBJECT_NAME="scw-cli-v2-version";
+const S3_VERSION_OBJECT_NAME = "scw-cli-v2-version";
 // The branch on which we want to perform the release
-const GITHUB_RELEASED_BRANCH="v2";
+const GITHUB_RELEASED_BRANCH = "v2";
 
 /*
  * Usefull constant
@@ -206,7 +208,7 @@ async function main() {
         target_commitish: GITHUB_RELEASED_BRANCH,
         name: newVersion,
         body: changelog.body,
-        prerelease: true,
+        prerelease: semver.prerelease(newVersion) !== null,
     });
 
     console.log("    attach assets to the release".gray);
@@ -252,7 +254,8 @@ async function main() {
     console.log(`Creating post release commit`.blue);
     git("branch", "-D", TMP_BRANCH);
     git("checkout", "-b", TMP_BRANCH);
-    replaceInFile(GO_VERSION_PATH, /Version = "[^"]"/, `Version = "v${newVersion}+dev"`);
+    replaceInFile(GO_VERSION_PATH, /Version = "[^"]*"/, `Version = "v${newVersion}+dev"`);
+    replaceInFile(VERSION_TEST_GOLDEN_PATH, /\([^)]*\)/, `(${newVersion})`)
     git("add", GO_VERSION_PATH);
     git("commit", "-m", `chore: cleanup after v${newVersion} release`);
     git("push", "-f", "--set-upstream", TMP_REMOTE, TMP_BRANCH);
