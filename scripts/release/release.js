@@ -77,14 +77,14 @@ const TMP_REMOTE = "scaleway-release";
 const GITHUB_OWNER = "scaleway";
 // Name of the github repo.
 const GITHUB_REPO = "scaleway-cli";
+// The branch on which we want to perform the release
+const GITHUB_RELEASED_BRANCH = "v2";
 // Name of the devtool bucket.
 const S3_DEVTOOL_BUCKET = "scw-devtools";
 // Region of the devtool bucket .
 const S3_DEVTOOL_BUCKET_REGION = "nl-ams";
 // S3 object name of the version file that should be updated during release.
 const S3_VERSION_OBJECT_NAME = "scw-cli-v2-version";
-// The branch on which we want to perform the release
-const GITHUB_RELEASED_BRANCH = "v2";
 
 /*
  * Usefull constant
