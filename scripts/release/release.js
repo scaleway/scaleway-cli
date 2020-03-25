@@ -4,7 +4,7 @@
  * This script will trigger a release process for the scaleway Go SDK.
  *
  * The script will proceed as follow:
- *   - Create a new remote `scaleway-release` that point to main repo
+ *   - Create a new remote `scaleway-release` that points to main repo
  *   - Prompt the new version number
  *   - Create release commit
  *     - Generate a changelog
@@ -130,9 +130,9 @@ async function main() {
     git( "checkout", `${TMP_REMOTE}/v2`);
     console.log(`   Successfully created ${TMP_REMOTE} remote`.green);
 
-    /*
-     * Trying to find the lastest tag to generate changelog
-     */
+    //
+    // Trying to find the lastest tag to generate changelog
+    //
     console.log("Trying to find last release tag".blue);
     const lastSemverTag = git("tag")
         .trim()
