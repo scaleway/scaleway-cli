@@ -41,3 +41,15 @@ jobs:
           fetch-depth: 1
       - name: Build binaries
         run: ./scripts/build.sh
+
+  docker-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: Build image in Docker
+      run: docker build -t scaleway/cli .
+    - name: Test help command in docker
+      run: docker run -i scaleway/cli help
