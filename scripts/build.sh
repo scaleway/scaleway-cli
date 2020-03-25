@@ -14,6 +14,7 @@ LDFLAGS=(
 if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
     GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]}" ./cmd/scw
     exit 0
+ fi
 
 
 BIN_DIR="./bin"
