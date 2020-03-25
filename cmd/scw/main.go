@@ -13,7 +13,7 @@ import (
 
 var (
 	// Version is updated manually
-	Version = "v2.0.0-beta.1+dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+	Version = "v2.0.0-beta.2" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
 
 	// These are initialized by the build script
 
