@@ -92,10 +92,10 @@ const S3_VERSION_OBJECT_NAME = "scw-cli-v2-version";
 const GITHUB_CLONE_URL = `git@github.com:${GITHUB_OWNER}/${GITHUB_REPO}.git"`;
 const GITHUB_REPO_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`;
 const _typeReg = /(?<type>[a-zA-Z]+)/;
-const COMMIT_REGEX = new RegExp(`${_typeReg.source}${_scopeReg.source}: *${_messageReg.source} *${_mrReg.source}`);
 const _scopeReg = /(\((?<scope>.*)\))?/;
 const _messageReg = /(?<message>[^(]*)/;
 const _mrReg = /(\(#(?<mr>[0-9]+)\))?/;
+const COMMIT_REGEX = new RegExp(`${_typeReg.source}${_scopeReg.source}: *${_messageReg.source} *${_mrReg.source}`);
 
 
 async function main() {
