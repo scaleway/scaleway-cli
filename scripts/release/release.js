@@ -44,6 +44,7 @@ const gitRawCommits = require("git-raw-commits"),
  * Required parameters
  */
 // A valid github personal token that should have write access to github repo.
+// Used only to create PR and Github Release
 const GITHUB_TOKEN=process.env.GITHUB_TOKEN;
 // A scaleway access key that should have write access to the devtool bucket.
 const SCW_ACCESS_KEY=process.env.SCW_ACCESS_KEY;
@@ -71,7 +72,7 @@ const TMP_BRANCH = "new-release";
 // Name of the temporary remote that will be used during the release process.
 const TMP_REMOTE = "scaleway-release";
 // Name of the github repo namespace (user or orga).
-const GITHUB_OWNER = "jerome-quere";
+const GITHUB_OWNER = "scaleway";
 // Name of the github repo.
 const GITHUB_REPO = "scaleway-cli";
 // Name of the devtool bucket.
@@ -80,6 +81,8 @@ const S3_DEVTOOL_BUCKET="scw-devtools";
 const S3_DEVTOOL_BUCKET_REGION="nl-ams";
 // S3 object name of the version file that should be updated during release.
 const S3_VERSION_OBJECT_NAME="scw-cli-v2-version";
+// The branch on which we want to perform the release
+const GITHUB_RELEASED_BRANCH="v2";
 
 /*
  * Usefull constant
@@ -118,20 +121,20 @@ async function main() {
         region: `${S3_DEVTOOL_BUCKET_REGION}`,
     });
 
-    /*
-     * Initialize TMP_REMOTE
-     */
+    //
+    // Initialize TMP_REMOTE
+    //
     console.log("Adding temporary remote on local repo".blue);
     git( "remote", "add", TMP_REMOTE, GITHUB_CLONE_URL);
     console.log(`   Successfully created ${TMP_REMOTE} remote`.green);
 
-    console.log("Make sure we are working on an up to date v2 branch".blue);
+    console.log(`Make sure we are working on an up to date ${GITHUB_RELEASED_BRANCH} branch`.blue);
     git( "fetch", TMP_REMOTE);
-    git( "checkout", `${TMP_REMOTE}/v2`);
+    git( "checkout", `${TMP_REMOTE}/${GITHUB_RELEASED_BRANCH}`);
     console.log(`   Successfully created ${TMP_REMOTE} remote`.green);
 
     //
-    // Trying to find the lastest tag to generate changelog
+    // Trying to find the latest tag to generate changelog
     //
     console.log("Trying to find last release tag".blue);
     const lastSemverTag = git("tag")
@@ -148,6 +151,7 @@ async function main() {
     commits.forEach(c => console.log(`    ${c}`.grey));
     console.log(`    We found ${commits.length} commits since last release`.green);
 
+    console.log(`    Last found release tag was ${lastSemverTag}`.grey);
     const newVersion = semver.clean(await prompt("Enter new version: ".magenta));
     if (!newVersion) {
         throw new Error(`invalid version`);
@@ -158,7 +162,7 @@ async function main() {
     // Creating release commit
     //
 
-    console.log(`Updating ${CHANGELOG_PATH} and ${GO_VERSION_PATH}`.blue);
+    console.log(`Updating ${README_PATH}, ${CHANGELOG_PATH} and ${GO_VERSION_PATH}`.blue);
     const changelog = buildChangelog(newVersion, commits);
     changelog.body = externalEditor.edit(changelog.body);
 
@@ -179,7 +183,7 @@ async function main() {
     const prResp = await octokit.pulls.create({
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
-        base: "v2",
+        base: GITHUB_RELEASED_BRANCH,
         head: TMP_BRANCH,
         title: `chore: release ${newVersion}`
     });
@@ -199,7 +203,7 @@ async function main() {
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
         tag_name: newVersion,
-        target_commitish: "v2",
+        target_commitish: GITHUB_RELEASED_BRANCH,
         name: newVersion,
         body: changelog.body,
         prerelease: true,
@@ -222,28 +226,28 @@ async function main() {
         })
     }));
 
-    console.log(`    Successfully create release: ${releaseResp.data.html_url}`.green);
-    await prompt(`Hit enter when if everything is fine .....`.magenta);
+    console.log(`    Successfully created release: ${releaseResp.data.html_url}`.green);
+    await prompt(`Hit enter to continue .....`.magenta);
 
     //
     // Update version file on s3
     //
-    console.log("Compiling release binary".blue);
+    console.log("Updating version file on s3".blue);
     await util.promisify(s3.putObject.bind(s3))({
         Body: newVersion,
         Bucket: S3_DEVTOOL_BUCKET,
         Key: S3_VERSION_OBJECT_NAME
     });
-    console.log(`    Successfully update s3 version file: https://${S3_DEVTOOL_BUCKET}.s3.${S3_DEVTOOL_BUCKET_REGION}.scw.cloud/${S3_VERSION_OBJECT_NAME}`.green);
+    console.log(`    Successfully updated s3 version file: https://${S3_DEVTOOL_BUCKET}.s3.${S3_DEVTOOL_BUCKET_REGION}.scw.cloud/${S3_VERSION_OBJECT_NAME}`.green);
     await prompt(`Hit enter to continue .....`.magenta);
 
     //
     // Creating post release commit
     //
-    console.log("Make sure we pull the latest commit from master".blue);
+    console.log(`Make sure we pull the latest commit from ${GITHUB_RELEASED_BRANCH}`.blue);
     git("fetch", TMP_REMOTE);
-    git("checkout", `${TMP_REMOTE}/master`);
-    console.log("    Successfully checkout upstream/master".green);
+    git("checkout", `${TMP_REMOTE}/${GITHUB_RELEASED_BRANCH}`);
+    console.log(`    Successfully checkout upstream/${GITHUB_RELEASED_BRANCH}`.green);
 
     console.log(`Creating post release commit`.blue);
     git("branch", "-D", TMP_BRANCH);
@@ -252,26 +256,26 @@ async function main() {
     git("add", GO_VERSION_PATH);
     git("commit", "-m", `chore: cleanup after v${newVersion} release`);
     git("push", "-f", "--set-upstream", TMP_REMOTE, TMP_BRANCH);
-    git("checkout", "master");
+    git("checkout", GITHUB_RELEASED_BRANCH);
     git("branch", "-D", TMP_BRANCH);
     const postPrResp = await octokit.pulls.create({
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
-        base: "v2",
+        base: GITHUB_RELEASED_BRANCH,
         head: TMP_BRANCH,
     });
-    console.log(`    Successfully create pull request: ${postPrResp.data.html_url}`.green);
-    await prompt(`Hit enter when its merged .....`.magenta);
+    console.log(`    Successfully created pull request: ${postPrResp.data.html_url}`.green);
+    await prompt(`Hit enter when it is merged .....`.magenta);
 
-    console.log("Make sure we pull the latest commit from v2".blue);
-    git("pull", TMP_REMOTE, "v2");
-    console.log("    Successfully pull master".green);
+    console.log(`Make sure we pull the latest commit from ${GITHUB_RELEASED_BRANCH}`.blue);
+    git("pull", TMP_REMOTE, GITHUB_RELEASED_BRANCH);
+    console.log(`    Successfully pulled ${GITHUB_RELEASED_BRANCH}`.green);
 
     console.log("Remove temporary remote".blue);
     git("remote", "remove", TMP_REMOTE);
     console.log("    Successfully remove temporary remote".green);
 
-    console.log(`🚀 Release Success `.green);
+    console.log(`🚀 Released with Success `.green);
 }
 
 function git(...args) {
