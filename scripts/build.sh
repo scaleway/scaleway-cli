@@ -17,8 +17,12 @@ LDFLAGS=(
    -X main.BuildDate="$(date -u '+%Y-%m-%dT%I:%M:%S%p')"
 )
 
-
 export CGO_ENABLED=0
+
+if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
+    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]}" ./cmd/scw
+    exit 0
+
 GOOS=linux  GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_LINUX" cmd/scw/main.go
 GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DARWIN" cmd/scw/main.go
 GOOS=windows GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_WINDOWS" cmd/scw/main.go

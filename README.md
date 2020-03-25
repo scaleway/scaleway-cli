@@ -112,8 +112,12 @@ Then, run the installation and remove the `.deb` file:
 ```bash
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 ```
+-->
 
+<!-- TODO:
 ## With a Docker Image
+
+### Official releases (Coming soon..)
 
 For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
 
@@ -122,7 +126,18 @@ docker run scaleway/cli version
 ```
 -->
 
-## Build Locally
+# Examples
+
+## Create an instance server
+```
+scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+```
+
+TODO: Add more examples here.
+
+## Build it yourself
+
+### Build Locally
 
 If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
@@ -133,14 +148,19 @@ go get github.com/scaleway/scaleway-cli/cmd/scw
 
 Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
-# Examples
+### Build with Docker
 
-## Create an instance server
-```
-scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
+```sh
+docker build -t scaleway/cli .
 ```
 
-TODO: Add more examples here.
+Once build, you can then use the CLI as you would run any image:
+```sh
+docker run -i --rm scaleway/cli
+```
+
+See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
 
 # Tutorials
 

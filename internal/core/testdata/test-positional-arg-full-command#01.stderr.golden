@@ -1,12 +1,12 @@
 USAGE:
-  scw test-positional <name-id> [arg=value ...]
+  scw test positional <name-id> [arg=value ...]
 
 ARGS:
   name-id   
   [tag]     
 
 FLAGS:
-  -h, --help   help for test-positional
+  -h, --help   help for positional
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
