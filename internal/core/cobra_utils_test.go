@@ -29,7 +29,8 @@ func testGetCommands() *Commands {
 			},
 		},
 		&Command{
-			Namespace: "test-positional",
+			Namespace: "test",
+			Resource:  "positional",
 			ArgSpecs: ArgSpecs{
 				{
 					Name:       "name-id",
@@ -45,7 +46,8 @@ func testGetCommands() *Commands {
 			},
 		},
 		&Command{
-			Namespace: "test-raw-args",
+			Namespace: "test",
+			Resource:  "raw-args",
 			ArgsType:  reflect.TypeOf(args.RawArgs{}),
 			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 				res := ""
@@ -91,7 +93,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 func Test_RawArgs(t *testing.T) {
 	t.Run("Simple", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test-raw-args -- blabla",
+		Cmd:      "scw test raw-args -- blabla",
 		Check: TestCheckCombine(
 			TestCheckExitCode(0),
 			TestCheckStdout("blabla\n"),
@@ -99,7 +101,7 @@ func Test_RawArgs(t *testing.T) {
 	}))
 	t.Run("Multiple", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test-raw-args -- blabla foo bar",
+		Cmd:      "scw test raw-args -- blabla foo bar",
 		Check: TestCheckCombine(
 			TestCheckExitCode(0),
 			TestCheckStdout("blabla foo bar\n"),
@@ -111,60 +113,60 @@ func Test_PositionalArg(t *testing.T) {
 	t.Run("Error", func(t *testing.T) {
 		t.Run("Missing1", Test(&TestConfig{
 			Commands: testGetCommands(),
-			Cmd:      "scw test-positional",
+			Cmd:      "scw test positional",
 			Check: TestCheckCombine(
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running: scw test-positional <name-id>",
+					Hint: "Try running: scw test positional <name-id>",
 				}),
 			),
 		}))
 
 		t.Run("Missing2", Test(&TestConfig{
 			Commands: testGetCommands(),
-			Cmd:      "scw test-positional tag=world",
+			Cmd:      "scw test positional tag=world",
 			Check: TestCheckCombine(
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running: scw test-positional <name-id> tag=world",
+					Hint: "Try running: scw test positional <name-id> tag=world",
 				}),
 			),
 		}))
 
 		t.Run("Invalid1", Test(&TestConfig{
 			Commands: testGetCommands(),
-			Cmd:      "scw test-positional name-id=plop tag=world",
+			Cmd:      "scw test positional name-id=plop tag=world",
 			Check: TestCheckCombine(
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: "Try running: scw test-positional plop tag=world",
+					Hint: "Try running: scw test positional plop tag=world",
 				}),
 			),
 		}))
 
 		t.Run("Invalid2", Test(&TestConfig{
 			Commands: testGetCommands(),
-			Cmd:      "scw test-positional tag=world name-id=plop",
+			Cmd:      "scw test positional tag=world name-id=plop",
 			Check: TestCheckCombine(
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running: scw test-positional plop tag=world"),
+					Hint: fmt.Sprintf("Try running: scw test positional plop tag=world"),
 				}),
 			),
 		}))
 
 		t.Run("Invalid3", Test(&TestConfig{
 			Commands: testGetCommands(),
-			Cmd:      "scw test-positional plop name-id=plop",
+			Cmd:      "scw test positional plop name-id=plop",
 			Check: TestCheckCombine(
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running: scw test-positional plop"),
+					Hint: fmt.Sprintf("Try running: scw test positional plop"),
 				}),
 			),
 		}))
@@ -172,19 +174,19 @@ func Test_PositionalArg(t *testing.T) {
 
 	t.Run("simple", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test-positional plop",
+		Cmd:      "scw test positional plop",
 		Check:    TestCheckExitCode(0),
 	}))
 
 	t.Run("full command", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test-positional plop tag=world",
+		Cmd:      "scw test positional plop tag=world",
 		Check:    TestCheckExitCode(0),
 	}))
 
 	t.Run("full command", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test-positional -h",
+		Cmd:      "scw test positional -h",
 		Check: TestCheckCombine(
 			TestCheckExitCode(0),
 			TestCheckGolden(),
