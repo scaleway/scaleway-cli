@@ -179,7 +179,6 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []inter
 					Checks:    []bool{sameNamespace, c1HasRegionOnly, c2HasRegionOnly, c1HasZoneOnly, c2HasZoneOnly, c1NoRegionNoZone, c2NoRegionNoZone},
 				})
 			}
-
 		}
 	}
 	return errors
