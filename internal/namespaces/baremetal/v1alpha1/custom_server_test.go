@@ -15,7 +15,10 @@ func Test_StartServerErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:   waitAndDeleteServerAfterFunc,
+		AfterFunc: core.AfterFuncCombine(
+			waitServerAfter("Server"),
+			deleteServer("Server"),
+		),
 		DefaultZone: scw.ZoneFrPar2,
 	}))
 }
@@ -28,7 +31,10 @@ func Test_StopServerErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:   waitAndDeleteServerAfterFunc,
+		AfterFunc: core.AfterFuncCombine(
+			waitServerAfter("Server"),
+			deleteServer("Server"),
+		),
 		DefaultZone: scw.ZoneFrPar2,
 	}))
 }
@@ -41,7 +47,10 @@ func Test_RebootServerErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:   waitAndDeleteServerAfterFunc,
+		AfterFunc: core.AfterFuncCombine(
+			waitServerAfter("Server"),
+			deleteServer("Server"),
+		),
 		DefaultZone: scw.ZoneFrPar2,
 	}))
 }

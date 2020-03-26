@@ -1,9 +1,24 @@
 package baremetal
 
-import "github.com/scaleway/scaleway-cli/internal/core"
+import (
+	"github.com/scaleway/scaleway-cli/internal/core"
+)
 
 // createServer creates a baremetal instance
 // register it in the context Meta at metaKey.
 func createServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create")
+}
+
+// deleteServer deletes a server
+// previously registered in the context Meta at metaKey.
+func deleteServer(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw baremetal server delete server-id={{ ." + metaKey + ".ID }}")
+}
+
+func waitServerAfter(metaKey string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		ctx.ExecuteCmd("scw baremetal server wait server-id={{ ." + metaKey + ".ID }}")
+		return nil
+	}
 }

@@ -10,19 +10,19 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// waitAndDeleteServerAfterFunc wait for the server to be in a stable state and delete it
-func waitAndDeleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
-		ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-		Zone:     ctx.CmdResult.(*baremetal.Server).Zone,
-		Timeout:  serverActionTimeout,
-	})
-	if err != nil {
-		return err
-	}
-	ctx.ExecuteCmd("scw baremetal server delete server-id=" + ctx.CmdResult.(*baremetal.Server).ID)
-	return nil
-}
+//// waitAndDeleteServerAfterFunc wait for the server to be in a stable state and delete it
+//func waitAndDeleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
+//	_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+//		ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+//		Zone:     ctx.CmdResult.(*baremetal.Server).Zone,
+//		Timeout:  serverActionTimeout,
+//	})
+//	if err != nil {
+//		return err
+//	}
+//	ctx.ExecuteCmd("scw baremetal server delete server-id=" + ctx.CmdResult.(*baremetal.Server).ID)
+//	return nil
+//}
 
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
@@ -35,7 +35,10 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc:   waitAndDeleteServerAfterFunc,
+			AfterFunc: core.AfterFuncCombine(
+				waitServerAfter("Server"),
+				deleteServer("Server"),
+			),
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 
@@ -49,7 +52,10 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc:   waitAndDeleteServerAfterFunc,
+			AfterFunc: core.AfterFuncCombine(
+				waitServerAfter("Server"),
+				deleteServer("Server"),
+			),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -63,7 +69,10 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc:   waitAndDeleteServerAfterFunc,
+			AfterFunc: core.AfterFuncCombine(
+				waitServerAfter("Server"),
+				deleteServer("Server"),
+			),
 		}))
 
 		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
