@@ -94,7 +94,6 @@ func TestAutocomplete(t *testing.T) {
 		}
 	}
 
-	t.Run("scw", run(&testCase{Suggestions: AutocompleteSuggestions{"scw"}}))
 	t.Run("scw ", run(&testCase{Suggestions: AutocompleteSuggestions{"test"}}))
 	t.Run("scw te", run(&testCase{Suggestions: AutocompleteSuggestions{"test"}}))
 	t.Run("scw test", run(&testCase{Suggestions: AutocompleteSuggestions{"test"}}))

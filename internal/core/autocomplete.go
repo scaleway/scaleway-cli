@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -196,7 +197,7 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 // BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
-	scwCommand := root.GetChildOrCreate("scw")
+	scwCommand := root.GetChildOrCreate(os.Args[0])
 	scwCommand.addGlobalFlags()
 	for _, cmd := range commands.commands {
 		node := scwCommand
@@ -256,6 +257,12 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
 	for i, word := range leftWords {
+		if i == 0 {
+			// override the command name with the real one
+			// useful when command is renamed or behind a shell function
+			word = os.Args[0]
+		}
+
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
 			children, childrenExists = node.Children[positionalValueNodeID]
