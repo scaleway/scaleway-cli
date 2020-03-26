@@ -1,10 +1,7 @@
 Initiliaze SSH key.
 
 USAGE:
-  scw account ssh-key init [arg=value ...]
-
-ARGS:
-  [with-ssh-key]   Whether the ssh key for managing instances should be uploaded automatically
+  scw account ssh-key init
 
 FLAGS:
   -h, --help   help for init

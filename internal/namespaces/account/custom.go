@@ -33,10 +33,6 @@ func sshKeyCommand() *core.Command {
 	}
 }
 
-type InitArgs struct {
-	WithSSHKey *bool
-}
-
 func initCommand() *core.Command {
 	return &core.Command{
 		Short:     `Initiliaze SSH key`,
@@ -44,20 +40,17 @@ func initCommand() *core.Command {
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "init",
-		ArgsType:  reflect.TypeOf(InitArgs{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:  "with-ssh-key",
-				Short: "Whether the ssh key for managing instances should be uploaded automatically",
-			},
-		},
-		Run: InitRun,
+		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		ArgSpecs:  core.ArgSpecs{},
+		Run:       initRunWrapper,
 	}
 }
 
-func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*InitArgs)
+func initRunWrapper(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	return InitRunInner(ctx, nil)
+}
 
+func InitRunInner(ctx context.Context, withSSHKey *bool) (i interface{}, e error) {
 	// Explanation
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
@@ -67,7 +60,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	shortenedFilename := "~/" + relativePath
 	localSSHKeyContent, err := ioutil.ReadFile(filename)
 
-	addKeyInstructions := `scw account ssh-key add name=my-key key="($)(cat path/to/my/key.pub)"`
+	addKeyInstructions := `scw account ssh-key add name=my-key key="$(cat path/to/my/key.pub)"`
 
 	// Early exit if key is not present locally
 	if os.IsNotExist(err) {
@@ -97,8 +90,8 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Ask user
 	addSSHKey := false
-	if args.WithSSHKey != nil {
-		addSSHKey = *args.WithSSHKey
+	if withSSHKey != nil {
+		addSSHKey = *withSSHKey
 	} else {
 		addSSHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 			Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
