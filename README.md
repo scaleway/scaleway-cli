@@ -83,7 +83,7 @@ scw init
 
 ```bash
 # Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-v2-0-0-beta-2-linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-linux-x86_64"
 
 # Allow executing file as program
 sudo chmod +x /usr/local/bin/scw
