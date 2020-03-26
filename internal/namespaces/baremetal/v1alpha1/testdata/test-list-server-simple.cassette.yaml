@@ -10,16 +10,16 @@ interactions:
     url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers?order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"total_count":0,"servers":[]}'
+    body: '{"total_count":1,"servers":[{"id":"63122914-918a-431b-aeb1-001fc1a7e3b2","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"bm-blissful-yonath","description":"","updated_at":"2020-03-26T09:58:55.787980Z","created_at":"2020-03-26T09:51:14.289250Z","status":"ready","offer_id":"964f9b38-577e-470f-a220-7d762f9e8672","install":null,"tags":["a"],"ips":[{"id":"fe70a9b5-7f3d-4927-8730-cc3c995fefec","address":"51.159.56.110","reverse":"63122914-918a-431b-aeb1-001fc1a7e3b2.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"f160ce5b-58c1-47cf-a9ab-807e5f5f45dd","address":"2001:0bc8:1200:0000:dac4:97ff:fe5b:7c81","reverse":"63122914-918a-431b-aeb1-001fc1a7e3b2.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"63122914-918a-431b-aeb1-001fc1a7e3b2.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}]}'
     headers:
       Content-Length:
-      - "30"
+      - "954"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 19 Mar 2020 15:36:24 GMT
+      - Thu, 26 Mar 2020 09:58:58 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - fbe385c2-fccd-41cc-842c-45c54c64a1d7
+      - 233a6a45-c1e7-43d4-ac8d-d2e347a7215c
     status: 200 OK
     code: 200
     duration: ""
