@@ -51,19 +51,19 @@ var autocompleteScripts = map[string]autocompleteScript{
 		//
 		// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
 		// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
-		CompleteFunc: `
-			_scw() {
+		CompleteFunc: fmt.Sprintf(`
+			_%[1]s() {
 				_get_comp_words_by_ref -n = cword words
 
-				output=$(scw autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
+				output=$(%[1]s autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
 				COMPREPLY=($output)
 				# apply compopt option and ignore failure for older bash versions
 				[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true
 				return
 			}
-			complete -F _scw scw
-		`,
-		CompleteScript: `eval "$(scw autocomplete script shell=bash)"`,
+			complete -F _%[1]s %[1]s
+		`, os.Args[0]),
+		CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, os.Args[0]),
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(homePath, ".bash_profile"),
 			"linux":  path.Join(homePath, ".bashrc"),
@@ -82,12 +82,12 @@ var autocompleteScripts = map[string]autocompleteScript{
 		// You might want to run 'complete --erase --command go' during development.
 		//
 		// TODO: send rightWords
-		CompleteFunc: `
-			complete --erase --command scw;
-			complete --command scw --no-files;
-			complete --command scw --arguments '(scw autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
-		`,
-		CompleteScript: `eval (scw autocomplete script shell=fish)`,
+		CompleteFunc: fmt.Sprintf(`
+			complete --erase --command %[1]s;
+			complete --command %[1]s --no-files;
+			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
+		`, os.Args[0]),
+		CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, os.Args[0]),
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(homePath, ".config/fish/config.fish"),
 			"linux":  path.Join(homePath, ".config/fish/config.fish"),
@@ -97,19 +97,19 @@ var autocompleteScripts = map[string]autocompleteScript{
 		// If you are using an alias for scw, such as :
 		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
 		// you might want to run 'compdef _scw go' during development.
-		CompleteFunc: `
+		CompleteFunc: fmt.Sprintf(`
 			autoload -U compinit && compinit
-			_scw () {
-				output=($(scw autocomplete complete zsh -- ${CURRENT} ${words}))
+			_%[1]s () {
+				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
 				opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
 				fi
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
-			compdef _scw scw
-		`,
-		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
+			compdef _%[1]s %[1]s
+		`, os.Args[0]),
+		CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, os.Args[0]),
 		ShellConfigurationFile: map[string]string{
 			"darwin": path.Join(homePath, ".zshrc"),
 			"linux":  path.Join(homePath, ".zshrc"),

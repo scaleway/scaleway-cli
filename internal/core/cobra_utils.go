@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
 
@@ -161,7 +162,7 @@ func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, posit
 	// Suggest to use the other arguments.
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
-	suggestedCommand := append([]string{"scw", cmd.GetCommandLine()}, suggestedArgs...)
+	suggestedCommand := append([]string{os.Args[0], cmd.GetCommandLine()}, suggestedArgs...)
 	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 

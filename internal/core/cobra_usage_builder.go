@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"strings"
 	"text/tabwriter"
 
@@ -110,7 +111,7 @@ func buildExamples(cmd *Command) string {
 
 			// Build command line example.
 			commandParts := []string{
-				"scw",
+				os.Args[0],
 				cmd.Namespace,
 				cmd.Resource,
 				cmd.Verb,

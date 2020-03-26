@@ -1,6 +1,7 @@
 package core
 
 import (
+	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -25,7 +26,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	commandsIndex := map[string]*Command{}
 
 	rootCmd := &cobra.Command{
-		Use: "scw",
+		Use: os.Args[0],
 
 		// Do not display error with cobra, we handle it in bootstrap.
 		SilenceErrors: true,
