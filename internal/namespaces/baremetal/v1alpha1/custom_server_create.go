@@ -65,7 +65,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			Tags:           tmpRequest.Tags,
 		}
 
-		// We need to find the offer id.
+		// We need to find the offer ID.
 		// While baremetal does not have list offer name filter we are forced to iterate
 		// on the list of offers provided.
 		requestedType := tmpRequest.Type
