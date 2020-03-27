@@ -68,16 +68,15 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		// We need to find the offer ID.
 		// While baremetal does not have list offer name filter we are forced to iterate
 		// on the list of offers provided.
-		requestedType := tmpRequest.Type
 		offer, err := api.GetOfferFromName(&baremetal.GetOfferFromOfferNameRequest{
-			OfferName: requestedType,
+			OfferName: tmpRequest.Type,
 			Zone:      tmpRequest.Zone,
 		})
 		if err != nil {
 			return nil, err
 		}
 		if offer == nil {
-			return nil, fmt.Errorf("could not match an offer with the type: %s", requestedType)
+			return nil, fmt.Errorf("could not match an offer with the type: %s", tmpRequest.Type)
 		}
 		request.OfferID = offer.ID
 
