@@ -32,4 +32,4 @@ SEE ALSO:
   scw baremetal os list
 
   # Install an OS on your server
-  scw baremetal server install 
+  scw baremetal server install

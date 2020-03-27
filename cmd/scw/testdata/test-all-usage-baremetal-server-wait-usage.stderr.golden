@@ -1,4 +1,4 @@
-Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.
+Wait for a server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.
 
 USAGE:
   scw baremetal server wait [arg=value ...]
