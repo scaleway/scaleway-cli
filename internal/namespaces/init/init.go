@@ -77,12 +77,10 @@ func initCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
+				Short:        "Scaleway secret-key",
 				ValidateFunc: core.ValidateSecretKey(),
 			},
-			{
-				Name:       "region",
-				EnumValues: []string{"fr-par", "nl-ams"},
-			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
 			// See workflow in cobra_utils.go/cobraRun().
 			// It is not required in the command line: the user is not obliged to type it.
@@ -90,10 +88,12 @@ func initCommand() *core.Command {
 			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
 			{
 				Name:         "organization-id",
+				Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
 				ValidateFunc: core.ValidateOrganizationIDRequired(),
 			},
 			{
-				Name: "send-usage",
+				Name:  "send-telemetry",
+				Short: "Send usage statistics and diagnostics",
 			},
 			{
 				Name:    "with-ssh-key",
