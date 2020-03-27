@@ -1,6 +1,7 @@
 package qa
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -13,6 +14,7 @@ func LintCommands(commands *core.Commands) []interface{} {
 	errors = append(errors, testShortIsNotPresentError(commands)...)
 	errors = append(errors, testArgMustUseDashError(commands)...)
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
+	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	return errors
 }
 
@@ -97,6 +99,84 @@ func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []inte
 				errors = append(errors, &ExampleCanHaveOnlyOneTypeOfExampleError{
 					Command:      command,
 					ExampleIndex: i,
+				})
+			}
+		}
+	}
+	return errors
+}
+
+type DifferentLocalizationForNamespaceError struct {
+	Command1  *core.Command
+	Command2  *core.Command
+	Checks    []bool
+	ArgNames1 []string
+	ArgNames2 []string
+}
+
+func (err DifferentLocalizationForNamespaceError) Error() string {
+	return fmt.Sprintf("different localization for '%v', '%v': %v, %v",
+		err.Command1.GetCommandLine(), err.Command2.GetCommandLine(), err.ArgNames1, err.ArgNames2)
+}
+
+func testDifferentLocalizationForNamespaceError(commands *core.Commands) []interface{} {
+	errors := []interface{}(nil)
+	for i, command1 := range commands.GetAll() {
+		for j, command2 := range commands.GetAll() {
+			if i >= j {
+				continue
+			}
+
+			samePathLength := strings.Count(command1.GetCommandLine(), " ") == strings.Count(command2.GetCommandLine(), " ")
+
+			sameNamespace := command1.Namespace == command2.Namespace
+
+			c1HasRegionOnly := command1.ArgSpecs.GetByName("region") != nil && command1.ArgSpecs.GetByName("zone") == nil
+			c2HasRegionOnly := command2.ArgSpecs.GetByName("region") != nil && command2.ArgSpecs.GetByName("zone") == nil
+
+			c1HasZoneOnly := command1.ArgSpecs.GetByName("region") == nil && command1.ArgSpecs.GetByName("zone") != nil
+			c2HasZoneOnly := command2.ArgSpecs.GetByName("region") == nil && command2.ArgSpecs.GetByName("zone") != nil
+
+			c1NoRegionNoZone := command1.ArgSpecs.GetByName("region") == nil && command1.ArgSpecs.GetByName("zone") == nil
+			c2NoRegionNoZone := command2.ArgSpecs.GetByName("region") == nil && command2.ArgSpecs.GetByName("zone") == nil
+
+			if !samePathLength {
+				continue
+			}
+
+			if !sameNamespace {
+				continue
+			}
+
+			switch {
+			case c1HasRegionOnly && c2HasRegionOnly:
+				// do nothing
+			case c1HasZoneOnly && c2HasZoneOnly:
+				// do nothing
+			case c1NoRegionNoZone && c2NoRegionNoZone:
+				// do nothing
+			default:
+
+				argNames1 := []string(nil)
+				for _, argSpec := range command1.ArgSpecs {
+					if argSpec.Name == "zone" || argSpec.Name == "region" {
+						argNames1 = append(argNames1, argSpec.Name)
+					}
+				}
+
+				argNames2 := []string(nil)
+				for _, argSpec := range command2.ArgSpecs {
+					if argSpec.Name == "zone" || argSpec.Name == "region" {
+						argNames2 = append(argNames2, argSpec.Name)
+					}
+				}
+
+				errors = append(errors, &DifferentLocalizationForNamespaceError{
+					Command1:  command1,
+					Command2:  command2,
+					ArgNames1: argNames1,
+					ArgNames2: argNames2,
+					Checks:    []bool{sameNamespace, c1HasRegionOnly, c2HasRegionOnly, c1HasZoneOnly, c2HasZoneOnly, c1NoRegionNoZone, c2NoRegionNoZone},
 				})
 			}
 		}
