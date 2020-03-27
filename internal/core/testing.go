@@ -330,7 +330,7 @@ func ExecAfterCmd(cmd string) AfterFunc {
 // TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
-		assert.Equal(t, true, len(checks) > 1, "You should not use TestCheckCombine with only one test")
+		assert.Equal(t, true, len(checks) > 1, "TestCheckCombine must be used to combine more than one TestCheck")
 		for _, check := range checks {
 			check(t, ctx)
 		}
