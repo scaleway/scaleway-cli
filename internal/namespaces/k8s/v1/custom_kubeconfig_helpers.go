@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
+	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"gopkg.in/yaml.v2"
 )
 

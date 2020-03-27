@@ -8,7 +8,7 @@ import (
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
-	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1beta4"
+	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
