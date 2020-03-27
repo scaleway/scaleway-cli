@@ -10,20 +10,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-//// waitAndDeleteServerAfterFunc wait for the server to be in a stable state and delete it
-//func waitAndDeleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-//	_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
-//		ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-//		Zone:     ctx.CmdResult.(*baremetal.Server).Zone,
-//		Timeout:  serverActionTimeout,
-//	})
-//	if err != nil {
-//		return err
-//	}
-//	ctx.ExecuteCmd("scw baremetal server delete server-id=" + ctx.CmdResult.(*baremetal.Server).ID)
-//	return nil
-//}
-
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
 	// Simple use cases
