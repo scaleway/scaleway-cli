@@ -36,12 +36,18 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
-				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				if err != nil {
+					return err
+				}
+				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
+				if err != nil {
+					return err
+				}
 				return nil
 			},
 			DefaultZone: scw.ZoneFrPar2,
@@ -58,12 +64,20 @@ func Test_CreateServer(t *testing.T) {
 			),
 			DefaultZone: scw.ZoneFrPar2,
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
-				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				if err != nil {
+					return err
+				}
+
+				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
+				if err != nil {
+					return err
+				}
+
 				return nil
 			},
 		}))
@@ -80,12 +94,20 @@ func Test_CreateServer(t *testing.T) {
 			),
 			DefaultZone: scw.ZoneFrPar2,
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
-				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				if err != nil {
+					return err
+				}
+
+				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
+				if err != nil {
+					return err
+				}
+
 				return nil
 			},
 		}))
