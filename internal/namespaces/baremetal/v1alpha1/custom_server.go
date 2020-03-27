@@ -40,7 +40,7 @@ func waitForServerFunc() core.WaitFunc {
 
 func serverWaitCommand() *core.Command {
 	return &core.Command{
-		Short:     `Wait for server to reach a stable state`,
+		Short:     `Wait for a server to reach a stable state`,
 		Long:      `Wait for a server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
 		Namespace: "baremetal",
 		Resource:  "server",
