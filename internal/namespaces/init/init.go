@@ -96,8 +96,9 @@ func initCommand() *core.Command {
 				Name: "send-usage",
 			},
 			{
-				Name:  "with-ssh-key",
-				Short: "Whether the ssh key for managing instances should be uploaded automatically",
+				Name:    "with-ssh-key",
+				Short:   "Whether the ssh key for managing instances should be uploaded automatically",
+				Default: core.DefaultValueSetter("true"),
 			},
 			{
 				Name:  "install-autocomplete",
@@ -288,13 +289,15 @@ func initCommand() *core.Command {
 			}
 
 			// Init SSH Key
-			_, _ = interactive.Println()
-			result, err := accountcommands.InitRunInner(ctx, args.WithSSHKey)
-			if err != nil {
-				successMessage += "\n  except for ssh-key: " + err.Error()
+			if *args.WithSSHKey {
+				_, _ = interactive.Println()
+				result, err := accountcommands.InitRun(ctx, nil)
+				if err != nil {
+					successMessage += "\n  except for ssh-key: " + err.Error()
+				}
+				_, _ = interactive.Println(result)
+				_, _ = interactive.Println()
 			}
-			_, _ = interactive.Println(result)
-			_, _ = interactive.Println()
 
 			return &core.SuccessResult{
 				Message: successMessage,

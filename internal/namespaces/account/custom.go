@@ -42,15 +42,11 @@ func initCommand() *core.Command {
 		Verb:      "init",
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run:       initRunWrapper,
+		Run:       InitRun,
 	}
 }
 
-func initRunWrapper(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	return InitRunInner(ctx, nil)
-}
-
-func InitRunInner(ctx context.Context, withSSHKey *bool) (i interface{}, e error) {
+func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Explanation
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
 
@@ -89,17 +85,12 @@ func InitRunInner(ctx context.Context, withSSHKey *bool) (i interface{}, e error
 	}
 
 	// Ask user
-	addSSHKey := false
-	if withSSHKey != nil {
-		addSSHKey = *withSSHKey
-	} else {
-		addSSHKey, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-			Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
-			DefaultValue: true,
-		})
-		if err != nil {
-			return nil, err
-		}
+	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
+		DefaultValue: true,
+	})
+	if err != nil {
+		return nil, err
 	}
 
 	// Early exit if user doesn't want to add the key
