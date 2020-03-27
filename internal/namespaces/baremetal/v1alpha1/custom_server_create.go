@@ -91,7 +91,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Short:   "Install an OS on your server",
-			Command: "scw baremetal server install ",
+			Command: "scw baremetal server install",
 		},
 	}
 
