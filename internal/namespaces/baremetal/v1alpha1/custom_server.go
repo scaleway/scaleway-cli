@@ -15,8 +15,8 @@ const (
 )
 
 type baremetalActionRequest struct {
-	Zone     scw.Zone
 	ServerID string
+	Zone     scw.Zone
 }
 
 var serverActionArgSpecs = core.ArgSpecs{
