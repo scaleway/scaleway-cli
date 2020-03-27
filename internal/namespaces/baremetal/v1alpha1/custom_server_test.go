@@ -12,9 +12,7 @@ func Test_StartServerErrors(t *testing.T) {
 		BeforeFunc: createServer("Server"),
 		Commands:   GetCommands(),
 		Cmd:        "scw baremetal server start server-id={{ .Server.ID }}",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-		),
+		Check:      core.TestCheckExitCode(1),
 		AfterFunc: core.AfterFuncCombine(
 			waitServerAfter("Server"),
 			deleteServer("Server"),
@@ -28,9 +26,7 @@ func Test_StopServerErrors(t *testing.T) {
 		BeforeFunc: createServer("Server"),
 		Commands:   GetCommands(),
 		Cmd:        "scw baremetal server stop server-id={{ .Server.ID }}",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-		),
+		Check:      core.TestCheckExitCode(1),
 		AfterFunc: core.AfterFuncCombine(
 			waitServerAfter("Server"),
 			deleteServer("Server"),
@@ -44,9 +40,7 @@ func Test_RebootServerErrors(t *testing.T) {
 		BeforeFunc: createServer("Server"),
 		Commands:   GetCommands(),
 		Cmd:        "scw baremetal server reboot server-id={{ .Server.ID }}",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-		),
+		Check:      core.TestCheckExitCode(1),
 		AfterFunc: core.AfterFuncCombine(
 			waitServerAfter("Server"),
 			deleteServer("Server"),
