@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	accountcommands "github.com/scaleway/scaleway-cli/internal/namespaces/account"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -62,6 +63,7 @@ type initArgs struct {
 	Zone                scw.Zone
 	OrganizationID      string
 	SendTelemetry       *bool
+	WithSSHKey          *bool
 	InstallAutocomplete *bool
 }
 
@@ -92,6 +94,11 @@ func initCommand() *core.Command {
 			},
 			{
 				Name: "send-usage",
+			},
+			{
+				Name:    "with-ssh-key",
+				Short:   "Whether the ssh key for managing instances should be uploaded automatically",
+				Default: core.DefaultValueSetter("true"),
 			},
 			{
 				Name:  "install-autocomplete",
@@ -272,11 +279,24 @@ func initCommand() *core.Command {
 
 			successMessage := "Initialization completed with success"
 
+			// Install autocomplete
 			if *args.InstallAutocomplete {
+				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += " except for autocomplete:\n" + err.Error()
+					successMessage += "\n  except for autocomplete: " + err.Error()
 				}
+			}
+
+			// Init SSH Key
+			if *args.WithSSHKey {
+				_, _ = interactive.Println()
+				result, err := accountcommands.InitRun(ctx, nil)
+				if err != nil {
+					successMessage += "\n  except for ssh-key: " + err.Error()
+				}
+				_, _ = interactive.Println(result)
+				_, _ = interactive.Println()
 			}
 
 			return &core.SuccessResult{
