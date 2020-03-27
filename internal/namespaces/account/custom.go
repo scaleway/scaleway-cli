@@ -35,8 +35,8 @@ func sshKeyCommand() *core.Command {
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initiliaze SSH key`,
-		Long:      `Initiliaze SSH key.`,
+		Short:     `Initialize SSH key`,
+		Long:      `Initialize SSH key.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "init",
