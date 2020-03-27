@@ -35,10 +35,15 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.AfterFuncCombine(
-				waitServerAfter("Server"),
-				deleteServer("Server"),
-			),
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				return nil
+			},
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 
@@ -52,10 +57,15 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc: core.AfterFuncCombine(
-				waitServerAfter("Server"),
-				deleteServer("Server"),
-			),
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				return nil
+			},
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -69,24 +79,16 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc: core.AfterFuncCombine(
-				waitServerAfter("Server"),
-				deleteServer("Server"),
-			),
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				_, _ = baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				_, _ = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
+				})
+				return nil
+			},
 		}))
-
-		//t.Run("HC-BM1-L", core.Test(&core.TestConfig{
-		//	Commands: GetCommands(),
-		//	Cmd:      "scw baremetal server create type=HC-BM1-L zone=fr-par-2 --wait",
-		//	Check: core.TestCheckCombine(
-		//		func(t *testing.T, ctx *core.CheckFuncCtx) {
-		//			assert.Equal(t, "HC-BM1-L", ctx.Result.(*baremetal.Server).CommercialType)
-		//		},
-		//		core.TestCheckExitCode(0),
-		//	),
-		//	AfterFunc:   waitAndDeleteServerAfterFunc,
-		//	DefaultZone: scw.ZoneFrPar2,
-		//}))
 	})
 }
 
