@@ -4,7 +4,7 @@ USAGE:
   scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
-  init        Initiliaze SSH key
+  init        Initialize SSH key
 
 FLAGS:
   -h, --help   help for ssh-key
