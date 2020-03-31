@@ -7,7 +7,7 @@
 
 # Scaleway CLI (v2)
 
-**:warning: This version is under active development, keep in mind that things can break.** 
+**:warning: This version is under active development, keep in mind that things can break.**
 
 Scaleway is a single way to create, deploy and scale your infrastructure in the cloud. We help thousands of businesses to run their infrastructures easily.
 
@@ -69,7 +69,7 @@ You just have to download the binary compatible with your platform to a director
 echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# Download the release from github 
+# Download the release from github
 curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-darwin-x86_64"
 
 # Allow executing file as program
@@ -82,7 +82,7 @@ scw init
 #### Linux
 
 ```bash
-# Download the release from github 
+# Download the release from github
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-linux-x86_64"
 
 # Allow executing file as program
@@ -95,7 +95,7 @@ scw init
 #### Windows
 
 You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-windows-x86_64.exe<br/>
-[This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
+[This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574%28v%3Doffice.14%29) explains how to add tools to your `PATH`.
 
 <!-- TODO:
 
@@ -126,9 +126,20 @@ docker run scaleway/cli version
 ```
 -->
 
+## Docker Image
+
+You can use the CLI as you would run any Docker image:
+
+```sh
+docker run -i --rm scaleway/cli:v2.0.0-beta.2
+```
+
+See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
+
 # Examples
 
 ## Create an instance server
+
 ```
 scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
 ```
@@ -151,11 +162,13 @@ Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modu
 ### Build with Docker
 
 You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
+
 ```sh
 docker build -t scaleway/cli .
 ```
 
 Once build, you can then use the CLI as you would run any image:
+
 ```sh
 docker run -i --rm scaleway/cli
 ```
