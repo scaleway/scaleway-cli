@@ -41,6 +41,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			// General Purpose offers
 			"GP-BM1-L",
 			"GP-BM1-M",
+			"GP-BM1-S",
 
 			// High-computing offers
 			"HC-BM1-L",
