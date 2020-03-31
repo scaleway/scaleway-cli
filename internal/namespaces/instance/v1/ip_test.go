@@ -16,7 +16,7 @@ func Test_IpCreate(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance ip delete ip=" + ctx.CmdResult.(*instance.CreateIPResponse).IP.ID)
+			ctx.ExecuteCmd("scw instance ip delete " + ctx.CmdResult.(*instance.CreateIPResponse).IP.ID)
 			return nil
 		},
 	}))
@@ -26,7 +26,7 @@ func Test_IpDelete(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip delete ip={{ .Ip.ID }}",
+		Cmd:        "scw instance ip delete {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -38,7 +38,7 @@ func Test_IpGet(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip get ip={{ .Ip.ID }}",
+		Cmd:        "scw instance ip get {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -64,7 +64,7 @@ func Test_IpUpdate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance ip update ip={{ .Ip.ID }}",
+		Cmd:        "scw instance ip update {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

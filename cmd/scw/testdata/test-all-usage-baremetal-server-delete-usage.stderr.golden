@@ -1,7 +1,7 @@
 Delete the server associated with the given ID.
 
 USAGE:
-  scw baremetal server delete [arg=value ...]
+  scw baremetal server delete <server-id> [arg=value ...]
 
 ARGS:
   server-id   ID of the server to delete

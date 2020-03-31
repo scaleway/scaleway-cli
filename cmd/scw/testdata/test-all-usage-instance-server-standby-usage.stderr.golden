@@ -1,7 +1,7 @@
 Put server in standby mode
 
 USAGE:
-  scw instance server standby [arg=value ...]
+  scw instance server standby <server-id> [arg=value ...]
 
 EXAMPLES:
   Put in standby a server in the default zone with a given id

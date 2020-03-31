@@ -1,7 +1,7 @@
 Update server.
 
 USAGE:
-  scw instance server update [arg=value ...]
+  scw instance server update <server-id> [arg=value ...]
 
 EXAMPLES:
   Update the name of a given server

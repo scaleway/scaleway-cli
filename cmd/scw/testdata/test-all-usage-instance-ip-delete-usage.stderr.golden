@@ -1,7 +1,7 @@
 Delete the IP with the given ID.
 
 USAGE:
-  scw instance ip delete [arg=value ...]
+  scw instance ip delete <ip> [arg=value ...]
 
 EXAMPLES:
   Delete an IP in the default zone with the given ID

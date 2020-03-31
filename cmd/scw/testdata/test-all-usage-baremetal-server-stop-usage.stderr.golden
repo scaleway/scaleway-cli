@@ -1,7 +1,7 @@
 Stop the server associated with the given ID.
 
 USAGE:
-  scw baremetal server stop [arg=value ...]
+  scw baremetal server stop <server-id> [arg=value ...]
 
 ARGS:
   server-id   ID of the server to stop

@@ -1,7 +1,7 @@
 This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
 
 USAGE:
-  scw k8s pool upgrade [arg=value ...]
+  scw k8s pool upgrade <pool-id> [arg=value ...]
 
 EXAMPLES:
   Upgrade a given pool to the Kubernetes version 1.17.4

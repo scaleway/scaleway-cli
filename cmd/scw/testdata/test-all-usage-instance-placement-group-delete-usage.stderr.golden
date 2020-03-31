@@ -1,7 +1,7 @@
 Delete the given placement group.
 
 USAGE:
-  scw instance placement-group delete [arg=value ...]
+  scw instance placement-group delete <placement-group-id> [arg=value ...]
 
 EXAMPLES:
   Delete a placement group in the default zone with the given ID

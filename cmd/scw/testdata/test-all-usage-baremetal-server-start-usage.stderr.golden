@@ -1,7 +1,7 @@
 Start the server associated with the given ID.
 
 USAGE:
-  scw baremetal server start [arg=value ...]
+  scw baremetal server start <server-id> [arg=value ...]
 
 ARGS:
   server-id   ID of the server to start

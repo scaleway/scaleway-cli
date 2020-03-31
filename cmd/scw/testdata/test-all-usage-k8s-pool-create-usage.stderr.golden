@@ -1,7 +1,7 @@
 This method allows to create a new pool in a specific Kubernetes cluster.
 
 USAGE:
-  scw k8s pool create [arg=value ...]
+  scw k8s pool create <cluster-id> [arg=value ...]
 
 EXAMPLES:
   Create a pool named bar with 2 DEV1-XL on a given cluster

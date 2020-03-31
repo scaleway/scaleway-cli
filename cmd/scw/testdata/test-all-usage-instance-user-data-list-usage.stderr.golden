@@ -1,7 +1,7 @@
 List all user data keys registered on a given server.
 
 USAGE:
-  scw instance user-data list [arg=value ...]
+  scw instance user-data list <server-id> [arg=value ...]
 
 ARGS:
   server-id   UUID of the server

@@ -1,7 +1,7 @@
 Return specific OS for the given ID.
 
 USAGE:
-  scw baremetal os get [arg=value ...]
+  scw baremetal os get <os-id> [arg=value ...]
 
 ARGS:
   os-id    ID of the researched OS

@@ -1,7 +1,7 @@
 Update the IP failover associated with the given IP.
 
 USAGE:
-  scw baremetal ip update [arg=value ...]
+  scw baremetal ip update <ip-failover-id> [arg=value ...]
 
 ARGS:
   ip-failover-id         ID of the IP failover to update

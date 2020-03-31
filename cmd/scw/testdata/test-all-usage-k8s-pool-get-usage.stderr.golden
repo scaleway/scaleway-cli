@@ -1,7 +1,7 @@
 This method allows to get details about a specific pool.
 
 USAGE:
-  scw k8s pool get [arg=value ...]
+  scw k8s pool get <pool-id> [arg=value ...]
 
 EXAMPLES:
   Get a given pool

@@ -1,7 +1,7 @@
 This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.
 
 USAGE:
-  scw k8s pool delete [arg=value ...]
+  scw k8s pool delete <pool-id> [arg=value ...]
 
 EXAMPLES:
   Delete a given pool

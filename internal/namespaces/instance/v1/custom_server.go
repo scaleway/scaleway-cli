@@ -377,9 +377,10 @@ type instanceActionRequest struct {
 
 var serverActionArgSpecs = core.ArgSpecs{
 	{
-		Name:     "server-id",
-		Short:    `ID of the server affected by the action.`,
-		Required: true,
+		Name:       "server-id",
+		Short:      `ID of the server affected by the action.`,
+		Required:   true,
+		Positional: true,
 	},
 	core.ZoneArgSpec(),
 }
@@ -552,8 +553,9 @@ func serverDeleteCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(),
 			{
-				Name:     "server-id",
-				Required: true,
+				Name:       "server-id",
+				Required:   true,
+				Positional: true,
 			},
 			{
 				Name:    "with-volumes",

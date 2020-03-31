@@ -1,7 +1,7 @@
 Delete a server with the given ID.
 
 USAGE:
-  scw instance server delete [arg=value ...]
+  scw instance server delete <server-id> [arg=value ...]
 
 EXAMPLES:
   Delete a server in the default zone with a given id

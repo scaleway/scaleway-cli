@@ -104,6 +104,7 @@ func GetCommands() *core.Commands {
 	//
 	// User Data
 	//
+	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
 	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
 	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
 

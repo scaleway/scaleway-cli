@@ -1,4 +1,4 @@
-Transient state error for resource 'human'
+A positional argument is required for this command
 
-Details:
-Resource human with ID 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 is in a transient state 'running'
+Hint:
+Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red

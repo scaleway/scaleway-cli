@@ -1,7 +1,7 @@
 This method allows to delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
 
 USAGE:
-  scw k8s cluster delete [arg=value ...]
+  scw k8s cluster delete <cluster-id> [arg=value ...]
 
 EXAMPLES:
   Delete a given cluster
