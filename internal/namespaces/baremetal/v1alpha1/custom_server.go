@@ -14,37 +14,35 @@ const (
 	serverActionTimeout = 20 * time.Minute
 )
 
-type baremetalActionRequest struct {
-	ServerID string
-	Zone     scw.Zone
-}
-
-var serverActionArgSpecs = core.ArgSpecs{
-	{
-		Name:     "server-id",
-		Short:    `ID of the server affected by the action.`,
-		Required: true,
-	},
-	core.ZoneArgSpec(),
-}
-
 func serverWaitCommand() *core.Command {
+	type serverWaitRequest struct {
+		ServerID string
+		Zone     scw.Zone
+	}
+
 	return &core.Command{
 		Short:     `Wait for a server to reach a stable state`,
 		Long:      `Wait for a server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "wait",
-		ArgsType:  reflect.TypeOf(baremetalActionRequest{}),
+		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForServer(&baremetal.WaitForServerRequest{
-				ServerID: argsI.(*baremetalActionRequest).ServerID,
-				Zone:     argsI.(*baremetalActionRequest).Zone,
+				ServerID: argsI.(*serverWaitRequest).ServerID,
+				Zone:     argsI.(*serverWaitRequest).Zone,
 				Timeout:  serverActionTimeout,
 			})
 		},
-		ArgSpecs: serverActionArgSpecs,
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "server-id",
+				Short:    `ID of the server affected by the action.`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
 		Examples: []*core.Example{
 			{
 				Short:   "Wait for a server to reach a stable state",
