@@ -1,7 +1,7 @@
 Reboot server
 
 USAGE:
-  scw instance server reboot [arg=value ...]
+  scw instance server reboot <server-id> [arg=value ...]
 
 EXAMPLES:
   Reboot a server in the default zone with a given id

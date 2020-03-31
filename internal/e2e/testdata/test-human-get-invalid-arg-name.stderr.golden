@@ -1,4 +1,4 @@
-A positional argument is required for this command
+Unknown argument 'invalid'
 
 Hint:
-Try running: scw test human get <human-id> invalid=true
+Valid arguments are: human-id, region

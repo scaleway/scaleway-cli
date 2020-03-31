@@ -22,7 +22,7 @@ func Test_ImageCreate(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
 			func(ctx *core.AfterFuncCtx) error {
-				ctx.ExecuteCmd("scw instance image delete image-id=" + ctx.CmdResult.(*instance.CreateImageResponse).Image.ID)
+				ctx.ExecuteCmd("scw instance image delete " + ctx.CmdResult.(*instance.CreateImageResponse).Image.ID)
 				return nil
 			},
 			deleteSnapshot("Snapshot"),

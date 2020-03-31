@@ -20,7 +20,7 @@ func createServer(metaKey string) core.BeforeFunc {
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete server-id={{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")
+	return core.ExecAfterCmd("scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")
 }
 
 //
@@ -41,7 +41,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeType) 
 
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
 func deleteVolume(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance volume delete volume-id={{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
 //
@@ -61,7 +61,7 @@ func createIP(metaKey string) core.BeforeFunc {
 // deleteIP deletes an IP previously registered in the context Meta at metaKey.
 func deleteIP(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
-		ctx.ExecuteCmd("scw instance ip delete ip={{ ." + metaKey + ".Address }}")
+		ctx.ExecuteCmd("scw instance ip delete {{ ." + metaKey + ".Address }}")
 		return nil
 	}
 }
@@ -84,7 +84,7 @@ func createPlacementGroup(metaKey string) core.BeforeFunc {
 // deletePlacementGroup deletes a placement group
 // previously registered in the context Meta at metaKey.
 func deletePlacementGroup(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance placement-group delete placement-group-id={{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw instance placement-group delete {{ ." + metaKey + ".ID }}")
 }
 
 //
@@ -105,7 +105,7 @@ func createSecurityGroup(metaKey string) core.BeforeFunc {
 // deleteSecurityGroup deletes a security group
 // previously registered in the context Meta at metaKey.
 func deleteSecurityGroup(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance security-group delete security-group-id={{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw instance security-group delete {{ ." + metaKey + ".ID }}")
 }
 
 //
@@ -114,5 +114,5 @@ func deleteSecurityGroup(metaKey string) core.AfterFunc {
 
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
 func deleteSnapshot(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance snapshot delete snapshot-id={{ ." + metaKey + ".Snapshot.ID }}")
+	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
 }

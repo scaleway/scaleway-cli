@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
+	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -442,7 +442,7 @@ func k8sClusterGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Get a given cluster",
-				Raw:   `scw k8s cluster get cluster-id=11111111-1111-1111-111111111111`,
+				Raw:   `scw k8s cluster get 11111111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -582,11 +582,11 @@ func k8sClusterUpdate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Enable dashboard on a given cluster",
-				Raw:   `scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 enable-dashboard=true`,
+				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true`,
 			},
 			{
 				Short: "Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster",
-				Raw:   `scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion`,
+				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion`,
 			},
 		},
 	}

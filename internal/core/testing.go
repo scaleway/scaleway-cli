@@ -395,6 +395,9 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	}
 
 	expected, err := ioutil.ReadFile(goldenPath)
+	//fmt.Fprintln(os.Stderr, "actual>>>", string(actual))
+	//fmt.Fprintln(os.Stderr, "expected>>>", string(expected))
+
 	if actualIsEmpty {
 		assert.NotNil(t, err)
 	} else {

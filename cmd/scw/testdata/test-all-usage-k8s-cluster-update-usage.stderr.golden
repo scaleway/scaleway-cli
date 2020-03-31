@@ -5,10 +5,10 @@ USAGE:
 
 EXAMPLES:
   Enable dashboard on a given cluster
-    scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 enable-dashboard=true
+    scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true
 
   Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster
-    scw k8s cluster update cluster-id=11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion
+    scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion
 
 ARGS:
   cluster-id                                            The ID of the cluster to update

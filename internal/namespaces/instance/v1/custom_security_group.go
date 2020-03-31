@@ -213,7 +213,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 			// Create detail message.
 			hint := "Attach all these instances to another security-group before deleting this one:"
 			for _, s := range sg.SecurityGroup.Servers {
-				hint += "\nscw instance server update server-id=" + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
+				hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
 			}
 
 			newError.Hint = hint
@@ -381,7 +381,7 @@ func securityGroupUpdateCommand() *core.Command {
 						You have to make this security group stateless to use it as an organization default.
 						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
 					`),
-					Hint: "scw instance security-group update security-group-id=" + req.SecurityGroupID + " organization-default=true stateful=false",
+					Hint: "scw instance security-group update " + req.SecurityGroupID + " organization-default=true stateful=false",
 				}
 
 			case "cannot have more than one organization default":
@@ -397,10 +397,10 @@ func securityGroupUpdateCommand() *core.Command {
 						You already have an organization default security-group (` + defaultSG.ID + `).
 
 						First, you need to set your current organization default security-group as non-default with:
-						scw instance security-group update security-group-id=` + defaultSG.ID + ` organization-default=false
+						scw instance security-group update ` + defaultSG.ID + ` organization-default=false
 
 						Then, retry this command:
-						scw instance security-group update security-group-id=` + req.SecurityGroupID + ` organization-default=true stateful=false
+						scw instance security-group update ` + req.SecurityGroupID + ` organization-default=true stateful=false
 					`),
 				}
 			default:
