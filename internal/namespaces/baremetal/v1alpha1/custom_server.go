@@ -57,7 +57,8 @@ func serverWaitCommand() *core.Command {
 // serverStartBuilder overrides the baremetalServerStart command
 func serverStartBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+		api := baremetal.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StartServerRequest).Zone,
 			ServerID: respI.(*baremetal.StartServerRequest).ServerID,
 			Timeout:  serverActionTimeout,
@@ -70,7 +71,8 @@ func serverStartBuilder(c *core.Command) *core.Command {
 // serverStopBuilder overrides the baremetalServerStop command
 func serverStopBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+		api := baremetal.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StopServerRequest).Zone,
 			ServerID: respI.(*baremetal.StopServerRequest).ServerID,
 			Timeout:  serverActionTimeout,
@@ -83,7 +85,8 @@ func serverStopBuilder(c *core.Command) *core.Command {
 // serverRebootBuilder overrides the baremetalServerReboot command
 func serverRebootBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
+		api := baremetal.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
 			ServerID: respI.(*baremetal.RebootServerRequest).ServerID,
 			Timeout:  serverActionTimeout,
