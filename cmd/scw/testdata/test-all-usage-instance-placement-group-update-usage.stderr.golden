@@ -1,7 +1,7 @@
 Update one or more parameter of the given placement group.
 
 USAGE:
-  scw instance placement-group update [arg=value ...]
+  scw instance placement-group update <placement-group-id> [arg=value ...]
 
 EXAMPLES:
   Update the name of a placement group

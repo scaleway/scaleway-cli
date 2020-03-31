@@ -1,7 +1,7 @@
 Install an OS on the server associated with the given ID.
 
 USAGE:
-  scw baremetal server install [arg=value ...]
+  scw baremetal server install <server-id> [arg=value ...]
 
 ARGS:
   server-id             Server ID to install

@@ -1,7 +1,7 @@
 This method allows to get details about a specific Kubernetes node.
 
 USAGE:
-  scw k8s node get [arg=value ...]
+  scw k8s node get <node-id> [arg=value ...]
 
 EXAMPLES:
   Get a given node

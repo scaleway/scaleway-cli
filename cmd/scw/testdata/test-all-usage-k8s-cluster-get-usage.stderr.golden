@@ -1,7 +1,7 @@
 This method allows to get details about a specific Kubernetes cluster.
 
 USAGE:
-  scw k8s cluster get [arg=value ...]
+  scw k8s cluster get <cluster-id> [arg=value ...]
 
 EXAMPLES:
   Get a given cluster

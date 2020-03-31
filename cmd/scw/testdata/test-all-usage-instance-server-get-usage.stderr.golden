@@ -1,7 +1,7 @@
 Get the details of a specified Server.
 
 USAGE:
-  scw instance server get [arg=value ...]
+  scw instance server get <server-id> [arg=value ...]
 
 EXAMPLES:
   Get a server with the given ID

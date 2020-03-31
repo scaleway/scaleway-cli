@@ -1,7 +1,7 @@
 Get details of a volume with the given ID.
 
 USAGE:
-  scw instance volume get [arg=value ...]
+  scw instance volume get <volume-id> [arg=value ...]
 
 EXAMPLES:
   Get a volume with the given ID

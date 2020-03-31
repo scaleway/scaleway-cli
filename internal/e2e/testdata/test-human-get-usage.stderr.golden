@@ -1,7 +1,7 @@
 Get the human details associated with the given id.
 
 USAGE:
-  scw test human get [arg=value ...]
+  scw test human get <human-id> [arg=value ...]
 
 ARGS:
   human-id   
