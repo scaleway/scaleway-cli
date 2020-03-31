@@ -15,10 +15,3 @@ func createServer(metaKey string) core.BeforeFunc {
 func deleteServer(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw baremetal server delete server-id={{ ." + metaKey + ".ID }}")
 }
-
-func waitServerAfter(metaKey string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		ctx.ExecuteCmd("scw baremetal server wait server-id={{ ." + metaKey + ".ID }}")
-		return nil
-	}
-}
