@@ -16,19 +16,13 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create",
+			Cmd:      "scw baremetal server create -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
 				if err != nil {
@@ -41,7 +35,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=test-create-server-with-name",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetal.Server).Name)
@@ -50,14 +44,7 @@ func Test_CreateServer(t *testing.T) {
 			),
 			DefaultZone: scw.ZoneFrPar2,
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-
-				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
 				if err != nil {
@@ -70,7 +57,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*baremetal.Server).Tags[0])
@@ -80,14 +67,7 @@ func Test_CreateServer(t *testing.T) {
 			),
 			DefaultZone: scw.ZoneFrPar2,
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).WaitForServer(&baremetal.WaitForServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-
-				_, err = baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
+				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
 					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
 				})
 				if err != nil {
