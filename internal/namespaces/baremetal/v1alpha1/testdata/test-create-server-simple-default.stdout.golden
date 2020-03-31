@@ -1,11 +1,21 @@
-id               f1303c26-297c-490d-86fe-06af7d7c7a50
-organization-id  951df375-e094-4d26-97c1-ba548eeb9c42
-name             cli-bm-suspicious-perlman
-description      -
-updated-at       few seconds ago
-created-at       few seconds ago
-status           undelivered
-offer-id         964f9b38-577e-470f-a220-7d762f9e8672
-domain           -
-boot-type        normal
-zone             fr-par-2
+id                    7d25ddb0-9cdb-49fb-8d71-9afaa0c977b5
+organization-id       951df375-e094-4d26-97c1-ba548eeb9c42
+name                  cli-bm-peaceful-lewin
+description           -
+updated-at            few seconds ago
+created-at            few seconds ago
+status                ready
+offer-id              7fde3890-9787-488c-ac89-c4e00a4e5f83
+ips.0.id              084ea4f5-1f9c-4509-86c1-8f3141d0ac43
+ips.0.address         2001:bc8:6005:1b:dac4:97ff:fe2a:33a8
+ips.0.reverse         7d25ddb0-9cdb-49fb-8d71-9afaa0c977b5.fr-par-2.baremetal.scw.cloud
+ips.0.version         Ipv6
+ips.0.reverse-status  pending
+ips.1.id              2aa5bb6d-1f65-4566-b44f-fa30bf5c9d01
+ips.1.address         51.159.31.12
+ips.1.reverse         7d25ddb0-9cdb-49fb-8d71-9afaa0c977b5.fr-par-2.baremetal.scw.cloud
+ips.1.version         Ipv4
+ips.1.reverse-status  pending
+domain                7d25ddb0-9cdb-49fb-8d71-9afaa0c977b5.fr-par-2.baremetal.scw.cloud
+boot-type             normal
+zone                  fr-par-2
