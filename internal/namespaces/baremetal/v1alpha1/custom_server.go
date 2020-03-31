@@ -28,16 +28,6 @@ var serverActionArgSpecs = core.ArgSpecs{
 	core.ZoneArgSpec(),
 }
 
-func waitForServerFunc() core.WaitFunc {
-	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
-		return baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
-			ServerID: argsI.(*baremetalActionRequest).ServerID,
-			Zone:     argsI.(*baremetalActionRequest).Zone,
-			Timeout:  serverActionTimeout,
-		})
-	}
-}
-
 func serverWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for a server to reach a stable state`,
@@ -47,7 +37,12 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		ArgsType:  reflect.TypeOf(baremetalActionRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			return waitForServerFunc()(ctx, argsI, nil)
+			api := baremetal.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForServer(&baremetal.WaitForServerRequest{
+				ServerID: argsI.(*baremetalActionRequest).ServerID,
+				Zone:     argsI.(*baremetalActionRequest).Zone,
+				Timeout:  serverActionTimeout,
+			})
 		},
 		ArgSpecs: serverActionArgSpecs,
 		Examples: []*core.Example{
