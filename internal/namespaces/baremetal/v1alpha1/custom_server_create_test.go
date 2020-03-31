@@ -98,22 +98,20 @@ func Test_CreateServer(t *testing.T) {
 			},
 		}))
 	})
-}
 
-// None of the tests below should succeed to create an instance.
-func Test_CreateServerErrors(t *testing.T) {
-	////
-	// Instance type errors
-	////
-	t.Run("Error: invalid instance type", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw baremetal server create type=foobar",
-		Check: core.TestCheckCombine(
-			core.TestCheckError(&core.CliError{
-				Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
-				Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M GP-BM1-S HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
-			}),
-			core.TestCheckExitCode(1),
-		),
-	}))
+	// None of the tests below should succeed to create an instance.
+	t.Run("Errors", func(t *testing.T) {
+		// Instance type errors
+		t.Run("Error: invalid instance type", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			Cmd:      "scw baremetal server create type=foobar",
+			Check: core.TestCheckCombine(
+				core.TestCheckError(&core.CliError{
+					Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
+					Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M GP-BM1-S HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
+				}),
+				core.TestCheckExitCode(1),
+			),
+		}))
+	})
 }
