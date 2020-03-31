@@ -6,7 +6,7 @@ USAGE:
 EXAMPLES:
   Create a human and make it run
     scw test human create
-    scw test human run human-id=xxxxx
+    scw test human run xxxxx
 
 ARGS:
   human-id   
