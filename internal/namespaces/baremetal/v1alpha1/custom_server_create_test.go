@@ -16,7 +16,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create zone=fr-par-2",
+			Cmd:      "scw baremetal server create",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
@@ -41,7 +41,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=fr-par-2",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetal.Server).Name)
@@ -70,7 +70,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=fr-par-2",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*baremetal.Server).Tags[0])
@@ -111,7 +111,7 @@ func Test_CreateServerErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckError(&core.CliError{
 				Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
-				Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
+				Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M GP-BM1-S HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
 			}),
 			core.TestCheckExitCode(1),
 		),
