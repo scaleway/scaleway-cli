@@ -35,7 +35,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
 		Name:    "type",
 		Short:   "Server commercial type",
-		Default: core.DefaultValueSetter("GP-BM1-M"),
+		Default: core.DefaultValueSetter("GP-BM1-S"),
 
 		EnumValues: []string{
 			// General Purpose offers
