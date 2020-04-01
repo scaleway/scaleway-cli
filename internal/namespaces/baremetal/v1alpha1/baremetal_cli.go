@@ -738,6 +738,12 @@ func baremetalOsList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(baremetal.ListOsRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "offer-id",
+				Short:      `Filter OS by offer ID`,
+				Required:   false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

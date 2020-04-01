@@ -4,7 +4,8 @@ USAGE:
   scw baremetal os list [arg=value ...]
 
 ARGS:
-  [zone]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [offer-id]   Filter OS by offer ID
+  [zone]       Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for list
