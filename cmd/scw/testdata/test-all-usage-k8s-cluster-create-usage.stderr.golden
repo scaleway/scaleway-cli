@@ -4,11 +4,11 @@ USAGE:
   scw k8s cluster create [arg=value ...]
 
 EXAMPLES:
-  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a default pool composed of 3 DEV1-M
-    scw k8s cluster create name=foo version=1.17.4 default-pool-config.size=3 default-pool-config.node-type=DEV1-M
+  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M
+    scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 
-  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged default pool composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
-    scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium default-pool-config.size=2 default-pool-config.node-type=RENDER-S default-pool-config.min-size=1 default-pool-config.max-size=10 default-pool-config.autohealing=true default-pool-config.autoscaling=true default-pool-config.tags.0=pooltag1 default-pool-config.tags.1=pooltag2
+  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+    scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
   name                                                  The name of the cluster
@@ -18,15 +18,16 @@ ARGS:
   cni                                                   The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel)
   [enable-dashboard]                                    The enablement of the Kubernetes Dashboard in the cluster
   [ingress]                                             The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik)
-  default-pool-config.node-type                         The node type is the type of Scaleway Instance wanted for the pool
-  [default-pool-config.placement-group-id]              The placement group ID in which all the nodes of the pool will be created
-  [default-pool-config.autoscaling]                     The enablement of the autoscaling feature for the pool
-  default-pool-config.size                              The size (number of nodes) of the pool
-  [default-pool-config.min-size]                        The minimun size of the pool
-  [default-pool-config.max-size]                        The maximum size of the pool
-  [default-pool-config.container-runtime]               The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
-  [default-pool-config.autohealing]                     The enablement of the autohealing feature for the pool
-  [default-pool-config.tags.{index}]                    The tags associated with the pool
+  [pools.{index}.name]                                  
+  pools.{index}.node-type                               The node type is the type of Scaleway Instance wanted for the pool
+  [pools.{index}.placement-group-id]                    The placement group ID in which all the nodes of the pool will be created
+  [pools.{index}.autoscaling]                           The enablement of the autoscaling feature for the pool
+  pools.{index}.size                                    The size (number of nodes) of the pool
+  [pools.{index}.min-size]                              The minimun size of the pool
+  [pools.{index}.max-size]                              The maximum size of the pool
+  [pools.{index}.container-runtime]                     The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.autohealing]                           The enablement of the autohealing feature for the pool
+  [pools.{index}.tags.{index}]                          The tags associated with the pool
   [autoscaler-config.scale-down-disabled]               Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]        How long after scale up that scale down evaluation resumes
   [autoscaler-config.estimator]                         Type of resource estimator to be used in scale up (unknown_estimator | binpacking | oldbinpacking)

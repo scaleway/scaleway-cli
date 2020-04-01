@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Upgrade a given pool to the Kubernetes version 1.17.4
-    scw k8s pool upgrade
+    scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.17.4
 
 ARGS:
   pool-id     The ID of the pool to upgrade

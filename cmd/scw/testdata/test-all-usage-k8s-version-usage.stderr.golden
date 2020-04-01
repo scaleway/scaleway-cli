@@ -9,7 +9,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   list        List all available versions
-  get         Get a Kubernetes version
+  get         Get details about a specific version
 
 FLAGS:
   -h, --help   help for version

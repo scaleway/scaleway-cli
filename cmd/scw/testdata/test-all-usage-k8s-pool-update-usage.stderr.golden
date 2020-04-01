@@ -5,13 +5,13 @@ USAGE:
 
 EXAMPLES:
   Enable autoscaling on a given pool
-    scw k8s pool update
+    scw k8s pool update 11111111-1111-1111-111111111111 autoscaling=true
 
   Reduce the size and max size of a given pool to 4
-    scw k8s pool update
+    scw k8s pool update 11111111-1111-1111-111111111111 size=4 max-size=4
 
   Change the tags of the given pool
-    scw k8s pool update
+    scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
 
 ARGS:
   pool-id         The ID of the pool to update

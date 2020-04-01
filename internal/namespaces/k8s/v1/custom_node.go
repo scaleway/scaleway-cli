@@ -7,7 +7,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
+	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -21,10 +21,9 @@ var (
 		k8s.NodeStatusCreating:      color.FgBlue,
 		k8s.NodeStatusRebooting:     color.FgBlue,
 		k8s.NodeStatusReady:         color.FgGreen,
-		k8s.NodeStatusNotready:      color.FgYellow,
+		k8s.NodeStatusNotReady:      color.FgYellow,
 		k8s.NodeStatusCreationError: color.FgRed,
 		k8s.NodeStatusLocked:        color.FgRed,
-		k8s.NodeStatusWarning:       color.FgHiYellow,
 	}
 )
 

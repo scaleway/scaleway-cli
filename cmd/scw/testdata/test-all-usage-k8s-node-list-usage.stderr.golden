@@ -5,20 +5,20 @@ USAGE:
 
 EXAMPLES:
   List all the nodes in the given cluster
-    scw k8s node list
+    scw k8s node list 11111111-1111-1111-111111111111
 
   List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster
-    scw k8s node list
+    scw k8s node list 11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222
 
   List all ready nodes in the given cluster
-    scw k8s node list
+    scw k8s node list 11111111-1111-1111-111111111111 status=ready
 
 ARGS:
   cluster-id   The cluster ID from which the nodes will be listed from
   [pool-id]    The pool ID on which to filter the returned nodes
   [order-by]   The sort order of the returned nodes (created_at_asc | created_at_desc)
   [name]       The name on which to filter the returned nodes
-  [status]     The status on which to filter the returned nodes (unknown | creating | rebuilding | notready | ready | deleting | deleted | warning | error | locked | rebooting | creation_error)
+  [status]     The status on which to filter the returned nodes (unknown | creating | not_ready | ready | deleting | deleted | locked | rebooting | creation_error)
   [region]     Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

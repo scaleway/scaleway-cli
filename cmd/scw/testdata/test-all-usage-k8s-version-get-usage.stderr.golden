@@ -1,11 +1,15 @@
-Get all the details about a specific Kubernetes version.
+This method allows to get a specific Kubernetes version and the details about the version.
 
 USAGE:
-  scw k8s version get <version> [arg=value ...]
+  scw k8s version get <version-name> [arg=value ...]
+
+EXAMPLES:
+  Get the Kubernetes version 1.18.0
+    scw k8s version get 1.18.0
 
 ARGS:
-  version    Version from which to get details
-  [region]   Region to target. If none is passed will use default region from the config
+  version-name   The requested version name
+  [region]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for get

@@ -10,7 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1beta4"
+	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -25,12 +25,11 @@ const (
 // clusterStatusMarshalerFunc marshals a k8s.ClusterStatus.
 var (
 	clusterStatusAttributes = human.Attributes{
-		k8s.ClusterStatusCreating: color.FgBlue,
-		k8s.ClusterStatusReady:    color.FgGreen,
-		k8s.ClusterStatusError:    color.FgRed,
-		k8s.ClusterStatusLocked:   color.FgRed,
-		k8s.ClusterStatusUpdating: color.FgBlue,
-		k8s.ClusterStatusWarning:  color.FgHiYellow,
+		k8s.ClusterStatusCreating:     color.FgBlue,
+		k8s.ClusterStatusReady:        color.FgGreen,
+		k8s.ClusterStatusPoolRequired: color.FgRed,
+		k8s.ClusterStatusLocked:       color.FgRed,
+		k8s.ClusterStatusUpdating:     color.FgBlue,
 	}
 )
 

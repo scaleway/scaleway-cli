@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a given node
-    scw k8s node get
+    scw k8s node get 11111111-1111-1111-111111111111
 
 ARGS:
   node-id    The ID of the requested node
