@@ -204,7 +204,7 @@ scw instance server create image=ubuntu_bionic root-volume=local:10GB additional
 
 ### `scw events`
 
-`scw create` provides an audit log of all the actions performed by the user on Scaleway Elements Instance.
+`scw events` provides an audit log of all the actions performed by the user on Scaleway Elements Instance.
 
 ```shell
 # v1
