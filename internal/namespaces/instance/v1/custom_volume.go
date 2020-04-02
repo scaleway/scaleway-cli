@@ -13,9 +13,9 @@ import (
 //
 
 var (
-	volumeStateAttributes = human.Attributes{
-		instance.VolumeStateError:     color.FgRed,
-		instance.VolumeStateAvailable: color.FgGreen,
+	volumeStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.VolumeStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.VolumeStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
 )
 

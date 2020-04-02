@@ -16,14 +16,14 @@ const (
 )
 
 var (
-	// nodeStatusAttributes allows to override the displayed status color
-	nodeStatusAttributes = human.Attributes{
-		k8s.NodeStatusCreating:      color.FgBlue,
-		k8s.NodeStatusRebooting:     color.FgBlue,
-		k8s.NodeStatusReady:         color.FgGreen,
-		k8s.NodeStatusNotReady:      color.FgYellow,
-		k8s.NodeStatusCreationError: color.FgRed,
-		k8s.NodeStatusLocked:        color.FgRed,
+	// nodeStatusMarshalSpecs allows to override the displayed status color
+	nodeStatusMarshalSpecs = human.EnumMarshalSpecs{
+		k8s.NodeStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		k8s.NodeStatusRebooting:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		k8s.NodeStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		k8s.NodeStatusNotReady:      &human.EnumMarshalSpec{Attribute: color.FgYellow},
+		k8s.NodeStatusCreationError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+		k8s.NodeStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
 )
 

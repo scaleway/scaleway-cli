@@ -24,12 +24,12 @@ const (
 
 // clusterStatusMarshalerFunc marshals a k8s.ClusterStatus.
 var (
-	clusterStatusAttributes = human.Attributes{
-		k8s.ClusterStatusCreating:     color.FgBlue,
-		k8s.ClusterStatusReady:        color.FgGreen,
-		k8s.ClusterStatusPoolRequired: color.FgRed,
-		k8s.ClusterStatusLocked:       color.FgRed,
-		k8s.ClusterStatusUpdating:     color.FgBlue,
+	clusterStatusMarshalSpecs = human.EnumMarshalSpecs{
+		k8s.ClusterStatusCreating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		k8s.ClusterStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		k8s.ClusterStatusPoolRequired: &human.EnumMarshalSpec{Attribute: color.FgRed},
+		k8s.ClusterStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed},
+		k8s.ClusterStatusUpdating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	}
 )
 
