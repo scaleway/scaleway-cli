@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -67,6 +68,13 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 
 	// create the kubeconfig file if it does not exist
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
+		// make sure the directory exists
+		err = os.MkdirAll(path.Dir(kubeconfigPath), 0755)
+		if err != nil {
+			return nil, err
+		}
+
+		// create the file
 		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0644)
 		if err != nil {
 			return nil, err
