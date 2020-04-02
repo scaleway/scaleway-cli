@@ -14,7 +14,7 @@ import (
 const (
 	kubeLocationDir      = ".kube"
 	kubeconfigAPIVersion = "v1"
-	kubeconfigKind       = "config"
+	kubeconfigKind       = "Config"
 )
 
 type k8sKubeconfigInstallRequest struct {
