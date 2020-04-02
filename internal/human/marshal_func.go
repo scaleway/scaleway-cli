@@ -102,6 +102,7 @@ func isMarshalable(t reflect.Type) bool {
 		(t.Kind() == reflect.Ptr && isMarshalable(t.Elem()))
 }
 
+// EnumMarshalSpec contains specs used by EnumMarshalFunc.
 type EnumMarshalSpec struct {
 	// Attribute (mainly colors) to use.
 	Attribute color.Attribute
@@ -112,6 +113,7 @@ type EnumMarshalSpec struct {
 
 type EnumMarshalSpecs map[interface{}]*EnumMarshalSpec
 
+// EnumMarshalFunc returns a marshal func to marshal an enum.
 func EnumMarshalFunc(specs EnumMarshalSpecs) MarshalerFunc {
 	return func(i interface{}, opt *MarshalOpt) (s string, e error) {
 		value, _ := defaultMarshalerFunc(i, opt)

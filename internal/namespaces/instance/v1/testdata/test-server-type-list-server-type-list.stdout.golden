@@ -1,7 +1,7 @@
 NAME         MONTHLY PRICE  HOURLY PRICE  LOCAL VOLUME SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
 ARM64-2GB    € 2.99         € 0.006       50 GB              4         2.0 GiB  arm64   available
-ARM64-4GB    € 5.99         € 0.012       100 GB             6         4.0 GiB  arm64   low stock
-ARM64-8GB    € 11.99        € 0.024       200 GB             8         8.0 GiB  arm64   out of stock
+ARM64-4GB    € 5.99         € 0.012       100 GB             6         4.0 GiB  arm64   available
+ARM64-8GB    € 11.99        € 0.024       200 GB             8         8.0 GiB  arm64   available
 ARM64-16GB   € 34.99        € 0.07        200 GB             16        16 GiB   arm64   available
 ARM64-32GB   € 69.99        € 0.14        300 GB             32        32 GiB   arm64   available
 ARM64-64GB   € 139.99       € 0.28        400 GB             48        64 GiB   arm64   available

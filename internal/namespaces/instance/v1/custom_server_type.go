@@ -79,11 +79,6 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			serverAvailabilities = availabilitiesResponse.Servers
 		}
 
-		// Remove me
-		serverAvailabilities["ARM64-2GB"] = instance.ServerTypesAvailabilityAvailable // available                green
-		serverAvailabilities["ARM64-4GB"] = instance.ServerTypesAvailabilityScarce    // low Stock                orange
-		serverAvailabilities["ARM64-8GB"] = instance.ServerTypesAvailabilityShortage  // temporarily out of stock red
-
 		for name, serverType := range listServersTypesResponse.Servers {
 			_, isDeprecated := deprecatedNames[name]
 			if isDeprecated {
