@@ -47,10 +47,7 @@ func initCommand() *core.Command {
 }
 
 func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	// Explanation
-	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key")
-
-	// Get default SSH key locally
+	// Get default local SSH key
 	relativePath := path.Join(".ssh", "id_rsa.pub")
 	filename := path.Join(core.ExtractEnv(ctx, "HOME"), relativePath)
 	shortenedFilename := "~/" + relativePath
@@ -70,7 +67,6 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	if err != nil {
 		return nil, err
 	}
-
 	api := account.NewAPI(client)
 	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {
@@ -85,6 +81,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	}
 
 	// Ask user
+	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key")
 	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account?",
 		DefaultValue: true,
