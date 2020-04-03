@@ -21,8 +21,6 @@ EXAMPLES:
     scw instance server create image=ubuntu_bionic ip=$ip
 
 ARGS:
-  [zone]                         Zone to target. If none is passed will use default zone from the config
-  [organization-id]              Organization ID to use. If none is passed will use default organization ID from the config
   image                          Image ID or label of the server
   [type=DEV1-S]                  Server commercial type (GP1-XS | GP1-S | GP1-M | GP1-L | GP1-XL | DEV1-S | DEV1-M | DEV1-L | DEV1-XL | RENDER-S)
   [name=<generated>]             Server name
@@ -35,6 +33,8 @@ ARGS:
   [security-group-id]            The security group ID it use for this server
   [placement-group-id]           The placement group ID in witch the server has to be created
   [bootscript-id]                The bootscript ID to use, if empty the local boot will be used
+  [organization-id]              Organization ID to use. If none is passed will use default organization ID from the config
+  [zone]                         Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for create
