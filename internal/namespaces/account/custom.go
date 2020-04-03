@@ -106,7 +106,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return nil, err
 	}
 
-	return core.SuccessResult{
+	return &core.SuccessResult{
 		Message: "Key " + shortenedFilename + " successfully added",
 	}, nil
 }
