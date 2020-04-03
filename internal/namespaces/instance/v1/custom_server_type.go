@@ -71,12 +71,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		// Get server availabilities.
-		serverAvailabilities := make(map[string]instance.ServerTypesAvailability)
 		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{})
 		if err != nil {
-			// Do nothing and show degraded results.
-		} else {
-			serverAvailabilities = availabilitiesResponse.Servers
+			return nil, err
 		}
 
 		for name, serverType := range listServersTypesResponse.Servers {
@@ -94,7 +91,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				GPU:             serverType.Gpu,
 				RAM:             scw.Size(serverType.RAM),
 				Arch:            serverType.Arch,
-				Availability:    serverAvailabilities[name],
+				Availability:    availabilitiesResponse.Servers[name].Availability,
 			})
 		}
 
