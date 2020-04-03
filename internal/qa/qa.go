@@ -101,7 +101,6 @@ func testWellKnownArgAtTheEndError(commands *core.Commands) []interface{} {
 		wkaNotAtTheEnd := false
 		lastWKA := (*core.ArgSpec)(nil)
 		for argPosition, argspec := range command.ArgSpecs {
-
 			if isWellKnownArg(argspec.Name) {
 				respectOrder := false
 				for ; wkaCounter < len(wellKnownArgOrder); wkaCounter++ {
