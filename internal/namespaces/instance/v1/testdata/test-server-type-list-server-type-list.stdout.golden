@@ -1,19 +1,19 @@
 NAME         MONTHLY PRICE  HOURLY PRICE  LOCAL VOLUME SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
-ARM64-2GB    € 2.99         € 0.006       50 GB              4         2.0 GiB  arm64   available
-ARM64-4GB    € 5.99         € 0.012       100 GB             6         4.0 GiB  arm64   available
-ARM64-8GB    € 11.99        € 0.024       200 GB             8         8.0 GiB  arm64   available
-ARM64-16GB   € 34.99        € 0.07        200 GB             16        16 GiB   arm64   available
-ARM64-32GB   € 69.99        € 0.14        300 GB             32        32 GiB   arm64   available
-ARM64-64GB   € 139.99       € 0.28        400 GB             48        64 GiB   arm64   available
-ARM64-128GB  € 279.99       € 0.56        500 GB             64        128 GiB  arm64   available
+ARM64-2GB    € 2.99         € 0.006       50 GB              4         2.0 GiB  arm64   low stock
+ARM64-4GB    € 5.99         € 0.012       100 GB             6         4.0 GiB  arm64   out of stock
+ARM64-8GB    € 11.99        € 0.024       200 GB             8         8.0 GiB  arm64   out of stock
+ARM64-16GB   € 34.99        € 0.07        200 GB             16        16 GiB   arm64   out of stock
+ARM64-32GB   € 69.99        € 0.14        300 GB             32        32 GiB   arm64   out of stock
+ARM64-64GB   € 139.99       € 0.28        400 GB             48        64 GiB   arm64   out of stock
+ARM64-128GB  € 279.99       € 0.56        500 GB             64        128 GiB  arm64   out of stock
 C1           € 2.99         € 0.006       50 GB              4         2.0 GiB  arm     available
 C2L          € 23.99        € 0.048       50 GB              8         32 GiB   x86_64  available
-C2M          € 17.99        € 0.036       50 GB              8         16 GiB   x86_64  available
+C2M          € 17.99        € 0.036       50 GB              8         16 GiB   x86_64  out of stock
 C2S          € 11.99        € 0.024       50 GB              4         8.0 GiB  x86_64  available
 DEV1-S       € 2.99         € 0.006       20 GB              2         2.0 GiB  x86_64  available
-DEV1-M       € 7.99         € 0.016       40 GB              3         4.0 GiB  x86_64  available
-DEV1-L       € 15.99        € 0.032       80 GB              4         8.0 GiB  x86_64  available
-DEV1-XL      € 23.99        € 0.048       120 GB             4         12 GiB   x86_64  available
+DEV1-M       € 7.99         € 0.016       40 GB              3         4.0 GiB  x86_64  out of stock
+DEV1-L       € 15.99        € 0.032       80 GB              4         8.0 GiB  x86_64  out of stock
+DEV1-XL      € 23.99        € 0.048       120 GB             4         12 GiB   x86_64  out of stock
 GP1-XS       € 39.00        € 0.078       150 GB             4         16 GiB   x86_64  available
 GP1-S        € 79.00        € 0.158       300 GB             8         32 GiB   x86_64  available
 GP1-M        € 159.00       € 0.318       600 GB             16        64 GiB   x86_64  available
