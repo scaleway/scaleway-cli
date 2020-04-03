@@ -108,7 +108,7 @@ func initCommand() *core.Command {
 			},
 			{
 				Name:  "remove-old-config",
-				Short: "Whether the autocomplete script should be installed during initialisation",
+				Short: "Whether to remove old configuration file if it exists",
 			},
 			core.ZoneArgSpec(),
 		},
@@ -239,7 +239,7 @@ func initCommand() *core.Command {
 				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
-			// Ask whether to remove v1 configuration file is it exists
+			// Ask whether to remove v1 configuration file if it exists
 			homeDir, err := os.UserHomeDir()
 			if err == nil {
 				configPath := path.Join(homeDir, ".scwrc")
