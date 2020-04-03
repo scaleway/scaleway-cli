@@ -97,7 +97,7 @@ func initCommand() *core.Command {
 			},
 			{
 				Name:    "with-ssh-key",
-				Short:   "Whether the ssh key for managing instances should be uploaded automatically",
+				Short:   "Whether the SSH key for managing instances should be uploaded automatically",
 				Default: core.DefaultValueSetter("true"),
 			},
 			{
@@ -299,7 +299,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
-					successDetails += "\n  Except for ssh-key: " + err.Error()
+					successDetails += "\n  Except for SSH key: " + err.Error()
 				}
 			}
 

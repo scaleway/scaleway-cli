@@ -76,7 +76,8 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
 		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSSHKeyContent)) {
-			return nil, sshKeyAlreadyPresent(shortenedFilename)
+			_, _ = interactive.Println("Look like your local SSH key " + shortenedFilename + " is already present on your Scaleway account.")
+			return nil, nil
 		}
 	}
 
