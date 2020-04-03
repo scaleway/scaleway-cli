@@ -86,25 +86,32 @@ const (
 	wellKnownArgZone           = "zone"
 )
 
-var wellKnownArgs = map[string]struct{}{wellKnownArgOrganizationID: {}, wellKnownArgOrganization: {}, wellKnownArgRegion: {}, wellKnownArgZone: {}}
-
-func isWellKnownArg(arg string) bool {
-	_, ok := wellKnownArgs[arg]
-	return ok
-}
+var (
+	wellKnownArgs = map[string]struct{}{
+		wellKnownArgOrganizationID: {},
+		wellKnownArgOrganization:   {},
+		wellKnownArgRegion:         {},
+		wellKnownArgZone:           {},
+	}
+	wellKnownArgsOrder = []string{
+		wellKnownArgOrganizationID,
+		wellKnownArgOrganization,
+		wellKnownArgRegion,
+		wellKnownArgZone,
+	}
+)
 
 func testWellKnownArgAtTheEndError(commands *core.Commands) []interface{} {
-	wellKnownArgOrder := []string{wellKnownArgOrganizationID, wellKnownArgOrganization, wellKnownArgRegion, wellKnownArgZone}
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
 		wkaCounter := 0
 		wkaNotAtTheEnd := false
 		lastWKA := (*core.ArgSpec)(nil)
 		for argPosition, argspec := range command.ArgSpecs {
-			if isWellKnownArg(argspec.Name) {
+			if _, ok := wellKnownArgs[argspec.Name]; ok {
 				respectOrder := false
-				for ; wkaCounter < len(wellKnownArgOrder); wkaCounter++ {
-					if argspec.Name == wellKnownArgOrder[wkaCounter] {
+				for ; wkaCounter < len(wellKnownArgsOrder); wkaCounter++ {
+					if argspec.Name == wellKnownArgsOrder[wkaCounter] {
 						respectOrder = true
 						wkaCounter++ // next well-known arg can't be the same
 						break
