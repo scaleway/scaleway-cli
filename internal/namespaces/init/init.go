@@ -97,7 +97,7 @@ func initCommand() *core.Command {
 			},
 			{
 				Name:    "with-ssh-key",
-				Short:   "Whether the ssh key for managing instances should be uploaded automatically",
+				Short:   "Whether the SSH key for managing instances should be uploaded automatically",
 				Default: core.DefaultValueSetter("true"),
 			},
 			{
@@ -133,25 +133,31 @@ func initCommand() *core.Command {
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
 				`)
 				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to override current config?",
+					Prompt:       "Do you want to override the current config?",
 					DefaultValue: true,
 				})
 				if err != nil {
 					return err
 				}
 				if !overrideConfig {
-					return fmt.Errorf("initialization cancelled")
+					return fmt.Errorf("initialization canceled")
 				}
 			}
 
-			// Manually prompt for missing args
+			// Manually prompt for missing args:
+
+			// Credentials
 			if args.SecretKey == "" {
-				args.SecretKey, err = promptSecretKey()
+				_, _ = interactive.Println()
+				args.SecretKey, err = promptCredentials()
 				if err != nil {
 					return err
 				}
 			}
+
+			// Zone
 			if args.Zone == "" {
+				_, _ = interactive.Println()
 				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
 					Prompt:          "Select a zone",
 					DefaultValueDoc: "fr-par-1",
@@ -195,7 +201,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
 					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disable at any time by running "scw config set send_telemetry false"
+					Sending such data is optional and can be disabled at any time by running "scw config set send_telemetry false".
 				`)
 
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -213,7 +219,7 @@ func initCommand() *core.Command {
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To fully enjoy Scaleway CLI we recommend you to install autocomplete support in your shell.
+					To fully enjoy Scaleway CLI we recommend you install autocomplete support in your shell.
 				`)
 
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -273,36 +279,37 @@ func initCommand() *core.Command {
 				return nil, err
 			}
 
-			successMessage := "Initialization completed with success"
+			successDetails := ""
 
 			// Install autocomplete
 			if *args.InstallAutocomplete {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += "\n  except for autocomplete: " + err.Error()
+					successDetails += "\n  Except for autocomplete: " + err.Error()
 				}
 			}
 
 			// Init SSH Key
 			if *args.WithSSHKey {
 				_, _ = interactive.Println()
-				result, err := accountcommands.InitRun(ctx, nil)
+				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
-					successMessage += "\n  except for ssh-key: " + err.Error()
+					successDetails += "\n  Except for SSH key: " + err.Error()
 				}
-				_, _ = interactive.Println(result)
-				_, _ = interactive.Println()
 			}
 
+			_, _ = interactive.Println()
+
 			return &core.SuccessResult{
-				Message: successMessage,
+				Message: "Initialization completed with success",
+				Details: successDetails,
 			}, nil
 		},
 	}
 }
 
-func promptSecretKey() (string, error) {
+func promptCredentials() (string, error) {
 	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
 		PromptFunc: func(value string) string {
 			secretKey, email := "secret-key", "email"

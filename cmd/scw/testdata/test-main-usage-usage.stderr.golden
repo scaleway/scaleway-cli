@@ -9,7 +9,7 @@ AVAILABLE COMMANDS:
   init         Initialize the config
   config       Config file management
   account      Manage SSH key
-  autocomplete Install autocompletion script
+  autocomplete Install autocomplete script
   version      Display cli version
   help         Help about any command
 

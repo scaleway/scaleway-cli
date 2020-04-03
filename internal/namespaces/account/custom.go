@@ -47,10 +47,7 @@ func initCommand() *core.Command {
 }
 
 func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	// Explanation
-	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key/")
-
-	// Get default SSH key locally
+	// Get default local SSH key
 	relativePath := path.Join(".ssh", "id_rsa.pub")
 	filename := path.Join(core.ExtractEnv(ctx, "HOME"), relativePath)
 	shortenedFilename := "~/" + relativePath
@@ -70,7 +67,6 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	if err != nil {
 		return nil, err
 	}
-
 	api := account.NewAPI(client)
 	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {
@@ -80,13 +76,15 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
 		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSSHKeyContent)) {
-			return nil, sshKeyAlreadyPresent(shortenedFilename)
+			_, _ = interactive.Println("Look like your local SSH key " + shortenedFilename + " is already present on your Scaleway account.")
+			return nil, nil
 		}
 	}
 
 	// Ask user
+	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key")
 	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account ?",
+		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account?",
 		DefaultValue: true,
 	})
 	if err != nil {
