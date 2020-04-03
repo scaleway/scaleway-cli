@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a placement group with the given ID
-    scw instance placement-group get placement-group-id=6c15f411-3b6f-402d-8eba-ae24ef9254e9
+    scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 
 ARGS:
   placement-group-id   
