@@ -121,8 +121,8 @@ type InstallArgs struct {
 
 func autocompleteInstallCommand() *core.Command {
 	return &core.Command{
-		Short:     `Install autocompletion script`,
-		Long:      `Install autocompletion script for a given shell and OS.`,
+		Short:     `Install autocomplete script`,
+		Long:      `Install autocomplete script for a given shell and OS.`,
 		Namespace: "autocomplete",
 		Resource:  "install",
 		NoClient:  true,
@@ -138,7 +138,7 @@ func autocompleteInstallCommand() *core.Command {
 
 func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
-	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
+	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration.")
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellArg := argsI.(*InstallArgs).Shell
@@ -185,16 +185,23 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		return nil, err
 	}
 	if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
+		_, _ = interactive.Println()
 		_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
 		return "", nil
 	}
 
+	// Autocomplete script content
+	autoCompleteScript := "\n# Scaleway CLI autocomplete initialization.\n" + script.CompleteScript
+
 	// Warning
-	_, _ = interactive.Println("To enable autocompletion we need to append to " + shellConfigurationFilePath + " the following lines:\n\t# Scaleway CLI autocomplete initialization.\n\t" + script.CompleteScript)
+	interactive.Println()
+	_, _ = interactive.PrintlnWithoutIndent("To enable autocomplete we need to append to " + shellConfigurationFilePath + " the following lines:")
+	interactive.Println(strings.ReplaceAll(autoCompleteScript, "\n", "\n\t"))
 
 	// Early exit if user disagrees
+	interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       fmt.Sprintf("Do you want to proceed with theses changes ?"),
+		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
 		DefaultValue: true,
 	})
 	if err != nil {
@@ -205,14 +212,14 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// Append to file
-	_, err = f.Write([]byte("\n# Scaleway CLI autocomplete initialization.\n" + script.CompleteScript + "\n"))
+	_, err = f.Write([]byte(autoCompleteScript + "\n"))
 	if err != nil {
 		return nil, err
 	}
 
 	// Ack
 	return &core.SuccessResult{
-		Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nUpdated %v.", shellName, shellConfigurationFilePath),
+		Message: fmt.Sprintf("Autocomplete has been successfully installed for your %v shell.\nUpdated %v.", shellName, shellConfigurationFilePath),
 	}, nil
 }
 

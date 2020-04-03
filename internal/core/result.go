@@ -11,6 +11,7 @@ import (
 
 type SuccessResult struct {
 	Message string
+	Details string
 }
 
 func (s *SuccessResult) MarshalHuman() (string, error) {
@@ -19,12 +20,13 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 		message += "."
 	}
 	message = strcase.TitleFirstWord(message)
-	return "✅ " + terminal.Style(message, color.FgGreen), nil
+	return "✅ " + terminal.Style(message, color.FgGreen) + "\n" + s.Details, nil
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
 	type tmpRes struct {
 		Message string `json:"message"`
+		Details string `json:"details"`
 	}
 	return json.Marshal(&tmpRes{Message: s.getMessage()})
 }
