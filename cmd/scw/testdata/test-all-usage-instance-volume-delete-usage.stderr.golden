@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Delete a volume with the given ID
-    scw instance volume delete volume-id=af136619-bc59-4b48-a0ed-ed7dceaad9a6
+    scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 
 ARGS:
   volume-id   

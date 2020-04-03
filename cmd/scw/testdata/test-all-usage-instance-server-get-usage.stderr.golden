@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a server with the given ID
-    scw instance server get server-id=94ededdf-358d-4019-9886-d754f8a2e78d
+    scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 
 ARGS:
   server-id   

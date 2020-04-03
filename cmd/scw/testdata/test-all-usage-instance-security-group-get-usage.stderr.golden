@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a security group with the given ID
-    scw instance security-group get security-group-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+    scw instance security-group get a3244331-5d32-4e36-9bf9-b60233e201c7
 
 ARGS:
   security-group-id   

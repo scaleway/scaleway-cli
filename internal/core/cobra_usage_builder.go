@@ -91,6 +91,18 @@ func buildExamples(cmd *Command) string {
 				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}
 			var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
+			positionalArg := cmd.ArgSpecs.GetPositionalArg()
+			if positionalArg != nil {
+				for i, cmdArg := range cmdArgsAsStrings {
+					if !strings.HasPrefix(cmdArg, positionalArg.Prefix()) {
+						continue
+					}
+					cmdArgsAsStrings[i] = strings.TrimLeft(cmdArg, positionalArg.Prefix())
+					cmdArgsAsStrings[0], cmdArgsAsStrings[i] = cmdArgsAsStrings[i], cmdArgsAsStrings[0]
+					break
+				}
+			}
+
 			if err != nil {
 				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}

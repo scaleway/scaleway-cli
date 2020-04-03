@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Delete a security group with the given ID
-    scw instance security-group delete security-group-id=69e17c83-9945-47ac-8b29-8c1ad050ee83
+    scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 ARGS:
   security-group-id   

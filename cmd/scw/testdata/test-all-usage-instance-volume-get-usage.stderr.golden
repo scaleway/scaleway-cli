@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   Get a volume with the given ID
-    scw instance volume get volume-id=b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
+    scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
 
 ARGS:
   volume-id   
