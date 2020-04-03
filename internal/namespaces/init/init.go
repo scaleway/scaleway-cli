@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path"
 	"reflect"
 
 	"github.com/fatih/color"
@@ -65,6 +66,7 @@ type initArgs struct {
 	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
+	V1ConfigFilePath    *string
 }
 
 func initCommand() *core.Command {
@@ -233,6 +235,24 @@ func initCommand() *core.Command {
 				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
+			// Ask whether to remove v1 configuration file is it exists
+			homeDir, err := os.UserHomeDir()
+			if err == nil {
+				configPath := path.Join(homeDir, ".scwrc")
+				if _, err := os.Stat(configPath); err == nil {
+					removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+						Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
+						DefaultValue: true,
+					})
+					if err != nil {
+						return err
+					}
+					if removeV1ConfigFile {
+						args.V1ConfigFilePath = scw.StringPtr(configPath)
+					}
+				}
+			}
+
 			return nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -296,6 +316,14 @@ func initCommand() *core.Command {
 				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
 					successDetails += "\n  Except for SSH key: " + err.Error()
+				}
+			}
+
+			// Remove old configuration file
+			if args.V1ConfigFilePath != nil {
+				err = os.Remove(*args.V1ConfigFilePath)
+				if err != nil {
+					successMessage += "\n  except for removing old configuration: " + err.Error()
 				}
 			}
 
