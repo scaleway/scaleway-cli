@@ -1,4 +1,4 @@
-Install autocompletion script for a given shell and OS.
+Install autocomplete script for a given shell and OS.
 
 USAGE:
   scw autocomplete install [arg=value ...]

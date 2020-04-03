@@ -19,8 +19,15 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 	if !strings.HasSuffix(message, ".") {
 		message += "."
 	}
+
 	message = strcase.TitleFirstWord(message)
-	return "✅ " + terminal.Style(message, color.FgGreen) + "\n" + s.Details, nil
+	message = "✅ " + terminal.Style(message, color.FgGreen)
+
+	if s.Details != "" {
+		message += s.Details
+	}
+
+	return message, nil
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
