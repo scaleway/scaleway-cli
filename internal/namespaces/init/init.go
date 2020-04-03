@@ -66,7 +66,7 @@ type initArgs struct {
 	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
-	V1ConfigFilePath    *string
+	RemoveOldConfig     *bool
 }
 
 func initCommand() *core.Command {
@@ -104,6 +104,10 @@ func initCommand() *core.Command {
 			},
 			{
 				Name:  "install-autocomplete",
+				Short: "Whether the autocomplete script should be installed during initialisation",
+			},
+			{
+				Name:  "remove-old-config",
 				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
 			core.ZoneArgSpec(),
@@ -242,14 +246,13 @@ func initCommand() *core.Command {
 				if _, err := os.Stat(configPath); err == nil {
 					removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 						Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
-						DefaultValue: true,
+						DefaultValue: false,
 					})
 					if err != nil {
 						return err
 					}
-					if removeV1ConfigFile {
-						args.V1ConfigFilePath = scw.StringPtr(configPath)
-					}
+
+					args.RemoveOldConfig = &removeV1ConfigFile
 				}
 			}
 
@@ -320,8 +323,9 @@ func initCommand() *core.Command {
 			}
 
 			// Remove old configuration file
-			if args.V1ConfigFilePath != nil {
-				err = os.Remove(*args.V1ConfigFilePath)
+			if args.RemoveOldConfig != nil && *args.RemoveOldConfig {
+				homeDir, _ := os.UserHomeDir()
+				err = os.Remove(path.Join(homeDir, ".scwrc"))
 				if err != nil {
 					successMessage += "\n  except for removing old configuration: " + err.Error()
 				}
