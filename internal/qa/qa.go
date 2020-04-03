@@ -226,7 +226,7 @@ func testDuplicatedCommandError(commands *core.Commands) []interface{} {
 	for _, command := range commands.GetAll() {
 		key := command.Namespace + "_" + command.Resource + "_" + command.Verb
 
-		if uniqueness[key] == true {
+		if uniqueness[key] {
 			errors = append(errors, &DuplicatedCommandError{Command: command})
 			continue
 		}
