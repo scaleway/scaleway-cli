@@ -111,11 +111,11 @@ func generateRandNumber() string {
 	return bigRand.String()
 }
 
-// IsTelemetryDisabled returns true when the Opt-In send_telemetry attribute in the config is set.
+// IsTelemetryDisabled returns false when the Opt-In send_telemetry attribute in the config is set.
 func IsTelemetryDisabled() bool {
 	config, err := scw.LoadConfig()
 	if err != nil {
 		return false
 	}
-	return !config.SendTelemetry
+	return config.SendTelemetry == nil || !*config.SendTelemetry
 }

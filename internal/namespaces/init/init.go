@@ -241,7 +241,7 @@ func initCommand() *core.Command {
 			}
 
 			if args.SendTelemetry != nil {
-				config.SendTelemetry = *args.SendTelemetry
+				config.SendTelemetry = args.SendTelemetry
 			}
 
 			// Update active profile
