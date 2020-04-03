@@ -45,8 +45,6 @@ func serverCreateCommand() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(instanceCreateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
-			core.OrganizationIDArgSpec(),
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
@@ -101,6 +99,8 @@ func serverCreateCommand() *core.Command {
 				Name:  "bootscript-id",
 				Short: "The bootscript ID to use, if empty the local boot will be used",
 			},
+			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
