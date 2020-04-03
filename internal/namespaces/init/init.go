@@ -124,14 +124,10 @@ func initCommand() *core.Command {
 
 			// Check if a config exists
 			// Actual creation of the new config is done in the Run()
-			newConfig := false
 			config, err := scw.LoadConfig()
-			if err != nil {
-				newConfig = true
-			}
 
 			// If it is not a new config, ask if we want to override the existing config
-			if !newConfig {
+			if err == nil && !config.IsEmpty() {
 				_, _ = interactive.PrintlnWithoutIndent(`
 					Current config is located at ` + scw.GetConfigPath() + `
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
