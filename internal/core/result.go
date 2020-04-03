@@ -35,7 +35,10 @@ func (s *SuccessResult) MarshalJSON() ([]byte, error) {
 		Message string `json:"message"`
 		Details string `json:"details"`
 	}
-	return json.Marshal(&tmpRes{Message: s.getMessage()})
+	return json.Marshal(&tmpRes{
+		Message: s.getMessage(),
+		Details: s.Details,
+	})
 }
 
 func (s *SuccessResult) getMessage() string {
