@@ -98,6 +98,7 @@ func buildExamples(cmd *Command) string {
 						continue
 					}
 					cmdArgsAsStrings[i] = strings.TrimLeft(cmdArg, positionalArg.Prefix())
+					// Switch the positional args with args at position 0 to make sure it is always at the beginning
 					cmdArgsAsStrings[0], cmdArgsAsStrings[i] = cmdArgsAsStrings[i], cmdArgsAsStrings[0]
 					break
 				}
