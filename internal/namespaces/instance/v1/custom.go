@@ -23,7 +23,7 @@ func GetCommands() *core.Commands {
 	// Server
 	//
 	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(instance.ServerState(0), serverStateMarshalerFunc)
+	human.RegisterMarshalerFunc(instance.ServerState(0), human.EnumMarshalFunc(serverStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
@@ -46,6 +46,8 @@ func GetCommands() *core.Commands {
 	//
 	// Server-Type
 	//
+	human.RegisterMarshalerFunc(instance.ServerTypesAvailability(""), human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs))
+
 	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
 
 	//
@@ -70,7 +72,7 @@ func GetCommands() *core.Commands {
 	// Volume
 	//
 	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
-	human.RegisterMarshalerFunc(instance.VolumeState(0), human.BindAttributesMarshalFunc(volumeStateAttributes))
+	human.RegisterMarshalerFunc(instance.VolumeState(0), human.EnumMarshalFunc(volumeStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
@@ -78,7 +80,7 @@ func GetCommands() *core.Commands {
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.BindAttributesMarshalFunc(securityGroupPolicyAttribute))
+	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
 
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
 	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
@@ -92,7 +94,7 @@ func GetCommands() *core.Commands {
 	// Security Group Rule
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.BindAttributesMarshalFunc(securityGroupRuleActionAttribute))
+	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
 
 	//
 	// Placement Group

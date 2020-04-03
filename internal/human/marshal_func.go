@@ -102,17 +102,28 @@ func isMarshalable(t reflect.Type) bool {
 		(t.Kind() == reflect.Ptr && isMarshalable(t.Elem()))
 }
 
-// BindAttributesMarshalFunc will apply the Attributes bindings to the value i
-func BindAttributesMarshalFunc(attributes Attributes) MarshalerFunc {
-	return func(i interface{}, opt *MarshalOpt) (s string, e error) {
-		s, _ = defaultMarshalerFunc(i, opt)
-		attribute, exist := attributes[i]
-		if exist {
-			s = terminal.Style(s, attribute)
-		}
-		return s, nil
-	}
+// EnumMarshalSpec contains specs used by EnumMarshalFunc.
+type EnumMarshalSpec struct {
+	// Attribute (mainly colors) to use.
+	Attribute color.Attribute
+
+	// Value is the value that will be printed for the given value.
+	Value string
 }
 
-// Attributes makes the binding between a value and a color.Attribute
-type Attributes map[interface{}]color.Attribute
+type EnumMarshalSpecs map[interface{}]*EnumMarshalSpec
+
+// EnumMarshalFunc returns a marshal func to marshal an enum.
+func EnumMarshalFunc(specs EnumMarshalSpecs) MarshalerFunc {
+	return func(i interface{}, opt *MarshalOpt) (s string, e error) {
+		value, _ := defaultMarshalerFunc(i, opt)
+		spec, exist := specs[i]
+		if exist {
+			if spec.Value != "" {
+				value = spec.Value
+			}
+			value = terminal.Style(value, spec.Attribute)
+		}
+		return value, nil
+	}
+}

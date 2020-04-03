@@ -22,14 +22,14 @@ const (
 // Marshalers
 //
 
-// poolStatusMarshalerFunc marshals a k8s.PoolStatus.
+// poolStatusMarshalSpecs marshals a k8s.PoolStatus.
 var (
-	poolStatusAttributes = human.Attributes{
-		k8s.PoolStatusScaling:   color.FgBlue,
-		k8s.PoolStatusReady:     color.FgGreen,
-		k8s.PoolStatusLocked:    color.FgRed,
-		k8s.PoolStatusUpgrading: color.FgBlue,
-		k8s.PoolStatusWarning:   color.FgHiYellow,
+	poolStatusMarshalSpecs = human.EnumMarshalSpecs{
+		k8s.PoolStatusScaling:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		k8s.PoolStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		k8s.PoolStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+		k8s.PoolStatusUpgrading: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		k8s.PoolStatusWarning:   &human.EnumMarshalSpec{Attribute: color.FgHiYellow},
 	}
 )
 

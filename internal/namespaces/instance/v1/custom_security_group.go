@@ -24,14 +24,14 @@ import (
 //
 
 var (
-	securityGroupPolicyAttribute = human.Attributes{
-		instance.SecurityGroupPolicyDrop:   color.FgRed,
-		instance.SecurityGroupPolicyAccept: color.FgGreen,
+	securityGroupPolicyMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupPolicyDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.SecurityGroupPolicyAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
 
-	securityGroupRuleActionAttribute = human.Attributes{
-		instance.SecurityGroupRuleActionDrop:   color.FgRed,
-		instance.SecurityGroupRuleActionAccept: color.FgGreen,
+	securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
 )
 

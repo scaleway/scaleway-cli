@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/fatih/color"
+
 	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -28,14 +28,17 @@ const (
 // Marshalers
 //
 
-// serverStateMarshalerFunc marshals a instance.ServerState.
-func serverStateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	// The Scaleway console shows "archived" for a stopped server.
-	if i.(instance.ServerState) == instance.ServerStateStopped {
-		return terminal.Style("archived", color.Faint), nil
+// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
+var (
+	serverStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.ServerStateRunning:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.ServerStateStopped:        &human.EnumMarshalSpec{Attribute: color.Faint, Value: "archived"},
+		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
+		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
-	return human.BindAttributesMarshalFunc(serverStateAttributes)(i, opt)
-}
+)
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
 func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
