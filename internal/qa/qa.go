@@ -13,6 +13,7 @@ func LintCommands(commands *core.Commands) []interface{} {
 	errors = append(errors, testShortEndWithDotError(commands)...)
 	errors = append(errors, testShortIsNotPresentError(commands)...)
 	errors = append(errors, testArgMustUseDashError(commands)...)
+	errors = append(errors, testPositionalArgMustBeRequiredError(commands)...)
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	return errors
@@ -75,6 +76,30 @@ func testArgMustUseDashError(commands *core.Commands) []interface{} {
 				errors = append(errors, &ArgMustUseDashError{
 					Command: command,
 					Argspec: argspec,
+				})
+			}
+		}
+	}
+	return errors
+}
+
+type PositionalArgMustBeRequiredError struct {
+	Command *core.Command
+	Argspec *core.ArgSpec
+}
+
+func (err PositionalArgMustBeRequiredError) Error() string {
+	return "positional argument must be required '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+}
+
+func testPositionalArgMustBeRequiredError(commands *core.Commands) []interface{} {
+	errors := []interface{}(nil)
+	for _, command := range commands.GetAll() {
+		for _, argSpec := range command.ArgSpecs {
+			if argSpec.Positional && !argSpec.Required {
+				errors = append(errors, &PositionalArgMustBeRequiredError{
+					Command: command,
+					Argspec: argSpec,
 				})
 			}
 		}
