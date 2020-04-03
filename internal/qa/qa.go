@@ -16,6 +16,7 @@ func LintCommands(commands *core.Commands) []interface{} {
 	errors = append(errors, testPositionalArgMustBeRequiredError(commands)...)
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
+	errors = append(errors, testDuplicatedCommandError(commands)...)
 	return errors
 }
 
@@ -140,7 +141,7 @@ type DifferentLocalizationForNamespaceError struct {
 }
 
 func (err DifferentLocalizationForNamespaceError) Error() string {
-	return fmt.Sprintf("different localization for '%v', '%v': %v, %v",
+	return fmt.Sprintf("different localization for commands '%v', '%v': %v, %v",
 		err.Command1.GetCommandLine(), err.Command2.GetCommandLine(), err.ArgNames1, err.ArgNames2)
 }
 
@@ -206,5 +207,32 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []inter
 			}
 		}
 	}
+	return errors
+}
+
+type DuplicatedCommandError struct {
+	Command *core.Command
+}
+
+func (err DuplicatedCommandError) Error() string {
+	return fmt.Sprintf("duplicated command '%s'", err.Command.GetCommandLine())
+}
+
+// testDuplicatedCommandError testes that there is no duplicate command.
+func testDuplicatedCommandError(commands *core.Commands) []interface{} {
+	errors := []interface{}(nil)
+	uniqueness := make(map[string]bool)
+
+	for _, command := range commands.GetAll() {
+		key := command.GetCommandLine()
+
+		if uniqueness[key] {
+			errors = append(errors, &DuplicatedCommandError{Command: command})
+			continue
+		}
+
+		uniqueness[key] = true
+	}
+
 	return errors
 }
