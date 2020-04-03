@@ -152,7 +152,7 @@ func initCommand() *core.Command {
 
 			// Credentials
 			if args.SecretKey == "" {
-				interactive.Println()
+				_, _ = interactive.Println()
 				args.SecretKey, err = promptCredentials()
 				if err != nil {
 					return err
@@ -161,7 +161,7 @@ func initCommand() *core.Command {
 
 			// Zone
 			if args.Zone == "" {
-				interactive.Println()
+				_, _ = interactive.Println()
 				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
 					Prompt:          "Select a zone",
 					DefaultValueDoc: "fr-par-1",

@@ -194,12 +194,12 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	autoCompleteScript := "\n# Scaleway CLI autocomplete initialization.\n" + script.CompleteScript
 
 	// Warning
-	interactive.Println()
+	_, _ = interactive.Println()
 	_, _ = interactive.PrintlnWithoutIndent("To enable autocomplete we need to append to " + shellConfigurationFilePath + " the following lines:")
-	interactive.Println(strings.ReplaceAll(autoCompleteScript, "\n", "\n\t"))
+	_, _ = interactive.Println(strings.ReplaceAll(autoCompleteScript, "\n", "\n\t"))
 
 	// Early exit if user disagrees
-	interactive.Println()
+	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
 		DefaultValue: true,
