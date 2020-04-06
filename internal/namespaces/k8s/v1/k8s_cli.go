@@ -650,7 +650,7 @@ func k8sClusterUpgrade() *core.Command {
 			{
 				Name:       "version",
 				Short:      `The new Kubernetes version of the cluster`,
-				Required:   false,
+				Required:   true,
 				Positional: false,
 			},
 			{
@@ -1045,7 +1045,7 @@ func k8sPoolUpgrade() *core.Command {
 			{
 				Name:       "version",
 				Short:      `The new Kubernetes version for the pool`,
-				Required:   false,
+				Required:   true,
 				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
