@@ -10,10 +10,7 @@ import (
 
 func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	var combinedInterceptors CommandInterceptor
-	for _, _interceptor := range interceptors {
-		// Assure interceptor do not escape the context of this loop iteration.
-		interceptor := _interceptor
-
+	for _, interceptor := range interceptors {
 		if interceptor == nil {
 			continue
 		}
@@ -111,7 +108,6 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 			Err:     err,
 			Hint:    hint,
 		}
-
 	}
 
 	return res, err

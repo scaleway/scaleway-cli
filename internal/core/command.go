@@ -60,6 +60,7 @@ type Command struct {
 	ValidateFunc CommandValidateFunc
 
 	// Interceptor are middleware func that can intercept context and args before they are sent to Run
+	// You can combine multiple CommandInterceptor using CombineInterceptor
 	Interceptor CommandInterceptor
 
 	// Run will be called to execute a command. It will receive a context and parsed argument.
@@ -126,8 +127,8 @@ func (c *Command) seeAlsosAsStr() string {
 	return strings.Join(seeAlsos, "\n\n")
 }
 
-// AddInterceptors add one or multiple interceptor to a command.
-// These interceptor will be add after the previously present interceptors.
+// AddInterceptors add one or multiple interceptors to a command.
+// These new interceptors will be add after the already present interceptors (if any).
 func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
 	interceptors = append([]CommandInterceptor{c.Interceptor}, interceptors...)
 	c.Interceptor = CombineCommandInterceptor(interceptors...)

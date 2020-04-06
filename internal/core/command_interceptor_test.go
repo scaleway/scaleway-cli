@@ -8,7 +8,6 @@ import (
 )
 
 func Test_CombineCommandInterceptor(t *testing.T) {
-
 	runner := func(context.Context, interface{}) (interface{}, error) {
 		return []string{"runner"}, nil
 	}
@@ -56,5 +55,4 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 		},
 		Expected: []string{"A", "B", "runner"},
 	}))
-
 }
