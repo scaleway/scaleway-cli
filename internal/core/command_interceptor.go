@@ -29,6 +29,7 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 	return combinedInterceptors
 }
 
+// sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
 func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
 	res, err := runner(ctx, args)
 	switch sdkError := err.(type) {
