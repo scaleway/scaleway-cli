@@ -80,7 +80,15 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		// execute the command
 		if cmd.Run != nil {
-			data, err := cmd.Run(ctx, cmdArgs)
+
+			interceptor := CombineInterceptor(
+				StdSdkErrorInterceptor,
+				cmd.Interceptor,
+			)
+
+			data, err := interceptor(ctx, cmdArgs, func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+				return cmd.Run(ctx, argsI)
+			})
 			if err != nil {
 				return err
 			}

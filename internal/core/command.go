@@ -59,6 +59,9 @@ type Command struct {
 	// If nil, core.DefaultCommandValidateFunc is used by default.
 	ValidateFunc CommandValidateFunc
 
+	// Interceptor are middleware func that can intercept context and args before they are sent to Run
+	Interceptor CommandInterceptor
+
 	// Run will be called to execute a command. It will receive a context and parsed argument.
 	// Non-nil values returned by this method will be printed out.
 	Run CommandRunner
@@ -69,6 +72,8 @@ type Command struct {
 
 // CommandPreValidateFunc allows to manipulate args before validation.
 type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
+
+type CommandInterceptor func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error)
 
 // CommandRunner returns the command response or an error.
 type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, error)

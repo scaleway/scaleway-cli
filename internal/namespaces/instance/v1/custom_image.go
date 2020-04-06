@@ -35,24 +35,25 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
-	originalRun := c.Run
+	c.Interceptor = core.CombineInterceptor(
+		c.Interceptor,
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateImageRequest)
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-		args := argsI.(*customCreateImageRequest)
+			request := args.CreateImageRequest
+			request.RootVolume = args.SnapshotID
+			request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
 
-		request := args.CreateImageRequest
-		request.RootVolume = args.SnapshotID
-		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
+			// Extra volumes need to start at volumeIndex 1.
+			volumeIndex := 1
+			for _, volume := range args.AdditionalVolumes {
+				request.ExtraVolumes[strconv.Itoa(volumeIndex)] = volume
+				volumeIndex++
+			}
 
-		// Extra volumes need to start at volumeIndex 1.
-		volumeIndex := 1
-		for _, volume := range args.AdditionalVolumes {
-			request.ExtraVolumes[strconv.Itoa(volumeIndex)] = volume
-			volumeIndex++
-		}
-
-		return originalRun(ctx, request)
-	}
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }

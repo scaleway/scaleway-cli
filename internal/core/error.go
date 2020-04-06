@@ -14,7 +14,6 @@ func init() {
 	human.RegisterMarshalerFunc((*sdk.InvalidArgumentsError)(nil), sdkInvalidArgumentsErrorHumanMarshalerFunc())
 	human.RegisterMarshalerFunc((*sdk.QuotasExceededError)(nil), sdkQuotasExceededErrorHumanMarshalerFunc())
 	human.RegisterMarshalerFunc((*sdk.TransientStateError)(nil), sdkTransientStateErrorHumanMarshalerFunc())
-	human.RegisterMarshalerFunc((*sdk.ResourceNotFoundError)(nil), sdkResourceNotFoundErrorHumanMarshalerFunc())
 	human.RegisterMarshalerFunc((*sdk.OutOfStockError)(nil), sdkOutOfStockErrorHumanMarshalerFunc())
 	human.RegisterMarshalerFunc((*sdk.ResourceExpiredError)(nil), sdkResourceExpiredHumanMarshallFunc())
 }
@@ -139,16 +138,6 @@ func sdkTransientStateErrorHumanMarshalerFunc() human.MarshalerFunc {
 				transientStateError.Resource,
 				transientStateError.ResourceID,
 				transientStateError.CurrentState),
-		}, opt)
-	}
-}
-
-func sdkResourceNotFoundErrorHumanMarshalerFunc() human.MarshalerFunc {
-	return func(i interface{}, opt *human.MarshalOpt) (string, error) {
-		resourceNotFoundError := i.(*sdk.ResourceNotFoundError)
-
-		return human.Marshal(&CliError{
-			Err: fmt.Errorf("cannot find resource '%v' with ID '%v'", resourceNotFoundError.Resource, resourceNotFoundError.ResourceID),
 		}, opt)
 	}
 }

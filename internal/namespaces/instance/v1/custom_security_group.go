@@ -185,43 +185,44 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 }
 
 func securityGroupDeleteBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
-
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		res, originalErr := originalRun(ctx, argsI)
-		if originalErr == nil {
-			return res, nil
-		}
-
-		if strings.HasSuffix(originalErr.Error(), "group is in use. you cannot delete it.") {
-			req := argsI.(*instance.DeleteSecurityGroupRequest)
-			api := instance.NewAPI(core.ExtractClient(ctx))
-
-			newError := &core.CliError{
-				Err: fmt.Errorf("cannot delete security-group currently in use"),
+	c.Interceptor = core.CombineInterceptor(
+		c.Interceptor,
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			res, originalErr := runner(ctx, argsI)
+			if originalErr == nil {
+				return res, nil
 			}
 
-			// Get security-group.
-			sg, err := api.GetSecurityGroup(&instance.GetSecurityGroupRequest{
-				SecurityGroupID: req.SecurityGroupID,
-			})
-			if err != nil {
-				// Ignore API error and return a minimal error.
+			if strings.HasSuffix(originalErr.Error(), "group is in use. you cannot delete it.") {
+				req := argsI.(*instance.DeleteSecurityGroupRequest)
+				api := instance.NewAPI(core.ExtractClient(ctx))
+
+				newError := &core.CliError{
+					Err: fmt.Errorf("cannot delete security-group currently in use"),
+				}
+
+				// Get security-group.
+				sg, err := api.GetSecurityGroup(&instance.GetSecurityGroupRequest{
+					SecurityGroupID: req.SecurityGroupID,
+				})
+				if err != nil {
+					// Ignore API error and return a minimal error.
+					return nil, newError
+				}
+
+				// Create detail message.
+				hint := "Attach all these instances to another security-group before deleting this one:"
+				for _, s := range sg.SecurityGroup.Servers {
+					hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
+				}
+
+				newError.Hint = hint
 				return nil, newError
 			}
 
-			// Create detail message.
-			hint := "Attach all these instances to another security-group before deleting this one:"
-			for _, s := range sg.SecurityGroup.Servers {
-				hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
-			}
-
-			newError.Hint = hint
-			return nil, newError
-		}
-
-		return nil, originalErr
-	}
+			return nil, originalErr
+		},
+	)
 	return c
 }
 
