@@ -126,6 +126,13 @@ func (c *Command) seeAlsosAsStr() string {
 	return strings.Join(seeAlsos, "\n\n")
 }
 
+// AddInterceptors add one or multiple interceptor to a command.
+// These interceptor will be add after the previously present interceptors.
+func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
+	interceptors = append([]CommandInterceptor{c.Interceptor}, interceptors...)
+	c.Interceptor = CombineCommandInterceptor(interceptors...)
+}
+
 // Commands represent a list of CLI commands, with a index to allow searching.
 type Commands struct {
 	commands     []*Command

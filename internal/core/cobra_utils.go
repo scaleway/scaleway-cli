@@ -81,7 +81,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// execute the command
 		if cmd.Run != nil {
 
-			interceptor := CombineInterceptor(
+			interceptor := CombineCommandInterceptor(
 				sdkStdErrorInterceptor,
 				cmd.Interceptor,
 			)

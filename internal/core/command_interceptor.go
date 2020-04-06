@@ -3,12 +3,13 @@ package core
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func CombineInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
-	var result CommandInterceptor
+func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
+	var combinedInterceptors CommandInterceptor
 	for _, _interceptor := range interceptors {
 		// Assure interceptor do not escape the context of this loop iteration.
 		interceptor := _interceptor
@@ -16,18 +17,19 @@ func CombineInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 		if interceptor == nil {
 			continue
 		}
-		if result == nil {
-			result = interceptor
+		if combinedInterceptors == nil {
+			combinedInterceptors = interceptor
+			continue
 		}
 
-		previousInterceptor := result
-		result = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+		previousInterceptor := combinedInterceptors
+		combinedInterceptors = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
 			return previousInterceptor(ctx, args, func(ctx context.Context, arg interface{}) (interface{}, error) {
 				return interceptor(ctx, args, runner)
 			})
 		}
 	}
-	return result
+	return combinedInterceptors
 }
 
 func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
@@ -35,8 +37,82 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 	switch sdkError := err.(type) {
 	case *scw.ResourceNotFoundError:
 		return nil, &CliError{
-			Err: fmt.Errorf("cannot find resource '%v' with ID '%v'", sdkError.Resource, sdkError.ResourceID),
+			Message: fmt.Sprintf("cannot find resource '%v' with ID '%v'", sdkError.Resource, sdkError.ResourceID),
+			Err:     err,
 		}
+	case *scw.ResponseError:
+		return nil, &CliError{
+			Message: sdkError.Message,
+			Err:     sdkError,
+		}
+	case *scw.InvalidArgumentsError:
+		reasonsMap := map[string]string{
+			"unknown":    "is invalid for unexpected reason",
+			"required":   "is required",
+			"format":     "is wrongly formatted",
+			"constraint": "does not respect constraint",
+		}
+
+		arguments := make([]string, len(sdkError.Details))
+		reasons := make([]string, len(sdkError.Details))
+		hints := make([]string, len(sdkError.Details))
+		for i, d := range sdkError.Details {
+			arguments[i] = "'" + d.ArgumentName + "'"
+			reasons[i] = "- '" + d.ArgumentName + "' " + reasonsMap[d.Reason]
+			hints[i] = d.HelpMessage
+		}
+
+		return nil, &CliError{
+			Message: fmt.Sprintf("invalid arguments %v", strings.Join(arguments, ", ")),
+			Err:     err,
+			Details: strings.Join(reasons, "\n"),
+			Hint:    strings.Join(hints, "\n"),
+		}
+
+	case *scw.QuotasExceededError:
+
+		invalidArgs := make([]string, len(sdkError.Details))
+		resources := make([]string, len(sdkError.Details))
+		for i, d := range sdkError.Details {
+			invalidArgs[i] = fmt.Sprintf("- %s has reached its quota (%d/%d)", d.Resource, d.Current, d.Current)
+			resources[i] = fmt.Sprintf("'%v'", d.Resource)
+		}
+
+		return nil, &CliError{
+			Message: fmt.Sprintf("quota exceeded for resources %v", strings.Join(resources, ", ")),
+			Err:     err,
+			Details: strings.Join(invalidArgs, "\n"),
+			Hint:    "Quotas are defined by organization. You should either delete unused resources or contact support to obtain bigger quotas.",
+		}
+	case *scw.TransientStateError:
+		return nil, &CliError{
+			Message: fmt.Sprintf("transient state error for resource '%v'", sdkError.Resource),
+			Err:     err,
+			Details: fmt.Sprintf("resource %s with ID %s is in a transient state '%s'",
+				sdkError.Resource,
+				sdkError.ResourceID,
+				sdkError.CurrentState),
+		}
+	case *scw.OutOfStockError:
+		return nil, &CliError{
+			Message: fmt.Sprintf("resource out of stock '%v'", sdkError.Resource),
+			Err:     err,
+			Hint:    "Try again later :-)",
+		}
+	case *scw.ResourceExpiredError:
+		var hint string
+		switch resourceName := sdkError.Resource; resourceName {
+		case "account_token":
+			hint = "Try to generate a new token here https://console.scaleway.com/account/credentials"
+		}
+
+		return nil, &CliError{
+			Message: fmt.Sprintf("resource %s with ID %s expired since %s", sdkError.Resource, sdkError.ResourceID, sdkError.ExpiredSince.String()),
+			Err:     err,
+			Hint:    hint,
+		}
+
 	}
+
 	return res, err
 }
