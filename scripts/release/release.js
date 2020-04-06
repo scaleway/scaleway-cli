@@ -240,7 +240,6 @@ async function main() {
         Body: newVersion,
         Bucket: S3_DEVTOOL_BUCKET,
         Key: S3_VERSION_OBJECT_NAME
-
     });
     console.log(`    Successfully updated s3 version file: https://${S3_DEVTOOL_BUCKET}.s3.${S3_DEVTOOL_BUCKET_REGION}.scw.cloud/${S3_VERSION_OBJECT_NAME}`.green);
     await prompt(`Hit enter to continue .....`.magenta);
