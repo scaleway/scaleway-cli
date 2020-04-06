@@ -187,7 +187,7 @@ async function main() {
         repo: GITHUB_REPO,
         base: GITHUB_RELEASED_BRANCH,
         head: TMP_BRANCH,
-        title: `chore: release ${newVersion}`
+        title: `chore: release v${newVersion}`
     });
     console.log(`    Successfully create pull request: ${prResp.data.html_url}`.green);
     await prompt(`Hit enter when its merged .....`.magenta);
@@ -204,9 +204,9 @@ async function main() {
     let releaseResp = await octokit.repos.createRelease({
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
-        tag_name: newVersion,
+        tag_name: `v${newVersion}`,
         target_commitish: GITHUB_RELEASED_BRANCH,
-        name: newVersion,
+        name: `v${newVersion}`,
         body: changelog.body,
         prerelease: semver.prerelease(newVersion) !== null,
     });
@@ -236,9 +236,11 @@ async function main() {
     //
     console.log("Updating version file on s3".blue);
     await util.promisify(s3.putObject.bind(s3))({
+        ACL: "public-read",
         Body: newVersion,
         Bucket: S3_DEVTOOL_BUCKET,
         Key: S3_VERSION_OBJECT_NAME
+
     });
     console.log(`    Successfully updated s3 version file: https://${S3_DEVTOOL_BUCKET}.s3.${S3_DEVTOOL_BUCKET_REGION}.scw.cloud/${S3_VERSION_OBJECT_NAME}`.green);
     await prompt(`Hit enter to continue .....`.magenta);
@@ -256,7 +258,7 @@ async function main() {
     git("checkout", "-b", TMP_BRANCH);
     replaceInFile(GO_VERSION_PATH, /Version = "[^"]*"/, `Version = "v${newVersion}+dev"`);
     replaceInFile(VERSION_TEST_GOLDEN_PATH, /\([^)]*\)/, `(${newVersion})`)
-    git("add", GO_VERSION_PATH);
+    git("add", GO_VERSION_PATH, VERSION_TEST_GOLDEN_PATH);
     git("commit", "-m", `chore: cleanup after v${newVersion} release`);
     git("push", "-f", "--set-upstream", TMP_REMOTE, TMP_BRANCH);
     git("checkout", GITHUB_RELEASED_BRANCH);
@@ -266,6 +268,7 @@ async function main() {
         repo: GITHUB_REPO,
         base: GITHUB_RELEASED_BRANCH,
         head: TMP_BRANCH,
+        title: `chore: cleanup after v${newVersion} release`
     });
     console.log(`    Successfully created pull request: ${postPrResp.data.html_url}`.green);
     await prompt(`Hit enter when it is merged .....`.magenta);
