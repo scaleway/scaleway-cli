@@ -41,17 +41,18 @@ const (
 )
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
+	c.Interceptor = core.CombineInterceptor(
+		c.Interceptor,
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			originalRes, err := runner(ctx, argsI)
+			if err != nil {
+				return nil, err
+			}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		originalRes, err := originalRun(ctx, argsI)
-		if err != nil {
-			return nil, err
-		}
-
-		listClusterAvailableVersionsResponse := originalRes.(*k8s.ListClusterAvailableVersionsResponse)
-		return listClusterAvailableVersionsResponse.Versions, nil
-	}
+			listClusterAvailableVersionsResponse := originalRes.(*k8s.ListClusterAvailableVersionsResponse)
+			return listClusterAvailableVersionsResponse.Versions, nil
+		},
+	)
 
 	return c
 }
