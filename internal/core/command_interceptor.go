@@ -30,7 +30,7 @@ func CombineInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	return result
 }
 
-func StdSdkErrorInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
 	res, err := runner(ctx, args)
 	switch sdkError := err.(type) {
 	case *scw.ResourceNotFoundError:

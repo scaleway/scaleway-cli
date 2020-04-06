@@ -82,7 +82,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if cmd.Run != nil {
 
 			interceptor := CombineInterceptor(
-				StdSdkErrorInterceptor,
+				sdkStdErrorInterceptor,
 				cmd.Interceptor,
 			)
 
