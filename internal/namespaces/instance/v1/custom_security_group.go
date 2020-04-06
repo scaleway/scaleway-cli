@@ -281,12 +281,12 @@ func securityGroupClearCommand() *core.Command {
 			return &core.SuccessResult{Message: "Successful reset of the security group rules"}, err
 		},
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to reset.`,
 				Required: true,
 			},
+			core.ZoneArgSpec(),
 		},
 	}
 }
@@ -305,7 +305,6 @@ func securityGroupUpdateCommand() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to update`,
@@ -331,6 +330,7 @@ func securityGroupUpdateCommand() *core.Command {
 			{
 				Name: "organization-default",
 			},
+			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
 			{

@@ -554,7 +554,6 @@ func serverDeleteCommand() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(customDeleteServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
 				Name:       "server-id",
 				Required:   true,
@@ -580,6 +579,7 @@ func serverDeleteCommand() *core.Command {
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
 			},
+			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
 			{

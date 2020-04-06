@@ -12,6 +12,7 @@ func LintCommands(commands *core.Commands) []interface{} {
 	errors := []interface{}(nil)
 	errors = append(errors, testShortEndWithDotError(commands)...)
 	errors = append(errors, testShortIsNotPresentError(commands)...)
+	errors = append(errors, testWellKnownArgAtTheEndError(commands)...)
 	errors = append(errors, testArgMustUseDashError(commands)...)
 	errors = append(errors, testPositionalArgMustBeRequiredError(commands)...)
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
@@ -54,6 +55,84 @@ func testShortIsNotPresentError(commands *core.Commands) []interface{} {
 		if command.Short == "" {
 			errors = append(errors, &ShortMustBePresentError{
 				Command: command,
+			})
+		}
+	}
+	return errors
+}
+
+type WellKnownArgOrderError struct {
+	Command *core.Command
+	Argspec *core.ArgSpec
+}
+
+func (err WellKnownArgOrderError) Error() string {
+	return "well-known arg order must be respected '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+}
+
+type WellKnownArgAtTheEndError struct {
+	Command *core.Command
+	Argspec *core.ArgSpec
+}
+
+func (err WellKnownArgAtTheEndError) Error() string {
+	return "well-known arg must be at the end'" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+}
+
+const (
+	wellKnownArgOrganizationID = "organization-id"
+	wellKnownArgOrganization   = "organization"
+	wellKnownArgRegion         = "region"
+	wellKnownArgZone           = "zone"
+)
+
+var (
+	wellKnownArgs = map[string]struct{}{
+		wellKnownArgOrganizationID: {},
+		wellKnownArgOrganization:   {},
+		wellKnownArgRegion:         {},
+		wellKnownArgZone:           {},
+	}
+	wellKnownArgsOrder = []string{
+		wellKnownArgOrganizationID,
+		wellKnownArgOrganization,
+		wellKnownArgRegion,
+		wellKnownArgZone,
+	}
+)
+
+func testWellKnownArgAtTheEndError(commands *core.Commands) []interface{} {
+	errors := []interface{}(nil)
+	for _, command := range commands.GetAll() {
+		wkaCounter := 0
+		wkaNotAtTheEnd := false
+		lastWKA := (*core.ArgSpec)(nil)
+		for argPosition, argspec := range command.ArgSpecs {
+			if _, ok := wellKnownArgs[argspec.Name]; ok {
+				respectOrder := false
+				for ; wkaCounter < len(wellKnownArgsOrder); wkaCounter++ {
+					if argspec.Name == wellKnownArgsOrder[wkaCounter] {
+						respectOrder = true
+						wkaCounter++ // next well-known arg can't be the same
+						break
+					}
+				}
+
+				if !respectOrder {
+					errors = append(errors, &WellKnownArgOrderError{
+						Command: command,
+						Argspec: argspec,
+					})
+				}
+
+				wkaNotAtTheEnd = argPosition+1 != len(command.ArgSpecs)
+				lastWKA = argspec
+			}
+		}
+		if wkaNotAtTheEnd {
+			errors = append(errors, &WellKnownArgAtTheEndError{
+				Command: command,
+				Argspec: lastWKA,
 			})
 		}
 	}

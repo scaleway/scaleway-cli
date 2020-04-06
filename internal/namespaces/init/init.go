@@ -82,17 +82,6 @@ func initCommand() *core.Command {
 				Short:        "Scaleway secret-key",
 				ValidateFunc: core.ValidateSecretKey(),
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
-			// See workflow in cobra_utils.go/cobraRun().
-			// It is not required in the command line: the user is not obliged to type it.
-			// But it is required to make the request: this is why we use `ValidateOrganizationIDRequired().
-			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
-			{
-				Name:         "organization-id",
-				Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
-				ValidateFunc: core.ValidateOrganizationIDRequired(),
-			},
 			{
 				Name:  "send-telemetry",
 				Short: "Send usage statistics and diagnostics",
@@ -110,6 +99,18 @@ func initCommand() *core.Command {
 				Name:  "remove-v1-config",
 				Short: "Whether to remove the v1 configuration file if it exists",
 			},
+
+			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
+			// See workflow in cobra_utils.go/cobraRun().
+			// It is not required in the command line: the user is not obliged to type it.
+			// But it is required to make the request: this is why we use `ValidateOrganizationIDRequired().
+			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
+			{
+				Name:         "organization-id",
+				Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+				ValidateFunc: core.ValidateOrganizationIDRequired(),
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 			core.ZoneArgSpec(),
 		},
 		SeeAlsos: []*core.SeeAlso{
