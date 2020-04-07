@@ -35,9 +35,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
-	originalRun := c.Run
-
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
 		args := argsI.(*customCreateImageRequest)
 
 		request := args.CreateImageRequest
@@ -51,8 +49,8 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 			volumeIndex++
 		}
 
-		return originalRun(ctx, request)
-	}
+		return runner(ctx, request)
+	})
 
 	return c
 }

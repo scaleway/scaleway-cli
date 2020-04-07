@@ -59,6 +59,10 @@ type Command struct {
 	// If nil, core.DefaultCommandValidateFunc is used by default.
 	ValidateFunc CommandValidateFunc
 
+	// Interceptor are middleware func that can intercept context and args before they are sent to Run
+	// You can combine multiple CommandInterceptor using AddInterceptors method.
+	Interceptor CommandInterceptor
+
 	// Run will be called to execute a command. It will receive a context and parsed argument.
 	// Non-nil values returned by this method will be printed out.
 	Run CommandRunner
@@ -69,6 +73,10 @@ type Command struct {
 
 // CommandPreValidateFunc allows to manipulate args before validation.
 type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
+
+// CommandInterceptor allow to intercept and manipulate a runner arguments and return value.
+// It can for example be used to change arguments type or catch runner errors.
+type CommandInterceptor func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error)
 
 // CommandRunner returns the command response or an error.
 type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, error)
@@ -119,6 +127,13 @@ func (c *Command) seeAlsosAsStr() string {
 	}
 
 	return strings.Join(seeAlsos, "\n\n")
+}
+
+// AddInterceptors add one or multiple interceptors to a command.
+// These new interceptors will be added after the already present interceptors (if any).
+func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
+	interceptors = append([]CommandInterceptor{c.Interceptor}, interceptors...)
+	c.Interceptor = combineCommandInterceptor(interceptors...)
 }
 
 // Commands represent a list of CLI commands, with a index to allow searching.

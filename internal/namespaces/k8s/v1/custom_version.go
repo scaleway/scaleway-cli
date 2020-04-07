@@ -8,17 +8,15 @@ import (
 )
 
 func versionListBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
-
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		originalRes, err := originalRun(ctx, argsI)
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		originalRes, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
 		versionsResponse := originalRes.(*k8s.ListVersionsResponse)
 		return versionsResponse.Versions, nil
-	}
+	})
 
 	return c
 }

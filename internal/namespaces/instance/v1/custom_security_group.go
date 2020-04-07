@@ -185,10 +185,8 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 }
 
 func securityGroupDeleteBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
-
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		res, originalErr := originalRun(ctx, argsI)
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, originalErr := runner(ctx, argsI)
 		if originalErr == nil {
 			return res, nil
 		}
@@ -221,7 +219,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, originalErr
-	}
+	})
 	return c
 }
 
