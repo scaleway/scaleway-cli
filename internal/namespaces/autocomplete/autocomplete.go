@@ -34,6 +34,8 @@ type autocompleteScript struct {
 	ShellConfigurationFile map[string]string
 }
 
+var homePath, _ = os.UserHomeDir()
+
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
 var autocompleteScripts = map[string]autocompleteScript{
@@ -63,8 +65,8 @@ var autocompleteScripts = map[string]autocompleteScript{
 		`,
 		CompleteScript: `eval "$(scw autocomplete script shell=bash)"`,
 		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".bash_profile"),
-			"linux":  path.Join(os.Getenv("HOME"), ".bashrc"),
+			"darwin": path.Join(homePath, ".bash_profile"),
+			"linux":  path.Join(homePath, ".bashrc"),
 		},
 	},
 	"fish": {
@@ -87,8 +89,8 @@ var autocompleteScripts = map[string]autocompleteScript{
 		`,
 		CompleteScript: `eval (scw autocomplete script shell=fish)`,
 		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
-			"linux":  path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
+			"darwin": path.Join(homePath, ".config/fish/config.fish"),
+			"linux":  path.Join(homePath, ".config/fish/config.fish"),
 		},
 	},
 	"zsh": {
@@ -109,8 +111,8 @@ var autocompleteScripts = map[string]autocompleteScript{
 		`,
 		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
 		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".zshrc"),
-			"linux":  path.Join(os.Getenv("HOME"), ".zshrc"),
+			"darwin": path.Join(homePath, ".zshrc"),
+			"linux":  path.Join(homePath, ".zshrc"),
 		},
 	},
 }
