@@ -4,7 +4,9 @@ import (
 	"context"
 )
 
-func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
+// combineCommandInterceptor will combine one or more CommandInterceptor.
+// Resulting CommandInterceptor can be viewed as a chain composed by all interceptors passed as parameter.
+func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	var combinedInterceptors CommandInterceptor
 	for _, interceptor := range interceptors {
 		if interceptor == nil {

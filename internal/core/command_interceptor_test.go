@@ -26,7 +26,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 
 	run := func(tc *TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			interceptor := CombineCommandInterceptor(tc.Interceptors...)
+			interceptor := combineCommandInterceptor(tc.Interceptors...)
 			res, _ := interceptor(nil, nil, runner)
 			assert.Equal(t, tc.Expected, res)
 		}
