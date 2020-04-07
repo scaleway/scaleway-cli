@@ -128,7 +128,7 @@ func (c *Command) seeAlsosAsStr() string {
 }
 
 // AddInterceptors add one or multiple interceptors to a command.
-// These new interceptors will be add after the already present interceptors (if any).
+// These new interceptors will be added after the already present interceptors (if any).
 func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
 	interceptors = append([]CommandInterceptor{c.Interceptor}, interceptors...)
 	c.Interceptor = CombineCommandInterceptor(interceptors...)
