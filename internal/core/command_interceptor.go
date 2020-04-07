@@ -70,7 +70,6 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 		}
 
 	case *scw.QuotasExceededError:
-
 		invalidArgs := make([]string, len(sdkError.Details))
 		resources := make([]string, len(sdkError.Details))
 		for i, d := range sdkError.Details {
