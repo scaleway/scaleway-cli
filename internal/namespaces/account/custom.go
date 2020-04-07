@@ -49,7 +49,7 @@ func initCommand() *core.Command {
 func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Get default local SSH key
 	relativePath := path.Join(".ssh", "id_rsa.pub")
-	filename := path.Join(core.ExtractEnv(ctx, "HOME"), relativePath)
+	filename := path.Join(core.ExtractUserHomeDir(ctx), relativePath)
 	shortenedFilename := "~/" + relativePath
 	localSSHKeyContent, err := ioutil.ReadFile(filename)
 
