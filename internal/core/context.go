@@ -77,6 +77,11 @@ func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {
+	if envKey == "HOME" {
+		homeDir, _ := os.UserHomeDir()
+		return homeDir
+	}
+
 	meta := extractMeta(ctx)
 	if value, exist := meta.OverrideEnv[envKey]; exist {
 		return value
