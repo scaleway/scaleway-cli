@@ -81,5 +81,15 @@ func ExtractEnv(ctx context.Context, envKey string) string {
 	if value, exist := meta.OverrideEnv[envKey]; exist {
 		return value
 	}
+
+	if envKey == "HOME" {
+		homeDir, _ := os.UserHomeDir()
+		return homeDir
+	}
+
 	return os.Getenv(envKey)
+}
+
+func ExtractUserHomeDir(ctx context.Context) string {
+	return ExtractEnv(ctx, "HOME")
 }

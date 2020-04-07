@@ -10,10 +10,10 @@ import (
 )
 
 func Test_initCommand(t *testing.T) {
+	tmpDir := os.TempDir()
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			tmpDir := os.TempDir()
 			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_rsa.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {
@@ -33,7 +33,7 @@ func Test_initCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		OverrideEnv: map[string]string{
-			"HOME": os.TempDir(),
+			"HOME": tmpDir,
 		},
 	}))
 }
