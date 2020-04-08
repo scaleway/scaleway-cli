@@ -387,7 +387,11 @@ func promptCredentials() (string, error) {
 				}
 				if loginResp.WrongPassword {
 					passwordRetriesLeft--
-					interactive.Printf("Wrong password.\n")
+					if loginReq.TwoFactorToken == "" {
+						interactive.Printf("Wrong username or password.\n")
+					} else {
+						interactive.Printf("Wrong 2FA code.\n")
+					}
 					break
 				}
 				if !loginResp.TwoFactorRequired {
