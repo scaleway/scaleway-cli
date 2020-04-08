@@ -367,32 +367,41 @@ func promptCredentials() (string, error) {
 
 	switch {
 	case validation.IsEmail(UUIDOrEmail):
-		email := UUIDOrEmail
-		password, err := interactive.PromptPassword("Enter your " + terminal.Style("password", color.Bold))
-		if err != nil {
-			return "", err
-		}
-		hostname, _ := os.Hostname()
-		loginReq := &account.LoginRequest{
-			Email:       email,
-			Password:    password,
-			Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
-		}
-		var t *account.Token
-		var twoFactorRequired bool
-		for {
-			t, twoFactorRequired, err = account.Login(loginReq)
+		passwordRetriesLeft := 3
+		for passwordRetriesLeft > 0 {
+			email := UUIDOrEmail
+			password, err := interactive.PromptPassword("Enter your " + terminal.Style("password", color.Bold))
 			if err != nil {
 				return "", err
 			}
-			if !twoFactorRequired {
-				return t.SecretKey, nil
+			hostname, _ := os.Hostname()
+			loginReq := &account.LoginRequest{
+				Email:       email,
+				Password:    password,
+				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
 			}
-			loginReq.TwoFactorToken, err = interactive.PromptString("Enter your 2FA code")
-			if err != nil {
-				return "", err
+			var t *account.Token
+			var twoFactorRequired bool
+			for {
+				t, twoFactorRequired, err = account.Login(loginReq)
+				if err != nil {
+					if err == account.WrongPassword {
+						passwordRetriesLeft--
+						interactive.Printf("Wrong password.\n")
+						break
+					}
+					return "", err
+				}
+				if !twoFactorRequired {
+					return t.SecretKey, nil
+				}
+				loginReq.TwoFactorToken, err = interactive.PromptString("Enter your 2FA code")
+				if err != nil {
+					return "", err
+				}
 			}
 		}
+		return "", fmt.Errorf("wrong passwored entered 3 times in a row, exiting")
 
 	case validation.IsUUID(UUIDOrEmail):
 		return UUIDOrEmail, nil
