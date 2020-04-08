@@ -39,7 +39,7 @@ type organization struct {
 var (
 	accountURL = "https://account.scaleway.com"
 
-	WrongPassword = fmt.Errorf("wrong password")
+	ErrWrongPassword = fmt.Errorf("wrong password")
 )
 
 // Login creates a new token
@@ -59,7 +59,7 @@ func Login(req *LoginRequest) (t *Token, twoFactorRequired bool, err error) {
 		return nil, true, nil
 	}
 	if resp.StatusCode == 401 {
-		return nil, false, WrongPassword
+		return nil, false, ErrWrongPassword
 	}
 	if resp.StatusCode != 201 {
 		return nil, false, fmt.Errorf("scaleway-cli: %s", resp.Status)

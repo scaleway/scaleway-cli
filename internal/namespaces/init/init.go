@@ -385,7 +385,7 @@ func promptCredentials() (string, error) {
 			for {
 				t, twoFactorRequired, err = account.Login(loginReq)
 				if err != nil {
-					if err == account.WrongPassword {
+					if err == account.ErrWrongPassword {
 						passwordRetriesLeft--
 						interactive.Printf("Wrong password.\n")
 						break
