@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/fatih/color"
@@ -10,8 +11,14 @@ import (
 )
 
 type SuccessResult struct {
-	Message string
-	Details string
+	Message  string
+	Details  string
+	Resource string
+	Verb     string
+}
+
+var standardSuccessMessages = map[string]string{
+	"delete": "%s has been successfully deleted.",
 }
 
 func (s *SuccessResult) MarshalHuman() (string, error) {
@@ -45,5 +52,10 @@ func (s *SuccessResult) getMessage() string {
 	if s.Message != "" {
 		return s.Message
 	}
+
+	if messageTemplate, exists := standardSuccessMessages[s.Verb]; exists && s.Resource != "" {
+		return fmt.Sprintf(messageTemplate, s.Resource)
+	}
+
 	return "Success"
 }
