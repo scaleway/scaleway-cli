@@ -380,20 +380,18 @@ func promptCredentials() (string, error) {
 				Password:    password,
 				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
 			}
-			var t *account.Token
-			var twoFactorRequired bool
 			for {
-				t, twoFactorRequired, err = account.Login(loginReq)
+				loginResp, err := account.Login(loginReq)
 				if err != nil {
-					if err == account.ErrWrongPassword {
-						passwordRetriesLeft--
-						interactive.Printf("Wrong password.\n")
-						break
-					}
 					return "", err
 				}
-				if !twoFactorRequired {
-					return t.SecretKey, nil
+				if loginResp.WrongPassword {
+					passwordRetriesLeft--
+					interactive.Printf("Wrong password.\n")
+					break
+				}
+				if !loginResp.TwoFactorRequired {
+					return loginResp.Token.SecretKey, nil
 				}
 				loginReq.TwoFactorToken, err = interactive.PromptString("Enter your 2FA code")
 				if err != nil {
@@ -401,7 +399,7 @@ func promptCredentials() (string, error) {
 				}
 			}
 		}
-		return "", fmt.Errorf("wrong passwored entered 3 times in a row, exiting")
+		return "", fmt.Errorf("wrong password entered 3 times in a row, exiting")
 
 	case validation.IsUUID(UUIDOrEmail):
 		return UUIDOrEmail, nil

@@ -17,7 +17,9 @@ type Token struct {
 }
 
 type LoginResponse struct {
-	Token *Token `json:"token"`
+	Token             *Token `json:"token"`
+	TwoFactorRequired bool   `json:"-"`
+	WrongPassword     bool   `json:"-"`
 }
 
 type LoginRequest struct {
@@ -38,39 +40,41 @@ type organization struct {
 
 var (
 	accountURL = "https://account.scaleway.com"
-
-	ErrWrongPassword = fmt.Errorf("wrong password")
 )
 
 // Login creates a new token
-func Login(req *LoginRequest) (t *Token, twoFactorRequired bool, err error) {
+func Login(req *LoginRequest) (*LoginResponse, error) {
 	// todo: add line of log
 	rawJSON, err := json.Marshal(req)
 	if err != nil {
-		return nil, false, err
+		return nil, err
 	}
 
 	resp, err := http.Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
 	if err != nil {
-		return nil, false, err
+		return nil, err
 	}
 
 	if resp.StatusCode == 403 {
-		return nil, true, nil
+		return &LoginResponse{
+			TwoFactorRequired: true,
+		}, nil
 	}
 	if resp.StatusCode == 401 {
-		return nil, false, ErrWrongPassword
+		return &LoginResponse{
+			WrongPassword: true,
+		}, nil
 	}
 	if resp.StatusCode != 201 {
-		return nil, false, fmt.Errorf("scaleway-cli: %s", resp.Status)
+		return nil, fmt.Errorf("scaleway-cli: %s", resp.Status)
 	}
-	token := &LoginResponse{}
+	loginResponse := &LoginResponse{}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, false, err
+		return nil, err
 	}
-	err = json.Unmarshal(b, token)
-	return token.Token, false, err
+	err = json.Unmarshal(b, loginResponse)
+	return loginResponse, err
 }
 
 func GetAccessKey(secretKey string) (string, error) {
