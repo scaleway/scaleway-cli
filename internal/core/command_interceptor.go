@@ -47,10 +47,10 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 		}
 	case *scw.InvalidArgumentsError:
 		reasonsMap := map[string]string{
-			"unknown":    "is invalid for unexpected reason",
+			"unknown":    "is invalid for unexpected reasons",
 			"required":   "is required",
 			"format":     "is wrongly formatted",
-			"constraint": "does not respect constraint",
+			"constraint": "does not respect constraints",
 		}
 
 		arguments := make([]string, len(sdkError.Details))
