@@ -482,7 +482,7 @@ func k8sClusterUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `The new tags associated with the cluster`,
 				Required:   false,
 				Positional: false,
@@ -564,13 +564,13 @@ func k8sClusterUpdate() *core.Command {
 				EnumValues: []string{"any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
 			},
 			{
-				Name:       "feature-gates",
+				Name:       "feature-gates.{index}",
 				Short:      `List of feature gates to enable`,
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "admission-plugins",
+				Name:       "admission-plugins.{index}",
 				Short:      `List of admission plugins to enable`,
 				Required:   false,
 				Positional: false,
@@ -756,7 +756,10 @@ func k8sClusterResetAdminToken() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "cluster",
+				Verb:     "reset-admin-token",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1113,7 +1116,7 @@ func k8sPoolUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `The new tags associated with the pool`,
 				Required:   false,
 				Positional: false,
