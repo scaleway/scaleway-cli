@@ -29,7 +29,7 @@ func userDataSetBuilder(c *core.Command) *core.Command {
 	}
 
 	c.ArgSpecs.DeleteByName("content.content-type")
-	c.ArgSpecs.DeleteByName("content.content")
+	c.ArgSpecs.DeleteByName("content.content.{index}")
 	return c
 }
 
