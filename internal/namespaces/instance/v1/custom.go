@@ -9,6 +9,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
+var (
+	oldOrganizationFieldName = "organization"
+	newOrganizationFieldName = "organization-id"
+)
+
 // GetCommands returns instance commands.
 //
 // This function:
@@ -82,6 +87,9 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.VolumeState(0), human.EnumMarshalFunc(volumeStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
+
+	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
+	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
 
 	//
 	// Security Group

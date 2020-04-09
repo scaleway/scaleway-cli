@@ -158,7 +158,7 @@ type customSecurityGroupResponse struct {
 }
 
 func securityGroupCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
 	return c
 }
 
@@ -190,7 +190,7 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 }
 
 func securityGroupListBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
 	return c
 }
 

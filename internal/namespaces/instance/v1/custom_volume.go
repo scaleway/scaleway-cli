@@ -35,11 +35,11 @@ func volumeMapMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 // Builders
 
 func volumeCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
 	return c
 }
 
 func volumeListBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
 	return c
 }
