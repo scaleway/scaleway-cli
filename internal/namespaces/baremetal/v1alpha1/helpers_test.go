@@ -13,5 +13,5 @@ func createServer(metaKey string) core.BeforeFunc {
 // deleteServer deletes a server
 // previously registered in the context Meta at metaKey.
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw baremetal server delete server-id={{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw baremetal server delete {{ ." + metaKey + ".ID }}")
 }
