@@ -157,6 +157,11 @@ type customSecurityGroupResponse struct {
 	Rules []*instance.SecurityGroupRule
 }
 
+func securityGroupCreateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	return c
+}
+
 func securityGroupGetBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		req := argsI.(*instance.GetSecurityGroupRequest)
@@ -181,6 +186,11 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 			Rules:         securityGroupRules.Rules,
 		}, nil
 	}
+	return c
+}
+
+func securityGroupListBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
 	return c
 }
 

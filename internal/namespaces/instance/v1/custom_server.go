@@ -173,6 +173,11 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 // Builders
 //
 
+func serverListBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	return c
+}
+
 func serverUpdateBuilder(c *core.Command) *core.Command {
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest

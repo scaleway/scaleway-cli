@@ -48,3 +48,13 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+func placementGroupCreateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	return c
+}
+
+func placementGroupListBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+	return c
+}

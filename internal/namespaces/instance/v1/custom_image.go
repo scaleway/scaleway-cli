@@ -33,6 +33,8 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
 
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
+
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
 	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
@@ -58,6 +60,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 // imageListBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("organization").Name = "organization-id"
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		// customImage is based on instance.Image, with additional information about the server
 		type customImage struct {
