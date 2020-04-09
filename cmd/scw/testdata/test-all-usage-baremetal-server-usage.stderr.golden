@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   reboot      Reboot server
   start       Start server
   stop        Stop server
+  wait        Wait for a server to reach a stable state
 
 FLAGS:
   -h, --help   help for server
