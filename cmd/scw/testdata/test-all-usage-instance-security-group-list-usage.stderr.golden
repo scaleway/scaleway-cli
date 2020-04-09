@@ -8,9 +8,9 @@ EXAMPLES:
     scw instance security-group list name=foobar
 
 ARGS:
-  [name]           Name of the security group
-  [organization]   The security group organization ID
-  [zone]           Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  [name]              Name of the security group
+  [organization-id]   The security group organization ID
+  [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for list

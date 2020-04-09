@@ -5,16 +5,16 @@ USAGE:
 
 EXAMPLES:
   Update the name of a given server
-    scw instance server update
+    scw instance server update 11111111-1111-1111-1111-111111111111 name=foobar
 
   Put a given instance in rescue mode (reboot is required to access rescue mode)
-    scw instance server update
+    scw instance server update 11111111-1111-1111-1111-111111111111 boot-type=rescue
 
   Overwrite tags of a given server
-    scw instance server update
+    scw instance server update 11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
 
   Enable IPv6 on a given server
-    scw instance server update
+    scw instance server update 11111111-1111-1111-1111-111111111111 enable-ipv6=true
 
   Apply the given security group to a given server
     scw instance server update

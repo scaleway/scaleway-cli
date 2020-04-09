@@ -23,15 +23,18 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		*instance.CreateImageRequest
 		AdditionalVolumes map[string]*instance.VolumeTemplate
 		SnapshotID        string
+		OrganizationID    string
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-volumes.{key}.id"
 	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-volumes.{key}.name"
 	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-volumes.{key}.size"
 	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-volumes.{key}.volume-type"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{key}.organization"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{key}.organization-id"
 
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
+
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
@@ -41,6 +44,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		request := args.CreateImageRequest
 		request.RootVolume = args.SnapshotID
 		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
+		request.Organization = args.OrganizationID
 
 		// Extra volumes need to start at volumeIndex 1.
 		volumeIndex := 1
@@ -58,6 +62,14 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 // imageListBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
+	type customListImageRequest struct {
+		*instance.ListImagesRequest
+		OrganizationID *string
+	}
+
+	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	c.ArgsType = reflect.TypeOf(customListImageRequest{})
+
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		// customImage is based on instance.Image, with additional information about the server
 		type customImage struct {
@@ -80,7 +92,14 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		// Get images
-		req := argsI.(*instance.ListImagesRequest)
+		args := argsI.(*customListImageRequest)
+
+		if args.ListImagesRequest == nil {
+			args.ListImagesRequest = &instance.ListImagesRequest{}
+		}
+
+		req := args.ListImagesRequest
+		req.Organization = args.OrganizationID
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
