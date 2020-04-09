@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -264,7 +264,7 @@ func baremetalServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `Tags associated to the server, not updated if null`,
 				Required:   false,
 				Positional: false,
@@ -630,7 +630,7 @@ func baremetalIPUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `Tags to associate to the IP failover, not updated if null`,
 				Required:   false,
 				Positional: false,

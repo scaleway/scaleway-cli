@@ -338,6 +338,12 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 			{
+				Name:       "tags.{index}",
+				Short:      `List servers with these exact tags`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only servers of this organization`,
 				Required:   false,
@@ -439,7 +445,7 @@ func instanceServerUpdate() *core.Command {
 				EnumValues: []string{"local", "bootscript", "rescue"},
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `Tags of the server`,
 				Required:   false,
 				Positional: false,
@@ -610,7 +616,10 @@ func instanceUserDataDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "user-data",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
@@ -662,7 +671,10 @@ func instanceUserDataSet() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "user-data",
+				Verb:     "set",
+			}, nil
 		},
 	}
 }
@@ -913,7 +925,10 @@ func instanceImageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "image",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1086,7 +1101,10 @@ func instanceSnapshotDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "snapshot",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1324,7 +1342,10 @@ func instanceVolumeDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "volume",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1525,7 +1546,10 @@ func instanceSecurityGroupDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "security-group",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1770,7 +1794,10 @@ func instancePlacementGroupDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "placement-group",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
@@ -1972,7 +1999,7 @@ func instanceIPUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Short:      `An array of keywords you want to tag this IP with`,
 				Required:   false,
 				Positional: false,
@@ -2030,7 +2057,10 @@ func instanceIPDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "ip",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{

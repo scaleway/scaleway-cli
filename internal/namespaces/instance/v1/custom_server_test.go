@@ -27,7 +27,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
 				assert.Equal(t, instance.VolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
-			AfterFunc: deleteServer("Server"),
+			AfterFunc:       deleteServer("Server"),
+			DisableParallel: true,
 		}))
 
 		t.Run("simple local volume", core.Test(&core.TestConfig{
@@ -43,7 +44,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
 				assert.Equal(t, instance.VolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
-			AfterFunc: deleteServer("Server"),
+			AfterFunc:       deleteServer("Server"),
+			DisableParallel: true,
 		}))
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
@@ -54,7 +56,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(1),
 			),
-			AfterFunc: deleteServer("Server"),
+			AfterFunc:       deleteServer("Server"),
+			DisableParallel: true,
 		}))
 	})
 	t.Run("Detach", func(t *testing.T) {
