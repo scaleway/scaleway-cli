@@ -5,16 +5,16 @@ USAGE:
 
 EXAMPLES:
   Create a Security Group with the given name and description
-    scw instance security-group create name=foobar description=foobar foobar
+    scw instance security-group create
 
   Create a Security Group that will be applied as a default on instances of your organization
-    scw instance security-group create organization-default=true
+    scw instance security-group create
 
   Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)
-    scw instance security-group create inbound-default-policy=drop
+    scw instance security-group create
 
   Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)
-    scw instance security-group create outbound-default-policy=drop
+    scw instance security-group create
 
   Create a stateless Security Group
     scw instance security-group create

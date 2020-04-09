@@ -8,7 +8,7 @@ EXAMPLES:
     scw instance placement-group list
 
   List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
-    scw instance placement-group list name=cluster1
+    scw instance placement-group list
 
 ARGS:
   [name]              Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")

@@ -8,19 +8,19 @@ EXAMPLES:
     scw instance placement-group create
 
   Create a placement group with the given name
-    scw instance placement-group create name=foobar
+    scw instance placement-group create
 
   Create an enforced placement group
-    scw instance placement-group create policy-mode=enforced
+    scw instance placement-group create
 
   Create an optional placement group
-    scw instance placement-group create policy-mode=optional
+    scw instance placement-group create
 
   Create an optional low latency placement group
-    scw instance placement-group create policy-mode=optional policy-type=low_latency
+    scw instance placement-group create
 
   Create an enforced low latency placement group
-    scw instance placement-group create policy-mode=enforced policy-type=low_latency
+    scw instance placement-group create
 
 ARGS:
   [name=<generated>]   Name of the placement group

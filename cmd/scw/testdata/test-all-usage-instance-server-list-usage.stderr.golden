@@ -8,13 +8,13 @@ EXAMPLES:
     scw instance server list
 
   List servers of this commercial type
-    scw instance server list commercial-type=DEV1-S
+    scw instance server list
 
   List servers that are not attached to a public IP
-    scw instance server list without-ip=true
+    scw instance server list
 
   List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
-    scw instance server list name=server1
+    scw instance server list
 
 ARGS:
   [name]              Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")

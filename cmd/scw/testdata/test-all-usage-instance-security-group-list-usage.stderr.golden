@@ -5,7 +5,7 @@ USAGE:
 
 EXAMPLES:
   List all security groups that match the given name
-    scw instance security-group list name=foobar
+    scw instance security-group list
 
 ARGS:
   [name]              Name of the security group

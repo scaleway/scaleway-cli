@@ -8,7 +8,7 @@ EXAMPLES:
     scw instance ip list
 
   List all IPs in fr-par-1 zone
-    scw instance ip list zone=fr-par-1
+    scw instance ip list
 
 ARGS:
   [name]              Filter on the IP address (Works as a LIKE operation on the IP address)
