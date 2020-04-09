@@ -14,7 +14,7 @@ ARGS:
   cluster-id                                            The ID of the cluster to update
   [name]                                                The new name of the cluster
   [description]                                         The new description of the cluster
-  [tags]                                                The new tags associated with the cluster
+  [tags.{index}]                                        The new tags associated with the cluster
   [autoscaler-config.scale-down-disabled]               Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]        How long after scale up that scale down evaluation resumes
   [autoscaler-config.estimator]                         Type of resource estimator to be used in scale up (unknown_estimator | binpacking | oldbinpacking)
@@ -27,8 +27,8 @@ ARGS:
   [auto-upgrade.enable]                                 Whether or not auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]          The start hour of the 2-hour maintenance window
   [auto-upgrade.maintenance-window.day]                 The day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
-  [feature-gates]                                       List of feature gates to enable
-  [admission-plugins]                                   List of admission plugins to enable
+  [feature-gates.{index}]                               List of feature gates to enable
+  [admission-plugins.{index}]                           List of admission plugins to enable
   [region]                                              Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

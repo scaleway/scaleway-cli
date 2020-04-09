@@ -6,7 +6,7 @@ USAGE:
 ARGS:
   ip-failover-id         ID of the IP failover to update
   [description]          Description to associate to the IP failover, max 255 characters, not updated if null
-  [tags]                 Tags to associate to the IP failover, not updated if null
+  [tags.{index}]         Tags to associate to the IP failover, not updated if null
   [mac-type]             MAC type to use for the IP failover, not updated if null (unknown_mac_type | none | duplicate | vmware | xen | kvm)
   [duplicate-mac-from]   ID of the IP failover which must be duplicate, not updated if null
   [reverse]              New reverse IP to update, not updated if null

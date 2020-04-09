@@ -27,7 +27,7 @@ ARGS:
   [name]                  Name of the server
   [ip]                    IP that should be attached to the server (use ip=none to detach)
   [boot-type]              (local | bootscript | rescue)
-  [tags]                  Tags of the server
+  [tags.{index}]          Tags of the server
   [bootscript]            
   [dynamic-ip-required]   
   [enable-ipv6]           
