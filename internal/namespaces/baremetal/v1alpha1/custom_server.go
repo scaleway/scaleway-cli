@@ -41,7 +41,10 @@ func serverWaitCommand() *core.Command {
 				return nil, err
 			}
 			if server.Status != baremetal.ServerStatusReady {
-				return nil, fmt.Errorf("server %s did not reach stable delivery status", server.ID)
+				return nil, &core.CliError{
+					Err:     fmt.Errorf("server did not reached a stable delivery status"),
+					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
+				}
 			}
 			logger.Debugf("server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status")
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
@@ -53,7 +56,10 @@ func serverWaitCommand() *core.Command {
 				return nil, err
 			}
 			if server.Install.Status != baremetal.ServerInstallStatusCompleted {
-				return nil, fmt.Errorf("server %s did not reach stable installation status", server.ID)
+				return nil, &core.CliError{
+					Err:     fmt.Errorf("server %s did not reach stable installation status", server.ID),
+					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
+				}
 			}
 			logger.Debugf("server reached a stable installation status")
 			return server, nil
