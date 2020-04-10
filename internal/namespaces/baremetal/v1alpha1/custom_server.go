@@ -7,6 +7,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -21,7 +22,7 @@ func serverWaitCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Short:     `Wait for a server to reach a stable state`,
+		Short:     `Wait for a server to reach a stable state (delivery and installation)`,
 		Long:      `Wait for a server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -29,11 +30,27 @@ func serverWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
-			return api.WaitForServer(&baremetal.WaitForServerRequest{
+			logger.Debugf("starting to wait for server to reach a stable delivery status")
+			server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
 				ServerID: argsI.(*serverWaitRequest).ServerID,
 				Zone:     argsI.(*serverWaitRequest).Zone,
 				Timeout:  serverActionTimeout,
 			})
+			if err != nil {
+				return nil, err
+			}
+			logger.Debugf("server reached a stable delivery status")
+			logger.Debugf("starting to wait for server to reach a stable installation status")
+			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
+				ServerID: argsI.(*serverWaitRequest).ServerID,
+				Zone:     argsI.(*serverWaitRequest).Zone,
+				Timeout:  serverActionTimeout,
+			})
+			if err != nil {
+				return nil, err
+			}
+			logger.Debugf("server reached a stable installation status")
+			return server, nil
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
