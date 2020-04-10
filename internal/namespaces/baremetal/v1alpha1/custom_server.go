@@ -2,6 +2,7 @@ package baremetal
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"time"
 
@@ -38,6 +39,9 @@ func serverWaitCommand() *core.Command {
 			})
 			if err != nil {
 				return nil, err
+			}
+			if server.Status != baremetal.ServerStatusReady {
+				return nil, fmt.Errorf("server %s did not reach stable delivery status", server.ID)
 			}
 			logger.Debugf("server reached a stable delivery status")
 			logger.Debugf("starting to wait for server to reach a stable installation status")
