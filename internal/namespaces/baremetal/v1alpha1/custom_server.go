@@ -57,7 +57,7 @@ func serverWaitCommand() *core.Command {
 			}
 			if server.Install.Status != baremetal.ServerInstallStatusCompleted {
 				return nil, &core.CliError{
-					Err:     fmt.Errorf("server %s did not reach stable installation status", server.ID),
+					Err:     fmt.Errorf("server %s did not reach a stable installation status", server.ID),
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}
