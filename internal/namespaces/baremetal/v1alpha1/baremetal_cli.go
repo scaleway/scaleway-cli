@@ -213,7 +213,7 @@ func baremetalServerCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Description associated to the server, max 255 characters`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
 			},
 			{
