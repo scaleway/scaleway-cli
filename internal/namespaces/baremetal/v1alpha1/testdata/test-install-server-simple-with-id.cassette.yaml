@@ -1,0 +1,2389 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"","public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==
+      foobar@foobar","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"f06d9273-385e-4747-806c-d4673c410f9d","name":"","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==
+      foobar@foobar","fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce
+      foobar@foobar (ssh-rsa)","created_at":"2020-04-16T14:47:24.725962Z","updated_at":"2020-04-16T15:50:24.620828Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    headers:
+      Content-Length:
+      - "602"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 035fbaba-f1aa-4107-9ad7-b25968d2217d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/offers?page=1
+    method: GET
+  response:
+    body: '{"total_count":7,"offers":[{"id":"3ab0dc29-2fd4-486e-88bf-d08fbf49214b","name":"HC-BM1-L","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":1,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":749,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Gold 5120","cores":14,"threads":28,"frequency":2200},{"name":"Intel Xeon
+      Gold 5120","cores":14,"threads":28,"frequency":2200}],"memory":[{"capacity":384,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":1,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":749,"nanos":990000000}},{"id":"5363865f-2266-40f9-a43f-4f3aba251524","name":"HM-BM1-XL","stock":"available","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":2,"nanos":599900000},"price_by_month":{"currency_code":"EUR","units":1299,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Gold 6140","cores":18,"threads":36,"frequency":2300},{"name":"Intel Xeon
+      Gold 6140","cores":18,"threads":36,"frequency":2300}],"memory":[{"capacity":768,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":2,"nanos":599900000},"price_per_month":{"currency_code":"EUR","units":1299,"nanos":990000000}},{"id":"737f18c8-febc-4408-b69e-776bca0a3f48","name":"HC-BM1-S","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":0,"nanos":659900000},"price_by_month":{"currency_code":"EUR","units":329,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Silver 4114","cores":10,"threads":20,"frequency":2200},{"name":"Intel Xeon
+      Silver 4114","cores":10,"threads":20,"frequency":2200}],"memory":[{"capacity":128,"type":"DDR4","frequency":2400,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":659900000},"price_per_month":{"currency_code":"EUR","units":329,"nanos":990000000}},{"id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","name":"GP-BM1-S","stock":"available","bandwidth":500,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":240000000},"price_by_month":{"currency_code":"EUR","units":119,"nanos":990000000},"disk":[{"capacity":250,"type":"SSD"},{"capacity":250,"type":"SSD"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon E3 1240v6","cores":4,"threads":8,"frequency":3700}],"memory":[{"capacity":32,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":240000000},"price_per_month":{"currency_code":"EUR","units":119,"nanos":990000000}},{"id":"8090d302-3545-4905-9cf3-bcb77a299f47","name":"GP-BM1-L","stock":"available","bandwidth":750,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":249,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
+      EPYC 7281","cores":16,"threads":32,"frequency":2100}],"memory":[{"capacity":96,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":249,"nanos":990000000}},{"id":"964f9b38-577e-470f-a220-7d762f9e8672","name":"GP-BM1-M","stock":"available","bandwidth":500,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":399900000},"price_by_month":{"currency_code":"EUR","units":199,"nanos":990000000},"disk":[{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon E3 1240v6","cores":4,"threads":8,"frequency":3700}],"memory":[{"capacity":64,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":399900000},"price_per_month":{"currency_code":"EUR","units":199,"nanos":990000000}},{"id":"c452f76a-2cda-4a1b-9658-a16952dc5ff0","name":"HM-BM1-M","stock":"available","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":0,"nanos":799900000},"price_by_month":{"currency_code":"EUR","units":399,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
+      EPYC 7401P","cores":24,"threads":48,"frequency":2000}],"memory":[{"capacity":256,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":799900000},"price_per_month":{"currency_code":"EUR","units":399,"nanos":990000000}}]}'
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 61ab7713-a4e4-47b7-b37e-94761097039e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","tags":null}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers
+    method: POST
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:24.866581106Z","created_at":"2020-04-16T15:50:24.866581106Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "396"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8f161086-7d6f-49e6-a22a-f6457e4b07d7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:24.866581Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1c4eafd3-216a-4b26-9dd1-0aefaaf13415
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:39 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 29dae497-1e2b-4d10-bae0-0e345f3aef9a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:50:54 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ba299b07-5169-4dcf-b734-0006148129bf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:51:09 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b4b72854-def9-400f-bab9-167a5f1f9c30
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:51:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4e3be7b1-4791-4094-969b-4bc2e64ef0f2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:51:39 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d64c9880-f736-4d97-ab31-2333dcc8f52d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:51:54 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c806ba7a-bcda-4ace-ae7b-afe3fff05879
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:52:09 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - bc932929-6560-445c-97e3-b7c891308075
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:52:24 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fbe2fe1a-3133-46f5-a7dd-7e15041995c9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:52:40 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 06ca3354-18eb-45aa-b10e-e229edd541a7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:52:55 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1c3a1c61-8386-42c5-85f1-fd8830f2c520
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:53:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 786a6170-d461-48c8-88fc-a56f9a9cc7e0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:53:25 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2e9feaef-a861-4e3f-8e0b-7a445a1ba6b1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:53:40 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2656b6b5-b974-4711-99dd-a55f6e6da0fb
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:53:55 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5e267e06-39cc-4acb-a2f2-4d3f6018eff4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:54:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9e84515e-ecc6-4507-92c4-504930ea163c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:54:25 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ea6c881f-f586-4e46-b646-ef67f8d4c08e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:54:40 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6ccfaf7b-676a-49ca-9847-af950efdab5c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:50:25.431967Z","created_at":"2020-04-16T15:50:24.866581Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "390"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:54:55 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 58050516-eb93-45b7-b9fa-3e8422f9b290
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "921"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0844e2cc-958c-4de0-a8a9-96e30c87615d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"]}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6/install
+    method: POST
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"to_install"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4b1b3ae9-fcde-43f1-9da5-acff6c045a88
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"to_install"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:10 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9d5b804c-e08c-4236-ba2a-f68d54062880
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:25 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4c6b3346-eee8-4eb8-b6c0-b1bc1e8192e8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:40 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 28d8fb77-d367-4797-9464-13c953f0c72e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:55:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 33e7f1be-40b2-464f-a79f-149fa114f293
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:56:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 68482332-4f1c-4cce-b823-a7f4d5825e4c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:56:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 96680c6c-8516-4c9d-b7e6-0a87a14dbad2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:56:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6fde7223-d2bf-4663-a8b8-1b2334cae15f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:56:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 653169aa-8356-4d2b-87ff-bc3b5b96795b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:57:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3b4bc879-250c-4306-9f23-fa1d2c8ba11c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:57:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 616c7b79-2f17-4ab9-afe3-5c687d62fd8d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:57:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f0e9f4e6-3275-4eb0-ae88-e21cb8313543
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:57:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 707b7019-ffd9-4eec-910a-54584c347557
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:58:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 291e8d8f-7fbb-4f0f-ba87-81feace6ac53
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:58:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 80a046c7-4028-4b9e-ba52-acf7510044bd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:58:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - af17af80-e18f-4b87-91bc-e783b5ae482e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:58:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4845d71b-1260-45bd-a17c-14f4f434c643
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:59:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - db039d52-c7af-4105-9f19-27481fd9cf6c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:59:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 396b4d2f-8d2c-4861-ab9f-c474bc6f4597
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:59:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 75a0e629-8369-4490-832a-1fa2286f8e40
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 15:59:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 65fd159c-6252-49b1-b0e6-daf31de6ac1c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:00:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 01dd637b-2a26-4466-b508-dccb7f016985
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:00:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6f0874fd-10be-4c65-9bfa-e25d53fe8c07
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:00:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d6b2665a-94dc-4574-945e-f5f3a31afde4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:00:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0c9d6ef6-3915-4c81-af1e-65b7ca6e7fc0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:01:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0ffb7687-284d-42f5-b2fb-442539637e47
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:01:26 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3884125a-73ef-4635-8b21-bb783c5794b7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:01:41 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - daf01cf8-18a9-4fe8-bc89-90cba456686a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:01:56 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 23f4a1c7-0394-432b-95bd-e2f73cf51218
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:02:11 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8d1282a3-046b-4d69-9498-3e0423a912f7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:02:27 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 01f83287-90dd-4d04-8011-9522085a32e2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:02:42 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 742bc197-16d3-43cc-8c8c-c28913454673
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:02:57 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3f65e8e8-6be4-4bb7-a2ac-b798f818e2b9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:03:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b79e4439-70ad-4886-9805-4534464939a0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:03:27 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c26d8df7-3651-4d34-a764-a27c7bf75db2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:03:42 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 81c6d9a1-9e04-43f6-a0b0-47bc7c1d9ad2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:03:57 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fe9572fc-d6a8-45c1-945f-e92a4399bafc
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:04:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a8f465ce-55ea-422c-9d9a-ff40fffb3e29
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:04:27 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 585a4554-a80a-46ef-97ac-9c5e174127d1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:04:42 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 11a31ffc-3a77-487a-bb04-02feea3147a3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:04:57 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a15055b2-0714-4db6-a8b8-14316612a13c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:05:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 907efc16-31cf-4df7-b5f3-e3ac1f4df89c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:05:27 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - da1950df-4b9f-41f6-b391-0decfd3bcca0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:05:42 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4e7de06f-1f06-4b08-8300-af9cd90972ac
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:05:57 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c3073b7e-1c72-4de4-9913-642223d0a528
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:06:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c858e459-f88e-4686-aa03-617ace6b1289
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:06:27 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e0d36238-21a0-4e62-a6ca-b23a6cfd3654
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:06:42 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b1a87d2b-5cb0-4e28-9ff5-4fd4f722ac2d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1073"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:06:57 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cc3d6f63-20fe-4b72-a489-49cb1da4dfc7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: GET
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T15:55:10.320473Z","created_at":"2020-04-16T15:50:24.866581Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"completed"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1072"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:07:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - aa3a327e-3f9a-4091-a9c0-06cdbe733f0b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/2cf740a1-07c7-46a3-ab6d-68918fa962c6
+    method: DELETE
+  response:
+    body: '{"id":"2cf740a1-07c7-46a3-ab6d-68918fa962c6","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-busy-gauss","description":"","updated_at":"2020-04-16T16:07:13.237739Z","created_at":"2020-04-16T15:50:24.866581Z","status":"deleting","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["f06d9273-385e-4747-806c-d4673c410f9d"],"status":"completed"},"tags":[],"ips":[{"id":"4aa0ab37-cf13-4ada-b5be-b4dd2edaa227","address":"2001:0bc8:6005:001b:dac4:97ff:fe2a:3540","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null},{"id":"cbbb8d5b-d91f-4314-8a93-38e5aae566af","address":"51.159.31.16","reverse":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null}],"domain":"2cf740a1-07c7-46a3-ab6d-68918fa962c6.fr-par-2.baremetal.scw.cloud","boot_type":"normal","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1075"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 16:07:12 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fb4fb47d-1384-48fd-befe-a565513ef7dd
+    status: 200 OK
+    code: 200
+    duration: ""
