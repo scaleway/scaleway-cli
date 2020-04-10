@@ -24,7 +24,7 @@ func createClient(meta *meta) (*scw.Client, error) {
 		return nil, err
 	}
 
-	activeProfile := &config.Profile
+	var activeProfile *scw.Profile
 
 	if meta != nil && meta.ProfileFlag != "" {
 		activeProfile, err = config.GetProfile(meta.ProfileFlag)
