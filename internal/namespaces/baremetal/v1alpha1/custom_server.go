@@ -42,7 +42,7 @@ func serverWaitCommand() *core.Command {
 			}
 			if server.Status != baremetal.ServerStatusReady {
 				return nil, &core.CliError{
-					Err:     fmt.Errorf("server did not reached a stable delivery status"),
+					Err:     fmt.Errorf("server did not reach a stable delivery status"),
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}
