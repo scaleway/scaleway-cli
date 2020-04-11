@@ -16,7 +16,7 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 	structFieldsCopy := []reflect.StructField(nil)
 	for i := 0; i < t.NumField(); i++ {
 		fieldCopy := t.Field(i)
-		if fieldCopy.Anonymous == true {
+		if fieldCopy.Anonymous {
 			anonymousType := fieldCopy.Type
 			if anonymousType.Kind() == reflect.Ptr {
 				anonymousType = anonymousType.Elem()
