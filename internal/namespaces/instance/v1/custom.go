@@ -9,6 +9,16 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
+var (
+	oldOrganizationFieldName = "organization"
+	newOrganizationFieldName = "organization-id"
+)
+
+// helpers
+func renameOrganizationIDArgSpec(argSpecs core.ArgSpecs) {
+	argSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+}
+
 // GetCommands returns instance commands.
 //
 // This function:
@@ -29,6 +39,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
+	cmds.MustFind("instance", "server", "list").Override(serverListBuilder)
 	cmds.MustFind("instance", "server", "update").Override(serverUpdateBuilder)
 
 	cmds.Merge(core.NewCommands(
@@ -55,6 +66,9 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
 
+	cmds.MustFind("instance", "ip", "create").Override(ipCreateBuilder)
+	cmds.MustFind("instance", "ip", "list").Override(ipListBuilder)
+
 	//
 	// Image
 	//
@@ -68,6 +82,9 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
 
+	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
+	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+
 	//
 	// Volume
 	//
@@ -76,13 +93,18 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
+	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
+	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+
 	//
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
 
+	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
 	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
 
 	cmds.Merge(core.NewCommands(
@@ -101,7 +123,9 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreatePlacementGroupResponse{}, marshallNestedField("PlacementGroup"))
 
+	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
+	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
 
 	//
 	// User Data

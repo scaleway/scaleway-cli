@@ -157,6 +157,32 @@ type customSecurityGroupResponse struct {
 	Rules []*instance.SecurityGroupRule
 }
 
+func securityGroupCreateBuilder(c *core.Command) *core.Command {
+	type customCreateSecurityGroupRequest struct {
+		*instance.CreateSecurityGroupRequest
+		OrganizationID string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customCreateSecurityGroupRequest)
+
+		if args.CreateSecurityGroupRequest == nil {
+			args.CreateSecurityGroupRequest = &instance.CreateSecurityGroupRequest{}
+		}
+
+		request := args.CreateSecurityGroupRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+
+	return c
+}
+
 func securityGroupGetBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		req := argsI.(*instance.GetSecurityGroupRequest)
@@ -181,6 +207,32 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 			Rules:         securityGroupRules.Rules,
 		}, nil
 	}
+	return c
+}
+
+func securityGroupListBuilder(c *core.Command) *core.Command {
+	type customListSecurityGroupsRequest struct {
+		*instance.ListSecurityGroupsRequest
+		OrganizationID *string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customListSecurityGroupsRequest)
+
+		if args.ListSecurityGroupsRequest == nil {
+			args.ListSecurityGroupsRequest = &instance.ListSecurityGroupsRequest{}
+		}
+
+		request := args.ListSecurityGroupsRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+
 	return c
 }
 

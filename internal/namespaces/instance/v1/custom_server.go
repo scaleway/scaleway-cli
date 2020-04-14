@@ -173,6 +173,31 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 // Builders
 //
 
+func serverListBuilder(c *core.Command) *core.Command {
+	type customListServersRequest struct {
+		*instance.ListServersRequest
+		OrganizationID *string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customListServersRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customListServersRequest)
+
+		if args.ListServersRequest == nil {
+			args.ListServersRequest = &instance.ListServersRequest{}
+		}
+
+		request := args.ListServersRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+	return c
+}
+
 func serverUpdateBuilder(c *core.Command) *core.Command {
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest
