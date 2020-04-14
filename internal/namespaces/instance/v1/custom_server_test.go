@@ -75,6 +75,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				ctx.ExecuteCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`)
 				return deleteServer("Server")(ctx)
 			},
+			DisableParallel: true,
 		}))
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
@@ -85,7 +86,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(1),
 			),
-			AfterFunc: deleteServer("Server"),
+			AfterFunc:       deleteServer("Server"),
+			DisableParallel: true,
 		}))
 	})
 }
