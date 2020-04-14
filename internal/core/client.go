@@ -24,13 +24,18 @@ func createClient(meta *meta) (*scw.Client, error) {
 		return nil, err
 	}
 
-	if meta != nil && meta.ProfileFlag != "" {
-		config.ActiveProfile = scw.StringPtr(meta.ProfileFlag)
-	}
+	var activeProfile *scw.Profile
 
-	activeProfile, err := config.GetActiveProfile()
-	if err != nil {
-		return nil, err
+	if meta != nil && meta.ProfileFlag != "" {
+		activeProfile, err = config.GetProfile(meta.ProfileFlag)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		activeProfile, err = config.GetActiveProfile()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	envProfile := scw.LoadEnvProfile()
