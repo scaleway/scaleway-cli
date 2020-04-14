@@ -22,10 +22,10 @@ func GetGeneratedCommands() *core.Commands {
 		accountRoot(),
 		accountSSHKey(),
 		accountSSHKeyList(),
-		accountSSHKeyCreate(),
+		accountSSHKeyAdd(),
 		accountSSHKeyGet(),
 		accountSSHKeyUpdate(),
-		accountSSHKeyDelete(),
+		accountSSHKeyRemove(),
 	)
 }
 func accountRoot() *core.Command {
@@ -112,13 +112,13 @@ func accountSSHKeyList() *core.Command {
 	}
 }
 
-func accountSSHKeyCreate() *core.Command {
+func accountSSHKeyAdd() *core.Command {
 	return &core.Command{
-		Short:     `Create an SSH key`,
-		Long:      `Create an SSH key.`,
+		Short:     `Add a SSH key to your Scaleway account`,
+		Long:      `Add a SSH key to your Scaleway account.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
-		Verb:      "create",
+		Verb:      "add",
 		ArgsType:  reflect.TypeOf(account.CreateSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -140,6 +140,22 @@ func accountSSHKeyCreate() *core.Command {
 			api := account.NewAPI(client)
 			return api.CreateSSHKey(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Add a given ssh key",
+				Request: `{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBN+7q3Vx+9V6Ye8cfvV6wnXsQyp3wwy8ucSXYI3HJz9gB9x8lsDAQ8DUSz+sNajzKdhRtio1hNOyhn3O5ku5Kk= foobar@foobar"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw account ssh-key list",
+				Short:   "List all SSH keys",
+			},
+			{
+				Command: "scw account ssh-key remove",
+				Short:   "Remove an SSH key",
+			},
 		},
 	}
 }
@@ -201,13 +217,13 @@ func accountSSHKeyUpdate() *core.Command {
 	}
 }
 
-func accountSSHKeyDelete() *core.Command {
+func accountSSHKeyRemove() *core.Command {
 	return &core.Command{
-		Short:     `Delete an SSH key`,
-		Long:      `Delete an SSH key.`,
+		Short:     `Remove a SSH key from your Scaleway account`,
+		Long:      `Remove a SSH key from your Scaleway account.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
-		Verb:      "delete",
+		Verb:      "remove",
 		ArgsType:  reflect.TypeOf(account.DeleteSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -227,8 +243,14 @@ func accountSSHKeyDelete() *core.Command {
 			}
 			return &core.SuccessResult{
 				Resource: "ssh-key",
-				Verb:     "delete",
+				Verb:     "remove",
 			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Remove a given SSH key",
+				Request: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
 		},
 	}
 }
