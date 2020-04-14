@@ -42,7 +42,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 		OrganizationID string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
 
@@ -67,7 +67,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 		OrganizationID *string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
 

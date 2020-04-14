@@ -16,7 +16,7 @@ func ipCreateBuilder(c *core.Command) *core.Command {
 		OrganizationID string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateIPRequest{})
 
@@ -41,7 +41,7 @@ func ipListBuilder(c *core.Command) *core.Command {
 		OrganizationID *string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListIPsRequest{})
 

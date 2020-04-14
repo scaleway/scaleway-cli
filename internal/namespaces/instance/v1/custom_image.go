@@ -34,7 +34,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
@@ -67,7 +67,8 @@ func imageListBuilder(c *core.Command) *core.Command {
 		OrganizationID *string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {

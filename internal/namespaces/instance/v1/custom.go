@@ -14,6 +14,11 @@ var (
 	newOrganizationFieldName = "organization-id"
 )
 
+// helpers
+func renameOrganizationIDArgSpec(argSpecs core.ArgSpecs) {
+	argSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+}
+
 // GetCommands returns instance commands.
 //
 // This function:

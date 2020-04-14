@@ -16,7 +16,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		OrganizationID string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
 
@@ -41,7 +41,7 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 		OrganizationID *string
 	}
 
-	c.ArgSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+	renameOrganizationIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListSnapshotsRequest{})
 
