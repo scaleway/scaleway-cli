@@ -2,6 +2,7 @@ package instance
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -32,7 +33,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeType) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw instance volume create name=cli-test size=%dGB volume-type=%s", sizeInGb, volumeType)
-		res := ctx.ExecuteCmd(cmd)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createVolumeResponse := res.(*instance.CreateVolumeResponse)
 		ctx.Meta[metaKey] = createVolumeResponse.Volume
 		return nil
@@ -51,7 +52,7 @@ func deleteVolume(metaKey string) core.AfterFunc {
 // createIP creates an IP and register it in the context Meta at metaKey.
 func createIP(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		res := ctx.ExecuteCmd("scw instance ip create")
+		res := ctx.ExecuteCmd(strings.Split("scw instance ip create", " "))
 		createIPResponse := res.(*instance.CreateIPResponse)
 		ctx.Meta[metaKey] = createIPResponse.IP
 		return nil
@@ -60,10 +61,7 @@ func createIP(metaKey string) core.BeforeFunc {
 
 // deleteIP deletes an IP previously registered in the context Meta at metaKey.
 func deleteIP(metaKey string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		ctx.ExecuteCmd("scw instance ip delete {{ ." + metaKey + ".Address }}")
-		return nil
-	}
+	return core.ExecAfterCmd("scw instance ip delete {{ ." + metaKey + ".Address }}")
 }
 
 //
@@ -74,7 +72,7 @@ func deleteIP(metaKey string) core.AfterFunc {
 // register it in the context Meta at metaKey.
 func createPlacementGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		res := ctx.ExecuteCmd("scw instance placement-group create")
+		res := ctx.ExecuteCmd([]string{"scw", "instance", "placement-group", "create"})
 		createPlacementGroupResponse := res.(*instance.CreatePlacementGroupResponse)
 		ctx.Meta[metaKey] = createPlacementGroupResponse.PlacementGroup
 		return nil
@@ -95,7 +93,7 @@ func deletePlacementGroup(metaKey string) core.AfterFunc {
 // register it in the context Meta at metaKey.
 func createSecurityGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		res := ctx.ExecuteCmd("scw instance security-group create")
+		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
 		createSecurityGroupResponse := res.(*instance.CreateSecurityGroupResponse)
 		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
 		return nil

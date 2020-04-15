@@ -55,10 +55,7 @@ func Test_CreateVolume(t *testing.T) {
 			},
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance volume delete " + ctx.CmdResult.(*instance.CreateVolumeResponse).Volume.ID)
-			return nil
-		},
+		AfterFunc: core.ExecAfterCmd("scw instance volume delete {{ .CmdResult.Volume.ID }}"),
 	}))
 
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
@@ -224,10 +221,7 @@ func Test_SnapshotCreate(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				ctx.ExecuteCmd("scw instance snapshot delete " + ctx.CmdResult.(*instance.CreateSnapshotResponse).Snapshot.ID)
-				return nil
-			},
+			core.ExecAfterCmd("scw instance snapshot delete {{ .CmdResult.Snapshot.ID }}"),
 			deleteServer("Server"),
 		),
 	}))

@@ -3,6 +3,7 @@ package k8s
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
@@ -27,7 +28,7 @@ const (
 func createClusterAndWaitAndKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
-		res := ctx.ExecuteCmd(cmd)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
@@ -48,7 +49,7 @@ func createClusterAndWaitAndKubeconfig(metaKey string, kubeconfigMetaKey string,
 func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
-		res := ctx.ExecuteCmd(cmd)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
@@ -61,7 +62,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 		}
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
-		_ = ctx.ExecuteCmd(cmd)
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 		return nil
 	}
 }
@@ -71,7 +72,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 func createClusterAndWaitAndKubeconfigAndPopulateFile(metaKey string, kubeconfigMetaKey string, version string, file string, content []byte) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
-		res := ctx.ExecuteCmd(cmd)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
@@ -93,7 +94,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(metaKey string, kubeconfig
 func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, kubeconfigMetaKey string, version string, file string, content []byte) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
-		res := ctx.ExecuteCmd(cmd)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
@@ -110,7 +111,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, 
 			return err
 		}
 		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
-		_ = ctx.ExecuteCmd(cmd)
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 
 		return nil
 	}

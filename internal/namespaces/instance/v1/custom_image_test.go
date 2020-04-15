@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 func Test_ImageCreate(t *testing.T) {
@@ -21,10 +20,7 @@ func Test_ImageCreate(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			func(ctx *core.AfterFuncCtx) error {
-				ctx.ExecuteCmd("scw instance image delete " + ctx.CmdResult.(*instance.CreateImageResponse).Image.ID)
-				return nil
-			},
+			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }}"),
 			deleteSnapshot("Snapshot"),
 		),
 	}))

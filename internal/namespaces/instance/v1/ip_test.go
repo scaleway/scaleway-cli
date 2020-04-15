@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 func Test_IpCreate(t *testing.T) {
@@ -15,10 +14,7 @@ func Test_IpCreate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			ctx.ExecuteCmd("scw instance ip delete " + ctx.CmdResult.(*instance.CreateIPResponse).IP.ID)
-			return nil
-		},
+		AfterFunc: core.ExecAfterCmd("scw instance ip delete {{ .CmdResult.IP.ID }}"),
 	}))
 }
 

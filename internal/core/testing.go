@@ -61,14 +61,16 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 type AfterFunc func(ctx *AfterFuncCtx) error
 
 type BeforeFuncCtx struct {
+	T          *testing.T
 	Client     *scw.Client
-	ExecuteCmd func(cmd string) interface{}
+	ExecuteCmd func(args []string) interface{}
 	Meta       map[string]interface{}
 }
 
 type AfterFuncCtx struct {
+	T          *testing.T
 	Client     *scw.Client
-	ExecuteCmd func(cmd string) interface{}
+	ExecuteCmd func(args []string) interface{}
 	Meta       map[string]interface{}
 	CmdResult  interface{}
 }
@@ -92,7 +94,12 @@ type TestConfig struct {
 	BeforeFunc BeforeFunc
 
 	// The command line you want to test
+	// Conflict with Args
 	Cmd string
+
+	// Args represents a program arguments and should be used, when you cannot Cmd because your arguments include space characters
+	// Conflict with Cmd
+	Args []string
 
 	// A list of check function that will be run on result.
 	Check TestCheck
@@ -194,18 +201,12 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		meta := map[string]interface{}{}
 
-		cmdTemplate := func(cmd string) string {
-			cmdBuf := &bytes.Buffer{}
-			require.NoError(t, template.Must(template.New("cmd").Parse(cmd)).Execute(cmdBuf, meta))
-			return cmdBuf.String()
-		}
-
-		executeCmd := func(cmd string) interface{} {
+		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			logger.Debugf("command: %s", cmdTemplate(cmd))
+			logger.Debugf("command: %s", args)
 			_, result, err := Bootstrap(&BootstrapConfig{
-				Args:             strings.Split(cmdTemplate(cmd), " "),
+				Args:             args,
 				Commands:         config.Commands,
 				BuildInfo:        &config.BuildInfo,
 				Stdout:           stdoutBuffer,
@@ -222,6 +223,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
+				T:          t,
 				Client:     client,
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
@@ -232,13 +234,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 		var result interface{}
 		var exitCode int
 		var err error
-
+		args := config.Args
 		if config.Cmd != "" {
+			args = cmdToArgs(t, meta, config.Cmd)
+		}
+		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
+			logger.Debugf("command: %s", args)
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
-				Args:             strings.Split(cmdTemplate(config.Cmd), " "),
+				Args:             args,
 				Commands:         config.Commands,
 				BuildInfo:        &config.BuildInfo,
 				Stdout:           stdout,
@@ -248,6 +253,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv:      config.OverrideEnv,
 			})
 
+			meta["CmdResult"] = result
 			config.Check(t, &CheckFuncCtx{
 				ExitCode: exitCode,
 				Stdout:   stdout.Bytes(),
@@ -261,6 +267,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
+				T:          t,
 				Client:     client,
 				ExecuteCmd: executeCmd,
 				Meta:       meta,
@@ -268,6 +275,12 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}))
 		}
 	}
+}
+
+func cmdToArgs(t *testing.T, meta map[string]interface{}, s string) []string {
+	cmdBuf := &bytes.Buffer{}
+	require.NoError(t, template.Must(template.New("cmd").Parse(s)).Execute(cmdBuf, meta))
+	return strings.Split(cmdBuf.String(), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -306,7 +319,8 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 // in the context Meta at metaKey.
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
 	}
 }
@@ -314,7 +328,8 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		ctx.ExecuteCmd(args)
 		return nil
 	}
 }
@@ -322,7 +337,8 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
-		ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		ctx.ExecuteCmd(args)
 		return nil
 	}
 }
@@ -398,7 +414,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 	if actualIsEmpty {
 		assert.NotNil(t, err)
 	} else {
-		require.NoError(t, err)
+		require.NoError(t, err, "expected to find golden file with %s", string(actual))
 
 		// Replace Windows return carriage.
 		expected = bytes.ReplaceAll(expected, []byte("\r"), []byte(""))

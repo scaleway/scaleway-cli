@@ -10,9 +10,8 @@ import (
 )
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
-func deleteServerAfterFunc(ctx *core.AfterFuncCtx) error {
-	ctx.ExecuteCmd("scw instance server delete " + ctx.CmdResult.(*instance.Server).ID + " with-volumes=all with-ip=true force-shutdown=true")
-	return nil
+func deleteServerAfterFunc() core.AfterFunc {
+	return core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} with-volumes=all with-ip=true force-shutdown=true")
 }
 
 // All test below should succeed to create an instance.
@@ -32,7 +31,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("GP1-XS", core.Test(&core.TestConfig{
@@ -44,7 +43,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("With name", core.Test(&core.TestConfig{
@@ -56,7 +55,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("With start", core.Test(&core.TestConfig{
@@ -68,7 +67,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("With bootscript", core.Test(&core.TestConfig{
@@ -80,7 +79,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("Image UUID", core.Test(&core.TestConfig{
@@ -92,7 +91,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -105,7 +104,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 	})
 
@@ -123,7 +122,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
@@ -136,7 +135,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("valid additional block volumes", core.Test(&core.TestConfig{
@@ -150,7 +149,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 	})
@@ -169,7 +168,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("run with dynamic IP", core.Test(&core.TestConfig{
@@ -183,7 +182,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("existing IP", core.Test(&core.TestConfig{
@@ -197,7 +196,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("existing IP ID", core.Test(&core.TestConfig{
@@ -211,7 +210,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
@@ -223,7 +222,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: deleteServerAfterFunc,
+			AfterFunc: deleteServerAfterFunc(),
 		}))
 	})
 
