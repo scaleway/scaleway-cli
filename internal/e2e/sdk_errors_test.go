@@ -32,7 +32,7 @@ func TestSdkStandardErrors(t *testing.T) {
 		DisableParallel: true, // because e2e client is used
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			for i := 0; i < 10; i++ {
-				ctx.ExecuteCmd("scw test human create")
+				ctx.ExecuteCmd([]string{"scw", "test", "human", "create"})
 			}
 			return nil
 		},
@@ -48,7 +48,7 @@ func TestSdkStandardErrors(t *testing.T) {
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			ctx.ExecuteCmd("scw test human create")
+			ctx.ExecuteCmd([]string{"scw", "test", "human", "create"})
 			api := sdktest.NewAPI(ctx.Client)
 			_, err := api.RunHuman(&sdktest.RunHumanRequest{
 				HumanID: "0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",

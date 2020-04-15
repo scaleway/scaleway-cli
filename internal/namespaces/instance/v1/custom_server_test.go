@@ -71,10 +71,10 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				assert.Nil(t, ctx.Result.(*instance.DetachVolumeResponse).Server.Volumes["1"])
 				assert.Equal(t, 1, len(ctx.Result.(*instance.DetachVolumeResponse).Server.Volumes))
 			},
-			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				ctx.ExecuteCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`)
-				return deleteServer("Server")(ctx)
-			},
+			AfterFunc: core.AfterFuncCombine(
+				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+				deleteServer("Server"),
+			),
 			DisableParallel: true,
 		}))
 
