@@ -21,56 +21,8 @@ func GetCommands() *core.Commands {
 		sshKeyCommand(),
 		initCommand(),
 	))
-	cmds.MustFind("account", "ssh-key", "create").Override(addSSHKeyCommand)
-	cmds.MustFind("account", "ssh-key", "delete").Override(removeSSHKeyCommand)
 
 	return cmds
-}
-
-func addSSHKeyCommand(c *core.Command) *core.Command {
-	c.Short = "Add a SSH key to your Scaleway account"
-	c.Long = "Add a SSH key to your Scaleway account"
-	c.Verb = "add"
-	c.Examples = []*core.Example{
-		{
-			Short:   "Add a given ssh key",
-			Request: `{"name": "foobar", "public-key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+VZDiTJwQGqKmzx1NYduvxFNi+jw7X2SdG5DpTUkFNuPXfAmYzWOeF/iRe2YO5bWy95bQTsgoh44Ed55YF13a1i75HbIpPhQmUEQOb6MeYFHf6Tgg5KfII5Y7oacunlYsjLffGZH3Glxy6jyg/Sx8XOP4lXqMWZapDbnCzAZ15S8jnZBnlWNo1Z60gnX0QQnyiOPFJj+gDtjZG05qCK8Gdh2WlHpKJGB1tTRwYmqStKnpb3aBmzvU9D8eys2XlaJl0DVj63RXv1ej2+Xm0TKL/P7bw+gs+f+GKu5gjI8Sr50G/V8E4svjzlZfFnZcQzVt181QInO/YRWNSmMa1lv/wIPBGdCkWWNgDXieZojkLSe33KxmHYLaNvCoRP700pAHx/5X++nyylleMCRGZfJAGENPwdKNCiT/xqOOdpgbbwJT/baMu3qe83B5qPVFkMw4bI0htwF+gcbABAH/PJD95VFjb1dLf84rwq2pQcNXulJfR3bUqvZ1udx16sgY03s= foobar@foobar"}`,
-		},
-	}
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Short:   "Remove an SSH key",
-			Command: "scw account ssh-key remove",
-		},
-		{
-			Short:   "List all SSH keys",
-			Command: "scw account ssh-key list",
-		},
-	}
-	return c
-}
-
-func removeSSHKeyCommand(c *core.Command) *core.Command {
-	c.Short = "Remove a SSH key from your Scaleway account"
-	c.Long = "Remove a SSH key from your Scaleway account"
-	c.Verb = "remove"
-	c.Examples = []*core.Example{
-		{
-			Short:   "Remove a given ssh key",
-			Request: `{"ssh-key-id": "11111111-1111-1111-1111-111111111111"}`,
-		},
-	}
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Short:   "Add an SSH key",
-			Command: "scw account ssh-key add",
-		},
-		{
-			Short:   "List all SSH keys",
-			Command: "scw account ssh-key list",
-		},
-	}
-	return c
 }
 
 func sshKeyCommand() *core.Command {

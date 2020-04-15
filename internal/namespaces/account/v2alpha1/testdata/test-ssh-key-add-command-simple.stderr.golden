@@ -1,0 +1,7 @@
+Invalid arguments 'public_key'
+
+Details:
+- 'public_key' is wrongly formatted
+
+Hint:
+Invalid SSH public key
