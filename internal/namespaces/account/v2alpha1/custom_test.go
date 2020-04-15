@@ -40,8 +40,7 @@ func Test_initCommand(t *testing.T) {
 }
 
 func Test_SSHKeyAddCommand(t *testing.T) {
-	key := `ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUA
-Z/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar`
+	key := `ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar`
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Args: []string{
