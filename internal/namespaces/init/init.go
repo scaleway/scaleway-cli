@@ -11,7 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
-	accountcommands "github.com/scaleway/scaleway-cli/internal/namespaces/account"
+	accountcommands "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
