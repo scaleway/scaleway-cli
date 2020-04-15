@@ -1,11 +1,11 @@
-Add a SSH key to your Scaleway account
+Add a SSH key to your Scaleway account.
 
 USAGE:
   scw account ssh-key add [arg=value ...]
 
 EXAMPLES:
   Add a given ssh key
-    scw account ssh-key add name=foobar
+    scw account ssh-key add name=foobar public-key=ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBN+7q3Vx+9V6Ye8cfvV6wnXsQyp3wwy8ucSXYI3HJz9gB9x8lsDAQ8DUSz+sNajzKdhRtio1hNOyhn3O5ku5Kk= foobar@foobar
 
 ARGS:
   [name]              
@@ -21,8 +21,8 @@ GLOBAL FLAGS:
   -p, --profile string   The config profile to use
 
 SEE ALSO:
-  # Remove an SSH key
-  scw account ssh-key remove
-
   # List all SSH keys
   scw account ssh-key list
+
+  # Remove an SSH key
+  scw account ssh-key remove
