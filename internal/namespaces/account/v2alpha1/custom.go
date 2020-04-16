@@ -16,13 +16,10 @@ import (
 )
 
 func GetCommands() *core.Commands {
-	cmds := GetGeneratedCommands()
-	cmds.Merge(core.NewCommands(
+	return core.NewCommands(
 		sshKeyCommand(),
 		initCommand(),
-	))
-
-	return cmds
+	)
 }
 
 func sshKeyCommand() *core.Command {
