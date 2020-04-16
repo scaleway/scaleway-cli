@@ -3,6 +3,10 @@ Install an OS on the server associated with the given ID.
 USAGE:
   scw baremetal server install <server-id> [arg=value ...]
 
+EXAMPLES:
+  Install an os on a given server
+    scw baremetal server install
+
 ARGS:
   server-id             Server ID to install
   os-id                 ID of the OS to install on the server
@@ -12,8 +16,16 @@ ARGS:
 
 FLAGS:
   -h, --help   help for install
+  -w, --wait   wait until the server is ready
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human
   -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # List os (Useful to get all os-id)
+  scw baremetal os list
+
+  # Create a server
+  scw baremetal server create
