@@ -8,7 +8,7 @@ AVAILABLE COMMANDS:
   marketplace  Marketplace API
   init         Initialize the config
   config       Config file management
-  account      Manage SSH key
+  account      This API allows to manage your scaleway account
   autocomplete Install autocomplete script
   version      Display cli version
   help         Help about any command

@@ -16,21 +16,12 @@ import (
 )
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(
-		sshKeyCommand(),
-		initCommand(),
-	)
-}
+	commands := GetGeneratedCommands()
 
-func sshKeyCommand() *core.Command {
-	return &core.Command{
-		Short:     `Manage SSH key`,
-		Long:      `Manage SSH key.`,
-		Namespace: "account",
-		Resource:  "ssh-key",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-	}
+	commands.Merge(core.NewCommands(
+		initCommand(),
+	))
+	return commands
 }
 
 func initCommand() *core.Command {

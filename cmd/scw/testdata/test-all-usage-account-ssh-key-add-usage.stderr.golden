@@ -1,0 +1,28 @@
+Add a SSH key to your Scaleway account.
+
+USAGE:
+  scw account ssh-key add [arg=value ...]
+
+EXAMPLES:
+  Add a given ssh key
+    scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"
+
+ARGS:
+  [name]              The name of the SSH key
+  public-key          SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported
+  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+
+FLAGS:
+  -h, --help   help for add
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # List all SSH keys
+  scw account ssh-key list
+
+  # Remove an SSH key
+  scw account ssh-key remove

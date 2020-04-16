@@ -1,0 +1,71 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"29e8be8f-ad33-4299-b816-72b8d45b2fb0","name":"foobar","public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2020-04-14T12:35:03.168556Z","updated_at":"2020-04-16T11:44:22.498681Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    headers:
+      Content-Length:
+      - "567"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 11:44:22 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4ec75443-8a78-4d75-bf92-900571aac288
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-key/29e8be8f-ad33-4299-b816-72b8d45b2fb0
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2020 11:44:22 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b9fae350-70b2-44ff-a022-70eb018ffc94
+    status: 204 No Content
+    code: 204
+    duration: ""
