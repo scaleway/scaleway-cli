@@ -123,12 +123,14 @@ func accountSSHKeyAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
+				Short:      `The name of the SSH key`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "public-key",
-				Required:   false,
+				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
+				Required:   true,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
@@ -144,7 +146,7 @@ func accountSSHKeyAdd() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Add a given ssh key",
-				Request: `{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBN+7q3Vx+9V6Ye8cfvV6wnXsQyp3wwy8ucSXYI3HJz9gB9x8lsDAQ8DUSz+sNajzKdhRtio1hNOyhn3O5ku5Kk= foobar@foobar"}`,
+				Request: `null`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -171,6 +173,7 @@ func accountSSHKeyGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
+				Short:      `The ID of the SSH key`,
 				Required:   true,
 				Positional: true,
 			},
