@@ -5,11 +5,11 @@ USAGE:
 
 EXAMPLES:
   Add a given ssh key
-    scw account ssh-key add name=foobar public-key=ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBN+7q3Vx+9V6Ye8cfvV6wnXsQyp3wwy8ucSXYI3HJz9gB9x8lsDAQ8DUSz+sNajzKdhRtio1hNOyhn3O5ku5Kk= foobar@foobar
+    scw account ssh-key add
 
 ARGS:
-  [name]              
-  [public-key]        
+  [name]              The name of the SSH key
+  public-key          SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported
   [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
 
 FLAGS:

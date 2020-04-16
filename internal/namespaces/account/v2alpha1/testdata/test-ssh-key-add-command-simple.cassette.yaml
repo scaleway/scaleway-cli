@@ -16,7 +16,7 @@ interactions:
     body: '{"id":"29e8be8f-ad33-4299-b816-72b8d45b2fb0","name":"foobar","public_key":"ecdsa-sha2-nistp256
       AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
       foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2020-04-14T12:35:03.168556Z","updated_at":"2020-04-15T17:12:07.929769Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2020-04-14T12:35:03.168556Z","updated_at":"2020-04-16T11:44:22.498681Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
     headers:
       Content-Length:
       - "567"
@@ -25,7 +25,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Apr 2020 17:12:07 GMT
+      - Thu, 16 Apr 2020 11:44:22 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -35,7 +35,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2c86a0f9-bcaf-4b3d-a689-3d15a62f5a30
+      - 4ec75443-8a78-4d75-bf92-900571aac288
     status: 200 OK
     code: 200
     duration: ""
@@ -55,7 +55,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Apr 2020 17:12:07 GMT
+      - Thu, 16 Apr 2020 11:44:22 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -65,7 +65,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b905d90b-db10-4064-adde-bdd79368a25f
+      - b9fae350-70b2-44ff-a022-70eb018ffc94
     status: 204 No Content
     code: 204
     duration: ""
