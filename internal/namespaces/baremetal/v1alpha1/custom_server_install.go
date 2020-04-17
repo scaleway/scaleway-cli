@@ -17,7 +17,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 
 	c.SeeAlsos = []*core.SeeAlso{
 		{
-			Short:   "List os (Useful to get all os-id)",
+			Short:   "List OS (useful to get all OS IDs)",
 			Command: "scw baremetal os list",
 		},
 		{
