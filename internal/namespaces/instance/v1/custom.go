@@ -76,6 +76,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
+	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
 
 	//
 	// Snapshot
