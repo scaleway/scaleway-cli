@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"reflect"
+	"strings"
 	"sync"
 	"time"
 
@@ -27,7 +28,6 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(bool(false)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	})
@@ -39,6 +39,18 @@ func init() {
 		}
 
 		return humanize.Bytes(size), nil
+	})
+	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+		sizes := i.([]scw.Size)
+		strs := []string(nil)
+		for _, size := range sizes {
+			s, err := Marshal(size, nil)
+			if err != nil {
+				return "", err
+			}
+			strs = append(strs, s)
+		}
+		return strings.Join(strs, ", "), nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil
