@@ -10,7 +10,7 @@ import (
 func serverInstallBuilder(c *core.Command) *core.Command {
 	c.Examples = []*core.Example{
 		{
-			Short:   "Install an os on a given server",
+			Short:   "Install an OS on a given server",
 			Request: `{"os-id":"11111111-1111-1111-1111-111111111111","server-id":"11111111-1111-1111-1111-111111111111"}`,
 		},
 	}
