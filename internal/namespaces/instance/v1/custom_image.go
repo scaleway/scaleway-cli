@@ -138,11 +138,11 @@ func imageListBuilder(c *core.Command) *core.Command {
 				ServerID: image.FromServer,
 			}
 			getServerResponse, err := api.GetServer(&serverReq)
+			if _, ok := err.(*scw.ResourceNotFoundError); ok {
+				newCustomImage.ServerName = "-"
+				continue
+			}
 			if err != nil {
-				if _, ok := err.(*scw.ResourceNotFoundError); ok {
-					newCustomImage.ServerName = "-"
-					continue
-				}
 				return nil, err
 			}
 			newCustomImage.ServerID = getServerResponse.Server.ID
