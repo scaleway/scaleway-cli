@@ -174,6 +174,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
+		// If we want to delete snapshot we must GET image before we delete it
 		image := (*instance.Image)(nil)
 		if args.WithSnapshots {
 			res, err := api.GetImage(&instance.GetImageRequest{
@@ -186,11 +187,13 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 			image = res.Image
 		}
 
-		res, err := runner(ctx, args.DeleteImageRequest)
+		// Call the generated delete
+		runnerRes, err := runner(ctx, args.DeleteImageRequest)
 		if err != nil {
 			return nil, err
 		}
 
+		// Once the image is deleted we can delete snapshots.
 		if args.WithSnapshots {
 			snapshotIDs := []string{
 				image.RootVolume.ID,
@@ -208,7 +211,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 				}
 			}
 		}
-		return res, nil
+		return runnerRes, nil
 	})
 
 	return c
