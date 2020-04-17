@@ -1,0 +1,28 @@
+Create a new image based on the server.
+
+This command:
+  - create a snapshot of all attached volumes.
+  - create an image based on all these snapshots.
+
+Once your image is ready you will be able to create a new server based on this image.
+
+USAGE:
+  scw instance server backup <server-id> [arg=value ...]
+
+EXAMPLES:
+  Create a new image based on a server
+    scw instance server backup 11111111-1111-1111-1111-111111111111
+
+ARGS:
+  server-id            ID of the server affected by the action.
+  [name=<generated>]   Name of your backup.
+  [zone]               Zone to target. If none is passed will use default zone from the config
+
+FLAGS:
+  -h, --help   help for backup
+  -w, --wait   wait until the server is ready
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

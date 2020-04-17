@@ -278,3 +278,21 @@ func Test_ServerDelete(t *testing.T) {
 
 	interactive.IsInteractive = false
 }
+
+// These tests needs to be run in sequence
+// since they are using the interactive print
+func Test_ServerBackup(t *testing.T) {
+	t.Run("simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true"),
+			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
+		),
+	}))
+}

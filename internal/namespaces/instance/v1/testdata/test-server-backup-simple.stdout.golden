@@ -1,0 +1,13 @@
+image.id                  8a7cd760-1b3e-46ff-b817-b6eaf1ee1d4b
+image.name                backup
+image.arch                x86_64
+image.creation-date       few seconds ago
+image.modification-date   few seconds ago
+image.default-bootscript  x86_64 mainline 4.9.93 rev1
+image.extra-volumes       0
+image.from-server         8ee5b3ea-28c2-4e3d-b859-e33a6c3e8cd3
+image.organization        b3ba839a-dcf2-4b0a-ac81-fc32370052a0
+image.public              false
+image.root-volume         3fb09f26-64e9-4607-ab70-b4c926cfcf7b
+image.state               available
+image.zone                fr-par-1
