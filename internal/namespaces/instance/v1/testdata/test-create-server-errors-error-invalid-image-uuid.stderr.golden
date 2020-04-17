@@ -1,3 +1,3 @@
-WARNING: 2019/12/09 16:04:07 cannot get image 7a892c1a-bbdc-491f-9974-4008e3708664: scaleway-sdk-go: http error 404 Not Found: "7a892c1a-bbdc-491f-9974-4008e3708664" not found
+WARNING: 2019/12/09 16:04:07 cannot get image 7a892c1a-bbdc-491f-9974-4008e3708664: scaleway-sdk-go: resource  with ID 7a892c1a-bbdc-491f-9974-4008e3708664 is not found
 WARNING: 2019/12/09 16:04:07 skipping image server-type compatibility validation
-Cannot create the server: scaleway-sdk-go: http error 404 Not Found: "7a892c1a-bbdc-491f-9974-4008e3708664" not found
+Cannot create the server: scaleway-sdk-go: resource  with ID 7a892c1a-bbdc-491f-9974-4008e3708664 is not found
