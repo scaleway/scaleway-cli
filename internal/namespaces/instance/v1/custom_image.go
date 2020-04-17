@@ -127,20 +127,26 @@ func imageListBuilder(c *core.Command) *core.Command {
 				State:             image.State,
 				Zone:              image.Zone,
 			}
-
-			if image.FromServer != "" {
-				serverReq := instance.GetServerRequest{
-					Zone:     req.Zone,
-					ServerID: image.FromServer,
-				}
-				getServerResponse, err := api.GetServer(&serverReq)
-				if err != nil {
-					return nil, err
-				}
-				newCustomImage.ServerID = getServerResponse.Server.ID
-				newCustomImage.ServerName = getServerResponse.Server.Name
-			}
 			customImages = append(customImages, newCustomImage)
+
+			if image.FromServer == "" {
+				continue
+			}
+
+			serverReq := instance.GetServerRequest{
+				Zone:     req.Zone,
+				ServerID: image.FromServer,
+			}
+			getServerResponse, err := api.GetServer(&serverReq)
+			if _, ok := err.(*scw.ResourceNotFoundError); ok {
+				newCustomImage.ServerName = "-"
+				continue
+			}
+			if err != nil {
+				return nil, err
+			}
+			newCustomImage.ServerID = getServerResponse.Server.ID
+			newCustomImage.ServerName = getServerResponse.Server.Name
 		}
 
 		return customImages, nil
