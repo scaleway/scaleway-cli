@@ -23,6 +23,17 @@ const (
 // Clusters
 //
 
+// createClusterAndWait creates a basic cluster with 1 dev1-m as node, the given version
+func createClusterAndWait(metaKey string, version string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		cluster := res.(*k8s.Cluster)
+		ctx.Meta[metaKey] = cluster
+		return nil
+	}
+}
+
 // createClusterAndWaitAndKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
 // register it in the context Meta at metaKey.
 func createClusterAndWaitAndKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {

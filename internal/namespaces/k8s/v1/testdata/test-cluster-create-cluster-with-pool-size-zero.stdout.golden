@@ -1,0 +1,25 @@
+id                                                 f77da334-9f90-4322-9384-f1e18aa25dc1
+name                                               test
+status                                             creating
+version                                            1.18.2
+region                                             fr-par
+organization-id                                    a6c249e9-c32d-46e4-badb-b57528eafc4b
+cni                                                cilium
+description                                        -
+cluster-url                                        https://f77da334-9f90-4322-9384-f1e18aa25dc1.api.k8s.fr-par.scw.cloud:6443
+dns-wildcard                                       *.f77da334-9f90-4322-9384-f1e18aa25dc1.nodes.k8s.fr-par.scw.cloud
+created-at                                         few seconds ago
+updated-at                                         few seconds ago
+autoscaler-config.scale-down-disabled              false
+autoscaler-config.scale-down-delay-after-add       10m
+autoscaler-config.estimator                        binpacking
+autoscaler-config.expander                         random
+autoscaler-config.ignore-daemonsets-utilization    false
+autoscaler-config.balance-similar-node-groups      false
+autoscaler-config.expendable-pods-priority-cutoff  -10
+dashboard-enabled                                  false
+ingress                                            none
+auto-upgrade.enabled                               false
+auto-upgrade.maintenance-window.start-hour         0
+auto-upgrade.maintenance-window.day                any
+upgrade-available                                  false

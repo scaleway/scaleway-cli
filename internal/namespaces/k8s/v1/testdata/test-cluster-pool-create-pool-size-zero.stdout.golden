@@ -1,0 +1,15 @@
+id                 4dd8a231-554b-4975-93c7-6b7ea8233d91
+cluster-id         2beaef64-7c19-46eb-92a6-c95ef6f41ffb
+created-at         few seconds ago
+updated-at         few seconds ago
+name               empty
+status             scaling
+version            1.18.2
+node-type          dev1_m
+autoscaling        false
+size               0
+min-size           0
+max-size           0
+container-runtime  docker
+autohealing        false
+region             fr-par

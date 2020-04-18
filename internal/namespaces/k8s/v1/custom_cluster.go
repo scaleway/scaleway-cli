@@ -70,7 +70,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		args := argsI.(*customCreateClusterRequest)
 
 		request := args.CreateClusterRequest
-		for i, pool := range args.Pools {
+		for _, pool := range args.Pools {
 			poolReq := pool.CreateClusterRequestPoolConfig
 			poolReq.Size = *pool.Size
 			request.Pools = append(request.Pools, poolReq)
