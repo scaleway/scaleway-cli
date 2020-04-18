@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -42,6 +43,22 @@ const (
 
 func poolCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionCreate)
+	type customCreatePoolRequest struct {
+		*k8s.CreatePoolRequest
+		Size *uint32
+	}
+
+	c.ArgsType = reflect.TypeOf(customCreatePoolRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customCreatePoolRequest)
+
+		request := args.CreatePoolRequest
+		request.Size = *args.Size
+
+		return runner(ctx, request)
+	})
+
 	return c
 }
 

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -55,6 +56,29 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 }
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
+	type customCreateClusterRequest struct {
+		*k8s.CreateClusterRequest
+		Pools []*struct {
+			*k8s.CreateClusterRequestPoolConfig
+			Size *uint32
+		}
+	}
+
+	c.ArgsType = reflect.TypeOf(customCreateClusterRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customCreateClusterRequest)
+
+		request := args.CreateClusterRequest
+		for i, pool := range args.Pools {
+			poolReq := pool.CreateClusterRequestPoolConfig
+			poolReq.Size = *pool.Size
+			request.Pools = append(request.Pools, poolReq)
+		}
+
+		return runner(ctx, request)
+	})
+
 	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
 	return c
 }
