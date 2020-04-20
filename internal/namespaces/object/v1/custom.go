@@ -141,7 +141,7 @@ func getCommand() *core.Command {
 				Name:       "type",
 				Short:      "Type of tool supported",
 				Required:   true,
-				EnumValues: []string{"aws-config", "aws-credentials", "rclone", "s3cmd", "mc"},
+				EnumValues: []string{"rclone", "s3cmd", "mc"},
 			},
 			core.RegionArgSpec(),
 		},
@@ -167,10 +167,16 @@ func getCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			requestedType := argsI.(*getRequest)
+			client := core.ExtractClient(ctx)
+			region := requestedType.Region.String()
+			if region == "" {
+				defaultRegion, _ := client.GetDefaultRegion()
+				region = defaultRegion.String()
+			}
 			config := s3config{
 				AccessKey: "pouet",
 				SecretKey: "pouet",
-				Region:    requestedType.Region.String(),
+				Region:    region,
 			}
 
 			switch requestedType.Type {
@@ -217,7 +223,7 @@ func installCommand() *core.Command {
 				Name:       "type",
 				Short:      "Type of tool supported",
 				Required:   true,
-				EnumValues: []string{"aws-cli", "rclone", "s3cmd", "mc"},
+				EnumValues: []string{"rclone", "s3cmd", "mc"},
 			},
 			core.RegionArgSpec(),
 		},

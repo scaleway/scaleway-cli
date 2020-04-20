@@ -1,0 +1,1 @@
+{"version":"9","hosts":{"scaleway_nl-ams":{"url":"https://s3.nl-ams.scw.cloud","accessKey":"pouet","secretKey":"pouet","api":"S3v2"}}}

@@ -3,8 +3,8 @@
 # Default location: $HOME/.s3cfg
 [default]
 access_key = pouet
-bucket_location = fr-par
-host_base = s3.fr-par.scw.cloud
-host_bucket = %(bucket)s.s3.fr-par.scw.cloud
+bucket_location = nl-ams
+host_base = s3.nl-ams.scw.cloud
+host_bucket = %(bucket)s.s3.nl-ams.scw.cloud
 secret_key = pouet
 use_https = True
