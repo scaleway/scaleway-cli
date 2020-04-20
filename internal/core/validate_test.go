@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/internal/args"
 )
 
 type Element struct {
@@ -31,11 +32,12 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	type TestCase struct {
 		command         *Command
 		parsedArguments interface{}
+		rawArgs         args.RawArgs
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments)
+			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, fmt.Errorf("arg validation called"), err)
 		}
 	}
@@ -187,18 +189,19 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	type TestCase struct {
 		command         *Command
 		parsedArguments interface{}
+		rawArgs         args.RawArgs
 	}
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments)
+			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
 	}
 
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments)
+			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, MissingRequiredArgumentError(argName), err)
 		}
 	}
@@ -212,6 +215,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 				},
 			},
 		},
+		rawArgs: []string{"first-nested-element.second-nested-element=test"},
 		parsedArguments: &elementCustom{
 			Element: &Element{
 				Name: "nested",
@@ -238,4 +242,49 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 			},
 		},
 	}, "first-nested-element.second-nested-element"))
+
+	t.Run("required-index", runOK(TestCase{
+		command: &Command{
+			ArgSpecs: ArgSpecs{
+				{
+					Name:     "elements-slice.{index}.id",
+					Required: true,
+				},
+			},
+		},
+		rawArgs: []string{"elements-slice.0.id=1"},
+		parsedArguments: &Element{
+			ElementsSlice: []Element{
+				{
+					ID:   0,
+					Name: "1",
+				},
+			},
+		},
+	}))
+
+	t.Run("fail-required-index", runErr(TestCase{
+		command: &Command{
+			ArgSpecs: ArgSpecs{
+				{
+					Name:     "elements-slice.{index}.id",
+					Required: true,
+				},
+			},
+		},
+		rawArgs: []string{"elements-slice.0.id=1"},
+		parsedArguments: &Element{
+			ElementsSlice: []Element{
+				{
+					ID:   0,
+					Name: "1",
+				},
+				{
+					ID:   1,
+					Name: "0",
+				},
+			},
+		},
+	}, "elements-slice.1.id"))
+
 }

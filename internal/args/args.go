@@ -15,6 +15,13 @@ const emptySliceValue = "none"
 // RawArgs allows to retrieve a simple []string using UnmarshalStruct()
 type RawArgs []string
 
+// ExistsArgByName checks if the given argument exists in the raw args
+func (a RawArgs) ExistsArgByName(name string) bool {
+	argsMap := SplitRawMap(a)
+	_, ok := argsMap[name]
+	return ok
+}
+
 var (
 	scalarKinds = map[reflect.Kind]bool{
 		reflect.Int:     true,
