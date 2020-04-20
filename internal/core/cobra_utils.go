@@ -73,7 +73,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if cmd.ValidateFunc != nil {
 			validateFunc = cmd.ValidateFunc
 		}
-		err = validateFunc(cmd, cmdArgs)
+		err = validateFunc(cmd, cmdArgs, rawArgs)
 		if err != nil {
 			return err
 		}

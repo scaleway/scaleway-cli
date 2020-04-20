@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
@@ -13,19 +14,19 @@ import (
 
 // CommandValidateFunc validates en entire command.
 // Used in core.cobraRun().
-type CommandValidateFunc func(cmd *Command, cmdArgs interface{}) error
+type CommandValidateFunc func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error
 
 // ArgSpecValidateFunc validates one argument of a command.
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
-	return func(cmd *Command, cmdArgs interface{}) error {
+	return func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 		err := validateArgValues(cmd, cmdArgs)
 		if err != nil {
 			return err
 		}
-		err = validateRequiredArgs(cmd, cmdArgs)
+		err = validateRequiredArgs(cmd, cmdArgs, rawArgs)
 		if err != nil {
 			return err
 		}
@@ -59,8 +60,13 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // validateRequiredArgs checks for missing required args with no default value.
 // Returns an error for the first missing required arg.
 // Returns nil otherwise.
-func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
+// TODO refactor this method which uses a mix of reflect and string arrays
+func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 	for _, arg := range cmd.ArgSpecs {
+		if !arg.Required {
+			continue
+		}
+
 		fieldName := strcase.ToPublicGoName(arg.Name)
 		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
@@ -72,9 +78,13 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
 			panic(validationErr)
 		}
 
-		for _, fieldValue := range fieldValues {
-			if arg.Required && (fieldValue.IsZero() || !fieldValue.IsValid()) {
-				return MissingRequiredArgumentError(arg.Name)
+		// Either fieldsValues have a length for 1 and we check for existence in the rawArgs
+		// or it has multiple values and we loop through each one to get the right element in
+		// the corresponding rawArgs array and replace {index} by the element's index.
+		// TODO handle required maps
+		for i := range fieldValues {
+			if !rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
+				return MissingRequiredArgumentError(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1))
 			}
 		}
 	}
