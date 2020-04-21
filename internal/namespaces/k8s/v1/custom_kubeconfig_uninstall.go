@@ -77,7 +77,9 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 	}
 
 	// reset the current context
-	existingKubeconfig.CurrentContext = ""
+	if strings.HasSuffix(existingKubeconfig.CurrentContext, request.ClusterID) {
+		existingKubeconfig.CurrentContext = ""
+	}
 
 	// write the modification
 	existingKubeconfig.Clusters = newClusters
