@@ -338,7 +338,7 @@ func k8sClusterCreate() *core.Command {
 				Short:      `Type of resource estimator to be used in scale up`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"unknown_estimator", "binpacking", "oldbinpacking"},
+				EnumValues: []string{"unknown_estimator", "binpacking"},
 			},
 			{
 				Name:       "autoscaler-config.expander",
@@ -510,7 +510,7 @@ func k8sClusterUpdate() *core.Command {
 				Short:      `Type of resource estimator to be used in scale up`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"unknown_estimator", "binpacking", "oldbinpacking"},
+				EnumValues: []string{"unknown_estimator", "binpacking"},
 			},
 			{
 				Name:       "autoscaler-config.expander",
