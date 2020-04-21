@@ -8,8 +8,8 @@ func GetCommands() *core.Commands {
 	return core.NewCommands(
 		objectRoot(),
 		objectConfig(),
-		getCommand(),
-		installCommand(),
+		configGetCommand(),
+		configInstallCommand(),
 	)
 }
 
@@ -27,10 +27,4 @@ func objectConfig() *core.Command {
 		Namespace: "object",
 		Resource:  `config`,
 	}
-}
-
-var supportedTools = []string{
-	"rclone",
-	"s3cmd",
-	"mc",
 }
