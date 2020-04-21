@@ -19,22 +19,22 @@ func configGetCommand() *core.Command {
 		Namespace: "object",
 		Resource:  "config",
 		Verb:      "get",
-		Short:     "Generate a S3 related configuration file",
-		Long:      "Generate a S3 related configuration file.",
+		Short:     "Generate a S3 tool configuration file",
+		Long:      "Generate a S3 tool configuration file.",
 		ArgsType:  reflect.TypeOf(getArgs{}),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "type",
 				Short:      "Type of S3 tool you want to generate a config for",
 				Required:   true,
-				EnumValues: supportedTools,
+				EnumValues: []string{rclone.String(), s3cmd.String(), mc.String()},
 			},
 			{
 				Name:     "name",
 				Short:    "Name of the s3 remote you want to generate",
 				Required: false,
 				Default: func() (value string, doc string) {
-					return "scaleway", "default value"
+					return "scaleway", "scaleway"
 				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),

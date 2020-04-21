@@ -15,6 +15,10 @@ import (
 
 type s3tool string
 
+func (c s3tool) String() string {
+	return string(c)
+}
+
 type s3config struct {
 	AccessKey string
 	SecretKey string
@@ -70,6 +74,10 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {
 		return s3config{}, fmt.Errorf("no secret key found")
+	}
+	if region == "" {
+		defaultRegion, _ := client.GetDefaultRegion()
+		region = defaultRegion
 	}
 	config := s3config{
 		AccessKey: accessKey,

@@ -22,22 +22,22 @@ func configInstallCommand() *core.Command {
 		Namespace: "object",
 		Resource:  "config",
 		Verb:      "install",
-		Short:     "Install a S3 related configuration file to its default location",
-		Long:      "Install a S3 related configuration file.",
+		Short:     "Install a S3 tool configuration file to its default location",
+		Long:      "Install a S3 tool configuration file to its default location.",
 		ArgsType:  reflect.TypeOf(installArgs{}),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "type",
 				Short:      "Type of S3 tool you want to generate a config for",
 				Required:   true,
-				EnumValues: supportedTools,
+				EnumValues: []string{rclone.String(), s3cmd.String(), mc.String()},
 			},
 			{
 				Name:     "name",
 				Short:    "Name of the s3 remote you want to generate",
 				Required: false,
 				Default: func() (value string, doc string) {
-					return "scaleway", "default value"
+					return "scaleway", "scaleway"
 				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
