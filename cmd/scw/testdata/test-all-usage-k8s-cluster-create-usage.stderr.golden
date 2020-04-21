@@ -30,7 +30,7 @@ ARGS:
   [pools.{index}.tags.{index}]                          The tags associated with the pool
   [autoscaler-config.scale-down-disabled]               Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]        How long after scale up that scale down evaluation resumes
-  [autoscaler-config.estimator]                         Type of resource estimator to be used in scale up (unknown_estimator | binpacking | oldbinpacking)
+  [autoscaler-config.estimator]                         Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
   [autoscaler-config.expander]                          Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority)
   [autoscaler-config.ignore-daemonsets-utilization]     Ignore DaemonSet pods when calculating resource utilization for scaling down
   [autoscaler-config.balance-similar-node-groups]       Detect similar node groups and balance the number of nodes between them
