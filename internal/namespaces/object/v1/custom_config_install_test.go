@@ -17,7 +17,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					os.Stat(path.Join(tmpDir, ".config", "rclone", "rclone.conf"))
+					_, err := os.Stat(path.Join(tmpDir, ".config", "rclone", "rclone.conf"))
+					if err != nil {
+						t.Fail()
+					}
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -31,7 +34,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=mc",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					os.Stat(path.Join(tmpDir, ".mc", "config.json"))
+					_, err := os.Stat(path.Join(tmpDir, ".mc", "config.json"))
+					if err != nil {
+						t.Fail()
+					}
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -45,7 +51,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=s3cmd",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					os.Stat(path.Join(tmpDir, ".s3cfg"))
+					_, err := os.Stat(path.Join(tmpDir, ".s3cfg"))
+					if err != nil {
+						t.Fail()
+					}
 				},
 				core.TestCheckExitCode(0),
 			),

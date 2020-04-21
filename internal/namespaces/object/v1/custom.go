@@ -28,3 +28,9 @@ func objectConfig() *core.Command {
 		Resource:  `config`,
 	}
 }
+
+var supportedTools = []string{
+	"rclone",
+	"s3cmd",
+	"mc",
+}

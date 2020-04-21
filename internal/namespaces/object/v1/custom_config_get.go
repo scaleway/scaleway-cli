@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"text/template"
 
@@ -29,7 +30,7 @@ func getCommand() *core.Command {
 				Name:       "type",
 				Short:      "Type of tool supported",
 				Required:   true,
-				EnumValues: []string{"rclone", "s3cmd", "mc"},
+				EnumValues: supportedTools,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -83,9 +84,9 @@ func getCommand() *core.Command {
 				return res, nil
 			default:
 				return nil, &core.CliError{
-					Message: "",
-					Details: "",
-					Hint:    "",
+					Message: "Unknown tool type",
+					Details: fmt.Sprintf("%s is an unknown tool", requestedType.Type),
+					Hint:    fmt.Sprintf("Try using on the following types: %s", supportedTools),
 				}
 			}
 		},
@@ -97,19 +98,15 @@ func createS3Config(ctx context.Context, region string) (s3config, error) {
 	accessKey, accessExists := client.GetAccessKey()
 	if !accessExists {
 		return s3config{}, &core.CliError{
-			Err:     nil,
-			Message: "",
-			Details: "",
-			Hint:    "",
+			Message: "No access key found",
+			Hint:    "Try to run `scw init` to set up your configuration.",
 		}
 	}
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {
 		return s3config{}, &core.CliError{
-			Err:     nil,
-			Message: "",
-			Details: "",
-			Hint:    "",
+			Message: "No secret key found",
+			Hint:    "Try to run `scw init` to set up your configuration.",
 		}
 	}
 	if region == "" {

@@ -30,7 +30,7 @@ func installCommand() *core.Command {
 				Name:       "type",
 				Short:      "Type of tool supported",
 				Required:   true,
-				EnumValues: []string{"rclone", "s3cmd", "mc"},
+				EnumValues: supportedTools,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -85,9 +85,9 @@ func installCommand() *core.Command {
 
 			default:
 				return nil, &core.CliError{
-					Message: "",
-					Details: "",
-					Hint:    "",
+					Message: "Unknown tool type",
+					Details: fmt.Sprintf("%s is an unknown tool", requestedType.Type),
+					Hint:    fmt.Sprintf("Try using on the following types: %s", supportedTools),
 				}
 			}
 			return fmt.Sprintf("Configuration file successfully installed at %s", configPath), nil
