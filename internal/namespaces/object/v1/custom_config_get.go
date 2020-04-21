@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"text/template"
 
@@ -83,8 +82,11 @@ func getCommand() *core.Command {
 				}
 				return res, nil
 			default:
-				fmt.Println("Unknown tool.")
-				return nil, nil
+				return nil, &core.CliError{
+					Message: "",
+					Details: "",
+					Hint:    "",
+				}
 			}
 		},
 	}
