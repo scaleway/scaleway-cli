@@ -57,16 +57,11 @@ func installCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			requestedType := argsI.(*installRequest)
-			client := core.ExtractClient(ctx)
 			region := requestedType.Region.String()
-			if region == "" {
-				defaultRegion, _ := client.GetDefaultRegion()
-				region = defaultRegion.String()
-			}
-			config := s3config{
-				AccessKey: "pouet",
-				SecretKey: "pouet",
-				Region:    region,
+
+			config, err := createS3Config(ctx, region)
+			if err != nil {
+				return "", err
 			}
 
 			switch requestedType.Type {

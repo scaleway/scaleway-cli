@@ -2,9 +2,9 @@
 # Configuration file for s3cmd https://s3tools.org/s3cmd
 # Default location: $HOME/.s3cfg
 [default]
-access_key = pouet
+access_key = SCWXXXXXXXXXXXXXXXXX
 bucket_location = nl-ams
 host_base = s3.nl-ams.scw.cloud
 host_bucket = %(bucket)s.s3.nl-ams.scw.cloud
-secret_key = pouet
+secret_key = 11111111-1111-1111-1111-111111111111
 use_https = True

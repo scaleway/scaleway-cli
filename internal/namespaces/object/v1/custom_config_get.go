@@ -56,16 +56,11 @@ func getCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			requestedType := argsI.(*getRequest)
-			client := core.ExtractClient(ctx)
 			region := requestedType.Region.String()
-			if region == "" {
-				defaultRegion, _ := client.GetDefaultRegion()
-				region = defaultRegion.String()
-			}
-			config := s3config{
-				AccessKey: "pouet",
-				SecretKey: "pouet",
-				Region:    region,
+
+			config, err := createS3Config(ctx, region)
+			if err != nil {
+				return "", err
 			}
 
 			switch requestedType.Type {
@@ -93,6 +88,38 @@ func getCommand() *core.Command {
 			}
 		},
 	}
+}
+
+func createS3Config(ctx context.Context, region string) (s3config, error) {
+	client := core.ExtractClient(ctx)
+	accessKey, accessExists := client.GetAccessKey()
+	if !accessExists {
+		return s3config{}, &core.CliError{
+			Err:     nil,
+			Message: "",
+			Details: "",
+			Hint:    "",
+		}
+	}
+	secretKey, secretExists := client.GetSecretKey()
+	if !secretExists {
+		return s3config{}, &core.CliError{
+			Err:     nil,
+			Message: "",
+			Details: "",
+			Hint:    "",
+		}
+	}
+	if region == "" {
+		defaultRegion, _ := client.GetDefaultRegion()
+		region = defaultRegion.String()
+	}
+	config := s3config{
+		AccessKey: accessKey,
+		SecretKey: secretKey,
+		Region:    region,
+	}
+	return config, nil
 }
 
 type s3config struct {

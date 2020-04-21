@@ -5,8 +5,8 @@
 type = s3
 env_auth = false
 endpoint = s3.fr-par.scw.cloud
-access_key_id = pouet
-secret_access_key = pouet
+access_key_id = SCWXXXXXXXXXXXXXXXXX
+secret_access_key = 11111111-1111-1111-1111-111111111111
 region = fr-par
 location_constraint =
 acl = private
