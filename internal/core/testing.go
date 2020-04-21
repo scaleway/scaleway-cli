@@ -51,6 +51,9 @@ type CheckFuncCtx struct {
 
 	// Meta bag
 	Meta map[string]interface{}
+
+	// Scaleway client
+	Client *scw.Client
 }
 
 // TestCheck is a function that perform assertion on a CheckFuncCtx
@@ -261,6 +264,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Meta:     meta,
 				Result:   result,
 				Err:      err,
+				Client:   client,
 			})
 		}
 

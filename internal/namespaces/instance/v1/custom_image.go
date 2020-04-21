@@ -154,3 +154,65 @@ func imageListBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+// imageDeleteBuilder override delete command to:
+//  - add a with-snapshots parameter
+func imageDeleteBuilder(c *core.Command) *core.Command {
+	type customDeleteImageRequest struct {
+		*instance.DeleteImageRequest
+		WithSnapshots bool
+	}
+
+	c.ArgsType = reflect.TypeOf(customDeleteImageRequest{})
+	c.ArgSpecs.AddBefore("zone", &core.ArgSpec{
+		Name:  "with-snapshots",
+		Short: "Delete the snapshots attached to this image",
+	})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customDeleteImageRequest)
+
+		api := instance.NewAPI(core.ExtractClient(ctx))
+
+		// If we want to delete snapshot we must GET image before we delete it
+		image := (*instance.Image)(nil)
+		if args.WithSnapshots {
+			res, err := api.GetImage(&instance.GetImageRequest{
+				Zone:    args.Zone,
+				ImageID: args.ImageID,
+			})
+			if err != nil {
+				return nil, err
+			}
+			image = res.Image
+		}
+
+		// Call the generated delete
+		runnerRes, err := runner(ctx, args.DeleteImageRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		// Once the image is deleted we can delete snapshots.
+		if args.WithSnapshots {
+			snapshotIDs := []string{
+				image.RootVolume.ID,
+			}
+			for _, snapshot := range image.ExtraVolumes {
+				snapshotIDs = append(snapshotIDs, snapshot.ID)
+			}
+			for _, snapshotID := range snapshotIDs {
+				err := api.DeleteSnapshot(&instance.DeleteSnapshotRequest{
+					Zone:       args.Zone,
+					SnapshotID: snapshotID,
+				})
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+		return runnerRes, nil
+	})
+
+	return c
+}
