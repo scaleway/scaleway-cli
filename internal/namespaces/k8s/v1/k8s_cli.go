@@ -366,6 +366,12 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "autoscaler-config.scale-down-unneeded-time",
+				Short:      `How long a node should be unneeded before it is eligible for scale down`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Whether or not auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -528,6 +534,12 @@ func k8sClusterUpdate() *core.Command {
 			{
 				Name:       "autoscaler-config.expendable-pods-priority-cutoff",
 				Short:      `Pods with priority below cutoff will be expendable`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.scale-down-unneeded-time",
+				Short:      `How long a node should be unneeded before it is eligible for scale down`,
 				Required:   false,
 				Positional: false,
 			},

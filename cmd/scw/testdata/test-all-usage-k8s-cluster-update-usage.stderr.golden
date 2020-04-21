@@ -22,6 +22,7 @@ ARGS:
   [autoscaler-config.ignore-daemonsets-utilization]     Ignore DaemonSet pods when calculating resource utilization for scaling down
   [autoscaler-config.balance-similar-node-groups]       Detect similar node groups and balance the number of nodes between them
   [autoscaler-config.expendable-pods-priority-cutoff]   Pods with priority below cutoff will be expendable
+  [autoscaler-config.scale-down-unneeded-time]          How long a node should be unneeded before it is eligible for scale down
   [enable-dashboard]                                    The new value of the Kubernetes Dashboard enablement
   [ingress]                                             The new Ingress Controller for the cluster (unknown_ingress | none | nginx | traefik)
   [auto-upgrade.enable]                                 Whether or not auto upgrade is enabled for the cluster
