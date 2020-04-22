@@ -104,7 +104,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(cmd, b.meta)
+		cobraCmd.Annotations["Examples"] = buildExamples(cmd, b.meta.BinaryName)
 	}
 
 	if cmd.SeeAlsos != nil {

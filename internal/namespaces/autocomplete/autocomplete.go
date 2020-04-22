@@ -64,7 +64,7 @@ func autocompleteScripts(binaryName string) map[string]autocompleteScript {
 			}
 			complete -F _%[1]s %[1]s
 		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, os.Args[0]),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, binaryName),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".bash_profile"),
 				"linux":  path.Join(homePath, ".bashrc"),
@@ -88,7 +88,7 @@ func autocompleteScripts(binaryName string) map[string]autocompleteScript {
 			complete --command %[1]s --no-files;
 			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
 		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, os.Args[0]),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, binaryName),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".config/fish/config.fish"),
 				"linux":  path.Join(homePath, ".config/fish/config.fish"),
@@ -110,7 +110,7 @@ func autocompleteScripts(binaryName string) map[string]autocompleteScript {
 			}
 			compdef _%[1]s %[1]s
 		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, os.Args[0]),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, binaryName),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".zshrc"),
 				"linux":  path.Join(homePath, ".zshrc"),

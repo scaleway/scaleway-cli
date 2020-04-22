@@ -194,12 +194,11 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 }
 
 // BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
-func BuildAutoCompleteTree(commands *Commands, meta *meta) *AutoCompleteNode {
+func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
-	scwCommand := root.GetChildOrCreate(meta.BinaryName)
-	scwCommand.addGlobalFlags()
+	root.addGlobalFlags()
 	for _, cmd := range commands.commands {
-		node := scwCommand
+		node := root
 
 		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
@@ -246,23 +245,17 @@ func BuildAutoCompleteTree(commands *Commands, meta *meta) *AutoCompleteNode {
 // eg: scw test flower create name=p -o=jso
 func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
 	commands := ExtractCommands(ctx)
-	meta := extractMeta(ctx)
 
 	// Create AutoComplete Tree
-	commandTreeRoot := BuildAutoCompleteTree(commands, meta)
+	commandTreeRoot := BuildAutoCompleteTree(commands)
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
 	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
 	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
-	for i, word := range leftWords {
-		if i == 0 {
-			// override the command name with the real one
-			// useful when command is renamed or behind a shell function
-			word = meta.BinaryName
-		}
 
+	for i, word := range leftWords[1:] {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
 			children, childrenExists = node.Children[positionalValueNodeID]

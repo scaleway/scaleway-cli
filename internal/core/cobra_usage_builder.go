@@ -70,7 +70,7 @@ func _buildArgShort(as *ArgSpec) string {
 
 // buildExamples builds usage examples string.
 // This string will be used by cobra usage template.
-func buildExamples(cmd *Command, meta *meta) string {
+func buildExamples(cmd *Command, binaryName string) string {
 	// Build the examples array.
 	var examples []string
 
@@ -110,7 +110,7 @@ func buildExamples(cmd *Command, meta *meta) string {
 
 			// Build command line example.
 			commandParts := []string{
-				meta.BinaryName,
+				binaryName,
 				cmd.Namespace,
 				cmd.Resource,
 				cmd.Verb,
