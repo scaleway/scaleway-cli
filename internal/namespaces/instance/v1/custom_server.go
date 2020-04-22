@@ -518,8 +518,8 @@ func serverBackupCommand() *core.Command {
 		Long: `Create a new image based on the server.
 
 This command:
-  - create a snapshot of all attached volumes.
-  - create an image based on all these snapshots.
+  - creates a snapshot of all attached volumes.
+  - creates an image based on all these snapshots.
 
 Once your image is ready you will be able to create a new server based on this image.
 `,
@@ -559,7 +559,7 @@ Once your image is ready you will be able to create a new server based on this i
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `ID of the server affected by the action.`,
+				Short:      `ID of the server to backup.`,
 				Required:   true,
 				Positional: true,
 			},
