@@ -43,17 +43,18 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "server", "update").Override(serverUpdateBuilder)
 
 	cmds.Merge(core.NewCommands(
+		serverAttachVolumeCommand(),
+		serverBackupCommand(),
+		serverConsoleCommand(),
 		serverCreateCommand(),
+		serverDeleteCommand(),
+		serverDetachVolumeCommand(),
+		serverSSHCommand(),
 		serverStartCommand(),
 		serverStopCommand(),
 		serverStandbyCommand(),
 		serverRebootCommand(),
-		serverBackupCommand(),
 		serverWaitCommand(),
-		serverDeleteCommand(),
-		serverAttachVolumeCommand(),
-		serverDetachVolumeCommand(),
-		serverSSHCommand(),
 	))
 
 	//
