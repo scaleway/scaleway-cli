@@ -255,7 +255,10 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
 
-	for i, word := range leftWords[1:] {
+	// We remove command binary name from the left words.
+	leftWords = leftWords[1:]
+
+	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
 			children, childrenExists = node.Children[positionalValueNodeID]

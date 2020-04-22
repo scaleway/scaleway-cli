@@ -189,7 +189,6 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
-
 		if !config.DisableParallel {
 			t.Parallel()
 		}

@@ -17,4 +17,3 @@ LDFLAGS=(
 
 export CGO_ENABLED=0
 GOOS=darwin GOARCH=amd64 go install -ldflags "${LDFLAGS[*]}" $ROOT_DIR/cmd/scw/
-mv $GOPATH/bin/scw $GOPATH/bin/toto
