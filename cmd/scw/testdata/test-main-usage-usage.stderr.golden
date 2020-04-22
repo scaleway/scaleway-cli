@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   config       Config file management
   account      This API allows to manage your scaleway account
   autocomplete Install autocomplete script
+  object       Object-storage utils
   version      Display cli version
   registry     Docker registry API
   help         Help about any command
