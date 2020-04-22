@@ -17,8 +17,9 @@ type k8sKubeconfigUninstallRequest struct {
 
 func k8sKubeconfigUninstallCommand() *core.Command {
 	return &core.Command{
-		Short:     `Uninstall a kubeconfig`,
-		Long:      `Remove specified cluster from kubeconfig file specified by the KUBECONFIG env, if empty it will default to $HOME/.kube/config.`,
+		Short: `Uninstall a kubeconfig`,
+		Long: `Remove specified cluster from kubeconfig file specified by the KUBECONFIG env, if empty it will default to $HOME/.kube/config.
+If the current context points to this cluster, it will be set to an empty context.`,
 		Namespace: "k8s",
 		Verb:      "uninstall",
 		Resource:  "kubeconfig",
@@ -32,6 +33,18 @@ func k8sKubeconfigUninstallCommand() *core.Command {
 			},
 		},
 		Run: k8sKubeconfigUninstallRun,
+		Examples: []*core.Example{
+			{
+				Short:   "Uninstall the kubeconfig for a given cluster",
+				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw k8s kubeconfig install",
+				Short:   "Install a kubeconfig",
+			},
+		},
 	}
 }
 

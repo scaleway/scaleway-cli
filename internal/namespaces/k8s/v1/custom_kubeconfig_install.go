@@ -19,14 +19,16 @@ const (
 )
 
 type k8sKubeconfigInstallRequest struct {
-	ClusterID string
-	Region    scw.Region
+	ClusterID         string
+	Region            scw.Region
+	KeepCurentContext bool
 }
 
 func k8sKubeconfigInstallCommand() *core.Command {
 	return &core.Command{
-		Short:     `Install a kubeconfig`,
-		Long:      `Retrieve the kubeconfig for a specified cluster and write it on disk. It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable. If empty it will default to $HOME/.kube/config.`,
+		Short: `Install a kubeconfig`,
+		Long: `Retrieve the kubeconfig for a specified cluster and write it on disk. 
+It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable. If empty it will default to $HOME/.kube/config.`,
 		Namespace: "k8s",
 		Verb:      "install",
 		Resource:  "kubeconfig",
@@ -38,9 +40,25 @@ func k8sKubeconfigInstallCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
+			{
+				Name:  "keep-current-context",
+				Short: "Whether or not to keep the current kubeconfig context unmodified",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigInstallRun,
+		Examples: []*core.Example{
+			{
+				Short:   "Install the kubeconfig for a given cluster and using the new context",
+				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw k8s kubeconfig uninstall",
+				Short:   "Uninstall a kubeconfig",
+			},
+		},
 	}
 }
 
@@ -142,7 +160,9 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	// set the current context to the new one
-	existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + request.ClusterID
+	if !request.KeepCurentContext {
+		existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + request.ClusterID
+	}
 
 	// if it's a new file, set the correct config in the file
 	if existingKubeconfig.APIVersion == "" {
