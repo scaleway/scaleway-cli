@@ -4,7 +4,7 @@ USAGE:
   scw baremetal server install <server-id> [arg=value ...]
 
 EXAMPLES:
-  Install an os on a given server
+  Install an OS on a given server
     scw baremetal server install
 
 ARGS:
@@ -24,7 +24,7 @@ GLOBAL FLAGS:
   -p, --profile string   The config profile to use
 
 SEE ALSO:
-  # List os (Useful to get all os-id)
+  # List OS (useful to get all OS IDs)
   scw baremetal os list
 
   # Create a server
