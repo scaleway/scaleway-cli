@@ -48,6 +48,7 @@ func GetCommands() *core.Commands {
 		serverStopCommand(),
 		serverStandbyCommand(),
 		serverRebootCommand(),
+		serverBackupCommand(),
 		serverWaitCommand(),
 		serverDeleteCommand(),
 		serverAttachVolumeCommand(),

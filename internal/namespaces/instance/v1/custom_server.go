@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -500,6 +501,79 @@ func serverRebootCommand() *core.Command {
 			{
 				Short:   "Reboot a server in fr-par-1 zone with a given id",
 				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func serverBackupCommand() *core.Command {
+	type instanceBackupRequest struct {
+		Zone     scw.Zone
+		ServerID string
+		Name     string
+	}
+
+	return &core.Command{
+		Short: `Backup server`,
+		Long: `Create a new image based on the server.
+
+This command:
+  - creates a snapshot of all attached volumes.
+  - creates an image based on all these snapshots.
+
+Once your image is ready you will be able to create a new server based on this image.
+`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "backup",
+		ArgsType:  reflect.TypeOf(instanceBackupRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*instanceBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			res, err := api.ServerAction(&instance.ServerActionRequest{
+				Zone:     args.Zone,
+				ServerID: args.ServerID,
+				Action:   instance.ServerActionBackup,
+				Name:     &args.Name,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			tmp := strings.Split(res.Task.HrefResult, "/")
+			if len(tmp) != 3 {
+				return nil, fmt.Errorf("cannot extract image id from task")
+			}
+			return api.GetImage(&instance.GetImageRequest{ImageID: tmp[2]})
+		},
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (i interface{}, err error) {
+			resp := respI.(*instance.GetImageResponse)
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForImage(&instance.WaitForImageRequest{
+				ImageID: resp.Image.ID,
+				Zone:    resp.Image.Zone,
+			})
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server to backup.`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:    "name",
+				Short:   `Name of your backup.`,
+				Default: core.RandomValueGenerator("backup"),
+			},
+			core.ZoneArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Create a new image based on a server",
+				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
