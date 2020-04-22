@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 	"reflect"
 	"strings"
 
@@ -27,7 +26,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		cmdArgs := reflect.New(cmd.ArgsType).Interface()
 
 		// Handle positional argument by catching first argument `<value>` and rewrite it to `<arg-name>=<value>`.
-		if err = handlePositionalArg(cmd, rawArgs); err != nil {
+		if err = handlePositionalArg(cmd, rawArgs, meta); err != nil {
 			return err
 		}
 
@@ -114,7 +113,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 // - no positional argument is found.
 // - an unknown positional argument exists in the comand.
 // - an argument duplicates a positional argument.
-func handlePositionalArg(cmd *Command, rawArgs []string) error {
+func handlePositionalArg(cmd *Command, rawArgs []string, meta *meta) error {
 	positionalArg := cmd.ArgSpecs.GetPositionalArg()
 
 	// Command does not have a positional argument.
@@ -132,7 +131,7 @@ func handlePositionalArg(cmd *Command, rawArgs []string) error {
 			otherArgs := append(rawArgs[:i], rawArgs[i+1:]...)
 			return &CliError{
 				Err:  fmt.Errorf("a positional argument is required for this command"),
-				Hint: positionalArgHint(cmd, argumentValue, otherArgs, positionalArgumentFound),
+				Hint: positionalArgHint(cmd, argumentValue, otherArgs, positionalArgumentFound, meta),
 			}
 		}
 	}
@@ -146,12 +145,12 @@ func handlePositionalArg(cmd *Command, rawArgs []string) error {
 	// No positional argument found.
 	return &CliError{
 		Err:  fmt.Errorf("a positional argument is required for this command"),
-		Hint: positionalArgHint(cmd, "<"+positionalArg.Name+">", rawArgs, false),
+		Hint: positionalArgHint(cmd, "<"+positionalArg.Name+">", rawArgs, false, meta),
 	}
 }
 
 // positionalArgHint formats the positional argument error hint.
-func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, positionalArgumentFound bool) string {
+func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, positionalArgumentFound bool, meta *meta) string {
 	suggestedArgs := []string{}
 
 	// If no positional argument exists, suggest one.
@@ -162,7 +161,7 @@ func positionalArgHint(cmd *Command, hintValue string, otherArgs []string, posit
 	// Suggest to use the other arguments.
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
-	suggestedCommand := append([]string{os.Args[0], cmd.GetCommandLine()}, suggestedArgs...)
+	suggestedCommand := append([]string{meta.BinaryName, cmd.GetCommandLine()}, suggestedArgs...)
 	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 

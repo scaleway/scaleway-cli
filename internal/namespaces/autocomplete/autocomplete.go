@@ -38,20 +38,21 @@ var homePath, _ = os.UserHomeDir()
 
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
-var autocompleteScripts = map[string]autocompleteScript{
-	"bash": {
-		// If `scw` is the first word on the command line,
-		// after hitting [tab] arguments are sent to `scw autocomplete complete bash`:
-		//  - COMP_LINE: the complete command line
-		//  - cword:     the index of the word being completed (source COMP_CWORD)
-		//  - words:     the words composing the command line (source COMP_WORDS)
-		//
-		// Note that `=` signs are excluding from $COMP_WORDBREAKS. As a result, they are NOT be
-		// considered as breaking words and arguments like `image=` will not be split.
-		//
-		// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
-		// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
-		CompleteFunc: fmt.Sprintf(`
+func autocompleteScripts(binaryName string) map[string]autocompleteScript {
+	return map[string]autocompleteScript{
+		"bash": {
+			// If `scw` is the first word on the command line,
+			// after hitting [tab] arguments are sent to `scw autocomplete complete bash`:
+			//  - COMP_LINE: the complete command line
+			//  - cword:     the index of the word being completed (source COMP_CWORD)
+			//  - words:     the words composing the command line (source COMP_WORDS)
+			//
+			// Note that `=` signs are excluding from $COMP_WORDBREAKS. As a result, they are NOT be
+			// considered as breaking words and arguments like `image=` will not be split.
+			//
+			// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
+			// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
+			CompleteFunc: fmt.Sprintf(`
 			_%[1]s() {
 				_get_comp_words_by_ref -n = cword words
 
@@ -62,42 +63,42 @@ var autocompleteScripts = map[string]autocompleteScript{
 				return
 			}
 			complete -F _%[1]s %[1]s
-		`, os.Args[0]),
-		CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, os.Args[0]),
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(homePath, ".bash_profile"),
-			"linux":  path.Join(homePath, ".bashrc"),
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, os.Args[0]),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".bash_profile"),
+				"linux":  path.Join(homePath, ".bashrc"),
+			},
 		},
-	},
-	"fish": {
-		// (commandline)                             complete command line
-		// (commandline --cursor)                    position of the cursor, as number of chars in the command line
-		// (commandline --current-token)             word to complete
-		// (commandline --tokenize --cut-at-cursor)  tokenized selection up until the current cursor position
-		//                                           formatted as one string-type token per line
-		//
-		// If files are shown although --no-files is set,
-		// it might be because you are using an alias for scw, such as :
-		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
-		// You might want to run 'complete --erase --command go' during development.
-		//
-		// TODO: send rightWords
-		CompleteFunc: fmt.Sprintf(`
+		"fish": {
+			// (commandline)                             complete command line
+			// (commandline --cursor)                    position of the cursor, as number of chars in the command line
+			// (commandline --current-token)             word to complete
+			// (commandline --tokenize --cut-at-cursor)  tokenized selection up until the current cursor position
+			//                                           formatted as one string-type token per line
+			//
+			// If files are shown although --no-files is set,
+			// it might be because you are using an alias for scw, such as :
+			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
+			// You might want to run 'complete --erase --command go' during development.
+			//
+			// TODO: send rightWords
+			CompleteFunc: fmt.Sprintf(`
 			complete --erase --command %[1]s;
 			complete --command %[1]s --no-files;
 			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
-		`, os.Args[0]),
-		CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, os.Args[0]),
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(homePath, ".config/fish/config.fish"),
-			"linux":  path.Join(homePath, ".config/fish/config.fish"),
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, os.Args[0]),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".config/fish/config.fish"),
+				"linux":  path.Join(homePath, ".config/fish/config.fish"),
+			},
 		},
-	},
-	"zsh": {
-		// If you are using an alias for scw, such as :
-		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
-		// you might want to run 'compdef _scw go' during development.
-		CompleteFunc: fmt.Sprintf(`
+		"zsh": {
+			// If you are using an alias for scw, such as :
+			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
+			// you might want to run 'compdef _scw go' during development.
+			CompleteFunc: fmt.Sprintf(`
 			autoload -U compinit && compinit
 			_%[1]s () {
 				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
@@ -108,13 +109,14 @@ var autocompleteScripts = map[string]autocompleteScript{
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
 			compdef _%[1]s %[1]s
-		`, os.Args[0]),
-		CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, os.Args[0]),
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(homePath, ".zshrc"),
-			"linux":  path.Join(homePath, ".zshrc"),
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, os.Args[0]),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".zshrc"),
+				"linux":  path.Join(homePath, ".zshrc"),
+			},
 		},
-	},
+	}
 }
 
 type InstallArgs struct {
@@ -141,6 +143,7 @@ func autocompleteInstallCommand() *core.Command {
 func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
 	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration.")
+	binaryName := core.ExtractBinaryName(ctx)
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellArg := argsI.(*InstallArgs).Shell
@@ -161,7 +164,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 
 	shellName := filepath.Base(shellArg)
 
-	script, exists := autocompleteScripts[shellName]
+	script, exists := autocompleteScripts(binaryName)[shellName]
 	if !exists {
 		return nil, unsupportedShellError(shellName)
 	}
@@ -353,8 +356,9 @@ func autocompleteScriptCommand() *core.Command {
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			binaryName := core.ExtractBinaryName(ctx)
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
-			script, exists := autocompleteScripts[shell]
+			script, exists := autocompleteScripts(binaryName)[shell]
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}

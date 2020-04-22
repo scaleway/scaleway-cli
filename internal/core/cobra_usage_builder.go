@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 	"text/tabwriter"
 
@@ -71,7 +70,7 @@ func _buildArgShort(as *ArgSpec) string {
 
 // buildExamples builds usage examples string.
 // This string will be used by cobra usage template.
-func buildExamples(cmd *Command) string {
+func buildExamples(cmd *Command, meta *meta) string {
 	// Build the examples array.
 	var examples []string
 
@@ -111,7 +110,7 @@ func buildExamples(cmd *Command) string {
 
 			// Build command line example.
 			commandParts := []string{
-				os.Args[0],
+				meta.BinaryName,
 				cmd.Namespace,
 				cmd.Resource,
 				cmd.Verb,

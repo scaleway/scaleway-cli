@@ -1,7 +1,6 @@
 package core
 
 import (
-	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -26,7 +25,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	commandsIndex := map[string]*Command{}
 
 	rootCmd := &cobra.Command{
-		Use: os.Args[0],
+		Use: b.meta.BinaryName,
 
 		// Do not display error with cobra, we handle it in bootstrap.
 		SilenceErrors: true,
@@ -105,7 +104,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(cmd)
+		cobraCmd.Annotations["Examples"] = buildExamples(cmd, b.meta)
 	}
 
 	if cmd.SeeAlsos != nil {

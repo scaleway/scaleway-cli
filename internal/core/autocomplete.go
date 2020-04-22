@@ -2,7 +2,6 @@ package core
 
 import (
 	"context"
-	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -195,9 +194,9 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 }
 
 // BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
-func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
+func BuildAutoCompleteTree(commands *Commands, meta *meta) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
-	scwCommand := root.GetChildOrCreate(os.Args[0])
+	scwCommand := root.GetChildOrCreate(meta.BinaryName)
 	scwCommand.addGlobalFlags()
 	for _, cmd := range commands.commands {
 		node := scwCommand
@@ -247,9 +246,10 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 // eg: scw test flower create name=p -o=jso
 func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
 	commands := ExtractCommands(ctx)
+	meta := extractMeta(ctx)
 
 	// Create AutoComplete Tree
-	commandTreeRoot := BuildAutoCompleteTree(commands)
+	commandTreeRoot := BuildAutoCompleteTree(commands, meta)
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot
@@ -260,7 +260,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		if i == 0 {
 			// override the command name with the real one
 			// useful when command is renamed or behind a shell function
-			word = os.Args[0]
+			word = meta.BinaryName
 		}
 
 		children, childrenExists := node.Children[word]
