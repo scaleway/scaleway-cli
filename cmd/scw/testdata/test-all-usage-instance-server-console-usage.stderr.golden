@@ -1,0 +1,16 @@
+Connect to the serial console of an instance
+
+USAGE:
+  scw instance server console <server-id> [arg=value ...]
+
+ARGS:
+  server-id   Server ID to connect to
+  [zone]      Zone to target. If none is passed will use default zone from the config
+
+FLAGS:
+  -h, --help   help for console
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
