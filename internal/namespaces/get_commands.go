@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/registry/v1"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 )
 
@@ -29,5 +30,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(account.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(versionNamespace.GetCommands())
+	commands.Merge(registry.GetCommands())
 	return commands
 }
