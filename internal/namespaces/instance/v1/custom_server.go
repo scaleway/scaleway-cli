@@ -566,7 +566,7 @@ Once your image is ready you will be able to create a new server based on this i
 			{
 				Name:    "name",
 				Short:   `Name of your backup.`,
-				Default: core.RandomValueGenerator("bck"),
+				Default: core.RandomValueGenerator("backup"),
 			},
 			core.ZoneArgSpec(),
 		},
