@@ -91,6 +91,7 @@ func ExtractEnv(ctx context.Context, envKey string) string {
 
 	return os.Getenv(envKey)
 }
+
 func ExtractUserHomeDir(ctx context.Context) string {
 	return ExtractEnv(ctx, "HOME")
 }
