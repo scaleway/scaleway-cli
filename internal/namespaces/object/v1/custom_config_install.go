@@ -30,7 +30,7 @@ func configInstallCommand() *core.Command {
 				Name:       "type",
 				Short:      "Type of S3 tool you want to generate a config for",
 				Required:   true,
-				EnumValues: []string{rclone.String(), s3cmd.String(), mc.String()},
+				EnumValues: supportedTools.ToStringArray(),
 			},
 			{
 				Name:     "name",

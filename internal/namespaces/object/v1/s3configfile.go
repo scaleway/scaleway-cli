@@ -19,6 +19,16 @@ func (c s3tool) String() string {
 	return string(c)
 }
 
+type SupportedTool []s3tool
+
+func (s SupportedTool) ToStringArray() []string {
+	var res []string
+	for _, x := range s {
+		res = append(res, x.String())
+	}
+	return res
+}
+
 type s3config struct {
 	AccessKey string
 	SecretKey string
@@ -32,7 +42,7 @@ const (
 	mc     = s3tool("mc")
 )
 
-var supportedTools = []s3tool{
+var supportedTools = SupportedTool{
 	rclone,
 	s3cmd,
 	mc,
