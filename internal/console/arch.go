@@ -1,3 +1,5 @@
+// Copyright (c) 2015 Manfred Touron
+
 // +build !windows
 
 package console

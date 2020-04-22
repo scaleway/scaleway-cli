@@ -1,4 +1,5 @@
 // Copied and modified from https://github.com/moul/gotty-client
+// Copyright (c) 2015 Manfred Touron
 
 package console
 
