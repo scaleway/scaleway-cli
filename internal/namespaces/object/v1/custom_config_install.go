@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -76,7 +77,7 @@ func configInstallCommand() *core.Command {
 			if err != nil {
 				return "", err
 			}
-			configPath, err := config.getPath(args.Type)
+			configPath, err := config.getPath(args.Type, ctx)
 			if err != nil {
 				return "", err
 			}
@@ -94,6 +95,14 @@ func configInstallCommand() *core.Command {
 					return "Installation aborted by user", nil
 				}
 			}
+
+			// Ensure the subfolders for the configuration files are all created
+			err = os.MkdirAll(filepath.Dir(configPath), 755)
+			if err != nil {
+				return "", err
+			}
+
+			// Write the configuration file
 			err = ioutil.WriteFile(configPath, []byte(newConfig), 0600)
 			if err != nil {
 				return "", err

@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
 	"path"
 	"text/template"
 
@@ -98,11 +97,9 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	return config, nil
 }
 
-func (c s3config) getPath(tool s3tool) (string, error) {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		return "", err
-	}
+func (c s3config) getPath(tool s3tool, ctx context.Context) (string, error) {
+	homeDir := core.ExtractUserHomeDir(ctx)
+
 	switch tool {
 	case s3cmd:
 		return path.Join(homeDir, ".s3cfg"), nil

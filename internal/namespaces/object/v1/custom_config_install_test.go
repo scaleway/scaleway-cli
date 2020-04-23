@@ -17,8 +17,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					_, err := os.Stat(path.Join(tmpDir, ".config", "rclone", "rclone.conf"))
+					filePath := path.Join(tmpDir, ".config", "rclone", "rclone.conf")
+					_, err := os.Stat(filePath)
 					if err != nil {
+						t.Logf("No file at %s", filePath)
 						t.Fail()
 					}
 				},
@@ -34,8 +36,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=mc",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					_, err := os.Stat(path.Join(tmpDir, ".mc", "config.json"))
+					filePath := path.Join(tmpDir, ".mc", "config.json")
+					_, err := os.Stat(filePath)
 					if err != nil {
+						t.Logf("No file at %s", filePath)
 						t.Fail()
 					}
 				},
@@ -51,8 +55,10 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=s3cmd",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					_, err := os.Stat(path.Join(tmpDir, ".s3cfg"))
+					filePath := path.Join(tmpDir, ".s3cfg")
+					_, err := os.Stat(filePath)
 					if err != nil {
+						t.Logf("No file at %s", filePath)
 						t.Fail()
 					}
 				},
