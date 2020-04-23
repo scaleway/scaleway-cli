@@ -1,29 +1,26 @@
 package object
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_ConfigInstall(t *testing.T) {
 	tmpDir := os.TempDir()
 	clientOpts := []scw.ClientOption{
-		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithEnv(),
-		scw.WithUserAgent("cli-e2e-test"),
-		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 	}
 
 	client, err := scw.NewClient(clientOpts...)
-	if err != nil {
-		t.Fail()
-	}
+	require.NoError(t, err)
 
 	t.Run("NoExistingConfig", func(t *testing.T) {
 		t.Run("rclone", core.Test(&core.TestConfig{
@@ -31,6 +28,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					fmt.Println(ctx.Err)
 					filePath := path.Join(tmpDir, ".config", "rclone", "rclone.conf")
 					_, err := os.Stat(filePath)
 					if err != nil {

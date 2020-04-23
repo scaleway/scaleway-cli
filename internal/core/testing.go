@@ -138,7 +138,7 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	return filepath.Join(".", "testdata", fileName)
 }
 
-func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
+func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
 	var err error
 	cleanup = func() {}
 
@@ -174,9 +174,7 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
 	}
 
-	if testConfig.Client == nil {
-		client, err = scw.NewClient(clientOpts...)
-	}
+	client, err = scw.NewClient(clientOpts...)
 	require.NoError(t, err)
 
 	// If client is an E2E client we must register and use returned credential.
@@ -204,8 +202,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		client, cleanup := getTestClient(t, config)
-		defer cleanup()
+		// We try to use the client provided in the config
+		// if no client is provided in the config we create a test client
+		client := config.Client
+		if client == nil {
+			var cleanup func()
+			client, cleanup = createTestClient(t, config)
+			defer cleanup()
+		}
 
 		meta := map[string]interface{}{}
 
