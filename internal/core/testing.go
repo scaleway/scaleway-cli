@@ -54,6 +54,9 @@ type CheckFuncCtx struct {
 
 	// Scaleway client
 	Client *scw.Client
+
+	// OverrideEnv passed in the TestConfig
+	OverrideEnv map[string]string
 }
 
 // TestCheck is a function that perform assertion on a CheckFuncCtx
@@ -64,18 +67,20 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 type AfterFunc func(ctx *AfterFuncCtx) error
 
 type BeforeFuncCtx struct {
-	T          *testing.T
-	Client     *scw.Client
-	ExecuteCmd func(args []string) interface{}
-	Meta       map[string]interface{}
+	T           *testing.T
+	Client      *scw.Client
+	ExecuteCmd  func(args []string) interface{}
+	Meta        map[string]interface{}
+	OverrideEnv map[string]string
 }
 
 type AfterFuncCtx struct {
-	T          *testing.T
-	Client     *scw.Client
-	ExecuteCmd func(args []string) interface{}
-	Meta       map[string]interface{}
-	CmdResult  interface{}
+	T           *testing.T
+	Client      *scw.Client
+	ExecuteCmd  func(args []string) interface{}
+	Meta        map[string]interface{}
+	CmdResult   interface{}
+	OverrideEnv map[string]string
 }
 
 // TestConfig contain configuration that can be used with the Test function
@@ -116,8 +121,15 @@ type TestConfig struct {
 	// Fake build info for this test.
 	BuildInfo BuildInfo
 
+	// If set, it will create a temporary home directory during the tests.
+	// Get this folder with ExtractUserHomeDir()
+	TmpHomeDir bool
+
 	// OverrideEnv contains environment variables that will be overridden during the test.
 	OverrideEnv map[string]string
+
+	// Custom client to use for test, if none are provided will create one automatically
+	Client *scw.Client
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -135,7 +147,7 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	return filepath.Join(".", "testdata", fileName)
 }
 
-func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
+func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
 	var err error
 	cleanup = func() {}
 
@@ -199,10 +211,31 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		client, cleanup := getTestClient(t, config)
-		defer cleanup()
+		// We try to use the client provided in the config
+		// if no client is provided in the config we create a test client
+		client := config.Client
+		if client == nil {
+			var cleanup func()
+			client, cleanup = createTestClient(t, config)
+			defer cleanup()
+		}
 
 		meta := map[string]interface{}{}
+
+		overideEnv := config.OverrideEnv
+		if overideEnv == nil {
+			overideEnv = map[string]string{}
+		}
+
+		if config.TmpHomeDir {
+			dir, err := ioutil.TempDir(os.TempDir(), "scw")
+			require.NoError(t, err)
+			defer func() {
+				err = os.RemoveAll(dir)
+				assert.NoError(t, err)
+			}()
+			overideEnv["HOME"] = dir
+		}
 
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
@@ -216,7 +249,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
-				OverrideEnv:      config.OverrideEnv,
+				OverrideEnv:      overideEnv,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -226,10 +259,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
-				T:          t,
-				Client:     client,
-				ExecuteCmd: executeCmd,
-				Meta:       meta,
+				T:           t,
+				Client:      client,
+				ExecuteCmd:  executeCmd,
+				Meta:        meta,
+				OverrideEnv: overideEnv,
 			}))
 		}
 
@@ -253,29 +287,31 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderr,
 				Client:           client,
 				DisableTelemetry: true,
-				OverrideEnv:      config.OverrideEnv,
+				OverrideEnv:      overideEnv,
 			})
 
 			meta["CmdResult"] = result
 			config.Check(t, &CheckFuncCtx{
-				ExitCode: exitCode,
-				Stdout:   stdout.Bytes(),
-				Stderr:   stderr.Bytes(),
-				Meta:     meta,
-				Result:   result,
-				Err:      err,
-				Client:   client,
+				ExitCode:    exitCode,
+				Stdout:      stdout.Bytes(),
+				Stderr:      stderr.Bytes(),
+				Meta:        meta,
+				Result:      result,
+				Err:         err,
+				Client:      client,
+				OverrideEnv: overideEnv,
 			})
 		}
 
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
-				T:          t,
-				Client:     client,
-				ExecuteCmd: executeCmd,
-				Meta:       meta,
-				CmdResult:  result,
+				T:           t,
+				Client:      client,
+				ExecuteCmd:  executeCmd,
+				Meta:        meta,
+				CmdResult:   result,
+				OverrideEnv: overideEnv,
 			}))
 		}
 	}
