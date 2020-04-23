@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   account      This API allows to manage your scaleway account
   autocomplete Install autocomplete script
   version      Display cli version
+  registry     Docker registry API
   help         Help about any command
 
 FLAGS:
