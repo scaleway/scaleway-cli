@@ -221,6 +221,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		meta := map[string]interface{}{}
+
 		overideEnv := config.OverrideEnv
 		if overideEnv == nil {
 			overideEnv = map[string]string{}
