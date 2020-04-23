@@ -123,7 +123,7 @@ type TestConfig struct {
 
 	// If set, it will create a temporary home directory during the tests.
 	// Get this folder with ExtractUserHomeDir()
-	MockHomeDir bool
+	TmpHomeDir bool
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
 	OverrideEnv map[string]string
@@ -226,7 +226,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			overideEnv = map[string]string{}
 		}
 
-		if config.MockHomeDir {
+		if config.TmpHomeDir {
 			dir, err := ioutil.TempDir(os.TempDir(), "scw")
 			require.NoError(t, err)
 			defer func() {

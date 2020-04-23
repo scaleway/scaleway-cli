@@ -37,8 +37,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			MockHomeDir: true,
-			Client:      client,
+			TmpHomeDir: true,
+			Client:     client,
 		}))
 
 		t.Run("mc", core.Test(&core.TestConfig{
@@ -55,8 +55,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			MockHomeDir: true,
-			Client:      client,
+			TmpHomeDir: true,
+			Client:     client,
 		}))
 
 		t.Run("s3cmd", core.Test(&core.TestConfig{
@@ -73,8 +73,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			MockHomeDir: true,
-			Client:      client,
+			TmpHomeDir: true,
+			Client:     client,
 		}))
 	})
 }
