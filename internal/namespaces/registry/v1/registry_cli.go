@@ -212,7 +212,7 @@ func registryNamespaceCreate() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Define a namespace name`,
-				Required:   false,
+				Required:   true,
 				Positional: false,
 			},
 			{
