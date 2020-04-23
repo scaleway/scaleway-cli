@@ -88,12 +88,12 @@ func configInstallCommand() *core.Command {
 					return nil, err
 				}
 				if !doIt {
-					return "Installation aborted by user", nil
+					return nil, fmt.Errorf("installation aborted by user")
 				}
 			}
 
 			// Ensure the subfolders for the configuration files are all created
-			err = os.MkdirAll(filepath.Dir(configPath), 755)
+			err = os.MkdirAll(filepath.Dir(configPath), 0755)
 			if err != nil {
 				return "", err
 			}
