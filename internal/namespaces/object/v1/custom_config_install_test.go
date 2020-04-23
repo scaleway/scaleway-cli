@@ -29,6 +29,7 @@ func Test_ConfigInstall(t *testing.T) {
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".config", "rclone", "rclone.conf")
 					assert.FileExists(t, filePath)
 				},
+				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
@@ -43,6 +44,7 @@ func Test_ConfigInstall(t *testing.T) {
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".mc", "config.json")
 					assert.FileExists(t, filePath)
 				},
+				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
@@ -57,6 +59,7 @@ func Test_ConfigInstall(t *testing.T) {
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".s3cfg")
 					assert.FileExists(t, filePath)
 				},
+				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
