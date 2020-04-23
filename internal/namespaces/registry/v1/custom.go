@@ -14,7 +14,10 @@ import (
 // - Apply handwritten overrides (of Command.Run)
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
-	cmds.Merge(core.NewCommands())
+	cmds.Merge(core.NewCommands(
+		registryLoginCommand(),
+		registryLogoutCommand(),
+	))
 
 	human.RegisterMarshalerFunc(registry.NamespaceStatus(0), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(registry.ImageStatus(0), human.EnumMarshalFunc(imageStatusMarshalSpecs))
