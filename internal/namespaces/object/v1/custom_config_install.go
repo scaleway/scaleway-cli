@@ -104,7 +104,8 @@ func configInstallCommand() *core.Command {
 				return "", err
 			}
 			return core.SuccessResult{
-				Message: fmt.Sprintf("Configuration file successfully installed at %s", configPath)}, nil
+				Message: fmt.Sprintf("Configuration file successfully installed at %s", configPath),
+			}, nil
 		},
 	}
 }
