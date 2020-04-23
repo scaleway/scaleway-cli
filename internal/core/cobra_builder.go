@@ -25,7 +25,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	commandsIndex := map[string]*Command{}
 
 	rootCmd := &cobra.Command{
-		Use: "scw",
+		Use: b.meta.BinaryName,
 
 		// Do not display error with cobra, we handle it in bootstrap.
 		SilenceErrors: true,
@@ -104,7 +104,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(cmd)
+		cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
 	}
 
 	if cmd.SeeAlsos != nil {

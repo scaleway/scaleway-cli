@@ -196,10 +196,9 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 // BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
-	scwCommand := root.GetChildOrCreate("scw")
-	scwCommand.addGlobalFlags()
+	root.addGlobalFlags()
 	for _, cmd := range commands.commands {
-		node := scwCommand
+		node := root
 
 		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
@@ -255,6 +254,10 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
 	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
+
+	// We remove command binary name from the left words.
+	leftWords = leftWords[1:]
+
 	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {

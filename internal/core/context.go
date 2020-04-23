@@ -11,6 +11,8 @@ import (
 
 // meta store globally available variables like sdk client or global Flags.
 type meta struct {
+	BinaryName string
+
 	ProfileFlag     string
 	DebugModeFlag   bool
 	PrinterTypeFlag printer.Type
@@ -92,4 +94,8 @@ func ExtractEnv(ctx context.Context, envKey string) string {
 
 func ExtractUserHomeDir(ctx context.Context) string {
 	return ExtractEnv(ctx, "HOME")
+}
+
+func ExtractBinaryName(ctx context.Context) string {
+	return extractMeta(ctx).BinaryName
 }
