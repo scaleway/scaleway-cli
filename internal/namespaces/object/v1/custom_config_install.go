@@ -37,9 +37,7 @@ func configInstallCommand() *core.Command {
 				Name:     "name",
 				Short:    "Name of the s3 remote you want to generate",
 				Required: false,
-				Default: func() (value string, doc string) {
-					return "scaleway", "scaleway"
-				},
+				Default:  core.DefaultValueSetter("scaleway"),
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
