@@ -6,10 +6,24 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func Test_ConfigInstall(t *testing.T) {
 	tmpDir := os.TempDir()
+	clientOpts := []scw.ClientOption{
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithEnv(),
+		scw.WithUserAgent("cli-e2e-test"),
+		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
+	}
+
+	client, err := scw.NewClient(clientOpts...)
+	if err != nil {
+		t.Fail()
+	}
 
 	t.Run("NoExistingConfig", func(t *testing.T) {
 		t.Run("rclone", core.Test(&core.TestConfig{
@@ -29,6 +43,7 @@ func Test_ConfigInstall(t *testing.T) {
 			OverrideEnv: map[string]string{
 				"HOME": tmpDir,
 			},
+			Client: client,
 		}))
 
 		t.Run("mc", core.Test(&core.TestConfig{
@@ -48,6 +63,7 @@ func Test_ConfigInstall(t *testing.T) {
 			OverrideEnv: map[string]string{
 				"HOME": tmpDir,
 			},
+			Client: client,
 		}))
 
 		t.Run("s3cmd", core.Test(&core.TestConfig{
@@ -67,6 +83,7 @@ func Test_ConfigInstall(t *testing.T) {
 			OverrideEnv: map[string]string{
 				"HOME": tmpDir,
 			},
+			Client: client,
 		}))
 	})
 }

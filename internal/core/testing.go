@@ -118,6 +118,9 @@ type TestConfig struct {
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
 	OverrideEnv map[string]string
+
+	// Custom client
+	Client *scw.Client
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -146,7 +149,6 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 		scw.WithEnv(),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
-		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 	}
 
 	// If client is NOT an E2E client we init http recorder and load configuration.
@@ -172,7 +174,9 @@ func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cl
 		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
 	}
 
-	client, err = scw.NewClient(clientOpts...)
+	if testConfig.Client == nil {
+		client, err = scw.NewClient(clientOpts...)
+	}
 	require.NoError(t, err)
 
 	// If client is an E2E client we must register and use returned credential.
