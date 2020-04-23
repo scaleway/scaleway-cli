@@ -119,7 +119,7 @@ type TestConfig struct {
 	// OverrideEnv contains environment variables that will be overridden during the test.
 	OverrideEnv map[string]string
 
-	// Custom client
+	// Custom client to use for test, if none are provided will create one automatically
 	Client *scw.Client
 }
 
