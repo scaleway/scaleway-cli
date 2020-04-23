@@ -33,6 +33,7 @@ type s3config struct {
 	SecretKey string
 	Region    scw.Region
 	Name      string
+	ctx       context.Context
 }
 
 const (
@@ -93,12 +94,13 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 		SecretKey: secretKey,
 		Region:    region,
 		Name:      name,
+		ctx:       ctx,
 	}
 	return config, nil
 }
 
-func (c s3config) getPath(tool s3tool, ctx context.Context) (string, error) {
-	homeDir := core.ExtractUserHomeDir(ctx)
+func (c s3config) getPath(tool s3tool) (string, error) {
+	homeDir := core.ExtractUserHomeDir(c.ctx)
 
 	switch tool {
 	case s3cmd:

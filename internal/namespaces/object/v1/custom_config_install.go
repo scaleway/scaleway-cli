@@ -73,7 +73,7 @@ func configInstallCommand() *core.Command {
 			if err != nil {
 				return "", err
 			}
-			configPath, err := config.getPath(args.Type, ctx)
+			configPath, err := config.getPath(args.Type)
 			if err != nil {
 				return "", err
 			}
@@ -103,7 +103,8 @@ func configInstallCommand() *core.Command {
 			if err != nil {
 				return "", err
 			}
-			return fmt.Sprintf("Configuration file successfully installed at %s", configPath), nil
+			return core.SuccessResult{
+				Message: fmt.Sprintf("Configuration file successfully installed at %s", configPath)}, nil
 		},
 	}
 }
