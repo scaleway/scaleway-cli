@@ -12,7 +12,6 @@ import (
 )
 
 func Test_ConfigInstall(t *testing.T) {
-	tmpDir := os.TempDir()
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
@@ -29,7 +28,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					fmt.Println(ctx.Err)
-					filePath := path.Join(tmpDir, ".config", "rclone", "rclone.conf")
+					filePath := path.Join(ctx.OverrideEnv["HOME"], ".config", "rclone", "rclone.conf")
 					_, err := os.Stat(filePath)
 					if err != nil {
 						t.Logf("No file at %s", filePath)
@@ -38,10 +37,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			OverrideEnv: map[string]string{
-				"HOME": tmpDir,
-			},
-			Client: client,
+			MockHomeDir: true,
+			Client:      client,
 		}))
 
 		t.Run("mc", core.Test(&core.TestConfig{
@@ -49,7 +46,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=mc",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					filePath := path.Join(tmpDir, ".mc", "config.json")
+					filePath := path.Join(ctx.OverrideEnv["HOME"], ".mc", "config.json")
 					_, err := os.Stat(filePath)
 					if err != nil {
 						t.Logf("No file at %s", filePath)
@@ -58,10 +55,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			OverrideEnv: map[string]string{
-				"HOME": tmpDir,
-			},
-			Client: client,
+			MockHomeDir: true,
+			Client:      client,
 		}))
 
 		t.Run("s3cmd", core.Test(&core.TestConfig{
@@ -69,7 +64,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=s3cmd",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					filePath := path.Join(tmpDir, ".s3cfg")
+					filePath := path.Join(ctx.OverrideEnv["HOME"], ".s3cfg")
 					_, err := os.Stat(filePath)
 					if err != nil {
 						t.Logf("No file at %s", filePath)
@@ -78,10 +73,8 @@ func Test_ConfigInstall(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			OverrideEnv: map[string]string{
-				"HOME": tmpDir,
-			},
-			Client: client,
+			MockHomeDir: true,
+			Client:      client,
 		}))
 	})
 }
