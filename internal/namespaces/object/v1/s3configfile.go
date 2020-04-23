@@ -142,11 +142,10 @@ func (c s3config) getConfigFile(tool s3tool) (string, error) {
 			SecretKey string `json:"secretKey"`
 			API       string `json:"api"`
 		}
-		type mcconfig struct {
+		m := struct {
 			Version string                `json:"version"`
 			Hosts   map[string]hostconfig `json:"hosts"`
-		}
-		m := mcconfig{
+		}{
 			Version: "9",
 			Hosts: map[string]hostconfig{
 				c.Name: {
