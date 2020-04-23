@@ -59,10 +59,8 @@ func configGetCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			args := argsI.(*getArgs)
-			region := args.Region
-			name := args.Name
 
-			config, err := newS3Config(ctx, region, name)
+			config, err := newS3Config(ctx, args.Region, args.Name)
 			if err != nil {
 				return "", err
 			}

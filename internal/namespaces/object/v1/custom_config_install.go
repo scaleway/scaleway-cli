@@ -64,10 +64,8 @@ func configInstallCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			args := argsI.(*installArgs)
-			region := args.Region
-			name := args.Name
 
-			config, err := newS3Config(ctx, region, name)
+			config, err := newS3Config(ctx, args.Region, args.Name)
 			if err != nil {
 				return "", err
 			}
