@@ -4,7 +4,7 @@ USAGE:
   scw registry namespace create [arg=value ...]
 
 ARGS:
-  [name]              Define a namespace name
+  name                Define a namespace name
   [description]       Define a description
   [is-public]         Define the default visibility policy
   [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
