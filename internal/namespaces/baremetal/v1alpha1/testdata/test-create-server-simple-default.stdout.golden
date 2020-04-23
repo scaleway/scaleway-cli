@@ -19,3 +19,4 @@ ips.1.reverse-status  pending
 domain                7d25ddb0-9cdb-49fb-8d71-9afaa0c977b5.fr-par-2.baremetal.scw.cloud
 boot-type             normal
 zone                  fr-par-2
+ping-status           ping_status_unknown
