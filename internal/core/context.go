@@ -109,3 +109,7 @@ func ReloadClient(ctx context.Context) error {
 	meta.Client, err = createClient(meta.BuildInfo, "")
 	return err
 }
+
+func ExtractProfileName(ctx context.Context) string {
+	return extractMeta(ctx).ProfileFlag
+}

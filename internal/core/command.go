@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/printer"
 )
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.
@@ -69,6 +70,9 @@ type Command struct {
 
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
+
+	// PrinterType will override the print type if not nil
+	PrinterType *printer.Type
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.

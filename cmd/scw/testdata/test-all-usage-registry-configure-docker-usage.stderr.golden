@@ -1,0 +1,19 @@
+This command will configure the Docker credential helper for your account.
+
+It will create a new script named docker-credential-scw. 
+This script will be called each time Docker needs the credentials and will return the correct credentials.
+It avoid running docker login commands.
+
+USAGE:
+  scw registry configure-docker [arg=value ...]
+
+ARGS:
+  [helper-directory]   Directory in which the Docker helper will be installed
+
+FLAGS:
+  -h, --help   help for configure-docker
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
