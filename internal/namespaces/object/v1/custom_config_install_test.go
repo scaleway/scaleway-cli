@@ -1,13 +1,12 @@
 package object
 
 import (
-	"fmt"
-	"os"
 	"path"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -27,13 +26,8 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					fmt.Println(ctx.Err)
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".config", "rclone", "rclone.conf")
-					_, err := os.Stat(filePath)
-					if err != nil {
-						t.Logf("No file at %s", filePath)
-						t.Fail()
-					}
+					assert.FileExists(t, filePath)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -47,11 +41,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".mc", "config.json")
-					_, err := os.Stat(filePath)
-					if err != nil {
-						t.Logf("No file at %s", filePath)
-						t.Fail()
-					}
+					assert.FileExists(t, filePath)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -65,11 +55,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".s3cfg")
-					_, err := os.Stat(filePath)
-					if err != nil {
-						t.Logf("No file at %s", filePath)
-						t.Fail()
-					}
+					assert.FileExists(t, filePath)
 				},
 				core.TestCheckExitCode(0),
 			),
