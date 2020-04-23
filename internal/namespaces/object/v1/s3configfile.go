@@ -18,9 +18,9 @@ func (c s3tool) String() string {
 	return string(c)
 }
 
-type SupportedTool []s3tool
+type supportedTool []s3tool
 
-func (s SupportedTool) ToStringArray() []string {
+func (s supportedTool) ToStringArray() []string {
 	var res []string
 	for _, x := range s {
 		res = append(res, x.String())
@@ -42,7 +42,7 @@ const (
 	mc     = s3tool("mc")
 )
 
-var supportedTools = SupportedTool{
+var supportedTools = supportedTool{
 	rclone,
 	s3cmd,
 	mc,
