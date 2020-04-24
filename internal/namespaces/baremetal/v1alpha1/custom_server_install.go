@@ -8,23 +8,6 @@ import (
 )
 
 func serverInstallBuilder(c *core.Command) *core.Command {
-	c.Examples = []*core.Example{
-		{
-			Short:   "Install an OS on a given server",
-			Request: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
-		},
-	}
-
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Short:   "List OS (useful to get all OS IDs)",
-			Command: "scw baremetal os list",
-		},
-		{
-			Short:   "Create a server",
-			Command: "scw baremetal server create",
-		},
-	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
