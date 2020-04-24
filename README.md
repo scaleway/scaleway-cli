@@ -190,3 +190,4 @@ We love feedback.
 Don't hesitate to open a [Github issue](https://github.com/scaleway/scaleway-cli/issues/new) or
 feel free to reach us on [Scaleway Slack community](https://slack.scaleway.com/),
 we are waiting for you on [#opensource](https://scaleway-community.slack.com/app_redirect?channel=opensource).
+
