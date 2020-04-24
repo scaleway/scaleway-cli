@@ -72,6 +72,10 @@ func (s *CliError) MarshalHuman() (string, error) {
 }
 
 func (s *CliError) MarshalJSON() ([]byte, error) {
+	if s.Empty {
+		type emptyRes struct{}
+		return json.Marshal(&emptyRes{})
+	}
 	type tmpRes struct {
 		Message string `json:"message"`
 		Error   error  `json:"error"`

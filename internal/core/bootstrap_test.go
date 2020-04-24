@@ -64,5 +64,25 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
+	t.Run("emtpy-error-json", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "error",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return nil, &CliError{Code: 99, Empty: true}
+				},
+			},
+		),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw -o json test empty error",
+		Check: TestCheckCombine(
+			TestCheckExitCode(99),
+			TestCheckStderrGolden(),
+		),
+	}))
 
 }
