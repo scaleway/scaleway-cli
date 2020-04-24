@@ -21,6 +21,10 @@ func (o *humanPrinter) Print(data interface{}, opt *human.MarshalOpt) error {
 		return err
 	}
 
+	if str == "" {
+		return nil
+	}
+
 	if _, isError := data.(error); isError {
 		_, err = fmt.Fprintln(o.ErrorWriter, str)
 		return err
