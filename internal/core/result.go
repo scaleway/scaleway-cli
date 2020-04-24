@@ -42,6 +42,10 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
+	if s.Empty {
+		type emptyRes struct{}
+		return json.Marshal(&emptyRes{})
+	}
 	type tmpRes struct {
 		Message string `json:"message"`
 		Details string `json:"details"`
