@@ -327,8 +327,10 @@ func ParseURL(input string) (string, error) {
 }
 
 // NewClient returns a Console client object
-func NewClient(inputURL string) (*Client, error) {
-	url, err := ParseURL(inputURL)
+func NewClient(consoleURL string, serverID string, secretKey string) (*Client, error) {
+	url := fmt.Sprintf("%s/?arg=%s&arg=%s", consoleURL, secretKey, serverID)
+
+	url, err := ParseURL(url)
 	if err != nil {
 		return nil, err
 	}

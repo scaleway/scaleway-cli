@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	ttyURL = "https://tty.scaleway.com/v2"
+	consoleURL = "https://tty.scaleway.com/v2"
 )
 
 type instanceConsoleServerRequest struct {
@@ -58,8 +58,7 @@ func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interfa
 		return nil, fmt.Errorf("could not get secret key")
 	}
 
-	url := fmt.Sprintf("%s/?arg=%s&arg=%s", ttyURL, secretKey, serverResp.Server.ID)
-	gottycli, err := console.NewClient(url)
+	gottycli, err := console.NewClient(consoleURL, serverResp.Server.ID, secretKey)
 	if err != nil {
 		return nil, err
 	}
