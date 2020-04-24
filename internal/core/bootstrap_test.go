@@ -84,5 +84,51 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
+	t.Run("emtpy-success", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "success",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return &SuccessResult{
+						Empty:    true,
+						Message:  "dummy",
+						Details:  "dummy",
+						Resource: "dummy",
+						Verb:     "dummy",
+					}, nil
+				},
+			},
+		),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw test empty success",
+		Check:           TestCheckStdoutGolden(),
+	}))
+	t.Run("emtpy-success-json", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "success",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return &SuccessResult{
+						Empty:    true,
+						Message:  "dummy",
+						Details:  "dummy",
+						Resource: "dummy",
+						Verb:     "dummy",
+					}, nil
 
+				},
+			},
+		),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw -o json test empty success",
+		Check:           TestCheckStdoutGolden(),
+	}))
 }
