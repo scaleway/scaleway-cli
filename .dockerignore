@@ -1,0 +1,6 @@
+bin/
+*.md
+LICENSE
+docs/
+main
+node_modules/
