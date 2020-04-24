@@ -9,7 +9,7 @@ import (
 
 func Test_StartServerErrors(t *testing.T) {
 	t.Run("Error: cannot be started while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc:  createServer("Server"),
+		BeforeFunc:  createServerAndWait("Server"),
 		Commands:    GetCommands(),
 		Cmd:         "scw baremetal server start {{ .Server.ID }} -w",
 		Check:       core.TestCheckExitCode(1),
@@ -20,7 +20,7 @@ func Test_StartServerErrors(t *testing.T) {
 
 func Test_StopServerErrors(t *testing.T) {
 	t.Run("Error: cannot be stopped while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc:  createServer("Server"),
+		BeforeFunc:  createServerAndWait("Server"),
 		Commands:    GetCommands(),
 		Cmd:         "scw baremetal server stop {{ .Server.ID }} -w",
 		Check:       core.TestCheckExitCode(1),
@@ -31,7 +31,7 @@ func Test_StopServerErrors(t *testing.T) {
 
 func Test_RebootServerErrors(t *testing.T) {
 	t.Run("Error: cannot be rebooted while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc:  createServer("Server"),
+		BeforeFunc:  createServerAndWait("Server"),
 		Commands:    GetCommands(),
 		Cmd:         "scw baremetal server reboot {{ .Server.ID }} -w",
 		Check:       core.TestCheckExitCode(1),

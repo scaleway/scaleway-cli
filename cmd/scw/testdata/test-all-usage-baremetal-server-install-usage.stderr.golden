@@ -12,6 +12,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for install
+  -w, --wait   wait until the server is ready
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
