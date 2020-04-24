@@ -15,6 +15,7 @@ type SuccessResult struct {
 	Details  string
 	Resource string
 	Verb     string
+	Empty    bool
 }
 
 var standardSuccessMessages = map[string]string{
@@ -22,6 +23,9 @@ var standardSuccessMessages = map[string]string{
 }
 
 func (s *SuccessResult) MarshalHuman() (string, error) {
+	if s.Empty {
+		return "", nil
+	}
 	message := s.getMessage()
 	if !strings.HasSuffix(message, ".") {
 		message += "."
@@ -38,6 +42,10 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
+	if s.Empty {
+		type emptyRes struct{}
+		return json.Marshal(&emptyRes{})
+	}
 	type tmpRes struct {
 		Message string `json:"message"`
 		Details string `json:"details"`
