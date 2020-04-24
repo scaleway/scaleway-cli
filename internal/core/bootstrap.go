@@ -125,11 +125,15 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if _, ok := err.(*interactive.InterruptError); ok {
 			return 130, nil, err
 		}
+		errorCode := 1
+		if cliErr, ok := err.(*CliError); ok && cliErr.Code != 0 {
+			errorCode = cliErr.Code
+		}
 		printErr := meta.Printer.Print(err, nil)
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
-		return 1, nil, err
+		return errorCode, nil, err
 	}
 	return 0, meta.result, nil
 }

@@ -23,6 +23,12 @@ type CliError struct {
 
 	Details string
 	Hint    string
+
+	// Code allows to return a sepcific error code from the main binary.
+	Code int
+
+	// Empty tells the marshaler to not print any message for the error
+	Empty bool
 }
 
 func (s *CliError) Error() string {
@@ -30,6 +36,9 @@ func (s *CliError) Error() string {
 }
 
 func (s *CliError) MarshalHuman() (string, error) {
+	if s.Empty {
+		return "", nil
+	}
 	sections := []string(nil)
 	if s.Err != nil {
 		humanError := s.Err
@@ -63,6 +72,10 @@ func (s *CliError) MarshalHuman() (string, error) {
 }
 
 func (s *CliError) MarshalJSON() ([]byte, error) {
+	if s.Empty {
+		type emptyRes struct{}
+		return json.Marshal(&emptyRes{})
+	}
 	type tmpRes struct {
 		Message string `json:"message"`
 		Error   error  `json:"error"`
