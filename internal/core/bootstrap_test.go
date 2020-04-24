@@ -27,4 +27,42 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test interrupt error",
 		Check:           TestCheckExitCode(130),
 	}))
+	t.Run("exit-code", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "code",
+				Verb:      "error",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return nil, &CliError{Code: 99}
+				},
+			},
+		),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw test code error",
+		Check:           TestCheckExitCode(99),
+	}))
+	t.Run("emtpy-error", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "error",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return nil, &CliError{Code: 99, Empty: true}
+				},
+			},
+		),
+		UseE2EClient:    true,
+		DisableParallel: true, // because e2e client is used
+		Cmd:             "scw test empty error",
+		Check: TestCheckCombine(
+			TestCheckExitCode(99),
+			TestCheckStderrGolden(),
+		),
+	}))
+
 }
