@@ -11,7 +11,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 	c.Examples = []*core.Example{
 		{
 			Short:   "Install an OS on a given server",
-			Request: `{"os-id":"11111111-1111-1111-1111-111111111111","server-id":"11111111-1111-1111-1111-111111111111"}`,
+			Request: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
 		},
 	}
 
