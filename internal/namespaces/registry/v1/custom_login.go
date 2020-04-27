@@ -56,18 +56,9 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 		return nil, fmt.Errorf("could not get secret key")
 	}
 
-	var cmdArgs []string
-
-	switch program(args.Program) {
-	case docker, podman:
-		cmdArgs = []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
-	default:
-		return nil, fmt.Errorf("unknown program")
-	}
-
+	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
 	cmd := exec.Command(args.Program, cmdArgs...)
 	cmd.Stdin = bytes.NewBufferString(secretKey)
-
 	exitCode, err := core.ExecCmd(ctx, cmd)
 
 	if err != nil {

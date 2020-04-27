@@ -50,17 +50,10 @@ func registryLogoutRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 	endpoint := endpointPrefix + region + endpointSuffix
 
-	var cmdArgs []string
-
-	switch program(args.Program) {
-	case docker, podman:
-		cmdArgs = []string{"logout", endpoint}
-	default:
-		return nil, fmt.Errorf("unknown program")
-	}
-
+	cmdArgs := []string{"logout", endpoint}
 	cmd := exec.Command(args.Program, cmdArgs...)
 	exitCode, err := core.ExecCmd(ctx, cmd)
+
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +62,6 @@ func registryLogoutRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	return &core.SuccessResult{
-		Empty: true, // the program will output the sucess message
+		Empty: true, // the program will output the success message
 	}, nil
 }
