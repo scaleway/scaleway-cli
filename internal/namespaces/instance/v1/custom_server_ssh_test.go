@@ -25,4 +25,35 @@ func Test_ServerSSH(t *testing.T) {
 		AfterFunc:       deleteServer("Server"),
 		DisableParallel: true,
 	}))
+
+	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createServer("Server"),
+			startServer("Server"),
+		),
+		Cmd: "scw instance server ssh {{ .Server.ID }}",
+		OverrideExec: core.OverrideExecSimple(
+			"/usr/bin/ssh {{ .Server.PublicIP.Address }} -p 22 -l root -t",
+			130,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(130),
+		),
+		AfterFunc:       deleteServer("Server"),
+		DisableParallel: true,
+	}))
+
+	t.Run("Stopped server", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createServer("Server"),
+		Cmd:        "scw instance server ssh {{ .Server.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+		AfterFunc:       deleteServer("Server"),
+		DisableParallel: true,
+	}))
 }

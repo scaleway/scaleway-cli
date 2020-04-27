@@ -471,7 +471,7 @@ func TestCheckStdout(stdout string) TestCheck {
 }
 
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
-	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
+	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), cmd.String())
 		return exitCode, nil
 	}
