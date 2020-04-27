@@ -1,11 +1,11 @@
 package registry
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os/exec"
 	"reflect"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -56,27 +56,28 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 		return nil, fmt.Errorf("could not get secret key")
 	}
 
-	var commandArgs []string
+	var cmdArgs []string
 
 	switch program(args.Program) {
 	case docker, podman:
-		commandArgs = []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
+		cmdArgs = []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
 	default:
 		return nil, fmt.Errorf("unknown program")
 	}
 
-	loginCommand := core.ExtractAndExecCommand(ctx, args.Program, commandArgs...)
+	cmd := exec.Command(args.Program, cmdArgs...)
+	cmd.Stdin = bytes.NewBufferString(secretKey)
 
-	loginCommand.SetStdin(strings.NewReader(secretKey))
+	exitCode, err := core.ExecCmd(ctx, cmd)
 
-	if err := loginCommand.Run(); err != nil {
-		if execErr, ok := err.(*exec.ExitError); ok {
-			return nil, &core.CliError{Empty: true, Code: execErr.ExitCode()}
-		}
-		return nil, fmt.Errorf("could not login to namespace: %w", err)
+	if err != nil {
+		return nil, err
+	}
+	if exitCode != 0 {
+		return nil, &core.CliError{Empty: true, Code: exitCode}
 	}
 
 	return &core.SuccessResult{
-		Empty: true, // the program will output the sucess message
+		Empty: true, // the program will output the success message
 	}, nil
 }

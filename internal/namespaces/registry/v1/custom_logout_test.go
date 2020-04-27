@@ -14,7 +14,7 @@ func Test_Logout(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		OverrideExecCommand: map[string]core.ExecCmd{"docker": dockerFakeCommand},
+		OverrideExec: core.OverrideExecSimple("docker logout rg.fr-par.scw.cloud", 0),
 	}))
 	t.Run("podman", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -23,6 +23,6 @@ func Test_Logout(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		OverrideExecCommand: map[string]core.ExecCmd{"podman": podmanFakeCommand},
+		OverrideExec: core.OverrideExecSimple("podman logout rg.fr-par.scw.cloud", 0),
 	}))
 }

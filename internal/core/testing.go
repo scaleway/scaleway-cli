@@ -79,8 +79,9 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
-	T    *testing.T
-	Meta TestMeta
+	T      *testing.T
+	Meta   TestMeta
+	Client *scw.Client
 }
 
 type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error)
@@ -266,8 +267,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if config.OverrideExec != nil {
 			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
 				return config.OverrideExec(&ExecFuncCtx{
-					T:    t,
-					Meta: meta,
+					T:      t,
+					Meta:   meta,
+					Client: client,
 				}, cmd)
 			}
 		}
