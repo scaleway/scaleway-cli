@@ -93,7 +93,8 @@ More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-
 	)
 }
 
-// validateProfile validate the final profile
+// validateClient validate a client configuration and make sure all mandatory setting are present.
+// This function is only call for commands that require a valid client.
 func validateClient(client *scw.Client) error {
 	credentialsHint := "You can get your credentials here: https://console.scaleway.com/account/credentials"
 

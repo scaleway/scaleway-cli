@@ -36,7 +36,7 @@ const (
 	metaContextKey contextKey = iota
 )
 
-// injectMeta creates a new ctx with injected meta and returns it.
+// injectMeta creates a new ctx based on the given one with injected meta and returns it.
 func injectMeta(ctx context.Context, meta *meta) context.Context {
 	return context.WithValue(ctx, metaContextKey, meta)
 }
