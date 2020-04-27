@@ -42,7 +42,8 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 	profile := scw.MergeProfiles(activeProfile, envProfile)
 
 	// Guess a default region from the valid zone.
-	if profile.DefaultRegion == nil || *profile.DefaultRegion == "" {
+	if profile.DefaultZone != nil && *profile.DefaultZone != "" &&
+		(profile.DefaultRegion == nil || *profile.DefaultRegion == "") {
 		zone := *profile.DefaultZone
 		logger.Debugf("guess region from %s zone", zone)
 		region := zone[:len(zone)-2]
