@@ -8,10 +8,20 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_Login(t *testing.T) {
+	clientOpts := []scw.ClientOption{
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
+	}
+
+	client, err := scw.NewClient(clientOpts...)
+	require.NoError(t, err)
+
 	t.Run("docker", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw registry login program=docker",
@@ -27,6 +37,7 @@ func Test_Login(t *testing.T) {
 			assert.Equal(t, secret, string(stdin))
 			return 0, nil
 		},
+		Client: client,
 	}))
 	t.Run("podman", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -43,5 +54,6 @@ func Test_Login(t *testing.T) {
 			assert.Equal(t, secret, string(stdin))
 			return 0, nil
 		},
+		Client: client,
 	}))
 }
