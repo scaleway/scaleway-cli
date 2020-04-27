@@ -42,6 +42,7 @@ AVAILABLE COMMANDS:
   delete        Delete server
   attach-volume Attach a volume to a server
   detach-volume Detach a volume from its server
+  ssh           SSH into a server
 
 FLAGS:
   -h, --help   help for server

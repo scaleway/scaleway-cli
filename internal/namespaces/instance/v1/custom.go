@@ -53,6 +53,7 @@ func GetCommands() *core.Commands {
 		serverDeleteCommand(),
 		serverAttachVolumeCommand(),
 		serverDetachVolumeCommand(),
+		serverSSHCommand(),
 	))
 
 	//

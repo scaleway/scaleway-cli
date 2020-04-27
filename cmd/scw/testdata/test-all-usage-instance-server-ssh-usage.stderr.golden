@@ -1,0 +1,19 @@
+Connect to distant server via the SSH protocol.
+
+USAGE:
+  scw instance server ssh <server-id> [arg=value ...]
+
+ARGS:
+  server-id         Server ID to SSH into
+  [username=root]   Username used for the SSH connection
+  [port=22]         Port used for the SSH connection
+  [command]         Command to execute on the remote server
+  [zone]            Zone to target. If none is passed will use default zone from the config
+
+FLAGS:
+  -h, --help   help for ssh
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
