@@ -61,10 +61,13 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	var printerType printer.Type
 
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
-	flags.ParseErrorsWhitelist.UnknownFlags = true
 	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
 	flags.VarP(&printerType, "output", "o", "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	// Ignore unknown flag
+	flags.ParseErrorsWhitelist.UnknownFlags = true
+	// Make sure usage is never print by the parse method. (It should only be print by cobra)
+	flags.Usage = func() {}
 
 	// We don't do any error validation as:
 	// - debug is a boolean, no possible error
