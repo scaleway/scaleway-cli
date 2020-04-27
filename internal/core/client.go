@@ -174,7 +174,7 @@ func validateClient(client *scw.Client) error {
 		}
 	}
 
-	if !validation.IsRegion(defaultZone.String()) {
+	if !validation.IsRegion(defaultRegion.String()) {
 		regions := []string(nil)
 		for _, z := range scw.AllRegions {
 			regions = append(regions, string(z))
