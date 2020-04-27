@@ -310,8 +310,11 @@ func (c *Client) Loop() error {
 			return err
 		}
 	}
-	term := console.Current()
-	err := term.SetRaw()
+	term, err := console.ConsoleFromFile(os.Stdout)
+	if err != nil {
+		return fmt.Errorf("os.Stdout is not a valid terminal")
+	}
+	err = term.SetRaw()
 	if err != nil {
 		return fmt.Errorf("Error setting raw terminal: %v", err)
 	}

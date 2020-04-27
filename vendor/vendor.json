@@ -153,11 +153,10 @@
 			"revisionTime": "2018-04-20T02:41:36Z"
 		},
 		{
-			"checksumSHA1": "J44n58OrFtTBYqkBWHBQ2SkW+Fs=",
-			"comment": "v1.6.0-4-g92f0c24",
+			"checksumSHA1": "8B1p/5b/o2r5KTwSyrRriDUY+R0=",
 			"path": "github.com/moul/gotty-client",
-			"revision": "ed442d92c7fb6e27d8b2e8c25aeb3390d08b029b",
-			"revisionTime": "2019-07-23T22:15:00Z"
+			"revision": "00386c0e7016a3c4550cc17b23ff3c8d995dfb5b",
+			"revisionTime": "2020-04-21T11:53:20Z"
 		},
 		{
 			"checksumSHA1": "3AoPMXlmVq2+iWMpsdJZkcUKHB8=",
