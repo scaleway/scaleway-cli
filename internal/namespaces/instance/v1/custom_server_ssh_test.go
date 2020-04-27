@@ -15,7 +15,7 @@ func Test_ServerSSH(t *testing.T) {
 		),
 		Cmd: "scw instance server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
-			"/usr/bin/ssh {{ .Server.PublicIP.Address }} -p 22 -l root -t",
+			"ssh {{ .Server.PublicIP.Address }} -p 22 -l root -t",
 			0,
 		),
 		Check: core.TestCheckCombine(
@@ -34,7 +34,7 @@ func Test_ServerSSH(t *testing.T) {
 		),
 		Cmd: "scw instance server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
-			"/usr/bin/ssh {{ .Server.PublicIP.Address }} -p 22 -l root -t",
+			"ssh {{ .Server.PublicIP.Address }} -p 22 -l root -t",
 			130,
 		),
 		Check: core.TestCheckCombine(

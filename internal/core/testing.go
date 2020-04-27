@@ -472,7 +472,7 @@ func TestCheckStdout(stdout string) TestCheck {
 
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), cmd.String())
+		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), strings.Join(cmd.Args, " "))
 		return exitCode, nil
 	}
 }
