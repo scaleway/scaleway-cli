@@ -62,7 +62,7 @@ func testAutocompleteGetCommands() *Commands {
 }
 
 func TestAutocomplete(t *testing.T) {
-	ctx := newMetaContext(&meta{
+	ctx := injectMeta(context.Background(), &meta{
 		Commands: testAutocompleteGetCommands(),
 	})
 

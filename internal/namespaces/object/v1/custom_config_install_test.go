@@ -14,6 +14,7 @@ func Test_ConfigInstall(t *testing.T) {
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 	}
 

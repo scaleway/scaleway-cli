@@ -8,8 +8,6 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
-	"github.com/scaleway/scaleway-cli/internal/printer"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +29,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		}
 
 		// Apply default values on missing args.
-		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
+		rawArgs = ApplyDefaultValues(ctx, cmd.ArgSpecs, rawArgs)
 
 		// Check args exist valid if ArgsType is not args.RawArgs
 		if cmd.ArgsType != reflect.TypeOf(args.RawArgs{}) {
@@ -199,26 +197,11 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 // cobraPreRunInitMeta returns a cobraPreRun command that will initialize meta.
 func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Command, args []string) error {
 	return func(_ *cobra.Command, args []string) error {
-		var err error
 		meta := extractMeta(ctx)
 
-		logLevel := logger.LogLevelWarning
-		if meta.DebugModeFlag {
-			logLevel = logger.LogLevelDebug // enable debug mode
-		}
-		logger.DefaultLogger.Init(meta.stderr, logLevel)
-
-		meta.Printer, err = printer.New(meta.PrinterTypeFlag, meta.stdout, meta.stderr)
-		if err != nil {
-			return &CliError{
-				Err:     fmt.Errorf("invalid output flag value '%s'", meta.PrinterTypeFlag),
-				Details: "Supported output format are: human or json",
-			}
-		}
-
-		// If command require a client and no client was provided in BootstrapConfig
-		if !cmd.NoClient && meta.Client == nil {
-			meta.Client, err = createClient(meta)
+		// If command require a client we make sure a client is present with proper configuration
+		if !cmd.NoClient {
+			err := validateClient(meta.Client)
 			if err != nil {
 				return err
 			}
