@@ -19,6 +19,14 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
+		// If command require a client we make sure a client is present with proper configuration
+		if !cmd.NoClient {
+			err := validateClient(meta.Client)
+			if err != nil {
+				return err
+			}
+		}
+
 		// create a new Args interface{}
 		// unmarshalled arguments will be store in this interface
 		cmdArgs := reflect.New(cmd.ArgsType).Interface()
@@ -29,7 +37,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		}
 
 		// Apply default values on missing args.
-		rawArgs = ApplyDefaultValues(ctx, cmd.ArgSpecs, rawArgs)
+		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
 		// Check args exist valid if ArgsType is not args.RawArgs
 		if cmd.ArgsType != reflect.TypeOf(args.RawArgs{}) {
@@ -191,22 +199,5 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 
 	default:
 		return &CliError{Err: unmarshalErr}
-	}
-}
-
-// cobraPreRunInitMeta returns a cobraPreRun command that will initialize meta.
-func cobraPreRunInitMeta(ctx context.Context, cmd *Command) func(cmd *cobra.Command, args []string) error {
-	return func(_ *cobra.Command, args []string) error {
-		meta := extractMeta(ctx)
-
-		// If command require a client we make sure a client is present with proper configuration
-		if !cmd.NoClient {
-			err := validateClient(meta.Client)
-			if err != nil {
-				return err
-			}
-		}
-
-		return nil
 	}
 }

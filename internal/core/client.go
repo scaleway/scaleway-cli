@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -41,7 +42,8 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 
 	profile := scw.MergeProfiles(activeProfile, envProfile)
 
-	// Guess a default region from the valid zone.
+	// If profile have a defaultZone but no defaultRegion we set the defaultRegion
+	// to the one of the defaultZone
 	if profile.DefaultZone != nil && *profile.DefaultZone != "" &&
 		(profile.DefaultRegion == nil || *profile.DefaultRegion == "") {
 		zone := *profile.DefaultZone
@@ -139,6 +141,46 @@ func validateClient(client *scw.Client) error {
 	if !validation.IsOrganizationID(defaultOrganizationID) {
 		return &CliError{
 			Err:  fmt.Errorf("invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", defaultOrganizationID),
+			Hint: credentialsHint,
+		}
+	}
+
+	defaultZone, _ := client.GetDefaultZone()
+	if defaultZone == "" {
+		return &CliError{
+			Err:     fmt.Errorf("default zone is required"),
+			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE"),
+			Hint:    credentialsHint,
+		}
+	}
+
+	if !validation.IsZone(defaultZone.String()) {
+		zones := []string(nil)
+		for _, z := range scw.AllZones {
+			zones = append(zones, string(z))
+		}
+		return &CliError{
+			Err:  fmt.Errorf("invalid default zone format '%s', available zones are: %s", defaultZone, strings.Join(zones, ", ")),
+			Hint: credentialsHint,
+		}
+	}
+
+	defaultRegion, _ := client.GetDefaultRegion()
+	if defaultRegion == "" {
+		return &CliError{
+			Err:     fmt.Errorf("default region is required"),
+			Details: configErrorDetails("default_region", "SCW_DEFAULT_REGION"),
+			Hint:    credentialsHint,
+		}
+	}
+
+	if !validation.IsRegion(defaultZone.String()) {
+		regions := []string(nil)
+		for _, z := range scw.AllRegions {
+			regions = append(regions, string(z))
+		}
+		return &CliError{
+			Err:  fmt.Errorf("invalid default region format '%s', available regions are: %s", defaultRegion, strings.Join(regions, ", ")),
 			Hint: credentialsHint,
 		}
 	}

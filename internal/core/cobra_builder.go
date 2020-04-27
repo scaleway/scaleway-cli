@@ -97,7 +97,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd)
+		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(cmd)
 	}
 
 	if cmd.Examples != nil {
@@ -107,8 +107,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	if cmd.SeeAlsos != nil {
 		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 	}
-
-	cobraCmd.PreRunE = cobraPreRunInitMeta(b.ctx, cmd)
 
 	if cmd.Run != nil {
 		cobraCmd.RunE = cobraRun(b.ctx, cmd)

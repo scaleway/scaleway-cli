@@ -2,7 +2,6 @@ package core
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -21,7 +20,7 @@ const (
 
 // buildUsageArgs builds usage args string.
 // This string will be used by cobra usage template.
-func buildUsageArgs(ctx context.Context, cmd *Command) string {
+func buildUsageArgs(cmd *Command) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 

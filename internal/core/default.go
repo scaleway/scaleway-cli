@@ -1,7 +1,6 @@
 package core
 
 import (
-	"context"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
@@ -9,7 +8,7 @@ import (
 )
 
 // ApplyDefaultValues will hydrate args with default values.
-func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs []string) []string {
+func ApplyDefaultValues(argSpecs ArgSpecs, rawArgs []string) []string {
 	argsMap := args.SplitRawMap(rawArgs)
 
 	// following the format ["arg1=1", "arg2=2", "arg3"]

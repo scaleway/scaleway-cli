@@ -1,7 +1,6 @@
 package instance
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -64,7 +63,6 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					fmt.Println(ctx.Err)
 					assert.Equal(t, instance.ServerStateRunning, ctx.Result.(*instance.Server).State)
 				},
 				core.TestCheckExitCode(0),

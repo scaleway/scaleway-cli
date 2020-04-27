@@ -7,13 +7,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/spf13/pflag"
-
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/matomo"
 	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/pflag"
 )
 
 type BootstrapConfig struct {
@@ -68,9 +67,11 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags.BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 
 	// We don't do any error validation as:
-	// - debug is a boolean no possible error
+	// - debug is a boolean, no possible error
 	// - profileName will return proper error when we try to load profile
 	// - printerType will return proper error when we create the printer
+	// Furthermore additional flag can be added on a per-command basis inside cobra
+	// parse would fail as these flag are not known at this time.
 	_ = flags.Parse(config.Args)
 
 	// If debug flag is set enable debug mode in SDK logger
@@ -168,6 +169,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	rootCmd := builder.build()
+
+	// These flag are already handle at the beginning of this function but we keep this
+	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&profileName, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().VarP(&printerType, "output", "o", "Output format: json or human")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
