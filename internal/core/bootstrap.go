@@ -82,7 +82,10 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if debug {
 		logLevel = logger.LogLevelDebug // enable debug mode
 	}
-	logger.DefaultLogger.Init(config.Stderr, logLevel)
+
+	// We force log to os.Stderr because we dont have a scoped logger feature and it create
+	// concurrency situation with golden files
+	logger.DefaultLogger.Init(os.Stderr, logLevel)
 
 	// The globalPrinter must be the first thing set in order to print errors
 	globalPrinter, err := printer.New(printerType, config.Stdout, config.Stderr)
