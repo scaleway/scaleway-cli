@@ -20,7 +20,7 @@ func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
 	meta := extractMeta(ctx)
 
 	// We do not support override of stdin
-	cmd.Stdout = os.Stdin
+	cmd.Stdin = os.Stdin
 
 	cmd.Stdout = meta.stdout
 	cmd.Stderr = meta.stderr
