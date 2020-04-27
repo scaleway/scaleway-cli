@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -50,13 +51,24 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta map[string]interface{}
+	Meta TestMeta
 
 	// Scaleway client
 	Client *scw.Client
 
 	// OverrideEnv passed in the TestConfig
 	OverrideEnv map[string]string
+}
+
+// TestMeta contains arbitratry data that can be passed along a test lifecycle.
+type TestMeta map[string]interface{}
+
+// Tpl render a go template using where content of meta can be used
+func (meta TestMeta) Tpl(strTpl string) string {
+	t := meta["t"].(*testing.T)
+	buf := &bytes.Buffer{}
+	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
+	return buf.String()
 }
 
 // TestCheck is a function that perform assertion on a CheckFuncCtx
@@ -66,11 +78,18 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 
 type AfterFunc func(ctx *AfterFuncCtx) error
 
+type ExecFuncCtx struct {
+	T    *testing.T
+	Meta TestMeta
+}
+
+type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error)
+
 type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        map[string]interface{}
+	Meta        TestMeta
 	OverrideEnv map[string]string
 }
 
@@ -78,7 +97,7 @@ type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        map[string]interface{}
+	Meta        TestMeta
 	CmdResult   interface{}
 	OverrideEnv map[string]string
 }
@@ -127,6 +146,9 @@ type TestConfig struct {
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
 	OverrideEnv map[string]string
+
+	// see BootstrapConfig.OverrideExec
+	OverrideExec OverrideExecTestFunc
 
 	// Custom client to use for test, if none are provided will create one automatically
 	Client *scw.Client
@@ -220,7 +242,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 			defer cleanup()
 		}
 
-		meta := map[string]interface{}{}
+		meta := TestMeta{
+			"t": t,
+		}
 
 		overideEnv := config.OverrideEnv
 		if overideEnv == nil {
@@ -237,6 +261,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 			overideEnv["HOME"] = dir
 		}
 
+		overrideExec := defaultOverrideExec
+		if config.OverrideExec != nil {
+			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
+				return config.OverrideExec(&ExecFuncCtx{
+					T:    t,
+					Meta: meta,
+				}, cmd)
+			}
+		}
+
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
@@ -250,6 +284,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Client:           client,
 				DisableTelemetry: true,
 				OverrideEnv:      overideEnv,
+				OverrideExec:     overrideExec,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -273,7 +308,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		var err error
 		args := config.Args
 		if config.Cmd != "" {
-			args = cmdToArgs(t, meta, config.Cmd)
+			args = cmdToArgs(meta, config.Cmd)
 		}
 		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
@@ -288,6 +323,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Client:           client,
 				DisableTelemetry: true,
 				OverrideEnv:      overideEnv,
+				OverrideExec:     overrideExec,
 			})
 
 			meta["CmdResult"] = result
@@ -317,10 +353,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-func cmdToArgs(t *testing.T, meta map[string]interface{}, s string) []string {
-	cmdBuf := &bytes.Buffer{}
-	require.NoError(t, template.Must(template.New("cmd").Parse(s)).Execute(cmdBuf, meta))
-	return strings.Split(cmdBuf.String(), " ")
+func cmdToArgs(meta TestMeta, s string) []string {
+	return strings.Split(meta.Tpl(s), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -359,7 +393,7 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 // in the context Meta at metaKey.
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -368,7 +402,7 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -377,7 +411,7 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
-		args := cmdToArgs(ctx.T, ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
