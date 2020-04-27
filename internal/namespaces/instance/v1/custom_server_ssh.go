@@ -3,7 +3,6 @@ package instance
 import (
 	"context"
 	"fmt"
-	"os"
 	"os/exec"
 	"reflect"
 
@@ -82,23 +81,24 @@ func instanceServerSSHRun(ctx context.Context, argsI interface{}) (i interface{}
 		}
 	}
 
-	sshCmd := exec.Command(
-		"ssh", serverResp.Server.PublicIP.Address.String(),
+	sshArgs := []string{
+		serverResp.Server.PublicIP.Address.String(),
 		"-p", fmt.Sprintf("%d", args.Port),
 		"-l", args.Username,
-		"-t", args.Command,
-	)
+		"-t",
+	}
+	if args.Command != "" {
+		sshArgs = append(sshArgs, args.Command)
+	}
 
-	sshCmd.Stdin = os.Stdin
-	sshCmd.Stdout = os.Stdout
-	sshCmd.Stderr = os.Stderr
+	sshCmd := exec.Command("ssh", sshArgs...)
 
-	err = sshCmd.Run()
+	exitCode, err := core.ExecCmd(ctx, sshCmd)
 	if err != nil {
-		if execErr, ok := err.(*exec.ExitError); ok {
-			return nil, &core.CliError{Empty: true, Code: execErr.ExitCode()}
-		}
-		return nil, fmt.Errorf("could not connect to server: %s", err)
+		return nil, err
+	}
+	if exitCode != 0 {
+		return nil, &core.CliError{Empty: true, Code: exitCode}
 	}
 
 	return &core.SuccessResult{Empty: true}, nil

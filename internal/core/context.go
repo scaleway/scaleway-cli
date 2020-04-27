@@ -17,11 +17,12 @@ type meta struct {
 	DebugModeFlag   bool
 	PrinterTypeFlag printer.Type
 
-	BuildInfo   *BuildInfo
-	Client      *scw.Client
-	Printer     printer.Printer
-	Commands    *Commands
-	OverrideEnv map[string]string
+	BuildInfo    *BuildInfo
+	Client       *scw.Client
+	Printer      printer.Printer
+	Commands     *Commands
+	OverrideEnv  map[string]string
+	OverrideExec OverrideExecFunc
 
 	command *Command
 	stdout  io.Writer

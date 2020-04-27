@@ -18,10 +18,25 @@ func createServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
 }
 
+// createServer creates a stopped ubuntu-bionic server and
+// register it in the context Meta at metaKey.
+func startServer(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")
+}
+
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")
+	return func(ctx *core.AfterFuncCtx) error {
+		server := ctx.Meta[metaKey].(*instance.Server)
+		if server.State == instance.ServerStateRunning {
+			err := core.ExecAfterCmd("scw instance server stop -w {{ ." + metaKey + ".ID }}")(ctx)
+			if err != nil {
+				return err
+			}
+		}
+		return core.ExecAfterCmd("scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")(ctx)
+	}
 }
 
 //
