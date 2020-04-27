@@ -40,6 +40,12 @@ type BootstrapConfig struct {
 	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
 	// This is useful for tests as it allows overriding env without relying on global state.
 	OverrideEnv map[string]string
+
+	// OverrideExec allow to override exec.Cmd.Run method. In order for this to work
+	// your code must call le core.ExecCmd function to execute a given command.
+	// If this function is not defined the exec.Cmd.Run function will be called directly.
+	// This function is intended to be use for tests purposes.
+	OverrideExec OverrideExecFunc
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -57,21 +63,27 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		BinaryName:  config.Args[0],
-		BuildInfo:   config.BuildInfo,
-		stdout:      config.Stdout,
-		stderr:      config.Stderr,
-		Client:      config.Client,
-		Commands:    config.Commands,
-		Printer:     globalPrinter,
-		OverrideEnv: config.OverrideEnv,
-		result:      nil, // result is later injected by cobra_utils.go/cobraRun()
-		command:     nil, // command is later injected by cobra_utils.go/cobraRun()
+		BinaryName:   config.Args[0],
+		BuildInfo:    config.BuildInfo,
+		stdout:       config.Stdout,
+		stderr:       config.Stderr,
+		Client:       config.Client,
+		Commands:     config.Commands,
+		Printer:      globalPrinter,
+		OverrideEnv:  config.OverrideEnv,
+		OverrideExec: config.OverrideExec,
+		result:       nil, // result is later injected by cobra_utils.go/cobraRun()
+		command:      nil, // command is later injected by cobra_utils.go/cobraRun()
 	}
 
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
 		meta.OverrideEnv = map[string]string{}
+	}
+
+	// If OverrideExec was not set in the config, we set a default value.
+	if meta.OverrideExec == nil {
+		meta.OverrideExec = defaultOverrideExec
 	}
 
 	// Send Matomo telemetry when exiting the bootstrap
