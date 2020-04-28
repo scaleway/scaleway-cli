@@ -36,9 +36,9 @@ const (
 	metaContextKey contextKey = iota
 )
 
-// newMetaContext creates a new ctx with injected meta and returns it.
-func newMetaContext(meta *meta) context.Context {
-	return context.WithValue(context.Background(), metaContextKey, meta)
+// injectMeta creates a new ctx based on the given one with injected meta and returns it.
+func injectMeta(ctx context.Context, meta *meta) context.Context {
+	return context.WithValue(ctx, metaContextKey, meta)
 }
 
 // extractMeta extracts meta from a given context.
@@ -61,18 +61,6 @@ func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
 
 func ExtractClient(ctx context.Context) *scw.Client {
 	return extractMeta(ctx).Client
-}
-
-func ExtractClientOrCreate(ctx context.Context) (*scw.Client, error) {
-	client := ExtractClient(ctx)
-	if client == nil {
-		var err error
-		client, err = createClient(nil)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return client, nil
 }
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
@@ -99,4 +87,11 @@ func ExtractUserHomeDir(ctx context.Context) string {
 
 func ExtractBinaryName(ctx context.Context) string {
 	return extractMeta(ctx).BinaryName
+}
+
+func ReloadClient(ctx context.Context) error {
+	var err error
+	meta := extractMeta(ctx)
+	meta.Client, err = createClient(meta.BuildInfo, "")
+	return err
 }

@@ -54,10 +54,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	}
 
 	// Get all SSH keys from Scaleway
-	client, err := core.ExtractClientOrCreate(ctx)
-	if err != nil {
-		return nil, err
-	}
+	client := core.ExtractClient(ctx)
 	api := account.NewAPI(client)
 	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {

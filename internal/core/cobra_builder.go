@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -17,6 +18,7 @@ func init() {
 type cobraBuilder struct {
 	commands []*Command
 	meta     *meta
+	ctx      context.Context
 }
 
 // build creates the cobra root command.
@@ -94,11 +96,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
-	cobraCmd.Annotations["NoClient"] = "false"
-	if cmd.NoClient {
-		cobraCmd.Annotations["NoClient"] = "true"
-	}
-
 	if cmd.ArgsType != nil {
 		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(cmd)
 	}
@@ -111,12 +108,8 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 	}
 
-	ctx := newMetaContext(b.meta)
-
-	cobraCmd.PreRunE = cobraPreRunInitMeta(ctx, cmd)
-
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(ctx, cmd)
+		cobraCmd.RunE = cobraRun(b.ctx, cmd)
 	}
 
 	if cmd.WaitFunc != nil {

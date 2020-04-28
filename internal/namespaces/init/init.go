@@ -302,7 +302,11 @@ func initCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-
+			// Now that the config has been save we reload the client with the new config
+			err = core.ReloadClient(ctx)
+			if err != nil {
+				return nil, err
+			}
 			successDetails := ""
 
 			// Install autocomplete

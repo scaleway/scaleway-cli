@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/pflag"
 )
 
 type BootstrapConfig struct {
@@ -52,13 +54,59 @@ type BootstrapConfig struct {
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
-	// The global printer must be the first thing set in order to print errors
-	globalPrinter, err := printer.New(printer.Human, config.Stdout, config.Stderr)
+
+	// Handles Flags
+	var debug bool
+	var profileName string
+	var printerType printer.Type
+
+	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
+	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
+	flags.VarP(&printerType, "output", "o", "Output format: json or human")
+	flags.BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	// Ignore unknown flag
+	flags.ParseErrorsWhitelist.UnknownFlags = true
+	// Make sure usage is never print by the parse method. (It should only be print by cobra)
+	flags.Usage = func() {}
+
+	// We don't do any error validation as:
+	// - debug is a boolean, no possible error
+	// - profileName will return proper error when we try to load profile
+	// - printerType will return proper error when we create the printer
+	// Furthermore additional flag can be added on a per-command basis inside cobra
+	// parse would fail as these flag are not known at this time.
+	_ = flags.Parse(config.Args)
+
+	// If debug flag is set enable debug mode in SDK logger
+	logLevel := logger.LogLevelWarning
+	if debug {
+		logLevel = logger.LogLevelDebug // enable debug mode
+	}
+
+	// We force log to os.Stderr because we dont have a scoped logger feature and it create
+	// concurrency situation with golden files
+	logger.DefaultLogger.Init(os.Stderr, logLevel)
+
+	// The globalPrinter must be the first thing set in order to print errors
+	globalPrinter, err := printer.New(printerType, config.Stdout, config.Stderr)
 	if err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, err)
+		_, _ = fmt.Fprintln(config.Stderr, err)
 		return 1, nil, err
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
+
+	client := config.Client
+	if client == nil {
+		// Create scw client
+		client, err = createClient(config.BuildInfo, profileName)
+		if err != nil {
+			printErr := globalPrinter.Print(err, nil)
+			if printErr != nil {
+				_, _ = fmt.Fprintln(config.Stderr, printErr)
+			}
+			return 1, nil, err
+		}
+	}
 
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
@@ -67,7 +115,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		BuildInfo:    config.BuildInfo,
 		stdout:       config.Stdout,
 		stderr:       config.Stderr,
-		Client:       config.Client,
+		Client:       client,
 		Commands:     config.Commands,
 		Printer:      globalPrinter,
 		OverrideEnv:  config.OverrideEnv,
@@ -75,7 +123,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		result:       nil, // result is later injected by cobra_utils.go/cobraRun()
 		command:      nil, // command is later injected by cobra_utils.go/cobraRun()
 	}
-
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
 		meta.OverrideEnv = map[string]string{}
@@ -85,6 +132,8 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if meta.OverrideExec == nil {
 		meta.OverrideExec = defaultOverrideExec
 	}
+
+	ctx := injectMeta(context.Background(), meta)
 
 	// Send Matomo telemetry when exiting the bootstrap
 	start := time.Now()
@@ -122,14 +171,16 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	builder := cobraBuilder{
 		commands: config.Commands.commands,
 		meta:     meta,
+		ctx:      ctx,
 	}
 
 	rootCmd := builder.build()
 
-	rootCmd.PersistentFlags().StringVarP(&meta.ProfileFlag, "profile", "p", "", "The config profile to use")
-	rootCmd.PersistentFlags().VarP(&meta.PrinterTypeFlag, "output", "o", "Output format: json or human")
-	rootCmd.PersistentFlags().BoolVarP(&meta.DebugModeFlag, "debug", "D", false, "Enable debug mode")
-
+	// These flag are already handle at the beginning of this function but we keep this
+	// declaration in order for them to be shown in the cobra usage documentation.
+	rootCmd.PersistentFlags().StringVarP(&profileName, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().VarP(&printerType, "output", "o", "Output format: json or human")
+	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()
 
