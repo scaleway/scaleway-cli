@@ -60,6 +60,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200422170208-cd3e8b9e038c h1:/aJXisEbIVbReS1ofNktWS8s1iT1TPP8eTu7b7Qvmxs=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200422170208-cd3e8b9e038c/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200428110639-7ec36ccf1cfc h1:zJICGw5p88KTYAzdDFjyZRBENt3kIuDsM+e89gj+5q4=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200428110639-7ec36ccf1cfc/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
