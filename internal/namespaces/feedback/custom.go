@@ -35,6 +35,7 @@ func feedbackBugCommand() *core.Command {
 		Resource:  `bug`,
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
+		NoClient: true,
 
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			buildInfoStr, err := human.Marshal(core.ExtractBuildInfo(ctx), nil)
@@ -64,9 +65,9 @@ func feedbackFeatureRequestCommand() *core.Command {
 		Long:      `Send a feature request to the Scaleway CLI team.`,
 		Namespace: "feedback",
 		Resource:  `feature`,
-
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
+		NoClient: true,
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			buildInfoStr, err := human.Marshal(core.ExtractBuildInfo(ctx), nil)
 			if err != nil {
