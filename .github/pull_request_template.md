@@ -10,7 +10,7 @@ Relates OR Closes #0000
 
 Release note for [CHANGELOG](https://github.com/scaleway/scaleway-cli/blob/v2/CHANGELOG.md):
 <!--
-If change is not user facing, just write "NONE" in the release-note block below.
+If the change is not user facing, just write "NONE" in the release-note block below.
 -->
 
 ```release-note
