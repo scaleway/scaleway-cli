@@ -1,6 +1,6 @@
 ---
 name: 🚀 Feature request
-about: I have a suggestion (and might want to implement myself 🙂)!
+about: I have a suggestion (and might want to implement it myself 🙂)!
 labels: enhancement
 ---
 
