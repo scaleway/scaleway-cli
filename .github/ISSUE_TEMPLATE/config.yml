@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Scaleway Community
+    url: https://slack.scaleway.com
+    about: GitHub issues in this repository are only intended for bug reports and feature requests. Other issues will be closed. Please ask questions on the Scaleway Community Slack (#opensource)
