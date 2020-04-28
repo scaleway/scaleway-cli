@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   object       Object-storage utils
   version      Display cli version
   registry     Docker registry API
+  feedback     Send feedback to the Scaleway CLI Team!
   help         Help about any command
 
 FLAGS:
