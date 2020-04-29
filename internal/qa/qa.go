@@ -200,7 +200,7 @@ func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []inte
 	errors := []interface{}(nil)
 	for _, command := range commands.GetAll() {
 		for i, example := range command.Examples {
-			if example.ArgJSON != "" && example.Raw != "" {
+			if example.ArgsJSON != "" && example.Raw != "" {
 				errors = append(errors, &ExampleCanHaveOnlyOneTypeOfExampleError{
 					Command:      command,
 					ExampleIndex: i,

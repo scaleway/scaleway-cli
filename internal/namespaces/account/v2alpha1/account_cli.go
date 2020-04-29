@@ -251,8 +251,8 @@ func accountSSHKeyRemove() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Remove a given SSH key",
-				ArgJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Remove a given SSH key",
+				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

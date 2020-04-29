@@ -154,8 +154,8 @@ func baremetalServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all servers on your default zone",
-				ArgJSON: `null`,
+				Short:    "List all servers on your default zone",
+				ArgsJSON: `null`,
 			},
 		},
 	}

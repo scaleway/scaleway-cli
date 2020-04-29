@@ -110,20 +110,20 @@ func serverCreateCommand() *core.Command {
 		}},
 		Examples: []*core.Example{
 			{
-				Short:   "Create and start an instance on Ubuntu Bionic",
-				ArgJSON: `{"image":"ubuntu_bionic","start":true}`,
+				Short:    "Create and start an instance on Ubuntu Bionic",
+				ArgsJSON: `{"image":"ubuntu_bionic","start":true}`,
 			},
 			{
-				Short:   "Create a GP1-XS instance, give it a name and add tags",
-				ArgJSON: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
+				Short:    "Create a GP1-XS instance, give it a name and add tags",
+				ArgsJSON: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
 			},
 			{
-				Short:   "Create an instance with 2 additional block volumes (50GB and 100GB)",
-				ArgJSON: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
+				Short:    "Create an instance with 2 additional block volumes (50GB and 100GB)",
+				ArgsJSON: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
 			},
 			{
-				Short:   "Create an instance with 2 local volumes (10GB and 10GB)",
-				ArgJSON: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
+				Short:    "Create an instance with 2 local volumes (10GB and 10GB)",
+				ArgsJSON: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
 			},
 			{
 				Short: "Use an existing IP",

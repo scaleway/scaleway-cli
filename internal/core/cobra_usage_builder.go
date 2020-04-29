@@ -83,11 +83,11 @@ func buildExamples(binaryName string, cmd *Command) string {
 			commandLine = cmdExample.Raw
 			commandLine = strings.Trim(commandLine, "\n")
 			commandLine = interactive.RemoveIndent(commandLine)
-		case cmdExample.ArgJSON != "":
+		case cmdExample.ArgsJSON != "":
 			//  Query and path parameters don't have json tag,
 			//  so we need to enforce a JSON tag on every field to make this work.
 			var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
-			if err := json.Unmarshal([]byte(cmdExample.ArgJSON), cmdArgs); err != nil {
+			if err := json.Unmarshal([]byte(cmdExample.ArgsJSON), cmdArgs); err != nil {
 				panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmdExample.Short, err))
 			}
 			var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
@@ -118,7 +118,7 @@ func buildExamples(binaryName string, cmd *Command) string {
 			commandParts = append(commandParts, cmdArgsAsStrings...)
 			commandLine = strings.Join(commandParts, " ")
 		default:
-			panic(fmt.Errorf("in command '%s' invalid example '%s', it should either have a ArgJSON or a Raw", cmd.getPath(), cmdExample.Short))
+			panic(fmt.Errorf("in command '%s' invalid example '%s', it should either have a ArgsJSON or a Raw", cmd.getPath(), cmdExample.Short))
 		}
 
 		commandLine = interactive.Indent(commandLine, 4)
