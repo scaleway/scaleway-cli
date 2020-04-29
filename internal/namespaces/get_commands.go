@@ -6,6 +6,7 @@ import (
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	baremetal "github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1alpha1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/feedback"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1"
@@ -33,5 +34,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(object.GetCommands())
 	commands.Merge(versionNamespace.GetCommands())
 	commands.Merge(registry.GetCommands())
+	commands.Merge(feedback.GetCommands())
 	return commands
 }
