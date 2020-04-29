@@ -20,7 +20,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		meta.command = cmd
 
 		// If command require a client we make sure a client is present with proper configuration
-		if !cmd.NoClient {
+		if !cmd.AllowAnonymousClient {
 			err := validateClient(meta.Client)
 			if err != nil {
 				return err

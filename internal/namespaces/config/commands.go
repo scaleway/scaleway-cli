@@ -92,11 +92,11 @@ func configRoot() *core.Command {
 // configGetCommand gets one or many values for the scaleway config
 func configGetCommand() *core.Command {
 	return &core.Command{
-		Short:     `Get a line from the config file`,
-		Namespace: "config",
-		Resource:  "get",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Short:                `Get a line from the config file`,
+		Namespace:            "config",
+		Resource:             "get",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
@@ -160,10 +160,10 @@ func configSetCommand() *core.Command {
 		Short: `Set a line from the config file`,
 		Long: `This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure`,
-		Namespace: "config",
-		Resource:  "set",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Namespace:            "config",
+		Resource:             "set",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Examples: []*core.Example{
 			{
 				Short: "Update the default organization ID",
@@ -222,11 +222,11 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 // configDumpCommand unsets a value for the scaleway config
 func configUnsetCommand() *core.Command {
 	return &core.Command{
-		Short:     `Unset a line from the config file`,
-		Namespace: "config",
-		Resource:  "unset",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Short:                `Unset a line from the config file`,
+		Namespace:            "config",
+		Resource:             "unset",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			config, err := scw.LoadConfig()
 			if err != nil {
@@ -267,11 +267,11 @@ func configUnsetCommand() *core.Command {
 // configDumpCommand dumps the scaleway config
 func configDumpCommand() *core.Command {
 	return &core.Command{
-		Short:     `Dump the config file`,
-		Namespace: "config",
-		Resource:  "dump",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Short:                `Dump the config file`,
+		Namespace:            "config",
+		Resource:             "dump",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
@@ -290,10 +290,10 @@ func configDumpCommand() *core.Command {
 
 func configDeleteCommand() *core.Command {
 	return &core.Command{
-		Short:     `Allows the deletion of a profile from the config file`,
-		Namespace: "config",
-		Resource:  "delete",
-		NoClient:  true,
+		Short:                `Allows the deletion of a profile from the config file`,
+		Namespace:            "config",
+		Resource:             "delete",
+		AllowAnonymousClient: true,
 	}
 }
 
@@ -304,12 +304,12 @@ type configDeleteProfileArgs struct {
 // configDeleteProfileCommand deletes a profile from the config
 func configDeleteProfileCommand() *core.Command {
 	return &core.Command{
-		Short:     `Delete a profile from the config file`,
-		Namespace: "config",
-		Resource:  "delete",
-		Verb:      "profile",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(configDeleteProfileArgs{}),
+		Short:                `Delete a profile from the config file`,
+		Namespace:            "config",
+		Resource:             "delete",
+		Verb:                 "profile",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configDeleteProfileArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "name",
@@ -340,11 +340,11 @@ func configDeleteProfileCommand() *core.Command {
 // configResetCommand resets the config
 func configResetCommand() *core.Command {
 	return &core.Command{
-		Short:     `Reset the config`,
-		Namespace: "config",
-		Resource:  "reset",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
+		Short:                `Reset the config`,
+		Namespace:            "config",
+		Resource:             "reset",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			_, err := scw.LoadConfig()
 			if err != nil {

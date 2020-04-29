@@ -27,13 +27,13 @@ func feedbackRoot() *core.Command {
 
 func feedbackBugCommand() *core.Command {
 	return &core.Command{
-		Short:     `Send a bug-report`,
-		Long:      `Send a bug-report to the Scaleway CLI team.`,
-		Namespace: "feedback",
-		Resource:  `bug`,
-		ArgsType:  reflect.TypeOf(struct{}{}),
-		ArgSpecs:  core.ArgSpecs{},
-		NoClient: true,
+		Short:                `Send a bug-report`,
+		Long:                 `Send a bug-report to the Scaleway CLI team.`,
+		Namespace:            "feedback",
+		Resource:             `bug`,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
+		AllowAnonymousClient: true,
 
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			issue := issue{
@@ -55,13 +55,13 @@ func feedbackBugCommand() *core.Command {
 
 func feedbackFeatureRequestCommand() *core.Command {
 	return &core.Command{
-		Short:     `Send a feature request`,
-		Long:      `Send a feature request to the Scaleway CLI team.`,
-		Namespace: "feedback",
-		Resource:  `feature`,
-		ArgsType:  reflect.TypeOf(struct{}{}),
-		ArgSpecs:  core.ArgSpecs{},
-		NoClient: true,
+		Short:                `Send a feature request`,
+		Long:                 `Send a feature request to the Scaleway CLI team.`,
+		Namespace:            "feedback",
+		Resource:             `feature`,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
+		AllowAnonymousClient: true,
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			issue := issue{
 				IssueTemplate: feature,

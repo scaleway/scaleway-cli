@@ -12,9 +12,9 @@ import (
 )
 
 var fakeCommand = &Command{
-	Namespace: "plop",
-	ArgsType:  reflect.TypeOf(args.RawArgs{}),
-	NoClient:  true,
+	Namespace:            "plop",
+	ArgsType:             reflect.TypeOf(args.RawArgs{}),
+	AllowAnonymousClient: true,
 	Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		return &SuccessResult{}, nil
 	},
