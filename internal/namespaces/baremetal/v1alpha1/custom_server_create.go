@@ -98,11 +98,11 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	c.Examples = []*core.Example{
 		{
 			Short:   "Create instance",
-			Request: `{}`,
+			ArgJSON: `{}`,
 		},
 		{
 			Short:   "Create a GP-BM1-M instance, give it a name and add tags",
-			Request: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
+			ArgJSON: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
 		},
 	}
 

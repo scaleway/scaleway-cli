@@ -50,7 +50,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 		Examples: []*core.Example{
 			{
 				Short:   "Install the kubeconfig for a given cluster and using the new context",
-				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

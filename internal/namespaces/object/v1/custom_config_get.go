@@ -40,15 +40,15 @@ func configGetCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Generate a s3cmd config file for Paris region",
-				Request: `{"type": "s3cmd", "region": "fr-par"}`,
+				ArgJSON: `{"type": "s3cmd", "region": "fr-par"}`,
 			},
 			{
 				Short:   "Generate a rclone config file for default region",
-				Request: `{"type": "rclone"}`,
+				ArgJSON: `{"type": "rclone"}`,
 			},
 			{
 				Short:   "Generate a mc (minio) config file for default region",
-				Request: `{"type": "mc"}`,
+				ArgJSON: `{"type": "mc"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

@@ -287,11 +287,11 @@ func instanceServerTypeList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all server-types in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List all server-types in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				ArgJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -366,19 +366,19 @@ func instanceServerList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all servers on your default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List servers of this commercial type",
-				Request: `{"commercial_type":"DEV1-S"}`,
+				ArgJSON: `{"commercial_type":"DEV1-S"}`,
 			},
 			{
 				Short:   "List servers that are not attached to a public IP",
-				Request: `{"without_ip":true}`,
+				ArgJSON: `{"without_ip":true}`,
 			},
 			{
 				Short:   "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
-				Request: `{"name":"server1"}`,
+				ArgJSON: `{"name":"server1"}`,
 			},
 		},
 	}
@@ -411,7 +411,7 @@ func instanceServerGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get a server with the given ID",
-				Request: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
+				ArgJSON: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
 			},
 		},
 	}
@@ -530,27 +530,27 @@ func instanceServerUpdate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Update the name of a given server",
-				Request: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Put a given instance in rescue mode (reboot is required to access rescue mode)",
-				Request: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Overwrite tags of a given server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
+				ArgJSON: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
 			},
 			{
 				Short:   "Enable IPv6 on a given server",
-				Request: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Apply the given security group to a given server",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "Put a given server in the given placement group. Server must be off",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 		},
 	}
@@ -759,7 +759,7 @@ func instanceImageList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all public images in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -798,11 +798,11 @@ func instanceImageGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get an image in the default zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Get an image in fr-par-1 zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -894,7 +894,7 @@ func instanceImageCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)",
-				Request: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -933,11 +933,11 @@ func instanceImageDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete an image in the default zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Delete an image in fr-par-1 zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -979,11 +979,11 @@ func instanceSnapshotList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all snapshots in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List all snapshots in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				ArgJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1025,15 +1025,15 @@ func instanceSnapshotCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create a snapshot in the default zone from the given volume ID",
-				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Create a snapshot in fr-par-1 zone from the given volume ID",
-				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
 				Short:   "Create a named snapshot from the given volume ID",
-				Request: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -1066,11 +1066,11 @@ func instanceSnapshotGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get a snapshot in the default zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Get a snapshot in fr-par-1 zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1109,11 +1109,11 @@ func instanceSnapshotDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete a snapshot in the default zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Delete a snapshot in fr-par-1 zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1164,23 +1164,23 @@ func instanceVolumeList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all volumes",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List all block storage volumes",
-				Request: `{"volume_type":"b_ssd"}`,
+				ArgJSON: `{"volume_type":"b_ssd"}`,
 			},
 			{
 				Short:   "List all local storage volumes",
-				Request: `{"volume_type":"l_ssd"}`,
+				ArgJSON: `{"volume_type":"l_ssd"}`,
 			},
 			{
 				Short:   "List all volumes that match a name",
-				Request: `{"name":"foobar"}`,
+				ArgJSON: `{"name":"foobar"}`,
 			},
 			{
 				Short:   "List all block storage volumes that match a name",
-				Request: `{"name":"foobar","volume_type":"b_ssd"}`,
+				ArgJSON: `{"name":"foobar","volume_type":"b_ssd"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1270,15 +1270,15 @@ func instanceVolumeCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create a volume called 'my-volume'",
-				Request: `{"name":"my-volume"}`,
+				ArgJSON: `{"name":"my-volume"}`,
 			},
 			{
 				Short:   "Create a volume with a size of 50GB",
-				Request: `{"size":50000000000}`,
+				ArgJSON: `{"size":50000000000}`,
 			},
 			{
 				Short:   "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
-				Request: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
+				ArgJSON: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
 			},
 		},
 	}
@@ -1311,7 +1311,7 @@ func instanceVolumeGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get a volume with the given ID",
-				Request: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
+				ArgJSON: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
 			},
 		},
 	}
@@ -1350,7 +1350,7 @@ func instanceVolumeDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete a volume with the given ID",
-				Request: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
+				ArgJSON: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
 			},
 		},
 	}
@@ -1394,7 +1394,7 @@ func instanceSecurityGroupList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all security groups that match the given name",
-				Request: `{"name":"foobar"}`,
+				ArgJSON: `{"name":"foobar"}`,
 			},
 		},
 	}
@@ -1466,23 +1466,23 @@ func instanceSecurityGroupCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create a Security Group with the given name and description",
-				Request: `{"description":"foobar foobar","name":"foobar"}`,
+				ArgJSON: `{"description":"foobar foobar","name":"foobar"}`,
 			},
 			{
 				Short:   "Create a Security Group that will be applied as a default on instances of your organization",
-				Request: `{"organization_default":true}`,
+				ArgJSON: `{"organization_default":true}`,
 			},
 			{
 				Short:   "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
-				Request: `{"inbound_default_policy":"drop"}`,
+				ArgJSON: `{"inbound_default_policy":"drop"}`,
 			},
 			{
 				Short:   "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
-				Request: `{"outbound_default_policy":"drop"}`,
+				ArgJSON: `{"outbound_default_policy":"drop"}`,
 			},
 			{
 				Short:   "Create a stateless Security Group",
-				Request: `{"stateful":false}`,
+				ArgJSON: `{"stateful":false}`,
 			},
 		},
 	}
@@ -1515,7 +1515,7 @@ func instanceSecurityGroupGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get a security group with the given ID",
-				Request: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
+				ArgJSON: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
 			},
 		},
 	}
@@ -1554,7 +1554,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete a security group with the given ID",
-				Request: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
+				ArgJSON: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
 			},
 		},
 	}
@@ -1598,11 +1598,11 @@ func instancePlacementGroupList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all placement groups in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
-				Request: `{"name":"cluster1"}`,
+				ArgJSON: `{"name":"cluster1"}`,
 			},
 		},
 	}
@@ -1650,27 +1650,27 @@ func instancePlacementGroupCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create a placement group with default name",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "Create a placement group with the given name",
-				Request: `{"name":"foobar"}`,
+				ArgJSON: `{"name":"foobar"}`,
 			},
 			{
 				Short:   "Create an enforced placement group",
-				Request: `{"policy_mode":"enforced"}`,
+				ArgJSON: `{"policy_mode":"enforced"}`,
 			},
 			{
 				Short:   "Create an optional placement group",
-				Request: `{"policy_mode":"optional"}`,
+				ArgJSON: `{"policy_mode":"optional"}`,
 			},
 			{
 				Short:   "Create an optional low latency placement group",
-				Request: `{"policy_mode":"optional","policy_type":"low_latency"}`,
+				ArgJSON: `{"policy_mode":"optional","policy_type":"low_latency"}`,
 			},
 			{
 				Short:   "Create an enforced low latency placement group",
-				Request: `{"policy_mode":"enforced","policy_type":"low_latency"}`,
+				ArgJSON: `{"policy_mode":"enforced","policy_type":"low_latency"}`,
 			},
 		},
 	}
@@ -1703,7 +1703,7 @@ func instancePlacementGroupGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get a placement group with the given ID",
-				Request: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
+				ArgJSON: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
 			},
 		},
 	}
@@ -1755,15 +1755,15 @@ func instancePlacementGroupUpdate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Update the name of a placement group",
-				Request: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
+				ArgJSON: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
 			},
 			{
 				Short:   "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
-				Request: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
+				ArgJSON: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
 			},
 			{
 				Short:   "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
-				Request: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
+				ArgJSON: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
 			},
 		},
 	}
@@ -1802,11 +1802,11 @@ func instancePlacementGroupDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete a placement group in the default zone with the given ID",
-				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Delete a placement group in fr-par-1 zone with the given ID",
-				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1850,11 +1850,11 @@ func instanceIPList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all IPs in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List all IPs in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				ArgJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1921,15 +1921,15 @@ func instanceIPCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create an IP in the default zone",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "Create an IP in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				ArgJSON: `{"zone":"fr-par-1"}`,
 			},
 			{
 				Short:   "Create an IP and attach it to the given server",
-				Request: `{"server":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -1963,15 +1963,15 @@ func instanceIPGet() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Get an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Get an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
 				Short:   "Get an IP using directly the given IP address",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 		},
 	}
@@ -2017,15 +2017,15 @@ func instanceIPUpdate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Update an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
 			},
 			{
 				Short:   "Update an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
 			},
 			{
 				Short:   "Update an IP using directly the given IP address",
-				Request: `{"ip":"51.15.253.183","reverse":"example.com"}`,
+				ArgJSON: `{"ip":"51.15.253.183","reverse":"example.com"}`,
 			},
 		},
 	}
@@ -2065,15 +2065,15 @@ func instanceIPDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Delete an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				ArgJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
 				Short:   "Delete an IP using directly the given IP address",
-				Request: `{"ip":"51.15.253.183"}`,
+				ArgJSON: `{"ip":"51.15.253.183"}`,
 			},
 		},
 	}

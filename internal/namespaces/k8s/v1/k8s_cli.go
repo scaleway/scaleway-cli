@@ -156,15 +156,15 @@ func k8sClusterList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "List all the clusters on your default region",
-				Request: `null`,
+				ArgJSON: `null`,
 			},
 			{
 				Short:   "List the ready clusters on your default region",
-				Request: `{"status":"ready"}`,
+				ArgJSON: `{"status":"ready"}`,
 			},
 			{
 				Short:   "List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
-				Request: `{"name":"cluster1","region":"fr-par"}`,
+				ArgJSON: `{"name":"cluster1","region":"fr-par"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{

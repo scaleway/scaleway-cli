@@ -75,7 +75,7 @@ func serverWaitCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Wait for a server to reach a stable state",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

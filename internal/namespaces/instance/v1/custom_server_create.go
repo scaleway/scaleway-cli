@@ -111,19 +111,19 @@ func serverCreateCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Create and start an instance on Ubuntu Bionic",
-				Request: `{"image":"ubuntu_bionic","start":true}`,
+				ArgJSON: `{"image":"ubuntu_bionic","start":true}`,
 			},
 			{
 				Short:   "Create a GP1-XS instance, give it a name and add tags",
-				Request: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
+				ArgJSON: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
 			},
 			{
 				Short:   "Create an instance with 2 additional block volumes (50GB and 100GB)",
-				Request: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
+				ArgJSON: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
 			},
 			{
 				Short:   "Create an instance with 2 local volumes (10GB and 10GB)",
-				Request: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
+				ArgJSON: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
 			},
 			{
 				Short: "Use an existing IP",

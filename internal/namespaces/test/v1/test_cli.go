@@ -228,7 +228,7 @@ func testHumanCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "create a dwarf",
-				Request: `{"height":125}`,
+				ArgJSON: `{"height":125}`,
 			},
 		},
 	}

@@ -362,7 +362,7 @@ func serverAttachVolumeCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Attach a volume to a server",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
 			},
 		},
 	}
@@ -393,7 +393,7 @@ func serverDetachVolumeCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Detach a volume from its server",
-				Request: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
+				ArgJSON: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
 			},
 		},
 	}
@@ -427,11 +427,11 @@ func serverStartCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Start a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Start a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -450,11 +450,11 @@ func serverStopCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Stop a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Stop a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -473,11 +473,11 @@ func serverStandbyCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Put in standby a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Put in standby a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -496,11 +496,11 @@ func serverRebootCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Reboot a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Reboot a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -573,7 +573,7 @@ Once your image is ready you will be able to create a new server based on this i
 		Examples: []*core.Example{
 			{
 				Short:   "Create a new image based on a server",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -594,7 +594,7 @@ func serverWaitCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Wait for a server to reach a stable state",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -683,11 +683,11 @@ func serverDeleteCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Delete a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short:   "Delete a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

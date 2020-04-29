@@ -44,16 +44,16 @@ func configInstallCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:   "Install a s3cmd config file for Paris region",
-				Request: `{"type": "s3cmd", "region": "fr-par"}`,
+				ArgJSON: `{"type": "s3cmd", "region": "fr-par"}`,
 			},
 			{
 				Short:   "Install a rclone config file for default region",
-				Request: `{"type": "rclone"}`,
+				ArgJSON: `{"type": "rclone"}`,
 			},
 
 			{
 				Short:   "Install a mc (minio) config file for default region",
-				Request: `{"type": "mc"}`,
+				ArgJSON: `{"type": "mc"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
