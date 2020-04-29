@@ -3,7 +3,6 @@ package feedback
 import (
 	"context"
 	"fmt"
-	"log"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -48,7 +47,7 @@ func feedbackBugCommand() *core.Command {
 			}
 			err = issue.openInBrowser(ctx)
 			if err != nil {
-				log.Fatal(err)
+				return nil, err
 			}
 			return &core.SuccessResult{
 				Message:  "Successfully opened the page",
@@ -79,7 +78,7 @@ func feedbackFeatureRequestCommand() *core.Command {
 			}
 			err = issue.openInBrowser(ctx)
 			if err != nil {
-				log.Fatal(err)
+				return nil, err
 			}
 			return &core.SuccessResult{
 				Message:  "Successfully opened the page",
