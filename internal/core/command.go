@@ -27,8 +27,8 @@ type Command struct {
 	// Long documentation.
 	Long string
 
-	// NoClient defines whether the SDK client is not required to run the command.
-	NoClient bool
+	// AllowAnonymousClient defines whether the SDK client can run the command without be authenticated.
+	AllowAnonymousClient bool
 
 	// DisableTelemetry disable telemetry for the command.
 	DisableTelemetry bool

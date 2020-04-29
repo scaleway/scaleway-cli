@@ -71,11 +71,11 @@ type initArgs struct {
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initialize the config`,
-		Long:      `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
-		Namespace: "init",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(initArgs{}),
+		Short:                `Initialize the config`,
+		Long:                 `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
+		Namespace:            "init",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(initArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",

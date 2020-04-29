@@ -13,11 +13,11 @@ func GetCommands() *core.Commands {
 
 func versionCommand() *core.Command {
 	return &core.Command{
-		Short:     `Display cli version`,
-		Namespace: "version",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(struct{}{}),
-		ArgSpecs:  core.ArgSpecs{},
+		Short:                `Display cli version`,
+		Namespace:            "version",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			return core.ExtractBuildInfo(ctx), nil
 		},

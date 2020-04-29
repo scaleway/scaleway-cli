@@ -23,8 +23,8 @@ func testGetCommands() *Commands {
 					Name: "name-id",
 				},
 			},
-			NoClient: true,
-			ArgsType: reflect.TypeOf(testType{}),
+			AllowAnonymousClient: true,
+			ArgsType:             reflect.TypeOf(testType{}),
 			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 				return "", nil
 			},
@@ -41,17 +41,17 @@ func testGetCommands() *Commands {
 					Name: "tag",
 				},
 			},
-			NoClient: true,
-			ArgsType: reflect.TypeOf(testType{}),
+			AllowAnonymousClient: true,
+			ArgsType:             reflect.TypeOf(testType{}),
 			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 				return "", nil
 			},
 		},
 		&Command{
-			Namespace: "test",
-			Resource:  "raw-args",
-			ArgsType:  reflect.TypeOf(args.RawArgs{}),
-			NoClient:  true,
+			Namespace:            "test",
+			Resource:             "raw-args",
+			ArgsType:             reflect.TypeOf(args.RawArgs{}),
+			AllowAnonymousClient: true,
 			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 				res := ""
 				rawArgs := *argsI.(*args.RawArgs)
