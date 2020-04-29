@@ -11,6 +11,7 @@ import (
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -24,7 +25,7 @@ const (
 
 type issue struct {
 	IssueTemplate issueTemplate
-	BuildInfoStr  string
+	BuildInfo     *core.BuildInfo
 }
 
 const bugBodyTemplate = `
@@ -110,9 +111,16 @@ func (i issue) renderTemplate(bodyTemplate string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
+	buildInfoStr, err := human.Marshal(i.BuildInfo, nil)
+	if err != nil {
+		return "", err
+	}
 	var buf bytes.Buffer
-	err = tmpl.Execute(&buf, i)
+	err = tmpl.Execute(&buf, struct {
+		BuildInfoStr string
+	}{
+		BuildInfoStr: buildInfoStr,
+	})
 	if err != nil {
 		return "", err
 	}

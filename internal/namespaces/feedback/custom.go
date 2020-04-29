@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
 )
 
 func GetCommands() *core.Commands {
@@ -37,15 +36,11 @@ func feedbackBugCommand() *core.Command {
 		NoClient: true,
 
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			buildInfoStr, err := human.Marshal(core.ExtractBuildInfo(ctx), nil)
-			if err != nil {
-				return nil, err
-			}
 			issue := issue{
 				IssueTemplate: bug,
-				BuildInfoStr:  buildInfoStr,
+				BuildInfo:  core.ExtractBuildInfo(ctx),
 			}
-			err = issue.openInBrowser(ctx)
+			err := issue.openInBrowser(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -68,15 +63,11 @@ func feedbackFeatureRequestCommand() *core.Command {
 		ArgSpecs:  core.ArgSpecs{},
 		NoClient: true,
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			buildInfoStr, err := human.Marshal(core.ExtractBuildInfo(ctx), nil)
-			if err != nil {
-				return nil, err
-			}
 			issue := issue{
 				IssueTemplate: feature,
-				BuildInfoStr: buildInfoStr,
+				BuildInfo: core.ExtractBuildInfo(ctx),
 			}
-			err = issue.openInBrowser(ctx)
+			err := issue.openInBrowser(ctx)
 			if err != nil {
 				return nil, err
 			}
