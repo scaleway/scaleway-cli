@@ -19,9 +19,9 @@ const (
 )
 
 type k8sKubeconfigInstallRequest struct {
-	ClusterID         string
-	Region            scw.Region
-	KeepCurentContext bool
+	ClusterID          string
+	Region             scw.Region
+	KeepCurrentContext bool
 }
 
 func k8sKubeconfigInstallCommand() *core.Command {
@@ -160,7 +160,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	// set the current context to the new one
-	if !request.KeepCurentContext {
+	if !request.KeepCurrentContext {
 		existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + request.ClusterID
 	}
 
