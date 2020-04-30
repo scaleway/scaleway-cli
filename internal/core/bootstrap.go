@@ -95,15 +95,11 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
+	// An authenticated client will be created later if required.
 	client := config.Client
 	if client == nil {
-		// Create scw client
-		client, err = createClient(config.BuildInfo, profileName)
+		client, err = createAnonymousClient(config.BuildInfo)
 		if err != nil {
-			printErr := globalPrinter.Print(err, nil)
-			if printErr != nil {
-				_, _ = fmt.Fprintln(config.Stderr, printErr)
-			}
 			return 1, nil, err
 		}
 	}
