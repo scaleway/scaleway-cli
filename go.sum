@@ -62,6 +62,8 @@ github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200422170208-cd3e8b9e038c 
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200422170208-cd3e8b9e038c/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200428110639-7ec36ccf1cfc h1:zJICGw5p88KTYAzdDFjyZRBENt3kIuDsM+e89gj+5q4=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200428110639-7ec36ccf1cfc/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200430120055-da0e4c1879bc h1:xwb3X3F2jWqN/vPvFOo/QDK4IcIEhmcs83CBV5bihtk=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200430120055-da0e4c1879bc/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
