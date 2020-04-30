@@ -19,9 +19,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
-		// If command require a client we make sure a client is present with proper configuration
+		// If command requires authentication, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient {
-			err := validateClient(meta.Client)
+			client, err := createClient(ExtractBuildInfo(ctx), ExtractProfileName(ctx))
+			meta.Client = client
+			err = validateClient(meta.Client)
 			if err != nil {
 				return err
 			}
