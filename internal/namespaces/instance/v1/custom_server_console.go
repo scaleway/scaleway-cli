@@ -5,17 +5,20 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/console"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
+
+	"github.com/fatih/color"
+
+	"github.com/scaleway/scaleway-cli/internal/terminal"
+
+	"github.com/scaleway/scaleway-cli/internal/gotty"
+
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	consoleURL = "https://tty.scaleway.com/v2"
-)
-
-type instanceConsoleServerRequest struct {
+type instanceConsoleServerArgs struct {
 	Zone     scw.Zone
 	ServerID string
 }
@@ -26,7 +29,7 @@ func serverConsoleCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "console",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceConsoleServerRequest{}),
+		ArgsType:  reflect.TypeOf(instanceConsoleServerArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -41,7 +44,7 @@ func serverConsoleCommand() *core.Command {
 }
 
 func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	args := argsI.(*instanceConsoleServerRequest)
+	args := argsI.(*instanceConsoleServerArgs)
 
 	client := core.ExtractClient(ctx)
 	apiInstance := instance.NewAPI(client)
@@ -52,32 +55,27 @@ func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interfa
 	if err != nil {
 		return nil, err
 	}
+	server := serverResp.Server
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
 		return nil, fmt.Errorf("could not get secret key")
 	}
 
-	gottycli, err := console.NewClient(consoleURL, serverResp.Server.ID, secretKey)
+	ttyClient, err := gotty.NewClient(server.Zone, server.ID, secretKey)
 	if err != nil {
 		return nil, err
 	}
 
-	if err = gottycli.Connect(); err != nil {
+	// Add hint on how to quit properly
+	fmt.Printf(terminal.Style("Open connection to %s (%s)\n", color.Bold), server.Name, server.ID)
+	fmt.Println(" - You may need to hit enter to start")
+	fmt.Println(" - Type Ctrl+q to quit.")
+	fmt.Println(interactive.Line("-"))
+
+	if err = ttyClient.Connect(); err != nil {
 		return nil, err
 	}
-
-	done := make(chan bool)
-
-	fmt.Println("You are connected, type 'Ctrl+q' to quit.")
-
-	go func() {
-		err = gottycli.Loop()
-		gottycli.Close()
-		done <- true
-	}()
-
-	<-done
 
 	return nil, err
 }
