@@ -5,15 +5,11 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/interactive"
-
 	"github.com/fatih/color"
-
-	"github.com/scaleway/scaleway-cli/internal/terminal"
-
-	"github.com/scaleway/scaleway-cli/internal/gotty"
-
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/gotty"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
