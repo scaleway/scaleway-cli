@@ -13,9 +13,7 @@ import (
 type meta struct {
 	BinaryName string
 
-	ProfileFlag     string
-	DebugModeFlag   bool
-	PrinterTypeFlag printer.Type
+	ProfileFlag string
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
@@ -87,6 +85,13 @@ func ExtractUserHomeDir(ctx context.Context) string {
 
 func ExtractBinaryName(ctx context.Context) string {
 	return extractMeta(ctx).BinaryName
+}
+
+func ExtractProfileName(ctx context.Context) string {
+	if extractMeta(ctx).ProfileFlag != "" {
+		return extractMeta(ctx).ProfileFlag
+	}
+	return ExtractEnv(ctx, "SCW_PROFILE")
 }
 
 func ReloadClient(ctx context.Context) error {
