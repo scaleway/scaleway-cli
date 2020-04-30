@@ -261,7 +261,6 @@ func initCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*initArgs)
-
 			// Check if a config exists
 			// Creates a new one if it does not
 			config, err := scw.LoadConfig()
@@ -274,8 +273,9 @@ func initCommand() *core.Command {
 				config.SendTelemetry = args.SendTelemetry
 			}
 
-			// Update active profile
-			profile, err := config.GetActiveProfile()
+			profileName := core.ExtractProfileName(ctx)
+			fmt.Println("coucou coucou")
+			profile, err := config.GetProfile(profileName)
 			if err != nil {
 				return nil, err
 			}
