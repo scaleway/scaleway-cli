@@ -32,6 +32,16 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := instance.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
+			SnapshotID: respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
+			Zone:       argsI.(*customCreateSnapshotRequest).Zone,
+			Timeout:    serverActionTimeout,
+		})
+	}
+
 	return c
 }
 
