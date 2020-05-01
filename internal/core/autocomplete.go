@@ -293,17 +293,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		default:
 			if _, exist := node.Children[positionalValueNodeID]; exist && i > nodeIndexInWords {
 				completedArgs[word] = struct{}{}
-
 			}
-			//children, exist := node.Children[word+"="]
-			//if exist && children.Type == AutoCompleteNodeTypeArgument && i > nodeIndexInWords {
-			//	// We need to check i > nodeIndexInWords
-			//	// because the same word may be used for both a command and an argument.
-			//	// example:
-			//	//	scw instance ip delete ip<tab>
-			//	//	Here, we don't want to register the first `ip` into `completedArgs`
-			//	completedArgs[word+"="] = struct{}{}
-			//}
 		}
 	}
 
