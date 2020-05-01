@@ -161,6 +161,8 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 		if key == positionalValueNodeID {
 			continue
 		}
+		key = "^" + key + "$"
+		key = strings.ReplaceAll(key, ".", "\\.")
 		key = strings.ReplaceAll(key, sliceSchema, "[0-9]+")
 		key = strings.ReplaceAll(key, mapSchema, "[0-9a-zA-Z-]+")
 		r := regexp.MustCompile(key)

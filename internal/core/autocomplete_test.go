@@ -108,7 +108,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create n", run(&testCase{Suggestions: AutocompleteSuggestions{"name="}}))
 	t.Run("scw test flower create name", run(&testCase{Suggestions: AutocompleteSuggestions{"name="}}))
 	t.Run("scw test flower create name=", run(&testCase{Suggestions: nil}))
-	t.Run("scw test flower create name n", run(&testCase{Suggestions: nil})) // happens when name is a boolean
+	t.Run("scw test flower create name n", run(&testCase{Suggestions: AutocompleteSuggestions{"name="}}))
 	t.Run("scw test flower create name=p", run(&testCase{Suggestions: nil}))
 	t.Run("scw test flower create name=p ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
 	t.Run("scw test flower create name=plop n", run(&testCase{Suggestions: nil}))
