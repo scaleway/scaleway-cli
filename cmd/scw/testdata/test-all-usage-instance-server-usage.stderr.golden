@@ -32,17 +32,18 @@ AVAILABLE COMMANDS:
   list          List servers
   get           Get server
   update        Update server
+  attach-volume Attach a volume to a server
+  backup        Backup server
+  console       Connect to the serial console of an instance
   create        Create server
+  delete        Delete server
+  detach-volume Detach a volume from its server
+  ssh           SSH into a server
   start         Power on server
   stop          Power off server
   standby       Put server in standby mode
   reboot        Reboot server
-  backup        Backup server
   wait          Wait for server to reach a stable state
-  delete        Delete server
-  attach-volume Attach a volume to a server
-  detach-volume Detach a volume from its server
-  ssh           SSH into a server
 
 FLAGS:
   -h, --help   help for server
