@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -82,6 +83,10 @@ type ArgSpec struct {
 
 func (a *ArgSpec) Prefix() string {
 	return a.Name + "="
+}
+
+func (a *ArgSpec) IsPartOfMapOrSlice() bool {
+	return strings.Contains(a.Name, sliceSchema) || strings.Contains(a.Name, mapSchema)
 }
 
 type DefaultFunc func() (value string, doc string)

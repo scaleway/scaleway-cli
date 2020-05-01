@@ -436,7 +436,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"bool",
 		},
 		data:  &Basic{},
-		error: "arg 'bool' must have a value",
+		error: "cannot unmarshal arg 'bool': *bool is not unmarshalable: invalid boolean value",
 	}))
 
 	t.Run("bool-without-value", run(TestCase{
@@ -444,23 +444,22 @@ func TestUnmarshalStruct(t *testing.T) {
 			"bool=",
 		},
 		data:  &Basic{},
-		error: "arg 'bool' must have a value",
+		error: "cannot unmarshal arg 'bool': *bool is not unmarshalable: invalid boolean value",
 	}))
 
 	t.Run("string-without-equal", run(TestCase{
 		args: []string{
 			"string",
 		},
-		data:  &Basic{},
-		error: "arg 'string' must have a value",
+		expected: &Basic{},
+		//error: "arg 'string' must have a value",
 	}))
 
 	t.Run("string-without-value", run(TestCase{
 		args: []string{
 			"string=",
 		},
-		data:  &Basic{},
-		error: "arg 'string' must have a value",
+		expected: &Basic{},
 	}))
 
 	t.Run("strings-without-equal", run(TestCase{
@@ -468,17 +467,15 @@ func TestUnmarshalStruct(t *testing.T) {
 			"strings",
 		},
 		data:  &Slice{},
-		error: "arg 'strings' must have a value",
+		error: "cannot unmarshal arg 'strings': missing index on the array",
 	}))
 
-	// TODO: decide if we want to fix it
-	// According to specs, this should not trigger an error
 	t.Run("strings-without-value", run(TestCase{
 		args: []string{
 			"strings=",
 		},
 		data:  &Slice{},
-		error: "arg 'strings' must have a value",
+		error: "cannot unmarshal arg 'strings': missing index on the array",
 	}))
 }
 func TestIsUmarshalableValue(t *testing.T) {

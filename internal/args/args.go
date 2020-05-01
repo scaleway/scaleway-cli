@@ -1,7 +1,6 @@
 package args
 
 import (
-	"fmt"
 	"reflect"
 	"regexp"
 	"strings"
@@ -71,10 +70,14 @@ func SplitRaw(rawArgs []string) ([][2]string, error) {
 	keyValue := [][2]string{}
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
-		if len(tmp) < 2 || (len(tmp) == 2 && strings.HasSuffix(arg, "=")) {
-			return nil, fmt.Errorf("arg '%v' must have a value", tmp[0])
+		//if len(tmp) < 2 || (len(tmp) == 2 && strings.HasSuffix(arg, "=")) {
+		//	return nil, fmt.Errorf("arg '%v' must have a value", tmp[0])
+		//}
+		if len(tmp) == 1 {
+			keyValue = append(keyValue, [2]string{tmp[0], ""})
+		} else {
+			keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
 		}
-		keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
 	}
 	return keyValue, nil
 }
