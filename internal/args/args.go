@@ -56,11 +56,10 @@ func SplitRaw(rawArgs []string) [][2]string {
 	keyValue := [][2]string{}
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
-		if len(tmp) == 1 {
-			keyValue = append(keyValue, [2]string{tmp[0], ""})
-		} else {
-			keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
+		if len(tmp) < 2 {
+			tmp = append(tmp, "")
 		}
+		keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
 	}
 	return keyValue
 }
