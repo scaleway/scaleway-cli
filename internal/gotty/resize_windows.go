@@ -1,4 +1,5 @@
 // +build windows
+
 package gotty
 
 import "os"
