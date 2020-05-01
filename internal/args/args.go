@@ -44,42 +44,25 @@ var (
 // ["arg1=1", "arg2=2", "arg3"] => {"arg1": "1", "arg2": "2", "arg3":"" }
 func SplitRawMap(rawArgs []string) map[string]struct{} {
 	argsMap := map[string]struct{}{}
-	for _, arg := range SplitRawNoError(rawArgs) {
+	for _, arg := range SplitRaw(rawArgs) {
 		argsMap[arg[0]] = struct{}{}
 	}
 	return argsMap
 }
 
-// SplitRawNoError creates a slice that maps arg names to their values.
-// ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
-func SplitRawNoError(rawArgs []string) [][2]string {
-	keyValue := [][2]string{}
-	for _, arg := range rawArgs {
-		tmp := strings.SplitN(arg, "=", 2)
-		if len(tmp) < 2 {
-			tmp = append(tmp, "")
-		}
-		keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
-	}
-	return keyValue
-}
-
 // SplitRaw creates a slice that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
-func SplitRaw(rawArgs []string) ([][2]string, error) {
+func SplitRaw(rawArgs []string) [][2]string {
 	keyValue := [][2]string{}
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
-		//if len(tmp) < 2 || (len(tmp) == 2 && strings.HasSuffix(arg, "=")) {
-		//	return nil, fmt.Errorf("arg '%v' must have a value", tmp[0])
-		//}
 		if len(tmp) == 1 {
 			keyValue = append(keyValue, [2]string{tmp[0], ""})
 		} else {
 			keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
 		}
 	}
-	return keyValue, nil
+	return keyValue
 }
 
 func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
