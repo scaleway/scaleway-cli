@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/url"
 	"os"
-	"os/signal"
 	"syscall"
 	"time"
 
@@ -88,8 +87,8 @@ func (c *Client) Connect() error {
 
 	// Create a chanel that will receive all resizes signals
 	resizeChan := make(chan os.Signal, 1)
-	signal.Notify(resizeChan, syscall.SIGWINCH)
-	defer signal.Stop(resizeChan)
+	unsubscribe := subscribeToResize(resizeChan)
+	defer unsubscribe()
 
 	wsChan, wsErrChan := websocketReader(conn)
 	cnsChan, cnsErrChan := consoleReader(cns)
