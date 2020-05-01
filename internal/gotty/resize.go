@@ -8,9 +8,22 @@ import (
 	"syscall"
 )
 
-func subscribeToResize(resizeChan chan os.Signal) func() {
-	signal.Notify(resizeChan, syscall.SIGWINCH)
+func subscribeToResize(resizeChan chan bool) func() {
+	sigChan := make(chan os.Signal)
+
+	go func() {
+		for {
+			sig := <-sigChan
+			if sig == nil {
+				return
+			}
+			resizeChan <- true
+		}
+	}()
+
+	signal.Notify(sigChan, syscall.SIGWINCH)
 	return func() {
-		signal.Stop(resizeChan)
+		signal.Stop(sigChan)
+		close(sigChan)
 	}
 }

@@ -2,9 +2,7 @@
 
 package gotty
 
-import "os"
-
-func subscribeToResize(resizeChan chan os.Signal) func() {
+func subscribeToResize(resizeChan chan bool) func() {
 	// Platform not supported
 	return func() {}
 }

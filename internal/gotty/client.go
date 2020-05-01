@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/url"
 	"os"
-	"syscall"
 	"time"
 
 	"github.com/containerd/console"
@@ -86,7 +85,7 @@ func (c *Client) Connect() error {
 	defer cns.Close()
 
 	// Create a chanel that will receive all resizes signals
-	resizeChan := make(chan os.Signal, 1)
+	resizeChan := make(chan bool, 1)
 	unsubscribe := subscribeToResize(resizeChan)
 	defer unsubscribe()
 
@@ -94,7 +93,7 @@ func (c *Client) Connect() error {
 	cnsChan, cnsErrChan := consoleReader(cns)
 
 	// Force first resize
-	resizeChan <- syscall.SIGWINCH
+	resizeChan <- true
 
 	for {
 		select {
