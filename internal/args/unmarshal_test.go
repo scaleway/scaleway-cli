@@ -452,7 +452,6 @@ func TestUnmarshalStruct(t *testing.T) {
 			"string",
 		},
 		expected: &Basic{},
-		//error: "arg 'string' must have a value",
 	}))
 
 	t.Run("string-without-value", run(TestCase{
