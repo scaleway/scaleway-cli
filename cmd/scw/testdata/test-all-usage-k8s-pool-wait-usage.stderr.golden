@@ -1,0 +1,20 @@
+Wait for a pool to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.
+
+USAGE:
+  scw k8s pool wait <pool-id ...> [arg=value ...]
+
+EXAMPLES:
+  Wait for a pool to reach a stable state
+    scw k8s pool wait 11111111-1111-1111-1111-111111111111
+
+ARGS:
+  pool-id    ID of the pool.
+  [region]   Region to target. If none is passed will use default region from the config
+
+FLAGS:
+  -h, --help   help for wait
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

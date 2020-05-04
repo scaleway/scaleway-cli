@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -85,5 +86,39 @@ func waitForPoolFunc(action int) core.WaitFunc {
 			}
 		}
 		return nil, err
+	}
+}
+
+func k8sPoolWaitCommand() *core.Command {
+	return &core.Command{
+		Short:     `Wait for a pool to reach a stable state`,
+		Long:      `Wait for a pool to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "wait",
+		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := k8s.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForPool(&k8s.WaitForPoolRequest{
+				Region:  argsI.(*k8s.WaitForPoolRequest).Region,
+				PoolID:  argsI.(*k8s.WaitForPoolRequest).PoolID,
+				Timeout: scw.TimeDurationPtr(poolActionTimeout),
+			})
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pool-id",
+				Short:      `ID of the pool.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.RegionArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Wait for a pool to reach a stable state",
+				Request: `{"pool_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }
