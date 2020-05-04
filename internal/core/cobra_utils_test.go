@@ -44,7 +44,7 @@ func testGetCommands() *Commands {
 			AllowAnonymousClient: true,
 			ArgsType:             reflect.TypeOf(testType{}),
 			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-				return "", nil
+				return argsI, nil
 			},
 		},
 		&Command{
@@ -198,7 +198,16 @@ func Test_PositionalArg(t *testing.T) {
 
 	t.Run("multi positional", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test positional test1 test2",
+		Cmd:      "scw test positional tag=tag01 test1 test2",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckGolden(),
+		),
+	}))
+
+	t.Run("multi positional json", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional -o json tag=tag01 test1 test2",
 		Check: TestCheckCombine(
 			TestCheckExitCode(0),
 			TestCheckGolden(),
