@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"os"
 	"runtime"
 
@@ -42,12 +43,16 @@ func main() {
 	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
 	defer sentry.RecoverPanicAndSendReport(buildInfo)
 
+	debug := flag.Bool("debug", false, "Enable debug mode")
+	flag.Parse()
+
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
-		Args:      os.Args,
-		Commands:  namespaces.GetCommands(),
-		BuildInfo: buildInfo,
-		Stdout:    colorable.NewColorableStdout(),
-		Stderr:    colorable.NewColorableStderr(),
+		EnableDebug: *debug,
+		Args:        os.Args,
+		Commands:    namespaces.GetCommands(),
+		BuildInfo:   buildInfo,
+		Stdout:      colorable.NewColorableStdout(),
+		Stderr:      colorable.NewColorableStderr(),
 	})
 
 	os.Exit(exitCode)

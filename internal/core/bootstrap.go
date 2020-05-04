@@ -48,6 +48,9 @@ type BootstrapConfig struct {
 	// If this function is not defined the exec.Cmd.Run function will be called directly.
 	// This function is intended to be use for tests purposes.
 	OverrideExec OverrideExecFunc
+
+	// Debug enables debug mode
+	EnableDebug bool
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -82,6 +85,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if debug {
 		logLevel = logger.LogLevelDebug // enable debug mode
 	}
+	logger.Debugf("coucou tu veux voir mon logging?")
 
 	// We force log to os.Stderr because we dont have a scoped logger feature and it create
 	// concurrency situation with golden files
