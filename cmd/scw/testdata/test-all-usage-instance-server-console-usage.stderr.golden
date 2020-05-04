@@ -1,7 +1,7 @@
 Connect to the serial console of an instance
 
 USAGE:
-  scw instance server console <server-id> [arg=value ...]
+  scw instance server console <server-id ...> [arg=value ...]
 
 ARGS:
   server-id   Server ID to connect to
