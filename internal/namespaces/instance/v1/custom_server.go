@@ -714,6 +714,10 @@ func serverDeleteCommand() *core.Command {
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
+				Command: "scw instance server terminate",
+				Short:   "Terminate a running server",
+			},
+			{
 				Command: "scw instance server stop",
 				Short:   "Stop a running server",
 			},
@@ -819,6 +823,127 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{}, nil
+		},
+	}
+}
+
+type customTerminateServerRequest struct {
+	Zone      scw.Zone
+	ServerID  string
+	WithIP    bool
+	WithBlock bool
+}
+
+func serverTerminateCommand() *core.Command {
+	return &core.Command{
+		Short:     `Terminate server`,
+		Long:      `Terminates a server with the given ID and all of its volumes.`,
+		Namespace: "instance",
+		Verb:      "terminate",
+		Resource:  "server",
+		ArgsType:  reflect.TypeOf(customTerminateServerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "with-ip",
+				Short: "Delete the IP attached to the server",
+			},
+			{
+				Name:    "with-block",
+				Short:   "Delete the Block Storage volumes attached to the server",
+				Default: core.DefaultValueSetter("true"),
+			},
+			core.ZoneArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Terminate a server in the default zone with a given id",
+				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Terminate a server in fr-par-1 zone with a given id",
+				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Terminate a server and also delete its flexible IPs",
+				Request: `{"with_ip":true, "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw instance server delete",
+				Short:   "delete a running server",
+			},
+			{
+				Command: "scw instance server stop",
+				Short:   "Stop a running server",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			terminateServerArgs := argsI.(*customTerminateServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			server, err := api.GetServer(&instance.GetServerRequest{
+				Zone:     terminateServerArgs.Zone,
+				ServerID: terminateServerArgs.ServerID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if !terminateServerArgs.WithBlock {
+				// detach block storage volumes before terminating the isntance to preserve them
+				var multiErr error
+				for _, volume := range server.Server.Volumes {
+
+					if volume.VolumeType != instance.VolumeTypeBSSD {
+						continue
+					}
+
+					if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+						Zone:     terminateServerArgs.Zone,
+						VolumeID: volume.ID,
+					}); err != nil {
+						multiErr = multierror.Append(multiErr, err)
+						continue
+					}
+
+					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
+				}
+
+				if multiErr != nil {
+					return nil, multiErr
+				}
+			}
+
+			if _, err := api.ServerAction(&instance.ServerActionRequest{
+				Zone:     terminateServerArgs.Zone,
+				ServerID: terminateServerArgs.ServerID,
+				Action:   instance.ServerActionTerminate,
+			}); err != nil {
+				return nil, err
+			}
+
+			var multiErr error
+			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+				err = api.DeleteIP(&instance.DeleteIPRequest{
+					Zone: terminateServerArgs.Zone,
+					IP:   server.Server.PublicIP.ID,
+				})
+				if err != nil {
+					multiErr = multierror.Append(multiErr, err)
+				} else {
+					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
+				}
+			}
+
+			return &core.SuccessResult{}, multiErr
 		},
 	}
 }
