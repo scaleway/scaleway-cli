@@ -1,7 +1,7 @@
 Get SSH key details.
 
 USAGE:
-  scw account ssh-key get <ssh-key-id> [arg=value ...]
+  scw account ssh-key get <ssh-key-id ...> [arg=value ...]
 
 ARGS:
   ssh-key-id   The ID of the SSH key

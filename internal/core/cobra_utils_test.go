@@ -195,4 +195,14 @@ func Test_PositionalArg(t *testing.T) {
 			TestCheckGolden(),
 		),
 	}))
+
+	t.Run("multi positional", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional test1 test2",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckGolden(),
+		),
+	}))
+
 }

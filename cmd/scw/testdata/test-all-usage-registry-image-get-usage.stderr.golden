@@ -1,7 +1,7 @@
 Get the image associated with the given id.
 
 USAGE:
-  scw registry image get <image-id> [arg=value ...]
+  scw registry image get <image-id ...> [arg=value ...]
 
 ARGS:
   image-id   The unique ID of the Image

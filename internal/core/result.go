@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/internal/human"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -66,4 +68,18 @@ func (s *SuccessResult) getMessage() string {
 	}
 
 	return "Success"
+}
+
+type MultiResults []interface{}
+
+func (mr MultiResults) MarshalHuman() (string, error) {
+	strs := []string(nil)
+	for _, r := range mr {
+		str, err := human.Marshal(r, nil)
+		if err != nil {
+			return "", err
+		}
+		strs = append(strs, str)
+	}
+	return strings.Join(strs, "\n"), nil
 }

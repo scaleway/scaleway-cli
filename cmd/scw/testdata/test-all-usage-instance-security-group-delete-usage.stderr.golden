@@ -1,7 +1,7 @@
 Delete security group.
 
 USAGE:
-  scw instance security-group delete <security-group-id> [arg=value ...]
+  scw instance security-group delete <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
   Delete a security group with the given ID

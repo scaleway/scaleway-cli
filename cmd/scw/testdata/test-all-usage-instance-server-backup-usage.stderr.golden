@@ -7,7 +7,7 @@ This command:
 Once your image is ready you will be able to create a new server based on this image.
 
 USAGE:
-  scw instance server backup <server-id> [arg=value ...]
+  scw instance server backup <server-id ...> [arg=value ...]
 
 EXAMPLES:
   Create a new image based on a server

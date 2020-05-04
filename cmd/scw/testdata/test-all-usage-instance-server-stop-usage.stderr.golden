@@ -1,7 +1,7 @@
 Power off server
 
 USAGE:
-  scw instance server stop <server-id> [arg=value ...]
+  scw instance server stop <server-id ...> [arg=value ...]
 
 EXAMPLES:
   Stop a server in the default zone with a given id

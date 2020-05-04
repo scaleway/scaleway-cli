@@ -1,7 +1,7 @@
 This method allows to reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable after) and create a new one. Note that the redownload of the kubeconfig will be necessary to keep interacting with the cluster (if the old admin token was used).
 
 USAGE:
-  scw k8s cluster reset-admin-token <cluster-id> [arg=value ...]
+  scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
   Reset the admin token for a given cluster

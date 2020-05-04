@@ -1,7 +1,7 @@
 This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...
 
 USAGE:
-  scw k8s pool update <pool-id> [arg=value ...]
+  scw k8s pool update <pool-id ...> [arg=value ...]
 
 EXAMPLES:
   Enable autoscaling on a given pool

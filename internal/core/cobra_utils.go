@@ -45,8 +45,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			meta.result = data
-			opt := cmd.getHumanMarshalerOpt()
-			return meta.Printer.Print(data, opt)
+			return meta.Printer.Print(data, cmd.getHumanMarshalerOpt())
 		}
 
 		positionalArgs := rawArgs.GetPositionalArgs()
@@ -69,7 +68,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 		}
 
-		results := []interface{}(nil)
+		results := MultiResults(nil)
 		rawArgs = rawArgs.RemoveAllPositional()
 		for _, positionalArg := range positionalArgs {
 			rawArgsWithPositional := rawArgs.Add(positionalArgSpec.Name, positionalArg)
@@ -80,11 +79,6 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			results = append(results, result)
-			err = meta.Printer.Print(result, nil)
-			if err != nil {
-				return err
-			}
-
 		}
 		// If only one positional parameter was provided we return the result directly instead of
 		// an array of results
@@ -94,6 +88,10 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			meta.result = results
 		}
 
+		err := meta.Printer.Print(meta.result, cmd.getHumanMarshalerOpt())
+		if err != nil {
+			return err
+		}
 		return nil
 	}
 }

@@ -121,7 +121,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations["CommandUsage"] += " <command>"
 	}
 	if positionalArg := cmd.ArgSpecs.GetPositionalArg(); positionalArg != nil {
-		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + ">"
+		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + " ...>"
 	}
 	if len(cmd.ArgSpecs) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " [arg=value ...]"

@@ -1,7 +1,7 @@
 Update the human associated with the given id.
 
 USAGE:
-  scw test human update <human-id> [arg=value ...]
+  scw test human update <human-id ...> [arg=value ...]
 
 ARGS:
   human-id                   

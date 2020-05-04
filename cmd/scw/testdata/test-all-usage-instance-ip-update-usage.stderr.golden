@@ -1,7 +1,7 @@
 Update IP.
 
 USAGE:
-  scw instance ip update <ip> [arg=value ...]
+  scw instance ip update <ip ...> [arg=value ...]
 
 EXAMPLES:
   Update an IP in the default zone with the given ID

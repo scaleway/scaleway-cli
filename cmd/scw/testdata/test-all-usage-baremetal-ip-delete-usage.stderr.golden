@@ -1,7 +1,7 @@
 Delete the IP failover associated with the given IP.
 
 USAGE:
-  scw baremetal ip delete <ip-failover-id> [arg=value ...]
+  scw baremetal ip delete <ip-failover-id ...> [arg=value ...]
 
 ARGS:
   ip-failover-id   ID of the IP failover to delete
