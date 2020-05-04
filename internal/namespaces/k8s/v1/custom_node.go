@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -48,5 +49,39 @@ func waitForNodeFunc(action int) core.WaitFunc {
 			return node, err
 		}
 		return nil, err
+	}
+}
+
+func k8sNodeWaitCommand() *core.Command {
+	return &core.Command{
+		Short:     `Wait for a node to reach a stable state`,
+		Long:      `Wait for a node to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "wait",
+		ArgsType:  reflect.TypeOf(k8s.WaitForNodeRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := k8s.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForNode(&k8s.WaitForNodeRequest{
+				Region:  argsI.(*k8s.WaitForNodeRequest).Region,
+				NodeID:  argsI.(*k8s.WaitForNodeRequest).NodeID,
+				Timeout: scw.TimeDurationPtr(nodeActionTimeout),
+			})
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "node-id",
+				Short:      `ID of the node.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.RegionArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Wait for a node to reach a stable state",
+				Request: `{"node_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }

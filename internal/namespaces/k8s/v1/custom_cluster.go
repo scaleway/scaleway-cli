@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -99,5 +100,39 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			}
 		}
 		return nil, err
+	}
+}
+
+func k8sClusterWaitCommand() *core.Command {
+	return &core.Command{
+		Short:     `Wait for a cluster to reach a stable state`,
+		Long:      `Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "wait",
+		ArgsType:  reflect.TypeOf(k8s.WaitForClusterRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := k8s.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForCluster(&k8s.WaitForClusterRequest{
+				Region:    argsI.(*k8s.WaitForClusterRequest).Region,
+				ClusterID: argsI.(*k8s.WaitForClusterRequest).ClusterID,
+				Timeout:   scw.TimeDurationPtr(clusterActionTimeout),
+			})
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.RegionArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Wait for a cluster to reach a stable state",
+				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
 	}
 }

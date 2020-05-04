@@ -19,6 +19,9 @@ func GetCommands() *core.Commands {
 		k8sKubeconfigGetCommand(),
 		k8sKubeconfigInstallCommand(),
 		k8sKubeconfigUninstallCommand(),
+		k8sClusterWaitCommand(),
+		k8sNodeWaitCommand(),
+		k8sPoolWaitCommand(),
 	))
 
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
