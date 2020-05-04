@@ -82,6 +82,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
+	cmds.Merge(core.NewCommands(
+		imageWaitCommand(),
+	))
 
 	//
 	// Snapshot
@@ -90,6 +93,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
 	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	cmds.Merge(core.NewCommands(
+		snapshotWaitCommand(),
+	))
 
 	//
 	// Volume

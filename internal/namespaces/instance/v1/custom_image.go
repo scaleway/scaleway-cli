@@ -11,6 +11,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const (
+	imageActionTimeout = 60 * time.Minute
+)
+
 //
 // Builders
 //
@@ -215,4 +219,38 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 	})
 
 	return c
+}
+
+func imageWaitCommand() *core.Command {
+	return &core.Command{
+		Short:     `Wait for image to reach a stable state`,
+		Long:      `Wait for image to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the image.`,
+		Namespace: "instance",
+		Resource:  "image",
+		Verb:      "wait",
+		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForImage(&instance.WaitForImageRequest{
+				Zone:    argsI.(*instance.WaitForImageRequest).Zone,
+				ImageID: argsI.(*instance.WaitForImageRequest).ImageID,
+				Timeout: imageActionTimeout,
+			})
+
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "image-id",
+				Short:    `ID of the image.`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Wait for a image to reach a stable state",
+				Request: `{"image_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
 }
