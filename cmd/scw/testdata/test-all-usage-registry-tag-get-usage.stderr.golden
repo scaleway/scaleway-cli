@@ -1,7 +1,7 @@
 Get the tag associated with the given id.
 
 USAGE:
-  scw registry tag get <tag-id> [arg=value ...]
+  scw registry tag get <tag-id ...> [arg=value ...]
 
 ARGS:
   tag-id     The unique ID of the Tag

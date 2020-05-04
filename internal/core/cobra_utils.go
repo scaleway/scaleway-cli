@@ -13,9 +13,9 @@ import (
 
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
-	return func(cobraCmd *cobra.Command, rawArgs []string) error {
-		var err error
-		opt := cmd.getHumanMarshalerOpt()
+	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
+		rawArgs := RawArgs(rawArgsStr)
+
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
@@ -27,132 +27,131 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 		}
 
-		// create a new Args interface{}
-		// unmarshalled arguments will be store in this interface
-		cmdArgs := reflect.New(cmd.ArgsType).Interface()
-
-		// Handle positional argument by catching first argument `<value>` and rewrite it to `<arg-name>=<value>`.
-		if err = handlePositionalArg(meta.BinaryName, cmd, rawArgs); err != nil {
-			return err
+		// If command has no Run method there is nothing to do.
+		if cmd.Run == nil {
+			return nil
 		}
 
 		// Apply default values on missing args.
 		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
 
-		// Check args exist valid if ArgsType is not args.RawArgs
-		if cmd.ArgsType != reflect.TypeOf(args.RawArgs{}) {
-			argsSlice := args.SplitRawNoError(rawArgs)
-			for _, arguments := range argsSlice {
-				// TODO: handle args such as tags.index
-				if cmd.ArgSpecs.GetByName(arguments[0]) == nil &&
-					cmd.ArgSpecs.GetByName(arguments[0]+".{index}") == nil &&
-					!strings.Contains(arguments[0], ".") {
-					return handleUnmarshalErrors(cmd, &args.UnmarshalArgError{
-						Err:     &args.UnknownArgError{},
-						ArgName: arguments[0],
-					})
-				}
-			}
-		}
+		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
 
-		// Unmarshal args.
-		// After that we are done working with rawArgs
-		// and will be working with cmdArgs.
-		err = args.UnmarshalStruct(rawArgs, cmdArgs)
-		if err != nil {
-			if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
-				return handleUnmarshalErrors(cmd, unmarshalError)
-			}
-			return err
-		}
-
-		// PreValidate hook.
-		if cmd.PreValidateFunc != nil {
-			err = cmd.PreValidateFunc(ctx, cmdArgs)
+		// If this command has no positional argument we execute the run
+		if positionalArgSpec == nil {
+			data, err := run(ctx, cobraCmd, cmd, rawArgs)
 			if err != nil {
 				return err
 			}
-		}
 
-		// Validate
-		validateFunc := DefaultCommandValidateFunc()
-		if cmd.ValidateFunc != nil {
-			validateFunc = cmd.ValidateFunc
-		}
-		err = validateFunc(cmd, cmdArgs, rawArgs)
-		if err != nil {
-			return err
-		}
-
-		// execute the command
-		if cmd.Run != nil {
-			interceptor := combineCommandInterceptor(
-				sdkStdErrorInterceptor,
-				cmd.Interceptor,
-			)
-
-			data, err := interceptor(ctx, cmdArgs, func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-				return cmd.Run(ctx, argsI)
-			})
-			if err != nil {
-				return err
-			}
-			waitFlag, err := cobraCmd.PersistentFlags().GetBool("wait")
-			if err == nil && cmd.WaitFunc != nil && waitFlag {
-				data, err = cmd.WaitFunc(ctx, cmdArgs, data)
-				if err != nil {
-					return err
-				}
-			}
 			meta.result = data
-			return meta.Printer.Print(data, opt)
+			return meta.Printer.Print(data, cmd.getHumanMarshalerOpt())
 		}
 
+		positionalArgs := rawArgs.GetPositionalArgs()
+
+		// Return an error if a positional argument was provide using `key=value` syntax.
+		value, exist := rawArgs.Get(positionalArgSpec.Name)
+		if exist {
+			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
+			return &CliError{
+				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Hint: positionalArgHint(meta.BinaryName, cmd, value, otherArgs, len(positionalArgs) > 0),
+			}
+		}
+
+		// If no positional arguments were provided, return an error
+		if len(positionalArgs) == 0 {
+			return &CliError{
+				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Hint: positionalArgHint(meta.BinaryName, cmd, "<"+positionalArgSpec.Name+">", rawArgs, false),
+			}
+		}
+
+		results := MultiResults(nil)
+		rawArgs = rawArgs.RemoveAllPositional()
+		for _, positionalArg := range positionalArgs {
+			rawArgsWithPositional := rawArgs.Add(positionalArgSpec.Name, positionalArg)
+
+			result, err := run(ctx, cobraCmd, cmd, rawArgsWithPositional)
+			if err != nil {
+				return err
+			}
+
+			results = append(results, result)
+		}
+		// If only one positional parameter was provided we return the result directly instead of
+		// an array of results
+		if len(results) == 1 {
+			meta.result = results[0]
+		} else {
+			meta.result = results
+		}
+
+		err := meta.Printer.Print(meta.result, cmd.getHumanMarshalerOpt())
+		if err != nil {
+			return err
+		}
 		return nil
 	}
 }
 
-// handlePositionalArg will catch positional argument if command has one.
-// When a positional argument is found it will mutate its value in rawArgs to match the argument unmarshaller format.
-// E.g.: '[value b=true c=1]' will be mutated to '[a=value b=true c=1]'.
-// It returns errors when:
-// - no positional argument is found.
-// - an unknown positional argument exists in the comand.
-// - an argument duplicates a positional argument.
-func handlePositionalArg(binaryName string, cmd *Command, rawArgs []string) error {
-	positionalArg := cmd.ArgSpecs.GetPositionalArg()
+func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []string) (interface{}, error) {
+	var err error
 
-	// Command does not have a positional argument.
-	if positionalArg == nil {
-		return nil
+	// create a new Args interface{}
+	// unmarshalled arguments will be store in this interface
+	cmdArgs := reflect.New(cmd.ArgsType).Interface()
+
+	// Unmarshal args.
+	// After that we are done working with rawArgs
+	// and will be working with cmdArgs.
+	err = args.UnmarshalStruct(rawArgs, cmdArgs)
+	if err != nil {
+		if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
+			return nil, handleUnmarshalErrors(cmd, unmarshalError)
+		}
+		return nil, err
 	}
 
-	// Positional argument is found condition.
-	positionalArgumentFound := len(rawArgs) > 0 && !strings.Contains(rawArgs[0], "=")
-
-	// Argument exists but is not positional.
-	for i, arg := range rawArgs {
-		if strings.HasPrefix(arg, positionalArg.Prefix()) {
-			argumentValue := strings.TrimLeft(arg, positionalArg.Prefix())
-			otherArgs := append(rawArgs[:i], rawArgs[i+1:]...)
-			return &CliError{
-				Err:  fmt.Errorf("a positional argument is required for this command"),
-				Hint: positionalArgHint(binaryName, cmd, argumentValue, otherArgs, positionalArgumentFound),
-			}
+	// PreValidate hook.
+	if cmd.PreValidateFunc != nil {
+		err = cmd.PreValidateFunc(ctx, cmdArgs)
+		if err != nil {
+			return nil, err
 		}
 	}
 
-	// If positional argument is found, prefix it with `arg-name=`.
-	if positionalArgumentFound {
-		rawArgs[0] = positionalArg.Prefix() + rawArgs[0]
-		return nil
+	// Validate
+	validateFunc := DefaultCommandValidateFunc()
+	if cmd.ValidateFunc != nil {
+		validateFunc = cmd.ValidateFunc
+	}
+	err = validateFunc(cmd, cmdArgs, rawArgs)
+	if err != nil {
+		return nil, err
 	}
 
-	// No positional argument found.
-	return &CliError{
-		Err:  fmt.Errorf("a positional argument is required for this command"),
-		Hint: positionalArgHint(binaryName, cmd, "<"+positionalArg.Name+">", rawArgs, false),
+	// execute the command
+	interceptor := combineCommandInterceptor(
+		sdkStdErrorInterceptor,
+		cmd.Interceptor,
+	)
+
+	data, err := interceptor(ctx, cmdArgs, func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		return cmd.Run(ctx, argsI)
+	})
+	if err != nil {
+		return nil, err
 	}
+	waitFlag, err := cobraCmd.PersistentFlags().GetBool("wait")
+	if err == nil && cmd.WaitFunc != nil && waitFlag {
+		data, err = cmd.WaitFunc(ctx, cmdArgs, data)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return data, nil
 }
 
 // positionalArgHint formats the positional argument error hint.

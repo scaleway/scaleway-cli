@@ -1,7 +1,7 @@
 Update the image associated with the given id.
 
 USAGE:
-  scw registry image update <image-id> [arg=value ...]
+  scw registry image update <image-id ...> [arg=value ...]
 
 ARGS:
   image-id       Image ID to update

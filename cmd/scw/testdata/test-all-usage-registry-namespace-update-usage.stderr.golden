@@ -1,7 +1,7 @@
 Update the namespace associated with the given id.
 
 USAGE:
-  scw registry namespace update <namespace-id> [arg=value ...]
+  scw registry namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
   namespace-id    Namespace ID to update

@@ -68,10 +68,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 
 	// Map arg names to their values.
 	// ["arg1=1", "arg2=2", "arg3"] => [ ["arg1","1"], ["arg2","2"], ["arg3",""] ]
-	argsSlice, err := SplitRaw(args)
-	if err != nil {
-		return err
-	}
+	argsSlice := SplitRaw(args)
 
 	processedArgNames := make(map[string]bool)
 
@@ -344,7 +341,7 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		return err
 	case reflect.Bool:
 		switch value {
-		case "", "true":
+		case "true":
 			dest.SetBool(true)
 		case "false":
 			dest.SetBool(false)

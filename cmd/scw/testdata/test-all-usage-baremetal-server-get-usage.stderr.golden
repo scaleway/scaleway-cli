@@ -1,7 +1,7 @@
 Get the server associated with the given ID.
 
 USAGE:
-  scw baremetal server get <server-id> [arg=value ...]
+  scw baremetal server get <server-id ...> [arg=value ...]
 
 ARGS:
   server-id   ID of the server

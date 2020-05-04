@@ -1,7 +1,7 @@
 Delete the image associated with the given id.
 
 USAGE:
-  scw registry image delete <image-id> [arg=value ...]
+  scw registry image delete <image-id ...> [arg=value ...]
 
 ARGS:
   image-id   The unique ID of the Image

@@ -1,5 +1,5 @@
 USAGE:
-  scw test positional <name-id> [arg=value ...]
+  scw test positional <name-id ...> [arg=value ...]
 
 ARGS:
   name-id   

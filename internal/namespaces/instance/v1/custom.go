@@ -41,6 +41,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "server", "list").Override(serverListBuilder)
 	cmds.MustFind("instance", "server", "update").Override(serverUpdateBuilder)
+	cmds.MustFind("instance", "server", "get").Override(serverGetBuilder)
 
 	cmds.Merge(core.NewCommands(
 		serverAttachVolumeCommand(),

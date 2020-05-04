@@ -1,7 +1,7 @@
 Get the namespace associated with the given id.
 
 USAGE:
-  scw registry namespace get <namespace-id> [arg=value ...]
+  scw registry namespace get <namespace-id ...> [arg=value ...]
 
 ARGS:
   namespace-id   The unique ID of the Namespace

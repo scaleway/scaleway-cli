@@ -1,7 +1,7 @@
 Remove a SSH key from your Scaleway account.
 
 USAGE:
-  scw account ssh-key remove <ssh-key-id> [arg=value ...]
+  scw account ssh-key remove <ssh-key-id ...> [arg=value ...]
 
 EXAMPLES:
   Remove a given SSH key

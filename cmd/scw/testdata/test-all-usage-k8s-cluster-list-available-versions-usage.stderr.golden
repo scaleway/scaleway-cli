@@ -1,7 +1,7 @@
 This method allows to list the versions that a specific Kubernetes cluster is allowed to upgrade to. Note that it will be every patch version greater than the actual one as well a one minor version ahead of the actual one. Upgrades skipping a minor version will not work.
 
 USAGE:
-  scw k8s cluster list-available-versions <cluster-id> [arg=value ...]
+  scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
   List all available versions for a given cluster to upgrade to

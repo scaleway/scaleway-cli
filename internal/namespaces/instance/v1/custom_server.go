@@ -328,6 +328,28 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func serverGetBuilder(c *core.Command) *core.Command {
+
+	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
+	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+		api := instance.NewAPI(core.ExtractClient(ctx))
+		resp, err := api.ListServers(&instance.ListServersRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+
+		suggestion := core.AutocompleteSuggestions{}
+		for _, s := range resp.Servers {
+			if strings.HasPrefix(s.ID, prefix) {
+				suggestion = append(suggestion, s.ID)
+			}
+		}
+		return suggestion
+	}
+	return c
+
+}
+
 //
 // Commands
 //

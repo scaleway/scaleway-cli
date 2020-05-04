@@ -1,7 +1,7 @@
 Start a one hour running for the given human.
 
 USAGE:
-  scw test human run <human-id> [arg=value ...]
+  scw test human run <human-id ...> [arg=value ...]
 
 EXAMPLES:
   Create a human and make it run

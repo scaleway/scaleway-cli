@@ -1,7 +1,7 @@
 Get the details of a Security Group with the given ID.
 
 USAGE:
-  scw instance security-group get <security-group-id> [arg=value ...]
+  scw instance security-group get <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
   Get a security group with the given ID

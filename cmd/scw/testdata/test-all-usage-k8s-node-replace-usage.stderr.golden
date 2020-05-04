@@ -1,7 +1,7 @@
 This method allows to replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
 
 USAGE:
-  scw k8s node replace <node-id> [arg=value ...]
+  scw k8s node replace <node-id ...> [arg=value ...]
 
 EXAMPLES:
   Replace a given node

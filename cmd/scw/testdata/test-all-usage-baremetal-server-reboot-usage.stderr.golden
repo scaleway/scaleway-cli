@@ -1,7 +1,7 @@
 Reboot the server associated with the given ID, use boot param to reboot in rescue.
 
 USAGE:
-  scw baremetal server reboot <server-id> [arg=value ...]
+  scw baremetal server reboot <server-id ...> [arg=value ...]
 
 ARGS:
   server-id     ID of the server to reboot

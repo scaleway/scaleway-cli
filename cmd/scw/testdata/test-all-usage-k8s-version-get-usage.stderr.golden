@@ -1,7 +1,7 @@
 This method allows to get a specific Kubernetes version and the details about the version.
 
 USAGE:
-  scw k8s version get <version-name> [arg=value ...]
+  scw k8s version get <version-name ...> [arg=value ...]
 
 EXAMPLES:
   Get the Kubernetes version 1.18.0

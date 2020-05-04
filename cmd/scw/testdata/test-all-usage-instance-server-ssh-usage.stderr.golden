@@ -1,7 +1,7 @@
 Connect to distant server via the SSH protocol.
 
 USAGE:
-  scw instance server ssh <server-id> [arg=value ...]
+  scw instance server ssh <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         Server ID to SSH into
