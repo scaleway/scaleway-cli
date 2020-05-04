@@ -82,10 +82,10 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
-	if debug {
+	if config.EnableDebug {
 		logLevel = logger.LogLevelDebug // enable debug mode
+		logger.Debugf("debug mode enabled")
 	}
-	logger.Debugf("coucou tu veux voir mon logging?")
 
 	// We force log to os.Stderr because we dont have a scoped logger feature and it create
 	// concurrency situation with golden files
