@@ -82,11 +82,11 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 
 	t.Run("value only", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test ubuntu-bionic",
+		Cmd:      "scw test ubuntu_focal",
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("unknown argument 'ubuntu-bionic'"),
+				Err:  fmt.Errorf("unknown argument 'ubuntu_focal'"),
 				Hint: fmt.Sprintf("Valid arguments are: name-id"),
 			}),
 		),

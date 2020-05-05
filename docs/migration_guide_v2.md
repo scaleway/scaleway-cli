@@ -68,7 +68,7 @@ In plain English, it would be: "list all servers available on the instance API".
 ### Consistent workflow across products
 
 CLI v1 was designed to offer a syntax close to the Docker syntax.
-For instance, to run a command such as `echo foobar` on a remote server, we can write `scw run ubuntu-focal echo foobar` which mimics `docker run ubuntu echo foobar`.
+For instance, to run a command such as `echo foobar` on a remote server, we can write `scw run ubuntu_focal echo foobar` which mimics `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
 E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
@@ -182,7 +182,7 @@ scp root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.add
 
 ```shell
 # v1
-scw create ubuntu-focal
+scw create ubuntu_focal
 ```
 
 In the CLI v2, you can use `scw instance server create` to create a server.
