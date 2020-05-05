@@ -68,7 +68,7 @@ In plain English, it would be: "list all servers available on the instance API".
 ### Consistent workflow across products
 
 CLI v1 was designed to offer a syntax close to the Docker syntax.
-For instance, to run a command such as `echo foobar` on a remote server, we can write `scw run ubuntu-bionic echo foobar` which mimics `docker run ubuntu echo foobar`.
+For instance, to run a command such as `echo foobar` on a remote server, we can write `scw run ubuntu_focal echo foobar` which mimics `docker run ubuntu echo foobar`.
 While this can be useful for some tasks, there are plenty of actions that do not fit in with this paradigm.
 E.g., attaching to a running server sub-resources such as volumes or security groups are not performed easily using this paradigm because Docker doesn't provide the same features.
 
@@ -182,24 +182,24 @@ scp root@$(scw instance server list name=foo -o json | jq -r ".[0].public_ip.add
 
 ```shell
 # v1
-scw create ubuntu-bionic
+scw create ubuntu_focal
 ```
 
 In the CLI v2, you can use `scw instance server create` to create a server.
 For instance:
 
 ```shell
-# v2 - Create and start an instance on Ubuntu Bionic
-scw instance server create image=ubuntu_bionic
+# v2 - Create and start an instance on Ubuntu focal
+scw instance server create image=ubuntu_focal
 
 # v2 - Create a GP1-XS instance, give it a name and add tags
-scw instance server create image=ubuntu_bionic type=GP1-XS name=foo tags.0=prod tags.1=blue
+scw instance server create image=ubuntu_focal type=GP1-XS name=foo tags.0=prod tags.1=blue
 
 # v2 - Create an instance with 2 additional block volumes (50GB and 100GB)
-scw instance server create image=ubuntu_bionic additional-volumes.0=block:50GB additional-volumes.1=block:100GB
+scw instance server create image=ubuntu_focal additional-volumes.0=block:50GB additional-volumes.1=block:100GB
 
 # v2 - Create an instance with 2 local volumes (10GB and 10GB)
-scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=local:10GB
+scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 ```
 
 ### `scw events`
@@ -502,7 +502,7 @@ Using CLIv2 you would:
 
     ```shell
     # v2
-    scw instance server create image=ubuntu_bionic
+    scw instance server create image=ubuntu_focal
     ```
 
     You can add `--wait` to make this command returns only when your server is ready.

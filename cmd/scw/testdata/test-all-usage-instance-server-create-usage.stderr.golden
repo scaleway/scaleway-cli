@@ -4,21 +4,21 @@ USAGE:
   scw instance server create [arg=value ...]
 
 EXAMPLES:
-  Create and start an instance on Ubuntu Bionic
-    scw instance server create image=ubuntu_bionic
+  Create and start an instance on Ubuntu Focal
+    scw instance server create image=ubuntu_focal
 
   Create a GP1-XS instance, give it a name and add tags
-    scw instance server create image=ubuntu_bionic type=GP1-XS name=foo tags.0=prod tags.1=blue
+    scw instance server create image=ubuntu_focal type=GP1-XS name=foo tags.0=prod tags.1=blue
 
   Create an instance with 2 additional block volumes (50GB and 100GB)
-    scw instance server create image=ubuntu_bionic additional-volumes.0=block:50GB additional-volumes.1=block:100GB
+    scw instance server create image=ubuntu_focal additional-volumes.0=block:50GB additional-volumes.1=block:100GB
 
   Create an instance with 2 local volumes (10GB and 10GB)
-    scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=local:10GB
+    scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 
   Use an existing IP
     ip=$(scw instance ip create | grep id | awk '{ print $2 }')
-    scw instance server create image=ubuntu_bionic ip=$ip
+    scw instance server create image=ubuntu_focal ip=$ip
 
 ARGS:
   image                          Image ID or label of the server

@@ -141,7 +141,7 @@ See more in-depth information about running the CLI in Docker [here](./docs/dock
 ## Create an instance server
 
 ```
-scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 ```
 
 TODO: Add more examples here.
