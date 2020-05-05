@@ -910,12 +910,12 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			preserveBlockVolumes, err := shouldPreserveBlockVolumes(server, terminateServerArgs.WithBlock)
+			deleteBlockVolumes, err := shouldDeleteBlockVolumes(server, terminateServerArgs.WithBlock)
 			if err != nil {
 				return nil, err
 			}
 
-			if preserveBlockVolumes {
+			if !deleteBlockVolumes {
 				// detach block storage volumes before terminating the instance to preserve them
 				var multiErr error
 				for _, volume := range server.Server.Volumes {
@@ -949,11 +949,13 @@ func serverTerminateCommand() *core.Command {
 
 			var multiErr error
 			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+				fmt.Printf("delete IP...\n")
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: terminateServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
+					fmt.Printf("failed to delete iop: %+v\n", err)
 					multiErr = multierror.Append(multiErr, err)
 				} else {
 					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
@@ -965,23 +967,23 @@ func serverTerminateCommand() *core.Command {
 	}
 }
 
-func shouldPreserveBlockVolumes(server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
+func shouldDeleteBlockVolumes(server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
 	switch terminateWithBlock {
 	case withBlockTrue:
-		return false, nil
-	case withBlockFalse:
 		return true, nil
+	case withBlockFalse:
+		return false, nil
 	case withBlockPrompt:
+		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
 			if volume.VolumeType != instance.VolumeTypeBSSD {
 				continue
 			}
 
-			deleteVolumes, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       "Do you want to also delete the block volumes attached to this instance ?",
+			return interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+				Prompt:       "Do you also want to delete block volumes attached to this instance ?",
 				DefaultValue: false,
 			})
-			return !deleteVolumes, err
 		}
 		return false, nil
 	default:

@@ -284,25 +284,42 @@ func Test_ServerDelete(t *testing.T) {
 func Test_ServerTerminate(t *testing.T) {
 	interactive.IsInteractive = true
 
-	t.Run("without IPs", core.Test(&core.TestConfig{
+	t.Run("without IP", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetIP(&instance.GetIPRequest{
+					IP: server.PublicIP.ID,
+				})
+				assert.NoError(t, err)
+			},
 		),
 		AfterFunc:       core.ExecAfterCmd(`scw instance ip delete {{ index .Server.PublicIP.ID }}`),
 		DisableParallel: true,
 	}))
 
-	t.Run("with IPs", core.Test(&core.TestConfig{
+	t.Run("with IP", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetIP(&instance.GetIPRequest{
+					IP: server.PublicIP.ID,
+				})
+				require.IsType(t, &scw.ResponseError{}, err)
+				assert.Equal(t, 403, err.(*scw.ResponseError).StatusCode)
+			},
 		),
 		DisableParallel: true,
 	}))
@@ -316,6 +333,17 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+		DisableParallel: true,
+	}))
+
+	t.Run("with block", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
+		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 		DisableParallel: true,
 	}))
 
