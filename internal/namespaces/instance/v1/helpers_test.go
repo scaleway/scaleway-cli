@@ -12,13 +12,13 @@ import (
 // Server
 //
 
-// createServer creates a stopped ubuntu_focal server and
+// createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu_focal")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
 }
 
-// createServer creates a stopped ubuntu_focal server and
+// createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")

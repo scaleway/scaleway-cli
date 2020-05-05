@@ -1,12 +1,12 @@
-id                 c844ad52-d956-49dd-8773-582d6eda522b
-name               cli-img-charming-kilby
+id                 6f652559-f71f-4fd7-ab65-55b58cf09466
+name               cli-img-elastic-darwin
 arch               x86_64
 creation-date      few seconds ago
 modification-date  few seconds ago
 extra-volumes      0
 from-server        -
-organization       951df375-e094-4d26-97c1-ba548eeb9c42
+organization       14d2f7ae-9775-414c-9bed-6810e060d500
 public             false
-root-volume        af190c1f-bf7c-43e9-b1db-5a459035aaa7
+root-volume        2184a2c8-0da8-4b06-8aec-3e3e2aedd571
 state              available
 zone               fr-par-1
