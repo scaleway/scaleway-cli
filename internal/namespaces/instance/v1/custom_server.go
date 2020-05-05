@@ -831,8 +831,16 @@ type customTerminateServerRequest struct {
 	Zone      scw.Zone
 	ServerID  string
 	WithIP    bool
-	WithBlock bool
+	WithBlock withBlock
 }
+
+type withBlock string
+
+const (
+	withBlockPrompt = withBlock("prompt")
+	withBlockTrue   = withBlock("true")
+	withBlockFalse  = withBlock("false")
+)
 
 func serverTerminateCommand() *core.Command {
 	return &core.Command{
@@ -855,7 +863,12 @@ func serverTerminateCommand() *core.Command {
 			{
 				Name:    "with-block",
 				Short:   "Delete the Block Storage volumes attached to the server",
-				Default: core.DefaultValueSetter("true"),
+				Default: core.DefaultValueSetter("prompt"),
+				EnumValues: []string{
+					string(withBlockPrompt),
+					string(withBlockTrue),
+					string(withBlockFalse),
+				},
 			},
 			core.ZoneArgSpec(),
 		},
@@ -897,11 +910,15 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			if !terminateServerArgs.WithBlock {
-				// detach block storage volumes before terminating the isntance to preserve them
+			preserveBlockVolumes, err := shouldPreserveBlockVolumes(server, terminateServerArgs.WithBlock)
+			if err != nil {
+				return nil, err
+			}
+
+			if preserveBlockVolumes {
+				// detach block storage volumes before terminating the instance to preserve them
 				var multiErr error
 				for _, volume := range server.Server.Volumes {
-
 					if volume.VolumeType != instance.VolumeTypeBSSD {
 						continue
 					}
@@ -945,5 +962,29 @@ func serverTerminateCommand() *core.Command {
 
 			return &core.SuccessResult{}, multiErr
 		},
+	}
+}
+
+func shouldPreserveBlockVolumes(server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
+	switch terminateWithBlock {
+	case withBlockTrue:
+		return false, nil
+	case withBlockFalse:
+		return true, nil
+	case withBlockPrompt:
+		for _, volume := range server.Server.Volumes {
+			if volume.VolumeType != instance.VolumeTypeBSSD {
+				continue
+			}
+
+			deleteVolumes, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+				Prompt:       "Do you want to also delete the block volumes attached to this instance ?",
+				DefaultValue: false,
+			})
+			return !deleteVolumes, err
+		}
+		return false, nil
+	default:
+		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
 	}
 }
