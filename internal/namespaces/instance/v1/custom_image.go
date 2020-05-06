@@ -243,6 +243,7 @@ func imageWaitCommand() *core.Command {
 				Name:     "image-id",
 				Short:    `ID of the image.`,
 				Required: true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(),
 		},

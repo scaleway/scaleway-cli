@@ -97,6 +97,7 @@ func snapshotWaitCommand() *core.Command {
 				Name:     "snapshot-id",
 				Short:    `ID of the snapshot.`,
 				Required: true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(),
 		},

@@ -1,11 +1,11 @@
 Wait for image to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the image.
 
 USAGE:
-  scw instance image wait [arg=value ...]
+  scw instance image wait <image-id ...> [arg=value ...]
 
 EXAMPLES:
   Wait for a image to reach a stable state
-    scw instance image wait image-id=11111111-1111-1111-1111-111111111111
+    scw instance image wait 11111111-1111-1111-1111-111111111111
 
 ARGS:
   image-id   ID of the image.
