@@ -18,6 +18,7 @@ AVAILABLE COMMANDS:
   create      Create snapshot
   get         Get snapshot
   delete      Delete snapshot
+  wait        Wait for snapshot to reach a stable state
 
 FLAGS:
   -h, --help   help for snapshot

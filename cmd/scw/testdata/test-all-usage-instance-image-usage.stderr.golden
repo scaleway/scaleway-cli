@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   get         Get image
   create      Create image
   delete      Delete image
+  wait        Wait for image to reach a stable state
 
 FLAGS:
   -h, --help   help for image

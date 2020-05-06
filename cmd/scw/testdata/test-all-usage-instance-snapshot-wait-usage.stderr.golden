@@ -1,0 +1,20 @@
+Wait for snapshot to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the snapshot.
+
+USAGE:
+  scw instance snapshot wait <snapshot-id ...> [arg=value ...]
+
+EXAMPLES:
+  Wait for a snapshot to reach a stable state
+    scw instance snapshot wait 11111111-1111-1111-1111-111111111111
+
+ARGS:
+  snapshot-id   ID of the snapshot.
+  [zone]        Zone to target. If none is passed will use default zone from the config
+
+FLAGS:
+  -h, --help   help for wait
+
+GLOBAL FLAGS:
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
