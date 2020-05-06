@@ -37,6 +37,7 @@ AVAILABLE COMMANDS:
   console       Connect to the serial console of an instance
   create        Create server
   delete        Delete server
+  terminate     Terminate server
   detach-volume Detach a volume from its server
   ssh           SSH into a server
   start         Power on server

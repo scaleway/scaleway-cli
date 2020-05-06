@@ -281,6 +281,77 @@ func Test_ServerDelete(t *testing.T) {
 
 // These tests needs to be run in sequence
 // since they are using the interactive print
+func Test_ServerTerminate(t *testing.T) {
+	interactive.IsInteractive = true
+
+	t.Run("without IP", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
+		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetIP(&instance.GetIPRequest{
+					IP: server.PublicIP.ID,
+				})
+				assert.NoError(t, err)
+			},
+		),
+		AfterFunc:       core.ExecAfterCmd(`scw instance ip delete {{ index .Server.PublicIP.ID }}`),
+		DisableParallel: true,
+	}))
+
+	t.Run("with IP", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
+		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetIP(&instance.GetIPRequest{
+					IP: server.PublicIP.ID,
+				})
+				require.IsType(t, &scw.ResponseError{}, err)
+				assert.Equal(t, 403, err.(*scw.ResponseError).StatusCode)
+			},
+		),
+		DisableParallel: true,
+	}))
+
+	t.Run("without block", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
+		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+		DisableParallel: true,
+	}))
+
+	t.Run("with block", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
+		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		DisableParallel: true,
+	}))
+
+	interactive.IsInteractive = false
+}
+
+// These tests needs to be run in sequence
+// since they are using the interactive print
 func Test_ServerBackup(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),

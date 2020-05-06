@@ -26,5 +26,8 @@ GLOBAL FLAGS:
   -p, --profile string   The config profile to use
 
 SEE ALSO:
+  # Terminate a running server
+  scw instance server terminate
+
   # Stop a running server
   scw instance server stop

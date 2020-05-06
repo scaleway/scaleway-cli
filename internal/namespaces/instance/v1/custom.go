@@ -49,6 +49,7 @@ func GetCommands() *core.Commands {
 		serverConsoleCommand(),
 		serverCreateCommand(),
 		serverDeleteCommand(),
+		serverTerminateCommand(),
 		serverDetachVolumeCommand(),
 		serverSSHCommand(),
 		serverStartCommand(),
