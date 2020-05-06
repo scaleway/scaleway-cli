@@ -949,13 +949,11 @@ func serverTerminateCommand() *core.Command {
 
 			var multiErr error
 			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
-				fmt.Printf("delete IP...\n")
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: terminateServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					fmt.Printf("failed to delete iop: %+v\n", err)
 					multiErr = multierror.Append(multiErr, err)
 				} else {
 					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())

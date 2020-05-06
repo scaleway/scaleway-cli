@@ -650,7 +650,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:13 GMT
+      - Wed, 06 May 2020 09:14:34 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -662,7 +662,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 701077c6-19a1-4a13-a316-9413991f1679
+      - 1daf72f7-3581-44a1-83de-43498bdea580
       X-Total-Count:
       - "31"
     status: 200 OK
@@ -700,7 +700,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:13 GMT
+      - Wed, 06 May 2020 09:14:34 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -710,7 +710,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0c7247bb-cc0f-4ceb-ade9-a2ac2add4412
+      - 4d269825-5826-4493-9045-0402726faff3
     status: 200 OK
     code: 200
     duration: ""
@@ -1017,7 +1017,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:13 GMT
+      - Wed, 06 May 2020 09:14:34 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -1029,7 +1029,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0fdcc9b0-1228-4070-ba6e-e010f374077e
+      - 5847550c-a2e7-4dba-95ef-4e5a844d54e2
       X-Total-Count:
       - "32"
     status: 200 OK
@@ -1059,7 +1059,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:14 GMT
+      - Wed, 06 May 2020 09:14:34 GMT
       Location:
       - https://cp-par1.scaleway.com/ips/65ae2546-5893-40f2-bcc2-aabee4b4dc2f
       Server:
@@ -1071,12 +1071,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ece8cd18-238b-4547-89ae-771887df083f
+      - cbc4133f-5c4c-48a0-9e32-fc308d911271
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-hopeful-lovelace","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"65ae2546-5893-40f2-bcc2-aabee4b4dc2f","organization":"104ff69c-3f34-48f4-b5f0-e516e4ad526b"}'
+    body: '{"name":"cli-srv-great-cerf","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"65ae2546-5893-40f2-bcc2-aabee4b4dc2f","organization":"104ff69c-3f34-48f4-b5f0-e516e4ad526b"}'
     form: {}
     headers:
       Content-Type:
@@ -1086,12 +1086,12 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1101,17 +1101,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
       {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address": "51.158.108.20", "dynamic":
       false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.151119+00:00", "bootscript": {"id":
+      false, "private_ip": null, "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.528160+00:00", "bootscript": {"id":
       "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64 mainline
       4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1125,15 +1125,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2933"
+      - "2915"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:14 GMT
+      - Wed, 06 May 2020 09:14:35 GMT
       Location:
-      - https://cp-par1.scaleway.com/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+      - https://cp-par1.scaleway.com/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1143,7 +1143,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 04f2ccd6-3c09-4ba8-9c6c-7f5dee7e1e75
+      - 6716abed-0563-48f4-a691-72ed807ed787
     status: 201 Created
     code: 201
     duration: ""
@@ -1155,13 +1155,13 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a/action
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4/action
     method: POST
   response:
     body: '{"task": {"status": "pending", "description": "server_batch_poweron", "href_result":
-      "/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "terminated_at": null, "href_from":
-      "/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a/action", "started_at": "2020-05-05T13:39:15.702150+00:00",
-      "id": "d6e56b16-c05d-4bfb-89c9-b9a4520026e7"}}'
+      "/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4", "terminated_at": null, "href_from":
+      "/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4/action", "started_at": "2020-05-06T09:14:35.924134+00:00",
+      "id": "0b38921f-279d-46d8-8b9c-1d59dada01eb"}}'
     headers:
       Content-Length:
       - "322"
@@ -1170,9 +1170,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:15 GMT
+      - Wed, 06 May 2020 09:14:35 GMT
       Location:
-      - https://cp-par1.scaleway.com/tasks/d6e56b16-c05d-4bfb-89c9-b9a4520026e7
+      - https://cp-par1.scaleway.com/tasks/0b38921f-279d-46d8-8b9c-1d59dada01eb
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1182,7 +1182,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 30abcb47-1d4e-4d9c-b088-46d14e342df8
+      - 1b44eef5-7ff1-44f1-b2e5-a85f0419bca2
     status: 202 Accepted
     code: 202
     duration: ""
@@ -1192,15 +1192,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1210,17 +1210,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "starting", "protected": false, "state_detail": "allocating
       node", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.222014+00:00", "bootscript": {"id":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.582288+00:00", "bootscript": {"id":
       "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64 mainline
       4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1234,13 +1234,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2955"
+      - "2937"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:15 GMT
+      - Wed, 06 May 2020 09:14:35 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1250,7 +1250,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - bd642132-16be-4031-a96b-0db69a78caf3
+      - 91ed783d-4d3b-4dc6-bdd9-b6773bef6089
     status: 200 OK
     code: 200
     duration: ""
@@ -1260,15 +1260,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1278,17 +1278,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
       node", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:15.222014+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:14:35.582288+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1296,20 +1296,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
       "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3065"
+      - "3047"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:20 GMT
+      - Wed, 06 May 2020 09:14:40 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1319,7 +1319,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - dcd78277-36f7-43e5-89ce-80662697f21d
+      - cc32fa07-5a0e-4714-bfc9-57de5343117f
     status: 200 OK
     code: 200
     duration: ""
@@ -1329,15 +1329,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1347,17 +1347,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
       node", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:15.222014+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:14:35.582288+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1365,20 +1365,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
       "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3065"
+      - "3047"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:25 GMT
+      - Wed, 06 May 2020 09:14:45 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1388,7 +1388,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 56915d0c-7687-4502-b0d4-26621ce81558
+      - 59ffa6e8-406c-45c4-ab87-19d39e7cebbd
     status: 200 OK
     code: 200
     duration: ""
@@ -1398,15 +1398,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1416,17 +1416,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
       node", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:15.222014+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:14:35.582288+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1434,20 +1434,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
       "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3065"
+      - "3047"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:30 GMT
+      - Wed, 06 May 2020 09:14:51 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1457,7 +1457,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9c65d6d5-8a72-4215-9e64-a8ee3d83ea5b
+      - eee20b82-7d1d-441e-b437-3f7702ea828f
     status: 200 OK
     code: 200
     duration: ""
@@ -1467,15 +1467,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1485,17 +1485,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
       node", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:15.222014+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:14:35.582288+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1503,20 +1503,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
       "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3065"
+      - "3047"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:35 GMT
+      - Wed, 06 May 2020 09:14:56 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1526,7 +1526,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 04e3a913-465f-434d-a86a-7237fcc36f40
+      - 35d670fe-a253-446c-9acc-031c39cfe68b
     status: 200 OK
     code: 200
     duration: ""
@@ -1536,15 +1536,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1554,17 +1554,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "running", "protected": false, "state_detail": "booting
       kernel", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:37.477786+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:15:00.627501+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1572,20 +1572,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
       "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3096"
+      - "3078"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:41 GMT
+      - Wed, 06 May 2020 09:15:01 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1595,7 +1595,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d89bce58-12b2-4d74-b579-46f43e1f669f
+      - bef8e057-9db3-4df0-ad29-d3bb6a944d71
     status: 200 OK
     code: 200
     duration: ""
@@ -1605,15 +1605,15 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4
     method: GET
   response:
-    body: '{"server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace",
+    body: '{"server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-hopeful-lovelace",
-      "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic
-      Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+      "104ff69c-3f34-48f4-b5f0-e516e4ad526b", "hostname": "cli-srv-great-cerf", "image":
+      {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu Bionic Beaver",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id":
+      "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
       true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
       "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
@@ -1623,17 +1623,17 @@ interactions:
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "3fad11e8-9b87-461a-8157-9d105e33e0b7",
+      "fr-par-1"}, "volumes": {"0": {"id": "1520459a-f445-4c02-bd20-649690ad8fcc",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
       "l_ssd", "export_uri": null, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
-      "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name": "cli-srv-hopeful-lovelace"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-05-05T13:39:14.589233+00:00",
-      "modification_date": "2020-05-05T13:39:15.139075+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name": "cli-srv-great-cerf"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-05-06T09:14:35.260925+00:00",
+      "modification_date": "2020-05-06T09:14:35.512159+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "running", "protected": false, "state_detail": "booting
       kernel", "public_ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address":
       "51.158.108.20", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": "10.65.104.23", "creation_date":
-      "2020-05-05T13:39:14.589233+00:00", "modification_date": "2020-05-05T13:39:37.477786+00:00",
+      false, "enable_ipv6": false, "private_ip": "10.64.72.177", "creation_date":
+      "2020-05-06T09:14:35.260925+00:00", "modification_date": "2020-05-06T09:15:00.627501+00:00",
       "bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false,
       "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64", "organization":
       "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
@@ -1641,20 +1641,20 @@ interactions:
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "security_group": {"id": "00783f68-b80e-4f04-8520-bfc3249380be",
       "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
-      "14", "cluster_id": "19", "hypervisor_id": "1101", "node_id": "12"}, "maintenances":
+      "14", "cluster_id": "15", "hypervisor_id": "1901", "node_id": "89"}, "maintenances":
       [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
       "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "3096"
+      - "3078"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:41 GMT
+      - Wed, 06 May 2020 09:15:01 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1664,7 +1664,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 903b0566-71af-40ee-be72-2205e152a982
+      - 3f21d2fc-eac1-4bfe-9694-36687844272d
     status: 200 OK
     code: 200
     duration: ""
@@ -1676,13 +1676,13 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a/action
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4/action
     method: POST
   response:
     body: '{"task": {"status": "pending", "description": "server_terminate", "href_result":
-      "/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "terminated_at": null, "href_from":
-      "/servers/82374fa0-07ae-4f6b-8ed6-50ab4db3453a/action", "started_at": "2020-05-05T13:39:42.143958+00:00",
-      "id": "b481124c-8bb9-4e97-9790-f47ce7a094be"}}'
+      "/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4", "terminated_at": null, "href_from":
+      "/servers/a429a7aa-e9d6-4b9f-a619-6684249affb4/action", "started_at": "2020-05-06T09:15:02.998302+00:00",
+      "id": "316b86ba-7fb4-4240-8ba6-8888f403200e"}}'
     headers:
       Content-Length:
       - "318"
@@ -1691,9 +1691,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:41 GMT
+      - Wed, 06 May 2020 09:15:02 GMT
       Location:
-      - https://cp-par1.scaleway.com/tasks/b481124c-8bb9-4e97-9790-f47ce7a094be
+      - https://cp-par1.scaleway.com/tasks/316b86ba-7fb4-4240-8ba6-8888f403200e
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1703,7 +1703,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 915b8477-6a9a-41ed-a02e-29a1ab9b3de1
+      - 67a35892-6d83-445c-a61b-d8402719f667
     status: 202 Accepted
     code: 202
     duration: ""
@@ -1717,20 +1717,20 @@ interactions:
     method: GET
   response:
     body: '{"ip": {"id": "65ae2546-5893-40f2-bcc2-aabee4b4dc2f", "address": "51.158.108.20",
-      "reverse": null, "server": {"id": "82374fa0-07ae-4f6b-8ed6-50ab4db3453a", "name":
-      "cli-srv-hopeful-lovelace"}, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
+      "reverse": null, "server": {"id": "a429a7aa-e9d6-4b9f-a619-6684249affb4", "name":
+      "cli-srv-great-cerf"}, "organization": "104ff69c-3f34-48f4-b5f0-e516e4ad526b",
       "zone": "fr-par-1", "tags": []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "281"
+      - "275"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:41 GMT
+      - Wed, 06 May 2020 09:15:02 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1740,7 +1740,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6fcc7489-1f56-4212-aff4-be7714d8dbda
+      - 546f4c2b-599d-4465-ab1f-51c8fadc4789
     status: 200 OK
     code: 200
     duration: ""
@@ -1762,7 +1762,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 05 May 2020 13:39:41 GMT
+      - Wed, 06 May 2020 09:15:03 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -1772,7 +1772,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5706fe09-0021-4ca6-aa6f-dd6a55c90578
+      - 59b52853-c5ae-4074-8da9-58abe80d1987
     status: 204 No Content
     code: 204
     duration: ""
