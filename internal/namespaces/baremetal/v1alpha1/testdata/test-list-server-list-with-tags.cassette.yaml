@@ -19,7 +19,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 07 May 2020 13:09:59 GMT
+      - Thu, 07 May 2020 13:49:22 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8566c7b3-a961-4a21-8262-4daa054f00cd
+      - bc61c7bc-e950-4818-a8f0-828db5757532
     status: 200 OK
     code: 200
     duration: ""
@@ -39,7 +39,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/offers
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/offers?page=1
     method: GET
   response:
     body: '{"total_count":7,"offers":[{"id":"3ab0dc29-2fd4-486e-88bf-d08fbf49214b","name":"HC-BM1-L","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":1,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":749,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
@@ -59,7 +59,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 07 May 2020 13:09:59 GMT
+      - Thu, 07 May 2020 13:49:22 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -69,7 +69,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 521a4ca8-28d0-4eaf-aab1-25905d6a321e
+      - f531ed7e-778d-4e12-b129-e3778da5d502
     status: 200 OK
     code: 200
     duration: ""
