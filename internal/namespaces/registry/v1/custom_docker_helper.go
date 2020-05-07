@@ -122,7 +122,8 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		_, _ = interactive.Println(fmt.Sprintf("You can add it by adding `export PATH=$PATH:%s` to your `.bashrc` or `.zshrc`", path.Dir(helperScriptPath)))
 	} else {
 		_, _ = interactive.PrintlnWithoutIndent("Docker credential helper successfully installed.")
-		_, _ = interactive.PrintlnWithoutIndent("You can now pull/push without logging in to your registries.")
+		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentification for you.")
+		_, _ = interactive.PrintlnWithoutIndent("You don't have to login to your registries anymore.")
 	}
 
 	return nil, nil
