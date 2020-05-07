@@ -122,3 +122,66 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+type customServer struct {
+	baremetal.Server
+	OfferName string `json:"offer_name"`
+}
+
+func serverListBuilder(c *core.Command) *core.Command {
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "Offer Name",
+				FieldName: "OfferName",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Tags",
+				FieldName: "Tags",
+			},
+		},
+	}
+
+	// We add the server type to the list sent to the user
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		listServerResp, err := runner(ctx, argsI)
+
+		client := core.ExtractClient(ctx)
+		api := baremetal.NewAPI(client)
+		listOffers, err := api.ListOffers(&baremetal.ListOffersRequest{
+			Zone: argsI.(*baremetal.ListServersRequest).Zone,
+		}, scw.WithAllPages())
+		if err != nil {
+			return listServerResp, err
+		}
+		offerNameByID := make(map[string]string)
+		for _, offer := range listOffers.Offers {
+			offerNameByID[offer.ID] = offer.Name
+		}
+
+		var customRes []customServer
+		for _, server := range listServerResp.([]*baremetal.Server) {
+			customRes = append(customRes, customServer{
+				Server:    *server,
+				OfferName: offerNameByID[server.OfferID],
+			})
+		}
+
+		return customRes, nil
+	}
+
+	return c
+}
