@@ -163,7 +163,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(client)
 		listOffers, err := api.ListOffers(&baremetal.ListOffersRequest{
 			Zone: argsI.(*baremetal.ListServersRequest).Zone,
-		})
+		}, scw.WithAllPages())
 		if err != nil {
 			return listServerResp, err
 		}
