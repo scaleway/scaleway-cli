@@ -5,13 +5,13 @@ This script will be called each time Docker needs the credentials and will retur
 It avoid running docker login commands.
 
 USAGE:
-  scw registry configure-docker [arg=value ...]
+  scw registry setup-docker-helper [arg=value ...]
 
 ARGS:
   [helper-directory]   Directory in which the Docker helper will be installed
 
 FLAGS:
-  -h, --help   help for configure-docker
+  -h, --help   help for setup-docker-helper
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
