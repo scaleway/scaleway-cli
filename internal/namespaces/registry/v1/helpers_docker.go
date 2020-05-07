@@ -26,12 +26,10 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 	}
 
 	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE, 0755)
-	if f != nil {
-		defer f.Close()
-	}
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	_, err = f.Write([]byte(scriptContent))
 	if err != nil {
@@ -62,12 +60,10 @@ func setupDockerConfigFile(registries []string, binaryName string) error {
 	}
 
 	f, err := os.OpenFile(dockerConfigFilePath, os.O_RDWR|os.O_CREATE, 0600)
-	if f != nil {
-		defer f.Close()
-	}
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	fileContent, err := ioutil.ReadAll(f)
 	if err != nil {

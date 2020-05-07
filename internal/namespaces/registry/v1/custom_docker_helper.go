@@ -24,13 +24,13 @@ const endpointSuffix = ".scw.cloud"
 
 type emptyRequest struct{}
 
-type registryDockerHelperConfigureRequest struct {
+type registrySetupDockerHelperArgs struct {
 	HelperDirectory string
 }
 
-func registryDockerHelperConfigureCommand() *core.Command {
+func registrySetupDockerHelperCommand() *core.Command {
 	return &core.Command{
-		Short: `Configure a local Docker credential helper`,
+		Short: `Setup a local Docker credential helper`,
 		Long: `This command will configure the Docker credential helper for your account.
 
 It will create a new script named docker-credential-scw. 
@@ -38,19 +38,19 @@ This script will be called each time Docker needs the credentials and will retur
 It avoid running docker login commands.
 `,
 		Namespace: "registry",
-		Resource:  "configure-docker",
-		ArgsType:  reflect.TypeOf(registryDockerHelperConfigureRequest{}),
+		Resource:  "setup-docker-helper",
+		ArgsType:  reflect.TypeOf(registrySetupDockerHelperArgs{}),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:  "helper-directory",
 				Short: "Directory in which the Docker helper will be installed",
 			},
 		},
-		Run: registryDockerHelperConfigureRun,
+		Run: registrySetupDockerHelperRun,
 	}
 }
 
-func registryDockerHelperConfigureRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// TODO add windows support
 	if runtime.GOOS == "windows" {
 		return nil, fmt.Errorf("windows is not currently supported")
@@ -59,7 +59,7 @@ func registryDockerHelperConfigureRun(ctx context.Context, argsI interface{}) (i
 	binaryName := core.ExtractBinaryName(ctx)
 
 	_, _ = interactive.Println("To enable the Docker credential helper, scw needs to create a script inside of your $PATH.")
-	scriptDirArg := argsI.(*registryDockerHelperConfigureRequest).HelperDirectory
+	scriptDirArg := argsI.(*registrySetupDockerHelperArgs).HelperDirectory
 	if scriptDirArg == "" {
 		defaultScriptDirArg := filepath.Join(filepath.Dir(scw.GetConfigPath()), "bin")
 
