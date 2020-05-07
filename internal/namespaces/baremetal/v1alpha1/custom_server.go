@@ -167,16 +167,16 @@ func serverListBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return listServerResp, err
 		}
-		indexOffer := make(map[string]string)
+		offerNameByID := make(map[string]string)
 		for _, offer := range listOffers.Offers {
-			indexOffer[offer.ID] = offer.Name
+			offerNameByID[offer.ID] = offer.Name
 		}
 
 		var customRes []customServer
 		for _, server := range listServerResp.([]*baremetal.Server) {
 			customRes = append(customRes, customServer{
 				Server:    *server,
-				OfferName: indexOffer[server.OfferID],
+				OfferName: offerNameByID[server.OfferID],
 			})
 		}
 
