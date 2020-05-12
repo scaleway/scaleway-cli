@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
@@ -89,7 +90,7 @@ func (a *ArgSpec) IsPartOfMapOrSlice() bool {
 	return strings.Contains(a.Name, sliceSchema) || strings.Contains(a.Name, mapSchema)
 }
 
-type DefaultFunc func() (value string, doc string)
+type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 	enumValues := []string(nil)
