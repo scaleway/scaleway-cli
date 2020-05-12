@@ -2,7 +2,9 @@ package init
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path"
 	"reflect"
@@ -151,6 +153,16 @@ func initCommand() *core.Command {
 				}
 			}
 
+			// CLI v1 configuration import
+			// {"organization":"11111111-1111-1111-1111-111111111111","token":"11111111-1111-1111-1111-111111111111","version":"v1.20"}
+			if configCLIv1present() {
+				// We should warn the user that no access key are present
+				// This can lead to trouble if you want to use the Scaleway S3 object storage
+				file, _ := ioutil.ReadFile("test.json")
+				config := configV1{}
+				_ = json.Unmarshal(file, &config)
+			}
+
 			// Manually prompt for missing args:
 
 			// Credentials
@@ -263,6 +275,7 @@ func initCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*initArgs)
+
 			// Check if a config exists
 			// Creates a new one if it does not
 			configPath := core.ExtractConfigPath(ctx)
@@ -276,16 +289,31 @@ func initCommand() *core.Command {
 				config.SendTelemetry = args.SendTelemetry
 			}
 
+			// Update active profile
+			profile, err := config.GetActiveProfile()
+			if err != nil {
+				return nil, err
+			}
+			profile.SecretKey = &args.SecretKey
+			profile.DefaultZone = scw.StringPtr(args.Zone.String())
+			profile.DefaultRegion = scw.StringPtr(args.Region.String())
+			profile.DefaultOrganizationID = &args.OrganizationID
+			err = config.Save()
+			if err != nil {
+				return nil, err
+			}
+
 			// Get access key
 			accessKey, err := account.GetAccessKey(ctx, args.SecretKey)
 			if err != nil {
+				interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
 				return "", &core.CliError{
 					Err:     err,
 					Details: "Failed to retrieve Access Key for the given Secret Key.",
 				}
 			}
 
-			profile := &scw.Profile{
+			profile = &scw.Profile{
 				AccessKey:             &accessKey,
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
@@ -311,7 +339,6 @@ func initCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-
 			// Now that the config has been save we reload the client with the new config
 			err = core.ReloadClient(ctx)
 			if err != nil {
@@ -433,6 +460,16 @@ func promptCredentials(ctx context.Context) (string, error) {
 	}
 }
 
+func configCLIv1present() bool {
+	homeDir, err := os.UserHomeDir()
+	if err == nil {
+		configPath := path.Join(homeDir, ".scwrc")
+		_, err := os.Stat(configPath)
+		return err == nil
+	}
+	return false
+}
+
 // getOrganizationId handles prompting for the argument organization-id
 // If we have only 1 id : we use it, and don't prompt
 // If we have more than 1 id, we prompt, with id[0] as default value.
@@ -480,3 +517,9 @@ const logo = `
   @@@@@@.         .@@@@            |___/ \___|  \_/\_/    \___||_||_|
      @@@@@@@@@@@@@@@@.
 `
+
+type configV1 struct {
+	Organization string `json:"organization"`
+	Token        string `json:"token"`
+	Version      string `json:"version"`
+}
