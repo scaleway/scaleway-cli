@@ -2,7 +2,6 @@ package registry
 
 import (
 	"context"
-	"fmt"
 	"os/exec"
 	"reflect"
 
@@ -38,16 +37,8 @@ You will need to have the chosen binary installed on your system and in your PAT
 
 func registryLogoutRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	args := argsI.(*registryLogoutArgs)
-	client := core.ExtractClient(ctx)
 
 	region := args.Region.String()
-	if region == "" {
-		scwRegion, ok := client.GetDefaultRegion()
-		if !ok {
-			return nil, fmt.Errorf("no default region configured")
-		}
-		region = scwRegion.String()
-	}
 	endpoint := endpointPrefix + region + endpointSuffix
 
 	cmdArgs := []string{"logout", endpoint}
