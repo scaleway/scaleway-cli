@@ -33,7 +33,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		}
 
 		// Apply default values on missing args.
-		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
+		rawArgs = ApplyDefaultValues(ctx, cmd.ArgSpecs, rawArgs)
 
 		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
 

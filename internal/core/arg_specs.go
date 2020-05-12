@@ -101,6 +101,11 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			zone, _ := client.GetDefaultZone()
+			return zone.String(), zone.String()
+		},
 	}
 }
 
@@ -113,6 +118,11 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			region, _ := client.GetDefaultRegion()
+			return region.String(), region.String()
+		},
 	}
 }
 
