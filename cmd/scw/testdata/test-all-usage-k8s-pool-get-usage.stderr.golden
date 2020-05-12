@@ -8,8 +8,8 @@ EXAMPLES:
     scw k8s pool get 11111111-1111-1111-111111111111
 
 ARGS:
-  pool-id    The ID of the requested pool
-  [region]   Region to target. If none is passed will use default region from the config (fr-par)
+  pool-id           The ID of the requested pool
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for get

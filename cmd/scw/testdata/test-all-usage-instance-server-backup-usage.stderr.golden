@@ -16,7 +16,7 @@ EXAMPLES:
 ARGS:
   server-id            ID of the server to backup.
   [name=<generated>]   Name of your backup.
-  [zone]               Zone to target. If none is passed will use default zone from the config
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for backup

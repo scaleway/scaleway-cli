@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -16,7 +17,7 @@ func Test_ApplyDefaultValues(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			result := ApplyDefaultValues(tc.argSpecs, tc.rawArgs)
+			result := ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}
 	}

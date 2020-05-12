@@ -4,8 +4,8 @@ USAGE:
   scw instance user-data list <server-id ...> [arg=value ...]
 
 ARGS:
-  server-id   UUID of the server
-  [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  server-id         UUID of the server
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for list

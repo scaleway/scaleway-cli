@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"reflect"
 	"testing"
 
@@ -39,7 +40,7 @@ func Test_buildUsageArgs(t *testing.T) {
   [root-volume.name]                  Root volume name
   [additional-volumes.{index}.name]   Additional volume name`
 
-	got := buildUsageArgs(&Command{
+	got := buildUsageArgs(context.Background(), &Command{
 		ArgsType: reflect.TypeOf(instanceListServerArgs{}),
 		ArgSpecs: ArgSpecs{
 			{

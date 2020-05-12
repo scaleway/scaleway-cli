@@ -8,7 +8,7 @@ ARGS:
   [namespace-id]      Filter by the Namespace ID
   [name]              Filter by the Image name (exact match)
   [organization-id]   Filter by Organization ID
-  [region]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for list

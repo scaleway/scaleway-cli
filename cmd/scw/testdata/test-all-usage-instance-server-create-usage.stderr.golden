@@ -34,7 +34,7 @@ ARGS:
   [placement-group-id]           The placement group ID in witch the server has to be created
   [bootscript-id]                The bootscript ID to use, if empty the local boot will be used
   [organization-id]              Organization ID to use. If none is passed will use default organization ID from the config
-  [zone]                         Zone to target. If none is passed will use default zone from the config
+  [zone=fr-par-1]                Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for create
