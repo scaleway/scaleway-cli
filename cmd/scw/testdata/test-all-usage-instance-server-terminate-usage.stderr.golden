@@ -17,7 +17,7 @@ ARGS:
   server-id             
   [with-ip]             Delete the IP attached to the server
   [with-block=prompt]   Delete the Block Storage volumes attached to the server (prompt | true | false)
-  [zone]                Zone to target. If none is passed will use default zone from the config
+  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for terminate

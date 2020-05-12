@@ -2,6 +2,7 @@ package core
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -20,11 +21,11 @@ const (
 
 // buildUsageArgs builds usage args string.
 // This string will be used by cobra usage template.
-func buildUsageArgs(cmd *Command) string {
+func buildUsageArgs(ctx context.Context, cmd *Command) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 
-	err := _buildUsageArgs(tw, cmd.ArgSpecs)
+	err := _buildUsageArgs(ctx, tw, cmd.ArgSpecs)
 	if err != nil {
 		// TODO: decide how to handle this error
 		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)
@@ -39,11 +40,11 @@ func buildUsageArgs(cmd *Command) string {
 
 // _buildUsageArgs builds the arg usage list.
 // This should not be called directly.
-func _buildUsageArgs(w io.Writer, argSpecs ArgSpecs) error {
+func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error {
 	for _, argSpec := range argSpecs {
 		argSpecUsageLeftPart := argSpec.Name
 		if argSpec.Default != nil {
-			_, doc := argSpec.Default()
+			_, doc := argSpec.Default(ctx)
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
 		}
 		if !argSpec.Required && !argSpec.Positional {

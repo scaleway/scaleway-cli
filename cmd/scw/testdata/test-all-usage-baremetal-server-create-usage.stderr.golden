@@ -16,7 +16,7 @@ ARGS:
   [type=GP-BM1-S]     Server commercial type (GP-BM1-L | GP-BM1-M | GP-BM1-S | HC-BM1-L | HC-BM1-S | HM-BM1-XL | HM-BM1-M)
   [tags.{index}]      Tags to associate to the server
   [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
-  [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for create

@@ -4,10 +4,10 @@ USAGE:
   scw registry namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id    Namespace ID to update
-  [description]   Define a description
-  [is-public]     Define the default visibility policy
-  [region]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  namespace-id      Namespace ID to update
+  [description]     Define a description
+  [is-public]       Define the default visibility policy
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for update

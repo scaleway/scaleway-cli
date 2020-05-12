@@ -4,8 +4,8 @@ USAGE:
   scw registry namespace delete <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id   The unique ID of the Namespace
-  [region]       Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  namespace-id      The unique ID of the Namespace
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for delete

@@ -8,8 +8,8 @@ EXAMPLES:
     scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
 
 ARGS:
-  cluster-id   The ID of the cluster which the available Kuberentes versions will be listed from
-  [region]     Region to target. If none is passed will use default region from the config (fr-par)
+  cluster-id        The ID of the cluster which the available Kuberentes versions will be listed from
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for list-available-versions

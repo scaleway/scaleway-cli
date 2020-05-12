@@ -24,7 +24,7 @@ ARGS:
   [state]             List servers in this state (running | stopped | stopped in place | starting | stopping | locked)
   [tags.{index}]      List servers with these exact tags
   [organization-id]   List only servers of this organization
-  [zone]              Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for list

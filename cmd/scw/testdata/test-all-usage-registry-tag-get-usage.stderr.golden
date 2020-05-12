@@ -4,8 +4,8 @@ USAGE:
   scw registry tag get <tag-id ...> [arg=value ...]
 
 ARGS:
-  tag-id     The unique ID of the Tag
-  [region]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  tag-id            The unique ID of the Tag
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for get

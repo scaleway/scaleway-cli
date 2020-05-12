@@ -4,8 +4,8 @@ USAGE:
   scw baremetal ip delete <ip-failover-id ...> [arg=value ...]
 
 ARGS:
-  ip-failover-id   ID of the IP failover to delete
-  [zone]           Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  ip-failover-id    ID of the IP failover to delete
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for delete

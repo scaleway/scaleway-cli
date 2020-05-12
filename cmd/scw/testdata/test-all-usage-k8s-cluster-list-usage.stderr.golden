@@ -18,7 +18,7 @@ ARGS:
   [name]              The name on which to filter the returned clusters
   [status]            The status on which to filter the returned clusters (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
   [organization-id]   The organization ID on which to filter the returned clusters
-  [region]            Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for list

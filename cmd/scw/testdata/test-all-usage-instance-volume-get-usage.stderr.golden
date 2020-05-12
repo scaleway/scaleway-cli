@@ -8,8 +8,8 @@ EXAMPLES:
     scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
 
 ARGS:
-  volume-id   
-  [zone]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  volume-id         
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for get

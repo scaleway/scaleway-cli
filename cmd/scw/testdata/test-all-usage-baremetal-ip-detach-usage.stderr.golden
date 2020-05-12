@@ -5,7 +5,7 @@ USAGE:
 
 ARGS:
   [ip-failover-ids.{index}]   IP failover IDs to detach to the server
-  [zone]                      Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for detach
