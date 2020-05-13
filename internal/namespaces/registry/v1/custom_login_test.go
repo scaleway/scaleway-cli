@@ -13,13 +13,7 @@ import (
 )
 
 func Test_Login(t *testing.T) {
-	clientOpts := []scw.ClientOption{
-		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithDefaultRegion(scw.RegionFrPar),
-		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
-	}
-
-	client, err := scw.NewClient(clientOpts...)
+	client, err := scw.NewClient()
 	require.NoError(t, err)
 
 	t.Run("docker", core.Test(&core.TestConfig{
