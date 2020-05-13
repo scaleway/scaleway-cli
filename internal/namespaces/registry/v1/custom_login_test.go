@@ -8,13 +8,10 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_Login(t *testing.T) {
-	client, err := scw.NewClient()
-	require.NoError(t, err)
 
 	t.Run("docker", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -31,7 +28,6 @@ func Test_Login(t *testing.T) {
 			assert.Equal(t, secret, string(stdin))
 			return 0, nil
 		},
-		Client: client,
 	}))
 	t.Run("podman", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -48,6 +44,5 @@ func Test_Login(t *testing.T) {
 			assert.Equal(t, secret, string(stdin))
 			return 0, nil
 		},
-		Client: client,
 	}))
 }
