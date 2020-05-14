@@ -7,6 +7,8 @@ AVAILABLE COMMANDS:
   namespace   A namespace is for images what a folder is for files
   image       An image represents a container image
   tag         A tag represents a container tag of an image
+  login       Login to a registry
+  logout      Logout of a registry
 
 FLAGS:
   -h, --help   help for registry
