@@ -91,7 +91,7 @@ func ExtractProfileName(ctx context.Context) string {
 	if extractMeta(ctx).ProfileFlag != "" {
 		return extractMeta(ctx).ProfileFlag
 	}
-	return ExtractEnv(ctx, "SCW_PROFILE")
+	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
 }
 
 func ReloadClient(ctx context.Context) error {
