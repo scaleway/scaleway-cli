@@ -1,9 +1,14 @@
 package registry
 
 import (
+	"context"
+	"fmt"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 //
@@ -19,3 +24,104 @@ var (
 		registry.ImageStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	}
 )
+
+type customImage struct {
+	registry.Image
+	FullName string
+}
+
+func imageGetBuilder(c *core.Command) *core.Command {
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		getImageResp, err := runner(ctx, argsI)
+		image := getImageResp.(*registry.Image)
+
+		client := core.ExtractClient(ctx)
+		api := registry.NewAPI(client)
+
+		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			NamespaceID: image.NamespaceID,
+		})
+		if err != nil {
+			return getImageResp, nil
+		}
+
+		res := customImage{
+			Image:    *image,
+			FullName: fmt.Sprintf("%s/%s", namespace.Endpoint, image.Name),
+		}
+
+		return res, nil
+	}
+
+	return c
+}
+
+func imageListBuilder(c *core.Command) *core.Command {
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Full Name",
+				FieldName: "FullName",
+			},
+			{
+				Label:     "Size",
+				FieldName: "Size",
+			},
+			{
+				Label:     "Visibility",
+				FieldName: "Visibility",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Created At",
+				FieldName: "CreatedAt",
+			},
+			{
+				Label:     "Updated At",
+				FieldName: "UpdatedAt",
+			},
+		},
+	}
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		listImageResp, err := runner(ctx, argsI)
+		if err != nil {
+			return listImageResp, err
+		}
+		listImage := listImageResp.([]*registry.Image)
+
+		client := core.ExtractClient(ctx)
+		api := registry.NewAPI(client)
+
+		namespaces, err := api.ListNamespaces(&registry.ListNamespacesRequest{}, scw.WithAllPages())
+		if err != nil {
+			return listImageResp, err
+		}
+
+		namespaceEndpointByID := make(map[string]string)
+		for _, namespace := range namespaces.Namespaces {
+			namespaceEndpointByID[namespace.ID] = namespace.Endpoint
+		}
+
+		var customRes []customImage
+		for _, image := range listImage {
+			customRes = append(customRes, customImage{
+				Image:    *image,
+				FullName: fmt.Sprintf("%s/%s", namespaceEndpointByID[image.NamespaceID], image.Name),
+			})
+		}
+
+		return customRes, nil
+	}
+
+	return c
+}
