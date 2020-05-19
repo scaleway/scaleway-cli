@@ -2,17 +2,67 @@ package baremetal
 
 import (
 	"context"
+	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func serverInstallBuilder(c *core.Command) *core.Command {
 
+	type baremetalInstallServerRequestCustom struct {
+		baremetal.InstallServerRequest
+		AllSSHKeys bool
+	}
+
+	c.ArgsType = reflect.TypeOf(baremetalInstallServerRequestCustom{})
+
+	c.ArgSpecs.AddBefore("ssh-key-ids.{index}", &core.ArgSpec{
+		Name:    "all-ssh-keys",
+		Short:   "Add all SSH keys on your baremetal instance",
+		Default: core.DefaultValueSetter("false"),
+	})
+
+	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		client := core.ExtractClient(ctx)
+		api := baremetal.NewAPI(client)
+
+		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
+		request := &baremetal.InstallServerRequest{
+			Zone:     tmpRequest.Zone,
+			ServerID: tmpRequest.ServerID,
+			OsID:     tmpRequest.OsID,
+			Hostname: tmpRequest.Hostname,
+		}
+
+		// SSH keys management
+		if tmpRequest.AllSSHKeys {
+			accountapi := account.NewAPI(client)
+			orgId, _ := client.GetDefaultOrganizationID()
+			listKeys, err := accountapi.ListSSHKeys(&account.ListSSHKeysRequest{
+				OrganizationID: &orgId,
+			}, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			var keyIDs []string
+			for _, key := range listKeys.SSHKeys {
+				keyIDs = append(keyIDs, key.ID)
+			}
+			request.SSHKeyIDs = keyIDs
+		} else {
+			request.SSHKeyIDs = tmpRequest.SSHKeyIDs
+		}
+
+		return api.InstallServer(request)
+	}
+
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
-			Zone:     argsI.(*baremetal.InstallServerRequest).Zone,
+			Zone:     argsI.(*baremetalInstallServerRequestCustom).Zone,
 			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
