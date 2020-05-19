@@ -16,7 +16,6 @@ require (
 	github.com/fatih/color v1.9.0
 	github.com/getsentry/raven-go v0.2.0
 	github.com/gorilla/websocket v1.4.2
-	github.com/hashicorp/go-multierror v1.0.0
 	github.com/hashicorp/go-version v1.2.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.4
