@@ -14,7 +14,7 @@ import (
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
-		rawArgs := RawArgs(rawArgsStr)
+		rawArgs := args.RawArgs(rawArgsStr)
 
 		meta := extractMeta(ctx)
 		meta.command = cmd

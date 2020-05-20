@@ -71,3 +71,78 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
 	}
 	return i
 }
+
+func (a RawArgs) GetPositionalArgs() []string {
+
+	positionalArgs := []string(nil)
+	for _, arg := range a {
+		if isPositionalArg(arg) {
+			positionalArgs = append(positionalArgs, arg)
+		}
+	}
+	return positionalArgs
+}
+
+func (a RawArgs) Get(argName string) (string, bool) {
+	for _, arg := range a {
+		name, value := splitArg(arg)
+		if name == argName {
+			return value, true
+		}
+	}
+	return "", false
+}
+
+func (a RawArgs) RemoveAllPositional() RawArgs {
+	return a.filter(func(arg string) bool {
+		return !isPositionalArg(arg)
+	})
+}
+
+func (a RawArgs) Add(name string, value string) RawArgs {
+	return append(a, name+"="+value)
+}
+
+func (a RawArgs) Remove(argName string) RawArgs {
+	return a.filter(func(arg string) bool {
+		name, _ := splitArg(arg)
+		return name != argName
+	})
+}
+
+func (a RawArgs) filter(test func(string) bool) RawArgs {
+	argsCopy := RawArgs{}
+	for _, arg := range a {
+		if test(arg) {
+			argsCopy = append(argsCopy, arg)
+		}
+	}
+	return argsCopy
+}
+
+func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
+	keys := []string(nil)
+	for _, arg := range a {
+		name, _ := splitArg(arg)
+		if !strings.HasPrefix(name, prefix+".") {
+			continue
+		}
+
+		name = strings.TrimPrefix(name, prefix+".")
+		keys = append(keys, strings.SplitN(name, ".", 2)[0])
+	}
+	return keys
+}
+
+func splitArg(arg string) (name string, value string) {
+	part := strings.SplitN(arg, "=", 2)
+	if len(part) == 1 {
+		return "", part[0]
+	}
+	return part[0], part[1]
+}
+
+func isPositionalArg(arg string) bool {
+	pos := strings.IndexRune(arg, '=')
+	return pos == -1
+}

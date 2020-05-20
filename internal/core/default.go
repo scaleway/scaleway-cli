@@ -4,11 +4,12 @@ import (
 	"context"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/namegenerator"
 )
 
 // ApplyDefaultValues will hydrate args with default values.
-func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs RawArgs) RawArgs {
+func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs args.RawArgs) args.RawArgs {
 
 	for _, argSpec := range argSpecs {
 		if argSpec.Default == nil {
