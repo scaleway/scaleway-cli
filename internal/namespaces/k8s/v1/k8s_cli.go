@@ -93,7 +93,7 @@ Please note that Kubernetes nodes cannot be accessed with ssh.
 func k8sVersion() *core.Command {
 	return &core.Command{
 		Short: `A version is a Kubernetes version`,
-		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `. 
+		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `.
 It is composed of a major version x, a minor version y and a patch version z.
 Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.
 
@@ -624,6 +624,12 @@ func k8sClusterDelete() *core.Command {
 				Short:      `The ID of the cluster to delete`,
 				Required:   true,
 				Positional: true,
+			},
+			{
+				Name:       "with-additional-resources",
+				Short:      `Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID`,
+				Required:   false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
