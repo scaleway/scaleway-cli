@@ -40,7 +40,9 @@ func main() {
 	}
 
 	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
-	defer sentry.RecoverPanicAndSendReport(buildInfo)
+	if buildInfo.IsRelease() {
+		defer sentry.RecoverPanicAndSendReport(buildInfo)
+	}
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
