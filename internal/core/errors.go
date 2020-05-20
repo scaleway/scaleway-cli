@@ -30,3 +30,10 @@ func InvalidOrganizationIDError(value string) *CliError {
 		Hint: "organization-id should be a valid UUID, formatted as: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.",
 	}
 }
+
+func ArgumentConflictError(arg1 string, arg2 string) *CliError {
+	return &CliError{
+		Err:  fmt.Errorf("only one of those two arguments '%s' and '%s' can be specified in the same time", arg1, arg2),
+		Hint: "only one of those two argument can be specified",
+	}
+}
