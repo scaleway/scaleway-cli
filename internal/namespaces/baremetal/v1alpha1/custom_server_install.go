@@ -30,12 +30,6 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
-		request := &baremetal.InstallServerRequest{
-			Zone:     tmpRequest.Zone,
-			ServerID: tmpRequest.ServerID,
-			OsID:     tmpRequest.OsID,
-			Hostname: tmpRequest.Hostname,
-		}
 
 		// SSH keys management
 		if tmpRequest.AllSSHKeys {
@@ -52,12 +46,10 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 			for _, key := range listKeys.SSHKeys {
 				keyIDs = append(keyIDs, key.ID)
 			}
-			request.SSHKeyIDs = keyIDs
-		} else {
-			request.SSHKeyIDs = tmpRequest.SSHKeyIDs
+			tmpRequest.SSHKeyIDs = keyIDs
 		}
 
-		return runner(ctx, request)
+		return runner(ctx, tmpRequest)
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
