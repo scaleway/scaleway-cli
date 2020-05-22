@@ -27,6 +27,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 	})
 
 	c.ArgSpecs.GetByName("ssh-key-ids.{index}").OneOfGroup = "ssh"
+	c.ArgSpecs.GetByName("ssh-key-ids.{index}").Short = "SSH key IDs authorized on the server (cannot be used with all-ssh-keys)"
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
