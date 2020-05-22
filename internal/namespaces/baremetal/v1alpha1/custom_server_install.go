@@ -50,7 +50,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 			tmpRequest.SSHKeyIDs = keyIDs
 		}
 
-		return runner(ctx, tmpRequest)
+		return runner(ctx, &tmpRequest.InstallServerRequest)
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
