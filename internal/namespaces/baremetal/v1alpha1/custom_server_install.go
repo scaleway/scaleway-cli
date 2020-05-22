@@ -20,15 +20,23 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(baremetalInstallServerRequestCustom{})
 
 	c.ArgSpecs.AddBefore("ssh-key-ids.{index}", &core.ArgSpec{
-		Name:    "all-ssh-keys",
-		Short:   "Add all SSH keys on your baremetal instance",
-		Default: core.DefaultValueSetter("false"),
+		Name:       "all-ssh-keys",
+		Short:      "Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)",
+		Default:    core.DefaultValueSetter("false"),
+		OneOfGroup: "ssh",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-		client := core.ExtractClient(ctx)
-		api := baremetal.NewAPI(client)
+	c.ArgSpecs.DeleteByName("ssh-key-ids.{index}")
 
+	c.ArgSpecs.AddBefore("all-ssh-keys", &core.ArgSpec{
+		Name:       "ssh-key-ids.{index}",
+		Short:      `SSH key IDs authorized on the server (cannot be used with all-ssh-keys)`,
+		Required:   true,
+		Positional: false,
+		OneOfGroup: "ssh",
+	})
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
 		request := &baremetal.InstallServerRequest{
 			Zone:     tmpRequest.Zone,
@@ -39,6 +47,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 
 		// SSH keys management
 		if tmpRequest.AllSSHKeys {
+			client := core.ExtractClient(ctx)
 			accountapi := account.NewAPI(client)
 			orgId, _ := client.GetDefaultOrganizationID()
 			listKeys, err := accountapi.ListSSHKeys(&account.ListSSHKeysRequest{
@@ -56,7 +65,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 			request.SSHKeyIDs = tmpRequest.SSHKeyIDs
 		}
 
-		return api.InstallServer(request)
+		return runner(ctx, request)
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
