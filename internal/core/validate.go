@@ -30,6 +30,10 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 		if err != nil {
 			return err
 		}
+		err = validateNoConflict(cmd, rawArgs)
+		if err != nil {
+			return err
+		}
 		return nil
 	}
 }
@@ -85,6 +89,20 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 		for i := range fieldValues {
 			if !rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
 				return MissingRequiredArgumentError(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1))
+			}
+		}
+	}
+	return nil
+}
+
+func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
+	for _, arg1 := range cmd.ArgSpecs {
+		for _, arg2 := range cmd.ArgSpecs {
+			if !arg1.ConflictWith(arg2) || arg1 == arg2 {
+				continue
+			}
+			if rawArgs.Has(arg1.Name) && rawArgs.Has(arg2.Name) {
+				return ArgumentConflictError(arg1.Name, arg2.Name)
 			}
 		}
 	}

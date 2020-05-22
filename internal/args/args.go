@@ -93,6 +93,60 @@ func (a RawArgs) Get(argName string) (string, bool) {
 	return "", false
 }
 
+const (
+	sliceSchema = "{index}"
+	mapSchema   = "{key}"
+)
+
+func (a RawArgs) GetAll(argName string) []string {
+	// If argSpec is part of a map or slice we must lookup for existing index in other args
+	// Example:
+	//    argSpec = { Name: "friends.{index}.Age", "Default": 42 }
+	//    rawArgs = friends.0.name=bob friends.1.name=alice
+	// In this case we should add friends.0.age=42 friends.1.age=42
+	//
+	// We will construct a slice prefixes that will contain all args prefixes
+	// In the upper example prefix will be [friends.0 and friends.1]
+	parts := strings.Split(argName, ".")
+	prefixes := []string{parts[0]}
+	for _, part := range parts[1:] {
+		switch part {
+		case sliceSchema, mapSchema:
+			newPrefixes := []string(nil)
+			duplicateCheck := map[string]bool{}
+			for _, prefix := range prefixes {
+				for _, key := range a.GetSliceOrMapKeys(prefix) {
+					if duplicateCheck[key] == true {
+						continue
+					}
+					newPrefixes = append(newPrefixes, prefix+"."+key)
+					duplicateCheck[key] = true
+				}
+			}
+			prefixes = newPrefixes
+		default:
+			for idx := range prefixes {
+				prefixes[idx] = prefixes[idx] + "." + part
+			}
+		}
+	}
+
+	res := []string(nil)
+	for _, p := range prefixes {
+		for _, arg := range a {
+			name, value := splitArg(arg)
+			if name == p {
+				res = append(res, value)
+			}
+		}
+	}
+	return res
+}
+
+func (a RawArgs) Has(argName string) bool {
+	return a.GetAll(argName) != nil
+}
+
 func (a RawArgs) RemoveAllPositional() RawArgs {
 	return a.filter(func(arg string) bool {
 		return !isPositionalArg(arg)
