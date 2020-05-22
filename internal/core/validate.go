@@ -98,17 +98,11 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 	for _, arg1 := range cmd.ArgSpecs {
 		for _, arg2 := range cmd.ArgSpecs {
-			if !arg1.ConflictWith(arg2) {
+			if !arg1.ConflictWith(arg2) || arg1 == arg2 {
 				continue
 			}
-			arg1FieldName := arg1.Name
-			arg1FieldValue, _ := rawArgs.Get(arg1FieldName)
-
-			arg2FieldName := arg2.Name
-			arg2FieldValue, _ := rawArgs.Get(arg2FieldName)
-
-			if arg1FieldValue != "" && arg2FieldValue != "" {
-				return ArgumentConflictError(arg1FieldName, arg2FieldName)
+			if rawArgs.Has(arg1.Name) && rawArgs.Has(arg2.Name) {
+				return ArgumentConflictError(arg1.Name, arg2.Name)
 			}
 		}
 	}
