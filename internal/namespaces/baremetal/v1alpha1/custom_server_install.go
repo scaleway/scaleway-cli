@@ -26,15 +26,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		OneOfGroup: "ssh",
 	})
 
-	c.ArgSpecs.DeleteByName("ssh-key-ids.{index}")
-
-	c.ArgSpecs.AddBefore("all-ssh-keys", &core.ArgSpec{
-		Name:       "ssh-key-ids.{index}",
-		Short:      `SSH key IDs authorized on the server (cannot be used with all-ssh-keys)`,
-		Required:   true,
-		Positional: false,
-		OneOfGroup: "ssh",
-	})
+	c.ArgSpecs.GetByName("ssh-key-ids.{index}").OneOfGroup = "ssh"
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
