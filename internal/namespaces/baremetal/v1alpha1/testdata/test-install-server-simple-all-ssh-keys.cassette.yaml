@@ -13,16 +13,19 @@ interactions:
     url: https://api.scaleway.com/account/v2alpha1/ssh-keys
     method: POST
   response:
-    body: '{"message":"conflict"}'
+    body: '{"id":"f06d9273-385e-4747-806c-d4673c410f9d","name":"","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==
+      foobar@foobar","fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce
+      foobar@foobar (ssh-rsa)","created_at":"2020-04-16T14:47:24.725962Z","updated_at":"2020-05-25T08:57:49.401073Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
     headers:
       Content-Length:
-      - "22"
+      - "602"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 25 May 2020 08:49:51 GMT
+      - Mon, 25 May 2020 08:57:49 GMT
       Server:
       - scaleway_api
       Strict-Transport-Security:
@@ -32,7 +35,2239 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 63d367ee-39e1-4ca6-bc14-2eb4a76a6688
-    status: 409 Conflict
-    code: 409
+      - 174adf61-1b2e-40c1-8c2a-0088beee8ce6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/offers?page=1
+    method: GET
+  response:
+    body: '{"total_count":7,"offers":[{"id":"3ab0dc29-2fd4-486e-88bf-d08fbf49214b","name":"HC-BM1-L","stock":"empty","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":1,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":749,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Gold 5120","cores":14,"threads":28,"frequency":2200},{"name":"Intel Xeon
+      Gold 5120","cores":14,"threads":28,"frequency":2200}],"memory":[{"capacity":384,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":1,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":749,"nanos":990000000}},{"id":"5363865f-2266-40f9-a43f-4f3aba251524","name":"HM-BM1-XL","stock":"empty","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":2,"nanos":599900000},"price_by_month":{"currency_code":"EUR","units":1299,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Gold 6140","cores":18,"threads":36,"frequency":2300},{"name":"Intel Xeon
+      Gold 6140","cores":18,"threads":36,"frequency":2300}],"memory":[{"capacity":768,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":2,"nanos":599900000},"price_per_month":{"currency_code":"EUR","units":1299,"nanos":990000000}},{"id":"737f18c8-febc-4408-b69e-776bca0a3f48","name":"HC-BM1-S","stock":"available","bandwidth":1000,"commercial_range":"high_cpu","price_by_minute":{"currency_code":"EUR","units":0,"nanos":659900000},"price_by_month":{"currency_code":"EUR","units":329,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon Silver 4114","cores":10,"threads":20,"frequency":2200},{"name":"Intel Xeon
+      Silver 4114","cores":10,"threads":20,"frequency":2200}],"memory":[{"capacity":128,"type":"DDR4","frequency":2400,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":659900000},"price_per_month":{"currency_code":"EUR","units":329,"nanos":990000000}},{"id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","name":"GP-BM1-S","stock":"available","bandwidth":500,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":240000000},"price_by_month":{"currency_code":"EUR","units":119,"nanos":990000000},"disk":[{"capacity":250,"type":"SSD"},{"capacity":250,"type":"SSD"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon E3 1240v6","cores":4,"threads":8,"frequency":3700}],"memory":[{"capacity":32,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":240000000},"price_per_month":{"currency_code":"EUR","units":119,"nanos":990000000}},{"id":"8090d302-3545-4905-9cf3-bcb77a299f47","name":"GP-BM1-L","stock":"empty","bandwidth":750,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":499900000},"price_by_month":{"currency_code":"EUR","units":249,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
+      EPYC 7281","cores":16,"threads":32,"frequency":2100}],"memory":[{"capacity":96,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":499900000},"price_per_month":{"currency_code":"EUR","units":249,"nanos":990000000}},{"id":"964f9b38-577e-470f-a220-7d762f9e8672","name":"GP-BM1-M","stock":"available","bandwidth":500,"commercial_range":"general_purpose","price_by_minute":{"currency_code":"EUR","units":0,"nanos":399900000},"price_by_month":{"currency_code":"EUR","units":199,"nanos":990000000},"disk":[{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"},{"capacity":1024,"type":"SSD"}],"enable":true,"cpu":[{"name":"Intel
+      Xeon E3 1240v6","cores":4,"threads":8,"frequency":3700}],"memory":[{"capacity":64,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_gp","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":399900000},"price_per_month":{"currency_code":"EUR","units":199,"nanos":990000000}},{"id":"c452f76a-2cda-4a1b-9658-a16952dc5ff0","name":"HM-BM1-M","stock":"available","bandwidth":1000,"commercial_range":"high_memory","price_by_minute":{"currency_code":"EUR","units":0,"nanos":799900000},"price_by_month":{"currency_code":"EUR","units":399,"nanos":990000000},"disk":[{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"},{"capacity":1024,"type":"NVMe"}],"enable":true,"cpu":[{"name":"AMD
+      EPYC 7401P","cores":24,"threads":48,"frequency":2000}],"memory":[{"capacity":256,"type":"DDR4","frequency":2133,"ecc":true}],"quota_name":"bmaas_high","price_per_sixty_minutes":{"currency_code":"EUR","units":0,"nanos":799900000},"price_per_month":{"currency_code":"EUR","units":399,"nanos":990000000}}]}'
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:57:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 261bb19f-45fc-4ff6-9fec-c674d1527f97
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","tags":null}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers
+    method: POST
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:49.676591088Z","created_at":"2020-05-25T08:57:49.676591088Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "440"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:57:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5a27d45f-152a-4a57-8729-10a5d0d1f511
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:49.676591Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:57:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 15c84142-b564-4c77-8d1a-d56d144f1f4a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:58:04 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 781ca579-df1a-4330-8496-b80673561cbc
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:58:19 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1a491109-6d84-42c6-aa10-959952a923c8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:58:34 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7a955a5d-31cd-485b-bd29-f7edb1396f95
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:58:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1ff84eb4-1733-483b-ad2e-dc69d8d263b3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:59:04 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2227cc4b-3147-4c48-9be0-1bd6fe9b1d21
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:59:19 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ad5d202d-87c4-4d35-b350-2fea9e5a275f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:59:34 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8b8dcee9-f881-4017-a3f3-7a58cf3a5f2a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 08:59:49 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cb54c40f-6d30-4f0e-a6e3-5e582e927524
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:00:04 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0925c127-1d2d-411a-8870-03283328a0df
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:00:19 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6f3181d3-2606-4785-bce1-84102ed1d295
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:00:34 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ba641b2e-562e-4b88-8b9a-b2f04c4a38b0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T08:57:50.181842Z","created_at":"2020-05-25T08:57:49.676591Z","status":"undelivered","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:00:50 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ac51576d-61be-43af-b260-c8e06f16ab4e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":null,"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "965"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 06811122-f88b-4670-bdee-395c477a0815
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys?order_by=created_at_asc&organization_id=951df375-e094-4d26-97c1-ba548eeb9c42&page=1
+    method: GET
+  response:
+    body: '{"ssh_keys":[{"id":"9bf6c340-687c-4f31-8aad-6a525761d8cd","name":"sieben-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAACAQDZrUk+hFs8hYZVu6PVzXIZH83glJfiqZU7gzxw9zSkinCNHZnJ0KViZmol/XUEvGPu0toWOnM5t9MUVRq3xMldo6TKOZ7tvqBDoYD/hMHSBZb+b5f12l7i43wV7dunypy+nKtlb+rv9YJdMdbVaXy29K5EPaQujYTZTvXFEB9b8P0NXt0jA+qsUEf6/TK7dONdh2PFrUFiLXtNxkw21n/q6JGfR78etQ3mIaDKffjoVYHKgMv2edGWpjAkZeM5eBg6U6kb7CMMstpxPfOPADkXu4hbWhMGG5TC4tuizfq8YAeE8t2nyfB+xq8MtQe5jTPLK1/B+NVuKvp+3WLDSrai6dbsMpFsZDXJL34BkoY7XsRf8FeaPiy5Z3ScD6YLTl986rztAPyLCKJrfPSSc2tAOgne9cGFVUPS+tehqtW+VPeD4qu00h7H9hX/x+hefqYL5cfS3h/qgpcUFw+69rVK6r1zcBwJyJAI9gUQ08628iirYku3KkUQ0VdlavrYYfB9wyStQ4VBUYpXKMhKgk5gCRRkEuJ2gETffj+nLZAqL13yFPm8lCOgRztp06S+K9Xq/cYVvAnDh8R2IsBGbs4KmpKMM7PA7mYf3XMI1KzAWXqc6RCv1a+PUwMK/AIKqnk040n2Q0yxuJSOufcVE6mWxVywHag9Ucww1FuSR54i7w==
+      rleone@scaleway.com","fingerprint":"4096 MD5:43:ba:7c:ec:66:6b:cc:fe:02:91:04:29:32:19:30:bf
+      rleone@scaleway.com (ssh-rsa)","created_at":"2019-05-02T08:26:01.304954Z","updated_at":"2020-05-13T22:32:46.471097Z","creation_info":{"address":"195.154.228.158","user_agent":"ansible
+      2.7.0.dev0 Python 2.7.16","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"cffa1bb1-57f0-4ad8-be20-f335df743b27","name":"juliencastets-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAABAQDMiV5DEMsYihbdS3kCJwzSBLgGO7L2j5z2/9+HVbJbzDvAz0HcUQ+sKOlvzEUzDgtNKNP+zs7C9sMcDKKUPsVzx2jpZgGN0hP9taDzWuMX+A4B4CBftTQHtZBV8dg+EVeI5Xv6HmY/WtAWC1Xfb8mvz5z+a/8D0u9IVURqiZy/n8moQwhjpK9+m634GorgMwduMZX1pPskSVL1m2ocaP8NFq8oV9L6zf9kSi7/Jwgci1TTsGYGsRSbpc665nP7MgyxZqpP0oQK8f6VW1ndFjsSgE1fT83/1WH8ro2Ou0Esh/FTs0Wxt2A5vIShYJIO+o680rNjbIhoWHLg5tU9+ip1
+      macbook","fingerprint":"2048 MD5:00:43:dc:7f:26:64:70:a2:b9:cd:06:77:35:f2:f6:f6
+      macbook (ssh-rsa)","created_at":"2020-02-26T12:46:58.241993Z","updated_at":"2020-02-26T12:46:58.241993Z","creation_info":{"address":"195.154.229.35","user_agent":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130
+      Safari/537.36","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"f06d9273-385e-4747-806c-d4673c410f9d","name":"","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==
+      foobar@foobar","fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce
+      foobar@foobar (ssh-rsa)","created_at":"2020-04-16T14:47:24.725962Z","updated_at":"2020-05-25T08:57:49.401073Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "2740"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d51dd2e9-90f1-47d1-9557-35736295af64
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"]}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7/install
+    method: POST
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"to_install"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 89d01507-c311-441a-8aef-8a24c5892808
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"to_install"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 78053aed-c2ac-4295-938d-7554047f6f59
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:20 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 78cf32ec-1aaf-47ac-afeb-57d7e1314794
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:35 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ecdfe3ac-0214-47ab-84ae-7589f29a6894
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:01:50 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0e281b44-6441-4653-b5a5-138c63960166
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:02:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8253beb5-9b49-4728-b63a-c067534281b5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:02:20 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7e5387f2-3575-4bef-84c0-c0f9632a02dd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:02:35 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7502cb0e-ac41-4638-b0fc-1cd49ad67ee0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_unknown","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1197"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:02:50 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8714fa44-d4f8-454c-8937-eab6410e41a7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1192"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:03:05 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f37bbf2f-1b0a-4e8b-b56c-679e7ab1c501
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"pending","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"pending","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1192"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:03:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 41cc1102-0a4c-4a66-bc16-023ce9bb2ee4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:03:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3eb09593-c6bb-46f9-9f56-417420fa7fc7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:03:51 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4d6771f1-4ed8-4686-b35f-050669c04c5a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:04:06 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9a6f1893-fe2d-4e70-ac2e-99e3e0a0144e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:04:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 21ab91b5-853a-41ff-8fca-cbd3f9e38bc7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:04:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f4ffffa2-899a-453f-8353-76a779162e23
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:04:51 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b3a0d5f9-85db-4d0f-8a83-216dc1e10899
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:05:06 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - adc3a408-4bfe-43c1-9ef7-8d912a19e0a4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:05:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f59d24bf-3f9b-4514-9f8e-e1230a7429b3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:05:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 883216c4-e549-41aa-8a71-91e97b0c48de
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:05:51 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ce32aaa8-869b-44b6-8dd3-7a7bb3d18694
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:06:06 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 92a024b1-a25c-46cb-8202-f1140caaa2f5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:06:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 109966a5-d8c1-4655-90f0-faa2040f837c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:06:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 22db13c4-4504-4175-803e-0320a1dce5b8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:06:51 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - bd2aff54-a97b-418c-9f0c-c5b676c14e8a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:07:06 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4d1583d2-a51d-4e38-a697-bd1f927935de
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:07:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - df0a76a4-51be-47fb-9499-5ca3e4fc8d49
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:07:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b6b18b6b-9c8c-4b98-be14-62f86eb9c5d5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:07:51 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3f96dd1a-4030-45bc-bf92-ff26e6e763ec
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:08:06 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c29e6aa4-6309-4f0e-90a7-3b9e76ad8beb
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:08:21 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5b861e21-a1a9-4488-b71f-27f683f292f1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:08:36 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e36fdf10-c291-4153-a197-011890f26cdd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:08:52 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5dbe5b0d-d1f0-4735-8b42-c5532e0d37f7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:09:07 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4b49c837-58b9-48b5-95e5-74b745591d4c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:09:22 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4b33ab12-27a9-45a3-89e1-e0e65d1e999a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:09:37 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 704c5d33-1c54-4dc6-b077-96ad891299b9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:09:52 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4873721d-077b-494c-beba-313258853f0a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:10:07 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9a32670a-b337-4890-b1e2-3d0242e84f79
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:10:22 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1a63c90a-1040-4f76-a9fa-8aa9c6d4c031
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:10:37 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 07999a82-167b-4214-845b-d197b7c34cc1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:10:52 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7f2a3035-c995-40a6-9cbc-d613609e8df2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:11:07 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2f5db981-8a7f-4d1a-82c8-af5f596df42b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:11:22 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1b4eac9b-0dc5-4ca9-9cd5-a5d8cf5249c5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:11:37 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8add087b-c3f1-48f1-b4aa-2d7b4e57b785
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:11:53 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5bb1b99d-c66e-45c4-9e55-2138d7bf4b69
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:12:07 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 35c7c5ad-0dbf-4762-8df8-15038e3b5d6e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:12:23 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 283567c6-4b76-40e9-874e-2e25d793268e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:12:38 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1212e6f1-5e85-4c44-b873-bb22e12f3b41
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:12:53 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3af938df-5d2e-46a7-b6f1-80a6fbd097af
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"installing"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:13:08 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d78982dd-9162-41b7-aa4b-6dd5b15c0fa6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: GET
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:00:52.564910Z","created_at":"2020-05-25T08:57:49.676591Z","status":"ready","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"completed"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1189"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:13:23 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f168c64a-945c-41ee-9227-9a90870d382a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1alpha1/zones/fr-par-2/servers/55878469-8555-4b35-9dad-0043a51553e7
+    method: DELETE
+  response:
+    body: '{"id":"55878469-8555-4b35-9dad-0043a51553e7","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-hopeful-heisenberg","description":"","updated_at":"2020-05-25T09:13:23.549955Z","created_at":"2020-05-25T08:57:49.676591Z","status":"deleting","offer_id":"7fde3890-9787-488c-ac89-c4e00a4e5f83","install":{"os_id":"d859aa89-8b4a-4551-af42-ff7c0c27260a","hostname":"test-install-server","ssh_key_ids":["9bf6c340-687c-4f31-8aad-6a525761d8cd","cffa1bb1-57f0-4ad8-be20-f335df743b27","f06d9273-385e-4747-806c-d4673c410f9d"],"status":"completed"},"tags":[],"ips":[{"id":"e20faf0f-8b94-4d87-af2d-50537bbced6b","address":"51.159.31.73","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv4","reverse_status":"active","reverse_status_message":null},{"id":"e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc","address":"2001:0bc8:6005:001b:aa1e:84ff:fef3:5880","reverse":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","version":"Ipv6","reverse_status":"active","reverse_status_message":null}],"domain":"55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","zone":"fr-par-2"}'
+    headers:
+      Content-Length:
+      - "1192"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 May 2020 09:13:23 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 628b2d95-d3d7-4853-8d00-611231054946
+    status: 200 OK
+    code: 200
     duration: ""
