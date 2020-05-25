@@ -6,7 +6,9 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -14,6 +16,15 @@ import (
 
 const (
 	serverActionTimeout = 20 * time.Minute
+)
+
+// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
+var (
+	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
+		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint},
+	}
 )
 
 func serverWaitCommand() *core.Command {
