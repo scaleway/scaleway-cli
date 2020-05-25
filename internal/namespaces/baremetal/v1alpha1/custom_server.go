@@ -162,6 +162,10 @@ func serverListBuilder(c *core.Command) *core.Command {
 				Label:     "Tags",
 				FieldName: "Tags",
 			},
+			{
+				Label:     "Ping",
+				FieldName: "PingStatus",
+			},
 		},
 	}
 
