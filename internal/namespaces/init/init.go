@@ -274,7 +274,6 @@ func initCommand() *core.Command {
 			}
 
 			profileName := core.ExtractProfileName(ctx)
-			fmt.Println("coucou coucou")
 			profile, err := config.GetProfile(profileName)
 			if err != nil {
 				return nil, err
