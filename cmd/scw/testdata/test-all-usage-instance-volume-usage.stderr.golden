@@ -36,6 +36,7 @@ AVAILABLE COMMANDS:
   list        List volumes
   create      Create volume
   get         Get volume
+  update      Update volume
   delete      Delete volume
 
 FLAGS:
