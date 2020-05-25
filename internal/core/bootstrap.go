@@ -100,6 +100,10 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if client == nil {
 		client, err = createAnonymousClient(config.BuildInfo)
 		if err != nil {
+			printErr := globalPrinter.Print(err, nil)
+			if printErr != nil {
+				_, _ = fmt.Fprintln(config.Stderr, printErr)
+			}
 			return 1, nil, err
 		}
 	}
