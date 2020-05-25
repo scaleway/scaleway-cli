@@ -1,6 +1,6 @@
-id                     fe58543f-38a3-4ca8-bb56-5207cbc72829
+id                     55878469-8555-4b35-9dad-0043a51553e7
 organization-id        951df375-e094-4d26-97c1-ba548eeb9c42
-name                   cli-bm-vigilant-mclean
+name                   cli-bm-hopeful-heisenberg
 description            -
 updated-at             few seconds ago
 created-at             few seconds ago
@@ -12,17 +12,17 @@ install.ssh-key-ids.0  9bf6c340-687c-4f31-8aad-6a525761d8cd
 install.ssh-key-ids.1  cffa1bb1-57f0-4ad8-be20-f335df743b27
 install.ssh-key-ids.2  f06d9273-385e-4747-806c-d4673c410f9d
 install.status         completed
-ips.0.id               371b0927-177a-4486-9938-2143ed58d784
-ips.0.address          2001:bc8:6005:1b:dac4:97ff:fe2a:3594
-ips.0.reverse          fe58543f-38a3-4ca8-bb56-5207cbc72829.fr-par-2.baremetal.scw.cloud
-ips.0.version          Ipv6
+ips.0.id               e20faf0f-8b94-4d87-af2d-50537bbced6b
+ips.0.address          51.159.31.73
+ips.0.reverse          55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud
+ips.0.version          Ipv4
 ips.0.reverse-status   active
-ips.1.id               51922568-ccf8-4122-b4f8-a130eab364f5
-ips.1.address          51.159.31.26
-ips.1.reverse          fe58543f-38a3-4ca8-bb56-5207cbc72829.fr-par-2.baremetal.scw.cloud
-ips.1.version          Ipv4
+ips.1.id               e3e1c4f1-99ff-4dc5-9517-33cc828d5bfc
+ips.1.address          2001:bc8:6005:1b:aa1e:84ff:fef3:5880
+ips.1.reverse          55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud
+ips.1.version          Ipv6
 ips.1.reverse-status   active
-domain                 fe58543f-38a3-4ca8-bb56-5207cbc72829.fr-par-2.baremetal.scw.cloud
+domain                 55878469-8555-4b35-9dad-0043a51553e7.fr-par-2.baremetal.scw.cloud
 boot-type              normal
 zone                   fr-par-2
 ping-status            ping_status_up
