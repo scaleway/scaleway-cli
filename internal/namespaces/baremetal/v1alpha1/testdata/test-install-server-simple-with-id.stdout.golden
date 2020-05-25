@@ -23,4 +23,4 @@ ips.1.reverse-status   active
 domain                 acc9e2cf-8828-48a7-bf3a-11744e2a33c1.fr-par-2.baremetal.scw.cloud
 boot-type              normal
 zone                   fr-par-2
-ping-status            ping_status_up
+ping-status            up
