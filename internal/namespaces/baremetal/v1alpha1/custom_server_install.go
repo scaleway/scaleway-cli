@@ -14,7 +14,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 
 	type baremetalInstallServerRequestCustom struct {
 		baremetal.InstallServerRequest
-		AllSSHKeys bool
+		AllSSHKeys *bool
 	}
 
 	c.ArgsType = reflect.TypeOf(baremetalInstallServerRequestCustom{})
@@ -22,7 +22,6 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("ssh-key-ids.{index}", &core.ArgSpec{
 		Name:       "all-ssh-keys",
 		Short:      "Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)",
-		Default:    core.DefaultValueSetter("false"),
 		OneOfGroup: "ssh",
 	})
 
@@ -33,7 +32,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
 
 		// SSH keys management
-		if tmpRequest.AllSSHKeys {
+		if tmpRequest.AllSSHKeys != nil && *tmpRequest.AllSSHKeys {
 			client := core.ExtractClient(ctx)
 			accountapi := account.NewAPI(client)
 			orgId, _ := client.GetDefaultOrganizationID()
