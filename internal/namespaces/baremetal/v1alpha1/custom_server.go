@@ -18,7 +18,6 @@ const (
 	serverActionTimeout = 20 * time.Minute
 )
 
-// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
 var (
 	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
 		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed},
