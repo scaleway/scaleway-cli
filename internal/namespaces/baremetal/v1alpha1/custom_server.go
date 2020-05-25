@@ -20,9 +20,9 @@ const (
 
 var (
 	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
-		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint},
+		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
+		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
+		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
 	}
 )
 
