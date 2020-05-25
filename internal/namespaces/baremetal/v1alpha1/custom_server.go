@@ -6,7 +6,9 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -14,6 +16,14 @@ import (
 
 const (
 	serverActionTimeout = 20 * time.Minute
+)
+
+var (
+	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
+		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
+		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
+		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	}
 )
 
 func serverWaitCommand() *core.Command {
@@ -151,6 +161,10 @@ func serverListBuilder(c *core.Command) *core.Command {
 			{
 				Label:     "Tags",
 				FieldName: "Tags",
+			},
+			{
+				Label:     "Ping",
+				FieldName: "PingStatus",
 			},
 		},
 	}
