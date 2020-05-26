@@ -13,10 +13,11 @@ func TestInterruptError(t *testing.T) {
 	t.Run("unknown-command", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "interrupt",
-				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "interrupt",
+				Verb:                 "error",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &interactive.InterruptError{}
 				},
@@ -30,10 +31,11 @@ func TestInterruptError(t *testing.T) {
 	t.Run("exit-code", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "code",
-				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "code",
+				Verb:                 "error",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99}
 				},
@@ -47,10 +49,11 @@ func TestInterruptError(t *testing.T) {
 	t.Run("emtpy-error", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "empty",
-				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "empty",
+				Verb:                 "error",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99, Empty: true}
 				},
@@ -67,10 +70,11 @@ func TestInterruptError(t *testing.T) {
 	t.Run("emtpy-error-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "empty",
-				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "empty",
+				Verb:                 "error",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99, Empty: true}
 				},
@@ -84,13 +88,14 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-success", Test(&TestConfig{
+	t.Run("empty-success", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "empty",
-				Verb:      "success",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "empty",
+				Verb:                 "success",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return &SuccessResult{
 						Empty:    true,
@@ -107,13 +112,14 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test empty success",
 		Check:           TestCheckStdoutGolden(),
 	}))
-	t.Run("emtpy-success-json", Test(&TestConfig{
+	t.Run("empty-success-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
-				Namespace: "test",
-				Resource:  "empty",
-				Verb:      "success",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Namespace:            "test",
+				Resource:             "empty",
+				Verb:                 "success",
+				AllowAnonymousClient: true,
+				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return &SuccessResult{
 						Empty:    true,
