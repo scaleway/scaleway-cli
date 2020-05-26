@@ -241,19 +241,21 @@ func initCommand() *core.Command {
 			}
 
 			// Ask whether to remove v1 configuration file if it exists
-			homeDir, err := os.UserHomeDir()
-			if err == nil {
-				configPath := path.Join(homeDir, ".scwrc")
-				if _, err := os.Stat(configPath); err == nil {
-					removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-						Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
-						DefaultValue: false,
-					})
-					if err != nil {
-						return err
-					}
+			if args.RemoveV1Config == nil {
+				homeDir, err := os.UserHomeDir()
+				if err == nil {
+					configPath := path.Join(homeDir, ".scwrc")
+					if _, err := os.Stat(configPath); err == nil {
+						removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+							Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
+							DefaultValue: false,
+						})
+						if err != nil {
+							return err
+						}
 
-					args.RemoveV1Config = &removeV1ConfigFile
+						args.RemoveV1Config = &removeV1ConfigFile
+					}
 				}
 			}
 
@@ -273,34 +275,42 @@ func initCommand() *core.Command {
 				config.SendTelemetry = args.SendTelemetry
 			}
 
-			profileName := core.ExtractProfileName(ctx)
-			profile, err := config.GetProfile(profileName)
-			if err != nil {
-				return nil, err
-			}
-			profile.SecretKey = &args.SecretKey
-			profile.DefaultZone = scw.StringPtr(args.Zone.String())
-			profile.DefaultRegion = scw.StringPtr(args.Region.String())
-			profile.DefaultOrganizationID = &args.OrganizationID
-			err = config.Save()
-			if err != nil {
-				return nil, err
-			}
-
 			// Get access key
 			accessKey, err := account.GetAccessKey(args.SecretKey)
 			if err != nil {
-				interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
 				return "", &core.CliError{
 					Err:     err,
 					Details: "Failed to retrieve Access Key for the given Secret Key.",
 				}
 			}
-			profile.AccessKey = &accessKey
+
+			// Save the profile as default or as a named profile
+			profileName := core.ExtractProfileName(ctx)
+			_, err = config.GetProfile(profileName)
+			if profileName != "" && err != nil {
+				config.Profiles[profileName] = &scw.Profile{
+					AccessKey: &accessKey,
+					SecretKey: &args.SecretKey,
+					DefaultZone: scw.StringPtr(args.Zone.String()),
+					DefaultRegion: scw.StringPtr(args.Region.String()),
+					DefaultOrganizationID: &args.OrganizationID,
+				}
+			} else {
+				// Default configuration
+				config.AccessKey = &accessKey
+				config.SecretKey = &args.SecretKey
+				config.DefaultZone = scw.StringPtr(args.Zone.String())
+				config.DefaultRegion = scw.StringPtr(args.Region.String())
+				config.DefaultOrganizationID = &args.OrganizationID
+			}
+
+			// Persist configuration on disk
+			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
 			err = config.Save()
 			if err != nil {
 				return nil, err
 			}
+
 			// Now that the config has been save we reload the client with the new config
 			err = core.ReloadClient(ctx)
 			if err != nil {
