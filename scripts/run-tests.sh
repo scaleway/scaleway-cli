@@ -89,7 +89,7 @@ if [[ ${OPT_UPDATE_CASSETTES} ]] ; then
 fi
 
 # Remove golden if thery are being updated, and all tests are being run
-if [[ ${OPT_UPDATE_GOLDENS} ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
+if [[ ${OPT_UPDATE_GOLDENS} == "true" ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
   find . -type f -name "*.golden" -exec rm -f {} \;
 fi
 

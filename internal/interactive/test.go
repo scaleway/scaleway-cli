@@ -19,7 +19,12 @@ func InjectMockResponseToContext(ctx context.Context, mockValues []string) conte
 }
 
 func popMockResponseFromContext(ctx context.Context) (string, bool) {
-	mockValues := ctx.Value(contextKey).(*[]string)
+	contextValue := ctx.Value(contextKey)
+	if contextValue == nil {
+		return "", false
+	}
+
+	mockValues := contextValue.(*[]string)
 	if mockValues == nil || len(*mockValues) == 0 {
 		return "", false
 	}
