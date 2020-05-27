@@ -114,13 +114,6 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			// profileKeyValue is a custom type used for displaying configGetCommand result
-			type profileKeyValue struct {
-				Profile string `json:"profile"`
-				Key     string `json:"key"`
-				Value   string `json:"value"`
-			}
-
 			config, err := scw.LoadConfig()
 			if err != nil {
 				return nil, err
@@ -129,27 +122,20 @@ func configGetCommand() *core.Command {
 			if len(rawArgs) == 0 {
 				return nil, notEnoughArgsForConfigGetError()
 			}
-			profileKeyValues := []*profileKeyValue(nil)
-			for _, arg := range rawArgs {
-				profileName, key, err := splitProfileKey(arg)
-				if err != nil {
-					return nil, err
-				}
-				profile, err := getProfile(config, profileName)
-				if err != nil {
-					return nil, err
-				}
-				value, err := getProfileValue(profile, key)
-				if err != nil {
-					return nil, err
-				}
-				profileKeyValues = append(profileKeyValues, &profileKeyValue{
-					Profile: profileName,
-					Key:     key,
-					Value:   value,
-				})
+
+			profileName, key, err := splitProfileKey(rawArgs.GetPositionalArgs()[0])
+			if err != nil {
+				return nil, err
 			}
-			return profileKeyValues, nil
+			profile, err := getProfile(config, profileName)
+			if err != nil {
+				return nil, err
+			}
+			value, err := getProfileValue(profile, key)
+			if err != nil {
+				return nil, err
+			}
+			return value, nil
 		},
 	}
 }
