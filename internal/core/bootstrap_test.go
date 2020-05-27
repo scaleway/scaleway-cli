@@ -16,7 +16,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "interrupt",
 				Verb:                 "error",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &interactive.InterruptError{}
@@ -34,7 +33,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "code",
 				Verb:                 "error",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99}
@@ -52,7 +50,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "empty",
 				Verb:                 "error",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99, Empty: true}
@@ -73,7 +70,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "empty",
 				Verb:                 "error",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return nil, &CliError{Code: 99, Empty: true}
@@ -94,7 +90,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "empty",
 				Verb:                 "success",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return &SuccessResult{
@@ -118,7 +113,6 @@ func TestInterruptError(t *testing.T) {
 				Namespace:            "test",
 				Resource:             "empty",
 				Verb:                 "success",
-				AllowAnonymousClient: true,
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 					return &SuccessResult{
