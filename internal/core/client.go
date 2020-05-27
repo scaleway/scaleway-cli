@@ -56,14 +56,10 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 		}
 	}
 
-	userAgent := "scaleway-cli/"
-	if buildInfo.Version != nil {
-		userAgent += buildInfo.Version.String()
-	}
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithUserAgent(userAgent),
+		scw.WithUserAgent(buildInfo.GetUserAgent("scaleway-cli")),
 		scw.WithProfile(profile),
 	}
 
@@ -76,14 +72,10 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 }
 
 func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
-	userAgent := "scaleway-cli-anonymous/"
-	if buildInfo.Version != nil {
-		userAgent += buildInfo.Version.String()
-	}
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithUserAgent(userAgent),
+		scw.WithUserAgent(buildInfo.GetUserAgent("scaleway-cli-anonymous")),
 	}
 
 	client, err := scw.NewClient(opts...)

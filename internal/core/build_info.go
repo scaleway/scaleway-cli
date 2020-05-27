@@ -48,6 +48,13 @@ func (b *BuildInfo) IsRelease() bool {
 	return b.Version != nil && b.Version.Metadata() == ""
 }
 
+func (b *BuildInfo) GetUserAgent(prefix string) string {
+	if b.Version != nil {
+		return prefix + "/" + b.Version.String()
+	}
+	return prefix
+}
+
 func (b *BuildInfo) checkVersion() {
 	if !b.IsRelease() || os.Getenv(scwDisableCheckVersionEnv) == "true" {
 		logger.Debugf("skipping check version")
