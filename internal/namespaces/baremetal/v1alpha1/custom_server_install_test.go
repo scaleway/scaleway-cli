@@ -34,5 +34,24 @@ func Test_InstallServer(t *testing.T) {
 			),
 			DefaultZone: scw.ZoneFrPar2,
 		}))
+
+		t.Run("All SSH keys", core.Test(&core.TestConfig{
+			Commands: cmds,
+			BeforeFunc: core.BeforeFuncCombine(
+				addSSH("key", sshKey),
+				createServerAndWait("Server"),
+			),
+			Cmd: "scw baremetal server install {{ .Server.ID }} hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteSSH("key"),
+				deleteServer("Server"),
+			),
+			DefaultZone: scw.ZoneFrPar2,
+		}))
 	})
+
 }
