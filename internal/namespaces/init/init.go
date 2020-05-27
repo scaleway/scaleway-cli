@@ -284,24 +284,24 @@ func initCommand() *core.Command {
 				}
 			}
 
+			profile := &scw.Profile{
+				AccessKey:             &accessKey,
+				SecretKey:             &args.SecretKey,
+				DefaultZone:           scw.StringPtr(args.Zone.String()),
+				DefaultRegion:         scw.StringPtr(args.Region.String()),
+				DefaultOrganizationID: &args.OrganizationID,
+			}
 			// Save the profile as default or as a named profile
 			profileName := core.ExtractProfileName(ctx)
 			_, err = config.GetProfile(profileName)
-			if profileName != "" && err != nil {
-				config.Profiles[profileName] = &scw.Profile{
-					AccessKey: &accessKey,
-					SecretKey: &args.SecretKey,
-					DefaultZone: scw.StringPtr(args.Zone.String()),
-					DefaultRegion: scw.StringPtr(args.Region.String()),
-					DefaultOrganizationID: &args.OrganizationID,
-				}
-			} else {
+			if profileName == "" || err == nil {
 				// Default configuration
-				config.AccessKey = &accessKey
-				config.SecretKey = &args.SecretKey
-				config.DefaultZone = scw.StringPtr(args.Zone.String())
-				config.DefaultRegion = scw.StringPtr(args.Region.String())
-				config.DefaultOrganizationID = &args.OrganizationID
+				config.Profile = *profile
+			} else {
+				if config.Profiles == nil {
+					config.Profiles = make(map[string]*scw.Profile)
+				}
+				config.Profiles[profileName] = profile
 			}
 
 			// Persist configuration on disk
