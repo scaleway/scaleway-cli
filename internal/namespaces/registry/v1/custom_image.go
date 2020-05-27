@@ -27,7 +27,8 @@ var (
 
 type customImage struct {
 	registry.Image
-	FullName string
+	FullName           string
+	ExplicitVisibility string
 }
 
 func imageGetBuilder(c *core.Command) *core.Command {
@@ -75,7 +76,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Label:     "Visibility",
-				FieldName: "Visibility",
+				FieldName: "ExplicitVisibility",
 			},
 			{
 				Label:     "Status",
@@ -108,16 +109,30 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		namespaceEndpointByID := make(map[string]string)
+		namespaceVisibilityByID := make(map[string]string)
 		for _, namespace := range namespaces.Namespaces {
 			namespaceEndpointByID[namespace.ID] = namespace.Endpoint
+			if namespace.IsPublic {
+				namespaceVisibilityByID[namespace.ID] = "public"
+			} else {
+				namespaceVisibilityByID[namespace.ID] = "private"
+			}
 		}
 
 		var customRes []customImage
 		for _, image := range listImage {
-			customRes = append(customRes, customImage{
+			img := customImage{
 				Image:    *image,
 				FullName: fmt.Sprintf("%s/%s", namespaceEndpointByID[image.NamespaceID], image.Name),
-			})
+			}
+
+			if image.Visibility == registry.ImageVisibilityInherit {
+				img.ExplicitVisibility = fmt.Sprintf("%s (inherit)", namespaceVisibilityByID[image.NamespaceID])
+			} else {
+				img.ExplicitVisibility = image.Visibility.String()
+			}
+
+			customRes = append(customRes, img)
 		}
 
 		return customRes, nil
