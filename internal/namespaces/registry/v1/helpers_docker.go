@@ -25,7 +25,7 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 		}
 	}
 
-	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE, 0755)
+	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
 		return err
 	}
