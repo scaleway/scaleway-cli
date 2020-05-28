@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -311,7 +310,6 @@ func securityGroupClearCommand() *core.Command {
 				return nil, err
 			}
 
-			var deleteErrors error
 			for _, rule := range rules.Rules {
 				if !rule.Editable {
 					continue
@@ -322,11 +320,8 @@ func securityGroupClearCommand() *core.Command {
 					SecurityGroupRuleID: rule.ID,
 				})
 				if err != nil {
-					deleteErrors = multierror.Append(deleteErrors, err)
+					return nil, err
 				}
-			}
-			if deleteErrors != nil {
-				return nil, deleteErrors
 			}
 			return &core.SuccessResult{Message: "Successful reset of the security group rules"}, err
 		},
