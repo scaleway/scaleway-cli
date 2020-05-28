@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceVolumeList(),
 		instanceVolumeCreate(),
 		instanceVolumeGet(),
+		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
 		instanceSecurityGroupList(),
 		instanceSecurityGroupCreate(),
@@ -1312,6 +1313,60 @@ func instanceVolumeGet() *core.Command {
 			{
 				Short:   "Get a volume with the given ID",
 				Request: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update volume`,
+		Long:      `Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only ` + "`" + `b_ssd` + "`" + ` volume growing is supported.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(instance.UpdateVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `UUID of the volume`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `The volume name`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `The volume disk size`,
+				Required:   false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateVolume(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Change the volume name",
+				Request: `{"name":"my-new-name","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Change the volume disk size (bytes)",
+				Request: `{"size":60000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:   "Change the volume name and disk size",
+				Request: `{"name":"a-new-name","size":70000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

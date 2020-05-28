@@ -39,6 +39,7 @@ const (
 	latestVersionFileURL             = "https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-v2-version"
 	latestVersionUpdateFileLocalName = "latest-cli-version"
 	latestVersionRequestTimeout      = 1 * time.Second
+	userAgentPrefix                  = "scaleway-cli"
 )
 
 // IsRelease returns true when the version of the CLI is an official release:
@@ -46,6 +47,13 @@ const (
 // - version must not contain metadata (e.g. '+dev')
 func (b *BuildInfo) IsRelease() bool {
 	return b.Version != nil && b.Version.Metadata() == ""
+}
+
+func (b *BuildInfo) GetUserAgent() string {
+	if b.Version != nil {
+		return userAgentPrefix + "/" + b.Version.String()
+	}
+	return userAgentPrefix
 }
 
 func (b *BuildInfo) checkVersion() {

@@ -1,2 +1,3 @@
-ID                                    ORGANIZATION ID                       NAME                DESCRIPTION  UPDATED AT       CREATED AT       STATUS  OFFER ID                              TAGS  IPS  DOMAIN                                                             BOOT TYPE  ZONE      PING STATUS
-63122914-918a-431b-aeb1-001fc1a7e3b2  951df375-e094-4d26-97c1-ba548eeb9c42  bm-blissful-yonath  -            few seconds ago  few seconds ago  ready   964f9b38-577e-470f-a220-7d762f9e8672  [a]   2    63122914-918a-431b-aeb1-001fc1a7e3b2.fr-par-2.baremetal.scw.cloud  normal     fr-par-2  ping_status_unknown
+ID                                    Name           Offer Name  Status  Tags  Ping
+0ae6f1a4-1200-4552-9251-b1e4c6dfef8a  esme           GP-BM1-S    ready   []    unknown
+a6a49e51-1af3-44ae-9dd4-f7fe067f5c6b  bbb.sieben.fr  GP-BM1-S    ready   []    up

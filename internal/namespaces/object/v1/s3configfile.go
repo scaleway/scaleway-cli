@@ -85,10 +85,6 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	if !secretExists {
 		return s3config{}, fmt.Errorf("no secret key found")
 	}
-	if region == "" {
-		defaultRegion, _ := client.GetDefaultRegion()
-		region = defaultRegion
-	}
 	config := s3config{
 		AccessKey: accessKey,
 		SecretKey: secretKey,

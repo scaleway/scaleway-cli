@@ -1,22 +1,24 @@
 package core
 
 import (
+	"context"
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/internal/args"
 )
 
 func Test_ApplyDefaultValues(t *testing.T) {
 
 	type testCase struct {
 		argSpecs ArgSpecs
-		rawArgs  RawArgs
-		expected RawArgs
+		rawArgs  args.RawArgs
+		expected args.RawArgs
 	}
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			result := ApplyDefaultValues(tc.argSpecs, tc.rawArgs)
+			result := ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}
 	}
@@ -27,8 +29,8 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "lastname", Default: DefaultValueSetter("doe")},
 			{Name: "age", Default: DefaultValueSetter("42")},
 		},
-		rawArgs:  RawArgs{"age=21"},
-		expected: RawArgs{"age=21", "firstname=john", "lastname=doe"},
+		rawArgs:  args.RawArgs{"age=21"},
+		expected: args.RawArgs{"age=21", "firstname=john", "lastname=doe"},
 	}))
 
 	t.Run("Nested", run(&testCase{
@@ -36,8 +38,8 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "name", Default: DefaultValueSetter("john")},
 			{Name: "address.zip", Default: DefaultValueSetter("75008")},
 		},
-		rawArgs:  RawArgs{"name=paul"},
-		expected: RawArgs{"name=paul", "address.zip=75008"},
+		rawArgs:  args.RawArgs{"name=paul"},
+		expected: args.RawArgs{"name=paul", "address.zip=75008"},
 	}))
 
 	t.Run("Slice", run(&testCase{
@@ -46,8 +48,8 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "friends.{index}.name", Default: DefaultValueSetter("bob")},
 			{Name: "friends.{index}.age", Default: DefaultValueSetter("42")},
 		},
-		rawArgs:  RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice"},
-		expected: RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice", "friends.0.age=42", "friends.1.age=42"},
+		rawArgs:  args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice"},
+		expected: args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice", "friends.0.age=42", "friends.1.age=42"},
 	}))
 
 	t.Run("Map", run(&testCase{
@@ -56,8 +58,8 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "friends.{key}.age", Default: DefaultValueSetter("42")},
 			{Name: "friends.{key}.weight", Default: DefaultValueSetter("80")},
 		},
-		rawArgs:  RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21"},
-		expected: RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21", "friends.bob.age=42", "friends.alice.weight=80"},
+		rawArgs:  args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21"},
+		expected: args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21", "friends.bob.age=42", "friends.alice.weight=80"},
 	}))
 
 	t.Run("Map of slice", run(&testCase{
@@ -65,13 +67,13 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "map.{key}.{index}.age", Default: DefaultValueSetter("42")},
 			{Name: "map.{key}.{index}.weight", Default: DefaultValueSetter("80")},
 		},
-		rawArgs: RawArgs{
+		rawArgs: args.RawArgs{
 			"map.paul.0.weight=75",
 			"map.paul.1.age=42",
 			"map.alice.0.weight=60",
 			"map.alice.1.age=25",
 		},
-		expected: RawArgs{
+		expected: args.RawArgs{
 			"map.paul.0.weight=75",
 			"map.paul.1.age=42",
 			"map.alice.0.weight=60",

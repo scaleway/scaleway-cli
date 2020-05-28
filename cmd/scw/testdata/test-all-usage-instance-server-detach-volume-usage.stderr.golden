@@ -8,8 +8,8 @@ EXAMPLES:
     scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
 
 ARGS:
-  volume-id   ID of the volume to detach
-  [zone]      Zone to target. If none is passed will use default zone from the config
+  volume-id         ID of the volume to detach
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for detach-volume

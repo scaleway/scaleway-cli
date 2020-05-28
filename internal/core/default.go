@@ -1,19 +1,21 @@
 package core
 
 import (
+	"context"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/namegenerator"
 )
 
 // ApplyDefaultValues will hydrate args with default values.
-func ApplyDefaultValues(argSpecs ArgSpecs, rawArgs RawArgs) RawArgs {
+func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs args.RawArgs) args.RawArgs {
 
 	for _, argSpec := range argSpecs {
 		if argSpec.Default == nil {
 			continue
 		}
-		defaultValue, _ := argSpec.Default()
+		defaultValue, _ := argSpec.Default(ctx)
 
 		// If argSpec is not part of slice or map simply add it to raw args
 		if !argSpec.IsPartOfMapOrSlice() {
@@ -68,13 +70,13 @@ func GetRandomName(prefix string) string {
 }
 
 func RandomValueGenerator(prefix string) DefaultFunc {
-	return func() (value string, doc string) {
+	return func(context.Context) (value string, doc string) {
 		return GetRandomName(prefix), "<generated>"
 	}
 }
 
 func DefaultValueSetter(defaultValue string) DefaultFunc {
-	return func() (value string, doc string) {
+	return func(context.Context) (value string, doc string) {
 		return defaultValue, defaultValue
 	}
 }

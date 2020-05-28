@@ -8,8 +8,8 @@ EXAMPLES:
     scw k8s version get 1.18.0
 
 ARGS:
-  version-name   The requested version name
-  [region]       Region to target. If none is passed will use default region from the config (fr-par)
+  version-name      The requested version name
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for get

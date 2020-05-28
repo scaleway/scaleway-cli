@@ -6,7 +6,9 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -14,6 +16,14 @@ import (
 
 const (
 	serverActionTimeout = 20 * time.Minute
+)
+
+var (
+	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
+		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
+		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
+		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	}
 )
 
 func serverWaitCommand() *core.Command {
@@ -118,6 +128,73 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 			ServerID: respI.(*baremetal.RebootServerRequest).ServerID,
 			Timeout:  serverActionTimeout,
 		})
+	}
+
+	return c
+}
+
+type customServer struct {
+	baremetal.Server
+	OfferName string `json:"offer_name"`
+}
+
+func serverListBuilder(c *core.Command) *core.Command {
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "Offer Name",
+				FieldName: "OfferName",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Tags",
+				FieldName: "Tags",
+			},
+			{
+				Label:     "Ping",
+				FieldName: "PingStatus",
+			},
+		},
+	}
+
+	// We add the server type to the list sent to the user
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		listServerResp, err := runner(ctx, argsI)
+
+		client := core.ExtractClient(ctx)
+		api := baremetal.NewAPI(client)
+		listOffers, err := api.ListOffers(&baremetal.ListOffersRequest{
+			Zone: argsI.(*baremetal.ListServersRequest).Zone,
+		}, scw.WithAllPages())
+		if err != nil {
+			return listServerResp, err
+		}
+		offerNameByID := make(map[string]string)
+		for _, offer := range listOffers.Offers {
+			offerNameByID[offer.ID] = offer.Name
+		}
+
+		var customRes []customServer
+		for _, server := range listServerResp.([]*baremetal.Server) {
+			customRes = append(customRes, customServer{
+				Server:    *server,
+				OfferName: offerNameByID[server.OfferID],
+			})
+		}
+
+		return customRes, nil
 	}
 
 	return c

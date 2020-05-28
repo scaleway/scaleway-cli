@@ -16,7 +16,7 @@ EXAMPLES:
 ARGS:
   type              Type of S3 tool you want to generate a config for (rclone | s3cmd | mc)
   [name=scaleway]   Name of the s3 remote you want to generate
-  [region]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for install

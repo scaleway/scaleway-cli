@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
@@ -79,6 +80,9 @@ type ArgSpec struct {
 
 	// Positional defines whether the argument is a positional argument. NB: a positional argument is required.
 	Positional bool
+
+	// Only one argument of the same OneOfGroup could be specified
+	OneOfGroup string
 }
 
 func (a *ArgSpec) Prefix() string {
@@ -89,7 +93,12 @@ func (a *ArgSpec) IsPartOfMapOrSlice() bool {
 	return strings.Contains(a.Name, sliceSchema) || strings.Contains(a.Name, mapSchema)
 }
 
-type DefaultFunc func() (value string, doc string)
+func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
+	return (a.OneOfGroup != "" && b.OneOfGroup != "") &&
+		(a.OneOfGroup == b.OneOfGroup)
+}
+
+type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 	enumValues := []string(nil)
@@ -100,6 +109,11 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			zone, _ := client.GetDefaultZone()
+			return zone.String(), zone.String()
+		},
 	}
 }
 
@@ -112,6 +126,11 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			region, _ := client.GetDefaultRegion()
+			return region.String(), region.String()
+		},
 	}
 }
 

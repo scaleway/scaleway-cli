@@ -358,6 +358,11 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 		field := t.Field(fieldIdx)
 		fieldType := field.Type
 
+		if field.Anonymous == true {
+			results = append(results, getDefaultFieldsOpt(fieldType)...)
+			continue
+		}
+
 		if isMarshalable(fieldType) {
 			spec := &MarshalFieldOpt{
 				FieldName: field.Name,

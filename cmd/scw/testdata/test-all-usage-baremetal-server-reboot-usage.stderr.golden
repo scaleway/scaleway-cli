@@ -4,9 +4,9 @@ USAGE:
   scw baremetal server reboot <server-id ...> [arg=value ...]
 
 ARGS:
-  server-id     ID of the server to reboot
-  [boot-type]   The type of boot (normal | rescue)
-  [zone]        Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  server-id         ID of the server to reboot
+  [boot-type]       The type of boot (normal | rescue)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for reboot

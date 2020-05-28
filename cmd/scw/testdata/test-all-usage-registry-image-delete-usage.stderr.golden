@@ -4,8 +4,8 @@ USAGE:
   scw registry image delete <image-id ...> [arg=value ...]
 
 ARGS:
-  image-id   The unique ID of the Image
-  [region]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  image-id          The unique ID of the Image
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for delete

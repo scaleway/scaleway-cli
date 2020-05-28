@@ -9,7 +9,7 @@ ARGS:
   [mac-type]             MAC type to use for the IP failover (unknown_mac_type | none | duplicate | vmware | xen | kvm)
   [duplicate-mac-from]   ID of the IP failover which must be duplicate
   [organization-id]      Organization ID to use. If none is passed will use default organization ID from the config
-  [zone]                 Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:
   -h, --help   help for create

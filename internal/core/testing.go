@@ -79,8 +79,9 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
-	T    *testing.T
-	Meta TestMeta
+	T      *testing.T
+	Meta   TestMeta
+	Client *scw.Client
 }
 
 type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error)
@@ -247,9 +248,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 			"t": t,
 		}
 
-		overideEnv := config.OverrideEnv
-		if overideEnv == nil {
-			overideEnv = map[string]string{}
+		overrideEnv := config.OverrideEnv
+		if overrideEnv == nil {
+			overrideEnv = map[string]string{}
 		}
 
 		if config.TmpHomeDir {
@@ -259,15 +260,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 				err = os.RemoveAll(dir)
 				assert.NoError(t, err)
 			}()
-			overideEnv["HOME"] = dir
+			overrideEnv["HOME"] = dir
 		}
 
 		overrideExec := defaultOverrideExec
 		if config.OverrideExec != nil {
 			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
 				return config.OverrideExec(&ExecFuncCtx{
-					T:    t,
-					Meta: meta,
+					T:      t,
+					Meta:   meta,
+					Client: client,
 				}, cmd)
 			}
 		}
@@ -284,7 +286,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
-				OverrideEnv:      overideEnv,
+				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
@@ -299,7 +301,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Client:      client,
 				ExecuteCmd:  executeCmd,
 				Meta:        meta,
-				OverrideEnv: overideEnv,
+				OverrideEnv: overrideEnv,
 			}))
 		}
 
@@ -323,7 +325,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderr,
 				Client:           client,
 				DisableTelemetry: true,
-				OverrideEnv:      overideEnv,
+				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 			})
 
@@ -336,7 +338,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Result:      result,
 				Err:         err,
 				Client:      client,
-				OverrideEnv: overideEnv,
+				OverrideEnv: overrideEnv,
 			})
 		}
 
@@ -348,7 +350,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				ExecuteCmd:  executeCmd,
 				Meta:        meta,
 				CmdResult:   result,
-				OverrideEnv: overideEnv,
+				OverrideEnv: overrideEnv,
 			}))
 		}
 	}
@@ -535,6 +537,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	r.AddFilter(func(i *cassette.Interaction) error {
 		delete(i.Request.Headers, "x-auth-token")
 		delete(i.Request.Headers, "X-Auth-Token")
+		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
 		return nil
 	})
 

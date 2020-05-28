@@ -97,7 +97,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(cmd)
+		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd)
 	}
 
 	if cmd.Examples != nil {

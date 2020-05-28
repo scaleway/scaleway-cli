@@ -14,14 +14,16 @@ import (
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
-		rawArgs := RawArgs(rawArgsStr)
+		rawArgs := args.RawArgs(rawArgsStr)
 
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
-		// If command require a client we make sure a client is present with proper configuration
-		if !cmd.AllowAnonymousClient {
-			err := validateClient(meta.Client)
+		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
+		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
+			client, err := createClient(meta.BuildInfo, ExtractProfileName(ctx))
+			meta.Client = client
+			err = validateClient(meta.Client)
 			if err != nil {
 				return err
 			}
@@ -33,7 +35,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		}
 
 		// Apply default values on missing args.
-		rawArgs = ApplyDefaultValues(cmd.ArgSpecs, rawArgs)
+		rawArgs = ApplyDefaultValues(ctx, cmd.ArgSpecs, rawArgs)
 
 		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
 
