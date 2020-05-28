@@ -167,27 +167,23 @@ func registryDockerHelperGetCommand() *core.Command {
 	}
 }
 
+func getRegistryEndpoint(region scw.Region) string {
+	return endpointPrefix + region.String() + endpointSuffix
+}
+
 func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	in := bufio.NewReader(os.Stdin)
 	var serverURL string
-	for {
-		s, err := in.ReadString('\n')
-		if err != nil {
-			if err != io.EOF {
-				return nil, err
-			}
-			serverURL = serverURL + s
-			break
-		}
-		serverURL = serverURL + s
+	serverURL, err := bufio.NewReader(os.Stdin).ReadString('\n')
+	if err != nil && err != io.EOF {
+		return nil, err
 	}
 
-	serverURL = strings.TrimSpace(serverURL)
+	serverURL = strings.TrimRight(serverURL, "\n")
 
 	serverFound := false
 
 	for _, region := range scw.AllRegions {
-		if serverURL == endpointPrefix+region.String()+endpointSuffix {
+		if serverURL == getRegistryEndpoint(region) {
 			serverFound = true
 			break
 		}
