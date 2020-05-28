@@ -3,6 +3,7 @@ package registry
 import (
 	"bufio"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"os"
@@ -15,12 +16,8 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-const endpointPrefix = "rg."
-const endpointSuffix = ".scw.cloud"
 
 type emptyRequest struct{}
 
@@ -144,8 +141,7 @@ func registryDockerHelperGetCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run:         registryDockerHelperGetRun,
-		PrinterType: &printer.JSON,
+		Run: registryDockerHelperGetRun,
 	}
 }
 
@@ -190,8 +186,12 @@ func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i inter
 		Username: "scaleway",
 		Secret:   secretKey,
 	}
+	raw, err := json.Marshal(response)
+	if err != nil {
+		return nil, err
+	}
 
-	return response, nil
+	return core.RawResult(raw), nil
 }
 
 func registryDockerHelperStoreCommand() *core.Command {
@@ -204,8 +204,7 @@ func registryDockerHelperStoreCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run:         registryDockerHelperStoreRun,
-		PrinterType: &printer.JSON,
+		Run: registryDockerHelperStoreRun,
 	}
 }
 
@@ -223,8 +222,7 @@ func registryDockerHelperEraseCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run:         registryDockerHelperEraseRun,
-		PrinterType: &printer.JSON,
+		Run: registryDockerHelperEraseRun,
 	}
 }
 
@@ -242,8 +240,7 @@ func registryDockerHelperListCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run:         registryDockerHelperListRun,
-		PrinterType: &printer.JSON,
+		Run: registryDockerHelperListRun,
 	}
 }
 

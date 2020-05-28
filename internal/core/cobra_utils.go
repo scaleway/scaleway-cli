@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
-	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/spf13/cobra"
 )
 
@@ -39,14 +38,6 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		rawArgs = ApplyDefaultValues(ctx, cmd.ArgSpecs, rawArgs)
 
 		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
-		customPrinter := meta.Printer
-		if cmd.PrinterType != nil {
-			var err error
-			customPrinter, err = printer.New(*cmd.PrinterType, meta.stdout, meta.stderr)
-			if err != nil {
-				_, _ = fmt.Fprintln(meta.stderr, err)
-			}
-		}
 
 		// If this command has no positional argument we execute the run
 		if positionalArgSpec == nil {
@@ -56,7 +47,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			meta.result = data
-			return customPrinter.Print(data, cmd.getHumanMarshalerOpt())
+			return meta.Printer.Print(data, cmd.getHumanMarshalerOpt())
 		}
 
 		positionalArgs := rawArgs.GetPositionalArgs()
@@ -99,6 +90,10 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			meta.result = results
 		}
 
+		if rawResult, isRawResult := meta.result.(RawResult); isRawResult {
+			meta.stdout.Write(rawResult)
+			return nil
+		}
 		err := customPrinter.Print(meta.result, cmd.getHumanMarshalerOpt())
 		if err != nil {
 			return err

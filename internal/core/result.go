@@ -20,6 +20,8 @@ type SuccessResult struct {
 	Empty    bool
 }
 
+type RawResult []byte
+
 var standardSuccessMessages = map[string]string{
 	"delete": "%s has been successfully deleted.",
 }
