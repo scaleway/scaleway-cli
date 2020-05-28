@@ -84,7 +84,7 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-success", Test(&TestConfig{
+	t.Run("empty-success", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -107,7 +107,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test empty success",
 		Check:           TestCheckStdoutGolden(),
 	}))
-	t.Run("emtpy-success-json", Test(&TestConfig{
+	t.Run("empty-success-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
