@@ -11,8 +11,6 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-
-	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -765,14 +763,13 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
-			var multiErr error
 			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: deleteServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					multiErr = multierror.Append(multiErr, err)
+					return nil, err
 				} else {
 					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
@@ -795,7 +792,10 @@ func serverDeleteCommand() *core.Command {
 					VolumeID: volume.ID,
 				})
 				if err != nil {
-					multiErr = multierror.Append(multiErr, err)
+					return nil, &core.CliError{
+						Err:  err,
+						Hint: "Make sure this resource have been deleted or try to delete it manually.",
+					}
 				} else {
 					humanSize, err := human.Marshal(volume.Size, nil)
 					if err != nil {
@@ -805,12 +805,6 @@ func serverDeleteCommand() *core.Command {
 						index,
 						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
 					})
-				}
-			}
-			if multiErr != nil {
-				return nil, &core.CliError{
-					Err:  multiErr,
-					Hint: "Make sure these resources have been deleted or try to delete it manually.",
 				}
 			}
 
@@ -917,7 +911,6 @@ func serverTerminateCommand() *core.Command {
 
 			if !deleteBlockVolumes {
 				// detach block storage volumes before terminating the instance to preserve them
-				var multiErr error
 				for _, volume := range server.Server.Volumes {
 					if volume.VolumeType != instance.VolumeTypeBSSD {
 						continue
@@ -927,16 +920,12 @@ func serverTerminateCommand() *core.Command {
 						Zone:     terminateServerArgs.Zone,
 						VolumeID: volume.ID,
 					}); err != nil {
-						multiErr = multierror.Append(multiErr, err)
-						continue
+						return nil, err
 					}
 
 					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
 				}
 
-				if multiErr != nil {
-					return nil, multiErr
-				}
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -947,20 +936,19 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			var multiErr error
 			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: terminateServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					multiErr = multierror.Append(multiErr, err)
+					return nil, err
 				} else {
 					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
 			}
 
-			return &core.SuccessResult{}, multiErr
+			return &core.SuccessResult{}, err
 		},
 	}
 }

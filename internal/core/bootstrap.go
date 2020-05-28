@@ -95,10 +95,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
+	// An authenticated client will be created later if required.
 	client := config.Client
+	isClientFromBootstrapConfig := true
 	if client == nil {
-		// Create scw client
-		client, err = createClient(config.BuildInfo, profileName)
+		isClientFromBootstrapConfig = false
+		client, err = createAnonymousClient(config.BuildInfo)
 		if err != nil {
 			printErr := globalPrinter.Print(err, nil)
 			if printErr != nil {
@@ -114,15 +116,17 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		ProfileFlag:  profileName,
 		BinaryName:   config.Args[0],
 		BuildInfo:    config.BuildInfo,
-		stdout:       config.Stdout,
-		stderr:       config.Stderr,
 		Client:       client,
 		Commands:     config.Commands,
 		Printer:      globalPrinter,
 		OverrideEnv:  config.OverrideEnv,
 		OverrideExec: config.OverrideExec,
-		result:       nil, // result is later injected by cobra_utils.go/cobraRun()
-		command:      nil, // command is later injected by cobra_utils.go/cobraRun()
+
+		stdout:                      config.Stdout,
+		stderr:                      config.Stderr,
+		result:                      nil, // result is later injected by cobra_utils.go/cobraRun()
+		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
+		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
