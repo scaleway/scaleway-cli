@@ -35,8 +35,8 @@ func (o *jsonPrinter) Print(data interface{}, opt *human.MarshalOpt) error {
 		}
 	}
 
-	if reflect.TypeOf(data).Kind() == reflect.Slice && data == nil {
-		_, err := o.Writer.Write([]byte("[]"))
+	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
+		_, err := o.Writer.Write([]byte("[]\n"))
 		return err
 	}
 	return json.NewEncoder(o.Writer).Encode(data)
