@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 )
@@ -130,5 +131,23 @@ func TestInterruptError(t *testing.T) {
 		DisableParallel: true, // because e2e client is used
 		Cmd:             "scw -o json test empty success",
 		Check:           TestCheckStdoutGolden(),
+	}))
+	t.Run("emtpy-list-json", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "success",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return []int(nil), nil
+				},
+				AllowAnonymousClient: true,
+			},
+		),
+		Cmd: "scw -o json test empty success",
+		Check: func(t *testing.T, ctx *CheckFuncCtx) {
+			assert.Equal(t, "[]\n", string(ctx.Stdout))
+		},
 	}))
 }
