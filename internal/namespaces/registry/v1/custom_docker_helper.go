@@ -2,6 +2,7 @@ package registry
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -13,6 +14,7 @@ import (
 	"reflect"
 	"runtime"
 	"strings"
+	"text/template"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -70,14 +72,21 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		}
 		scriptDirArg = promptedScriptDir
 	}
-	profileFlag := ""
-	profileName := core.ExtractProfileName(ctx)
-	if profileName != "" {
-		profileFlag = fmt.Sprintf(" --profile %s", profileName)
-	}
 
+	tpl, err := template.New("script").Parse(helperScriptTemplate)
+	if err != nil {
+		return nil, err
+	}
 	helperScriptPath := filepath.Join(scriptDirArg, fmt.Sprintf("docker-credential-%s", binaryName))
-	helperScript := fmt.Sprintf("#!/bin/sh\n\n%s%s registry docker-helper \"$@\"", binaryName, profileFlag)
+	buf := bytes.Buffer{}
+	err = tpl.Execute(&buf, map[string]string{
+		"BinaryName":  binaryName,
+		"ProfileName": core.ExtractProfileName(ctx),
+	})
+	if err != nil {
+		return nil, err
+	}
+	helperScript := buf.String()
 
 	// Warning
 	_, _ = interactive.Println()
@@ -125,6 +134,19 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 
 	return nil, nil
 }
+
+const helperScriptTemplate = `
+#!/bin/sh
+
+{{ if .ProfileName }}
+PROFILE_NAME="{{ .ProfileName }}"
+if [[ ! -z "$SCW_PROFILE" ]]
+then 
+	PROFILE_NAME="$SCW_PROFILE"
+fi
+{{ endif }}
+{{ .BinaryName }}{{ if .ProfileName }} --profile $PROFILE_NAME={{ endif }} registry docker-helper "$@"
+`
 
 type registryDockerHelperGetResponse struct {
 	Secret   string `json:"Secret"`
