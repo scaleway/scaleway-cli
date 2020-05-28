@@ -45,7 +45,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test code error",
 		Check:           TestCheckExitCode(99),
 	}))
-	t.Run("emtpy-error", Test(&TestConfig{
+	t.Run("empty-error", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -65,7 +65,7 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-error-json", Test(&TestConfig{
+	t.Run("empty-error-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -85,7 +85,7 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-success", Test(&TestConfig{
+	t.Run("empty-success", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -108,7 +108,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test empty success",
 		Check:           TestCheckStdoutGolden(),
 	}))
-	t.Run("emtpy-success-json", Test(&TestConfig{
+	t.Run("empty-success-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -132,7 +132,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw -o json test empty success",
 		Check:           TestCheckStdoutGolden(),
 	}))
-	t.Run("emtpy-list-json", Test(&TestConfig{
+	t.Run("empty-list-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
