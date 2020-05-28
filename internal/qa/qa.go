@@ -8,8 +8,8 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
-func LintCommands(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func LintCommands(commands *core.Commands) []error {
+	errors := []error(nil)
 	errors = append(errors, testShortEndWithDotError(commands)...)
 	errors = append(errors, testShortIsNotPresentError(commands)...)
 	errors = append(errors, testWellKnownArgAtTheEndError(commands)...)
@@ -18,6 +18,9 @@ func LintCommands(commands *core.Commands) []interface{} {
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	errors = append(errors, testDuplicatedCommandError(commands)...)
+
+	errors = filterIgnore(errors)
+
 	return errors
 }
 
@@ -29,8 +32,8 @@ func (err ShortMustNotEndWithDotError) Error() string {
 	return "short must not end with '.' for command '" + err.Command.GetCommandLine() + "'"
 }
 
-func testShortEndWithDotError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testShortEndWithDotError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		if strings.HasSuffix(command.Short, ".") {
 			errors = append(errors, &ShortMustNotEndWithDotError{
@@ -49,8 +52,8 @@ func (err ShortMustBePresentError) Error() string {
 	return "short must be present for command '" + err.Command.GetCommandLine() + "'"
 }
 
-func testShortIsNotPresentError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testShortIsNotPresentError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		if command.Short == "" {
 			errors = append(errors, &ShortMustBePresentError{
@@ -101,8 +104,8 @@ var (
 	}
 )
 
-func testWellKnownArgAtTheEndError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testWellKnownArgAtTheEndError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		wkaCounter := 0
 		wkaNotAtTheEnd := false
@@ -148,8 +151,8 @@ func (err ArgMustUseDashError) Error() string {
 	return "arg must use dash for command '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
 }
 
-func testArgMustUseDashError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testArgMustUseDashError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		for _, argspec := range command.ArgSpecs {
 			if strings.Contains(argspec.Name, "_") {
@@ -172,8 +175,8 @@ func (err PositionalArgMustBeRequiredError) Error() string {
 	return "positional argument must be required '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
 }
 
-func testPositionalArgMustBeRequiredError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testPositionalArgMustBeRequiredError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		for _, argSpec := range command.ArgSpecs {
 			if argSpec.Positional && !argSpec.Required {
@@ -196,8 +199,8 @@ func (err ExampleCanHaveOnlyOneTypeOfExampleError) Error() string {
 	return "arg must use dash for command '" + err.Command.GetCommandLine() + "', example #" + strconv.Itoa(err.ExampleIndex)
 }
 
-func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for _, command := range commands.GetAll() {
 		for i, example := range command.Examples {
 			if example.Request != "" && example.Raw != "" {
@@ -224,8 +227,8 @@ func (err DifferentLocalizationForNamespaceError) Error() string {
 		err.Command1.GetCommandLine(), err.Command2.GetCommandLine(), err.ArgNames1, err.ArgNames2)
 }
 
-func testDifferentLocalizationForNamespaceError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error {
+	errors := []error(nil)
 	for i, command1 := range commands.GetAll() {
 		for j, command2 := range commands.GetAll() {
 			if i >= j {
@@ -298,8 +301,8 @@ func (err DuplicatedCommandError) Error() string {
 }
 
 // testDuplicatedCommandError testes that there is no duplicate command.
-func testDuplicatedCommandError(commands *core.Commands) []interface{} {
-	errors := []interface{}(nil)
+func testDuplicatedCommandError(commands *core.Commands) []error {
+	errors := []error(nil)
 	uniqueness := make(map[string]bool)
 
 	for _, command := range commands.GetAll() {
