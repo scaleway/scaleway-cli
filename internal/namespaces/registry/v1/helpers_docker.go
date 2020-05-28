@@ -3,7 +3,6 @@ package registry
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"os"
 	"path"
 )
@@ -65,14 +64,9 @@ func setupDockerConfigFile(registries []string, binaryName string) error {
 	}
 	defer f.Close()
 
-	fileContent, err := ioutil.ReadAll(f)
-	if err != nil {
-		return err
-	}
-
 	var data map[string]interface{}
 
-	err = json.Unmarshal([]byte(fileContent), &data)
+	err = json.NewDecoder(f).Decode(&data)
 	if err != nil {
 		return err
 	}
