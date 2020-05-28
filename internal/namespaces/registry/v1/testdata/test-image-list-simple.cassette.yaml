@@ -1,0 +1,135 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-public-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","is_public":true}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"28e23716-4bad-44e9-be08-13739e5a7af1","name":"cli-public-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":0,"created_at":"2020-05-28T15:08:25.344571766Z","updated_at":"2020-05-28T15:08:25.344571766Z","image_count":0,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "392"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 28 May 2020 15:08:24 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b560ca0a-1c19-4f0c-bdf9-bef930fd2997
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"cli-private-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","is_public":false}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"90b88379-adbe-48c8-9170-df6aaf675d90","name":"cli-private-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-05-28T15:08:25.455169059Z","updated_at":"2020-05-28T15:08:25.455169059Z","image_count":0,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "395"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 28 May 2020 15:08:24 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2729f27a-5b1d-428e-a511-25baefd55d40
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_public&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[],"total_count":0}'
+    headers:
+      Content-Length:
+      - "29"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 28 May 2020 15:08:26 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a09c3526-6ffd-435d-9efa-edd6aa7cf94c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"28e23716-4bad-44e9-be08-13739e5a7af1","name":"cli-public-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":0,"created_at":"2020-05-28T15:08:25.344572Z","updated_at":"2020-05-28T15:08:25.344572Z","image_count":0,"region":"fr-par"},{"id":"90b88379-adbe-48c8-9170-df6aaf675d90","name":"cli-private-namespace","description":"","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-05-28T15:08:25.455169Z","updated_at":"2020-05-28T15:08:25.455169Z","image_count":0,"region":"fr-par"}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "809"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 28 May 2020 15:08:26 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4e232a49-901b-4f37-975c-aee1ee496d77
+    status: 200 OK
+    code: 200
+    duration: ""
