@@ -3,6 +3,7 @@ package printer
 import (
 	"encoding/json"
 	"io"
+	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
 )
@@ -34,5 +35,9 @@ func (o *jsonPrinter) Print(data interface{}, opt *human.MarshalOpt) error {
 		}
 	}
 
+	if reflect.TypeOf(data).Kind() == reflect.Slice && data == nil {
+		_, err := o.Writer.Write([]byte("[]"))
+		return err
+	}
 	return json.NewEncoder(o.Writer).Encode(data)
 }
