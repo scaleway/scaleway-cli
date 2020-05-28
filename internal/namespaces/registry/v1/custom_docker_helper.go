@@ -43,6 +43,16 @@ It avoid running docker login commands.
 			{
 				Name:  "helper-directory",
 				Short: "Directory in which the Docker helper will be installed",
+				Default: func(ctx context.Context) (value string, doc string) {
+					return "/usr/local/bin", "/usr/local/bin"
+				},
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					stat, err := os.Stat(value.(string))
+					if err != nil || !stat.IsDir() {
+						return fmt.Errorf("%s is not a directory", value)
+					}
+					return nil
+				},
 			},
 		},
 		Run: registrySetupDockerHelperRun,
@@ -59,19 +69,6 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 
 	_, _ = interactive.Println("To enable the Docker credential helper, scw needs to create a script inside of your $PATH.")
 	scriptDirArg := argsI.(*registrySetupDockerHelperArgs).HelperDirectory
-	if scriptDirArg == "" {
-		defaultScriptDirArg := filepath.Join(filepath.Dir(scw.GetConfigPath()), "bin")
-
-		promptedScriptDir, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-			Prompt:          "In which directory do you want to install the script?",
-			DefaultValue:    defaultScriptDirArg,
-			DefaultValueDoc: defaultScriptDirArg,
-		})
-		if err != nil {
-			return nil, err
-		}
-		scriptDirArg = promptedScriptDir
-	}
 
 	tpl, err := template.New("script").Parse(helperScriptTemplate)
 	if err != nil {
@@ -113,7 +110,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 
 	var registries []string
 	for _, region := range scw.AllRegions {
-		registries = append(registries, endpointPrefix+region.String()+endpointSuffix)
+		registries = append(registries, getRegistryEndpoint(region))
 	}
 
 	err = setupDockerConfigFile(registries, binaryName)
@@ -125,10 +122,10 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	_, err = exec.LookPath(fmt.Sprintf("docker-credential-%s", binaryName))
 	if err != nil {
 		_, _ = interactive.Println(fmt.Sprintf("docker-credential-%s is not present in your $PATH, you should add %s to your $PATH to make it work.", binaryName, path.Dir(helperScriptPath)))
-		_, _ = interactive.Println(fmt.Sprintf("You can add it by adding `export PATH=$PATH:%s` to your `.bashrc` or `.zshrc`", path.Dir(helperScriptPath)))
+		_, _ = interactive.Println(fmt.Sprintf("You can add it by adding `export PATH=$PATH:%s` to your `.bashrc`, `.fishrc` or `.zshrc`", path.Dir(helperScriptPath)))
 	} else {
 		_, _ = interactive.PrintlnWithoutIndent("Docker credential helper successfully installed.")
-		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentification for you.")
+		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentication for you.")
 		_, _ = interactive.PrintlnWithoutIndent("You don't have to login to your registries anymore.")
 	}
 
