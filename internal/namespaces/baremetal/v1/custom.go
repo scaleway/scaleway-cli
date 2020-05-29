@@ -3,7 +3,7 @@ package baremetal
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 func GetCommands() *core.Commands {
