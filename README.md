@@ -207,8 +207,20 @@ scw marketplace image list
 
 ### Creating a Bare Metal Server
 
+To create a Bare Metal Server in the zone `fr-par-2` run the following command:
 
-<!-- content to add -->
+```
+scw baremetal server create zone=fr-par-2
+```
+
+### Installing a Bare Metal Server 
+
+Once a Bare Metal Server is created the operating system can be installed by running the following command. It will install the server with all SSH keys available in the organization, Ubuntu 20.04 and the hostname `test`: 
+
+```
+scw baremetal server install <server-id> zone=fr-par-2 all-ssh-keys=true os-id=03b7f4ba-a6a1-4305-984e-b54fafbf1681 hostname=test
+```
+
 
 # Tutorials
 
@@ -218,6 +230,26 @@ TODO: Add a list of tutorials here.
 
 This repository is at its early stage and is still in active development.
 If you are looking for a way to contribute please read [CONTRIBUTING.md](CONTRIBUTING.md).
+
+# Feeback
+
+You can provide feedback directly from the command-line using the `feedback` subcommand. 
+
+## Bug Reports
+
+To report a bug, run the following command to open the bug report form in your web browser. All important information about the build of your CLI are already filled in. 
+
+``` 
+scw feedback bug
+```
+
+## Feature Requests 
+
+Run the following command to open a web browser to submit a feature request:
+
+```
+scw feedback feature
+```
 
 # Reach Us
 
