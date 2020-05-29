@@ -6,7 +6,6 @@ USAGE:
 AVAILABLE COMMANDS:
   server      A server is a denomination of a type of instances provided by Scaleway
   os          An Operating System (OS) is the underlying software installed on your server
-  ip          IP fail-over management
 
 FLAGS:
   -h, --help   help for baremetal
