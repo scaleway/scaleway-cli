@@ -56,30 +56,30 @@ You just have to download the binary compatible with your platform to a director
 
 ```bash
 # Check that /usr/local/bin is in your PATH
-$ echo $PATH
+echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Download the release from github
-$ curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-darwin-x86_64"
+curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-darwin-x86_64"
 
 # Allow executing file as program
-$ chmod +x /usr/local/bin/scw
+chmod +x /usr/local/bin/scw
 
 # Init the CLI
-$ scw init
+scw init
 ```
 
 #### Linux
 
 ```bash
 # Download the release from github
-$ sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-linux-x86_64"
 
 # Allow executing file as program
-$ sudo chmod +x /usr/local/bin/scw
+sudo chmod +x /usr/local/bin/scw
 
 # Init the CLI
-$ scw init
+scw init
 ```
 
 #### Windows
@@ -121,7 +121,7 @@ docker run scaleway/cli version
 You can use the CLI as you would run any Docker image:
 
 ```sh
-$ docker run -i --rm scaleway/cli:v2.0.0-beta.2
+docker run -i --rm scaleway/cli:v2.0.0-beta.2
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
@@ -161,7 +161,7 @@ See more in-depth information about running the CLI in Docker [here](./docs/dock
 After you [installed](#Installation) the latest release just run the initialization command and let yourself be guided! :dancer:
 
 ```bash
-$ scw init
+scw init
 ```
 
 It will set up your profile, the authentication, and the auto-completion.
@@ -169,64 +169,46 @@ It will set up your profile, the authentication, and the auto-completion.
 
 # Examples
 
-# Instances 
+## Instances 
 
-Cloud instances are available for any workload from 1 to 48 vCPUs with an x86 architecture. Most common apps and distributions can be deployed in seconds.
+Cloud instances are available for any workload from 1 to 48 vCPUs with an x86 architecture. Most common apps and distributions can be deployed in seconds. Fore more information, refer to the [cloud compute instances documentation](INSTANCES.MD)
 
 ### Listing the available offers 
 
 To see a list of available cloud instances, run the following command: 
 
 ```
-$ scw instance server-type list
+scw instance server-type list
 ```
 
 ### Creating a compute instance
 
 To create a instance in the FR-PAR-1 zone with the commercial offer DEV1-S, running on Ubuntu Focal run the following command: 
 ```
-$ scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
+scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 ```
 
-## Listing all running instances
+### Listing all instances
 
-It is possible to retrieve a list of all instances available in the account by running the following command: 
+It is possible to retrieve a list of all compute instances in the account by running the following command: 
 ```
-$ scw instance server list
+scw instance server list
 ``` 
 
-###  Creating a Placement Group
+## Marketplace 
 
-Placement groups allow the user to express a preference regarding the physical position of a group of instances. It enables the user to choose to either group instances on the same physical hardware for best network throughput and low latency, or to spread instances on far away equipment to reduce the risk of physical failure.
+The `marketplace` subcommand allows you to retrieve a list of all available public images, as well as details to their creation and modification dates. To retrieve the list, run the following command: 
 
-The operating mode is selected by a `policy_type`. Two policy types are available:
-  - `low_latency` will group instances on the same hypervisors
-  - `max_availability` will spread instances on far away hypervisors
-
-The `policy_type` is set by default to `max_availability`.
-
-For each policy type, one of the two `policy_mode` may be selected:
-  - `optional` will start your instances even if the constraint is not respected
-  - `enforced` guarantee that if the instance starts, the constraint is respected
-
-The `policy_mode` is set by default to `optional`.
-
-USAGE:
 ```
-$  scw instance placement-group <command>
+scw marketplace image list
 ```
 
-Available commands are: 
-  * `list`        List placement groups
-  * `create`      Create placement group
-  * `get`         Get placement group
-  * `update`      Update placement group
-  * `delete`      Delete the given placement group
+## Bare Metal Server
 
-For example, to create a placement group called `low-latency-pg` with enforced policy mode and low latency policy type in the zone `fr-par-1`, run the following command: 
-```
-$ scw instance placement-group create name=low-latency-pg policy-mode=enforced policy-type=low_latency zone=fr-par-1
-```
+### Creating a Bare Metal Server
+
+
+<!-- content to add -->
 
 # Tutorials
 
