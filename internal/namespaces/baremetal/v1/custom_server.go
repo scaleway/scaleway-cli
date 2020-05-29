@@ -97,7 +97,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StartServerRequest).Zone,
-			ServerID: respI.(*baremetal.StartServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
@@ -111,7 +111,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StopServerRequest).Zone,
-			ServerID: respI.(*baremetal.StopServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
@@ -125,7 +125,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
-			ServerID: respI.(*baremetal.RebootServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
