@@ -4,7 +4,7 @@ USAGE:
   scw marketplace <command>
 
 AVAILABLE COMMANDS:
-  image       
+  image       Marketplace images can be used when creating an instance
 
 FLAGS:
   -h, --help   help for marketplace
