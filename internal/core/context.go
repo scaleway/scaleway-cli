@@ -22,10 +22,11 @@ type meta struct {
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
 
-	command *Command
-	stdout  io.Writer
-	stderr  io.Writer
-	result  interface{}
+	command                     *Command
+	stdout                      io.Writer
+	stderr                      io.Writer
+	result                      interface{}
+	isClientFromBootstrapConfig bool
 }
 
 type contextKey int
