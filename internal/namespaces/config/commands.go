@@ -186,7 +186,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 			{
 				Name:  "api-url",
-				Short: "The Scaleway api url",
+				Short: "Scaleway API URL",
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
 						return fmt.Errorf("%s is not a valid URL", *value.(*string))
@@ -196,11 +196,11 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 			{
 				Name:  "insecure",
-				Short: "Set to true to allow insecure https connection",
+				Short: "Set to true to allow insecure HTTPS connections",
 			},
 			{
 				Name:  "default-organization-id",
-				Short: "A Scaleway organization id",
+				Short: "A default Scaleway organization id",
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
 						return core.InvalidOrganizationIDError(*value.(*string))
@@ -210,12 +210,12 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 			{
 				Name:       "default-region",
-				Short:      "A Scaleway region",
+				Short:      "A default Scaleway region",
 				EnumValues: allZones,
 			},
 			{
 				Name:       "default-zone",
-				Short:      "A Scaleway zone",
+				Short:      "A default Scaleway zone",
 				EnumValues: allZones,
 			},
 			{
@@ -226,11 +226,11 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Examples: []*core.Example{
 			{
 				Short: "Update the default organization ID",
-				Raw:   "scw config set default_organization_id 12903058-d0e8-4366-89c3-6e666abe1f6f",
+				Raw:   "scw config set default_organization_id=12903058-d0e8-4366-89c3-6e666abe1f6f",
 			},
 			{
 				Short: "Update the default region of the profile 'prod'",
-				Raw:   "scw config set prod.default_region nl-ams",
+				Raw:   "scw -p prod config set default_region=nl-ams",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
