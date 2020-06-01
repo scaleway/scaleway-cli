@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	dsn = "https://a3d5d1ef6ae94810952ab245ce61af17@sentry.internal.scaleway.com/186"
+	dsn = "https://a3d5d1ef6ae94810952ab245ce61af17@sentry.scaleway.com/186"
 )
 
 // RecoverPanicAndSendReport will recover error if any, log them, and send them to sentry.
