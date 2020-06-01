@@ -1,6 +1,6 @@
-id                     acc9e2cf-8828-48a7-bf3a-11744e2a33c1
+id                     c5679fa1-1bc4-4681-b92d-759b5fc22d90
 organization-id        951df375-e094-4d26-97c1-ba548eeb9c42
-name                   cli-bm-suspicious-cerf
+name                   cli-bm-keen-sammet
 description            -
 updated-at             few seconds ago
 created-at             few seconds ago
@@ -10,17 +10,17 @@ install.os-id          d859aa89-8b4a-4551-af42-ff7c0c27260a
 install.hostname       test-install-server
 install.ssh-key-ids.0  f06d9273-385e-4747-806c-d4673c410f9d
 install.status         completed
-ips.0.id               7182d927-3fff-4805-95a5-578ffd35e452
-ips.0.address          2001:bc8:6005:1b:dac4:97ff:fe2a:2f10
-ips.0.reverse          acc9e2cf-8828-48a7-bf3a-11744e2a33c1.fr-par-2.baremetal.scw.cloud
-ips.0.version          Ipv6
+ips.0.id               b43b71cc-fe8a-45cf-9e1a-8d2f58a94fae
+ips.0.address          51.159.31.75
+ips.0.reverse          c5679fa1-1bc4-4681-b92d-759b5fc22d90.fr-par-2.baremetal.scw.cloud
+ips.0.version          Ipv4
 ips.0.reverse-status   active
-ips.1.id               a36f0c0a-9c0d-4e8a-b7c5-490477c6457a
-ips.1.address          51.159.31.34
-ips.1.reverse          acc9e2cf-8828-48a7-bf3a-11744e2a33c1.fr-par-2.baremetal.scw.cloud
-ips.1.version          Ipv4
+ips.1.id               ef6f9690-e798-4c4c-9f90-bf6ed009beed
+ips.1.address          2001:bc8:6005:1b:dac4:97ff:fe2a:2fb8
+ips.1.reverse          c5679fa1-1bc4-4681-b92d-759b5fc22d90.fr-par-2.baremetal.scw.cloud
+ips.1.version          Ipv6
 ips.1.reverse-status   active
-domain                 acc9e2cf-8828-48a7-bf3a-11744e2a33c1.fr-par-2.baremetal.scw.cloud
+domain                 c5679fa1-1bc4-4681-b92d-759b5fc22d90.fr-par-2.baremetal.scw.cloud
 boot-type              normal
 zone                   fr-par-2
 ping-status            up

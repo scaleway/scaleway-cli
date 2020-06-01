@@ -56,13 +56,26 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 		}
 	}
 
-	userAgent := "scaleway-cli/"
-	userAgent += buildInfo.Version.String()
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithUserAgent(userAgent),
+		scw.WithUserAgent(buildInfo.GetUserAgent()),
 		scw.WithProfile(profile),
+	}
+
+	client, err := scw.NewClient(opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
+	opts := []scw.ClientOption{
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent(buildInfo.GetUserAgent()),
 	}
 
 	client, err := scw.NewClient(opts...)
