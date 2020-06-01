@@ -20,19 +20,19 @@ func invalidDefaultOrganizationIDError(value string) *core.CliError {
 
 func invalidProfileKeyError(fieldName string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("invalid profile's key identifier '%v'", fieldName),
+		Err: fmt.Errorf("invalid profile's key identifier %s", fieldName),
 	}
 }
 
 func invalidRegionError(value string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("invalid region '%v'", value),
+		Err: fmt.Errorf("invalid region %s", value),
 	}
 }
 
 func invalidZoneError(value string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("invalid zone '%v'", value),
+		Err: fmt.Errorf("invalid zone %s", value),
 	}
 }
 
@@ -44,7 +44,7 @@ func notEnoughArgsForConfigSetError() *core.CliError {
 
 func missingValueForConfigSetError(key string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("missing value for key '%v'", key),
+		Err: fmt.Errorf("missing value for key %s", key),
 	}
 }
 
@@ -56,12 +56,12 @@ func tooManyArgsForConfigSetError() *core.CliError {
 
 func unknownProfileError(profileName string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("no profile named '%v'", profileName),
+		Err: fmt.Errorf("no profile named %s", profileName),
 	}
 }
 
 func invalidKindForKeyError(kind reflect.Kind, fieldName string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("invalid kind '%v' for key '%v'", kind, fieldName),
+		Err: fmt.Errorf("invalid kind %v for key %s", kind, fieldName),
 	}
 }

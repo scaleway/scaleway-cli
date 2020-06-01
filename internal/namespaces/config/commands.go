@@ -225,7 +225,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("set %v %v successfully", key, value),
+				Message: fmt.Sprintf("successfully set %s to %s", key, value),
 			}, nil
 		},
 	}
@@ -281,7 +281,7 @@ func configUnsetCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("unset %v successfully", key),
+				Message: fmt.Sprintf("successfully unset %s", key),
 			}, nil
 		},
 	}
@@ -363,7 +363,7 @@ func configDeleteProfileCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("profile '%s' deleted successfully", profileName),
+				Message: fmt.Sprintf("successfully delete profile %s", profileName),
 			}, nil
 		},
 	}
@@ -391,7 +391,7 @@ func configResetCommand() *core.Command {
 				return nil, err
 			}
 			return &core.SuccessResult{
-				Message: "reset config successfully",
+				Message: "successfully reset config",
 			}, nil
 		},
 	}
