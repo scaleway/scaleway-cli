@@ -23,6 +23,12 @@ func InvalidSecretKeyError(value string) *CliError {
 		Hint: "secret_key should be a valid UUID, formatted as: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.",
 	}
 }
+func InvalidAccessKeyError(value string) *CliError {
+	return &CliError{
+		Err:  fmt.Errorf("invalid access_key '%v'", value),
+		Hint: "access_key should look like : SCWXXXXXXXXXXXXXXXXX.",
+	}
+}
 
 func InvalidOrganizationIDError(value string) *CliError {
 	return &CliError{

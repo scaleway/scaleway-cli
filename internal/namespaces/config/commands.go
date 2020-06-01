@@ -4,21 +4,19 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"path"
 	"reflect"
-	"strings"
+
+	"github.com/scaleway/scaleway-sdk-go/validation"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
-
-// TODO: add proper tests
 
 func GetCommands() *core.Commands {
 	return core.NewCommands(
@@ -27,7 +25,7 @@ func GetCommands() *core.Commands {
 		configSetCommand(),
 		configUnsetCommand(),
 		configDumpCommand(),
-		configDeleteCommand(),
+		configProfileCommand(),
 		configDeleteProfileCommand(),
 		configResetCommand(),
 	)
@@ -91,12 +89,26 @@ func configRoot() *core.Command {
 
 // configGetCommand gets one or many values for the scaleway config
 func configGetCommand() *core.Command {
+
+	type configGetArgs struct {
+		Key string
+	}
+
 	return &core.Command{
-		Short:                `Get a line from the config file`,
+		Short:                `Get a value from the config file`,
 		Namespace:            "config",
 		Resource:             "get",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(configGetArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "key",
+				Short:      "the key to get from the configt",
+				Required:   true,
+				EnumValues: getProfileKeys(),
+				Positional: true,
+			},
+		},
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
@@ -104,7 +116,7 @@ func configGetCommand() *core.Command {
 			},
 			{
 				Short: "Get the default region of the profile 'prod'",
-				Raw:   "scw config get prod.default_region",
+				Raw:   "scw -p prod config get default_region",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -114,48 +126,35 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			// profileKeyValue is a custom type used for displaying configGetCommand result
-			type profileKeyValue struct {
-				Profile string `json:"profile"`
-				Key     string `json:"key"`
-				Value   string `json:"value"`
-			}
 
-			config, err := scw.LoadConfig()
+			config, err := scw.LoadConfigFromPath(extractConfigPath(ctx))
 			if err != nil {
 				return nil, err
 			}
-			rawArgs := *(argsI.(*args.RawArgs))
-			if len(rawArgs) == 0 {
-				return nil, notEnoughArgsForConfigGetError()
+			key := argsI.(*configGetArgs).Key
+
+			profileName := core.ExtractProfileName(ctx)
+			profile, err := getProfile(config, profileName)
+			if err != nil {
+				return nil, err
 			}
-			profileKeyValues := []*profileKeyValue(nil)
-			for _, arg := range rawArgs {
-				profileName, key, err := splitProfileKey(arg)
-				if err != nil {
-					return nil, err
-				}
-				profile, err := getProfile(config, profileName)
-				if err != nil {
-					return nil, err
-				}
-				value, err := getProfileValue(profile, key)
-				if err != nil {
-					return nil, err
-				}
-				profileKeyValues = append(profileKeyValues, &profileKeyValue{
-					Profile: profileName,
-					Key:     key,
-					Value:   value,
-				})
-			}
-			return profileKeyValues, nil
+
+			return getProfileValue(profile, key)
 		},
 	}
 }
 
 // configSetCommand sets a value for the scaleway config
 func configSetCommand() *core.Command {
+	allRegions := []string(nil)
+	for _, region := range scw.AllRegions {
+		allRegions = append(allRegions, region.String())
+	}
+	allZones := []string(nil)
+	for _, zone := range scw.AllZones {
+		allZones = append(allZones, zone.String())
+	}
+
 	return &core.Command{
 		Short: `Set a line from the config file`,
 		Long: `This commands overwrites the configuration file parameters with user input.
@@ -163,15 +162,75 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Namespace:            "config",
 		Resource:             "set",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(scw.Profile{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  "access-key",
+				Short: "A Scaleway access key",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsAccessKey(*value.(*string)) {
+						return core.InvalidAccessKeyError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "secret-key",
+				Short: "A Scaleway secret key",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsSecretKey(*value.(*string)) {
+						return core.InvalidSecretKeyError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "api-url",
+				Short: "Scaleway API URL",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
+						return fmt.Errorf("%s is not a valid URL", *value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "insecure",
+				Short: "Set to true to allow insecure HTTPS connections",
+			},
+			{
+				Name:  "default-organization-id",
+				Short: "A default Scaleway organization id",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
+						return core.InvalidOrganizationIDError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:       "default-region",
+				Short:      "A default Scaleway region",
+				EnumValues: allZones,
+			},
+			{
+				Name:       "default-zone",
+				Short:      "A default Scaleway zone",
+				EnumValues: allZones,
+			},
+			{
+				Name:  "send-telemetry",
+				Short: "Set to false to disable telemetry",
+			},
+		},
 		Examples: []*core.Example{
 			{
 				Short: "Update the default organization ID",
-				Raw:   "scw config set default_organization_id 12903058-d0e8-4366-89c3-6e666abe1f6f",
+				Raw:   "scw config set default_organization_id=12903058-d0e8-4366-89c3-6e666abe1f6f",
 			},
 			{
 				Short: "Update the default region of the profile 'prod'",
-				Raw:   "scw config set prod.default_region nl-ams",
+				Raw:   "scw -p prod config set default_region=nl-ams",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -181,97 +240,117 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+
 			// Validate arguments
-			rawArgs := *(argsI.(*args.RawArgs))
-			profileName, key, value, err := validateRawArgsForConfigSet(rawArgs)
+			args := argsI.(*scw.Profile)
+
+			// Execute
+			configPath := extractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
 			}
 
-			// Execute
-			config, err := scw.LoadConfig()
-			if err != nil {
-				return nil, err
-			}
-			profile, err := getProfile(config, profileName) // There can not be an error if profileName is empty
-			if err != nil {
-				// We create the profile if it doesn't exist
-				if config.Profiles == nil {
-					config.Profiles = map[string]*scw.Profile{}
+			// send_telemetry is the only key that is not in a profile but in the config object directly
+			profileName := core.ExtractProfileName(ctx)
+			profile := &config.Profile
+			if profileName != "" {
+				var exist bool
+				profile, exist = config.Profiles[profileName]
+				if !exist {
+					if config.Profiles == nil {
+						config.Profiles = map[string]*scw.Profile{}
+					}
+					config.Profiles[profileName] = &scw.Profile{}
+					profile = config.Profiles[profileName]
 				}
-				config.Profiles[profileName] = &scw.Profile{}
-				profile = config.Profiles[profileName]
 			}
-			err = setProfileValue(profile, key, value)
-			if err != nil {
-				return nil, err
+
+			argValue := reflect.ValueOf(args).Elem()
+			profileValue := reflect.ValueOf(profile).Elem()
+			for i := 0; i < argValue.NumField(); i++ {
+				field := argValue.Field(i)
+				if !field.IsNil() {
+					profileValue.Field(i).Set(field)
+				}
 			}
 
 			// Save
-			err = config.Save()
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
 
-			// Inform success
-			return configSetSuccess(rawArgs[0], value), nil
+			return &core.SuccessResult{
+				Message: fmt.Sprintf("successfully update config"),
+			}, nil
 		},
 	}
 }
 
 // configDumpCommand unsets a value for the scaleway config
 func configUnsetCommand() *core.Command {
+
+	type configUnsetArgs struct {
+		Key string
+	}
+
 	return &core.Command{
 		Short:                `Unset a line from the config file`,
 		Namespace:            "config",
 		Resource:             "unset",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(configUnsetArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "key",
+				Short:      "the config config key name to unset",
+				Required:   true,
+				EnumValues: getProfileKeys(),
+				Positional: true,
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			config, err := scw.LoadConfig()
+			configPath := extractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
 			}
-			rawArgs := *(argsI.(*args.RawArgs))
-			if len(rawArgs) == 0 {
-				return nil, notEnoughArgsForConfigUnsetError()
-			}
-			if len(rawArgs) > 1 {
-				return nil, tooManyArgsForConfigUnsetError()
-			}
-			profileAndKey := rawArgs[0]
-			profileName, key, err := splitProfileKey(profileAndKey)
-			if err != nil {
-				return nil, err
-			}
+			key := argsI.(*configUnsetArgs).Key
+
+			profileName := core.ExtractProfileName(ctx)
 			profile, err := getProfile(config, profileName)
 			if err != nil {
 				return nil, err
 			}
-			logger.Debugf("conf before: %v", config)
 			err = unsetProfileValue(profile, key)
 			if err != nil {
 				return nil, err
 			}
-			logger.Debugf("conf after: %v", config)
-			err = config.Save()
+
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
 
-			return configUnsetSuccess(profileAndKey), nil
+			return &core.SuccessResult{
+				Message: fmt.Sprintf("successfully unset %s", key),
+			}, nil
 		},
 	}
 }
 
 // configDumpCommand dumps the scaleway config
 func configDumpCommand() *core.Command {
+
+	type configDumpArgs struct{}
+
 	return &core.Command{
 		Short:                `Dump the config file`,
 		Namespace:            "config",
 		Resource:             "dump",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(configDumpArgs{}),
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
@@ -279,7 +358,8 @@ func configDumpCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			config, err := scw.LoadConfig()
+			configPath := extractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
 			}
@@ -288,37 +368,40 @@ func configDumpCommand() *core.Command {
 	}
 }
 
-func configDeleteCommand() *core.Command {
+func configProfileCommand() *core.Command {
 	return &core.Command{
 		Short:                `Allows the deletion of a profile from the config file`,
 		Namespace:            "config",
-		Resource:             "delete",
+		Resource:             "profile",
 		AllowAnonymousClient: true,
 	}
 }
 
-type configDeleteProfileArgs struct {
-	Name string
-}
-
 // configDeleteProfileCommand deletes a profile from the config
 func configDeleteProfileCommand() *core.Command {
+
+	type configDeleteProfileArgs struct {
+		Name string
+	}
+
 	return &core.Command{
 		Short:                `Delete a profile from the config file`,
 		Namespace:            "config",
-		Resource:             "delete",
-		Verb:                 "profile",
+		Resource:             "profile",
+		Verb:                 "delete",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configDeleteProfileArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Required: true,
+				Name:       "name",
+				Required:   true,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			profileName := argsI.(*configDeleteProfileArgs).Name
-			config, err := scw.LoadConfig()
+			configPath := extractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
 			}
@@ -327,24 +410,29 @@ func configDeleteProfileCommand() *core.Command {
 			} else {
 				return nil, unknownProfileError(profileName)
 			}
-			err = config.Save()
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
 
-			return configDeleteProfileSuccess(profileName), nil
+			return &core.SuccessResult{
+				Message: fmt.Sprintf("successfully delete profile %s", profileName),
+			}, nil
 		},
 	}
 }
 
 // configResetCommand resets the config
 func configResetCommand() *core.Command {
+
+	type configResetArgs struct{}
+
 	return &core.Command{
 		Short:                `Reset the config`,
 		Namespace:            "config",
 		Resource:             "reset",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(configResetArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			_, err := scw.LoadConfig()
 			if err != nil {
@@ -355,7 +443,9 @@ func configResetCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return configResetSuccess(), nil
+			return &core.SuccessResult{
+				Message: "successfully reset config",
+			}, nil
 		},
 	}
 }
@@ -363,57 +453,16 @@ func configResetCommand() *core.Command {
 //
 // Helper functions
 //
-
-// getProfile returns scw.Config.Profiles[profileName] or scw.Config.Profile if profileName is empty.
-func getProfile(config *scw.Config, profileName string) (profile *scw.Profile, err error) {
-	if profileName != "" {
-		profile, err := config.GetProfile(profileName)
-		if err != nil {
-			return nil, err
-		}
-		return profile, nil
+func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error) {
+	field, err := getProfileField(profile, fieldName)
+	if err != nil {
+		return nil, err
 	}
-	return &config.Profile, nil
-}
-
-// splitProfileKey splits a "profile.key" string into ("profile", "key")
-func splitProfileKey(arg string) (profileName string, key string, err error) {
-	strs := strings.Split(arg, ".")
-	if len(strs) == 1 {
-		return "", strs[0], nil
-	}
-	if len(strs) == 2 {
-		return strs[0], strs[1], nil
-	}
-	return "", "", invalidProfileKeyPairError(arg)
-}
-
-func getProfileValue(profile *scw.Profile, fieldName string) (string, error) {
-	field := reflect.ValueOf(profile).Elem().FieldByName(strcase.ToPublicGoName(fieldName))
-	if !field.IsValid() {
-		return "", invalidProfileKeyIdentifierError(fieldName)
-	}
-	if field.IsNil() {
-		return "", nilFieldError(fieldName)
-	}
-	return fmt.Sprint(field.Elem().Interface()), nil
-}
-
-func setProfileValue(profile *scw.Profile, fieldName string, value string) error {
-	field := reflect.ValueOf(profile).Elem().FieldByName(strcase.ToPublicGoName(fieldName))
-	switch kind := field.Type().Elem().Kind(); kind {
-	case reflect.String:
-		field.Set(reflect.ValueOf(&value))
-	case reflect.Bool:
-		field.Set(reflect.ValueOf(scw.BoolPtr(value == "true")))
-	default:
-		return invalidKindForKeyError(kind, fieldName)
-	}
-	return nil
+	return field.Interface(), nil
 }
 
 func unsetProfileValue(profile *scw.Profile, key string) error {
-	field, err := getProfileAttribute(profile, key)
+	field, err := getProfileField(profile, key)
 	if err != nil {
 		return err
 	}
@@ -421,10 +470,42 @@ func unsetProfileValue(profile *scw.Profile, key string) error {
 	return nil
 }
 
-func getProfileAttribute(profile *scw.Profile, key string) (reflect.Value, error) {
+func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 	field := reflect.ValueOf(profile).Elem().FieldByName(strcase.ToPublicGoName(key))
 	if !field.IsValid() {
-		return reflect.ValueOf(nil), invalidProfileAttributeError(key)
+		return reflect.ValueOf(nil), invalidProfileKeyError(key)
 	}
 	return field, nil
+}
+
+func getProfileKeys() []string {
+	t := reflect.TypeOf(scw.Profile{})
+	keys := []string{}
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		switch field.Name {
+		case "APIURL":
+			keys = append(keys, "api-url")
+		default:
+			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
+		}
+	}
+	return keys
+}
+
+// This func should be removes when core implement it
+func extractConfigPath(ctx context.Context) string {
+	homeDir := core.ExtractUserHomeDir(ctx)
+	return path.Join(homeDir, ".config", "scw", "config.yaml")
+}
+
+func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
+	if profileName == "" {
+		return &config.Profile, nil
+	}
+	profile, exist := config.Profiles[profileName]
+	if !exist {
+		return nil, unknownProfileError(profileName)
+	}
+	return profile, nil
 }
