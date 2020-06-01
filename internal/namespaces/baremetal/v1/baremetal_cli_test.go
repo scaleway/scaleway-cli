@@ -2,15 +2,15 @@ package baremetal
 
 import (
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func init() {
 	if !core.UpdateCassettes {
-		baremetal.RetryInterval = 0
+		defaultRetryInterval = 1 * time.Millisecond
 	}
 }
 

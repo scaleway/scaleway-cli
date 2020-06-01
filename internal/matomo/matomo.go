@@ -117,5 +117,9 @@ func IsTelemetryDisabled() bool {
 	if err != nil {
 		return false
 	}
-	return config.SendTelemetry == nil || !*config.SendTelemetry
+	profile, err := config.GetActiveProfile()
+	if err != nil {
+		return false
+	}
+	return profile.SendTelemetry == nil || !*profile.SendTelemetry
 }
