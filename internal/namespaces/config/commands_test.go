@@ -16,7 +16,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config get access_key",
+		Cmd:        "scw config get access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -27,7 +27,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	t.Run("Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p p1 config get access_key",
+		Cmd:        "scw -p p1 config get access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -38,7 +38,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	t.Run("Telemetry", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config get send_telemetry",
+		Cmd:        "scw config get send-telemetry",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -49,7 +49,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p test config get access_key",
+		Cmd:        "scw -p test config get access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
@@ -122,7 +122,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config unset access_key",
+		Cmd:        "scw config unset access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -136,7 +136,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	t.Run("Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p p1 config unset access_key",
+		Cmd:        "scw -p p1 config unset access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -150,7 +150,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	t.Run("Telemetry", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config unset send_telemetry",
+		Cmd:        "scw config unset send-telemetry",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -164,7 +164,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p test config unset access_key",
+		Cmd:        "scw -p test config unset access-key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
