@@ -85,6 +85,6 @@ func setupImage(dockerImage string, namespaceEndpoint string, imageName string, 
 			[]string{"docker", fmt.Sprintf("push %s", remote)},
 		),
 		core.ExecStoreBeforeCmd("image", fmt.Sprintf("scw registry image list name=%s", imageName)),
-		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ image[0].ID }} visibility=%s", visibility.String())),
+		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ (index .Image 0).ID }} visibility=%s", visibility.String())),
 	)
 }
