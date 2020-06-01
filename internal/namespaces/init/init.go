@@ -265,7 +265,8 @@ func initCommand() *core.Command {
 			args := argsI.(*initArgs)
 			// Check if a config exists
 			// Creates a new one if it does not
-			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				config = &scw.Config{}
 				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
@@ -306,7 +307,7 @@ func initCommand() *core.Command {
 
 			// Persist configuration on disk
 			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
-			err = config.Save()
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
@@ -338,7 +339,7 @@ func initCommand() *core.Command {
 
 			// Remove old configuration file
 			if args.RemoveV1Config != nil && *args.RemoveV1Config {
-				homeDir, _ := os.UserHomeDir()
+				homeDir := core.ExtractUserHomeDir(ctx)
 				err = os.Remove(path.Join(homeDir, ".scwrc"))
 				if err != nil {
 					successDetails += "\n  except for removing old configuration: " + err.Error()
