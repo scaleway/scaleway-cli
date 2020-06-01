@@ -14,13 +14,9 @@ import (
 func Test_ConfigGetCommand(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
-			Profile: scw.Profile{
-				AccessKey: scw.StringPtr("mock-access-key"),
-			},
-		}),
-		Cmd: "scw config get access_key",
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config get access_key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -40,11 +36,9 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
-			SendTelemetry: scw.BoolPtr(true),
-		}),
-		Cmd: "scw config get send_telemetry",
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config get send_telemetry",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -53,11 +47,9 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
-			SendTelemetry: scw.BoolPtr(true),
-		}),
-		Cmd: "scw -p test config get access_key",
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw -p test config get access_key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
@@ -245,6 +237,7 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 
 func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
+		SendTelemetry: scw.BoolPtr(true),
 		Profile: scw.Profile{
 			AccessKey:             scw.StringPtr("mock-access-key"),
 			SecretKey:             scw.StringPtr("mock-secret-key"),
