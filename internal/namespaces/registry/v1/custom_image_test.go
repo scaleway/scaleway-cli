@@ -14,54 +14,56 @@ func Test_ImageList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			//core.ExecBeforeCmd("scw registry namespace create name=cli-public-namespace is-public=true"),
-			//core.ExecBeforeCmd("scw registry namespace create name=cli-private-namespace is-public=false"),
+			core.ExecBeforeCmd("scw registry namespace create name=cli-public-namespace is-public=true"),
+			core.ExecBeforeCmd("scw registry namespace create name=cli-private-namespace is-public=false"),
 			core.BeforeFuncWhenUpdatingCassette(
 				core.ExecBeforeCmd("scw registry login"),
 			),
 			// We need to push 6 images with different hashes, we choose small images
 			core.BeforeFuncWhenUpdatingCassette(
-				setupImage(
-					"busybox:1.31",
-					"rg.fr-par.scw.cloud/cli-public-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
-					registry.ImageVisibilityPublic,
-				),
+				core.BeforeFuncCombine(
+					setupImage(
+						"busybox:1.31",
+						"rg.fr-par.scw.cloud/cli-public-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
+						registry.ImageVisibilityPublic,
+					),
 
-				setupImage(
-					"busybox:1.30",
-					"rg.fr-par.scw.cloud/cli-public-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
-					registry.ImageVisibilityPrivate,
-				),
+					setupImage(
+						"busybox:1.30",
+						"rg.fr-par.scw.cloud/cli-public-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
+						registry.ImageVisibilityPrivate,
+					),
 
-				setupImage(
-					"busybox:1.29",
-					"rg.fr-par.scw.cloud/cli-public-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
-					registry.ImageVisibilityInherit,
-				),
+					setupImage(
+						"busybox:1.29",
+						"rg.fr-par.scw.cloud/cli-public-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
+						registry.ImageVisibilityInherit,
+					),
 
-				setupImage(
-					"busybox:1.28",
-					"rg.fr-par.scw.cloud/cli-private-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
-					registry.ImageVisibilityPublic,
-				),
+					setupImage(
+						"busybox:1.28",
+						"rg.fr-par.scw.cloud/cli-private-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
+						registry.ImageVisibilityPublic,
+					),
 
-				setupImage(
-					"busybox:1.27",
-					"rg.fr-par.scw.cloud/cli-private-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
-					registry.ImageVisibilityPrivate,
-				),
+					setupImage(
+						"busybox:1.27",
+						"rg.fr-par.scw.cloud/cli-private-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
+						registry.ImageVisibilityPrivate,
+					),
 
-				// namespace_policy: private, image_policy:inherit
-				setupImage(
-					"busybox:1.26",
-					"rg.fr-par.scw.cloud/cli-private-namespace",
-					fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
-					registry.ImageVisibilityInherit,
+					// namespace_policy: private, image_policy:inherit
+					setupImage(
+						"busybox:1.26",
+						"rg.fr-par.scw.cloud/cli-private-namespace",
+						fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
+						registry.ImageVisibilityInherit,
+					),
 				),
 			),
 		),

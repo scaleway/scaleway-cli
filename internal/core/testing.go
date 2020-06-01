@@ -378,15 +378,10 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	}
 }
 
-func BeforeFuncWhenUpdatingCassette(beforeFuncs ...BeforeFunc) BeforeFunc {
+func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		if UpdateCassettes {
-			for _, beforeFunc := range beforeFuncs {
-				err := beforeFunc(ctx)
-				if err != nil {
-					return err
-				}
-			}
+			return beforeFunc(ctx)
 		}
 		return nil
 	}
