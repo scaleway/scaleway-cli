@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerStart(),
 		baremetalServerStop(),
 		baremetalOsList(),
+		baremetalOsGet(),
 	)
 }
 func baremetalRoot() *core.Command {
@@ -517,6 +518,40 @@ func baremetalOsList() *core.Command {
 			}
 			return resp.Os, nil
 
+		},
+	}
+}
+
+func baremetalOsGet() *core.Command {
+	return &core.Command{
+		Short:     `Get OS`,
+		Long:      `Return specific OS for the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "os",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(baremetal.GetOSRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "os-id",
+				Short:      `ID of the researched OS`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetOSRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetOS(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:   "Get a specific OS ID",
+				Request: `{}`,
+			},
 		},
 	}
 }
