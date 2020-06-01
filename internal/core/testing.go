@@ -281,7 +281,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				assert.NoError(t, err)
 			}()
 			overrideEnv["HOME"] = dir
-			meta["TmpHomeDir"] = dir
+			meta["HOME"] = dir
 		}
 
 		overrideExec := defaultOverrideExec
