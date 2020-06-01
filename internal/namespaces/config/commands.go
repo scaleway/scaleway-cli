@@ -30,7 +30,7 @@ func GetCommands() *core.Commands {
 		configSetCommand(),
 		configUnsetCommand(),
 		configDumpCommand(),
-		configDeleteCommand(),
+		configProfileCommand(),
 		configDeleteProfileCommand(),
 		configResetCommand(),
 	)
@@ -325,11 +325,11 @@ func configDumpCommand() *core.Command {
 	}
 }
 
-func configDeleteCommand() *core.Command {
+func configProfileCommand() *core.Command {
 	return &core.Command{
 		Short:                `Allows the deletion of a profile from the config file`,
 		Namespace:            "config",
-		Resource:             "delete",
+		Resource:             "profile",
 		AllowAnonymousClient: true,
 	}
 }
