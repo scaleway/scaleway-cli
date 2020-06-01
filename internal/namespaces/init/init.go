@@ -208,7 +208,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
 					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disabled at any time by running "scw config set send_telemetry false".
+					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
 				`)
 
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
