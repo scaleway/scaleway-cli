@@ -49,4 +49,12 @@ var ignoredErrors = []ignoredError{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
 		Command: namespaces.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
 	},
+	{
+		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Command: namespaces.GetCommands().MustFind("registry", "logout"),
+	},
+	{
+		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Command: namespaces.GetCommands().MustFind("registry", "login"),
+	},
 }
