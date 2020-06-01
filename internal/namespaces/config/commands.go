@@ -17,8 +17,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-// TODO: add proper tests
-
 const (
 	sendTelemetryKey = "send_telemetry"
 )
@@ -108,7 +106,7 @@ func configGetCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key",
-				Short:      "the config config key name to get",
+				Short:      "the key to get from the configt",
 				Required:   true,
 				EnumValues: getProfileKeys(),
 				Positional: true,
@@ -144,13 +142,9 @@ func configGetCommand() *core.Command {
 			}
 
 			profileName := core.ExtractProfileName(ctx)
-			profile := &config.Profile
-			if profileName != "" {
-				var exist bool
-				profile, exist = config.Profiles[profileName]
-				if !exist {
-					return nil, unknownProfileError(profileName)
-				}
+			profile, err := getProfile(config, profileName)
+			if err != nil {
+				return nil, err
 			}
 
 			return getProfileValue(profile, key)
@@ -188,7 +182,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 
 			// Validate arguments
 			rawArgs := *(argsI.(*args.RawArgs))
-			key, value, err := validateRawArgsForConfigSet(rawArgs)
+			key, value, err := validateArgsForConfigSet(rawArgs)
 			if err != nil {
 				return nil, err
 			}
@@ -271,13 +265,9 @@ func configUnsetCommand() *core.Command {
 				config.SendTelemetry = nil
 			} else {
 				profileName := core.ExtractProfileName(ctx)
-				profile := &config.Profile
-				if profileName != "" {
-					var exist bool
-					profile, exist = config.Profiles[profileName]
-					if !exist {
-						return nil, unknownProfileError(profileName)
-					}
+				profile, err := getProfile(config, profileName)
+				if err != nil {
+					return nil, err
 				}
 				err = unsetProfileValue(profile, key)
 				if err != nil {
@@ -473,4 +463,15 @@ func getProfileKeys() []string {
 func extractConfigPath(ctx context.Context) string {
 	homeDir := core.ExtractUserHomeDir(ctx)
 	return path.Join(homeDir, ".config", "scw", "config.yaml")
+}
+
+func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
+	if profileName == "" {
+		return &config.Profile, nil
+	}
+	profile, exist := config.Profiles[profileName]
+	if !exist {
+		return nil, unknownProfileError(profileName)
+	}
+	return profile, nil
 }

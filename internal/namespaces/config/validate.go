@@ -7,7 +7,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func validateRawArgsForConfigSet(rawArgs args.RawArgs) (key string, value string, err error) {
+func validateArgsForConfigSet(rawArgs args.RawArgs) (key string, value string, err error) {
 	if len(rawArgs) == 0 {
 		return "", "", notEnoughArgsForConfigSetError()
 	}

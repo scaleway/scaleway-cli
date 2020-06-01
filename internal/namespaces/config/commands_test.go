@@ -29,16 +29,9 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
-			Profile: scw.Profile{},
-			Profiles: map[string]*scw.Profile{
-				"test": {
-					AccessKey: scw.StringPtr("mock-access-key"),
-				},
-			},
-		}),
-		Cmd: "scw -p test config get access_key",
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw -p p1 config get access_key",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -51,9 +44,22 @@ func Test_ConfigGetCommand(t *testing.T) {
 		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
 			SendTelemetry: scw.BoolPtr(true),
 		}),
-		Cmd: "scw -p test config get send_telemetry",
+		Cmd: "scw config get send_telemetry",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("Unknown Profile", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: beforeFuncCreateConfigFile(&scw.Config{
+			SendTelemetry: scw.BoolPtr(true),
+		}),
+		Cmd: "scw -p test config get access_key",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
 		TmpHomeDir: true,
@@ -84,7 +90,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Equal(t, "mock-access-key", *config.Profiles["test"].AccessKey)
+				assert.Equal(t, "mock-access-key", *config.Profiles["p1"].AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -99,6 +105,20 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
 				assert.Equal(t, true, *config.SendTelemetry)
+			}),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("Unknown Profile", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw -p test config set access_key mock-access-key",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+			checkConfig(func(t *testing.T, config *scw.Config) {
+				assert.Equal(t, "mock-access-key", *config.Profiles["test"].AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -129,7 +149,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Nil(t, config.Profiles["test"].AccessKey)
+				assert.Nil(t, config.Profiles["p1"].AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -148,6 +168,17 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 		),
 		TmpHomeDir: true,
 	}))
+
+	t.Run("Unknown Profile", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw -p test config unset access_key",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
 }
 
 func Test_ConfigDeleteProfileCommand(t *testing.T) {
@@ -161,6 +192,17 @@ func Test_ConfigDeleteProfileCommand(t *testing.T) {
 			checkConfig(func(t *testing.T, config *scw.Config) {
 				assert.Nil(t, config.Profiles["p2"])
 			}),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("Unknown Profile", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config profile delete test",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
 		),
 		TmpHomeDir: true,
 	}))
