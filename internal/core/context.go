@@ -13,7 +13,8 @@ import (
 type meta struct {
 	BinaryName string
 
-	ProfileFlag string
+	ProfileFlag    string
+	ConfigPathFlag string
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
@@ -93,6 +94,13 @@ func ExtractProfileName(ctx context.Context) string {
 		return extractMeta(ctx).ProfileFlag
 	}
 	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+}
+
+func ExtractConfigPath(ctx context.Context) string {
+	if extractMeta(ctx).ConfigPathFlag != "" {
+		return extractMeta(ctx).ConfigPathFlag
+	}
+	return scw.GetConfigPath()
 }
 
 func ReloadClient(ctx context.Context) error {

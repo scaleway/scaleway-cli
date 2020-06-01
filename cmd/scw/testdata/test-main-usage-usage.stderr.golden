@@ -17,6 +17,7 @@ AVAILABLE COMMANDS:
   help         Help about any command
 
 FLAGS:
+  -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -h, --help             help for scw
   -o, --output string    Output format: json or human
