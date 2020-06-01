@@ -378,7 +378,7 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	}
 }
 
-func BeforeFuncRunWhenCassetteUpdated(beforeFuncs ...BeforeFunc) BeforeFunc {
+func BeforeFuncWhenUpdatingCassette(beforeFuncs ...BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		if UpdateCassettes {
 			for _, beforeFunc := range beforeFuncs {
@@ -418,7 +418,7 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	}
 }
 
-func OsExecBeforeFunc(cmdStrings ...[]string) BeforeFunc {
+func BeforeFuncOsExec(cmdStrings ...[]string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		for _, cmdString := range cmdStrings {
 			err := exec.Command(cmdString[0], cmdString[1:len(cmdString)-1]...).Run()

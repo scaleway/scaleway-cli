@@ -28,7 +28,7 @@ var (
 type customImage struct {
 	registry.Image
 	FullName           string
-	ExplicitVisibility string
+	ExplicitVisibility string `json:"-"`
 }
 
 func imageGetBuilder(c *core.Command) *core.Command {
@@ -109,13 +109,13 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		namespaceEndpointByID := make(map[string]string)
-		namespaceVisibilityByID := make(map[string]string)
+		namespaceVisibilityByID := make(map[string]registry.ImageVisibility)
 		for _, namespace := range namespaces.Namespaces {
 			namespaceEndpointByID[namespace.ID] = namespace.Endpoint
 			if namespace.IsPublic {
-				namespaceVisibilityByID[namespace.ID] = "public"
+				namespaceVisibilityByID[namespace.ID] = registry.ImageVisibilityPublic
 			} else {
-				namespaceVisibilityByID[namespace.ID] = "private"
+				namespaceVisibilityByID[namespace.ID] = registry.ImageVisibilityPrivate
 			}
 		}
 

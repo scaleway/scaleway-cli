@@ -16,11 +16,11 @@ func Test_ImageList(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			//core.ExecBeforeCmd("scw registry namespace create name=cli-public-namespace is-public=true"),
 			//core.ExecBeforeCmd("scw registry namespace create name=cli-private-namespace is-public=false"),
-			core.BeforeFuncRunWhenCassetteUpdated(
+			core.BeforeFuncWhenUpdatingCassette(
 				core.ExecBeforeCmd("scw registry login"),
 			),
 			// We need to push 6 images with different hashes, we choose small images
-			core.BeforeFuncRunWhenCassetteUpdated(
+			core.BeforeFuncWhenUpdatingCassette(
 				setupImage(
 					"busybox:1.31",
 					"rg.fr-par.scw.cloud/cli-public-namespace",
@@ -80,7 +80,7 @@ func Test_ImageList(t *testing.T) {
 func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registry.ImageVisibility) core.BeforeFunc {
 	remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
 	return core.BeforeFuncCombine(
-		core.OsExecBeforeFunc(
+		core.BeforeFuncOsExec(
 			[]string{"docker", fmt.Sprintf("pull %s", dockerImage)},
 			[]string{"docker", fmt.Sprintf("tag %s %s", dockerImage, remote)},
 			[]string{"docker", fmt.Sprintf("push %s", remote)},
