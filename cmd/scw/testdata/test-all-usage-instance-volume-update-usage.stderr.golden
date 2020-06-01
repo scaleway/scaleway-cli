@@ -8,10 +8,10 @@ EXAMPLES:
     scw instance volume update 11111111-1111-1111-1111-111111111111 name=my-new-name
 
   Change the volume disk size (bytes)
-    scw instance volume update 11111111-1111-1111-1111-111111111111
+    scw instance volume update 11111111-1111-1111-1111-111111111111 size=60GB
 
   Change the volume name and disk size
-    scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name
+    scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name size=70GB
 
 ARGS:
   volume-id         UUID of the volume
