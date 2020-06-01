@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 )
@@ -44,7 +45,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test code error",
 		Check:           TestCheckExitCode(99),
 	}))
-	t.Run("emtpy-error", Test(&TestConfig{
+	t.Run("empty-error", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -64,7 +65,7 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-error-json", Test(&TestConfig{
+	t.Run("empty-error-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -84,7 +85,7 @@ func TestInterruptError(t *testing.T) {
 			TestCheckStderrGolden(),
 		),
 	}))
-	t.Run("emtpy-success", Test(&TestConfig{
+	t.Run("empty-success", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -107,7 +108,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test empty success",
 		Check:           TestCheckStdoutGolden(),
 	}))
-	t.Run("emtpy-success-json", Test(&TestConfig{
+	t.Run("empty-success-json", Test(&TestConfig{
 		Commands: NewCommands(
 			&Command{
 				Namespace: "test",
@@ -130,5 +131,23 @@ func TestInterruptError(t *testing.T) {
 		DisableParallel: true, // because e2e client is used
 		Cmd:             "scw -o json test empty success",
 		Check:           TestCheckStdoutGolden(),
+	}))
+	t.Run("empty-list-json", Test(&TestConfig{
+		Commands: NewCommands(
+			&Command{
+				Namespace: "test",
+				Resource:  "empty",
+				Verb:      "success",
+				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+					return []int(nil), nil
+				},
+				AllowAnonymousClient: true,
+			},
+		),
+		Cmd: "scw -o json test empty success",
+		Check: func(t *testing.T, ctx *CheckFuncCtx) {
+			assert.Equal(t, "[]\n", string(ctx.Stdout))
+		},
 	}))
 }

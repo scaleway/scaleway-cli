@@ -1,6 +1,10 @@
 package baremetal
 
-import "github.com/scaleway/scaleway-cli/internal/core"
+import (
+	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+)
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
@@ -8,6 +12,8 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
 	))
+
+	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(0), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
 
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)

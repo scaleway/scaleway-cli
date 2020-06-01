@@ -7,7 +7,8 @@ ARGS:
   server-id             Server ID to install
   os-id                 ID of the OS to install on the server
   hostname              Hostname of the server
-  ssh-key-ids.{index}   SSH key IDs authorized on the server
+  [all-ssh-keys]        Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)
+  ssh-key-ids.{index}   SSH key IDs authorized on the server (cannot be used with all-ssh-keys)
   [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:

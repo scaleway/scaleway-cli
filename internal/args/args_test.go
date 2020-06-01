@@ -3,7 +3,9 @@ package args
 import (
 	"fmt"
 	"strings"
+	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -134,4 +136,21 @@ func unmarshalHeight(value string, dest interface{}) error {
 type SamePrefixArgName struct {
 	IP   string
 	IPv6 string
+}
+
+func TestRawArgs_GetAll(t *testing.T) {
+	t.Run("Simple", func(t *testing.T) {
+		a := RawArgs{"ssh-keys.0=foo", "ssh-keys.1=bar"}
+		assert.Equal(t, a.GetAll("ssh-keys.{index}"), []string{"foo", "bar"})
+	})
+
+	t.Run("Insane", func(t *testing.T) {
+		a := RawArgs{
+			"countries.FR.cities.paris.street.vaugirard=pouet",
+			"countries.FR.cities.paris.street.besbar=tati",
+			"countries.FR.cities.nice.street.promenade=anglais",
+			"countries.RU.cities.moscow.street.kremelin=rouge",
+		}
+		assert.Equal(t, a.GetAll("countries.{key}.cities.{key}.street.{key}"), []string{"pouet", "tati", "anglais", "rouge"})
+	})
 }

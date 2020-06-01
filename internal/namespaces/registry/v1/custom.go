@@ -19,6 +19,12 @@ func GetCommands() *core.Commands {
 		registryLogoutCommand(),
 	))
 
+	cmds.MustFind("registry", "tag", "get").Override(tagGetBuilder)
+	cmds.MustFind("registry", "tag", "list").Override(tagListBuilder)
+
+	cmds.MustFind("registry", "image", "get").Override(imageGetBuilder)
+	cmds.MustFind("registry", "image", "list").Override(imageListBuilder)
+
 	human.RegisterMarshalerFunc(registry.NamespaceStatus(0), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(registry.ImageStatus(0), human.EnumMarshalFunc(imageStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(registry.TagStatus(0), human.EnumMarshalFunc(tagStatusMarshalSpecs))

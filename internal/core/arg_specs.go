@@ -80,6 +80,9 @@ type ArgSpec struct {
 
 	// Positional defines whether the argument is a positional argument. NB: a positional argument is required.
 	Positional bool
+
+	// Only one argument of the same OneOfGroup could be specified
+	OneOfGroup string
 }
 
 func (a *ArgSpec) Prefix() string {
@@ -88,6 +91,11 @@ func (a *ArgSpec) Prefix() string {
 
 func (a *ArgSpec) IsPartOfMapOrSlice() bool {
 	return strings.Contains(a.Name, sliceSchema) || strings.Contains(a.Name, mapSchema)
+}
+
+func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
+	return (a.OneOfGroup != "" && b.OneOfGroup != "") &&
+		(a.OneOfGroup == b.OneOfGroup)
 }
 
 type DefaultFunc func(ctx context.Context) (value string, doc string)
