@@ -378,6 +378,15 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	}
 }
 
+func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		if UpdateCassettes {
+			return beforeFunc(ctx)
+		}
+		return nil
+	}
+}
+
 // AfterFuncCombine combines multiple after functions into one.
 func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
@@ -400,6 +409,18 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
+		return nil
+	}
+}
+
+func BeforeFuncOsExec(cmdStrings ...[]string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		for _, cmdString := range cmdStrings {
+			err := exec.Command(cmdString[0], cmdString[1:len(cmdString)-1]...).Run()
+			if err != nil {
+				return err
+			}
+		}
 		return nil
 	}
 }
