@@ -1,7 +1,10 @@
 Unset a line from the config file
 
 USAGE:
-  scw config unset
+  scw config unset <key ...> [arg=value ...]
+
+ARGS:
+  key   the config config key name to unset (send_telemetry | access_key | secret_key | api_url | insecure | default_organization_id | default_region | default_zone)
 
 FLAGS:
   -h, --help   help for unset

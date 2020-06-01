@@ -1,0 +1,24 @@
+access_key: mock-access-key
+secret_key: mock-sec-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+insecure: true
+default_organization_id: mock-orgaid
+default_region: fr-par
+default_zone: fr-par-1
+profiles:
+  p1:
+    access_key: p1-mock-access-key
+    secret_key: p1-mock--xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    api_url: p1-mock-api-url
+    insecure: true
+    default_organization_id: p1-mock-orgaid
+    default_region: fr-par
+    default_zone: fr-par-1
+  p2:
+    access_key: p2-mock-access-key
+    secret_key: p2-mock--xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    api_url: p2-mock-api-url
+    insecure: true
+    default_organization_id: p2-mock-orgaid
+    default_region: fr-par
+    default_zone: fr-par-1
+

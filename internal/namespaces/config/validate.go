@@ -1,50 +1,44 @@
 package config
 
 import (
-	"reflect"
-
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func validateRawArgsForConfigSet(rawArgs args.RawArgs) (profile string, key string, value string, err error) {
+func validateRawArgsForConfigSet(rawArgs args.RawArgs) (key string, value string, err error) {
 	if len(rawArgs) == 0 {
-		return "", "", "", notEnoughArgsForConfigSetError()
+		return "", "", notEnoughArgsForConfigSetError()
 	}
 	if len(rawArgs) == 1 {
-		return "", "", "", missingValueForConfigSetError(rawArgs[0])
+		return "", "", missingValueForConfigSetError(rawArgs[0])
 	}
 	if len(rawArgs) > 2 {
-		return "", "", "", tooManyArgsForConfigSetError()
+		return "", "", tooManyArgsForConfigSetError()
 	}
 
-	profileAndKey := rawArgs[0]
+	key = rawArgs[0]
 	value = rawArgs[1]
-	profile, key, err = splitProfileKey(profileAndKey)
-	if err != nil {
-		return
-	}
 	err = validateProfileKey(key)
 	if err != nil {
-		return
+		return "", "", err
 	}
 	err = validateProfileValue(key, value)
 	if err != nil {
-		return
+		return "", "", err
 	}
 
-	return
+	return key, value, nil
 }
 
 func validateProfileKey(fieldName string) error {
-	field := reflect.ValueOf(&scw.Profile{}).Elem().FieldByName(strcase.ToPublicGoName(fieldName))
-	if !field.IsValid() {
-		return invalidProfileKeyError(fieldName)
+	if fieldName == sendTelemetryKey {
+		return nil
 	}
-	return nil
+
+	_, err := getProfileField(&scw.Profile{}, fieldName)
+	return err
 }
 
 func validateProfileValue(fieldName string, value string) error {

@@ -1,14 +1,17 @@
-Get a line from the config file
+Get a value from the config file
 
 USAGE:
-  scw config get
+  scw config get <key ...> [arg=value ...]
 
 EXAMPLES:
   Get the default organization ID
     scw config get default_organization_id
 
   Get the default region of the profile 'prod'
-    scw config get prod.default_region
+    scw -p prod config get default_region
+
+ARGS:
+  key   the config config key name to get (send_telemetry | access_key | secret_key | api_url | insecure | default_organization_id | default_region | default_zone)
 
 FLAGS:
   -h, --help   help for get
