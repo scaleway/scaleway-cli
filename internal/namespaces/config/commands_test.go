@@ -63,12 +63,12 @@ func Test_ConfigSetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config set access_key mock-access-key",
+		Cmd:        "scw config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Equal(t, "mock-access-key", *config.AccessKey)
+				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -77,12 +77,12 @@ func Test_ConfigSetCommand(t *testing.T) {
 	t.Run("Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p p1 config set access_key mock-access-key",
+		Cmd:        "scw -p p1 config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Equal(t, "mock-access-key", *config.Profiles["p1"].AccessKey)
+				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.Profiles["p1"].AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -91,7 +91,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 	t.Run("Telemetry", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config set send_telemetry true",
+		Cmd:        "scw config set send-telemetry=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -105,12 +105,12 @@ func Test_ConfigSetCommand(t *testing.T) {
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw -p test config set access_key mock-access-key",
+		Cmd:        "scw -p test config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Equal(t, "mock-access-key", *config.Profiles["test"].AccessKey)
+				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.Profiles["test"].AccessKey)
 			}),
 		),
 		TmpHomeDir: true,
@@ -237,34 +237,36 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 
 func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
-		SendTelemetry: scw.BoolPtr(true),
 		Profile: scw.Profile{
-			AccessKey:             scw.StringPtr("mock-access-key"),
-			SecretKey:             scw.StringPtr("mock-secret-key"),
-			APIURL:                scw.StringPtr("mock-api-url"),
+			AccessKey:             scw.StringPtr("SCWXXXXXXXXXXXXXXXXX"),
+			SecretKey:             scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+			APIURL:                scw.StringPtr("https://mock-api-url.com"),
 			Insecure:              scw.BoolPtr(true),
-			DefaultOrganizationID: scw.StringPtr("mock-orgaid"),
+			DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 			DefaultRegion:         scw.StringPtr("fr-par"),
 			DefaultZone:           scw.StringPtr("fr-par-1"),
+			SendTelemetry:         scw.BoolPtr(true),
 		},
 		Profiles: map[string]*scw.Profile{
 			"p1": {
-				AccessKey:             scw.StringPtr("p1-mock-access-key"),
-				SecretKey:             scw.StringPtr("p1-mock-secret-key"),
-				APIURL:                scw.StringPtr("p1-mock-api-url"),
+				AccessKey:             scw.StringPtr("SCWP1XXXXXXXXXXXXXXX"),
+				SecretKey:             scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+				APIURL:                scw.StringPtr("https://p1-mock-api-url.com"),
 				Insecure:              scw.BoolPtr(true),
-				DefaultOrganizationID: scw.StringPtr("p1-mock-orgaid"),
+				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				DefaultRegion:         scw.StringPtr("fr-par"),
 				DefaultZone:           scw.StringPtr("fr-par-1"),
+				SendTelemetry:         scw.BoolPtr(true),
 			},
 			"p2": {
-				AccessKey:             scw.StringPtr("p2-mock-access-key"),
-				SecretKey:             scw.StringPtr("p2-mock-secret-key"),
-				APIURL:                scw.StringPtr("p2-mock-api-url"),
+				AccessKey:             scw.StringPtr("SCWP2XXXXXXXXXXXXXXX"),
+				SecretKey:             scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+				APIURL:                scw.StringPtr("https://p2-mock-api-url.com"),
 				Insecure:              scw.BoolPtr(true),
-				DefaultOrganizationID: scw.StringPtr("p2-mock-orgaid"),
+				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				DefaultRegion:         scw.StringPtr("fr-par"),
 				DefaultZone:           scw.StringPtr("fr-par-1"),
+				SendTelemetry:         scw.BoolPtr(true),
 			},
 		},
 	})

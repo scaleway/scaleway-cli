@@ -2,7 +2,7 @@ This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure
 
 USAGE:
-  scw config set
+  scw config set [arg=value ...]
 
 EXAMPLES:
   Update the default organization ID
@@ -10,6 +10,16 @@ EXAMPLES:
 
   Update the default region of the profile 'prod'
     scw config set prod.default_region nl-ams
+
+ARGS:
+  [access-key]                A Scaleway access key
+  [secret-key]                A Scaleway secret key
+  [api-url]                   The Scaleway api url
+  [insecure]                  Set to true to allow insecure https connection
+  [default-organization-id]   A Scaleway organization id
+  [default-region]            A Scaleway region (fr-par-1 | fr-par-2 | nl-ams-1)
+  [default-zone]              A Scaleway zone (fr-par-1 | fr-par-2 | nl-ams-1)
+  [send-telemetry]            Set to false to disable telemetry
 
 FLAGS:
   -h, --help   help for set

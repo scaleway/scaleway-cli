@@ -4,7 +4,7 @@ USAGE:
   scw config unset <key ...> [arg=value ...]
 
 ARGS:
-  key   the config config key name to unset (send_telemetry | access_key | secret_key | api_url | insecure | default_organization_id | default_region | default_zone)
+  key   the config config key name to unset (access_key | secret_key | api_url | insecure | default_organization_id | default_region | default_zone | send_telemetry)
 
 FLAGS:
   -h, --help   help for unset

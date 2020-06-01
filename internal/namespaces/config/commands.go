@@ -7,18 +7,15 @@ import (
 	"path"
 	"reflect"
 
+	"github.com/scaleway/scaleway-sdk-go/validation"
+
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-)
-
-const (
-	sendTelemetryKey = "send_telemetry"
 )
 
 func GetCommands() *core.Commands {
@@ -136,11 +133,6 @@ func configGetCommand() *core.Command {
 			}
 			key := argsI.(*configGetArgs).Key
 
-			// send_telemetry is the only key that is not in a profile but in the config object directly
-			if key == sendTelemetryKey {
-				return config.SendTelemetry, nil
-			}
-
 			profileName := core.ExtractProfileName(ctx)
 			profile, err := getProfile(config, profileName)
 			if err != nil {
@@ -154,6 +146,15 @@ func configGetCommand() *core.Command {
 
 // configSetCommand sets a value for the scaleway config
 func configSetCommand() *core.Command {
+	allRegions := []string(nil)
+	for _, region := range scw.AllRegions {
+		allRegions = append(allRegions, region.String())
+	}
+	allZones := []string(nil)
+	for _, zone := range scw.AllZones {
+		allZones = append(allZones, zone.String())
+	}
+
 	return &core.Command{
 		Short: `Set a line from the config file`,
 		Long: `This commands overwrites the configuration file parameters with user input.
@@ -161,7 +162,67 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Namespace:            "config",
 		Resource:             "set",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeOf(scw.Profile{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  "access-key",
+				Short: "A Scaleway access key",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsAccessKey(*value.(*string)) {
+						return core.InvalidAccessKeyError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "secret-key",
+				Short: "A Scaleway secret key",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsSecretKey(*value.(*string)) {
+						return core.InvalidSecretKeyError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "api-url",
+				Short: "The Scaleway api url",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
+						return fmt.Errorf("%s is not a valid URL", *value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:  "insecure",
+				Short: "Set to true to allow insecure https connection",
+			},
+			{
+				Name:  "default-organization-id",
+				Short: "A Scaleway organization id",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
+						return core.InvalidOrganizationIDError(*value.(*string))
+					}
+					return nil
+				},
+			},
+			{
+				Name:       "default-region",
+				Short:      "A Scaleway region",
+				EnumValues: allZones,
+			},
+			{
+				Name:       "default-zone",
+				Short:      "A Scaleway zone",
+				EnumValues: allZones,
+			},
+			{
+				Name:  "send-telemetry",
+				Short: "Set to false to disable telemetry",
+			},
+		},
 		Examples: []*core.Example{
 			{
 				Short: "Update the default organization ID",
@@ -181,11 +242,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 
 			// Validate arguments
-			rawArgs := *(argsI.(*args.RawArgs))
-			key, value, err := validateArgsForConfigSet(rawArgs)
-			if err != nil {
-				return nil, err
-			}
+			args := argsI.(*scw.Profile)
 
 			// Execute
 			configPath := extractConfigPath(ctx)
@@ -195,26 +252,26 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}
 
 			// send_telemetry is the only key that is not in a profile but in the config object directly
-			if key == sendTelemetryKey {
-				config.SendTelemetry = scw.BoolPtr(value == "true")
-			} else {
-				profileName := core.ExtractProfileName(ctx)
-				profile := &config.Profile
-				if profileName != "" {
-					var exist bool
-					profile, exist = config.Profiles[profileName]
-					if !exist {
-						if config.Profiles == nil {
-							config.Profiles = map[string]*scw.Profile{}
-						}
-						config.Profiles[profileName] = &scw.Profile{}
-						profile = config.Profiles[profileName]
+			profileName := core.ExtractProfileName(ctx)
+			profile := &config.Profile
+			if profileName != "" {
+				var exist bool
+				profile, exist = config.Profiles[profileName]
+				if !exist {
+					if config.Profiles == nil {
+						config.Profiles = map[string]*scw.Profile{}
 					}
+					config.Profiles[profileName] = &scw.Profile{}
+					profile = config.Profiles[profileName]
 				}
+			}
 
-				err = setProfileValue(profile, key, value)
-				if err != nil {
-					return nil, err
+			argValue := reflect.ValueOf(args).Elem()
+			profileValue := reflect.ValueOf(profile).Elem()
+			for i := 0; i < argValue.NumField(); i++ {
+				field := argValue.Field(i)
+				if !field.IsNil() {
+					profileValue.Field(i).Set(field)
 				}
 			}
 
@@ -225,7 +282,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully set %s to %s", key, value),
+				Message: fmt.Sprintf("successfully update config"),
 			}, nil
 		},
 	}
@@ -261,18 +318,14 @@ func configUnsetCommand() *core.Command {
 			}
 			key := argsI.(*configUnsetArgs).Key
 
-			if key == sendTelemetryKey {
-				config.SendTelemetry = nil
-			} else {
-				profileName := core.ExtractProfileName(ctx)
-				profile, err := getProfile(config, profileName)
-				if err != nil {
-					return nil, err
-				}
-				err = unsetProfileValue(profile, key)
-				if err != nil {
-					return nil, err
-				}
+			profileName := core.ExtractProfileName(ctx)
+			profile, err := getProfile(config, profileName)
+			if err != nil {
+				return nil, err
+			}
+			err = unsetProfileValue(profile, key)
+			if err != nil {
+				return nil, err
 			}
 
 			err = config.SaveTo(configPath)
@@ -408,23 +461,6 @@ func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error
 	return field.Interface(), nil
 }
 
-func setProfileValue(profile *scw.Profile, fieldName string, value string) error {
-	field, err := getProfileField(profile, fieldName)
-	if err != nil {
-		return err
-	}
-
-	switch kind := field.Type().Elem().Kind(); kind {
-	case reflect.String:
-		field.Set(reflect.ValueOf(&value))
-	case reflect.Bool:
-		field.Set(reflect.ValueOf(scw.BoolPtr(value == "true")))
-	default:
-		return invalidKindForKeyError(kind, fieldName)
-	}
-	return nil
-}
-
 func unsetProfileValue(profile *scw.Profile, key string) error {
 	field, err := getProfileField(profile, key)
 	if err != nil {
@@ -444,9 +480,7 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
-	keys := []string{
-		"send_telemetry",
-	}
+	keys := []string{}
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
 		switch field.Name {
