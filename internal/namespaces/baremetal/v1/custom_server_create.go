@@ -6,7 +6,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -109,9 +109,10 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:     argsI.(*baremetalCreateServerRequestCustom).Zone,
-			ServerID: respI.(*baremetal.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*baremetalCreateServerRequestCustom).Zone,
+			ServerID:      respI.(*baremetal.Server).ID,
+			Timeout:       serverActionTimeout,
+			RetryInterval: defaultRetryInterval,
 		})
 	}
 

@@ -10,10 +10,18 @@ func createServerAndWait(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create -w")
 }
 
+func createServer(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create")
+}
+
 // deleteServer deletes a server
 // previously registered in the context Meta at metaKey.
 func deleteServer(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw baremetal server delete {{ ." + metaKey + ".ID }}")
+}
+
+func waitServer(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw baremetal server wait {{ ." + metaKey + ".ID }}")
 }
 
 // add an ssh key with a given meta key

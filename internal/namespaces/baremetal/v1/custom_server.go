@@ -9,7 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -76,9 +76,10 @@ func serverWaitCommand() *core.Command {
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `ID of the server affected by the action.`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `ID of the server affected by the action.`,
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(),
 		},
@@ -97,7 +98,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StartServerRequest).Zone,
-			ServerID: respI.(*baremetal.StartServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
@@ -111,7 +112,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.StopServerRequest).Zone,
-			ServerID: respI.(*baremetal.StopServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
@@ -121,11 +122,13 @@ func serverStopBuilder(c *core.Command) *core.Command {
 
 // serverRebootBuilder overrides the baremetalServerReboot command
 func serverRebootBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("boot-type").Default = core.DefaultValueSetter("normal")
+
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
-			ServerID: respI.(*baremetal.RebootServerRequest).ServerID,
+			ServerID: respI.(*baremetal.Server).ID,
 			Timeout:  serverActionTimeout,
 		})
 	}
