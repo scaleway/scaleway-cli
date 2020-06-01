@@ -180,7 +180,6 @@ func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client,
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
-		scw.WithEnv(),
 		scw.WithUserAgent("cli-e2e-test"),
 	}
 
@@ -191,11 +190,14 @@ func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client,
 		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 
-		config, err := scw.LoadConfig()
-		if err == nil {
-			p, err := config.GetActiveProfile()
-			require.NoError(t, err)
-			clientOpts = append(clientOpts, scw.WithProfile(p))
+		if UpdateCassettes {
+			clientOpts = append(clientOpts, scw.WithEnv())
+			config, err := scw.LoadConfig()
+			if err == nil {
+				p, err := config.GetActiveProfile()
+				require.NoError(t, err)
+				clientOpts = append(clientOpts, scw.WithProfile(p))
+			}
 		}
 	}
 

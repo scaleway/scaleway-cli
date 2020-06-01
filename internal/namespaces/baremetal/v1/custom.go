@@ -1,9 +1,15 @@
 package baremetal
 
 import (
+	"time"
+
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1alpha1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+)
+
+var (
+	defaultRetryInterval = 15 * time.Second
 )
 
 func GetCommands() *core.Commands {

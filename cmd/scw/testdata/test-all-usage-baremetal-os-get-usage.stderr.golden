@@ -3,6 +3,10 @@ Return specific OS for the given ID.
 USAGE:
   scw baremetal os get <os-id ...> [arg=value ...]
 
+EXAMPLES:
+  Get a specific OS ID
+    scw baremetal os get
+
 ARGS:
   os-id             ID of the researched OS
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
