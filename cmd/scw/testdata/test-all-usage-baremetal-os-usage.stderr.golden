@@ -5,6 +5,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   list        List OS
+  get         Get OS
 
 FLAGS:
   -h, --help   help for os
