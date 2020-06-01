@@ -485,9 +485,9 @@ func getProfileKeys() []string {
 		field := t.Field(i)
 		switch field.Name {
 		case "APIURL":
-			keys = append(keys, "api_url")
+			keys = append(keys, "api-url")
 		default:
-			keys = append(keys, strcase.ToSnake(t.Field(i).Name))
+			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
 		}
 	}
 	return keys
