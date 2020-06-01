@@ -76,9 +76,10 @@ func serverWaitCommand() *core.Command {
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `ID of the server affected by the action.`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `ID of the server affected by the action.`,
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(),
 		},
@@ -121,6 +122,8 @@ func serverStopBuilder(c *core.Command) *core.Command {
 
 // serverRebootBuilder overrides the baremetalServerReboot command
 func serverRebootBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("boot-type").Default = core.DefaultValueSetter("normal")
+
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -17,7 +18,16 @@ func Test_StartServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			waitServer("Server"),
+			func(ctx *core.AfterFuncCtx) error {
+				api := baremetal.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*baremetal.Server)
+				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: server.ID,
+					Zone:     server.Zone,
+					Timeout:  serverActionTimeout,
+				})
+				return err
+			},
 			deleteServer("Server"),
 		),
 		DefaultZone: scw.ZoneFrPar2,
@@ -34,7 +44,16 @@ func Test_StopServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			waitServer("Server"),
+			func(ctx *core.AfterFuncCtx) error {
+				api := baremetal.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*baremetal.Server)
+				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: server.ID,
+					Zone:     server.Zone,
+					Timeout:  serverActionTimeout,
+				})
+				return err
+			},
 			deleteServer("Server"),
 		),
 		DefaultZone: scw.ZoneFrPar2,
@@ -51,7 +70,16 @@ func Test_RebootServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			waitServer("Server"),
+			func(ctx *core.AfterFuncCtx) error {
+				api := baremetal.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*baremetal.Server)
+				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+					ServerID: server.ID,
+					Zone:     server.Zone,
+					Timeout:  serverActionTimeout,
+				})
+				return err
+			},
 			deleteServer("Server"),
 		),
 		DefaultZone: scw.ZoneFrPar2,
