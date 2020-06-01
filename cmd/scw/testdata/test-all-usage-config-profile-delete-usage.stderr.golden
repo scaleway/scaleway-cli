@@ -1,13 +1,13 @@
 Delete a profile from the config file
 
 USAGE:
-  scw config delete profile [arg=value ...]
+  scw config profile delete <name ...> [arg=value ...]
 
 ARGS:
   name   
 
 FLAGS:
-  -h, --help   help for profile
+  -h, --help   help for delete
 
 GLOBAL FLAGS:
   -D, --debug            Enable debug mode
