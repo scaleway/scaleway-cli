@@ -8,7 +8,7 @@ USAGE:
   scw registry setup-docker-helper [arg=value ...]
 
 ARGS:
-  [helper-directory]   Directory in which the Docker helper will be installed
+  [helper-directory=/usr/local/bin]   Directory in which the Docker helper will be installed
 
 FLAGS:
   -h, --help   help for setup-docker-helper

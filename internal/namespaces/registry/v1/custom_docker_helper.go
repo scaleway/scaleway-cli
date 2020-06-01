@@ -24,28 +24,26 @@ import (
 type emptyRequest struct{}
 
 type registrySetupDockerHelperArgs struct {
-	HelperDirectory string
+	Path string
 }
 
-func registrySetupDockerHelperCommand() *core.Command {
+func registryInstallDockerHelperCommand() *core.Command {
 	return &core.Command{
-		Short: `Setup a local Docker credential helper`,
-		Long: `This command will configure the Docker credential helper for your account.
+		Short: `Install a local Docker credential helper`,
+		Long: `This command will install the Docker credential helper for your account.
 
 It will create a new script named docker-credential-scw. 
 This script will be called each time Docker needs the credentials and will return the correct credentials.
 It avoid running docker login commands.
 `,
 		Namespace: "registry",
-		Resource:  "setup-docker-helper",
+		Resource:  "install-docker-helper",
 		ArgsType:  reflect.TypeOf(registrySetupDockerHelperArgs{}),
 		ArgSpecs: []*core.ArgSpec{
 			{
-				Name:  "helper-directory",
-				Short: "Directory in which the Docker helper will be installed",
-				Default: func(ctx context.Context) (value string, doc string) {
-					return "/usr/local/bin", "/usr/local/bin"
-				},
+				Name:    "path",
+				Short:   "Directory in which the Docker helper will be installed. This directory should be in your $PATH",
+				Default: core.DefaultValueSetter("/usr/local/bin"),
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					stat, err := os.Stat(value.(string))
 					if err != nil || !stat.IsDir() {
@@ -62,13 +60,11 @@ It avoid running docker login commands.
 func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// TODO add windows support
 	if runtime.GOOS == "windows" {
-		return nil, fmt.Errorf("windows is not currently supported")
+		return nil, core.WindowIsNotSupportedError()
 	}
 
 	binaryName := core.ExtractBinaryName(ctx)
-
-	_, _ = interactive.Println("To enable the Docker credential helper, scw needs to create a script inside of your $PATH.")
-	scriptDirArg := argsI.(*registrySetupDockerHelperArgs).HelperDirectory
+	scriptDirArg := argsI.(*registrySetupDockerHelperArgs).Path
 
 	tpl, err := template.New("script").Parse(helperScriptTemplate)
 	if err != nil {
@@ -83,16 +79,16 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	if err != nil {
 		return nil, err
 	}
-	helperScript := buf.String()
+	helperScriptContent := buf.String()
 
 	// Warning
-	_, _ = interactive.Println()
-	_, _ = interactive.PrintlnWithoutIndent("To enable the Docker credential helper we need to create the file " + helperScriptPath + " with the following lines:")
-	_, _ = interactive.Println(helperScript)
+	_, _ = interactive.Println("To enable the Docker credential helper we need to create the file " + helperScriptPath + " with the following lines:\n")
+	_, _ = interactive.Println(helperScriptContent)
 
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		Ctx:          ctx,
 		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
 		DefaultValue: true,
 	})
@@ -103,7 +99,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		return nil, fmt.Errorf("installation cancelled")
 	}
 
-	err = writeHelperScript(helperScriptPath, helperScript)
+	err = writeHelperScript(helperScriptPath, helperScriptContent)
 	if err != nil {
 		return nil, fmt.Errorf("failed to write helper script: %s", err)
 	}
@@ -113,7 +109,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		registries = append(registries, getRegistryEndpoint(region))
 	}
 
-	err = setupDockerConfigFile(registries, binaryName)
+	err = setupDockerConfigFile(ctx, registries, binaryName)
 	if err != nil {
 		return nil, fmt.Errorf("failed to write docker config file: %s", err)
 	}
@@ -129,21 +125,18 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		_, _ = interactive.PrintlnWithoutIndent("You don't have to login to your registries anymore.")
 	}
 
-	return nil, nil
+	return &core.SuccessResult{}, nil
 }
 
-const helperScriptTemplate = `
-#!/bin/sh
-
-{{ if .ProfileName }}
+const helperScriptTemplate = `#!/bin/sh
+{{ if .ProfileName -}}
 PROFILE_NAME="{{ .ProfileName }}"
 if [[ ! -z "$SCW_PROFILE" ]]
 then 
 	PROFILE_NAME="$SCW_PROFILE"
 fi
-{{ endif }}
-{{ .BinaryName }}{{ if .ProfileName }} --profile $PROFILE_NAME={{ endif }} registry docker-helper "$@"
-`
+{{ end -}}
+{{ .BinaryName }}{{ if .ProfileName }} --profile $PROFILE_NAME{{ end }} registry docker-helper "$@"`
 
 type registryDockerHelperGetResponse struct {
 	Secret   string `json:"Secret"`
@@ -157,10 +150,7 @@ func registryDockerHelperGetCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "get",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		ArgSpecs: []*core.ArgSpec{
-			{},
-		},
-		Run: registryDockerHelperGetRun,
+		Run:       registryDockerHelperGetRun,
 	}
 }
 
@@ -170,7 +160,7 @@ func getRegistryEndpoint(region scw.Region) string {
 
 func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	var serverURL string
-	serverURL, err := bufio.NewReader(os.Stdin).ReadString('\n')
+	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
 	if err != nil && err != io.EOF {
 		return nil, err
 	}
@@ -178,7 +168,6 @@ func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i inter
 	serverURL = strings.TrimRight(serverURL, "\n")
 
 	serverFound := false
-
 	for _, region := range scw.AllRegions {
 		if serverURL == getRegistryEndpoint(region) {
 			serverFound = true
@@ -197,15 +186,13 @@ func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i inter
 		return nil, fmt.Errorf("could not get secret key")
 	}
 
-	response := registryDockerHelperGetResponse{
+	raw, err := json.Marshal(registryDockerHelperGetResponse{
 		Username: "scaleway",
 		Secret:   secretKey,
-	}
-	raw, err := json.Marshal(response)
+	})
 	if err != nil {
 		return nil, err
 	}
-
 	return core.RawResult(raw), nil
 }
 
@@ -216,15 +203,10 @@ func registryDockerHelperStoreCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "store",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		ArgSpecs: []*core.ArgSpec{
-			{},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			return nil, nil
 		},
-		Run: registryDockerHelperStoreRun,
 	}
-}
-
-func registryDockerHelperStoreRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	return nil, nil
 }
 
 func registryDockerHelperEraseCommand() *core.Command {
@@ -237,12 +219,10 @@ func registryDockerHelperEraseCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run: registryDockerHelperEraseRun,
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			return nil, nil
+		},
 	}
-}
-
-func registryDockerHelperEraseRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	return nil, nil
 }
 
 func registryDockerHelperListCommand() *core.Command {
@@ -252,17 +232,16 @@ func registryDockerHelperListCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		ArgSpecs: []*core.ArgSpec{
-			{},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			registryEndpoints := make(map[string]string)
+			for _, region := range scw.AllRegions {
+				registryEndpoints[getRegistryEndpoint(region)] = "scaleway"
+			}
+			raw, err := json.Marshal(registryEndpoints)
+			if err != nil {
+				return nil, err
+			}
+			return core.RawResult(raw), nil
 		},
-		Run: registryDockerHelperListRun,
 	}
-}
-
-func registryDockerHelperListRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-	registryEndpoints := make(map[string]string)
-	for _, region := range scw.AllRegions {
-		registryEndpoints[endpointPrefix+region.String()+endpointSuffix] = "scaleway"
-	}
-	return registryEndpoints, nil
 }

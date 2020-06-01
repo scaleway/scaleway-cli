@@ -20,6 +20,8 @@ type SuccessResult struct {
 	Empty    bool
 }
 
+// This type can be return by a command that need to output specific content on stdout directly.
+// When a command return this type, default printer will not be used and bytes will be directly print on stdout.
 type RawResult []byte
 
 var standardSuccessMessages = map[string]string{

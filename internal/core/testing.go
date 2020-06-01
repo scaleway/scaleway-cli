@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -164,6 +165,9 @@ type TestConfig struct {
 	// to mock response a user would have enter in a prompt.
 	// Warning: All prompts MUST be mocked or test will hang.
 	PromptResponseMocks []string
+
+	// Allow to mock stdin
+	Stdin io.Reader
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -295,6 +299,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}
 		}
 
+		stdin := config.Stdin
+		if stdin == nil {
+			stdin = os.Stdin
+		}
+
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
@@ -344,6 +353,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				BuildInfo:        &config.BuildInfo,
 				Stdout:           stdout,
 				Stderr:           stderr,
+				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
 				OverrideEnv:      overrideEnv,

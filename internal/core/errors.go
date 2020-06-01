@@ -42,3 +42,9 @@ func ArgumentConflictError(arg1 string, arg2 string) *CliError {
 		Err: fmt.Errorf("only one of those two arguments '%s' and '%s' can be specified in the same time", arg1, arg2),
 	}
 }
+
+func WindowIsNotSupportedError() *CliError {
+	return &CliError{
+		Err: fmt.Errorf("windows is not currently supported"),
+	}
+}
