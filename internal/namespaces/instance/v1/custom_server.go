@@ -623,9 +623,10 @@ func serverWaitCommand() *core.Command {
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:     argsI.(*instanceActionRequest).Zone,
-			ServerID: argsI.(*instanceActionRequest).ServerID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*instanceActionRequest).Zone,
+			ServerID:      argsI.(*instanceActionRequest).ServerID,
+			Timeout:       serverActionTimeout,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }

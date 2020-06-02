@@ -40,9 +40,10 @@ func nodeRebootBuilder(c *core.Command) *core.Command {
 func waitForNodeFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
-			Region:  respI.(*k8s.Node).Region,
-			NodeID:  respI.(*k8s.Node).ID,
-			Timeout: scw.TimeDurationPtr(nodeActionTimeout),
+			Region:        respI.(*k8s.Node).Region,
+			NodeID:        respI.(*k8s.Node).ID,
+			Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		switch action {
 		case nodeActionReboot:
@@ -63,9 +64,10 @@ func k8sNodeWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForNode(&k8s.WaitForNodeRequest{
-				Region:  argsI.(*k8s.WaitForNodeRequest).Region,
-				NodeID:  argsI.(*k8s.WaitForNodeRequest).NodeID,
-				Timeout: scw.TimeDurationPtr(nodeActionTimeout),
+				Region:        argsI.(*k8s.WaitForNodeRequest).Region,
+				NodeID:        argsI.(*k8s.WaitForNodeRequest).NodeID,
+				Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{

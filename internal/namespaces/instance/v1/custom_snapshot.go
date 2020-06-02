@@ -41,9 +41,10 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
-			SnapshotID: respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
-			Zone:       argsI.(*customCreateSnapshotRequest).Zone,
-			Timeout:    serverActionTimeout,
+			SnapshotID:    respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
+			Zone:          argsI.(*customCreateSnapshotRequest).Zone,
+			Timeout:       serverActionTimeout,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
@@ -86,17 +87,18 @@ func snapshotWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
-				Zone:       argsI.(*instance.WaitForSnapshotRequest).Zone,
-				SnapshotID: argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
-				Timeout:    snapshotActionTimeout,
+				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
+				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
+				Timeout:       snapshotActionTimeout,
+				RetryInterval: core.DefaultRetryInterval,
 			})
 
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "snapshot-id",
-				Short:    `ID of the snapshot.`,
-				Required: true,
+				Name:       "snapshot-id",
+				Short:      `ID of the snapshot.`,
+				Required:   true,
 				Positional: true,
 			},
 			core.ZoneArgSpec(),

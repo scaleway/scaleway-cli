@@ -112,7 +112,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			Zone:          argsI.(*baremetalCreateServerRequestCustom).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
 			Timeout:       serverActionTimeout,
-			RetryInterval: defaultRetryInterval,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 

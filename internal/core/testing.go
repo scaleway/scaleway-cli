@@ -231,6 +231,8 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 	return client
 }
 
+var DefaultRetryInterval *time.Duration
+
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -243,6 +245,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 		human.RegisterMarshalerFunc(time.Time{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
 			return "few seconds ago", nil
 		})
+
+		if !UpdateCassettes {
+			tmp := 0 * time.Second
+			DefaultRetryInterval = &tmp
+		}
 
 		ctx := config.Ctx
 		if ctx == nil {
