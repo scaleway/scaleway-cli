@@ -179,8 +179,125 @@ AVAILABLE COMMANDS:
   delete      Delete IP
 ```
 
-* [scw instance ip list](#scw-instance-image-list)
-* [scw instance ip create](#scw-instance-image-get)
-* [scw instance ip get](#scw-instance-image-create)
-* [scw instance ip update](#scw-instance-image-delete)
-* [scw instance ip delete](#scw-instance-image-wait)
+* [scw instance ip list](#scw-instance-ip-list)
+* [scw instance ip create](#scw-instance-ip-create)
+* [scw instance ip get](#scw-instance-ip-get)
+* [scw instance ip update](#scw-instance-ip-update)
+* [scw instance ip delete](#scw-instance-ip-delete)
+
+#### `scw instance ip list`
+
+List all IPs in the in a given zone.
+
+```
+USAGE:
+  scw instance ip list [arg=value ...]
+
+EXAMPLES:
+  List all IPs in the default zone
+    scw instance ip list
+
+  List all IPs in fr-par-1 zone
+    scw instance ip list zone=fr-par-1
+
+ARGS:
+  [name]              Filter on the IP address (Works as a LIKE operation on the IP address)
+  [organization-id]   The organization ID the IPs are reserved in
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+```
+
+#### `scw instance ip create` 
+
+Reserve a flexible IP.
+
+```
+USAGE:
+  scw instance ip create [arg=value ...]
+
+EXAMPLES:
+  Create an IP in the default zone
+    scw instance ip create
+
+  Create an IP in fr-par-1 zone
+    scw instance ip create zone=fr-par-1
+
+  Create an IP and attach it to the given server
+    scw instance ip create server=11111111-1111-1111-1111-111111111111
+
+ARGS:
+  [server]            UUID of the server you want to attach the IP to
+  [tags.{index}]      An array of keywords you want to tag this IP with
+  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+```
+
+#### `scw instance ip get`
+
+Get details of an IP with the given ID or address.
+
+```
+USAGE:
+  scw instance ip get <ip ...> [arg=value ...]
+
+EXAMPLES:
+  Get an IP in the default zone with the given ID
+    scw instance ip get 11111111-1111-1111-1111-111111111111
+
+  Get an IP in fr-par-1 zone with the given ID
+    scw instance ip get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+
+  Get an IP using directly the given IP address
+    scw instance ip get
+
+ARGS:
+  ip                The IP ID or address to get
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+```
+
+#### `scw instance ip update`
+
+Update the details of an IP with the given ID or address.
+
+```
+USAGE:
+  scw instance ip update <ip ...> [arg=value ...]
+
+EXAMPLES:
+  Update an IP in the default zone with the given ID
+    scw instance ip update 11111111-1111-1111-1111-111111111111 reverse=example.com
+
+  Update an IP in fr-par-1 zone with the given ID
+    scw instance ip update 11111111-1111-1111-1111-111111111111 zone=fr-par-1 reverse=example.com
+
+  Update an IP using directly the given IP address
+    scw instance ip update 51.15.253.183 reverse=example.com
+
+ARGS:
+  ip                IP ID or IP address
+  [reverse]         Reverse domain name
+  [tags.{index}]    An array of keywords you want to tag this IP with
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+```
+
+### `scw instance ip delete`
+
+Delete the IP with the given ID or address.
+
+```
+USAGE:
+  scw instance ip delete <ip ...> [arg=value ...]
+
+EXAMPLES:
+  Delete an IP in the default zone with the given ID
+    scw instance ip delete 11111111-1111-1111-1111-111111111111
+
+  Delete an IP in fr-par-1 zone with the given ID
+    scw instance ip delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+
+  Delete an IP using directly the given IP address
+    scw instance ip delete 51.15.253.183
+
+ARGS:
+  ip                The ID or the address of the IP to delete
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+```
