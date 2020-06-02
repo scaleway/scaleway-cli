@@ -131,6 +131,7 @@ type TestConfig struct {
 	BeforeFunc BeforeFunc
 
 	// The command line you want to test
+	// The arguments in this command MUST have only one space between each others to be split successfully
 	// Conflict with Args
 	Cmd string
 
@@ -359,7 +360,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Ctx:              ctx,
 				Logger:           log,
 			})
-			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
+			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
 			return result
 		}
@@ -603,6 +604,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		delete(i.Request.Headers, "x-auth-token")
 		delete(i.Request.Headers, "X-Auth-Token")
 		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
+		i.Request.URL = regexp.MustCompile(`account\\.scaleway\\.com/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111")
 		return nil
 	})
 

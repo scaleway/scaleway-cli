@@ -132,6 +132,9 @@ func initCommand() *core.Command {
 			// Check if a config exists
 			// Actual creation of the new config is done in the Run()
 			config, err := scw.LoadConfig()
+			if core.ExtractConfigPath(ctx) != "" {
+				config, err = scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+			}
 
 			// If it is not a new config, ask if we want to override the existing config
 			if err == nil && !config.IsEmpty() {
@@ -142,6 +145,7 @@ func initCommand() *core.Command {
 				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to override the current config?",
 					DefaultValue: true,
+					Ctx:          ctx,
 				})
 				if err != nil {
 					return err
@@ -166,6 +170,7 @@ func initCommand() *core.Command {
 			if args.Zone == "" {
 				_, _ = interactive.Println()
 				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:             ctx,
 					Prompt:          "Select a zone",
 					DefaultValueDoc: "fr-par-1",
 					DefaultValue:    "fr-par-1",
@@ -214,6 +219,7 @@ func initCommand() *core.Command {
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to send usage statistics and diagnostics?",
 					DefaultValue: true,
+					Ctx:          ctx,
 				})
 				if err != nil {
 					return err
@@ -230,6 +236,7 @@ func initCommand() *core.Command {
 				`)
 
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Ctx:          ctx,
 					Prompt:       "Do you want to install autocomplete?",
 					DefaultValue: true,
 				})
@@ -242,11 +249,12 @@ func initCommand() *core.Command {
 
 			// Ask whether to remove v1 configuration file if it exists
 			if args.RemoveV1Config == nil {
-				homeDir, err := os.UserHomeDir()
+				homeDir := core.ExtractUserHomeDir(ctx)
 				if err == nil {
 					configPath := path.Join(homeDir, ".scwrc")
 					if _, err := os.Stat(configPath); err == nil {
 						removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+							Ctx:          ctx,
 							Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
 							DefaultValue: false,
 						})
@@ -358,6 +366,7 @@ func initCommand() *core.Command {
 
 func promptCredentials(ctx context.Context) (string, error) {
 	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
+		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			secretKey, email := "secret-key", "email"
 			switch {
@@ -440,18 +449,19 @@ func getOrganizationID(ctx context.Context, secretKey string) (string, error) {
 	IDs, err := account.GetOrganizationsIds(ctx, secretKey)
 	if err != nil {
 		logger.Warningf("%v", err)
-		return promptOrganizationID(IDs)
+		return promptOrganizationID(ctx, IDs)
 	}
 	if len(IDs) != 1 {
-		return promptOrganizationID(IDs)
+		return promptOrganizationID(ctx, IDs)
 	}
 	return IDs[0], nil
 }
 
-func promptOrganizationID(IDs []string) (string, error) {
+func promptOrganizationID(ctx context.Context, IDs []string) (string, error) {
 	config := &interactive.PromptStringConfig{
 		Prompt:       "Enter your Organization ID",
 		ValidateFunc: interactive.ValidateOrganizationID(),
+		Ctx:          ctx,
 	}
 	if len(IDs) > 0 {
 		config.DefaultValue = IDs[0]

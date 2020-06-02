@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 	"os"
+	"path"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -105,8 +106,13 @@ func ExtractProfileName(ctx context.Context) string {
 }
 
 func ExtractConfigPath(ctx context.Context) string {
-	if extractMeta(ctx).ConfigPathFlag != "" {
+	meta := extractMeta(ctx)
+	if meta.ConfigPathFlag != "" {
 		return extractMeta(ctx).ConfigPathFlag
+	}
+	// This is only useful for test when we override home environment variable
+	if home := meta.OverrideEnv["HOME"]; home != "" {
+		return path.Join(home, ".config", "scw", "config.yaml")
 	}
 	return scw.GetConfigPath()
 }

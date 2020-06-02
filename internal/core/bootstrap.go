@@ -134,13 +134,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		ProfileFlag:  profileName,
-		BinaryName:   config.Args[0],
-		BuildInfo:    config.BuildInfo,
-		Client:       client,
-		Commands:     config.Commands,
-		OverrideEnv:  config.OverrideEnv,
-		OverrideExec: config.OverrideExec,
+		ProfileFlag:    profileName,
+		BinaryName:     config.Args[0],
+		BuildInfo:      config.BuildInfo,
+		Client:         client,
+		Commands:       config.Commands,
+		OverrideEnv:    config.OverrideEnv,
+		OverrideExec:   config.OverrideExec,
+		ConfigPathFlag: configPath,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,

@@ -48,7 +48,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 
 	// Early exit if key is not present locally
 	if os.IsNotExist(err) {
-		return nil, sshKeyNotFound(filename, addKeyInstructions)
+		return nil, sshKeyNotFound(shortenedFilename, addKeyInstructions)
 	} else if err != nil {
 		return nil, err
 	}
