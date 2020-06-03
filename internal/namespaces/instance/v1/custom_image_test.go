@@ -57,3 +57,20 @@ func createImage(metaKey string) core.BeforeFunc {
 		core.ExecStoreBeforeCmd(metaKey, `scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64`),
 	)
 }
+
+func deleteImage(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd(`scw instance image delete {{ .` + metaKey + `.Image.ID }} with-snapshots=true`)
+}
+
+func Test_ImageList(t *testing.T) {
+	t.Run("simple", core.Test(&core.TestConfig{
+		BeforeFunc: createImage("Image"),
+		Commands:   GetCommands(),
+		Cmd:        "scw instance image list",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteImage("Image"),
+	}))
+}
