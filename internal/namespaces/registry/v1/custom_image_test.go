@@ -3,14 +3,12 @@ package registry
 import (
 	"fmt"
 	"testing"
-	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 
 func Test_ImageList(t *testing.T) {
-	t.Skipf("Waiting for registry API to fix cache problems")
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
@@ -83,15 +81,19 @@ func setupImage(dockerImage string, namespaceEndpoint string, imageName string, 
 	remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
 	return core.BeforeFuncCombine(
 		core.BeforeFuncOsExec(
-			[]string{"docker", fmt.Sprintf("pull %s", dockerImage)},
-			[]string{"docker", fmt.Sprintf("tag %s %s", dockerImage, remote)},
-			[]string{"docker", fmt.Sprintf("push %s", remote)},
+			[]string{"docker", "pull", dockerImage},
+			[]string{"docker", "tag", dockerImage, remote},
+			[]string{"docker", "push", remote},
 		),
+		//func(ctx *core.BeforeFuncCtx) error {
+		//	time.Sleep(2 * time.Second)
+		//	return nil
+		//},
+		core.ExecStoreBeforeCmd("ImageListResult", fmt.Sprintf("scw registry image list name=%s", imageName)),
 		func(ctx *core.BeforeFuncCtx) error {
-			time.Sleep(2 * time.Minute)
+			fmt.Println("pouet")
 			return nil
 		},
-		core.ExecStoreBeforeCmd("Image", fmt.Sprintf("scw registry image list name=%s", imageName)),
-		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ index .Image 0 `ID` }} visibility=%s", visibility.String())),
+		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ index .ImageListResult 0 `ID` }} visibility=%s", visibility.String())),
 	)
 }
