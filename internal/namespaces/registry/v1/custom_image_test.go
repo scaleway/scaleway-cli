@@ -12,8 +12,8 @@ func Test_ImageList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw registry namespace create name=cli-public-namespace is-public=true"),
-			core.ExecBeforeCmd("scw registry namespace create name=cli-private-namespace is-public=false"),
+			core.ExecStoreBeforeCmd("PublicNamespace", "scw registry namespace create name=cli-public-namespace is-public=true"),
+			core.ExecStoreBeforeCmd("PrivateNamespace", "scw registry namespace create name=cli-private-namespace is-public=false"),
 			core.BeforeFuncWhenUpdatingCassette(
 				core.ExecBeforeCmd("scw registry login"),
 			),
@@ -71,8 +71,8 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw registry namespace remove cli-public-namespace"),
-			core.ExecAfterCmd("scw registry namespace remove cli-private-namespace"),
+			core.ExecAfterCmd("scw registry namespace delete {{ .PublicNamespace.ID }}"),
+			core.ExecAfterCmd("scw registry namespace delete {{ .PrivateNamespace.ID }}"),
 		),
 	}))
 }
@@ -80,20 +80,10 @@ func Test_ImageList(t *testing.T) {
 func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registry.ImageVisibility) core.BeforeFunc {
 	remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
 	return core.BeforeFuncCombine(
-		core.BeforeFuncOsExec(
-			[]string{"docker", "pull", dockerImage},
-			[]string{"docker", "tag", dockerImage, remote},
-			[]string{"docker", "push", remote},
-		),
-		//func(ctx *core.BeforeFuncCtx) error {
-		//	time.Sleep(2 * time.Second)
-		//	return nil
-		//},
+		core.BeforeFuncOsExec("docker", "pull", dockerImage),
+		core.BeforeFuncOsExec("docker", "tag", dockerImage, remote),
+		core.BeforeFuncOsExec("docker", "push", remote),
 		core.ExecStoreBeforeCmd("ImageListResult", fmt.Sprintf("scw registry image list name=%s", imageName)),
-		func(ctx *core.BeforeFuncCtx) error {
-			fmt.Println("pouet")
-			return nil
-		},
-		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ index .ImageListResult 0 `ID` }} visibility=%s", visibility.String())),
+		core.ExecBeforeCmd(fmt.Sprintf(`scw registry image update {{ (index .ImageListResult 0).ID }} visibility=%s`, visibility.String())),
 	)
 }

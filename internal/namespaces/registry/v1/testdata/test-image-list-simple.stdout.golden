@@ -1,0 +1,8 @@
+ID                                    Full Name                                                     Size    Visibility         Status  Created At       Updated At
+f091a7b6-561a-4741-9658-186f7141b681  rg.fr-par.scw.cloud/jquere01/alpine                           2.8 MB  private (inherit)  ready   few seconds ago  few seconds ago
+5edd2996-d00c-4d64-9629-e8ffe1c52ae1  rg.fr-par.scw.cloud/cli-public-namespace/visibility_public    760 kB  public             ready   few seconds ago  few seconds ago
+16db06c2-2908-4a97-8dfa-35e1c7fa00ca  rg.fr-par.scw.cloud/cli-public-namespace/visibility_private   756 kB  private            ready   few seconds ago  few seconds ago
+d7982e5f-bd5d-447e-89b6-7bfff824314b  rg.fr-par.scw.cloud/cli-public-namespace/visibility_inherit   728 kB  public (inherit)   ready   few seconds ago  few seconds ago
+8b0f4705-78bf-4784-afe2-3cad5520410a  rg.fr-par.scw.cloud/cli-private-namespace/visibility_public   723 kB  private (inherit)  ready   few seconds ago  few seconds ago
+fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/visibility_private  715 kB  private (inherit)  ready   few seconds ago  few seconds ago
+93240794-3f93-40f3-a175-f32eb23797ca  rg.fr-par.scw.cloud/cli-private-namespace/visibility_inherit  0 B     private (inherit)  ready   few seconds ago  few seconds ago
