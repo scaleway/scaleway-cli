@@ -154,10 +154,6 @@ func registryDockerHelperGetCommand() *core.Command {
 	}
 }
 
-func getRegistryEndpoint(region scw.Region) string {
-	return endpointPrefix + region.String() + endpointSuffix
-}
-
 func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	var serverURL string
 	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
