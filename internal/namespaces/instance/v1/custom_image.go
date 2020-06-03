@@ -3,10 +3,13 @@ package instance
 import (
 	"context"
 	"reflect"
+	"sort"
 	"strconv"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -14,6 +17,73 @@ import (
 const (
 	imageActionTimeout = 60 * time.Minute
 )
+
+//
+// Marshalers
+//
+
+// imageStateMarshalSpecs allows to override the displayed instance.ImageState.
+var (
+	imageStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.ImageStateCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.ImageStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.ImageStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	}
+)
+
+func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type humanImage struct {
+		ID               string
+		Name             string
+		State            instance.ImageState
+		Public           bool
+		Zone             scw.Zone
+		Volumes          []scw.Size
+		ServerName       string
+		ServerID         string
+		Arch             instance.Arch
+		Organization     string
+		CreationDate     time.Time
+		ModificationDate time.Time
+	}
+
+	images := i.([]*imageListItem)
+	humanImages := []*humanImage(nil)
+	for _, image := range images {
+
+		// For each image we want to display a list of volume size sepatated with `,`
+		// e.g: 10 GB, 20 GB
+		volumes := []scw.Size{
+			image.RootVolume.Size,
+		}
+		// We must sort map key to make sure volume size are in the correct order.
+		extraVolumeKeys := []string(nil)
+		for key := range image.ExtraVolumes {
+			extraVolumeKeys = append(extraVolumeKeys, key)
+		}
+		sort.Strings(extraVolumeKeys)
+
+		for _, key := range extraVolumeKeys {
+			volumes = append(volumes, image.ExtraVolumes[key].Size)
+		}
+
+		humanImages = append(humanImages, &humanImage{
+			ID:               image.ID,
+			Name:             image.Name,
+			State:            image.State,
+			Public:           image.Public,
+			Zone:             image.Zone,
+			Volumes:          volumes,
+			ServerName:       image.ServerName,
+			ServerID:         image.ServerID,
+			Arch:             image.Arch,
+			Organization:     image.Organization,
+			CreationDate:     image.CreationDate,
+			ModificationDate: image.ModificationDate,
+		})
+	}
+	return human.Marshal(humanImages, nil)
+}
 
 //
 // Builders
@@ -63,6 +133,26 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+// customImage is based on instance.Image, with additional information about the server
+type imageListItem struct {
+	ID                string
+	Name              string
+	Arch              instance.Arch
+	CreationDate      time.Time
+	ModificationDate  time.Time
+	DefaultBootscript *instance.Bootscript
+	ExtraVolumes      map[string]*instance.Volume
+	Organization      string
+	Public            bool
+	RootVolume        *instance.VolumeSummary
+	State             instance.ImageState
+
+	// Replace Image.FromServer
+	ServerID   string
+	ServerName string
+	Zone       scw.Zone
+}
+
 // imageListBuilder list the images for a given organization.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
@@ -76,25 +166,6 @@ func imageListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-		// customImage is based on instance.Image, with additional information about the server
-		type customImage struct {
-			ID                string
-			Name              string
-			Arch              instance.Arch
-			CreationDate      time.Time
-			ModificationDate  time.Time
-			DefaultBootscript *instance.Bootscript
-			ExtraVolumes      map[string]*instance.Volume
-			Organization      string
-			Public            bool
-			RootVolume        *instance.VolumeSummary
-			State             instance.ImageState
-
-			// Replace Image.FromServer
-			ServerID   string
-			ServerName string
-			Zone       scw.Zone
-		}
 
 		// Get images
 		args := argsI.(*customListImageRequest)
@@ -115,9 +186,9 @@ func imageListBuilder(c *core.Command) *core.Command {
 		images := listImagesResponse.Images
 
 		// Builds customImages
-		customImages := []*customImage(nil)
+		customImages := []*imageListItem(nil)
 		for _, image := range images {
-			newCustomImage := &customImage{
+			newCustomImage := &imageListItem{
 				ID:                image.ID,
 				Name:              image.Name,
 				Arch:              image.Arch,

@@ -278,7 +278,7 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	}
 
 	// safely get the marshalerFunc
-	marshalerFunc, _ := getMarshalerFunc(itemType)
+	marshalerFunc, _ := getMarshalerFunc(slice.Type())
 
 	switch {
 	// If marshaler func is available.
