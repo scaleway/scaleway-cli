@@ -50,6 +50,7 @@ func main() {
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
+		Stdin:     os.Stdin,
 	})
 
 	os.Exit(exitCode)

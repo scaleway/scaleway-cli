@@ -26,6 +26,7 @@ type meta struct {
 	command                     *Command
 	stdout                      io.Writer
 	stderr                      io.Writer
+	stdin                       io.Reader
 	result                      interface{}
 	isClientFromBootstrapConfig bool
 }
@@ -87,6 +88,10 @@ func ExtractUserHomeDir(ctx context.Context) string {
 
 func ExtractBinaryName(ctx context.Context) string {
 	return extractMeta(ctx).BinaryName
+}
+
+func ExtractStdin(ctx context.Context) io.Reader {
+	return extractMeta(ctx).stdin
 }
 
 func ExtractProfileName(ctx context.Context) string {
