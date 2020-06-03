@@ -637,3 +637,64 @@ ARGS:
   [organization-default]
   [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config
 ```
+
+### `scw instance server`
+
+Server types are denomination of the different instances we provide.
+Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
+
+**Virtual Cloud Instances**
+
+Virtual cloud instances are offering the best performance/price ratio for most workloads. Different CPU architectures are proposed: The **Development** and **General Purpose** ranges are based on AMD EPYC CPUs. The **ARM64** range is based on Cavium Thunder X ARM CPUs.
+
+* The **Development** instances range provides stable and consistent performance for development needs.
+  Spin up a development or test environment within seconds.
+  Refer to the [Development Instance offer details](https://www.scaleway.com/en/development-instances/) for more information.
+
+* The **General Purpose** instances range is the solution for demanding workloads.
+  Powerful AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and 600GB of replicated local NVMe SSD storage.
+  Refer to the [General Purpose offer details](https://www.scaleway.com/en/general-purpose-instances/) for more information.
+
+* The **ARM** instances range is based on Cavium ThunderX SoCs and provides up to 64 Cores ARM 64bit, 128GB of RAM and 1TB SSD storage.
+  Refer to the [ARM offer details](https://www.scaleway.com/en/arm-instances) for more information.
+
+**Dedicated GPU Instances**
+
+GPU instances are very powerful compute instances, providing lots of RAM, vCPU, and storage.
+
+They are equipped with Nvidia Tesla P100 GPUs, which are designed for handling rapidly, a massive amount of data.  
+They are useful for heavy data processing, artificial intelligence and machine learning, video encoding, rendering, and so on.  
+The GPU is dedicated to each instance and directly exposed through PCI-e.  
+For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-instances/).
+
+**Usage:** 
+scw instance server <command>
+
+**Available commands:**
+  list          List servers
+  get           Get server
+  update        Update server
+  attach-volume Attach a volume to a server
+  backup        Backup server
+  console       Connect to the serial console of an instance
+  create        Create server
+  delete        Delete server
+  terminate     Terminate server
+  detach-volume Detach a volume from its server
+  ssh           SSH into a server
+  start         Power on server
+  stop          Power off server
+  standby       Put server in standby mode
+  reboot        Reboot server
+  wait          Wait for server to reach a stable state
+
+* [`scw instance server list`](#scw-instance-server-list) List servers
+* [`scw instance server get`](#scw-instance-server-get) Get server
+* [`scw instance server update`](#scw-instance-server-upate) Update server
+* [`scw instance server attach-volume`](#scw-instance-server-attach-volume)
+* [`scw instance server backup`](#scw-instance-server-backup)
+* [`scw instance server console`](#scw-instance-server-console)
+* [`scw instance server create`](#scw-instance-server-create)
+* [`scw instance server delete`](#scw-instance-server-delete)
+* [`scw instance server terminate`](#scw-instance-server-terminate)
+* [`scw instance server detach-volume`](#scw-instance-server-detach-volume)
