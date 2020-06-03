@@ -232,17 +232,18 @@ func imageWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForImage(&instance.WaitForImageRequest{
-				Zone:    argsI.(*instance.WaitForImageRequest).Zone,
-				ImageID: argsI.(*instance.WaitForImageRequest).ImageID,
-				Timeout: imageActionTimeout,
+				Zone:          argsI.(*instance.WaitForImageRequest).Zone,
+				ImageID:       argsI.(*instance.WaitForImageRequest).ImageID,
+				Timeout:       scw.TimeDurationPtr(imageActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "image-id",
-				Short:    `ID of the image.`,
-				Required: true,
+				Name:       "image-id",
+				Short:      `ID of the image.`,
+				Required:   true,
 				Positional: true,
 			},
 			core.ZoneArgSpec(),

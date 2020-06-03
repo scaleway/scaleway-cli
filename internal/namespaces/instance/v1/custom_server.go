@@ -572,8 +572,10 @@ Once your image is ready you will be able to create a new server based on this i
 			resp := respI.(*instance.GetImageResponse)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForImage(&instance.WaitForImageRequest{
-				ImageID: resp.Image.ID,
-				Zone:    resp.Image.Zone,
+				ImageID:       resp.Image.ID,
+				Zone:          resp.Image.Zone,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -623,9 +625,10 @@ func serverWaitCommand() *core.Command {
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:     argsI.(*instanceActionRequest).Zone,
-			ServerID: argsI.(*instanceActionRequest).ServerID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*instanceActionRequest).Zone,
+			ServerID:      argsI.(*instanceActionRequest).ServerID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }
@@ -736,8 +739,10 @@ func serverDeleteCommand() *core.Command {
 
 			if deleteServerArgs.ForceShutdown {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:     deleteServerArgs.Zone,
-					ServerID: deleteServerArgs.ServerID,
+					Zone:          deleteServerArgs.Zone,
+					ServerID:      deleteServerArgs.ServerID,
+					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					RetryInterval: core.DefaultRetryInterval,
 				})
 				if err != nil {
 					return nil, err
@@ -745,9 +750,11 @@ func serverDeleteCommand() *core.Command {
 
 				if finalStateServer.State != instance.ServerStateStopped {
 					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:     deleteServerArgs.Zone,
-						ServerID: deleteServerArgs.ServerID,
-						Action:   instance.ServerActionPoweroff,
+						Zone:          deleteServerArgs.Zone,
+						ServerID:      deleteServerArgs.ServerID,
+						Action:        instance.ServerActionPoweroff,
+						Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {
 						return nil, err
