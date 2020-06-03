@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -251,8 +251,8 @@ func accountSSHKeyRemove() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Remove a given SSH key",
-				Request: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Remove a given SSH key",
+				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

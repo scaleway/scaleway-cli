@@ -132,8 +132,8 @@ func k8sClusterWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a cluster to reach a stable state",
-				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a cluster to reach a stable state",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

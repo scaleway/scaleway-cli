@@ -118,8 +118,8 @@ func k8sPoolWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a pool to reach a stable state",
-				Request: `{"pool_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a pool to reach a stable state",
+				ArgsJSON: `{"pool_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

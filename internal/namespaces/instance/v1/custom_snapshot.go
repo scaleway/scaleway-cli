@@ -106,8 +106,8 @@ func snapshotWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a snapshot to reach a stable state",
-				Request: `{"snapshot_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a snapshot to reach a stable state",
+				ArgsJSON: `{"snapshot_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}

@@ -49,8 +49,8 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 		Run: k8sKubeconfigInstallRun,
 		Examples: []*core.Example{
 			{
-				Short:   "Install the kubeconfig for a given cluster and using the new context",
-				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Install the kubeconfig for a given cluster and using the new context",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

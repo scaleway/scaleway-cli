@@ -321,8 +321,8 @@ func imageWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a image to reach a stable state",
-				Request: `{"image_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a image to reach a stable state",
+				ArgsJSON: `{"image_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
