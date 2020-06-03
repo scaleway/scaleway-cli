@@ -81,8 +81,8 @@ func k8sNodeWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a node to reach a stable state",
-				Request: `{"node_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a node to reach a stable state",
+				ArgsJSON: `{"node_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
