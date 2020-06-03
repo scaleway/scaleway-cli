@@ -252,7 +252,7 @@ async function main() {
     // Update Docker version
     //
     console.log("Build and push a container image")
-    docker(`docker build -t . scaleway/cli:v${newVersion}`)
+    docker(`docker build -t scaleway/cli:v${newVersion} .`)
     docker(`docker push scaleway/cli:v${newVersion}`)
 
     //
