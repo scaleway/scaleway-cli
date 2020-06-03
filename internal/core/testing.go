@@ -231,6 +231,9 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 	return client
 }
 
+// DefaultRetryInterval is used across all wait functions in the CLI
+// In particular it is very handy to define this RetryInterval at 0 second while running cassette in testing
+// because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
 // Run a CLI integration test. See TestConfig for configuration option
