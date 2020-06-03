@@ -137,8 +137,8 @@ func baremetalServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all servers on your default zone",
-				Request: `null`,
+				Short:    "List all servers on your default zone",
+				ArgsJSON: `null`,
 			},
 		},
 	}
@@ -171,8 +171,8 @@ func baremetalServerGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a given server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Get a given server",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -224,8 +224,8 @@ func baremetalServerCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create instance a default baremetal instance",
-				Request: `null`,
+				Short:    "Create instance a default baremetal instance",
+				ArgsJSON: `null`,
 			},
 		},
 	}
@@ -322,8 +322,8 @@ func baremetalServerInstall() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Install an OS on a given server with a particular SSH key ID",
-				Request: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
+				Short:    "Install an OS on a given server with a particular SSH key ID",
+				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -370,8 +370,8 @@ func baremetalServerDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a baremetal server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete a baremetal server",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -411,12 +411,12 @@ func baremetalServerReboot() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Reboot a server using the same os",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Reboot a server using the same os",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Reboot a server in rescue mode",
-				Request: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Reboot a server in rescue mode",
+				ArgsJSON: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -449,8 +449,8 @@ func baremetalServerStart() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Start a baremetal server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Start a baremetal server",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -483,8 +483,8 @@ func baremetalServerStop() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Stop a baremetal server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Stop a baremetal server",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -549,8 +549,8 @@ func baremetalOsGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a specific OS ID",
-				Request: `{}`,
+				Short:    "Get a specific OS ID",
+				ArgsJSON: `{}`,
 			},
 		},
 	}

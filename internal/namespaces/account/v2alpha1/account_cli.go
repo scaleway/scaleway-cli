@@ -66,6 +66,11 @@ func accountSSHKeyList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project-id",
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Required:   false,
 				Positional: false,
@@ -131,6 +136,12 @@ func accountSSHKeyAdd() *core.Command {
 				Name:       "public-key",
 				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
 				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project owning the resource`,
+				Required:   false,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
@@ -251,8 +262,8 @@ func accountSSHKeyRemove() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Remove a given SSH key",
-				Request: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Remove a given SSH key",
+				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
