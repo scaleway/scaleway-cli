@@ -66,6 +66,11 @@ func accountSSHKeyList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project-id",
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Required:   false,
 				Positional: false,
@@ -131,6 +136,12 @@ func accountSSHKeyAdd() *core.Command {
 				Name:       "public-key",
 				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
 				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project owning the resource`,
+				Required:   false,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
