@@ -169,62 +169,9 @@ It will set up your profile, the authentication, and the auto-completion.
 
 # Examples
 
-## Instances 
-
-Cloud instances are available for any workload from 1 to 48 vCPUs with an x86 architecture. Most common apps and distributions can be deployed in seconds. Fore more information, refer to the [cloud compute instances documentation](INSTANCES.MD)
-
-### Listing the available offers 
-
-To see a list of available cloud instances, run the following command: 
-
-```
-scw instance server-type list
-```
-
-### Creating a compute instance
-
-To create a instance in the FR-PAR-1 zone with the commercial offer DEV1-S, running on Ubuntu Focal run the following command: 
-```
-scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
-```
-
-### Listing all instances
-
-It is possible to retrieve a list of all compute instances in the account by running the following command: 
-```
-scw instance server list
-``` 
-
-## Marketplace 
-
-The `marketplace` subcommand allows you to retrieve a list of all available public images, as well as details to their creation and modification dates. To retrieve the list, run the following command: 
-
-```
-scw marketplace image list
-```
-
-## Bare Metal Server
-
-### Creating a Bare Metal Server
-
-To create a Bare Metal Server in the zone `fr-par-2` run the following command:
-
-```
-scw baremetal server create zone=fr-par-2
-```
-
-### Installing a Bare Metal Server 
-
-Once a Bare Metal Server is created the operating system can be installed by running the following command. It will install the server with all SSH keys available in the organization, Ubuntu 20.04 and the hostname `test`: 
-
-```
-scw baremetal server install <server-id> zone=fr-par-2 all-ssh-keys=true os-id=03b7f4ba-a6a1-4305-984e-b54fafbf1681 hostname=test
-```
-
-
-# Tutorials
-
-TODO: Add a list of tutorials here.
+| Namespace | Description | Link |
+|--|--|--|
+| Instance| | |
 
 # Development
 

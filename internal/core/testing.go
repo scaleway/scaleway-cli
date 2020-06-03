@@ -2,6 +2,7 @@ package core
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -17,7 +18,9 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -153,6 +156,14 @@ type TestConfig struct {
 
 	// Custom client to use for test, if none are provided will create one automatically
 	Client *scw.Client
+
+	// Context that will be forwarded to Bootstrap
+	Ctx context.Context
+
+	// If this is specified this value will be passed to interactive.InjectMockResponseToContext ans will allow
+	// to mock response a user would have enter in a prompt.
+	// Warning: All prompts MUST be mocked or test will hang.
+	PromptResponseMocks []string
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -170,9 +181,8 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	return filepath.Join(".", "testdata", fileName)
 }
 
-func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
+func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Client) (client *scw.Client) {
 	var err error
-	cleanup = func() {}
 
 	// Init default options
 	clientOpts := []scw.ClientOption{
@@ -180,22 +190,21 @@ func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client,
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
-		scw.WithEnv(),
 		scw.WithUserAgent("cli-e2e-test"),
 	}
 
 	// If client is NOT an E2E client we init http recorder and load configuration.
 	if !testConfig.UseE2EClient {
-		var httpClient *http.Client
-		httpClient, cleanup, err = getHTTPRecoder(t, UpdateCassettes)
-		require.NoError(t, err)
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 
-		config, err := scw.LoadConfig()
-		if err == nil {
-			p, err := config.GetActiveProfile()
-			require.NoError(t, err)
-			clientOpts = append(clientOpts, scw.WithProfile(p))
+		if UpdateCassettes {
+			clientOpts = append(clientOpts, scw.WithEnv())
+			config, err := scw.LoadConfig()
+			if err == nil {
+				p, err := config.GetActiveProfile()
+				require.NoError(t, err)
+				clientOpts = append(clientOpts, scw.WithProfile(p))
+			}
 		}
 	}
 
@@ -219,7 +228,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client,
 		require.NoError(t, err)
 	}
 
-	return client, cleanup
+	return client
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
@@ -235,13 +244,24 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
+		ctx := config.Ctx
+		if ctx == nil {
+			ctx = context.Background()
+		}
+		if len(config.PromptResponseMocks) > 0 {
+			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
+		}
+
+		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
+		require.NoError(t, err)
+		defer cleanup()
+		ctx = account.InjectHttpClient(ctx, httpClient)
+
 		// We try to use the client provided in the config
 		// if no client is provided in the config we create a test client
 		client := config.Client
 		if client == nil {
-			var cleanup func()
-			client, cleanup = createTestClient(t, config)
-			defer cleanup()
+			client = createTestClient(t, config, httpClient)
 		}
 
 		meta := TestMeta{
@@ -261,6 +281,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				assert.NoError(t, err)
 			}()
 			overrideEnv["HOME"] = dir
+			meta["HOME"] = dir
 		}
 
 		overrideExec := defaultOverrideExec
@@ -288,6 +309,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableTelemetry: true,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
+				Ctx:              ctx,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -308,7 +330,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.Cmd
 		var result interface{}
 		var exitCode int
-		var err error
 		args := config.Args
 		if config.Cmd != "" {
 			args = cmdToArgs(meta, config.Cmd)
@@ -327,6 +348,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableTelemetry: true,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
+				Ctx:              ctx,
 			})
 
 			meta["CmdResult"] = result
@@ -376,6 +398,15 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	}
 }
 
+func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		if UpdateCassettes {
+			return beforeFunc(ctx)
+		}
+		return nil
+	}
+}
+
 // AfterFuncCombine combines multiple after functions into one.
 func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
@@ -398,6 +429,18 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
+		return nil
+	}
+}
+
+func BeforeFuncOsExec(cmdStrings ...[]string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		for _, cmdString := range cmdStrings {
+			err := exec.Command(cmdString[0], cmdString[1:len(cmdString)-1]...).Run()
+			if err != nil {
+				return err
+			}
+		}
 		return nil
 	}
 }

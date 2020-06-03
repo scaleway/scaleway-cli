@@ -6,12 +6,12 @@ USAGE:
 AVAILABLE COMMANDS:
   server      A server is a denomination of a type of instances provided by Scaleway
   os          An Operating System (OS) is the underlying software installed on your server
-  ip          IP fail-over management
 
 FLAGS:
   -h, --help   help for baremetal
 
 GLOBAL FLAGS:
+  -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human
   -p, --profile string   The config profile to use
