@@ -2,6 +2,7 @@ package account
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -43,14 +44,14 @@ var (
 )
 
 // Login creates a new token
-func Login(req *LoginRequest) (*LoginResponse, error) {
+func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 	// todo: add line of log
 	rawJSON, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := http.Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
+	resp, err := extractHttpClient(ctx).Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
 	if err != nil {
 		return nil, err
 	}
@@ -77,8 +78,8 @@ func Login(req *LoginRequest) (*LoginResponse, error) {
 	return loginResponse, err
 }
 
-func GetAccessKey(secretKey string) (string, error) {
-	resp, err := http.Get(accountURL + "/tokens/" + secretKey)
+func GetAccessKey(ctx context.Context, secretKey string) (string, error) {
+	resp, err := extractHttpClient(ctx).Get(accountURL + "/tokens/" + secretKey)
 	if err != nil {
 		return "", err
 	}
@@ -101,14 +102,13 @@ func GetAccessKey(secretKey string) (string, error) {
 	return token.Token.AccessKey, err
 }
 
-func getOrganizations(secretKey string) ([]organization, error) {
+func getOrganizations(ctx context.Context, secretKey string) ([]organization, error) {
 	req, err := http.NewRequest("GET", accountURL+"/organizations", nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Add("X-Auth-Token", secretKey)
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := extractHttpClient(ctx).Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -127,8 +127,8 @@ func getOrganizations(secretKey string) ([]organization, error) {
 	return organizationsResponse.Organizations, nil
 }
 
-func GetOrganizationsIds(secretKey string) ([]string, error) {
-	organizations, err := getOrganizations(secretKey)
+func GetOrganizationsIds(ctx context.Context, secretKey string) ([]string, error) {
+	organizations, err := getOrganizations(ctx, secretKey)
 	if err != nil {
 		return nil, err
 	}

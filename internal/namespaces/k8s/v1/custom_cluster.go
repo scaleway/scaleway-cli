@@ -78,9 +78,10 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 func waitForClusterFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
-			Region:    respI.(*k8s.Cluster).Region,
-			ClusterID: respI.(*k8s.Cluster).ID,
-			Timeout:   scw.TimeDurationPtr(clusterActionTimeout),
+			Region:        respI.(*k8s.Cluster).Region,
+			ClusterID:     respI.(*k8s.Cluster).ID,
+			Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		switch action {
 		case clusterActionCreate:
@@ -114,9 +115,10 @@ func k8sClusterWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForCluster(&k8s.WaitForClusterRequest{
-				Region:    argsI.(*k8s.WaitForClusterRequest).Region,
-				ClusterID: argsI.(*k8s.WaitForClusterRequest).ClusterID,
-				Timeout:   scw.TimeDurationPtr(clusterActionTimeout),
+				Region:        argsI.(*k8s.WaitForClusterRequest).Region,
+				ClusterID:     argsI.(*k8s.WaitForClusterRequest).ClusterID,
+				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{

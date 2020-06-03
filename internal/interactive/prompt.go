@@ -1,6 +1,8 @@
 package interactive
 
 import (
+	"context"
+	"os"
 	"strings"
 
 	"github.com/chzyer/readline"
@@ -10,21 +12,20 @@ import (
 )
 
 type PromptPasswordConfig struct {
+	Ctx    context.Context
 	Prompt string
 }
 
 func PromptPasswordWithConfig(config *PromptPasswordConfig) (string, error) {
 	return Readline(&ReadlineConfig{
+		Ctx:      config.Ctx,
 		Prompt:   config.Prompt + ": ",
 		Password: true,
 	})
 }
 
-func PromptPassword(prompt string) (string, error) {
-	return PromptPasswordWithConfig(&PromptPasswordConfig{Prompt: prompt})
-}
-
 type PromptBoolConfig struct {
+	Ctx          context.Context
 	Prompt       string
 	DefaultValue bool
 }
@@ -38,7 +39,10 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 			prompt = prompt + " (y/N): "
 		}
 
-		str, err := Readline(&ReadlineConfig{Prompt: prompt})
+		str, err := Readline(&ReadlineConfig{
+			Ctx:    config.Ctx,
+			Prompt: prompt,
+		})
 		if err != nil {
 			return false, err
 		}
@@ -55,14 +59,8 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 	}
 }
 
-// TODO: cleanup
-func PromptBool(prompt string) (bool, error) {
-	return PromptBoolWithConfig(&PromptBoolConfig{
-		Prompt: prompt,
-	})
-}
-
 type PromptStringConfig struct {
+	Ctx             context.Context
 	Prompt          string
 	DefaultValue    string
 	DefaultValueDoc string
@@ -77,6 +75,7 @@ func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
 	prompt += ": "
 
 	v, err := Readline(&ReadlineConfig{
+		Ctx:          config.Ctx,
 		Prompt:       prompt,
 		ValidateFunc: config.ValidateFunc,
 		DefaultValue: config.DefaultValue,
@@ -90,10 +89,6 @@ func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
 	return v, err
 }
 
-func PromptString(prompt string) (string, error) {
-	return PromptStringWithConfig(&PromptStringConfig{Prompt: prompt})
-}
-
 type ReadlineHandler struct {
 	rl *readline.Instance
 }
@@ -103,6 +98,7 @@ func (h *ReadlineHandler) SetPrompt(prompt string) {
 }
 
 type ReadlineConfig struct {
+	Ctx          context.Context
 	Prompt       string
 	PromptFunc   func(string) string
 	Password     bool
@@ -130,6 +126,10 @@ func Readline(config *ReadlineConfig) (string, error) {
 		EnableMask:             config.Password,
 		FuncIsTerminal: func() bool {
 			return IsInteractive
+		},
+		Stdin: &mockResponseReader{
+			ctx:           config.Ctx,
+			defaultReader: os.Stdin,
 		},
 		Listener: readline.FuncListener(func(line []rune, pos int, key rune) (newLine []rune, newPos int, ok bool) {
 			value := string(line)

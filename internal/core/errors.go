@@ -23,6 +23,12 @@ func InvalidSecretKeyError(value string) *CliError {
 		Hint: "secret_key should be a valid UUID, formatted as: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.",
 	}
 }
+func InvalidAccessKeyError(value string) *CliError {
+	return &CliError{
+		Err:  fmt.Errorf("invalid access_key '%v'", value),
+		Hint: "access_key should look like : SCWXXXXXXXXXXXXXXXXX.",
+	}
+}
 
 func InvalidOrganizationIDError(value string) *CliError {
 	return &CliError{
@@ -34,5 +40,11 @@ func InvalidOrganizationIDError(value string) *CliError {
 func ArgumentConflictError(arg1 string, arg2 string) *CliError {
 	return &CliError{
 		Err: fmt.Errorf("only one of those two arguments '%s' and '%s' can be specified in the same time", arg1, arg2),
+	}
+}
+
+func WindowIsNotSupportedError() *CliError {
+	return &CliError{
+		Err: fmt.Errorf("windows is not currently supported"),
 	}
 }

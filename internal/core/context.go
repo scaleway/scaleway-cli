@@ -13,7 +13,8 @@ import (
 type meta struct {
 	BinaryName string
 
-	ProfileFlag string
+	ProfileFlag    string
+	ConfigPathFlag string
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
@@ -25,6 +26,7 @@ type meta struct {
 	command                     *Command
 	stdout                      io.Writer
 	stderr                      io.Writer
+	stdin                       io.Reader
 	result                      interface{}
 	isClientFromBootstrapConfig bool
 }
@@ -88,11 +90,22 @@ func ExtractBinaryName(ctx context.Context) string {
 	return extractMeta(ctx).BinaryName
 }
 
+func ExtractStdin(ctx context.Context) io.Reader {
+	return extractMeta(ctx).stdin
+}
+
 func ExtractProfileName(ctx context.Context) string {
 	if extractMeta(ctx).ProfileFlag != "" {
 		return extractMeta(ctx).ProfileFlag
 	}
 	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+}
+
+func ExtractConfigPath(ctx context.Context) string {
+	if extractMeta(ctx).ConfigPathFlag != "" {
+		return extractMeta(ctx).ConfigPathFlag
+	}
+	return scw.GetConfigPath()
 }
 
 func ReloadClient(ctx context.Context) error {
