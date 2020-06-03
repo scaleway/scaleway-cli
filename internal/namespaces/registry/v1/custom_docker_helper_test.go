@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"runtime"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -13,6 +14,10 @@ import (
 )
 
 func TestRegistryInstallDockerHelperCommand(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("windows is not supported")
+	}
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: nil,
 		Commands:   GetCommands(),
