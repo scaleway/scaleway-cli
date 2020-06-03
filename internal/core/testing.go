@@ -453,15 +453,9 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	}
 }
 
-func BeforeFuncOsExec(cmdStrings ...[]string) BeforeFunc {
+func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		for _, cmdString := range cmdStrings {
-			err := exec.Command(cmdString[0], cmdString[1:len(cmdString)-1]...).Run()
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return exec.Command(cmd, args...).Run()
 	}
 }
 
