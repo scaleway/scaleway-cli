@@ -156,7 +156,7 @@ func initCommand() *core.Command {
 			// Credentials
 			if args.SecretKey == "" {
 				_, _ = interactive.Println()
-				args.SecretKey, err = promptCredentials()
+				args.SecretKey, err = promptCredentials(ctx)
 				if err != nil {
 					return err
 				}
@@ -197,7 +197,7 @@ func initCommand() *core.Command {
 			// Set OrganizationID if not done previously
 			// As OrganizationID depends on args.SecretKey, we can't use a DefaultFunc or ArgPromptFunc.
 			if args.OrganizationID == "" {
-				args.OrganizationID, err = getOrganizationID(args.SecretKey)
+				args.OrganizationID, err = getOrganizationID(ctx, args.SecretKey)
 				if err != nil {
 					return err
 				}
@@ -208,7 +208,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
 					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disabled at any time by running "scw config set send_telemetry false".
+					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
 				`)
 
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -265,7 +265,8 @@ func initCommand() *core.Command {
 			args := argsI.(*initArgs)
 			// Check if a config exists
 			// Creates a new one if it does not
-			config, err := scw.LoadConfig()
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				config = &scw.Config{}
 				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
@@ -276,7 +277,7 @@ func initCommand() *core.Command {
 			}
 
 			// Get access key
-			accessKey, err := account.GetAccessKey(args.SecretKey)
+			accessKey, err := account.GetAccessKey(ctx, args.SecretKey)
 			if err != nil {
 				return "", &core.CliError{
 					Err:     err,
@@ -306,7 +307,7 @@ func initCommand() *core.Command {
 
 			// Persist configuration on disk
 			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
-			err = config.Save()
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
@@ -338,7 +339,7 @@ func initCommand() *core.Command {
 
 			// Remove old configuration file
 			if args.RemoveV1Config != nil && *args.RemoveV1Config {
-				homeDir, _ := os.UserHomeDir()
+				homeDir := core.ExtractUserHomeDir(ctx)
 				err = os.Remove(path.Join(homeDir, ".scwrc"))
 				if err != nil {
 					successDetails += "\n  except for removing old configuration: " + err.Error()
@@ -355,7 +356,7 @@ func initCommand() *core.Command {
 	}
 }
 
-func promptCredentials() (string, error) {
+func promptCredentials(ctx context.Context) (string, error) {
 	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
 		PromptFunc: func(value string) string {
 			secretKey, email := "secret-key", "email"
@@ -383,7 +384,10 @@ func promptCredentials() (string, error) {
 		passwordRetriesLeft := 3
 		for passwordRetriesLeft > 0 {
 			email := UUIDOrEmail
-			password, err := interactive.PromptPassword("Enter your " + terminal.Style("password", color.Bold))
+			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
+				Ctx:    ctx,
+				Prompt: "Enter your " + terminal.Style("password", color.Bold),
+			})
 			if err != nil {
 				return "", err
 			}
@@ -394,7 +398,7 @@ func promptCredentials() (string, error) {
 				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
 			}
 			for {
-				loginResp, err := account.Login(loginReq)
+				loginResp, err := account.Login(ctx, loginReq)
 				if err != nil {
 					return "", err
 				}
@@ -410,7 +414,10 @@ func promptCredentials() (string, error) {
 				if !loginResp.TwoFactorRequired {
 					return loginResp.Token.SecretKey, nil
 				}
-				loginReq.TwoFactorToken, err = interactive.PromptString("Enter your 2FA code")
+				loginReq.TwoFactorToken, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Enter your 2FA code",
+				})
 				if err != nil {
 					return "", err
 				}
@@ -429,8 +436,8 @@ func promptCredentials() (string, error) {
 // getOrganizationId handles prompting for the argument organization-id
 // If we have only 1 id : we use it, and don't prompt
 // If we have more than 1 id, we prompt, with id[0] as default value.
-func getOrganizationID(secretKey string) (string, error) {
-	IDs, err := account.GetOrganizationsIds(secretKey)
+func getOrganizationID(ctx context.Context, secretKey string) (string, error) {
+	IDs, err := account.GetOrganizationsIds(ctx, secretKey)
 	if err != nil {
 		logger.Warningf("%v", err)
 		return promptOrganizationID(IDs)

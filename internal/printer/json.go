@@ -33,6 +33,7 @@ func (o *jsonPrinter) Print(data interface{}, opt *human.MarshalOpt) error {
 		if err != nil {
 			return err
 		}
+		return nil
 	}
 
 	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {

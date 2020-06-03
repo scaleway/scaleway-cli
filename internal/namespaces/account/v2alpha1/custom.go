@@ -72,6 +72,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Ask user
 	_, _ = interactive.Println("An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/configure-new-ssh-key")
 	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		Ctx:          ctx,
 		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway account?",
 		DefaultValue: true,
 	})

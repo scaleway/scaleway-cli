@@ -48,6 +48,9 @@ type BootstrapConfig struct {
 	// If this function is not defined the exec.Cmd.Run function will be called directly.
 	// This function is intended to be use for tests purposes.
 	OverrideExec OverrideExecFunc
+
+	// BaseContest is the base context that will be used across all function call from top to bottom.
+	Ctx context.Context
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -58,10 +61,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Handles Flags
 	var debug bool
 	var profileName string
+	var configPath string
 	var printerType printer.Type
 
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
+	flags.StringVarP(&configPath, "config", "c", "", "The path to the config file")
 	flags.VarP(&printerType, "output", "o", "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	// Ignore unknown flag
@@ -138,7 +143,11 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		meta.OverrideExec = defaultOverrideExec
 	}
 
-	ctx := injectMeta(context.Background(), meta)
+	ctx := config.Ctx
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	ctx = injectMeta(context.Background(), meta)
 
 	// Send Matomo telemetry when exiting the bootstrap
 	start := time.Now()
@@ -184,6 +193,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&profileName, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().StringVarP(&profileName, "config", "c", "", "The path to the config file")
 	rootCmd.PersistentFlags().VarP(&printerType, "output", "o", "Output format: json or human")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])

@@ -7,6 +7,7 @@ FLAGS:
   -h, --help   help for version
 
 GLOBAL FLAGS:
+  -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human
   -p, --profile string   The config profile to use
