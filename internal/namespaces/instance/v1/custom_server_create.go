@@ -137,9 +137,10 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:     argsI.(*instanceCreateServerRequest).Zone,
-			ServerID: respI.(*instance.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*instanceCreateServerRequest).Zone,
+			ServerID:      respI.(*instance.Server).ID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }

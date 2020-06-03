@@ -43,9 +43,10 @@ func serverWaitCommand() *core.Command {
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
 			logger.Debugf("starting to wait for server to reach a stable delivery status")
 			server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
-				ServerID: argsI.(*serverWaitRequest).ServerID,
-				Zone:     argsI.(*serverWaitRequest).Zone,
-				Timeout:  serverActionTimeout,
+				ServerID:      argsI.(*serverWaitRequest).ServerID,
+				Zone:          argsI.(*serverWaitRequest).Zone,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
 				return nil, err
@@ -58,9 +59,10 @@ func serverWaitCommand() *core.Command {
 			}
 			logger.Debugf("server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status")
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
-				ServerID: argsI.(*serverWaitRequest).ServerID,
-				Zone:     argsI.(*serverWaitRequest).Zone,
-				Timeout:  serverActionTimeout,
+				ServerID:      argsI.(*serverWaitRequest).ServerID,
+				Zone:          argsI.(*serverWaitRequest).Zone,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
 				return nil, err
@@ -97,9 +99,10 @@ func serverStartBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:     argsI.(*baremetal.StartServerRequest).Zone,
-			ServerID: respI.(*baremetal.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*baremetal.StartServerRequest).Zone,
+			ServerID:      respI.(*baremetal.Server).ID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
@@ -111,9 +114,10 @@ func serverStopBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:     argsI.(*baremetal.StopServerRequest).Zone,
-			ServerID: respI.(*baremetal.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*baremetal.StopServerRequest).Zone,
+			ServerID:      respI.(*baremetal.Server).ID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
@@ -127,9 +131,10 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
-			ServerID: respI.(*baremetal.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*baremetal.RebootServerRequest).Zone,
+			ServerID:      respI.(*baremetal.Server).ID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 

@@ -7,6 +7,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -43,7 +44,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 			SnapshotID:    respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
 			Zone:          argsI.(*customCreateSnapshotRequest).Zone,
-			Timeout:       serverActionTimeout,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -89,7 +90,7 @@ func snapshotWaitCommand() *core.Command {
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
 				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
-				Timeout:       snapshotActionTimeout,
+				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 
