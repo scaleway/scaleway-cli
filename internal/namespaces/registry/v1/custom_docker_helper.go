@@ -136,7 +136,8 @@ then
 	PROFILE_NAME="$SCW_PROFILE"
 fi
 {{ end -}}
-{{ .BinaryName }}{{ if .ProfileName }} --profile $PROFILE_NAME{{ end }} registry docker-helper "$@"`
+{{ .BinaryName }}{{ if .ProfileName }} --profile $PROFILE_NAME{{ end }} registry docker-helper "$@"
+`
 
 type registryDockerHelperGetResponse struct {
 	Secret   string `json:"Secret"`

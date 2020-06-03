@@ -21,7 +21,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
 			striptContent, err := ioutil.ReadFile(scriptPath)
 			require.NoError(t, err)
-			assert.Equal(t, "#!/bin/sh\n\n\nscw registry docker-helper \"$@\"\n", string(striptContent))
+			assert.Equal(t, "#!/bin/sh\nscw registry docker-helper \"$@\"\n", string(striptContent))
 			stats, err := os.Stat(scriptPath)
 			require.NoError(t, err)
 			assert.Equal(t, os.FileMode(0755), stats.Mode())
@@ -47,7 +47,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
 			striptContent, err := ioutil.ReadFile(scriptPath)
 			require.NoError(t, err)
-			assert.Equal(t, "#!/bin/sh\nPROFILE_NAME=\"profile01\"\nif [[ ! -z \"$SCW_PROFILE\" ]]\nthen \n\tPROFILE_NAME=\"$SCW_PROFILE\"\nfi\nscw --profile $PROFILE_NAME= registry docker-helper \"$@\"", string(striptContent))
+			assert.Equal(t, "#!/bin/sh\nPROFILE_NAME=\"profile01\"\nif [[ ! -z \"$SCW_PROFILE\" ]]\nthen \n\tPROFILE_NAME=\"$SCW_PROFILE\"\nfi\nscw --profile $PROFILE_NAME registry docker-helper \"$@\"\n", string(striptContent))
 
 		},
 		AfterFunc:   nil,
