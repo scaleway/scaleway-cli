@@ -35,8 +35,8 @@ If the current context points to this cluster, it will be set to an empty contex
 		Run: k8sKubeconfigUninstallRun,
 		Examples: []*core.Example{
 			{
-				Short:   "Uninstall the kubeconfig for a given cluster",
-				Request: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Uninstall the kubeconfig for a given cluster",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{

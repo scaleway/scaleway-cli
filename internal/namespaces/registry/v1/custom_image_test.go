@@ -3,19 +3,17 @@ package registry
 import (
 	"fmt"
 	"testing"
-	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 
 func Test_ImageList(t *testing.T) {
-	t.Skipf("Waiting for registry API to fix cache problems")
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw registry namespace create name=cli-public-namespace is-public=true"),
-			core.ExecBeforeCmd("scw registry namespace create name=cli-private-namespace is-public=false"),
+			core.ExecStoreBeforeCmd("PublicNamespace", "scw registry namespace create name=cli-public-namespace is-public=true"),
+			core.ExecStoreBeforeCmd("PrivateNamespace", "scw registry namespace create name=cli-private-namespace is-public=false"),
 			core.BeforeFuncWhenUpdatingCassette(
 				core.ExecBeforeCmd("scw registry login"),
 			),
@@ -73,8 +71,8 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw registry namespace remove cli-public-namespace"),
-			core.ExecAfterCmd("scw registry namespace remove cli-private-namespace"),
+			core.ExecAfterCmd("scw registry namespace delete {{ .PublicNamespace.ID }}"),
+			core.ExecAfterCmd("scw registry namespace delete {{ .PrivateNamespace.ID }}"),
 		),
 	}))
 }
@@ -82,16 +80,10 @@ func Test_ImageList(t *testing.T) {
 func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registry.ImageVisibility) core.BeforeFunc {
 	remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
 	return core.BeforeFuncCombine(
-		core.BeforeFuncOsExec(
-			[]string{"docker", fmt.Sprintf("pull %s", dockerImage)},
-			[]string{"docker", fmt.Sprintf("tag %s %s", dockerImage, remote)},
-			[]string{"docker", fmt.Sprintf("push %s", remote)},
-		),
-		func(ctx *core.BeforeFuncCtx) error {
-			time.Sleep(2 * time.Minute)
-			return nil
-		},
-		core.ExecStoreBeforeCmd("Image", fmt.Sprintf("scw registry image list name=%s", imageName)),
-		core.ExecBeforeCmd(fmt.Sprintf("scw registry image update {{ index .Image 0 `ID` }} visibility=%s", visibility.String())),
+		core.BeforeFuncOsExec("docker", "pull", dockerImage),
+		core.BeforeFuncOsExec("docker", "tag", dockerImage, remote),
+		core.BeforeFuncOsExec("docker", "push", remote),
+		core.ExecStoreBeforeCmd("ImageListResult", fmt.Sprintf("scw registry image list name=%s", imageName)),
+		core.ExecBeforeCmd(fmt.Sprintf(`scw registry image update {{ (index .ImageListResult 0).ID }} visibility=%s`, visibility.String())),
 	)
 }

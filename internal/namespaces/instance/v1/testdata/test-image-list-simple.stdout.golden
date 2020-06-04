@@ -1,0 +1,2 @@
+ID                                    NAME                        STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION                          CREATION DATE    MODIFICATION DATE
+491cd44c-38c7-4d09-a83c-32693f2f7afa  cli-img-flamboyant-babbage  available  false   fr-par-1  20 GB    -            -          x86_64  b3ba839a-dcf2-4b0a-ac81-fc32370052a0  few seconds ago  few seconds ago

@@ -60,7 +60,7 @@ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Download the release from github
-curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-darwin-x86_64"
+curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.3/scw-2-0-0-beta-3-darwin-x86_64"
 
 # Allow executing file as program
 chmod +x /usr/local/bin/scw
@@ -73,7 +73,7 @@ scw init
 
 ```bash
 # Download the release from github
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.3/scw-2-0-0-beta-3-linux-x86_64"
 
 # Allow executing file as program
 sudo chmod +x /usr/local/bin/scw
@@ -84,7 +84,7 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-2-0-0-beta-2-windows-x86_64.exe<br/>
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.3/scw-2-0-0-beta-3-windows-x86_64.exe<br/>
 [This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574%28v%3Doffice.14%29) explains how to add tools to your `PATH`.
 
 <!-- TODO:
@@ -95,7 +95,7 @@ First, download [the `.deb` file](https://github.com/scaleway/scaleway-cli/relea
 
 ```bash
 export ARCH=amd64 # Can be 'amd64', 'arm', 'arm64' or 'i386'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.2/scw-v2-0-0-beta-2-${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.3/scw-v2-0-0-beta-3-${ARCH}.deb" -O /tmp/scw.deb
 ```
 
 Then, run the installation and remove the `.deb` file:
@@ -121,7 +121,7 @@ docker run scaleway/cli version
 You can use the CLI as you would run any Docker image:
 
 ```sh
-docker run -i --rm scaleway/cli:v2.0.0-beta.2
+docker run -i --rm scaleway/cli:v2.0.0-beta.3
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)

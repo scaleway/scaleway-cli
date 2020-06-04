@@ -22,6 +22,9 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
 			client, err := createClient(meta.BuildInfo, ExtractProfileName(ctx))
+			if err != nil {
+				return err
+			}
 			meta.Client = client
 			err = validateClient(meta.Client)
 			if err != nil {
@@ -47,6 +50,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			meta.result = data
+
+			if rawResult, isRawResult := meta.result.(RawResult); isRawResult {
+				meta.stdout.Write(rawResult)
+				return nil
+			}
 			return meta.Printer.Print(data, cmd.getHumanMarshalerOpt())
 		}
 

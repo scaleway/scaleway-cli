@@ -97,12 +97,12 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 
 	c.Examples = []*core.Example{
 		{
-			Short:   "Create instance",
-			Request: `{}`,
+			Short:    "Create instance",
+			ArgsJSON: `{}`,
 		},
 		{
-			Short:   "Create a GP-BM1-M instance, give it a name and add tags",
-			Request: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
+			Short:    "Create a GP-BM1-M instance, give it a name and add tags",
+			ArgsJSON: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
 		},
 	}
 
@@ -111,8 +111,8 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetalCreateServerRequestCustom).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       serverActionTimeout,
-			RetryInterval: defaultRetryInterval,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 

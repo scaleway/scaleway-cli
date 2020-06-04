@@ -64,9 +64,10 @@ func poolUpdateBuilder(c *core.Command) *core.Command {
 func waitForPoolFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
-			Region:  respI.(*k8s.Pool).Region,
-			PoolID:  respI.(*k8s.Pool).ID,
-			Timeout: scw.TimeDurationPtr(poolActionTimeout),
+			Region:        respI.(*k8s.Pool).Region,
+			PoolID:        respI.(*k8s.Pool).ID,
+			Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		switch action {
 		case poolActionCreate:
@@ -100,9 +101,10 @@ func k8sPoolWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
-				Region:  argsI.(*k8s.WaitForPoolRequest).Region,
-				PoolID:  argsI.(*k8s.WaitForPoolRequest).PoolID,
-				Timeout: scw.TimeDurationPtr(poolActionTimeout),
+				Region:        argsI.(*k8s.WaitForPoolRequest).Region,
+				PoolID:        argsI.(*k8s.WaitForPoolRequest).PoolID,
+				Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -116,8 +118,8 @@ func k8sPoolWaitCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a pool to reach a stable state",
-				Request: `{"pool_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a pool to reach a stable state",
+				ArgsJSON: `{"pool_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
