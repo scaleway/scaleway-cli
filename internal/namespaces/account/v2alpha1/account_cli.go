@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -62,6 +62,11 @@ func accountSSHKeyList() *core.Command {
 			},
 			{
 				Name:       "name",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
 				Required:   false,
 				Positional: false,
 			},
@@ -131,6 +136,12 @@ func accountSSHKeyAdd() *core.Command {
 				Name:       "public-key",
 				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
 				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project owning the resource`,
+				Required:   false,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
