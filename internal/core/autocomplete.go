@@ -2,10 +2,13 @@ package core
 
 import (
 	"context"
+	"reflect"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/internal/args"
 )
 
 // AutocompleteSuggestions is a list of words to be set to the shell as autocomplete suggestions.
@@ -104,11 +107,12 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 
 // NewArgAutoCompleteNode creates a new node corresponding to a command argument.
 // These nodes are leaf nodes.
-func NewAutoCompleteArgNode(argSpec *ArgSpec) *AutoCompleteNode {
+func NewAutoCompleteArgNode(cmd *Command, argSpec *ArgSpec) *AutoCompleteNode {
 	return &AutoCompleteNode{
 		Children: make(map[string]*AutoCompleteNode),
 		ArgSpec:  argSpec,
 		Type:     AutoCompleteNodeTypeArgument,
+		Command:  cmd,
 	}
 }
 
@@ -207,10 +211,10 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		// We consider ArgSpecs as leaf in the autocomplete tree.
 		for _, argSpec := range cmd.ArgSpecs {
 			if argSpec.Positional {
-				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(argSpec)
+				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, argSpec)
 				continue
 			}
-			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(argSpec)
+			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(cmd, argSpec)
 		}
 
 		if cmd.WaitFunc != nil {
@@ -306,7 +310,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			// We try to complete the value of an unknown arg
 			return &AutocompleteResponse{}
 		}
-		suggestions := AutoCompleteArgValue(ctx, argNode.ArgSpec, argValuePrefix)
+		suggestions := AutoCompleteArgValue(ctx, argNode.Command, argNode.ArgSpec, argValuePrefix)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
 		for k, s := range suggestions {
@@ -321,7 +325,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	for key, child := range node.Children {
 
 		if key == positionalValueNodeID {
-			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.ArgSpec, wordToComplete) {
+			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete) {
 				if _, exists := completedArgs[positionalSuggestion]; !exists {
 					suggestions = append(suggestions, positionalSuggestion)
 				}
@@ -363,15 +367,29 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
-func AutoCompleteArgValue(ctx context.Context, argSpec *ArgSpec, argValuePrefix string) []string {
+func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, argValuePrefix string) []string {
 	if argSpec == nil {
 		return nil
 	}
 	if argSpec.AutoCompleteFunc != nil {
 		return argSpec.AutoCompleteFunc(ctx, argValuePrefix)
 	}
+
+	possibleValues := []string(nil)
+
+	if fieldType, err := args.GetArgType(cmd.ArgsType, argSpec.Name); err == nil {
+		switch fieldType.Kind() {
+		case reflect.Bool:
+			possibleValues = []string{"true", "false"}
+		}
+	}
+
+	if len(argSpec.EnumValues) > 0 {
+		possibleValues = argSpec.EnumValues
+	}
+
 	suggestions := []string(nil)
-	for _, value := range argSpec.EnumValues {
+	for _, value := range possibleValues {
 		if strings.HasPrefix(value, argValuePrefix) {
 			suggestions = append(suggestions, value)
 		}
