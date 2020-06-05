@@ -19,26 +19,42 @@ type info struct {
 	Origin string
 }
 
+type infoRequest struct {
+	ShowSecret *bool
+}
+
 func infosRoot() *core.Command {
 	return &core.Command{
-		Short:     `Send feedback to the Scaleway CLI Team!`,
-		Namespace: "infos",
-		ArgsType:  reflect.TypeOf(struct{}{}),
-		ArgSpecs:  core.ArgSpecs{},
+		Short: `Get current config status`,
+		// TODO status, infos ?
+		Namespace: "status",
+		ArgsType:  reflect.TypeOf(infoRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "show-secret",
+				Short:    `Reveal secret`,
+				Required: false,
+			},
+		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			req := argsI.(*infoRequest)
 			return []info{
-				{
-					Key:   "config_path",
-					Value: "~/.config/scw/config.yaml",
-				},
+				configPath(ctx),
 				defaultRegion(ctx),
 				defaultZone(ctx),
 				defaultOrganizationId(ctx),
 				accessKey(ctx),
-				secretKey(ctx),
+				secretKey(ctx, req.ShowSecret),
 				profile(ctx),
 			}, nil
 		},
+	}
+}
+
+func configPath(ctx context.Context) info {
+	return info{
+		Key:   "config_path",
+		Value: "~/.config/scw/config.yaml",
 	}
 }
 
@@ -86,12 +102,31 @@ func accessKey(ctx context.Context) info {
 	return info
 }
 
-func secretKey(ctx context.Context) info {
+func HideSecretKey(k string) string {
+	switch {
+	case len(k) == 0:
+		return ""
+	case len(k) > 8:
+		return k[0:8] + "-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	default:
+		return "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+}
+
+func secretKey(ctx context.Context, secrets *bool) info {
 	info := info{Key: "secret_key"}
 	client := core.ExtractClient(ctx)
 	sK, exists := client.GetSecretKey()
 	if exists {
-		info.Value = sK
+		showSecrets := false
+		if secrets != nil {
+			showSecrets = *secrets
+		}
+		if showSecrets {
+			info.Value = sK
+		} else {
+			info.Value = HideSecretKey(sK)
+		}
 		info.Origin = "config_file"
 	}
 	return info
