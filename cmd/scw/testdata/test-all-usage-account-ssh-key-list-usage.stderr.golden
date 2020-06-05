@@ -6,6 +6,7 @@ USAGE:
 ARGS:
   [order-by]           (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
   [name]              
+  [project-id]        
   [organization-id]   
 
 FLAGS:
