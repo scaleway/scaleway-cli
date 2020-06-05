@@ -57,6 +57,10 @@ func serverWaitCommand() *core.Command {
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}
+			if server.Install == nil {
+				return server, nil
+			}
+
 			logger.Debugf("server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status")
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
 				ServerID:      argsI.(*serverWaitRequest).ServerID,
