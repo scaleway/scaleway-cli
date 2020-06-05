@@ -132,6 +132,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create leaves.", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size="}}))
 	t.Run("scw test flower create leaves.0", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size="}}))
 	t.Run("scw test flower create leaves.0.", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size="}}))
+	t.Run("scw test flower create leaves.0.size=M", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size=M"}}))
 	t.Run("scw test flower create leaves.0.size=M leaves", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.1.size="}}))
 	t.Run("scw test flower create leaves.0.size=M leaves leaves.1.size=M", run(&testCase{WordToCompleteIndex: 5, Suggestions: AutocompleteSuggestions{"leaves.2.size="}}))
 	t.Run("scw test flower delete ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))
