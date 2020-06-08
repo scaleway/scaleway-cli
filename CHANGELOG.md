@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.0.0-beta.4 (2020-06-08)
+
+### Features
+
+* **instance**: hide deprecated offers ([#1065](https://github.com/scaleway/scaleway-cli/pull/1065))
+
+### Fixes
+
+* **baremetal**: check that install status is not nil before installwait ([#1073](https://github.com/scaleway/scaleway-cli/pull/1073))
+* **init**: fix panic ([#1082](https://github.com/scaleway/scaleway-cli/pull/1082))
+
+
+
+
 ## v2.0.0-beta.3 (2020-06-03)
 
 ### Features
