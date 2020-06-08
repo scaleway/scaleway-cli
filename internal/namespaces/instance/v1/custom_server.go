@@ -789,9 +789,9 @@ func serverDeleteCommand() *core.Command {
 					break
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeTypeLSSD:
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeVolumeTypeLSSD:
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeVolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
@@ -919,7 +919,7 @@ func serverTerminateCommand() *core.Command {
 			if !deleteBlockVolumes {
 				// detach block storage volumes before terminating the instance to preserve them
 				for _, volume := range server.Server.Volumes {
-					if volume.VolumeType != instance.VolumeTypeBSSD {
+					if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
 						continue
 					}
 
@@ -969,7 +969,7 @@ func shouldDeleteBlockVolumes(server *instance.GetServerResponse, terminateWithB
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
 				continue
 			}
 
