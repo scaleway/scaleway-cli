@@ -1,4 +1,4 @@
-Server types will answer with all instance types available in a given region.
+Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
 
 USAGE:

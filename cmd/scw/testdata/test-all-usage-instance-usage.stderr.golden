@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   placement-group A placement group allows to express a preference regarding the physical position of a group of instances
   security-group  A security group is a set of firewall rules on a set of instances
   server          A server is a denomination of a type of instances provided by Scaleway
-  server-type     A server types is a representation of an instance type available in a given region
+  server-type     A server type is a representation of an instance type available in a given zone
+  volume-type     A volume type is a representation of a volume type available in a given zone
   snapshot        A snapshot contains the data of a specific volume at a particular point in time
   user-data       User data is a key value store API you can use to provide data from and to your server without authentication
   volume          A volume is used to store data inside an instance

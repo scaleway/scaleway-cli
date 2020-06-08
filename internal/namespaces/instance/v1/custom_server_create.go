@@ -425,9 +425,9 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 
 		switch parts[0] {
 		case "l", "local":
-			vt.VolumeType = instance.VolumeTypeLSSD
+			vt.VolumeType = instance.VolumeVolumeTypeLSSD
 		case "b", "block":
-			vt.VolumeType = instance.VolumeTypeBSSD
+			vt.VolumeType = instance.VolumeVolumeTypeBSSD
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
@@ -499,7 +499,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serve
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
-		if volume.VolumeType == instance.VolumeTypeLSSD {
+		if volume.VolumeType == instance.VolumeVolumeTypeLSSD {
 			localVolumeTotalSize += volume.Size
 		}
 	}
@@ -529,7 +529,7 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeT
 		return nil
 	}
 
-	if rootVolume.VolumeType != instance.VolumeTypeLSSD {
+	if rootVolume.VolumeType != instance.VolumeVolumeTypeLSSD {
 		return fmt.Errorf("first volume must be local")
 	}
 

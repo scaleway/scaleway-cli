@@ -164,7 +164,12 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 // In that case, we allow the empty-string value "".
 func ValidateOrganizationID() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
-		value := valueI.(string)
+		value, isStr := valueI.(string)
+		valuePtr, isPtr := valueI.(*string)
+		if !isStr && isPtr && valuePtr != nil {
+			value = *valuePtr
+		}
+
 		if value == "" && !argSpec.Required {
 			return nil
 		}

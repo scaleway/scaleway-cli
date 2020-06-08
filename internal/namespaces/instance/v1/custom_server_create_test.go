@@ -323,7 +323,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instance.VolumeTypeLSSD),
+		BeforeFunc: createVolume("Volume", 20, instance.VolumeVolumeTypeLSSD),
 		Cmd:        "scw instance server create image=ubuntu_bionic root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -355,7 +355,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instance.VolumeTypeLSSD),
+		BeforeFunc: createVolume("Volume", 20, instance.VolumeVolumeTypeLSSD),
 		Cmd:        "scw instance server create image=ubuntu_bionic root-volume={{ .Volume.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
