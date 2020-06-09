@@ -494,15 +494,15 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
-// TestCheckStderrGolden assert stderr using golden
-func TestCheckStderrGolden() TestCheck {
+// testCheckStderrGolden assert stderr using golden
+func testCheckStderrGolden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		testGolden(t, getTestFilePath(t, ".stderr.golden"), ctx.Stderr)
 	}
 }
 
-// TestCheckStdoutGolden assert stdout using golden
-func TestCheckStdoutGolden() TestCheck {
+// testCheckStdoutGolden assert stdout using golden
+func testCheckStdoutGolden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		testGolden(t, getTestFilePath(t, ".stdout.golden"), ctx.Stdout)
 	}
@@ -511,8 +511,8 @@ func TestCheckStdoutGolden() TestCheck {
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
 	return TestCheckCombine(
-		TestCheckStdoutGolden(),
-		TestCheckStderrGolden(),
+		testCheckStdoutGolden(),
+		testCheckStderrGolden(),
 	)
 }
 
