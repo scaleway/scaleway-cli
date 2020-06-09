@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 // Type defines an formatter format.

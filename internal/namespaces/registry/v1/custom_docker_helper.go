@@ -17,7 +17,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/ui/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

@@ -5,7 +5,7 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 // jsonPrinter is the JSON implementation of Formatter.

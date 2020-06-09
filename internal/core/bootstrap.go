@@ -7,9 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/matomo"
+	"github.com/scaleway/scaleway-cli/internal/analytics/matomo"
 	"github.com/scaleway/scaleway-cli/internal/printer"
+	"github.com/scaleway/scaleway-cli/internal/ui/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/pflag"

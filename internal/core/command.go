@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.

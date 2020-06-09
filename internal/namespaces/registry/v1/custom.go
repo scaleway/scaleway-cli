@@ -2,7 +2,7 @@ package registry
 
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 

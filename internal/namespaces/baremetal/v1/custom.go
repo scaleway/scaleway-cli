@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 

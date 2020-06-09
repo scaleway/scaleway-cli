@@ -14,7 +14,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/internal/ui/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 

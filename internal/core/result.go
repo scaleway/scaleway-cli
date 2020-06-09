@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/internal/ui/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 

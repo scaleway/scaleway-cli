@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 // humanPrinter is the human readable implementation of Printer.

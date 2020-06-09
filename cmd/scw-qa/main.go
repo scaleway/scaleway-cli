@@ -8,8 +8,8 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/namespaces"
 	"github.com/scaleway/scaleway-cli/internal/qa"
-	"github.com/scaleway/scaleway-cli/internal/tabwriter"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/internal/ui/tabwriter"
+	"github.com/scaleway/scaleway-cli/internal/ui/terminal"
 )
 
 func main() {

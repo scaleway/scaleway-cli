@@ -11,7 +11,7 @@ import (
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -19,7 +19,7 @@ const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
 type issueTemplate string
 
 const (
-	bug = issueTemplate("bug")
+	bug     = issueTemplate("bug")
 	feature = issueTemplate("feature")
 )
 

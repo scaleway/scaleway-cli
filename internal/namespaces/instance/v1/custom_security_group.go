@@ -10,9 +10,9 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/interactive"
+	"github.com/scaleway/scaleway-cli/internal/ui/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"

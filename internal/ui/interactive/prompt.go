@@ -7,8 +7,8 @@ import (
 
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/human"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/terminal"
 )
 
 type PromptPasswordConfig struct {

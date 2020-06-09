@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/ui/human"
 )
 
 // View hydrates human.MarshalOpt

@@ -6,9 +6,9 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
+	"github.com/scaleway/scaleway-cli/internal/analytics/sentry"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/namespaces"
-	"github.com/scaleway/scaleway-cli/internal/sentry"
 )
 
 var (
