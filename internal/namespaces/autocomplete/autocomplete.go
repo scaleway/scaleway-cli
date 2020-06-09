@@ -152,6 +152,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		defaultShellName := filepath.Base(os.Getenv("SHELL"))
 
 		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+			Ctx:             ctx,
 			Prompt:          "What type of shell are you using",
 			DefaultValue:    defaultShellName,
 			DefaultValueDoc: defaultShellName,
@@ -206,6 +207,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+		Ctx:          ctx,
 		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
 		DefaultValue: true,
 	})

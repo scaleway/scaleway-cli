@@ -911,7 +911,7 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			deleteBlockVolumes, err := shouldDeleteBlockVolumes(server, terminateServerArgs.WithBlock)
+			deleteBlockVolumes, err := shouldDeleteBlockVolumes(ctx, server, terminateServerArgs.WithBlock)
 			if err != nil {
 				return nil, err
 			}
@@ -960,7 +960,7 @@ func serverTerminateCommand() *core.Command {
 	}
 }
 
-func shouldDeleteBlockVolumes(server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
+func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
 	switch terminateWithBlock {
 	case withBlockTrue:
 		return true, nil
@@ -976,6 +976,7 @@ func shouldDeleteBlockVolumes(server *instance.GetServerResponse, terminateWithB
 			return interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 				Prompt:       "Do you also want to delete block volumes attached to this instance ?",
 				DefaultValue: false,
+				Ctx:          ctx,
 			})
 		}
 		return false, nil
