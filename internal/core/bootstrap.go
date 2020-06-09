@@ -94,8 +94,8 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// concurrency situation with golden files
 	logger.DefaultLogger.Init(os.Stderr, logLevel)
 
-	// The globalPrinter must be the first thing set in order to print errors
-	globalPrinter, err := NewPrinter(&PrinterConfig{
+	// The printer must be the first thing set in order to print errors
+	printer, err := NewPrinter(&PrinterConfig{
 		Type:   printerType,
 		Stdout: config.Stdout,
 		Stderr: config.Stderr,
@@ -113,7 +113,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		isClientFromBootstrapConfig = false
 		client, err = createAnonymousClient(config.BuildInfo)
 		if err != nil {
-			printErr := globalPrinter.Print(err, nil)
+			printErr := printer.Print(err, nil)
 			if printErr != nil {
 				_, _ = fmt.Fprintln(config.Stderr, printErr)
 			}
@@ -213,7 +213,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if cliErr, ok := err.(*CliError); ok && cliErr.Code != 0 {
 			errorCode = cliErr.Code
 		}
-		printErr := globalPrinter.Print(err, nil)
+		printErr := printer.Print(err, nil)
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
@@ -221,7 +221,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	if meta.command != nil {
-		printErr := globalPrinter.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
