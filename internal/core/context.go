@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -18,7 +17,6 @@ type meta struct {
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
-	Printer      printer.Printer
 	Commands     *Commands
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
