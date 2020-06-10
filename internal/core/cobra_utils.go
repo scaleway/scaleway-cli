@@ -50,12 +50,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			meta.result = data
-
-			if rawResult, isRawResult := meta.result.(RawResult); isRawResult {
-				meta.stdout.Write(rawResult)
-				return nil
-			}
-			return meta.Printer.Print(data, cmd.getHumanMarshalerOpt())
+			return nil
 		}
 
 		positionalArgs := rawArgs.GetPositionalArgs()
@@ -98,10 +93,6 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			meta.result = results
 		}
 
-		err := meta.Printer.Print(meta.result, cmd.getHumanMarshalerOpt())
-		if err != nil {
-			return err
-		}
 		return nil
 	}
 }
