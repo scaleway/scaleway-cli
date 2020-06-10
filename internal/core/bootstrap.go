@@ -9,7 +9,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/matomo"
-	"github.com/scaleway/scaleway-cli/internal/printer"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/pflag"
@@ -65,7 +64,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	var debug bool
 	var profileName string
 	var configPath string
-	var printerType printer.Type
+	var printerType PrinterType
 
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
@@ -95,8 +94,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// concurrency situation with golden files
 	logger.DefaultLogger.Init(os.Stderr, logLevel)
 
-	// The globalPrinter must be the first thing set in order to print errors
-	globalPrinter, err := printer.New(printerType, config.Stdout, config.Stderr)
+	// The printer must be the first thing set in order to print errors
+	printer, err := NewPrinter(&PrinterConfig{
+		Type:   printerType,
+		Stdout: config.Stdout,
+		Stderr: config.Stderr,
+	})
 	if err != nil {
 		_, _ = fmt.Fprintln(config.Stderr, err)
 		return 1, nil, err
@@ -110,7 +113,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		isClientFromBootstrapConfig = false
 		client, err = createAnonymousClient(config.BuildInfo)
 		if err != nil {
-			printErr := globalPrinter.Print(err, nil)
+			printErr := printer.Print(err, nil)
 			if printErr != nil {
 				_, _ = fmt.Fprintln(config.Stderr, printErr)
 			}
@@ -126,7 +129,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		BuildInfo:    config.BuildInfo,
 		Client:       client,
 		Commands:     config.Commands,
-		Printer:      globalPrinter,
 		OverrideEnv:  config.OverrideEnv,
 		OverrideExec: config.OverrideExec,
 
@@ -211,11 +213,19 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if cliErr, ok := err.(*CliError); ok && cliErr.Code != 0 {
 			errorCode = cliErr.Code
 		}
-		printErr := meta.Printer.Print(err, nil)
+		printErr := printer.Print(err, nil)
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
 		return errorCode, nil, err
 	}
+
+	if meta.command != nil {
+		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		if printErr != nil {
+			_, _ = fmt.Fprintln(os.Stderr, err)
+		}
+	}
+
 	return 0, meta.result, nil
 }
