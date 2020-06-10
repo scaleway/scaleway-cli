@@ -18,14 +18,14 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createVolume("Volume", 10, instance.VolumeTypeBSSD),
+				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instance.VolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instance.VolumeVolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -35,14 +35,14 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createVolume("Volume", 10, instance.VolumeTypeLSSD),
+				createVolume("Volume", 10, instance.VolumeVolumeTypeLSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instance.VolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instance.VolumeVolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -208,7 +208,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createVolume("Volume", 10, instance.VolumeTypeBSSD),
+				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {

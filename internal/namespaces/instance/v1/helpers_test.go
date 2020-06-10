@@ -45,7 +45,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 
 // createVolume creates a volume of the given size and type and
 // register it in the context Meta at metaKey.
-func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeType) core.BeforeFunc {
+func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolumeType) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw instance volume create name=cli-test size=%dGB volume-type=%s", sizeInGb, volumeType)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))

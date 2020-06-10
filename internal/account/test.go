@@ -18,8 +18,8 @@ func InjectHttpClient(ctx context.Context, httpClient *http.Client) context.Cont
 }
 
 func extractHttpClient(ctx context.Context) *http.Client {
-	httpClient := ctx.Value(contextKey).(*http.Client)
-	if httpClient != nil {
+	httpClient, isHttpClient := ctx.Value(contextKey).(*http.Client)
+	if httpClient != nil && isHttpClient {
 		return httpClient
 	}
 	return http.DefaultClient

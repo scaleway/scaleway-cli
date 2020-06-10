@@ -81,6 +81,7 @@ func configInstallCommand() *core.Command {
 			// Ask whether to remove previous configuration file if it exists
 			if _, err := os.Stat(configPath); err == nil {
 				doIt, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Ctx:          ctx,
 					Prompt:       "Do you want to overwrite the existing configuration file (" + configPath + ")?",
 					DefaultValue: false,
 				})

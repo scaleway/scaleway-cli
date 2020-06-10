@@ -267,8 +267,7 @@ async function main() {
     git("branch", "-D", TMP_BRANCH);
     git("checkout", "-b", TMP_BRANCH);
     replaceInFile(GO_VERSION_PATH, /Version = "[^"]*"/, `Version = "v${newVersion}+dev"`);
-    replaceInFile(VERSION_TEST_GOLDEN_PATH, /\([^)]*\)/, `(${newVersion})`)
-    git("add", GO_VERSION_PATH, VERSION_TEST_GOLDEN_PATH);
+    git("add", GO_VERSION_PATH);
     git("commit", "-m", `chore: cleanup after v${newVersion} release`);
     git("push", "-f", "--set-upstream", TMP_REMOTE, TMP_BRANCH);
     git("checkout", GITHUB_RELEASED_BRANCH);

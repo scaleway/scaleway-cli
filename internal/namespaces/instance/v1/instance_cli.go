@@ -26,10 +26,12 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroup(),
 		instanceServer(),
 		instanceServerType(),
+		instanceVolumeType(),
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
 		instanceServerTypeList(),
+		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
 		instanceServerUpdate(),
@@ -178,12 +180,23 @@ For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-i
 
 func instanceServerType() *core.Command {
 	return &core.Command{
-		Short: `A server types is a representation of an instance type available in a given region`,
-		Long: `Server types will answer with all instance types available in a given region.
+		Short: `A server type is a representation of an instance type available in a given zone`,
+		Long: `Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
 `,
 		Namespace: "instance",
 		Resource:  "server-type",
+	}
+}
+
+func instanceVolumeType() *core.Command {
+	return &core.Command{
+		Short: `A volume type is a representation of a volume type available in a given zone`,
+		Long: `Volume types will answer with all volume types available in a given zone.
+Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
+`,
+		Namespace: "instance",
+		Resource:  "volume-type",
 	}
 }
 
@@ -292,6 +305,38 @@ func instanceServerTypeList() *core.Command {
 			},
 			{
 				Short:    "List all server-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List volumes types`,
+		Long:      `Get volumes technical details.`,
+		Namespace: "instance",
+		Resource:  "volume-type",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(instance.ListVolumesTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListVolumesTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ListVolumesTypes(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all volume-types in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all volume-types in fr-par-1 zone",
 				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
