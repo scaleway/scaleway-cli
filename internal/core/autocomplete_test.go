@@ -145,6 +145,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower delete hibiscus with-leaves=true ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone"}}))
 	t.Run("scw test flower delete hibiscus with-leaves=", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves=false", "with-leaves=true"}}))
 	t.Run("scw test flower delete hibiscus with-leaves=tr", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves=true"}}))
+	t.Run("scw test flower delete hibiscus with-leaves=yes", run(&testCase{Suggestions: nil}))
 	t.Run("scw test flower create leaves.0.size=", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size=L", "leaves.0.size=M", "leaves.0.size=S", "leaves.0.size=XL", "leaves.0.size=XXL"}}))
 	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-o", "-p"}}))
 	t.Run("scw test -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
