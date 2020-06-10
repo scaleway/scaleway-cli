@@ -259,7 +259,7 @@ func k8sClusterCreate() *core.Command {
 				Short:      `The Ingress Controller that will run in the cluster`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik"},
+				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik", "traefik2"},
 			},
 			{
 				Name:       "pools.{index}.name",
@@ -554,7 +554,7 @@ func k8sClusterUpdate() *core.Command {
 				Short:      `The new Ingress Controller for the cluster`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik"},
+				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik", "traefik2"},
 			},
 			{
 				Name:       "auto-upgrade.enable",
