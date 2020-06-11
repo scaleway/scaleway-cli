@@ -41,7 +41,7 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 
 	wsURL, zoneExist := wsURLs[zone]
 	if !zoneExist {
-		return nil, fmt.Errorf("gotty is not availabe in zone %s", zone)
+		return nil, fmt.Errorf("gotty is not available in zone %s", zone)
 	}
 
 	return &Client{
