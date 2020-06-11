@@ -282,7 +282,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully update config"),
+				Message: "successfully update config",
 			}, nil
 		},
 	}

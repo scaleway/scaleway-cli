@@ -14,7 +14,7 @@ type DataMustBeAPointerError struct {
 }
 
 func (e *DataMustBeAPointerError) Error() string {
-	return fmt.Sprintf("data must be a pointer to a struct")
+	return "data must be a pointer to a struct"
 }
 
 //
@@ -25,7 +25,7 @@ type DataMustBeAMarshalableValueError struct {
 }
 
 func (e *DataMustBeAMarshalableValueError) Error() string {
-	return fmt.Sprintf("data must be a marshalable value (a scalar type or a Marshaler)")
+	return "data must be a marshalable value (a scalar type or a Marshaler)"
 }
 
 type ValueIsNotMarshalableError struct {
@@ -75,21 +75,21 @@ type InvalidArgNameError struct {
 }
 
 func (e *InvalidArgNameError) Error() string {
-	return fmt.Sprintf("arg name must only contain lowercase letters, numbers or dashes")
+	return "arg name must only contain lowercase letters, numbers or dashes"
 }
 
 type UnknownArgError struct {
 }
 
 func (e *UnknownArgError) Error() string {
-	return fmt.Sprintf("unknown argument")
+	return "unknown argument"
 }
 
 type DuplicateArgError struct {
 }
 
 func (e *DuplicateArgError) Error() string {
-	return fmt.Sprintf("duplicate argument")
+	return "duplicate argument"
 }
 
 type CannotSetNestedFieldError struct {
@@ -104,7 +104,7 @@ type MissingIndexOnArrayError struct {
 }
 
 func (e *MissingIndexOnArrayError) Error() string {
-	return fmt.Sprintf("missing index on the array")
+	return "missing index on the array"
 }
 
 type InvalidIndexError struct {
@@ -133,7 +133,7 @@ type MissingMapKeyError struct {
 }
 
 func (e *MissingMapKeyError) Error() string {
-	return fmt.Sprintf("missing map key")
+	return "missing map key"
 }
 
 type MissingStructFieldError struct {
