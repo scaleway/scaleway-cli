@@ -21,7 +21,7 @@ func Test_StartServerErrors(t *testing.T) {
 			func(ctx *core.AfterFuncCtx) error {
 				api := baremetal.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*baremetal.Server)
-				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := api.WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
 					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
@@ -48,7 +48,7 @@ func Test_StopServerErrors(t *testing.T) {
 			func(ctx *core.AfterFuncCtx) error {
 				api := baremetal.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*baremetal.Server)
-				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := api.WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
 					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
@@ -75,7 +75,7 @@ func Test_RebootServerErrors(t *testing.T) {
 			func(ctx *core.AfterFuncCtx) error {
 				api := baremetal.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*baremetal.Server)
-				server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
+				_, err := api.WaitForServer(&baremetal.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
 					Timeout:       scw.TimeDurationPtr(serverActionTimeout),

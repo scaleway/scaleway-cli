@@ -211,7 +211,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:       "default-region",
 				Short:      "A default Scaleway region",
-				EnumValues: allZones,
+				EnumValues: allRegions,
 			},
 			{
 				Name:       "default-zone",
