@@ -10,23 +10,23 @@ linters:
   enable:
     - deadcode
     - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - structcheck
-    - typecheck
-    - unused
-    - varcheck
     - goconst
     - goimports
     - golint
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
     - misspell
+    - staticcheck
+    - structcheck
     - stylecheck
+    - typecheck
     - unconvert
     - unparam
+    - unused
+    - varcheck
     - whitespace
-    - gosec
     # - wsl Could be interesting but need a lot of changes
 
 linters-settings:
