@@ -37,10 +37,10 @@ func (o *PrinterType) Type() string {
 }
 
 var (
-	// JSON defines a JSON formatter.
+	// PrinterTypeJSON defines a JSON formatter.
 	PrinterTypeJSON = PrinterType("json")
 
-	// Human defines a human readable formatted formatter.
+	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
 )
 

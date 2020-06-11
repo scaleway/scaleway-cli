@@ -777,9 +777,8 @@ func serverDeleteCommand() *core.Command {
 				})
 				if err != nil {
 					return nil, err
-				} else {
-					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			deletedVolumeMessages := [][2]string(nil)
@@ -803,16 +802,15 @@ func serverDeleteCommand() *core.Command {
 						Err:  err,
 						Hint: "Make sure this resource have been deleted or try to delete it manually.",
 					}
-				} else {
-					humanSize, err := human.Marshal(volume.Size, nil)
-					if err != nil {
-						logger.Debugf("cannot marshal human size %v", volume.Size)
-					}
-					deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
-						index,
-						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
-					})
 				}
+				humanSize, err := human.Marshal(volume.Size, nil)
+				if err != nil {
+					logger.Debugf("cannot marshal human size %v", volume.Size)
+				}
+				deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
+					index,
+					fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+				})
 			}
 
 			// Sort and print deleted volume messages
@@ -950,9 +948,8 @@ func serverTerminateCommand() *core.Command {
 				})
 				if err != nil {
 					return nil, err
-				} else {
-					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			return &core.SuccessResult{}, err

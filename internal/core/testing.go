@@ -30,9 +30,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
+// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 var (
-	// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
-	// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
 	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
 )
