@@ -184,6 +184,9 @@ func serverListBuilder(c *core.Command) *core.Command {
 	// We add the server type to the list sent to the user
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		listServerResp, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
 
 		client := core.ExtractClient(ctx)
 		api := baremetal.NewAPI(client)

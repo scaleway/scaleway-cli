@@ -106,6 +106,9 @@ func (c *Client) Connect() error {
 			}
 			message := fmt.Sprintf(`%c{"columns":%d,"rows":%d}`, resizeTerminalCode, size.Width, size.Height)
 			err = conn.WriteMessage(websocket.TextMessage, []byte(message))
+			if err != nil {
+				return err
+			}
 
 		// We receive a message from the server
 		case message := <-wsChan:

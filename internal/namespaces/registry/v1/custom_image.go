@@ -35,6 +35,9 @@ func imageGetBuilder(c *core.Command) *core.Command {
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		getImageResp, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
 		image := getImageResp.(*registry.Image)
 
 		client := core.ExtractClient(ctx)
