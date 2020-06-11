@@ -547,7 +547,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 			_ = os.Remove(goldenPath)
 		} else {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644))
+			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644)) //nolint:gosec
 		}
 	}
 
