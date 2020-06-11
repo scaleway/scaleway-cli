@@ -6,18 +6,26 @@
 linters:
   disable-all: true
 
-  # Run golangci-lint linters to see
+  # Run golangci-lint linters to see the list of all linters
+  # Please keep them sorted alphabetically
   enable:
+    - bodyclose
     - deadcode
+    - depguard
+    - dogsled
     - errcheck
     - goconst
     - goimports
     - golint
+    - goprintffuncname
     - gosec
     - gosimple
     - govet
     - ineffassign
     - misspell
+    - nakedret
+    - nolintlint
+    - rowserrcheck
     - staticcheck
     - structcheck
     - stylecheck
@@ -27,7 +35,6 @@ linters:
     - unused
     - varcheck
     - whitespace
-    # - wsl Could be interesting but need a lot of changes
 
 linters-settings:
   goconst:
