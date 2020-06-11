@@ -59,7 +59,7 @@ func (c *Client) Connect() error {
 	defer func() {
 		// Websocket protocol require the server to close the connection.
 		// This sent a close request.
-		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")) //nolint:errcheck
 	}()
 
 	// This is how scaleway implement gotty authentication
@@ -79,7 +79,7 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return fmt.Errorf("error setting raw terminal: %w", err)
 	}
-	defer cns.Reset()
+	defer cns.Reset() //nolint:errcheck
 	defer cns.Close()
 
 	// Create a chanel that will receive all resizes signals
