@@ -213,5 +213,4 @@ func Test_PositionalArg(t *testing.T) {
 			TestCheckGolden(),
 		),
 	}))
-
 }

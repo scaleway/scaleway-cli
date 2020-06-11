@@ -151,7 +151,6 @@ type customServer struct {
 }
 
 func serverListBuilder(c *core.Command) *core.Command {
-
 	c.View = &core.View{
 		Fields: []*core.ViewField{
 			{

@@ -30,7 +30,6 @@ type customTag struct {
 }
 
 func tagGetBuilder(c *core.Command) *core.Command {
-
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		getTagResp, err := runner(ctx, argsI)
 		if err != nil {
@@ -67,7 +66,6 @@ func tagGetBuilder(c *core.Command) *core.Command {
 }
 
 func tagListBuilder(c *core.Command) *core.Command {
-
 	c.View = &core.View{
 		Fields: []*core.ViewField{
 			{

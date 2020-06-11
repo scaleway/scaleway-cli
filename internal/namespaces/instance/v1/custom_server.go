@@ -327,7 +327,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
-
 	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
 	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
 		api := instance.NewAPI(core.ExtractClient(ctx))
@@ -345,7 +344,6 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		return suggestion
 	}
 	return c
-
 }
 
 //
@@ -930,7 +928,6 @@ func serverTerminateCommand() *core.Command {
 
 					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
 				}
-
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{

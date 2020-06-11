@@ -38,7 +38,6 @@ type Client struct {
 
 // NewClient returns a GoTTY client.
 func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error) {
-
 	wsURL, zoneExist := wsURLs[zone]
 	if !zoneExist {
 		return nil, fmt.Errorf("gotty is not available in zone %s", zone)
@@ -52,7 +51,6 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 }
 
 func (c *Client) Connect() error {
-
 	wsDialer := websocket.Dialer{}
 	conn, _, err := wsDialer.Dial(c.wsURL, nil)
 	if err != nil {
@@ -97,7 +95,6 @@ func (c *Client) Connect() error {
 
 	for {
 		select {
-
 		// Resize event: we send new terminal size to the server
 		case <-resizeChan:
 			size, err := cns.Size()

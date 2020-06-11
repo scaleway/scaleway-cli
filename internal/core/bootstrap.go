@@ -59,7 +59,6 @@ type BootstrapConfig struct {
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
-
 	// Handles Flags
 	var debug bool
 	var profileName string

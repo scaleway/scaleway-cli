@@ -89,7 +89,6 @@ func configRoot() *core.Command {
 
 // configGetCommand gets one or many values for the scaleway config
 func configGetCommand() *core.Command {
-
 	type configGetArgs struct {
 		Key string
 	}
@@ -126,7 +125,6 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 			config, err := scw.LoadConfigFromPath(extractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -240,7 +238,6 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-
 			// Validate arguments
 			args := argsI.(*scw.Profile)
 
@@ -290,7 +287,6 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 
 // configDumpCommand unsets a value for the scaleway config
 func configUnsetCommand() *core.Command {
-
 	type configUnsetArgs struct {
 		Key string
 	}
@@ -342,7 +338,6 @@ func configUnsetCommand() *core.Command {
 
 // configDumpCommand dumps the scaleway config
 func configDumpCommand() *core.Command {
-
 	type configDumpArgs struct{}
 
 	return &core.Command{
@@ -379,7 +374,6 @@ func configProfileCommand() *core.Command {
 
 // configDeleteProfileCommand deletes a profile from the config
 func configDeleteProfileCommand() *core.Command {
-
 	type configDeleteProfileArgs struct {
 		Name string
 	}
@@ -424,7 +418,6 @@ func configDeleteProfileCommand() *core.Command {
 
 // configResetCommand resets the config
 func configResetCommand() *core.Command {
-
 	type configResetArgs struct{}
 
 	return &core.Command{

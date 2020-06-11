@@ -11,7 +11,6 @@ import (
 )
 
 func serverInstallBuilder(c *core.Command) *core.Command {
-
 	type baremetalInstallServerRequestCustom struct {
 		baremetal.InstallServerRequest
 		AllSSHKeys *bool

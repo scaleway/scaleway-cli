@@ -73,7 +73,6 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
 }
 
 func (a RawArgs) GetPositionalArgs() []string {
-
 	positionalArgs := []string(nil)
 	for _, arg := range a {
 		if isPositionalArg(arg) {
