@@ -19,7 +19,7 @@ const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
 type issueTemplate string
 
 const (
-	bug = issueTemplate("bug")
+	bug     = issueTemplate("bug")
 	feature = issueTemplate("feature")
 )
 

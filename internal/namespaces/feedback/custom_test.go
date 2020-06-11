@@ -12,8 +12,8 @@ import (
 
 func Test_FeedbackBug(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		Cmd:        "scw feedback bug",
+		Commands: GetCommands(),
+		Cmd:      "scw feedback bug",
 		BuildInfo: core.BuildInfo{
 			Version:   version.Must(version.NewSemver("v0.0.0")),
 			BuildDate: "unknown",
@@ -37,7 +37,7 @@ func Test_FeedbackBug(t *testing.T) {
 				observed)
 
 			return 0, nil
-		}, 
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -47,8 +47,8 @@ func Test_FeedbackBug(t *testing.T) {
 
 func Test_FeedbackFeature(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		Cmd:        "scw feedback feature",
+		Commands: GetCommands(),
+		Cmd:      "scw feedback feature",
 		BuildInfo: core.BuildInfo{
 			Version:   version.Must(version.NewSemver("v0.0.0")),
 			BuildDate: "unknown",
