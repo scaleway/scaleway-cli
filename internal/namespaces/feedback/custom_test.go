@@ -26,7 +26,7 @@ func Test_FeedbackBug(t *testing.T) {
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
-			case "windows":
+			case windows:
 				// 0: "rundll32", 1: "url.dll,FileProtocolHandler" 2: url
 				observed = cmd.Args[2]
 			default:
@@ -61,7 +61,7 @@ func Test_FeedbackFeature(t *testing.T) {
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
-			case "windows":
+			case windows:
 				// 0: "rundll32", 1: "url.dll,FileProtocolHandler" 2: url
 				observed = cmd.Args[2]
 			default:

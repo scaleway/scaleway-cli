@@ -932,7 +932,6 @@ func serverTerminateCommand() *core.Command {
 
 					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
 				}
-
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{

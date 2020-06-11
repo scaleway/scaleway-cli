@@ -21,6 +21,9 @@ type issueTemplate string
 const (
 	bug     = issueTemplate("bug")
 	feature = issueTemplate("feature")
+	linux   = "linux"
+	darwin  = "darwin"
+	windows = "windows"
 )
 
 type issue struct {
@@ -88,11 +91,11 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	var openCmd *exec.Cmd
 
 	switch runtime.GOOS {
-	case "linux":
+	case linux:
 		openCmd = exec.Command("xdg-open", i.getURL())
-	case "windows":
+	case windows:
 		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL())
-	case "darwin":
+	case darwin:
 		openCmd = exec.Command("open", i.getURL())
 	default:
 		err = fmt.Errorf("unsupported platform")
