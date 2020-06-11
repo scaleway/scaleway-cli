@@ -38,18 +38,17 @@ func feedbackBugCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			issue := issue{
 				IssueTemplate: bug,
-				BuildInfo:  core.ExtractBuildInfo(ctx),
+				BuildInfo:     core.ExtractBuildInfo(ctx),
 			}
 			err := issue.openInBrowser(ctx)
 			if err != nil {
 				return nil, err
 			}
 			return &core.SuccessResult{
-				Message:  "Successfully opened the page",
+				Message: "Successfully opened the page",
 				Details: fmt.Sprintf(" (%s)", issue.getURL()),
 			}, nil
 		},
-
 	}
 }
 
@@ -65,17 +64,16 @@ func feedbackFeatureRequestCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			issue := issue{
 				IssueTemplate: feature,
-				BuildInfo: core.ExtractBuildInfo(ctx),
+				BuildInfo:     core.ExtractBuildInfo(ctx),
 			}
 			err := issue.openInBrowser(ctx)
 			if err != nil {
 				return nil, err
 			}
 			return &core.SuccessResult{
-				Message:  "Successfully opened the page",
+				Message: "Successfully opened the page",
 				Details: fmt.Sprintf(" (%s)", issue.getURL()),
 			}, nil
 		},
 	}
 }
-
