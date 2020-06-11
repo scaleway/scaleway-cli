@@ -35,9 +35,9 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		if tmpRequest.AllSSHKeys != nil && *tmpRequest.AllSSHKeys {
 			client := core.ExtractClient(ctx)
 			accountapi := account.NewAPI(client)
-			orgId, _ := client.GetDefaultOrganizationID()
+			orgID, _ := client.GetDefaultOrganizationID()
 			listKeys, err := accountapi.ListSSHKeys(&account.ListSSHKeysRequest{
-				OrganizationID: &orgId,
+				OrganizationID: &orgID,
 			}, scw.WithAllPages())
 			if err != nil {
 				return nil, err

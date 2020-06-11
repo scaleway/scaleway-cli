@@ -83,5 +83,4 @@ func Test_ConfigGet(t *testing.T) {
 			Client: client,
 		}))
 	})
-
 }

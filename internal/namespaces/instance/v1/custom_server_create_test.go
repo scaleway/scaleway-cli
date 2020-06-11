@@ -151,7 +151,6 @@ func Test_CreateServer(t *testing.T) {
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
-
 	})
 	////
 	// IP use cases
@@ -225,7 +224,6 @@ func Test_CreateServer(t *testing.T) {
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 	})
-
 }
 
 // None of the tests below should succeed to create an instance.

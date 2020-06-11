@@ -286,7 +286,6 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 			},
 		},
 	}, "elements-slice.1.id"))
-
 }
 
 func Test_ValidateNoConflict(t *testing.T) {
@@ -343,5 +342,4 @@ func Test_ValidateNoConflict(t *testing.T) {
 		arg1:    "ssh-key.{index}",
 		arg2:    "all-ssh-keys",
 	}))
-
 }

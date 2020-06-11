@@ -93,7 +93,6 @@ func snapshotWaitCommand() *core.Command {
 				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
-
 		},
 		ArgSpecs: core.ArgSpecs{
 			{

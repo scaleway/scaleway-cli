@@ -24,7 +24,7 @@ func isIgnoredError(err error) bool {
 		case *DifferentLocalizationForNamespaceError:
 			isEqual = areCommandsEquals(typedError.Command1, ignoredError.Command) || areCommandsEquals(typedError.Command2, ignoredError.Command)
 		default:
-			isEqual = (reflect.TypeOf(err) == ignoredError.Type) && areCommandsEquals(reflect.ValueOf(err).FieldByName("Commmand").Interface().(*core.Command), ignoredError.Command)
+			isEqual = (reflect.TypeOf(err) == ignoredError.Type) && areCommandsEquals(reflect.ValueOf(err).FieldByName("Command").Interface().(*core.Command), ignoredError.Command)
 		}
 		if isEqual {
 			return true

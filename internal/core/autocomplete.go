@@ -319,7 +319,6 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// We are trying to complete a node: either a command name or an arg name or a flagname or a positional args
 	suggestions := []string(nil)
 	for key, child := range node.Children {
-
 		if key == positionalValueNodeID {
 			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.ArgSpec, wordToComplete) {
 				if _, exists := completedArgs[positionalSuggestion]; !exists {

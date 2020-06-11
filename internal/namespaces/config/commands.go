@@ -89,7 +89,6 @@ func configRoot() *core.Command {
 
 // configGetCommand gets one or many values for the scaleway config
 func configGetCommand() *core.Command {
-
 	type configGetArgs struct {
 		Key string
 	}
@@ -126,7 +125,6 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 			config, err := scw.LoadConfigFromPath(extractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -240,7 +238,6 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-
 			// Validate arguments
 			args := argsI.(*scw.Profile)
 
@@ -282,7 +279,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully update config"),
+				Message: "successfully update config",
 			}, nil
 		},
 	}
@@ -342,7 +339,6 @@ func configUnsetCommand() *core.Command {
 
 // configDumpCommand dumps the scaleway config
 func configDumpCommand() *core.Command {
-
 	type configDumpArgs struct{}
 
 	return &core.Command{

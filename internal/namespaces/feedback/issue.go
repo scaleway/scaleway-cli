@@ -98,7 +98,7 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	case darwin:
 		openCmd = exec.Command("open", i.getURL())
 	default:
-		err = fmt.Errorf("unsupported platform")
+		return fmt.Errorf("unsupported platform")
 	}
 
 	exitCode, err := core.ExecCmd(ctx, openCmd)
