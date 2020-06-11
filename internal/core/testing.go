@@ -269,7 +269,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
-		ctx = account.InjectHttpClient(ctx, httpClient)
+		ctx = account.InjectHTTPClient(ctx, httpClient)
 
 		// We try to use the client provided in the config
 		// if no client is provided in the config we create a test client

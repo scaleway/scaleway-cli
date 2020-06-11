@@ -32,7 +32,7 @@ const (
 
 type Client struct {
 	wsURL     string
-	serverId  string
+	serverID  string
 	secretKey string
 }
 
@@ -46,7 +46,7 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 
 	return &Client{
 		wsURL:     wsURL,
-		serverId:  serverID,
+		serverID:  serverID,
 		secretKey: secretKey,
 	}, nil
 }
@@ -67,7 +67,7 @@ func (c *Client) Connect() error {
 	// This is how scaleway implement gotty authentication
 	err = conn.WriteJSON(map[string]string{
 		"AuthToken": "",
-		"Arguments": "?" + url.Values{"arg": []string{c.secretKey, c.serverId}}.Encode(),
+		"Arguments": "?" + url.Values{"arg": []string{c.secretKey, c.serverID}}.Encode(),
 	})
 	if err != nil {
 		return err

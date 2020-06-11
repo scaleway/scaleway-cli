@@ -51,7 +51,7 @@ func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 		return nil, err
 	}
 
-	resp, err := extractHttpClient(ctx).Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
+	resp, err := extractHTTPClient(ctx).Post(accountURL+"/tokens", "application/json", bytes.NewReader(rawJSON))
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 }
 
 func GetAccessKey(ctx context.Context, secretKey string) (string, error) {
-	resp, err := extractHttpClient(ctx).Get(accountURL + "/tokens/" + secretKey)
+	resp, err := extractHTTPClient(ctx).Get(accountURL + "/tokens/" + secretKey)
 	if err != nil {
 		return "", err
 	}
@@ -108,7 +108,7 @@ func getOrganizations(ctx context.Context, secretKey string) ([]organization, er
 		return nil, err
 	}
 	req.Header.Add("X-Auth-Token", secretKey)
-	resp, err := extractHttpClient(ctx).Do(req)
+	resp, err := extractHTTPClient(ctx).Do(req)
 	if err != nil {
 		return nil, err
 	}
