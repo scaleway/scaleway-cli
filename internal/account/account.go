@@ -55,18 +55,19 @@ func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
-	if resp.StatusCode == 403 {
+	if resp.StatusCode == http.StatusForbidden {
 		return &LoginResponse{
 			TwoFactorRequired: true,
 		}, nil
 	}
-	if resp.StatusCode == 401 {
+	if resp.StatusCode == http.StatusUnauthorized {
 		return &LoginResponse{
 			WrongPassword: true,
 		}, nil
 	}
-	if resp.StatusCode != 201 {
+	if resp.StatusCode != http.StatusCreated {
 		return nil, fmt.Errorf("scaleway-cli: %s", resp.Status)
 	}
 	loginResponse := &LoginResponse{}
@@ -83,6 +84,7 @@ func GetAccessKey(ctx context.Context, secretKey string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("could not get token")
@@ -112,6 +114,8 @@ func getOrganizations(ctx context.Context, secretKey string) ([]organization, er
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("could not get organizations from %s", accountURL)
 	}
