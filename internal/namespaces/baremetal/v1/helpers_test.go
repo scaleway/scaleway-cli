@@ -21,10 +21,6 @@ func deleteServer(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw baremetal server delete {{ ." + metaKey + ".ID }}")
 }
 
-func waitServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw baremetal server wait {{ ." + metaKey + ".ID }}")
-}
-
 // add an ssh key with a given meta key
 func addSSH(metaKey string, key string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
