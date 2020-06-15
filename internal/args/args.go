@@ -73,7 +73,6 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
 }
 
 func (a RawArgs) GetPositionalArgs() []string {
-
 	positionalArgs := []string(nil)
 	for _, arg := range a {
 		if isPositionalArg(arg) {
@@ -116,7 +115,7 @@ func (a RawArgs) GetAll(argName string) []string {
 			duplicateCheck := map[string]bool{}
 			for _, prefix := range prefixes {
 				for _, key := range a.GetSliceOrMapKeys(prefix) {
-					if duplicateCheck[key] == true {
+					if duplicateCheck[key] {
 						continue
 					}
 					newPrefixes = append(newPrefixes, prefix+"."+key)

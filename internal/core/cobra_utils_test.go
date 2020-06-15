@@ -75,7 +75,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
 				Err:  fmt.Errorf("unknown argument 'name_id'"),
-				Hint: fmt.Sprintf("Valid arguments are: name-id"),
+				Hint: "Valid arguments are: name-id",
 			}),
 		),
 	}))
@@ -87,7 +87,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
 				Err:  fmt.Errorf("unknown argument 'ubuntu_focal'"),
-				Hint: fmt.Sprintf("Valid arguments are: name-id"),
+				Hint: "Valid arguments are: name-id",
 			}),
 		),
 	}))
@@ -157,7 +157,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running: scw test positional plop tag=world"),
+					Hint: "Try running: scw test positional plop tag=world",
 				}),
 			),
 		}))
@@ -169,7 +169,7 @@ func Test_PositionalArg(t *testing.T) {
 				TestCheckExitCode(1),
 				TestCheckError(&CliError{
 					Err:  fmt.Errorf("a positional argument is required for this command"),
-					Hint: fmt.Sprintf("Try running: scw test positional plop"),
+					Hint: "Try running: scw test positional plop",
 				}),
 			),
 		}))
@@ -213,5 +213,4 @@ func Test_PositionalArg(t *testing.T) {
 			TestCheckGolden(),
 		),
 	}))
-
 }

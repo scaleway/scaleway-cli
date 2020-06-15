@@ -356,7 +356,7 @@ func (b *Writer) writeLines(pos0 int, line0, line1 int) (pos int) {
 			b.write0(newline)
 		}
 	}
-	return
+	return pos
 }
 
 // Format the text between line0 and line1 (excluding line1); pos
@@ -628,7 +628,7 @@ func (b *Writer) Write(buf []byte) (n int, err error) {
 	// append leftover text
 	b.append(buf[n:])
 	n = len(buf)
-	return
+	return n, nil
 }
 
 // NewWriter allocates and initializes a new tabwriter.Writer.

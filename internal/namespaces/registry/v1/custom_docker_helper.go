@@ -89,7 +89,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 		Ctx:          ctx,
-		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
+		Prompt:       "Do you want to proceed with these changes?",
 		DefaultValue: true,
 	})
 	if err != nil {

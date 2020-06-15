@@ -83,7 +83,9 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode != 200 {
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("non-success status code %d: %s", resp.StatusCode, matomoURL.String())
 	}
 

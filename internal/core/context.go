@@ -14,6 +14,7 @@ type meta struct {
 
 	ProfileFlag    string
 	ConfigPathFlag string
+	Logger         *Logger
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
@@ -60,6 +61,10 @@ func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
 
 func ExtractClient(ctx context.Context) *scw.Client {
 	return extractMeta(ctx).Client
+}
+
+func ExtractLogger(ctx context.Context) *Logger {
+	return extractMeta(ctx).Logger
 }
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
