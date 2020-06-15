@@ -1,9 +1,12 @@
 package args
 
 import (
+	"fmt"
 	"reflect"
 	"regexp"
 	"strings"
+
+	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
 // validArgNameRegex regex to check that args words are lower-case or digit starting and ending with a letter.
@@ -198,4 +201,57 @@ func splitArg(arg string) (name string, value string) {
 func isPositionalArg(arg string) bool {
 	pos := strings.IndexRune(arg, '=')
 	return pos == -1
+}
+
+// This function take a go struct and a name that comply with ArgSpec name notation (e.g "friends.{index}.name")
+func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
+	var recursiveFunc func(argType reflect.Type, parts []string) (reflect.Type, error)
+	recursiveFunc = func(argType reflect.Type, parts []string) (reflect.Type, error) {
+		switch {
+		case argType.Kind() == reflect.Ptr:
+			return recursiveFunc(argType.Elem(), parts)
+		case len(parts) == 0:
+			return argType, nil
+		case parts[0] == sliceSchema:
+			return recursiveFunc(argType.Elem(), parts[1:])
+		case parts[0] == mapSchema:
+			return recursiveFunc(argType.Elem(), parts[1:])
+		default:
+			// We cannot rely on dest.GetFieldByName() as reflect library is doing deep traversing when using anonymous field.
+			// Because of that we should rely on our own logic
+			//
+			// - First we try to find a field with the correct name in the current struct
+			// - If it does not exist we try to find it in all nested anonymous fields
+			//   Anonymous fields are traversed from last to first as the last one in the struct declaration should take precedence
+
+			// We construct two caches:
+			anonymousFieldIndexes := []int(nil)
+			fieldIndexByName := map[string]int{}
+			for i := 0; i < argType.NumField(); i++ {
+				field := argType.Field(i)
+				if field.Anonymous {
+					anonymousFieldIndexes = append(anonymousFieldIndexes, i)
+				} else {
+					fieldIndexByName[field.Name] = i
+				}
+			}
+
+			// Try to find the correct field in the current struct.
+			fieldName := strcase.ToPublicGoName(parts[0])
+			if fieldIndex, exist := fieldIndexByName[fieldName]; exist {
+				return recursiveFunc(argType.Field(fieldIndex).Type, parts[1:])
+			}
+
+			// If it does not exist we try to find it in nested anonymous field
+			for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
+				argType, err := recursiveFunc(argType.Field(anonymousFieldIndexes[i]).Type, parts)
+				if err == nil {
+					return argType, nil
+				}
+			}
+		}
+		return nil, fmt.Errorf("count not find %s", name)
+	}
+
+	return recursiveFunc(argType, strings.Split(name, "."))
 }
