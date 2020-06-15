@@ -205,10 +205,8 @@ func isPositionalArg(arg string) bool {
 
 // This function take a go struct and a name that comply with ArgSpec name notation (e.g "friends.{index}.name")
 func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
-
 	var recursiveFunc func(argType reflect.Type, parts []string) (reflect.Type, error)
 	recursiveFunc = func(argType reflect.Type, parts []string) (reflect.Type, error) {
-
 		switch {
 		case argType.Kind() == reflect.Ptr:
 			return recursiveFunc(argType.Elem(), parts)
@@ -251,7 +249,6 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 					return argType, nil
 				}
 			}
-
 		}
 		return nil, fmt.Errorf("count not find %s", name)
 	}
