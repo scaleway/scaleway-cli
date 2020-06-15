@@ -53,6 +53,9 @@ type BootstrapConfig struct {
 
 	// BaseContest is the base context that will be used across all function call from top to bottom.
 	Ctx context.Context
+
+	// Optional we use it if defined
+	Logger *Logger
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -91,7 +94,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// We force log to os.Stderr because we dont have a scoped logger feature and it create
 	// concurrency situation with golden files
-	logger.DefaultLogger.Init(os.Stderr, logLevel)
+	log := config.Logger
+	if log == nil {
+		log = &Logger{
+			writer: os.Stderr,
+		}
+	}
+	log.level = logLevel
+	logger.SetLogger(log)
 
 	// The printer must be the first thing set in order to print errors
 	printer, err := NewPrinter(&PrinterConfig{
