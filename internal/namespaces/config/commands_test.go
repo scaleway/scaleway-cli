@@ -12,7 +12,6 @@ import (
 )
 
 func Test_ConfigGetCommand(t *testing.T) {
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
@@ -59,7 +58,6 @@ func Test_ConfigGetCommand(t *testing.T) {
 }
 
 func Test_ConfigSetCommand(t *testing.T) {
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
@@ -118,7 +116,6 @@ func Test_ConfigSetCommand(t *testing.T) {
 }
 
 func Test_ConfigUnsetCommand(t *testing.T) {
-
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),

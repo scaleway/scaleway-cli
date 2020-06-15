@@ -42,9 +42,7 @@ func (m *mockResponseReader) Read(p []byte) (n int, err error) {
 	if m.ctx != nil {
 		if mockResponse, exist := popMockResponseFromContext(m.ctx); exist {
 			buff := []byte(fmt.Sprintf("%s\n", mockResponse))
-			for i, b := range buff {
-				p[i] = b
-			}
+			copy(p, buff)
 			return len(buff), nil
 		}
 	}

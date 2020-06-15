@@ -327,7 +327,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
-
 	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
 	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
 		api := instance.NewAPI(core.ExtractClient(ctx))
@@ -345,7 +344,6 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		return suggestion
 	}
 	return c
-
 }
 
 //
@@ -777,9 +775,8 @@ func serverDeleteCommand() *core.Command {
 				})
 				if err != nil {
 					return nil, err
-				} else {
-					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			deletedVolumeMessages := [][2]string(nil)
@@ -803,16 +800,15 @@ func serverDeleteCommand() *core.Command {
 						Err:  err,
 						Hint: "Make sure this resource have been deleted or try to delete it manually.",
 					}
-				} else {
-					humanSize, err := human.Marshal(volume.Size, nil)
-					if err != nil {
-						logger.Debugf("cannot marshal human size %v", volume.Size)
-					}
-					deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
-						index,
-						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
-					})
 				}
+				humanSize, err := human.Marshal(volume.Size, nil)
+				if err != nil {
+					logger.Debugf("cannot marshal human size %v", volume.Size)
+				}
+				deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
+					index,
+					fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+				})
 			}
 
 			// Sort and print deleted volume messages
@@ -932,7 +928,6 @@ func serverTerminateCommand() *core.Command {
 
 					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
 				}
-
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -950,9 +945,8 @@ func serverTerminateCommand() *core.Command {
 				})
 				if err != nil {
 					return nil, err
-				} else {
-					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			return &core.SuccessResult{}, err

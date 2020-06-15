@@ -53,7 +53,6 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			striptContent, err := ioutil.ReadFile(scriptPath)
 			require.NoError(t, err)
 			assert.Equal(t, "#!/bin/sh\nPROFILE_NAME=\"profile01\"\nif [[ ! -z \"$SCW_PROFILE\" ]]\nthen \n\tPROFILE_NAME=\"$SCW_PROFILE\"\nfi\nscw --profile $PROFILE_NAME registry docker-helper \"$@\"\n", string(striptContent))
-
 		},
 		AfterFunc:   nil,
 		TmpHomeDir:  true,

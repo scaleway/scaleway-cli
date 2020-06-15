@@ -13,8 +13,8 @@ import (
 func Test_ConfigInstall(t *testing.T) {
 	client, err := scw.NewClient(
 		scw.WithAuth(
-		"SCWXXXXXXXXXXXXXXXXX",
-		"11111111-1111-1111-1111-111111111111",
+			"SCWXXXXXXXXXXXXXXXXX",
+			"11111111-1111-1111-1111-111111111111",
 		),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
@@ -34,7 +34,7 @@ func Test_ConfigInstall(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
-			Client: client,
+			Client:     client,
 		}))
 
 		t.Run("mc", core.Test(&core.TestConfig{
@@ -48,7 +48,7 @@ func Test_ConfigInstall(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
-			Client: client,
+			Client:     client,
 		}))
 
 		t.Run("s3cmd", core.Test(&core.TestConfig{
@@ -62,7 +62,7 @@ func Test_ConfigInstall(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			TmpHomeDir: true,
-			Client: client,
+			Client:     client,
 		}))
 	})
 }
