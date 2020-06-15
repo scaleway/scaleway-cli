@@ -16,7 +16,6 @@ func deleteServerAfterFunc() core.AfterFunc {
 
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
-
 	////
 	// Simple use cases
 	////
@@ -112,7 +111,6 @@ func Test_CreateServer(t *testing.T) {
 	// Volume use cases
 	////
 	t.Run("Volumes", func(t *testing.T) {
-
 		t.Run("valid single local volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true",
@@ -151,13 +149,11 @@ func Test_CreateServer(t *testing.T) {
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
-
 	})
 	////
 	// IP use cases
 	////
 	t.Run("IPs", func(t *testing.T) {
-
 		t.Run("explicit new IP", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=new stopped=true",
@@ -225,7 +221,6 @@ func Test_CreateServer(t *testing.T) {
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 	})
-
 }
 
 // None of the tests below should succeed to create an instance.

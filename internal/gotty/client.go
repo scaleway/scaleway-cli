@@ -32,27 +32,25 @@ const (
 
 type Client struct {
 	wsURL     string
-	serverId  string
+	serverID  string
 	secretKey string
 }
 
 // NewClient returns a GoTTY client.
 func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error) {
-
 	wsURL, zoneExist := wsURLs[zone]
 	if !zoneExist {
-		return nil, fmt.Errorf("gotty is not availabe in zone %s", zone)
+		return nil, fmt.Errorf("gotty is not available in zone %s", zone)
 	}
 
 	return &Client{
 		wsURL:     wsURL,
-		serverId:  serverID,
+		serverID:  serverID,
 		secretKey: secretKey,
 	}, nil
 }
 
 func (c *Client) Connect() error {
-
 	wsDialer := websocket.Dialer{}
 	conn, _, err := wsDialer.Dial(c.wsURL, nil)
 	if err != nil {
@@ -61,13 +59,13 @@ func (c *Client) Connect() error {
 	defer func() {
 		// Websocket protocol require the server to close the connection.
 		// This sent a close request.
-		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")) //nolint:errcheck
 	}()
 
 	// This is how scaleway implement gotty authentication
 	err = conn.WriteJSON(map[string]string{
 		"AuthToken": "",
-		"Arguments": "?" + url.Values{"arg": []string{c.secretKey, c.serverId}}.Encode(),
+		"Arguments": "?" + url.Values{"arg": []string{c.secretKey, c.serverID}}.Encode(),
 	})
 	if err != nil {
 		return err
@@ -81,7 +79,7 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return fmt.Errorf("error setting raw terminal: %w", err)
 	}
-	defer cns.Reset()
+	defer cns.Reset() //nolint:errcheck
 	defer cns.Close()
 
 	// Create a chanel that will receive all resizes signals
@@ -97,7 +95,6 @@ func (c *Client) Connect() error {
 
 	for {
 		select {
-
 		// Resize event: we send new terminal size to the server
 		case <-resizeChan:
 			size, err := cns.Size()
@@ -106,6 +103,9 @@ func (c *Client) Connect() error {
 			}
 			message := fmt.Sprintf(`%c{"columns":%d,"rows":%d}`, resizeTerminalCode, size.Width, size.Height)
 			err = conn.WriteMessage(websocket.TextMessage, []byte(message))
+			if err != nil {
+				return err
+			}
 
 		// We receive a message from the server
 		case message := <-wsChan:

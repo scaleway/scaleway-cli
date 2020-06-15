@@ -10,7 +10,6 @@ import (
 
 // ApplyDefaultValues will hydrate args with default values.
 func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs args.RawArgs) args.RawArgs {
-
 	for _, argSpec := range argSpecs {
 		if argSpec.Default == nil {
 			continue
