@@ -30,9 +30,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
+// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 var (
-	// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
-	// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
 	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
 )
@@ -281,7 +281,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
-		ctx = account.InjectHttpClient(ctx, httpClient)
+		ctx = account.InjectHTTPClient(ctx, httpClient)
 
 		// We try to use the client provided in the config
 		// if no client is provided in the config we create a test client
@@ -564,7 +564,7 @@ func testGolden(t *testing.T, goldenPath string, actual []byte) {
 			_ = os.Remove(goldenPath)
 		} else {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644))
+			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644)) //nolint:gosec
 		}
 	}
 

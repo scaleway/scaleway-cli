@@ -50,7 +50,6 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	images := i.([]*imageListItem)
 	humanImages := []*humanImage(nil)
 	for _, image := range images {
-
 		// For each image we want to display a list of volume size sepatated with `,`
 		// e.g: 10 GB, 20 GB
 		volumes := []scw.Size{
@@ -166,7 +165,6 @@ func imageListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-
 		// Get images
 		args := argsI.(*customListImageRequest)
 
@@ -308,7 +306,6 @@ func imageWaitCommand() *core.Command {
 				Timeout:       scw.TimeDurationPtr(imageActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
-
 		},
 		ArgSpecs: core.ArgSpecs{
 			{

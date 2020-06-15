@@ -13,7 +13,6 @@ import (
 
 func Test_ServerVolumeUpdate(t *testing.T) {
 	t.Run("Attach", func(t *testing.T) {
-
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
@@ -93,7 +92,6 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 }
 
 func Test_ServerUpdateCustom(t *testing.T) {
-
 	// IP cases.
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
