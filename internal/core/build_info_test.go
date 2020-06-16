@@ -35,7 +35,7 @@ func Test_CheckVersion(t *testing.T) {
 		BeforeFunc: deleteLatestVersionUpdateFile,
 		Cmd:        "scw plop",
 		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
+			TestCheckGolden(),
 			TestCheckExitCode(0),
 		),
 		DisableParallel: true,
@@ -49,7 +49,7 @@ func Test_CheckVersion(t *testing.T) {
 		BeforeFunc: deleteLatestVersionUpdateFile,
 		Cmd:        "scw plop -D",
 		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
+			TestCheckGolden(),
 			TestCheckExitCode(0),
 		),
 		DisableParallel: true,
@@ -68,7 +68,7 @@ func Test_CheckVersion(t *testing.T) {
 		},
 		Cmd: "scw plop -D",
 		Check: TestCheckCombine(
-			TestCheckStderrGolden(),
+			TestCheckGolden(),
 			TestCheckExitCode(0),
 		),
 		DisableParallel: true,
