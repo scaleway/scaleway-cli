@@ -62,7 +62,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw test empty error",
 		Check: TestCheckCombine(
 			TestCheckExitCode(99),
-			TestCheckStderrGolden(),
+			TestCheckGolden(),
 		),
 	}))
 	t.Run("empty-error-json", Test(&TestConfig{
@@ -82,7 +82,7 @@ func TestInterruptError(t *testing.T) {
 		Cmd:             "scw -o json test empty error",
 		Check: TestCheckCombine(
 			TestCheckExitCode(99),
-			TestCheckStderrGolden(),
+			TestCheckGolden(),
 		),
 	}))
 	t.Run("empty-success", Test(&TestConfig{
@@ -106,7 +106,7 @@ func TestInterruptError(t *testing.T) {
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
 		Cmd:             "scw test empty success",
-		Check:           TestCheckStdoutGolden(),
+		Check:           TestCheckGolden(),
 	}))
 	t.Run("empty-success-json", Test(&TestConfig{
 		Commands: NewCommands(
@@ -129,7 +129,7 @@ func TestInterruptError(t *testing.T) {
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
 		Cmd:             "scw -o json test empty success",
-		Check:           TestCheckStdoutGolden(),
+		Check:           TestCheckGolden(),
 	}))
 	t.Run("empty-list-json", Test(&TestConfig{
 		Commands: NewCommands(
