@@ -182,7 +182,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		defer f.Close()
 	}
 	if err != nil {
-		return nil, err
+		return nil, installationNotFound(shellName, shellConfigurationFilePath, script.CompleteScript)
 	}
 
 	// Early exit if eval line is already present in the shell configuration.
@@ -208,7 +208,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 		Ctx:          ctx,
-		Prompt:       fmt.Sprintf("Do you want to proceed with these changes?"),
+		Prompt:       "Do you want to proceed with these changes?",
 		DefaultValue: true,
 	})
 	if err != nil {

@@ -59,5 +59,5 @@ func marshalAndWriteKubeconfig(kubeconfig *k8s.Kubeconfig, kubeconfigPath string
 		return err
 	}
 
-	return ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0644)
+	return ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0600)
 }

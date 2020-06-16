@@ -123,7 +123,6 @@ func TestInterruptError(t *testing.T) {
 						Resource: "dummy",
 						Verb:     "dummy",
 					}, nil
-
 				},
 			},
 		),

@@ -19,8 +19,11 @@ const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
 type issueTemplate string
 
 const (
-	bug = issueTemplate("bug")
+	bug     = issueTemplate("bug")
 	feature = issueTemplate("feature")
+	linux   = "linux"
+	darwin  = "darwin"
+	windows = "windows"
 )
 
 type issue struct {
@@ -88,14 +91,14 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	var openCmd *exec.Cmd
 
 	switch runtime.GOOS {
-	case "linux":
-		openCmd = exec.Command("xdg-open", i.getURL())
-	case "windows":
-		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL())
-	case "darwin":
-		openCmd = exec.Command("open", i.getURL())
+	case linux:
+		openCmd = exec.Command("xdg-open", i.getURL()) // nolint:gosec
+	case windows:
+		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL()) // nolint:gosec
+	case darwin:
+		openCmd = exec.Command("open", i.getURL()) // nolint:gosec
 	default:
-		err = fmt.Errorf("unsupported platform")
+		return fmt.Errorf("unsupported platform")
 	}
 
 	exitCode, err := core.ExecCmd(ctx, openCmd)

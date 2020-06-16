@@ -12,7 +12,6 @@ import (
 )
 
 func Test_Login(t *testing.T) {
-
 	t.Run("docker", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw registry login program=docker",

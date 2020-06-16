@@ -17,7 +17,7 @@ ARGS:
   [api-url]                   Scaleway API URL
   [insecure]                  Set to true to allow insecure HTTPS connections
   [default-organization-id]   A default Scaleway organization id
-  [default-region]            A default Scaleway region (fr-par-1 | fr-par-2 | nl-ams-1)
+  [default-region]            A default Scaleway region (fr-par | nl-ams)
   [default-zone]              A default Scaleway zone (fr-par-1 | fr-par-2 | nl-ams-1)
   [send-telemetry]            Set to false to disable telemetry
 

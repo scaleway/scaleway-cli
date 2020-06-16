@@ -53,5 +53,4 @@ func Test_InstallServer(t *testing.T) {
 			DefaultZone: scw.ZoneFrPar2,
 		}))
 	})
-
 }

@@ -358,7 +358,7 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 		field := t.Field(fieldIdx)
 		fieldType := field.Type
 
-		if field.Anonymous == true {
+		if field.Anonymous {
 			results = append(results, getDefaultFieldsOpt(fieldType)...)
 			continue
 		}

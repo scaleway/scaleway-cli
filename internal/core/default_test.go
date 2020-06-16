@@ -9,7 +9,6 @@ import (
 )
 
 func Test_ApplyDefaultValues(t *testing.T) {
-
 	type testCase struct {
 		argSpecs ArgSpecs
 		rawArgs  args.RawArgs
@@ -84,5 +83,4 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			"map.alice.1.weight=80",
 		},
 	}))
-
 }
