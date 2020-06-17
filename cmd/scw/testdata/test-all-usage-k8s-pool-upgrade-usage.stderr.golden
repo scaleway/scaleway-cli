@@ -10,7 +10,7 @@ EXAMPLES:
 ARGS:
   pool-id           The ID of the pool to upgrade
   version           The new Kubernetes version for the pool
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for upgrade

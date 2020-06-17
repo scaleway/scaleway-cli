@@ -9,7 +9,7 @@ EXAMPLES:
 
 ARGS:
   node-id           The ID of the node to reboot
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for reboot
