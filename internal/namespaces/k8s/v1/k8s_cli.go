@@ -139,7 +139,7 @@ func k8sClusterList() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClustersRequest)
@@ -403,7 +403,7 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreateClusterRequest)
@@ -441,7 +441,7 @@ func k8sClusterGet() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetClusterRequest)
@@ -587,7 +587,7 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdateClusterRequest)
@@ -631,7 +631,7 @@ func k8sClusterDelete() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeleteClusterRequest)
@@ -677,7 +677,7 @@ func k8sClusterUpgrade() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradeClusterRequest)
@@ -715,7 +715,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterAvailableVersionsRequest)
@@ -763,7 +763,7 @@ func k8sClusterResetAdminToken() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ResetClusterAdminTokenRequest)
@@ -823,7 +823,7 @@ func k8sPoolList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "ready", "deleting", "deleted", "scaling", "warning", "locked", "upgrading"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListPoolsRequest)
@@ -987,7 +987,7 @@ func k8sPoolCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreatePoolRequest)
@@ -1029,7 +1029,7 @@ func k8sPoolGet() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetPoolRequest)
@@ -1069,7 +1069,7 @@ func k8sPoolUpgrade() *core.Command {
 				Required:   true,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradePoolRequest)
@@ -1139,7 +1139,7 @@ func k8sPoolUpdate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdatePoolRequest)
@@ -1181,7 +1181,7 @@ func k8sPoolDelete() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeletePoolRequest)
@@ -1241,7 +1241,7 @@ func k8sNodeList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListNodesRequest)
@@ -1319,7 +1319,7 @@ func k8sNodeGet() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetNodeRequest)
@@ -1353,7 +1353,7 @@ func k8sNodeReplace() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ReplaceNodeRequest)
@@ -1387,7 +1387,7 @@ func k8sNodeReboot() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.RebootNodeRequest)
@@ -1415,7 +1415,7 @@ func k8sVersionList() *core.Command {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(k8s.ListVersionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListVersionsRequest)
@@ -1469,7 +1469,7 @@ func k8sVersionGet() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetVersionRequest)
