@@ -19,6 +19,10 @@ func createServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
 }
 
+func createServerWith2LocalVolumes(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w")
+}
+
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
