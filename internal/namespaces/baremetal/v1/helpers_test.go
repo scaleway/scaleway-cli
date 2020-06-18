@@ -33,5 +33,5 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 
 // delete an ssh key with a given meta key
 func deleteSSH(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw account ssh-key delete {{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw account ssh-key remove {{ ." + metaKey + ".ID }}")
 }

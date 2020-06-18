@@ -110,6 +110,16 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 
 	if cmd.Run != nil {
 		cobraCmd.RunE = cobraRun(b.ctx, cmd)
+	} else {
+		// If command is not runnable we create a default run function that
+		// will print usage of the parent command and exit with code 1
+		cobraCmd.RunE = func(cmd *cobra.Command, args []string) error {
+			err := cmd.Help()
+			if err != nil {
+				return err
+			}
+			return &CliError{Empty: true, Code: 1}
+		}
 	}
 
 	if cmd.WaitFunc != nil {

@@ -1,10 +1,8 @@
-Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance.
-
 USAGE:
-  scw baremetal bmc
+  scw instance server
 
 FLAGS:
-  -h, --help   help for bmc
+  -h, --help   help for server
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
