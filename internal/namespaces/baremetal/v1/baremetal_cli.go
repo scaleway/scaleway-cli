@@ -22,8 +22,6 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalRoot(),
 		baremetalServer(),
 		baremetalOs(),
-		baremetalBmc(),
-		baremetalOffer(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
@@ -60,24 +58,6 @@ func baremetalOs() *core.Command {
 		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
-	}
-}
-
-func baremetalBmc() *core.Command {
-	return &core.Command{
-		Short:     `Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance`,
-		Long:      `Baseboard Management Controller (BMC) offers a low-level access to your baremetal instance.`,
-		Namespace: "baremetal",
-		Resource:  "bmc",
-	}
-}
-
-func baremetalOffer() *core.Command {
-	return &core.Command{
-		Short:     `Commercial offers`,
-		Long:      `Commercial offers.`,
-		Namespace: "baremetal",
-		Resource:  "offer",
 	}
 }
 
