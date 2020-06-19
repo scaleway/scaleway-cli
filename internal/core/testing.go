@@ -372,7 +372,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			log.Debugf("command: %s\n", args)
+			log.Debugf("executing command: %s\n", args)
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,
