@@ -388,7 +388,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Logger:           log,
 			})
 
-			log.Debugf("Store in meta (with key CmdResult): %s\n", result)
 			meta["CmdResult"] = result
 			config.Check(t, &CheckFuncCtx{
 				ExitCode:    exitCode,
