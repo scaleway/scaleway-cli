@@ -27,6 +27,26 @@ func Test_ImageCreate(t *testing.T) {
 			deleteSnapshot("Snapshot"),
 		),
 	}))
+
+	t.Run("Use additional snapshots", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w"),
+			core.ExecStoreBeforeCmd("SnapshotA", `scw instance snapshot create -w name=cli-test-image-create-snapshotA volume-id={{ (index .Server.Volumes "0").ID }}`),
+			core.ExecStoreBeforeCmd("SnapshotB", `scw instance snapshot create -w name=cli-test-image-create-snapshotB volume-id={{ (index .Server.Volumes "1").ID }}`),
+		),
+		Cmd: "scw instance image create snapshot-id={{ .SnapshotA.ID }} extra-volumes.0.id={{ .SnapshotB.ID }} arch=x86_64",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteServer("Server"),
+			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }}"),
+			core.ExecAfterCmd("scw instance snapshot delete {{ .SnapshotA.ID }}"),
+			core.ExecAfterCmd("scw instance snapshot delete {{ .SnapshotB.ID }}"),
+		),
+	}))
 }
 
 func Test_ImageDelete(t *testing.T) {
