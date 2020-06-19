@@ -1,24 +1,24 @@
-id                            9385f8be-842b-4528-ac8a-7ff5ce46cb0a
+id                            fc0c61cf-d65c-4f27-863a-447a4898a180
 organization-id               951df375-e094-4d26-97c1-ba548eeb9c42
-name                          cli-bm-heuristic-maxwell
+name                          cli-bm-naughty-sanderson
 description                   -
 updated-at                    few seconds ago
 created-at                    few seconds ago
 status                        ready
 offer-id                      7fde3890-9787-488c-ac89-c4e00a4e5f83
-ips.0.id                      54858999-8a47-47a1-a450-bada0d5a1be5
-ips.0.address                 2001:bc8:6005:1b:dac4:97ff:fe2a:330c
-ips.0.reverse                 9385f8be-842b-4528-ac8a-7ff5ce46cb0a.fr-par-2.baremetal.scw.cloud
+ips.0.id                      5d2b8d87-2e1e-4e8b-932f-de6c5b4b25e3
+ips.0.address                 2001:bc8:6005:1b:aa1e:84ff:fef3:589c
+ips.0.reverse                 fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
 ips.0.version                 IPv6
 ips.0.reverse-status          active
 ips.0.reverse-status-message  -
-ips.1.id                      8dea37e9-f1dd-46a9-a5cb-be5bb871bfac
-ips.1.address                 51.159.31.33
-ips.1.reverse                 9385f8be-842b-4528-ac8a-7ff5ce46cb0a.fr-par-2.baremetal.scw.cloud
+ips.1.id                      cf4c77ac-cfd7-4f83-a17f-d15fa6ff1d86
+ips.1.address                 51.159.31.104
+ips.1.reverse                 fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
 ips.1.version                 IPv4
 ips.1.reverse-status          active
 ips.1.reverse-status-message  -
-domain                        9385f8be-842b-4528-ac8a-7ff5ce46cb0a.fr-par-2.baremetal.scw.cloud
+domain                        fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
 boot-type                     normal
 zone                          fr-par-2
 install.os-id                 d859aa89-8b4a-4551-af42-ff7c0c27260a
