@@ -1,0 +1,14 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+[{"NameID":"test1","Tag":"tag01"},{"NameID":"test2","Tag":"tag01"}]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "NameID": "test1",
+    "Tag": "tag01"
+  },
+  {
+    "NameID": "test2",
+    "Tag": "tag01"
+  }
+]

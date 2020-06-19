@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                        STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION                          CREATION DATE    MODIFICATION DATE
+491cd44c-38c7-4d09-a83c-32693f2f7afa  cli-img-flamboyant-babbage  available  false   fr-par-1  20 GB    -            -          x86_64  b3ba839a-dcf2-4b0a-ac81-fc32370052a0  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "ID": "491cd44c-38c7-4d09-a83c-32693f2f7afa",
+    "Name": "cli-img-flamboyant-babbage",
+    "Arch": "x86_64",
+    "CreationDate": "2020-06-03T12:42:34.801897Z",
+    "ModificationDate": "2020-06-03T12:42:34.801897Z",
+    "DefaultBootscript": null,
+    "ExtraVolumes": {},
+    "Organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
+    "Public": false,
+    "RootVolume": {
+      "id": "d8c916a2-b6ed-4eb4-bc5b-95f2ddd9f12d",
+      "name": "cli-snp-nostalgic-lamport",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "State": "available",
+    "ServerID": "",
+    "ServerName": "",
+    "Zone": "fr-par-1"
+  }
+]

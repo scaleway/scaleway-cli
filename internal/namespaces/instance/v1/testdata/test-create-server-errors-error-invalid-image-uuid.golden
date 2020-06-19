@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Cannot create the server: scaleway-sdk-go: resource  with ID 7a892c1a-bbdc-491f-9974-4008e3708664 is not found
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "cannot create the server: scaleway-sdk-go: resource  with ID 7a892c1a-bbdc-491f-9974-4008e3708664 is not found"
+}

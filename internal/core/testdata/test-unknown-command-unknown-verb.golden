@@ -1,0 +1,15 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+USAGE:
+  scw instance server
+
+FLAGS:
+  -h, --help   help for server
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{}

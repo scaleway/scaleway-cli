@@ -611,25 +611,25 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	}
 
 	buffer := bytes.Buffer{}
-	buffer.WriteString(fmt.Sprintf("### EXIT CODE: %d️️\n", ctx.ExitCode))
+	buffer.WriteString(fmt.Sprintf("\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n", ctx.ExitCode))
 
 	if len(ctx.Stdout) > 0 {
-		buffer.WriteString("### STDOUT️:\n")
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 STDOUT️ \U0001F7E9\U0001F7E9\U0001F7E9️\n")
 		buffer.Write(ctx.Stdout)
 	}
 
 	if len(ctx.Stderr) > 0 {
-		buffer.WriteString("### STDERR️️:\n")
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 STDERR️️ \U0001F7E5\U0001F7E5\U0001F7E5️\n")
 		buffer.Write(ctx.Stderr)
 	}
 
 	if jsonStdout.Len() > 0 {
-		buffer.WriteString("### JSON-STDOUT:️\n")
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 JSON STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n")
 		buffer.Write(jsonStdout.Bytes())
 	}
 
 	if jsonStderr.Len() > 0 {
-		buffer.WriteString("### JSON-STDERR:\n")
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n")
 		buffer.Write(jsonStderr.Bytes())
 	}
 

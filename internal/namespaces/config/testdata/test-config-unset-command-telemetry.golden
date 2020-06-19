@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Successfully unset send-telemetry.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "successfully unset send-telemetry",
+  "details": ""
+}

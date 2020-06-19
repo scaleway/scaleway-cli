@@ -1,0 +1,32 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new human.
+
+USAGE:
+  scw test human create [arg=value ...]
+
+EXAMPLES:
+  create a dwarf
+    scw test human create height=125
+
+ARGS:
+  [height]                   
+  [shoe-size]                
+  [altitude-in-meter]        
+  [altitude-in-millimeter]   
+  [fingers-count]            
+  [hair-count]               
+  [is-happy]                 
+  [eyes-color]                (unknown | amber | blue | brown | gray | green | hazel | red | violet)
+  [name]                     
+  [organization-id]          Organization ID to use. If none is passed will use default organization ID from the config
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
