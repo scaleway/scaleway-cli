@@ -589,7 +589,6 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 }
 
 func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
-
 	jsonStderr := &bytes.Buffer{}
 	jsonStdout := &bytes.Buffer{}
 
