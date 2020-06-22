@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -61,6 +62,9 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
 		scw.WithProfile(profile),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	client, err := scw.NewClient(opts...)
@@ -76,6 +80,9 @@ func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	client, err := scw.NewClient(opts...)

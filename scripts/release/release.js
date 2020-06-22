@@ -219,7 +219,9 @@ async function main() {
     const releaseAssets = [
         `scw-${newVersionWithDash}-darwin-x86_64`,
         `scw-${newVersionWithDash}-linux-x86_64`,
+        `scw-${newVersionWithDash}-linux-386`,
         `scw-${newVersionWithDash}-windows-x86_64.exe`,
+        `scw-${newVersionWithDash}-windows-386.exe`,
         `SHA256SUMS`,
     ];
     await Promise.all(releaseAssets.map((assetName) => {
