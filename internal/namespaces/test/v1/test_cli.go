@@ -111,6 +111,11 @@ func testHumanList() *core.Command {
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "height_asc", "height_desc"},
 			},
 			{
+				Name:       "project-id",
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Required:   false,
 				Positional: false,
@@ -211,6 +216,11 @@ func testHumanCreate() *core.Command {
 			},
 			{
 				Name:       "name",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
 				Required:   false,
 				Positional: false,
 			},
