@@ -1,13 +1,10 @@
 package core
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
-	"github.com/hashicorp/go-retryablehttp"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -65,6 +62,9 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
 		scw.WithProfile(profile),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	client, err := scw.NewClient(opts...)
@@ -80,6 +80,9 @@ func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	client, err := scw.NewClient(opts...)
@@ -204,22 +207,4 @@ func validateClient(client *scw.Client) error {
 	}
 
 	return nil
-}
-
-// createRetryableHTTPClient creates a retryablehttp.Client.
-func createRetryableHTTPClient(shouldLog bool) *client {
-	c := retryablehttp.NewClient()
-
-	c.RetryMax = 3
-	c.RetryWaitMax = 2 * time.Minute
-	c.Logger = l
-	c.RetryWaitMin = time.Second * 2
-	c.CheckRetry = func(_ context.Context, resp *http.Response, err error) (bool, error) {
-		if resp == nil || resp.StatusCode == http.StatusTooManyRequests {
-			return true, err
-		}
-		return retryablehttp.DefaultRetryPolicy(context.TODO(), resp, err)
-	}
-
-	return &client{c}
 }
