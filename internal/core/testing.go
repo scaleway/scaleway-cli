@@ -550,12 +550,10 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-//var regTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
 var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
 
-// uniformTimestamps replace all timestamp to the date "1970-01-01T00:00:00.0Z"
+// uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
 func uniformTimestamps(input string) string {
-	//return regTimestamp.ReplaceAllString(input, "2019/12/09 16:04:07")
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
