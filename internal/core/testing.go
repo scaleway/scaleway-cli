@@ -524,8 +524,6 @@ func TestCheckGolden() TestCheck {
 		}
 
 		expected, err := ioutil.ReadFile(goldenPath)
-		expected = bytes.ReplaceAll(expected, []byte("\r"), []byte{})
-
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
 		assert.Equal(t, string(expected), string(actual))
 	}
