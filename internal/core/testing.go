@@ -199,6 +199,9 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	// If client is NOT an E2E client we init http recorder and load configuration.
@@ -583,7 +586,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		return nil
 	})
 
-	return &http.Client{Transport: r}, func() {
+	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
 }
