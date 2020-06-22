@@ -13,7 +13,6 @@ func Test_FeedbackBug(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw feedback bug",
-
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
