@@ -99,12 +99,22 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		OrganizationID    string
 	}
 
-	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-volumes.{key}.id"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-volumes.{key}.name"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-volumes.{key}.size"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-volumes.{key}.volume-type"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{key}.organization-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{key}.id"
 
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Short = "Name of the additional snapshot"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{key}.name"
+
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Short = "Size of the additional snapshot"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{key}.size"
+
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Short = "Underlying volume type of the additional snapshot"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{key}.volume-type"
+
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Short = "Organization ID that own the additional snapshot"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{key}.organization-id"
+
+	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
