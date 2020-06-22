@@ -18,8 +18,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "inherit",
     "size": 2797541,
-    "created_at": "2020-06-01T17:46:29.938072Z",
-    "updated_at": "2020-06-01T17:46:30.387874Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -33,8 +33,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "public",
     "size": 760455,
-    "created_at": "2020-06-03T16:53:23.406431Z",
-    "updated_at": "2020-06-03T16:53:38.774674Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -48,8 +48,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "private",
     "size": 755813,
-    "created_at": "2020-06-03T16:53:29.527984Z",
-    "updated_at": "2020-06-03T16:53:43.515488Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -63,8 +63,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "inherit",
     "size": 727962,
-    "created_at": "2020-06-03T16:53:34.012944Z",
-    "updated_at": "2020-06-03T16:53:47.312722Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -78,8 +78,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "inherit",
     "size": 723146,
-    "created_at": "2020-06-03T16:53:38.46573Z",
-    "updated_at": "2020-06-03T16:53:38.98847Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -93,8 +93,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "inherit",
     "size": 715296,
-    "created_at": "2020-06-03T16:53:43.15679Z",
-    "updated_at": "2020-06-03T16:53:43.663844Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
@@ -108,8 +108,8 @@ fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/
     "status_message": "",
     "visibility": "inherit",
     "size": 0,
-    "created_at": "2020-06-03T16:53:46.973431Z",
-    "updated_at": "2020-06-03T16:53:46.973431Z",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],

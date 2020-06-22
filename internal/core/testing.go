@@ -550,11 +550,13 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-var regLogTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
+//var regTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
+var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
 
-// uniformLogTimestamps replace all log timestamp to the date "2019/12/09 16:04:07"
-func uniformLogTimestamps(input string) string {
-	return regLogTimestamp.ReplaceAllString(input, "2019/12/09 16:04:07")
+// uniformTimestamps replace all timestamp to the date "1970-01-01T00:00:00.0Z"
+func uniformTimestamps(input string) string {
+	//return regTimestamp.ReplaceAllString(input, "2019/12/09 16:04:07")
+	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
@@ -634,7 +636,7 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 
 	str := buffer.String()
 	// In order to avoid diff in goldens we set all timestamp to the same date
-	str = uniformLogTimestamps(str)
+	str = uniformTimestamps(str)
 	// Replace Windows return carriage.
 	str = strings.ReplaceAll(str, "\r", "")
 	return str

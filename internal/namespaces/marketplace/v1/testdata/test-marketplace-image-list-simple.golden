@@ -41,16 +41,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2018-04-27T14:07:25.221998Z",
-    "modification_date": "2019-03-26T14:00:51.745705Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "ubuntu_bionic",
     "versions": [
       {
         "id": "e640c621-305b-45f5-975f-a3f80c1cec66",
         "name": "2019-03-05T16:39:34.377275",
-        "creation_date": "2019-03-05T16:39:34.893732Z",
-        "modification_date": "2019-03-05T16:39:34.893732Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
@@ -163,16 +163,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2016-04-22T13:27:33.769932Z",
-    "modification_date": "2020-01-20T09:04:40.661026Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "ubuntu_xenial",
     "versions": [
       {
         "id": "24cd2ef0-bbc5-4b1a-8b08-99f617eab446",
         "name": "2020-01-17T14:31:06.031136",
-        "creation_date": "2020-01-17T14:31:06.041118Z",
-        "modification_date": "2020-01-17T14:31:06.041118Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "3d6804e0-086e-4a06-8124-7240a657668d",
@@ -294,16 +294,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2017-06-26T15:37:13.460764Z",
-    "modification_date": "2020-01-20T09:04:42.765883Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "debian_stretch",
     "versions": [
       {
         "id": "8342f5d0-46aa-46e7-8a6f-f41188c97fba",
         "name": "2020-01-15T11:38:06.390074",
-        "creation_date": "2020-01-15T11:38:06.396694Z",
-        "modification_date": "2020-01-15T11:38:06.396694Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "5f7ab0cd-d10e-49a0-91c8-315ed8a6a1a4",
@@ -425,16 +425,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2016-03-05T14:52:36.322319Z",
-    "modification_date": "2019-03-26T14:00:50.449502Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "debian_jessie",
     "versions": [
       {
         "id": "d3846a7b-8219-4938-ad96-cc2173e22481",
         "name": "2018-04-10T22:31:04.321157",
-        "creation_date": "2018-04-10T22:31:04.322822Z",
-        "modification_date": "2018-04-10T22:31:04.322822Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "2dfad6d2-e527-4e93-8eb1-8dc57803b310",
@@ -543,16 +543,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2019-03-06T11:27:48.40629Z",
-    "modification_date": "2019-03-26T14:00:50.839069Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "centos_7.6",
     "versions": [
       {
         "id": "53138072-3099-4566-8b18-de7b2739696a",
         "name": "2019-03-18T09:29:00.168590",
-        "creation_date": "2019-03-18T09:29:00.247544Z",
-        "modification_date": "2019-03-18T09:29:00.247544Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "05794ee5-c6d2-4d69-86dd-f1fc9032921d",
@@ -623,16 +623,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2018-04-19T10:12:28.968536Z",
-    "modification_date": "2019-03-26T14:00:53.445597Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "centos_7.4",
     "versions": [
       {
         "id": "31be34e5-074d-4c63-8c77-454459f77c3f",
         "name": "2018-04-20T13:55:06.817954",
-        "creation_date": "2018-04-20T13:55:06.824033Z",
-        "modification_date": "2018-04-20T13:55:06.824033Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "ec8b431e-ad39-4523-8b94-f3fa7f3cbd06",
@@ -699,16 +699,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2019-03-06T09:07:51.652433Z",
-    "modification_date": "2019-03-26T14:00:51.848785Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "fedora_29",
     "versions": [
       {
         "id": "a0f02365-f1af-48cb-b82d-75853a4e05e1",
         "name": "2019-03-06T09:08:01.016040",
-        "creation_date": "2019-03-06T09:08:01.112958Z",
-        "modification_date": "2019-03-06T09:08:01.112958Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "541f4562-5417-4b59-85d6-caaf64c1f127",
@@ -779,16 +779,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2018-05-03T09:51:57.274011Z",
-    "modification_date": "2019-03-26T14:00:50.156015Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "fedora_28",
     "versions": [
       {
         "id": "49e33199-28cc-44d6-bb2e-a6147944ad5c",
         "name": "2018-05-03T12:01:10.135200",
-        "creation_date": "2018-05-03T12:01:10.147973Z",
-        "modification_date": "2018-05-03T12:01:10.147973Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "830aad94-24e5-4363-b2c3-e62921bd9294",
@@ -855,16 +855,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2018-04-19T10:14:08.6481Z",
-    "modification_date": "2019-03-26T14:00:53.140907Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "fedora_27",
     "versions": [
       {
         "id": "45b5823f-8ddf-4ea8-b106-33d2df127cdf",
         "name": "2018-09-06T10:51:13.011044",
-        "creation_date": "2018-09-06T10:51:13.009967Z",
-        "modification_date": "2018-09-06T10:51:13.009967Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "097a100e-fd2f-4918-8a5b-d86de5a489be",
@@ -931,16 +931,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2016-03-07T20:55:32.213089Z",
-    "modification_date": "2019-03-26T14:00:49.32707Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "arch_linux",
     "versions": [
       {
         "id": "f7696517-bc49-448b-9869-f2c84e7c2a96",
         "name": "2018-04-20T15:59:04.593811",
-        "creation_date": "2018-04-20T15:59:04.594929Z",
-        "modification_date": "2018-04-20T15:59:04.594929Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "f21defd0-9fd9-4fb2-a29a-22844a6be3cd",
@@ -1007,16 +1007,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2016-03-05T14:49:50.255568Z",
-    "modification_date": "2019-03-26T14:00:54.425917Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "alpine_linux",
     "versions": [
       {
         "id": "be2293b6-9eba-4497-9659-2cfb927483b5",
         "name": "2018-04-26T10:18:10.196011",
-        "creation_date": "2018-04-26T10:18:10.201002Z",
-        "modification_date": "2018-04-26T10:18:10.201002Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "24141068-1043-4885-bf2b-8290f617e273",
@@ -1083,16 +1083,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "distribution"
     ],
-    "creation_date": "2019-07-16T13:55:36.377559Z",
-    "modification_date": "2020-01-20T09:04:41.730609Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "debian_buster",
     "versions": [
       {
         "id": "763b45ed-2e31-4ba0-9beb-efb195503a2d",
         "name": "2020-01-15T11:52:04.849401",
-        "creation_date": "2020-01-15T11:52:04.860098Z",
-        "modification_date": "2020-01-15T11:52:04.860098Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "61010e34-7f1e-402b-a253-028a714a6678",
@@ -1200,16 +1200,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-05T15:11:26.84764Z",
-    "modification_date": "2019-03-26T14:00:49.524465Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "docker",
     "versions": [
       {
         "id": "bf30c937-6e89-4019-ad2a-92156a62cf3e",
         "name": "2019-03-07T17:07:39.004809",
-        "creation_date": "2019-03-07T17:07:39.090644Z",
-        "modification_date": "2019-03-07T17:07:39.090644Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "89c80d27-ddf4-4ffa-8215-b335cce3fd05",
@@ -1316,16 +1316,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:06:22.770864Z",
-    "modification_date": "2019-04-09T13:31:04.022755Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "gitlab",
     "versions": [
       {
         "id": "a389c94b-8b19-4528-a4f6-0b7cac3425e9",
         "name": "2019-04-09T13:31:03.352588",
-        "creation_date": "2019-04-09T13:31:03.648676Z",
-        "modification_date": "2019-04-09T13:31:03.648676Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "06a2a6e9-922d-4353-9472-bbb1f79fda63",
@@ -1396,16 +1396,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:00:44.946716Z",
-    "modification_date": "2019-03-26T14:00:54.513196Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "gogs",
     "versions": [
       {
         "id": "1b9e22e3-6a29-4f42-acfd-281ad086ee1d",
         "name": "2018-05-16T15:11:25.303762",
-        "creation_date": "2018-05-16T15:11:25.881343Z",
-        "modification_date": "2018-05-16T15:11:25.881343Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "776705c4-be8e-4a27-b740-2e8bbba518c5",
@@ -1486,16 +1486,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-08T07:01:11.482482Z",
-    "modification_date": "2019-03-26T14:00:52.861225Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "golang",
     "versions": [
       {
         "id": "880194c8-53ce-4b6b-a274-4f79307e2f8e",
         "name": "2018-04-18T08:00:48.129246",
-        "creation_date": "2018-04-18T08:00:48.17534Z",
-        "modification_date": "2018-04-18T08:00:48.17534Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "43213956-c7a3-44b8-9d96-d51fa7457969",
@@ -1604,16 +1604,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:07:46.908969Z",
-    "modification_date": "2019-03-26T14:00:49.430836Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "java",
     "versions": [
       {
         "id": "f3f69cca-aadb-4e5e-94b0-254ce05a6639",
         "name": "2018-04-18T10:11:18.477156",
-        "creation_date": "2018-04-18T10:11:18.535736Z",
-        "modification_date": "2018-04-18T10:11:18.535736Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "c50cb4b2-bf7b-47e2-ab5f-3a9d3d4c1aef",
@@ -1722,16 +1722,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:06:53.55298Z",
-    "modification_date": "2019-04-09T13:31:12.129567Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "lemp_stack",
     "versions": [
       {
         "id": "a2e5ed1a-6f01-4f20-aabd-4115c67df590",
         "name": "2019-04-09T13:31:10.613803",
-        "creation_date": "2019-04-09T13:31:11.315416Z",
-        "modification_date": "2019-04-09T13:31:11.315416Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "32332006-1420-4260-97c7-c1da586f68cd",
@@ -1844,16 +1844,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-07-11T14:52:57.803007Z",
-    "modification_date": "2019-03-26T14:00:51.93892Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "mattermost",
     "versions": [
       {
         "id": "42371bf7-c1ca-4889-a6d4-43febda865ca",
         "name": "2018-05-03T10:27:55.021511",
-        "creation_date": "2018-05-03T10:27:55.61092Z",
-        "modification_date": "2018-05-03T10:27:55.61092Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "486e128c-fde7-42d7-9200-5d91b8dc2761",
@@ -1920,16 +1920,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2019-04-16T12:22:56.930842Z",
-    "modification_date": "2019-04-16T12:25:38.758921Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "nextcloud",
     "versions": [
       {
         "id": "2fe66cc6-8985-4b5f-8325-83acc0589436",
         "name": "2019-04-16T12:25:37.374676",
-        "creation_date": "2019-04-16T12:25:38.052537Z",
-        "modification_date": "2019-04-16T12:25:38.052537Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "e9af0a24-4312-4305-9386-b3a79e02f92d",
@@ -2042,16 +2042,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:06:07.014951Z",
-    "modification_date": "2019-03-26T14:00:51.148549Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "node.js",
     "versions": [
       {
         "id": "af308511-bcb3-4583-b0e0-79dbb1eea63e",
         "name": "2018-04-18T10:07:15.691016",
-        "creation_date": "2018-04-18T10:07:15.74466Z",
-        "modification_date": "2018-04-18T10:07:15.74466Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "a8020f20-8a66-43f3-8253-35941db3d237",
@@ -2160,16 +2160,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:04:57.667667Z",
-    "modification_date": "2019-03-26T14:00:52.955853Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "openvpn",
     "versions": [
       {
         "id": "d812e374-1169-4c91-aa90-c72acceeecb2",
         "name": "2019-03-25T13:06:01.961936",
-        "creation_date": "2019-03-25T13:06:02.622633Z",
-        "modification_date": "2019-03-25T13:06:02.622633Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "b15ddb1a-0611-412e-881a-3aed1b36392b",
@@ -2282,16 +2282,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:05:14.365925Z",
-    "modification_date": "2019-03-26T14:00:52.457272Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "owncloud",
     "versions": [
       {
         "id": "c9c02a9c-e072-48af-aefd-bf6be9028022",
         "name": "2018-04-18T10:09:38.952503",
-        "creation_date": "2018-04-18T10:09:39.010195Z",
-        "modification_date": "2018-04-18T10:09:39.010195Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "a5fb716a-1c60-4740-a179-98ce315ca3d7",
@@ -2372,16 +2372,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:01:47.99793Z",
-    "modification_date": "2019-03-26T14:00:50.06795Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "prestashop",
     "versions": [
       {
         "id": "6c459ab1-4f1a-4f87-b92e-c00849c93fde",
         "name": "2018-05-16T14:57:15.505378",
-        "creation_date": "2018-05-16T14:57:16.059809Z",
-        "modification_date": "2018-05-16T14:57:16.059809Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "4d07fcfa-ccda-4945-81aa-8de2206b39c0",
@@ -2490,16 +2490,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:05:46.642023Z",
-    "modification_date": "2019-03-26T14:00:49.970905Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "python",
     "versions": [
       {
         "id": "2642a982-e61d-4a58-8105-8838a69a85e3",
         "name": "2018-04-17T16:43:36.031203",
-        "creation_date": "2018-04-17T16:43:36.089412Z",
-        "modification_date": "2018-04-17T16:43:36.089412Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "70b9c9cf-c2d9-4a80-b450-a7aef8226d96",
@@ -2580,16 +2580,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T22:15:25.347873Z",
-    "modification_date": "2019-03-26T14:00:54.119256Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "ruby",
     "versions": [
       {
         "id": "5b8c935b-5047-43fd-a423-045dae3e0d78",
         "name": "2018-04-18T10:21:49.057120",
-        "creation_date": "2018-04-18T10:21:49.119857Z",
-        "modification_date": "2018-04-18T10:21:49.119857Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "09c71ada-00c6-43de-ad44-c77c5b857a05",
@@ -2670,16 +2670,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:08:02.980958Z",
-    "modification_date": "2019-03-26T14:00:51.427329Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "torrents",
     "versions": [
       {
         "id": "53d2e4fb-20df-4ba9-8d65-29256f2be480",
         "name": "2019-03-25T13:04:01.408435",
-        "creation_date": "2019-03-25T13:04:02.099902Z",
-        "modification_date": "2019-03-25T13:04:02.099902Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "41d0db97-4822-4642-96ec-6f3fbcfc167c",
@@ -2792,16 +2792,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "Machine Learning"
     ],
-    "creation_date": "2019-03-06T17:24:56.871317Z",
-    "modification_date": "2020-02-17T12:56:29.41741Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "ubuntu_bionic_ml_10.1",
     "versions": [
       {
         "id": "50a39102-80cf-4c9b-aed8-919e745df9d5",
         "name": "2020-02-17T12:50:10.040529",
-        "creation_date": "2020-02-17T12:50:10.150196Z",
-        "modification_date": "2020-02-17T12:50:10.150196Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "8fa4f46b-2cb2-40df-813a-727df120b9e4",
@@ -2828,16 +2828,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "Machine Learning"
     ],
-    "creation_date": "2019-03-06T17:24:29.909001Z",
-    "modification_date": "2020-02-17T12:55:53.623681Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "ubuntu_bionic_ml_9.2",
     "versions": [
       {
         "id": "d0602033-62f8-455a-be55-0930291bb43f",
         "name": "2020-02-17T12:39:31.572184",
-        "creation_date": "2020-02-17T12:39:31.681271Z",
-        "modification_date": "2020-02-17T12:39:31.681271Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "1dad4207-f91a-48c3-9fac-6620e90b9434",
@@ -2864,16 +2864,16 @@ wordpress              WordPress              [fr-par-1 nl-ams-1]  [arm arm64 x8
     "categories": [
       "instantapp"
     ],
-    "creation_date": "2016-03-07T21:03:59.783534Z",
-    "modification_date": "2019-03-26T14:00:50.250657Z",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
     "valid_until": "0001-01-01T00:00:00Z",
     "label": "wordpress",
     "versions": [
       {
         "id": "3fb22e1f-de7f-4787-9bf8-32770151a45e",
         "name": "2019-03-08T08:58:28.893091",
-        "creation_date": "2019-03-08T08:58:28.971149Z",
-        "modification_date": "2019-03-08T08:58:28.971149Z",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
         "local_images": [
           {
             "id": "8523fb41-500a-4f21-998b-890908da6119",
