@@ -17,9 +17,9 @@ func GetCommands() *core.Commands {
 }
 
 type setting struct {
-	Key    string
-	Value  string
-	Origin string
+	Key    string `json:"key"`
+	Value  string `json:"value"`
+	Origin string `json:"origin"`
 }
 
 func infosRoot() *core.Command {
