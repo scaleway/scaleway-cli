@@ -55,7 +55,7 @@ func infosRoot() *core.Command {
 	}
 
 	return &core.Command{
-		Short:                `Get settings about current settings`,
+		Short:                `Get info about current settings`,
 		Namespace:            "info",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(infoArgs{}),

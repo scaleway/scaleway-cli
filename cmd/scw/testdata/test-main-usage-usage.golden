@@ -16,6 +16,7 @@ AVAILABLE COMMANDS:
   version      Display cli version
   registry     Docker registry API
   feedback     Send feedback to the Scaleway CLI Team!
+  info         Get info about current settings
   help         Help about any command
 
 FLAGS:
