@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Invalid arguments 'placement_group'
+
+Details:
+- 'placement_group' does not respect constraints
+
+Hint:
+Not a valid value
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "invalid arguments 'placement_group'",
+  "error": {
+    "details": [
+      {
+        "argument_name": "placement_group",
+        "reason": "constraint",
+        "help_message": "not a valid value"
+      }
+    ]
+  },
+  "details": "- 'placement_group' does not respect constraints",
+  "hint": "not a valid value"
+}

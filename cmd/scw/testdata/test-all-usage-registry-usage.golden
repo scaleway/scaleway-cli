@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Docker registry API
+
+USAGE:
+  scw registry <command>
+
+AVAILABLE COMMANDS:
+  namespace             A namespace is for images what a folder is for files
+  image                 An image represents a container image
+  tag                   A tag represents a container tag of an image
+  login                 Login to a registry
+  logout                Logout of a registry
+  install-docker-helper Install a local Docker credential helper
+
+FLAGS:
+  -h, --help   help for registry
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+Use "scw registry [command] --help" for more information about a command.

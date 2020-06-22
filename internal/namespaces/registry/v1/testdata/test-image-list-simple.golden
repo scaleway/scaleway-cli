@@ -1,0 +1,118 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    Full Name                                                     Size    Visibility         Status  Created At       Updated At
+f091a7b6-561a-4741-9658-186f7141b681  rg.fr-par.scw.cloud/jquere01/alpine                           2.8 MB  private (inherit)  ready   few seconds ago  few seconds ago
+5edd2996-d00c-4d64-9629-e8ffe1c52ae1  rg.fr-par.scw.cloud/cli-public-namespace/visibility_public    760 kB  public             ready   few seconds ago  few seconds ago
+16db06c2-2908-4a97-8dfa-35e1c7fa00ca  rg.fr-par.scw.cloud/cli-public-namespace/visibility_private   756 kB  private            ready   few seconds ago  few seconds ago
+d7982e5f-bd5d-447e-89b6-7bfff824314b  rg.fr-par.scw.cloud/cli-public-namespace/visibility_inherit   728 kB  public (inherit)   ready   few seconds ago  few seconds ago
+8b0f4705-78bf-4784-afe2-3cad5520410a  rg.fr-par.scw.cloud/cli-private-namespace/visibility_public   723 kB  private (inherit)  ready   few seconds ago  few seconds ago
+fe9f6354-b407-4fba-a5a0-82b9303e33c7  rg.fr-par.scw.cloud/cli-private-namespace/visibility_private  715 kB  private (inherit)  ready   few seconds ago  few seconds ago
+93240794-3f93-40f3-a175-f32eb23797ca  rg.fr-par.scw.cloud/cli-private-namespace/visibility_inherit  0 B     private (inherit)  ready   few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "f091a7b6-561a-4741-9658-186f7141b681",
+    "name": "alpine",
+    "namespace_id": "9c7ad6f7-326d-44e6-a920-aea196ac897e",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 2797541,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/jquere01/alpine"
+  },
+  {
+    "id": "5edd2996-d00c-4d64-9629-e8ffe1c52ae1",
+    "name": "visibility_public",
+    "namespace_id": "bbf6b158-7645-4e61-8168-d93fa8ca0b95",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "public",
+    "size": 760455,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace/visibility_public"
+  },
+  {
+    "id": "16db06c2-2908-4a97-8dfa-35e1c7fa00ca",
+    "name": "visibility_private",
+    "namespace_id": "bbf6b158-7645-4e61-8168-d93fa8ca0b95",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "private",
+    "size": 755813,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace/visibility_private"
+  },
+  {
+    "id": "d7982e5f-bd5d-447e-89b6-7bfff824314b",
+    "name": "visibility_inherit",
+    "namespace_id": "bbf6b158-7645-4e61-8168-d93fa8ca0b95",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 727962,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace/visibility_inherit"
+  },
+  {
+    "id": "8b0f4705-78bf-4784-afe2-3cad5520410a",
+    "name": "visibility_public",
+    "namespace_id": "91665e85-422e-480c-921c-560d0f1b2184",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 723146,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace/visibility_public"
+  },
+  {
+    "id": "fe9f6354-b407-4fba-a5a0-82b9303e33c7",
+    "name": "visibility_private",
+    "namespace_id": "91665e85-422e-480c-921c-560d0f1b2184",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 715296,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace/visibility_private"
+  },
+  {
+    "id": "93240794-3f93-40f3-a175-f32eb23797ca",
+    "name": "visibility_inherit",
+    "namespace_id": "91665e85-422e-480c-921c-560d0f1b2184",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 0,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace/visibility_inherit"
+  }
+]
