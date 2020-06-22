@@ -525,7 +525,7 @@ func TestCheckGolden() TestCheck {
 
 		expected, err := ioutil.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		assert.Equal(t, string(expected), string(actual))
+		assert.Equal(t, string(expected), actual)
 	}
 }
 
@@ -554,9 +554,9 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
 
 // uniformTimestamps replace all timestamp to the date "1970-01-01T00:00:00.0Z"
-func uniformTimestamps(input []byte) []byte {
+func uniformTimestamps(input string) string {
 	//return regTimestamp.ReplaceAllString(input, "2019/12/09 16:04:07")
-	return regTimestamp.ReplaceAll(input, []byte("1970-01-01T00:00:00.0Z"))
+	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
@@ -590,7 +590,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}, nil
 }
 
-func marshalGolden(t *testing.T, ctx *CheckFuncCtx) []byte {
+func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	jsonStderr := &bytes.Buffer{}
 	jsonStdout := &bytes.Buffer{}
 
@@ -634,10 +634,10 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) []byte {
 		buffer.Write(jsonStderr.Bytes())
 	}
 
-	str := buffer.Bytes()
+	str := buffer.String()
 	// In order to avoid diff in goldens we set all timestamp to the same date
 	str = uniformTimestamps(str)
 	// Replace Windows return carriage.
-	str = bytes.ReplaceAll(str, []byte("\r"), []byte{})
+	str = strings.ReplaceAll(str, "\r", "")
 	return str
 }
