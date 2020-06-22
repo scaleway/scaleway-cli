@@ -24,9 +24,6 @@ type Marshaler interface {
 }
 
 func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
-	// Debug infos
-	logger.Debugf("marshalling type '%v'", reflect.TypeOf(data))
-
 	if opt == nil {
 		opt = &MarshalOpt{}
 	}
