@@ -18,8 +18,8 @@ func GetCommands() *core.Commands {
 }
 
 type infoResult struct {
-	BuildInfo *core.BuildInfo
-	Settings  []*setting
+	BuildInfo *core.BuildInfo `json:"build_info"`
+	Settings  []*setting      `json:"settings"`
 }
 
 func (i infoResult) MarshalHuman() (string, error) {
