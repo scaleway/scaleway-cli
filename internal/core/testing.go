@@ -329,7 +329,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			log.Debugf("command: %s", args)
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,

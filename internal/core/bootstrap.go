@@ -102,6 +102,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	log.level = logLevel
 	logger.SetLogger(log)
+	log.Debugf("running: %s\n", config.Args)
 
 	// The printer must be the first thing set in order to print errors
 	printer, err := NewPrinter(&PrinterConfig{
