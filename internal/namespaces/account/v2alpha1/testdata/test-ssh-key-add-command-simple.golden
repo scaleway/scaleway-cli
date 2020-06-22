@@ -10,6 +10,7 @@ creation-info.address       -
 creation-info.user-agent    -
 creation-info.country-code  -
 organization-id             951df375-e094-4d26-97c1-ba548eeb9c42
+project-id                  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "29e8be8f-ad33-4299-b816-72b8d45b2fb0",
@@ -23,5 +24,6 @@ organization-id             951df375-e094-4d26-97c1-ba548eeb9c42
     "user_agent": "",
     "country_code": ""
   },
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42"
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": ""
 }

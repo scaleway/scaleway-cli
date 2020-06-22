@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type ArgSpecs []*ArgSpec
@@ -109,6 +110,15 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
+		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			if validation.IsZone(value.(scw.Zone).String()) {
+				return nil
+			}
+			return &CliError{
+				Message: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
+				Hint:    "fr-par-1 is a zone and fr-par is a region",
+			}
+		},
 		Default: func(ctx context.Context) (value string, doc string) {
 			client := ExtractClient(ctx)
 			zone, _ := client.GetDefaultZone()
@@ -126,6 +136,15 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
+		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			if validation.IsRegion(value.(scw.Region).String()) {
+				return nil
+			}
+			return &CliError{
+				Message: "Region format should look like XX-XXX (e.g. fr-par)",
+				Hint:    "fr-par-1 is a zone and fr-par is a region",
+			}
+		},
 		Default: func(ctx context.Context) (value string, doc string) {
 			client := ExtractClient(ctx)
 			region, _ := client.GetDefaultRegion()
