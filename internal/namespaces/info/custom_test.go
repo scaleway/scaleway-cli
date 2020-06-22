@@ -20,15 +20,24 @@ func Test_Info(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	t.Run("Default", func(t *testing.T) {
-		t.Run("Simple", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      "scw info",
-			Check: core.TestCheckCombine(
-				core.TestCheckGolden(),
-				core.TestCheckExitCode(0),
-			),
-			Client: client,
-		}))
-	})
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw info",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		Client: client,
+	}))
+
+	t.Run("Show Secret", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw info show-secret=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		Client: client,
+	}))
+
 }

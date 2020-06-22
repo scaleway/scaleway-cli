@@ -3,7 +3,6 @@ package info
 import (
 	"context"
 	"fmt"
-	"os"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -28,7 +27,7 @@ func (i infoResult) MarshalHuman() (string, error) {
 		Sections: []*human.MarshalSection{
 			{
 				FieldName: "build-info",
-				Title:     "BuildInfo",
+				Title:     "Build Info",
 			},
 			{
 				FieldName: "settings",
@@ -70,12 +69,12 @@ func infosRoot() *core.Command {
 				BuildInfo: core.ExtractBuildInfo(ctx),
 				Settings: []*setting{
 					configPath(ctx),
+					profile(ctx),
 					defaultRegion(ctx, config, profileName),
 					defaultZone(ctx, config, profileName),
 					defaultOrganizationId(ctx, config, profileName),
 					accessKey(ctx, config, profileName),
 					secretKey(ctx, config, profileName, req.ShowSecret),
-					profile(ctx),
 				},
 			}, nil
 		},
@@ -90,33 +89,51 @@ func configPath(ctx context.Context) *setting {
 	switch {
 	case core.ExtractConfigPathFlag(ctx) != "":
 		setting.Origin = "flag --config/-c"
-	case os.Getenv(scw.ScwConfigPathEnv) != "":
+		setting.Value = core.ExtractConfigPathFlag(ctx)
+	case core.ExtractEnv(ctx, scw.ScwConfigPathEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwConfigPathEnv)
+		setting.Value = core.ExtractEnv(ctx, scw.ScwConfigPathEnv)
 	default:
 		setting.Origin = "default"
 	}
 	return setting
 }
 
-func defaultRegion(ctx context.Context, config *scw.Config, profileName string) *setting {
-	setting := &setting{Key: "default_region"}
-	client := core.ExtractClient(ctx)
-	defaultRegion, exists := client.GetDefaultRegion()
-	if exists {
-		setting.Value = defaultRegion.String()
+func profile(ctx context.Context) *setting {
+	setting := &setting{
+		Key:   "profile",
+		Value: core.ExtractProfileName(ctx),
 	}
 	switch {
+	case core.ExtractProfileFlag(ctx) != "":
+		setting.Origin = "flag --profile/-p"
+		setting.Value = core.ExtractProfileFlag(ctx)
+	case core.ExtractEnv(ctx, scw.ScwActiveProfileEnv) != "":
+		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwActiveProfileEnv)
+		setting.Value = core.ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+	default:
+		setting.Origin = ""
+	}
+	return setting
+}
+
+func defaultRegion(ctx context.Context, config *scw.Config, profileName string) *setting {
+	setting := &setting{Key: "default_region"}
+	switch {
 	// Environment variable check
-	case os.Getenv(scw.ScwDefaultRegionEnv) != "":
+	case core.ExtractEnv(ctx, scw.ScwDefaultRegionEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwDefaultRegionEnv)
+		setting.Value = core.ExtractEnv(ctx, scw.ScwDefaultRegionEnv)
 	// There is no config file
 	case config == nil:
 		setting.Origin = "default"
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].DefaultRegion != nil:
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
+		setting.Value = *config.Profiles[profileName].DefaultRegion
 	// Default config
 	case config.Profile.DefaultRegion != nil:
+		setting.Value = *config.Profile.DefaultRegion
 		setting.Origin = "default profile"
 	default:
 		setting.Origin = "default"
@@ -133,16 +150,19 @@ func defaultZone(ctx context.Context, config *scw.Config, profileName string) *s
 	}
 	switch {
 	// Environment variable check
-	case os.Getenv(scw.ScwDefaultZoneEnv) != "":
+	case core.ExtractEnv(ctx, scw.ScwDefaultZoneEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwDefaultZoneEnv)
+		setting.Value = core.ExtractEnv(ctx, scw.ScwDefaultZoneEnv)
 	// There is no config file
 	case config == nil:
-		setting.Origin = "default"
+		setting.Origin = ""
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].DefaultZone != nil:
+		setting.Value = *config.Profiles[profileName].DefaultZone
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
 	case config.Profile.DefaultZone != nil:
+		setting.Value = *config.Profile.DefaultZone
 		setting.Origin = "default profile"
 	default:
 		setting.Origin = "default"
@@ -152,23 +172,21 @@ func defaultZone(ctx context.Context, config *scw.Config, profileName string) *s
 
 func defaultOrganizationId(ctx context.Context, config *scw.Config, profileName string) *setting {
 	setting := &setting{Key: "default_organization_id"}
-	client := core.ExtractClient(ctx)
-	defaultOrganizationId, exists := client.GetDefaultOrganizationID()
-	if exists {
-		setting.Value = defaultOrganizationId
-	}
 	switch {
 	// Environment variable check
-	case os.Getenv(scw.ScwDefaultOrganizationIDEnv) != "":
+	case core.ExtractEnv(ctx, scw.ScwDefaultOrganizationIDEnv) != "":
+		setting.Value = core.ExtractEnv(ctx, scw.ScwDefaultOrganizationIDEnv)
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwDefaultOrganizationIDEnv)
 	// There is no config file
 	case config == nil:
 		setting.Origin = ""
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].DefaultOrganizationID != nil:
+		setting.Value = *config.Profiles[profileName].DefaultOrganizationID
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
 	case config.Profile.DefaultOrganizationID != nil:
+		setting.Value = *config.Profile.DefaultOrganizationID
 		setting.Origin = "default profile"
 	default:
 		setting.Origin = "unknown"
@@ -178,23 +196,21 @@ func defaultOrganizationId(ctx context.Context, config *scw.Config, profileName 
 
 func accessKey(ctx context.Context, config *scw.Config, profileName string) *setting {
 	setting := &setting{Key: "access_key"}
-	client := core.ExtractClient(ctx)
-	aK, exists := client.GetAccessKey()
-	if exists {
-		setting.Value = aK
-	}
 	switch {
 	// Environment variable check
-	case os.Getenv(scw.ScwAccessKeyEnv) != "":
+	case core.ExtractEnv(ctx, scw.ScwAccessKeyEnv) != "":
+		setting.Value = core.ExtractEnv(ctx, scw.ScwAccessKeyEnv)
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwAccessKeyEnv)
 	// There is no config file
 	case config == nil:
 		setting.Origin = ""
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].AccessKey != nil:
+		setting.Value = *config.Profiles[profileName].AccessKey
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
 	case config.Profile.AccessKey != nil:
+		setting.Value = *config.Profile.AccessKey
 		setting.Origin = "default profile"
 	default:
 		setting.Origin = "unknown"
@@ -215,47 +231,27 @@ func hideSecretKey(k string) string {
 
 func secretKey(ctx context.Context, config *scw.Config, profileName string, showSecret bool) *setting {
 	setting := &setting{Key: "secret_key"}
-	client := core.ExtractClient(ctx)
-	sK, exists := client.GetSecretKey()
-	if exists {
-		if showSecret {
-			setting.Value = sK
-		} else {
-			setting.Value = hideSecretKey(sK)
-		}
-	}
 	switch {
 	// Environment variable check
-	case os.Getenv(scw.ScwSecretKeyEnv) != "":
+	case core.ExtractEnv(ctx, scw.ScwSecretKeyEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwSecretKeyEnv)
+		setting.Value = core.ExtractEnv(ctx, scw.ScwSecretKeyEnv)
 	// There is no config file
 	case config == nil:
 		setting.Origin = ""
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
+		setting.Value = *config.Profiles[profileName].SecretKey
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
 	case config.Profile.SecretKey != nil:
+		setting.Value = *config.Profile.SecretKey
 		setting.Origin = "default profile"
 	default:
 		setting.Origin = "unknown"
 	}
-
-	return setting
-}
-
-func profile(ctx context.Context) *setting {
-	setting := &setting{
-		Key:   "profile",
-		Value: core.ExtractProfileName(ctx),
-	}
-	switch {
-	case core.ExtractProfileFlag(ctx) != "":
-		setting.Origin = "flag --profile/-p"
-	case os.Getenv(scw.ScwActiveProfileEnv) != "":
-		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwActiveProfileEnv)
-	default:
-		setting.Origin = ""
+	if !showSecret {
+		setting.Value = hideSecretKey(setting.Value)
 	}
 	return setting
 }
