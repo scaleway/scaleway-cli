@@ -39,5 +39,4 @@ func Test_Info(t *testing.T) {
 		),
 		Client: client,
 	}))
-
 }

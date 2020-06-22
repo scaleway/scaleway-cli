@@ -10,6 +10,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const (
+	defaultOrigin        = "default"
+	defaultProfileOrigin = "default profile"
+	unknownOrigin        = "unknown"
+)
+
 func GetCommands() *core.Commands {
 	return core.NewCommands(
 		infosRoot(),
@@ -72,7 +78,7 @@ func infosRoot() *core.Command {
 					profile(ctx),
 					defaultRegion(ctx, config, profileName),
 					defaultZone(ctx, config, profileName),
-					defaultOrganizationId(ctx, config, profileName),
+					defaultOrganizationID(ctx, config, profileName),
 					accessKey(ctx, config, profileName),
 					secretKey(ctx, config, profileName, req.ShowSecret),
 				},
@@ -94,7 +100,7 @@ func configPath(ctx context.Context) *setting {
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwConfigPathEnv)
 		setting.Value = core.ExtractEnv(ctx, scw.ScwConfigPathEnv)
 	default:
-		setting.Origin = "default"
+		setting.Origin = defaultOrigin
 	}
 	return setting
 }
@@ -126,7 +132,7 @@ func defaultRegion(ctx context.Context, config *scw.Config, profileName string) 
 		setting.Value = core.ExtractEnv(ctx, scw.ScwDefaultRegionEnv)
 	// There is no config file
 	case config == nil:
-		setting.Origin = "default"
+		setting.Origin = defaultOrigin
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].DefaultRegion != nil:
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
@@ -134,9 +140,9 @@ func defaultRegion(ctx context.Context, config *scw.Config, profileName string) 
 	// Default config
 	case config.Profile.DefaultRegion != nil:
 		setting.Value = *config.Profile.DefaultRegion
-		setting.Origin = "default profile"
+		setting.Origin = defaultProfileOrigin
 	default:
-		setting.Origin = "default"
+		setting.Origin = defaultOrigin
 	}
 	return setting
 }
@@ -163,14 +169,14 @@ func defaultZone(ctx context.Context, config *scw.Config, profileName string) *s
 	// Default config
 	case config.Profile.DefaultZone != nil:
 		setting.Value = *config.Profile.DefaultZone
-		setting.Origin = "default profile"
+		setting.Origin = defaultProfileOrigin
 	default:
-		setting.Origin = "default"
+		setting.Origin = defaultOrigin
 	}
 	return setting
 }
 
-func defaultOrganizationId(ctx context.Context, config *scw.Config, profileName string) *setting {
+func defaultOrganizationID(ctx context.Context, config *scw.Config, profileName string) *setting {
 	setting := &setting{Key: "default_organization_id"}
 	switch {
 	// Environment variable check
@@ -187,9 +193,9 @@ func defaultOrganizationId(ctx context.Context, config *scw.Config, profileName 
 	// Default config
 	case config.Profile.DefaultOrganizationID != nil:
 		setting.Value = *config.Profile.DefaultOrganizationID
-		setting.Origin = "default profile"
+		setting.Origin = defaultProfileOrigin
 	default:
-		setting.Origin = "unknown"
+		setting.Origin = unknownOrigin
 	}
 	return setting
 }
@@ -211,9 +217,9 @@ func accessKey(ctx context.Context, config *scw.Config, profileName string) *set
 	// Default config
 	case config.Profile.AccessKey != nil:
 		setting.Value = *config.Profile.AccessKey
-		setting.Origin = "default profile"
+		setting.Origin = defaultProfileOrigin
 	default:
-		setting.Origin = "unknown"
+		setting.Origin = unknownOrigin
 	}
 	return setting
 }
@@ -246,9 +252,9 @@ func secretKey(ctx context.Context, config *scw.Config, profileName string, show
 	// Default config
 	case config.Profile.SecretKey != nil:
 		setting.Value = *config.Profile.SecretKey
-		setting.Origin = "default profile"
+		setting.Origin = defaultProfileOrigin
 	default:
-		setting.Origin = "unknown"
+		setting.Origin = unknownOrigin
 	}
 	if !showSecret {
 		setting.Value = hideSecretKey(setting.Value)
