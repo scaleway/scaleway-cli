@@ -470,7 +470,7 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
-		ctx.Logger.Debugf("ExecStoreBeforeCmd (in metaKey %s): %s\n", metaKey, args)
+		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -478,7 +478,7 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 
 func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		ctx.Logger.Debugf("BeforeFuncOsExec: %s %s\n", cmd, args)
+		ctx.Logger.Debugf("BeforeFuncOsExec: cmd=%s args=%s\n", cmd, args)
 		return exec.Command(cmd, args...).Run()
 	}
 }
@@ -487,7 +487,7 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
-		ctx.Logger.Debugf("ExecBeforeCmd: %s\n", args)
+		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -497,7 +497,7 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
-		ctx.Logger.Debugf("ExecAfterCmd: %s\n", args)
+		ctx.Logger.Debugf("ExecAfterCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
