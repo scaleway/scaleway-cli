@@ -66,7 +66,7 @@ type CheckFuncCtx struct {
 	Logger *Logger
 }
 
-// TestMeta contains arbitratry data that can be passed along a test lifecycle.
+// TestMeta contains arbitrary data that can be passed along a test lifecycle.
 type TestMeta map[string]interface{}
 
 // Tpl render a go template using where content of meta can be used
@@ -332,7 +332,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			logger.Debugf("command: %s", args)
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,
@@ -353,6 +352,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
+			log.Debug("Start BeforeFunc")
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				T:           t,
 				Client:      client,
@@ -361,6 +361,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv: overrideEnv,
 				Logger:      log,
 			}))
+			log.Debug("End BeforeFunc")
 		}
 
 		// Run config.Cmd
@@ -373,7 +374,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			logger.Debugf("command: %s", args)
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,
@@ -405,6 +405,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
+			log.Debug("Start AfterFunc")
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				T:           t,
 				Client:      client,
@@ -414,6 +415,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv: overrideEnv,
 				Logger:      log,
 			}))
+			log.Debug("End AfterFunc")
 		}
 	}
 }
@@ -468,6 +470,7 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -475,6 +478,7 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 
 func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
+		ctx.Logger.Debugf("BeforeFuncOsExec: cmd=%s args=%s\n", cmd, args)
 		return exec.Command(cmd, args...).Run()
 	}
 }
@@ -483,6 +487,7 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
@@ -492,6 +497,7 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecAfterCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
 	}
