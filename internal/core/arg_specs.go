@@ -115,7 +115,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 				return nil
 			}
 			return &CliError{
-				Err:  fmt.Errorf("invalid zone"),
+				Err:  fmt.Errorf("invalid zone %s", value),
 				Hint: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
 			}
 		},
@@ -141,7 +141,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 				return nil
 			}
 			return &CliError{
-				Err:  fmt.Errorf("invalid region"),
+				Err:  fmt.Errorf("invalid region %s", value),
 				Hint: "Region format should look like XX-XXX (e.g. fr-par)",
 			}
 		},
