@@ -72,7 +72,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPath, "config", "c", "", "The path to the config file")
 	flags.VarP(&printerType, "output", "o", "Output format: json or human")
-	flags.BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
 	// Make sure usage is never print by the parse method. (It should only be print by cobra)
@@ -102,6 +102,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	log.level = logLevel
 	logger.SetLogger(log)
+	log.Debugf("running: %s\n", config.Args)
 
 	// The printer must be the first thing set in order to print errors
 	printer, err := NewPrinter(&PrinterConfig{
