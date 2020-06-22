@@ -1,0 +1,29 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get a value from the config file
+
+USAGE:
+  scw config get <key ...> [arg=value ...]
+
+EXAMPLES:
+  Get the default organization ID
+    scw config get default_organization_id
+
+  Get the default region of the profile 'prod'
+    scw -p prod config get default_region
+
+ARGS:
+  key   the key to get from the configt (access-key | secret-key | api-url | insecure | default-organization-id | default-region | default-zone | send-telemetry)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Config management help
+  scw config --help

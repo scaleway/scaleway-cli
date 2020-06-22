@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Quota exceeded for resources 'human'
+
+Details:
+- human has reached its quota (10/10)
+
+Hint:
+Quotas are defined by organization. You should either delete unused resources or contact support to obtain bigger quotas.
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "quota exceeded for resources 'human'",
+  "error": {
+    "details": [
+      {
+        "resource": "human",
+        "quota": 10,
+        "current": 10
+      }
+    ]
+  },
+  "details": "- human has reached its quota (10/10)",
+  "hint": "Quotas are defined by organization. You should either delete unused resources or contact support to obtain bigger quotas."
+}

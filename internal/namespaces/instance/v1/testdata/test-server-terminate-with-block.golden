@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+successfully deleted ip 51.158.108.20
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Success",
+  "details": ""
+}

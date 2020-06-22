@@ -514,26 +514,22 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
-// testCheckStderrGolden assert stderr using golden
-func testCheckStderrGolden() TestCheck {
-	return func(t *testing.T, ctx *CheckFuncCtx) {
-		testGolden(t, getTestFilePath(t, ".stderr.golden"), ctx.Stderr)
-	}
-}
-
-// testCheckStdoutGolden assert stdout using golden
-func testCheckStdoutGolden() TestCheck {
-	return func(t *testing.T, ctx *CheckFuncCtx) {
-		testGolden(t, getTestFilePath(t, ".stdout.golden"), ctx.Stdout)
-	}
-}
-
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
-	return TestCheckCombine(
-		testCheckStdoutGolden(),
-		testCheckStderrGolden(),
-	)
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		actual := marshalGolden(t, ctx)
+
+		goldenPath := getTestFilePath(t, ".golden")
+		// In order to avoid diff in goldens we set all timestamp to the same date
+		if UpdateGoldens {
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+		}
+
+		expected, err := ioutil.ReadFile(goldenPath)
+		require.NoError(t, err, "expected to find golden file %s", goldenPath)
+		assert.Equal(t, string(expected), actual)
+	}
 }
 
 // TestCheckError asserts error
@@ -557,39 +553,11 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-func testGolden(t *testing.T, goldenPath string, actual []byte) {
-	actualIsEmpty := len(actual) == 0
+var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
 
-	// In order to avoid diff in goldens we set all timestamp to the same date
-	actual = uniformLogTimestamps(actual)
-	if UpdateGoldens {
-		if actualIsEmpty {
-			_ = os.Remove(goldenPath)
-		} else {
-			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644)) //nolint:gosec
-		}
-	}
-
-	expected, err := ioutil.ReadFile(goldenPath)
-	if actualIsEmpty {
-		assert.NotNil(t, err)
-	} else {
-		require.NoError(t, err, "expected to find golden file with %s", string(actual))
-
-		// Replace Windows return carriage.
-		expected = bytes.ReplaceAll(expected, []byte("\r"), []byte(""))
-		actual = bytes.ReplaceAll(actual, []byte("\r"), []byte(""))
-
-		assert.Equal(t, string(expected), string(actual))
-	}
-}
-
-var regLogTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
-
-// uniformLogTimestamps replace all log timestamp to the date "2019/12/09 16:04:07"
-func uniformLogTimestamps(input []byte) []byte {
-	return regLogTimestamp.ReplaceAll(input, []byte("2019/12/09 16:04:07"))
+// uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
+func uniformTimestamps(input string) string {
+	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
@@ -621,4 +589,56 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
+}
+
+func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
+	jsonStderr := &bytes.Buffer{}
+	jsonStdout := &bytes.Buffer{}
+
+	jsonPrinter, err := NewPrinter(&PrinterConfig{
+		Type:   PrinterTypeJSON,
+		Stdout: jsonStdout,
+		Stderr: jsonStderr,
+		Pretty: true,
+	})
+	require.NoError(t, err)
+
+	if ctx.Err != nil {
+		err = jsonPrinter.Print(ctx.Err, nil)
+		require.NoError(t, err)
+	}
+	if ctx.Result != nil {
+		err = jsonPrinter.Print(ctx.Result, nil)
+		require.NoError(t, err)
+	}
+
+	buffer := bytes.Buffer{}
+	buffer.WriteString(fmt.Sprintf("\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n", ctx.ExitCode))
+
+	if len(ctx.Stdout) > 0 {
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 STDOUT️ \U0001F7E9\U0001F7E9\U0001F7E9️\n")
+		buffer.Write(ctx.Stdout)
+	}
+
+	if len(ctx.Stderr) > 0 {
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 STDERR️️ \U0001F7E5\U0001F7E5\U0001F7E5️\n")
+		buffer.Write(ctx.Stderr)
+	}
+
+	if jsonStdout.Len() > 0 {
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 JSON STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n")
+		buffer.Write(jsonStdout.Bytes())
+	}
+
+	if jsonStderr.Len() > 0 {
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n")
+		buffer.Write(jsonStderr.Bytes())
+	}
+
+	str := buffer.String()
+	// In order to avoid diff in goldens we set all timestamp to the same date
+	str = uniformTimestamps(str)
+	// Replace Windows return carriage.
+	str = strings.ReplaceAll(str, "\r", "")
+	return str
 }

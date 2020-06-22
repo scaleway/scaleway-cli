@@ -1,0 +1,72 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+id                            719be133-dd66-4aee-8841-bb60a04963da
+organization-id               951df375-e094-4d26-97c1-ba548eeb9c42
+name                          cli-bm-unruffled-tesla
+description                   -
+updated-at                    few seconds ago
+created-at                    few seconds ago
+status                        ready
+offer-id                      7fde3890-9787-488c-ac89-c4e00a4e5f83
+ips.0.id                      f72c0410-47f6-4fc4-b93b-ded1b83ea78f
+ips.0.address                 2001:bc8:6005:1b:dac4:97ff:fe2a:35cc
+ips.0.reverse                 719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud
+ips.0.version                 IPv6
+ips.0.reverse-status          active
+ips.0.reverse-status-message  -
+ips.1.id                      fa3be18b-9bc7-4e62-9d44-8834c22d1901
+ips.1.address                 51.159.31.63
+ips.1.reverse                 719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud
+ips.1.version                 IPv4
+ips.1.reverse-status          active
+ips.1.reverse-status-message  -
+domain                        719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud
+boot-type                     normal
+zone                          fr-par-2
+install.os-id                 d859aa89-8b4a-4551-af42-ff7c0c27260a
+install.hostname              test-install-server
+install.ssh-key-ids.0         f06d9273-385e-4747-806c-d4673c410f9d
+install.status                completed
+ping-status                   up
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "719be133-dd66-4aee-8841-bb60a04963da",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "name": "cli-bm-unruffled-tesla",
+  "description": "",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "status": "ready",
+  "offer_id": "7fde3890-9787-488c-ac89-c4e00a4e5f83",
+  "tags": [],
+  "ips": [
+    {
+      "id": "f72c0410-47f6-4fc4-b93b-ded1b83ea78f",
+      "address": "2001:bc8:6005:1b:dac4:97ff:fe2a:35cc",
+      "reverse": "719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv6",
+      "reverse_status": "active",
+      "reverse_status_message": ""
+    },
+    {
+      "id": "fa3be18b-9bc7-4e62-9d44-8834c22d1901",
+      "address": "51.159.31.63",
+      "reverse": "719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv4",
+      "reverse_status": "active",
+      "reverse_status_message": ""
+    }
+  ],
+  "domain": "719be133-dd66-4aee-8841-bb60a04963da.fr-par-2.baremetal.scw.cloud",
+  "boot_type": "normal",
+  "zone": "fr-par-2",
+  "install": {
+    "os_id": "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+    "hostname": "test-install-server",
+    "ssh_key_ids": [
+      "f06d9273-385e-4747-806c-d4673c410f9d"
+    ],
+    "status": "completed"
+  },
+  "ping_status": "ping_status_up"
+}

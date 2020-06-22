@@ -1,0 +1,13 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+A positional argument is required for this command
+
+Hint:
+Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red region=fr-par
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "",
+  "error": {},
+  "details": "",
+  "hint": "Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red region=fr-par"
+}

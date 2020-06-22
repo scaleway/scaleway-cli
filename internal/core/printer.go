@@ -48,6 +48,7 @@ type PrinterConfig struct {
 	Type   PrinterType
 	Stdout io.Writer
 	Stderr io.Writer
+	Pretty bool
 }
 
 // NewPrinter returns an initialized formatter corresponding to a given FormatterType.
@@ -65,6 +66,7 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		printerType: printerType,
 		stdout:      config.Stdout,
 		stderr:      config.Stderr,
+		pretty:      config.Pretty,
 	}, nil
 }
 
@@ -72,6 +74,7 @@ type Printer struct {
 	printerType PrinterType
 	stdout      io.Writer
 	stderr      io.Writer
+	pretty      bool
 }
 
 func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
@@ -105,14 +108,22 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 		}
 
 		if isError {
-			return json.NewEncoder(p.stderr).Encode(data)
+			encoder := json.NewEncoder(p.stderr)
+			if p.pretty {
+				encoder.SetIndent("", "  ")
+			}
+			return encoder.Encode(data)
 		}
 
 		if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
 			_, err := p.stdout.Write([]byte("[]\n"))
 			return err
 		}
-		return json.NewEncoder(p.stdout).Encode(data)
+		encoder := json.NewEncoder(p.stdout)
+		if p.pretty {
+			encoder.SetIndent("", "  ")
+		}
+		return encoder.Encode(data)
 
 	default:
 		return fmt.Errorf("invalid format: %s", p.printerType)
