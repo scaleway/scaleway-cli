@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
@@ -14,15 +13,7 @@ func Test_FeedbackBug(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw feedback bug",
-		BuildInfo: core.BuildInfo{
-			Version:   version.Must(version.NewSemver("v0.0.0")),
-			BuildDate: "unknown",
-			GoVersion: "runtime.Version()",
-			GitBranch: "unknown",
-			GitCommit: "unknown",
-			GoArch:    "runtime.GOARCH",
-			GoOS:      "runtime.GOOS",
-		},
+
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
@@ -49,15 +40,6 @@ func Test_FeedbackFeature(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw feedback feature",
-		BuildInfo: core.BuildInfo{
-			Version:   version.Must(version.NewSemver("v0.0.0")),
-			BuildDate: "unknown",
-			GoVersion: "runtime.Version()",
-			GitBranch: "unknown",
-			GitCommit: "unknown",
-			GoArch:    "runtime.GOARCH",
-			GoOS:      "runtime.GOOS",
-		},
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {

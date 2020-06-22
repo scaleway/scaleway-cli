@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 BuildInfo:
-version     2.0.0
-build-date  a
-go-version  b
-git-branch  c
-git-commit  d
-go-arch     e
-go-os       f
+version     0.0.0
+build-date  unknown
+go-version  runtime.Version()
+git-branch  unknown
+git-commit  unknown
+go-arch     runtime.GOARCH
+go-os       runtime.GOOS
 
 Settings:
 KEY                      VALUE                                  ORIGIN
@@ -21,13 +21,13 @@ profile                  -                                      -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "build_info": {
-    "build_date": "a",
-    "go_version": "b",
-    "git_branch": "c",
-    "git_commit": "d",
-    "go_arch": "e",
-    "go_os": "f",
-    "version": "2.0.0"
+    "build_date": "unknown",
+    "go_version": "runtime.Version()",
+    "git_branch": "unknown",
+    "git_commit": "unknown",
+    "go_arch": "runtime.GOARCH",
+    "go_os": "runtime.GOOS",
+    "version": "0.0.0"
   },
   "settings": [
     {

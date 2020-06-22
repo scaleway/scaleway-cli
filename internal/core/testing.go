@@ -19,6 +19,7 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -147,7 +148,7 @@ type TestConfig struct {
 	DisableParallel bool
 
 	// Fake build info for this test.
-	BuildInfo BuildInfo
+	BuildInfo *BuildInfo
 
 	// If set, it will create a temporary home directory during the tests.
 	// Get this folder with ExtractUserHomeDir()
@@ -329,6 +330,19 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stdin = os.Stdin
 		}
 
+		buildInfo := config.BuildInfo
+		if buildInfo == nil {
+			buildInfo = &BuildInfo{
+				Version:   version.Must(version.NewSemver("v0.0.0")),
+				BuildDate: "unknown",
+				GoVersion: "runtime.Version()",
+				GitBranch: "unknown",
+				GitCommit: "unknown",
+				GoArch:    "runtime.GOARCH",
+				GoOS:      "runtime.GOOS",
+			}
+		}
+
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
@@ -336,7 +350,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,
-				BuildInfo:        &config.BuildInfo,
+				BuildInfo:        buildInfo,
 				Stdout:           stdoutBuffer,
 				Stderr:           stderrBuffer,
 				Client:           client,
@@ -377,7 +391,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands,
-				BuildInfo:        &config.BuildInfo,
+				BuildInfo:        buildInfo,
 				Stdout:           stdout,
 				Stderr:           stderr,
 				Stdin:            stdin,
