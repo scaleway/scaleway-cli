@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -14,6 +15,27 @@ func GetCommands() *core.Commands {
 	return core.NewCommands(
 		infosRoot(),
 	)
+}
+
+type infoResult struct {
+	BuildInfo *core.BuildInfo
+	Settings  []*setting
+}
+
+func (i infoResult) MarshalHuman() (string, error) {
+	type tmp infoResult
+	return human.Marshal(tmp(i), &human.MarshalOpt{
+		Sections: []*human.MarshalSection{
+			{
+				FieldName: "build-info",
+				Title:     "BuildInfo",
+			},
+			{
+				FieldName: "settings",
+				Title:     "Settings",
+			},
+		},
+	})
 }
 
 type setting struct {
@@ -44,14 +66,17 @@ func infosRoot() *core.Command {
 			req := argsI.(*infoArgs)
 			config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			profileName := core.ExtractProfileName(ctx)
-			return []*setting{
-				configPath(ctx),
-				defaultRegion(ctx, config, profileName),
-				defaultZone(ctx, config, profileName),
-				defaultOrganizationId(ctx, config, profileName),
-				accessKey(ctx, config, profileName),
-				secretKey(ctx, config, profileName, req.ShowSecret),
-				profile(ctx),
+			return &infoResult{
+				BuildInfo: core.ExtractBuildInfo(ctx),
+				Settings: []*setting{
+					configPath(ctx),
+					defaultRegion(ctx, config, profileName),
+					defaultZone(ctx, config, profileName),
+					defaultOrganizationId(ctx, config, profileName),
+					accessKey(ctx, config, profileName),
+					secretKey(ctx, config, profileName, req.ShowSecret),
+					profile(ctx),
+				},
 			}, nil
 		},
 	}
