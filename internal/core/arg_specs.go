@@ -115,8 +115,8 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 				return nil
 			}
 			return &CliError{
-				Message: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
-				Hint:    "fr-par-1 is a zone and fr-par is a region",
+				Err:  fmt.Errorf("invalid zone"),
+				Hint: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
 			}
 		},
 		Default: func(ctx context.Context) (value string, doc string) {
@@ -141,8 +141,8 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 				return nil
 			}
 			return &CliError{
-				Message: "Region format should look like XX-XXX (e.g. fr-par)",
-				Hint:    "fr-par-1 is a zone and fr-par is a region",
+				Err:  fmt.Errorf("invalid region"),
+				Hint: "Region format should look like XX-XXX (e.g. fr-par)",
 			}
 		},
 		Default: func(ctx context.Context) (value string, doc string) {
