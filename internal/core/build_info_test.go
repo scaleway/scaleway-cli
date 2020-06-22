@@ -29,7 +29,7 @@ func deleteLatestVersionUpdateFile(*BeforeFuncCtx) error {
 func Test_CheckVersion(t *testing.T) {
 	t.Run("Outdated version", Test(&TestConfig{
 		Commands: NewCommands(fakeCommand),
-		BuildInfo: BuildInfo{
+		BuildInfo: &BuildInfo{
 			Version: version.Must(version.NewSemver("v1.20")),
 		},
 		BeforeFunc: deleteLatestVersionUpdateFile,
@@ -43,7 +43,7 @@ func Test_CheckVersion(t *testing.T) {
 
 	t.Run("Up to date version", Test(&TestConfig{
 		Commands: NewCommands(fakeCommand),
-		BuildInfo: BuildInfo{
+		BuildInfo: &BuildInfo{
 			Version: version.Must(version.NewSemver("v99.99")),
 		},
 		BeforeFunc: deleteLatestVersionUpdateFile,
@@ -57,7 +57,7 @@ func Test_CheckVersion(t *testing.T) {
 
 	t.Run("Already checked", Test(&TestConfig{
 		Commands: NewCommands(fakeCommand),
-		BuildInfo: BuildInfo{
+		BuildInfo: &BuildInfo{
 			Version: version.Must(version.NewSemver("v1.0")),
 		},
 		BeforeFunc: func(ctx *BeforeFuncCtx) error {

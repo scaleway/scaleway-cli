@@ -117,3 +117,11 @@ func ReloadClient(ctx context.Context) error {
 	meta.Client, err = createClient(meta.BuildInfo, "")
 	return err
 }
+
+func ExtractConfigPathFlag(ctx context.Context) string {
+	return extractMeta(ctx).ConfigPathFlag
+}
+
+func ExtractProfileFlag(ctx context.Context) string {
+	return extractMeta(ctx).ProfileFlag
+}
