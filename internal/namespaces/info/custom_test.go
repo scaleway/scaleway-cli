@@ -19,6 +19,8 @@ func Test_Info(t *testing.T) {
 			"SCW_DEFAULT_PROJECT_ID": "22222222-2222-2222-2222-222222222222",
 			"SCW_ACCESS_KEY":         "SCWYYYYYYYYYYYYYYYYY",
 			"SCW_CONFIG_PATH":        "/tmp/.config/scw/config.yaml",
+			"SCW_DEFAULT_REGION":     "fr-par",
+			"SCW_DEFAULT_ZONE":       "fr-par-1",
 		},
 	}))
 
@@ -34,6 +36,8 @@ func Test_Info(t *testing.T) {
 			"SCW_DEFAULT_PROJECT_ID": "22222222-2222-2222-2222-222222222222",
 			"SCW_ACCESS_KEY":         "SCWYYYYYYYYYYYYYYYYY",
 			"SCW_CONFIG_PATH":        "/tmp/.config/scw/config.yaml",
+			"SCW_DEFAULT_REGION":     "fr-par",
+			"SCW_DEFAULT_ZONE":       "fr-par-1",
 		},
 	}))
 }
