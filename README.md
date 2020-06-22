@@ -7,7 +7,7 @@
 
 # Scaleway CLI (v2)
 
-**:warning: This version is under active development, keep in mind that things can break.**
+If you are looking for Scaleway CLI v1, [you can find it on the v1 branch](https://github.com/scaleway/scaleway-cli/tree/v1).
 
 Scaleway is a single way to create, deploy and scale your infrastructure in the cloud. We help thousands of businesses to run their infrastructures easily.
 
