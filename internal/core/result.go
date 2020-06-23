@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
@@ -41,7 +42,7 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 	message = "✅ " + terminal.Style(message, color.FgGreen)
 
 	if s.Details != "" {
-		message += s.Details
+		message += "\n" + interactive.Indent(s.Details, 2)
 	}
 
 	return message, nil

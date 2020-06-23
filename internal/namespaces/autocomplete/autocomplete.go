@@ -34,11 +34,11 @@ type autocompleteScript struct {
 	ShellConfigurationFile map[string]string
 }
 
-var homePath, _ = os.UserHomeDir()
-
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
-func autocompleteScripts(binaryName string) map[string]autocompleteScript {
+func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
+	binaryName := core.ExtractBinaryName(ctx)
+	homePath := core.ExtractUserHomeDir(ctx)
 	return map[string]autocompleteScript{
 		"bash": {
 			// If `scw` is the first word on the command line,
@@ -143,7 +143,6 @@ func autocompleteInstallCommand() *core.Command {
 func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
 	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration.")
-	binaryName := core.ExtractBinaryName(ctx)
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellArg := argsI.(*InstallArgs).Shell
@@ -168,7 +167,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 
 	shellName := filepath.Base(shellArg)
 
-	script, exists := autocompleteScripts(binaryName)[shellName]
+	script, exists := autocompleteScripts(ctx)[shellName]
 	if !exists {
 		return nil, unsupportedShellError(shellName)
 	}
@@ -361,9 +360,8 @@ func autocompleteScriptCommand() *core.Command {
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			binaryName := core.ExtractBinaryName(ctx)
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
-			script, exists := autocompleteScripts(binaryName)[shell]
+			script, exists := autocompleteScripts(ctx)[shell]
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}

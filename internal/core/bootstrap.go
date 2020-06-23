@@ -134,13 +134,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		ProfileFlag:  profileName,
-		BinaryName:   config.Args[0],
-		BuildInfo:    config.BuildInfo,
-		Client:       client,
-		Commands:     config.Commands,
-		OverrideEnv:  config.OverrideEnv,
-		OverrideExec: config.OverrideExec,
+		ProfileFlag:    profileName,
+		BinaryName:     config.Args[0],
+		BuildInfo:      config.BuildInfo,
+		Client:         client,
+		Commands:       config.Commands,
+		OverrideEnv:    config.OverrideEnv,
+		OverrideExec:   config.OverrideExec,
+		ConfigPathFlag: configPath,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
@@ -177,7 +178,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			meta.command == nil ||
 			meta.command.DisableTelemetry ||
 			matomo.IsTelemetryDisabled() {
-			logger.Debugf("skipping telemetry report")
+			logger.Debugf("skipping telemetry report\n")
 			return
 		}
 		matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
@@ -186,9 +187,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			ExecutionTime: time.Since(start),
 		})
 		if matomoErr != nil {
-			logger.Debugf("error during telemetry reporting: %s", matomoErr)
+			logger.Debugf("error during telemetry reporting: %s\n", matomoErr)
 		} else {
-			logger.Debugf("telemetry successfully sent")
+			logger.Debugf("telemetry successfully sent\n")
 		}
 	}()
 

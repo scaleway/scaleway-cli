@@ -1,0 +1,9 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Initialization completed with success.
+  Except for SSH key: could not find an SSH key at ~/.ssh/id_rsa.pub
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Initialization completed with success",
+  "details": "Except for SSH key: could not find an SSH key at ~/.ssh/id_rsa.pub"
+}

@@ -2,7 +2,6 @@ package feedback
 
 import (
 	"context"
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -46,7 +45,7 @@ func feedbackBugCommand() *core.Command {
 			}
 			return &core.SuccessResult{
 				Message: "Successfully opened the page",
-				Details: fmt.Sprintf(" (%s)", issue.getURL()),
+				Details: issue.getURL(),
 			}, nil
 		},
 	}
@@ -72,7 +71,7 @@ func feedbackFeatureRequestCommand() *core.Command {
 			}
 			return &core.SuccessResult{
 				Message: "Successfully opened the page",
-				Details: fmt.Sprintf(" (%s)", issue.getURL()),
+				Details: issue.getURL(),
 			}, nil
 		},
 	}

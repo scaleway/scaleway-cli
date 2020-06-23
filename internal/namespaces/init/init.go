@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
@@ -129,19 +130,18 @@ func initCommand() *core.Command {
 				interactive.Printf("Welcome to the Scaleway Cli\n\n")
 			}
 
-			// Check if a config exists
-			// Actual creation of the new config is done in the Run()
-			config, err := scw.LoadConfig()
+			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 
 			// If it is not a new config, ask if we want to override the existing config
 			if err == nil && !config.IsEmpty() {
 				_, _ = interactive.PrintlnWithoutIndent(`
-					Current config is located at ` + scw.GetConfigPath() + `
+					Current config is located at ` + core.ExtractConfigPath(ctx) + `
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
 				`)
 				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to override the current config?",
 					DefaultValue: true,
+					Ctx:          ctx,
 				})
 				if err != nil {
 					return err
@@ -166,6 +166,7 @@ func initCommand() *core.Command {
 			if args.Zone == "" {
 				_, _ = interactive.Println()
 				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:             ctx,
 					Prompt:          "Select a zone",
 					DefaultValueDoc: "fr-par-1",
 					DefaultValue:    "fr-par-1",
@@ -214,6 +215,7 @@ func initCommand() *core.Command {
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 					Prompt:       "Do you want to send usage statistics and diagnostics?",
 					DefaultValue: true,
+					Ctx:          ctx,
 				})
 				if err != nil {
 					return err
@@ -230,6 +232,7 @@ func initCommand() *core.Command {
 				`)
 
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Ctx:          ctx,
 					Prompt:       "Do you want to install autocomplete?",
 					DefaultValue: true,
 				})
@@ -242,11 +245,12 @@ func initCommand() *core.Command {
 
 			// Ask whether to remove v1 configuration file if it exists
 			if args.RemoveV1Config == nil {
-				homeDir, err := os.UserHomeDir()
+				homeDir := core.ExtractUserHomeDir(ctx)
 				if err == nil {
 					configPath := path.Join(homeDir, ".scwrc")
 					if _, err := os.Stat(configPath); err == nil {
 						removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+							Ctx:          ctx,
 							Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
 							DefaultValue: false,
 						})
@@ -269,7 +273,7 @@ func initCommand() *core.Command {
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				config = &scw.Config{}
-				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
+				interactive.Printf("Creating new config at %s\n", configPath)
 			}
 
 			if args.SendTelemetry != nil {
@@ -306,7 +310,7 @@ func initCommand() *core.Command {
 			}
 
 			// Persist configuration on disk
-			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
+			interactive.Printf("Config saved at %s:\n%s\n", configPath, terminal.Style(fmt.Sprint(config), color.Faint))
 			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
@@ -317,14 +321,14 @@ func initCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			successDetails := ""
+			successDetails := []string(nil)
 
 			// Install autocomplete
 			if *args.InstallAutocomplete {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successDetails += "\n  Except for autocomplete: " + err.Error()
+					successDetails = append(successDetails, "Except for autocomplete: "+err.Error())
 				}
 			}
 
@@ -333,7 +337,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
-					successDetails += "\n  Except for SSH key: " + err.Error()
+					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
 				}
 			}
 
@@ -342,7 +346,7 @@ func initCommand() *core.Command {
 				homeDir := core.ExtractUserHomeDir(ctx)
 				err = os.Remove(path.Join(homeDir, ".scwrc"))
 				if err != nil {
-					successDetails += "\n  except for removing old configuration: " + err.Error()
+					successDetails = append(successDetails, "Except for removing old configuration: "+err.Error())
 				}
 			}
 
@@ -350,7 +354,7 @@ func initCommand() *core.Command {
 
 			return &core.SuccessResult{
 				Message: "Initialization completed with success",
-				Details: successDetails,
+				Details: strings.Join(successDetails, "\n"),
 			}, nil
 		},
 	}
@@ -358,6 +362,7 @@ func initCommand() *core.Command {
 
 func promptCredentials(ctx context.Context) (string, error) {
 	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
+		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			secretKey, email := "secret-key", "email"
 			switch {
@@ -440,18 +445,19 @@ func getOrganizationID(ctx context.Context, secretKey string) (string, error) {
 	IDs, err := account.GetOrganizationsIds(ctx, secretKey)
 	if err != nil {
 		logger.Warningf("%v", err)
-		return promptOrganizationID(IDs)
+		return promptOrganizationID(ctx, IDs)
 	}
 	if len(IDs) != 1 {
-		return promptOrganizationID(IDs)
+		return promptOrganizationID(ctx, IDs)
 	}
 	return IDs[0], nil
 }
 
-func promptOrganizationID(IDs []string) (string, error) {
+func promptOrganizationID(ctx context.Context, IDs []string) (string, error) {
 	config := &interactive.PromptStringConfig{
 		Prompt:       "Enter your Organization ID",
 		ValidateFunc: interactive.ValidateOrganizationID(),
+		Ctx:          ctx,
 	}
 	if len(IDs) > 0 {
 		config.DefaultValue = IDs[0]

@@ -53,14 +53,12 @@ func Center(str string) string {
 func Indent(str string, indent int) string {
 	padding := makeStr(" ", indent)
 	lines := strings.Split(str, "\n")
-	result := ""
-	for _, line := range lines {
+	for i, line := range lines {
 		if line != "" {
-			line = padding + line
+			lines[i] = padding + line
 		}
-		result += line + "\n"
 	}
-	return result
+	return strings.Join(lines, "\n")
 }
 
 func RemoveIndent(str string) string {
