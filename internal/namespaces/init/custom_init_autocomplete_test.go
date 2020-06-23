@@ -12,32 +12,30 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_InitAutocomplete(t *testing.T) {
-	secretKey := dummyUUID
-	organizationID := dummyUUID
-	// if you are recording, you must place a valid token in the environment variable SCW_TEST_SECRET_KEY
-	if os.Getenv("SCW_TEST_SECRET_KEY") != "" {
-		secretKey = os.Getenv("SCW_TEST_SECRET_KEY")
+func baseBeforeFunc() core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
+		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
+		return nil
 	}
+}
+
+func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
-		"secret-key":       secretKey,
-		"organization-id":  organizationID,
+		"secret-key":       "{{ .SecretKey }}",
+		"organization-id":  "{{ .OrganizationID }}",
 		"send-telemetry":   "false",
 		"remove-v1-config": "false",
 		"with-ssh-key":     "false",
 	}
 
-	t.Run("Without", func(t *testing.T) {
-		core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      cmdFromSettings("scw init install-autocomplete=false", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-			),
-			TmpHomeDir: true,
-		})(t)
-	})
+	t.Run("Without", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: baseBeforeFunc(),
+		Cmd:        appendArgs("scw init install-autocomplete=false", defaultSettings),
+		Check:      core.TestCheckGolden(),
+		TmpHomeDir: true,
+	}))
 
 	t.Run("Zsh", func(t *testing.T) {
 		evalLine := `
@@ -45,17 +43,17 @@ func Test_InitAutocomplete(t *testing.T) {
 eval "$(scw autocomplete script shell=zsh)"
 `
 		core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      cmdFromSettings("scw init install-autocomplete=true", defaultSettings),
+			Commands:   GetCommands(),
+			BeforeFunc: baseBeforeFunc(),
+			Cmd:        appendArgs("scw init install-autocomplete=true", defaultSettings),
 			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					homeDir := ctx.OverrideEnv["HOME"]
 					filePath := path.Join(homeDir, ".zshrc")
 					fileContent, err := ioutil.ReadFile(filePath)
 					if err != nil {
-						t.FailNow()
+						require.NoError(t, err)
 					}
 					require.Equal(t, evalLine, string(fileContent))
 				},
@@ -73,7 +71,7 @@ eval "$(scw autocomplete script shell=zsh)"
 		})(t)
 	})
 
-	t.Run("bash (mac)", func(t *testing.T) {
+	t.Run("bash-mac", func(t *testing.T) {
 		if runtime.GOOS != "darwin" {
 			t.SkipNow()
 		}
@@ -82,17 +80,17 @@ eval "$(scw autocomplete script shell=zsh)"
 eval "$(scw autocomplete script shell=bash)"
 `
 		core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      cmdFromSettings("scw init install-autocomplete=true", defaultSettings),
+			Commands:   GetCommands(),
+			BeforeFunc: baseBeforeFunc(),
+			Cmd:        appendArgs("scw init install-autocomplete=true", defaultSettings),
 			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					homeDir := ctx.OverrideEnv["HOME"]
 					filePath := path.Join(homeDir, ".bash_profile")
 					fileContent, err := ioutil.ReadFile(filePath)
 					if err != nil {
-						t.FailNow()
+						require.NoError(t, err)
 					}
 					require.Equal(t, evalLine, string(fileContent))
 				},
@@ -110,7 +108,7 @@ eval "$(scw autocomplete script shell=bash)"
 		})(t)
 	})
 
-	t.Run("bash (linux)", func(t *testing.T) {
+	t.Run("bash-linux", func(t *testing.T) {
 		if runtime.GOOS != "linux" {
 			t.SkipNow()
 		}
@@ -119,10 +117,10 @@ eval "$(scw autocomplete script shell=bash)"
 eval "$(scw autocomplete script shell=bash)"
 `
 		core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      cmdFromSettings("scw init install-autocomplete=true", defaultSettings),
+			BeforeFunc: baseBeforeFunc(),
+			Commands:   GetCommands(),
+			Cmd:        appendArgs("scw init install-autocomplete=true", defaultSettings),
 			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					homeDir := ctx.OverrideEnv["HOME"]
@@ -154,26 +152,28 @@ eval (scw autocomplete script shell=fish)
 `
 		core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				homeDir := ctx.OverrideEnv["HOME"]
-				configPath := path.Join(homeDir, ".config", "fish", "config.fish")
+			BeforeFunc: core.BeforeFuncCombine(
+				func(ctx *core.BeforeFuncCtx) error {
+					homeDir := ctx.OverrideEnv["HOME"]
+					configPath := path.Join(homeDir, ".config", "fish", "config.fish")
 
-				// Ensure the subfolders for the configuration files are all created
-				err := os.MkdirAll(filepath.Dir(configPath), 0755)
-				if err != nil {
-					return err
-				}
+					// Ensure the subfolders for the configuration files are all created
+					err := os.MkdirAll(filepath.Dir(configPath), 0755)
+					if err != nil {
+						return err
+					}
 
-				// Write the configuration file
-				err = ioutil.WriteFile(configPath, []byte(``), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			Cmd: cmdFromSettings("scw init install-autocomplete=true", defaultSettings),
+					// Write the configuration file
+					err = ioutil.WriteFile(configPath, []byte(``), 0600)
+					if err != nil {
+						return err
+					}
+					return nil
+				},
+				baseBeforeFunc(),
+			),
+			Cmd: appendArgs("scw init install-autocomplete=true", defaultSettings),
 			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					homeDir := ctx.OverrideEnv["HOME"]

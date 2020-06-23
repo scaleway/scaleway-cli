@@ -129,17 +129,12 @@ func initCommand() *core.Command {
 				interactive.Printf("Welcome to the Scaleway Cli\n\n")
 			}
 
-			// Check if a config exists
-			// Actual creation of the new config is done in the Run()
-			config, err := scw.LoadConfig()
-			if core.ExtractConfigPath(ctx) != "" {
-				config, err = scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
-			}
+			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 
 			// If it is not a new config, ask if we want to override the existing config
 			if err == nil && !config.IsEmpty() {
 				_, _ = interactive.PrintlnWithoutIndent(`
-					Current config is located at ` + scw.GetConfigPath() + `
+					Current config is located at ` + core.ExtractConfigPath(ctx) + `
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
 				`)
 				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -277,7 +272,7 @@ func initCommand() *core.Command {
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				config = &scw.Config{}
-				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
+				interactive.Printf("Creating new config at %s\n", configPath)
 			}
 
 			if args.SendTelemetry != nil {
@@ -314,7 +309,7 @@ func initCommand() *core.Command {
 			}
 
 			// Persist configuration on disk
-			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
+			interactive.Printf("Config saved at %s:\n%s\n", configPath, terminal.Style(fmt.Sprint(config), color.Faint))
 			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err

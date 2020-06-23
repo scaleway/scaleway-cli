@@ -51,21 +51,12 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 }
 
 func Test_InitSSH(t *testing.T) {
-	secretKey := dummyUUID
-	organizationID := dummyUUID
-	// if you are recording, you must place a valid token in the environment variable SCW_TEST_SECRET_KEY
-	if os.Getenv("SCW_TEST_SECRET_KEY") != "" {
-		secretKey = os.Getenv("SCW_TEST_SECRET_KEY")
-	}
-	if os.Getenv("SCW_DEFAULT_ORGANIZATION_ID") != "" {
-		organizationID = os.Getenv("SCW_DEFAULT_ORGANIZATION_ID")
-	}
 	defaultSettings := map[string]string{
-		"secret-key":           secretKey,
-		"organization-id":      organizationID,
+		"secret-key":           "{{ .SecretKey }}",
+		"organization-id":      "{{ .OrganizationID }}",
 		"send-telemetry":       "false",
-		"install-autocomplete": "false",
 		"remove-v1-config":     "false",
+		"install-autocomplete": "false",
 	}
 	cmds := GetCommands()
 	cmds.Merge(account.GetCommands())
@@ -77,12 +68,13 @@ func Test_InitSSH(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
 				func(ctx *core.BeforeFuncCtx) error {
 					return setUpSSHKeyLocally(ctx, dummySSHKey)
 				},
 				addSSHKeyToAccount("key", "test-cli-KeyRegistered", dummySSHKey),
 			),
-			Cmd: cmdFromSettings("scw init with-ssh-key=true", defaultSettings),
+			Cmd: appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
@@ -97,10 +89,12 @@ func Test_InitSSH(t *testing.T) {
 		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar"
 		core.Test(&core.TestConfig{
 			Commands: cmds,
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				return setUpSSHKeyLocally(ctx, dummySSHKey)
-			},
-			Cmd: cmdFromSettings("scw init with-ssh-key=true", defaultSettings),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				func(ctx *core.BeforeFuncCtx) error {
+					return setUpSSHKeyLocally(ctx, dummySSHKey)
+				}),
+			Cmd: appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
@@ -115,8 +109,9 @@ func Test_InitSSH(t *testing.T) {
 
 	t.Run("NoLocalKey", func(t *testing.T) {
 		core.Test(&core.TestConfig{
-			Commands: cmds,
-			Cmd:      cmdFromSettings("scw init with-ssh-key=true", defaultSettings),
+			Commands:   cmds,
+			BeforeFunc: baseBeforeFunc(),
+			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),

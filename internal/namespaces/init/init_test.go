@@ -2,7 +2,6 @@ package init
 
 import (
 	"fmt"
-	"os"
 	"path"
 	"testing"
 
@@ -12,18 +11,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const dummyUUID = "11111111-1111-1111-1111-111111111111"
-
-func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
+func checkConfig(f func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		homeDir := ctx.OverrideEnv["HOME"]
 		config, err := scw.LoadConfigFromPath(path.Join(homeDir, ".config", "scw", "config.yaml"))
 		require.NoError(t, err)
-		f(t, config)
+		f(t, ctx, config)
 	}
 }
 
-func cmdFromSettings(prefix string, settings map[string]string) string {
+func appendArgs(prefix string, settings map[string]string) string {
 	res := prefix
 	for k, v := range settings {
 		res += fmt.Sprintf(" %s=%s", k, v)
@@ -31,79 +28,75 @@ func cmdFromSettings(prefix string, settings map[string]string) string {
 	return res
 }
 
-func TestInit(t *testing.T) {
-	secretKey := dummyUUID
-	organizationID := dummyUUID
-	// if you are recording, you must place a valid token in the environment variable SCW_TEST_SECRET_KEY
-	if os.Getenv("SCW_TEST_SECRET_KEY") != "" {
-		secretKey = os.Getenv("SCW_TEST_SECRET_KEY")
+func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		// Persist the dummy Config in the temp directory
+		return config.SaveTo(path.Join(ctx.OverrideEnv["HOME"], ".config", "scw", "config.yaml"))
 	}
-	defaultSettings := map[string]string{
-		"secret-key":           secretKey,
-		"organization-id":      organizationID,
+}
+
+func TestInit(t *testing.T) {
+	defaultArgs := map[string]string{
+		"secret-key":           "{{ .SecretKey }}",
+		"organization-id":      "{{ .OrganizationID }}",
 		"send-telemetry":       "true",
 		"install-autocomplete": "false",
 		"remove-v1-config":     "false",
 		"with-ssh-key":         "false",
 	}
 
-	t.Run("Simple", func(t *testing.T) {
-		core.Test(&core.TestConfig{
-			Commands:            GetCommands(),
-			PromptResponseMocks: []string{},
-			TmpHomeDir:          true,
-			Cmd:                 cmdFromSettings("scw init", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-				checkConfig(func(t *testing.T, config *scw.Config) {
-					assert.Equal(t, secretKey, *config.SecretKey)
-				}),
-			),
-		})(t)
-	})
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:            GetCommands(),
+		BeforeFunc:          baseBeforeFunc(),
+		PromptResponseMocks: []string{},
+		TmpHomeDir:          true,
+		Cmd:                 appendArgs("scw init", defaultArgs),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				secretKey, _ := ctx.Client.GetSecretKey()
+				assert.Equal(t, secretKey, *config.SecretKey)
+			}),
+		),
+	}))
 
-	t.Run("Configuration Path", func(t *testing.T) {
-		fileName := "new_config_path.yml"
-		core.Test(&core.TestConfig{
-			Commands:            GetCommands(),
-			PromptResponseMocks: []string{},
-			TmpHomeDir:          true,
-			Cmd:                 cmdFromSettings("scw -c {{ .HOME }}/"+fileName+" init", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					homeDir := ctx.OverrideEnv["HOME"]
-					config, err := scw.LoadConfigFromPath(path.Join(homeDir, fileName))
-					require.NoError(t, err)
-					if config == nil {
-						t.FailNow()
-					}
-					assert.Equal(t, secretKey, *config.SecretKey)
-				},
-			),
-		})(t)
-	})
+	t.Run("Configuration Path", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			baseBeforeFunc(),
+			func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["CONFIG_PATH"] = path.Join(ctx.Meta["HOME"].(string), "new_config_path.yml")
+				return nil
+			},
+		),
+		PromptResponseMocks: []string{},
+		TmpHomeDir:          true,
+		Cmd:                 appendArgs("scw -c {{ .CONFIG_PATH }} init", defaultArgs),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				config, err := scw.LoadConfigFromPath(ctx.Meta["CONFIG_PATH"].(string))
+				require.NoError(t, err)
+				secretKey, _ := ctx.Client.GetSecretKey()
+				assert.Equal(t, secretKey, *config.SecretKey)
+			},
+		),
+	}))
 
-	t.Run("Profile", func(t *testing.T) {
-		t.Run("Named", func(t *testing.T) {
-			profileName := "foobar"
-			core.Test(&core.TestConfig{
-				Commands:            GetCommands(),
-				PromptResponseMocks: []string{},
-				Cmd:                 cmdFromSettings("scw -p "+profileName+" init", defaultSettings),
-				Check: core.TestCheckCombine(
-					core.TestCheckExitCode(0),
-					core.TestCheckGolden(),
-					checkConfig(func(t *testing.T, config *scw.Config) {
-						assert.Equal(t, secretKey, *config.Profiles[profileName].SecretKey)
-					}),
-				),
-				TmpHomeDir: true,
-			})(t)
-		})
-	})
+	t.Run("Profile", core.Test(&core.TestConfig{
+		Commands:            GetCommands(),
+		BeforeFunc:          baseBeforeFunc(),
+		PromptResponseMocks: []string{},
+		Cmd:                 appendArgs("scw -p foobar init", defaultArgs),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				secretKey, _ := ctx.Client.GetSecretKey()
+				assert.Equal(t, secretKey, *config.Profiles["foobar"].SecretKey)
+			}),
+		),
+		TmpHomeDir: true,
+	}))
 
 	t.Run("CLIv2Config", func(t *testing.T) {
 		dummySecretKey := "22222222-2222-2222-2222-222222222222"
@@ -113,62 +106,55 @@ func TestInit(t *testing.T) {
 				AccessKey: &dummyAccessKey,
 				SecretKey: &dummySecretKey,
 			},
+			Profiles: map[string]*scw.Profile{
+				"test": {
+					AccessKey: &dummyAccessKey,
+					SecretKey: &dummySecretKey,
+				},
+			},
 		}
 
-		t.Run("NoOverwrite", func(t *testing.T) {
-			core.Test(&core.TestConfig{
-				Commands: GetCommands(),
-				BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-					// Persist the dummy Config in the temp directory
-					err := dummyConfig.SaveTo(path.Join(ctx.OverrideEnv["HOME"], ".config", "scw", "config.yaml"))
-					if err != nil {
-						t.FailNow()
-					}
-					return nil
-				},
-				Cmd: cmdFromSettings("scw init", defaultSettings),
-				Check: core.TestCheckCombine(
-					core.TestCheckExitCode(1),
-					core.TestCheckGolden(),
-					checkConfig(func(t *testing.T, config *scw.Config) {
-						assert.Equal(t, dummySecretKey, *config.SecretKey)
-						assert.Equal(t, dummyAccessKey, *config.AccessKey)
-					}),
-				),
-				TmpHomeDir: true,
-				PromptResponseMocks: []string{
-					// Do you want to override the current config?
-					"no",
-				},
-			})(t)
-		})
+		t.Run("NoOverwrite", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.Equal(t, dummyConfig.String(), config.String())
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config?
+				"no",
+			},
+		}))
 
-		t.Run("Overwrite", func(t *testing.T) {
-			core.Test(&core.TestConfig{
-				Commands: GetCommands(),
-				BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-					// Persist the dummy Config in the temp directory
-					err := dummyConfig.Save()
-					if err != nil {
-						t.FailNow()
-					}
-					return nil
-				},
-				Cmd: cmdFromSettings("scw init", defaultSettings),
-				Check: core.TestCheckCombine(
-					core.TestCheckExitCode(0),
-					core.TestCheckGolden(),
-					checkConfig(func(t *testing.T, config *scw.Config) {
-						assert.Equal(t, secretKey, *config.SecretKey)
-						assert.Equal(t, organizationID, *config.DefaultOrganizationID)
-					}),
-				),
-				TmpHomeDir: true,
-				PromptResponseMocks: []string{
-					// Do you want to override the current config?
-					"yes",
-				},
-			})(t)
-		})
+		t.Run("Overwrite", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					secretKey, _ := ctx.Client.GetSecretKey()
+					organizationID, _ := ctx.Client.GetDefaultOrganizationID()
+					assert.Equal(t, secretKey, *config.SecretKey)
+					assert.Equal(t, organizationID, *config.DefaultOrganizationID)
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config?
+				"yes",
+			},
+		}))
 	})
 }

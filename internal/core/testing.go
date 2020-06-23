@@ -498,6 +498,13 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	}
 }
 
+func BeforeFuncSetMeta(key string, value interface{}) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		ctx.Meta[key] = value
+		return nil
+	}
+}
+
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
@@ -604,7 +611,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		delete(i.Request.Headers, "x-auth-token")
 		delete(i.Request.Headers, "X-Auth-Token")
 		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
-		i.Request.URL = regexp.MustCompile(`account\\.scaleway\\.com/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111")
+		i.Request.URL = regexp.MustCompile(`account\.scaleway\.com/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111")
 		return nil
 	})
 

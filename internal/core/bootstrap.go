@@ -178,7 +178,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			meta.command == nil ||
 			meta.command.DisableTelemetry ||
 			matomo.IsTelemetryDisabled() {
-			logger.Debugf("skipping telemetry report")
+			logger.Debugf("skipping telemetry report\n")
 			return
 		}
 		matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
@@ -187,9 +187,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			ExecutionTime: time.Since(start),
 		})
 		if matomoErr != nil {
-			logger.Debugf("error during telemetry reporting: %s", matomoErr)
+			logger.Debugf("error during telemetry reporting: %s\n", matomoErr)
 		} else {
-			logger.Debugf("telemetry successfully sent")
+			logger.Debugf("telemetry successfully sent\n")
 		}
 	}()
 
