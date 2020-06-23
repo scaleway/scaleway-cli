@@ -8,9 +8,8 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	accountsdk "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
-
 	account "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
+	accountsdk "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
