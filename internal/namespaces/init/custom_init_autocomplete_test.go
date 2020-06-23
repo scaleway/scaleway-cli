@@ -20,6 +20,12 @@ func baseBeforeFunc() core.BeforeFunc {
 	}
 }
 
+const (
+	linux   = "linux"
+	darwin  = "darwin"
+	windows = "windows"
+)
+
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
 		"secret-key":       "{{ .SecretKey }}",
@@ -50,12 +56,14 @@ eval "$(scw autocomplete script shell=zsh)"
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						if runtime.GOOS == windows {
+							// autocomplete installation is not yet supported on windows
+							return
+						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".zshrc")
 						fileContent, err := ioutil.ReadFile(filePath)
-						if err != nil {
-							require.NoError(t, err)
-						}
+						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
 				),
@@ -103,12 +111,14 @@ eval (scw autocomplete script shell=fish)
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						if runtime.GOOS == windows {
+							// autocomplete installation is not yet supported on windows
+							return
+						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".config", "fish", "config.fish")
 						fileContent, err := ioutil.ReadFile(filePath)
-						if err != nil {
-							t.FailNow()
-						}
+						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
 				),
@@ -140,10 +150,13 @@ eval "$(scw autocomplete script shell=bash)"
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := ""
 						switch runtime.GOOS {
-						case "linux":
+						case linux:
 							filePath = path.Join(homeDir, ".bashrc")
-						case "darwin":
+						case darwin:
 							filePath = path.Join(homeDir, ".bash_profile")
+						case windows:
+							// autocomplete installation is not yet supported on windows
+							return
 						default:
 							t.Fatalf("unsupported OS")
 						}
@@ -168,22 +181,22 @@ eval "$(scw autocomplete script shell=bash)"
 		})
 	}
 
-	t.Run("darwin", func(t *testing.T) {
-		if runtime.GOOS != "darwin" {
+	t.Run(darwin, func(t *testing.T) {
+		if runtime.GOOS != darwin {
 			t.SkipNow()
 		}
 		runAllShells(t)
 	})
 
-	t.Run("linux", func(t *testing.T) {
-		if runtime.GOOS != "linux" {
+	t.Run(linux, func(t *testing.T) {
+		if runtime.GOOS != linux {
 			t.SkipNow()
 		}
 		runAllShells(t)
 	})
 
-	t.Run("windows", func(t *testing.T) {
-		if runtime.GOOS != "windows" {
+	t.Run(windows, func(t *testing.T) {
+		if runtime.GOOS != windows {
 			t.SkipNow()
 		}
 		runAllShells(t)
