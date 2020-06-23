@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 23 Jun 2020 12:01:21 GMT
+      - Tue, 23 Jun 2020 14:04:17 GMT
       Server:
       - nginx
       Strict-Transport-Security:
@@ -52,18 +52,18 @@ interactions:
       oss-exporter","fingerprint":"3072 MD5:d8:53:fc:ef:8e:ee:dd:65:3b:fc:e3:a7:96:05:f0:ac
       oss-exporter (ssh-rsa)","created_at":"2020-05-18T14:06:54.887451Z","updated_at":"2020-05-18T14:12:35.090751Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"32f707c5-df07-43c7-8b57-6e09b687dd03"},{"id":"255abc8e-4628-4d53-a497-e1bd23c06757","name":"","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
-      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:03:44.732785Z","updated_at":"2020-06-23T11:52:09.028822Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"33ece97d-d6b7-4d4b-b213-15d4a8ee2eb9","name":"","public_key":"ssh-ed25519
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:03:44.732785Z","updated_at":"2020-06-23T13:07:59.709830Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"33ece97d-d6b7-4d4b-b213-15d4a8ee2eb9","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE foobar@foobar","fingerprint":"256
-      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:57:05.192946Z","updated_at":"2020-06-23T11:59:51.504804Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}],"total_count":5}'
+      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:57:05.192946Z","updated_at":"2020-06-23T14:04:17.658644Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}],"total_count":5}'
     headers:
       Content-Length:
-      - "4038"
+      - "4060"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 23 Jun 2020 12:01:21 GMT
+      - Tue, 23 Jun 2020 14:04:17 GMT
       Server:
       - agw_listener_public_vip
       Strict-Transport-Security:
@@ -73,7 +73,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6d658e46-a862-472e-b19b-b086350e00ee
+      - 363f3256-1b5a-463e-bac5-37b08b91d676
     status: 200 OK
     code: 200
     duration: ""
@@ -93,7 +93,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 23 Jun 2020 12:01:21 GMT
+      - Tue, 23 Jun 2020 14:04:17 GMT
       Server:
       - agw_listener_public_vip
       Strict-Transport-Security:
@@ -103,7 +103,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 86f68e20-640e-4059-ba35-e99130f840d4
+      - e3fa2c81-c8a5-4b69-bdd3-c535a87edbe8
     status: 204 No Content
     code: 204
     duration: ""
