@@ -8,8 +8,8 @@ interactions:
     url: https://account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111
     method: GET
   response:
-    body: '{"token": {"access_key": "SCWV1KBG4XV8BM4Y5T2T", "user_id": "721f2fde-1a01-4854-822b-fcca5638d73e",
-      "expires": null, "creation_date": "2020-06-23T08:21:54.096455+00:00", "creation_ip":
+    body: '{"token": {"access_key": "SCW8XT5JRAV4B0WQSHPE", "user_id": "721f2fde-1a01-4854-822b-fcca5638d73e",
+      "expires": null, "creation_date": "2020-06-23T14:06:56.763352+00:00", "creation_ip":
       "195.154.229.35", "category": "user_created", "deletion_date": null, "inherits_user_perms":
       true, "roles": {"role": null, "organization": null}, "description": "sieben-macbook",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "use_role_key": false}}'
@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 23 Jun 2020 14:04:17 GMT
+      - Tue, 23 Jun 2020 15:19:31 GMT
       Server:
       - nginx
       Strict-Transport-Security:
