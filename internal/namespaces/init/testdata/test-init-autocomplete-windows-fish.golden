@@ -5,5 +5,5 @@
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Initialization completed with success",
-  "details": "\n  Except for autocomplete: unsupported OS 'windows'"
+  "details": "Except for autocomplete: unsupported OS 'windows'"
 }
