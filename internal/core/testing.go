@@ -442,9 +442,6 @@ func cmdToArgs(meta TestMeta, s string) []string {
 // BeforeFuncCombine combines multiple before functions into one.
 func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		if len(beforeFuncs) < 2 {
-			panic(fmt.Errorf("BeforeFuncCombine must be used to combine more than one BeforeFunc"))
-		}
 		for _, beforeFunc := range beforeFuncs {
 			err := beforeFunc(ctx)
 			if err != nil {
@@ -467,9 +464,6 @@ func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 // AfterFuncCombine combines multiple after functions into one.
 func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
-		if len(afterFuncs) < 2 {
-			panic(fmt.Errorf("AfterFuncCombine must be used to combine more than one AfterFunc"))
-		}
 		for _, afterFunc := range afterFuncs {
 			err := afterFunc(ctx)
 			if err != nil {

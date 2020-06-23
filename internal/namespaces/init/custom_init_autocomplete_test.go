@@ -97,12 +97,6 @@ eval (scw autocomplete script shell=fish)
 						if err != nil {
 							return err
 						}
-
-						// Write the configuration file
-						err = ioutil.WriteFile(configPath, []byte(``), 0600)
-						if err != nil {
-							return err
-						}
 						return nil
 					},
 					baseBeforeFunc(),
