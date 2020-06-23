@@ -74,11 +74,8 @@ func Test_InitSSH(t *testing.T) {
 				},
 				addSSHKeyToAccount("key", "test-cli-KeyRegistered", dummySSHKey),
 			),
-			Cmd: appendArgs("scw init with-ssh-key=true", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-			),
+			Cmd:                 appendArgs("scw init with-ssh-key=true", defaultSettings),
+			Check:               core.TestCheckGolden(),
 			AfterFunc:           removeSSHKeyFromAccount("key"),
 			TmpHomeDir:          true,
 			PromptResponseMocks: []string{},
@@ -94,11 +91,8 @@ func Test_InitSSH(t *testing.T) {
 				func(ctx *core.BeforeFuncCtx) error {
 					return setUpSSHKeyLocally(ctx, dummySSHKey)
 				}),
-			Cmd: appendArgs("scw init with-ssh-key=true", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-			),
+			Cmd:                 appendArgs("scw init with-ssh-key=true", defaultSettings),
+			Check:               core.TestCheckGolden(),
 			TmpHomeDir:          true,
 			PromptResponseMocks: nil,
 			AfterFunc: func(ctx *core.AfterFuncCtx) error {
@@ -107,18 +101,13 @@ func Test_InitSSH(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("NoLocalKey", func(t *testing.T) {
-		core.Test(&core.TestConfig{
-			Commands:   cmds,
-			BeforeFunc: baseBeforeFunc(),
-			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
-			),
-			TmpHomeDir: true,
-		})(t)
-	})
+	t.Run("NoLocalKey", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: baseBeforeFunc(),
+		Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
+		Check:      core.TestCheckGolden(),
+		TmpHomeDir: true,
+	}))
 }
 
 func purgeKeyFromAccount(ctx *core.AfterFuncCtx, key string) error {

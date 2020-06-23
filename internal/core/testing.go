@@ -498,13 +498,6 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	}
 }
 
-func BeforeFuncSetMeta(key string, value interface{}) BeforeFunc {
-	return func(ctx *BeforeFuncCtx) error {
-		ctx.Meta[key] = value
-		return nil
-	}
-}
-
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
