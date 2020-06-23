@@ -16,17 +16,17 @@ import (
 func setUpSSHKeyLocally(ctx *core.BeforeFuncCtx, key string) error {
 	homeDir := ctx.OverrideEnv["HOME"]
 	// TODO we persist the key as ~/.ssh/id_rsa.pub regardless of the type of key it is (rsa, ed25519)
-	configPath := path.Join(homeDir, ".ssh", "id_rsa.pub")
-	ctx.Logger.Info("config path set to: ", configPath)
+	keyPath := path.Join(homeDir, ".ssh", "id_rsa.pub")
+	ctx.Logger.Info("public key path set to: ", keyPath)
 
 	// Ensure the subfolders for the configuration files are all created
-	err := os.MkdirAll(filepath.Dir(configPath), 0755)
+	err := os.MkdirAll(filepath.Dir(keyPath), 0755)
 	if err != nil {
 		return err
 	}
 
 	// Write the configuration file
-	err = ioutil.WriteFile(configPath, []byte(key), 0600)
+	err = ioutil.WriteFile(keyPath, []byte(key), 0600)
 	if err != nil {
 		return err
 	}
