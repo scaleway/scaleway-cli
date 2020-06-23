@@ -35,7 +35,7 @@ func setUpSSHKeyLocally(key string) core.BeforeFunc {
 	}
 }
 
-func removeKeyFromAccount(publicSSHKey string) core.AfterFunc {
+func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		api := accountsdk.NewAPI(ctx.Client)
 		resp, err := api.ListSSHKeys(&accountsdk.ListSSHKeysRequest{},
@@ -91,7 +91,7 @@ func Test_InitSSH(t *testing.T) {
 			),
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check:      core.TestCheckGolden(),
-			AfterFunc:  removeKeyFromAccount(dummySSHKey),
+			AfterFunc:  removeSSHKeyFromAccount(dummySSHKey),
 			TmpHomeDir: true,
 		})(t)
 	})
@@ -107,7 +107,7 @@ func Test_InitSSH(t *testing.T) {
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check:      core.TestCheckGolden(),
 			TmpHomeDir: true,
-			AfterFunc:  removeKeyFromAccount(dummySSHKey),
+			AfterFunc:  removeSSHKeyFromAccount(dummySSHKey),
 		})(t)
 	})
 
