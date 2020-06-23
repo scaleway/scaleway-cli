@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -46,5 +47,55 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 		},
 	}
 
+	return c
+}
+
+func placementGroupCreateBuilder(c *core.Command) *core.Command {
+	type customCreatePlacementGroupRequest struct {
+		*instance.CreatePlacementGroupRequest
+		OrganizationID string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customCreatePlacementGroupRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customCreatePlacementGroupRequest)
+
+		if args.CreatePlacementGroupRequest == nil {
+			args.CreatePlacementGroupRequest = &instance.CreatePlacementGroupRequest{}
+		}
+
+		request := args.CreatePlacementGroupRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+	return c
+}
+
+func placementGroupListBuilder(c *core.Command) *core.Command {
+	type customListPlacementGroupsRequest struct {
+		*instance.ListPlacementGroupsRequest
+		OrganizationID *string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customListPlacementGroupsRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customListPlacementGroupsRequest)
+
+		if args.ListPlacementGroupsRequest == nil {
+			args.ListPlacementGroupsRequest = &instance.ListPlacementGroupsRequest{}
+		}
+
+		request := args.ListPlacementGroupsRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
 	return c
 }

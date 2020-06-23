@@ -7,19 +7,13 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
-	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
-	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
-	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1beta4"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
-	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
+	"github.com/scaleway/scaleway-cli/internal/namespaces"
 	"github.com/scaleway/scaleway-cli/internal/sentry"
 )
 
 var (
 	// Version is updated manually
-	Version = "v2.0.0-beta.1+dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+	Version = "v2.0.0-beta.4+dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
 
 	// These are initialized by the build script
 
@@ -34,20 +28,6 @@ var (
 	GoArch    = runtime.GOARCH
 )
 
-func getCommands() *core.Commands {
-	// Import all commands available in CLI from various packages.
-	// NB: Merge order impacts scw usage sort.
-	commands := core.NewCommands()
-	commands.Merge(instance.GetCommands())
-	commands.Merge(k8s.GetCommands())
-	commands.Merge(marketplace.GetCommands())
-	commands.Merge(initNamespace.GetCommands())
-	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(versionNamespace.GetCommands())
-	return commands
-}
-
 func main() {
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
@@ -60,14 +40,17 @@ func main() {
 	}
 
 	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
-	defer sentry.RecoverPanicAndSendReport(buildInfo)
+	if buildInfo.IsRelease() {
+		defer sentry.RecoverPanicAndSendReport(buildInfo)
+	}
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  getCommands(),
+		Commands:  namespaces.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
+		Stdin:     os.Stdin,
 	})
 
 	os.Exit(exitCode)

@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Invalid arguments 'altitude_in_meter'
+
+Details:
+- 'altitude_in_meter' does not respect constraints
+
+Hint:
+Lowest altitude on earth is -6371km
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "invalid arguments 'altitude_in_meter'",
+  "error": {
+    "details": [
+      {
+        "argument_name": "altitude_in_meter",
+        "reason": "constraint",
+        "help_message": "lowest altitude on earth is -6371km"
+      }
+    ]
+  },
+  "details": "- 'altitude_in_meter' does not respect constraints",
+  "hint": "lowest altitude on earth is -6371km"
+}

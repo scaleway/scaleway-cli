@@ -45,8 +45,6 @@ func serverCreateCommand() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(instanceCreateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
-			core.OrganizationIDArgSpec(),
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
@@ -101,6 +99,8 @@ func serverCreateCommand() *core.Command {
 				Name:  "bootscript-id",
 				Short: "The bootscript ID to use, if empty the local boot will be used",
 			},
+			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
@@ -110,25 +110,25 @@ func serverCreateCommand() *core.Command {
 		}},
 		Examples: []*core.Example{
 			{
-				Short:   "Create and start an instance on Ubuntu Bionic",
-				Request: `{"image":"ubuntu_bionic","start":true}`,
+				Short:    "Create and start an instance on Ubuntu Focal",
+				ArgsJSON: `{"image":"ubuntu_focal","start":true}`,
 			},
 			{
-				Short:   "Create a GP1-XS instance, give it a name and add tags",
-				Request: `{"image":"ubuntu_bionic","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
+				Short:    "Create a GP1-XS instance, give it a name and add tags",
+				ArgsJSON: `{"image":"ubuntu_focal","type":"GP1-XS","name":"foo","tags":["prod","blue"]}`,
 			},
 			{
-				Short:   "Create an instance with 2 additional block volumes (50GB and 100GB)",
-				Request: `{"image":"ubuntu_bionic","additional_volumes":["block:50GB","block:100GB"]}`,
+				Short:    "Create an instance with 2 additional block volumes (50GB and 100GB)",
+				ArgsJSON: `{"image":"ubuntu_focal","additional_volumes":["block:50GB","block:100GB"]}`,
 			},
 			{
-				Short:   "Create an instance with 2 local volumes (10GB and 10GB)",
-				Request: `{"image":"ubuntu_bionic","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
+				Short:    "Create an instance with 2 local volumes (10GB and 10GB)",
+				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
 			},
 			{
 				Short: "Use an existing IP",
 				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
-scw instance server create image=ubuntu_bionic ip=$ip`,
+scw instance server create image=ubuntu_focal ip=$ip`,
 			},
 		},
 	}
@@ -137,9 +137,10 @@ scw instance server create image=ubuntu_bionic ip=$ip`,
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:     argsI.(*instanceCreateServerRequest).Zone,
-			ServerID: respI.(*instance.Server).ID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*instanceCreateServerRequest).Zone,
+			ServerID:      respI.(*instance.Server).ID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }
@@ -424,9 +425,9 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 
 		switch parts[0] {
 		case "l", "local":
-			vt.VolumeType = instance.VolumeTypeLSSD
+			vt.VolumeType = instance.VolumeVolumeTypeLSSD
 		case "b", "block":
-			vt.VolumeType = instance.VolumeTypeBSSD
+			vt.VolumeType = instance.VolumeVolumeTypeBSSD
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
@@ -498,7 +499,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serve
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
-		if volume.VolumeType == instance.VolumeTypeLSSD {
+		if volume.VolumeType == instance.VolumeVolumeTypeLSSD {
 			localVolumeTotalSize += volume.Size
 		}
 	}
@@ -528,7 +529,7 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeT
 		return nil
 	}
 
-	if rootVolume.VolumeType != instance.VolumeTypeLSSD {
+	if rootVolume.VolumeType != instance.VolumeVolumeTypeLSSD {
 		return fmt.Errorf("first volume must be local")
 	}
 

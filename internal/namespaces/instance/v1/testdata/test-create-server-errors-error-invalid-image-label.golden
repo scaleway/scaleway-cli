@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Bad image label 'macos' for DEV1-S
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "bad image label 'macos' for DEV1-S"
+}

@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+This method allows to list all available versions for the creation of a new Kubernetes cluster.
+
+USAGE:
+  scw k8s version list [arg=value ...]
+
+EXAMPLES:
+  List all available Kubernetes version in Kapsule
+    scw k8s version list
+
+ARGS:
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use

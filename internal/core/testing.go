@@ -2,10 +2,13 @@ package core
 
 import (
 	"bytes"
+	"context"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -16,7 +19,10 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/hashicorp/go-version"
+	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -25,9 +31,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
+// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 var (
-	// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
-	// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
 	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
 	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
 )
@@ -50,7 +56,26 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta map[string]interface{}
+	Meta TestMeta
+
+	// Scaleway client
+	Client *scw.Client
+
+	// OverrideEnv passed in the TestConfig
+	OverrideEnv map[string]string
+
+	Logger *Logger
+}
+
+// TestMeta contains arbitrary data that can be passed along a test lifecycle.
+type TestMeta map[string]interface{}
+
+// Tpl render a go template using where content of meta can be used
+func (meta TestMeta) Tpl(strTpl string) string {
+	t := meta["t"].(*testing.T)
+	buf := &bytes.Buffer{}
+	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
+	return buf.String()
 }
 
 // TestCheck is a function that perform assertion on a CheckFuncCtx
@@ -60,17 +85,31 @@ type BeforeFunc func(ctx *BeforeFuncCtx) error
 
 type AfterFunc func(ctx *AfterFuncCtx) error
 
+type ExecFuncCtx struct {
+	T      *testing.T
+	Meta   TestMeta
+	Client *scw.Client
+}
+
+type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error)
+
 type BeforeFuncCtx struct {
-	Client     *scw.Client
-	ExecuteCmd func(cmd string) interface{}
-	Meta       map[string]interface{}
+	T           *testing.T
+	Client      *scw.Client
+	ExecuteCmd  func(args []string) interface{}
+	Meta        TestMeta
+	OverrideEnv map[string]string
+	Logger      *Logger
 }
 
 type AfterFuncCtx struct {
-	Client     *scw.Client
-	ExecuteCmd func(cmd string) interface{}
-	Meta       map[string]interface{}
-	CmdResult  interface{}
+	T           *testing.T
+	Client      *scw.Client
+	ExecuteCmd  func(args []string) interface{}
+	Meta        TestMeta
+	CmdResult   interface{}
+	OverrideEnv map[string]string
+	Logger      *Logger
 }
 
 // TestConfig contain configuration that can be used with the Test function
@@ -92,7 +131,12 @@ type TestConfig struct {
 	BeforeFunc BeforeFunc
 
 	// The command line you want to test
+	// Conflict with Args
 	Cmd string
+
+	// Args represents a program arguments and should be used, when you cannot Cmd because your arguments include space characters
+	// Conflict with Cmd
+	Args []string
 
 	// A list of check function that will be run on result.
 	Check TestCheck
@@ -104,66 +148,119 @@ type TestConfig struct {
 	DisableParallel bool
 
 	// Fake build info for this test.
-	BuildInfo BuildInfo
+	BuildInfo *BuildInfo
+
+	// If set, it will create a temporary home directory during the tests.
+	// Get this folder with ExtractUserHomeDir()
+	TmpHomeDir bool
+
+	// OverrideEnv contains environment variables that will be overridden during the test.
+	OverrideEnv map[string]string
+
+	// see BootstrapConfig.OverrideExec
+	OverrideExec OverrideExecTestFunc
+
+	// Custom client to use for test, if none are provided will create one automatically
+	Client *scw.Client
+
+	// Context that will be forwarded to Bootstrap
+	Ctx context.Context
+
+	// If this is specified this value will be passed to interactive.InjectMockResponseToContext ans will allow
+	// to mock response a user would have enter in a prompt.
+	// Warning: All prompts MUST be mocked or test will hang.
+	PromptResponseMocks []string
+
+	// Allow to mock stdin
+	Stdin io.Reader
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
-	fileName := t.Name()
-	fileName = strings.Replace(fileName, "/", "-", -1)
+	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
+
+	// Replace nested tests separators.
+	fileName := strings.Replace(t.Name(), "/", "-", -1)
+
 	fileName = strcase.ToBashArg(fileName)
-	return filepath.Join(".", "testdata", fileName+suffix)
+
+	// Replace special characters.
+	fileName = specialChars.ReplaceAllLiteralString(fileName, "") + suffix
+
+	return filepath.Join(".", "testdata", fileName)
 }
 
-func getTestClient(t *testing.T, testConfig *TestConfig) (client *scw.Client, cleanup func()) {
+func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Client) (client *scw.Client) {
+	var err error
+
+	// Init default options
 	clientOpts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithEnv(),
-		scw.WithUserAgent("cli-e2e-test"),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithUserAgent("cli-e2e-test"),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
+	// If client is NOT an E2E client we init http recorder and load configuration.
+	if !testConfig.UseE2EClient {
+		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
+
+		if UpdateCassettes {
+			clientOpts = append(clientOpts, scw.WithEnv())
+			config, err := scw.LoadConfig()
+			if err == nil {
+				p, err := config.GetActiveProfile()
+				require.NoError(t, err)
+				clientOpts = append(clientOpts, scw.WithProfile(p))
+			}
+		}
+	}
+
+	// We handle default zone and region configured specifically for a test
 	if testConfig.DefaultRegion != "" {
 		clientOpts = append(clientOpts, scw.WithDefaultRegion(testConfig.DefaultRegion))
 	}
-
 	if testConfig.DefaultZone != "" {
 		clientOpts = append(clientOpts, scw.WithDefaultZone(testConfig.DefaultZone))
 	}
 
-	if !testConfig.UseE2EClient {
-		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
-		require.NoError(t, err)
-		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
-		config, err := scw.LoadConfig()
-		if err == nil {
-			p, err := config.GetActiveProfile()
-			require.NoError(t, err)
-			clientOpts = append(clientOpts, scw.WithProfile(p))
-		}
+	client, err = scw.NewClient(clientOpts...)
+	require.NoError(t, err)
 
-		client, err := scw.NewClient(clientOpts...)
+	// If client is an E2E client we must register and use returned credential.
+	if testConfig.UseE2EClient {
+		res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
 		require.NoError(t, err)
-		return client, cleanup
+
+		client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
+		require.NoError(t, err)
 	}
 
-	client, err := scw.NewClient(clientOpts...)
-	require.NoError(t, err)
-	res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
-	require.NoError(t, err)
-
-	client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
-	require.NoError(t, err)
-
-	return client, func() {}
+	return client
 }
+
+// DefaultRetryInterval is used across all wait functions in the CLI
+// In particular it is very handy to define this RetryInterval at 0 second while running cassette in testing
+// because they will be executed without waiting.
+var DefaultRetryInterval *time.Duration
 
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
-		if config.DisableParallel {
+		if !config.DisableParallel {
 			t.Parallel()
+		}
+
+		log := &Logger{
+			writer: os.Stderr,
+			level:  logger.LogLevelInfo,
+		}
+		if os.Getenv("SCW_DEBUG") == "true" {
+			log.level = logger.LogLevelDebug
 		}
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
@@ -172,29 +269,95 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		client, cleanup := getTestClient(t, config)
-		defer cleanup()
-
-		meta := map[string]interface{}{}
-
-		cmdTemplate := func(cmd string) string {
-			cmdBuf := &bytes.Buffer{}
-			require.NoError(t, template.Must(template.New("cmd").Parse(cmd)).Execute(cmdBuf, meta))
-			return cmdBuf.String()
+		if !UpdateCassettes {
+			tmp := 0 * time.Second
+			DefaultRetryInterval = &tmp
 		}
 
-		executeCmd := func(cmd string) interface{} {
+		ctx := config.Ctx
+		if ctx == nil {
+			ctx = context.Background()
+		}
+		if len(config.PromptResponseMocks) > 0 {
+			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
+		}
+
+		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
+		require.NoError(t, err)
+		defer cleanup()
+		ctx = account.InjectHTTPClient(ctx, httpClient)
+
+		// We try to use the client provided in the config
+		// if no client is provided in the config we create a test client
+		client := config.Client
+		if client == nil {
+			client = createTestClient(t, config, httpClient)
+		}
+
+		meta := TestMeta{
+			"t": t,
+		}
+
+		overrideEnv := config.OverrideEnv
+		if overrideEnv == nil {
+			overrideEnv = map[string]string{}
+		}
+
+		if config.TmpHomeDir {
+			dir, err := ioutil.TempDir(os.TempDir(), "scw")
+			require.NoError(t, err)
+			defer func() {
+				err = os.RemoveAll(dir)
+				assert.NoError(t, err)
+			}()
+			overrideEnv["HOME"] = dir
+			meta["HOME"] = dir
+		}
+
+		overrideExec := defaultOverrideExec
+		if config.OverrideExec != nil {
+			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
+				return config.OverrideExec(&ExecFuncCtx{
+					T:      t,
+					Meta:   meta,
+					Client: client,
+				}, cmd)
+			}
+		}
+
+		stdin := config.Stdin
+		if stdin == nil {
+			stdin = os.Stdin
+		}
+
+		buildInfo := config.BuildInfo
+		if buildInfo == nil {
+			buildInfo = &BuildInfo{
+				Version:   version.Must(version.NewSemver("v0.0.0")),
+				BuildDate: "unknown",
+				GoVersion: "runtime.Version()",
+				GitBranch: "unknown",
+				GitCommit: "unknown",
+				GoArch:    "runtime.GOARCH",
+				GoOS:      "runtime.GOOS",
+			}
+		}
+
+		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			logger.Debugf("command: %s", cmdTemplate(cmd))
 			_, result, err := Bootstrap(&BootstrapConfig{
-				Args:             strings.Split(cmdTemplate(cmd), " "),
+				Args:             args,
 				Commands:         config.Commands,
-				BuildInfo:        &config.BuildInfo,
+				BuildInfo:        buildInfo,
 				Stdout:           stdoutBuffer,
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
+				OverrideEnv:      overrideEnv,
+				OverrideExec:     overrideExec,
+				Ctx:              ctx,
+				Logger:           log,
 			})
 			require.NoError(t, err, "stdout: %s\nstderr: %s", stdoutBuffer.String(), stderrBuffer.String())
 
@@ -203,52 +366,76 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
+			log.Debug("Start BeforeFunc")
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
-				Client:     client,
-				ExecuteCmd: executeCmd,
-				Meta:       meta,
+				T:           t,
+				Client:      client,
+				ExecuteCmd:  executeCmd,
+				Meta:        meta,
+				OverrideEnv: overrideEnv,
+				Logger:      log,
 			}))
+			log.Debug("End BeforeFunc")
 		}
 
 		// Run config.Cmd
 		var result interface{}
 		var exitCode int
-		var err error
-
+		args := config.Args
 		if config.Cmd != "" {
+			args = cmdToArgs(meta, config.Cmd)
+		}
+		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			logger.Debugf("command: %s", cmdTemplate(config.Cmd))
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
-				Args:             strings.Split(cmdTemplate(config.Cmd), " "),
+				Args:             args,
 				Commands:         config.Commands,
-				BuildInfo:        &config.BuildInfo,
+				BuildInfo:        buildInfo,
 				Stdout:           stdout,
 				Stderr:           stderr,
+				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
+				OverrideEnv:      overrideEnv,
+				OverrideExec:     overrideExec,
+				Ctx:              ctx,
+				Logger:           log,
 			})
 
+			meta["CmdResult"] = result
 			config.Check(t, &CheckFuncCtx{
-				ExitCode: exitCode,
-				Stdout:   stdout.Bytes(),
-				Stderr:   stderr.Bytes(),
-				Meta:     meta,
-				Result:   result,
-				Err:      err,
+				ExitCode:    exitCode,
+				Stdout:      stdout.Bytes(),
+				Stderr:      stderr.Bytes(),
+				Meta:        meta,
+				Result:      result,
+				Err:         err,
+				Client:      client,
+				OverrideEnv: overrideEnv,
+				Logger:      log,
 			})
 		}
 
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
+			log.Debug("Start AfterFunc")
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
-				Client:     client,
-				ExecuteCmd: executeCmd,
-				Meta:       meta,
-				CmdResult:  result,
+				T:           t,
+				Client:      client,
+				ExecuteCmd:  executeCmd,
+				Meta:        meta,
+				CmdResult:   result,
+				OverrideEnv: overrideEnv,
+				Logger:      log,
 			}))
+			log.Debug("End AfterFunc")
 		}
 	}
+}
+
+func cmdToArgs(meta TestMeta, s string) []string {
+	return strings.Split(meta.Tpl(s), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -262,6 +449,15 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 			if err != nil {
 				return err
 			}
+		}
+		return nil
+	}
+}
+
+func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		if UpdateCassettes {
+			return beforeFunc(ctx)
 		}
 		return nil
 	}
@@ -287,15 +483,26 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 // in the context Meta at metaKey.
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
+		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
+	}
+}
+
+func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		ctx.Logger.Debugf("BeforeFuncOsExec: cmd=%s args=%s\n", cmd, args)
+		return exec.Command(cmd, args...).Run()
 	}
 }
 
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
+		ctx.ExecuteCmd(args)
 		return nil
 	}
 }
@@ -303,7 +510,9 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
-		ctx.ExecuteCmd(cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecAfterCmd: args=%s\n", args)
+		ctx.ExecuteCmd(args)
 		return nil
 	}
 }
@@ -311,7 +520,7 @@ func ExecAfterCmd(cmd string) AfterFunc {
 // TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
-		assert.Equal(t, true, len(checks) > 1)
+		assert.Equal(t, true, len(checks) > 1, "TestCheckCombine must be used to combine more than one TestCheck")
 		for _, check := range checks {
 			check(t, ctx)
 		}
@@ -325,26 +534,22 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
-// TestCheckStderrGolden assert stderr using golden
-func TestCheckStderrGolden() TestCheck {
-	return func(t *testing.T, ctx *CheckFuncCtx) {
-		testGolden(t, getTestFilePath(t, ".stderr.golden"), ctx.Stderr)
-	}
-}
-
-// TestCheckStdoutGolden assert stdout using golden
-func TestCheckStdoutGolden() TestCheck {
-	return func(t *testing.T, ctx *CheckFuncCtx) {
-		testGolden(t, getTestFilePath(t, ".stdout.golden"), ctx.Stdout)
-	}
-}
-
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
-	return TestCheckCombine(
-		TestCheckStdoutGolden(),
-		TestCheckStderrGolden(),
-	)
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		actual := marshalGolden(t, ctx)
+
+		goldenPath := getTestFilePath(t, ".golden")
+		// In order to avoid diff in goldens we set all timestamp to the same date
+		if UpdateGoldens {
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+		}
+
+		expected, err := ioutil.ReadFile(goldenPath)
+		require.NoError(t, err, "expected to find golden file %s", goldenPath)
+		assert.Equal(t, string(expected), actual)
+	}
 }
 
 // TestCheckError asserts error
@@ -354,34 +559,25 @@ func TestCheckError(err error) TestCheck {
 	}
 }
 
-func testGolden(t *testing.T, goldenPath string, actual []byte) {
-	actualIsEmpty := len(actual) == 0
-
-	// In order to avoid diff in goldens we set all timestamp to the same date
-	actual = uniformLogTimestamps(actual)
-	if UpdateGoldens {
-		if actualIsEmpty {
-			_ = os.Remove(goldenPath)
-		} else {
-			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, actual, 0644))
-		}
-	}
-
-	expected, err := ioutil.ReadFile(goldenPath)
-	if actualIsEmpty {
-		assert.NotNil(t, err)
-	} else {
-		require.NoError(t, err)
-		assert.Equal(t, string(expected), string(actual))
+// TestCheckStdout asserts stdout using string
+func TestCheckStdout(stdout string) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		assert.Equal(t, stdout, string(ctx.Stdout), "Invalid stdout")
 	}
 }
 
-var regLogTimestamp = regexp.MustCompile(`((\d)+\/(\d)+\/(\d)+ (\d)+\:(\d)+\:(\d)+)`)
+func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
+	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
+		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), strings.Join(cmd.Args, " "))
+		return exitCode, nil
+	}
+}
 
-// uniformLogTimestamps replace all log timestamp to the date "2019/12/09 16:04:07"
-func uniformLogTimestamps(input []byte) []byte {
-	return regLogTimestamp.ReplaceAll(input, []byte("2019/12/09 16:04:07"))
+var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
+
+// uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
+func uniformTimestamps(input string) string {
+	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
@@ -406,10 +602,63 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	r.AddFilter(func(i *cassette.Interaction) error {
 		delete(i.Request.Headers, "x-auth-token")
 		delete(i.Request.Headers, "X-Auth-Token")
+		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
 		return nil
 	})
 
-	return &http.Client{Transport: r}, func() {
+	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
+}
+
+func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
+	jsonStderr := &bytes.Buffer{}
+	jsonStdout := &bytes.Buffer{}
+
+	jsonPrinter, err := NewPrinter(&PrinterConfig{
+		Type:   PrinterTypeJSON,
+		Stdout: jsonStdout,
+		Stderr: jsonStderr,
+		Pretty: true,
+	})
+	require.NoError(t, err)
+
+	if ctx.Err != nil {
+		err = jsonPrinter.Print(ctx.Err, nil)
+		require.NoError(t, err)
+	}
+	if ctx.Result != nil {
+		err = jsonPrinter.Print(ctx.Result, nil)
+		require.NoError(t, err)
+	}
+
+	buffer := bytes.Buffer{}
+	buffer.WriteString(fmt.Sprintf("\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n", ctx.ExitCode))
+
+	if len(ctx.Stdout) > 0 {
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 STDOUT️ \U0001F7E9\U0001F7E9\U0001F7E9️\n")
+		buffer.Write(ctx.Stdout)
+	}
+
+	if len(ctx.Stderr) > 0 {
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 STDERR️️ \U0001F7E5\U0001F7E5\U0001F7E5️\n")
+		buffer.Write(ctx.Stderr)
+	}
+
+	if jsonStdout.Len() > 0 {
+		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 JSON STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n")
+		buffer.Write(jsonStdout.Bytes())
+	}
+
+	if jsonStderr.Len() > 0 {
+		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n")
+		buffer.Write(jsonStderr.Bytes())
+	}
+
+	str := buffer.String()
+	// In order to avoid diff in goldens we set all timestamp to the same date
+	str = uniformTimestamps(str)
+	// Replace Windows return carriage.
+	str = strings.ReplaceAll(str, "\r", "")
+	return str
 }

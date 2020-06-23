@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -24,14 +23,14 @@ import (
 //
 
 var (
-	securityGroupPolicyAttribute = human.Attributes{
-		instance.SecurityGroupPolicyDrop:   color.FgRed,
-		instance.SecurityGroupPolicyAccept: color.FgGreen,
+	securityGroupPolicyMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupPolicyDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.SecurityGroupPolicyAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
 
-	securityGroupRuleActionAttribute = human.Attributes{
-		instance.SecurityGroupRuleActionDrop:   color.FgRed,
-		instance.SecurityGroupRuleActionAccept: color.FgGreen,
+	securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
 )
 
@@ -157,6 +156,32 @@ type customSecurityGroupResponse struct {
 	Rules []*instance.SecurityGroupRule
 }
 
+func securityGroupCreateBuilder(c *core.Command) *core.Command {
+	type customCreateSecurityGroupRequest struct {
+		*instance.CreateSecurityGroupRequest
+		OrganizationID string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customCreateSecurityGroupRequest)
+
+		if args.CreateSecurityGroupRequest == nil {
+			args.CreateSecurityGroupRequest = &instance.CreateSecurityGroupRequest{}
+		}
+
+		request := args.CreateSecurityGroupRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+
+	return c
+}
+
 func securityGroupGetBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		req := argsI.(*instance.GetSecurityGroupRequest)
@@ -184,11 +209,35 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func securityGroupDeleteBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
+func securityGroupListBuilder(c *core.Command) *core.Command {
+	type customListSecurityGroupsRequest struct {
+		*instance.ListSecurityGroupsRequest
+		OrganizationID *string
+	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		res, originalErr := originalRun(ctx, argsI)
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customListSecurityGroupsRequest)
+
+		if args.ListSecurityGroupsRequest == nil {
+			args.ListSecurityGroupsRequest = &instance.ListSecurityGroupsRequest{}
+		}
+
+		request := args.ListSecurityGroupsRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+
+	return c
+}
+
+func securityGroupDeleteBuilder(c *core.Command) *core.Command {
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, originalErr := runner(ctx, argsI)
 		if originalErr == nil {
 			return res, nil
 		}
@@ -213,7 +262,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 			// Create detail message.
 			hint := "Attach all these instances to another security-group before deleting this one:"
 			for _, s := range sg.SecurityGroup.Servers {
-				hint += "\nscw instance server update server-id=" + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
+				hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
 			}
 
 			newError.Hint = hint
@@ -221,7 +270,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, originalErr
-	}
+	})
 	return c
 }
 
@@ -243,8 +292,8 @@ func securityGroupClearCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(instanceResetSecurityGroupArgs{}),
 		Examples: []*core.Example{
 			{
-				Short:   "Remove all rules of the given security group",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Remove all rules of the given security group",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -261,7 +310,6 @@ func securityGroupClearCommand() *core.Command {
 				return nil, err
 			}
 
-			var deleteErrors error
 			for _, rule := range rules.Rules {
 				if !rule.Editable {
 					continue
@@ -272,21 +320,18 @@ func securityGroupClearCommand() *core.Command {
 					SecurityGroupRuleID: rule.ID,
 				})
 				if err != nil {
-					deleteErrors = multierror.Append(deleteErrors, err)
+					return nil, err
 				}
-			}
-			if deleteErrors != nil {
-				return nil, deleteErrors
 			}
 			return &core.SuccessResult{Message: "Successful reset of the security group rules"}, err
 		},
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to reset.`,
 				Required: true,
 			},
+			core.ZoneArgSpec(),
 		},
 	}
 }
@@ -305,7 +350,6 @@ func securityGroupUpdateCommand() *core.Command {
 		Verb:      "update",
 		ArgsType:  reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
 				Name:     "security-group-id",
 				Short:    `ID of the security group to update`,
@@ -322,42 +366,41 @@ func securityGroupUpdateCommand() *core.Command {
 			},
 			{
 				Name:       "inbound-default-policy",
-				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
 			{
 				Name:       "outbound-default-policy",
-				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
 			{
 				Name: "organization-default",
 			},
+			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Set the default outbound policy as drop",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
+				Short:    "Set the default outbound policy as drop",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
 			},
 			{
-				Short:   "Set the given security group as the default for the organization",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "organization_default": true}`,
+				Short:    "Set the given security group as the default for the organization",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "organization_default": true}`,
 			},
 			{
-				Short:   "Change the name of the given security group",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "name": "foobar"}`,
+				Short:    "Change the name of the given security group",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "name": "foobar"}`,
 			},
 			{
-				Short:   "Change the description of the given security group",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "description": "foobar"}`,
+				Short:    "Change the description of the given security group",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "description": "foobar"}`,
 			},
 			{
-				Short:   "Enable stateful security group",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "stateful": true}`,
+				Short:    "Enable stateful security group",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "stateful": true}`,
 			},
 			{
-				Short:   "Set the default inbound policy as drop",
-				Request: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "inbound_default_policy": "drop"}`,
+				Short:    "Set the default inbound policy as drop",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "inbound_default_policy": "drop"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -383,7 +426,7 @@ func securityGroupUpdateCommand() *core.Command {
 						You have to make this security group stateless to use it as an organization default.
 						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
 					`),
-					Hint: "scw instance security-group update security-group-id=" + req.SecurityGroupID + " organization-default=true stateful=false",
+					Hint: "scw instance security-group update " + req.SecurityGroupID + " organization-default=true stateful=false",
 				}
 
 			case "cannot have more than one organization default":
@@ -399,10 +442,10 @@ func securityGroupUpdateCommand() *core.Command {
 						You already have an organization default security-group (` + defaultSG.ID + `).
 
 						First, you need to set your current organization default security-group as non-default with:
-						scw instance security-group update security-group-id=` + defaultSG.ID + ` organization-default=false
+						scw instance security-group update ` + defaultSG.ID + ` organization-default=false
 
 						Then, retry this command:
-						scw instance security-group update security-group-id=` + req.SecurityGroupID + ` organization-default=true stateful=false
+						scw instance security-group update ` + req.SecurityGroupID + ` organization-default=true stateful=false
 					`),
 				}
 			default:

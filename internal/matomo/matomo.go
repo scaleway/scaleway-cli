@@ -83,7 +83,9 @@ func SendCommandTelemetry(request *SendCommandTelemetryRequest) error {
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode != 200 {
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("non-success status code %d: %s", resp.StatusCode, matomoURL.String())
 	}
 
@@ -111,11 +113,15 @@ func generateRandNumber() string {
 	return bigRand.String()
 }
 
-// IsTelemetryDisabled returns true when the Opt-In send_telemetry attribute in the config is set.
+// IsTelemetryDisabled returns false when the Opt-In send_telemetry attribute in the config is set.
 func IsTelemetryDisabled() bool {
 	config, err := scw.LoadConfig()
 	if err != nil {
 		return false
 	}
-	return !config.SendTelemetry
+	profile, err := config.GetActiveProfile()
+	if err != nil {
+		return false
+	}
+	return profile.SendTelemetry == nil || !*profile.SendTelemetry
 }

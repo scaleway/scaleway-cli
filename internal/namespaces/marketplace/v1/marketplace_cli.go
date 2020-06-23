@@ -35,8 +35,8 @@ func marketplaceRoot() *core.Command {
 
 func marketplaceImage() *core.Command {
 	return &core.Command{
-		Short:     ``,
-		Long:      ``,
+		Short:     `Marketplace images can be used when creating an instance`,
+		Long:      `Marketplace images can be used when creating an instance.`,
 		Namespace: "marketplace",
 		Resource:  "image",
 	}
@@ -82,9 +82,10 @@ func marketplaceImageGet() *core.Command {
 		ArgsType:  reflect.TypeOf(marketplace.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "image-id",
-				Short:    `Display the image name`,
-				Required: true,
+				Name:       "image-id",
+				Short:      `Display the image name`,
+				Required:   true,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

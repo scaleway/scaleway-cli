@@ -1,11 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BIN_DIR="$ROOT_DIR/bin"
-
-mkdir -p $BIN_DIR
-
+export CGO_ENABLED=0
 LDFLAGS=(
    -w
    -extldflags
@@ -15,9 +10,32 @@ LDFLAGS=(
    -X main.BuildDate="$(date -u '+%Y-%m-%dT%I:%M:%S%p')"
 )
 
-VERSION=$(go run cmd/scw/main.go -o json version | jq -r .version)
+# If we are build from the dockerfile only build required binary
+if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
+    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]}" ./cmd/scw
+    exit 0
+ fi
 
-export CGO_ENABLED=0
-GOOS=linux  GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-linux-x86_64"  cmd/scw/main.go
-GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-darwin-x86_64" cmd/scw/main.go
-GOOS=windows GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DIR/scw-$VERSION-windows-x86_64" cmd/scw/main.go
+
+BIN_DIR="./bin"
+VERSION=$(go run cmd/scw/main.go -o json version | jq -r .version | tr . -)
+BIN_LINUX="$BIN_DIR/scw-$VERSION-linux-x86_64"
+BIN_LINUX_386="$BIN_DIR/scw-$VERSION-linux-386"
+BIN_DARWIN="$BIN_DIR/scw-$VERSION-darwin-x86_64"
+BIN_WINDOWS="$BIN_DIR/scw-$VERSION-windows-x86_64.exe"
+BIN_WINDOWS_386="$BIN_DIR/scw-$VERSION-windows-386.exe"
+
+mkdir -p $BIN_DIR
+GOOS=linux  GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_LINUX" cmd/scw/main.go
+GOOS=linux  GOARCH=386 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_LINUX_386" cmd/scw/main.go
+GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_DARWIN" cmd/scw/main.go
+GOOS=windows GOARCH=amd64 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_WINDOWS" cmd/scw/main.go
+GOOS=windows GOARCH=386 go build -ldflags "${LDFLAGS[*]}" -o "$BIN_WINDOWS_386" cmd/scw/main.go
+
+shasum -a 256 \
+  "$BIN_LINUX" \
+  "$BIN_LINUX_386" \
+  "$BIN_DARWIN" \
+  "$BIN_WINDOWS" \
+  "$BIN_WINDOWS_386" \
+  | sed -e 's#./bin/##' > "$BIN_DIR/SHA256SUMS"

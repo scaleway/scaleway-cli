@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -17,6 +18,7 @@ func init() {
 type cobraBuilder struct {
 	commands []*Command
 	meta     *meta
+	ctx      context.Context
 }
 
 // build creates the cobra root command.
@@ -25,7 +27,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	commandsIndex := map[string]*Command{}
 
 	rootCmd := &cobra.Command{
-		Use: "scw",
+		Use: b.meta.BinaryName,
 
 		// Do not display error with cobra, we handle it in bootstrap.
 		SilenceErrors: true,
@@ -94,41 +96,42 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
-	cobraCmd.Annotations["NoClient"] = "false"
-	if cmd.NoClient {
-		cobraCmd.Annotations["NoClient"] = "true"
-	}
-
 	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(cmd)
+		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd)
 	}
 
 	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(cmd)
+		cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
 	}
 
 	if cmd.SeeAlsos != nil {
 		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 	}
 
-	ctx := newMetaContext(b.meta)
-
-	cobraCmd.PreRunE = cobraPreRunInitMeta(ctx, cmd)
-
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(ctx, cmd)
+		cobraCmd.RunE = cobraRun(b.ctx, cmd)
+	} else {
+		// If command is not runnable we create a default run function that
+		// will print usage of the parent command and exit with code 1
+		cobraCmd.RunE = func(cmd *cobra.Command, args []string) error {
+			err := cmd.Help()
+			if err != nil {
+				return err
+			}
+			return &CliError{Empty: true, Code: 1}
+		}
 	}
 
 	if cmd.WaitFunc != nil {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = strings.ReplaceAll(cobraCmd.CommandPath(), "scw", "scw [global-flags]")
+	cobraCmd.Annotations["CommandUsage"] = cobraCmd.CommandPath()
 	if cobraCmd.HasAvailableSubCommands() || len(cobraCmd.Commands()) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " <command>"
 	}
-	if cobraCmd.HasAvailableLocalFlags() || cobraCmd.HasAvailableFlags() || cobraCmd.LocalFlags() != nil {
-		cobraCmd.Annotations["CommandUsage"] += " [flags]"
+	if positionalArg := cmd.ArgSpecs.GetPositionalArg(); positionalArg != nil {
+		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + " ...>"
 	}
 	if len(cmd.ArgSpecs) > 0 {
 		cobraCmd.Annotations["CommandUsage"] += " [arg=value ...]"
@@ -164,9 +167,3 @@ Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
 
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
 `
-
-func panicOnError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}

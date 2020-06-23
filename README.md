@@ -7,7 +7,7 @@
 
 # Scaleway CLI (v2)
 
-**:warning: This version is under active development, keep in mind that things can break.** 
+If you are looking for Scaleway CLI v1, [you can find it on the v1 branch](https://github.com/scaleway/scaleway-cli/tree/v1).
 
 Scaleway is a single way to create, deploy and scale your infrastructure in the cloud. We help thousands of businesses to run their infrastructures easily.
 
@@ -69,8 +69,8 @@ You just have to download the binary compatible with your platform to a director
 echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-darwin-x86_64"
+# Download the release from github
+curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.4/scw-2-0-0-beta-4-darwin-x86_64"
 
 # Allow executing file as program
 chmod +x /usr/local/bin/scw
@@ -82,11 +82,11 @@ scw init
 #### Linux
 
 ```bash
-# Download the release from github 
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-linux-x86_64"
+# Download the release from github
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.4/scw-2-0-0-beta-4-linux-x86_64"
 
 # Allow executing file as program
-chmod +x /usr/local/bin/scw
+sudo chmod +x /usr/local/bin/scw
 
 # Init the CLI
 scw init
@@ -94,8 +94,8 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-windows-x86_64<br/>
-[This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)) explains how to add tools to your `PATH`.
+You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.4/scw-2-0-0-beta-4-windows-x86_64.exe<br/>
+[This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574%28v%3Doffice.14%29) explains how to add tools to your `PATH`.
 
 <!-- TODO:
 
@@ -105,15 +105,19 @@ First, download [the `.deb` file](https://github.com/scaleway/scaleway-cli/relea
 
 ```bash
 export ARCH=amd64 # Can be 'amd64', 'arm', 'arm64' or 'i386'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.1/scw-v2.0.0-beta.1-${ARCH}.deb" -O /tmp/scw.deb
+wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.0.0-beta.4/scw-v2-0-0-beta-4-${ARCH}.deb" -O /tmp/scw.deb
 ```
 
 Then, run the installation and remove the `.deb` file:
 ```bash
 dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 ```
+-->
 
+<!-- TODO:
 ## With a Docker Image
+
+### Official releases (Coming soon..)
 
 For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
 
@@ -122,7 +126,29 @@ docker run scaleway/cli version
 ```
 -->
 
-## Build Locally
+## Docker Image
+
+You can use the CLI as you would run any Docker image:
+
+```sh
+docker run -i --rm scaleway/cli:v2.0.0-beta.4
+```
+
+See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
+
+# Examples
+
+## Create an instance server
+
+```
+scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
+```
+
+TODO: Add more examples here.
+
+## Build it yourself
+
+### Build Locally
 
 If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
@@ -133,14 +159,21 @@ go get github.com/scaleway/scaleway-cli/cmd/scw
 
 Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
-# Examples
+### Build with Docker
 
-## Create an instance server
-```
-scw instance server create type=DEV1-S image=ubuntu-bionic zone=fr-par-1 tags.0="scw-cli"
+You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
+
+```sh
+docker build -t scaleway/cli .
 ```
 
-TODO: Add more examples here.
+Once build, you can then use the CLI as you would run any image:
+
+```sh
+docker run -i --rm scaleway/cli
+```
+
+See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
 
 # Tutorials
 

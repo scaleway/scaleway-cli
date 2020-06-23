@@ -56,8 +56,7 @@ func TestNullableStringValueUnmarshal(t *testing.T) {
 		data: &NullableStringValueRequest{},
 		expectedStruct: &NullableStringValueRequest{
 			Reverse: &instance.NullableStringValue{
-				Null:  true,
-				Value: "",
+				Null: true,
 			},
 		},
 		expectedError: nil,

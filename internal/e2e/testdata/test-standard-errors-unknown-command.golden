@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Unknown command "bob" for "scw"
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "unknown command \"bob\" for \"scw\""
+}

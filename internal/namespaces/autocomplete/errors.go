@@ -24,3 +24,10 @@ func installationCancelledError(shellName string, script string) *core.CliError 
 		Hint: fmt.Sprintf("To manually enable autocomplete for %v, run: %v", shellName, script),
 	}
 }
+
+func installationNotFound(shellName string, location string, script string) *core.CliError {
+	return &core.CliError{
+		Err:  fmt.Errorf("cannot find where to install autocomplete script (tried %s)", location),
+		Hint: fmt.Sprintf("You can add this line: `%s` in your %s configuration file", script, shellName),
+	}
+}

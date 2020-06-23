@@ -1,7 +1,0 @@
-Invalid arguments 'altitude_in_meter'
-
-Details:
-- 'altitude_in_meter' does not respect constraint
-
-Hint:
-Lowest altitude on earth is -6371km

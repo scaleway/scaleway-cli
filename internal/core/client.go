@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -10,7 +11,7 @@ import (
 )
 
 // createClient creates a Scaleway SDK client.
-func createClient(meta *meta) (*scw.Client, error) {
+func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
 	_, err := scw.MigrateLegacyConfig()
 	if err != nil {
 		return nil, err
@@ -24,25 +25,28 @@ func createClient(meta *meta) (*scw.Client, error) {
 		return nil, err
 	}
 
-	if meta.ProfileFlag != "" {
-		config.ActiveProfile = scw.StringPtr(meta.ProfileFlag)
-	}
+	var activeProfile *scw.Profile
 
-	activeProfile, err := config.GetActiveProfile()
-	if err != nil {
-		return nil, err
+	if profileName != "" {
+		activeProfile, err = config.GetProfile(profileName)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		activeProfile, err = config.GetActiveProfile()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	envProfile := scw.LoadEnvProfile()
 
 	profile := scw.MergeProfiles(activeProfile, envProfile)
 
-	if err := validateProfile(profile); err != nil {
-		return nil, err
-	}
-
-	// Guess a default region from the valid zone.
-	if profile.DefaultRegion == nil || *profile.DefaultRegion == "" {
+	// If profile have a defaultZone but no defaultRegion we set the defaultRegion
+	// to the one of the defaultZone
+	if profile.DefaultZone != nil && *profile.DefaultZone != "" &&
+		(profile.DefaultRegion == nil || *profile.DefaultRegion == "") {
 		zone := *profile.DefaultZone
 		logger.Debugf("guess region from %s zone", zone)
 		region := zone[:len(zone)-2]
@@ -54,8 +58,31 @@ func createClient(meta *meta) (*scw.Client, error) {
 	}
 
 	opts := []scw.ClientOption{
-		scw.WithUserAgent("scaleway-cli/" + meta.BuildInfo.Version.String()),
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent(buildInfo.GetUserAgent()),
 		scw.WithProfile(profile),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
+	}
+
+	client, err := scw.NewClient(opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
+	opts := []scw.ClientOption{
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent(buildInfo.GetUserAgent()),
+		scw.WithHTTPClient(&http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}),
 	}
 
 	client, err := scw.NewClient(opts...)
@@ -86,11 +113,13 @@ More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-
 	)
 }
 
-// validateProfile validate the final profile
-func validateProfile(profile *scw.Profile) error {
+// validateClient validate a client configuration and make sure all mandatory setting are present.
+// This function is only call for commands that require a valid client.
+func validateClient(client *scw.Client) error {
 	credentialsHint := "You can get your credentials here: https://console.scaleway.com/account/credentials"
 
-	if profile.AccessKey == nil || *profile.AccessKey == "" {
+	accessKey, _ := client.GetAccessKey()
+	if accessKey == "" {
 		return &CliError{
 			Err:     fmt.Errorf("access key is required"),
 			Details: configErrorDetails("access_key", "SCW_ACCESS_KEY"),
@@ -98,14 +127,15 @@ func validateProfile(profile *scw.Profile) error {
 		}
 	}
 
-	if !validation.IsAccessKey(*profile.AccessKey) {
+	if !validation.IsAccessKey(accessKey) {
 		return &CliError{
-			Err:  fmt.Errorf("invalid access key format '%s', expected SCWXXXXXXXXXXXXXXXXX format", *profile.AccessKey),
+			Err:  fmt.Errorf("invalid access key format '%s', expected SCWXXXXXXXXXXXXXXXXX format", accessKey),
 			Hint: credentialsHint,
 		}
 	}
 
-	if profile.SecretKey == nil || *profile.SecretKey == "" {
+	secretKey, _ := client.GetSecretKey()
+	if secretKey == "" {
 		return &CliError{
 			Err:     fmt.Errorf("secret key is required"),
 			Details: configErrorDetails("secret_key", "SCW_SECRET_KEY"),
@@ -113,14 +143,15 @@ func validateProfile(profile *scw.Profile) error {
 		}
 	}
 
-	if !validation.IsSecretKey(*profile.SecretKey) {
+	if !validation.IsSecretKey(secretKey) {
 		return &CliError{
-			Err:  fmt.Errorf("invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", *profile.SecretKey),
+			Err:  fmt.Errorf("invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", secretKey),
 			Hint: credentialsHint,
 		}
 	}
 
-	if profile.DefaultOrganizationID == nil || *profile.DefaultOrganizationID == "" {
+	defaultOrganizationID, _ := client.GetDefaultOrganizationID()
+	if defaultOrganizationID == "" {
 		return &CliError{
 			Err:     fmt.Errorf("organization ID is required"),
 			Details: configErrorDetails("default_organization_id", "SCW_DEFAULT_ORGANIZATION_ID"),
@@ -128,40 +159,50 @@ func validateProfile(profile *scw.Profile) error {
 		}
 	}
 
-	if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
+	if !validation.IsOrganizationID(defaultOrganizationID) {
 		return &CliError{
-			Err:  fmt.Errorf("invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", *profile.DefaultOrganizationID),
+			Err:  fmt.Errorf("invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", defaultOrganizationID),
 			Hint: credentialsHint,
 		}
 	}
 
-	if profile.DefaultZone == nil || *profile.DefaultZone == "" {
+	defaultZone, _ := client.GetDefaultZone()
+	if defaultZone == "" {
 		return &CliError{
-			Err:     fmt.Errorf("zone is required"),
+			Err:     fmt.Errorf("default zone is required"),
 			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE"),
 			Hint:    credentialsHint,
 		}
 	}
 
-	if !validation.IsZone(*profile.DefaultZone) {
+	if !validation.IsZone(defaultZone.String()) {
 		zones := []string(nil)
 		for _, z := range scw.AllZones {
 			zones = append(zones, string(z))
 		}
 		return &CliError{
-			Err:  fmt.Errorf("invalid default zone format '%s', available zones are: %s", *profile.DefaultZone, strings.Join(zones, ", ")),
-			Hint: fmt.Sprintf("Available zones are: %s", strings.Join(zones, ", ")),
+			Err:  fmt.Errorf("invalid default zone format '%s', available zones are: %s", defaultZone, strings.Join(zones, ", ")),
+			Hint: credentialsHint,
 		}
 	}
 
-	if profile.DefaultRegion != nil && *profile.DefaultRegion != "" && !validation.IsRegion(*profile.DefaultRegion) {
+	defaultRegion, _ := client.GetDefaultRegion()
+	if defaultRegion == "" {
+		return &CliError{
+			Err:     fmt.Errorf("default region is required"),
+			Details: configErrorDetails("default_region", "SCW_DEFAULT_REGION"),
+			Hint:    credentialsHint,
+		}
+	}
+
+	if !validation.IsRegion(defaultRegion.String()) {
 		regions := []string(nil)
 		for _, z := range scw.AllRegions {
 			regions = append(regions, string(z))
 		}
 		return &CliError{
-			Err:  fmt.Errorf("invalid default region format '%s'", *profile.DefaultRegion),
-			Hint: fmt.Sprintf("Available regions are: %s", strings.Join(regions, ", ")),
+			Err:  fmt.Errorf("invalid default region format '%s', available regions are: %s", defaultRegion, strings.Join(regions, ", ")),
+			Hint: credentialsHint,
 		}
 	}
 

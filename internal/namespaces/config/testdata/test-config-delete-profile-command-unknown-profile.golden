@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+No profile named test
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "",
+  "error": {},
+  "details": "",
+  "hint": ""
+}

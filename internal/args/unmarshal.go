@@ -341,7 +341,7 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		return err
 	case reflect.Bool:
 		switch value {
-		case "", "true":
+		case "true":
 			dest.SetBool(true)
 		case "false":
 			dest.SetBool(false)

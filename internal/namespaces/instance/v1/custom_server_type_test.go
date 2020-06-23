@@ -6,7 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
-func Test_serverTypeListBuilder(t *testing.T) {
+func Test_ServerTypeList(t *testing.T) {
 	t.Run("server-type list", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server-type list",

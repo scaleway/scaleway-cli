@@ -34,85 +34,89 @@ type autocompleteScript struct {
 	ShellConfigurationFile map[string]string
 }
 
+var homePath, _ = os.UserHomeDir()
+
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
-var autocompleteScripts = map[string]autocompleteScript{
-	"bash": {
-		// If `scw` is the first word on the command line,
-		// after hitting [tab] arguments are sent to `scw autocomplete complete bash`:
-		//  - COMP_LINE: the complete command line
-		//  - cword:     the index of the word being completed (source COMP_CWORD)
-		//  - words:     the words composing the command line (source COMP_WORDS)
-		//
-		// Note that `=` signs are excluding from $COMP_WORDBREAKS. As a result, they are NOT be
-		// considered as breaking words and arguments like `image=` will not be split.
-		//
-		// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
-		// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
-		CompleteFunc: `
-			_scw() {
+func autocompleteScripts(binaryName string) map[string]autocompleteScript {
+	return map[string]autocompleteScript{
+		"bash": {
+			// If `scw` is the first word on the command line,
+			// after hitting [tab] arguments are sent to `scw autocomplete complete bash`:
+			//  - COMP_LINE: the complete command line
+			//  - cword:     the index of the word being completed (source COMP_CWORD)
+			//  - words:     the words composing the command line (source COMP_WORDS)
+			//
+			// Note that `=` signs are excluding from $COMP_WORDBREAKS. As a result, they are NOT be
+			// considered as breaking words and arguments like `image=` will not be split.
+			//
+			// Then `scw autocomplete complete bash` process the line, and tries to returns suggestions.
+			// These scw suggestions are put into `COMPREPLY` which is used by Bash to provides the shell suggestions.
+			CompleteFunc: fmt.Sprintf(`
+			_%[1]s() {
 				_get_comp_words_by_ref -n = cword words
 
-				output=$(scw autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
+				output=$(%[1]s autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
 				COMPREPLY=($output)
 				# apply compopt option and ignore failure for older bash versions
 				[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true
 				return
 			}
-			complete -F _scw scw
-		`,
-		CompleteScript: `eval "$(scw autocomplete script shell=bash)"`,
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".bash_profile"),
-			"linux":  path.Join(os.Getenv("HOME"), ".bashrc"),
+			complete -F _%[1]s %[1]s
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, binaryName),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".bash_profile"),
+				"linux":  path.Join(homePath, ".bashrc"),
+			},
 		},
-	},
-	"fish": {
-		// (commandline)                             complete command line
-		// (commandline --cursor)                    position of the cursor, as number of chars in the command line
-		// (commandline --current-token)             word to complete
-		// (commandline --tokenize --cut-at-cursor)  tokenized selection up until the current cursor position
-		//                                           formatted as one string-type token per line
-		//
-		// If files are shown although --no-files is set,
-		// it might be because you are using an alias for scw, such as :
-		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
-		// You might want to run 'complete --erase --command go' during development.
-		//
-		// TODO: send rightWords
-		CompleteFunc: `
-			complete --erase --command scw;
-			complete --command scw --no-files;
-			complete --command scw --arguments '(scw autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
-		`,
-		CompleteScript: `eval (scw autocomplete script shell=fish)`,
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
-			"linux":  path.Join(os.Getenv("HOME"), ".config/fish/config.fish"),
+		"fish": {
+			// (commandline)                             complete command line
+			// (commandline --cursor)                    position of the cursor, as number of chars in the command line
+			// (commandline --current-token)             word to complete
+			// (commandline --tokenize --cut-at-cursor)  tokenized selection up until the current cursor position
+			//                                           formatted as one string-type token per line
+			//
+			// If files are shown although --no-files is set,
+			// it might be because you are using an alias for scw, such as :
+			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
+			// You might want to run 'complete --erase --command go' during development.
+			//
+			// TODO: send rightWords
+			CompleteFunc: fmt.Sprintf(`
+			complete --erase --command %[1]s;
+			complete --command %[1]s --no-files;
+			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, binaryName),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".config/fish/config.fish"),
+				"linux":  path.Join(homePath, ".config/fish/config.fish"),
+			},
 		},
-	},
-	"zsh": {
-		// If you are using an alias for scw, such as :
-		// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
-		// you might want to run 'compdef _scw go' during development.
-		CompleteFunc: `
+		"zsh": {
+			// If you are using an alias for scw, such as :
+			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
+			// you might want to run 'compdef _scw go' during development.
+			CompleteFunc: fmt.Sprintf(`
 			autoload -U compinit && compinit
-			_scw () {
-				output=($(scw autocomplete complete zsh -- ${CURRENT} ${words}))
+			_%[1]s () {
+				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
 				opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
 				fi
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
-			compdef _scw scw
-		`,
-		CompleteScript: `eval "$(scw autocomplete script shell=zsh)"`,
-		ShellConfigurationFile: map[string]string{
-			"darwin": path.Join(os.Getenv("HOME"), ".zshrc"),
-			"linux":  path.Join(os.Getenv("HOME"), ".zshrc"),
+			compdef _%[1]s %[1]s
+		`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, binaryName),
+			ShellConfigurationFile: map[string]string{
+				"darwin": path.Join(homePath, ".zshrc"),
+				"linux":  path.Join(homePath, ".zshrc"),
+			},
 		},
-	},
+	}
 }
 
 type InstallArgs struct {
@@ -121,11 +125,11 @@ type InstallArgs struct {
 
 func autocompleteInstallCommand() *core.Command {
 	return &core.Command{
-		Short:     `Install autocompletion script`,
-		Long:      `Install autocompletion script for a given shell and OS.`,
-		Namespace: "autocomplete",
-		Resource:  "install",
-		NoClient:  true,
+		Short:                `Install autocomplete script`,
+		Long:                 `Install autocomplete script for a given shell and OS.`,
+		Namespace:            "autocomplete",
+		Resource:             "install",
+		AllowAnonymousClient: true,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name: "shell",
@@ -138,15 +142,20 @@ func autocompleteInstallCommand() *core.Command {
 
 func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
-	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration")
+	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration.")
+	binaryName := core.ExtractBinaryName(ctx)
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellArg := argsI.(*InstallArgs).Shell
 	logger.Debugf("shellArg: %v", shellArg)
 	if shellArg == "" {
-		defaultShellName := filepath.Base(os.Getenv("SHELL"))
+		defaultShellName := "bash"
+		if os.Getenv("SHELL") != "" {
+			defaultShellName = filepath.Base(os.Getenv("SHELL"))
+		}
 
 		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+			Ctx:             ctx,
 			Prompt:          "What type of shell are you using",
 			DefaultValue:    defaultShellName,
 			DefaultValueDoc: defaultShellName,
@@ -159,7 +168,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 
 	shellName := filepath.Base(shellArg)
 
-	script, exists := autocompleteScripts[shellName]
+	script, exists := autocompleteScripts(binaryName)[shellName]
 	if !exists {
 		return nil, unsupportedShellError(shellName)
 	}
@@ -176,7 +185,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		defer f.Close()
 	}
 	if err != nil {
-		return nil, err
+		return nil, installationNotFound(shellName, shellConfigurationFilePath, script.CompleteScript)
 	}
 
 	// Early exit if eval line is already present in the shell configuration.
@@ -185,16 +194,24 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		return nil, err
 	}
 	if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
+		_, _ = interactive.Println()
 		_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
 		return "", nil
 	}
 
+	// Autocomplete script content
+	autoCompleteScript := "\n# Scaleway CLI autocomplete initialization.\n" + script.CompleteScript
+
 	// Warning
-	_, _ = interactive.Println("To enable autocompletion we need to append to " + shellConfigurationFilePath + " the following lines:\n\t# Scaleway CLI autocomplete initialization.\n\t" + script.CompleteScript)
+	_, _ = interactive.Println()
+	_, _ = interactive.PrintlnWithoutIndent("To enable autocomplete we need to append to " + shellConfigurationFilePath + " the following lines:")
+	_, _ = interactive.Println(strings.ReplaceAll(autoCompleteScript, "\n", "\n\t"))
 
 	// Early exit if user disagrees
+	_, _ = interactive.Println()
 	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       fmt.Sprintf("Do you want to proceed with theses changes ?"),
+		Ctx:          ctx,
+		Prompt:       "Do you want to proceed with these changes?",
 		DefaultValue: true,
 	})
 	if err != nil {
@@ -205,14 +222,14 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// Append to file
-	_, err = f.Write([]byte("\n# Scaleway CLI autocomplete initialization.\n" + script.CompleteScript + "\n"))
+	_, err = f.Write([]byte(autoCompleteScript + "\n"))
 	if err != nil {
 		return nil, err
 	}
 
 	// Ack
 	return &core.SuccessResult{
-		Message: fmt.Sprintf("Autocomplete function for %v installed successfully.\nUpdated %v.", shellName, shellConfigurationFilePath),
+		Message: fmt.Sprintf("Autocomplete has been successfully installed for your %v shell.\nUpdated %v.", shellName, shellConfigurationFilePath),
 	}, nil
 }
 
@@ -223,11 +240,11 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Namespace: "autocomplete",
 		Resource:  "complete",
 		Verb:      "bash",
-		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient:         false,
-		Hidden:           true,
-		DisableTelemetry: true,
-		ArgsType:         reflect.TypeOf(args.RawArgs{}),
+		// TODO: Switch AllowAnonymousClient to true when cache will be implemented.
+		AllowAnonymousClient: false,
+		Hidden:               true,
+		DisableTelemetry:     true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			wordIndex, err := strconv.Atoi(rawArgs[1])
@@ -261,11 +278,11 @@ func autocompleteCompleteFishCommand() *core.Command {
 		Namespace: "autocomplete",
 		Resource:  "complete",
 		Verb:      "fish",
-		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient:         false,
-		Hidden:           true,
-		DisableTelemetry: true,
-		ArgsType:         reflect.TypeOf(args.RawArgs{}),
+		// TODO: Switch AllowAnonymousClient to true when cache will be implemented.
+		AllowAnonymousClient: false,
+		Hidden:               true,
+		DisableTelemetry:     true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			leftWords := rawArgs[3:]
@@ -293,11 +310,11 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Namespace: "autocomplete",
 		Resource:  "complete",
 		Verb:      "zsh",
-		// TODO: Switch NoClient to true when cache will be implemented.
-		NoClient:         false,
-		Hidden:           true,
-		DisableTelemetry: true,
-		ArgsType:         reflect.TypeOf(args.RawArgs{}),
+		// TODO: Switch AllowAnonymousClient to true when cache will be implemented.
+		AllowAnonymousClient: false,
+		Hidden:               true,
+		DisableTelemetry:     true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 
@@ -330,12 +347,12 @@ type autocompleteShowArgs struct {
 
 func autocompleteScriptCommand() *core.Command {
 	return &core.Command{
-		Short:            `Show autocomplete script for current shell`,
-		Long:             `Show autocomplete script for current shell.`,
-		Namespace:        "autocomplete",
-		Resource:         "script",
-		NoClient:         true,
-		DisableTelemetry: true,
+		Short:                `Show autocomplete script for current shell`,
+		Long:                 `Show autocomplete script for current shell.`,
+		Namespace:            "autocomplete",
+		Resource:             "script",
+		AllowAnonymousClient: true,
+		DisableTelemetry:     true,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:    "shell",
@@ -344,8 +361,9 @@ func autocompleteScriptCommand() *core.Command {
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			binaryName := core.ExtractBinaryName(ctx)
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
-			script, exists := autocompleteScripts[shell]
+			script, exists := autocompleteScripts(binaryName)[shell]
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}

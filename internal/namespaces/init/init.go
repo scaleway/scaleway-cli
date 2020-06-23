@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path"
 	"reflect"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
+	accountcommands "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -62,29 +64,42 @@ type initArgs struct {
 	Zone                scw.Zone
 	OrganizationID      string
 	SendTelemetry       *bool
+	WithSSHKey          *bool
 	InstallAutocomplete *bool
+	RemoveV1Config      *bool
 }
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initialize the config`,
-		Long:      `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
-		Namespace: "init",
-		NoClient:  true,
-		ArgsType:  reflect.TypeOf(initArgs{}),
+		Short:                `Initialize the config`,
+		Long:                 `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
+		Namespace:            "init",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(initArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
+				Short:        "Scaleway secret-key",
 				ValidateFunc: core.ValidateSecretKey(),
 			},
 			{
-				Name:       "region",
-				EnumValues: []string{"fr-par", "nl-ams"},
+				Name:  "send-telemetry",
+				Short: "Send usage statistics and diagnostics",
 			},
 			{
-				Name:       "zone",
-				EnumValues: []string{"fr-par-1", "fr-par-2", "nl-ams-1"},
+				Name:    "with-ssh-key",
+				Short:   "Whether the SSH key for managing instances should be uploaded automatically",
+				Default: core.DefaultValueSetter("true"),
 			},
+			{
+				Name:  "install-autocomplete",
+				Short: "Whether the autocomplete script should be installed during initialisation",
+			},
+			{
+				Name:  "remove-v1-config",
+				Short: "Whether to remove the v1 configuration file if it exists",
+			},
+
 			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
 			// See workflow in cobra_utils.go/cobraRun().
 			// It is not required in the command line: the user is not obliged to type it.
@@ -92,15 +107,11 @@ func initCommand() *core.Command {
 			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
 			{
 				Name:         "organization-id",
+				Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
 				ValidateFunc: core.ValidateOrganizationIDRequired(),
 			},
-			{
-				Name: "send-usage",
-			},
-			{
-				Name:  "install-autocomplete",
-				Short: "Whether the autocomplete script should be installed during initialisation",
-			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.ZoneArgSpec(),
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -120,38 +131,40 @@ func initCommand() *core.Command {
 
 			// Check if a config exists
 			// Actual creation of the new config is done in the Run()
-			newConfig := false
 			config, err := scw.LoadConfig()
-			if err != nil {
-				newConfig = true
-			}
 
 			// If it is not a new config, ask if we want to override the existing config
-			if !newConfig {
+			if err == nil && !config.IsEmpty() {
 				_, _ = interactive.PrintlnWithoutIndent(`
 					Current config is located at ` + scw.GetConfigPath() + `
 					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
 				`)
 				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to override current config?",
+					Prompt:       "Do you want to override the current config?",
 					DefaultValue: true,
 				})
 				if err != nil {
 					return err
 				}
 				if !overrideConfig {
-					return fmt.Errorf("initialization cancelled")
+					return fmt.Errorf("initialization canceled")
 				}
 			}
 
-			// Manually prompt for missing args
+			// Manually prompt for missing args:
+
+			// Credentials
 			if args.SecretKey == "" {
-				args.SecretKey, err = promptSecretKey()
+				_, _ = interactive.Println()
+				args.SecretKey, err = promptCredentials(ctx)
 				if err != nil {
 					return err
 				}
 			}
+
+			// Zone
 			if args.Zone == "" {
+				_, _ = interactive.Println()
 				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
 					Prompt:          "Select a zone",
 					DefaultValueDoc: "fr-par-1",
@@ -184,7 +197,7 @@ func initCommand() *core.Command {
 			// Set OrganizationID if not done previously
 			// As OrganizationID depends on args.SecretKey, we can't use a DefaultFunc or ArgPromptFunc.
 			if args.OrganizationID == "" {
-				args.OrganizationID, err = getOrganizationID(args.SecretKey)
+				args.OrganizationID, err = getOrganizationID(ctx, args.SecretKey)
 				if err != nil {
 					return err
 				}
@@ -195,7 +208,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
 					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disable at any time by running "scw config set send_telemetry false"
+					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
 				`)
 
 				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -213,7 +226,7 @@ func initCommand() *core.Command {
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
 				_, _ = interactive.PrintlnWithoutIndent(`
-					To fully enjoy Scaleway CLI we recommend you to install autocomplete support in your shell.
+					To fully enjoy Scaleway CLI we recommend you install autocomplete support in your shell.
 				`)
 
 				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
@@ -227,69 +240,123 @@ func initCommand() *core.Command {
 				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
+			// Ask whether to remove v1 configuration file if it exists
+			if args.RemoveV1Config == nil {
+				homeDir, err := os.UserHomeDir()
+				if err == nil {
+					configPath := path.Join(homeDir, ".scwrc")
+					if _, err := os.Stat(configPath); err == nil {
+						removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+							Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
+							DefaultValue: false,
+						})
+						if err != nil {
+							return err
+						}
+
+						args.RemoveV1Config = &removeV1ConfigFile
+					}
+				}
+			}
+
 			return nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*initArgs)
-
 			// Check if a config exists
 			// Creates a new one if it does not
-			config, err := scw.LoadConfig()
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				config = &scw.Config{}
 				interactive.Printf("Creating new config at %v\n", scw.GetConfigPath())
 			}
 
 			if args.SendTelemetry != nil {
-				config.SendTelemetry = *args.SendTelemetry
-			}
-
-			// Update active profile
-			profile, err := config.GetActiveProfile()
-			if err != nil {
-				return nil, err
-			}
-			profile.SecretKey = &args.SecretKey
-			profile.DefaultZone = scw.StringPtr(args.Zone.String())
-			profile.DefaultRegion = scw.StringPtr(args.Region.String())
-			profile.DefaultOrganizationID = &args.OrganizationID
-			err = config.Save()
-			if err != nil {
-				return nil, err
+				config.SendTelemetry = args.SendTelemetry
 			}
 
 			// Get access key
-			accessKey, err := account.GetAccessKey(args.SecretKey)
+			accessKey, err := account.GetAccessKey(ctx, args.SecretKey)
 			if err != nil {
-				interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
 				return "", &core.CliError{
 					Err:     err,
 					Details: "Failed to retrieve Access Key for the given Secret Key.",
 				}
 			}
-			profile.AccessKey = &accessKey
-			err = config.Save()
+
+			profile := &scw.Profile{
+				AccessKey:             &accessKey,
+				SecretKey:             &args.SecretKey,
+				DefaultZone:           scw.StringPtr(args.Zone.String()),
+				DefaultRegion:         scw.StringPtr(args.Region.String()),
+				DefaultOrganizationID: &args.OrganizationID,
+			}
+			// Save the profile as default or as a named profile
+			profileName := core.ExtractProfileName(ctx)
+			_, err = config.GetProfile(profileName)
+			if profileName == "" || err == nil {
+				// Default configuration
+				config.Profile = *profile
+			} else {
+				if config.Profiles == nil {
+					config.Profiles = make(map[string]*scw.Profile)
+				}
+				config.Profiles[profileName] = profile
+			}
+
+			// Persist configuration on disk
+			interactive.Printf("Config saved at %s:\n%s\n", scw.GetConfigPath(), terminal.Style(fmt.Sprint(config), color.Faint))
+			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
 			}
 
-			successMessage := "Initialization completed with success"
+			// Now that the config has been save we reload the client with the new config
+			err = core.ReloadClient(ctx)
+			if err != nil {
+				return nil, err
+			}
+			successDetails := ""
 
+			// Install autocomplete
 			if *args.InstallAutocomplete {
+				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successMessage += " except for autocomplete:\n" + err.Error()
+					successDetails += "\n  Except for autocomplete: " + err.Error()
 				}
 			}
 
+			// Init SSH Key
+			if *args.WithSSHKey {
+				_, _ = interactive.Println()
+				_, err := accountcommands.InitRun(ctx, nil)
+				if err != nil {
+					successDetails += "\n  Except for SSH key: " + err.Error()
+				}
+			}
+
+			// Remove old configuration file
+			if args.RemoveV1Config != nil && *args.RemoveV1Config {
+				homeDir := core.ExtractUserHomeDir(ctx)
+				err = os.Remove(path.Join(homeDir, ".scwrc"))
+				if err != nil {
+					successDetails += "\n  except for removing old configuration: " + err.Error()
+				}
+			}
+
+			_, _ = interactive.Println()
+
 			return &core.SuccessResult{
-				Message: successMessage,
+				Message: "Initialization completed with success",
+				Details: successDetails,
 			}, nil
 		},
 	}
 }
 
-func promptSecretKey() (string, error) {
+func promptCredentials(ctx context.Context) (string, error) {
 	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
 		PromptFunc: func(value string) string {
 			secretKey, email := "secret-key", "email"
@@ -314,32 +381,49 @@ func promptSecretKey() (string, error) {
 
 	switch {
 	case validation.IsEmail(UUIDOrEmail):
-		email := UUIDOrEmail
-		password, err := interactive.PromptPassword("Enter your " + terminal.Style("password", color.Bold))
-		if err != nil {
-			return "", err
-		}
-		hostname, _ := os.Hostname()
-		loginReq := &account.LoginRequest{
-			Email:       email,
-			Password:    password,
-			Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
-		}
-		var t *account.Token
-		var twoFactorRequired bool
-		for {
-			t, twoFactorRequired, err = account.Login(loginReq)
+		passwordRetriesLeft := 3
+		for passwordRetriesLeft > 0 {
+			email := UUIDOrEmail
+			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
+				Ctx:    ctx,
+				Prompt: "Enter your " + terminal.Style("password", color.Bold),
+			})
 			if err != nil {
 				return "", err
 			}
-			if !twoFactorRequired {
-				return t.SecretKey, nil
+			hostname, _ := os.Hostname()
+			loginReq := &account.LoginRequest{
+				Email:       email,
+				Password:    password,
+				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
 			}
-			loginReq.TwoFactorToken, err = interactive.PromptString("Enter your 2FA code")
-			if err != nil {
-				return "", err
+			for {
+				loginResp, err := account.Login(ctx, loginReq)
+				if err != nil {
+					return "", err
+				}
+				if loginResp.WrongPassword {
+					passwordRetriesLeft--
+					if loginReq.TwoFactorToken == "" {
+						interactive.Printf("Wrong username or password.\n")
+					} else {
+						interactive.Printf("Wrong 2FA code.\n")
+					}
+					break
+				}
+				if !loginResp.TwoFactorRequired {
+					return loginResp.Token.SecretKey, nil
+				}
+				loginReq.TwoFactorToken, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Enter your 2FA code",
+				})
+				if err != nil {
+					return "", err
+				}
 			}
 		}
+		return "", fmt.Errorf("wrong password entered 3 times in a row, exiting")
 
 	case validation.IsUUID(UUIDOrEmail):
 		return UUIDOrEmail, nil
@@ -352,8 +436,8 @@ func promptSecretKey() (string, error) {
 // getOrganizationId handles prompting for the argument organization-id
 // If we have only 1 id : we use it, and don't prompt
 // If we have more than 1 id, we prompt, with id[0] as default value.
-func getOrganizationID(secretKey string) (string, error) {
-	IDs, err := account.GetOrganizationsIds(secretKey)
+func getOrganizationID(ctx context.Context, secretKey string) (string, error) {
+	IDs, err := account.GetOrganizationsIds(ctx, secretKey)
 	if err != nil {
 		logger.Warningf("%v", err)
 		return promptOrganizationID(IDs)

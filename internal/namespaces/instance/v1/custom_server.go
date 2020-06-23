@@ -7,14 +7,13 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/hashicorp/go-multierror"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -28,14 +27,17 @@ const (
 // Marshalers
 //
 
-// serverStateMarshalerFunc marshals a instance.ServerState.
-func serverStateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	// The Scaleway console shows "archived" for a stopped server.
-	if i.(instance.ServerState) == instance.ServerStateStopped {
-		return terminal.Style("archived", color.Faint), nil
+// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
+var (
+	serverStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.ServerStateRunning:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.ServerStateStopped:        &human.EnumMarshalSpec{Attribute: color.Faint, Value: "archived"},
+		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
+		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
-	return human.BindAttributesMarshalFunc(serverStateAttributes)(i, opt)
-}
+)
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
 func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -170,6 +172,31 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 // Builders
 //
 
+func serverListBuilder(c *core.Command) *core.Command {
+	type customListServersRequest struct {
+		*instance.ListServersRequest
+		OrganizationID *string
+	}
+
+	renameOrganizationIDArgSpec(c.ArgSpecs)
+
+	c.ArgsType = reflect.TypeOf(customListServersRequest{})
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		args := argsI.(*customListServersRequest)
+
+		if args.ListServersRequest == nil {
+			args.ListServersRequest = &instance.ListServersRequest{}
+		}
+
+		request := args.ListServersRequest
+		request.Organization = args.OrganizationID
+
+		return runner(ctx, request)
+	})
+	return c
+}
+
 func serverUpdateBuilder(c *core.Command) *core.Command {
 	type instanceUpdateServerRequestCustom struct {
 		*instance.UpdateServerRequest
@@ -299,6 +326,26 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func serverGetBuilder(c *core.Command) *core.Command {
+	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
+	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+		api := instance.NewAPI(core.ExtractClient(ctx))
+		resp, err := api.ListServers(&instance.ListServersRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+
+		suggestion := core.AutocompleteSuggestions{}
+		for _, s := range resp.Servers {
+			if strings.HasPrefix(s.ID, prefix) {
+				suggestion = append(suggestion, s.ID)
+			}
+		}
+		return suggestion
+	}
+	return c
+}
+
 //
 // Commands
 //
@@ -332,8 +379,8 @@ func serverAttachVolumeCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Attach a volume to a server",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
+				Short:    "Attach a volume to a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
 			},
 		},
 	}
@@ -363,8 +410,8 @@ func serverDetachVolumeCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Detach a volume from its server",
-				Request: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
+				Short:    "Detach a volume from its server",
+				ArgsJSON: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
 			},
 		},
 	}
@@ -377,9 +424,10 @@ type instanceActionRequest struct {
 
 var serverActionArgSpecs = core.ArgSpecs{
 	{
-		Name:     "server-id",
-		Short:    `ID of the server affected by the action.`,
-		Required: true,
+		Name:       "server-id",
+		Short:      `ID of the server affected by the action.`,
+		Required:   true,
+		Positional: true,
 	},
 	core.ZoneArgSpec(),
 }
@@ -396,12 +444,12 @@ func serverStartCommand() *core.Command {
 		ArgSpecs:  serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
-				Short:   "Start a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Start a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Start a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Start a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -419,12 +467,12 @@ func serverStopCommand() *core.Command {
 		ArgSpecs:  serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
-				Short:   "Stop a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Stop a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Stop a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Stop a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -442,12 +490,12 @@ func serverStandbyCommand() *core.Command {
 		ArgSpecs:  serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
-				Short:   "Put in standby a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Put in standby a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Put in standby a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Put in standby a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -465,12 +513,87 @@ func serverRebootCommand() *core.Command {
 		ArgSpecs:  serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
-				Short:   "Reboot a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Reboot a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Reboot a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Reboot a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func serverBackupCommand() *core.Command {
+	type instanceBackupRequest struct {
+		Zone     scw.Zone
+		ServerID string
+		Name     string
+	}
+
+	return &core.Command{
+		Short: `Backup server`,
+		Long: `Create a new image based on the server.
+
+This command:
+  - creates a snapshot of all attached volumes.
+  - creates an image based on all these snapshots.
+
+Once your image is ready you will be able to create a new server based on this image.
+`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "backup",
+		ArgsType:  reflect.TypeOf(instanceBackupRequest{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*instanceBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			res, err := api.ServerAction(&instance.ServerActionRequest{
+				Zone:     args.Zone,
+				ServerID: args.ServerID,
+				Action:   instance.ServerActionBackup,
+				Name:     &args.Name,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			tmp := strings.Split(res.Task.HrefResult, "/")
+			if len(tmp) != 3 {
+				return nil, fmt.Errorf("cannot extract image id from task")
+			}
+			return api.GetImage(&instance.GetImageRequest{ImageID: tmp[2]})
+		},
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (i interface{}, err error) {
+			resp := respI.(*instance.GetImageResponse)
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForImage(&instance.WaitForImageRequest{
+				ImageID:       resp.Image.ID,
+				Zone:          resp.Image.Zone,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server to backup.`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:    "name",
+				Short:   `Name of your backup.`,
+				Default: core.RandomValueGenerator("backup"),
+			},
+			core.ZoneArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Create a new image based on a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -490,8 +613,8 @@ func serverWaitCommand() *core.Command {
 		ArgSpecs: serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
-				Short:   "Wait for a server to reach a stable state",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Wait for a server to reach a stable state",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -500,9 +623,10 @@ func serverWaitCommand() *core.Command {
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:     argsI.(*instanceActionRequest).Zone,
-			ServerID: argsI.(*instanceActionRequest).ServerID,
-			Timeout:  serverActionTimeout,
+			Zone:          argsI.(*instanceActionRequest).Zone,
+			ServerID:      argsI.(*instanceActionRequest).ServerID,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }
@@ -550,10 +674,10 @@ func serverDeleteCommand() *core.Command {
 		Resource:  "server",
 		ArgsType:  reflect.TypeOf(customDeleteServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(),
 			{
-				Name:     "server-id",
-				Required: true,
+				Name:       "server-id",
+				Required:   true,
+				Positional: true,
 			},
 			{
 				Name:    "with-volumes",
@@ -575,18 +699,23 @@ func serverDeleteCommand() *core.Command {
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
 			},
+			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a server in the default zone with a given id",
-				Request: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Delete a server in fr-par-1 zone with a given id",
-				Request: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw instance server terminate",
+				Short:   "Terminate a running server",
+			},
 			{
 				Command: "scw instance server stop",
 				Short:   "Stop a running server",
@@ -608,8 +737,10 @@ func serverDeleteCommand() *core.Command {
 
 			if deleteServerArgs.ForceShutdown {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:     deleteServerArgs.Zone,
-					ServerID: deleteServerArgs.ServerID,
+					Zone:          deleteServerArgs.Zone,
+					ServerID:      deleteServerArgs.ServerID,
+					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					RetryInterval: core.DefaultRetryInterval,
 				})
 				if err != nil {
 					return nil, err
@@ -617,9 +748,11 @@ func serverDeleteCommand() *core.Command {
 
 				if finalStateServer.State != instance.ServerStateStopped {
 					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:     deleteServerArgs.Zone,
-						ServerID: deleteServerArgs.ServerID,
-						Action:   instance.ServerActionPoweroff,
+						Zone:          deleteServerArgs.Zone,
+						ServerID:      deleteServerArgs.ServerID,
+						Action:        instance.ServerActionPoweroff,
+						Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {
 						return nil, err
@@ -635,17 +768,15 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
-			var multiErr error
 			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: deleteServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
 				})
 				if err != nil {
-					multiErr = multierror.Append(multiErr, err)
-				} else {
-					_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
+					return nil, err
 				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			deletedVolumeMessages := [][2]string(nil)
@@ -655,9 +786,9 @@ func serverDeleteCommand() *core.Command {
 					break
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeTypeLSSD:
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeVolumeTypeLSSD:
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeVolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
@@ -665,23 +796,19 @@ func serverDeleteCommand() *core.Command {
 					VolumeID: volume.ID,
 				})
 				if err != nil {
-					multiErr = multierror.Append(multiErr, err)
-				} else {
-					humanSize, err := human.Marshal(volume.Size, nil)
-					if err != nil {
-						logger.Debugf("cannot marshal human size %v", volume.Size)
+					return nil, &core.CliError{
+						Err:  err,
+						Hint: "Make sure this resource have been deleted or try to delete it manually.",
 					}
-					deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
-						index,
-						fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
-					})
 				}
-			}
-			if multiErr != nil {
-				return nil, &core.CliError{
-					Err:  multiErr,
-					Hint: "Make sure these resources have been deleted or try to delete it manually.",
+				humanSize, err := human.Marshal(volume.Size, nil)
+				if err != nil {
+					logger.Debugf("cannot marshal human size %v", volume.Size)
 				}
+				deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
+					index,
+					fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+				})
 			}
 
 			// Sort and print deleted volume messages
@@ -694,5 +821,160 @@ func serverDeleteCommand() *core.Command {
 
 			return &core.SuccessResult{}, nil
 		},
+	}
+}
+
+type customTerminateServerRequest struct {
+	Zone      scw.Zone
+	ServerID  string
+	WithIP    bool
+	WithBlock withBlock
+}
+
+type withBlock string
+
+const (
+	withBlockPrompt = withBlock("prompt")
+	withBlockTrue   = withBlock("true")
+	withBlockFalse  = withBlock("false")
+)
+
+func serverTerminateCommand() *core.Command {
+	return &core.Command{
+		Short:     `Terminate server`,
+		Long:      `Terminates a server with the given ID and all of its volumes.`,
+		Namespace: "instance",
+		Verb:      "terminate",
+		Resource:  "server",
+		ArgsType:  reflect.TypeOf(customTerminateServerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "with-ip",
+				Short: "Delete the IP attached to the server",
+			},
+			{
+				Name:    "with-block",
+				Short:   "Delete the Block Storage volumes attached to the server",
+				Default: core.DefaultValueSetter("prompt"),
+				EnumValues: []string{
+					string(withBlockPrompt),
+					string(withBlockTrue),
+					string(withBlockFalse),
+				},
+			},
+			core.ZoneArgSpec(),
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Terminate a server in the default zone with a given id",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Terminate a server in fr-par-1 zone with a given id",
+				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Terminate a server and also delete its flexible IPs",
+				ArgsJSON: `{"with_ip":true, "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw instance server delete",
+				Short:   "delete a running server",
+			},
+			{
+				Command: "scw instance server stop",
+				Short:   "Stop a running server",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			terminateServerArgs := argsI.(*customTerminateServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			server, err := api.GetServer(&instance.GetServerRequest{
+				Zone:     terminateServerArgs.Zone,
+				ServerID: terminateServerArgs.ServerID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			deleteBlockVolumes, err := shouldDeleteBlockVolumes(ctx, server, terminateServerArgs.WithBlock)
+			if err != nil {
+				return nil, err
+			}
+
+			if !deleteBlockVolumes {
+				// detach block storage volumes before terminating the instance to preserve them
+				for _, volume := range server.Server.Volumes {
+					if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+						continue
+					}
+
+					if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+						Zone:     terminateServerArgs.Zone,
+						VolumeID: volume.ID,
+					}); err != nil {
+						return nil, err
+					}
+
+					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
+				}
+			}
+
+			if _, err := api.ServerAction(&instance.ServerActionRequest{
+				Zone:     terminateServerArgs.Zone,
+				ServerID: terminateServerArgs.ServerID,
+				Action:   instance.ServerActionTerminate,
+			}); err != nil {
+				return nil, err
+			}
+
+			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+				err = api.DeleteIP(&instance.DeleteIPRequest{
+					Zone: terminateServerArgs.Zone,
+					IP:   server.Server.PublicIP.ID,
+				})
+				if err != nil {
+					return nil, err
+				}
+				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
+			}
+
+			return &core.SuccessResult{}, err
+		},
+	}
+}
+
+func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
+	switch terminateWithBlock {
+	case withBlockTrue:
+		return true, nil
+	case withBlockFalse:
+		return false, nil
+	case withBlockPrompt:
+		// Only prompt user if at least one block volume is attached to the instance
+		for _, volume := range server.Server.Volumes {
+			if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+				continue
+			}
+
+			return interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+				Prompt:       "Do you also want to delete block volumes attached to this instance ?",
+				DefaultValue: false,
+				Ctx:          ctx,
+			})
+		}
+		return false, nil
+	default:
+		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
 	}
 }

@@ -2,10 +2,13 @@ package core
 
 import (
 	"context"
+	"reflect"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/internal/args"
 )
 
 // AutocompleteSuggestions is a list of words to be set to the shell as autocomplete suggestions.
@@ -16,12 +19,16 @@ type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
 }
 
-const variableFlagValueNodeID = "*"
+const (
+	// positionalValueNodeID are flag values or positional argument.
+	// E.g.: `scw test create <value> --flag <value>`
+	positionalValueNodeID = "*"
+)
 
-type AutoCompleteNodeType int
+type AutoCompleteNodeType uint
 
 const (
-	AutoCompleteNodeTypeCommand = iota
+	AutoCompleteNodeTypeCommand AutoCompleteNodeType = iota
 	AutoCompleteNodeTypeArgument
 	AutoCompleteNodeTypeFlag
 	AutoCompleteNodeTypeFlagValueConst
@@ -100,11 +107,12 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 
 // NewArgAutoCompleteNode creates a new node corresponding to a command argument.
 // These nodes are leaf nodes.
-func NewAutoCompleteArgNode(argSpec *ArgSpec) *AutoCompleteNode {
+func NewAutoCompleteArgNode(cmd *Command, argSpec *ArgSpec) *AutoCompleteNode {
 	return &AutoCompleteNode{
 		Children: make(map[string]*AutoCompleteNode),
 		ArgSpec:  argSpec,
 		Type:     AutoCompleteNodeTypeArgument,
+		Command:  cmd,
 	}
 }
 
@@ -120,7 +128,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 		Name:     flagSpec.Name,
 	}
 	if flagSpec.HasVariableValue {
-		node.Children[variableFlagValueNodeID] = &AutoCompleteNode{
+		node.Children[positionalValueNodeID] = &AutoCompleteNode{
 			Children: parent.Children,
 			Type:     AutoCompleteNodeTypeFlagValueVariable,
 		}
@@ -154,6 +162,11 @@ func (node *AutoCompleteNode) GetChildOrCreate(name string) *AutoCompleteNode {
 // - plural argument name + alphanumeric: arguments.key1=
 func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, bool) {
 	for key, child := range node.Children {
+		if key == positionalValueNodeID {
+			continue
+		}
+		key = "^" + key + "$"
+		key = strings.ReplaceAll(key, ".", "\\.")
 		key = strings.ReplaceAll(key, sliceSchema, "[0-9]+")
 		key = strings.ReplaceAll(key, mapSchema, "[0-9a-zA-Z-]+")
 		r := regexp.MustCompile(key)
@@ -164,8 +177,8 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	return nil, false
 }
 
-// isLeafCommand returns true only if n is a command (namespace or verb or resource) but has no child command
-// a leaf command can have 2 types of children: arguments or flags
+// isLeafCommand returns true only if n is a node with no child command (namespace, verb, resource) or a positional arg.
+// A leaf command can have 2 types of children: arguments or flags
 func (node *AutoCompleteNode) isLeafCommand() bool {
 	if node.Type != AutoCompleteNodeTypeCommand {
 		return false
@@ -178,13 +191,12 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 	return true
 }
 
-// BuildAutoCompleteTree builds the autocomplete tree from the commands, subcomands and arguments
+// BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
 func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 	root := NewAutoCompleteCommandNode()
-	scwCommand := root.GetChildOrCreate("scw")
-	scwCommand.addGlobalFlags()
+	root.addGlobalFlags()
 	for _, cmd := range commands.commands {
-		node := scwCommand
+		node := root
 
 		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
@@ -195,9 +207,14 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		}
 
 		node.Command = cmd
+
 		// We consider ArgSpecs as leaf in the autocomplete tree.
 		for _, argSpec := range cmd.ArgSpecs {
-			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(argSpec)
+			if argSpec.Positional {
+				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, argSpec)
+				continue
+			}
+			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(cmd, argSpec)
 		}
 
 		if cmd.WaitFunc != nil {
@@ -228,10 +245,14 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
 	// see test 'scw test flower delete f'
 	nodeIndexInWords := 0
+
+	// We remove command binary name from the left words.
+	leftWords = leftWords[1:]
+
 	for i, word := range leftWords {
 		children, childrenExists := node.Children[word]
 		if !childrenExists {
-			children, childrenExists = node.Children[variableFlagValueNodeID]
+			children, childrenExists = node.Children[positionalValueNodeID]
 		}
 
 		switch {
@@ -276,14 +297,8 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 		// handle boolean arg
 		default:
-			children, exist := node.Children[word+"="]
-			if exist && children.Type == AutoCompleteNodeTypeArgument && i > nodeIndexInWords {
-				// We need to check i > nodeIndexInWords
-				// because the same word may be used for both a command and an argument.
-				// example:
-				//	scw instance ip delete ip<tab>
-				//	Here, we don't want to register the first `ip` into `completedArgs`
-				completedArgs[word+"="] = struct{}{}
+			if _, exist := node.Children[positionalValueNodeID]; exist && i > nodeIndexInWords {
+				completedArgs[word] = struct{}{}
 			}
 		}
 	}
@@ -295,7 +310,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			// We try to complete the value of an unknown arg
 			return &AutocompleteResponse{}
 		}
-		suggestions := AutoCompleteArgValue(ctx, argNode.ArgSpec, argValuePrefix)
+		suggestions := AutoCompleteArgValue(ctx, argNode.Command, argNode.ArgSpec, argValuePrefix)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
 		for k, s := range suggestions {
@@ -305,10 +320,18 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 		return newAutoCompleteResponse(suggestions)
 	}
 
-	// We are trying to complete a node: either a command name or an arg name or a flagname
-
+	// We are trying to complete a node: either a command name or an arg name or a flagname or a positional args
 	suggestions := []string(nil)
-	for key := range node.Children {
+	for key, child := range node.Children {
+		if key == positionalValueNodeID {
+			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete) {
+				if _, exists := completedArgs[positionalSuggestion]; !exists {
+					suggestions = append(suggestions, positionalSuggestion)
+				}
+			}
+			continue
+		}
+
 		if !hasPrefix(key, wordToComplete) {
 			continue
 		}
@@ -343,15 +366,29 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
-func AutoCompleteArgValue(ctx context.Context, argSpec *ArgSpec, argValuePrefix string) []string {
+func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, argValuePrefix string) []string {
 	if argSpec == nil {
 		return nil
 	}
 	if argSpec.AutoCompleteFunc != nil {
 		return argSpec.AutoCompleteFunc(ctx, argValuePrefix)
 	}
+
+	possibleValues := []string(nil)
+
+	if fieldType, err := args.GetArgType(cmd.ArgsType, argSpec.Name); err == nil {
+		switch fieldType.Kind() {
+		case reflect.Bool:
+			possibleValues = []string{"true", "false"}
+		}
+	}
+
+	if len(argSpec.EnumValues) > 0 {
+		possibleValues = argSpec.EnumValues
+	}
+
 	suggestions := []string(nil)
-	for _, value := range argSpec.EnumValues {
+	for _, value := range possibleValues {
 		if strings.HasPrefix(value, argValuePrefix) {
 			suggestions = append(suggestions, value)
 		}

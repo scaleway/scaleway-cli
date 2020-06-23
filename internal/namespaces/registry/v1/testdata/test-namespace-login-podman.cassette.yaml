@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=testcli&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"a36af907-1539-44ca-b08a-383b58c3308f","name":"testcli","description":"","organization_id":"a6c249e9-c32d-46e4-badb-b57528eafc4b","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/testcli","is_public":false,"size":0,"created_at":"2020-04-22T17:05:34.279271Z","updated_at":"2020-04-22T17:05:34.279271Z","image_count":0,"region":"fr-par"}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "394"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 24 Apr 2020 15:47:08 GMT
+      Server:
+      - scaleway_api
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 23644c4b-0892-42b9-970d-684d8efa26ab
+    status: 200 OK
+    code: 200
+    duration: ""

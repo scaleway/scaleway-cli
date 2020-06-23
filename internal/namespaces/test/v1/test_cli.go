@@ -78,8 +78,9 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "username",
-				Required: false,
+				Name:       "username",
+				Required:   false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -106,11 +107,18 @@ func testHumanList() *core.Command {
 			{
 				Name:       "order-by",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "height_asc", "height_desc"},
 			},
 			{
-				Name:     "organization-id",
-				Required: false,
+				Name:       "project-id",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Required:   false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -139,8 +147,9 @@ func testHumanGet() *core.Command {
 		ArgsType:  reflect.TypeOf(test.GetHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "human-id",
-				Required: true,
+				Name:       "human-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -165,41 +174,55 @@ func testHumanCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(test.CreateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "height",
-				Required: false,
+				Name:       "height",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "shoe-size",
-				Required: false,
+				Name:       "shoe-size",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "altitude-in-meter",
-				Required: false,
+				Name:       "altitude-in-meter",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "altitude-in-millimeter",
-				Required: false,
+				Name:       "altitude-in-millimeter",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "fingers-count",
-				Required: false,
+				Name:       "fingers-count",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "hair-count",
-				Required: false,
+				Name:       "hair-count",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "is-happy",
-				Required: false,
+				Name:       "is-happy",
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "eyes-color",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 			{
-				Name:     "name",
-				Required: false,
+				Name:       "name",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Required:   false,
+				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
@@ -214,8 +237,8 @@ func testHumanCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "create a dwarf",
-				Request: `{"height":125}`,
+				Short:    "create a dwarf",
+				ArgsJSON: `{"height":125}`,
 			},
 		},
 	}
@@ -231,45 +254,55 @@ func testHumanUpdate() *core.Command {
 		ArgsType:  reflect.TypeOf(test.UpdateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "human-id",
-				Required: true,
+				Name:       "human-id",
+				Required:   true,
+				Positional: true,
 			},
 			{
-				Name:     "height",
-				Required: false,
+				Name:       "height",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "shoe-size",
-				Required: false,
+				Name:       "shoe-size",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "altitude-in-meter",
-				Required: false,
+				Name:       "altitude-in-meter",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "altitude-in-millimeter",
-				Required: false,
+				Name:       "altitude-in-millimeter",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "fingers-count",
-				Required: false,
+				Name:       "fingers-count",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "hair-count",
-				Required: false,
+				Name:       "hair-count",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "is-happy",
-				Required: false,
+				Name:       "is-happy",
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "eyes-color",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 			{
-				Name:     "name",
-				Required: false,
+				Name:       "name",
+				Required:   false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -294,8 +327,9 @@ func testHumanDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(test.DeleteHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "human-id",
-				Required: true,
+				Name:       "human-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -320,8 +354,9 @@ func testHumanRun() *core.Command {
 		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "human-id",
-				Required: true,
+				Name:       "human-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -337,7 +372,7 @@ func testHumanRun() *core.Command {
 			{
 				Short: "Create a human and make it run",
 				Raw: `scw test human create
-scw test human run human-id=xxxxx`,
+scw test human run xxxxx`,
 			},
 		},
 	}
@@ -353,8 +388,9 @@ func testHumanSmoke() *core.Command {
 		ArgsType:  reflect.TypeOf(test.SmokeHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "human-id",
-				Required: true,
+				Name:       "human-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},

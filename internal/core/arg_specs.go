@@ -1,12 +1,28 @@
 package core
 
 import (
+	"context"
 	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type ArgSpecs []*ArgSpec
+
+func (s ArgSpecs) GetPositionalArg() *ArgSpec {
+	var positionalArg *ArgSpec
+	for _, argSpec := range s {
+		if argSpec.Positional {
+			if positionalArg != nil {
+				panic(fmt.Errorf("more than one positional parameter detected: %s and %s are flagged as positional arg", positionalArg.Name, argSpec.Name))
+			}
+			positionalArg = argSpec
+		}
+	}
+	return positionalArg
+}
 
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	for _, spec := range s {
@@ -62,9 +78,28 @@ type ArgSpec struct {
 
 	// ValidateFunc validates an argument.
 	ValidateFunc ArgSpecValidateFunc
+
+	// Positional defines whether the argument is a positional argument. NB: a positional argument is required.
+	Positional bool
+
+	// Only one argument of the same OneOfGroup could be specified
+	OneOfGroup string
 }
 
-type DefaultFunc func() (value string, doc string)
+func (a *ArgSpec) Prefix() string {
+	return a.Name + "="
+}
+
+func (a *ArgSpec) IsPartOfMapOrSlice() bool {
+	return strings.Contains(a.Name, sliceSchema) || strings.Contains(a.Name, mapSchema)
+}
+
+func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
+	return (a.OneOfGroup != "" && b.OneOfGroup != "") &&
+		(a.OneOfGroup == b.OneOfGroup)
+}
+
+type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 	enumValues := []string(nil)
@@ -75,6 +110,20 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
+		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			if validation.IsZone(value.(scw.Zone).String()) {
+				return nil
+			}
+			return &CliError{
+				Err:  fmt.Errorf("invalid zone %s", value),
+				Hint: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
+			}
+		},
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			zone, _ := client.GetDefaultZone()
+			return zone.String(), zone.String()
+		},
 	}
 }
 
@@ -87,6 +136,20 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
+		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			if validation.IsRegion(value.(scw.Region).String()) {
+				return nil
+			}
+			return &CliError{
+				Err:  fmt.Errorf("invalid region %s", value),
+				Hint: "Region format should look like XX-XXX (e.g. fr-par)",
+			}
+		},
+		Default: func(ctx context.Context) (value string, doc string) {
+			client := ExtractClient(ctx)
+			region, _ := client.GetDefaultRegion()
+			return region.String(), region.String()
+		},
 	}
 }
 

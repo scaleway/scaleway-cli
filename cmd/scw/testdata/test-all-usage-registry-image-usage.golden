@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+An image represents a docker image.
+
+The visibility of an image can be public (everyone can pull it), private (only your organization can pull it) or inherit from the namespace visibility (default)
+It can be changed with an update on the image via the registry API.
+
+USAGE:
+  scw registry image <command>
+
+AVAILABLE COMMANDS:
+  list        List all your images
+  get         Get a image
+  update      Update an existing image
+  delete      Delete an image
+
+FLAGS:
+  -h, --help   help for image
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+Use "scw registry image [command] --help" for more information about a command.

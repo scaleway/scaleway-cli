@@ -50,7 +50,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"float32=3.2",
 			"float64=6.4",
 			"string-ptr=test",
-			"bool",
+			"bool=true",
 		},
 		expected: &Basic{
 			String:    "test",
@@ -429,6 +429,52 @@ func TestUnmarshalStruct(t *testing.T) {
 			IP:   "ip",
 			IPv6: "ipv6",
 		},
+	}))
+
+	t.Run("bool-without-equal", run(TestCase{
+		args: []string{
+			"bool",
+		},
+		data:  &Basic{},
+		error: "cannot unmarshal arg 'bool': *bool is not unmarshalable: invalid boolean value",
+	}))
+
+	t.Run("bool-without-value", run(TestCase{
+		args: []string{
+			"bool=",
+		},
+		data:  &Basic{},
+		error: "cannot unmarshal arg 'bool': *bool is not unmarshalable: invalid boolean value",
+	}))
+
+	t.Run("string-without-equal", run(TestCase{
+		args: []string{
+			"string",
+		},
+		expected: &Basic{},
+	}))
+
+	t.Run("string-without-value", run(TestCase{
+		args: []string{
+			"string=",
+		},
+		expected: &Basic{},
+	}))
+
+	t.Run("strings-without-equal", run(TestCase{
+		args: []string{
+			"strings",
+		},
+		data:  &Slice{},
+		error: "cannot unmarshal arg 'strings': missing index on the array",
+	}))
+
+	t.Run("strings-without-value", run(TestCase{
+		args: []string{
+			"strings=",
+		},
+		data:  &Slice{},
+		error: "cannot unmarshal arg 'strings': missing index on the array",
 	}))
 }
 func TestIsUmarshalableValue(t *testing.T) {

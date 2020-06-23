@@ -1,7 +1,9 @@
 package core
 
 import (
+	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
@@ -12,19 +14,23 @@ import (
 
 // CommandValidateFunc validates en entire command.
 // Used in core.cobraRun().
-type CommandValidateFunc func(cmd *Command, cmdArgs interface{}) error
+type CommandValidateFunc func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error
 
 // ArgSpecValidateFunc validates one argument of a command.
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
-	return func(cmd *Command, cmdArgs interface{}) error {
+	return func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 		err := validateArgValues(cmd, cmdArgs)
 		if err != nil {
 			return err
 		}
-		err = validateRequiredArgs(cmd, cmdArgs)
+		err = validateRequiredArgs(cmd, cmdArgs, rawArgs)
+		if err != nil {
+			return err
+		}
+		err = validateNoConflict(cmd, rawArgs)
 		if err != nil {
 			return err
 		}
@@ -58,12 +64,46 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // validateRequiredArgs checks for missing required args with no default value.
 // Returns an error for the first missing required arg.
 // Returns nil otherwise.
-func validateRequiredArgs(cmd *Command, cmdArgs interface{}) error {
+// TODO refactor this method which uses a mix of reflect and string arrays
+func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 	for _, arg := range cmd.ArgSpecs {
+		if !arg.Required {
+			continue
+		}
+
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldIsZero, fieldExists := isFieldZero(cmdArgs, fieldName)
-		if arg.Required && (fieldIsZero || !fieldExists) {
-			return MissingRequiredArgumentError(arg.Name)
+		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		if err != nil {
+			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
+			if !arg.Required {
+				logger.Infof(validationErr.Error())
+				continue
+			}
+			panic(validationErr)
+		}
+
+		// Either fieldsValues have a length for 1 and we check for existence in the rawArgs
+		// or it has multiple values and we loop through each one to get the right element in
+		// the corresponding rawArgs array and replace {index} by the element's index.
+		// TODO handle required maps
+		for i := range fieldValues {
+			if !rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
+				return MissingRequiredArgumentError(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1))
+			}
+		}
+	}
+	return nil
+}
+
+func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
+	for _, arg1 := range cmd.ArgSpecs {
+		for _, arg2 := range cmd.ArgSpecs {
+			if !arg1.ConflictWith(arg2) || arg1 == arg2 {
+				continue
+			}
+			if rawArgs.Has(arg1.Name) && rawArgs.Has(arg2.Name) {
+				return ArgumentConflictError(arg1.Name, arg2.Name)
+			}
 		}
 	}
 	return nil
@@ -124,7 +164,12 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 // In that case, we allow the empty-string value "".
 func ValidateOrganizationID() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
-		value := valueI.(string)
+		value, isStr := valueI.(string)
+		valuePtr, isPtr := valueI.(*string)
+		if !isStr && isPtr && valuePtr != nil {
+			value = *valuePtr
+		}
+
 		if value == "" && !argSpec.Required {
 			return nil
 		}

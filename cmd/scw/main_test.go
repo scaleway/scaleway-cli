@@ -4,11 +4,12 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/namespaces"
 )
 
 func Test_MainUsage(t *testing.T) {
 	t.Run("usage", core.Test(&core.TestConfig{
-		Commands: getCommands(),
+		Commands: namespaces.GetCommands(),
 		Cmd:      "scw -h",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -25,19 +26,20 @@ func Test_AllUsage(t *testing.T) {
 		"autocomplete script": true,
 	}
 
-	for _, command := range getCommands().GetAll() {
-		commandLine := command.GetCommandLine()
-		if _, exists := excludedCommands[commandLine]; exists {
+	for _, cmd := range namespaces.GetCommands().GetAll() {
+		commandLine := cmd.GetCommandLine()
+		if _, exists := excludedCommands[commandLine]; exists || cmd.Hidden {
 			continue
 		}
 
 		t.Run(commandLine+" usage", core.Test(&core.TestConfig{
-			Commands: getCommands(),
+			Commands: namespaces.GetCommands(),
 			Cmd:      "scw " + commandLine + " -h",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 			),
+			DisableParallel: true,
 		}))
 	}
 }

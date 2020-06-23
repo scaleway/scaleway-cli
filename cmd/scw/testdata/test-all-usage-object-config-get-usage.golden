@@ -1,0 +1,34 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Generate a S3 tool configuration file.
+
+USAGE:
+  scw object config get [arg=value ...]
+
+EXAMPLES:
+  Generate a s3cmd config file for Paris region
+    scw object config get region=fr-par type=s3cmd
+
+  Generate a rclone config file for default region
+    scw object config get type=rclone
+
+  Generate a mc (minio) config file for default region
+    scw object config get type=mc
+
+ARGS:
+  type              Type of S3 tool you want to generate a config for (rclone | s3cmd | mc)
+  [name=scaleway]   Name of the s3 remote you want to generate
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Install a S3 tool configuration file
+  scw object config install

@@ -23,14 +23,15 @@ func GetGeneratedCommands() *core.Commands {
 		instanceImage(),
 		instanceIP(),
 		instancePlacementGroup(),
-		instancePlacementGroupServer(),
 		instanceSecurityGroup(),
 		instanceServer(),
 		instanceServerType(),
+		instanceVolumeType(),
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
 		instanceServerTypeList(),
+		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
 		instanceServerUpdate(),
@@ -49,6 +50,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceVolumeList(),
 		instanceVolumeCreate(),
 		instanceVolumeGet(),
+		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
 		instanceSecurityGroupList(),
 		instanceSecurityGroupCreate(),
@@ -59,7 +61,6 @@ func GetGeneratedCommands() *core.Commands {
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
-		instancePlacementGroupServerSet(),
 		instanceIPList(),
 		instanceIPCreate(),
 		instanceIPGet(),
@@ -128,15 +129,6 @@ The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` 
 	}
 }
 
-func instancePlacementGroupServer() *core.Command {
-	return &core.Command{
-		Short:     `A placement group allows to express a preference regarding the physical position of a group of instances`,
-		Long:      `A placement group allows to express a preference regarding the physical position of a group of instances.`,
-		Namespace: "instance",
-		Resource:  "placement-group-server",
-	}
-}
-
 func instanceSecurityGroup() *core.Command {
 	return &core.Command{
 		Short: `A security group is a set of firewall rules on a set of instances`,
@@ -188,12 +180,23 @@ For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-i
 
 func instanceServerType() *core.Command {
 	return &core.Command{
-		Short: `A server types is a representation of an instance type available in a given region`,
-		Long: `Server types will answer with all instance types available in a given region.
+		Short: `A server type is a representation of an instance type available in a given zone`,
+		Long: `Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
 `,
 		Namespace: "instance",
 		Resource:  "server-type",
+	}
+}
+
+func instanceVolumeType() *core.Command {
+	return &core.Command{
+		Short: `A volume type is a representation of a volume type available in a given zone`,
+		Long: `Volume types will answer with all volume types available in a given zone.
+Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
+`,
+		Namespace: "instance",
+		Resource:  "volume-type",
 	}
 }
 
@@ -297,12 +300,44 @@ func instanceServerTypeList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all server-types in the default zone",
-				Request: `null`,
+				Short:    "List all server-types in the default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List all server-types in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				Short:    "List all server-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List volumes types`,
+		Long:      `Get volumes technical details.`,
+		Namespace: "instance",
+		Resource:  "volume-type",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(instance.ListVolumesTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListVolumesTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ListVolumesTypes(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all volume-types in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all volume-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -318,35 +353,47 @@ func instanceServerList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")`,
-				Required: false,
+				Name:       "name",
+				Short:      `Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "private-ip",
-				Short:    `List servers by private_ip`,
-				Required: false,
+				Name:       "private-ip",
+				Short:      `List servers by private_ip`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "without-ip",
-				Short:    `List servers that are not attached to a public IP`,
-				Required: false,
+				Name:       "without-ip",
+				Short:      `List servers that are not attached to a public IP`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "commercial-type",
-				Short:    `List servers of this commercial type`,
-				Required: false,
+				Name:       "commercial-type",
+				Short:      `List servers of this commercial type`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "state",
 				Short:      `List servers in this state`,
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 			{
-				Name:     "organization",
-				Short:    `List only servers of this organization`,
-				Required: false,
+				Name:       "tags.{index}",
+				Short:      `List servers with these exact tags`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "organization",
+				Short:      `List only servers of this organization`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -364,20 +411,20 @@ func instanceServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all servers on your default zone",
-				Request: `null`,
+				Short:    "List all servers on your default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List servers of this commercial type",
-				Request: `{"commercial_type":"DEV1-S"}`,
+				Short:    "List servers of this commercial type",
+				ArgsJSON: `{"commercial_type":"DEV1-S"}`,
 			},
 			{
-				Short:   "List servers that are not attached to a public IP",
-				Request: `{"without_ip":true}`,
+				Short:    "List servers that are not attached to a public IP",
+				ArgsJSON: `{"without_ip":true}`,
 			},
 			{
-				Short:   "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
-				Request: `{"name":"server1"}`,
+				Short:    "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
+				ArgsJSON: `{"name":"server1"}`,
 			},
 		},
 	}
@@ -393,8 +440,9 @@ func instanceServerGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Required: true,
+				Name:       "server-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -408,8 +456,8 @@ func instanceServerGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a server with the given ID",
-				Request: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
+				Short:    "Get a server with the given ID",
+				ArgsJSON: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
 			},
 		},
 	}
@@ -425,79 +473,95 @@ func instanceServerUpdate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.UpdateServerRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `UUID of the server`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `UUID of the server`,
+				Required:   true,
+				Positional: true,
 			},
 			{
-				Name:     "name",
-				Short:    `Name of the server`,
-				Required: false,
+				Name:       "name",
+				Short:      `Name of the server`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "boot-type",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"local", "bootscript", "rescue"},
 			},
 			{
-				Name:     "tags",
-				Short:    `Tags of the server`,
-				Required: false,
+				Name:       "tags.{index}",
+				Short:      `Tags of the server`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "volumes.{key}.id",
-				Short:    `UUID of the volume`,
-				Required: false,
+				Name:       "volumes.{key}.id",
+				Short:      `UUID of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "volumes.{key}.name",
-				Short:    `Name of the volume`,
-				Required: false,
+				Name:       "volumes.{key}.name",
+				Short:      `Name of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "volumes.{key}.size",
-				Short:    `Disk size of the volume`,
-				Required: false,
+				Name:       "volumes.{key}.size",
+				Short:      `Disk size of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "volumes.{key}.volume-type",
 				Short:      `Type of the volume`,
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
-				Name:     "volumes.{key}.organization",
-				Short:    `Organization ID of the volume`,
-				Required: false,
+				Name:       "volumes.{key}.organization",
+				Short:      `Organization ID of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "bootscript",
-				Required: false,
+				Name:       "bootscript",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "dynamic-ip-required",
-				Required: false,
+				Name:       "dynamic-ip-required",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "enable-ipv6",
-				Required: false,
+				Name:       "enable-ipv6",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "protected",
-				Required: false,
+				Name:       "protected",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "security-group.id",
-				Required: false,
+				Name:       "security-group.id",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "security-group.name",
-				Required: false,
+				Name:       "security-group.name",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "placement-group",
-				Short:    `Placement group ID if server must be part of a placement group`,
-				Required: false,
+				Name:       "placement-group",
+				Short:      `Placement group ID if server must be part of a placement group`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -511,28 +575,28 @@ func instanceServerUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Update the name of a given server",
-				Request: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Update the name of a given server",
+				ArgsJSON: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Put a given instance in rescue mode (reboot is required to access rescue mode)",
-				Request: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Put a given instance in rescue mode (reboot is required to access rescue mode)",
+				ArgsJSON: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Overwrite tags of a given server",
-				Request: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
+				Short:    "Overwrite tags of a given server",
+				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
 			},
 			{
-				Short:   "Enable IPv6 on a given server",
-				Request: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Enable IPv6 on a given server",
+				ArgsJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Apply the given security group to a given server",
-				Request: `null`,
+				Short:    "Apply the given security group to a given server",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "Put a given server in the given placement group. Server must be off",
-				Request: `null`,
+				Short:    "Put a given server in the given placement group. Server must be off",
+				ArgsJSON: `null`,
 			},
 		},
 	}
@@ -548,9 +612,10 @@ func instanceUserDataList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `UUID of the server`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `UUID of the server`,
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -575,14 +640,16 @@ func instanceUserDataDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `UUID of the server`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `UUID of the server`,
+				Required:   true,
+				Positional: false,
 			},
 			{
-				Name:     "key",
-				Short:    `Key of the user data to delete`,
-				Required: true,
+				Name:       "key",
+				Short:      `Key of the user data to delete`,
+				Required:   true,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -595,7 +662,10 @@ func instanceUserDataDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "user-data",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
@@ -610,26 +680,31 @@ func instanceUserDataSet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.SetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `UUID of the server`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `UUID of the server`,
+				Required:   true,
+				Positional: false,
 			},
 			{
-				Name:     "key",
-				Short:    `Key of the user data to set`,
-				Required: true,
+				Name:       "key",
+				Short:      `Key of the user data to set`,
+				Required:   true,
+				Positional: false,
 			},
 			{
-				Name:     "content.name",
-				Required: false,
+				Name:       "content.name",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "content.content-type",
-				Required: false,
+				Name:       "content.content-type",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "content.content",
-				Required: false,
+				Name:       "content.content",
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -642,7 +717,10 @@ func instanceUserDataSet() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "user-data",
+				Verb:     "set",
+			}, nil
 		},
 	}
 }
@@ -657,14 +735,16 @@ func instanceUserDataGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetServerUserDataRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server-id",
-				Short:    `UUID of the server`,
-				Required: true,
+				Name:       "server-id",
+				Short:      `UUID of the server`,
+				Required:   true,
+				Positional: false,
 			},
 			{
-				Name:     "key",
-				Short:    `Key of the user data to get`,
-				Required: true,
+				Name:       "key",
+				Short:      `Key of the user data to get`,
+				Required:   true,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -689,20 +769,24 @@ func instanceImageList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Required: false,
+				Name:       "name",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "public",
-				Required: false,
+				Name:       "public",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "arch",
-				Required: false,
+				Name:       "arch",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Required: false,
+				Name:       "organization",
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -720,8 +804,8 @@ func instanceImageList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all public images in the default zone",
-				Request: `null`,
+				Short:    "List all public images in the default zone",
+				ArgsJSON: `null`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -743,8 +827,9 @@ func instanceImageGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "image-id",
-				Required: true,
+				Name:       "image-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -758,12 +843,12 @@ func instanceImageGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get an image in the default zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Get an image in the default zone with the given ID",
+				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Get an image in fr-par-1 zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Get an image in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -779,57 +864,67 @@ func instanceImageCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreateImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Name of the image`,
-				Required: false,
-				Default:  core.RandomValueGenerator("img"),
+				Name:       "name",
+				Short:      `Name of the image`,
+				Required:   false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("img"),
 			},
 			{
-				Name:     "root-volume",
-				Short:    `UUID of the snapshot`,
-				Required: true,
+				Name:       "root-volume",
+				Short:      `UUID of the snapshot`,
+				Required:   true,
+				Positional: false,
 			},
 			{
 				Name:       "arch",
 				Short:      `Architecture of the image`,
 				Required:   true,
+				Positional: false,
 				EnumValues: []string{"x86_64", "arm"},
 			},
 			{
-				Name:     "default-bootscript",
-				Short:    `Default bootscript of the image`,
-				Required: false,
+				Name:       "default-bootscript",
+				Short:      `Default bootscript of the image`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "extra-volumes.{key}.id",
-				Short:    `UUID of the volume`,
-				Required: false,
+				Name:       "extra-volumes.{key}.id",
+				Short:      `UUID of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "extra-volumes.{key}.name",
-				Short:    `Name of the volume`,
-				Required: false,
+				Name:       "extra-volumes.{key}.name",
+				Short:      `Name of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "extra-volumes.{key}.size",
-				Short:    `Disk size of the volume`,
-				Required: false,
+				Name:       "extra-volumes.{key}.size",
+				Short:      `Disk size of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "extra-volumes.{key}.volume-type",
 				Short:      `Type of the volume`,
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
-				Name:     "extra-volumes.{key}.organization",
-				Short:    `Organization ID of the volume`,
-				Required: false,
+				Name:       "extra-volumes.{key}.organization",
+				Short:      `Organization ID of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "public",
-				Short:    `True to create a public image`,
-				Required: false,
+				Name:       "public",
+				Short:      `True to create a public image`,
+				Required:   false,
+				Positional: false,
 			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
@@ -844,8 +939,8 @@ func instanceImageCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)",
-				Request: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)",
+				ArgsJSON: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -861,8 +956,9 @@ func instanceImageDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "image-id",
-				Required: true,
+				Name:       "image-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -875,16 +971,19 @@ func instanceImageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "image",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete an image in the default zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete an image in the default zone with the given ID",
+				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Delete an image in fr-par-1 zone with the given ID",
-				Request: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Delete an image in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -900,12 +999,14 @@ func instanceSnapshotList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Required: false,
+				Name:       "name",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Required: false,
+				Name:       "organization",
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -923,12 +1024,12 @@ func instanceSnapshotList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all snapshots in the default zone",
-				Request: `null`,
+				Short:    "List all snapshots in the default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List all snapshots in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				Short:    "List all snapshots in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -944,15 +1045,17 @@ func instanceSnapshotCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Name of the snapshot`,
-				Required: false,
-				Default:  core.RandomValueGenerator("snp"),
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("snp"),
 			},
 			{
-				Name:     "volume-id",
-				Short:    `UUID of the volume`,
-				Required: true,
+				Name:       "volume-id",
+				Short:      `UUID of the volume`,
+				Required:   true,
+				Positional: false,
 			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
@@ -967,16 +1070,16 @@ func instanceSnapshotCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create a snapshot in the default zone from the given volume ID",
-				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Create a snapshot in the default zone from the given volume ID",
+				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Create a snapshot in fr-par-1 zone from the given volume ID",
-				Request: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Create a snapshot in fr-par-1 zone from the given volume ID",
+				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:   "Create a named snapshot from the given volume ID",
-				Request: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Create a named snapshot from the given volume ID",
+				ArgsJSON: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -992,8 +1095,9 @@ func instanceSnapshotGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "snapshot-id",
-				Required: true,
+				Name:       "snapshot-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1007,12 +1111,12 @@ func instanceSnapshotGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a snapshot in the default zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Get a snapshot in the default zone with the given ID",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Get a snapshot in fr-par-1 zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Get a snapshot in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1028,8 +1132,9 @@ func instanceSnapshotDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "snapshot-id",
-				Required: true,
+				Name:       "snapshot-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1042,16 +1147,19 @@ func instanceSnapshotDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "snapshot",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a snapshot in the default zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete a snapshot in the default zone with the given ID",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Delete a snapshot in fr-par-1 zone with the given ID",
-				Request: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Delete a snapshot in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1070,17 +1178,20 @@ func instanceVolumeList() *core.Command {
 				Name:       "volume-type",
 				Short:      `Filter by volume type`,
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
-				Name:     "name",
-				Short:    `Filter volume by name (for eg. "vol" will return "myvolume" but not "data")`,
-				Required: false,
+				Name:       "name",
+				Short:      `Filter volume by name (for eg. "vol" will return "myvolume" but not "data")`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Short:    `Filter volume by organization`,
-				Required: false,
+				Name:       "organization",
+				Short:      `Filter volume by organization`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1098,24 +1209,24 @@ func instanceVolumeList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all volumes",
-				Request: `null`,
+				Short:    "List all volumes",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List all block storage volumes",
-				Request: `{"volume_type":"b_ssd"}`,
+				Short:    "List all block storage volumes",
+				ArgsJSON: `{"volume_type":"b_ssd"}`,
 			},
 			{
-				Short:   "List all local storage volumes",
-				Request: `{"volume_type":"l_ssd"}`,
+				Short:    "List all local storage volumes",
+				ArgsJSON: `{"volume_type":"l_ssd"}`,
 			},
 			{
-				Short:   "List all volumes that match a name",
-				Request: `{"name":"foobar"}`,
+				Short:    "List all volumes that match a name",
+				ArgsJSON: `{"name":"foobar"}`,
 			},
 			{
-				Short:   "List all block storage volumes that match a name",
-				Request: `{"name":"foobar","volume_type":"b_ssd"}`,
+				Short:    "List all block storage volumes that match a name",
+				ArgsJSON: `{"name":"foobar","volume_type":"b_ssd"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1166,25 +1277,30 @@ func instanceVolumeCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreateVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Required: false,
+				Name:       "name",
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "volume-type",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
-				Name:     "size",
-				Required: false,
+				Name:       "size",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "base-volume",
-				Required: false,
+				Name:       "base-volume",
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "base-snapshot",
-				Required: false,
+				Name:       "base-snapshot",
+				Required:   false,
+				Positional: false,
 			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
@@ -1199,16 +1315,16 @@ func instanceVolumeCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create a volume called 'my-volume'",
-				Request: `{"name":"my-volume"}`,
+				Short:    "Create a volume called 'my-volume'",
+				ArgsJSON: `{"name":"my-volume"}`,
 			},
 			{
-				Short:   "Create a volume with a size of 50GB",
-				Request: `{"size":50000000000}`,
+				Short:    "Create a volume with a size of 50GB",
+				ArgsJSON: `{"size":50000000000}`,
 			},
 			{
-				Short:   "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
-				Request: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
+				Short:    "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
+				ArgsJSON: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
 			},
 		},
 	}
@@ -1224,8 +1340,9 @@ func instanceVolumeGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "volume-id",
-				Required: true,
+				Name:       "volume-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1239,8 +1356,62 @@ func instanceVolumeGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a volume with the given ID",
-				Request: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
+				Short:    "Get a volume with the given ID",
+				ArgsJSON: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update volume`,
+		Long:      `Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only ` + "`" + `b_ssd` + "`" + ` volume growing is supported.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(instance.UpdateVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `UUID of the volume`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `The volume name`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `The volume disk size`,
+				Required:   false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateVolume(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Change the volume name",
+				ArgsJSON: `{"name":"my-new-name","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Change the volume disk size (bytes)",
+				ArgsJSON: `{"size":60000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Change the volume name and disk size",
+				ArgsJSON: `{"name":"a-new-name","size":70000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -1256,8 +1427,9 @@ func instanceVolumeDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "volume-id",
-				Required: true,
+				Name:       "volume-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1270,12 +1442,15 @@ func instanceVolumeDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "volume",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a volume with the given ID",
-				Request: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
+				Short:    "Delete a volume with the given ID",
+				ArgsJSON: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
 			},
 		},
 	}
@@ -1291,14 +1466,16 @@ func instanceSecurityGroupList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Name of the security group`,
-				Required: false,
+				Name:       "name",
+				Short:      `Name of the security group`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Short:    `The security group organization ID`,
-				Required: false,
+				Name:       "organization",
+				Short:      `The security group organization ID`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1316,8 +1493,8 @@ func instanceSecurityGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all security groups that match the given name",
-				Request: `{"name":"foobar"}`,
+				Short:    "List all security groups that match the given name",
+				ArgsJSON: `{"name":"foobar"}`,
 			},
 		},
 	}
@@ -1333,32 +1510,37 @@ func instanceSecurityGroupCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Name of the security group`,
-				Required: true,
-				Default:  core.RandomValueGenerator("sg"),
+				Name:       "name",
+				Short:      `Name of the security group`,
+				Required:   true,
+				Positional: false,
+				Default:    core.RandomValueGenerator("sg"),
 			},
 			{
-				Name:     "description",
-				Short:    `Description of the security group`,
-				Required: false,
+				Name:       "description",
+				Short:      `Description of the security group`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization-default",
-				Short:    `Whether this security group becomes the default security group for new instances`,
-				Required: false,
-				Default:  core.DefaultValueSetter("false"),
+				Name:       "organization-default",
+				Short:      `Whether this security group becomes the default security group for new instances`,
+				Required:   false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("false"),
 			},
 			{
-				Name:     "stateful",
-				Short:    `Whether the security group is stateful or not`,
-				Required: false,
-				Default:  core.DefaultValueSetter("true"),
+				Name:       "stateful",
+				Short:      `Whether the security group is stateful or not`,
+				Required:   false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("true"),
 			},
 			{
 				Name:       "inbound-default-policy",
 				Short:      `Default policy for inbound rules`,
 				Required:   false,
+				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
@@ -1366,6 +1548,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Name:       "outbound-default-policy",
 				Short:      `Default policy for outbound rules`,
 				Required:   false,
+				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
@@ -1382,24 +1565,24 @@ func instanceSecurityGroupCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create a Security Group with the given name and description",
-				Request: `{"description":"foobar foobar","name":"foobar"}`,
+				Short:    "Create a Security Group with the given name and description",
+				ArgsJSON: `{"description":"foobar foobar","name":"foobar"}`,
 			},
 			{
-				Short:   "Create a Security Group that will be applied as a default on instances of your organization",
-				Request: `{"organization_default":true}`,
+				Short:    "Create a Security Group that will be applied as a default on instances of your organization",
+				ArgsJSON: `{"organization_default":true}`,
 			},
 			{
-				Short:   "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
-				Request: `{"inbound_default_policy":"drop"}`,
+				Short:    "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
+				ArgsJSON: `{"inbound_default_policy":"drop"}`,
 			},
 			{
-				Short:   "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
-				Request: `{"outbound_default_policy":"drop"}`,
+				Short:    "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
+				ArgsJSON: `{"outbound_default_policy":"drop"}`,
 			},
 			{
-				Short:   "Create a stateless Security Group",
-				Request: `{"stateful":false}`,
+				Short:    "Create a stateless Security Group",
+				ArgsJSON: `{"stateful":false}`,
 			},
 		},
 	}
@@ -1415,8 +1598,9 @@ func instanceSecurityGroupGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "security-group-id",
-				Required: true,
+				Name:       "security-group-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1430,8 +1614,8 @@ func instanceSecurityGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a security group with the given ID",
-				Request: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
+				Short:    "Get a security group with the given ID",
+				ArgsJSON: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
 			},
 		},
 	}
@@ -1447,8 +1631,9 @@ func instanceSecurityGroupDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "security-group-id",
-				Required: true,
+				Name:       "security-group-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1461,12 +1646,15 @@ func instanceSecurityGroupDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "security-group",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a security group with the given ID",
-				Request: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
+				Short:    "Delete a security group with the given ID",
+				ArgsJSON: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
 			},
 		},
 	}
@@ -1482,14 +1670,16 @@ func instancePlacementGroupList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")`,
-				Required: false,
+				Name:       "name",
+				Short:      `Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Short:    `List only placement groups of this organization`,
-				Required: false,
+				Name:       "organization",
+				Short:      `List only placement groups of this organization`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1507,12 +1697,12 @@ func instancePlacementGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all placement groups in the default zone",
-				Request: `null`,
+				Short:    "List all placement groups in the default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
-				Request: `{"name":"cluster1"}`,
+				Short:    "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
+				ArgsJSON: `{"name":"cluster1"}`,
 			},
 		},
 	}
@@ -1528,19 +1718,22 @@ func instancePlacementGroupCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Name of the placement group`,
-				Required: false,
-				Default:  core.RandomValueGenerator("pg"),
+				Name:       "name",
+				Short:      `Name of the placement group`,
+				Required:   false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("pg"),
 			},
 			{
 				Name:       "policy-mode",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"optional", "enforced"},
 			},
 			{
 				Name:       "policy-type",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 			core.OrganizationArgSpec(),
@@ -1556,28 +1749,28 @@ func instancePlacementGroupCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create a placement group with default name",
-				Request: `null`,
+				Short:    "Create a placement group with default name",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "Create a placement group with the given name",
-				Request: `{"name":"foobar"}`,
+				Short:    "Create a placement group with the given name",
+				ArgsJSON: `{"name":"foobar"}`,
 			},
 			{
-				Short:   "Create an enforced placement group",
-				Request: `{"policy_mode":"enforced"}`,
+				Short:    "Create an enforced placement group",
+				ArgsJSON: `{"policy_mode":"enforced"}`,
 			},
 			{
-				Short:   "Create an optional placement group",
-				Request: `{"policy_mode":"optional"}`,
+				Short:    "Create an optional placement group",
+				ArgsJSON: `{"policy_mode":"optional"}`,
 			},
 			{
-				Short:   "Create an optional low latency placement group",
-				Request: `{"policy_mode":"optional","policy_type":"low_latency"}`,
+				Short:    "Create an optional low latency placement group",
+				ArgsJSON: `{"policy_mode":"optional","policy_type":"low_latency"}`,
 			},
 			{
-				Short:   "Create an enforced low latency placement group",
-				Request: `{"policy_mode":"enforced","policy_type":"low_latency"}`,
+				Short:    "Create an enforced low latency placement group",
+				ArgsJSON: `{"policy_mode":"enforced","policy_type":"low_latency"}`,
 			},
 		},
 	}
@@ -1593,8 +1786,9 @@ func instancePlacementGroupGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetPlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "placement-group-id",
-				Required: true,
+				Name:       "placement-group-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1608,8 +1802,8 @@ func instancePlacementGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get a placement group with the given ID",
-				Request: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
+				Short:    "Get a placement group with the given ID",
+				ArgsJSON: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
 			},
 		},
 	}
@@ -1625,23 +1819,27 @@ func instancePlacementGroupUpdate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "placement-group-id",
-				Short:    `UUID of the placement group`,
-				Required: true,
+				Name:       "placement-group-id",
+				Short:      `UUID of the placement group`,
+				Required:   true,
+				Positional: true,
 			},
 			{
-				Name:     "name",
-				Short:    `Name of the placement group`,
-				Required: false,
+				Name:       "name",
+				Short:      `Name of the placement group`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "policy-mode",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"optional", "enforced"},
 			},
 			{
 				Name:       "policy-type",
 				Required:   false,
+				Positional: false,
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
@@ -1656,16 +1854,16 @@ func instancePlacementGroupUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Update the name of a placement group",
-				Request: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
+				Short:    "Update the name of a placement group",
+				ArgsJSON: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
 			},
 			{
-				Short:   "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
-				Request: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
+				Short:    "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
+				ArgsJSON: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
 			},
 			{
-				Short:   "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
-				Request: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
+				Short:    "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
+				ArgsJSON: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
 			},
 		},
 	}
@@ -1681,8 +1879,9 @@ func instancePlacementGroupDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "placement-group-id",
-				Required: true,
+				Name:       "placement-group-id",
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1695,52 +1894,19 @@ func instancePlacementGroupDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "placement-group",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete a placement group in the default zone with the given ID",
-				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete a placement group in the default zone with the given ID",
+				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Delete a placement group in fr-par-1 zone with the given ID",
-				Request: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
-			},
-		},
-	}
-}
-
-func instancePlacementGroupServerSet() *core.Command {
-	return &core.Command{
-		Short:     `Set placement group servers`,
-		Long:      `Set all servers belonging to the given placement group.`,
-		Namespace: "instance",
-		Resource:  "placement-group-server",
-		Verb:      "set",
-		ArgsType:  reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "placement-group-id",
-				Required: true,
-			},
-			{
-				Name:     "servers.{index}",
-				Required: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.SetPlacementGroupServersRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.SetPlacementGroupServers(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:   "Update the complete set of instances in a given placement group. (All instances must be down)",
-				Request: `{"placement_group_id":"ced0fd4d-bcf0-4479-85b6-7027e54456e6","servers":["5a250608-24ec-4c31-9631-b3ded8c861cb","e54fd249-0787-4794-ab14-af6ee74df274"]}`,
+				Short:    "Delete a placement group in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1756,14 +1922,16 @@ func instanceIPList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "name",
-				Short:    `Filter on the IP address (Works as a LIKE operation on the IP address)`,
-				Required: false,
+				Name:       "name",
+				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "organization",
-				Short:    `The organization ID the IPs are reserved in`,
-				Required: false,
+				Name:       "organization",
+				Short:      `The organization ID the IPs are reserved in`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1781,12 +1949,12 @@ func instanceIPList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "List all IPs in the default zone",
-				Request: `null`,
+				Short:    "List all IPs in the default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "List all IPs in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				Short:    "List all IPs in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1828,14 +1996,16 @@ func instanceIPCreate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "server",
-				Short:    `UUID of the server you want to attach the IP to`,
-				Required: false,
+				Name:       "server",
+				Short:      `UUID of the server you want to attach the IP to`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "tags.{index}",
-				Short:    `An array of keywords you want to tag this IP with`,
-				Required: false,
+				Name:       "tags.{index}",
+				Short:      `An array of keywords you want to tag this IP with`,
+				Required:   false,
+				Positional: false,
 			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
@@ -1850,16 +2020,16 @@ func instanceIPCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Create an IP in the default zone",
-				Request: `null`,
+				Short:    "Create an IP in the default zone",
+				ArgsJSON: `null`,
 			},
 			{
-				Short:   "Create an IP in fr-par-1 zone",
-				Request: `{"zone":"fr-par-1"}`,
+				Short:    "Create an IP in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 			{
-				Short:   "Create an IP and attach it to the given server",
-				Request: `{"server":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Create an IP and attach it to the given server",
+				ArgsJSON: `{"server":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -1875,9 +2045,10 @@ func instanceIPGet() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.GetIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "ip",
-				Short:    `The IP ID or address to get`,
-				Required: true,
+				Name:       "ip",
+				Short:      `The IP ID or address to get`,
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1891,16 +2062,16 @@ func instanceIPGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Get an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Get an IP in the default zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Get an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Get an IP in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:   "Get an IP using directly the given IP address",
-				Request: `null`,
+				Short:    "Get an IP using directly the given IP address",
+				ArgsJSON: `null`,
 			},
 		},
 	}
@@ -1916,19 +2087,22 @@ func instanceIPUpdate() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.UpdateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "ip",
-				Short:    `IP ID or IP address`,
-				Required: true,
+				Name:       "ip",
+				Short:      `IP ID or IP address`,
+				Required:   true,
+				Positional: true,
 			},
 			{
-				Name:     "reverse",
-				Short:    `Reverse domain name`,
-				Required: false,
+				Name:       "reverse",
+				Short:      `Reverse domain name`,
+				Required:   false,
+				Positional: false,
 			},
 			{
-				Name:     "tags",
-				Short:    `An array of keywords you want to tag this IP with`,
-				Required: false,
+				Name:       "tags.{index}",
+				Short:      `An array of keywords you want to tag this IP with`,
+				Required:   false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1942,16 +2116,16 @@ func instanceIPUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Update an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
+				Short:    "Update an IP in the default zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
 			},
 			{
-				Short:   "Update an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
+				Short:    "Update an IP in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
 			},
 			{
-				Short:   "Update an IP using directly the given IP address",
-				Request: `{"ip":"51.15.253.183","reverse":"example.com"}`,
+				Short:    "Update an IP using directly the given IP address",
+				ArgsJSON: `{"ip":"51.15.253.183","reverse":"example.com"}`,
 			},
 		},
 	}
@@ -1967,9 +2141,10 @@ func instanceIPDelete() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.DeleteIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "ip",
-				Short:    `The ID or the address of the IP to delete`,
-				Required: true,
+				Name:       "ip",
+				Short:      `The ID or the address of the IP to delete`,
+				Required:   true,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1982,20 +2157,23 @@ func instanceIPDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				Resource: "ip",
+				Verb:     "delete",
+			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:   "Delete an IP in the default zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
+				Short:    "Delete an IP in the default zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:   "Delete an IP in fr-par-1 zone with the given ID",
-				Request: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+				Short:    "Delete an IP in fr-par-1 zone with the given ID",
+				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:   "Delete an IP using directly the given IP address",
-				Request: `{"ip":"51.15.253.183"}`,
+				Short:    "Delete an IP using directly the given IP address",
+				ArgsJSON: `{"ip":"51.15.253.183"}`,
 			},
 		},
 	}

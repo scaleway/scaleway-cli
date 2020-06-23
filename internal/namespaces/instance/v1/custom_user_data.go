@@ -14,7 +14,14 @@ import (
 // Commands
 //
 
+func userDataDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("server-id").Positional = true
+	return c
+}
+
 func userDataSetBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("server-id").Positional = true
+
 	*c.ArgSpecs.GetByName("content.name") = core.ArgSpec{
 		Name:     "content",
 		Short:    "Content of the user data",
@@ -27,10 +34,11 @@ func userDataSetBuilder(c *core.Command) *core.Command {
 }
 
 func userDataGetBuilder(c *core.Command) *core.Command {
-	originalRun := c.Run
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.ArgSpecs.GetByName("server-id").Positional = true
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		req := argsI.(*instance.GetServerUserDataRequest)
-		res, err := originalRun(ctx, argsI)
+		res, err := runner(ctx, argsI)
 		if err != nil {
 			if resErr, ok := err.(*scw.ResponseError); ok {
 				if resErr.StatusCode == http.StatusNotFound {
@@ -41,7 +49,7 @@ func userDataGetBuilder(c *core.Command) *core.Command {
 		}
 
 		return res, nil
-	}
+	})
 
 	return c
 }
