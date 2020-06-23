@@ -11,21 +11,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func checkConfig(f func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
+func checkConfig(check func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		homeDir := ctx.OverrideEnv["HOME"]
 		config, err := scw.LoadConfigFromPath(path.Join(homeDir, ".config", "scw", "config.yaml"))
 		require.NoError(t, err)
-		f(t, ctx, config)
+		check(t, ctx, config)
 	}
 }
 
-func appendArgs(prefix string, settings map[string]string) string {
-	res := prefix
-	for k, v := range settings {
-		res += fmt.Sprintf(" %s=%s", k, v)
+func appendArgs(prefix string, args map[string]string) string {
+	cmd := prefix
+	for k, v := range args {
+		cmd += fmt.Sprintf(" %s=%s", k, v)
 	}
-	return res
+	return cmd
 }
 
 func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {
@@ -46,11 +46,10 @@ func TestInit(t *testing.T) {
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:            GetCommands(),
-		BeforeFunc:          baseBeforeFunc(),
-		PromptResponseMocks: []string{},
-		TmpHomeDir:          true,
-		Cmd:                 appendArgs("scw init", defaultArgs),
+		Commands:   GetCommands(),
+		BeforeFunc: baseBeforeFunc(),
+		TmpHomeDir: true,
+		Cmd:        appendArgs("scw init", defaultArgs),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
@@ -69,9 +68,8 @@ func TestInit(t *testing.T) {
 				return nil
 			},
 		),
-		PromptResponseMocks: []string{},
-		TmpHomeDir:          true,
-		Cmd:                 appendArgs("scw -c {{ .CONFIG_PATH }} init", defaultArgs),
+		TmpHomeDir: true,
+		Cmd:        appendArgs("scw -c {{ .CONFIG_PATH }} init", defaultArgs),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -84,10 +82,9 @@ func TestInit(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:            GetCommands(),
-		BeforeFunc:          baseBeforeFunc(),
-		PromptResponseMocks: []string{},
-		Cmd:                 appendArgs("scw -p foobar init", defaultArgs),
+		Commands:   GetCommands(),
+		BeforeFunc: baseBeforeFunc(),
+		Cmd:        appendArgs("scw -p foobar init", defaultArgs),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {

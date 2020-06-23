@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/account"
@@ -320,14 +321,14 @@ func initCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			successDetails := ""
+			successDetails := []string(nil)
 
 			// Install autocomplete
 			if *args.InstallAutocomplete {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
 				if err != nil {
-					successDetails += "\n  Except for autocomplete: " + err.Error()
+					successDetails = append(successDetails, "Except for autocomplete: "+err.Error())
 				}
 			}
 
@@ -336,7 +337,7 @@ func initCommand() *core.Command {
 				_, _ = interactive.Println()
 				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
-					successDetails += "\n  Except for SSH key: " + err.Error()
+					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
 				}
 			}
 
@@ -345,7 +346,7 @@ func initCommand() *core.Command {
 				homeDir := core.ExtractUserHomeDir(ctx)
 				err = os.Remove(path.Join(homeDir, ".scwrc"))
 				if err != nil {
-					successDetails += "\n  except for removing old configuration: " + err.Error()
+					successDetails = append(successDetails, "Except for removing old configuration: "+err.Error())
 				}
 			}
 
@@ -353,7 +354,7 @@ func initCommand() *core.Command {
 
 			return &core.SuccessResult{
 				Message: "Initialization completed with success",
-				Details: successDetails,
+				Details: strings.Join(successDetails, "\n"),
 			}, nil
 		},
 	}

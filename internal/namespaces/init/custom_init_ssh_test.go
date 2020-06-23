@@ -13,28 +13,47 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func setUpSSHKeyLocally(ctx *core.BeforeFuncCtx, key string) error {
-	homeDir := ctx.OverrideEnv["HOME"]
-	// TODO we persist the key as ~/.ssh/id_rsa.pub regardless of the type of key it is (rsa, ed25519)
-	keyPath := path.Join(homeDir, ".ssh", "id_rsa.pub")
-	ctx.Logger.Info("public key path set to: ", keyPath)
+func setUpSSHKeyLocally(key string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		homeDir := ctx.OverrideEnv["HOME"]
+		// TODO we persist the key as ~/.ssh/id_rsa.pub regardless of the type of key it is (rsa, ed25519)
+		keyPath := path.Join(homeDir, ".ssh", "id_rsa.pub")
+		ctx.Logger.Info("public key path set to: ", keyPath)
 
-	// Ensure the subfolders for the configuration files are all created
-	err := os.MkdirAll(filepath.Dir(keyPath), 0755)
-	if err != nil {
-		return err
-	}
+		// Ensure the subfolders for the configuration files are all created
+		err := os.MkdirAll(filepath.Dir(keyPath), 0755)
+		if err != nil {
+			return err
+		}
 
-	// Write the configuration file
-	err = ioutil.WriteFile(keyPath, []byte(key), 0600)
-	if err != nil {
-		return err
+		// Write the configuration file
+		err = ioutil.WriteFile(keyPath, []byte(key), 0600)
+		if err != nil {
+			return err
+		}
+		return nil
 	}
-	return nil
 }
 
-func removeSSHKeyFromAccount(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw account ssh-key remove {{ ." + metaKey + ".ID }}")
+func removeKeyFromAccount(publicSSHKey string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		api := accountsdk.NewAPI(ctx.Client)
+		resp, err := api.ListSSHKeys(&accountsdk.ListSSHKeysRequest{},
+			scw.WithAllPages())
+		if err != nil {
+			return err
+		}
+		id := ""
+		for _, v := range resp.SSHKeys {
+			if v.PublicKey == publicSSHKey {
+				id = v.ID
+			}
+		}
+		if id != "" {
+			err = api.DeleteSSHKey(&accountsdk.DeleteSSHKeyRequest{SSHKeyID: id})
+		}
+		return err
+	}
 }
 
 // add an ssh key with a given meta key
@@ -43,7 +62,6 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 		cmd := []string{
 			"scw", "account", "ssh-key", "add", "public-key=" + key, "name=" + name,
 		}
-		ctx.Logger.Info(cmd)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
 		return nil
 	}
@@ -68,16 +86,13 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				func(ctx *core.BeforeFuncCtx) error {
-					return setUpSSHKeyLocally(ctx, dummySSHKey)
-				},
+				setUpSSHKeyLocally(dummySSHKey),
 				addSSHKeyToAccount("key", "test-cli-KeyRegistered", dummySSHKey),
 			),
-			Cmd:                 appendArgs("scw init with-ssh-key=true", defaultSettings),
-			Check:               core.TestCheckGolden(),
-			AfterFunc:           removeSSHKeyFromAccount("key"),
-			TmpHomeDir:          true,
-			PromptResponseMocks: []string{},
+			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
+			Check:      core.TestCheckGolden(),
+			AfterFunc:  removeKeyFromAccount(dummySSHKey),
+			TmpHomeDir: true,
 		})(t)
 	})
 
@@ -87,16 +102,12 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				func(ctx *core.BeforeFuncCtx) error {
-					return setUpSSHKeyLocally(ctx, dummySSHKey)
-				}),
-			Cmd:                 appendArgs("scw init with-ssh-key=true", defaultSettings),
-			Check:               core.TestCheckGolden(),
-			TmpHomeDir:          true,
-			PromptResponseMocks: nil,
-			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				return purgeKeyFromAccount(ctx, dummySSHKey)
-			},
+				setUpSSHKeyLocally(dummySSHKey),
+			),
+			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
+			Check:      core.TestCheckGolden(),
+			TmpHomeDir: true,
+			AfterFunc:  removeKeyFromAccount(dummySSHKey),
 		})(t)
 	})
 
@@ -107,23 +118,4 @@ func Test_InitSSH(t *testing.T) {
 		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
-}
-
-func purgeKeyFromAccount(ctx *core.AfterFuncCtx, key string) error {
-	api := accountsdk.NewAPI(ctx.Client)
-	resp, err := api.ListSSHKeys(&accountsdk.ListSSHKeysRequest{},
-		scw.WithAllPages())
-	if err != nil {
-		return err
-	}
-	id := ""
-	for _, v := range resp.SSHKeys {
-		if v.PublicKey == key {
-			id = v.ID
-		}
-	}
-	if id != "" {
-		err = api.DeleteSSHKey(&accountsdk.DeleteSSHKeyRequest{SSHKeyID: id})
-	}
-	return err
 }
