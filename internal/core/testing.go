@@ -400,6 +400,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if config.Cmd != "" {
 			args = cmdToArgs(meta, config.Cmd)
 		}
+
+		// We create a separate logger for the command we want to test.
+		// This separate logger allow check function to test content log by a command
+		// without content log by the test-engine (Before/After func, ...).
 		cmdLoggerBuffer := &bytes.Buffer{}
 		cmdLogger := &Logger{
 			writer: io.MultiWriter(cmdLoggerBuffer, os.Stderr),
