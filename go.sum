@@ -59,16 +59,6 @@ github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINE
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200601141019-df9902c66d0d h1:5643F4Bm9aFFz482Zju0EW/oP+XA7j+pRWWL6kVcjkQ=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200601141019-df9902c66d0d/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200603093029-edb933d7c8d4 h1:zJe5/C/RVqDc2GYekjEhFI0e6mrBqotu85LyjBHWhhA=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200603093029-edb933d7c8d4/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200608155405-2c0edbf44628 h1:7sBvEdHVZ+IkOAVh6rizkyQOnCz4xQ5V/qMXqtKF36I=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200608155405-2c0edbf44628/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200610085115-f7eab704fcbe h1:sDuQ3A081/brDcQr5AFz8JwX9Od1v8w3sW/L/g25UfY=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200610085115-f7eab704fcbe/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200622145638-4884584cccc2 h1:Pbot5MmWbvw0K2HqVjcJo3+J7l6vGbB852f7CNeKfyQ=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200622145638-4884584cccc2/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200622150328-6c000c76bc65 h1:QhG9tN5aUb20f6W8ecoH9XZwa4+0sg6ovBZrYKkp7C0=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200622150328-6c000c76bc65/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=

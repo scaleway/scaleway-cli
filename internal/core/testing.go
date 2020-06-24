@@ -21,7 +21,6 @@ import (
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
@@ -72,6 +71,9 @@ type CheckFuncCtx struct {
 	OverrideEnv map[string]string
 
 	Logger *Logger
+
+	// The content logged by the command
+	LogBuffer string
 }
 
 // testMetadata contains arbitrary data that can be passed along a test lifecycle.
@@ -160,6 +162,8 @@ type TestConfig struct {
 
 	// If set, it will create a temporary home directory during the tests.
 	// Get this folder with ExtractUserHomeDir()
+	// This will also use this temporary directory as a cache directory.
+	// Get this folder with ExtractCacheDir()
 	TmpHomeDir bool
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
@@ -263,12 +267,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			t.Parallel()
 		}
 
-		log := &Logger{
+		testLogger := &Logger{
 			writer: os.Stderr,
 			level:  logger.LogLevelInfo,
 		}
+
 		if *Debug {
-			log.level = logger.LogLevelDebug
+			testLogger.level = logger.LogLevelDebug
 		}
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
@@ -293,7 +298,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 		httpClient, cleanup, err := getHTTPRecoder(t, *UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
-		ctx = account.InjectHTTPClient(ctx, httpClient)
 
 		// We try to use the client provided in the config
 		// if no client is provided in the config we create a test client
@@ -319,7 +323,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 				assert.NoError(t, err)
 			}()
 			overrideEnv["HOME"] = dir
+			overrideEnv[scw.ScwCacheDirEnv] = dir
 			meta["HOME"] = dir
+			meta[scw.ScwCacheDirEnv] = dir
 		}
 
 		overrideExec := defaultOverrideExec
@@ -341,7 +347,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		buildInfo := config.BuildInfo
 		if buildInfo == nil {
 			buildInfo = &BuildInfo{
-				Version:   version.Must(version.NewSemver("v0.0.0")),
+				Version:   version.Must(version.NewSemver("v0.0.0+test")),
 				BuildDate: "unknown",
 				GoVersion: "runtime.Version()",
 				GitBranch: "unknown",
@@ -365,7 +371,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
-				Logger:           log,
+				Logger:           testLogger,
+				HttpClient:       httpClient,
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -374,16 +381,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
-			log.Debug("Start BeforeFunc")
+			testLogger.Debug("Start BeforeFunc")
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				T:           t,
 				Client:      client,
 				ExecuteCmd:  executeCmd,
 				Meta:        meta,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
 			}))
-			log.Debug("End BeforeFunc")
+			testLogger.Debug("End BeforeFunc")
 		}
 
 		// Run config.Cmd
@@ -392,6 +399,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 		args := config.Args
 		if config.Cmd != "" {
 			args = cmdToArgs(meta, config.Cmd)
+		}
+		cmdLoggerBuffer := &bytes.Buffer{}
+		cmdLogger := &Logger{
+			writer: io.MultiWriter(cmdLoggerBuffer, os.Stderr),
+			level:  testLogger.level,
 		}
 		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
@@ -408,7 +420,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
-				Logger:           log,
+				Logger:           cmdLogger,
+				HttpClient:       httpClient,
 			})
 
 			meta["CmdResult"] = result
@@ -421,13 +434,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Err:         err,
 				Client:      client,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
+				LogBuffer:   cmdLoggerBuffer.String(),
 			})
 		}
 
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
-			log.Debug("Start AfterFunc")
+			testLogger.Debug("Start AfterFunc")
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				T:           t,
 				Client:      client,
@@ -435,9 +449,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Meta:        meta,
 				CmdResult:   result,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
 			}))
-			log.Debug("End AfterFunc")
+			testLogger.Debug("End AfterFunc")
 		}
 	}
 }
@@ -522,7 +536,6 @@ func ExecAfterCmd(cmd string) AfterFunc {
 // TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
-		assert.Equal(t, true, len(checks) > 1, "TestCheckCombine must be used to combine more than one TestCheck")
 		for _, check := range checks {
 			check(t, ctx)
 		}

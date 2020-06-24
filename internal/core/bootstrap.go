@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/matomo"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -56,6 +58,10 @@ type BootstrapConfig struct {
 
 	// Optional we use it if defined
 	Logger *Logger
+
+	// Default HttpClient to use. If not provided it will use a basic http client with a simple retry policy
+	// This client will be used to create SDK client, account call, version checking and telemetry
+	HttpClient *http.Client
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -116,12 +122,19 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
+	httpClient := config.HttpClient
+	if httpClient == nil {
+		httpClient = &http.Client{
+			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+		}
+	}
+
 	// An authenticated client will be created later if required.
 	client := config.Client
 	isClientFromBootstrapConfig := true
 	if client == nil {
 		isClientFromBootstrapConfig = false
-		client, err = createAnonymousClient(config.BuildInfo)
+		client, err = createAnonymousClient(httpClient, config.BuildInfo)
 		if err != nil {
 			printErr := printer.Print(err, nil)
 			if printErr != nil {
@@ -142,12 +155,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		OverrideEnv:    config.OverrideEnv,
 		OverrideExec:   config.OverrideExec,
 		ConfigPathFlag: configPathFlag,
+		Logger:         log,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
 		stdin:                       config.Stdin,
 		result:                      nil, // result is later injected by cobra_utils.go/cobraRun()
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
+		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
 	}
 	// We make sure OverrideEnv is never nil in meta.
@@ -164,6 +179,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if ctx == nil {
 		ctx = context.Background()
 	}
+	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = injectMeta(ctx, meta)
 
 	// Send Matomo telemetry when exiting the bootstrap
@@ -195,7 +211,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// Check CLI new version when exiting the bootstrap
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
-		config.BuildInfo.checkVersion()
+		config.BuildInfo.checkVersion(ctx)
 	}()
 
 	// cobraBuilder will build a Cobra root command from a list of Command

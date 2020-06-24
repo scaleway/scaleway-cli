@@ -1,7 +1,9 @@
 package core
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,8 +12,6 @@ import (
 	"time"
 
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-sdk-go/logger"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type BuildInfo struct {
@@ -56,48 +56,55 @@ func (b *BuildInfo) GetUserAgent() string {
 	return userAgentPrefix
 }
 
-func (b *BuildInfo) checkVersion() {
-	if !b.IsRelease() || os.Getenv(scwDisableCheckVersionEnv) == "true" {
-		logger.Debugf("skipping check version")
+func (b *BuildInfo) checkVersion(ctx context.Context) {
+	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" {
+		ExtractLogger(ctx).Debug("skipping check version")
 		return
 	}
 
-	latestVersionUpdateFilePath := getLatestVersionUpdateFilePath()
+	latestVersionUpdateFilePath := getLatestVersionUpdateFilePath(ExtractCacheDir(ctx))
 
 	// do nothing if last refresh at during the last 24h
 	if wasFileModifiedLast24h(latestVersionUpdateFilePath) {
-		logger.Debugf("version was already checked during past 24 hours")
+		ExtractLogger(ctx).Debug("version was already checked during past 24 hours")
 		return
 	}
 
 	// do nothing if we cannot create the file
-	if !createAndCloseFile(latestVersionUpdateFilePath) {
+	err := createAndCloseFile(latestVersionUpdateFilePath)
+	if err != nil {
+		ExtractLogger(ctx).Debug(err.Error())
 		return
 	}
 
 	// pull latest version
-	latestVersion, err := getLatestVersion()
+	latestVersion, err := getLatestVersion(ExtractHttpClient(ctx))
 	if err != nil {
-		logger.Debugf("failed to retrieve latest version: %s", err)
+		ExtractLogger(ctx).Debugf("failed to retrieve latest version: %s\n", err)
 		return
 	}
 
 	if b.Version.LessThan(latestVersion) {
-		logger.Warningf("a new version of scw is available (%s), beware that you are currently running %v", latestVersion, b.Version)
+		ExtractLogger(ctx).Warningf("a new version of scw is available (%s), beware that you are currently running %s\n", latestVersion, b.Version)
 	} else {
-		logger.Debugf("version is up to date (%s)", b.Version)
+		ExtractLogger(ctx).Debugf("version is up to date (%s)\n", b.Version)
 	}
 }
 
-func getLatestVersionUpdateFilePath() string {
-	return filepath.Join(scw.GetCacheDirectory(), latestVersionUpdateFileLocalName)
+func getLatestVersionUpdateFilePath(cacheDir string) string {
+	return filepath.Join(cacheDir, latestVersionUpdateFileLocalName)
 }
 
 // getLatestVersion attempt to read the latest version of the remote file at latestVersionFileURL.
-func getLatestVersion() (*version.Version, error) {
-	resp, err := (&http.Client{
-		Timeout: latestVersionRequestTimeout,
-	}).Get(latestVersionFileURL)
+func getLatestVersion(client *http.Client) (*version.Version, error) {
+	ctx, cncl := context.WithTimeout(context.Background(), latestVersionRequestTimeout)
+	defer cncl()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, latestVersionFileURL, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.Do(req)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -125,17 +132,15 @@ func wasFileModifiedLast24h(path string) bool {
 }
 
 // createAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
-func createAndCloseFile(path string) bool {
+func createAndCloseFile(path string) error {
 	err := os.MkdirAll(filepath.Dir(path), 0700)
 	if err != nil {
-		logger.Debugf("failed creating path %s: %s", path, err)
+		return fmt.Errorf("failed creating path %s: %s", path, err)
 	}
 	newFile, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
 	if err != nil {
-		logger.Debugf("failed creating file %s: %s", path, err)
-		return false
+		return fmt.Errorf("failed creating file %s: %s", path, err)
 	}
 
-	newFile.Close()
-	return true
+	return newFile.Close()
 }
