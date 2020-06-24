@@ -59,9 +59,9 @@ type BootstrapConfig struct {
 	// Optional we use it if defined
 	Logger *Logger
 
-	// Default HttpClient to use. If not provided it will use a basic http client with a simple retry policy
+	// Default HTTPClient to use. If not provided it will use a basic http client with a simple retry policy
 	// This client will be used to create SDK client, account call, version checking and telemetry
-	HttpClient *http.Client
+	HTTPClient *http.Client
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -122,7 +122,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
 
-	httpClient := config.HttpClient
+	httpClient := config.HTTPClient
 	if httpClient == nil {
 		httpClient = &http.Client{
 			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},

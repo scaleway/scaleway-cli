@@ -78,7 +78,7 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 	}
 
 	// pull latest version
-	latestVersion, err := getLatestVersion(ExtractHttpClient(ctx))
+	latestVersion, err := getLatestVersion(ExtractHTTPClient(ctx))
 	if err != nil {
 		ExtractLogger(ctx).Debugf("failed to retrieve latest version: %s\n", err)
 		return

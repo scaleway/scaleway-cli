@@ -372,7 +372,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
 				Logger:           testLogger,
-				HttpClient:       httpClient,
+				HTTPClient:       httpClient,
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -425,7 +425,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
 				Logger:           cmdLogger,
-				HttpClient:       httpClient,
+				HTTPClient:       httpClient,
 			})
 
 			meta["CmdResult"] = result

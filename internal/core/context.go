@@ -115,7 +115,7 @@ func ExtractProfileName(ctx context.Context) string {
 	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
 }
 
-func ExtractHttpClient(ctx context.Context) *http.Client {
+func ExtractHTTPClient(ctx context.Context) *http.Client {
 	return extractMeta(ctx).httpClient
 }
 
