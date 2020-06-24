@@ -97,8 +97,8 @@ func getLatestVersionUpdateFilePath(cacheDir string) string {
 
 // getLatestVersion attempt to read the latest version of the remote file at latestVersionFileURL.
 func getLatestVersion(client *http.Client) (*version.Version, error) {
-	ctx, cncl := context.WithTimeout(context.Background(), latestVersionRequestTimeout)
-	defer cncl()
+	ctx, cancelTimeout := context.WithTimeout(context.Background(), latestVersionRequestTimeout)
+	defer cancelTimeout()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, latestVersionFileURL, nil)
 	if err != nil {
