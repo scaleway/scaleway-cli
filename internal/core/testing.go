@@ -56,7 +56,7 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta TestMeta
+	Meta testMetadata
 
 	// Scaleway client
 	Client *scw.Client
@@ -67,11 +67,11 @@ type CheckFuncCtx struct {
 	Logger *Logger
 }
 
-// TestMeta contains arbitrary data that can be passed along a test lifecycle.
-type TestMeta map[string]interface{}
+// testMetadata contains arbitrary data that can be passed along a test lifecycle.
+type testMetadata map[string]interface{}
 
-// Tpl render a go template using where content of meta can be used
-func (meta TestMeta) Tpl(strTpl string) string {
+// render renders a go template using where content of meta can be used
+func (meta testMetadata) render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
@@ -87,7 +87,7 @@ type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
 	T      *testing.T
-	Meta   TestMeta
+	Meta   testMetadata
 	Client *scw.Client
 }
 
@@ -97,7 +97,7 @@ type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        TestMeta
+	Meta        testMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -106,7 +106,7 @@ type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        TestMeta
+	Meta        testMetadata
 	CmdResult   interface{}
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -295,7 +295,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			client = createTestClient(t, config, httpClient)
 		}
 
-		meta := TestMeta{
+		meta := testMetadata{
 			"t": t,
 		}
 
@@ -435,8 +435,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-func cmdToArgs(meta TestMeta, s string) []string {
-	return strings.Split(meta.Tpl(s), " ")
+func cmdToArgs(meta testMetadata, s string) []string {
+	return strings.Split(meta.render(s), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -563,7 +563,7 @@ func TestCheckStdout(stdout string) TestCheck {
 
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), strings.Join(cmd.Args, " "))
+		assert.Equal(ctx.T, ctx.Meta.render(cmdStr), strings.Join(cmd.Args, " "))
 		return exitCode, nil
 	}
 }
