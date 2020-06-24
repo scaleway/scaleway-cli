@@ -56,7 +56,7 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta metadata
+	Meta testMetadata
 
 	// Scaleway client
 	Client *scw.Client
@@ -67,11 +67,11 @@ type CheckFuncCtx struct {
 	Logger *Logger
 }
 
-// metadata contains arbitrary data that can be passed along a test lifecycle.
-type metadata map[string]interface{}
+// testMetadata contains arbitrary data that can be passed along a test lifecycle.
+type testMetadata map[string]interface{}
 
 // render renders a go template using where content of meta can be used
-func (meta metadata) render(strTpl string) string {
+func (meta testMetadata) render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
@@ -87,7 +87,7 @@ type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
 	T      *testing.T
-	Meta   metadata
+	Meta   testMetadata
 	Client *scw.Client
 }
 
@@ -97,7 +97,7 @@ type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        metadata
+	Meta        testMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -106,7 +106,7 @@ type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        metadata
+	Meta        testMetadata
 	CmdResult   interface{}
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -295,7 +295,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			client = createTestClient(t, config, httpClient)
 		}
 
-		meta := metadata{
+		meta := testMetadata{
 			"t": t,
 		}
 
@@ -435,7 +435,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-func cmdToArgs(meta metadata, s string) []string {
+func cmdToArgs(meta testMetadata, s string) []string {
 	return strings.Split(meta.render(s), " ")
 }
 
