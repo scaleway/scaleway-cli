@@ -1922,6 +1922,12 @@ func instanceIPList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "project",
+				Short:      `The project ID the IPs are reserved in`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
 				Required:   false,
@@ -1995,6 +2001,12 @@ func instanceIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project",
+				Short:      `The project ID the IP is reserved in`,
+				Required:   false,
+				Positional: false,
+			},
 			{
 				Name:       "server",
 				Short:      `UUID of the server you want to attach the IP to`,
