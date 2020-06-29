@@ -1,7 +1,7 @@
 /******************************************************************************
  * Scaleway CLI release script.
  *
- * This script will trigger a release process for the scaleway Go SDK.
+ * This script will trigger a release process for the scaleway CLI.
  *
  * The script will proceed as follow:
  *   - Create a new remote `scaleway-release` that points to main repo
@@ -13,7 +13,7 @@
  *     - Ask to review changes
  *     - Create a release PR on github
  *   - Create a release
- *     - Build binary that should be upload on the github release with there SHA256SUM
+ *     - Build binary that should be upload on the github release with their SHA256SUM
  *     - Create a github release
  *     - Attach compiled binary to the github release
  *   - Update S3 version file
@@ -85,9 +85,11 @@ const S3_DEVTOOL_BUCKET = "scw-devtools";
 const S3_DEVTOOL_BUCKET_REGION = "nl-ams";
 // S3 object name of the version file that should be updated during release.
 const S3_VERSION_OBJECT_NAME = "scw-cli-v2-version";
+// Name of the Docker image on hub.docker.com
+const DOCKER_IMAGE_NAME = "scaleway/cli";
 
 /*
- * Usefull constant
+ * Useful constant
  */
 const GITHUB_CLONE_URL = `git@github.com:${GITHUB_OWNER}/${GITHUB_REPO}.git`;
 const GITHUB_REPO_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`;
@@ -122,6 +124,8 @@ async function main() {
         endpoint: `s3.${S3_DEVTOOL_BUCKET_REGION}.scw.cloud`,
         region: `${S3_DEVTOOL_BUCKET_REGION}`,
     });
+
+    await prompt(`Make sure that your local Docker Daemon is logged on hub.docker.com AND that you can push to Scaleway's Docker organization.`.magenta);
 
     //
     // Initialize TMP_REMOTE
@@ -245,6 +249,13 @@ async function main() {
     await prompt(`Hit enter to continue .....`.magenta);
 
     //
+    // Update Docker version
+    //
+    console.log("Build and push a container image".blue);
+    docker(`docker build -t scaleway/cli:v${newVersion} .`);
+    docker(`docker push scaleway/cli:v${newVersion}`);
+
+    //
     // Creating post release commit
     //
     console.log(`Make sure we pull the latest commit from ${GITHUB_RELEASED_BRANCH}`.blue);
@@ -285,6 +296,10 @@ async function main() {
 
 function git(...args) {
     return exec("git", ...args)
+}
+
+function docker(...args) {
+    return exec("docker", ...args)
 }
 
 function exec(cmd, ...args) {

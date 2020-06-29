@@ -57,8 +57,8 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		return api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
 			Zone:          argsI.(*baremetalInstallServerRequestCustom).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       serverActionTimeout,
-			RetryInterval: defaultRetryInterval,
+			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 

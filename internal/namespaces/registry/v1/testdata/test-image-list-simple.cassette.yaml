@@ -1,0 +1,787 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","is_public":true}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":0,"created_at":"2020-06-03T16:53:16.197893165Z","updated_at":"2020-06-03T16:53:16.197893165Z","image_count":0,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "392"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:16 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7b8646cd-1843-41d4-89f6-ac995b39f7c4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","is_public":false}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-06-03T16:53:16.304459838Z","updated_at":"2020-06-03T16:53:16.304459838Z","image_count":0,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "395"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:16 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0b2e0e84-05fb-4024-955f-6781afd3e411
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_public&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"5edd2996-d00c-4d64-9629-e8ffe1c52ae1","name":"visibility_public","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:23.406431Z","updated_at":"2020-06-03T16:53:23.406431Z","tags":["latest"]}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "328"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:23 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0391f903-8e17-41c2-9add-27a5734aba92
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":0,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:16.197893Z","image_count":1,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:16.304460Z","image_count":0,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1179"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:23 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 761aa24c-593e-4c9d-b7bc-0fc8406ff63e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"public"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/5edd2996-d00c-4d64-9629-e8ffe1c52ae1
+    method: PATCH
+  response:
+    body: '{"id":"5edd2996-d00c-4d64-9629-e8ffe1c52ae1","name":"visibility_public","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"public","size":0,"created_at":"2020-06-03T16:53:23.406431Z","updated_at":"2020-06-03T16:53:23.664552801Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "301"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:23 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 519da688-656d-4abe-b0f6-8a81982aea5b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_private&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"16db06c2-2908-4a97-8dfa-35e1c7fa00ca","name":"visibility_private","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:29.527984Z","updated_at":"2020-06-03T16:53:29.527984Z","tags":["latest"]}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "329"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:29 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - db21622b-aaf0-45a9-8395-5898f3c5bbf8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":760455,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:24.054842Z","image_count":2,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:16.304460Z","image_count":0,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1184"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:29 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d7e8dcc9-1df5-4aa2-9839-eae0b833c8c1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"private"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/16db06c2-2908-4a97-8dfa-35e1c7fa00ca
+    method: PATCH
+  response:
+    body: '{"id":"16db06c2-2908-4a97-8dfa-35e1c7fa00ca","name":"visibility_private","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"private","size":0,"created_at":"2020-06-03T16:53:29.527984Z","updated_at":"2020-06-03T16:53:29.813090759Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "303"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:29 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a39b23c1-33e2-4b48-9f46-c51de73ae4cb
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_inherit&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"d7982e5f-bd5d-447e-89b6-7bfff824314b","name":"visibility_inherit","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:34.012944Z","updated_at":"2020-06-03T16:53:34.012944Z","tags":["latest"]}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "329"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:34 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 11e4be8a-fa8c-4372-9116-f3be49c548cc
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":1516268,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:30.110078Z","image_count":3,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:16.304460Z","image_count":0,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1185"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:34 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2fafcbf4-56e7-4105-86a3-d177fad54f06
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"inherit"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/d7982e5f-bd5d-447e-89b6-7bfff824314b
+    method: PATCH
+  response:
+    body: '{"id":"d7982e5f-bd5d-447e-89b6-7bfff824314b","name":"visibility_inherit","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:34.012944Z","updated_at":"2020-06-03T16:53:34.322696466Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "303"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:34 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a9ce91a6-2370-4900-9d0c-5b0f64e3787c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_public&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"5edd2996-d00c-4d64-9629-e8ffe1c52ae1","name":"visibility_public","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"public","size":760455,"created_at":"2020-06-03T16:53:23.406431Z","updated_at":"2020-06-03T16:53:24.026616Z","tags":["latest"]},{"id":"8b0f4705-78bf-4784-afe2-3cad5520410a","name":"visibility_public","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:38.465730Z","updated_at":"2020-06-03T16:53:38.465730Z","tags":["latest"]}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "632"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:38 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5ac93d6f-8413-41e5-865b-8247794a5471
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":2244230,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:34.617177Z","image_count":3,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":0,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:16.304460Z","image_count":1,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1185"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:38 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9d82526e-6842-4a0f-a287-e2a674dda085
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"public"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/5edd2996-d00c-4d64-9629-e8ffe1c52ae1
+    method: PATCH
+  response:
+    body: '{"id":"5edd2996-d00c-4d64-9629-e8ffe1c52ae1","name":"visibility_public","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"public","size":760455,"created_at":"2020-06-03T16:53:23.406431Z","updated_at":"2020-06-03T16:53:38.774673972Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "306"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:38 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7f792cae-a4f7-4303-85be-6f772a67e3b1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_private&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"16db06c2-2908-4a97-8dfa-35e1c7fa00ca","name":"visibility_private","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"private","size":755813,"created_at":"2020-06-03T16:53:29.527984Z","updated_at":"2020-06-03T16:53:30.082349Z","tags":["latest"]},{"id":"fe9f6354-b407-4fba-a5a0-82b9303e33c7","name":"visibility_private","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:43.156790Z","updated_at":"2020-06-03T16:53:43.156790Z","tags":["latest"]}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "635"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:43 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 86aa1285-02aa-496e-9683-5c6b93c26253
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":2244230,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:34.617177Z","image_count":3,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":723146,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:39.007558Z","image_count":2,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1190"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:43 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a12be425-09dc-4f4a-ad48-a8ef2234fcf2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"private"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/16db06c2-2908-4a97-8dfa-35e1c7fa00ca
+    method: PATCH
+  response:
+    body: '{"id":"16db06c2-2908-4a97-8dfa-35e1c7fa00ca","name":"visibility_private","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"private","size":755813,"created_at":"2020-06-03T16:53:29.527984Z","updated_at":"2020-06-03T16:53:43.515488268Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "308"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:43 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fb214991-9bd9-4820-b297-0255e0dbc4a3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=visibility_inherit&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"d7982e5f-bd5d-447e-89b6-7bfff824314b","name":"visibility_inherit","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":727962,"created_at":"2020-06-03T16:53:34.012944Z","updated_at":"2020-06-03T16:53:34.589780Z","tags":["latest"]},{"id":"93240794-3f93-40f3-a175-f32eb23797ca","name":"visibility_inherit","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:46.973431Z","updated_at":"2020-06-03T16:53:46.973431Z","tags":["latest"]}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "635"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e480966a-139a-40c5-968a-b551d5022b4a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":2244230,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:34.617177Z","image_count":3,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":1438442,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:43.689139Z","image_count":3,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1191"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 12a7a710-da72-4dd9-9ed2-37e9906f4090
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"visibility":"inherit"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/d7982e5f-bd5d-447e-89b6-7bfff824314b
+    method: PATCH
+  response:
+    body: '{"id":"d7982e5f-bd5d-447e-89b6-7bfff824314b","name":"visibility_inherit","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":727962,"created_at":"2020-06-03T16:53:34.012944Z","updated_at":"2020-06-03T16:53:47.312722242Z","tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "308"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - eeef4efe-2112-448e-b57a-bcb8a967a4f7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"f091a7b6-561a-4741-9658-186f7141b681","name":"alpine","namespace_id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","status":"ready","status_message":"","visibility":"inherit","size":2797541,"created_at":"2020-06-01T17:46:29.938072Z","updated_at":"2020-06-01T17:46:30.387874Z","tags":["latest"]},{"id":"5edd2996-d00c-4d64-9629-e8ffe1c52ae1","name":"visibility_public","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"public","size":760455,"created_at":"2020-06-03T16:53:23.406431Z","updated_at":"2020-06-03T16:53:38.774674Z","tags":["latest"]},{"id":"16db06c2-2908-4a97-8dfa-35e1c7fa00ca","name":"visibility_private","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"private","size":755813,"created_at":"2020-06-03T16:53:29.527984Z","updated_at":"2020-06-03T16:53:43.515488Z","tags":["latest"]},{"id":"d7982e5f-bd5d-447e-89b6-7bfff824314b","name":"visibility_inherit","namespace_id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","status":"ready","status_message":"","visibility":"inherit","size":727962,"created_at":"2020-06-03T16:53:34.012944Z","updated_at":"2020-06-03T16:53:47.312722Z","tags":["latest"]},{"id":"8b0f4705-78bf-4784-afe2-3cad5520410a","name":"visibility_public","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":723146,"created_at":"2020-06-03T16:53:38.465730Z","updated_at":"2020-06-03T16:53:38.988470Z","tags":["latest"]},{"id":"fe9f6354-b407-4fba-a5a0-82b9303e33c7","name":"visibility_private","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":715296,"created_at":"2020-06-03T16:53:43.156790Z","updated_at":"2020-06-03T16:53:43.663844Z","tags":["latest"]},{"id":"93240794-3f93-40f3-a175-f32eb23797ca","name":"visibility_inherit","namespace_id":"91665e85-422e-480c-921c-560d0f1b2184","status":"ready","status_message":"","visibility":"inherit","size":0,"created_at":"2020-06-03T16:53:46.973431Z","updated_at":"2020-06-03T16:53:46.973431Z","tags":["latest"]}],"total_count":7}'
+    headers:
+      Content-Length:
+      - "2151"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 741d3d18-10f8-4889-a277-ea23f42652f4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"9c7ad6f7-326d-44e6-a920-aea196ac897e","name":"jquere01","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/jquere01","is_public":false,"size":2797541,"created_at":"2020-06-01T17:39:33.333350Z","updated_at":"2020-06-01T17:46:30.407834Z","image_count":1,"region":"fr-par"},{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":2244230,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:34.617177Z","image_count":3,"region":"fr-par"},{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":1438442,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:43.689139Z","image_count":3,"region":"fr-par"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "1191"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ac4d5fe7-163e-4d97-848f-c411b3f79a09
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/bbf6b158-7645-4e61-8168-d93fa8ca0b95
+    method: DELETE
+  response:
+    body: '{"id":"bbf6b158-7645-4e61-8168-d93fa8ca0b95","name":"cli-public-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-public-namespace","is_public":true,"size":2244230,"created_at":"2020-06-03T16:53:16.197893Z","updated_at":"2020-06-03T16:53:47.412786323Z","image_count":3,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "398"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b2df7259-9be2-46b7-973e-e7ddd1eea4f4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/91665e85-422e-480c-921c-560d0f1b2184
+    method: DELETE
+  response:
+    body: '{"id":"91665e85-422e-480c-921c-560d0f1b2184","name":"cli-private-namespace","description":"","organization_id":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-private-namespace","is_public":false,"size":1438442,"created_at":"2020-06-03T16:53:16.304460Z","updated_at":"2020-06-03T16:53:47.489781637Z","image_count":3,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "401"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Jun 2020 16:53:47 GMT
+      Server:
+      - agw_listener_public_anycast
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4dd9d250-ae46-4f53-8fed-c677c1ab28a9
+    status: 200 OK
+    code: 200
+    duration: ""

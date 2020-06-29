@@ -31,6 +31,9 @@ type BootstrapConfig struct {
 	// Stderr stream to use. Usually os.Stderr
 	Stderr io.Writer
 
+	// Stdin stream to use. Usually os.Stdin
+	Stdin io.Reader
+
 	// If provided this client will be passed to all commands.
 	// If not a client will be automatically created by the CLI using Config, Env and flags see createClient().
 	Client *scw.Client
@@ -129,6 +132,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
+		stdin:                       config.Stdin,
 		result:                      nil, // result is later injected by cobra_utils.go/cobraRun()
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
@@ -147,7 +151,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	ctx = injectMeta(context.Background(), meta)
+	ctx = injectMeta(ctx, meta)
 
 	// Send Matomo telemetry when exiting the bootstrap
 	start := time.Now()

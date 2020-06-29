@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -164,6 +165,9 @@ type TestConfig struct {
 	// to mock response a user would have enter in a prompt.
 	// Warning: All prompts MUST be mocked or test will hang.
 	PromptResponseMocks []string
+
+	// Allow to mock stdin
+	Stdin io.Reader
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -231,6 +235,11 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 	return client
 }
 
+// DefaultRetryInterval is used across all wait functions in the CLI
+// In particular it is very handy to define this RetryInterval at 0 second while running cassette in testing
+// because they will be executed without waiting.
+var DefaultRetryInterval *time.Duration
+
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -243,6 +252,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 		human.RegisterMarshalerFunc(time.Time{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
 			return "few seconds ago", nil
 		})
+
+		if !UpdateCassettes {
+			tmp := 0 * time.Second
+			DefaultRetryInterval = &tmp
+		}
 
 		ctx := config.Ctx
 		if ctx == nil {
@@ -295,6 +309,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}
 		}
 
+		stdin := config.Stdin
+		if stdin == nil {
+			stdin = os.Stdin
+		}
+
 		executeCmd := func(args []string) interface{} {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
@@ -344,6 +363,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				BuildInfo:        &config.BuildInfo,
 				Stdout:           stdout,
 				Stderr:           stderr,
+				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
 				OverrideEnv:      overrideEnv,
@@ -433,15 +453,9 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	}
 }
 
-func BeforeFuncOsExec(cmdStrings ...[]string) BeforeFunc {
+func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		for _, cmdString := range cmdStrings {
-			err := exec.Command(cmdString[0], cmdString[1:len(cmdString)-1]...).Run()
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return exec.Command(cmd, args...).Run()
 	}
 }
 

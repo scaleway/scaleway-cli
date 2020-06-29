@@ -28,7 +28,7 @@ func Test_AllUsage(t *testing.T) {
 
 	for _, cmd := range namespaces.GetCommands().GetAll() {
 		commandLine := cmd.GetCommandLine()
-		if _, exists := excludedCommands[commandLine]; exists {
+		if _, exists := excludedCommands[commandLine]; exists || cmd.Hidden {
 			continue
 		}
 

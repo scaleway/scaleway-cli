@@ -9,12 +9,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func init() {
-	if !core.UpdateCassettes {
-		instance.RetryInterval = 0
-	}
-}
-
 //
 // Server
 //
