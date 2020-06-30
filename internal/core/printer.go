@@ -17,12 +17,15 @@ func (p PrinterType) String() string {
 	return string(p)
 }
 
-var (
+const (
 	// PrinterTypeJSON defines a JSON formatter.
 	PrinterTypeJSON = PrinterType("json")
 
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
+
+	// Option to enable pretty output on json printer.
+	PrinterOptJSONPretty = "pretty"
 )
 
 type PrinterConfig struct {
@@ -70,11 +73,11 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 func setupJSONPrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeJSON
 	switch opts {
-	case "pretty":
+	case PrinterOptJSONPretty:
 		printer.jsonPretty = true
 	case "":
 	default:
-		return fmt.Errorf("invalid option %s for json outout. Valid options are: pretty", opts)
+		return fmt.Errorf("invalid option %s for json outout. Valid options are: %s", opts, PrinterOptJSONPretty)
 	}
 	return nil
 }
