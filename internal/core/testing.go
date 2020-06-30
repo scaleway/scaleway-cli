@@ -612,10 +612,9 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	jsonStdout := &bytes.Buffer{}
 
 	jsonPrinter, err := NewPrinter(&PrinterConfig{
-		Type:   PrinterTypeJSON,
-		Stdout: jsonStdout,
-		Stderr: jsonStderr,
-		Pretty: true,
+		OutputFlag: "json=pretty",
+		Stdout:     jsonStdout,
+		Stderr:     jsonStderr,
 	})
 	require.NoError(t, err)
 
