@@ -104,7 +104,7 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	case PrinterTypeJSON:
 		return p.printJSON(data)
 	default:
-		return fmt.Errorf("unkonwn format: %s", p.printerType)
+		return fmt.Errorf("unknown format: %s", p.printerType)
 	}
 }
 
