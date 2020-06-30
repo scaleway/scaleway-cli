@@ -52,11 +52,7 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 	// We call the correct setup method depending on the printer type
 	switch printerName {
 	case PrinterTypeHuman.String():
-		err := setupHumanPrinter(printer, printerOpt)
-		if err != nil {
-			return nil, err
-		}
-
+		setupHumanPrinter(printer, printerOpt)
 	case PrinterTypeJSON.String():
 		err := setupJSONPrinter(printer, printerOpt)
 		if err != nil {
@@ -82,9 +78,8 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	return nil
 }
 
-func setupHumanPrinter(printer *Printer, _ string) error {
+func setupHumanPrinter(printer *Printer, _ string) {
 	printer.printerType = PrinterTypeHuman
-	return nil
 }
 
 type Printer struct {
