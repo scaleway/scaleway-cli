@@ -211,7 +211,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().StringVarP(&profileFlag, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human (see scw help output for more info)")
+	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()
