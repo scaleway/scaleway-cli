@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"context"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -31,11 +32,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
-// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
+// Test flags
+// You can create a binary of each test using "go test -c -o myBinary"
 var (
-	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
-	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
+	// UpdateGoldens will update all the golden files of a given test
+	UpdateGoldens = flag.Bool("goldens", false, "Record goldens")
+
+	// UpdateCassettes will update all cassettes of a given test
+	UpdateCassettes = flag.Bool("cassettes", false, "Record Cassettes")
+
+	// Debug set the log level to LogLevelDebug
+	Debug = flag.Bool("debug", false, "Enable Debug Mode")
 )
 
 // CheckFuncCtx contain the result of a command execution
@@ -210,7 +217,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 	if !testConfig.UseE2EClient {
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 
-		if UpdateCassettes {
+		if *UpdateCassettes {
 			clientOpts = append(clientOpts, scw.WithEnv())
 			config, err := scw.LoadConfig()
 			if err == nil {
@@ -260,7 +267,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			writer: os.Stderr,
 			level:  logger.LogLevelInfo,
 		}
-		if os.Getenv("SCW_DEBUG") == "true" {
+		if *Debug {
 			log.level = logger.LogLevelDebug
 		}
 
@@ -270,7 +277,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		if !UpdateCassettes {
+		if !*UpdateCassettes {
 			tmp := 0 * time.Second
 			DefaultRetryInterval = &tmp
 		}
@@ -283,7 +290,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
 		}
 
-		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
+		httpClient, cleanup, err := getHTTPRecoder(t, *UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
 		ctx = account.InjectHTTPClient(ctx, httpClient)
@@ -454,7 +461,7 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 
 func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		if UpdateCassettes {
+		if *UpdateCassettes {
 			return beforeFunc(ctx)
 		}
 		return nil
@@ -536,7 +543,7 @@ func TestCheckGolden() TestCheck {
 
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
-		if UpdateGoldens {
+		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
 			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
 		}
