@@ -173,28 +173,6 @@ func ValidateOrganizationID() ArgSpecValidateFunc {
 		if value == "" && !argSpec.Required {
 			return nil
 		}
-		return ValidateOrganizationIDRequired()(argSpec, valueI)
-	}
-}
-
-// ValidateOrganizationIDRequired validates a required organization ID.
-// We do not allow empty-string value "".
-func ValidateOrganizationIDRequired() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, valueI interface{}) error {
-		_, isPtr := valueI.(*string)
-		if isPtr {
-			return nil // Pointer should not be required.
-		}
-		value, isStr := valueI.(string)
-		if !isStr {
-			return &CliError{
-				Err: fmt.Errorf("organization ID should be a string but was %T", valueI),
-			}
-		}
-		err := DefaultArgSpecValidateFunc()(argSpec, value)
-		if err != nil {
-			return err
-		}
 		if !validation.IsOrganizationID(value) {
 			return InvalidOrganizationIDError(value)
 		}
