@@ -6,18 +6,10 @@ package tabwriter
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"testing"
-)
-
-// Unused test flags passed by the ./scripts/run-test.sh
-var (
-	_ = flag.Bool("goldens", false, "Record goldens")
-	_ = flag.Bool("cassettes", false, "Record Cassettes")
-	_ = flag.Bool("debug", false, "Enable Debug Mode")
 )
 
 type buffer struct {
