@@ -48,6 +48,11 @@ function usage() {
   exit $1;
 }
 
+SCW_DEBUG="false"
+OPT_UPDATE_GOLDENS="false"
+OPT_UPDATE_CASSETTES="false"
+OPT_RUN_SCOPE=""
+
 ##
 # Parse arguments
 ##
@@ -59,17 +64,17 @@ do
       OPT_RUN_SCOPE="$1"
       ;;
     -u|--update)
-      OPT_UPDATE_GOLDENS="-goldens"
-      OPT_UPDATE_CASSETTES="-cassettes"
+      OPT_UPDATE_GOLDENS="true"
+      OPT_UPDATE_CASSETTES="true"
       ;;
     -g|--update-goldens)
-      OPT_UPDATE_GOLDENS="-goldens"
+      OPT_UPDATE_GOLDENS="true"
       ;;
     -c|--update-cassettes)
-      OPT_UPDATE_CASSETTES="-cassettes"
+      OPT_UPDATE_CASSETTES="true"
       ;;
     -D|--debug)
-      SCW_DEBUG="-debug"
+      SCW_DEBUG="true"
       ;;
 	-h|--help) usage
   esac
@@ -83,7 +88,8 @@ fi
 
 # Remove golden if they are being updated, and all tests are being run
 if [[ ${OPT_UPDATE_GOLDENS} ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
-  find . -type f -name "*.golden" -exec rm -f {} \;
+  # We ignore OS specific goldens
+  find . -type f ! -name '*windows*.golden' ! -name '*darwin*.golden' ! -name '*linux*.golden' -name "*.golden" -exec rm -f {} \;
 fi
 
-go test -v $ROOT_DIR/... $OPT_UPDATE_CASSETTES $OPT_UPDATE_GOLDENS $SCW_DEBUG -timeout 20m -run=$OPT_RUN_SCOPE
+SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_UPDATE_CASSETTES go test -v $ROOT_DIR/... -timeout 20m -run=$OPT_RUN_SCOPE
