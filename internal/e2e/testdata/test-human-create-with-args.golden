@@ -14,6 +14,7 @@ IsHappy               true
 EyesColor             amber
 Status                stopped
 Name                  -
+ProjectID             b3ba839a-dcf2-4b0a-ac81-fc32370052a0
 Region                fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -31,5 +32,6 @@ Region                fr-par
   "eyes_color": "amber",
   "status": "stopped",
   "name": "",
+  "project_id": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
   "region": "fr-par"
 }
