@@ -73,7 +73,7 @@ func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 	return loginResponse, err
 }
 
-func GetAccessKey(ctx context.Context, secretKey string) (*Token, error) {
+func GetAPIKey(ctx context.Context, secretKey string) (*Token, error) {
 	resp, err := extractHTTPClient(ctx).Get(accountURL + "/tokens/" + secretKey)
 	if err != nil {
 		return nil, err

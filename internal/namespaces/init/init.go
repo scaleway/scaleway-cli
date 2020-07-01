@@ -260,7 +260,7 @@ func initCommand() *core.Command {
 			}
 
 			// Get access key
-			apiKey, err := account.GetAccessKey(ctx, args.SecretKey)
+			apiKey, err := account.GetAPIKey(ctx, args.SecretKey)
 			if err != nil {
 				return "", &core.CliError{
 					Err:     err,
