@@ -64,14 +64,14 @@ type BootstrapConfig struct {
 func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
 	// Handles Flags
 	var debug bool
-	var profileName string
-	var configPath string
-	var printerType PrinterType
+	var profileFlag string
+	var configPathFlag string
+	var outputFlag string
 
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
-	flags.StringVarP(&profileName, "profile", "p", "", "The config profile to use")
-	flags.StringVarP(&configPath, "config", "c", "", "The path to the config file")
-	flags.VarP(&printerType, "output", "o", "Output format: json or human")
+	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
+	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
+	flags.StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -106,9 +106,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// The printer must be the first thing set in order to print errors
 	printer, err := NewPrinter(&PrinterConfig{
-		Type:   printerType,
-		Stdout: config.Stdout,
-		Stderr: config.Stderr,
+		OutputFlag: outputFlag,
+		Stdout:     config.Stdout,
+		Stderr:     config.Stderr,
 	})
 	if err != nil {
 		_, _ = fmt.Fprintln(config.Stderr, err)
@@ -134,14 +134,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
-		ProfileFlag:    profileName,
+		ProfileFlag:    profileFlag,
 		BinaryName:     config.Args[0],
 		BuildInfo:      config.BuildInfo,
 		Client:         client,
 		Commands:       config.Commands,
 		OverrideEnv:    config.OverrideEnv,
 		OverrideExec:   config.OverrideExec,
-		ConfigPathFlag: configPath,
+		ConfigPathFlag: configPathFlag,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
@@ -209,9 +209,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
-	rootCmd.PersistentFlags().StringVarP(&profileName, "profile", "p", "", "The config profile to use")
-	rootCmd.PersistentFlags().StringVarP(&profileName, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().VarP(&printerType, "output", "o", "Output format: json or human")
+	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().StringVarP(&profileFlag, "config", "c", "", "The path to the config file")
+	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()
