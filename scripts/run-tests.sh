@@ -83,7 +83,8 @@ fi
 
 # Remove golden if they are being updated, and all tests are being run
 if [[ ${OPT_UPDATE_GOLDENS} ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
-  find . -type f -name "*.golden" -exec rm -f {} \;
+  # We ignore OS specific goldens
+  find . -type f ! -name '*(linux|windows|darwin)*.golden' -name "*.golden" -exec rm -f {} \;
 fi
 
 go test -v $ROOT_DIR/... $OPT_UPDATE_CASSETTES $OPT_UPDATE_GOLDENS $SCW_DEBUG -timeout 20m -run=$OPT_RUN_SCOPE
