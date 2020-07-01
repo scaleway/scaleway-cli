@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net"
@@ -33,6 +34,7 @@ type instanceCreateServerRequest struct {
 	SecurityGroupID   string
 	PlacementGroupID  string
 	BootscriptID      string
+	CloudInit         string
 }
 
 // TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
@@ -98,6 +100,10 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:  "bootscript-id",
 				Short: "The bootscript ID to use, if empty the local boot will be used",
+			},
+			{
+				Name:  "cloud-init",
+				Short: "The cloud-init script to use",
 			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(),
@@ -334,7 +340,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	//
-	// Server
+	// Server Creation
 	//
 	logger.Debugf("creating server")
 	serverRes, err := apiInstance.CreateServer(serverReq)
@@ -355,6 +361,23 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)
+
+	//
+	// Cloud-init
+	//
+	if args.CloudInit != "" {
+		err := apiInstance.SetServerUserData(&instance.SetServerUserDataRequest{
+			Zone:     args.Zone,
+			ServerID: server.ID,
+			Key:      "cloud-init",
+			Content:  bytes.NewBufferString(args.CloudInit),
+		})
+		if err != nil {
+			logger.Warningf("error while setting up your cloud-init metadata: %s. Note that the server is successfully created.", err)
+		} else {
+			logger.Debugf("cloud-init set")
+		}
+	}
 
 	//
 	// Start server by default

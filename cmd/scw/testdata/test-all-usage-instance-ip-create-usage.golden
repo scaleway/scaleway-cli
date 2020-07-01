@@ -16,6 +16,7 @@ EXAMPLES:
     scw instance ip create server=11111111-1111-1111-1111-111111111111
 
 ARGS:
+  [project]           The project ID the IP is reserved in
   [server]            UUID of the server you want to attach the IP to
   [tags.{index}]      An array of keywords you want to tag this IP with
   [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config

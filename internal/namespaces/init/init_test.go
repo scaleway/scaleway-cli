@@ -38,7 +38,6 @@ func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {
 func TestInit(t *testing.T) {
 	defaultArgs := map[string]string{
 		"secret-key":           "{{ .SecretKey }}",
-		"organization-id":      "{{ .OrganizationID }}",
 		"send-telemetry":       "true",
 		"install-autocomplete": "false",
 		"remove-v1-config":     "false",
@@ -142,9 +141,7 @@ func TestInit(t *testing.T) {
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
 					secretKey, _ := ctx.Client.GetSecretKey()
-					organizationID, _ := ctx.Client.GetDefaultOrganizationID()
 					assert.Equal(t, secretKey, *config.SecretKey)
-					assert.Equal(t, organizationID, *config.DefaultOrganizationID)
 				}),
 			),
 			TmpHomeDir: true,

@@ -11,10 +11,12 @@ import (
 
 // Token represents a Token
 type Token struct {
-	UserID    string `json:"user_id"`
-	AccessKey string `json:"access_key"`
-	SecretKey string `json:"secret_key"`
-	ID        string `json:"id"`
+	ID             string `json:"id"`
+	UserID         string `json:"user_id"`
+	AccessKey      string `json:"access_key"`
+	SecretKey      string `json:"secret_key"`
+	OrganizationID string `json:"organization_id"`
+	ProjectID      string `json:"project_id"`
 }
 
 type LoginResponse struct {
@@ -29,14 +31,6 @@ type LoginRequest struct {
 	TwoFactorToken string `json:"2FA_token,omitempty"`
 	Description    string `json:"description,omitempty"`
 	Expires        bool   `json:"expires"`
-}
-
-type organizationsResponse struct {
-	Organizations []organization `json:"organizations"`
-}
-
-type organization struct {
-	ID string `json:"id"`
 }
 
 var (
@@ -79,66 +73,27 @@ func Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 	return loginResponse, err
 }
 
-func GetAccessKey(ctx context.Context, secretKey string) (string, error) {
+func GetAPIKey(ctx context.Context, secretKey string) (*Token, error) {
 	resp, err := extractHTTPClient(ctx).Get(accountURL + "/tokens/" + secretKey)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("could not get token")
+		return nil, fmt.Errorf("could not get token")
 	}
 
 	token := &LoginResponse{}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	err = json.Unmarshal(b, token)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return token.Token.AccessKey, err
-}
-
-func getOrganizations(ctx context.Context, secretKey string) ([]organization, error) {
-	req, err := http.NewRequest("GET", accountURL+"/organizations", nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("X-Auth-Token", secretKey)
-	resp, err := extractHTTPClient(ctx).Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("could not get organizations from %s", accountURL)
-	}
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	organizationsResponse := &organizationsResponse{}
-	err = json.Unmarshal(body, organizationsResponse)
-	if err != nil {
-		return nil, err
-	}
-	return organizationsResponse.Organizations, nil
-}
-
-func GetOrganizationsIds(ctx context.Context, secretKey string) ([]string, error) {
-	organizations, err := getOrganizations(ctx, secretKey)
-	if err != nil {
-		return nil, err
-	}
-	ids := []string(nil)
-	for _, organization := range organizations {
-		ids = append(ids, organization.ID)
-	}
-	return ids, nil
+	return token.Token, err
 }

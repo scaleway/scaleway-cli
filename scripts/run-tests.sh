@@ -3,8 +3,6 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-OPT_VERBOSE=""
-
 ##
 # Colorize output
 ##
@@ -58,7 +56,7 @@ OPT_RUN_SCOPE=""
 ##
 # Parse arguments
 ##
-while [[ $# > 0 ]]
+while [[ $# -gt 0 ]]
 do
   case "$1" in
     -r|-run|--run) # keeping -run as this is the standard Go flag for this
@@ -88,9 +86,10 @@ if [[ ${OPT_UPDATE_CASSETTES} ]] ; then
   go clean -testcache
 fi
 
-# Remove golden if thery are being updated, and all tests are being run
-if [[ ${OPT_UPDATE_GOLDENS} == "true" ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
-  find . -type f -name "*.golden" -exec rm -f {} \;
+# Remove golden if they are being updated, and all tests are being run
+if [[ ${OPT_UPDATE_GOLDENS} ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
+  # We ignore OS specific goldens
+  find . -type f ! -name '*windows*.golden' ! -name '*darwin*.golden' ! -name '*linux*.golden' -name "*.golden" -exec rm -f {} \;
 fi
 
 SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_UPDATE_CASSETTES go test -v $ROOT_DIR/... -timeout 20m -run=$OPT_RUN_SCOPE
