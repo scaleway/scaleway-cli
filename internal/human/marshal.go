@@ -169,7 +169,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// We loop through all struct field
 			data := [][]string(nil)
 			for i := 0; i < value.NumField(); i++ {
-				subData, err := marshal(value.Field(i), append(keys, strcase.ToBashArg(value.Type().Field(i).Name)))
+				subData, err := marshal(value.Field(i), append(keys, value.Type().Field(i).Name))
 				if err != nil {
 					return nil, err
 				}

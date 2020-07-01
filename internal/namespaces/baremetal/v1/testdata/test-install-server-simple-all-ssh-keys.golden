@@ -1,35 +1,35 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-id                            fc0c61cf-d65c-4f27-863a-447a4898a180
-organization-id               951df375-e094-4d26-97c1-ba548eeb9c42
-name                          cli-bm-naughty-sanderson
-description                   -
-updated-at                    few seconds ago
-created-at                    few seconds ago
-status                        ready
-offer-id                      7fde3890-9787-488c-ac89-c4e00a4e5f83
-ips.0.id                      5d2b8d87-2e1e-4e8b-932f-de6c5b4b25e3
-ips.0.address                 2001:bc8:6005:1b:aa1e:84ff:fef3:589c
-ips.0.reverse                 fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
-ips.0.version                 IPv6
-ips.0.reverse-status          active
-ips.0.reverse-status-message  -
-ips.1.id                      cf4c77ac-cfd7-4f83-a17f-d15fa6ff1d86
-ips.1.address                 51.159.31.104
-ips.1.reverse                 fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
-ips.1.version                 IPv4
-ips.1.reverse-status          active
-ips.1.reverse-status-message  -
-domain                        fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
-boot-type                     normal
-zone                          fr-par-2
-install.os-id                 d859aa89-8b4a-4551-af42-ff7c0c27260a
-install.hostname              test-install-server
-install.ssh-key-ids.0         9bf6c340-687c-4f31-8aad-6a525761d8cd
-install.ssh-key-ids.1         cffa1bb1-57f0-4ad8-be20-f335df743b27
-install.ssh-key-ids.2         f06d9273-385e-4747-806c-d4673c410f9d
-install.status                completed
-ping-status                   up
+ID                          fc0c61cf-d65c-4f27-863a-447a4898a180
+OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
+Name                        cli-bm-naughty-sanderson
+Description                 -
+UpdatedAt                   few seconds ago
+CreatedAt                   few seconds ago
+Status                      ready
+OfferID                     7fde3890-9787-488c-ac89-c4e00a4e5f83
+IPs.0.ID                    5d2b8d87-2e1e-4e8b-932f-de6c5b4b25e3
+IPs.0.Address               2001:bc8:6005:1b:aa1e:84ff:fef3:589c
+IPs.0.Reverse               fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+IPs.0.Version               IPv6
+IPs.0.ReverseStatus         active
+IPs.0.ReverseStatusMessage  -
+IPs.1.ID                    cf4c77ac-cfd7-4f83-a17f-d15fa6ff1d86
+IPs.1.Address               51.159.31.104
+IPs.1.Reverse               fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+IPs.1.Version               IPv4
+IPs.1.ReverseStatus         active
+IPs.1.ReverseStatusMessage  -
+Domain                      fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+BootType                    normal
+Zone                        fr-par-2
+Install.OsID                d859aa89-8b4a-4551-af42-ff7c0c27260a
+Install.Hostname            test-install-server
+Install.SSHKeyIDs.0         9bf6c340-687c-4f31-8aad-6a525761d8cd
+Install.SSHKeyIDs.1         cffa1bb1-57f0-4ad8-be20-f335df743b27
+Install.SSHKeyIDs.2         f06d9273-385e-4747-806c-d4673c410f9d
+Install.Status              completed
+PingStatus                  up
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "fc0c61cf-d65c-4f27-863a-447a4898a180",

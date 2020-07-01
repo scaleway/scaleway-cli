@@ -1,13 +1,42 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+BuildInfo.Version    0.0.0
+BuildInfo.BuildDate  unknown
+BuildInfo.GoVersion  runtime.Version()
+BuildInfo.GitBranch  unknown
+BuildInfo.GitCommit  unknown
+BuildInfo.GoArch     runtime.GOARCH
+BuildInfo.GoOS       runtime.GOOS
+Settings.0.Key       config_path
+Settings.0.Value     /tmp/.config/scw/config.yaml
+Settings.0.Origin    env (SCW_CONFIG_PATH)
+Settings.1.Key       profile
+Settings.1.Value     -
+Settings.1.Origin    -
+Settings.2.Key       default_region
+Settings.2.Value     fr-par
+Settings.2.Origin    env (SCW_DEFAULT_REGION)
+Settings.3.Key       default_zone
+Settings.3.Value     fr-par-1
+Settings.3.Origin    env (SCW_DEFAULT_ZONE)
+Settings.4.Key       default_organization_id
+Settings.4.Value     22222222-2222-2222-2222-222222222222
+Settings.4.Origin    env (SCW_DEFAULT_ORGANIZATION_ID)
+Settings.5.Key       access_key
+Settings.5.Value     SCWYYYYYYYYYYYYYYYYY
+Settings.5.Origin    env (SCW_ACCESS_KEY)
+Settings.6.Key       secret_key
+Settings.6.Value     22222222-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+Settings.6.Origin    env (SCW_SECRET_KEY)
+
 Build Info:
-version     0.0.0
-build-date  unknown
-go-version  runtime.Version()
-git-branch  unknown
-git-commit  unknown
-go-arch     runtime.GOARCH
-go-os       runtime.GOOS
+Version    0.0.0
+BuildDate  unknown
+GoVersion  runtime.Version()
+GitBranch  unknown
+GitCommit  unknown
+GoArch     runtime.GOARCH
+GoOS       runtime.GOOS
 
 Settings:
 KEY                      VALUE                                 ORIGIN
