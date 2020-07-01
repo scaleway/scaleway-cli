@@ -17,6 +17,7 @@ AVAILABLE COMMANDS:
   registry     Docker registry API
   feedback     Send feedback to the Scaleway CLI Team!
   info         Get info about current settings
+  rdb          Database RDB API
   help         Help about any command
 
 FLAGS:
