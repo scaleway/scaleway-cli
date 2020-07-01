@@ -36,13 +36,13 @@ import (
 // You can create a binary of each test using "go test -c -o myBinary"
 var (
 	// UpdateGoldens will update all the golden files of a given test
-	UpdateGoldens = flag.Bool("goldens", false, "Record goldens")
+	UpdateGoldens = flag.Bool("goldens", os.Getenv("CLI_UPDATE_GOLDENS") == "true", "Record goldens")
 
 	// UpdateCassettes will update all cassettes of a given test
-	UpdateCassettes = flag.Bool("cassettes", false, "Record Cassettes")
+	UpdateCassettes = flag.Bool("cassettes", os.Getenv("CLI_UPDATE_CASSETTES") == "true", "Record Cassettes")
 
 	// Debug set the log level to LogLevelDebug
-	Debug = flag.Bool("debug", false, "Enable Debug Mode")
+	Debug = flag.Bool("debug", os.Getenv("SCW_DEBUG") == "true", "Enable Debug Mode")
 )
 
 // CheckFuncCtx contain the result of a command execution
