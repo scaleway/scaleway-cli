@@ -1,8 +1,10 @@
 package instance
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"net"
 	"reflect"
 	"strconv"
@@ -319,13 +321,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	//
-	// Cloud-init
-	//
-	if args.CloudInit != "" {
-		serverReq.Cloud = scw.StringPtr(args.CloudInit)
-	}
-
-	//
 	// STEP 2: Resource creations and modifications.
 	//
 
@@ -346,7 +341,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	//
-	// Server
+	// Server Creation
 	//
 	logger.Debugf("creating server")
 	serverRes, err := apiInstance.CreateServer(serverReq)
@@ -367,6 +362,22 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)
+
+	//
+	// Cloud-init
+	//
+	if args.CloudInit != "" {
+		userData := make(map[string]io.Reader, len(args.CloudInit))
+		userData["cloud-init"] = bytes.NewBufferString(args.CloudInit)
+		err := apiInstance.SetAllServerUserData(&instance.SetAllServerUserDataRequest{
+			Zone:     args.Zone,
+			ServerID: server.ID,
+			UserData: userData,
+		})
+		if err != nil {
+			return nil, fmt.Errorf("error while setting up your cloud-init metadata: %s", err)
+		}
+	}
 
 	//
 	// Start server by default
