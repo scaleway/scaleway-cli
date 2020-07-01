@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"io"
 	"net"
 	"reflect"
 	"strconv"
@@ -367,15 +366,16 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// Cloud-init
 	//
 	if args.CloudInit != "" {
-		userData := make(map[string]io.Reader, len(args.CloudInit))
-		userData["cloud-init"] = bytes.NewBufferString(args.CloudInit)
-		err := apiInstance.SetAllServerUserData(&instance.SetAllServerUserDataRequest{
+		err := apiInstance.SetServerUserData(&instance.SetServerUserDataRequest{
 			Zone:     args.Zone,
 			ServerID: server.ID,
-			UserData: userData,
+			Key:      "cloud-init",
+			Content:  bytes.NewBufferString(args.CloudInit),
 		})
 		if err != nil {
-			return nil, fmt.Errorf("error while setting up your cloud-init metadata: %s", err)
+			logger.Warningf("error while setting up your cloud-init metadata: %s. Note that the server is successfully created.", err)
+		} else {
+			logger.Debugf("cloud-init set")
 		}
 	}
 
