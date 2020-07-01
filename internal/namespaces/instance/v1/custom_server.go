@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net"
@@ -204,6 +205,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		PlacementGroupID *instance.NullableStringValue
 		SecurityGroupID  *string
 		VolumeIDs        *[]string
+		CloudInit        string
 	}
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
@@ -228,6 +230,10 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
 		Name:  "ip",
 		Short: `IP that should be attached to the server (use ip=none to detach)`,
+	})
+	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
+		Name:  "cloud-init",
+		Short: "The cloud-init script to use",
 	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -313,6 +319,19 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
 			}
 			customRequest.Volumes = &volumes
+		}
+
+		// Set cloud-init
+		if customRequest.CloudInit != "" {
+			err := api.SetServerUserData(&instance.SetServerUserDataRequest{
+				Zone:     updateServerRequest.Zone,
+				ServerID: customRequest.ServerID,
+				Key:      "cloud-init",
+				Content:  bytes.NewBufferString(customRequest.CloudInit),
+			})
+			if err != nil {
+				return nil, err
+			}
 		}
 
 		updateServerResponse, err := api.UpdateServer(updateServerRequest)
