@@ -23,7 +23,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		return value, nil
 	}
 
-	if !value.IsValid() || ((value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil()) {
+	if !value.IsValid() || isNil(value) {
 		return reflect.Value{}, fmt.Errorf("field %s is nil", strings.Join(parents, "."))
 	}
 
@@ -52,7 +52,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		if !exist {
 			return reflect.Value{}, fmt.Errorf("field %s does not exist in %s", path[0], strings.Join(parents, "."))
 		}
-		if !(f.Name[0] >= 'A' && f.Name[0] <= 'Z') {
+		if !isFieldPublic(f) {
 			return reflect.Value{}, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
 		}
 		v := value.FieldByIndex(f.Index)
@@ -91,7 +91,7 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		if !exist {
 			return nil, fmt.Errorf("field %s does not exist in %s", path[0], strings.Join(parents, "."))
 		}
-		if !(field.Name[0] >= 'A' && field.Name[0] <= 'Z') {
+		if !isFieldPublic(field) {
 			return nil, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
 		}
 		return getType(field.Type, append(parents, path[0]), path[1:])
@@ -127,7 +127,7 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 		for i := 0; i < t.NumField(); i++ {
 			field := t.Field(i)
 
-			if !(field.Name[0] >= 'A' && field.Name[0] <= 'Z') {
+			if !isFieldPublic(field) {
 				continue
 			}
 
@@ -146,4 +146,14 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 		}
 		return []string{path}
 	}
+}
+
+// isNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
+func isNil(value reflect.Value) bool {
+	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil()
+}
+
+// isFieldPublic returns true if the given field is public (Name starts with an uppercase)
+func isFieldPublic(field reflect.StructField) bool {
+	return field.Name[0] >= 'A' && field.Name[0] <= 'Z'
 }
