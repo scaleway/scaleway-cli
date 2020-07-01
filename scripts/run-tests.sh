@@ -50,9 +50,6 @@ function usage() {
   exit $1;
 }
 
-SCW_DEBUG="false"
-OPT_UPDATE_GOLDENS="false"
-OPT_UPDATE_CASSETTES="false"
 OPT_RUN_SCOPE=""
 
 ##
@@ -66,17 +63,17 @@ do
       OPT_RUN_SCOPE="$1"
       ;;
     -u|--update)
-      OPT_UPDATE_GOLDENS="true"
-      OPT_UPDATE_CASSETTES="true"
+      OPT_UPDATE_GOLDENS="-goldens"
+      OPT_UPDATE_CASSETTES="-cassettes"
       ;;
     -g|--update-goldens)
-      OPT_UPDATE_GOLDENS="true"
+      OPT_UPDATE_GOLDENS="-goldens"
       ;;
     -c|--update-cassettes)
-      OPT_UPDATE_CASSETTES="true"
+      OPT_UPDATE_CASSETTES="-cassettes"
       ;;
     -D|--debug)
-      SCW_DEBUG="true"
+      SCW_DEBUG="-debug"
       ;;
 	-h|--help) usage
   esac
@@ -93,4 +90,4 @@ if [[ ${OPT_UPDATE_GOLDENS} == "true" ]] && [[ -z ${OPT_RUN_SCOPE} ]]; then
   find . -type f -name "*.golden" -exec rm -f {} \;
 fi
 
-SCW_DEBUG=$SCW_DEBUG CLI_UPDATE_GOLDENS=$OPT_UPDATE_GOLDENS CLI_UPDATE_CASSETTES=$OPT_UPDATE_CASSETTES go test -v $ROOT_DIR/... -timeout 20m -run=$OPT_RUN_SCOPE
+go test -v $SCW_DEBUG $OPT_UPDATE_GOLDENS $OPT_UPDATE_CASSETTES $ROOT_DIR/... -timeout 20m -run=$OPT_RUN_SCOPE
