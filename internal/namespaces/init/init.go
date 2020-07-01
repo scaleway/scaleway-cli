@@ -63,7 +63,6 @@ type initArgs struct {
 	SecretKey           string
 	Region              scw.Region
 	Zone                scw.Zone
-	OrganizationID      string
 	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
@@ -100,19 +99,8 @@ func initCommand() *core.Command {
 				Name:  "remove-v1-config",
 				Short: "Whether to remove the v1 configuration file if it exists",
 			},
-
-			// `organization-id` is not required before  `PreValidateFunc()`, but is required after `PreValidateFunc()`.
-			// See workflow in cobra_utils.go/cobraRun().
-			// It is not required in the command line: the user is not obliged to type it.
-			// But it is required to make the request: this is why we use `ValidateOrganizationIDRequired().
-			// If `organization-id` is not typed by the user, we set it in `PreValidateFunc()`.
-			{
-				Name:         "organization-id",
-				Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
-				ValidateFunc: core.ValidateOrganizationIDRequired(),
-			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -195,15 +183,6 @@ func initCommand() *core.Command {
 				}
 			}
 
-			// Set OrganizationID if not done previously
-			// As OrganizationID depends on args.SecretKey, we can't use a DefaultFunc or ArgPromptFunc.
-			if args.OrganizationID == "" {
-				args.OrganizationID, err = getOrganizationID(ctx, args.SecretKey)
-				if err != nil {
-					return err
-				}
-			}
-
 			// Ask for send usage permission
 			if args.SendTelemetry == nil {
 				_, _ = interactive.Println()
@@ -281,21 +260,22 @@ func initCommand() *core.Command {
 			}
 
 			// Get access key
-			accessKey, err := account.GetAccessKey(ctx, args.SecretKey)
+			apiKey, err := account.GetAPIKey(ctx, args.SecretKey)
 			if err != nil {
 				return "", &core.CliError{
 					Err:     err,
-					Details: "Failed to retrieve Access Key for the given Secret Key.",
+					Details: "Failed to retrieve Access Key from the given Secret Key.",
 				}
 			}
 
 			profile := &scw.Profile{
-				AccessKey:             &accessKey,
+				AccessKey:             &apiKey.AccessKey,
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &args.OrganizationID,
+				DefaultOrganizationID: &apiKey.OrganizationID, // An api key is always bound to an organization.
 			}
+
 			// Save the profile as default or as a named profile
 			profileName := core.ExtractProfileName(ctx)
 			_, err = config.GetProfile(profileName)
@@ -436,38 +416,6 @@ func promptCredentials(ctx context.Context) (string, error) {
 	default:
 		return "", fmt.Errorf("invalid email or secret-key: '%v'", UUIDOrEmail)
 	}
-}
-
-// getOrganizationId handles prompting for the argument organization-id
-// If we have only 1 id : we use it, and don't prompt
-// If we have more than 1 id, we prompt, with id[0] as default value.
-func getOrganizationID(ctx context.Context, secretKey string) (string, error) {
-	IDs, err := account.GetOrganizationsIds(ctx, secretKey)
-	if err != nil {
-		logger.Warningf("%v", err)
-		return promptOrganizationID(ctx, IDs)
-	}
-	if len(IDs) != 1 {
-		return promptOrganizationID(ctx, IDs)
-	}
-	return IDs[0], nil
-}
-
-func promptOrganizationID(ctx context.Context, IDs []string) (string, error) {
-	config := &interactive.PromptStringConfig{
-		Prompt:       "Enter your Organization ID",
-		ValidateFunc: interactive.ValidateOrganizationID(),
-		Ctx:          ctx,
-	}
-	if len(IDs) > 0 {
-		config.DefaultValue = IDs[0]
-		config.DefaultValueDoc = IDs[0]
-	}
-	ID, err := interactive.PromptStringWithConfig(config)
-	if err != nil {
-		return "", err
-	}
-	return ID, nil
 }
 
 const logo = `
