@@ -38,7 +38,6 @@ func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {
 func TestInit(t *testing.T) {
 	defaultArgs := map[string]string{
 		"secret-key":           "{{ .SecretKey }}",
-		"organization-id":      "{{ .OrganizationID }}",
 		"send-telemetry":       "true",
 		"install-autocomplete": "false",
 		"remove-v1-config":     "false",
