@@ -33,6 +33,7 @@ type instanceCreateServerRequest struct {
 	SecurityGroupID   string
 	PlacementGroupID  string
 	BootscriptID      string
+	CloudInit         string
 }
 
 // TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
@@ -98,6 +99,10 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:  "bootscript-id",
 				Short: "The bootscript ID to use, if empty the local boot will be used",
+			},
+			{
+				Name:  "cloud-init",
+				Short: "The cloud-init script to use",
 			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(),
@@ -311,6 +316,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if args.PlacementGroupID != "" {
 		serverReq.PlacementGroup = scw.StringPtr(args.PlacementGroupID)
+	}
+
+	//
+	// Cloud-init
+	//
+	if args.CloudInit != "" {
+		serverReq.Cloud = scw.StringPtr(args.CloudInit)
 	}
 
 	//
