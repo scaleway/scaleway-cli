@@ -250,26 +250,24 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		item := slice.Index(i)
 		row := []string(nil)
 		for _, fieldSpec := range opt.Fields {
-			fieldValue := getFieldValue(item, fieldSpec.FieldName)
-			str := ""
-			if fieldValue.IsValid() {
-				var err error
-				switch {
-				// Handle inline slice.
-				case fieldValue.Type().Kind() == reflect.Slice:
-					str, err = marshalInlineSlice(fieldValue)
-					if err != nil {
-						return "", err
-					}
-
-				default:
-					str, err = Marshal(fieldValue.Interface(), opt)
-					if err != nil {
-						return "", err
-					}
-				}
-			} else {
+			v, err := gofields.GetValue(item.Interface(), fieldSpec.FieldName)
+			if err != nil {
 				logger.Debugf("invalid getFieldValue(): '%v' might not be exported", fieldSpec.FieldName)
+				row = append(row, "")
+				continue
+			}
+			fieldValue := reflect.ValueOf(v)
+
+			str := ""
+			switch {
+			// Handle inline slice.
+			case fieldValue.Type().Kind() == reflect.Slice:
+				str, err = marshalInlineSlice(fieldValue)
+			default:
+				str, err = Marshal(fieldValue.Interface(), opt)
+			}
+			if err != nil {
+				return "", err
 			}
 			row = append(row, str)
 		}
@@ -336,11 +334,11 @@ func formatGrid(grid [][]string) (string, error) {
 // computeMaxCols calculates how many row we can fit in terminal width.
 func computeMaxCols(grid [][]string) int {
 	maxCols := len(grid[0])
+	width := terminal.GetWidth()
 	// If we are not writing to Stdout or through a tty Stdout, returns max length
-	if color.NoColor {
+	if color.NoColor || width == 0 {
 		return maxCols
 	}
-	width := terminal.GetWidth()
 	colMaxSize := make([]int, len(grid[0]))
 	for i := 0; i < len(grid); i++ {
 		lineSize := 0
