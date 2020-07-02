@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List of fields for human output is only supported for commands that return a list
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "111111111-111111111",
+  "name": "David Copperfield"
+}

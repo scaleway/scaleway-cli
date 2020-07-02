@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/internal/gofields"
 	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -223,6 +224,17 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		opt.Fields = getDefaultFieldsOpt(itemType)
 	}
 
+	// Validate that all field exist
+	for _, f := range opt.Fields {
+		_, err := gofields.GetType(itemType, f.FieldName)
+		if err != nil {
+			return "", &UnknownFieldError{
+				FieldName:   f.FieldName,
+				ValidFields: gofields.ListFields(itemType),
+			}
+		}
+	}
+
 	// We create a in memory grid of the content we want to print
 	grid := make([][]string, 0, slice.Len()+1)
 
@@ -383,7 +395,7 @@ func getFieldValue(value reflect.Value, fieldName string) reflect.Value {
 	}
 
 	for _, part := range parts {
-		value = value.FieldByName(strcase.ToPublicGoName(part))
+		value = value.FieldByName(part)
 		if !value.IsValid() {
 			return value
 		}

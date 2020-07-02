@@ -234,7 +234,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	if meta.command != nil {
 		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
-			_, _ = fmt.Fprintln(os.Stderr, err)
+			_, _ = fmt.Fprintln(config.Stderr, printErr)
 		}
 	}
 

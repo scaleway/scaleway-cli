@@ -78,15 +78,23 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	return nil
 }
 
-func setupHumanPrinter(printer *Printer, _ string) {
+func setupHumanPrinter(printer *Printer, opts string) {
 	printer.printerType = PrinterTypeHuman
+	if opts != "" {
+		printer.humanFields = strings.Split(opts, ",")
+	}
 }
 
 type Printer struct {
 	printerType PrinterType
 	stdout      io.Writer
 	stderr      io.Writer
-	jsonPretty  bool
+
+	// Enable pretty print on json output
+	jsonPretty bool
+
+	// Allow to select specifics column in a table with human printer
+	humanFields []string
 }
 
 func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
@@ -96,19 +104,58 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 		return err
 	}
 
+	var err error
 	switch p.printerType {
 	case PrinterTypeHuman:
-		return p.printHuman(data, opt)
+		err = p.printHuman(data, opt)
 	case PrinterTypeJSON:
-		return p.printJSON(data)
+		err = p.printJSON(data)
 	default:
-		return fmt.Errorf("unknown format: %s", p.printerType)
+		err = fmt.Errorf("unknown format: %s", p.printerType)
 	}
+
+	if err != nil {
+		// Only try to print error using the printer if data is not already an error to avoid infinite recursion
+		if _, isError := data.(error); !isError {
+			return p.Print(err, nil)
+		}
+		return err
+	}
+	return nil
 }
 
 func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
+	_, isError := data.(error)
+
+	if !isError {
+		if opt == nil {
+			opt = &human.MarshalOpt{}
+		}
+
+		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
+			return fmt.Errorf("list of fields for human output is only supported for commands that return a list")
+		}
+
+		if len(p.humanFields) > 0 {
+			opt.Fields = []*human.MarshalFieldOpt(nil)
+			for _, field := range p.humanFields {
+				opt.Fields = append(opt.Fields, &human.MarshalFieldOpt{
+					FieldName: field,
+				})
+			}
+		}
+	}
+
 	str, err := human.Marshal(data, opt)
-	if err != nil {
+	switch e := err.(type) {
+	case *human.UnknownFieldError:
+		return &CliError{
+			Err:  fmt.Errorf("unknown field '%s' in output options", e.FieldName),
+			Hint: fmt.Sprintf("Valid fields are: %s", strings.Join(e.ValidFields, ", ")),
+		}
+	case nil:
+		// Do nothing
+	default:
 		return err
 	}
 

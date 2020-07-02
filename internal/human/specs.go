@@ -31,8 +31,8 @@ func (s *MarshalFieldOpt) getLabel() string {
 	}
 
 	label := s.FieldName
-	label = strcase.ToBashArg(label)
 	label = strings.ReplaceAll(label, ".", " ")
+	label = strcase.ToBashArg(label)
 	label = strings.ReplaceAll(label, "-", " ")
 	label = strings.ToUpper(label)
 	return label
