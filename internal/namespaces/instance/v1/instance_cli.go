@@ -1231,37 +1231,37 @@ func instanceVolumeList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "state",
+				FieldName: "State",
 			},
 			{
-				FieldName: "server.id",
+				FieldName: "Server.ID",
 			},
 			{
-				FieldName: "server.name",
+				FieldName: "Server.Name",
 			},
 			{
-				FieldName: "export-uri",
+				FieldName: "ExportURI",
 			},
 			{
-				FieldName: "size",
+				FieldName: "Size",
 			},
 			{
-				FieldName: "volume-type",
+				FieldName: "VolumeType",
 			},
 			{
-				FieldName: "creation-date",
+				FieldName: "CreationDate",
 			},
 			{
-				FieldName: "modification-date",
+				FieldName: "ModificationDate",
 			},
 			{
-				FieldName: "organization",
+				FieldName: "Organization",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 		}},
 	}
@@ -1965,28 +1965,28 @@ func instanceIPList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "address",
+				FieldName: "Address",
 			},
 			{
-				FieldName: "reverse",
+				FieldName: "Reverse",
 			},
 			{
-				FieldName: "organization",
+				FieldName: "Organization",
 			},
 			{
-				FieldName: "server.id",
+				FieldName: "Server.ID",
 			},
 			{
-				FieldName: "server.name",
+				FieldName: "Server.Name",
 			},
 			{
-				FieldName: "tags",
+				FieldName: "Tags",
 			},
 			{
-				FieldName: "zone",
+				FieldName: "Zone",
 			},
 		}},
 	}

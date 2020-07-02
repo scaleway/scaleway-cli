@@ -130,43 +130,43 @@ func registryNamespaceList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "region",
+				FieldName: "Region",
 			},
 			{
-				FieldName: "endpoint",
+				FieldName: "Endpoint",
 			},
 			{
-				FieldName: "is_public",
+				FieldName: "IsPublic",
 			},
 			{
-				FieldName: "size",
+				FieldName: "Size",
 			},
 			{
-				FieldName: "image_count",
+				FieldName: "ImageCount",
 			},
 			{
-				FieldName: "organization_id",
+				FieldName: "OrganizationID",
 			},
 			{
-				FieldName: "status",
+				FieldName: "Status",
 			},
 			{
-				FieldName: "status_message",
+				FieldName: "StatusMessage",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 			{
-				FieldName: "description",
+				FieldName: "Description",
 			},
 		}},
 	}
@@ -359,34 +359,34 @@ func registryImageList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "size",
+				FieldName: "Size",
 			},
 			{
-				FieldName: "visibility",
+				FieldName: "Visibility",
 			},
 			{
-				FieldName: "namespace_id",
+				FieldName: "NamespaceID",
 			},
 			{
-				FieldName: "status",
+				FieldName: "Status",
 			},
 			{
-				FieldName: "status_message",
+				FieldName: "StatusMessage",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 			{
-				FieldName: "tags",
+				FieldName: "Tags",
 			},
 		}},
 	}
