@@ -316,8 +316,11 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	}
 	subOpt.Title = title
 
-	field := getFieldValue(value, section.FieldName)
-	return Marshal(field.Interface(), &subOpt)
+	field, err := gofields.GetValue(value.Interface(), section.FieldName)
+	if err != nil {
+		return "", err
+	}
+	return Marshal(field, &subOpt)
 }
 
 func formatGrid(grid [][]string) (string, error) {
@@ -381,33 +384,4 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	}
 
 	return results
-}
-
-// getFieldValue will extract a nested field from a Name ( e.g User.Address.Line1 )
-func getFieldValue(value reflect.Value, fieldName string) reflect.Value {
-	parts := strings.Split(fieldName, ".")
-
-	// Resolve all pointer level
-	for value.Kind() == reflect.Ptr {
-		value = value.Elem()
-	}
-
-	for _, part := range parts {
-		value = value.FieldByName(part)
-		if !value.IsValid() {
-			return value
-		}
-
-		// If value is Nil return invalid value
-		if value.Kind() == reflect.Ptr && value.IsNil() {
-			return reflect.Value{}
-		}
-
-		// Resolve all pointer level
-		for value.Kind() == reflect.Ptr {
-			value = value.Elem()
-		}
-	}
-
-	return value
 }
