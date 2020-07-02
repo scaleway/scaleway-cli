@@ -32,11 +32,11 @@ func (i infoResult) MarshalHuman() (string, error) {
 	return human.Marshal(tmp(i), &human.MarshalOpt{
 		Sections: []*human.MarshalSection{
 			{
-				FieldName: "build-info",
+				FieldName: "BuildInfo",
 				Title:     "Build Info",
 			},
 			{
-				FieldName: "settings",
+				FieldName: "Settings",
 				Title:     "Settings",
 			},
 		},

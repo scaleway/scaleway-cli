@@ -119,16 +119,17 @@ func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (strin
 	// Sections
 	opt.Sections = []*human.MarshalSection{
 		{
-			FieldName: "server",
+			FieldName: "Server",
 			Title:     "Server",
 		},
 		{
-			FieldName: "server.image",
+			FieldName: "Server.Image",
 			Title:     "Server Image",
 		}, {
-			FieldName: "server.allowed-actions",
+			FieldName: "Server.AllowedActions",
+			Title:     "Allowed Actions",
 		}, {
-			FieldName: "volumes",
+			FieldName: "Volumes",
 			Title:     "Volumes",
 		},
 	}

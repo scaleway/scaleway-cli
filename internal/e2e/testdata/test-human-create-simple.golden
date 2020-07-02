@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-id                      0194fdc2-fa2f-fcc0-41d3-ff12045b73c8
-organization-id         11111111-1111-1111-1111-111111111111
-created-at              few seconds ago
-updated-at              few seconds ago
-height                  0
-shoe-size               0
-altitude-in-meter       0
-altitude-in-millimeter  0
-fingers-count           0
-hair-count              0
-is-happy                false
-eyes-color              unknown
-status                  stopped
-name                    -
-region                  fr-par
+ID                    0194fdc2-fa2f-fcc0-41d3-ff12045b73c8
+OrganizationID        11111111-1111-1111-1111-111111111111
+CreatedAt             few seconds ago
+UpdatedAt             few seconds ago
+Height                0
+ShoeSize              0
+AltitudeInMeter       0
+AltitudeInMillimeter  0
+FingersCount          0
+HairCount             0
+IsHappy               false
+EyesColor             unknown
+Status                stopped
+Name                  -
+Region                fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
