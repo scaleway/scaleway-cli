@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    ADDRESS        REVERSE  ORGANIZATION                          SERVER ID                             SERVER NAME  TAGS  ZONE
-8ed1c207-86db-4e60-84cd-0a4e84031239  51.15.253.183           951df375-e094-4d26-97c1-ba548eeb9c42  fa37ff62-4665-4b94-93bf-385d264a7b4d  juju         []    fr-par-1
-10d0c80b-25a4-4cfd-b71f-9e6c196ada1b  51.15.248.118           951df375-e094-4d26-97c1-ba548eeb9c42                                                     []    fr-par-1
+ID                                    ADDRESS        REVERSE  ORGANIZATION                          SERVER ID                             SERVER  NAME  TAGS  ZONE
+8ed1c207-86db-4e60-84cd-0a4e84031239  51.15.253.183           951df375-e094-4d26-97c1-ba548eeb9c42  fa37ff62-4665-4b94-93bf-385d264a7b4d  juju          []    fr-par-1
+10d0c80b-25a4-4cfd-b71f-9e6c196ada1b  51.15.248.118           951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
