@@ -169,40 +169,40 @@ func k8sClusterList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "status",
+				FieldName: "Status",
 			},
 			{
-				FieldName: "version",
+				FieldName: "Version",
 			},
 			{
-				FieldName: "region",
+				FieldName: "Region",
 			},
 			{
-				FieldName: "organization_id",
+				FieldName: "OrganizationID",
 			},
 			{
-				FieldName: "tags",
+				FieldName: "Tags",
 			},
 			{
-				FieldName: "cni",
+				FieldName: "Cni",
 			},
 			{
-				FieldName: "description",
+				FieldName: "Description",
 			},
 			{
-				FieldName: "cluster_url",
+				FieldName: "ClusterURL",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 		}},
 	}
@@ -733,16 +733,16 @@ func k8sClusterListAvailableVersions() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "label",
+				FieldName: "Label",
 			},
 			{
-				FieldName: "available_ingresses",
+				FieldName: "AvailableIngresses",
 			},
 			{
-				FieldName: "available_container_runtimes",
+				FieldName: "AvailableContainerRuntimes",
 			},
 		}},
 	}
@@ -857,55 +857,55 @@ func k8sPoolList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "status",
+				FieldName: "Status",
 			},
 			{
-				FieldName: "node_type",
+				FieldName: "NodeType",
 			},
 			{
-				FieldName: "size",
+				FieldName: "Size",
 			},
 			{
-				FieldName: "min_size",
+				FieldName: "MinSize",
 			},
 			{
-				FieldName: "max_size",
+				FieldName: "MaxSize",
 			},
 			{
-				FieldName: "autoscaling",
+				FieldName: "Autoscaling",
 			},
 			{
-				FieldName: "autohealing",
+				FieldName: "Autohealing",
 			},
 			{
-				FieldName: "version",
+				FieldName: "Version",
 			},
 			{
-				FieldName: "tags",
+				FieldName: "Tags",
 			},
 			{
-				FieldName: "container_runtime",
+				FieldName: "ContainerRuntime",
 			},
 			{
-				FieldName: "cluster_id",
+				FieldName: "ClusterID",
 			},
 			{
-				FieldName: "region",
+				FieldName: "Region",
 			},
 			{
-				FieldName: "placement_group_id",
+				FieldName: "PlacementGroupID",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 		}},
 	}
@@ -1271,34 +1271,34 @@ func k8sNodeList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "status",
+				FieldName: "Status",
 			},
 			{
-				FieldName: "public_ip_v4",
+				FieldName: "PublicIPV4",
 			},
 			{
-				FieldName: "public_ip_v6",
+				FieldName: "PublicIPV6",
 			},
 			{
-				FieldName: "pool_id",
+				FieldName: "PoolID",
 			},
 			{
-				FieldName: "cluster_id",
+				FieldName: "ClusterID",
 			},
 			{
-				FieldName: "region",
+				FieldName: "Region",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 		}},
 	}
@@ -1433,22 +1433,22 @@ func k8sVersionList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "available_cnis",
+				FieldName: "AvailableCnis",
 			},
 			{
-				FieldName: "available_ingresses",
+				FieldName: "AvailableIngresses",
 			},
 			{
-				FieldName: "available_container_runtimes",
+				FieldName: "AvailableContainerRuntimes",
 			},
 			{
-				FieldName: "available_feature_gates",
+				FieldName: "AvailableFeatureGates",
 			},
 			{
-				FieldName: "available_admission_plugins",
+				FieldName: "AvailableAdmissionPlugins",
 			},
 		}},
 	}

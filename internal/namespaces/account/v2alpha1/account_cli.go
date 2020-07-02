@@ -90,28 +90,28 @@ func accountSSHKeyList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "id",
+				FieldName: "ID",
 			},
 			{
-				FieldName: "name",
+				FieldName: "Name",
 			},
 			{
-				FieldName: "created_at",
+				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "updated_at",
+				FieldName: "UpdatedAt",
 			},
 			{
-				FieldName: "organization_id",
+				FieldName: "OrganizationID",
 			},
 			{
-				FieldName: "creation_info.address",
+				FieldName: "CreationInfo.Address",
 			},
 			{
-				FieldName: "creation_info.country_code",
+				FieldName: "CreationInfo.CountryCode",
 			},
 			{
-				FieldName: "creation_info.user_agent",
+				FieldName: "CreationInfo.UserAgent",
 			},
 		}},
 	}
