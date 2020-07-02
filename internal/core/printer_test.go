@@ -7,7 +7,6 @@ import (
 )
 
 func Test_CorePrinter(t *testing.T) {
-
 	type Human struct {
 		ID   string `json:"id"`
 		Name string `json:"name"`
