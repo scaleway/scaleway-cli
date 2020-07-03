@@ -13,7 +13,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        argsI.(*rdb.CreateInstanceRequest).Region,
+			Region:        respI.(*rdb.Instance).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

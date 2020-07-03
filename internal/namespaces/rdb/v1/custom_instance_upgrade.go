@@ -13,7 +13,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        argsI.(*rdb.UpgradeInstanceRequest).Region,
+			Region:        respI.(*rdb.Instance).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
