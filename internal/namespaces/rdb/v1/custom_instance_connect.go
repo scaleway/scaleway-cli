@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -43,7 +44,7 @@ func passwordFileExist(ctx context.Context, family engineFamily) bool {
 	case PostgreSQL:
 		switch runtime.GOOS {
 		case "windows":
-			passwordFilePath = path.Join(core.ExtractUserHomeDir(ctx), os.Getenv("APPDATA"), "postgresql", "pgpass.conf")
+			passwordFilePath = path.Join(core.ExtractUserHomeDir(ctx), core.ExtractEnv(ctx, "APPDATA"), "postgresql", "pgpass.conf")
 		default:
 			passwordFilePath = path.Join(core.ExtractUserHomeDir(ctx), ".pgpass")
 		}
@@ -83,15 +84,15 @@ func detectEngineFamily(instance *rdb.Instance) (engineFamily, error) {
 	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
 }
 
-func createCommandLineArgs(instance *rdb.Instance, family engineFamily, args *instanceConnectArgs) ([]string, error) {
+func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, args *instanceConnectArgs) ([]string, error) {
 	database := "rdb"
+	if args.Database != nil {
+		database = *args.Database
+	}
 
 	switch family {
 	case PostgreSQL:
 		tool := "psql"
-		if args.Database != nil {
-			database = *args.Database
-		}
 		if args.Tool != nil {
 			tool = *args.Tool
 		}
@@ -106,9 +107,6 @@ func createCommandLineArgs(instance *rdb.Instance, family engineFamily, args *in
 		}, nil
 	case MySQL:
 		tool := "mysql"
-		if args.Database != nil {
-			database = *args.Database
-		}
 		if args.Tool != nil {
 			tool = *args.Tool
 		}
@@ -156,14 +154,14 @@ func instanceConnectCommand() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
-		Run: func(ctx context.Context, args interface{}) (interface{}, error) {
-			request := args.(*instanceConnectArgs)
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*instanceConnectArgs)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			instance, err := api.GetInstance(&rdb.GetInstanceRequest{
-				Region:     request.Region,
-				InstanceID: request.InstanceID,
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
 			})
 			if err != nil {
 				return nil, err
@@ -174,18 +172,17 @@ func instanceConnectCommand() *core.Command {
 				return nil, err
 			}
 
-			cmd, err := createCommandLineArgs(instance, engineFamily, request)
+			cmd, err := createConnectCommandLineArgs(instance, engineFamily, args)
 			if err != nil {
 				return nil, err
 			}
 
 			if !passwordFileExist(ctx, engineFamily) {
-				fmt.Println(passwordFileHint(engineFamily))
+				interactive.Println(passwordFileHint(engineFamily))
 			}
 
 			// Run command
-			c := exec.Command(cmd[0], cmd[1:]...) // nolint:gosec
-			exitCode, err := core.ExecCmd(ctx, c)
+			exitCode, err := core.ExecCmd(ctx, exec.Command(cmd[0], cmd[1:]...))
 
 			if err != nil {
 				return nil, err
