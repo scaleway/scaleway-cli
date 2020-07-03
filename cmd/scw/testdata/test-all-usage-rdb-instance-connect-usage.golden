@@ -9,7 +9,7 @@ ARGS:
   instance-id       UUID of the instance
   username          Name of the user to connect with to the database
   [database]        Name of the database
-  [tool]            Command line tool to use, default to psql/mysql
+  [cli-db]          Command line tool to use, default to psql/mysql
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

@@ -21,7 +21,7 @@ type instanceConnectArgs struct {
 	InstanceID string
 	Username   string
 	Database   *string
-	Tool       *string
+	CliDB      *string
 }
 
 type engineFamily string
@@ -92,28 +92,28 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 
 	switch family {
 	case PostgreSQL:
-		tool := "psql"
-		if args.Tool != nil {
-			tool = *args.Tool
+		clidb := "psql"
+		if args.CliDB != nil {
+			clidb = *args.CliDB
 		}
 
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
-			tool,
+			clidb,
 			"--host", instance.Endpoint.IP.String(),
 			"--port", fmt.Sprintf("%d", instance.Endpoint.Port),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
 	case MySQL:
-		tool := "mysql"
-		if args.Tool != nil {
-			tool = *args.Tool
+		clidb := "mysql"
+		if args.CliDB != nil {
+			clidb = *args.CliDB
 		}
 
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
-			tool,
+			clidb,
 			"--host", instance.Endpoint.IP.String(),
 			"--port", fmt.Sprintf("%d", instance.Endpoint.Port),
 			"--database", database,
@@ -149,7 +149,7 @@ func instanceConnectCommand() *core.Command {
 				Short: "Name of the database",
 			},
 			{
-				Name:  "tool",
+				Name:  "cli-db",
 				Short: "Command line tool to use, default to psql/mysql",
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
