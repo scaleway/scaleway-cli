@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/internal/gofields"
 	"github.com/scaleway/scaleway-cli/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -223,6 +224,17 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		opt.Fields = getDefaultFieldsOpt(itemType)
 	}
 
+	// Validate that all field exist
+	for _, f := range opt.Fields {
+		_, err := gofields.GetType(itemType, f.FieldName)
+		if err != nil {
+			return "", &UnknownFieldError{
+				FieldName:   f.FieldName,
+				ValidFields: gofields.ListFields(itemType),
+			}
+		}
+	}
+
 	// We create a in memory grid of the content we want to print
 	grid := make([][]string, 0, slice.Len()+1)
 
@@ -238,26 +250,24 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		item := slice.Index(i)
 		row := []string(nil)
 		for _, fieldSpec := range opt.Fields {
-			fieldValue := getFieldValue(item, fieldSpec.FieldName)
-			str := ""
-			if fieldValue.IsValid() {
-				var err error
-				switch {
-				// Handle inline slice.
-				case fieldValue.Type().Kind() == reflect.Slice:
-					str, err = marshalInlineSlice(fieldValue)
-					if err != nil {
-						return "", err
-					}
-
-				default:
-					str, err = Marshal(fieldValue.Interface(), opt)
-					if err != nil {
-						return "", err
-					}
-				}
-			} else {
+			v, err := gofields.GetValue(item.Interface(), fieldSpec.FieldName)
+			if err != nil {
 				logger.Debugf("invalid getFieldValue(): '%v' might not be exported", fieldSpec.FieldName)
+				row = append(row, "")
+				continue
+			}
+			fieldValue := reflect.ValueOf(v)
+
+			str := ""
+			switch {
+			// Handle inline slice.
+			case fieldValue.Type().Kind() == reflect.Slice:
+				str, err = marshalInlineSlice(fieldValue)
+			default:
+				str, err = Marshal(fieldValue.Interface(), opt)
+			}
+			if err != nil {
+				return "", err
 			}
 			row = append(row, str)
 		}
@@ -306,8 +316,11 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	}
 	subOpt.Title = title
 
-	field := getFieldValue(value, section.FieldName)
-	return Marshal(field.Interface(), &subOpt)
+	field, err := gofields.GetValue(value.Interface(), section.FieldName)
+	if err != nil {
+		return "", err
+	}
+	return Marshal(field, &subOpt)
 }
 
 func formatGrid(grid [][]string) (string, error) {
@@ -324,11 +337,11 @@ func formatGrid(grid [][]string) (string, error) {
 // computeMaxCols calculates how many row we can fit in terminal width.
 func computeMaxCols(grid [][]string) int {
 	maxCols := len(grid[0])
+	width := terminal.GetWidth()
 	// If we are not writing to Stdout or through a tty Stdout, returns max length
-	if color.NoColor {
+	if color.NoColor || width == 0 {
 		return maxCols
 	}
-	width := terminal.GetWidth()
 	colMaxSize := make([]int, len(grid[0]))
 	for i := 0; i < len(grid); i++ {
 		lineSize := 0
@@ -371,33 +384,4 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	}
 
 	return results
-}
-
-// getFieldValue will extract a nested field from a Name ( e.g User.Address.Line1 )
-func getFieldValue(value reflect.Value, fieldName string) reflect.Value {
-	parts := strings.Split(fieldName, ".")
-
-	// Resolve all pointer level
-	for value.Kind() == reflect.Ptr {
-		value = value.Elem()
-	}
-
-	for _, part := range parts {
-		value = value.FieldByName(strcase.ToPublicGoName(part))
-		if !value.IsValid() {
-			return value
-		}
-
-		// If value is Nil return invalid value
-		if value.Kind() == reflect.Ptr && value.IsNil() {
-			return reflect.Value{}
-		}
-
-		// Resolve all pointer level
-		for value.Kind() == reflect.Ptr {
-			value = value.Elem()
-		}
-	}
-
-	return value
 }
