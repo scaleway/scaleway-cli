@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   update      Update an instance
   upgrade     Upgrade an instance to an higher instance type
   wait        Wait for an instance to reach a stable state
+  connect     Connect to an instance using local database cli
 
 FLAGS:
   -h, --help   help for instance
