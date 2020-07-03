@@ -172,7 +172,7 @@ func instanceConnectCommand() *core.Command {
 				return nil, err
 			}
 
-			cmd, err := createConnectCommandLineArgs(instance, engineFamily, args)
+			cmdArgs, err := createConnectCommandLineArgs(instance, engineFamily, args)
 			if err != nil {
 				return nil, err
 			}
@@ -182,7 +182,8 @@ func instanceConnectCommand() *core.Command {
 			}
 
 			// Run command
-			exitCode, err := core.ExecCmd(ctx, exec.Command(cmd[0], cmd[1:]...))
+			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			exitCode, err := core.ExecCmd(ctx, cmd)
 
 			if err != nil {
 				return nil, err
