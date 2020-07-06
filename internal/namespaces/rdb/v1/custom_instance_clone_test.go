@@ -12,9 +12,9 @@ func Test_CloneInstance(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"StartServer",
-			fmt.Sprintf("scw rdb instance create node-type=db-dev-s is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
+			fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
 		),
-		Cmd:       "scw rdb instance clone {{ .StartServer.ID }} node-type=db-dev-m name=foobar --wait",
+		Cmd:       "scw rdb instance clone {{ .StartServer.ID }} node-type=DB-DEV-M name=foobar --wait",
 		Check:     core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .StartServer.ID }}"),
 	}))
