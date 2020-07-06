@@ -14,6 +14,7 @@ import (
 func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	var combinedInterceptors CommandInterceptor
 	for _, interceptor := range interceptors {
+		// Avoid context leaking on the anonymous function below using a variable loop-scoped
 		localInterceptor := interceptor
 		if interceptor == nil {
 			continue
@@ -125,6 +126,7 @@ func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner Command
 	}
 	switch sdkValue := res.(type) {
 	case *scw.File:
+		ExtractLogger(ctx).Debug("Intercepting scw.File type, rendering as string")
 		fileContent, err := ioutil.ReadAll(sdkValue.Content)
 		if err != nil {
 			return nil, err

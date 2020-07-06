@@ -64,5 +64,4 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 		},
 		Expected: []string{"A", "B", "C", "runner"},
 	}))
-
 }
