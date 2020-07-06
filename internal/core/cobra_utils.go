@@ -136,6 +136,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	// execute the command
 	interceptor := combineCommandInterceptor(
 		sdkStdErrorInterceptor,
+		sdkStdTypeInterceptor,
 		cmd.Interceptor,
 	)
 

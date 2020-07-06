@@ -55,4 +55,14 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 		},
 		Expected: []string{"A", "B", "runner"},
 	}))
+
+	t.Run("with three interceptor", run(&TestCase{
+		Interceptors: []CommandInterceptor{
+			newInterceptor("A"),
+			newInterceptor("B"),
+			newInterceptor("C"),
+		},
+		Expected: []string{"A", "B", "C", "runner"},
+	}))
+
 }
