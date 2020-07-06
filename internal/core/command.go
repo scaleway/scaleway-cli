@@ -189,7 +189,7 @@ func (c *Commands) find(path ...string) (*Command, bool) {
 	return nil, false
 }
 
-// GetSortedCommand returns a slice of command sorted alphabetically
+// GetSortedCommand returns a slice of commands sorted alphabetically
 func (c *Commands) GetSortedCommand() []*Command {
 	commands := make([]*Command, len(c.commands))
 	copy(commands, c.commands)
