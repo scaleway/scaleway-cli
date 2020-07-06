@@ -9,9 +9,8 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
-type tplResource struct {
-	Cmd   *core.Command
-	Verbs map[string]*core.Command
+type tplData struct {
+	Namespaces map[string]*tplNamespace
 }
 
 type tplNamespace struct {
@@ -19,12 +18,14 @@ type tplNamespace struct {
 	Resources map[string]*tplResource
 }
 
-type tplData struct {
-	Namespaces map[string]*tplNamespace
+type tplResource struct {
+	Cmd   *core.Command
+	Verbs map[string]*core.Command
 }
 
 // Generate markdown documentation for a given list of commands
 func GenerateDocs(commands *core.Commands, outDir string) error {
+	// Prepare data that will be sent to template engine
 	data := &tplData{
 		Namespaces: map[string]*tplNamespace{},
 	}

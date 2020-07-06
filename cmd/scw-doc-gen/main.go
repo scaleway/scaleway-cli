@@ -21,7 +21,7 @@ func main() {
 	}
 
 	if !stats.IsDir() {
-		panic(fmt.Errorf("outdir must be a valid directory"))
+		panic(fmt.Errorf("outdir %s must be a valid directory", *outDir))
 	}
 
 	err = docgen.GenerateDocs(commands, *outDir)
