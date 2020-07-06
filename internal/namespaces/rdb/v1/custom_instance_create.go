@@ -9,7 +9,7 @@ import (
 )
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("db-dev-s")
+	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
