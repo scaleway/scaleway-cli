@@ -11,7 +11,7 @@ import (
 )
 
 // createClient creates a Scaleway SDK client.
-func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
+func createClient(httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
 	_, err := scw.MigrateLegacyConfig()
 	if err != nil {
 		return nil, err
@@ -62,9 +62,7 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
 		scw.WithProfile(profile),
-		scw.WithHTTPClient(&http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
-		}),
+		scw.WithHTTPClient(httpClient),
 	}
 
 	client, err := scw.NewClient(opts...)
@@ -75,14 +73,12 @@ func createClient(buildInfo *BuildInfo, profileName string) (*scw.Client, error)
 	return client, nil
 }
 
-func createAnonymousClient(buildInfo *BuildInfo) (*scw.Client, error) {
+func createAnonymousClient(httpClient *http.Client, buildInfo *BuildInfo) (*scw.Client, error) {
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(buildInfo.GetUserAgent()),
-		scw.WithHTTPClient(&http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
-		}),
+		scw.WithHTTPClient(httpClient),
 	}
 
 	client, err := scw.NewClient(opts...)
