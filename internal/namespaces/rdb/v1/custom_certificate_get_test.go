@@ -1,6 +1,7 @@
 package rdb
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -11,9 +12,10 @@ func Test_CertificateGet(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Instance",
-			"scw rdb instance create name=foobar engine=PostgreSQL-12 user-name=foobar password=\"12345678pP.8\" node-type=db-dev-s",
+			fmt.Sprintf("scw rdb instance create node-type=db-dev-s is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
 		),
-		Cmd:   "scw rdb certificate get {{ .Instance.ID }}",
-		Check: core.TestCheckGolden(),
+		Cmd:       "scw rdb certificate get {{ .Instance.ID }}",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }}"),
 	}))
 }
