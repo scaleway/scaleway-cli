@@ -1,0 +1,84 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                        2fe91a35-e819-4691-bae5-33613fc841dc
+Name                      foobar
+OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
+Status                    ready
+Engine                    PostgreSQL-12
+Endpoint.IP               51.159.26.195
+Endpoint.Port             24332
+Settings.0.Name           work_mem
+Settings.0.Value          4
+Settings.1.Name           max_connections
+Settings.1.Value          100
+Settings.2.Name           effective_cache_size
+Settings.2.Value          1300
+Settings.3.Name           maintenance_work_mem
+Settings.3.Value          150
+Settings.4.Name           max_parallel_workers
+Settings.4.Value          0
+Settings.5.Name           max_parallel_workers_per_gather
+Settings.5.Value          0
+BackupSchedule.Frequency  24
+BackupSchedule.Retention  7
+BackupSchedule.Disabled   false
+IsHaCluster               false
+NodeType                  db-dev-m
+Volume.Type               lssd
+Volume.Size               25 GB
+CreatedAt                 few seconds ago
+Region                    fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "2fe91a35-e819-4691-bae5-33613fc841dc",
+  "name": "foobar",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "status": "ready",
+  "engine": "PostgreSQL-12",
+  "endpoint": {
+    "ip": "51.159.26.195",
+    "port": 24332,
+    "name": null
+  },
+  "tags": [],
+  "settings": [
+    {
+      "name": "work_mem",
+      "value": "4"
+    },
+    {
+      "name": "max_connections",
+      "value": "100"
+    },
+    {
+      "name": "effective_cache_size",
+      "value": "1300"
+    },
+    {
+      "name": "maintenance_work_mem",
+      "value": "150"
+    },
+    {
+      "name": "max_parallel_workers",
+      "value": "0"
+    },
+    {
+      "name": "max_parallel_workers_per_gather",
+      "value": "0"
+    }
+  ],
+  "backup_schedule": {
+    "frequency": 24,
+    "retention": 7,
+    "disabled": false
+  },
+  "is_ha_cluster": false,
+  "read_replicas": [],
+  "node_type": "db-dev-m",
+  "volume": {
+    "type": "lssd",
+    "size": 25000000000
+  },
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "region": "fr-par"
+}

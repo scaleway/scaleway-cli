@@ -14,6 +14,7 @@ AVAILABLE COMMANDS:
   update      Update an instance
   delete      Delete an instance
   metrics     Get instance metrics
+  wait        Wait for an instance to reach a stable state
 
 FLAGS:
   -h, --help   help for instance
