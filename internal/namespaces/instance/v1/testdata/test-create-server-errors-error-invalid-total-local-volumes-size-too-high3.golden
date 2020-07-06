@@ -6,8 +6,7 @@ Details:
 You must create an image of this volume and use its ID in the 'image' argument.
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
+  "message": "you cannot use an existing volume as a root volume",
   "error": {},
-  "details": "You must create an image of this volume and use its ID in the 'image' argument.",
-  "hint": ""
+  "details": "You must create an image of this volume and use its ID in the 'image' argument."
 }

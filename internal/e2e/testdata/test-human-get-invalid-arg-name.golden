@@ -6,8 +6,7 @@ Hint:
 Valid arguments are: human-id, region
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
+  "message": "unknown argument 'invalid'",
   "error": {},
-  "details": "",
   "hint": "Valid arguments are: human-id, region"
 }

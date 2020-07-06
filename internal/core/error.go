@@ -76,11 +76,16 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		type emptyRes struct{}
 		return json.Marshal(&emptyRes{})
 	}
+
+	if s.Message == "" && s.Err != nil {
+		s.Message = s.Err.Error()
+	}
+
 	type tmpRes struct {
-		Message string `json:"message"`
-		Error   error  `json:"error"`
-		Details string `json:"details"`
-		Hint    string `json:"hint"`
+		Message string `json:"message,omitempty"`
+		Error   error  `json:"error,omitempty"`
+		Details string `json:"details,omitempty"`
+		Hint    string `json:"hint,omitempty"`
 	}
 	return json.Marshal(&tmpRes{
 		Message: s.Message,
