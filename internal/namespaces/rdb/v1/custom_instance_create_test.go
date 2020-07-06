@@ -1,28 +1,17 @@
 package rdb
 
-//
-//func Test_CreateInstance(t *testing.T) {
-//	// Simple use cases
-//	t.Run("Simple", func(t *testing.T) {
-//		t.Run("Default", core.Test(&core.TestConfig{
-//			Commands: GetCommands(),
-//			Cmd:      "scw rdb instance clone -w",
-//			Check: core.TestCheckCombine(
-//				core.TestCheckGolden(),
-//				core.TestCheckExitCode(0),
-//			),
-//			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-//				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
-//					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-//				})
-//				if err != nil {
-//					return err
-//				}
-//				return nil
-//			},
-//			DefaultZone: scw.ZoneFrPar2,
-//		}))
-//	}
-//
-//}
-//
+import (
+	"fmt"
+	"testing"
+
+	"github.com/scaleway/scaleway-cli/internal/core"
+)
+
+func Test_CreateInstance(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:  GetCommands(),
+		Cmd:       fmt.Sprintf("scw rdb instance create node-type=db-dev-s is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
+		Check:     core.TestCheckGolden(),
+		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
+}
