@@ -3,15 +3,15 @@ package rdb
 import "github.com/scaleway/scaleway-cli/internal/core"
 
 var nodeTypes = []string{
-	"db-dev-s",
-	"db-dev-m",
-	"db-dev-l",
-	"db-dev-xl",
-	"db-gp-xs",
-	"db-gp-s",
-	"db-gp-m",
-	"db-gp-l",
-	"db-gp-xl",
+	"DB-DEV-S",
+	"DB-DEV-M",
+	"DB-DEV-L",
+	"DB-DEV-XL",
+	"DB-GP-XS",
+	"DB-GP-S",
+	"DB-GP-M",
+	"DB-GP-L",
+	"DB-GP-XL",
 }
 
 func GetCommands() *core.Commands {
