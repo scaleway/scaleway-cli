@@ -12,7 +12,6 @@ func Test_EngineList(t *testing.T) {
 		Cmd:      "scw rdb engine list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 	}))
 }
