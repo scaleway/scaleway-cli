@@ -77,8 +77,9 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&emptyRes{})
 	}
 
-	if s.Message == "" && s.Err != nil {
-		s.Message = s.Err.Error()
+	message := s.Message
+	if message == "" && s.Err != nil {
+		message = s.Err.Error()
 	}
 
 	type tmpRes struct {
@@ -88,7 +89,7 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		Hint    string `json:"hint,omitempty"`
 	}
 	return json.Marshal(&tmpRes{
-		Message: s.Message,
+		Message: message,
 		Error:   s.Err,
 		Details: s.Details,
 		Hint:    s.Hint,
