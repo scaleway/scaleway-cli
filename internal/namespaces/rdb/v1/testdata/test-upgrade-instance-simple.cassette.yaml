@@ -2,7 +2,7 @@
 version: 1
 interactions:
 - request:
-    body: '{"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-test","engine":"PostgreSQL-12","user_name":"foobar","password":"{4xdl*#QOoP+\u00263XRkGA)]","node_type":"db-dev-s","is_ha_cluster":false,"disable_backup":false,"tags":null}'
+    body: '{"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-test","engine":"PostgreSQL-12","user_name":"foobar","password":"{4xdl*#QOoP+\u00263XRkGA)]","node_type":"DB-DEV-S","is_ha_cluster":false,"disable_backup":false,"tags":null}'
     form: {}
     headers:
       Content-Type:
@@ -548,7 +548,7 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: '{"node_type":"db-dev-m"}'
+    body: '{"node_type":"DB-DEV-M"}'
     form: {}
     headers:
       Content-Type:

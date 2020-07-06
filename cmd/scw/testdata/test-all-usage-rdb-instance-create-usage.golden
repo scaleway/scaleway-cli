@@ -6,16 +6,16 @@ USAGE:
   scw rdb instance create [arg=value ...]
 
 ARGS:
-  name                Name of the instance
-  engine              Database engine of the database (PostgreSQL, MySQL, ...)
-  user-name           Name of the user created when the instance is created
-  password            Password of the user
-  node-type           Type of node to use for the instance (DEV1-S, ...)
-  [is-ha-cluster]     Whether or not High-Availability is enabled
-  [disable-backup]    Whether or not backups are disabled
-  [tags.{index}]      Tags to apply to the instance
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  name                 Name of the instance
+  engine               Database engine of the database (PostgreSQL, MySQL, ...)
+  user-name            Name of the user created when the instance is created
+  password             Password of the user
+  node-type=DB-DEV-S   Type of node to use for the instance (DEV1-S, ...) (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
+  [is-ha-cluster]      Whether or not High-Availability is enabled
+  [disable-backup]     Whether or not backups are disabled
+  [tags.{index}]       Tags to apply to the instance
+  [organization-id]    Organization ID to use. If none is passed will use default organization ID from the config
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for create
