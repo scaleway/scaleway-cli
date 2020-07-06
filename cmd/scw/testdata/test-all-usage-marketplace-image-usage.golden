@@ -6,8 +6,8 @@ USAGE:
   scw marketplace image <command>
 
 AVAILABLE COMMANDS:
-  list        List marketplace images
   get         Get a specific marketplace image
+  list        List marketplace images
 
 FLAGS:
   -h, --help   help for image

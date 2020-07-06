@@ -8,10 +8,10 @@ USAGE:
   scw k8s node <command>
 
 AVAILABLE COMMANDS:
-  list        List all the nodes in a cluster
   get         Get a node in a cluster
-  replace     Replace a node in a cluster
+  list        List all the nodes in a cluster
   reboot      Reboot a node in a cluster
+  replace     Replace a node in a cluster
   wait        Wait for a node to reach a stable state
 
 FLAGS:

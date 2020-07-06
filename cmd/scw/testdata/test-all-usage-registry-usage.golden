@@ -6,12 +6,12 @@ USAGE:
   scw registry <command>
 
 AVAILABLE COMMANDS:
-  namespace             A namespace is for images what a folder is for files
   image                 An image represents a container image
-  tag                   A tag represents a container tag of an image
+  install-docker-helper Install a local Docker credential helper
   login                 Login to a registry
   logout                Logout of a registry
-  install-docker-helper Install a local Docker credential helper
+  namespace             A namespace is for images what a folder is for files
+  tag                   A tag represents a container tag of an image
 
 FLAGS:
   -h, --help   help for registry

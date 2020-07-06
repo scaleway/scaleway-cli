@@ -6,15 +6,15 @@ USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
-  list        List servers
-  get         Get server
   create      Create server
-  update      Update server
-  install     Install server
   delete      Delete server
+  get         Get server
+  install     Install server
+  list        List servers
   reboot      Reboot server
   start       Start server
   stop        Stop server
+  update      Update server
   wait        Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:

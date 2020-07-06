@@ -6,8 +6,8 @@ USAGE:
   scw baremetal os <command>
 
 AVAILABLE COMMANDS:
-  list        List OS
   get         Get OS
+  list        List OS
 
 FLAGS:
   -h, --help   help for os

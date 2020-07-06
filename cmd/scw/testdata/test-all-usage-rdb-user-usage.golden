@@ -6,10 +6,10 @@ USAGE:
   scw rdb user <command>
 
 AVAILABLE COMMANDS:
-  list        List users of a given instance
   create      Create an user in a given instance
-  update      Update an user in a given instance
   delete      Delete an user in a given instance
+  list        List users of a given instance
+  update      Update an user in a given instance
 
 FLAGS:
   -h, --help   help for user

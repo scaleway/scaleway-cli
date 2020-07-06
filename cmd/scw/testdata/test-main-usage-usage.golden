@@ -4,20 +4,19 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  instance     Instance API
-  baremetal    Baremetal API
-  k8s          This API allows you to manage your Kapsule clusters
-  marketplace  Marketplace API
-  init         Initialize the config
-  config       Config file management
   account      This API allows to manage your scaleway account
-  autocomplete Install autocomplete script
-  object       Object-storage utils
-  version      Display cli version
-  registry     Docker registry API
+  baremetal    Baremetal API
+  config       Config file management
   feedback     Send feedback to the Scaleway CLI Team!
   info         Get info about current settings
+  init         Initialize the config
+  instance     Instance API
+  k8s          This API allows you to manage your Kapsule clusters
+  marketplace  Marketplace API
+  object       Object-storage utils
   rdb          Database RDB API
+  registry     Docker registry API
+  version      Display cli version
   help         Help about any command
 
 FLAGS:
