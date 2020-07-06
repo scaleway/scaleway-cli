@@ -6,9 +6,9 @@ USAGE:
   scw rdb database <command>
 
 AVAILABLE COMMANDS:
-  list        List all database in a given instance
   create      Create a database in a given instance
   delete      Delete a database in a given instance
+  list        List all database in a given instance
 
 FLAGS:
   -h, --help   help for database

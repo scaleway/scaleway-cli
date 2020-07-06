@@ -6,8 +6,8 @@ USAGE:
   scw baremetal <command>
 
 AVAILABLE COMMANDS:
-  server      A server is a denomination of a type of instances provided by Scaleway
   os          An Operating System (OS) is the underlying software installed on your server
+  server      A server is a denomination of a type of instances provided by Scaleway
 
 FLAGS:
   -h, --help   help for baremetal

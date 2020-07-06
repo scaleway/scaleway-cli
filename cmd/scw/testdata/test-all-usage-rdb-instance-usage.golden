@@ -7,13 +7,13 @@ USAGE:
 
 AVAILABLE COMMANDS:
   clone       Clone an instance
-  upgrade     Upgrade an instance to an higher instance type
-  list        List instances
-  get         Get an instance
   create      Create an instance
-  update      Update an instance
   delete      Delete an instance
+  get         Get an instance
+  list        List instances
   metrics     Get instance metrics
+  update      Update an instance
+  upgrade     Upgrade an instance to an higher instance type
   wait        Wait for an instance to reach a stable state
 
 FLAGS:

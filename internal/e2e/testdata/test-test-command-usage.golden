@@ -12,8 +12,8 @@ USAGE:
   scw test <command>
 
 AVAILABLE COMMANDS:
-  user        
   human       
+  user        
 
 FLAGS:
   -h, --help   help for test

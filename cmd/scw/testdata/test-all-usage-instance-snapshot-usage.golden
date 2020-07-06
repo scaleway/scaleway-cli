@@ -16,10 +16,10 @@ USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  list        List snapshots
   create      Create snapshot
-  get         Get snapshot
   delete      Delete snapshot
+  get         Get snapshot
+  list        List snapshots
   wait        Wait for snapshot to reach a stable state
 
 FLAGS:

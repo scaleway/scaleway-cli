@@ -6,13 +6,13 @@ USAGE:
   scw rdb backup <command>
 
 AVAILABLE COMMANDS:
-  list        List database backups
   create      Create a database backup
-  get         Get a database backup
-  update      Update a database backup
   delete      Delete a database backup
-  restore     Restore a database backup
   export      Export a database backup
+  get         Get a database backup
+  list        List database backups
+  restore     Restore a database backup
+  update      Update a database backup
 
 FLAGS:
   -h, --help   help for backup

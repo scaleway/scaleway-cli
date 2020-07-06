@@ -9,10 +9,10 @@ USAGE:
   scw registry image <command>
 
 AVAILABLE COMMANDS:
-  list        List all your images
-  get         Get a image
-  update      Update an existing image
   delete      Delete an image
+  get         Get a image
+  list        List all your images
+  update      Update an existing image
 
 FLAGS:
   -h, --help   help for image

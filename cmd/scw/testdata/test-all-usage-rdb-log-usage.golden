@@ -4,8 +4,8 @@ USAGE:
   scw rdb log <command>
 
 AVAILABLE COMMANDS:
-  prepare     Prepare logs of a given instance
   list        List available logs of a given instance
+  prepare     Prepare logs of a given instance
 
 FLAGS:
   -h, --help   help for log

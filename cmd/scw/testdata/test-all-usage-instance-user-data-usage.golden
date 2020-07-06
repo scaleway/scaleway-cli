@@ -16,10 +16,10 @@ USAGE:
   scw instance user-data <command>
 
 AVAILABLE COMMANDS:
-  list        List user data
   delete      Delete user data
-  set         Add/Set user data
   get         Get user data
+  list        List user data
+  set         Add/Set user data
 
 FLAGS:
   -h, --help   help for user-data

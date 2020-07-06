@@ -35,11 +35,11 @@ USAGE:
   scw instance volume <command>
 
 AVAILABLE COMMANDS:
-  list        List volumes
   create      Create volume
-  get         Get volume
-  update      Update volume
   delete      Delete volume
+  get         Get volume
+  list        List volumes
+  update      Update volume
 
 FLAGS:
   -h, --help   help for volume
