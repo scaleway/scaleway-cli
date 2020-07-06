@@ -3,8 +3,6 @@
 Missing required argument 'image'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
-  "error": {},
-  "details": "",
-  "hint": ""
+  "message": "missing required argument 'image'",
+  "error": {}
 }

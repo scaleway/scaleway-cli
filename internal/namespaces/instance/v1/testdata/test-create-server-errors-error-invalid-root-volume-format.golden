@@ -6,8 +6,7 @@ Hint:
 You must provide either a UUID ("11111111-1111-1111-1111-111111111111"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
+  "message": "invalid volume format '20GB'",
   "error": {},
-  "details": "",
   "hint": "You must provide either a UUID (\"11111111-1111-1111-1111-111111111111\"), a local volume size (\"local:100G\" or \"l:100G\") or a block volume size (\"block:100G\" or \"b:100G\")."
 }

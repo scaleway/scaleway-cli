@@ -6,7 +6,5 @@ Server is not delivered
   "message": "server is not delivered",
   "error": {
     "message": "server is not delivered"
-  },
-  "details": "",
-  "hint": ""
+  }
 }
