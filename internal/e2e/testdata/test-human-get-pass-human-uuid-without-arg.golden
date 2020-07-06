@@ -7,7 +7,5 @@ Cannot find resource 'human' with ID '11111111-1111-1111-1111-111111111111'
   "error": {
     "resource": "human",
     "resource_id": "11111111-1111-1111-1111-111111111111"
-  },
-  "details": "",
-  "hint": ""
+  }
 }
