@@ -2,97 +2,147 @@
 # Documentation for scw registry
 
 - docker-helper
-
-  - [erase]("#docker-helper-erase")
-  - [get]("#docker-helper-get")
-  - [list]("#docker-helper-list")
-  - [store]("#docker-helper-store")
-
+    
+      - [erase]("#docker-helper-erase")
+      - [get]("#docker-helper-get")
+      - [list]("#docker-helper-list")
+      - [store]("#docker-helper-store")
 - image
-
-  - [delete]("#image-delete")
-  - [get]("#image-get")
-  - [list]("#image-list")
-  - [update]("#image-update")
-
+    
+      - [delete]("#image-delete")
+      - [get]("#image-get")
+      - [list]("#image-list")
+      - [update]("#image-update")
 - [install-docker-helper]("#install-docker-helper")
-
-
+  
 - [login]("#login")
-
-
+  
 - [logout]("#logout")
-
-
+  
 - namespace
-
-  - [create]("#namespace-create")
-  - [delete]("#namespace-delete")
-  - [get]("#namespace-get")
-  - [list]("#namespace-list")
-  - [update]("#namespace-update")
-
+    
+      - [create]("#namespace-create")
+      - [delete]("#namespace-delete")
+      - [get]("#namespace-get")
+      - [list]("#namespace-list")
+      - [update]("#namespace-update")
 - tag
-
-  - [delete]("#tag-delete")
-  - [get]("#tag-get")
-  - [list]("#tag-list")
-
+    
+      - [delete]("#tag-delete")
+      - [get]("#tag-get")
+      - [list]("#tag-list")
 
 
 ## scw registry docker-helper
+  
+      ### scw registry docker-helper erase
+      ** Usage **:  registry docker-helper erase
+** Short **:  
+** Long **:  
 
-### scw registry docker-helper erase
-This is documentation for registry docker-helper erase
-### scw registry docker-helper get
-This is documentation for registry docker-helper get
-### scw registry docker-helper list
-This is documentation for registry docker-helper list
-### scw registry docker-helper store
-This is documentation for registry docker-helper store
+      ### scw registry docker-helper get
+      ** Usage **:  registry docker-helper get
+** Short **:  
+** Long **:  
+
+      ### scw registry docker-helper list
+      ** Usage **:  registry docker-helper list
+** Short **:  
+** Long **:  
+
+      ### scw registry docker-helper store
+      ** Usage **:  registry docker-helper store
+** Short **:  
+** Long **:  
 
 ## scw registry image
+  
+      ### scw registry image delete
+      ** Usage **:  registry image delete
+** Short **:  Delete an image
+** Long **:  Delete the image associated with the given id.
 
-### scw registry image delete
-This is documentation for registry image delete
-### scw registry image get
-This is documentation for registry image get
-### scw registry image list
-This is documentation for registry image list
-### scw registry image update
-This is documentation for registry image update
+      ### scw registry image get
+      ** Usage **:  registry image get
+** Short **:  Get a image
+** Long **:  Get the image associated with the given id.
+
+      ### scw registry image list
+      ** Usage **:  registry image list
+** Short **:  List all your images
+** Long **:  List all your images.
+
+      ### scw registry image update
+      ** Usage **:  registry image update
+** Short **:  Update an existing image
+** Long **:  Update the image associated with the given id.
 
 ## scw registry install-docker-helper
-This is documentation for registry install-docker-helper 
+  ** Usage **:  registry install-docker-helper 
+** Short **:  Install a local Docker credential helper
+** Long **:  This command will install the Docker credential helper for your account.
+
+It will create a new script named docker-credential-scw. 
+This script will be called each time Docker needs the credentials and will return the correct credentials.
+It avoid running docker login commands.
 
 
+  
 ## scw registry login
-This is documentation for registry login 
+  ** Usage **:  registry login 
+** Short **:  Login to a registry
+** Long **:  This command will run the correct command in order to log you in on the registry with the chosen program.
+You will need to have the chosen binary installed on your system and in your PATH.
 
-
+  
 ## scw registry logout
-This is documentation for registry logout 
+  ** Usage **:  registry logout 
+** Short **:  Logout of a registry
+** Long **:  This command will run the correct command in order to log you out of the registry with the chosen program.
+You will need to have the chosen binary installed on your system and in your PATH.
 
-
+  
 ## scw registry namespace
+  
+      ### scw registry namespace create
+      ** Usage **:  registry namespace create
+** Short **:  Create a new namespace
+** Long **:  Create a new namespace.
 
-### scw registry namespace create
-This is documentation for registry namespace create
-### scw registry namespace delete
-This is documentation for registry namespace delete
-### scw registry namespace get
-This is documentation for registry namespace get
-### scw registry namespace list
-This is documentation for registry namespace list
-### scw registry namespace update
-This is documentation for registry namespace update
+      ### scw registry namespace delete
+      ** Usage **:  registry namespace delete
+** Short **:  Delete an existing namespace
+** Long **:  Delete the namespace associated with the given id.
+
+      ### scw registry namespace get
+      ** Usage **:  registry namespace get
+** Short **:  Get a namespace
+** Long **:  Get the namespace associated with the given id.
+
+      ### scw registry namespace list
+      ** Usage **:  registry namespace list
+** Short **:  List all your namespaces
+** Long **:  List all your namespaces.
+
+      ### scw registry namespace update
+      ** Usage **:  registry namespace update
+** Short **:  Update an existing namespace
+** Long **:  Update the namespace associated with the given id.
 
 ## scw registry tag
+  
+      ### scw registry tag delete
+      ** Usage **:  registry tag delete
+** Short **:  Delete a tag
+** Long **:  Delete the tag associated with the given id.
 
-### scw registry tag delete
-This is documentation for registry tag delete
-### scw registry tag get
-This is documentation for registry tag get
-### scw registry tag list
-This is documentation for registry tag list
+      ### scw registry tag get
+      ** Usage **:  registry tag get
+** Short **:  Get a tag
+** Long **:  Get the tag associated with the given id.
+
+      ### scw registry tag list
+      ** Usage **:  registry tag list
+** Short **:  List all your tags
+** Long **:  List all your tags.
 

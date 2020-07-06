@@ -2,28 +2,54 @@
 # Documentation for scw account
 
 - ssh-key
-
-  - [add]("#ssh-key-add")
-  - [get]("#ssh-key-get")
-  - [init]("#ssh-key-init")
-  - [list]("#ssh-key-list")
-  - [remove]("#ssh-key-remove")
-  - [update]("#ssh-key-update")
-
+    
+      - [add]("#ssh-key-add")
+      - [get]("#ssh-key-get")
+      - [init]("#ssh-key-init")
+      - [list]("#ssh-key-list")
+      - [remove]("#ssh-key-remove")
+      - [update]("#ssh-key-update")
 
 
 ## scw account ssh-key
+  
+      ### scw account ssh-key add
+      ** Usage **:  account ssh-key add
+** Short **:  Add a SSH key to your Scaleway account
+** Long **:  Add a SSH key to your Scaleway account.
 
-### scw account ssh-key add
-This is documentation for account ssh-key add
-### scw account ssh-key get
-This is documentation for account ssh-key get
-### scw account ssh-key init
-This is documentation for account ssh-key init
-### scw account ssh-key list
-This is documentation for account ssh-key list
-### scw account ssh-key remove
-This is documentation for account ssh-key remove
-### scw account ssh-key update
-This is documentation for account ssh-key update
+  ** Examples **:
+  
+    - Add a given ssh key
+  
+
+      ### scw account ssh-key get
+      ** Usage **:  account ssh-key get
+** Short **:  Get SSH key details
+** Long **:  Get SSH key details.
+
+      ### scw account ssh-key init
+      ** Usage **:  account ssh-key init
+** Short **:  Initialize SSH key
+** Long **:  Initialize SSH key.
+
+      ### scw account ssh-key list
+      ** Usage **:  account ssh-key list
+** Short **:  List all SSH keys
+** Long **:  List all SSH keys.
+
+      ### scw account ssh-key remove
+      ** Usage **:  account ssh-key remove
+** Short **:  Remove a SSH key from your Scaleway account
+** Long **:  Remove a SSH key from your Scaleway account.
+
+  ** Examples **:
+  
+    - Remove a given SSH key
+  
+
+      ### scw account ssh-key update
+      ** Usage **:  account ssh-key update
+** Short **:  Update an SSH key
+** Long **:  Update an SSH key.
 

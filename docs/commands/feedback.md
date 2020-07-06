@@ -2,18 +2,20 @@
 # Documentation for scw feedback
 
 - [bug]("#bug")
-
-
+  
 - [feature]("#feature")
-
-
+  
 
 
 ## scw feedback bug
-This is documentation for feedback bug 
+  ** Usage **:  feedback bug 
+** Short **:  Send a bug-report
+** Long **:  Send a bug-report to the Scaleway CLI team.
 
-
+  
 ## scw feedback feature
-This is documentation for feedback feature 
+  ** Usage **:  feedback feature 
+** Short **:  Send a feature request
+** Long **:  Send a feature request to the Scaleway CLI team.
 
-
+  

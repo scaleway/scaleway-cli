@@ -6,6 +6,8 @@ import (
 	"path"
 	"text/template"
 
+	"github.com/scaleway/scaleway-cli/internal/interactive"
+
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
@@ -89,7 +91,9 @@ func renderIndex(data *tplData) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return buffer.String(), nil
+	str := buffer.String()
+	str = interactive.UnIndent(str, 2)
+	return str, nil
 }
 
 func renderNamespace(data *tplNamespace) (string, error) {
@@ -98,11 +102,18 @@ func renderNamespace(data *tplNamespace) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return buffer.String(), nil
+	str := buffer.String()
+	str = interactive.UnIndent(str, 2)
+	return str, nil
 }
 
 func newTemplate() *template.Template {
 	tpl := template.New("index")
 	template.Must(tpl.Parse(tplStr))
+	tpl.Funcs(map[string]interface{}{
+		"unindent": func(indent int, str string) string {
+			return interactive.UnIndent(str, indent)
+		},
+	})
 	return tpl
 }

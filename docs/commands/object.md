@@ -2,16 +2,38 @@
 # Documentation for scw object
 
 - config
-
-  - [get]("#config-get")
-  - [install]("#config-install")
-
+    
+      - [get]("#config-get")
+      - [install]("#config-install")
 
 
 ## scw object config
+  
+      ### scw object config get
+      ** Usage **:  object config get
+** Short **:  Generate a S3 tool configuration file
+** Long **:  Generate a S3 tool configuration file.
 
-### scw object config get
-This is documentation for object config get
-### scw object config install
-This is documentation for object config install
+  ** Examples **:
+  
+    - Generate a s3cmd config file for Paris region
+  
+    - Generate a rclone config file for default region
+  
+    - Generate a mc (minio) config file for default region
+  
+
+      ### scw object config install
+      ** Usage **:  object config install
+** Short **:  Install a S3 tool configuration file to its default location
+** Long **:  Install a S3 tool configuration file to its default location.
+
+  ** Examples **:
+  
+    - Install a s3cmd config file for Paris region
+  
+    - Install a rclone config file for default region
+  
+    - Install a mc (minio) config file for default region
+  
 

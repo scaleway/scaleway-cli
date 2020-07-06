@@ -2,223 +2,730 @@
 # Documentation for scw instance
 
 - image
-
-  - [create]("#image-create")
-  - [delete]("#image-delete")
-  - [get]("#image-get")
-  - [list]("#image-list")
-  - [wait]("#image-wait")
-
+    
+      - [create]("#image-create")
+      - [delete]("#image-delete")
+      - [get]("#image-get")
+      - [list]("#image-list")
+      - [wait]("#image-wait")
 - ip
-
-  - [create]("#ip-create")
-  - [delete]("#ip-delete")
-  - [get]("#ip-get")
-  - [list]("#ip-list")
-  - [update]("#ip-update")
-
+    
+      - [create]("#ip-create")
+      - [delete]("#ip-delete")
+      - [get]("#ip-get")
+      - [list]("#ip-list")
+      - [update]("#ip-update")
 - placement-group
-
-  - [create]("#placement-group-create")
-  - [delete]("#placement-group-delete")
-  - [get]("#placement-group-get")
-  - [list]("#placement-group-list")
-  - [update]("#placement-group-update")
-
+    
+      - [create]("#placement-group-create")
+      - [delete]("#placement-group-delete")
+      - [get]("#placement-group-get")
+      - [list]("#placement-group-list")
+      - [update]("#placement-group-update")
 - security-group
-
-  - [clear]("#security-group-clear")
-  - [create]("#security-group-create")
-  - [delete]("#security-group-delete")
-  - [get]("#security-group-get")
-  - [list]("#security-group-list")
-  - [update]("#security-group-update")
-
+    
+      - [clear]("#security-group-clear")
+      - [create]("#security-group-create")
+      - [delete]("#security-group-delete")
+      - [get]("#security-group-get")
+      - [list]("#security-group-list")
+      - [update]("#security-group-update")
 - server
-
-  - [attach-volume]("#server-attach-volume")
-  - [backup]("#server-backup")
-  - [console]("#server-console")
-  - [create]("#server-create")
-  - [delete]("#server-delete")
-  - [detach-volume]("#server-detach-volume")
-  - [get]("#server-get")
-  - [list]("#server-list")
-  - [reboot]("#server-reboot")
-  - [ssh]("#server-ssh")
-  - [standby]("#server-standby")
-  - [start]("#server-start")
-  - [stop]("#server-stop")
-  - [terminate]("#server-terminate")
-  - [update]("#server-update")
-  - [wait]("#server-wait")
-
+    
+      - [attach-volume]("#server-attach-volume")
+      - [backup]("#server-backup")
+      - [console]("#server-console")
+      - [create]("#server-create")
+      - [delete]("#server-delete")
+      - [detach-volume]("#server-detach-volume")
+      - [get]("#server-get")
+      - [list]("#server-list")
+      - [reboot]("#server-reboot")
+      - [ssh]("#server-ssh")
+      - [standby]("#server-standby")
+      - [start]("#server-start")
+      - [stop]("#server-stop")
+      - [terminate]("#server-terminate")
+      - [update]("#server-update")
+      - [wait]("#server-wait")
 - server-type
-
-  - [list]("#server-type-list")
-
+    
+      - [list]("#server-type-list")
 - snapshot
-
-  - [create]("#snapshot-create")
-  - [delete]("#snapshot-delete")
-  - [get]("#snapshot-get")
-  - [list]("#snapshot-list")
-  - [wait]("#snapshot-wait")
-
+    
+      - [create]("#snapshot-create")
+      - [delete]("#snapshot-delete")
+      - [get]("#snapshot-get")
+      - [list]("#snapshot-list")
+      - [wait]("#snapshot-wait")
 - user-data
-
-  - [delete]("#user-data-delete")
-  - [get]("#user-data-get")
-  - [list]("#user-data-list")
-  - [set]("#user-data-set")
-
+    
+      - [delete]("#user-data-delete")
+      - [get]("#user-data-get")
+      - [list]("#user-data-list")
+      - [set]("#user-data-set")
 - volume
-
-  - [create]("#volume-create")
-  - [delete]("#volume-delete")
-  - [get]("#volume-get")
-  - [list]("#volume-list")
-  - [update]("#volume-update")
-
+    
+      - [create]("#volume-create")
+      - [delete]("#volume-delete")
+      - [get]("#volume-get")
+      - [list]("#volume-list")
+      - [update]("#volume-update")
 - volume-type
-
-  - [list]("#volume-type-list")
-
+    
+      - [list]("#volume-type-list")
 
 
 ## scw instance image
+  
+      ### scw instance image create
+      ** Usage **:  instance image create
+** Short **:  Create image
+** Long **:  Create image.
 
-### scw instance image create
-This is documentation for instance image create
-### scw instance image delete
-This is documentation for instance image delete
-### scw instance image get
-This is documentation for instance image get
-### scw instance image list
-This is documentation for instance image list
-### scw instance image wait
-This is documentation for instance image wait
+  ** Examples **:
+  
+    - Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)
+  
+
+      ### scw instance image delete
+      ** Usage **:  instance image delete
+** Short **:  Delete image
+** Long **:  Delete the image with the given ID.
+
+  ** Examples **:
+  
+    - Delete an image in the default zone with the given ID
+  
+    - Delete an image in fr-par-1 zone with the given ID
+  
+
+      ### scw instance image get
+      ** Usage **:  instance image get
+** Short **:  Get image
+** Long **:  Get details of an image with the given ID.
+
+  ** Examples **:
+  
+    - Get an image in the default zone with the given ID
+  
+    - Get an image in fr-par-1 zone with the given ID
+  
+
+      ### scw instance image list
+      ** Usage **:  instance image list
+** Short **:  List images
+** Long **:  List all images available in an account.
+
+  ** Examples **:
+  
+    - List all public images in the default zone
+  
+
+      ### scw instance image wait
+      ** Usage **:  instance image wait
+** Short **:  Wait for image to reach a stable state
+** Long **:  Wait for image to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the image.
+
+  ** Examples **:
+  
+    - Wait for a image to reach a stable state
+  
 
 ## scw instance ip
+  
+      ### scw instance ip create
+      ** Usage **:  instance ip create
+** Short **:  Reserve an IP
+** Long **:  Reserve an IP.
 
-### scw instance ip create
-This is documentation for instance ip create
-### scw instance ip delete
-This is documentation for instance ip delete
-### scw instance ip get
-This is documentation for instance ip get
-### scw instance ip list
-This is documentation for instance ip list
-### scw instance ip update
-This is documentation for instance ip update
+  ** Examples **:
+  
+    - Create an IP in the default zone
+  
+    - Create an IP in fr-par-1 zone
+  
+    - Create an IP and attach it to the given server
+  
+
+      ### scw instance ip delete
+      ** Usage **:  instance ip delete
+** Short **:  Delete IP
+** Long **:  Delete the IP with the given ID.
+
+  ** Examples **:
+  
+    - Delete an IP in the default zone with the given ID
+  
+    - Delete an IP in fr-par-1 zone with the given ID
+  
+    - Delete an IP using directly the given IP address
+  
+
+      ### scw instance ip get
+      ** Usage **:  instance ip get
+** Short **:  Get IP
+** Long **:  Get details of an IP with the given ID or address.
+
+  ** Examples **:
+  
+    - Get an IP in the default zone with the given ID
+  
+    - Get an IP in fr-par-1 zone with the given ID
+  
+    - Get an IP using directly the given IP address
+  
+
+      ### scw instance ip list
+      ** Usage **:  instance ip list
+** Short **:  List IPs
+** Long **:  List IPs.
+
+  ** Examples **:
+  
+    - List all IPs in the default zone
+  
+    - List all IPs in fr-par-1 zone
+  
+
+      ### scw instance ip update
+      ** Usage **:  instance ip update
+** Short **:  Update IP
+** Long **:  Update IP.
+
+  ** Examples **:
+  
+    - Update an IP in the default zone with the given ID
+  
+    - Update an IP in fr-par-1 zone with the given ID
+  
+    - Update an IP using directly the given IP address
+  
 
 ## scw instance placement-group
+  
+      ### scw instance placement-group create
+      ** Usage **:  instance placement-group create
+** Short **:  Create placement group
+** Long **:  Create a new placement group.
 
-### scw instance placement-group create
-This is documentation for instance placement-group create
-### scw instance placement-group delete
-This is documentation for instance placement-group delete
-### scw instance placement-group get
-This is documentation for instance placement-group get
-### scw instance placement-group list
-This is documentation for instance placement-group list
-### scw instance placement-group update
-This is documentation for instance placement-group update
+  ** Examples **:
+  
+    - Create a placement group with default name
+  
+    - Create a placement group with the given name
+  
+    - Create an enforced placement group
+  
+    - Create an optional placement group
+  
+    - Create an optional low latency placement group
+  
+    - Create an enforced low latency placement group
+  
+
+      ### scw instance placement-group delete
+      ** Usage **:  instance placement-group delete
+** Short **:  Delete the given placement group
+** Long **:  Delete the given placement group.
+
+  ** Examples **:
+  
+    - Delete a placement group in the default zone with the given ID
+  
+    - Delete a placement group in fr-par-1 zone with the given ID
+  
+
+      ### scw instance placement-group get
+      ** Usage **:  instance placement-group get
+** Short **:  Get placement group
+** Long **:  Get the given placement group.
+
+  ** Examples **:
+  
+    - Get a placement group with the given ID
+  
+
+      ### scw instance placement-group list
+      ** Usage **:  instance placement-group list
+** Short **:  List placement groups
+** Long **:  List all placement groups.
+
+  ** Examples **:
+  
+    - List all placement groups in the default zone
+  
+    - List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+  
+
+      ### scw instance placement-group update
+      ** Usage **:  instance placement-group update
+** Short **:  Update placement group
+** Long **:  Update one or more parameter of the given placement group.
+
+  ** Examples **:
+  
+    - Update the name of a placement group
+  
+    - Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)
+  
+    - Update the policy type of a placement group (All instances in your placement group MUST be shutdown)
+  
 
 ## scw instance security-group
+  
+      ### scw instance security-group clear
+      ** Usage **:  instance security-group clear
+** Short **:  Remove all rules of a security group
+** Long **:  
 
-### scw instance security-group clear
-This is documentation for instance security-group clear
-### scw instance security-group create
-This is documentation for instance security-group create
-### scw instance security-group delete
-This is documentation for instance security-group delete
-### scw instance security-group get
-This is documentation for instance security-group get
-### scw instance security-group list
-This is documentation for instance security-group list
-### scw instance security-group update
-This is documentation for instance security-group update
+  ** Examples **:
+  
+    - Remove all rules of the given security group
+  
+
+      ### scw instance security-group create
+      ** Usage **:  instance security-group create
+** Short **:  Create security group
+** Long **:  Create security group.
+
+  ** Examples **:
+  
+    - Create a Security Group with the given name and description
+  
+    - Create a Security Group that will be applied as a default on instances of your organization
+  
+    - Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)
+  
+    - Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)
+  
+    - Create a stateless Security Group
+  
+
+      ### scw instance security-group delete
+      ** Usage **:  instance security-group delete
+** Short **:  Delete security group
+** Long **:  Delete security group.
+
+  ** Examples **:
+  
+    - Delete a security group with the given ID
+  
+
+      ### scw instance security-group get
+      ** Usage **:  instance security-group get
+** Short **:  Get security group
+** Long **:  Get the details of a Security Group with the given ID.
+
+  ** Examples **:
+  
+    - Get a security group with the given ID
+  
+
+      ### scw instance security-group list
+      ** Usage **:  instance security-group list
+** Short **:  List security groups
+** Long **:  List all security groups available in an account.
+
+  ** Examples **:
+  
+    - List all security groups that match the given name
+  
+
+      ### scw instance security-group update
+      ** Usage **:  instance security-group update
+** Short **:  Update security group
+** Long **:  Update security group.
+
+  ** Examples **:
+  
+    - Set the default outbound policy as drop
+  
+    - Set the given security group as the default for the organization
+  
+    - Change the name of the given security group
+  
+    - Change the description of the given security group
+  
+    - Enable stateful security group
+  
+    - Set the default inbound policy as drop
+  
 
 ## scw instance server
+  
+      ### scw instance server attach-volume
+      ** Usage **:  instance server attach-volume
+** Short **:  Attach a volume to a server
+** Long **:  
 
-### scw instance server attach-volume
-This is documentation for instance server attach-volume
-### scw instance server backup
-This is documentation for instance server backup
-### scw instance server console
-This is documentation for instance server console
-### scw instance server create
-This is documentation for instance server create
-### scw instance server delete
-This is documentation for instance server delete
-### scw instance server detach-volume
-This is documentation for instance server detach-volume
-### scw instance server get
-This is documentation for instance server get
-### scw instance server list
-This is documentation for instance server list
-### scw instance server reboot
-This is documentation for instance server reboot
-### scw instance server ssh
-This is documentation for instance server ssh
-### scw instance server standby
-This is documentation for instance server standby
-### scw instance server start
-This is documentation for instance server start
-### scw instance server stop
-This is documentation for instance server stop
-### scw instance server terminate
-This is documentation for instance server terminate
-### scw instance server update
-This is documentation for instance server update
-### scw instance server wait
-This is documentation for instance server wait
+  ** Examples **:
+  
+    - Attach a volume to a server
+  
+
+      ### scw instance server backup
+      ** Usage **:  instance server backup
+** Short **:  Backup server
+** Long **:  Create a new image based on the server.
+
+This command:
+- creates a snapshot of all attached volumes.
+- creates an image based on all these snapshots.
+
+Once your image is ready you will be able to create a new server based on this image.
+
+
+  ** Examples **:
+  
+    - Create a new image based on a server
+  
+
+      ### scw instance server console
+      ** Usage **:  instance server console
+** Short **:  Connect to the serial console of an instance
+** Long **:  
+
+      ### scw instance server create
+      ** Usage **:  instance server create
+** Short **:  Create server
+** Long **:  Create an instance server.
+
+  ** Examples **:
+  
+    - Create and start an instance on Ubuntu Focal
+  
+    - Create a GP1-XS instance, give it a name and add tags
+  
+    - Create an instance with 2 additional block volumes (50GB and 100GB)
+  
+    - Create an instance with 2 local volumes (10GB and 10GB)
+  
+    - Use an existing IP
+  
+
+      ### scw instance server delete
+      ** Usage **:  instance server delete
+** Short **:  Delete server
+** Long **:  Delete a server with the given ID.
+
+  ** Examples **:
+  
+    - Delete a server in the default zone with a given id
+  
+    - Delete a server in fr-par-1 zone with a given id
+  
+
+      ### scw instance server detach-volume
+      ** Usage **:  instance server detach-volume
+** Short **:  Detach a volume from its server
+** Long **:  
+
+  ** Examples **:
+  
+    - Detach a volume from its server
+  
+
+      ### scw instance server get
+      ** Usage **:  instance server get
+** Short **:  Get server
+** Long **:  Get the details of a specified Server.
+
+  ** Examples **:
+  
+    - Get a server with the given ID
+  
+
+      ### scw instance server list
+      ** Usage **:  instance server list
+** Short **:  List servers
+** Long **:  List servers.
+
+  ** Examples **:
+  
+    - List all servers on your default zone
+  
+    - List servers of this commercial type
+  
+    - List servers that are not attached to a public IP
+  
+    - List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
+  
+
+      ### scw instance server reboot
+      ** Usage **:  instance server reboot
+** Short **:  Reboot server
+** Long **:  
+
+  ** Examples **:
+  
+    - Reboot a server in the default zone with a given id
+  
+    - Reboot a server in fr-par-1 zone with a given id
+  
+
+      ### scw instance server ssh
+      ** Usage **:  instance server ssh
+** Short **:  SSH into a server
+** Long **:  Connect to distant server via the SSH protocol.
+
+      ### scw instance server standby
+      ** Usage **:  instance server standby
+** Short **:  Put server in standby mode
+** Long **:  
+
+  ** Examples **:
+  
+    - Put in standby a server in the default zone with a given id
+  
+    - Put in standby a server in fr-par-1 zone with a given id
+  
+
+      ### scw instance server start
+      ** Usage **:  instance server start
+** Short **:  Power on server
+** Long **:  
+
+  ** Examples **:
+  
+    - Start a server in the default zone with a given id
+  
+    - Start a server in fr-par-1 zone with a given id
+  
+
+      ### scw instance server stop
+      ** Usage **:  instance server stop
+** Short **:  Power off server
+** Long **:  
+
+  ** Examples **:
+  
+    - Stop a server in the default zone with a given id
+  
+    - Stop a server in fr-par-1 zone with a given id
+  
+
+      ### scw instance server terminate
+      ** Usage **:  instance server terminate
+** Short **:  Terminate server
+** Long **:  Terminates a server with the given ID and all of its volumes.
+
+  ** Examples **:
+  
+    - Terminate a server in the default zone with a given id
+  
+    - Terminate a server in fr-par-1 zone with a given id
+  
+    - Terminate a server and also delete its flexible IPs
+  
+
+      ### scw instance server update
+      ** Usage **:  instance server update
+** Short **:  Update server
+** Long **:  Update server.
+
+  ** Examples **:
+  
+    - Update the name of a given server
+  
+    - Put a given instance in rescue mode (reboot is required to access rescue mode)
+  
+    - Overwrite tags of a given server
+  
+    - Enable IPv6 on a given server
+  
+    - Apply the given security group to a given server
+  
+    - Put a given server in the given placement group. Server must be off
+  
+
+      ### scw instance server wait
+      ** Usage **:  instance server wait
+** Short **:  Wait for server to reach a stable state
+** Long **:  Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.
+
+  ** Examples **:
+  
+    - Wait for a server to reach a stable state
+  
 
 ## scw instance server-type
+  
+      ### scw instance server-type list
+      ** Usage **:  instance server-type list
+** Short **:  List server types
+** Long **:  Get server types technical details.
 
-### scw instance server-type list
-This is documentation for instance server-type list
+  ** Examples **:
+  
+    - List all server-types in the default zone
+  
+    - List all server-types in fr-par-1 zone
+  
 
 ## scw instance snapshot
+  
+      ### scw instance snapshot create
+      ** Usage **:  instance snapshot create
+** Short **:  Create snapshot
+** Long **:  Create snapshot.
 
-### scw instance snapshot create
-This is documentation for instance snapshot create
-### scw instance snapshot delete
-This is documentation for instance snapshot delete
-### scw instance snapshot get
-This is documentation for instance snapshot get
-### scw instance snapshot list
-This is documentation for instance snapshot list
-### scw instance snapshot wait
-This is documentation for instance snapshot wait
+  ** Examples **:
+  
+    - Create a snapshot in the default zone from the given volume ID
+  
+    - Create a snapshot in fr-par-1 zone from the given volume ID
+  
+    - Create a named snapshot from the given volume ID
+  
+
+      ### scw instance snapshot delete
+      ** Usage **:  instance snapshot delete
+** Short **:  Delete snapshot
+** Long **:  Delete the snapshot with the given ID.
+
+  ** Examples **:
+  
+    - Delete a snapshot in the default zone with the given ID
+  
+    - Delete a snapshot in fr-par-1 zone with the given ID
+  
+
+      ### scw instance snapshot get
+      ** Usage **:  instance snapshot get
+** Short **:  Get snapshot
+** Long **:  Get details of a snapshot with the given ID.
+
+  ** Examples **:
+  
+    - Get a snapshot in the default zone with the given ID
+  
+    - Get a snapshot in fr-par-1 zone with the given ID
+  
+
+      ### scw instance snapshot list
+      ** Usage **:  instance snapshot list
+** Short **:  List snapshots
+** Long **:  List snapshots.
+
+  ** Examples **:
+  
+    - List all snapshots in the default zone
+  
+    - List all snapshots in fr-par-1 zone
+  
+
+      ### scw instance snapshot wait
+      ** Usage **:  instance snapshot wait
+** Short **:  Wait for snapshot to reach a stable state
+** Long **:  Wait for snapshot to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the snapshot.
+
+  ** Examples **:
+  
+    - Wait for a snapshot to reach a stable state
+  
 
 ## scw instance user-data
+  
+      ### scw instance user-data delete
+      ** Usage **:  instance user-data delete
+** Short **:  Delete user data
+** Long **:  Delete the given key from a server user data.
 
-### scw instance user-data delete
-This is documentation for instance user-data delete
-### scw instance user-data get
-This is documentation for instance user-data get
-### scw instance user-data list
-This is documentation for instance user-data list
-### scw instance user-data set
-This is documentation for instance user-data set
+      ### scw instance user-data get
+      ** Usage **:  instance user-data get
+** Short **:  Get user data
+** Long **:  Get the content of a user data with the given key on a server.
+
+      ### scw instance user-data list
+      ** Usage **:  instance user-data list
+** Short **:  List user data
+** Long **:  List all user data keys registered on a given server.
+
+      ### scw instance user-data set
+      ** Usage **:  instance user-data set
+** Short **:  Add/Set user data
+** Long **:  Add or update a user data with the given key on a server.
 
 ## scw instance volume
+  
+      ### scw instance volume create
+      ** Usage **:  instance volume create
+** Short **:  Create volume
+** Long **:  Create volume.
 
-### scw instance volume create
-This is documentation for instance volume create
-### scw instance volume delete
-This is documentation for instance volume delete
-### scw instance volume get
-This is documentation for instance volume get
-### scw instance volume list
-This is documentation for instance volume list
-### scw instance volume update
-This is documentation for instance volume update
+  ** Examples **:
+  
+    - Create a volume called 'my-volume'
+  
+    - Create a volume with a size of 50GB
+  
+    - Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'
+  
+
+      ### scw instance volume delete
+      ** Usage **:  instance volume delete
+** Short **:  Delete volume
+** Long **:  Delete the volume with the given ID.
+
+  ** Examples **:
+  
+    - Delete a volume with the given ID
+  
+
+      ### scw instance volume get
+      ** Usage **:  instance volume get
+** Short **:  Get volume
+** Long **:  Get details of a volume with the given ID.
+
+  ** Examples **:
+  
+    - Get a volume with the given ID
+  
+
+      ### scw instance volume list
+      ** Usage **:  instance volume list
+** Short **:  List volumes
+** Long **:  List volumes.
+
+  ** Examples **:
+  
+    - List all volumes
+  
+    - List all block storage volumes
+  
+    - List all local storage volumes
+  
+    - List all volumes that match a name
+  
+    - List all block storage volumes that match a name
+  
+
+      ### scw instance volume update
+      ** Usage **:  instance volume update
+** Short **:  Update volume
+** Long **:  Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only `b_ssd` volume growing is supported.
+
+  ** Examples **:
+  
+    - Change the volume name
+  
+    - Change the volume disk size (bytes)
+  
+    - Change the volume name and disk size
+  
 
 ## scw instance volume-type
+  
+      ### scw instance volume-type list
+      ** Usage **:  instance volume-type list
+** Short **:  List volumes types
+** Long **:  Get volumes technical details.
 
-### scw instance volume-type list
-This is documentation for instance volume-type list
+  ** Examples **:
+  
+    - List all volume-types in the default zone
+  
+    - List all volume-types in fr-par-1 zone
+  
 

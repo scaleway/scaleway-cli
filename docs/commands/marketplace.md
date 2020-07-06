@@ -2,16 +2,20 @@
 # Documentation for scw marketplace
 
 - image
-
-  - [get]("#image-get")
-  - [list]("#image-list")
-
+    
+      - [get]("#image-get")
+      - [list]("#image-list")
 
 
 ## scw marketplace image
+  
+      ### scw marketplace image get
+      ** Usage **:  marketplace image get
+** Short **:  Get a specific marketplace image
+** Long **:  Get a specific marketplace image.
 
-### scw marketplace image get
-This is documentation for marketplace image get
-### scw marketplace image list
-This is documentation for marketplace image list
+      ### scw marketplace image list
+      ** Usage **:  marketplace image list
+** Short **:  List marketplace images
+** Long **:  List marketplace images.
 

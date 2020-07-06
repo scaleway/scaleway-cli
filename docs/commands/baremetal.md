@@ -2,52 +2,138 @@
 # Documentation for scw baremetal
 
 - os
-
-  - [get]("#os-get")
-  - [list]("#os-list")
-
+    
+      - [get]("#os-get")
+      - [list]("#os-list")
 - server
-
-  - [create]("#server-create")
-  - [delete]("#server-delete")
-  - [get]("#server-get")
-  - [install]("#server-install")
-  - [list]("#server-list")
-  - [reboot]("#server-reboot")
-  - [start]("#server-start")
-  - [stop]("#server-stop")
-  - [update]("#server-update")
-  - [wait]("#server-wait")
-
+    
+      - [create]("#server-create")
+      - [delete]("#server-delete")
+      - [get]("#server-get")
+      - [install]("#server-install")
+      - [list]("#server-list")
+      - [reboot]("#server-reboot")
+      - [start]("#server-start")
+      - [stop]("#server-stop")
+      - [update]("#server-update")
+      - [wait]("#server-wait")
 
 
 ## scw baremetal os
+  
+      ### scw baremetal os get
+      ** Usage **:  baremetal os get
+** Short **:  Get OS
+** Long **:  Return specific OS for the given ID.
 
-### scw baremetal os get
-This is documentation for baremetal os get
-### scw baremetal os list
-This is documentation for baremetal os list
+  ** Examples **:
+  
+    - Get a specific OS ID
+  
+
+      ### scw baremetal os list
+      ** Usage **:  baremetal os list
+** Short **:  List OS
+** Long **:  List all available OS that can be install on a baremetal server.
 
 ## scw baremetal server
+  
+      ### scw baremetal server create
+      ** Usage **:  baremetal server create
+** Short **:  Create server
+** Long **:  Create a new server. Once the server is created, you probably want to install an OS.
 
-### scw baremetal server create
-This is documentation for baremetal server create
-### scw baremetal server delete
-This is documentation for baremetal server delete
-### scw baremetal server get
-This is documentation for baremetal server get
-### scw baremetal server install
-This is documentation for baremetal server install
-### scw baremetal server list
-This is documentation for baremetal server list
-### scw baremetal server reboot
-This is documentation for baremetal server reboot
-### scw baremetal server start
-This is documentation for baremetal server start
-### scw baremetal server stop
-This is documentation for baremetal server stop
-### scw baremetal server update
-This is documentation for baremetal server update
-### scw baremetal server wait
-This is documentation for baremetal server wait
+  ** Examples **:
+  
+    - Create instance
+  
+    - Create a GP-BM1-M instance, give it a name and add tags
+  
+
+      ### scw baremetal server delete
+      ** Usage **:  baremetal server delete
+** Short **:  Delete server
+** Long **:  Delete the server associated with the given ID.
+
+  ** Examples **:
+  
+    - Delete a baremetal server
+  
+
+      ### scw baremetal server get
+      ** Usage **:  baremetal server get
+** Short **:  Get server
+** Long **:  Get the server associated with the given ID.
+
+  ** Examples **:
+  
+    - Get a given server
+  
+
+      ### scw baremetal server install
+      ** Usage **:  baremetal server install
+** Short **:  Install server
+** Long **:  Install an OS on the server associated with the given ID.
+
+  ** Examples **:
+  
+    - Install an OS on a given server with a particular SSH key ID
+  
+
+      ### scw baremetal server list
+      ** Usage **:  baremetal server list
+** Short **:  List servers
+** Long **:  List all created servers.
+
+  ** Examples **:
+  
+    - List all servers on your default zone
+  
+
+      ### scw baremetal server reboot
+      ** Usage **:  baremetal server reboot
+** Short **:  Reboot server
+** Long **:  Reboot the server associated with the given ID, use boot param to reboot in rescue.
+
+  ** Examples **:
+  
+    - Reboot a server using the same os
+  
+    - Reboot a server in rescue mode
+  
+
+      ### scw baremetal server start
+      ** Usage **:  baremetal server start
+** Short **:  Start server
+** Long **:  Start the server associated with the given ID.
+
+  ** Examples **:
+  
+    - Start a baremetal server
+  
+
+      ### scw baremetal server stop
+      ** Usage **:  baremetal server stop
+** Short **:  Stop server
+** Long **:  Stop the server associated with the given ID.
+
+  ** Examples **:
+  
+    - Stop a baremetal server
+  
+
+      ### scw baremetal server update
+      ** Usage **:  baremetal server update
+** Short **:  Update server
+** Long **:  Update the server associated with the given ID.
+
+      ### scw baremetal server wait
+      ** Usage **:  baremetal server wait
+** Short **:  Wait for a server to reach a stable state (delivery and installation)
+** Long **:  Wait for a server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.
+
+  ** Examples **:
+  
+    - Wait for a server to reach a stable state
+  
 

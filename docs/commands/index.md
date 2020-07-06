@@ -11,5 +11,6 @@
 - [k8s]("./k8s.md") 
 - [marketplace]("./marketplace.md") 
 - [object]("./object.md") 
+- [rdb]("./rdb.md") 
 - [registry]("./registry.md") 
 - [version]("./version.md") 

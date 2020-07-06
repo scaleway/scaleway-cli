@@ -61,6 +61,17 @@ func Indent(str string, indent int) string {
 	return strings.Join(lines, "\n")
 }
 
+func UnIndent(str string, indent int) string {
+	padding := makeStr(" ", indent)
+	lines := strings.Split(str, "\n")
+	for i, line := range lines {
+		if line != "" && strings.HasPrefix(line, padding) {
+			lines[i] = line[len(padding):]
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 func RemoveIndent(str string) string {
 	return strings.Trim(regexp.MustCompile("\n[ \t]*").ReplaceAllString(str, "\n"), "\n")
 }

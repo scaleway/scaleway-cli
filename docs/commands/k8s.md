@@ -2,112 +2,335 @@
 # Documentation for scw k8s
 
 - cluster
-
-  - [create]("#cluster-create")
-  - [delete]("#cluster-delete")
-  - [get]("#cluster-get")
-  - [list]("#cluster-list")
-  - [list-available-versions]("#cluster-list-available-versions")
-  - [reset-admin-token]("#cluster-reset-admin-token")
-  - [update]("#cluster-update")
-  - [upgrade]("#cluster-upgrade")
-  - [wait]("#cluster-wait")
-
+    
+      - [create]("#cluster-create")
+      - [delete]("#cluster-delete")
+      - [get]("#cluster-get")
+      - [list]("#cluster-list")
+      - [list-available-versions]("#cluster-list-available-versions")
+      - [reset-admin-token]("#cluster-reset-admin-token")
+      - [update]("#cluster-update")
+      - [upgrade]("#cluster-upgrade")
+      - [wait]("#cluster-wait")
 - kubeconfig
-
-  - [get]("#kubeconfig-get")
-  - [install]("#kubeconfig-install")
-  - [uninstall]("#kubeconfig-uninstall")
-
+    
+      - [get]("#kubeconfig-get")
+      - [install]("#kubeconfig-install")
+      - [uninstall]("#kubeconfig-uninstall")
 - node
-
-  - [get]("#node-get")
-  - [list]("#node-list")
-  - [reboot]("#node-reboot")
-  - [replace]("#node-replace")
-  - [wait]("#node-wait")
-
+    
+      - [get]("#node-get")
+      - [list]("#node-list")
+      - [reboot]("#node-reboot")
+      - [replace]("#node-replace")
+      - [wait]("#node-wait")
 - pool
-
-  - [create]("#pool-create")
-  - [delete]("#pool-delete")
-  - [get]("#pool-get")
-  - [list]("#pool-list")
-  - [update]("#pool-update")
-  - [upgrade]("#pool-upgrade")
-  - [wait]("#pool-wait")
-
+    
+      - [create]("#pool-create")
+      - [delete]("#pool-delete")
+      - [get]("#pool-get")
+      - [list]("#pool-list")
+      - [update]("#pool-update")
+      - [upgrade]("#pool-upgrade")
+      - [wait]("#pool-wait")
 - version
-
-  - [get]("#version-get")
-  - [list]("#version-list")
-
+    
+      - [get]("#version-get")
+      - [list]("#version-list")
 
 
 ## scw k8s cluster
+  
+      ### scw k8s cluster create
+      ** Usage **:  k8s cluster create
+** Short **:  Create a new cluster
+** Long **:  This method allows to create a new Kubernetes cluster on an account.
 
-### scw k8s cluster create
-This is documentation for k8s cluster create
-### scw k8s cluster delete
-This is documentation for k8s cluster delete
-### scw k8s cluster get
-This is documentation for k8s cluster get
-### scw k8s cluster list
-This is documentation for k8s cluster list
-### scw k8s cluster list-available-versions
-This is documentation for k8s cluster list-available-versions
-### scw k8s cluster reset-admin-token
-This is documentation for k8s cluster reset-admin-token
-### scw k8s cluster update
-This is documentation for k8s cluster update
-### scw k8s cluster upgrade
-This is documentation for k8s cluster upgrade
-### scw k8s cluster wait
-This is documentation for k8s cluster wait
+  ** Examples **:
+  
+    - Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M
+  
+    - Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+  
+
+      ### scw k8s cluster delete
+      ** Usage **:  k8s cluster delete
+** Short **:  Delete a cluster
+** Long **:  This method allows to delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
+
+  ** Examples **:
+  
+    - Delete a given cluster
+  
+
+      ### scw k8s cluster get
+      ** Usage **:  k8s cluster get
+** Short **:  Get a cluster
+** Long **:  This method allows to get details about a specific Kubernetes cluster.
+
+  ** Examples **:
+  
+    - Get a given cluster
+  
+
+      ### scw k8s cluster list
+      ** Usage **:  k8s cluster list
+** Short **:  List all the clusters
+** Long **:  This method allows to list all the existing Kubernetes clusters in an account.
+
+  ** Examples **:
+  
+    - List all the clusters on your default region
+  
+    - List the ready clusters on your default region
+  
+    - List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+  
+
+      ### scw k8s cluster list-available-versions
+      ** Usage **:  k8s cluster list-available-versions
+** Short **:  List available versions for a cluster
+** Long **:  This method allows to list the versions that a specific Kubernetes cluster is allowed to upgrade to. Note that it will be every patch version greater than the actual one as well a one minor version ahead of the actual one. Upgrades skipping a minor version will not work.
+
+  ** Examples **:
+  
+    - List all available versions for a given cluster to upgrade to
+  
+
+      ### scw k8s cluster reset-admin-token
+      ** Usage **:  k8s cluster reset-admin-token
+** Short **:  Reset the admin token of a cluster
+** Long **:  This method allows to reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable after) and create a new one. Note that the redownload of the kubeconfig will be necessary to keep interacting with the cluster (if the old admin token was used).
+
+  ** Examples **:
+  
+    - Reset the admin token for a given cluster
+  
+
+      ### scw k8s cluster update
+      ** Usage **:  k8s cluster update
+** Short **:  Update a cluster
+** Long **:  This method allows to update a specific Kubernetes cluster. Note that this method is not made to upgrade a Kubernetes cluster.
+
+  ** Examples **:
+  
+    - Enable dashboard on a given cluster
+  
+    - Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster
+  
+
+      ### scw k8s cluster upgrade
+      ** Usage **:  k8s cluster upgrade
+** Short **:  Upgrade a cluster
+** Long **:  This method allows to upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
+
+  ** Examples **:
+  
+    - Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)
+  
+    - Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)
+  
+
+      ### scw k8s cluster wait
+      ** Usage **:  k8s cluster wait
+** Short **:  Wait for a cluster to reach a stable state
+** Long **:  Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.
+
+  ** Examples **:
+  
+    - Wait for a cluster to reach a stable state
+  
 
 ## scw k8s kubeconfig
+  
+      ### scw k8s kubeconfig get
+      ** Usage **:  k8s kubeconfig get
+** Short **:  Retrieve a kubeconfig
+** Long **:  Retrieve the kubeconfig for a specified cluster.
 
-### scw k8s kubeconfig get
-This is documentation for k8s kubeconfig get
-### scw k8s kubeconfig install
-This is documentation for k8s kubeconfig install
-### scw k8s kubeconfig uninstall
-This is documentation for k8s kubeconfig uninstall
+      ### scw k8s kubeconfig install
+      ** Usage **:  k8s kubeconfig install
+** Short **:  Install a kubeconfig
+** Long **:  Retrieve the kubeconfig for a specified cluster and write it on disk. 
+It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable. If empty it will default to $HOME/.kube/config.
+
+  ** Examples **:
+  
+    - Install the kubeconfig for a given cluster and using the new context
+  
+
+      ### scw k8s kubeconfig uninstall
+      ** Usage **:  k8s kubeconfig uninstall
+** Short **:  Uninstall a kubeconfig
+** Long **:  Remove specified cluster from kubeconfig file specified by the KUBECONFIG env, if empty it will default to $HOME/.kube/config.
+If the current context points to this cluster, it will be set to an empty context.
+
+  ** Examples **:
+  
+    - Uninstall the kubeconfig for a given cluster
+  
 
 ## scw k8s node
+  
+      ### scw k8s node get
+      ** Usage **:  k8s node get
+** Short **:  Get a node in a cluster
+** Long **:  This method allows to get details about a specific Kubernetes node.
 
-### scw k8s node get
-This is documentation for k8s node get
-### scw k8s node list
-This is documentation for k8s node list
-### scw k8s node reboot
-This is documentation for k8s node reboot
-### scw k8s node replace
-This is documentation for k8s node replace
-### scw k8s node wait
-This is documentation for k8s node wait
+  ** Examples **:
+  
+    - Get a given node
+  
+
+      ### scw k8s node list
+      ** Usage **:  k8s node list
+** Short **:  List all the nodes in a cluster
+** Long **:  This method allows to list all the existing nodes for a specific Kubernetes cluster.
+
+  ** Examples **:
+  
+    - List all the nodes in the given cluster
+  
+    - List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster
+  
+    - List all ready nodes in the given cluster
+  
+
+      ### scw k8s node reboot
+      ** Usage **:  k8s node reboot
+** Short **:  Reboot a node in a cluster
+** Long **:  This method allows to reboot a specific node. This node will frist be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+
+  ** Examples **:
+  
+    - Reboot a given node
+  
+
+      ### scw k8s node replace
+      ** Usage **:  k8s node replace
+** Short **:  Replace a node in a cluster
+** Long **:  This method allows to replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+
+  ** Examples **:
+  
+    - Replace a given node
+  
+
+      ### scw k8s node wait
+      ** Usage **:  k8s node wait
+** Short **:  Wait for a node to reach a stable state
+** Long **:  Wait for a node to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.
+
+  ** Examples **:
+  
+    - Wait for a node to reach a stable state
+  
 
 ## scw k8s pool
+  
+      ### scw k8s pool create
+      ** Usage **:  k8s pool create
+** Short **:  Create a new pool in a cluster
+** Long **:  This method allows to create a new pool in a specific Kubernetes cluster.
 
-### scw k8s pool create
-This is documentation for k8s pool create
-### scw k8s pool delete
-This is documentation for k8s pool delete
-### scw k8s pool get
-This is documentation for k8s pool get
-### scw k8s pool list
-This is documentation for k8s pool list
-### scw k8s pool update
-This is documentation for k8s pool update
-### scw k8s pool upgrade
-This is documentation for k8s pool upgrade
-### scw k8s pool wait
-This is documentation for k8s pool wait
+  ** Examples **:
+  
+    - Create a pool named bar with 2 DEV1-XL on a given cluster
+  
+    - Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster
+  
+    - Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster
+  
+
+      ### scw k8s pool delete
+      ** Usage **:  k8s pool delete
+** Short **:  Delete a pool in a cluster
+** Long **:  This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.
+
+  ** Examples **:
+  
+    - Delete a given pool
+  
+
+      ### scw k8s pool get
+      ** Usage **:  k8s pool get
+** Short **:  Get a pool in a cluster
+** Long **:  This method allows to get details about a specific pool.
+
+  ** Examples **:
+  
+    - Get a given pool
+  
+
+      ### scw k8s pool list
+      ** Usage **:  k8s pool list
+** Short **:  List all the pools in a cluster
+** Long **:  This method allows to list all the existing pools for a specific Kubernetes cluster.
+
+  ** Examples **:
+  
+    - List all pools for a given cluster
+  
+    - List all scaling pools for a given cluster
+  
+    - List all pools for a given cluster that contain the word foo in the pool name
+  
+    - List all pools for a given cluster and order them by ascending creation date
+  
+
+      ### scw k8s pool update
+      ** Usage **:  k8s pool update
+** Short **:  Update a pool in a cluster
+** Long **:  This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...
+
+  ** Examples **:
+  
+    - Enable autoscaling on a given pool
+  
+    - Reduce the size and max size of a given pool to 4
+  
+    - Change the tags of the given pool
+  
+
+      ### scw k8s pool upgrade
+      ** Usage **:  k8s pool upgrade
+** Short **:  Upgrade a pool in a cluster
+** Long **:  This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
+
+  ** Examples **:
+  
+    - Upgrade a given pool to the Kubernetes version 1.17.4
+  
+
+      ### scw k8s pool wait
+      ** Usage **:  k8s pool wait
+** Short **:  Wait for a pool to reach a stable state
+** Long **:  Wait for a pool to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.
+
+  ** Examples **:
+  
+    - Wait for a pool to reach a stable state
+  
 
 ## scw k8s version
+  
+      ### scw k8s version get
+      ** Usage **:  k8s version get
+** Short **:  Get details about a specific version
+** Long **:  This method allows to get a specific Kubernetes version and the details about the version.
 
-### scw k8s version get
-This is documentation for k8s version get
-### scw k8s version list
-This is documentation for k8s version list
+  ** Examples **:
+  
+    - Get the Kubernetes version 1.18.0
+  
+
+      ### scw k8s version list
+      ** Usage **:  k8s version list
+** Short **:  List all available versions
+** Long **:  This method allows to list all available versions for the creation of a new Kubernetes cluster.
+
+  ** Examples **:
+  
+    - List all available Kubernetes version in Kapsule
+  
 

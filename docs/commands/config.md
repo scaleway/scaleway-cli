@@ -2,48 +2,69 @@
 # Documentation for scw config
 
 - [dump]("#dump")
-
-
+  
 - [get]("#get")
-
-
+  
 - profile
-
-  - [delete]("#profile-delete")
-
+    
+      - [delete]("#profile-delete")
 - [reset]("#reset")
-
-
+  
 - [set]("#set")
-
-
+  
 - [unset]("#unset")
-
-
+  
 
 
 ## scw config dump
-This is documentation for config dump 
+  ** Usage **:  config dump 
+** Short **:  Dump the config file
+** Long **:  
 
-
+  
 ## scw config get
-This is documentation for config get 
+  ** Usage **:  config get 
+** Short **:  Get a value from the config file
+** Long **:  
 
+  ** Examples **:
+  
+    - Get the default organization ID
+  
+    - Get the default region of the profile 'prod'
+  
 
+  
 ## scw config profile
-
-### scw config profile delete
-This is documentation for config profile delete
+  
+      ### scw config profile delete
+      ** Usage **:  config profile delete
+** Short **:  Delete a profile from the config file
+** Long **:  
 
 ## scw config reset
-This is documentation for config reset 
+  ** Usage **:  config reset 
+** Short **:  Reset the config
+** Long **:  
 
-
+  
 ## scw config set
-This is documentation for config set 
+  ** Usage **:  config set 
+** Short **:  Set a line from the config file
+** Long **:  This commands overwrites the configuration file parameters with user input.
+The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure
 
+  ** Examples **:
+  
+    - Update the default organization ID
+  
+    - Update the default region of the profile 'prod'
+  
 
+  
 ## scw config unset
-This is documentation for config unset 
+  ** Usage **:  config unset 
+** Short **:  Unset a line from the config file
+** Long **:  
 
-
+  

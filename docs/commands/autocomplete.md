@@ -2,33 +2,42 @@
 # Documentation for scw autocomplete
 
 - complete
-
-  - [bash]("#complete-bash")
-  - [fish]("#complete-fish")
-  - [zsh]("#complete-zsh")
-
+    
+      - [bash]("#complete-bash")
+      - [fish]("#complete-fish")
+      - [zsh]("#complete-zsh")
 - [install]("#install")
-
-
+  
 - [script]("#script")
-
-
+  
 
 
 ## scw autocomplete complete
+  
+      ### scw autocomplete complete bash
+      ** Usage **:  autocomplete complete bash
+** Short **:  Autocomplete for Bash
+** Long **:  Autocomplete for Bash.
 
-### scw autocomplete complete bash
-This is documentation for autocomplete complete bash
-### scw autocomplete complete fish
-This is documentation for autocomplete complete fish
-### scw autocomplete complete zsh
-This is documentation for autocomplete complete zsh
+      ### scw autocomplete complete fish
+      ** Usage **:  autocomplete complete fish
+** Short **:  Autocomplete for Fish
+** Long **:  Autocomplete for Fish.
+
+      ### scw autocomplete complete zsh
+      ** Usage **:  autocomplete complete zsh
+** Short **:  Autocomplete for Zsh
+** Long **:  Autocomplete for Zsh.
 
 ## scw autocomplete install
-This is documentation for autocomplete install 
+  ** Usage **:  autocomplete install 
+** Short **:  Install autocomplete script
+** Long **:  Install autocomplete script for a given shell and OS.
 
-
+  
 ## scw autocomplete script
-This is documentation for autocomplete script 
+  ** Usage **:  autocomplete script 
+** Short **:  Show autocomplete script for current shell
+** Long **:  Show autocomplete script for current shell.
 
-
+  
