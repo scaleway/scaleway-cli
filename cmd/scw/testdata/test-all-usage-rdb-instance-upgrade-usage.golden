@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   instance-id       
-  [node-type]       
+  [node-type]        (db-dev-s | db-dev-m | db-dev-l | db-dev-xl | db-gp-xs | db-gp-s | db-gp-m | db-gp-l | db-gp-xl)
   [enable-ha]       
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
