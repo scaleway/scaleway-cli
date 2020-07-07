@@ -60,7 +60,6 @@ func TestMarshal(t *testing.T) {
 		data   interface{}
 		opt    *MarshalOpt
 		result string
-		err    error
 	}
 
 	run := func(tc *testCase) func(*testing.T) {
