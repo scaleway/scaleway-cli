@@ -63,6 +63,38 @@ func init() {
 		v := i.(version.Version)
 		return v.String(), nil
 	})
+	marshalerFuncs.Store(reflect.TypeOf(scw.Duration{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+		v := i.(scw.Duration)
+		const (
+			minutes = int64(60)
+			hours   = 60 * minutes
+			days    = 24 * hours
+		)
+		d := v.Seconds / days
+		h := (v.Seconds - d*days) / hours
+		m := (v.Seconds - (d*days + h*hours)) / minutes
+		s := v.Seconds % 60
+		res := []string(nil)
+		if d != 0 {
+			res = append(res, fmt.Sprintf("%d days", d))
+		}
+		if h != 0 {
+			res = append(res, fmt.Sprintf("%d hours", h))
+		}
+		if m != 0 {
+			res = append(res, fmt.Sprintf("%d minutes", m))
+		}
+		if s != 0 {
+			res = append(res, fmt.Sprintf("%d seconds", s))
+		}
+		if v.Nanos != 0 {
+			res = append(res, fmt.Sprintf("%d nanoseconds", v.Nanos))
+		}
+		if len(res) == 0 {
+			return "0 seconds", nil
+		}
+		return strings.Join(res, " "), nil
+	})
 }
 
 // TODO: implement the same logic as args.RegisterMarshalFunc(), where i must be a pointer

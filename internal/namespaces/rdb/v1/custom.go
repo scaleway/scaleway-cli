@@ -22,6 +22,7 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
+	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),

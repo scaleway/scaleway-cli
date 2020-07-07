@@ -19,9 +19,11 @@ Type  lssd
 Size  5.0 GB
 
 Backup Schedule:
-Frequency  24
-Retention  7
-Disabled   false
+LocalBackupSchedule.Frequency  24
+LocalBackupSchedule.Retention  7
+LocalBackupSchedule.Disabled   false
+Frequency                      24 days
+Retention                      7 days
 
 Settings:
 NAME                             VALUE
