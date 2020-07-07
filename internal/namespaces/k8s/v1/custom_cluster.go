@@ -131,7 +131,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 func k8sClusterWaitCommand() *core.Command {
 	type customClusterWaitArgs struct {
 		k8s.WaitForClusterRequest
-		WaitForPools *bool
+		WaitForPools bool
 	}
 	return &core.Command{
 		Short:     `Wait for a cluster to reach a stable state`,
@@ -142,10 +142,6 @@ func k8sClusterWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(k8s.WaitForClusterRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customClusterWaitArgs)
-			waitForPool := false
-			if args.WaitForPools != nil {
-				waitForPool = *args.WaitForPools
-			}
 
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			cluster, err := api.WaitForCluster(&k8s.WaitForClusterRequest{
@@ -154,8 +150,11 @@ func k8sClusterWaitCommand() *core.Command {
 				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
+			if err != nil {
+				return nil, err
+			}
 
-			if waitForPool && cluster != nil {
+			if args.WaitForPools {
 				pools, err := api.ListPools(&k8s.ListPoolsRequest{
 					Region:    cluster.Region,
 					ClusterID: cluster.ID,
