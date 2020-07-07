@@ -2,54 +2,64 @@ package docgen
 
 const tplStr = `
 
-{{- define "index" -}}
-  {{ template "do_not_edit" }}
-  ### List of namespace:
-  {{ range $name, $namespace := .Namespaces -}}
-    - [{{ $name }}]("./{{ $name }}.md") 
-  {{ end }}
-{{- end -}}
-
-
 
 {{- define "namespace" -}}
-  {{ template "do_not_edit" }}
-  # Documentation for scw {{ .Cmd.Namespace }}
+{{ template "do_not_edit" }}
+# Documentation for scw {{ .Cmd.Namespace }}
+{{ .Cmd.Long | default .Cmd.Short }}
   
-  {{ range $resourceName, $resource := .Resources -}}
-    {{ if $resource.Verbs | len -}}
-      - {{ $resourceName }}
-      {{ range $verbName, $cmd := $resource.Verbs }}
-        - [{{ $verbName }}]("#{{ $resourceName}}-{{ $verbName }}")
-      {{- end -}}
-    {{- else -}}
-      - [{{ $resourceName }}]("#{{ $resourceName }}")
-    {{ end }}
-  {{ end }}
+{{ range $resourceName, $resource := .Resources -}}
+- [{{ $resource.Cmd.Short }}]("#{{ $resource.Cmd.Short }}")
+{{- range $verbName, $cmd := $resource.Verbs }}
+  - [{{ $cmd.Short }}]("#{{ $resourceName}}-{{ $verbName }}")
+{{- end }}
+{{ end }}
   
-  {{ range $resourceName, $resource := .Resources -}}
-    ## scw {{ $.Cmd.Namespace }} {{ $resourceName }}
-    {{ if $resource.Verbs | len -}}
-      {{ range $verbName, $cmd := $resource.Verbs }}
-        ### scw {{ $.Cmd.Namespace }} {{ $resourceName }} {{ $verbName }}
-        {{ template "cmd" $cmd }}
-      {{- end -}}
-    {{- else -}}
-      {{ template "cmd" $resource.Cmd }}
-    {{ end }}
-  {{ end }}
+{{ range $resourceName, $resource := .Resources -}}
+## {{ $resource.Cmd.Short }}
+
+{{ $resource.Cmd.Long }}
+
+{{ if $resource.Verbs | len -}}
+{{ range $verbName, $cmd := $resource.Verbs }}
+### {{ $cmd.Short }}
+
+{{ template "cmd" (map "Cmd" $cmd "Data" $) }}
+
+{{ end -}}
+{{- else -}}
+{{ template "cmd"  (map "Cmd" $resource.Cmd "Data" $) }}
+
+{{ end }}
+{{ end }}
 {{- end -}}
 
 {{- define "cmd" -}}
-  ** Usage **:  {{ .Namespace }} {{ .Resource }} {{ .Verb }}
-  ** Short **:  {{ .Short }}
-  ** Long **:  {{ .Long }}
-  {{ if .Examples }}
-    ** Examples **:
-    {{ range $example := .Examples }}
-      - {{ $example.Short }}
-    {{ end }}
-  {{ end }}
+{{ .Cmd.Long }}
+
+**Usage:**
+{{ bbq }}
+{{ .Cmd.GetUsage "scw" .Data.Commands }}
+{{ bbq }}
+{{ if .Cmd.ArgSpecs }}
+
+**Args:**
+| Name |   | Description |
+| ---- | - | ----------- |
+{{ range $arg := .Cmd.ArgSpecs -}}
+| {{ $arg.Name }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
+{{ end -}}
+{{- end -}}
+{{- if .Cmd.Examples }}
+
+**Examples:**
+{{ range $example := .Cmd.Examples }}
+{{ $example.Short }}
+{{ bbq }}
+{{ $example.GetCommandLine "scw" $.Cmd }}
+{{ bbq }}
+{{ end }}
+{{ end }}
 {{- end -}}
 
 {{- define "do_not_edit" -}}

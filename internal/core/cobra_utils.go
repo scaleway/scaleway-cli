@@ -168,7 +168,7 @@ func positionalArgHint(binaryName string, cmd *Command, hintValue string, otherA
 	// Suggest to use the other arguments.
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
-	suggestedCommand := append([]string{binaryName, cmd.GetCommandLine()}, suggestedArgs...)
+	suggestedCommand := append([]string{cmd.GetCommandLine(binaryName)}, suggestedArgs...)
 	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 

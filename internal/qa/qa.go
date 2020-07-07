@@ -29,7 +29,7 @@ type ShortMustNotEndWithDotError struct {
 }
 
 func (err ShortMustNotEndWithDotError) Error() string {
-	return "short must not end with '.' for command '" + err.Command.GetCommandLine() + "'"
+	return "short must not end with '.' for command '" + err.Command.GetCommandLine("scw") + "'"
 }
 
 func testShortEndWithDotError(commands *core.Commands) []error {
@@ -49,7 +49,7 @@ type ShortMustBePresentError struct {
 }
 
 func (err ShortMustBePresentError) Error() string {
-	return "short must be present for command '" + err.Command.GetCommandLine() + "'"
+	return "short must be present for command '" + err.Command.GetCommandLine("scw") + "'"
 }
 
 func testShortIsNotPresentError(commands *core.Commands) []error {
@@ -70,7 +70,7 @@ type WellKnownArgOrderError struct {
 }
 
 func (err WellKnownArgOrderError) Error() string {
-	return "well-known arg order must be respected '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
 }
 
 type WellKnownArgAtTheEndError struct {
@@ -79,7 +79,7 @@ type WellKnownArgAtTheEndError struct {
 }
 
 func (err WellKnownArgAtTheEndError) Error() string {
-	return "well-known arg must be at the end'" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg must be at the end'" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
 }
 
 const (
@@ -148,7 +148,7 @@ type ArgMustUseDashError struct {
 }
 
 func (err ArgMustUseDashError) Error() string {
-	return "arg must use dash for command '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+	return "arg must use dash for command '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
 }
 
 func testArgMustUseDashError(commands *core.Commands) []error {
@@ -172,7 +172,7 @@ type PositionalArgMustBeRequiredError struct {
 }
 
 func (err PositionalArgMustBeRequiredError) Error() string {
-	return "positional argument must be required '" + err.Command.GetCommandLine() + "', arg '" + err.Argspec.Name + "'"
+	return "positional argument must be required '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
 }
 
 func testPositionalArgMustBeRequiredError(commands *core.Commands) []error {
@@ -196,7 +196,7 @@ type ExampleCanHaveOnlyOneTypeOfExampleError struct {
 }
 
 func (err ExampleCanHaveOnlyOneTypeOfExampleError) Error() string {
-	return "arg must use dash for command '" + err.Command.GetCommandLine() + "', example #" + strconv.Itoa(err.ExampleIndex)
+	return "arg must use dash for command '" + err.Command.GetCommandLine("scw") + "', example #" + strconv.Itoa(err.ExampleIndex)
 }
 
 func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []error {
@@ -224,7 +224,7 @@ type DifferentLocalizationForNamespaceError struct {
 
 func (err DifferentLocalizationForNamespaceError) Error() string {
 	return fmt.Sprintf("different localization for commands '%v', '%v': %v, %v",
-		err.Command1.GetCommandLine(), err.Command2.GetCommandLine(), err.ArgNames1, err.ArgNames2)
+		err.Command1.GetCommandLine("scw"), err.Command2.GetCommandLine("scw"), err.ArgNames1, err.ArgNames2)
 }
 
 func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error {
@@ -235,7 +235,7 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error
 				continue
 			}
 
-			samePathLength := strings.Count(command1.GetCommandLine(), " ") == strings.Count(command2.GetCommandLine(), " ")
+			samePathLength := strings.Count(command1.GetCommandLine("scw"), " ") == strings.Count(command2.GetCommandLine("scw"), " ")
 
 			sameNamespace := command1.Namespace == command2.Namespace
 
@@ -297,7 +297,7 @@ type DuplicatedCommandError struct {
 }
 
 func (err DuplicatedCommandError) Error() string {
-	return fmt.Sprintf("duplicated command '%s'", err.Command.GetCommandLine())
+	return fmt.Sprintf("duplicated command '%s'", err.Command.GetCommandLine("scw"))
 }
 
 // testDuplicatedCommandError testes that there is no duplicate command.
@@ -306,7 +306,7 @@ func testDuplicatedCommandError(commands *core.Commands) []error {
 	uniqueness := make(map[string]bool)
 
 	for _, command := range commands.GetAll() {
-		key := command.GetCommandLine()
+		key := command.GetCommandLine("scw")
 
 		if uniqueness[key] {
 			errors = append(errors, &DuplicatedCommandError{Command: command})

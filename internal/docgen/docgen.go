@@ -2,8 +2,10 @@ package docgen
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"path"
+	"strings"
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/internal/interactive"
@@ -17,6 +19,7 @@ type tplData struct {
 
 type tplNamespace struct {
 	Cmd       *core.Command
+	Commands  *core.Commands
 	Resources map[string]*tplResource
 }
 
@@ -33,8 +36,13 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 	}
 
 	for _, c := range commands.GetAll() {
+		if c.Hidden == true {
+			continue
+		}
+
 		if data.Namespaces[c.Namespace] == nil {
 			data.Namespaces[c.Namespace] = &tplNamespace{
+				Commands:  commands,
 				Resources: map[string]*tplResource{},
 			}
 		}
@@ -62,16 +70,8 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		resource.Verbs[c.Verb] = c
 	}
 
-	indexDoc, err := renderIndex(data)
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(path.Join(outDir, "index.md"), []byte(indexDoc), 0600)
-	if err != nil {
-		return err
-	}
-
 	for name, namespace := range data.Namespaces {
+		fmt.Println("Generating namespace", name)
 		namespaceDoc, err := renderNamespace(namespace)
 		if err != nil {
 			return err
@@ -103,17 +103,60 @@ func renderNamespace(data *tplNamespace) (string, error) {
 		return "", err
 	}
 	str := buffer.String()
-	str = interactive.UnIndent(str, 2)
+	//str = interactive.UnIndent(str, 2)
 	return str, nil
 }
 
 func newTemplate() *template.Template {
 	tpl := template.New("index")
-	template.Must(tpl.Parse(tplStr))
-	tpl.Funcs(map[string]interface{}{
+	tpl = tpl.Funcs(map[string]interface{}{
 		"unindent": func(indent int, str string) string {
 			return interactive.UnIndent(str, indent)
 		},
+		"bq": func(count ...int) string {
+			return "`"
+		},
+		"bbq": func(count ...int) string {
+			return "```"
+		},
+		"map": func(args ...interface{}) map[string]interface{} {
+			res := map[string]interface{}{}
+			for i := 0; i < len(args); i += 2 {
+				res[args[i].(string)] = args[i+1]
+			}
+			return res
+		},
+		"join": func(sep string, slice []string) string {
+			return strings.Join(slice, sep)
+		},
+		"concat": func(strs ...string) string {
+			s := ""
+			for _, str := range strs {
+				s += str
+			}
+			return s
+		},
+		"arg_spec_flag": func(arg *core.ArgSpec) string {
+			parts := []string(nil)
+			if arg.Required {
+				parts = append(parts, "Required")
+			}
+			if arg.Default != nil {
+				_, doc := arg.Default(core.GetDocGenContext())
+				parts = append(parts, fmt.Sprintf("Default: `%s`", doc))
+			}
+			if len(arg.EnumValues) > 0 {
+				parts = append(parts, fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")))
+			}
+			return strings.Join(parts, "<br />")
+		},
+		"default": func(defaultValue string, value string) string {
+			if value == "" {
+				return defaultValue
+			}
+			return value
+		},
 	})
+	tpl = template.Must(tpl.Parse(tplStr))
 	return tpl
 }
