@@ -36,7 +36,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 	}
 
 	for _, c := range commands.GetAll() {
-		if c.Hidden == true {
+		if c.Hidden {
 			continue
 		}
 
@@ -83,17 +83,6 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 	}
 
 	return nil
-}
-
-func renderIndex(data *tplData) (string, error) {
-	buffer := bytes.Buffer{}
-	err := newTemplate().ExecuteTemplate(&buffer, "index", data)
-	if err != nil {
-		return "", err
-	}
-	str := buffer.String()
-	str = interactive.UnIndent(str, 2)
-	return str, nil
 }
 
 func renderNamespace(data *tplNamespace) (string, error) {
