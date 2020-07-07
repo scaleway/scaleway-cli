@@ -9,11 +9,11 @@ USAGE:
   scw instance ip <command>
 
 AVAILABLE COMMANDS:
-  list        List IPs
   create      Reserve an IP
-  get         Get IP
-  update      Update IP
   delete      Delete IP
+  get         Get IP
+  list        List IPs
+  update      Update IP
 
 FLAGS:
   -h, --help   help for ip

@@ -6,9 +6,9 @@ USAGE:
   scw rdb acl <command>
 
 AVAILABLE COMMANDS:
-  list        List ACL rules of a given instance
   add         Add an ACL instance to a given instance
   delete      Delete ACL rules of a given instance
+  list        List ACL rules of a given instance
 
 FLAGS:
   -h, --help   help for acl

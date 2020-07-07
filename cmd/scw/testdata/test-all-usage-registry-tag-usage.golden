@@ -6,9 +6,9 @@ USAGE:
   scw registry tag <command>
 
 AVAILABLE COMMANDS:
-  list        List all your tags
-  get         Get a tag
   delete      Delete a tag
+  get         Get a tag
+  list        List all your tags
 
 FLAGS:
   -h, --help   help for tag

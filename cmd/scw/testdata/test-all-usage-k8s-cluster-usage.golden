@@ -8,14 +8,14 @@ USAGE:
   scw k8s cluster <command>
 
 AVAILABLE COMMANDS:
-  list                    List all the clusters
   create                  Create a new cluster
-  get                     Get a cluster
-  update                  Update a cluster
   delete                  Delete a cluster
-  upgrade                 Upgrade a cluster
+  get                     Get a cluster
+  list                    List all the clusters
   list-available-versions List available versions for a cluster
   reset-admin-token       Reset the admin token of a cluster
+  update                  Update a cluster
+  upgrade                 Upgrade a cluster
   wait                    Wait for a cluster to reach a stable state
 
 FLAGS:

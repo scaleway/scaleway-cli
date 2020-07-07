@@ -6,8 +6,7 @@ Hint:
 Possible values: true, false
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
+  "message": "invalid value for 'is-happy' argument: invalid boolean value",
   "error": {},
-  "details": "",
   "hint": "Possible values: true, false"
 }

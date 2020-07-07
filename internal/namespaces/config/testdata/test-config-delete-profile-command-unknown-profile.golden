@@ -3,8 +3,6 @@
 No profile named test
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
-  "error": {},
-  "details": "",
-  "hint": ""
+  "message": "no profile named test",
+  "error": {}
 }

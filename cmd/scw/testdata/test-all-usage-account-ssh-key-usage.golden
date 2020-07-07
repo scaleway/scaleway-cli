@@ -6,12 +6,12 @@ USAGE:
   scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
-  list        List all SSH keys
   add         Add a SSH key to your Scaleway account
   get         Get SSH key details
-  update      Update an SSH key
-  remove      Remove a SSH key from your Scaleway account
   init        Initialize SSH key
+  list        List all SSH keys
+  remove      Remove a SSH key from your Scaleway account
+  update      Update an SSH key
 
 FLAGS:
   -h, --help   help for ssh-key

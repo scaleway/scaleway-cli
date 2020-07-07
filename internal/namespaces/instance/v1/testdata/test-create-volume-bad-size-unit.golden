@@ -3,8 +3,6 @@
 Invalid value for 'size' argument: size must be defined using the G or GB unit
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "",
-  "error": {},
-  "details": "",
-  "hint": ""
+  "message": "invalid value for 'size' argument: size must be defined using the G or GB unit",
+  "error": {}
 }

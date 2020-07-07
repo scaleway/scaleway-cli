@@ -8,12 +8,12 @@ USAGE:
   scw k8s pool <command>
 
 AVAILABLE COMMANDS:
-  list        List all the pools in a cluster
   create      Create a new pool in a cluster
-  get         Get a pool in a cluster
-  upgrade     Upgrade a pool in a cluster
-  update      Update a pool in a cluster
   delete      Delete a pool in a cluster
+  get         Get a pool in a cluster
+  list        List all the pools in a cluster
+  update      Update a pool in a cluster
+  upgrade     Upgrade a pool in a cluster
   wait        Wait for a pool to reach a stable state
 
 FLAGS:

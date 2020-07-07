@@ -6,17 +6,17 @@ USAGE:
   scw rdb <command>
 
 AVAILABLE COMMANDS:
+  acl         
   backup      
+  certificate 
+  database    
   engine      
   instance    
-  acl         
-  settings    
-  privilege   
-  user        
-  database    
-  node-type   
   log         
-  certificate 
+  node-type   
+  privilege   
+  settings    
+  user        
 
 FLAGS:
   -h, --help   help for rdb

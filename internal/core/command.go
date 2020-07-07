@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
@@ -186,6 +187,17 @@ func (c *Commands) find(path ...string) (*Command, bool) {
 		return cmd, true
 	}
 	return nil, false
+}
+
+// GetSortedCommand returns a slice of commands sorted alphabetically
+func (c *Commands) GetSortedCommand() []*Command {
+	commands := make([]*Command, len(c.commands))
+	copy(commands, c.commands)
+
+	sort.Slice(commands, func(i, j int) bool {
+		return fmt.Sprintf("%s %s %s", commands[i].Namespace, commands[i].Resource, commands[i].Verb) < fmt.Sprintf("%s %s %s", commands[j].Namespace, commands[j].Resource, commands[j].Verb)
+	})
+	return commands
 }
 
 func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
