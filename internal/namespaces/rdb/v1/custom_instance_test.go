@@ -30,7 +30,7 @@ func Test_GetInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance(),
-		Cmd:        "scw rdb instance get {{ .StartServer.ID }}",
+		Cmd:        "scw rdb instance get {{ .Instance.ID }}",
 		Check:      core.TestCheckGolden(),
 		AfterFunc:  deleteInstance(),
 	}))
@@ -40,7 +40,7 @@ func Test_UpgradeInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance(),
-		Cmd:        "scw rdb instance upgrade {{ .StartServer.ID }} node-type=DB-DEV-M --wait",
+		Cmd:        "scw rdb instance upgrade {{ .Instance.ID }} node-type=DB-DEV-M --wait",
 		Check:      core.TestCheckGolden(),
 		AfterFunc:  deleteInstance(),
 	}))
