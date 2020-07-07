@@ -29,10 +29,11 @@ func GetCommands() *core.Commands {
 		instanceConnectCommand(),
 		backupWaitCommand(),
 	))
+	cmds.MustFind("rdb", "backup", "create").Override(backupCreateBuilder)
+
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
-
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
 
 	cmds.MustFind("rdb", "engine", "list").Override(engineListBuilder)
