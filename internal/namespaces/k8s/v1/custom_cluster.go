@@ -175,7 +175,7 @@ func k8sClusterWaitCommand() *core.Command {
 				}
 			}
 
-			return cluster, err
+			return cluster, nil
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
