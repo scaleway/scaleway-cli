@@ -40,6 +40,15 @@ type Human struct {
 	Acquaintances []*Acquaintance
 }
 
+type NestedAnonymous struct {
+	Name string
+}
+
+type Anonymous struct {
+	NestedAnonymous
+	Name string
+}
+
 type Stringer struct{}
 
 func (s Stringer) String() string {
@@ -95,7 +104,6 @@ func TestMarshal(t *testing.T) {
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
 		},
-		opt: nil,
 		result: `
 			String              This is a string
 			Int                 42
@@ -118,7 +126,6 @@ func TestMarshal(t *testing.T) {
 			Stringer            a stringer
 			StringerPtr         a stringer
 		`,
-		err: nil,
 	}))
 
 	t.Run("struct2", run(&testCase{
@@ -152,18 +159,25 @@ func TestMarshal(t *testing.T) {
 			Dr watson    Assistant
 			Mrs. Hudson  Landlady
 		`,
-		err: nil,
 	}))
 
 	t.Run("empty string", run(&testCase{
 		data:   "",
 		result: `-`,
-		err:    nil,
 	}))
 
 	t.Run("nil", run(&testCase{
 		data:   nil,
 		result: `-`,
-		err:    nil,
+	}))
+
+	t.Run("anonymous", run(&testCase{
+		data: &Anonymous{
+			NestedAnonymous: NestedAnonymous{
+				Name: "John",
+			},
+			Name: "Paul",
+		},
+		result: `Name  Paul`,
 	}))
 }
