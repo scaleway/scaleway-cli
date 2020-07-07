@@ -13,10 +13,12 @@ import (
 func ipCreateBuilder(c *core.Command) *core.Command {
 	type customCreateIPRequest struct {
 		*instance.CreateIPRequest
-		OrganizationID string
+		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateIPRequest{})
 
@@ -28,6 +30,7 @@ func ipCreateBuilder(c *core.Command) *core.Command {
 		}
 		request := args.CreateIPRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})

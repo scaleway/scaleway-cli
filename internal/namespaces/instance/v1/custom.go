@@ -12,11 +12,17 @@ import (
 var (
 	oldOrganizationFieldName = "organization"
 	newOrganizationFieldName = "organization-id"
+	oldProjectFieldName      = "project"
+	newProjectFieldName      = "project-id"
 )
 
 // helpers
 func renameOrganizationIDArgSpec(argSpecs core.ArgSpecs) {
 	argSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
+}
+
+func renameProjectIDArgSpec(argSpecs core.ArgSpecs) {
+	argSpecs.GetByName(oldProjectFieldName).Name = newProjectFieldName
 }
 
 // GetCommands returns instance commands.
