@@ -31,7 +31,7 @@ Be sure to check out the resource you create in each test and remember to delete
 When running a test, you might need information such as ID that you cannot know in advance (such as ID of resources).
 The `core.Test` uses different helpers to pass useful information around.
 
-One of them is the [`core.TestMeta`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L71).
+One of them is the [`core.testMetadata`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L80).
 It is designed to store information such as ID or object describing a resource during a test.
 It is often use in combination with the During a test, information can be obtained dynamically.
 This metadata can use the `render` method to provide helpful golang templating features to have commands arguments computed dynamically.
@@ -77,4 +77,3 @@ If you want to contribute new tests you should have the following:
     - Install your credentials, preferably in a configuration file (run `scw init`)
         - Keep in mind that if you record interaction, the resource you will instantiate will be delivered and billed.
         - Clean up the resource you don't use once the recording is over.
-
