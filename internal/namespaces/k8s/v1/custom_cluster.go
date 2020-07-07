@@ -129,6 +129,10 @@ func waitForClusterFunc(action int) core.WaitFunc {
 }
 
 func k8sClusterWaitCommand() *core.Command {
+	type customClusterWaitArgs struct {
+		k8s.WaitForClusterRequest
+		WaitForPools *bool
+	}
 	return &core.Command{
 		Short:     `Wait for a cluster to reach a stable state`,
 		Long:      `Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
@@ -137,13 +141,42 @@ func k8sClusterWaitCommand() *core.Command {
 		Verb:      "wait",
 		ArgsType:  reflect.TypeOf(k8s.WaitForClusterRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*customClusterWaitArgs)
+			waitForPool := false
+			if args.WaitForPools != nil {
+				waitForPool = *args.WaitForPools
+			}
+
 			api := k8s.NewAPI(core.ExtractClient(ctx))
-			return api.WaitForCluster(&k8s.WaitForClusterRequest{
-				Region:        argsI.(*k8s.WaitForClusterRequest).Region,
-				ClusterID:     argsI.(*k8s.WaitForClusterRequest).ClusterID,
+			cluster, err := api.WaitForCluster(&k8s.WaitForClusterRequest{
+				Region:        args.Region,
+				ClusterID:     args.ClusterID,
 				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
+
+			if waitForPool && cluster != nil {
+				pools, err := api.ListPools(&k8s.ListPoolsRequest{
+					Region:    cluster.Region,
+					ClusterID: cluster.ID,
+				}, scw.WithAllPages())
+				if err != nil {
+					return cluster, err
+				}
+				for _, pool := range pools.Pools {
+					_, err := api.WaitForPool(&k8s.WaitForPoolRequest{
+						Region:        pool.Region,
+						PoolID:        pool.ID,
+						Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+						RetryInterval: core.DefaultRetryInterval,
+					})
+					if err != nil {
+						return cluster, err
+					}
+				}
+			}
+
+			return cluster, err
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -151,6 +184,10 @@ func k8sClusterWaitCommand() *core.Command {
 				Short:      `ID of the cluster.`,
 				Required:   true,
 				Positional: true,
+			},
+			{
+				Name:  "wait-for-pools",
+				Short: "Wait for pools to be ready.",
 			},
 			core.RegionArgSpec(),
 		},
