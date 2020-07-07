@@ -2,21 +2,21 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt       few seconds ago
 Region          fr-par
-ID              2fe91a35-e819-4691-bae5-33613fc841dc
-Name            foobar
+ID              df2a60f6-5825-4bbe-b5e8-8e72e3078821
+Name            cli-test
 OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
 Status          ready
 Engine          PostgreSQL-12
 IsHaCluster     false
-NodeType        db-dev-m
+NodeType        db-dev-s
 
 Endpoint:
-IP    51.159.26.195
-Port  24332
+IP    51.159.27.75
+Port  45529
 
 Volume:
 Type  lssd
-Size  25 GB
+Size  5.0 GB
 
 Backup Schedule:
 Disabled   false
@@ -36,17 +36,17 @@ max_parallel_workers_per_gather  0
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 25000000000
+    "size": 5000000000
   },
   "region": "fr-par",
-  "id": "2fe91a35-e819-4691-bae5-33613fc841dc",
-  "name": "foobar",
+  "id": "df2a60f6-5825-4bbe-b5e8-8e72e3078821",
+  "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "ip": "51.159.26.195",
-    "port": 24332,
+    "ip": "51.159.27.75",
+    "port": 45529,
     "name": null
   },
   "tags": [],
@@ -83,5 +83,5 @@ max_parallel_workers_per_gather  0
   },
   "is_ha_cluster": false,
   "read_replicas": [],
-  "node_type": "db-dev-m"
+  "node_type": "db-dev-s"
 }

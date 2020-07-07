@@ -169,8 +169,8 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// If type is a struct
 			// We loop through all struct field
 			data := [][]string(nil)
-			for i := 0; i < value.NumField(); i++ {
-				subData, err := marshal(value.Field(i), append(keys, value.Type().Field(i).Name))
+			for _, fieldIndex := range getStructFieldsIndex(value) {
+				subData, err := marshal(value.FieldByIndex(fieldIndex), append(keys, value.Type().FieldByIndex(fieldIndex).Name))
 				if err != nil {
 					return nil, err
 				}
@@ -205,6 +205,46 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 	w.Flush()
 
 	return strings.TrimSpace(buffer.String()), nil
+}
+
+// getStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
+// This function will handle anonymous field and make sure that if a field is overwritten only the highest is returned.
+// You can use reflect GetFieldByIndex([]int) to get the correct field.
+func getStructFieldsIndex(v reflect.Value) [][]int {
+	// Using a map we make sure only the field with the highest order is returned for a given Name
+	found := map[string][]int{}
+
+	var recFunc func(v reflect.Value, parent []int)
+	recFunc = func(v reflect.Value, parent []int) {
+		for i := 0; i < v.NumField(); i++ {
+			field := v.Type().Field(i)
+			// If a field is anonymous we start recursive call
+			if field.Anonymous {
+				recFunc(v.Field(i), append(parent, i))
+			} else {
+				// else we add the field in the found map
+				found[field.Name] = append(parent, i)
+			}
+		}
+	}
+	recFunc(v, []int(nil))
+
+	result := [][]int(nil)
+	for _, value := range found {
+		result = append(result, value)
+	}
+
+	sort.Slice(result, func(i, j int) bool {
+		n := 0
+		for n < len(result[i]) && n < len(result[j]) {
+			if result[i][n] != result[j][n] {
+				return result[i][n] < result[j][n]
+			}
+		}
+		panic("this can never happen")
+	})
+
+	return result
 }
 
 func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {

@@ -1,33 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                 few seconds ago
-Volume.Type               lssd
-Volume.Size               25 GB
-Region                    fr-par
-ID                        54ea06de-3f2d-41ac-a825-41d0eba9a23c
-Name                      cli-test
-OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
-Status                    ready
-Engine                    PostgreSQL-12
-Endpoint.IP               51.159.24.138
-Endpoint.Port             43194
-Settings.0.Name           work_mem
-Settings.0.Value          4
-Settings.1.Name           max_connections
-Settings.1.Value          100
-Settings.2.Name           effective_cache_size
-Settings.2.Value          1300
-Settings.3.Name           maintenance_work_mem
-Settings.3.Value          150
-Settings.4.Name           max_parallel_workers
-Settings.4.Value          0
-Settings.5.Name           max_parallel_workers_per_gather
-Settings.5.Value          0
-BackupSchedule.Frequency  24
-BackupSchedule.Retention  7
-BackupSchedule.Disabled   false
-IsHaCluster               false
-NodeType                  db-dev-m
+CreatedAt       few seconds ago
+Region          fr-par
+ID              54ea06de-3f2d-41ac-a825-41d0eba9a23c
+Name            cli-test
+OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
+Status          ready
+Engine          PostgreSQL-12
+IsHaCluster     false
+NodeType        db-dev-m
+
+Endpoint:
+IP    51.159.24.138
+Port  43194
+
+Volume:
+Type  lssd
+Size  25 GB
+
+Backup Schedule:
+Disabled   false
+Frequency  24 days
+Retention  7 days
+
+Settings:
+NAME                             VALUE
+work_mem                         4
+max_connections                  100
+effective_cache_size             1300
+maintenance_work_mem             150
+max_parallel_workers             0
+max_parallel_workers_per_gather  0
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",

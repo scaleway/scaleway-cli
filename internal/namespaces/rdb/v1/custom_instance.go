@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,6 +18,62 @@ const (
 type serverWaitRequest struct {
 	InstanceID string
 	Region     scw.Region
+}
+
+func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	// To avoid recursion of human.Marshal we create a dummy type
+	type tmp rdb.Instance
+	instance := tmp(i.(rdb.Instance))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoint",
+		},
+		{
+			FieldName: "Volume",
+		},
+		{
+			FieldName: "BackupSchedule",
+		},
+		{
+			FieldName: "Settings",
+		},
+	}
+
+	str, err := human.Marshal(instance, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
+func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	// To avoid recursion of human.Marshal we create a dummy type
+	type LocalBackupSchedule rdb.BackupSchedule
+	type tmp struct {
+		LocalBackupSchedule
+		Frequency *scw.Duration `json:"frequency"`
+		Retention *scw.Duration `json:"retention"`
+	}
+
+	backupSchedule := tmp{
+		LocalBackupSchedule: LocalBackupSchedule(i.(rdb.BackupSchedule)),
+		Frequency: &scw.Duration{
+			Seconds: int64(i.(rdb.BackupSchedule).Frequency) * 24 * 3600,
+		},
+		Retention: &scw.Duration{
+			Seconds: int64(i.(rdb.BackupSchedule).Retention) * 24 * 3600,
+		},
+	}
+
+	str, err := human.Marshal(backupSchedule, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
 }
 
 func instanceWaitCommand() *core.Command {

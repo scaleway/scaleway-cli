@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
@@ -20,6 +21,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+	}
+
+	// Waiting for API to accept uppercase node-type
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		args := argsI.(*rdb.CreateInstanceRequest)
+		args.NodeType = strings.ToLower(args.NodeType)
+		return runner(ctx, args)
 	}
 
 	return c

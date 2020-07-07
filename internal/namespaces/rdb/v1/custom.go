@@ -1,6 +1,10 @@
 package rdb
 
-import "github.com/scaleway/scaleway-cli/internal/core"
+import (
+	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+)
 
 var nodeTypes = []string{
 	"DB-DEV-S",
@@ -16,6 +20,9 @@ var nodeTypes = []string{
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
+	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
