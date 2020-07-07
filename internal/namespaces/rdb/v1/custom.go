@@ -27,6 +27,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
 		instanceConnectCommand(),
+		backupWaitCommand(),
 	))
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
