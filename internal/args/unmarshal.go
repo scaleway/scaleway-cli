@@ -10,17 +10,12 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
-
-// This variable is used in the tests instead of time.Now
-// This allows for predictable results
-// var testMockNow *time.Time
 
 type Unmarshaler interface {
 	UnmarshalArgs(value string) error
@@ -48,22 +43,6 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	},
 	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest interface{}) error {
 		*(dest.(*io.Reader)) = strings.NewReader(value)
-		return nil
-	},
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
-		// Handle absolute time
-		t, err := time.Parse("2006-01-02T15:04:05Z0700", value)
-		if err != nil {
-			return err
-		}
-
-		// Handle relative time
-		// now := time.Now()
-		// if testMockNow != nil {
-		//	now = *testMockNow
-		//}
-
-		*(dest.(*time.Time)) = t
 		return nil
 	},
 }
