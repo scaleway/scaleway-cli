@@ -330,7 +330,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Debugf("creating IP")
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
 			Zone:         args.Zone,
-			Organization: &args.OrganizationID,
+			Organization: scw.StringPtr(args.OrganizationID),
 		})
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
