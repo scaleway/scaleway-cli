@@ -14,7 +14,7 @@ func Test_CreateBackup(t *testing.T) {
 			"Instance",
 			fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
 		),
-		Cmd:   "scw rdb backup create instance-id={{ .Instance.ID }} --wait",
+		Cmd:   "scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-0700 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }}"),

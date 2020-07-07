@@ -1,0 +1,31 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Invalid arguments 'name', 'expires_at.seconds'
+
+Details:
+- 'name' does not respect constraints
+- 'expires_at.seconds' is invalid for unexpected reasons
+
+Hint:
+Length must be at least: 1
+must be a valid timestamp
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "invalid arguments 'name', 'expires_at.seconds'",
+  "error": {
+    "details": [
+      {
+        "argument_name": "name",
+        "reason": "constraint",
+        "help_message": "length must be at least: 1"
+      },
+      {
+        "argument_name": "expires_at.seconds",
+        "reason": "unknown",
+        "help_message": "must be a valid timestamp"
+      }
+    ]
+  },
+  "details": "- 'name' does not respect constraints\n- 'expires_at.seconds' is invalid for unexpected reasons",
+  "hint": "length must be at least: 1\nmust be a valid timestamp"
+}
