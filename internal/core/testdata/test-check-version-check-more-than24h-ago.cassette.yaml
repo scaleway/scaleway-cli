@@ -1,0 +1,33 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers: {}
+    url: https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-v2-version
+    method: GET
+  response:
+    body: 2.0.0-beta.4
+    headers:
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - "12"
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Wed, 24 Jun 2020 13:56:16 GMT
+      Etag:
+      - '"c557c270fc02f78c44f2ccbe75faf6ae"'
+      Last-Modified:
+      - Mon, 08 Jun 2020 15:34:08 GMT
+      X-Amz-Id-2:
+      - tx18917f4b74a44e5196d6a-005ef35b80
+      X-Amz-Request-Id:
+      - tx18917f4b74a44e5196d6a-005ef35b80
+      X-Amz-Version-Id:
+      - "1591630448205209"
+    status: 200 OK
+    code: 200
+    duration: ""

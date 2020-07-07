@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"io"
+	"net/http"
 	"os"
 	"path"
 
@@ -28,6 +29,7 @@ type meta struct {
 	stderr                      io.Writer
 	stdin                       io.Reader
 	result                      interface{}
+	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
 }
 
@@ -90,6 +92,14 @@ func ExtractUserHomeDir(ctx context.Context) string {
 	return ExtractEnv(ctx, "HOME")
 }
 
+func ExtractCacheDir(ctx context.Context) string {
+	env := ExtractEnv(ctx, scw.ScwCacheDirEnv)
+	if env != "" {
+		return env
+	}
+	return scw.GetCacheDirectory()
+}
+
 func ExtractBinaryName(ctx context.Context) string {
 	return extractMeta(ctx).BinaryName
 }
@@ -103,6 +113,10 @@ func ExtractProfileName(ctx context.Context) string {
 		return extractMeta(ctx).ProfileFlag
 	}
 	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+}
+
+func ExtractHTTPClient(ctx context.Context) *http.Client {
+	return extractMeta(ctx).httpClient
 }
 
 func ExtractConfigPath(ctx context.Context) string {
@@ -125,7 +139,7 @@ func ReloadClient(ctx context.Context) error {
 	if meta.isClientFromBootstrapConfig {
 		return nil
 	}
-	meta.Client, err = createClient(meta.BuildInfo, "")
+	meta.Client, err = createClient(meta.httpClient, meta.BuildInfo, "")
 	return err
 }
 

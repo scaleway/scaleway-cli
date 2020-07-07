@@ -15,7 +15,6 @@ import (
 func baseBeforeFunc() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
-		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
 		return nil
 	}
 }
@@ -29,7 +28,6 @@ const (
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
 		"secret-key":       "{{ .SecretKey }}",
-		"organization-id":  "{{ .OrganizationID }}",
 		"send-telemetry":   "false",
 		"remove-v1-config": "false",
 		"with-ssh-key":     "false",

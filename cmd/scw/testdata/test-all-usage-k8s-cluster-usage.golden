@@ -8,14 +8,14 @@ USAGE:
   scw k8s cluster <command>
 
 AVAILABLE COMMANDS:
-  list                    List all the clusters
   create                  Create a new cluster
-  get                     Get a cluster
-  update                  Update a cluster
   delete                  Delete a cluster
-  upgrade                 Upgrade a cluster
+  get                     Get a cluster
+  list                    List all the clusters
   list-available-versions List available versions for a cluster
   reset-admin-token       Reset the admin token of a cluster
+  update                  Update a cluster
+  upgrade                 Upgrade a cluster
   wait                    Wait for a cluster to reach a stable state
 
 FLAGS:
@@ -24,7 +24,7 @@ FLAGS:
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
-  -o, --output string    Output format: json or human
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
 Use "scw k8s cluster [command] --help" for more information about a command.

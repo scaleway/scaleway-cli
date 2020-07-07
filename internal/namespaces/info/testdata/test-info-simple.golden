@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Build Info:
-version     0.0.0
-build-date  unknown
-go-version  runtime.Version()
-git-branch  unknown
-git-commit  unknown
-go-arch     runtime.GOARCH
-go-os       runtime.GOOS
+Version    0.0.0+test
+BuildDate  unknown
+GoVersion  runtime.Version()
+GitBranch  unknown
+GitCommit  unknown
+GoArch     runtime.GOARCH
+GoOS       runtime.GOOS
 
 Settings:
 KEY                      VALUE                                 ORIGIN
@@ -27,7 +27,7 @@ secret_key               22222222-xxxx-xxxx-xxxx-xxxxxxxxxxxx  env (SCW_SECRET_K
     "git_commit": "unknown",
     "go_arch": "runtime.GOARCH",
     "go_os": "runtime.GOOS",
-    "version": "0.0.0"
+    "version": "0.0.0+test"
   },
   "settings": [
     {

@@ -35,11 +35,11 @@ USAGE:
   scw instance volume <command>
 
 AVAILABLE COMMANDS:
-  list        List volumes
   create      Create volume
-  get         Get volume
-  update      Update volume
   delete      Delete volume
+  get         Get volume
+  list        List volumes
+  update      Update volume
 
 FLAGS:
   -h, --help   help for volume
@@ -47,7 +47,7 @@ FLAGS:
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
-  -o, --output string    Output format: json or human
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
 Use "scw instance volume [command] --help" for more information about a command.

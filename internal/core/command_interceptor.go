@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -13,6 +14,8 @@ import (
 func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	var combinedInterceptors CommandInterceptor
 	for _, interceptor := range interceptors {
+		// Avoid context leaking on the anonymous function below using a variable loop-scoped
+		localInterceptor := interceptor
 		if interceptor == nil {
 			continue
 		}
@@ -24,7 +27,7 @@ func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 		previousInterceptor := combinedInterceptors
 		combinedInterceptors = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
 			return previousInterceptor(ctx, args, func(ctx context.Context, arg interface{}) (interface{}, error) {
-				return interceptor(ctx, args, runner)
+				return localInterceptor(ctx, args, runner)
 			})
 		}
 	}
@@ -110,6 +113,25 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 			Err:     err,
 			Hint:    hint,
 		}
+	}
+
+	return res, err
+}
+
+// sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
+func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+	res, err := runner(ctx, args)
+	if err != nil {
+		return res, err
+	}
+	switch sdkValue := res.(type) {
+	case *scw.File:
+		ExtractLogger(ctx).Debug("Intercepting scw.File type, rendering as string")
+		fileContent, err := ioutil.ReadAll(sdkValue.Content)
+		if err != nil {
+			return nil, err
+		}
+		return string(fileContent), nil
 	}
 
 	return res, err

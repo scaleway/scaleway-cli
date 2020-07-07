@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"context"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -20,7 +21,6 @@ import (
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
@@ -31,11 +31,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// Environment variable are prefixed by "CLI_" in order to avoid magic behavior with SDK variables.
-// E.g.: SDK_UPDATE_CASSETTES=false will disable retry on WaitFor* methods.
+// Test flags
+// You can create a binary of each test using "go test -c -o myBinary"
 var (
-	UpdateGoldens   = os.Getenv("CLI_UPDATE_GOLDENS") == "true"
-	UpdateCassettes = os.Getenv("CLI_UPDATE_CASSETTES") == "true"
+	// UpdateGoldens will update all the golden files of a given test
+	UpdateGoldens = flag.Bool("goldens", os.Getenv("CLI_UPDATE_GOLDENS") == "true", "Record goldens")
+
+	// UpdateCassettes will update all cassettes of a given test
+	UpdateCassettes = flag.Bool("cassettes", os.Getenv("CLI_UPDATE_CASSETTES") == "true", "Record Cassettes")
+
+	// Debug set the log level to LogLevelDebug
+	Debug = flag.Bool("debug", os.Getenv("SCW_DEBUG") == "true", "Enable Debug Mode")
 )
 
 // CheckFuncCtx contain the result of a command execution
@@ -56,7 +62,7 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta TestMeta
+	Meta testMetadata
 
 	// Scaleway client
 	Client *scw.Client
@@ -65,13 +71,16 @@ type CheckFuncCtx struct {
 	OverrideEnv map[string]string
 
 	Logger *Logger
+
+	// The content logged by the command
+	LogBuffer string
 }
 
-// TestMeta contains arbitrary data that can be passed along a test lifecycle.
-type TestMeta map[string]interface{}
+// testMetadata contains arbitrary data that can be passed along a test lifecycle.
+type testMetadata map[string]interface{}
 
-// Tpl render a go template using where content of meta can be used
-func (meta TestMeta) Tpl(strTpl string) string {
+// render renders a go template using where content of meta can be used
+func (meta testMetadata) render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
@@ -87,7 +96,7 @@ type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
 	T      *testing.T
-	Meta   TestMeta
+	Meta   testMetadata
 	Client *scw.Client
 }
 
@@ -97,7 +106,7 @@ type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        TestMeta
+	Meta        testMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -106,7 +115,7 @@ type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        TestMeta
+	Meta        testMetadata
 	CmdResult   interface{}
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -153,6 +162,8 @@ type TestConfig struct {
 
 	// If set, it will create a temporary home directory during the tests.
 	// Get this folder with ExtractUserHomeDir()
+	// This will also use this temporary directory as a cache directory.
+	// Get this folder with ExtractCacheDir()
 	TmpHomeDir bool
 
 	// OverrideEnv contains environment variables that will be overridden during the test.
@@ -210,7 +221,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 	if !testConfig.UseE2EClient {
 		clientOpts = append(clientOpts, scw.WithHTTPClient(httpClient))
 
-		if UpdateCassettes {
+		if *UpdateCassettes {
 			clientOpts = append(clientOpts, scw.WithEnv())
 			config, err := scw.LoadConfig()
 			if err == nil {
@@ -256,12 +267,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			t.Parallel()
 		}
 
-		log := &Logger{
+		testLogger := &Logger{
 			writer: os.Stderr,
 			level:  logger.LogLevelInfo,
 		}
-		if os.Getenv("SCW_DEBUG") == "true" {
-			log.level = logger.LogLevelDebug
+
+		if *Debug {
+			testLogger.level = logger.LogLevelDebug
 		}
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
@@ -270,7 +282,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			return "few seconds ago", nil
 		})
 
-		if !UpdateCassettes {
+		if !*UpdateCassettes {
 			tmp := 0 * time.Second
 			DefaultRetryInterval = &tmp
 		}
@@ -283,10 +295,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
 		}
 
-		httpClient, cleanup, err := getHTTPRecoder(t, UpdateCassettes)
+		httpClient, cleanup, err := getHTTPRecoder(t, *UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
-		ctx = account.InjectHTTPClient(ctx, httpClient)
 
 		// We try to use the client provided in the config
 		// if no client is provided in the config we create a test client
@@ -295,7 +306,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			client = createTestClient(t, config, httpClient)
 		}
 
-		meta := TestMeta{
+		meta := testMetadata{
 			"t": t,
 		}
 
@@ -312,7 +323,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 				assert.NoError(t, err)
 			}()
 			overrideEnv["HOME"] = dir
+			overrideEnv[scw.ScwCacheDirEnv] = dir
 			meta["HOME"] = dir
+			meta[scw.ScwCacheDirEnv] = dir
 		}
 
 		overrideExec := defaultOverrideExec
@@ -334,7 +347,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		buildInfo := config.BuildInfo
 		if buildInfo == nil {
 			buildInfo = &BuildInfo{
-				Version:   version.Must(version.NewSemver("v0.0.0")),
+				Version:   version.Must(version.NewSemver("v0.0.0+test")),
 				BuildDate: "unknown",
 				GoVersion: "runtime.Version()",
 				GitBranch: "unknown",
@@ -358,7 +371,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
-				Logger:           log,
+				Logger:           testLogger,
+				HTTPClient:       httpClient,
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -367,16 +381,16 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Run config.BeforeFunc
 		if config.BeforeFunc != nil {
-			log.Debug("Start BeforeFunc")
+			testLogger.Debug("Start BeforeFunc")
 			require.NoError(t, config.BeforeFunc(&BeforeFuncCtx{
 				T:           t,
 				Client:      client,
 				ExecuteCmd:  executeCmd,
 				Meta:        meta,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
 			}))
-			log.Debug("End BeforeFunc")
+			testLogger.Debug("End BeforeFunc")
 		}
 
 		// Run config.Cmd
@@ -385,6 +399,15 @@ func Test(config *TestConfig) func(t *testing.T) {
 		args := config.Args
 		if config.Cmd != "" {
 			args = cmdToArgs(meta, config.Cmd)
+		}
+
+		// We create a separate logger for the command we want to test.
+		// This separate logger allow check function to test content log by a command
+		// without content log by the test-engine (Before/After func, ...).
+		cmdLoggerBuffer := &bytes.Buffer{}
+		cmdLogger := &Logger{
+			writer: io.MultiWriter(cmdLoggerBuffer, os.Stderr),
+			level:  testLogger.level,
 		}
 		if len(args) > 0 {
 			stdout := &bytes.Buffer{}
@@ -401,7 +424,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
-				Logger:           log,
+				Logger:           cmdLogger,
+				HTTPClient:       httpClient,
 			})
 
 			meta["CmdResult"] = result
@@ -414,13 +438,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Err:         err,
 				Client:      client,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
+				LogBuffer:   cmdLoggerBuffer.String(),
 			})
 		}
 
 		// Run config.AfterFunc
 		if config.AfterFunc != nil {
-			log.Debug("Start AfterFunc")
+			testLogger.Debug("Start AfterFunc")
 			require.NoError(t, config.AfterFunc(&AfterFuncCtx{
 				T:           t,
 				Client:      client,
@@ -428,15 +453,15 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Meta:        meta,
 				CmdResult:   result,
 				OverrideEnv: overrideEnv,
-				Logger:      log,
+				Logger:      testLogger,
 			}))
-			log.Debug("End AfterFunc")
+			testLogger.Debug("End AfterFunc")
 		}
 	}
 }
 
-func cmdToArgs(meta TestMeta, s string) []string {
-	return strings.Split(meta.Tpl(s), " ")
+func cmdToArgs(meta testMetadata, s string) []string {
+	return strings.Split(meta.render(s), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -454,7 +479,7 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 
 func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		if UpdateCassettes {
+		if *UpdateCassettes {
 			return beforeFunc(ctx)
 		}
 		return nil
@@ -515,7 +540,6 @@ func ExecAfterCmd(cmd string) AfterFunc {
 // TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
-		assert.Equal(t, true, len(checks) > 1, "TestCheckCombine must be used to combine more than one TestCheck")
 		for _, check := range checks {
 			check(t, ctx)
 		}
@@ -536,7 +560,7 @@ func TestCheckGolden() TestCheck {
 
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
-		if UpdateGoldens {
+		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
 			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
 		}
@@ -563,7 +587,7 @@ func TestCheckStdout(stdout string) TestCheck {
 
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-		assert.Equal(ctx.T, ctx.Meta.Tpl(cmdStr), strings.Join(cmd.Args, " "))
+		assert.Equal(ctx.T, ctx.Meta.render(cmdStr), strings.Join(cmd.Args, " "))
 		return exitCode, nil
 	}
 }
@@ -612,10 +636,9 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	jsonStdout := &bytes.Buffer{}
 
 	jsonPrinter, err := NewPrinter(&PrinterConfig{
-		Type:   PrinterTypeJSON,
-		Stdout: jsonStdout,
-		Stderr: jsonStderr,
-		Pretty: true,
+		OutputFlag: "json=pretty",
+		Stdout:     jsonStdout,
+		Stderr:     jsonStderr,
 	})
 	require.NoError(t, err)
 

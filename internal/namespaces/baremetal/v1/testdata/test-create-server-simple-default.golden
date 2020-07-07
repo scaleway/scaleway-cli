@@ -1,29 +1,29 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-id                            75a4c881-2fa1-4172-ab22-7656e8c955ba
-organization-id               951df375-e094-4d26-97c1-ba548eeb9c42
-name                          cli-bm-crazy-northcutt
-description                   -
-updated-at                    few seconds ago
-created-at                    few seconds ago
-status                        ready
-offer-id                      7fde3890-9787-488c-ac89-c4e00a4e5f83
-ips.0.id                      3deca5d7-b557-4220-b531-0d8f5c9e2772
-ips.0.address                 51.159.31.75
-ips.0.reverse                 75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
-ips.0.version                 IPv4
-ips.0.reverse-status          pending
-ips.0.reverse-status-message  -
-ips.1.id                      c0d172c9-4d86-45ec-9f7e-cb23cd4c455b
-ips.1.address                 2001:bc8:6005:1b:dac4:97ff:fe2a:2fb8
-ips.1.reverse                 75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
-ips.1.version                 IPv6
-ips.1.reverse-status          pending
-ips.1.reverse-status-message  -
-domain                        75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
-boot-type                     normal
-zone                          fr-par-2
-ping-status                   unknown
+ID                          75a4c881-2fa1-4172-ab22-7656e8c955ba
+OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
+Name                        cli-bm-crazy-northcutt
+Description                 -
+UpdatedAt                   few seconds ago
+CreatedAt                   few seconds ago
+Status                      ready
+OfferID                     7fde3890-9787-488c-ac89-c4e00a4e5f83
+IPs.0.ID                    3deca5d7-b557-4220-b531-0d8f5c9e2772
+IPs.0.Address               51.159.31.75
+IPs.0.Reverse               75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+IPs.0.Version               IPv4
+IPs.0.ReverseStatus         pending
+IPs.0.ReverseStatusMessage  -
+IPs.1.ID                    c0d172c9-4d86-45ec-9f7e-cb23cd4c455b
+IPs.1.Address               2001:bc8:6005:1b:dac4:97ff:fe2a:2fb8
+IPs.1.Reverse               75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+IPs.1.Version               IPv6
+IPs.1.ReverseStatus         pending
+IPs.1.ReverseStatusMessage  -
+Domain                      75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+BootType                    normal
+Zone                        fr-par-2
+PingStatus                  unknown
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "75a4c881-2fa1-4172-ab22-7656e8c955ba",
