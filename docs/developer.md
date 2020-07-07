@@ -33,7 +33,6 @@ The `core.Test` uses different helpers to pass useful information around.
 
 One of them is the [`core.testMetadata`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L80).
 It is designed to store information such as ID or object describing a resource during a test.
-It is often use in combination with the During a test, information can be obtained dynamically.
 This metadata can use the `render` method to provide helpful golang templating features to have commands arguments computed dynamically.
 
 #### BeforeFunc and AfterFunc
