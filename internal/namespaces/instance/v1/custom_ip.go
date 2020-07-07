@@ -27,7 +27,7 @@ func ipCreateBuilder(c *core.Command) *core.Command {
 			args.CreateIPRequest = &instance.CreateIPRequest{}
 		}
 		request := args.CreateIPRequest
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		return runner(ctx, request)
 	})
