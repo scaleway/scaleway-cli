@@ -1,0 +1,36 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Name            Engine Type  End of Life
+PostgreSQL-12   PostgreSQL   few seconds ago
+PostgreSQL-11   PostgreSQL   few seconds ago
+PostgreSQL-10   PostgreSQL   few seconds ago
+PostgreSQL-9.6  PostgreSQL   few seconds ago
+MySQL-8         MySQL        few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "PostgreSQL-12",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2024-11-14T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-11",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2023-11-09T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-10",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2022-11-10T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-9.6",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2021-11-11T00:00:00Z"
+  },
+  {
+    "name": "MySQL-8",
+    "engine_type": "MySQL",
+    "end_of_life": "2026-04-01T00:00:00Z"
+  }
+]
