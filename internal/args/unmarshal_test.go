@@ -3,6 +3,7 @@ package args
 import (
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -15,6 +16,9 @@ func TestUnmarshalStruct(t *testing.T) {
 		expected interface{}
 		data     interface{}
 	}
+
+	//mockNow := time.Date(2020, 1, 21, 12, 12, 12, 12, time.UTC)
+	//testMockNow = &mockNow
 
 	stringPtr := "test"
 	slicePtr := []string{"0", "1", "2"}
@@ -233,6 +237,15 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 		expected: &WellKnownTypes{
 			Size: 20 * scw.GB,
+		},
+	}))
+
+	t.Run("Relative date", run(TestCase{
+		args: []string{
+			"time=2006-01-02T15:04:05Z",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
 		},
 	}))
 
