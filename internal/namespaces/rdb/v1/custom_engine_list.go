@@ -9,10 +9,10 @@ import (
 )
 
 func engineListBuilder(c *core.Command) *core.Command {
-	type customList struct {
-		Name       string
-		EngineType string
-		EndOfLife  time.Time
+	type customEngine struct {
+		Name       string    `json:"name"`
+		EngineType string    `json:"engine_type"`
+		EndOfLife  time.Time `json:"end_of_life"`
 	}
 
 	c.View = &core.View{
@@ -38,10 +38,10 @@ func engineListBuilder(c *core.Command) *core.Command {
 			return listEngineResp, err
 		}
 		engineList := listEngineResp.([]*rdb.DatabaseEngine)
-		var res []customList
+		var res []customEngine
 		for _, engine := range engineList {
 			for _, version := range engine.Versions {
-				res = append(res, customList{
+				res = append(res, customEngine{
 					Name:       version.Name,
 					EngineType: engine.Name,
 					EndOfLife:  version.EndOfLife,
