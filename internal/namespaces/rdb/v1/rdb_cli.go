@@ -466,7 +466,7 @@ func rdbInstanceClone() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `Node type of the clone (DEV1-S, ...)`,
+				Short:      `Node type of the clone`,
 				Required:   false,
 				Positional: false,
 			},
@@ -660,7 +660,7 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `Type of node to use for the instance (DEV1-S, ...)`,
+				Short:      `Type of node to use for the instance`,
 				Required:   true,
 				Positional: false,
 			},
