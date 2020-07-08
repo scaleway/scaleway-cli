@@ -9,6 +9,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces"
 )
 
+// This command is used to generate markdown documentation for each commands (custom or generated) of the CLI
 func main() {
 	commands := namespaces.GetCommands()
 
