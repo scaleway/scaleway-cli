@@ -5,7 +5,7 @@ const tplStr = `
 
 {{- define "namespace" -}}
 {{ template "do_not_edit" }}
-# Documentation for scw {{ .Cmd.Namespace }}
+# Documentation for {{ bq }}scw {{ .Cmd.Namespace }}{{ bq }}
 {{ .Cmd.Long | default .Cmd.Short }}
   
 {{ range $resourceName, $resource := .Resources -}}
@@ -38,14 +38,16 @@ const tplStr = `
 {{ .Cmd.Long }}
 
 **Usage:**
+
 {{ bbq }}
 {{ .Cmd.GetUsage "scw" .Data.Commands }}
 {{ bbq }}
 {{ if .Cmd.ArgSpecs }}
 
 **Args:**
+
 | Name |   | Description |
-| ---- | - | ----------- |
+|------|---|-------------|
 {{ range $arg := .Cmd.ArgSpecs -}}
 | {{ $arg.Name }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
 {{ end -}}
@@ -53,6 +55,7 @@ const tplStr = `
 {{- if .Cmd.Examples }}
 
 **Examples:**
+
 {{ range $example := .Cmd.Examples }}
 {{ $example.Short }}
 {{ bbq }}
