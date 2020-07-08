@@ -3,6 +3,7 @@ package rdb
 import (
 	"context"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -74,6 +75,60 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	}
 
 	return str, nil
+}
+
+func instanceCloneBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdb.Instance).ID,
+			Region:        respI.(*rdb.Instance).Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+
+	return c
+}
+
+func instanceCreateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
+	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdb.Instance).ID,
+			Region:        respI.(*rdb.Instance).Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+
+	// Waiting for API to accept uppercase node-type
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		args := argsI.(*rdb.CreateInstanceRequest)
+		args.NodeType = strings.ToLower(args.NodeType)
+		return runner(ctx, args)
+	}
+
+	return c
+}
+
+func instanceUpgradeBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdb.Instance).ID,
+			Region:        respI.(*rdb.Instance).Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+
+	return c
 }
 
 func instanceWaitCommand() *core.Command {
