@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows to manage your scaleway account
+Account API
 
 USAGE:
   scw account <command>
 
 AVAILABLE COMMANDS:
-  ssh-key     Manage your Scaleway SSH keys
+  ssh-key     SSH keys management commands
 
 FLAGS:
   -h, --help   help for account

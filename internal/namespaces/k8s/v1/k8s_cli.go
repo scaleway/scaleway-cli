@@ -48,7 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 }
 func k8sRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Kapsule clusters`,
+		Short:     `Kapsule API`,
 		Long:      ``,
 		Namespace: "k8s",
 	}
@@ -56,7 +56,7 @@ func k8sRoot() *core.Command {
 
 func k8sCluster() *core.Command {
 	return &core.Command{
-		Short: `A cluster is a Kubernetes Kapsule cluster`,
+		Short: `Kapsule cluster management commands`,
 		Long: `A cluster is a fully managed Kubernetes cluster.
 
 It is composed of different pools, each pool containing the same kind of nodes.
@@ -68,7 +68,7 @@ It is composed of different pools, each pool containing the same kind of nodes.
 
 func k8sPool() *core.Command {
 	return &core.Command{
-		Short: `A pool is a virtual group of nodes in a cluster`,
+		Short: `Kapsule pool management commands`,
 		Long: `A pool is a set of identical Nodes. A pool has a name, a size (its current number of nodes), nodes number limits (min, max) and a Scaleway instance type.
 Changing those limits increases/decreases the size of a pool. Thus, when autoscaling is enabled, the pool will grow or shrink inside those limits, depending on its load.
 A "default pool" is automatically created with every cluster.
@@ -80,7 +80,7 @@ A "default pool" is automatically created with every cluster.
 
 func k8sNode() *core.Command {
 	return &core.Command{
-		Short: `A node is the representation of a Scaleway instance in a cluster`,
+		Short: `Kapsule node management commands`,
 		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance.
 It is part of a pool and is instantiated by Scaleway, making Kubernetes software installed and configured automatically on it.
 Please note that Kubernetes nodes cannot be accessed with ssh.
@@ -92,7 +92,7 @@ Please note that Kubernetes nodes cannot be accessed with ssh.
 
 func k8sVersion() *core.Command {
 	return &core.Command{
-		Short: `A version is a Kubernetes version`,
+		Short: `Available Kubernetes version commands`,
 		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `.
 It is composed of a major version x, a minor version y and a patch version z.
 Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.

@@ -39,7 +39,7 @@ func GetGeneratedCommands() *core.Commands {
 }
 func registryRoot() *core.Command {
 	return &core.Command{
-		Short:     `Docker registry API`,
+		Short:     `Container registry API`,
 		Long:      ``,
 		Namespace: "registry",
 	}
@@ -47,8 +47,9 @@ func registryRoot() *core.Command {
 
 func registryNamespace() *core.Command {
 	return &core.Command{
-		Short: `A namespace is for images what a folder is for files`,
-		Long: `
+		Short: `Namespace management commands`,
+		Long: `A namespace is for images what a folder is for files
+
 To use our services, the first step is to create a namespace.
 
 A namespace is for images what a folder is for files. Every push or pull must mention the namespace :
@@ -65,8 +66,8 @@ A namespace can be either public or private (default), which determines who can 
 
 func registryImage() *core.Command {
 	return &core.Command{
-		Short: `An image represents a container image`,
-		Long: `An image represents a docker image.
+		Short: `Image management commands`,
+		Long: `An image represents a container image.
 
 The visibility of an image can be public (everyone can pull it), private (only your organization can pull it) or inherit from the namespace visibility (default)
 It can be changed with an update on the image via the registry API.
@@ -78,8 +79,8 @@ It can be changed with an update on the image via the registry API.
 
 func registryTag() *core.Command {
 	return &core.Command{
-		Short: `A tag represents a container tag of an image`,
-		Long: `A tag represents a docker tag of an image.
+		Short: `Tag management commands`,
+		Long: `A tag represents a container tag of an image.
 `,
 		Namespace: "registry",
 		Resource:  "tag",

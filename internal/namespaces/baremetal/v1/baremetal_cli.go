@@ -45,8 +45,8 @@ func baremetalRoot() *core.Command {
 
 func baremetalServer() *core.Command {
 	return &core.Command{
-		Short:     `A server is a denomination of a type of instances provided by Scaleway`,
-		Long:      `A server is a denomination of a type of instances provided by Scaleway.`,
+		Short:     `Server management commands`,
+		Long:      `A server is a denomination of a type of instances provided by Scaleway`,
 		Namespace: "baremetal",
 		Resource:  "server",
 	}
@@ -54,8 +54,8 @@ func baremetalServer() *core.Command {
 
 func baremetalOs() *core.Command {
 	return &core.Command{
-		Short:     `An Operating System (OS) is the underlying software installed on your server`,
-		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
+		Short:     `Operating System (OS) management commands`,
+		Long:      `An Operating System (OS) is the underlying software installed on your server`,
 		Namespace: "baremetal",
 		Resource:  "os",
 	}
@@ -63,8 +63,8 @@ func baremetalOs() *core.Command {
 
 func baremetalServerList() *core.Command {
 	return &core.Command{
-		Short:     `List servers`,
-		Long:      `List all created servers.`,
+		Short:     `List baremetal servers`,
+		Long:      `List baremetal servers.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "list",
@@ -126,7 +126,7 @@ func baremetalServerList() *core.Command {
 
 func baremetalServerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get server`,
+		Short:     `Get a specific baremetal server`,
 		Long:      `Get the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -160,8 +160,8 @@ func baremetalServerGet() *core.Command {
 
 func baremetalServerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create server`,
-		Long:      `Create a new server. Once the server is created, you probably want to install an OS.`,
+		Short:     `Create a baremetal server`,
+		Long:      `Create a new baremetal server. Once the server is created, you probably want to install an OS.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "create",
@@ -213,7 +213,7 @@ func baremetalServerCreate() *core.Command {
 
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update server`,
+		Short:     `Update a baremetal server`,
 		Long:      `Update the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -259,7 +259,7 @@ func baremetalServerUpdate() *core.Command {
 
 func baremetalServerInstall() *core.Command {
 	return &core.Command{
-		Short:     `Install server`,
+		Short:     `Install a baremetal server`,
 		Long:      `Install an OS on the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -325,7 +325,7 @@ func baremetalServerInstall() *core.Command {
 
 func baremetalServerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete server`,
+		Short:     `Delete a baremetal server`,
 		Long:      `Delete the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -359,7 +359,7 @@ func baremetalServerDelete() *core.Command {
 
 func baremetalServerReboot() *core.Command {
 	return &core.Command{
-		Short:     `Reboot server`,
+		Short:     `Reboot a baremetal server`,
 		Long:      `Reboot the server associated with the given ID, use boot param to reboot in rescue.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -404,7 +404,7 @@ func baremetalServerReboot() *core.Command {
 
 func baremetalServerStart() *core.Command {
 	return &core.Command{
-		Short:     `Start server`,
+		Short:     `Start a baremetal server`,
 		Long:      `Start the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -438,7 +438,7 @@ func baremetalServerStart() *core.Command {
 
 func baremetalServerStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop server`,
+		Short:     `Stop a baremetal server`,
 		Long:      `Stop the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -472,7 +472,7 @@ func baremetalServerStop() *core.Command {
 
 func baremetalOsList() *core.Command {
 	return &core.Command{
-		Short:     `List OS`,
+		Short:     `List all available OS that can be install on a baremetal server`,
 		Long:      `List all available OS that can be install on a baremetal server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
@@ -504,7 +504,7 @@ func baremetalOsList() *core.Command {
 
 func baremetalOsGet() *core.Command {
 	return &core.Command{
-		Short:     `Get OS`,
+		Short:     `Get an OS with a given ID`,
 		Long:      `Return specific OS for the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "os",
@@ -513,7 +513,7 @@ func baremetalOsGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
-				Short:      `ID of the researched OS`,
+				Short:      `ID of the OS`,
 				Required:   true,
 				Positional: true,
 			},

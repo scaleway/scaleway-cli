@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Network Access Control List allows to control network in and out traffic by setting up ACL rules. ACL rules could be created, edited, deleted
+Network Access Control List allows to control network in and out traffic by setting up ACL rules.
 
 USAGE:
   scw rdb acl <command>

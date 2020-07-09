@@ -10,7 +10,7 @@ EXAMPLES:
     scw baremetal os get
 
 ARGS:
-  os-id             ID of the researched OS
+  os-id             ID of the OS
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
 
 FLAGS:

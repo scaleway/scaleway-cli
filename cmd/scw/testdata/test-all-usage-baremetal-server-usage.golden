@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A server is a denomination of a type of instances provided by Scaleway.
+A server is a denomination of a type of instances provided by Scaleway
 
 USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
-  create      Create server
-  delete      Delete server
-  get         Get server
-  install     Install server
-  list        List servers
-  reboot      Reboot server
-  start       Start server
-  stop        Stop server
-  update      Update server
+  create      Create a baremetal server
+  delete      Delete a baremetal server
+  get         Get a specific baremetal server
+  install     Install a baremetal server
+  list        List baremetal servers
+  reboot      Reboot a baremetal server
+  start       Start a baremetal server
+  stop        Stop a baremetal server
+  update      Update a baremetal server
   wait        Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:

@@ -4,18 +4,18 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account      This API allows to manage your scaleway account
+  account      Account API
   baremetal    Baremetal API
   config       Config file management
   feedback     Send feedback to the Scaleway CLI Team!
   info         Get info about current settings
   init         Initialize the config
   instance     Instance API
-  k8s          This API allows you to manage your Kapsule clusters
+  k8s          Kapsule API
   marketplace  Marketplace API
   object       Object-storage utils
   rdb          Database RDB API
-  registry     Docker registry API
+  registry     Container registry API
   version      Display cli version
   help         Help about any command
 
