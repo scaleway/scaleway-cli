@@ -20,7 +20,7 @@ Size  5.0 GB
 
 Backup Schedule:
 Disabled   false
-Frequency  24 days
+Frequency  1 days
 Retention  7 days
 
 Settings:
