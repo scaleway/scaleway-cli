@@ -125,6 +125,12 @@ func newTemplate() *template.Template {
 			}
 			return s
 		},
+		"anchor": func(short string) string {
+			res := strings.ToLower(short)
+			res = strings.ReplaceAll(res, " ", "-")
+			res = strings.ReplaceAll(res, "/", "")
+			return res
+		},
 		"arg_spec_flag": func(arg *core.ArgSpec) string {
 			parts := []string(nil)
 			if arg.Required {

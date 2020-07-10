@@ -18,13 +18,13 @@ The following environment variables are supported:
 
 Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
   
-- [Dump the config file](#Dump the config file)
-- [Get a value from the config file](#Get a value from the config file)
-- [Allows the deletion of a profile from the config file](#Allows the deletion of a profile from the config file)
+- [Dump the config file](#dump-the-config-file)
+- [Get a value from the config file](#get-a-value-from-the-config-file)
+- [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
-- [Reset the config](#Reset the config)
-- [Set a line from the config file](#Set a line from the config file)
-- [Unset a line from the config file](#Unset a line from the config file)
+- [Reset the config](#reset-the-config)
+- [Set a line from the config file](#set-a-line-from-the-config-file)
+- [Unset a line from the config file](#unset-a-line-from-the-config-file)
 
   
 ## Dump the config file

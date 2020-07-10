@@ -2,7 +2,7 @@
 # Documentation for `scw object`
 Object-storage utils
   
-- [Manage configuration files for popular S3 tools](#Manage configuration files for popular S3 tools)
+- [Manage configuration files for popular S3 tools](#manage-configuration-files-for-popular-s3-tools)
   - [Generate a S3 tool configuration file](#generate-a-s3-tool-configuration-file)
   - [Install a S3 tool configuration file to its default location](#install-a-s3-tool-configuration-file-to-its-default-location)
 

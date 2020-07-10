@@ -9,9 +9,9 @@ const tplStr = `
 {{ .Cmd.Long | default .Cmd.Short }}
   
 {{ range $resourceName, $resource := .Resources -}}
-- [{{ $resource.Cmd.Short }}]("#{{ $resource.Cmd.Short }}")
+- [{{ $resource.Cmd.Short }}](#{{ anchor $resource.Cmd.Short }})
 {{- range $verbName, $cmd := $resource.Verbs }}
-  - [{{ $cmd.Short }}]("#{{ $resourceName}}-{{ $verbName }}")
+  - [{{ $cmd.Short }}](#{{ anchor $cmd.Short }})
 {{- end }}
 {{ end }}
   

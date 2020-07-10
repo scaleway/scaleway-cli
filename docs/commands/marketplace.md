@@ -2,7 +2,7 @@
 # Documentation for `scw marketplace`
 Marketplace API
   
-- [Marketplace images management commands](#Marketplace images management commands)
+- [Marketplace images management commands](#marketplace-images-management-commands)
   - [Get a specific marketplace image](#get-a-specific-marketplace-image)
   - [List marketplace images](#list-marketplace-images)
 

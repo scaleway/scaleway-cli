@@ -2,7 +2,7 @@
 # Documentation for `scw account`
 Account API
   
-- [SSH keys management commands](#SSH keys management commands)
+- [SSH keys management commands](#ssh-keys-management-commands)
   - [Add a SSH key to your organization](#add-a-ssh-key-to-your-organization)
   - [Get a SSH key from your organization](#get-a-ssh-key-from-your-organization)
   - [Initialize SSH key](#initialize-ssh-key)

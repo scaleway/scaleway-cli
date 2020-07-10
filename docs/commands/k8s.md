@@ -2,7 +2,7 @@
 # Documentation for `scw k8s`
 Kapsule API
   
-- [Kapsule cluster management commands](#Kapsule cluster management commands)
+- [Kapsule cluster management commands](#kapsule-cluster-management-commands)
   - [Create a new cluster](#create-a-new-cluster)
   - [Delete a cluster](#delete-a-cluster)
   - [Get a cluster](#get-a-cluster)
@@ -12,17 +12,17 @@ Kapsule API
   - [Update a cluster](#update-a-cluster)
   - [Upgrade a cluster](#upgrade-a-cluster)
   - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
-- [Manage your Kubernetes Kapsule cluster's kubeconfig files](#Manage your Kubernetes Kapsule cluster's kubeconfig files)
+- [Manage your Kubernetes Kapsule cluster's kubeconfig files](#manage-your-kubernetes-kapsule-cluster's-kubeconfig-files)
   - [Retrieve a kubeconfig](#retrieve-a-kubeconfig)
   - [Install a kubeconfig](#install-a-kubeconfig)
   - [Uninstall a kubeconfig](#uninstall-a-kubeconfig)
-- [Kapsule node management commands](#Kapsule node management commands)
+- [Kapsule node management commands](#kapsule-node-management-commands)
   - [Get a node in a cluster](#get-a-node-in-a-cluster)
   - [List all the nodes in a cluster](#list-all-the-nodes-in-a-cluster)
   - [Reboot a node in a cluster](#reboot-a-node-in-a-cluster)
   - [Replace a node in a cluster](#replace-a-node-in-a-cluster)
   - [Wait for a node to reach a stable state](#wait-for-a-node-to-reach-a-stable-state)
-- [Kapsule pool management commands](#Kapsule pool management commands)
+- [Kapsule pool management commands](#kapsule-pool-management-commands)
   - [Create a new pool in a cluster](#create-a-new-pool-in-a-cluster)
   - [Delete a pool in a cluster](#delete-a-pool-in-a-cluster)
   - [Get a pool in a cluster](#get-a-pool-in-a-cluster)
@@ -30,7 +30,7 @@ Kapsule API
   - [Update a pool in a cluster](#update-a-pool-in-a-cluster)
   - [Upgrade a pool in a cluster](#upgrade-a-pool-in-a-cluster)
   - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
-- [Available Kubernetes version commands](#Available Kubernetes version commands)
+- [Available Kubernetes version commands](#available-kubernetes-version-commands)
   - [Get details about a specific version](#get-details-about-a-specific-version)
   - [List all available versions](#list-all-available-versions)
 
