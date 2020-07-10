@@ -20,12 +20,21 @@ import (
 
 func GetCommands() *core.Commands {
 	return core.NewCommands(
+		autocompleteRootCommand(),
 		autocompleteInstallCommand(),
 		autocompleteCompleteBashCommand(),
 		autocompleteCompleteFishCommand(),
 		autocompleteCompleteZshCommand(),
 		autocompleteScriptCommand(),
 	)
+}
+
+func autocompleteRootCommand() *core.Command {
+	return &core.Command{
+		Short:     `Autocomplete related commands`,
+		Long:      ``,
+		Namespace: "autocomplete",
+	}
 }
 
 type autocompleteScript struct {

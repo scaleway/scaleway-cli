@@ -5,6 +5,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   account      Account API
+  autocomplete Autocomplete related commands
   baremetal    Baremetal API
   config       Config file management
   feedback     Send feedback to the Scaleway CLI Team!

@@ -35,17 +35,19 @@ func configRoot() *core.Command {
 	configPath := scw.GetConfigPath()
 	envVarTable := bytes.Buffer{}
 	w := tabwriter.NewWriter(&envVarTable, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-	for _, envVar := range [][2]string{
-		{"SCW_ACCESS_KEY", "The access key of a token (create a token at https://console.scaleway.com/account/credentials)"},
-		{"SCW_SECRET_KEY", "The secret key of a token (create a token at https://console.scaleway.com/account/credentials)"},
-		{"SCW_DEFAULT_ORGANIZATION_ID", "The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)"},
-		{"SCW_DEFAULT_REGION", "The default region"},
-		{"SCW_DEFAULT_ZONE", "The default availability zone"},
-		{"SCW_API_URL", "URL of the API"},
-		{"SCW_INSECURE", "Set this to true to enable the insecure mode"},
-		{"SCW_PROFILE", "Set the config profile to use"},
+	for _, envVar := range [][5]string{
+		{"|", "Environment Variable", "|", "Description", "|"},
+		{"|", "--", "|", "--", "|"},
+		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
+		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
+		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)", "|"},
+		{"|", scw.ScwDefaultRegionEnv, "|", "The default region", "|"},
+		{"|", scw.ScwDefaultZoneEnv, "|", "The default availability zone", "|"},
+		{"|", scw.ScwAPIURLEnv, "|", "URL of the API", "|"},
+		{"|", scw.ScwInsecureEnv, "|", "Set this to true to enable the insecure mode", "|"},
+		{"|", scw.ScwActiveProfileEnv, "|", "Set the config profile to use", "|"},
 	} {
-		fmt.Fprintf(w, "  %s\t%s\n", terminal.Style(envVar[0], color.Bold, color.FgBlue), envVar[1])
+		fmt.Fprintf(w, "  %s%s%s%s%s\n", envVar[0], terminal.Style(envVar[1], color.Bold, color.FgBlue), envVar[2], envVar[3], envVar[4])
 	}
 	w.Flush()
 	return &core.Command{
@@ -58,6 +60,7 @@ func configRoot() *core.Command {
 			In this CLI, ` + terminal.Style(`environment variables have priority over the configuration file`, color.Bold) + `.
 
 			The following environment variables are supported:
+
 			` + envVarTable.String() + `
 			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
 		`),
