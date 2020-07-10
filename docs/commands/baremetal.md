@@ -2,10 +2,10 @@
 # Documentation for `scw baremetal`
 Baremetal API
   
-- [Operating System (OS) management commands]("#Operating System (OS) management commands")
+- [Operating System (OS) management commands](#Operating System (OS) management commands)
   - [Get an OS with a given ID]("#os-get")
   - [List all available OS that can be install on a baremetal server]("#os-list")
-- [Server management commands]("#Server management commands")
+- [Server management commands](#Server management commands)
   - [Create a baremetal server]("#server-create")
   - [Delete a baremetal server]("#server-delete")
   - [Get a specific baremetal server]("#server-get")

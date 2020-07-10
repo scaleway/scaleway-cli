@@ -2,8 +2,8 @@
 # Documentation for `scw feedback`
 Send feedback to the Scaleway CLI Team!
   
-- [Send a bug-report]("#Send a bug-report")
-- [Send a feature request]("#Send a feature request")
+- [Send a bug-report](#Send a bug-report)
+- [Send a feature request](#Send a feature request)
 
   
 ## Send a bug-report

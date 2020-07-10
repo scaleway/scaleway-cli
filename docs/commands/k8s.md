@@ -2,7 +2,7 @@
 # Documentation for `scw k8s`
 Kapsule API
   
-- [Kapsule cluster management commands]("#Kapsule cluster management commands")
+- [Kapsule cluster management commands](#Kapsule cluster management commands)
   - [Create a new cluster]("#cluster-create")
   - [Delete a cluster]("#cluster-delete")
   - [Get a cluster]("#cluster-get")
@@ -12,17 +12,17 @@ Kapsule API
   - [Update a cluster]("#cluster-update")
   - [Upgrade a cluster]("#cluster-upgrade")
   - [Wait for a cluster to reach a stable state]("#cluster-wait")
-- [Manage your Kubernetes Kapsule cluster's kubeconfig files]("#Manage your Kubernetes Kapsule cluster's kubeconfig files")
+- [Manage your Kubernetes Kapsule cluster's kubeconfig files](#Manage your Kubernetes Kapsule cluster's kubeconfig files)
   - [Retrieve a kubeconfig]("#kubeconfig-get")
   - [Install a kubeconfig]("#kubeconfig-install")
   - [Uninstall a kubeconfig]("#kubeconfig-uninstall")
-- [Kapsule node management commands]("#Kapsule node management commands")
+- [Kapsule node management commands](#Kapsule node management commands)
   - [Get a node in a cluster]("#node-get")
   - [List all the nodes in a cluster]("#node-list")
   - [Reboot a node in a cluster]("#node-reboot")
   - [Replace a node in a cluster]("#node-replace")
   - [Wait for a node to reach a stable state]("#node-wait")
-- [Kapsule pool management commands]("#Kapsule pool management commands")
+- [Kapsule pool management commands](#Kapsule pool management commands)
   - [Create a new pool in a cluster]("#pool-create")
   - [Delete a pool in a cluster]("#pool-delete")
   - [Get a pool in a cluster]("#pool-get")
@@ -30,7 +30,7 @@ Kapsule API
   - [Update a pool in a cluster]("#pool-update")
   - [Upgrade a pool in a cluster]("#pool-upgrade")
   - [Wait for a pool to reach a stable state]("#pool-wait")
-- [Available Kubernetes version commands]("#Available Kubernetes version commands")
+- [Available Kubernetes version commands](#Available Kubernetes version commands)
   - [Get details about a specific version]("#version-get")
   - [List all available versions]("#version-list")
 
