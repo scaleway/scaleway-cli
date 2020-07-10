@@ -183,6 +183,7 @@ func instanceConnectCommand() *core.Command {
 
 			// Run command
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd.Stdin = os.Stdin
 			exitCode, err := core.ExecCmd(ctx, cmd)
 
 			if err != nil {
