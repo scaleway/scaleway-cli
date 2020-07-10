@@ -9,8 +9,6 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/internal/interactive"
-
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
@@ -95,16 +93,12 @@ func renderNamespace(data *tplNamespace) (string, error) {
 		return "", err
 	}
 	str := buffer.String()
-	//str = interactive.UnIndent(str, 2)
 	return str, nil
 }
 
 func newTemplate() *template.Template {
 	tpl := template.New("index")
 	tpl = tpl.Funcs(map[string]interface{}{
-		"unindent": func(indent int, str string) string {
-			return interactive.UnIndent(str, indent)
-		},
 		"bq": func(count ...int) string {
 			return "`"
 		},
@@ -117,16 +111,6 @@ func newTemplate() *template.Template {
 				res[args[i].(string)] = args[i+1]
 			}
 			return res
-		},
-		"join": func(sep string, slice []string) string {
-			return strings.Join(slice, sep)
-		},
-		"concat": func(strs ...string) string {
-			s := ""
-			for _, str := range strs {
-				s += str
-			}
-			return s
 		},
 		"anchor": func(short string) string {
 			res := strings.ToLower(short)
