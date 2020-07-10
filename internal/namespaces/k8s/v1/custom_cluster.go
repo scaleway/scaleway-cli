@@ -41,6 +41,30 @@ const (
 	clusterActionDelete
 )
 
+func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp k8s.Cluster
+	cluster := tmp(i.(k8s.Cluster))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "AutoscalerConfig",
+			Title:     "Auto-scaler configuration",
+		},
+		{
+			FieldName: "AutoUpgrade",
+			Title:     "Auto-upgrade settings",
+		},
+	}
+
+	str, err := human.Marshal(cluster, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		originalRes, err := runner(ctx, argsI)
