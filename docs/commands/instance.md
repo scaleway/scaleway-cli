@@ -2,72 +2,72 @@
 # Documentation for `scw instance`
 Instance API
   
-- [An image is a backup of an instance]("#An image is a backup of an instance")
-  - [Create image]("#image-create")
-  - [Delete image]("#image-delete")
-  - [Get image]("#image-get")
-  - [List images]("#image-list")
+- [Image management commands]("#Image management commands")
+  - [Create an instance image]("#image-create")
+  - [Delete an instance image]("#image-delete")
+  - [Get an instance image]("#image-get")
+  - [List instance images]("#image-list")
   - [Wait for image to reach a stable state]("#image-wait")
-- [A flexible IP address is an IP address which holden independently of any server]("#A flexible IP address is an IP address which holden independently of any server")
-  - [Reserve an IP]("#ip-create")
-  - [Delete IP]("#ip-delete")
-  - [Get IP]("#ip-get")
-  - [List IPs]("#ip-list")
-  - [Update IP]("#ip-update")
-- [A placement group allows to express a preference regarding the physical position of a group of instances]("#A placement group allows to express a preference regarding the physical position of a group of instances")
-  - [Create placement group]("#placement-group-create")
+- [IP management commands]("#IP management commands")
+  - [Reserve a flexible IP]("#ip-create")
+  - [Delete a flexible IP]("#ip-delete")
+  - [Get a flexible IP]("#ip-get")
+  - [List all flexible IPs]("#ip-list")
+  - [Update a flexible IP]("#ip-update")
+- [Placement group management commands]("#Placement group management commands")
+  - [Create a placement group]("#placement-group-create")
   - [Delete the given placement group]("#placement-group-delete")
-  - [Get placement group]("#placement-group-get")
+  - [Get a placement group]("#placement-group-get")
   - [List placement groups]("#placement-group-list")
-  - [Update placement group]("#placement-group-update")
-- [A security group is a set of firewall rules on a set of instances]("#A security group is a set of firewall rules on a set of instances")
+  - [Update a placement group]("#placement-group-update")
+- [Security group management commands]("#Security group management commands")
   - [Remove all rules of a security group]("#security-group-clear")
-  - [Create security group]("#security-group-create")
-  - [Delete security group]("#security-group-delete")
-  - [Get security group]("#security-group-get")
+  - [Create a security group]("#security-group-create")
+  - [Delete a security group]("#security-group-delete")
+  - [Get a security group]("#security-group-get")
   - [List security groups]("#security-group-list")
   - [Update security group]("#security-group-update")
-- [A server is a denomination of a type of instances provided by Scaleway]("#A server is a denomination of a type of instances provided by Scaleway")
+- [Server management commands]("#Server management commands")
   - [Attach a volume to a server]("#server-attach-volume")
   - [Backup server]("#server-backup")
   - [Connect to the serial console of an instance]("#server-console")
   - [Create server]("#server-create")
   - [Delete server]("#server-delete")
   - [Detach a volume from its server]("#server-detach-volume")
-  - [Get server]("#server-get")
-  - [List servers]("#server-list")
+  - [Get a server]("#server-get")
+  - [List all servers]("#server-list")
   - [Reboot server]("#server-reboot")
   - [SSH into a server]("#server-ssh")
   - [Put server in standby mode]("#server-standby")
   - [Power on server]("#server-start")
   - [Power off server]("#server-stop")
   - [Terminate server]("#server-terminate")
-  - [Update server]("#server-update")
+  - [Update a server]("#server-update")
   - [Wait for server to reach a stable state]("#server-wait")
-- [A server type is a representation of an instance type available in a given zone]("#A server type is a representation of an instance type available in a given zone")
+- [Server type management commands]("#Server type management commands")
   - [List server types]("#server-type-list")
-- [A snapshot contains the data of a specific volume at a particular point in time]("#A snapshot contains the data of a specific volume at a particular point in time")
-  - [Create snapshot]("#snapshot-create")
-  - [Delete snapshot]("#snapshot-delete")
-  - [Get snapshot]("#snapshot-get")
+- [Snapshot management commands]("#Snapshot management commands")
+  - [Create a snapshot from a given volume]("#snapshot-create")
+  - [Delete a snapshot]("#snapshot-delete")
+  - [Get a snapshot]("#snapshot-get")
   - [List snapshots]("#snapshot-list")
   - [Wait for snapshot to reach a stable state]("#snapshot-wait")
-- [User data is a key value store API you can use to provide data from and to your server without authentication]("#User data is a key value store API you can use to provide data from and to your server without authentication")
+- [User data management commands]("#User data management commands")
   - [Delete user data]("#user-data-delete")
   - [Get user data]("#user-data-get")
   - [List user data]("#user-data-list")
   - [Add/Set user data]("#user-data-set")
-- [A volume is used to store data inside an instance]("#A volume is used to store data inside an instance")
-  - [Create volume]("#volume-create")
-  - [Delete volume]("#volume-delete")
-  - [Get volume]("#volume-get")
+- [Volume management commands]("#Volume management commands")
+  - [Create a volume]("#volume-create")
+  - [Delete a volume]("#volume-delete")
+  - [Get a volume]("#volume-get")
   - [List volumes]("#volume-list")
-  - [Update volume]("#volume-update")
-- [A volume type is a representation of a volume type available in a given zone]("#A volume type is a representation of a volume type available in a given zone")
+  - [Update a volume]("#volume-update")
+- [Volume type management commands]("#Volume type management commands")
   - [List volumes types]("#volume-type-list")
 
   
-## An image is a backup of an instance
+## Image management commands
 
 Images are backups of your instances.
 You can reuse that image to restore your data or create a series of instances with a predefined configuration.
@@ -76,9 +76,9 @@ An image is a complete backup of your server including all volumes.
 
 
 
-### Create image
+### Create an instance image
 
-Create image.
+Create an instance image.
 
 **Usage:**
 
@@ -116,7 +116,7 @@ scw instance image create name=foobar root-volume=11111111-1111-1111-1111-111111
 
 
 
-### Delete image
+### Delete an instance image
 
 Delete the image with the given ID.
 
@@ -152,7 +152,7 @@ scw instance image delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Get image
+### Get an instance image
 
 Get details of an image with the given ID.
 
@@ -187,7 +187,7 @@ scw instance image get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### List images
+### List instance images
 
 List all images available in an account.
 
@@ -250,7 +250,7 @@ scw instance image wait 11111111-1111-1111-1111-111111111111
 
 
 
-## A flexible IP address is an IP address which holden independently of any server
+## IP management commands
 
 A flexible IP address is an IP address which you hold independently of any server.
 You can attach it to any of your servers and do live migration of the IP address between your servers.
@@ -259,9 +259,9 @@ Be aware that attaching a flexible IP address to a server will remove the previo
 
 
 
-### Reserve an IP
+### Reserve a flexible IP
 
-Reserve an IP.
+Reserve a flexible IP.
 
 **Usage:**
 
@@ -302,7 +302,7 @@ scw instance ip create server=11111111-1111-1111-1111-111111111111
 
 
 
-### Delete IP
+### Delete a flexible IP
 
 Delete the IP with the given ID.
 
@@ -342,7 +342,7 @@ scw instance ip delete 51.15.253.183
 
 
 
-### Get IP
+### Get a flexible IP
 
 Get details of an IP with the given ID or address.
 
@@ -382,9 +382,9 @@ scw instance ip get
 
 
 
-### List IPs
+### List all flexible IPs
 
-List IPs.
+List all flexible IPs.
 
 **Usage:**
 
@@ -419,9 +419,9 @@ scw instance ip list zone=fr-par-1
 
 
 
-### Update IP
+### Update a flexible IP
 
-Update IP.
+Update a flexible IP.
 
 **Usage:**
 
@@ -461,7 +461,7 @@ scw instance ip update 51.15.253.183 reverse=example.com
 
 
 
-## A placement group allows to express a preference regarding the physical position of a group of instances
+## Placement group management commands
 
 Placement groups allow the user to express a preference regarding
 the physical position of a group of instances. It'll let the user
@@ -484,7 +484,7 @@ The `policy_mode` is set by default to `optional`.
 
 
 
-### Create placement group
+### Create a placement group
 
 Create a new placement group.
 
@@ -577,7 +577,7 @@ scw instance placement-group delete 11111111-1111-1111-1111-111111111111 zone=fr
 
 
 
-### Get placement group
+### Get a placement group
 
 Get the given placement group.
 
@@ -643,7 +643,7 @@ scw instance placement-group list name=cluster1
 
 
 
-### Update placement group
+### Update a placement group
 
 Update one or more parameter of the given placement group.
 
@@ -686,7 +686,7 @@ scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-
 
 
 
-## A security group is a set of firewall rules on a set of instances
+## Security group management commands
 
 A security group is a set of firewall rules on a set of instances.
 Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
@@ -726,9 +726,9 @@ scw instance security-group clear security-group-id=11111111-1111-1111-1111-1111
 
 
 
-### Create security group
+### Create a security group
 
-Create security group.
+Create a security group.
 
 **Usage:**
 
@@ -782,9 +782,9 @@ scw instance security-group create
 
 
 
-### Delete security group
+### Delete a security group
 
-Delete security group.
+Delete a security group.
 
 **Usage:**
 
@@ -812,7 +812,7 @@ scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 
 
-### Get security group
+### Get a security group
 
 Get the details of a Security Group with the given ID.
 
@@ -934,7 +934,7 @@ scw instance security-group update security-group-id=11111111-1111-1111-1111-111
 
 
 
-## A server is a denomination of a type of instances provided by Scaleway
+## Server management commands
 
 Server types are denomination of the different instances we provide.
 Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
@@ -1186,7 +1186,7 @@ scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
 
 
 
-### Get server
+### Get a server
 
 Get the details of a specified Server.
 
@@ -1216,9 +1216,9 @@ scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 
 
 
-### List servers
+### List all servers
 
-List servers.
+List all servers.
 
 **Usage:**
 
@@ -1472,9 +1472,9 @@ scw instance server terminate 11111111-1111-1111-1111-111111111111 with-ip=true
 
 
 
-### Update server
+### Update a server
 
-Update server.
+Update a server.
 
 **Usage:**
 
@@ -1569,7 +1569,7 @@ scw instance server wait 11111111-1111-1111-1111-111111111111
 
 
 
-## A server type is a representation of an instance type available in a given zone
+## Server type management commands
 
 Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
@@ -1610,7 +1610,7 @@ scw instance server-type list zone=fr-par-1
 
 
 
-## A snapshot contains the data of a specific volume at a particular point in time
+## Snapshot management commands
 
 Snapshots contain the data of a specific volume at a particular point in time.
 The data can include the instance's operating system,
@@ -1626,9 +1626,9 @@ snapshots will be available starting 2020.
 
 
 
-### Create snapshot
+### Create a snapshot from a given volume
 
-Create snapshot.
+Create a snapshot from a given volume.
 
 **Usage:**
 
@@ -1668,7 +1668,7 @@ scw instance snapshot create name=foobar volume-id=11111111-1111-1111-1111-11111
 
 
 
-### Delete snapshot
+### Delete a snapshot
 
 Delete the snapshot with the given ID.
 
@@ -1703,7 +1703,7 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Get snapshot
+### Get a snapshot
 
 Get details of a snapshot with the given ID.
 
@@ -1804,7 +1804,7 @@ scw instance snapshot wait 11111111-1111-1111-1111-111111111111
 
 
 
-## User data is a key value store API you can use to provide data from and to your server without authentication
+## User data management commands
 
 User data is a key value store API you can use to provide data from and to your server without authentication.
 
@@ -1904,7 +1904,7 @@ scw instance user-data set <server-id ...> [arg=value ...]
 
 
 
-## A volume is used to store data inside an instance
+## Volume management commands
 
 A volume is where you store your data inside your instance. It
 appears as a block device on Linux that you can use to create
@@ -1939,9 +1939,9 @@ UUIDs can be found in `/dev/disk/by-id/`.
 
 
 
-### Create volume
+### Create a volume
 
-Create volume.
+Create a volume.
 
 **Usage:**
 
@@ -1984,7 +1984,7 @@ scw instance volume create volume-type=l_ssd base-volume=00112233-4455-6677-8899
 
 
 
-### Delete volume
+### Delete a volume
 
 Delete the volume with the given ID.
 
@@ -2014,7 +2014,7 @@ scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 
 
 
-### Get volume
+### Get a volume
 
 Get details of a volume with the given ID.
 
@@ -2096,7 +2096,7 @@ scw instance volume list volume-type=b_ssd name=foobar
 
 
 
-### Update volume
+### Update a volume
 
 Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only `b_ssd` volume growing is supported.
 
@@ -2138,7 +2138,7 @@ scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name 
 
 
 
-## A volume type is a representation of a volume type available in a given zone
+## Volume type management commands
 
 Volume types will answer with all volume types available in a given zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).

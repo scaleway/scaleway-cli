@@ -2,14 +2,14 @@
 # Documentation for `scw marketplace`
 Marketplace API
   
-- [Marketplace images can be used when creating an instance]("#Marketplace images can be used when creating an instance")
+- [Marketplace images management commands]("#Marketplace images management commands")
   - [Get a specific marketplace image]("#image-get")
   - [List marketplace images]("#image-list")
 
   
-## Marketplace images can be used when creating an instance
+## Marketplace images management commands
 
-Marketplace images can be used when creating an instance.
+Marketplace images management commands.
 
 
 ### Get a specific marketplace image

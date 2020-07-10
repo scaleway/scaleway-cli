@@ -2,28 +2,28 @@
 # Documentation for `scw baremetal`
 Baremetal API
   
-- [An Operating System (OS) is the underlying software installed on your server]("#An Operating System (OS) is the underlying software installed on your server")
-  - [Get OS]("#os-get")
-  - [List OS]("#os-list")
-- [A server is a denomination of a type of instances provided by Scaleway]("#A server is a denomination of a type of instances provided by Scaleway")
-  - [Create server]("#server-create")
-  - [Delete server]("#server-delete")
-  - [Get server]("#server-get")
-  - [Install server]("#server-install")
-  - [List servers]("#server-list")
-  - [Reboot server]("#server-reboot")
-  - [Start server]("#server-start")
-  - [Stop server]("#server-stop")
-  - [Update server]("#server-update")
+- [Operating System (OS) management commands]("#Operating System (OS) management commands")
+  - [Get an OS with a given ID]("#os-get")
+  - [List all available OS that can be install on a baremetal server]("#os-list")
+- [Server management commands]("#Server management commands")
+  - [Create a baremetal server]("#server-create")
+  - [Delete a baremetal server]("#server-delete")
+  - [Get a specific baremetal server]("#server-get")
+  - [Install a baremetal server]("#server-install")
+  - [List baremetal servers]("#server-list")
+  - [Reboot a baremetal server]("#server-reboot")
+  - [Start a baremetal server]("#server-start")
+  - [Stop a baremetal server]("#server-stop")
+  - [Update a baremetal server]("#server-update")
   - [Wait for a server to reach a stable state (delivery and installation)]("#server-wait")
 
   
-## An Operating System (OS) is the underlying software installed on your server
+## Operating System (OS) management commands
 
-An Operating System (OS) is the underlying software installed on your server.
+An Operating System (OS) is the underlying software installed on your server
 
 
-### Get OS
+### Get an OS with a given ID
 
 Return specific OS for the given ID.
 
@@ -38,7 +38,7 @@ scw baremetal os get <os-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| os-id | Required | ID of the researched OS |
+| os-id | Required | ID of the OS |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -53,7 +53,7 @@ scw baremetal os get
 
 
 
-### List OS
+### List all available OS that can be install on a baremetal server
 
 List all available OS that can be install on a baremetal server.
 
@@ -73,14 +73,14 @@ scw baremetal os list [arg=value ...]
 
 
 
-## A server is a denomination of a type of instances provided by Scaleway
+## Server management commands
 
-A server is a denomination of a type of instances provided by Scaleway.
+A server is a denomination of a type of instances provided by Scaleway
 
 
-### Create server
+### Create a baremetal server
 
-Create a new server. Once the server is created, you probably want to install an OS.
+Create a new baremetal server. Once the server is created, you probably want to install an OS.
 
 **Usage:**
 
@@ -117,7 +117,7 @@ scw baremetal server create name=foo tags.0=prod tags.1=blue type=GP-BM1-M
 
 
 
-### Delete server
+### Delete a baremetal server
 
 Delete the server associated with the given ID.
 
@@ -147,7 +147,7 @@ scw baremetal server delete 11111111-1111-1111-1111-111111111111
 
 
 
-### Get server
+### Get a specific baremetal server
 
 Get the server associated with the given ID.
 
@@ -177,7 +177,7 @@ scw baremetal server get 11111111-1111-1111-1111-111111111111
 
 
 
-### Install server
+### Install a baremetal server
 
 Install an OS on the server associated with the given ID.
 
@@ -211,9 +211,9 @@ scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111
 
 
 
-### List servers
+### List baremetal servers
 
-List all created servers.
+List baremetal servers.
 
 **Usage:**
 
@@ -245,7 +245,7 @@ scw baremetal server list
 
 
 
-### Reboot server
+### Reboot a baremetal server
 
 Reboot the server associated with the given ID, use boot param to reboot in rescue.
 
@@ -281,7 +281,7 @@ scw baremetal server reboot 11111111-1111-1111-1111-111111111111 boot-type=rescu
 
 
 
-### Start server
+### Start a baremetal server
 
 Start the server associated with the given ID.
 
@@ -311,7 +311,7 @@ scw baremetal server start 11111111-1111-1111-1111-111111111111
 
 
 
-### Stop server
+### Stop a baremetal server
 
 Stop the server associated with the given ID.
 
@@ -341,7 +341,7 @@ scw baremetal server stop 11111111-1111-1111-1111-111111111111
 
 
 
-### Update server
+### Update a baremetal server
 
 Update the server associated with the given ID.
 
