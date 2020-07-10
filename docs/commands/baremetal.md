@@ -3,19 +3,19 @@
 Baremetal API
   
 - [Operating System (OS) management commands](#Operating System (OS) management commands)
-  - [Get an OS with a given ID]("#os-get")
-  - [List all available OS that can be install on a baremetal server]("#os-list")
+  - [Get an OS with a given ID](#os-get)
+  - [List all available OS that can be install on a baremetal server](#os-list)
 - [Server management commands](#Server management commands)
-  - [Create a baremetal server]("#server-create")
-  - [Delete a baremetal server]("#server-delete")
-  - [Get a specific baremetal server]("#server-get")
-  - [Install a baremetal server]("#server-install")
-  - [List baremetal servers]("#server-list")
-  - [Reboot a baremetal server]("#server-reboot")
-  - [Start a baremetal server]("#server-start")
-  - [Stop a baremetal server]("#server-stop")
-  - [Update a baremetal server]("#server-update")
-  - [Wait for a server to reach a stable state (delivery and installation)]("#server-wait")
+  - [Create a baremetal server](#server-create)
+  - [Delete a baremetal server](#server-delete)
+  - [Get a specific baremetal server](#server-get)
+  - [Install a baremetal server](#server-install)
+  - [List baremetal servers](#server-list)
+  - [Reboot a baremetal server](#server-reboot)
+  - [Start a baremetal server](#server-start)
+  - [Stop a baremetal server](#server-stop)
+  - [Update a baremetal server](#server-update)
+  - [Wait for a server to reach a stable state (delivery and installation)](#server-wait)
 
   
 ## Operating System (OS) management commands

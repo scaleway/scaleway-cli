@@ -3,8 +3,8 @@
 Object-storage utils
   
 - [Manage configuration files for popular S3 tools](#Manage configuration files for popular S3 tools)
-  - [Generate a S3 tool configuration file]("#config-get")
-  - [Install a S3 tool configuration file to its default location]("#config-install")
+  - [Generate a S3 tool configuration file](#config-get)
+  - [Install a S3 tool configuration file to its default location](#config-install)
 
   
 ## Manage configuration files for popular S3 tools

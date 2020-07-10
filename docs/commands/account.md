@@ -3,12 +3,12 @@
 Account API
   
 - [SSH keys management commands](#SSH keys management commands)
-  - [Add a SSH key to your organization]("#ssh-key-add")
-  - [Get a SSH key from your organization]("#ssh-key-get")
-  - [Initialize SSH key]("#ssh-key-init")
-  - [List all SSH keys of your organization]("#ssh-key-list")
-  - [Remove a SSH key from your organization]("#ssh-key-remove")
-  - [Update a SSH key on your organization]("#ssh-key-update")
+  - [Add a SSH key to your organization](#ssh-key-add)
+  - [Get a SSH key from your organization](#ssh-key-get)
+  - [Initialize SSH key](#ssh-key-init)
+  - [List all SSH keys of your organization](#ssh-key-list)
+  - [Remove a SSH key from your organization](#ssh-key-remove)
+  - [Update a SSH key on your organization](#ssh-key-update)
 
   
 ## SSH keys management commands
