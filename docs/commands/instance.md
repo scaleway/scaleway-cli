@@ -56,7 +56,7 @@ Instance API
   - [Delete user data](#delete-user-data)
   - [Get user data](#get-user-data)
   - [List user data](#list-user-data)
-  - [Add/Set user data](#add/set-user-data)
+  - [Add/Set user data](#addset-user-data)
 - [Volume management commands](#Volume management commands)
   - [Create a volume](#create-a-volume)
   - [Delete a volume](#delete-a-volume)
