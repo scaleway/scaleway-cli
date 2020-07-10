@@ -3,8 +3,8 @@
 Marketplace API
   
 - [Marketplace images management commands](#Marketplace images management commands)
-  - [Get a specific marketplace image](#image-get)
-  - [List marketplace images](#image-list)
+  - [Get a specific marketplace image](#get-a-specific-marketplace-image)
+  - [List marketplace images](#list-marketplace-images)
 
   
 ## Marketplace images management commands
