@@ -2,19 +2,19 @@
 # Documentation for `scw config`
 Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
 
-Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: [1;34m/Users/sieben/.config/scw/config.yaml[0m
+Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: /Users/sieben/.config/scw/config.yaml
 
-In this CLI, [1menvironment variables have priority over the configuration file[0m.
+In this CLI, environment variables have priority over the configuration file.
 
 The following environment variables are supported:
-[1;34mSCW_ACCESS_KEY[0m               The access key of a token (create a token at https://console.scaleway.com/account/credentials)
-[1;34mSCW_SECRET_KEY[0m               The secret key of a token (create a token at https://console.scaleway.com/account/credentials)
-[1;34mSCW_DEFAULT_ORGANIZATION_ID[0m  The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)
-[1;34mSCW_DEFAULT_REGION[0m           The default region
-[1;34mSCW_DEFAULT_ZONE[0m             The default availability zone
-[1;34mSCW_API_URL[0m                  URL of the API
-[1;34mSCW_INSECURE[0m                 Set this to true to enable the insecure mode
-[1;34mSCW_PROFILE[0m                  Set the config profile to use
+SCW_ACCESS_KEY               The access key of a token (create a token at https://console.scaleway.com/account/credentials)
+SCW_SECRET_KEY               The secret key of a token (create a token at https://console.scaleway.com/account/credentials)
+SCW_DEFAULT_ORGANIZATION_ID  The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)
+SCW_DEFAULT_REGION           The default region
+SCW_DEFAULT_ZONE             The default availability zone
+SCW_API_URL                  URL of the API
+SCW_INSECURE                 Set this to true to enable the insecure mode
+SCW_PROFILE                  Set the config profile to use
 
 Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
   

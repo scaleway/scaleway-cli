@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path"
+	"regexp"
 	"strings"
 	"text/template"
 
@@ -27,6 +28,8 @@ type tplResource struct {
 	Cmd   *core.Command
 	Verbs map[string]*core.Command
 }
+
+const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"
 
 // Generate markdown documentation for a given list of commands
 func GenerateDocs(commands *core.Commands, outDir string) error {
@@ -130,6 +133,10 @@ func newTemplate() *template.Template {
 			res = strings.ReplaceAll(res, " ", "-")
 			res = strings.ReplaceAll(res, "/", "")
 			return res
+		},
+		"remove_escape_sequence": func(s string) string {
+			re := regexp.MustCompile(ansi)
+			return re.ReplaceAllString(s, "")
 		},
 		"arg_spec_flag": func(arg *core.ArgSpec) string {
 			parts := []string(nil)
