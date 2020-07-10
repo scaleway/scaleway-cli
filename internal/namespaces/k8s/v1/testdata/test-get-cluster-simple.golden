@@ -16,7 +16,7 @@ DashboardEnabled  false
 Ingress           none
 UpgradeAvailable  true
 
-Auto-scaler configuration:
+Autoscaler configuration:
 ScaleDownDisabled             false
 ScaleDownDelayAfterAdd        10m
 Estimator                     binpacking
