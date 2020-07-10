@@ -49,7 +49,7 @@ func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	opt.Sections = []*human.MarshalSection{
 		{
 			FieldName: "AutoscalerConfig",
-			Title:     "Auto-scaler configuration",
+			Title:     "Autoscaler configuration",
 		},
 		{
 			FieldName: "AutoUpgrade",
