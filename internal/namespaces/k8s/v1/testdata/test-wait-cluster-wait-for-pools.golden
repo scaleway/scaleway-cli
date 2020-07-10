@@ -1,44 +1,48 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                             8cdae922-603f-45b4-bea8-4498c0c0b680
-Name                                           cli-test
-Status                                         ready
-Version                                        1.18.5
-Region                                         fr-par
-OrganizationID                                 951df375-e094-4d26-97c1-ba548eeb9c42
-Cni                                            cilium
-Description                                    -
-ClusterURL                                     https://8cdae922-603f-45b4-bea8-4498c0c0b680.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard                                    *.8cdae922-603f-45b4-bea8-4498c0c0b680.nodes.k8s.fr-par.scw.cloud
-CreatedAt                                      few seconds ago
-UpdatedAt                                      few seconds ago
-AutoscalerConfig.ScaleDownDisabled             false
-AutoscalerConfig.ScaleDownDelayAfterAdd        10m
-AutoscalerConfig.Estimator                     binpacking
-AutoscalerConfig.Expander                      random
-AutoscalerConfig.IgnoreDaemonsetsUtilization   false
-AutoscalerConfig.BalanceSimilarNodeGroups      false
-AutoscalerConfig.ExpendablePodsPriorityCutoff  -10
-AutoscalerConfig.ScaleDownUnneededTime         10m
-DashboardEnabled                               false
-Ingress                                        none
-AutoUpgrade.Enabled                            false
-AutoUpgrade.MaintenanceWindow.StartHour        0
-AutoUpgrade.MaintenanceWindow.Day              any
-UpgradeAvailable                               false
+ID                d6daab7b-4d76-465b-b6bb-2a725cf901d3
+Name              cli-test
+Status            ready
+Version           1.17.3
+Region            fr-par
+OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+Cni               cilium
+Description       -
+ClusterURL        https://d6daab7b-4d76-465b-b6bb-2a725cf901d3.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.d6daab7b-4d76-465b-b6bb-2a725cf901d3.nodes.k8s.fr-par.scw.cloud
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+DashboardEnabled  false
+Ingress           none
+UpgradeAvailable  true
+
+Autoscaler configuration:
+ScaleDownDisabled             false
+ScaleDownDelayAfterAdd        10m
+Estimator                     binpacking
+Expander                      random
+IgnoreDaemonsetsUtilization   false
+BalanceSimilarNodeGroups      false
+ExpendablePodsPriorityCutoff  -10
+ScaleDownUnneededTime         10m
+
+Auto-upgrade settings:
+Enabled                      false
+MaintenanceWindow.StartHour  0
+MaintenanceWindow.Day        any
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "8cdae922-603f-45b4-bea8-4498c0c0b680",
+  "id": "d6daab7b-4d76-465b-b6bb-2a725cf901d3",
   "name": "cli-test",
   "status": "ready",
-  "version": "1.18.5",
+  "version": "1.17.3",
   "region": "fr-par",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://8cdae922-603f-45b4-bea8-4498c0c0b680.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.8cdae922-603f-45b4-bea8-4498c0c0b680.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://d6daab7b-4d76-465b-b6bb-2a725cf901d3.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.d6daab7b-4d76-465b-b6bb-2a725cf901d3.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -60,7 +64,7 @@ UpgradeAvailable                               false
       "day": "any"
     }
   },
-  "upgrade_available": false,
+  "upgrade_available": true,
   "feature_gates": [],
   "admission_plugins": []
 }
