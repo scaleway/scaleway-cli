@@ -20,12 +20,9 @@ const (
 // createCluster creates a basic cluster with "poolSize" dev1-m as nodes, the given version and
 // register it in the context Meta at metaKey.
 func createCluster(metaKey string, version string, poolSize int) core.BeforeFunc {
-	return func(ctx *core.BeforeFuncCtx) error {
-		core.ExecStoreBeforeCmd(
-			metaKey,
-			fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=%d pools.0.name=default --wait", version, poolSize))
-		return nil
-	}
+	return core.ExecStoreBeforeCmd(
+		metaKey,
+		fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=%d pools.0.name=default", version, poolSize))
 }
 
 // createClusterAndWaitAndKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
@@ -124,9 +121,5 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, 
 
 // deleteCluster deletes a cluster previously registered in the context Meta at metaKey.
 func deleteCluster(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
-}
-
-func createCluster(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
 }
