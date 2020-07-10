@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create security group.
+Create a security group.
 
 USAGE:
   scw instance security-group create [arg=value ...]

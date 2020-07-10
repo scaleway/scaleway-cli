@@ -35,8 +35,8 @@ func marketplaceRoot() *core.Command {
 
 func marketplaceImage() *core.Command {
 	return &core.Command{
-		Short:     `Marketplace images can be used when creating an instance`,
-		Long:      `Marketplace images can be used when creating an instance.`,
+		Short:     `Marketplace images management commands`,
+		Long:      `Marketplace images management commands.`,
 		Namespace: "marketplace",
 		Resource:  "image",
 	}

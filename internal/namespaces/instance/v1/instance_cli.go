@@ -78,7 +78,7 @@ func instanceRoot() *core.Command {
 
 func instanceImage() *core.Command {
 	return &core.Command{
-		Short: `An image is a backup of an instance`,
+		Short: `Image management commands`,
 		Long: `Images are backups of your instances.
 You can reuse that image to restore your data or create a series of instances with a predefined configuration.
 
@@ -91,7 +91,7 @@ An image is a complete backup of your server including all volumes.
 
 func instanceIP() *core.Command {
 	return &core.Command{
-		Short: `A flexible IP address is an IP address which holden independently of any server`,
+		Short: `IP management commands`,
 		Long: `A flexible IP address is an IP address which you hold independently of any server.
 You can attach it to any of your servers and do live migration of the IP address between your servers.
 
@@ -104,7 +104,7 @@ Be aware that attaching a flexible IP address to a server will remove the previo
 
 func instancePlacementGroup() *core.Command {
 	return &core.Command{
-		Short: `A placement group allows to express a preference regarding the physical position of a group of instances`,
+		Short: `Placement group management commands`,
 		Long: `Placement groups allow the user to express a preference regarding
 the physical position of a group of instances. It'll let the user
 choose to either group instances on the same physical hardware for
@@ -131,7 +131,7 @@ The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` 
 
 func instanceSecurityGroup() *core.Command {
 	return &core.Command{
-		Short: `A security group is a set of firewall rules on a set of instances`,
+		Short: `Security group management commands`,
 		Long: `A security group is a set of firewall rules on a set of instances.
 Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
 
@@ -145,7 +145,7 @@ As a contrary, you have to switch in a stateless mode to define explicitly allow
 
 func instanceServer() *core.Command {
 	return &core.Command{
-		Short: `A server is a denomination of a type of instances provided by Scaleway`,
+		Short: `Server management commands`,
 		Long: `Server types are denomination of the different instances we provide.
 Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
 
@@ -180,7 +180,7 @@ For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-i
 
 func instanceServerType() *core.Command {
 	return &core.Command{
-		Short: `A server type is a representation of an instance type available in a given zone`,
+		Short: `Server type management commands`,
 		Long: `Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
 `,
@@ -191,7 +191,7 @@ Each of these types will contains all the features of the instance (CPU, RAM, St
 
 func instanceVolumeType() *core.Command {
 	return &core.Command{
-		Short: `A volume type is a representation of a volume type available in a given zone`,
+		Short: `Volume type management commands`,
 		Long: `Volume types will answer with all volume types available in a given zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
 `,
@@ -202,7 +202,7 @@ Each of these types will contains all the capabilities and constraints of the vo
 
 func instanceSnapshot() *core.Command {
 	return &core.Command{
-		Short: `A snapshot contains the data of a specific volume at a particular point in time`,
+		Short: `Snapshot management commands`,
 		Long: `Snapshots contain the data of a specific volume at a particular point in time.
 The data can include the instance's operating system,
 configuration information or files stored on the volume.
@@ -222,7 +222,7 @@ snapshots will be available starting 2020.
 
 func instanceUserData() *core.Command {
 	return &core.Command{
-		Short: `User data is a key value store API you can use to provide data from and to your server without authentication`,
+		Short: `User data management commands`,
 		Long: `User data is a key value store API you can use to provide data from and to your server without authentication.
 
 As an example of use, Scaleway images contain the script scw-generate-ssh-keys which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
@@ -242,7 +242,7 @@ There are two endpoints to access user data:
 
 func instanceVolume() *core.Command {
 	return &core.Command{
-		Short: `A volume is used to store data inside an instance`,
+		Short: `Volume management commands`,
 		Long: `A volume is where you store your data inside your instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
@@ -345,8 +345,8 @@ func instanceVolumeTypeList() *core.Command {
 
 func instanceServerList() *core.Command {
 	return &core.Command{
-		Short:     `List servers`,
-		Long:      `List servers.`,
+		Short:     `List all servers`,
+		Long:      `List all servers.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "list",
@@ -432,7 +432,7 @@ func instanceServerList() *core.Command {
 
 func instanceServerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get server`,
+		Short:     `Get a server`,
 		Long:      `Get the details of a specified Server.`,
 		Namespace: "instance",
 		Resource:  "server",
@@ -465,8 +465,8 @@ func instanceServerGet() *core.Command {
 
 func instanceServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update server`,
-		Long:      `Update server.`,
+		Short:     `Update a server`,
+		Long:      `Update a server.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "update",
@@ -761,7 +761,7 @@ func instanceUserDataGet() *core.Command {
 
 func instanceImageList() *core.Command {
 	return &core.Command{
-		Short:     `List images`,
+		Short:     `List instance images`,
 		Long:      `List all images available in an account.`,
 		Namespace: "instance",
 		Resource:  "image",
@@ -819,7 +819,7 @@ func instanceImageList() *core.Command {
 
 func instanceImageGet() *core.Command {
 	return &core.Command{
-		Short:     `Get image`,
+		Short:     `Get an instance image`,
 		Long:      `Get details of an image with the given ID.`,
 		Namespace: "instance",
 		Resource:  "image",
@@ -856,8 +856,8 @@ func instanceImageGet() *core.Command {
 
 func instanceImageCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create image`,
-		Long:      `Create image.`,
+		Short:     `Create an instance image`,
+		Long:      `Create an instance image.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "create",
@@ -948,7 +948,7 @@ func instanceImageCreate() *core.Command {
 
 func instanceImageDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete image`,
+		Short:     `Delete an instance image`,
 		Long:      `Delete the image with the given ID.`,
 		Namespace: "instance",
 		Resource:  "image",
@@ -1037,8 +1037,8 @@ func instanceSnapshotList() *core.Command {
 
 func instanceSnapshotCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create snapshot`,
-		Long:      `Create snapshot.`,
+		Short:     `Create a snapshot from a given volume`,
+		Long:      `Create a snapshot from a given volume.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "create",
@@ -1087,7 +1087,7 @@ func instanceSnapshotCreate() *core.Command {
 
 func instanceSnapshotGet() *core.Command {
 	return &core.Command{
-		Short:     `Get snapshot`,
+		Short:     `Get a snapshot`,
 		Long:      `Get details of a snapshot with the given ID.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
@@ -1124,7 +1124,7 @@ func instanceSnapshotGet() *core.Command {
 
 func instanceSnapshotDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete snapshot`,
+		Short:     `Delete a snapshot`,
 		Long:      `Delete the snapshot with the given ID.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
@@ -1269,8 +1269,8 @@ func instanceVolumeList() *core.Command {
 
 func instanceVolumeCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create volume`,
-		Long:      `Create volume.`,
+		Short:     `Create a volume`,
+		Long:      `Create a volume.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "create",
@@ -1332,7 +1332,7 @@ func instanceVolumeCreate() *core.Command {
 
 func instanceVolumeGet() *core.Command {
 	return &core.Command{
-		Short:     `Get volume`,
+		Short:     `Get a volume`,
 		Long:      `Get details of a volume with the given ID.`,
 		Namespace: "instance",
 		Resource:  "volume",
@@ -1365,7 +1365,7 @@ func instanceVolumeGet() *core.Command {
 
 func instanceVolumeUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update volume`,
+		Short:     `Update a volume`,
 		Long:      `Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only ` + "`" + `b_ssd` + "`" + ` volume growing is supported.`,
 		Namespace: "instance",
 		Resource:  "volume",
@@ -1419,7 +1419,7 @@ func instanceVolumeUpdate() *core.Command {
 
 func instanceVolumeDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete volume`,
+		Short:     `Delete a volume`,
 		Long:      `Delete the volume with the given ID.`,
 		Namespace: "instance",
 		Resource:  "volume",
@@ -1502,8 +1502,8 @@ func instanceSecurityGroupList() *core.Command {
 
 func instanceSecurityGroupCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create security group`,
-		Long:      `Create security group.`,
+		Short:     `Create a security group`,
+		Long:      `Create a security group.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "create",
@@ -1590,7 +1590,7 @@ func instanceSecurityGroupCreate() *core.Command {
 
 func instanceSecurityGroupGet() *core.Command {
 	return &core.Command{
-		Short:     `Get security group`,
+		Short:     `Get a security group`,
 		Long:      `Get the details of a Security Group with the given ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
@@ -1623,8 +1623,8 @@ func instanceSecurityGroupGet() *core.Command {
 
 func instanceSecurityGroupDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete security group`,
-		Long:      `Delete security group.`,
+		Short:     `Delete a security group`,
+		Long:      `Delete a security group.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "delete",
@@ -1710,7 +1710,7 @@ func instancePlacementGroupList() *core.Command {
 
 func instancePlacementGroupCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create placement group`,
+		Short:     `Create a placement group`,
 		Long:      `Create a new placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
@@ -1778,7 +1778,7 @@ func instancePlacementGroupCreate() *core.Command {
 
 func instancePlacementGroupGet() *core.Command {
 	return &core.Command{
-		Short:     `Get placement group`,
+		Short:     `Get a placement group`,
 		Long:      `Get the given placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
@@ -1811,7 +1811,7 @@ func instancePlacementGroupGet() *core.Command {
 
 func instancePlacementGroupUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update placement group`,
+		Short:     `Update a placement group`,
 		Long:      `Update one or more parameter of the given placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
@@ -1914,8 +1914,8 @@ func instancePlacementGroupDelete() *core.Command {
 
 func instanceIPList() *core.Command {
 	return &core.Command{
-		Short:     `List IPs`,
-		Long:      `List IPs.`,
+		Short:     `List all flexible IPs`,
+		Long:      `List all flexible IPs.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "list",
@@ -1994,8 +1994,8 @@ func instanceIPList() *core.Command {
 
 func instanceIPCreate() *core.Command {
 	return &core.Command{
-		Short:     `Reserve an IP`,
-		Long:      `Reserve an IP.`,
+		Short:     `Reserve a flexible IP`,
+		Long:      `Reserve a flexible IP.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "create",
@@ -2049,7 +2049,7 @@ func instanceIPCreate() *core.Command {
 
 func instanceIPGet() *core.Command {
 	return &core.Command{
-		Short:     `Get IP`,
+		Short:     `Get a flexible IP`,
 		Long:      `Get details of an IP with the given ID or address.`,
 		Namespace: "instance",
 		Resource:  "ip",
@@ -2091,8 +2091,8 @@ func instanceIPGet() *core.Command {
 
 func instanceIPUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update IP`,
-		Long:      `Update IP.`,
+		Short:     `Update a flexible IP`,
+		Long:      `Update a flexible IP.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "update",
@@ -2145,7 +2145,7 @@ func instanceIPUpdate() *core.Command {
 
 func instanceIPDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete IP`,
+		Short:     `Delete a flexible IP`,
 		Long:      `Delete the IP with the given ID.`,
 		Namespace: "instance",
 		Resource:  "ip",

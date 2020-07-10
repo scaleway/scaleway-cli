@@ -6,16 +6,16 @@ USAGE:
   scw instance <command>
 
 AVAILABLE COMMANDS:
-  image           An image is a backup of an instance
-  ip              A flexible IP address is an IP address which holden independently of any server
-  placement-group A placement group allows to express a preference regarding the physical position of a group of instances
-  security-group  A security group is a set of firewall rules on a set of instances
-  server          A server is a denomination of a type of instances provided by Scaleway
-  server-type     A server type is a representation of an instance type available in a given zone
-  snapshot        A snapshot contains the data of a specific volume at a particular point in time
-  user-data       User data is a key value store API you can use to provide data from and to your server without authentication
-  volume          A volume is used to store data inside an instance
-  volume-type     A volume type is a representation of a volume type available in a given zone
+  image           Image management commands
+  ip              IP management commands
+  placement-group Placement group management commands
+  security-group  Security group management commands
+  server          Server management commands
+  server-type     Server type management commands
+  snapshot        Snapshot management commands
+  user-data       User data management commands
+  volume          Volume management commands
+  volume-type     Volume type management commands
 
 FLAGS:
   -h, --help   help for instance

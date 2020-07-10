@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add a SSH key to your Scaleway account.
+Add a SSH key to your organization.
 
 USAGE:
   scw account ssh-key add [arg=value ...]
