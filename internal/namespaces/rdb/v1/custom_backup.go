@@ -55,12 +55,13 @@ func backupWaitCommand() *core.Command {
 }
 
 func backupCreateBuilder(c *core.Command) *core.Command {
+	timeout := backupActionTimeout
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
-			DatabaseBackupID: argsI.(*rdb.WaitForDatabaseBackupRequest).DatabaseBackupID,
-			Region:           respI.(*rdb.WaitForDatabaseBackupRequest).Region,
-			Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+			DatabaseBackupID: respI.(*rdb.DatabaseBackup).ID,
+			Region:           respI.(*rdb.DatabaseBackup).Region,
+			Timeout:          &timeout,
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 	}
