@@ -13,16 +13,6 @@ Scaleway is a single way to create, deploy and scale your infrastructure in the 
 
 If you are looking for a stable version, [see the version 1](https://github.com/scaleway/scaleway-cli/tree/master).
 
-# Getting Started
-
-After you [installed](#Installation) the latest release just run the initialization command and let yourself be guided! :dancer:
-
-```bash
-scw init
-```
-
-It will set up your profile, the authentication, and the auto-completion.
-
 # Installation
 
 <!--- TODO:
@@ -136,29 +126,49 @@ docker run -i --rm scaleway/cli:v2.0.0-beta.4
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
 
-# CLI reference documentation
+# Getting Started
 
-| Namespace      | Description                             | Reference link                                                                                        |
+## Setup your configuration
+
+After you [installed](#Installation) the latest release just run the initialization command and let yourself be guided! :dancer:
+
+```bash
+scw init
+```
+
+It will set up your profile, the authentication, and the auto-completion.
+
+## Basic commands
+
+```
+# Create an instance server
+scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
+
+# List your servers
+scw instance server list
+
+# Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M and with 2 tags
+scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default tags.0=tag1 tags.1=tag2 
+```
+
+# Reference documentation
+
+| Namespace      | Description                             | Documentation                                                                                        |
 |----------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------|
 | `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                     |
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                      |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                    |
 | `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                        |
-| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) [API](https://developers.scaleway.com/en/products/baremetal/api/) |
+| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/) |
 | `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                        |
-| `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) [API](https://developers.scaleway.com/en/products/instance/api/)   |
-| `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) [API](https://developers.scaleway.com/en/products/k8s/api/)             |
+| `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)   |
+| `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)             |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                 |
-| `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) [API](https://www.scaleway.com/en/docs/object-storage-feature/)      |
-| `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) [API](https://developers.scaleway.com/en/products/rdb/api/)             |
-| `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) [API](https://developers.scaleway.com/en/products/registry/api/)   |
+| `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)      |
+| `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://developers.scaleway.com/en/products/rdb/api/)             |
+| `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)   |
 
-## Create an instance server
-
-```
-scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
-```
 
 ## Build it yourself
 
@@ -188,10 +198,6 @@ docker run -i --rm scaleway/cli
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
-
-# Tutorials
-
-TODO: Add a list of tutorials here.
 
 # Development
 
