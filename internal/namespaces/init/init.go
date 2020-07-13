@@ -278,8 +278,7 @@ func initCommand() *core.Command {
 
 			// Save the profile as default or as a named profile
 			profileName := core.ExtractProfileName(ctx)
-			_, err = config.GetProfile(profileName)
-			if profileName == "" || err == nil {
+			if profileName == scw.DefaultProfileName {
 				// Default configuration
 				config.Profile = *profile
 			} else {

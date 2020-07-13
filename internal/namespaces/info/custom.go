@@ -75,7 +75,7 @@ func infosRoot() *core.Command {
 				BuildInfo: core.ExtractBuildInfo(ctx),
 				Settings: []*setting{
 					configPath(ctx),
-					profile(ctx),
+					profile(ctx, config),
 					defaultRegion(ctx, config, profileName),
 					defaultZone(ctx, config, profileName),
 					defaultOrganizationID(ctx, config, profileName),
@@ -105,11 +105,12 @@ func configPath(ctx context.Context) *setting {
 	return setting
 }
 
-func profile(ctx context.Context) *setting {
+func profile(ctx context.Context, config *scw.Config) *setting {
 	setting := &setting{
 		Key:   "profile",
 		Value: core.ExtractProfileName(ctx),
 	}
+
 	switch {
 	case core.ExtractProfileFlag(ctx) != "":
 		setting.Origin = "flag --profile/-p"
@@ -117,6 +118,9 @@ func profile(ctx context.Context) *setting {
 	case core.ExtractEnv(ctx, scw.ScwActiveProfileEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwActiveProfileEnv)
 		setting.Value = core.ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+	case config.ActiveProfile != nil:
+		setting.Origin = fmt.Sprintf("active_profile in config file")
+		setting.Value = *config.ActiveProfile
 	default:
 		setting.Origin = ""
 	}

@@ -72,10 +72,15 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	}
 	helperScriptPath := filepath.Join(scriptDirArg, fmt.Sprintf("docker-credential-%s", binaryName))
 	buf := bytes.Buffer{}
-	err = tpl.Execute(&buf, map[string]string{
-		"BinaryName":  binaryName,
-		"ProfileName": core.ExtractProfileName(ctx),
-	})
+	tplData := map[string]string{
+		"BinaryName": binaryName,
+	}
+
+	if profileName := core.ExtractProfileName(ctx); profileName != scw.DefaultProfileName {
+		tplData["ProfileName"] = core.ExtractProfileName(ctx)
+	}
+	err = tpl.Execute(&buf, tplData)
+
 	if err != nil {
 		return nil, err
 	}

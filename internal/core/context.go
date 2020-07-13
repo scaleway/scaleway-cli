@@ -109,10 +109,25 @@ func ExtractStdin(ctx context.Context) io.Reader {
 }
 
 func ExtractProfileName(ctx context.Context) string {
+	// Handle profile flag -p
 	if extractMeta(ctx).ProfileFlag != "" {
 		return extractMeta(ctx).ProfileFlag
 	}
-	return ExtractEnv(ctx, scw.ScwActiveProfileEnv)
+
+	// Handle SCW_PROFILE env varibale
+	if env := ExtractEnv(ctx, scw.ScwActiveProfileEnv); env != "" {
+		return env
+	}
+
+	// Handle active_profile in config file
+	configPath := ExtractConfigPath(ctx)
+	config, err := scw.LoadConfigFromPath(configPath)
+	if err == nil && config.ActiveProfile != nil {
+		return *config.ActiveProfile
+	}
+
+	// Return default profile name
+	return scw.DefaultProfileName
 }
 
 func ExtractHTTPClient(ctx context.Context) *http.Client {
@@ -139,7 +154,7 @@ func ReloadClient(ctx context.Context) error {
 	if meta.isClientFromBootstrapConfig {
 		return nil
 	}
-	meta.Client, err = createClient(meta.httpClient, meta.BuildInfo, "")
+	meta.Client, err = createClient(meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
 	return err
 }
 

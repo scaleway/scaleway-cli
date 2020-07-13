@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"path"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/validation"
 
@@ -27,6 +28,7 @@ func GetCommands() *core.Commands {
 		configDumpCommand(),
 		configProfileCommand(),
 		configDeleteProfileCommand(),
+		configActivateProfileCommand(),
 		configResetCommand(),
 	)
 }
@@ -251,7 +253,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			// send_telemetry is the only key that is not in a profile but in the config object directly
 			profileName := core.ExtractProfileName(ctx)
 			profile := &config.Profile
-			if profileName != "" {
+			if profileName != "" && profileName != scw.DefaultProfileName {
 				var exist bool
 				profile, exist = config.Profiles[profileName]
 				if !exist {
@@ -416,6 +418,74 @@ func configDeleteProfileCommand() *core.Command {
 	}
 }
 
+// configActivateProfileCommand mark a profile as active
+func configActivateProfileCommand() *core.Command {
+	type configActiveProfileArgs struct {
+		ProfileName string
+	}
+
+	return &core.Command{
+		Short:                `Mark a profile as active in the config file`,
+		Namespace:            "config",
+		Resource:             "profile",
+		Verb:                 "activate",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configActiveProfileArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "profile-name",
+				Required:   true,
+				Positional: true,
+				AutoCompleteFunc: func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+					res := core.AutocompleteSuggestions(nil)
+					configPath := extractConfigPath(ctx)
+					config, err := scw.LoadConfigFromPath(configPath)
+					if err != nil {
+						return res
+					}
+
+					for profileName := range config.Profiles {
+						if strings.HasPrefix(profileName, prefix) {
+							res = append(res, profileName)
+						}
+					}
+
+					if strings.HasPrefix(scw.DefaultProfileName, prefix) {
+						res = append(res, scw.DefaultProfileName)
+					}
+					return res
+				},
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			profileName := argsI.(*configActiveProfileArgs).ProfileName
+			configPath := extractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			if profileName == scw.DefaultProfileName {
+				config.ActiveProfile = nil
+			} else {
+				if _, exists := config.Profiles[profileName]; !exists {
+					return nil, unknownProfileError(profileName)
+				}
+				config.ActiveProfile = &profileName
+			}
+
+			err = config.SaveTo(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			return &core.SuccessResult{
+				Message: fmt.Sprintf("successfully activate profile %s", profileName),
+			}, nil
+		},
+	}
+}
+
 // configResetCommand resets the config
 func configResetCommand() *core.Command {
 	type configResetArgs struct{}
@@ -492,8 +562,11 @@ func extractConfigPath(ctx context.Context) string {
 	return path.Join(homeDir, ".config", "scw", "config.yaml")
 }
 
+// getProfile return a config profile by its name.
+// Warning: This return the profile pointer directly so it can be modified by commands.
+// For this reason we cannot rely on config.GetProfileByName method as it create a copy.
 func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
-	if profileName == "" {
+	if profileName == scw.DefaultProfileName {
 		return &config.Profile, nil
 	}
 	profile, exist := config.Profiles[profileName]

@@ -27,38 +27,31 @@ profiles:
 
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "AccessKey": "SCWXXXXXXXXXXXXXXXXX",
-  "SecretKey": "11111111-1111-1111-1111-111111111111",
-  "APIURL": null,
-  "Insecure": true,
-  "DefaultOrganizationID": "11111111-1111-1111-1111-111111111111",
-  "DefaultProjectID": null,
-  "DefaultRegion": "fr-par",
-  "DefaultZone": "fr-par-1",
-  "SendTelemetry": true,
-  "ActiveProfile": null,
-  "Profiles": {
+  "access_key": "SCWXXXXXXXXXXXXXXXXX",
+  "secret_key": "11111111-1111-1111-1111-111111111111",
+  "insecure": true,
+  "default_organization_id": "11111111-1111-1111-1111-111111111111",
+  "default_region": "fr-par",
+  "default_zone": "fr-par-1",
+  "send_telemetry": true,
+  "profiles": {
     "p1": {
-      "AccessKey": "SCWP1XXXXXXXXXXXXXXX",
-      "SecretKey": "11111111-1111-1111-1111-111111111111",
-      "APIURL": "https://p1-mock-api-url.com",
-      "Insecure": true,
-      "DefaultOrganizationID": "11111111-1111-1111-1111-111111111111",
-      "DefaultProjectID": null,
-      "DefaultRegion": "fr-par",
-      "DefaultZone": "fr-par-1",
-      "SendTelemetry": null
+      "access_key": "SCWP1XXXXXXXXXXXXXXX",
+      "secret_key": "11111111-1111-1111-1111-111111111111",
+      "api_url": "https://p1-mock-api-url.com",
+      "insecure": true,
+      "default_organization_id": "11111111-1111-1111-1111-111111111111",
+      "default_region": "fr-par",
+      "default_zone": "fr-par-1"
     },
     "p2": {
-      "AccessKey": "SCWP2XXXXXXXXXXXXXXX",
-      "SecretKey": "11111111-1111-1111-1111-111111111111",
-      "APIURL": "https://p2-mock-api-url.com",
-      "Insecure": true,
-      "DefaultOrganizationID": "11111111-1111-1111-1111-111111111111",
-      "DefaultProjectID": null,
-      "DefaultRegion": "fr-par",
-      "DefaultZone": "fr-par-1",
-      "SendTelemetry": null
+      "access_key": "SCWP2XXXXXXXXXXXXXXX",
+      "secret_key": "11111111-1111-1111-1111-111111111111",
+      "api_url": "https://p2-mock-api-url.com",
+      "insecure": true,
+      "default_organization_id": "11111111-1111-1111-1111-111111111111",
+      "default_region": "fr-par",
+      "default_zone": "fr-par-1"
     }
   }
 }
