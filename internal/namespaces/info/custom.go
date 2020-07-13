@@ -118,7 +118,7 @@ func profile(ctx context.Context, config *scw.Config) *setting {
 	case core.ExtractEnv(ctx, scw.ScwActiveProfileEnv) != "":
 		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwActiveProfileEnv)
 		setting.Value = core.ExtractEnv(ctx, scw.ScwActiveProfileEnv)
-	case config.ActiveProfile != nil:
+	case config != nil && config.ActiveProfile != nil:
 		setting.Origin = "active_profile in config file"
 		setting.Value = *config.ActiveProfile
 	default:
