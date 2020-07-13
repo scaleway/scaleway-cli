@@ -10,6 +10,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -28,6 +29,10 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 		value := humanize.Bytes(uint64(*v))
 		value = strings.Replace(value, " ", "", -1)
 		return value, nil
+	},
+	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src interface{}) (string, error) {
+		v := src.(*time.Time)
+		return v.Format(time.RFC3339), nil
 	},
 }
 
