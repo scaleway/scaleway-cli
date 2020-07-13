@@ -136,15 +136,29 @@ docker run -i --rm scaleway/cli:v2.0.0-beta.4
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
 
-# Examples
+# CLI reference documentation
+
+| Namespace      | Description                             | Reference link                                                                                        |
+|----------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                     |
+| `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                |
+| `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                      |
+| `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                    |
+| `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                        |
+| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) [API](https://developers.scaleway.com/en/products/baremetal/api/) |
+| `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                        |
+| `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) [API](https://developers.scaleway.com/en/products/instance/api/)   |
+| `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) [API](https://developers.scaleway.com/en/products/k8s/api/)             |
+| `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                 |
+| `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) [API](https://www.scaleway.com/en/docs/object-storage-feature/)      |
+| `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) [API](https://developers.scaleway.com/en/products/rdb/api/)             |
+| `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) [API](https://developers.scaleway.com/en/products/registry/api/)   |
 
 ## Create an instance server
 
 ```
 scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 ```
-
-TODO: Add more examples here.
 
 ## Build it yourself
 
