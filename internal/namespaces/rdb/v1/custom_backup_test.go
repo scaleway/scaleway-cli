@@ -14,10 +14,13 @@ func Test_CreateBackup(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
-			func(ctx *core.BeforeFuncCtx) error {
-				time.Sleep(1 * time.Minute)
-				return nil
-			}),
+			core.BeforeFuncWhenUpdatingCassette(
+				func(ctx *core.BeforeFuncCtx) error {
+					time.Sleep(1 * time.Minute)
+					return nil
+				},
+			),
+		),
 		Cmd:           "scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 		Check:         core.TestCheckGolden(),
 		AfterFunc:     deleteInstance(),
@@ -31,10 +34,12 @@ func Test_RestoreBackup(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
-			func(ctx *core.BeforeFuncCtx) error {
-				time.Sleep(1 * time.Minute)
-				return nil
-			},
+			core.BeforeFuncWhenUpdatingCassette(
+				func(ctx *core.BeforeFuncCtx) error {
+					time.Sleep(1 * time.Minute)
+					return nil
+				},
+			),
 			core.ExecStoreBeforeCmd(
 				"Backup",
 				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
@@ -56,10 +61,12 @@ func Test_ExportBackup(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
-			func(ctx *core.BeforeFuncCtx) error {
-				time.Sleep(1 * time.Minute)
-				return nil
-			},
+			core.BeforeFuncWhenUpdatingCassette(
+				func(ctx *core.BeforeFuncCtx) error {
+					time.Sleep(1 * time.Minute)
+					return nil
+				},
+			),
 			core.ExecStoreBeforeCmd(
 				"Backup",
 				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
