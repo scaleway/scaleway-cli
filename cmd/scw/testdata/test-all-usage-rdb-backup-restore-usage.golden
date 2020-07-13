@@ -13,6 +13,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for restore
+  -w, --wait   wait until the backup is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
