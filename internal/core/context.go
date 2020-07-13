@@ -165,3 +165,15 @@ func ExtractConfigPathFlag(ctx context.Context) string {
 func ExtractProfileFlag(ctx context.Context) string {
 	return extractMeta(ctx).ProfileFlag
 }
+
+// GetDocGenContext reuturn a minimal context that can be used by scw-doc-gen
+func GetDocGenContext() context.Context {
+	ctx := context.Background()
+	client, _ := scw.NewClient(
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithDefaultRegion(scw.RegionFrPar),
+	)
+	return injectMeta(ctx, &meta{
+		Client: client,
+	})
+}

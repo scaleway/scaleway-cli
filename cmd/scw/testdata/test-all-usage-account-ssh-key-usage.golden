@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage your Scaleway SSH keys.
+SSH keys management commands.
 
 USAGE:
   scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
-  add         Add a SSH key to your Scaleway account
-  get         Get SSH key details
+  add         Add a SSH key to your organization
+  get         Get a SSH key from your organization
   init        Initialize SSH key
-  list        List all SSH keys
-  remove      Remove a SSH key from your Scaleway account
-  update      Update an SSH key
+  list        List all SSH keys of your organization
+  remove      Remove a SSH key from your organization
+  update      Update a SSH key on your organization
 
 FLAGS:
   -h, --help   help for ssh-key

@@ -41,6 +41,30 @@ const (
 	clusterActionDelete
 )
 
+func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp k8s.Cluster
+	cluster := tmp(i.(k8s.Cluster))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "AutoscalerConfig",
+			Title:     "Autoscaler configuration",
+		},
+		{
+			FieldName: "AutoUpgrade",
+			Title:     "Auto-upgrade settings",
+		},
+	}
+
+	str, err := human.Marshal(cluster, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		originalRes, err := runner(ctx, argsI)
@@ -105,21 +129,53 @@ func waitForClusterFunc(action int) core.WaitFunc {
 }
 
 func k8sClusterWaitCommand() *core.Command {
+	type customClusterWaitArgs struct {
+		k8s.WaitForClusterRequest
+		WaitForPools bool
+	}
 	return &core.Command{
 		Short:     `Wait for a cluster to reach a stable state`,
 		Long:      `Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "wait",
-		ArgsType:  reflect.TypeOf(k8s.WaitForClusterRequest{}),
+		ArgsType:  reflect.TypeOf(customClusterWaitArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*customClusterWaitArgs)
+
 			api := k8s.NewAPI(core.ExtractClient(ctx))
-			return api.WaitForCluster(&k8s.WaitForClusterRequest{
-				Region:        argsI.(*k8s.WaitForClusterRequest).Region,
-				ClusterID:     argsI.(*k8s.WaitForClusterRequest).ClusterID,
+			cluster, err := api.WaitForCluster(&k8s.WaitForClusterRequest{
+				Region:        args.Region,
+				ClusterID:     args.ClusterID,
 				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
+			if err != nil {
+				return nil, err
+			}
+
+			if args.WaitForPools {
+				pools, err := api.ListPools(&k8s.ListPoolsRequest{
+					Region:    cluster.Region,
+					ClusterID: cluster.ID,
+				}, scw.WithAllPages())
+				if err != nil {
+					return cluster, err
+				}
+				for _, pool := range pools.Pools {
+					_, err := api.WaitForPool(&k8s.WaitForPoolRequest{
+						Region:        pool.Region,
+						PoolID:        pool.ID,
+						Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+						RetryInterval: core.DefaultRetryInterval,
+					})
+					if err != nil {
+						return cluster, err
+					}
+				}
+			}
+
+			return cluster, nil
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -127,6 +183,10 @@ func k8sClusterWaitCommand() *core.Command {
 				Short:      `ID of the cluster.`,
 				Required:   true,
 				Positional: true,
+			},
+			{
+				Name:  "wait-for-pools",
+				Short: "Wait for pools to be ready.",
 			},
 			core.RegionArgSpec(),
 		},

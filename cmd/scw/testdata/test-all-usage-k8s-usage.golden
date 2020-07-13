@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your Kapsule clusters
+Kapsule API
 
 USAGE:
   scw k8s <command>
 
 AVAILABLE COMMANDS:
-  cluster     A cluster is a Kubernetes Kapsule cluster
+  cluster     Kapsule cluster management commands
   kubeconfig  Manage your Kubernetes Kapsule cluster's kubeconfig files
-  node        A node is the representation of a Scaleway instance in a cluster
-  pool        A pool is a virtual group of nodes in a cluster
-  version     A version is a Kubernetes version
+  node        Kapsule node management commands
+  pool        Kapsule pool management commands
+  version     Available Kubernetes version commands
 
 FLAGS:
   -h, --help   help for k8s

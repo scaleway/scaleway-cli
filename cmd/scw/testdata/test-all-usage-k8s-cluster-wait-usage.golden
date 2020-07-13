@@ -10,8 +10,9 @@ EXAMPLES:
     scw k8s cluster wait 11111111-1111-1111-1111-111111111111
 
 ARGS:
-  cluster-id        ID of the cluster.
-  [region=fr-par]   Region to target. If none is passed will use default region from the config
+  cluster-id         ID of the cluster.
+  [wait-for-pools]   Wait for pools to be ready.
+  [region=fr-par]    Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help   help for wait

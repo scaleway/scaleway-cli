@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -27,7 +28,8 @@ func Test_AllUsage(t *testing.T) {
 	}
 
 	for _, cmd := range namespaces.GetCommands().GetAll() {
-		commandLine := cmd.GetCommandLine()
+		commandLine := cmd.GetCommandLine("scw")
+		commandLine = strings.TrimPrefix(commandLine, "scw ")
 		if _, exists := excludedCommands[commandLine]; exists || cmd.Hidden {
 			continue
 		}

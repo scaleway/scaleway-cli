@@ -126,16 +126,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = cobraCmd.CommandPath()
-	if cobraCmd.HasAvailableSubCommands() || len(cobraCmd.Commands()) > 0 {
-		cobraCmd.Annotations["CommandUsage"] += " <command>"
-	}
-	if positionalArg := cmd.ArgSpecs.GetPositionalArg(); positionalArg != nil {
-		cobraCmd.Annotations["CommandUsage"] += " <" + positionalArg.Name + " ...>"
-	}
-	if len(cmd.ArgSpecs) > 0 {
-		cobraCmd.Annotations["CommandUsage"] += " [arg=value ...]"
-	}
+	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), NewCommands(b.commands...))
 }
 
 const usageTemplate = `USAGE:

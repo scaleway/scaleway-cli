@@ -30,7 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 }
 func accountRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows to manage your scaleway account`,
+		Short:     `Account API`,
 		Long:      ``,
 		Namespace: "account",
 	}
@@ -38,8 +38,8 @@ func accountRoot() *core.Command {
 
 func accountSSHKey() *core.Command {
 	return &core.Command{
-		Short:     `Manage your Scaleway SSH keys`,
-		Long:      `Manage your Scaleway SSH keys.`,
+		Short:     `SSH keys management commands`,
+		Long:      `SSH keys management commands.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 	}
@@ -47,8 +47,8 @@ func accountSSHKey() *core.Command {
 
 func accountSSHKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List all SSH keys`,
-		Long:      `List all SSH keys.`,
+		Short:     `List all SSH keys of your organization`,
+		Long:      `List all SSH keys of your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "list",
@@ -119,8 +119,8 @@ func accountSSHKeyList() *core.Command {
 
 func accountSSHKeyAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add a SSH key to your Scaleway account`,
-		Long:      `Add a SSH key to your Scaleway account.`,
+		Short:     `Add a SSH key to your organization`,
+		Long:      `Add a SSH key to your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "add",
@@ -175,8 +175,8 @@ func accountSSHKeyAdd() *core.Command {
 
 func accountSSHKeyGet() *core.Command {
 	return &core.Command{
-		Short:     `Get SSH key details`,
-		Long:      `Get SSH key details.`,
+		Short:     `Get a SSH key from your organization`,
+		Long:      `Get a SSH key from your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "get",
@@ -202,8 +202,8 @@ func accountSSHKeyGet() *core.Command {
 
 func accountSSHKeyUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an SSH key`,
-		Long:      `Update an SSH key.`,
+		Short:     `Update a SSH key on your organization`,
+		Long:      `Update a SSH key on your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "update",
@@ -233,8 +233,8 @@ func accountSSHKeyUpdate() *core.Command {
 
 func accountSSHKeyRemove() *core.Command {
 	return &core.Command{
-		Short:     `Remove a SSH key from your Scaleway account`,
-		Long:      `Remove a SSH key from your Scaleway account.`,
+		Short:     `Remove a SSH key from your organization`,
+		Long:      `Remove a SSH key from your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "remove",

@@ -16,9 +16,9 @@ USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  create      Create snapshot
-  delete      Delete snapshot
-  get         Get snapshot
+  create      Create a snapshot from a given volume
+  delete      Delete a snapshot
+  get         Get a snapshot
   list        List snapshots
   wait        Wait for snapshot to reach a stable state
 

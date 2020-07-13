@@ -108,8 +108,25 @@ func (c *Command) getPath() string {
 	return strings.Join(path, indexCommandSeparator)
 }
 
-func (c *Command) GetCommandLine() string {
-	return strings.ReplaceAll(c.getPath(), indexCommandSeparator, " ")
+func (c *Command) GetCommandLine(binaryName string) string {
+	return strings.Trim(binaryName+" "+strings.ReplaceAll(c.getPath(), indexCommandSeparator, " "), " ")
+}
+
+func (c *Command) GetUsage(binaryName string, commands *Commands) string {
+	parts := []string{
+		c.GetCommandLine(binaryName),
+	}
+
+	if commands.HasSubCommands(c) {
+		parts = append(parts, "<command>")
+	}
+	if positionalArg := c.ArgSpecs.GetPositionalArg(); positionalArg != nil {
+		parts = append(parts, "<"+positionalArg.Name+" ...>")
+	}
+	if len(c.ArgSpecs) > 0 {
+		parts = append(parts, "[arg=value ...]")
+	}
+	return strings.Join(parts, " ")
 }
 
 // seeAlsosAsStr returns all See Alsos as a single string
@@ -198,6 +215,27 @@ func (c *Commands) GetSortedCommand() []*Command {
 		return fmt.Sprintf("%s %s %s", commands[i].Namespace, commands[i].Resource, commands[i].Verb) < fmt.Sprintf("%s %s %s", commands[j].Namespace, commands[j].Resource, commands[j].Verb)
 	})
 	return commands
+}
+
+func (c *Commands) HasSubCommands(cmd *Command) bool {
+	if cmd.Namespace != "" && cmd.Resource != "" && cmd.Verb != "" {
+		return false
+	}
+	if cmd.Namespace == "" && cmd.Resource == "" && cmd.Verb == "" {
+		return true
+	}
+	for _, command := range c.commands {
+		if command == cmd {
+			continue
+		}
+		if cmd.Resource == "" && cmd.Namespace == command.Namespace {
+			return true
+		}
+		if cmd.Verb == "" && cmd.Namespace == command.Namespace && cmd.Resource == command.Resource {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {

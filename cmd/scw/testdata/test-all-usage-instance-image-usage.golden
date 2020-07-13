@@ -9,10 +9,10 @@ USAGE:
   scw instance image <command>
 
 AVAILABLE COMMANDS:
-  create      Create image
-  delete      Delete image
-  get         Get image
-  list        List images
+  create      Create an instance image
+  delete      Delete an instance image
+  get         Get an instance image
+  list        List instance images
   wait        Wait for image to reach a stable state
 
 FLAGS:

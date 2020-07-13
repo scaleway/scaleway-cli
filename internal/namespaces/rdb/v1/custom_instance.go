@@ -62,7 +62,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	backupSchedule := tmp{
 		LocalBackupSchedule: LocalBackupSchedule(i.(rdb.BackupSchedule)),
 		Frequency: &scw.Duration{
-			Seconds: int64(i.(rdb.BackupSchedule).Frequency) * 24 * 3600,
+			Seconds: int64(i.(rdb.BackupSchedule).Frequency) * 3600,
 		},
 		Retention: &scw.Duration{
 			Seconds: int64(i.(rdb.BackupSchedule).Retention) * 24 * 3600,

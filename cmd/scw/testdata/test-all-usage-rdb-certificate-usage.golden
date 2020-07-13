@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-TLS certificate used by your instance.
+Instance TLS certificate management commands.
 
 USAGE:
   scw rdb certificate <command>

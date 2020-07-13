@@ -37,15 +37,15 @@ AVAILABLE COMMANDS:
   create        Create server
   delete        Delete server
   detach-volume Detach a volume from its server
-  get           Get server
-  list          List servers
+  get           Get a server
+  list          List all servers
   reboot        Reboot server
   ssh           SSH into a server
   standby       Put server in standby mode
   start         Power on server
   stop          Power off server
   terminate     Terminate server
-  update        Update server
+  update        Update a server
   wait          Wait for server to reach a stable state
 
 FLAGS:

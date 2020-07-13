@@ -24,6 +24,7 @@ func GetCommands() *core.Commands {
 		k8sPoolWaitCommand(),
 	))
 
+	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(0), human.EnumMarshalFunc(poolStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.NodeStatus(0), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
