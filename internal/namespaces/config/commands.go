@@ -4,9 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"path"
 	"reflect"
-	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/validation"
 
@@ -127,7 +125,7 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			config, err := scw.LoadConfigFromPath(extractConfigPath(ctx))
+			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
 			}
@@ -244,7 +242,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			args := argsI.(*scw.Profile)
 
 			// Execute
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -309,7 +307,7 @@ func configUnsetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -355,7 +353,7 @@ func configDumpCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -396,7 +394,7 @@ func configDeleteProfileCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			profileName := argsI.(*configDeleteProfileArgs).Name
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -433,33 +431,15 @@ func configActivateProfileCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(configActiveProfileArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "profile-name",
-				Required:   true,
-				Positional: true,
-				AutoCompleteFunc: func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
-					res := core.AutocompleteSuggestions(nil)
-					configPath := extractConfigPath(ctx)
-					config, err := scw.LoadConfigFromPath(configPath)
-					if err != nil {
-						return res
-					}
-
-					for profileName := range config.Profiles {
-						if strings.HasPrefix(profileName, prefix) {
-							res = append(res, profileName)
-						}
-					}
-
-					if strings.HasPrefix(scw.DefaultProfileName, prefix) {
-						res = append(res, scw.DefaultProfileName)
-					}
-					return res
-				},
+				Name:             "profile-name",
+				Required:         true,
+				Positional:       true,
+				AutoCompleteFunc: core.AutocompleteProfileName(),
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			profileName := argsI.(*configActiveProfileArgs).ProfileName
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -554,12 +534,6 @@ func getProfileKeys() []string {
 		}
 	}
 	return keys
-}
-
-// This func should be removes when core implement it
-func extractConfigPath(ctx context.Context) string {
-	homeDir := core.ExtractUserHomeDir(ctx)
-	return path.Join(homeDir, ".config", "scw", "config.yaml")
 }
 
 // getProfile return a config profile by its name.
