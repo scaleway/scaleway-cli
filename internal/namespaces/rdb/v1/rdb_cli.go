@@ -594,6 +594,38 @@ func rdbInstanceList() *core.Command {
 			return resp.Instances, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "NodeType",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "Engine",
+			},
+			{
+				FieldName: "Region",
+			},
+			{
+				FieldName: "Tags",
+			},
+			{
+				FieldName: "IsHaCluster",
+			},
+			{
+				FieldName: "BackupSchedule",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+		}},
 	}
 }
 
