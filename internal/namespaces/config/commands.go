@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"path"
 	"reflect"
 
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -27,6 +26,7 @@ func GetCommands() *core.Commands {
 		configDumpCommand(),
 		configProfileCommand(),
 		configDeleteProfileCommand(),
+		configActivateProfileCommand(),
 		configResetCommand(),
 	)
 }
@@ -128,7 +128,7 @@ func configGetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			config, err := scw.LoadConfigFromPath(extractConfigPath(ctx))
+			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
 			}
@@ -254,7 +254,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			args := argsI.(*scw.Profile)
 
 			// Execute
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -263,7 +263,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			// send_telemetry is the only key that is not in a profile but in the config object directly
 			profileName := core.ExtractProfileName(ctx)
 			profile := &config.Profile
-			if profileName != "" {
+			if profileName != scw.DefaultProfileName {
 				var exist bool
 				profile, exist = config.Profiles[profileName]
 				if !exist {
@@ -319,7 +319,7 @@ func configUnsetCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -365,7 +365,7 @@ func configDumpCommand() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -406,7 +406,7 @@ func configDeleteProfileCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			profileName := argsI.(*configDeleteProfileArgs).Name
-			configPath := extractConfigPath(ctx)
+			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
@@ -423,6 +423,56 @@ func configDeleteProfileCommand() *core.Command {
 
 			return &core.SuccessResult{
 				Message: fmt.Sprintf("successfully delete profile %s", profileName),
+			}, nil
+		},
+	}
+}
+
+// configActivateProfileCommand mark a profile as active
+func configActivateProfileCommand() *core.Command {
+	type configActiveProfileArgs struct {
+		ProfileName string
+	}
+
+	return &core.Command{
+		Short:                `Mark a profile as active in the config file`,
+		Namespace:            "config",
+		Resource:             "profile",
+		Verb:                 "activate",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configActiveProfileArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:             "profile-name",
+				Required:         true,
+				Positional:       true,
+				AutoCompleteFunc: core.AutocompleteProfileName(),
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			profileName := argsI.(*configActiveProfileArgs).ProfileName
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			if profileName == scw.DefaultProfileName {
+				config.ActiveProfile = nil
+			} else {
+				if _, exists := config.Profiles[profileName]; !exists {
+					return nil, unknownProfileError(profileName)
+				}
+				config.ActiveProfile = &profileName
+			}
+
+			err = config.SaveTo(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			return &core.SuccessResult{
+				Message: fmt.Sprintf("successfully activate profile %s", profileName),
 			}, nil
 		},
 	}
@@ -498,14 +548,11 @@ func getProfileKeys() []string {
 	return keys
 }
 
-// This func should be removes when core implement it
-func extractConfigPath(ctx context.Context) string {
-	homeDir := core.ExtractUserHomeDir(ctx)
-	return path.Join(homeDir, ".config", "scw", "config.yaml")
-}
-
+// getProfile return a config profile by its name.
+// Warning: This return the profile pointer directly so it can be modified by commands.
+// For this reason we cannot rely on config.GetProfileByName method as it create a copy.
 func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
-	if profileName == "" {
+	if profileName == scw.DefaultProfileName {
 		return &config.Profile, nil
 	}
 	profile, exist := config.Profiles[profileName]
