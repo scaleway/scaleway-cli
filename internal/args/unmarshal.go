@@ -18,10 +18,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// This variable is used in the tests instead of time.Now
-// This allows for predictable results
-// var testMockNow *time.Time
-
 type Unmarshaler interface {
 	UnmarshalArgs(value string) error
 }
@@ -56,12 +52,6 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if err != nil {
 			return err
 		}
-
-		// Handle relative time
-		// now := time.Now()
-		// if testMockNow != nil {
-		//	now = *testMockNow
-		//}
 
 		*(dest.(*time.Time)) = t
 		return nil

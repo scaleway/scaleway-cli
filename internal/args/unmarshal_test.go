@@ -17,9 +17,6 @@ func TestUnmarshalStruct(t *testing.T) {
 		data     interface{}
 	}
 
-	//mockNow := time.Date(2020, 1, 21, 12, 12, 12, 12, time.UTC)
-	//testMockNow = &mockNow
-
 	stringPtr := "test"
 	slicePtr := []string{"0", "1", "2"}
 
