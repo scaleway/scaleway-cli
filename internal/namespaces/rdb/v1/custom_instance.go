@@ -285,8 +285,8 @@ func instanceConnectCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "connect",
-		Short:     "Connect to an instance using local database cli",
-		Long:      "Connect to an instance using local database cli such as psql or mysql.",
+		Short:     "Connect to an instance using locally installed CLI",
+		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
 		ArgsType:  reflect.TypeOf(instanceConnectArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -301,8 +301,9 @@ func instanceConnectCommand() *core.Command {
 				Required: true,
 			},
 			{
-				Name:  "database",
-				Short: "Name of the database",
+				Name:    "database",
+				Short:   "Name of the database",
+				Default: core.DefaultValueSetter("rdb"),
 			},
 			{
 				Name:  "cli-db",

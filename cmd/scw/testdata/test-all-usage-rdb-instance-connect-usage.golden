@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Connect to an instance using local database cli such as psql or mysql.
+Connect to an instance using locally installed CLI such as psql or mysql.
 
 USAGE:
   scw rdb instance connect <instance-id ...> [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   instance-id       UUID of the instance
   username          Name of the user to connect with to the database
-  [database]        Name of the database
+  [database=rdb]    Name of the database
   [cli-db]          Command line tool to use, default to psql/mysql
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 

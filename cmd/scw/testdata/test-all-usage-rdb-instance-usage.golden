@@ -7,7 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   clone       Clone an instance
-  connect     Connect to an instance using local database cli
+  connect     Connect to an instance using locally installed CLI
   create      Create an instance
   delete      Delete an instance
   get         Get an instance
