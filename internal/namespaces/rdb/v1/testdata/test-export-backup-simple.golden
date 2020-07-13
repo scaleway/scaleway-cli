@@ -1,0 +1,31 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                    78908a16-b963-4dd0-a1d8-4d8cc6036161
+InstanceID            b740f91b-4c49-41d1-80a7-3be92814e42a
+DatabaseName          rdb
+Name                  foobar
+Status                ready
+Size                  2547
+ExpiresAt             few seconds ago
+CreatedAt             few seconds ago
+UpdatedAt             few seconds ago
+InstanceName          cli-test
+DownloadURL           http://s3.fr-par.scw.cloud/9f261887-ece6-41b4-8f7a-167ab9c4349f/b740f91b-4c49-41d1-80a7-3be92814e42a/78908a16-b963-4dd0-a1d8-4d8cc6036161.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCWG20TH0QXNPZCEZDFH%2F20200713%2Ffr-par%2Fs3%2Faws4_request&X-Amz-Date=20200713T142912Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e7978f82b922ca470df19e14bc57623f89627fa32ae3d63ce867efaf57ed8bd7
+DownloadURLExpiresAt  few seconds ago
+Region                nl-ams
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "78908a16-b963-4dd0-a1d8-4d8cc6036161",
+  "instance_id": "b740f91b-4c49-41d1-80a7-3be92814e42a",
+  "database_name": "rdb",
+  "name": "foobar",
+  "status": "ready",
+  "size": 2547,
+  "expires_at": "2999-01-02T22:04:05Z",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "instance_name": "cli-test",
+  "download_url": "http://s3.fr-par.scw.cloud/9f261887-ece6-41b4-8f7a-167ab9c4349f/b740f91b-4c49-41d1-80a7-3be92814e42a/78908a16-b963-4dd0-a1d8-4d8cc6036161.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=SCWG20TH0QXNPZCEZDFH%2F20200713%2Ffr-par%2Fs3%2Faws4_request\u0026X-Amz-Date=20200713T142912Z\u0026X-Amz-Expires=86400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=e7978f82b922ca470df19e14bc57623f89627fa32ae3d63ce867efaf57ed8bd7",
+  "download_url_expires_at": "1970-01-01T00:00:00.0Z",
+  "region": "nl-ams"
+}

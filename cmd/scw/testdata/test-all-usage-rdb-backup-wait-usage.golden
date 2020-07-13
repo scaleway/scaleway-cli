@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a database backup.
+Wait for a backup to reach a stable state. This is similar to using --wait flag.
 
 USAGE:
-  scw rdb backup create [arg=value ...]
+  scw rdb backup wait <backup-id ...> [arg=value ...]
+
+EXAMPLES:
+  Wait for a backup to reach a stable state
+    scw rdb backup wait
 
 ARGS:
-  [instance-id]     UUID of the instance
-  [database-name]   Name of the database you want to make a backup of
-  [name]            Name of the backup
-  [expires-at]      Expiration date (Format ISO 8601)
+  backup-id         ID of the backup you want to wait for.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the backup is ready
+  -h, --help   help for wait
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
