@@ -177,7 +177,7 @@ type instanceConnectArgs struct {
 	InstanceID string
 	Username   string
 	Database   *string
-	CliDb      *string
+	CliDB      *string
 }
 
 type engineFamily string
@@ -249,8 +249,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 	switch family {
 	case PostgreSQL:
 		clidb := "psql"
-		if args.CliDb != nil {
-			clidb = *args.CliDb
+		if args.CliDB != nil {
+			clidb = *args.CliDB
 		}
 
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
@@ -263,8 +263,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		}, nil
 	case MySQL:
 		clidb := "mysql"
-		if args.CliDb != nil {
-			clidb = *args.CliDb
+		if args.CliDB != nil {
+			clidb = *args.CliDB
 		}
 
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
