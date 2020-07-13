@@ -237,7 +237,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 	}))
 
-	t.Run("Relative date", run(TestCase{
+	t.Run("Absolute date", run(TestCase{
 		args: []string{
 			"time=2006-01-02T15:04:05Z",
 		},
