@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -35,6 +36,7 @@ type Slice struct {
 
 type WellKnownTypes struct {
 	Size scw.Size
+	Time time.Time
 }
 
 type Nested struct {

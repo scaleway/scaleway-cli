@@ -2,6 +2,7 @@ package args
 
 import (
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -120,9 +121,11 @@ func TestMarshal(t *testing.T) {
 	t.Run("well-known-types", run(TestCase{
 		data: &WellKnownTypes{
 			Size: 20 * scw.GB,
+			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
 		},
 		expected: []string{
 			"size=20GB",
+			"time=2006-01-02T15:04:05Z",
 		},
 	}))
 
