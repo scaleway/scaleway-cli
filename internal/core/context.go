@@ -114,7 +114,7 @@ func ExtractProfileName(ctx context.Context) string {
 		return extractMeta(ctx).ProfileFlag
 	}
 
-	// Handle SCW_PROFILE env varibale
+	// Handle SCW_PROFILE env variable
 	if env := ExtractEnv(ctx, scw.ScwActiveProfileEnv); env != "" {
 		return env
 	}
