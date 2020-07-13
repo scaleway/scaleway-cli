@@ -13,7 +13,7 @@ const (
 	engine   = "PostgreSQL-12"
 )
 
-func createInstance() core.BeforeFunc {
+func createInstance(engine string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
 		fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
