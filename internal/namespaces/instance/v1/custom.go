@@ -117,6 +117,11 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
 
 	//
+	// Volume-Type
+	//
+	cmds.MustFind("instance", "volume-type", "list").Override(volumeTypeListBuilder)
+
+	//
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
