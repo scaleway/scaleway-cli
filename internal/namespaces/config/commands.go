@@ -251,7 +251,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			// send_telemetry is the only key that is not in a profile but in the config object directly
 			profileName := core.ExtractProfileName(ctx)
 			profile := &config.Profile
-			if profileName != "" && profileName != scw.DefaultProfileName {
+			if profileName != scw.DefaultProfileName {
 				var exist bool
 				profile, exist = config.Profiles[profileName]
 				if !exist {
