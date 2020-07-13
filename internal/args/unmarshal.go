@@ -48,7 +48,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	},
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
-		t, err := time.Parse("2006-01-02T15:04:05Z0700", value)
+		t, err := time.Parse(time.RFC3339, value)
 		if err != nil {
 			return err
 		}
