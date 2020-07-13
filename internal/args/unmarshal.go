@@ -10,6 +10,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -43,6 +44,16 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	},
 	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest interface{}) error {
 		*(dest.(*io.Reader)) = strings.NewReader(value)
+		return nil
+	},
+	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
+		// Handle absolute time
+		t, err := time.Parse(time.RFC3339, value)
+		if err != nil {
+			return err
+		}
+
+		*(dest.(*time.Time)) = t
 		return nil
 	},
 }
