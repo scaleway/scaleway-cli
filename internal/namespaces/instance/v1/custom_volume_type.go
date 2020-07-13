@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"sort"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -26,6 +27,12 @@ func volumeTypeListBuilder(cmd *core.Command) *core.Command {
 				VolumeType: *volumeType,
 			})
 		}
+
+		// sort for consistent order output
+		sort.Slice(volumeTypes, func(i, j int) bool {
+			return volumeTypes[i].Type < volumeTypes[j].Type
+		})
+
 		return volumeTypes, nil
 	})
 
