@@ -62,9 +62,8 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	if opt.TableCell {
 		if backupSchedule.Disabled {
 			return "Disabled", nil
-		} else {
-			return "Enabled", nil
 		}
+		return "Enabled", nil
 	}
 
 	// To avoid recursion of human.Marshal we create a dummy type
