@@ -32,6 +32,7 @@ func GetCommands() *core.Commands {
 		instanceWaitCommand(),
 		instanceConnectCommand(),
 		backupWaitCommand(),
+		logWaitCommand(),
 	))
 	cmds.MustFind("rdb", "backup", "create").Override(backupCreateBuilder)
 	cmds.MustFind("rdb", "backup", "export").Override(backupExportBuilder)
