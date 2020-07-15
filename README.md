@@ -1,4 +1,4 @@
-<p align="center">⚠️ This version is deprecated! Take a look at current stable version here: <a href="https://github.com/scaleway/scaleway-cli"></a> ⚠️</p>
+<p align="center">⚠️ This version is deprecated! Take a look at current stable version here: <a href="https://github.com/scaleway/scaleway-cli">https://github.com/scaleway/scaleway-cli</a> ⚠️</p>
 
 # Scaleway CLI
 
