@@ -22,7 +22,7 @@ func Test_WaitLog(t *testing.T) {
 			},
 			core.ExecStoreBeforeCmd("Logs", "scw rdb log prepare {{ .Instance.ID }} start-date={{ .startDate }} end-date={{ .endDate }}"),
 		),
-		Cmd:       "scw rdb log wait {{ .Logs[0].ID }}",
+		Cmd:       "scw rdb log wait {{ (index .Logs.InstanceLogs 0).ID }}",
 		Check:     core.TestCheckGolden(),
 		AfterFunc: deleteInstance(),
 	}))
