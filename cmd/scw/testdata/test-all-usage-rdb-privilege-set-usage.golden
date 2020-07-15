@@ -3,7 +3,7 @@
 Set privileges of a given user in a given database in a given instance.
 
 USAGE:
-  scw rdb privilege set <instance-id ...> [arg=value ...]
+  scw rdb privilege set [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance

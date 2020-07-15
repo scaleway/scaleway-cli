@@ -30,7 +30,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
-		rdbCertificate(),
 		rdbBackupList(),
 		rdbBackupCreate(),
 		rdbBackupGet(),
@@ -46,10 +45,11 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceCreate(),
 		rdbInstanceUpdate(),
 		rdbInstanceDelete(),
-		rdbCertificateGet(),
+		rdbInstanceGetCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
-		rdbInstanceMetrics(),
+		rdbLogGet(),
+		rdbInstanceGetMetrics(),
 		rdbSettingsAdd(),
 		rdbSettingsDelete(),
 		rdbACLList(),
@@ -171,15 +171,6 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
-	}
-}
-
-func rdbCertificate() *core.Command {
-	return &core.Command{
-		Short:     `Instance TLS certificate management commands`,
-		Long:      `Instance TLS certificate management commands.`,
-		Namespace: "rdb",
-		Resource:  "certificate",
 	}
 }
 
@@ -427,6 +418,7 @@ func rdbBackupExport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
+				Short:      `UUID of the database backup you want to export`,
 				Required:   true,
 				Positional: true,
 			},
@@ -520,16 +512,19 @@ func rdbInstanceUpgrade() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
+				Short:      `UUID of the instance you want to upgrade`,
 				Required:   true,
 				Positional: true,
 			},
 			{
 				Name:       "node-type",
+				Short:      `Node type of the instance you want to upgrade to`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-ha",
+				Short:      `Set to true to enable high availability on your instance`,
 				Required:   false,
 				Positional: false,
 			},
@@ -814,13 +809,13 @@ func rdbInstanceDelete() *core.Command {
 	}
 }
 
-func rdbCertificateGet() *core.Command {
+func rdbInstanceGetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Get the TLS certificate of an instance`,
 		Long:      `Get the TLS certificate of an instance.`,
 		Namespace: "rdb",
-		Resource:  "certificate",
-		Verb:      "get",
+		Resource:  "instance",
+		Verb:      "get-certificate",
 		ArgsType:  reflect.TypeOf(rdb.GetInstanceCertificateRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -855,7 +850,7 @@ func rdbLogPrepare() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance you want logs of`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "start-date",
@@ -893,11 +888,13 @@ func rdbLogList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
+				Short:      `UUID of the instance you want logs of`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "order-by",
+				Short:      `Criteria to use when ordering instance logs listing`,
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
@@ -915,13 +912,41 @@ func rdbLogList() *core.Command {
 	}
 }
 
-func rdbInstanceMetrics() *core.Command {
+func rdbLogGet() *core.Command {
+	return &core.Command{
+		Short:     `Get specific logs of a given instance`,
+		Long:      `Get specific logs of a given instance.`,
+		Namespace: "rdb",
+		Resource:  "log",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(rdb.GetInstanceLogRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-log-id",
+				Short:      `UUID of the instance_log you want`,
+				Required:   true,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetInstanceLogRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetInstanceLog(request)
+
+		},
+	}
+}
+
+func rdbInstanceGetMetrics() *core.Command {
 	return &core.Command{
 		Short:     `Get instance metrics`,
 		Long:      `Get database instance metrics.`,
 		Namespace: "rdb",
 		Resource:  "instance",
-		Verb:      "metrics",
+		Verb:      "get-metrics",
 		ArgsType:  reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -974,7 +999,7 @@ func rdbSettingsAdd() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance you want to add settings to`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "settings.{index}.name",
@@ -1012,7 +1037,7 @@ func rdbSettingsDelete() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance to delete settings from`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "setting-names.{index}",
@@ -1046,7 +1071,7 @@ func rdbACLList() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -1078,7 +1103,7 @@ func rdbACLAdd() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance you want to add acl rules to`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "rules.{index}.ip",
@@ -1116,7 +1141,7 @@ func rdbACLDelete() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance you want to delete an ACL rules from`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "acl-rule-ips.{index}",
@@ -1163,7 +1188,7 @@ func rdbUserList() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -1195,7 +1220,7 @@ func rdbUserCreate() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance you want to create a user in`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "name",
@@ -1352,7 +1377,7 @@ func rdbDatabaseList() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance to list database of`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -1384,7 +1409,7 @@ func rdbDatabaseCreate() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance where to create the database`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "name",
@@ -1471,7 +1496,7 @@ func rdbPrivilegeList() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "user-name",
@@ -1509,7 +1534,7 @@ func rdbPrivilegeSet() *core.Command {
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "database-name",

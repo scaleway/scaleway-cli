@@ -801,7 +801,7 @@ func k8sPoolList() *core.Command {
 				Name:       "cluster-id",
 				Short:      `The ID of the cluster from which the pools will be listed from`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "order-by",
@@ -924,7 +924,7 @@ func k8sPoolCreate() *core.Command {
 				Name:       "cluster-id",
 				Short:      `The ID of the cluster in which the pool will be created`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "name",
@@ -1213,7 +1213,7 @@ func k8sNodeList() *core.Command {
 				Name:       "cluster-id",
 				Short:      `The cluster ID from which the nodes will be listed from`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "pool-id",

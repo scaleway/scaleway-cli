@@ -3,7 +3,7 @@
 List all database in a given instance.
 
 USAGE:
-  scw rdb database list <instance-id ...> [arg=value ...]
+  scw rdb database list [arg=value ...]
 
 ARGS:
   [name]            Name of the database

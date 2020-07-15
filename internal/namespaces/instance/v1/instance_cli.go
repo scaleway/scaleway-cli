@@ -441,6 +441,7 @@ func instanceServerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
+				Short:      `UUID of the server you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -615,7 +616,7 @@ func instanceUserDataList() *core.Command {
 				Name:       "server-id",
 				Short:      `UUID of the server`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -828,6 +829,7 @@ func instanceImageGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
+				Short:      `UUID of the image you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -957,6 +959,7 @@ func instanceImageDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
+				Short:      `UUID of the image you want to delete`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1096,6 +1099,7 @@ func instanceSnapshotGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1133,6 +1137,7 @@ func instanceSnapshotDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot you want to delete`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1341,6 +1346,7 @@ func instanceVolumeGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `UUID of the volume you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1428,6 +1434,7 @@ func instanceVolumeDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `UUID of the volume you want to delete`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1599,6 +1606,7 @@ func instanceSecurityGroupGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
+				Short:      `UUID of the security group you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1632,6 +1640,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
+				Short:      `UUID of the security group you want to delete`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1787,6 +1796,7 @@ func instancePlacementGroupGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
+				Short:      `UUID of the placement group you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -1880,6 +1890,7 @@ func instancePlacementGroupDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
+				Short:      `UUID of the placement group you want to delete`,
 				Required:   true,
 				Positional: true,
 			},

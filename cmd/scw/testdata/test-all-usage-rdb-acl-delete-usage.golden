@@ -3,7 +3,7 @@
 Delete ACL rules of a given instance.
 
 USAGE:
-  scw rdb acl delete <instance-id ...> [arg=value ...]
+  scw rdb acl delete [arg=value ...]
 
 ARGS:
   instance-id              UUID of the instance you want to delete an ACL rules from

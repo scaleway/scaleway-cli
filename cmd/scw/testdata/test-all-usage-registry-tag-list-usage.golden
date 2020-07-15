@@ -3,7 +3,7 @@
 List all your tags.
 
 USAGE:
-  scw registry tag list <image-id ...> [arg=value ...]
+  scw registry tag list [arg=value ...]
 
 ARGS:
   [order-by]        Field by which to order the display of Images (created_at_asc | created_at_desc | name_asc | name_desc)

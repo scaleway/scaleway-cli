@@ -3,7 +3,7 @@
 List privileges of a given user in a given database in a given instance.
 
 USAGE:
-  scw rdb privilege list <instance-id ...> [arg=value ...]
+  scw rdb privilege list [arg=value ...]
 
 ARGS:
   [order-by]        Criteria to use when ordering privileges listing (user_name_asc | user_name_desc | database_name_asc | database_name_desc)
