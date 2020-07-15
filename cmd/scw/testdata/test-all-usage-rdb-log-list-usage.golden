@@ -3,7 +3,7 @@
 List available logs of a given instance.
 
 USAGE:
-  scw rdb log list <instance-id ...> [arg=value ...]
+  scw rdb log list [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance you want logs of

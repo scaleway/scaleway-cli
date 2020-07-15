@@ -504,7 +504,7 @@ func registryTagList() *core.Command {
 				Name:       "image-id",
 				Short:      `The unique ID of the image`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "name",

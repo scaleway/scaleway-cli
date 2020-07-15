@@ -3,7 +3,7 @@
 Get specific logs of a given instance.
 
 USAGE:
-  scw rdb log get <instance-log-id ...> [arg=value ...]
+  scw rdb log get [arg=value ...]
 
 ARGS:
   instance-log-id   UUID of the instance_log you want

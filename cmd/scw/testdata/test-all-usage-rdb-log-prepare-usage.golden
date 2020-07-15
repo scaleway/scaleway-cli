@@ -3,7 +3,7 @@
 Prepare your instance logs. Logs will be grouped on a minimum interval of a day.
 
 USAGE:
-  scw rdb log prepare <instance-id ...> [arg=value ...]
+  scw rdb log prepare [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance you want logs of

@@ -3,7 +3,7 @@
 Create an user in a given instance.
 
 USAGE:
-  scw rdb user create <instance-id ...> [arg=value ...]
+  scw rdb user create [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance you want to create a user in
