@@ -3,7 +3,7 @@
 Add an ACL instance to a given instance.
 
 USAGE:
-  scw rdb acl add <instance-id ...> [arg=value ...]
+  scw rdb acl add [arg=value ...]
 
 ARGS:
   instance-id                   UUID of the instance you want to add acl rules to

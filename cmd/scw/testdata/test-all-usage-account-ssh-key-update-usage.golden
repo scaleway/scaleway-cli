@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   ssh-key-id   
-  [name]       
+  [name]       Name of the SSH key
 
 FLAGS:
   -h, --help   help for update

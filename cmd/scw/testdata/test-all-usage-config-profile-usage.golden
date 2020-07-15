@@ -6,6 +6,7 @@ USAGE:
   scw config profile <command>
 
 AVAILABLE COMMANDS:
+  activate    Mark a profile as active in the config file
   delete      Delete a profile from the config file
 
 FLAGS:

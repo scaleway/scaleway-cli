@@ -3,7 +3,7 @@
 This method allows to list all the existing nodes for a specific Kubernetes cluster.
 
 USAGE:
-  scw k8s node list <cluster-id ...> [arg=value ...]
+  scw k8s node list [arg=value ...]
 
 EXAMPLES:
   List all the nodes in the given cluster

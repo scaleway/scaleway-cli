@@ -3,7 +3,7 @@
 Delete an instance setting.
 
 USAGE:
-  scw rdb settings delete <instance-id ...> [arg=value ...]
+  scw rdb settings delete [arg=value ...]
 
 ARGS:
   instance-id               UUID of the instance to delete settings from

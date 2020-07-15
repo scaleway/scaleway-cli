@@ -148,6 +148,7 @@ func testHumanGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
+				Short:      `UUID of the human you want to get`,
 				Required:   true,
 				Positional: true,
 			},
@@ -255,6 +256,7 @@ func testHumanUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
+				Short:      `UUID of the human you want to update`,
 				Required:   true,
 				Positional: true,
 			},
@@ -328,6 +330,7 @@ func testHumanDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
+				Short:      `UUID of the human you want to delete`,
 				Required:   true,
 				Positional: true,
 			},
@@ -355,6 +358,7 @@ func testHumanRun() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
+				Short:      `UUID of the human you want to make run`,
 				Required:   true,
 				Positional: true,
 			},
@@ -389,6 +393,7 @@ func testHumanSmoke() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
+				Short:      `UUID of the human you want to make smoking`,
 				Required:   true,
 				Positional: true,
 			},

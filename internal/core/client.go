@@ -25,18 +25,9 @@ func createClient(httpClient *http.Client, buildInfo *BuildInfo, profileName str
 		return nil, err
 	}
 
-	var activeProfile *scw.Profile
-
-	if profileName != "" {
-		activeProfile, err = config.GetProfile(profileName)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		activeProfile, err = config.GetActiveProfile()
-		if err != nil {
-			return nil, err
-		}
+	activeProfile, err := config.GetProfile(profileName)
+	if err != nil {
+		return nil, err
 	}
 
 	envProfile := scw.LoadEnvProfile()

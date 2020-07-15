@@ -1,0 +1,60 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME      NODE TYPE  STATUS  ENGINE         REGION  TAGS  IS HA CLUSTER  BACKUP SCHEDULE  CREATED AT
+173121d7-13cc-47ab-9b19-98856cf8a30e  cli-test  db-dev-s   ready   PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "173121d7-13cc-47ab-9b19-98856cf8a30e",
+    "name": "cli-test",
+    "organization_id": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
+    "status": "ready",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "ip": "195.154.71.31",
+      "port": 36723,
+      "name": null
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-s"
+  }
+]

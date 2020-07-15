@@ -3,7 +3,7 @@
 List ACL rules of a given instance.
 
 USAGE:
-  scw rdb acl list <instance-id ...> [arg=value ...]
+  scw rdb acl list [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance

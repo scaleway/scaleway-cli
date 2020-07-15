@@ -3,7 +3,7 @@
 Create a database in a given instance.
 
 USAGE:
-  scw rdb database create <instance-id ...> [arg=value ...]
+  scw rdb database create [arg=value ...]
 
 ARGS:
   instance-id       UUID of the instance where to create the database

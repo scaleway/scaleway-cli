@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Type   Name               Snapshot  Min     Max
+b_ssd  Block Storage SSD  true      1.0 GB  10 TB
+l_ssd  Local SSD          true      1.0 GB  800 GB
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "type": "b_ssd",
+    "display_name": "Block Storage SSD",
+    "capabilities": {
+      "snapshot": true
+    },
+    "constraints": {
+      "min": 1000000000,
+      "max": 10000000000000
+    }
+  },
+  {
+    "type": "l_ssd",
+    "display_name": "Local SSD",
+    "capabilities": {
+      "snapshot": true
+    },
+    "constraints": {
+      "min": 1000000000,
+      "max": 800000000000
+    }
+  }
+]

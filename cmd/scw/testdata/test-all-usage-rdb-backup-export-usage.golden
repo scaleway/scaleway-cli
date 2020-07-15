@@ -6,11 +6,12 @@ USAGE:
   scw rdb backup export <database-backup-id ...> [arg=value ...]
 
 ARGS:
-  database-backup-id   
+  database-backup-id   UUID of the database backup you want to export
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for export
+  -w, --wait   wait until the backup is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
