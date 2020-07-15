@@ -24,6 +24,10 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 
+	human.RegisterMarshalerFunc(rdb.InstanceStatus(0), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(0), human.EnumMarshalFunc(backupStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(0), human.EnumMarshalFunc(logStatusMarshalSpecs))
+
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
 		instanceConnectCommand(),
