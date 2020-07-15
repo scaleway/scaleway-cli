@@ -7,6 +7,16 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 )
 
+func Test_ListInstance(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb instance list",
+		Check:      core.TestCheckGolden(),
+		AfterFunc:  deleteInstance(),
+	}))
+}
+
 func Test_CloneInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),

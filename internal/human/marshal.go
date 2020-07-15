@@ -264,6 +264,8 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		opt.Fields = getDefaultFieldsOpt(itemType)
 	}
 
+	subOpts := &MarshalOpt{TableCell: true}
+
 	// Validate that all field exist
 	for _, f := range opt.Fields {
 		_, err := gofields.GetType(itemType, f.FieldName)
@@ -304,7 +306,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			case fieldValue.Type().Kind() == reflect.Slice:
 				str, err = marshalInlineSlice(fieldValue)
 			default:
-				str, err = Marshal(fieldValue.Interface(), opt)
+				str, err = Marshal(fieldValue.Interface(), subOpts)
 			}
 			if err != nil {
 				return "", err

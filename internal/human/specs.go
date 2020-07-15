@@ -11,6 +11,9 @@ type MarshalOpt struct {
 	Title    string
 	Fields   []*MarshalFieldOpt
 	Sections []*MarshalSection
+
+	// Is set to true if we are marshaling a table cell
+	TableCell bool
 }
 
 type MarshalFieldOpt struct {

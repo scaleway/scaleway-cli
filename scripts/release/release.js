@@ -78,7 +78,7 @@ const GITHUB_OWNER = "scaleway";
 // Name of the github repo.
 const GITHUB_REPO = "scaleway-cli";
 // The branch on which we want to perform the release
-const GITHUB_RELEASED_BRANCH = "v2";
+const GITHUB_RELEASED_BRANCH = "master";
 // Name of the devtool bucket.
 const S3_DEVTOOL_BUCKET = "scw-devtools";
 // Region of the devtool bucket .

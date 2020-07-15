@@ -74,6 +74,15 @@ func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 }
 
 func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	backupSchedule := i.(rdb.BackupSchedule)
+
+	if opt.TableCell {
+		if backupSchedule.Disabled {
+			return "Disabled", nil
+		}
+		return "Enabled", nil
+	}
+
 	// To avoid recursion of human.Marshal we create a dummy type
 	type LocalBackupSchedule rdb.BackupSchedule
 	type tmp struct {
@@ -82,17 +91,17 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 		Retention *scw.Duration `json:"retention"`
 	}
 
-	backupSchedule := tmp{
-		LocalBackupSchedule: LocalBackupSchedule(i.(rdb.BackupSchedule)),
+	localBackupSchedule := tmp{
+		LocalBackupSchedule: LocalBackupSchedule(backupSchedule),
 		Frequency: &scw.Duration{
-			Seconds: int64(i.(rdb.BackupSchedule).Frequency) * 3600,
+			Seconds: int64(backupSchedule.Frequency) * 3600,
 		},
 		Retention: &scw.Duration{
-			Seconds: int64(i.(rdb.BackupSchedule).Retention) * 24 * 3600,
+			Seconds: int64(backupSchedule.Retention) * 24 * 3600,
 		},
 	}
 
-	str, err := human.Marshal(backupSchedule, opt)
+	str, err := human.Marshal(localBackupSchedule, opt)
 	if err != nil {
 		return "", err
 	}
