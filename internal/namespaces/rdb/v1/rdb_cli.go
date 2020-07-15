@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceGetCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
+		rdbLogGet(),
 		rdbInstanceGetMetrics(),
 		rdbSettingsAdd(),
 		rdbSettingsDelete(),
@@ -887,11 +888,13 @@ func rdbLogList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
+				Short:      `UUID of the instance you want logs of`,
 				Required:   true,
 				Positional: true,
 			},
 			{
 				Name:       "order-by",
+				Short:      `Criteria to use when ordering instance logs listing`,
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
@@ -904,6 +907,34 @@ func rdbLogList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.ListInstanceLogs(request)
+
+		},
+	}
+}
+
+func rdbLogGet() *core.Command {
+	return &core.Command{
+		Short:     `Get specific logs of a given instance`,
+		Long:      `Get specific logs of a given instance.`,
+		Namespace: "rdb",
+		Resource:  "log",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(rdb.GetInstanceLogRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-log-id",
+				Short:      `UUID of the instance_log you want`,
+				Required:   true,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetInstanceLogRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetInstanceLog(request)
 
 		},
 	}
