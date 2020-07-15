@@ -8,7 +8,6 @@ USAGE:
 AVAILABLE COMMANDS:
   acl         Access Control List (ACL) management commands
   backup      Backup management commands
-  certificate Instance TLS certificate management commands
   database    Database management commands
   engine      Database engines commands
   instance    Instance management commands

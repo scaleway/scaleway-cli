@@ -216,6 +216,7 @@ func accountSSHKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the SSH key`,
 				Required:   false,
 				Positional: false,
 			},
