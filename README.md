@@ -1,4 +1,4 @@
-<p align="center">👉️ Have a look at <a href="https://github.com/scaleway/scaleway-cli/blob/v2/README.md">the beta version of the CLI v2</a> 👈</p>
+<p align="center">⚠️ This version is deprecated! Take a look at current stable version here: <a href="https://github.com/scaleway/scaleway-cli"></a> ⚠️</p>
 
 # Scaleway CLI
 
