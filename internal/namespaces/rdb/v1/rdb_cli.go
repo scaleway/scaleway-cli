@@ -30,7 +30,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
-		rdbCertificate(),
 		rdbBackupList(),
 		rdbBackupCreate(),
 		rdbBackupGet(),
@@ -46,10 +45,10 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceCreate(),
 		rdbInstanceUpdate(),
 		rdbInstanceDelete(),
-		rdbCertificateGet(),
+		rdbInstanceGetCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
-		rdbInstanceMetrics(),
+		rdbInstanceGetMetrics(),
 		rdbSettingsAdd(),
 		rdbSettingsDelete(),
 		rdbACLList(),
@@ -171,15 +170,6 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
-	}
-}
-
-func rdbCertificate() *core.Command {
-	return &core.Command{
-		Short:     `Instance TLS certificate management commands`,
-		Long:      `Instance TLS certificate management commands.`,
-		Namespace: "rdb",
-		Resource:  "certificate",
 	}
 }
 
@@ -427,6 +417,7 @@ func rdbBackupExport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
+				Short:      `UUID of the database backup you want to export`,
 				Required:   true,
 				Positional: true,
 			},
@@ -520,16 +511,19 @@ func rdbInstanceUpgrade() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
+				Short:      `UUID of the instance you want to upgrade`,
 				Required:   true,
 				Positional: true,
 			},
 			{
 				Name:       "node-type",
+				Short:      `Node type of the instance you want to upgrade to`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-ha",
+				Short:      `Set to true to enable high availability on your instance`,
 				Required:   false,
 				Positional: false,
 			},
@@ -814,13 +808,13 @@ func rdbInstanceDelete() *core.Command {
 	}
 }
 
-func rdbCertificateGet() *core.Command {
+func rdbInstanceGetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Get the TLS certificate of an instance`,
 		Long:      `Get the TLS certificate of an instance.`,
 		Namespace: "rdb",
-		Resource:  "certificate",
-		Verb:      "get",
+		Resource:  "instance",
+		Verb:      "get-certificate",
 		ArgsType:  reflect.TypeOf(rdb.GetInstanceCertificateRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -915,13 +909,13 @@ func rdbLogList() *core.Command {
 	}
 }
 
-func rdbInstanceMetrics() *core.Command {
+func rdbInstanceGetMetrics() *core.Command {
 	return &core.Command{
 		Short:     `Get instance metrics`,
 		Long:      `Get database instance metrics.`,
 		Namespace: "rdb",
 		Resource:  "instance",
-		Verb:      "metrics",
+		Verb:      "get-metrics",
 		ArgsType:  reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

@@ -1,17 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Export a database backup.
+Get the TLS certificate of an instance.
 
 USAGE:
-  scw rdb backup export <database-backup-id ...> [arg=value ...]
+  scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 
 ARGS:
-  database-backup-id   UUID of the database backup you want to export
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  instance-id       UUID of the instance
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for export
-  -w, --wait   wait until the backup is ready
+  -h, --help   help for get-certificate
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

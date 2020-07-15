@@ -6,7 +6,7 @@ USAGE:
   scw test human update <human-id ...> [arg=value ...]
 
 ARGS:
-  human-id                   
+  human-id                   UUID of the human you want to update
   [height]                   
   [shoe-size]                
   [altitude-in-meter]        
