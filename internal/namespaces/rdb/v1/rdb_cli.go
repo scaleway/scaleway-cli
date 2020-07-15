@@ -49,7 +49,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbLogPrepare(),
 		rdbLogList(),
 		rdbLogGet(),
-		rdbInstanceGetMetrics(),
 		rdbSettingsAdd(),
 		rdbSettingsDelete(),
 		rdbACLList(),
@@ -935,52 +934,6 @@ func rdbLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.GetInstanceLog(request)
-
-		},
-	}
-}
-
-func rdbInstanceGetMetrics() *core.Command {
-	return &core.Command{
-		Short:     `Get instance metrics`,
-		Long:      `Get database instance metrics.`,
-		Namespace: "rdb",
-		Resource:  "instance",
-		Verb:      "get-metrics",
-		ArgsType:  reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance`,
-				Required:   true,
-				Positional: true,
-			},
-			{
-				Name:       "start-date",
-				Short:      `Start date to gather metrics from`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "end-date",
-				Short:      `End date to gather metrics from`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "metric-name",
-				Short:      `Name of the metric to gather`,
-				Required:   false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.GetInstanceMetricsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.GetInstanceMetrics(request)
 
 		},
 	}
