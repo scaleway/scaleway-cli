@@ -14,7 +14,6 @@ AVAILABLE COMMANDS:
   log         Instance logs management commands
   node-type   Node types management commands
   privilege   User privileges management commands
-  settings    Settings management commands
   user        User management commands
 
 FLAGS:

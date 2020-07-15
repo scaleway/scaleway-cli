@@ -24,7 +24,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbEngine(),
 		rdbInstance(),
 		rdbACL(),
-		rdbSettings(),
 		rdbPrivilege(),
 		rdbUser(),
 		rdbDatabase(),
@@ -49,9 +48,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbLogPrepare(),
 		rdbLogList(),
 		rdbLogGet(),
-		rdbInstanceGetMetrics(),
-		rdbSettingsAdd(),
-		rdbSettingsDelete(),
 		rdbACLList(),
 		rdbACLAdd(),
 		rdbACLDelete(),
@@ -112,16 +108,6 @@ func rdbACL() *core.Command {
 `,
 		Namespace: "rdb",
 		Resource:  "acl",
-	}
-}
-
-func rdbSettings() *core.Command {
-	return &core.Command{
-		Short: `Settings management commands`,
-		Long: `Instance Settings are tunables of Database Engines. Available settings depend on the database engine and its version.
-`,
-		Namespace: "rdb",
-		Resource:  "settings",
 	}
 }
 
@@ -935,124 +921,6 @@ func rdbLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.GetInstanceLog(request)
-
-		},
-	}
-}
-
-func rdbInstanceGetMetrics() *core.Command {
-	return &core.Command{
-		Short:     `Get instance metrics`,
-		Long:      `Get database instance metrics.`,
-		Namespace: "rdb",
-		Resource:  "instance",
-		Verb:      "get-metrics",
-		ArgsType:  reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance`,
-				Required:   true,
-				Positional: true,
-			},
-			{
-				Name:       "start-date",
-				Short:      `Start date to gather metrics from`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "end-date",
-				Short:      `End date to gather metrics from`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "metric-name",
-				Short:      `Name of the metric to gather`,
-				Required:   false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.GetInstanceMetricsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.GetInstanceMetrics(request)
-
-		},
-	}
-}
-
-func rdbSettingsAdd() *core.Command {
-	return &core.Command{
-		Short:     `Add an instance setting`,
-		Long:      `Add an instance setting.`,
-		Namespace: "rdb",
-		Resource:  "settings",
-		Verb:      "add",
-		ArgsType:  reflect.TypeOf(rdb.AddInstanceSettingsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want to add settings to`,
-				Required:   true,
-				Positional: false,
-			},
-			{
-				Name:       "settings.{index}.name",
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "settings.{index}.value",
-				Required:   false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.AddInstanceSettingsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.AddInstanceSettings(request)
-
-		},
-	}
-}
-
-func rdbSettingsDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete an instance setting`,
-		Long:      `Delete an instance setting.`,
-		Namespace: "rdb",
-		Resource:  "settings",
-		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(rdb.DeleteInstanceSettingsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance to delete settings from`,
-				Required:   true,
-				Positional: false,
-			},
-			{
-				Name:       "setting-names.{index}",
-				Short:      `Settings names to delete`,
-				Required:   false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.DeleteInstanceSettingsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.DeleteInstanceSettings(request)
 
 		},
 	}

@@ -12,7 +12,6 @@ AVAILABLE COMMANDS:
   delete          Delete an instance
   get             Get an instance
   get-certificate Get the TLS certificate of an instance
-  get-metrics     Get instance metrics
   list            List instances
   update          Update an instance
   upgrade         Upgrade an instance to an higher instance type
