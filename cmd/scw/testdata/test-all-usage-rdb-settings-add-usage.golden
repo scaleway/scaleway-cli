@@ -3,7 +3,7 @@
 Add an instance setting.
 
 USAGE:
-  scw rdb settings add <instance-id ...> [arg=value ...]
+  scw rdb settings add [arg=value ...]
 
 ARGS:
   instance-id                UUID of the instance you want to add settings to

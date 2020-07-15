@@ -616,7 +616,7 @@ func instanceUserDataList() *core.Command {
 				Name:       "server-id",
 				Short:      `UUID of the server`,
 				Required:   true,
-				Positional: true,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
