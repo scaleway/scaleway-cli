@@ -75,6 +75,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instance.Server).Bootscript.ID)
+					assert.Equal(t, instance.BootTypeBootscript, ctx.Result.(*instance.Server).BootType)
 				},
 				core.TestCheckExitCode(0),
 			),

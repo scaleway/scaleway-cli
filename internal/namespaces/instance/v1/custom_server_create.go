@@ -303,6 +303,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
+		bootType := instance.BootTypeBootscript
+		serverReq.BootType = &bootType
 	}
 
 	//
@@ -328,9 +330,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if needIPCreation {
 		logger.Debugf("creating IP")
+		organizationId := (*string)(nil)
+		if args.OrganizationID != "" {
+			organizationId = scw.StringPtr(args.OrganizationID)
+		}
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
 			Zone:         args.Zone,
-			Organization: scw.StringPtr(args.OrganizationID),
+			Organization: organizationId,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
