@@ -1,5 +1,34 @@
 # Changelog
 
+## v2.0.0 (2020-07-16)
+
+### Features
+
+* **autocomplete**: improve error message in autocomplete install ([#1102](https://github.com/scaleway/scaleway-cli/pull/1102))
+* **config**: add profile activate command ([#1206](https://github.com/scaleway/scaleway-cli/pull/1206))
+* **config**: add support for default-project-id in config set ([#1197](https://github.com/scaleway/scaleway-cli/pull/1197))
+* **core**: add support for autocomplete on bool value ([#1081](https://github.com/scaleway/scaleway-cli/pull/1081))
+* **core**: add support for custom column in human printer ([#1158](https://github.com/scaleway/scaleway-cli/pull/1158))
+* **core**: add a retry system ([#1103](https://github.com/scaleway/scaleway-cli/pull/1103))
+* **core**: improve json format for CLI error ([#1184](https://github.com/scaleway/scaleway-cli/pull/1184))
+* **info**: add an info command to show current active config ([#1075](https://github.com/scaleway/scaleway-cli/pull/1075))
+* **instance**: add project to resource IP ([#1129](https://github.com/scaleway/scaleway-cli/pull/1129))
+* **instance**: add support for cloud-init ([#1145](https://github.com/scaleway/scaleway-cli/pull/1145))
+* **instance**: add support for projects in ip ([#1150](https://github.com/scaleway/scaleway-cli/pull/1150))
+* **instance**: improve human output for volume-type list ([#1213](https://github.com/scaleway/scaleway-cli/pull/1213))
+* **k8s**: add nl-ams region ([#1107](https://github.com/scaleway/scaleway-cli/pull/1107))
+* **k8s**: add option to wait for pools in the wait for cluster ([#1193](https://github.com/scaleway/scaleway-cli/pull/1193))
+* **k8s**: add support for traefik2 ingress ([#1095](https://github.com/scaleway/scaleway-cli/pull/1095))
+* **k8s**: improve human marshaller for cluster ([#1201](https://github.com/scaleway/scaleway-cli/pull/1201))
+* **rdb**: add rdb product ([#1151](https://github.com/scaleway/scaleway-cli/pull/1151))
+
+### Fixes
+
+* **core**: exit code is now 1 for unknown commands ([#1069](https://github.com/scaleway/scaleway-cli/pull/1069))
+* **core**: improve validation of zone and region args ([#1122](https://github.com/scaleway/scaleway-cli/pull/1122))
+* **init**: rely on token organization ([#1146](https://github.com/scaleway/scaleway-cli/pull/1146))
+* **instance**: boot_type mode on create server ([#1225](https://github.com/scaleway/scaleway-cli/pull/1225))
+
 ## v2.0.0-beta.4 (2020-06-08)
 
 ### Features
@@ -10,9 +39,6 @@
 
 * **baremetal**: check that install status is not nil before installwait ([#1073](https://github.com/scaleway/scaleway-cli/pull/1073))
 * **init**: fix panic ([#1082](https://github.com/scaleway/scaleway-cli/pull/1082))
-
-
-
 
 ## v2.0.0-beta.3 (2020-06-03)
 
@@ -80,9 +106,6 @@
 * **k8s**: remove oldbinpacking from autoscaler estimator ([#887](https://github.com/scaleway/scaleway-cli/pull/887))
 * **registry**: make name required on namespace creation ([#904](https://github.com/scaleway/scaleway-cli/pull/904))
 
-
-
-
 ## v2.0.0-beta.2 (2020-03-25)
 
 ### Features
@@ -127,7 +150,6 @@
 * **k8s**: return cluster on wait flags ([#776](https://github.com/scaleway/scaleway-cli/pull/776))
 * **marketplace**: hide column 'valid until' in marketplace list ([#719](https://github.com/scaleway/scaleway-cli/pull/719))
 * **sentry**: unknown error disappears ([#716](https://github.com/scaleway/scaleway-cli/pull/716))
-
 
 ## v2.0.0-beta.1 (2020-02-14)
 
