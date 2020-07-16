@@ -60,10 +60,7 @@ func Test_Connect(t *testing.T) {
 	t.Run("mysql", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["username"] = user
-				return nil
-			},
+			core.BeforeFuncStoreInMeta("username", user),
 			createInstance("MySQL-8"),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
@@ -78,10 +75,7 @@ func Test_Connect(t *testing.T) {
 	t.Run("psql", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["username"] = user
-				return nil
-			},
+			core.BeforeFuncStoreInMeta("username", user),
 			createInstance("PostgreSQL-12"),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
