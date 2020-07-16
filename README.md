@@ -170,7 +170,7 @@ scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=
 
 ### Build Locally
 
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](CONTRIBUTING.md).
+If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](./.github/CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
@@ -198,7 +198,7 @@ See more in-depth information about running the CLI in Docker [here](./docs/dock
 # Development
 
 This repository is at its early stage and is still in active development.
-If you are looking for a way to contribute please read [CONTRIBUTING.md](CONTRIBUTING.md).
+If you are looking for a way to contribute please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 # Legacy version
 
