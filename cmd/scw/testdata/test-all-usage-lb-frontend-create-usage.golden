@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a frontend in a given load balancer.
+
+USAGE:
+  scw lb frontend create [arg=value ...]
+
+ARGS:
+  name                        Resource name
+  inbound-port                TCP port to listen on the front side
+  lb-id                       Load balancer ID
+  backend-id                  Backend ID
+  [timeout-client]            Set the maximum inactivity time on the client side
+  [certificate-id]            Certificate ID, deprecated in favor of certificate_ids array !
+  [certificate-ids.{index}]   List of certificate IDs to bind on the frontend
+  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create an IP.
+
+USAGE:
+  scw lb ip create [arg=value ...]
+
+ARGS:
+  [reverse]           Reverse domain name
+  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

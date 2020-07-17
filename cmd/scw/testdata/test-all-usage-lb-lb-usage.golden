@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Load-balancer management commands.
+
+USAGE:
+  scw lb lb <command>
+
+AVAILABLE COMMANDS:
+  create      Create a load balancer
+  delete      Delete a load balancer
+  get         Get a load balancer
+  get-stats   Get usage statistics of a given load balancer
+  list        List load balancers
+  migrate     Migrate a load balancer
+  update      Update a load balancer
+
+FLAGS:
+  -h, --help   help for lb
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw lb lb [command] --help" for more information about a command.

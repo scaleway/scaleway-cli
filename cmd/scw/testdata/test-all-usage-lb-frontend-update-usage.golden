@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update a frontend.
+
+USAGE:
+  scw lb frontend update [arg=value ...]
+
+ARGS:
+  frontend-id                 Frontend ID
+  name                        Resource name
+  inbound-port                TCP port to listen on the front side
+  backend-id                  Backend ID
+  [timeout-client]            Client session maximum inactivity time
+  [certificate-id]            Certificate ID, deprecated in favor of `certificate_ids` array!
+  [certificate-ids.{index}]   List of certificate IDs to bind on the frontend
+  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
