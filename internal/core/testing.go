@@ -87,6 +87,13 @@ func (meta testMetadata) render(strTpl string) string {
 	return buf.String()
 }
 
+func BeforeFuncStoreInMeta(key string, value interface{}) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		ctx.Meta[key] = value
+		return nil
+	}
+}
+
 // TestCheck is a function that perform assertion on a CheckFuncCtx
 type TestCheck func(t *testing.T, ctx *CheckFuncCtx)
 
