@@ -1,7 +1,7 @@
-# Scaleway CLI Cookbook
+# Scaleway CLI CookBook
 
-This file regroups some useful combination of different commands to efficiently manage your Scaleway resources.
-Do not hesitate to open a PR to share your favorite recipes.
+This file regroups some useful combinations of different commands to efficiently manage your Scaleway resources.
+Do not hesitate to open a PR and share your favorite recipes.
 
 ## Instance
 
