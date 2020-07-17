@@ -27,7 +27,13 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(uint32(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(bool(false)), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeOf(bool(false)), func(i interface{}, opt *MarshalOpt) (string, error) {
+		v := i.(bool)
+		if v {
+			return terminal.Style("true", color.FgGreen), nil
+		}
+		return terminal.Style("false", color.FgRed), nil
+	})
 	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	})
