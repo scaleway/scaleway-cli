@@ -51,6 +51,17 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 			Region: respI.(*lb.LB).Region,
 		})
 	}
+	return c
+}
+
+var typesList = []string{
+	"LB-S",
+	"LB-GP-M",
+	"LB-GP-L",
+}
+
+func lbMigrateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("type").EnumValues = typesList
 
 	return c
 }
