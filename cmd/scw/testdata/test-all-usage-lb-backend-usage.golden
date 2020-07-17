@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Backend management commands.
+
+USAGE:
+  scw lb backend <command>
+
+AVAILABLE COMMANDS:
+  add         Add a set of servers in a given backend
+  create      Create a backend in a given load balancer
+  delete      Delete a backend in a given load balancer
+  get         Get a backend in a given load balancer
+  list        List backends in a given load balancer
+  remove      Remove a set of servers for a given backend
+  set         Define all servers in a given backend
+  update      Update a backend in a given load balancer
+
+FLAGS:
+  -h, --help   help for backend
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw lb backend [command] --help" for more information about a command.
