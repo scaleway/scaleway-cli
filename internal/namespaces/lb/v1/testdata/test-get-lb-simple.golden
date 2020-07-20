@@ -1,0 +1,65 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                     6adae80d-99e8-43eb-a617-8bee6ae4230e
+Name                   cli-test
+Description            cli-test
+Status                 ready
+Instances.0.ID         d4c14bc5-260e-448f-b519-0e8e84ab98c8
+Instances.0.Status     ready
+Instances.0.IPAddress  10.65.58.143
+Instances.0.Region     fr-par
+Instances.1.ID         48302bd0-fcfb-4801-a63a-3e566d5eb9b9
+Instances.1.Status     ready
+Instances.1.IPAddress  10.69.20.143
+Instances.1.Region     fr-par
+OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.ID                50d49130-2d74-47b8-ab6b-1b360e49723a
+IP.0.IPAddress         51.159.75.242
+IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.LBID              6adae80d-99e8-43eb-a617-8bee6ae4230e
+IP.0.Reverse           51-159-75-242.lb.fr-par.scw.cloud
+IP.0.Region            fr-par
+FrontendCount          0
+BackendCount           0
+Type                   lb-s
+SslCompatibilityLevel  ssl_compatibility_level_intermediate
+Region                 fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "6adae80d-99e8-43eb-a617-8bee6ae4230e",
+  "name": "cli-test",
+  "description": "cli-test",
+  "status": "ready",
+  "instances": [
+    {
+      "id": "d4c14bc5-260e-448f-b519-0e8e84ab98c8",
+      "status": "ready",
+      "ip_address": "10.65.58.143",
+      "region": "fr-par"
+    },
+    {
+      "id": "48302bd0-fcfb-4801-a63a-3e566d5eb9b9",
+      "status": "ready",
+      "ip_address": "10.69.20.143",
+      "region": "fr-par"
+    }
+  ],
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "ip": [
+    {
+      "id": "50d49130-2d74-47b8-ab6b-1b360e49723a",
+      "ip_address": "51.159.75.242",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "lb_id": "6adae80d-99e8-43eb-a617-8bee6ae4230e",
+      "reverse": "51-159-75-242.lb.fr-par.scw.cloud",
+      "region": "fr-par"
+    }
+  ],
+  "tags": [],
+  "frontend_count": 0,
+  "backend_count": 0,
+  "type": "lb-s",
+  "subscriber": null,
+  "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+  "region": "fr-par"
+}
