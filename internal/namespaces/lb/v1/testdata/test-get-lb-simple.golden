@@ -11,7 +11,7 @@ Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
 Region                 fr-par
 
-Ip:
+IPs:
 ID                                    IP ADDRESS     ORGANIZATION ID                       LB ID                                 REVERSE                            REGION
 50d49130-2d74-47b8-ab6b-1b360e49723a  51.159.75.242  951df375-e094-4d26-97c1-ba548eeb9c42  6adae80d-99e8-43eb-a617-8bee6ae4230e  51-159-75-242.lb.fr-par.scw.cloud  fr-par
 

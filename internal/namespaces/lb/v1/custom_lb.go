@@ -61,6 +61,7 @@ func lbGetBuilder(c *core.Command) *core.Command {
 
 			{
 				FieldName: "IP",
+				Title:     "IPs",
 			},
 			{
 				FieldName: "Instances",
