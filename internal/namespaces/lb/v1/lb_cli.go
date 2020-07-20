@@ -250,8 +250,9 @@ func lbLBGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
+				Short:      `Load balancer ID`,
 				Required:   true,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
