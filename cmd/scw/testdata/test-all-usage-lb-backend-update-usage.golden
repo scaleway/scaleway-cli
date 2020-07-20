@@ -1,0 +1,31 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update a backend in a given load balancer.
+
+USAGE:
+  scw lb backend update [arg=value ...]
+
+ARGS:
+  backend-id                      
+  [name]                          
+  [forward-protocol]               (tcp | http)
+  [forward-port]                  
+  [forward-port-algorithm]         (roundrobin | leastconn)
+  [sticky-sessions]                (none | cookie | table)
+  [sticky-sessions-cookie-name]   
+  [send-proxy-v2]                 
+  [timeout-server]                
+  [timeout-connect]               
+  [timeout-tunnel]                
+  [on-marked-down-action]          (on_marked_down_action_none | shutdown_sessions)
+  [proxy-protocol]                 (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
+  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
