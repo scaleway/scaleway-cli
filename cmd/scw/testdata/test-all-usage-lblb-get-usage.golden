@@ -3,10 +3,10 @@
 Get a load balancer.
 
 USAGE:
-  scw lb lb get [arg=value ...]
+  scw lb lb get <lb-id ...> [arg=value ...]
 
 ARGS:
-  lb-id             
+  lb-id             Load balancer ID
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
