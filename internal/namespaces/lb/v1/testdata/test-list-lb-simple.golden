@@ -1,28 +1,38 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                 DESCRIPTION    STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               REGION
-f91ce5b6-d604-4c92-83d6-9f40bdf461c3  testcli              fdlkjfdlkjsfd  ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
-650a0341-713b-4a28-aaa9-e75e81ebcf20  lb-competent-diffie  -              ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  fr-par
-6b517ac8-6256-4f65-bde0-28fde2ebfb2b  foobar               foobar         ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
-fbbadfaa-d76b-4167-b438-7fe3c85250e4  cli-test             cli-test       ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
+ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               REGION
+fa923d8a-3d4b-48a7-bc1c-1872daa37456  cli-test  cli-test     ready   4          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
+dbed1d12-4675-477f-a704-a61c40367a5a  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "f91ce5b6-d604-4c92-83d6-9f40bdf461c3",
-    "name": "testcli",
-    "description": "fdlkjfdlkjsfd",
+    "id": "fa923d8a-3d4b-48a7-bc1c-1872daa37456",
+    "name": "cli-test",
+    "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "22433c77-700f-4297-a4c6-47b790572ae7",
+        "id": "af5df9d1-31f7-42c0-a913-a1d2ca1e2d84",
         "status": "ready",
-        "ip_address": "10.64.244.129",
+        "ip_address": "10.64.80.93",
         "region": "fr-par"
       },
       {
-        "id": "3d53fb9c-ae56-479f-bf59-65aa405014b0",
+        "id": "b0666cfc-4d3b-46dc-8cf1-b96af751b1cd",
+        "status": "pending",
+        "ip_address": "10.68.170.1",
+        "region": "fr-par"
+      },
+      {
+        "id": "6898dc60-9d87-45f5-8de0-968dd52cd28e",
         "status": "ready",
-        "ip_address": "10.64.102.199",
+        "ip_address": "10.68.44.47",
+        "region": "fr-par"
+      },
+      {
+        "id": "c1822f7d-853d-4b62-816d-2ec6b2c1acf5",
+        "status": "pending",
+        "ip_address": "10.65.108.35",
         "region": "fr-par"
       }
     ],
@@ -32,7 +42,7 @@ fbbadfaa-d76b-4167-b438-7fe3c85250e4  cli-test             cli-test       ready 
         "id": "497f1f83-f0cc-4c92-95bb-a50408174cd2",
         "ip_address": "195.154.70.227",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "f91ce5b6-d604-4c92-83d6-9f40bdf461c3",
+        "lb_id": "fa923d8a-3d4b-48a7-bc1c-1872daa37456",
         "reverse": "195-154-70-227.lb.fr-par.scw.cloud",
         "region": "fr-par"
       }
@@ -46,108 +56,32 @@ fbbadfaa-d76b-4167-b438-7fe3c85250e4  cli-test             cli-test       ready 
     "region": "fr-par"
   },
   {
-    "id": "650a0341-713b-4a28-aaa9-e75e81ebcf20",
-    "name": "lb-competent-diffie",
-    "description": "",
-    "status": "ready",
-    "instances": [
-      {
-        "id": "dafc0f55-090d-483b-b3e4-96e4cab08547",
-        "status": "ready",
-        "ip_address": "10.64.120.119",
-        "region": "fr-par"
-      },
-      {
-        "id": "c0bf341d-71b0-42b8-aa36-6db40717f988",
-        "status": "ready",
-        "ip_address": "10.64.248.175",
-        "region": "fr-par"
-      }
-    ],
-    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "ip": [
-      {
-        "id": "4decbd3c-6b60-4fa5-ae93-d774b0a53c21",
-        "ip_address": "195.154.69.62",
-        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "650a0341-713b-4a28-aaa9-e75e81ebcf20",
-        "reverse": "195-154-69-62.lb.fr-par.scw.cloud",
-        "region": "fr-par"
-      }
-    ],
-    "tags": [],
-    "frontend_count": 1,
-    "backend_count": 1,
-    "type": "lb-s",
-    "subscriber": null,
-    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
-    "region": "fr-par"
-  },
-  {
-    "id": "6b517ac8-6256-4f65-bde0-28fde2ebfb2b",
-    "name": "foobar",
-    "description": "foobar",
-    "status": "ready",
-    "instances": [
-      {
-        "id": "c5e03fe5-a075-43aa-ba7c-3731dc1cd5e0",
-        "status": "ready",
-        "ip_address": "10.65.62.179",
-        "region": "fr-par"
-      },
-      {
-        "id": "eb09dee3-c748-4fd3-9896-7c0afca3e525",
-        "status": "ready",
-        "ip_address": "10.70.78.35",
-        "region": "fr-par"
-      }
-    ],
-    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "ip": [
-      {
-        "id": "4df5bf25-ff19-4426-8dd5-8f3fd5b0d4f1",
-        "ip_address": "195.154.71.21",
-        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "6b517ac8-6256-4f65-bde0-28fde2ebfb2b",
-        "reverse": "195-154-71-21.lb.fr-par.scw.cloud",
-        "region": "fr-par"
-      }
-    ],
-    "tags": [],
-    "frontend_count": 0,
-    "backend_count": 0,
-    "type": "lb-s",
-    "subscriber": null,
-    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
-    "region": "fr-par"
-  },
-  {
-    "id": "fbbadfaa-d76b-4167-b438-7fe3c85250e4",
+    "id": "dbed1d12-4675-477f-a704-a61c40367a5a",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "01e36503-3ca2-4cb3-9f3a-bd896f1b4435",
+        "id": "e71c6131-ba52-4329-b52f-482d34950e62",
         "status": "ready",
-        "ip_address": "10.68.114.169",
+        "ip_address": "10.65.58.127",
         "region": "fr-par"
       },
       {
-        "id": "36a4911e-8046-47aa-9b93-5bf3f729781b",
+        "id": "2f267584-f608-4bc4-9af3-c11414691412",
         "status": "ready",
-        "ip_address": "10.68.216.13",
+        "ip_address": "10.65.102.135",
         "region": "fr-par"
       }
     ],
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "ip": [
       {
-        "id": "50731261-5454-4e54-842c-ad68faea746e",
-        "ip_address": "195.154.68.242",
+        "id": "4de76393-cba9-4c52-8c55-e41093b3ae9d",
+        "ip_address": "51.159.24.70",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "fbbadfaa-d76b-4167-b438-7fe3c85250e4",
-        "reverse": "195-154-68-242.lb.fr-par.scw.cloud",
+        "lb_id": "dbed1d12-4675-477f-a704-a61c40367a5a",
+        "reverse": "51-159-24-70.lb.fr-par.scw.cloud",
         "region": "fr-par"
       }
     ],
