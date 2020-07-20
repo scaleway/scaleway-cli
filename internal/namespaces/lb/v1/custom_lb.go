@@ -54,3 +54,20 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+func lbGetBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+
+			{
+				FieldName: "IP",
+				Title:     "IPs",
+			},
+			{
+				FieldName: "Instances",
+			},
+		},
+	}
+
+	return c
+}
