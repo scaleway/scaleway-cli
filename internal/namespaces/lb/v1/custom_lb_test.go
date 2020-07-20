@@ -34,3 +34,16 @@ func Test_GetLB(t *testing.T) {
 		AfterFunc:  deleteLB(),
 	}))
 }
+
+func Test_WaitLB(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"LB",
+			"scw lb lb create name=cli-test description=cli-test",
+		),
+		Cmd:       "scw lb lb wait {{ .LB.ID }}",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteLB(),
+	}))
+}
