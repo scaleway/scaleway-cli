@@ -24,8 +24,15 @@ func createInstance() core.BeforeFunc {
 	)
 }
 
+func createRunningInstance() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"Instance",
+		"scw instance server create image=ubuntu_focal --wait",
+	)
+}
+
 func deleteInstance() core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }}")
+	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }} with-volumes=all with-ip=true force-shutdown=true")
 }
 
 func createBackend(forwardPort int32) core.BeforeFunc {

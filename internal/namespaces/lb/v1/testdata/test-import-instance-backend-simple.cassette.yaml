@@ -12,16 +12,16 @@ interactions:
     url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs
     method: POST
   response:
-    body: '{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"pending","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
+    body: '{"id":"e751843d-8cc1-42a8-915b-99b0a26beeac","name":"cli-test","description":"cli-test","status":"pending","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"808a175e-2b98-41b4-9bf6-ed11b78595dd","ip_address":"51.159.74.220","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"e751843d-8cc1-42a8-915b-99b0a26beeac","reverse":"51-159-74-220.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
     headers:
       Content-Length:
-      - "697"
+      - "695"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:52 GMT
+      - Fri, 28 Aug 2020 13:39:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -31,7 +31,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b097c494-1020-4a6d-8746-338d71ca95a8
+      - 9039ec9c-fe8e-4c24-803a-334208cd338c
     status: 200 OK
     code: 200
     duration: ""
@@ -41,19 +41,19 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/a33231a6-fe76-417a-84cc-6d95f5c7dbaf
+    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/e751843d-8cc1-42a8-915b-99b0a26beeac
     method: GET
   response:
-    body: '{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"pending","instances":[{"id":"685ca5c5-cdcc-4ffd-b95b-9a8baecf446b","status":"unknown","ip_address":"10.64.70.37","region":"fr-par"},{"id":"2479b906-1876-436d-a5ee-46f3a4347d58","status":"unknown","ip_address":"10.68.166.67","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
+    body: '{"id":"e751843d-8cc1-42a8-915b-99b0a26beeac","name":"cli-test","description":"cli-test","status":"pending","instances":[{"id":"d0fc5482-95ba-4120-b512-8d99d4f294d9","status":"unknown","ip_address":"10.70.6.3","region":"fr-par"},{"id":"0faee12d-515b-4bf9-93dc-96220f26bbfa","status":"unknown","ip_address":"10.64.96.45","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"808a175e-2b98-41b4-9bf6-ed11b78595dd","ip_address":"51.159.74.220","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"e751843d-8cc1-42a8-915b-99b0a26beeac","reverse":"51-159-74-220.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
     headers:
       Content-Length:
-      - "917"
+      - "912"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:52 GMT
+      - Fri, 28 Aug 2020 13:39:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -63,7 +63,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 999f99b3-fefd-4cfd-a202-9a2a261a0acc
+      - 47d66ee2-bcba-4d1c-bb8e-8b34b82df041
     status: 200 OK
     code: 200
     duration: ""
@@ -73,19 +73,19 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/a33231a6-fe76-417a-84cc-6d95f5c7dbaf
+    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/e751843d-8cc1-42a8-915b-99b0a26beeac
     method: GET
   response:
-    body: '{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"685ca5c5-cdcc-4ffd-b95b-9a8baecf446b","status":"ready","ip_address":"10.64.70.37","region":"fr-par"},{"id":"2479b906-1876-436d-a5ee-46f3a4347d58","status":"ready","ip_address":"10.68.166.67","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
+    body: '{"id":"e751843d-8cc1-42a8-915b-99b0a26beeac","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"d0fc5482-95ba-4120-b512-8d99d4f294d9","status":"ready","ip_address":"10.70.6.3","region":"fr-par"},{"id":"0faee12d-515b-4bf9-93dc-96220f26bbfa","status":"ready","ip_address":"10.64.96.45","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"808a175e-2b98-41b4-9bf6-ed11b78595dd","ip_address":"51.159.74.220","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"e751843d-8cc1-42a8-915b-99b0a26beeac","reverse":"51-159-74-220.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"}'
     headers:
       Content-Length:
-      - "911"
+      - "906"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:54 GMT
+      - Fri, 28 Aug 2020 13:39:10 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -95,7 +95,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d42a53eb-a018-440e-a5c2-fce03337347c
+      - 20bd9098-8777-48c1-bc03-070ec7056288
     status: 200 OK
     code: 200
     duration: ""
@@ -769,7 +769,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:54 GMT
+      - Fri, 28 Aug 2020 13:39:11 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -781,7 +781,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1cf2a645-6925-43f7-882f-19a12791f4c9
+      - 90e866c1-5506-4c17-bf9c-6137a6024e63
       X-Total-Count:
       - "32"
     status: 200 OK
@@ -814,7 +814,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:54 GMT
+      - Fri, 28 Aug 2020 13:39:11 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -824,7 +824,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f2e98f6d-1e3e-477a-acee-ad4c11d5d78a
+      - 47d971a7-9f51-4f8f-8236-1ec504669845
     status: 200 OK
     code: 200
     duration: ""
@@ -1131,7 +1131,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:54 GMT
+      - Fri, 28 Aug 2020 13:39:11 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -1143,7 +1143,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b4e21f8e-bfd6-4e34-899e-18c6cf5d7ce5
+      - d3767e30-14c0-4b15-95db-85770d8ca8ef
       X-Total-Count:
       - "32"
     status: 200 OK
@@ -1174,7 +1174,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:55 GMT
+      - Fri, 28 Aug 2020 13:39:11 GMT
       Location:
       - https://cp-par1.scaleway.com/ips/c87da022-ca2c-485a-8bcd-0480df0343b6
       Server:
@@ -1186,12 +1186,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 35018ab9-3427-4a3a-b00f-fceeac9a2bc1
+      - 4218d2ed-3077-4066-ad4d-c7aa12528019
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-pedantic-ramanujan","commercial_type":"DEV1-S","image":"cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc","public_ip":"c87da022-ca2c-485a-8bcd-0480df0343b6","organization":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    body: '{"name":"cli-srv-cranky-roentgen","commercial_type":"DEV1-S","image":"cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc","public_ip":"c87da022-ca2c-485a-8bcd-0480df0343b6","organization":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
     form: {}
     headers:
       Content-Type:
@@ -1201,27 +1201,27 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan",
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "hostname": "cli-srv-pedantic-ramanujan", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
       "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
       "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
       10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
       "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
       "default_bootscript": null, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "77ec7b78-5d61-4b43-bcfb-2040ceb8591e",
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
       "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
       null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.851833+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
       {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186", "dynamic":
       false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.622746+00:00", "bootscript": {"id":
+      false, "private_ip": null, "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.330323+00:00", "bootscript": {"id":
       "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
       4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1235,15 +1235,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2629"
+      - "2620"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:55 GMT
+      - Fri, 28 Aug 2020 13:39:12 GMT
       Location:
-      - https://cp-par1.scaleway.com/servers/f16a1a24-3e56-45e9-bc43-21100592cb39
+      - https://cp-par1.scaleway.com/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1253,31 +1253,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7c45f7ce-dc4a-4074-9100-2f6699bf9a7d
+      - 15111926-b547-4b1c-9003-6c98140f2dfa
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-test","forward_protocol":"tcp","forward_port":80,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"check_max_retries":5,"port":8888,"check_timeout":null,"check_delay":null},"server_ip":null,"send_proxy_v2":false,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown","timeout_server":null,"timeout_connect":null,"timeout_tunnel":null}'
+    body: '{"action":"poweron"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/a33231a6-fe76-417a-84cc-6d95f5c7dbaf/backends
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6/action
     method: POST
   response:
-    body: '{"id":"5bf60505-ea5c-401e-b17f-995fbfaf51c2","name":"cli-test","forward_protocol":"tcp","forward_port":80,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"port":8888,"check_delay":3000,"check_timeout":1000,"check_max_retries":5,"tcp_config":{}},"pool":[],"lb":{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"685ca5c5-cdcc-4ffd-b95b-9a8baecf446b","status":"ready","ip_address":"10.64.70.37","region":"fr-par"},{"id":"2479b906-1876-436d-a5ee-46f3a4347d58","status":"ready","ip_address":"10.68.166.67","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"send_proxy_v2":false,"timeout_server":null,"timeout_connect":null,"timeout_tunnel":null,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown"}'
+    body: '{"task": {"id": "2e1de280-59a9-400d-82f9-0246b063b833", "description":
+      "server_batch_poweron", "status": "pending", "href_from": "/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6/action",
+      "href_result": "/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "started_at":
+      "2020-08-28T13:39:13.514201+00:00", "terminated_at": null}}'
     headers:
       Content-Length:
-      - "1420"
+      - "322"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:56 GMT
+      - Fri, 28 Aug 2020 13:39:13 GMT
+      Location:
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/tasks/2e1de280-59a9-400d-82f9-0246b063b833
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1287,43 +1292,9 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9a4a92b7-946e-4d19-b47f-0019bfedce4c
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"name":"cli-test","inbound_port":8888,"backend_id":"5bf60505-ea5c-401e-b17f-995fbfaf51c2","certificate_id":null,"certificate_ids":null,"timeout_client":null}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/a33231a6-fe76-417a-84cc-6d95f5c7dbaf/frontends
-    method: POST
-  response:
-    body: '{"id":"42f95cf3-f5b5-4c4e-bb68-796e52a9afc3","name":"cli-test","inbound_port":8888,"backend":{"id":"5bf60505-ea5c-401e-b17f-995fbfaf51c2","name":"cli-test","forward_protocol":"tcp","forward_port":80,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"port":8888,"check_delay":3000,"check_timeout":1000,"check_max_retries":5,"tcp_config":{}},"pool":[],"lb":{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":1,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"send_proxy_v2":false,"timeout_server":null,"timeout_connect":null,"timeout_tunnel":null,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown"},"lb":{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":1,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"timeout_client":null,"certificate":null,"certificate_ids":[]}'
-    headers:
-      Content-Length:
-      - "2061"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 28 Aug 2020 14:29:56 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 13858ea8-bc11-464d-a305-24ef1a321be1
-    status: 200 OK
-    code: 200
+      - 41e04127-8842-4200-b876-1fbfb93de26d
+    status: 202 Accepted
+    code: 202
     duration: ""
 - request:
     body: ""
@@ -1331,19 +1302,50 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/frontends/42f95cf3-f5b5-4c4e-bb68-796e52a9afc3
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
     method: GET
   response:
-    body: '{"id":"42f95cf3-f5b5-4c4e-bb68-796e52a9afc3","name":"cli-test","inbound_port":8888,"backend":{"id":"5bf60505-ea5c-401e-b17f-995fbfaf51c2","name":"cli-test","forward_protocol":"tcp","forward_port":80,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"port":8888,"check_delay":3000,"check_timeout":1000,"check_max_retries":5,"tcp_config":{}},"pool":[],"lb":{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":1,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"send_proxy_v2":false,"timeout_server":null,"timeout_connect":null,"timeout_tunnel":null,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown"},"lb":{"id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","name":"cli-test","description":"cli-test","status":"ready","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9","ip_address":"195.154.69.136","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"a33231a6-fe76-417a-84cc-6d95f5c7dbaf","reverse":"195-154-69-136.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":1,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"timeout_client":null,"certificate":null,"certificate_ids":[]}'
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "starting", "protected": false, "state_detail": "allocating
+      node", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.821387+00:00", "bootscript": {"id":
+      "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
+      4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions":
+      ["stop_in_place", "backup"], "placement_group": null, "private_nics": [], "zone":
+      "fr-par-1"}}'
     headers:
+      Cache-Control:
+      - no-cache
       Content-Length:
-      - "2061"
+      - "2642"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:56 GMT
+      - Fri, 28 Aug 2020 13:39:13 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1353,7 +1355,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 497a5501-82f5-44c9-a8d9-e87caa8e4b05
+      - 19690dd1-2d89-4ce2-9215-45a78d82046a
     status: 200 OK
     code: 200
     duration: ""
@@ -1363,7 +1365,431 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/a33231a6-fe76-417a-84cc-6d95f5c7dbaf?release_ip=false
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
+      node", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:12.821387+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2750"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:18 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a6469940-069c-4941-9e47-a4e71f911c84
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
+      node", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:12.821387+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2750"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:23 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7895d0c5-2ecb-4d5d-a6ed-e7cd19e5aacf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
+      node", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:12.821387+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2750"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:28 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6da0d60d-e105-4fd5-8886-4dac34a587d8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "starting", "protected": false, "state_detail": "provisioning
+      node", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:12.821387+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2750"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:33 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 53b856c6-832e-4969-97d5-708f20a45bcd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "running", "protected": false, "state_detail": "booting
+      kernel", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:37.631412+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2781"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:39 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3f7bb09b-10d1-4e5d-8a19-85cdc451b2d7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "running", "protected": false, "state_detail": "booting
+      kernel", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:37.631412+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2781"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:39 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - dfc874a2-7df1-4bff-958c-b9bca49c331f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"cli-srv-cranky-roentgen","forward_protocol":"tcp","forward_port":443,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"check_max_retries":5,"tcp_config":{},"port":443,"check_timeout":null,"check_delay":null},"server_ip":["10.68.160.15"],"send_proxy_v2":false,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown","timeout_server":null,"timeout_connect":null,"timeout_tunnel":null}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/e751843d-8cc1-42a8-915b-99b0a26beeac/backends
+    method: POST
+  response:
+    body: '{"id":"11dd5ff9-e486-4cbb-b562-19852bef09db","name":"cli-srv-cranky-roentgen","forward_protocol":"tcp","forward_port":443,"forward_port_algorithm":"roundrobin","sticky_sessions":"none","sticky_sessions_cookie_name":"","health_check":{"port":443,"check_delay":3000,"check_timeout":1000,"check_max_retries":5,"tcp_config":{}},"pool":["10.68.160.15"],"lb":{"id":"e751843d-8cc1-42a8-915b-99b0a26beeac","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"d0fc5482-95ba-4120-b512-8d99d4f294d9","status":"ready","ip_address":"10.70.6.3","region":"fr-par"},{"id":"0faee12d-515b-4bf9-93dc-96220f26bbfa","status":"ready","ip_address":"10.64.96.45","region":"fr-par"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"808a175e-2b98-41b4-9bf6-ed11b78595dd","ip_address":"51.159.74.220","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"e751843d-8cc1-42a8-915b-99b0a26beeac","reverse":"51-159-74-220.lb.fr-par.scw.cloud","region":"fr-par"}],"tags":[],"frontend_count":0,"backend_count":1,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","region":"fr-par"},"send_proxy_v2":false,"timeout_server":null,"timeout_connect":null,"timeout_tunnel":null,"on_marked_down_action":"on_marked_down_action_none","proxy_protocol":"proxy_protocol_unknown"}'
+    headers:
+      Content-Length:
+      - "1444"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:39 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 54c0957f-7158-4121-8f79-08ba009a03c7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/regions/fr-par/lbs/e751843d-8cc1-42a8-915b-99b0a26beeac?release_ip=false
     method: DELETE
   response:
     body: ""
@@ -1373,7 +1799,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:56 GMT
+      - Fri, 28 Aug 2020 13:39:40 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1383,7 +1809,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 57375a82-7a5e-41f5-817f-2b98b185bdba
+      - 82f3545d-2942-4548-961a-d35577df74a1
     status: 204 No Content
     code: 204
     duration: ""
@@ -1393,30 +1819,1044 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f16a1a24-3e56-45e9-bc43-21100592cb39
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
     method: GET
   response:
-    body: '{"server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan",
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "hostname": "cli-srv-pedantic-ramanujan", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
       "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
       "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
       10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
       "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
       "default_bootscript": null, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "77ec7b78-5d61-4b43-bcfb-2040ceb8591e",
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
       "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
       null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.851833+00:00", "zone": "fr-par-1"}},
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "running", "protected": false, "state_detail": "booting
+      kernel", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:37.631412+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2781"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:40 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 34aae83d-9baf-467d-8f10-97f01703c2b5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "running", "protected": false, "state_detail": "booting
+      kernel", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address":
+      "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:37.631412+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2781"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:40 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 927b70c6-f363-4675-9976-5cf5bcce0aa4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"action":"poweroff"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6/action
+    method: POST
+  response:
+    body: '{"task": {"id": "350d2e3d-8392-4f9d-a63b-a9c52244bd8a", "description":
+      "server_poweroff", "status": "pending", "href_from": "/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6/action",
+      "href_result": "/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "started_at":
+      "2020-08-28T13:39:41.392089+00:00", "terminated_at": null}}'
+    headers:
+      Content-Length:
+      - "317"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:40 GMT
+      Location:
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/tasks/350d2e3d-8392-4f9d-a63b-a9c52244bd8a
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7fa4e60f-528d-489e-93e1-7e0ac0c21de2
+    status: 202 Accepted
+    code: 202
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "launching
+      poweroff task", "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6",
+      "address": "51.15.218.186", "dynamic": false}, "ipv6": null, "extra_networks":
+      [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": "10.68.160.15",
+      "creation_date": "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2756"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:41 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 73feb5c9-076d-4a65-89cd-17e86b101354
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "stopping",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2741"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:46 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 593415f0-0957-46b9-8467-88c4dbd42f3d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "stopping",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2741"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:51 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9efea5b1-170c-4ef0-897d-47aabcf4140b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "stopping",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2741"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:39:56 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8dc60af5-1d5a-4e0c-b883-530c66821330
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "stopping",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2741"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:01 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b7ecacf0-4482-4605-bc2b-990a4f6b2119
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "stopping",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2741"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:07 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f6af2d71-aeb0-4289-bd88-a472ae642c26
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:12 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2806c2d4-0f74-4304-b139-dfe1ec0943af
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:17 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9fc36f61-d1ff-4118-a6fe-a9537071282c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:22 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8e115c69-481e-4997-8961-3c74a24c18a9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:27 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1d0cad8e-46ac-4e39-926b-f7655f0899f3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:32 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c5268f24-580d-4a2e-a967-f67806338e05
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:37 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 66914774-0b91-4874-996b-eeae70ea0ade
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
+      "tags": [], "state": "stopping", "protected": false, "state_detail": "booted",
+      "public_ip": {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": "10.68.160.15", "creation_date":
+      "2020-08-28T13:39:12.330323+00:00", "modification_date": "2020-08-28T13:39:40.925172+00:00",
+      "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64", "organization":
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
+      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"}, "location": {"zone_id": "par1", "platform_id":
+      "14", "cluster_id": "37", "hypervisor_id": "101", "node_id": "8"}, "maintenances":
+      [], "allowed_actions": ["stop_in_place", "backup"], "placement_group": null,
+      "private_nics": [], "zone": "fr-par-1"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "2739"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2020 13:40:42 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 72175e27-7cd9-4cfd-a2e2-d2f4f247f953
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
+    method: GET
+  response:
+    body: '{"server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "hostname": "cli-srv-cranky-roentgen", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
+      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
+      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
+      "default_bootscript": null, "from_server": null, "state": "available", "zone":
+      "fr-par-1"}, "volumes": {"0": {"id": "70e6f719-f108-45ce-97b5-d2623e0abc1c",
+      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "server": {"id": "ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6", "name": "cli-srv-cranky-roentgen"},
+      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:39:12.642203+00:00", "zone": "fr-par-1"}},
       "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
       {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186", "dynamic":
       false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.622746+00:00", "bootscript": {"id":
+      false, "private_ip": null, "creation_date": "2020-08-28T13:39:12.330323+00:00",
+      "modification_date": "2020-08-28T13:40:46.279375+00:00", "bootscript": {"id":
       "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
       4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1430,13 +2870,13 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2629"
+      - "2620"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:57 GMT
+      - Fri, 28 Aug 2020 13:40:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1446,7 +2886,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a0fe0bd9-edf8-4b2e-864c-6c69246f18eb
+      - 965884e6-7a6d-43aa-986d-4026d76d9d51
     status: 200 OK
     code: 200
     duration: ""
@@ -1456,70 +2896,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f16a1a24-3e56-45e9-bc43-21100592cb39
-    method: GET
-  response:
-    body: '{"server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan",
-      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
-      "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "hostname": "cli-srv-pedantic-ramanujan", "image": {"id": "cf44b8f5-77e2-42ed-8f1e-09ed5bb028fc",
-      "name": "Ubuntu 20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "6e66445c-e52e-4cfa-bf4c-f36e291e2c30",
-      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "size":
-      10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
-      "2020-07-09T10:38:16.265025+00:00", "modification_date": "2020-07-09T10:38:16.265025+00:00",
-      "default_bootscript": null, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "77ec7b78-5d61-4b43-bcfb-2040ceb8591e",
-      "name": "ubuntu_20.04_focal_fossa:volume-0", "volume_type": "l_ssd", "export_uri":
-      null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42", "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "server": {"id": "f16a1a24-3e56-45e9-bc43-21100592cb39", "name": "cli-srv-pedantic-ramanujan"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.851833+00:00", "zone": "fr-par-1"}},
-      "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
-      {"id": "c87da022-ca2c-485a-8bcd-0480df0343b6", "address": "51.15.218.186", "dynamic":
-      false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-08-28T14:29:55.622746+00:00",
-      "modification_date": "2020-08-28T14:29:55.622746+00:00", "bootscript": {"id":
-      "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
-      4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      true, "zone": "fr-par-1"}, "security_group": {"id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
-      "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions":
-      ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
-      "fr-par-1"}}'
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Length:
-      - "2629"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 28 Aug 2020 14:29:57 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 06c090ab-c91c-43fb-9371-e36cceb5f171
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f16a1a24-3e56-45e9-bc43-21100592cb39
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/ed8cf460-5ede-47dc-8bbf-4abf6a1e9fc6
     method: DELETE
   response:
     body: ""
@@ -1531,7 +2908,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:57 GMT
+      - Fri, 28 Aug 2020 13:40:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1541,7 +2918,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f5dbeb16-7a26-493f-8a8e-c0fd18eab584
+      - 2f4cc69f-2244-4ec7-bec0-63fc8fd7b0ae
     status: 204 No Content
     code: 204
     duration: ""
@@ -1563,7 +2940,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:57 GMT
+      - Fri, 28 Aug 2020 13:40:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1573,7 +2950,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4ebd5ba3-f989-4332-aba3-72bc32ad93b4
+      - 268482b7-be39-425d-8dd8-89e6a8833f70
     status: 204 No Content
     code: 204
     duration: ""
@@ -1583,7 +2960,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/77ec7b78-5d61-4b43-bcfb-2040ceb8591e
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/70e6f719-f108-45ce-97b5-d2623e0abc1c
     method: DELETE
   response:
     body: ""
@@ -1595,7 +2972,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Aug 2020 14:29:57 GMT
+      - Fri, 28 Aug 2020 13:40:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1605,7 +2982,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0edb8ebe-4331-4182-b989-5947771b95ed
+      - 385d3c49-92b9-49e6-95ec-fb92ef78321d
     status: 204 No Content
     code: 204
     duration: ""

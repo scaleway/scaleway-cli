@@ -1,0 +1,109 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                           11dd5ff9-e486-4cbb-b562-19852bef09db
+Name                         cli-srv-cranky-roentgen
+ForwardProtocol              tcp
+ForwardPort                  443
+ForwardPortAlgorithm         roundrobin
+StickySessions               none
+StickySessionsCookieName     -
+HealthCheck.CheckMaxRetries  5
+HealthCheck.Port             443
+HealthCheck.CheckTimeout     1s
+HealthCheck.CheckDelay       3s
+Pool.0                       10.68.160.15
+LB.ID                        e751843d-8cc1-42a8-915b-99b0a26beeac
+LB.Name                      cli-test
+LB.Description               cli-test
+LB.Status                    ready
+LB.Instances.0.ID            d0fc5482-95ba-4120-b512-8d99d4f294d9
+LB.Instances.0.Status        ready
+LB.Instances.0.IPAddress     10.70.6.3
+LB.Instances.0.Region        fr-par
+LB.Instances.1.ID            0faee12d-515b-4bf9-93dc-96220f26bbfa
+LB.Instances.1.Status        ready
+LB.Instances.1.IPAddress     10.64.96.45
+LB.Instances.1.Region        fr-par
+LB.OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.ID                   808a175e-2b98-41b4-9bf6-ed11b78595dd
+LB.IP.0.IPAddress            51.159.74.220
+LB.IP.0.OrganizationID       951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.LBID                 e751843d-8cc1-42a8-915b-99b0a26beeac
+LB.IP.0.Reverse              51-159-74-220.lb.fr-par.scw.cloud
+LB.IP.0.ProjectID            951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.Region               fr-par
+LB.FrontendCount             0
+LB.BackendCount              1
+LB.Type                      lb-s
+LB.SslCompatibilityLevel     ssl_compatibility_level_intermediate
+LB.ProjectID                 951df375-e094-4d26-97c1-ba548eeb9c42
+LB.Region                    fr-par
+SendProxyV2                  false
+OnMarkedDownAction           on_marked_down_action_none
+ProxyProtocol                proxy_protocol_unknown
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "11dd5ff9-e486-4cbb-b562-19852bef09db",
+  "name": "cli-srv-cranky-roentgen",
+  "forward_protocol": "tcp",
+  "forward_port": 443,
+  "forward_port_algorithm": "roundrobin",
+  "sticky_sessions": "none",
+  "sticky_sessions_cookie_name": "",
+  "health_check": {
+    "check_max_retries": 5,
+    "tcp_config": {},
+    "port": 443,
+    "check_timeout": 1000,
+    "check_delay": 3000
+  },
+  "pool": [
+    "10.68.160.15"
+  ],
+  "lb": {
+    "id": "e751843d-8cc1-42a8-915b-99b0a26beeac",
+    "name": "cli-test",
+    "description": "cli-test",
+    "status": "ready",
+    "instances": [
+      {
+        "id": "d0fc5482-95ba-4120-b512-8d99d4f294d9",
+        "status": "ready",
+        "ip_address": "10.70.6.3",
+        "region": "fr-par"
+      },
+      {
+        "id": "0faee12d-515b-4bf9-93dc-96220f26bbfa",
+        "status": "ready",
+        "ip_address": "10.64.96.45",
+        "region": "fr-par"
+      }
+    ],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "808a175e-2b98-41b4-9bf6-ed11b78595dd",
+        "ip_address": "51.159.74.220",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "e751843d-8cc1-42a8-915b-99b0a26beeac",
+        "reverse": "51-159-74-220.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "region": "fr-par"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 0,
+    "backend_count": 1,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "region": "fr-par"
+  },
+  "send_proxy_v2": false,
+  "on_marked_down_action": "on_marked_down_action_none",
+  "proxy_protocol": "proxy_protocol_unknown",
+  "timeout_server": null,
+  "timeout_connect": null,
+  "timeout_tunnel": null
+}

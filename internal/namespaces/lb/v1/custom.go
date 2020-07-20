@@ -15,10 +15,10 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.BackendServerStatsServerState(""), human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs))
 
 	cmds := GetGeneratedCommands()
-
-	cmds.Add(
+	cmds.Merge(core.NewCommands(
 		lbWaitCommand(),
-	)
+		importInstanceCommand(),
+	))
 
 	cmds.MustFind("lb", "lb", "create").Override(lbCreateBuilder)
 	cmds.MustFind("lb", "lb", "get").Override(lbGetBuilder)

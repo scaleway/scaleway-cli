@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   create             Create a backend in a given load balancer
   delete             Delete a backend in a given load balancer
   get                Get a backend in a given load balancer
+  import-instance    Import an instance as a load balancer backend
   list               List backends in a given load balancer
   remove             Remove a set of servers for a given backend
   set                Define all servers in a given backend

@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           26c628f5-d7ec-49a8-a3ca-5ee26920e9f2
+ID           42f95cf3-f5b5-4c4e-bb68-796e52a9afc3
 Name         cli-test
 InboundPort  8888
 
 Lb:
-ID                     12a22791-7124-41f0-90d2-9067f2cc99da
+ID                     a33231a6-fe76-417a-84cc-6d95f5c7dbaf
 Name                   cli-test
 Description            cli-test
 Status                 ready
 OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.ID                1bdb8569-b2fc-47fb-9d1b-27b24033dcb9
-IP.0.IPAddress         195.154.69.237
+IP.0.ID                7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9
+IP.0.IPAddress         195.154.69.136
 IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.LBID              12a22791-7124-41f0-90d2-9067f2cc99da
-IP.0.Reverse           195-154-69-237.lb.fr-par.scw.cloud
+IP.0.LBID              a33231a6-fe76-417a-84cc-6d95f5c7dbaf
+IP.0.Reverse           195-154-69-136.lb.fr-par.scw.cloud
 IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 IP.0.Region            fr-par
 FrontendCount          1
@@ -25,7 +25,7 @@ ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
 Region                 fr-par
 
 Backend:
-ID                           e89cd474-c6d8-4515-b774-b5dfaff206c2
+ID                           5bf60505-ea5c-401e-b17f-995fbfaf51c2
 Name                         cli-test
 ForwardProtocol              tcp
 ForwardPort                  80
@@ -36,16 +36,16 @@ HealthCheck.CheckMaxRetries  5
 HealthCheck.Port             8888
 HealthCheck.CheckTimeout     1s
 HealthCheck.CheckDelay       3s
-LB.ID                        12a22791-7124-41f0-90d2-9067f2cc99da
+LB.ID                        a33231a6-fe76-417a-84cc-6d95f5c7dbaf
 LB.Name                      cli-test
 LB.Description               cli-test
 LB.Status                    ready
 LB.OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
-LB.IP.0.ID                   1bdb8569-b2fc-47fb-9d1b-27b24033dcb9
-LB.IP.0.IPAddress            195.154.69.237
+LB.IP.0.ID                   7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9
+LB.IP.0.IPAddress            195.154.69.136
 LB.IP.0.OrganizationID       951df375-e094-4d26-97c1-ba548eeb9c42
-LB.IP.0.LBID                 12a22791-7124-41f0-90d2-9067f2cc99da
-LB.IP.0.Reverse              195-154-69-237.lb.fr-par.scw.cloud
+LB.IP.0.LBID                 a33231a6-fe76-417a-84cc-6d95f5c7dbaf
+LB.IP.0.Reverse              195-154-69-136.lb.fr-par.scw.cloud
 LB.IP.0.ProjectID            951df375-e094-4d26-97c1-ba548eeb9c42
 LB.IP.0.Region               fr-par
 LB.FrontendCount             1
@@ -59,11 +59,11 @@ OnMarkedDownAction           on_marked_down_action_none
 ProxyProtocol                proxy_protocol_unknown
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "26c628f5-d7ec-49a8-a3ca-5ee26920e9f2",
+  "id": "42f95cf3-f5b5-4c4e-bb68-796e52a9afc3",
   "name": "cli-test",
   "inbound_port": 8888,
   "backend": {
-    "id": "e89cd474-c6d8-4515-b774-b5dfaff206c2",
+    "id": "5bf60505-ea5c-401e-b17f-995fbfaf51c2",
     "name": "cli-test",
     "forward_protocol": "tcp",
     "forward_port": 80,
@@ -79,7 +79,7 @@ ProxyProtocol                proxy_protocol_unknown
     },
     "pool": [],
     "lb": {
-      "id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+      "id": "a33231a6-fe76-417a-84cc-6d95f5c7dbaf",
       "name": "cli-test",
       "description": "cli-test",
       "status": "ready",
@@ -87,11 +87,11 @@ ProxyProtocol                proxy_protocol_unknown
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "ip": [
         {
-          "id": "1bdb8569-b2fc-47fb-9d1b-27b24033dcb9",
-          "ip_address": "195.154.69.237",
+          "id": "7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9",
+          "ip_address": "195.154.69.136",
           "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-          "lb_id": "12a22791-7124-41f0-90d2-9067f2cc99da",
-          "reverse": "195-154-69-237.lb.fr-par.scw.cloud",
+          "lb_id": "a33231a6-fe76-417a-84cc-6d95f5c7dbaf",
+          "reverse": "195-154-69-136.lb.fr-par.scw.cloud",
           "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
           "region": "fr-par"
         }
@@ -113,7 +113,7 @@ ProxyProtocol                proxy_protocol_unknown
     "timeout_tunnel": null
   },
   "lb": {
-    "id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+    "id": "a33231a6-fe76-417a-84cc-6d95f5c7dbaf",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
@@ -121,11 +121,11 @@ ProxyProtocol                proxy_protocol_unknown
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "ip": [
       {
-        "id": "1bdb8569-b2fc-47fb-9d1b-27b24033dcb9",
-        "ip_address": "195.154.69.237",
+        "id": "7e87125c-3dde-4ac8-8ad5-e8afd4dbfce9",
+        "ip_address": "195.154.69.136",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "12a22791-7124-41f0-90d2-9067f2cc99da",
-        "reverse": "195-154-69-237.lb.fr-par.scw.cloud",
+        "lb_id": "a33231a6-fe76-417a-84cc-6d95f5c7dbaf",
+        "reverse": "195-154-69-136.lb.fr-par.scw.cloud",
         "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
         "region": "fr-par"
       }

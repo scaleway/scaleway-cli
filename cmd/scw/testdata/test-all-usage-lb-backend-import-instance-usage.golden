@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Import an instance as a load balancer backend.
+
+USAGE:
+  scw lb backend import-instance [arg=value ...]
+
+ARGS:
+  instance-id       ID of the instance.
+  lb-id             ID of the load balancer you want to import the instance into
+  protocol          Protocol used by the backend
+  [use-public]      Use public IP address of the instance instead of the private one
+  port              Port number used by the backend
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for import-instance
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
