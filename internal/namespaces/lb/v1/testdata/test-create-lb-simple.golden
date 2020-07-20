@@ -1,0 +1,65 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                     5e5e1f90-a0f6-476f-802d-448b7d71c1c1
+Name                   foobar
+Description            foobar
+Status                 ready
+Instances.0.ID         e8d7a808-db96-4efd-bad4-915ab15a0d45
+Instances.0.Status     ready
+Instances.0.IPAddress  10.70.70.67
+Instances.0.Region     fr-par
+Instances.1.ID         1e4dd08b-13d3-479f-a6d2-6ee6e1c3f9b7
+Instances.1.Status     ready
+Instances.1.IPAddress  10.68.232.135
+Instances.1.Region     fr-par
+OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.ID                5092013a-da87-44f2-ad1e-dc6439840c18
+IP.0.IPAddress         195.154.70.114
+IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.LBID              5e5e1f90-a0f6-476f-802d-448b7d71c1c1
+IP.0.Reverse           195-154-70-114.lb.fr-par.scw.cloud
+IP.0.Region            fr-par
+FrontendCount          0
+BackendCount           0
+Type                   lb-s
+SslCompatibilityLevel  ssl_compatibility_level_intermediate
+Region                 fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "5e5e1f90-a0f6-476f-802d-448b7d71c1c1",
+  "name": "foobar",
+  "description": "foobar",
+  "status": "ready",
+  "instances": [
+    {
+      "id": "e8d7a808-db96-4efd-bad4-915ab15a0d45",
+      "status": "ready",
+      "ip_address": "10.70.70.67",
+      "region": "fr-par"
+    },
+    {
+      "id": "1e4dd08b-13d3-479f-a6d2-6ee6e1c3f9b7",
+      "status": "ready",
+      "ip_address": "10.68.232.135",
+      "region": "fr-par"
+    }
+  ],
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "ip": [
+    {
+      "id": "5092013a-da87-44f2-ad1e-dc6439840c18",
+      "ip_address": "195.154.70.114",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "lb_id": "5e5e1f90-a0f6-476f-802d-448b7d71c1c1",
+      "reverse": "195-154-70-114.lb.fr-par.scw.cloud",
+      "region": "fr-par"
+    }
+  ],
+  "tags": [],
+  "frontend_count": 0,
+  "backend_count": 0,
+  "type": "lb-s",
+  "subscriber": null,
+  "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+  "region": "fr-par"
+}

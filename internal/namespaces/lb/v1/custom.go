@@ -10,5 +10,12 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.LBTypeStock(0), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
 
 	cmds := GetGeneratedCommands()
+
+	cmds.Add(
+		lbWaitCommand(),
+	)
+
+	cmds.MustFind("lb", "lb", "create").Override(lbCreateBuilder)
+
 	return cmds
 }

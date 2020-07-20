@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   list        List load balancers
   migrate     Migrate a load balancer
   update      Update a load balancer
+  wait        Wait for a load balancer to reach a stable state
 
 FLAGS:
   -h, --help   help for lb
