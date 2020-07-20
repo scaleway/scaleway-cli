@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   init         Initialize the config
   instance     Instance API
   k8s          Kapsule API
+  lb           This API allows you to manage your load balancer service
   marketplace  Marketplace API
   object       Object-storage utils
   rdb          Database RDB API
