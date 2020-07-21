@@ -85,3 +85,17 @@ func lbGetBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+func lbGetStatsBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+
+			{
+				FieldName: "BackendServersStats",
+				Title:     "Backends Statistics",
+			},
+		},
+	}
+
+	return c
+}
