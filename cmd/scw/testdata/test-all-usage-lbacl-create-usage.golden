@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   frontend-id                         ID of your frontend
-  name                                Name of your ACL ressource
+  name=<generated>                    Name of your ACL ressource
   [action.type]                       The action type (allow | deny)
   [match.ip-subnet.{index}]           A list of IPs or CIDR v4/v6 addresses of the client of the session to match
   [match.http-filter]                 The HTTP filter to match (acl_http_filter_none | path_begin | path_end | regex)

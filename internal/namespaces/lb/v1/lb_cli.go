@@ -194,6 +194,7 @@ func lbLBCreate() *core.Command {
 				Short:      `Resource names`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lb"),
 			},
 			{
 				Name:       "description",
@@ -614,6 +615,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Resource name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lbb"),
 			},
 			{
 				Name:       "forward-protocol",
@@ -1178,6 +1180,7 @@ func lbFrontendCreate() *core.Command {
 				Short:      `Resource name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lbf"),
 			},
 			{
 				Name:       "inbound-port",
@@ -1447,6 +1450,7 @@ func lbACLCreate() *core.Command {
 				Short:      `Name of your ACL ressource`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("acl"),
 			},
 			{
 				Name:       "action.type",
@@ -1653,6 +1657,7 @@ func lbCertificateCreate() *core.Command {
 				Short:      `Certificate name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("certiticate"),
 			},
 			{
 				Name:       "letsencrypt.common-name",
