@@ -1432,8 +1432,8 @@ func lbACLList() *core.Command {
 
 func lbACLCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an ACL`,
-		Long:      `Create an ACL.`,
+		Short:     `Create an ACL for a given frontend`,
+		Long:      `Create an ACL for a given frontend.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "create",
