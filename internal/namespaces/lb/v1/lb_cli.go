@@ -199,7 +199,7 @@ func lbLBCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Resource description`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
 			},
 			{
