@@ -7,7 +7,7 @@ import (
 func createLB() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"LB",
-		"scw lb lb create name=cli-test description=cli-test --wait",
+		"scw lb lb create name=cli-test description=cli-test type=LB-S --wait",
 	)
 }
 

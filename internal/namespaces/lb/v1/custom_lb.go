@@ -45,6 +45,7 @@ func lbWaitCommand() *core.Command {
 
 func lbCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").EnumValues = typesList
+	c.ArgSpecs.GetByName("type").Default = core.DefaultValueSetter("LB-S")
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := lb.NewAPI(core.ExtractClient(ctx))
