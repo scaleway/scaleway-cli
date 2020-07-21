@@ -6,7 +6,7 @@ USAGE:
   scw lb frontend create [arg=value ...]
 
 ARGS:
-  name                        Resource name
+  name=<generated>            Resource name
   inbound-port                TCP port to listen on the front side
   lb-id                       Load balancer ID
   backend-id                  Backend ID

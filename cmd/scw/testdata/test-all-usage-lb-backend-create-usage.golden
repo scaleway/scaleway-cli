@@ -6,7 +6,7 @@ USAGE:
   scw lb backend create [arg=value ...]
 
 ARGS:
-  name                                 Resource name
+  name=<generated>                     Resource name
   forward-protocol                     Backend protocol. TCP or HTTP (tcp | http)
   forward-port                         User sessions will be forwarded to this port of backend servers
   forward-port-algorithm               Load balancing algorithm (roundrobin | leastconn)
