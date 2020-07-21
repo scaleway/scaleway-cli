@@ -635,6 +635,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Load balancing algorithm`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("roundrobin"),
 				EnumValues: []string{"roundrobin", "leastconn"},
 			},
 			{
@@ -642,6 +643,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Enables cookie-based session persistence`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("none"),
 				EnumValues: []string{"none", "cookie", "table"},
 			},
 			{
@@ -1432,8 +1434,8 @@ func lbACLList() *core.Command {
 
 func lbACLCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an ACL`,
-		Long:      `Create an ACL.`,
+		Short:     `Create an ACL for a given frontend`,
+		Long:      `Create an ACL for a given frontend.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "create",
