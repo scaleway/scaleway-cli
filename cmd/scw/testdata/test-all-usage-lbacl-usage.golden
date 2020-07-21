@@ -6,7 +6,7 @@ USAGE:
   scw lb acl <command>
 
 AVAILABLE COMMANDS:
-  create      Create an ACL
+  create      Create an ACL for a given frontend
   delete      Delete an ACL
   get         Get an ACL
   list        List ACL for a given frontend
