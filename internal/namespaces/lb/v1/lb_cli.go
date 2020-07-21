@@ -635,6 +635,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Load balancing algorithm`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("roundrobin"),
 				EnumValues: []string{"roundrobin", "leastconn"},
 			},
 			{
@@ -642,6 +643,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Enables cookie-based session persistence`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("none"),
 				EnumValues: []string{"none", "cookie", "table"},
 			},
 			{
