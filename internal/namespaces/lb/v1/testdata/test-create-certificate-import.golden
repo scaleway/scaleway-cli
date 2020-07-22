@@ -1,0 +1,87 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Type                      custom
+ID                        e415c21b-fd44-41fb-89d0-d4ac127fff4b
+CommonName                alias.example.com
+SubjectAlternativeName.0  alias.example.com
+Fingerprint               -
+NotValidBefore            few seconds ago
+NotValidAfter             few seconds ago
+Status                    ready
+LB.ID                     fd29a228-00ab-4016-9f5e-f00ad3ec8d5b
+LB.Name                   cli-test
+LB.Description            cli-test
+LB.Status                 ready
+LB.Instances.0.ID         3f7bdd0c-2698-47c5-a7ed-16fc714aacf8
+LB.Instances.0.Status     ready
+LB.Instances.0.IPAddress  10.64.98.31
+LB.Instances.0.Region     fr-par
+LB.Instances.1.ID         fec0b76f-67b5-4dbe-91a6-c4d86b2fe33d
+LB.Instances.1.Status     ready
+LB.Instances.1.IPAddress  10.68.50.3
+LB.Instances.1.Region     fr-par
+LB.OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.ID                590905fe-2e51-44d6-95e8-5210e483d963
+LB.IP.0.IPAddress         195.154.71.46
+LB.IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.LBID              fd29a228-00ab-4016-9f5e-f00ad3ec8d5b
+LB.IP.0.Reverse           195-154-71-46.lb.fr-par.scw.cloud
+LB.IP.0.Region            fr-par
+LB.FrontendCount          0
+LB.BackendCount           0
+LB.Type                   lb-s
+LB.SslCompatibilityLevel  ssl_compatibility_level_intermediate
+LB.Region                 fr-par
+Name                      cli-certiticate-hopeful-wing
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "type": "custom",
+  "id": "e415c21b-fd44-41fb-89d0-d4ac127fff4b",
+  "common_name": "alias.example.com",
+  "subject_alternative_name": [
+    "alias.example.com"
+  ],
+  "fingerprint": "",
+  "not_valid_before": "2020-07-22T09:43:05Z",
+  "not_valid_after": "2021-07-22T09:43:05Z",
+  "status": "ready",
+  "lb": {
+    "id": "fd29a228-00ab-4016-9f5e-f00ad3ec8d5b",
+    "name": "cli-test",
+    "description": "cli-test",
+    "status": "ready",
+    "instances": [
+      {
+        "id": "3f7bdd0c-2698-47c5-a7ed-16fc714aacf8",
+        "status": "ready",
+        "ip_address": "10.64.98.31",
+        "region": "fr-par"
+      },
+      {
+        "id": "fec0b76f-67b5-4dbe-91a6-c4d86b2fe33d",
+        "status": "ready",
+        "ip_address": "10.68.50.3",
+        "region": "fr-par"
+      }
+    ],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "590905fe-2e51-44d6-95e8-5210e483d963",
+        "ip_address": "195.154.71.46",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "fd29a228-00ab-4016-9f5e-f00ad3ec8d5b",
+        "reverse": "195-154-71-46.lb.fr-par.scw.cloud",
+        "region": "fr-par"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 0,
+    "backend_count": 0,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "region": "fr-par"
+  },
+  "name": "cli-certiticate-hopeful-wing"
+}

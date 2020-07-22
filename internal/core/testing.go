@@ -403,9 +403,15 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.Cmd
 		var result interface{}
 		var exitCode int
-		args := config.Args
+		var renderedArgs []string
+		rawArgs := config.Args
 		if config.Cmd != "" {
-			args = cmdToArgs(meta, config.Cmd)
+			renderedArgs = cmdToArgs(meta, config.Cmd)
+		} else {
+			// We render raw arguments from meta
+			for _, arg := range rawArgs {
+				renderedArgs = append(renderedArgs, meta.render(arg))
+			}
 		}
 
 		// We create a separate logger for the command we want to test.
@@ -416,11 +422,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 			writer: io.MultiWriter(cmdLoggerBuffer, os.Stderr),
 			level:  testLogger.level,
 		}
-		if len(args) > 0 {
+		if len(renderedArgs) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
-				Args:             args,
+				Args:             renderedArgs,
 				Commands:         config.Commands,
 				BuildInfo:        buildInfo,
 				Stdout:           stdout,
