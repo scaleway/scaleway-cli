@@ -179,4 +179,28 @@ func TestMarshal(t *testing.T) {
 		},
 		result: `Name  Paul`,
 	}))
+
+	t.Run("Hidden", run(&testCase{
+		data: &Human{
+			Name:    "Sherlock Holmes",
+			Age:     42,
+			Address: &Address{Street: "221b Baker St", City: "London"},
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			HiddenFields: []string{"Acquaintances"},
+		},
+		result: `
+Personal Information:
+Name  Sherlock Holmes
+Age   42
+
+Address:
+Street  221b Baker St
+City    London
+		`,
+	}))
 }

@@ -8,9 +8,10 @@ import (
 
 // MarshalOpt is hydrated by core.View
 type MarshalOpt struct {
-	Title    string
-	Fields   []*MarshalFieldOpt
-	Sections []*MarshalSection
+	Title        string
+	Fields       []*MarshalFieldOpt
+	Sections     []*MarshalSection
+	HiddenFields []string
 
 	// Is set to true if we are marshaling a table cell
 	TableCell bool

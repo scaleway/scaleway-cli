@@ -19,6 +19,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("lb", "lb", "create").Override(lbCreateBuilder)
 	cmds.MustFind("lb", "lb", "get").Override(lbGetBuilder)
+	cmds.MustFind("lb", "certificate", "list").Override(certificateListBuilder)
 
 	return cmds
 }
