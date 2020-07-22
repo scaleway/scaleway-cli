@@ -13,16 +13,15 @@ import (
 
 var (
 	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.LBStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.LBStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		lb.LBStatusMigrating:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
+		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+		lb.LBStatusMigrating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
 		lb.LBStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.LBStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+		lb.LBStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
 		lb.LBStatusStopped:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "stopped"},
 		lb.LBStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
 	}
 )
-
 
 func lbWaitCommand() *core.Command {
 	return &core.Command{
