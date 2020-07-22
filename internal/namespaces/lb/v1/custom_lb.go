@@ -4,10 +4,25 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+var (
+	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
+		lb.LBStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+		lb.LBStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+		lb.LBStatusMigrating:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
+		lb.LBStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
+		lb.LBStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+		lb.LBStatusStopped:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "stopped"},
+		lb.LBStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	}
+)
+
 
 func lbWaitCommand() *core.Command {
 	return &core.Command{

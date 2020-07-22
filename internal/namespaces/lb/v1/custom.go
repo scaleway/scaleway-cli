@@ -8,6 +8,7 @@ import (
 
 func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.LBTypeStock(0), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(lb.LBStatus(0), human.EnumMarshalFunc(lbStatusMarshalSpecs))
 
 	cmds := GetGeneratedCommands()
 
