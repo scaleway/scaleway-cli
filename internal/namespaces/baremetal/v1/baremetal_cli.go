@@ -191,6 +191,21 @@ func baremetalServerCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
+			{
+				Name:       "install.os-id",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "install.hostname",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "install.ssh-key-ids.{index}",
+				Required:   false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
