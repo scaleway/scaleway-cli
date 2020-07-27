@@ -432,6 +432,13 @@ func baremetalServerStart() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
+			{
+				Name:       "boot-type",
+				Short:      `The type of boot`,
+				Required:   false,
+				Positional: false,
+				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -446,6 +453,10 @@ func baremetalServerStart() *core.Command {
 			{
 				Short:    "Start a baremetal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Start a server in rescue mode",
+				ArgsJSON: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
