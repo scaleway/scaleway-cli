@@ -39,7 +39,7 @@ func addIP2Backend(ip string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"AddIP2Backend",
 		fmt.Sprintf("scw lb backend add {{ .Backend.ID }} server-ip.0=%s", ip),
-		)
+	)
 }
 
 func createFrontend() core.BeforeFunc {
@@ -48,4 +48,3 @@ func createFrontend() core.BeforeFunc {
 		"scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=8888",
 	)
 }
-
