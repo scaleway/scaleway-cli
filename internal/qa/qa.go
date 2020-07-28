@@ -18,6 +18,7 @@ func LintCommands(commands *core.Commands) []error {
 	errors = append(errors, testExampleCanHaveOnlyOneTypeOfExampleError(commands)...)
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	errors = append(errors, testDuplicatedCommandError(commands)...)
+	errors = append(errors, testAtLeastOneExampleIsPresentError(commands)...)
 
 	errors = filterIgnore(errors)
 
@@ -314,6 +315,40 @@ func testDuplicatedCommandError(commands *core.Commands) []error {
 		}
 
 		uniqueness[key] = true
+	}
+
+	return errors
+}
+
+type MissingExampleError struct {
+	Command *core.Command
+}
+
+func (err MissingExampleError) Error() string {
+	return fmt.Sprintf("command without examples '%s'", err.Command.GetCommandLine("scw"))
+}
+
+// testDuplicatedCommandError testes that there is no duplicate command.
+func testAtLeastOneExampleIsPresentError(commands *core.Commands) []error {
+	errors := []error(nil)
+
+	for _, command := range commands.GetAll() {
+		// Namespace and resources commands do not need examples
+		// We focus on command with a verb
+		if command.Verb == "" {
+			continue
+		}
+
+		examples := command.Examples
+
+		if examples == nil {
+			errors = append(errors, &MissingExampleError{Command: command})
+			continue
+		}
+		if len(examples) < 1 {
+			errors = append(errors, &MissingExampleError{Command: command})
+			continue
+		}
 	}
 
 	return errors
