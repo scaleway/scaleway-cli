@@ -339,13 +339,7 @@ func testAtLeastOneExampleIsPresentError(commands *core.Commands) []error {
 			continue
 		}
 
-		examples := command.Examples
-
-		if examples == nil {
-			errors = append(errors, &MissingExampleError{Command: command})
-			continue
-		}
-		if len(examples) < 1 {
+		if len(command.Examples) < 1 {
 			errors = append(errors, &MissingExampleError{Command: command})
 			continue
 		}
