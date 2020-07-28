@@ -44,6 +44,9 @@ func lbWaitCommand() *core.Command {
 }
 
 func lbCreateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("type").EnumValues = typesList
+	c.ArgSpecs.GetByName("type").Default = core.DefaultValueSetter("LB-S")
+
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := lb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForLb(&lb.WaitForLBRequest{
@@ -51,6 +54,17 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 			Region: respI.(*lb.LB).Region,
 		})
 	}
+	return c
+}
+
+var typesList = []string{
+	"LB-S",
+	"LB-GP-M",
+	"LB-GP-L",
+}
+
+func lbMigrateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("type").EnumValues = typesList
 
 	return c
 }

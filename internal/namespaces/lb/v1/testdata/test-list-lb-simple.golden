@@ -1,49 +1,37 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               REGION
-fa923d8a-3d4b-48a7-bc1c-1872daa37456  cli-test  cli-test     ready   4          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
-dbed1d12-4675-477f-a704-a61c40367a5a  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
+df9969f2-e408-471d-89ad-fec905268bc6  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
+ee00b31c-767a-4133-8ec0-cbcc42b5329c  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "fa923d8a-3d4b-48a7-bc1c-1872daa37456",
+    "id": "df9969f2-e408-471d-89ad-fec905268bc6",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "af5df9d1-31f7-42c0-a913-a1d2ca1e2d84",
+        "id": "223875c7-90b5-47b9-bce4-c31da7b72c5d",
         "status": "ready",
-        "ip_address": "10.64.80.93",
+        "ip_address": "10.68.130.123",
         "region": "fr-par"
       },
       {
-        "id": "b0666cfc-4d3b-46dc-8cf1-b96af751b1cd",
-        "status": "pending",
-        "ip_address": "10.68.170.1",
-        "region": "fr-par"
-      },
-      {
-        "id": "6898dc60-9d87-45f5-8de0-968dd52cd28e",
+        "id": "722e1255-f976-4c10-8a30-e0a0140e05d8",
         "status": "ready",
-        "ip_address": "10.68.44.47",
-        "region": "fr-par"
-      },
-      {
-        "id": "c1822f7d-853d-4b62-816d-2ec6b2c1acf5",
-        "status": "pending",
-        "ip_address": "10.65.108.35",
+        "ip_address": "10.64.74.57",
         "region": "fr-par"
       }
     ],
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "ip": [
       {
-        "id": "497f1f83-f0cc-4c92-95bb-a50408174cd2",
-        "ip_address": "195.154.70.227",
+        "id": "513a8613-5d27-4839-a2e1-8100960b5402",
+        "ip_address": "195.154.69.128",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "fa923d8a-3d4b-48a7-bc1c-1872daa37456",
-        "reverse": "195-154-70-227.lb.fr-par.scw.cloud",
+        "lb_id": "df9969f2-e408-471d-89ad-fec905268bc6",
+        "reverse": "195-154-69-128.lb.fr-par.scw.cloud",
         "region": "fr-par"
       }
     ],
@@ -56,32 +44,32 @@ dbed1d12-4675-477f-a704-a61c40367a5a  cli-test  cli-test     ready   2          
     "region": "fr-par"
   },
   {
-    "id": "dbed1d12-4675-477f-a704-a61c40367a5a",
+    "id": "ee00b31c-767a-4133-8ec0-cbcc42b5329c",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "e71c6131-ba52-4329-b52f-482d34950e62",
+        "id": "0d614db8-bffe-4b42-beb0-53754fdc9f0b",
         "status": "ready",
-        "ip_address": "10.65.58.127",
+        "ip_address": "10.68.212.169",
         "region": "fr-par"
       },
       {
-        "id": "2f267584-f608-4bc4-9af3-c11414691412",
+        "id": "0d5734af-26b7-4c56-814d-6bae65c60cdf",
         "status": "ready",
-        "ip_address": "10.65.102.135",
+        "ip_address": "10.64.2.23",
         "region": "fr-par"
       }
     ],
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "ip": [
       {
-        "id": "4de76393-cba9-4c52-8c55-e41093b3ae9d",
-        "ip_address": "51.159.24.70",
+        "id": "497f1f83-f0cc-4c92-95bb-a50408174cd2",
+        "ip_address": "195.154.70.227",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "dbed1d12-4675-477f-a704-a61c40367a5a",
-        "reverse": "51-159-24-70.lb.fr-par.scw.cloud",
+        "lb_id": "ee00b31c-767a-4133-8ec0-cbcc42b5329c",
+        "reverse": "195-154-70-227.lb.fr-par.scw.cloud",
         "region": "fr-par"
       }
     ],

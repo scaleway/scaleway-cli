@@ -1,23 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     584e888e-4a00-45c7-82f8-e6b65347e618
+ID                     ffd53f8d-7845-4303-99b7-3de8f6cb340c
 Name                   cli-test
 Description            cli-test
 Status                 ready
-Instances.0.ID         43dc86d7-45e7-4d09-99a5-c7c1aeb53bce
+Instances.0.ID         9813d7d7-6e14-4d30-ac3b-13b3efb4da57
 Instances.0.Status     ready
-Instances.0.IPAddress  10.69.52.125
+Instances.0.IPAddress  10.65.104.131
 Instances.0.Region     fr-par
-Instances.1.ID         004e82fa-4b23-4ea1-8e39-1dcbc8e5c3a3
+Instances.1.ID         d9e4362b-1e43-404b-ae69-5b3c1bfd0753
 Instances.1.Status     ready
-Instances.1.IPAddress  10.68.132.145
+Instances.1.IPAddress  10.64.220.125
 Instances.1.Region     fr-par
 OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.ID                4de76393-cba9-4c52-8c55-e41093b3ae9d
-IP.0.IPAddress         51.159.24.70
+IP.0.ID                51b36cce-4180-447a-b607-b2f2a8c4f53d
+IP.0.IPAddress         195.154.70.59
 IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.LBID              584e888e-4a00-45c7-82f8-e6b65347e618
-IP.0.Reverse           51-159-24-70.lb.fr-par.scw.cloud
+IP.0.LBID              ffd53f8d-7845-4303-99b7-3de8f6cb340c
+IP.0.Reverse           195-154-70-59.lb.fr-par.scw.cloud
 IP.0.Region            fr-par
 FrontendCount          0
 BackendCount           0
@@ -26,32 +26,32 @@ SslCompatibilityLevel  ssl_compatibility_level_intermediate
 Region                 fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "584e888e-4a00-45c7-82f8-e6b65347e618",
+  "id": "ffd53f8d-7845-4303-99b7-3de8f6cb340c",
   "name": "cli-test",
   "description": "cli-test",
   "status": "ready",
   "instances": [
     {
-      "id": "43dc86d7-45e7-4d09-99a5-c7c1aeb53bce",
+      "id": "9813d7d7-6e14-4d30-ac3b-13b3efb4da57",
       "status": "ready",
-      "ip_address": "10.69.52.125",
+      "ip_address": "10.65.104.131",
       "region": "fr-par"
     },
     {
-      "id": "004e82fa-4b23-4ea1-8e39-1dcbc8e5c3a3",
+      "id": "d9e4362b-1e43-404b-ae69-5b3c1bfd0753",
       "status": "ready",
-      "ip_address": "10.68.132.145",
+      "ip_address": "10.64.220.125",
       "region": "fr-par"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "4de76393-cba9-4c52-8c55-e41093b3ae9d",
-      "ip_address": "51.159.24.70",
+      "id": "51b36cce-4180-447a-b607-b2f2a8c4f53d",
+      "ip_address": "195.154.70.59",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "584e888e-4a00-45c7-82f8-e6b65347e618",
-      "reverse": "51-159-24-70.lb.fr-par.scw.cloud",
+      "lb_id": "ffd53f8d-7845-4303-99b7-3de8f6cb340c",
+      "reverse": "195-154-70-59.lb.fr-par.scw.cloud",
       "region": "fr-par"
     }
   ],
