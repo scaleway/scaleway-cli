@@ -9,6 +9,5 @@ routing PRs, questions, etc. to the right place.
 | :------------- | :-------------- |
 | Jérôme Quéré   | @jerome-quere   |
 | Quentin Brosse | @QuentinBrosse  |
-| Loïc Bourgois  | @loicbourgois   |
 | Olivier Cano   | @kindermoumoute |
 | Rémy Léone     | @remyleone      |
