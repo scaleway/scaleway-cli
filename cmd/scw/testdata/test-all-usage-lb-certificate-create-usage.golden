@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   lb-id                                            Load balancer ID
-  name                                             Certificate name
+  name=<generated>                                 Certificate name
   letsencrypt.common-name                          Main domain name of certificate (make sure this domain exists and resolves to your load balancer HA IP)
   [letsencrypt.subject-alternative-name.{index}]   Alternative domain names (make sure all domain names exists and resolves to your load balancer HA IP)
   custom-certificate.certificate-chain             The full PEM-formatted include an entire certificate chain including public key, private key, and optionally certificate authorities.

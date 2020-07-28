@@ -194,11 +194,12 @@ func lbLBCreate() *core.Command {
 				Short:      `Resource names`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lb"),
 			},
 			{
 				Name:       "description",
 				Short:      `Resource description`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
 			},
 			{
@@ -614,6 +615,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Resource name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lbb"),
 			},
 			{
 				Name:       "forward-protocol",
@@ -633,6 +635,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Load balancing algorithm`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("roundrobin"),
 				EnumValues: []string{"roundrobin", "leastconn"},
 			},
 			{
@@ -640,6 +643,7 @@ func lbBackendCreate() *core.Command {
 				Short:      `Enables cookie-based session persistence`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("none"),
 				EnumValues: []string{"none", "cookie", "table"},
 			},
 			{
@@ -1178,6 +1182,7 @@ func lbFrontendCreate() *core.Command {
 				Short:      `Resource name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("lbf"),
 			},
 			{
 				Name:       "inbound-port",
@@ -1429,8 +1434,8 @@ func lbACLList() *core.Command {
 
 func lbACLCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an ACL`,
-		Long:      `Create an ACL.`,
+		Short:     `Create an ACL for a given frontend`,
+		Long:      `Create an ACL for a given frontend.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "create",
@@ -1447,6 +1452,7 @@ func lbACLCreate() *core.Command {
 				Short:      `Name of your ACL ressource`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("acl"),
 			},
 			{
 				Name:       "action.type",
@@ -1653,6 +1659,7 @@ func lbCertificateCreate() *core.Command {
 				Short:      `Certificate name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("certiticate"),
 			},
 			{
 				Name:       "letsencrypt.common-name",
@@ -1727,6 +1734,35 @@ func lbCertificateList() *core.Command {
 			return resp.Certificates, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Type",
+			},
+			{
+				FieldName: "CommonName",
+			},
+			{
+				FieldName: "SubjectAlternativeName",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "NotValidBefore",
+			},
+			{
+				FieldName: "NotValidAfter",
+			},
+			{
+				FieldName: "Fingerprint",
+			},
+		}},
 	}
 }
 

@@ -6,8 +6,8 @@ USAGE:
   scw lb lb create [arg=value ...]
 
 ARGS:
-  name                        Resource names
-  description                 Resource description
+  name=<generated>            Resource names
+  [description]               Resource description
   [ip-id]                     Just like for compute instances, when you destroy a load balancer, you can keep its highly available IP address and reuse it for another load balancer later
   [tags.{index}]              List of keyword
   [type=LB-S]                 Load balancer offer type (LB-S | LB-GP-M | LB-GP-L)
