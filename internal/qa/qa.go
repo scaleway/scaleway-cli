@@ -335,7 +335,7 @@ func testAtLeastOneExampleIsPresentError(commands *core.Commands) []error {
 	for _, command := range commands.GetAll() {
 		// Namespace and resources commands do not need examples
 		// We focus on command with a verb
-		if command.Verb == "" {
+		if command.Run == nil {
 			continue
 		}
 
