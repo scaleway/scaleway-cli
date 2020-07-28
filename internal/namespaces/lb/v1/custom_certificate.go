@@ -51,31 +51,31 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(lbCreateCertificateRequestCustom{})
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		tmpRequest := argsI.(*lbCreateCertificateRequestCustom)
-		var polished *lb.CreateCertificateRequest
-		if tmpRequest.CustomCertificateChain != "" {
-			polished = &lb.CreateCertificateRequest{
-				Region: tmpRequest.Region,
-				LBID:   tmpRequest.LBID,
-				Name:   tmpRequest.Name,
+		args := argsI.(*lbCreateCertificateRequestCustom)
+		var createCertificateRequest *lb.CreateCertificateRequest
+		if args.CustomCertificateChain != "" {
+			createCertificateRequest = &lb.CreateCertificateRequest{
+				Region: args.Region,
+				LBID:   args.LBID,
+				Name:   args.Name,
 				CustomCertificate: &lb.CreateCertificateRequestCustomCertificate{
-					CertificateChain: tmpRequest.CustomCertificateChain,
+					CertificateChain: args.CustomCertificateChain,
 				},
 			}
-			return runner(ctx, polished)
+			return runner(ctx, createCertificateRequest)
 		}
 
-		if tmpRequest.LetsencryptCommonName != "" {
-			polished = &lb.CreateCertificateRequest{
-				Region: tmpRequest.Region,
-				LBID:   tmpRequest.LBID,
-				Name:   tmpRequest.Name,
+		if args.LetsencryptCommonName != "" {
+			createCertificateRequest = &lb.CreateCertificateRequest{
+				Region: args.Region,
+				LBID:   args.LBID,
+				Name:   args.Name,
 				Letsencrypt: &lb.CreateCertificateRequestLetsencryptConfig{
-					CommonName:             tmpRequest.LetsencryptCommonName,
-					SubjectAlternativeName: tmpRequest.LetsencryptAlternativeName,
+					CommonName:             args.LetsencryptCommonName,
+					SubjectAlternativeName: args.LetsencryptAlternativeName,
 				},
 			}
-			return runner(ctx, polished)
+			return runner(ctx, createCertificateRequest)
 		}
 
 		return nil, &core.CliError{
