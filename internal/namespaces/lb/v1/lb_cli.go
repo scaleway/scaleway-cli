@@ -1734,6 +1734,35 @@ func lbCertificateList() *core.Command {
 			return resp.Certificates, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Type",
+			},
+			{
+				FieldName: "CommonName",
+			},
+			{
+				FieldName: "SubjectAlternativeName",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "NotValidBefore",
+			},
+			{
+				FieldName: "NotValidAfter",
+			},
+			{
+				FieldName: "Fingerprint",
+			},
+		}},
 	}
 }
 
