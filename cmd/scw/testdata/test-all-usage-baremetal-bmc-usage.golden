@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+For instance, your KVM-IP management console could be accessed with it.
+
+USAGE:
+  scw baremetal bmc <command>
+
+AVAILABLE COMMANDS:
+  get         Get BMC (Baseboard Management Controller) access for a given baremetal server
+  start       Start BMC (Baseboard Management Controller) access for a given baremetal server
+  stop        Stop BMC (Baseboard Management Controller) access for a given baremetal server
+
+FLAGS:
+  -h, --help   help for bmc
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw baremetal bmc [command] --help" for more information about a command.
