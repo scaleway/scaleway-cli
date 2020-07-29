@@ -7,6 +7,7 @@ package args
 import (
 	"fmt"
 	"io"
+	"net"
 	"reflect"
 	"strconv"
 	"strings"
@@ -42,10 +43,22 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*scw.IPNet)(nil)).Elem(): func(value string, dest interface{}) error {
 		return dest.(*scw.IPNet).UnmarshalJSON([]byte(`"` + value + `"`))
 	},
+
+	reflect.TypeOf((*net.IP)(nil)).Elem(): func(value string, dest interface{}) error {
+
+		ip := net.ParseIP(value)
+		if ip == nil {
+			return fmt.Errorf("%s is not a valid IP", value)
+		}
+		*(dest.(*net.IP)) = ip
+		return nil
+	},
+
 	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest interface{}) error {
 		*(dest.(*io.Reader)) = strings.NewReader(value)
 		return nil
 	},
+
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
 		t, err := time.Parse(time.RFC3339, value)
