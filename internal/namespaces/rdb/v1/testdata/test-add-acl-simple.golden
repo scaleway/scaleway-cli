@@ -1,0 +1,37 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Rules.0.IP           0.0.0.0/0
+Rules.0.Port         13989
+Rules.0.Protocol     tcp
+Rules.0.Direction    inbound
+Rules.0.Action       allow
+Rules.0.Description  Allow All
+Rules.1.IP           4.2.3.4/32
+Rules.1.Port         13989
+Rules.1.Protocol     tcp
+Rules.1.Direction    inbound
+Rules.1.Action       allow
+Rules.1.Description  IP allowed
+TotalCount           2
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "rules": [
+    {
+      "ip": "0.0.0.0/0",
+      "port": 13989,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All"
+    },
+    {
+      "ip": "4.2.3.4/32",
+      "port": 13989,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "IP allowed"
+    }
+  ],
+  "total_count": 2
+}
