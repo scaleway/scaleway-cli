@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"gopkg.in/yaml.v2"
 )
 
 // Type defines an formatter format.
@@ -20,6 +21,9 @@ func (p PrinterType) String() string {
 const (
 	// PrinterTypeJSON defines a JSON formatter.
 	PrinterTypeJSON = PrinterType("json")
+
+	// PrinterTypeYAML defines a YAML formatter.
+	PrinterTypeYAML = PrinterType("yaml")
 
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
@@ -58,7 +62,8 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		if err != nil {
 			return nil, err
 		}
-
+	case PrinterTypeYAML.String():
+		printer.printerType = PrinterTypeYAML
 	default:
 		return nil, fmt.Errorf("invalid output format: %s", printerName)
 	}
@@ -110,6 +115,8 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 		err = p.printHuman(data, opt)
 	case PrinterTypeJSON:
 		err = p.printJSON(data)
+	case PrinterTypeYAML:
+		err = p.printYAML(data)
 	default:
 		err = fmt.Errorf("unknown format: %s", p.printerType)
 	}
@@ -190,6 +197,31 @@ func (p *Printer) printJSON(data interface{}) error {
 	if p.jsonPretty {
 		encoder.SetIndent("", "  ")
 	}
+
+	// We handle special case to make sure that a nil slice is marshal as `[]`
+	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
+		_, err := p.stdout.Write([]byte("[]\n"))
+		return err
+	}
+
+	return encoder.Encode(data)
+}
+
+func (p *Printer) printYAML(data interface{}) error {
+	_, implementMarshaler := data.(yaml.Marshaler)
+	err, isError := data.(error)
+
+	if isError && !implementMarshaler {
+		data = map[string]string{
+			"error": err.Error(),
+		}
+	}
+
+	writer := p.stdout
+	if isError {
+		writer = p.stderr
+	}
+	encoder := yaml.NewEncoder(writer)
 
 	// We handle special case to make sure that a nil slice is marshal as `[]`
 	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
