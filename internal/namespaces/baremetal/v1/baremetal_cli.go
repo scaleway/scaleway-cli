@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalRoot(),
 		baremetalServer(),
 		baremetalOs(),
+		baremetalBmc(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
@@ -31,6 +32,9 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerReboot(),
 		baremetalServerStart(),
 		baremetalServerStop(),
+		baremetalBmcStart(),
+		baremetalBmcGet(),
+		baremetalBmcStop(),
 		baremetalOsList(),
 		baremetalOsGet(),
 	)
@@ -58,6 +62,17 @@ func baremetalOs() *core.Command {
 		Long:      `An Operating System (OS) is the underlying software installed on your server`,
 		Namespace: "baremetal",
 		Resource:  "os",
+	}
+}
+
+func baremetalBmc() *core.Command {
+	return &core.Command{
+		Short: `Baseboard Management Controller (BMC) management commands`,
+		Long: `Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+For instance, your KVM-IP management console could be accessed with it.
+`,
+		Namespace: "baremetal",
+		Resource:  "bmc",
 	}
 }
 
@@ -492,6 +507,104 @@ func baremetalServerStop() *core.Command {
 				Short:    "Stop a baremetal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func baremetalBmcStart() *core.Command {
+	return &core.Command{
+		Short: `Start BMC (Baseboard Management Controller) access for a given baremetal server`,
+		Long: `Start BMC (Baseboard Management Controller) access associated with the given ID.
+The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
+`,
+		Namespace: "baremetal",
+		Resource:  "bmc",
+		Verb:      "start",
+		ArgsType:  reflect.TypeOf(baremetal.StartBMCAccessRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "ip",
+				Short:      `The IP authorized to connect to the given server`,
+				Required:   true,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.StartBMCAccessRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.StartBMCAccess(request)
+
+		},
+	}
+}
+
+func baremetalBmcGet() *core.Command {
+	return &core.Command{
+		Short:     `Get BMC (Baseboard Management Controller) access for a given baremetal server`,
+		Long:      `Get the BMC (Baseboard Management Controller) access associated with the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "bmc",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(baremetal.GetBMCAccessRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetBMCAccessRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetBMCAccess(request)
+
+		},
+	}
+}
+
+func baremetalBmcStop() *core.Command {
+	return &core.Command{
+		Short:     `Stop BMC (Baseboard Management Controller) access for a given baremetal server`,
+		Long:      `Stop BMC (Baseboard Management Controller) access associated with the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "bmc",
+		Verb:      "stop",
+		ArgsType:  reflect.TypeOf(baremetal.StopBMCAccessRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.StopBMCAccessRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			e = api.StopBMCAccess(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "bmc",
+				Verb:     "stop",
+			}, nil
 		},
 	}
 }
