@@ -7,6 +7,7 @@ import (
 	baremetal "github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/feedback"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/help"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
@@ -43,5 +44,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(rdb.GetCommands())
 	commands.Merge(lb.GetCommands())
 	commands.Merge(iot.GetCommands())
+	commands.Merge(help.GetCommands())
 	return commands
 }
