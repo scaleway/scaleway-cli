@@ -32,3 +32,20 @@ func Test_UserDataGet(t *testing.T) {
 		),
 	}))
 }
+
+func Test_UserDataList(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		BeforeFunc: core.BeforeFuncCombine(
+			createServer("Server"),
+			core.ExecBeforeCmd("scw instance user-data set {{ .Server.ID }} key=foo content=bar"),
+			core.ExecBeforeCmd("scw instance user-data set {{ .Server.ID }} key=bar content=foo"),
+		),
+		Commands:  GetCommands(),
+		Cmd:       "scw instance user-data list server-id={{ .Server.ID }}",
+		AfterFunc: deleteServer("Server"),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+	}))
+}
