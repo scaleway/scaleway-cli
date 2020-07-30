@@ -31,6 +31,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
 	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)
+	cmds.MustFind("k8s", "cluster", "get").Override(clusterGetBuilder)
 	cmds.MustFind("k8s", "cluster", "update").Override(clusterUpdateBuilder)
 	cmds.MustFind("k8s", "cluster", "upgrade").Override(clusterUpgradeBuilder)
 	cmds.MustFind("k8s", "cluster", "delete").Override(clusterDeleteBuilder)
