@@ -25,6 +25,7 @@ func GetCommands() *core.Commands {
 		autocompleteCompleteBashCommand(),
 		autocompleteCompleteFishCommand(),
 		autocompleteCompleteZshCommand(),
+		autocompleteCompletePowershellCommand(),
 		autocompleteScriptCommand(),
 	)
 }
@@ -123,6 +124,15 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".zshrc"),
 				"linux":  path.Join(homePath, ".zshrc"),
+			},
+		},
+		"powershell": {
+			CompleteFunc:   fmt.Sprintf(`TODO %s`, binaryName),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=powershell`, binaryName),
+			ShellConfigurationFile: map[string]string{
+				"darwin":  path.Join(homePath, "TODO"),
+				"linux":   path.Join(homePath, "TODO"),
+				"windows": path.Join(homePath, "TODO"),
 			},
 		},
 	}
@@ -319,6 +329,43 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Resource:  "complete",
 		Verb:      "zsh",
 		// TODO: Switch AllowAnonymousClient to true when cache will be implemented.
+		AllowAnonymousClient: false,
+		Hidden:               true,
+		DisableTelemetry:     true,
+		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			rawArgs := *argsI.(*args.RawArgs)
+
+			// First arg is the word index.
+			wordIndex, err := strconv.Atoi(rawArgs[0])
+			if err != nil {
+				return nil, err
+			}
+			wordIndex-- // In zsh word index starts at 1.
+
+			// Other args are all the words.
+			words := rawArgs[1:]
+			if len(words) <= wordIndex {
+				words = append(words, "") // Handle case when last word is empty.
+			}
+
+			leftWords := words[:wordIndex]
+			wordToComplete := words[wordIndex]
+			rightWords := words[wordIndex+1:]
+
+			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
+			return strings.Join(res.Suggestions, " "), nil
+		},
+	}
+}
+
+func autocompleteCompletePowershellCommand() *core.Command {
+	return &core.Command{
+		Short:                `Autocomplete for Powershell`,
+		Long:                 `Autocomplete for Powershell.`,
+		Namespace:            "autocomplete",
+		Resource:             "complete",
+		Verb:                 "powershell",
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,

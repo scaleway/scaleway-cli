@@ -127,6 +127,51 @@ eval (scw autocomplete script shell=fish)
 			})(t)
 		})
 
+		t.Run("powershell", func(t *testing.T) {
+			evalLine := `
+# Scaleway CLI autocomplete initialization.
+eval (scw autocomplete script shell=powershell)
+`
+			core.Test(&core.TestConfig{
+				Commands: GetCommands(),
+				BeforeFunc: core.BeforeFuncCombine(
+					func(ctx *core.BeforeFuncCtx) error {
+						homeDir := ctx.OverrideEnv["HOME"]
+						configPath := path.Join(homeDir, "TODO")
+
+						// Ensure the subfolders for the configuration files are all created
+						err := os.MkdirAll(filepath.Dir(configPath), 0755)
+						if err != nil {
+							return err
+						}
+						return nil
+					},
+					baseBeforeFunc(),
+				),
+				Cmd: appendArgs("scw init install-autocomplete=true", defaultSettings),
+				Check: core.TestCheckCombine(
+					core.TestCheckGolden(),
+					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						homeDir := ctx.OverrideEnv["HOME"]
+						filePath := path.Join(homeDir, "TODO")
+						fileContent, err := ioutil.ReadFile(filePath)
+						require.NoError(t, err)
+						require.Equal(t, evalLine, string(fileContent))
+					},
+				),
+				TmpHomeDir: true,
+				OverrideEnv: map[string]string{
+					"SHELL": "/usr/local/bin/fish",
+				},
+				PromptResponseMocks: []string{
+					// What type of shell are you using
+					"fish",
+					// Do you want to proceed with these changes? (Y/n):
+					"yes",
+				},
+			})(t)
+		})
+
 		t.Run("bash", func(t *testing.T) {
 			evalLine := `
 # Scaleway CLI autocomplete initialization.
@@ -161,11 +206,11 @@ eval "$(scw autocomplete script shell=bash)"
 				),
 				TmpHomeDir: true,
 				OverrideEnv: map[string]string{
-					"SHELL": "/usr/local/bin/bash",
+					"SHELL": "/usr/local/bin/pwsh",
 				},
 				PromptResponseMocks: []string{
 					// What type of shell are you using
-					"bash",
+					"powershell",
 					// Do you want to proceed with these changes? (Y/n):
 					"yes",
 				},
