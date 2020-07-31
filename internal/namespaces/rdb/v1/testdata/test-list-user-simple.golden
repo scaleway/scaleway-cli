@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME    IS ADMIN  READ ONLY  READ WRITE  ALL    CUSTOM  NONE
+foobar  true      []         []          [rdb]  []      []
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "foobar",
+    "is_admin": true,
+    "readonly": [],
+    "readwrite": [],
+    "all": [
+      "rdb"
+    ],
+    "custom": [],
+    "none": []
+  }
+]
