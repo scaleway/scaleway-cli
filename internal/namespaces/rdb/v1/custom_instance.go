@@ -120,6 +120,12 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 		})
 	}
 
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureExists(ctx, res)
+	}
+
 	return c
 }
 
@@ -144,6 +150,32 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		return runner(ctx, args)
 	}
 
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureExists(ctx, res)
+	}
+
+	return c
+}
+
+func instanceGetBuilder(c *core.Command) *core.Command {
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureExists(ctx, res)
+	}
+
+	return c
+}
+
+func instanceUpdateBuilder(c *core.Command) *core.Command {
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureExists(ctx, res)
+	}
+
 	return c
 }
 
@@ -158,6 +190,46 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+	}
+
+	c.ArgSpecs.GetByName("instance-id").AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+		db := core.ExtractCacheDB(ctx)
+		var result []cacheInstance
+		suggestions := core.AutocompleteSuggestions{}
+		pattern := fmt.Sprintf("%%%s%%", prefix)
+		db.Where("name LIKE ?", pattern).Find(&result)
+		for _, res := range result {
+			suggestions = append(suggestions, res.Name)
+		}
+		return suggestions
+	}
+
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureExists(ctx, res)
+	}
+
+	return c
+}
+
+func instanceDeleteBuilder(c *core.Command) *core.Command {
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.(*rdb.Instance)
+		model := cacheInstance{}
+		model.EnsureAbsent(ctx, res)
+	}
+
+	return c
+}
+
+func instanceListBuilder(c *core.Command) *core.Command {
+	c.RefreshCacheFunc = func(ctx context.Context, respI interface{}) {
+		res := respI.([]*rdb.Instance)
+		for _, instance := range res {
+			model := cacheInstance{}
+			model.EnsureExists(ctx, instance)
+		}
 	}
 
 	return c
@@ -194,6 +266,11 @@ func instanceWaitCommand() *core.Command {
 				Short:    "Wait for an instance to reach a stable state",
 				ArgsJSON: `{"instance_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+		RefreshCacheFunc: func(ctx context.Context, respI interface{}) {
+			res := respI.(*rdb.Instance)
+			model := cacheInstance{}
+			model.EnsureExists(ctx, res)
 		},
 	}
 }

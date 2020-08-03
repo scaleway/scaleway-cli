@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 
+	"github.com/jinzhu/gorm"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -17,6 +18,7 @@ type meta struct {
 	ProfileFlag    string
 	ConfigPathFlag string
 	Logger         *Logger
+	CacheDB        *gorm.DB
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
@@ -31,6 +33,7 @@ type meta struct {
 	result                      interface{}
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
+	disableCache                bool
 }
 
 type contextKey int
@@ -72,6 +75,10 @@ func ExtractLogger(ctx context.Context) *Logger {
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
+}
+
+func ExtractCacheDB(ctx context.Context) *gorm.DB {
+	return extractMeta(ctx).CacheDB
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {

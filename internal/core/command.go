@@ -70,6 +70,9 @@ type Command struct {
 
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
+
+	// RefreshCacheFunc will be called if non-nil when a successful result occurs and cache is enabled in the user settings
+	RefreshCacheFunc RefreshCacheFunc
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -84,6 +87,9 @@ type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, er
 
 // WaitFunc returns the updated response (respI if unchanged) or an error.
 type WaitFunc func(ctx context.Context, argsI, respI interface{}) (interface{}, error)
+
+// RefreshCacheFunc is called when an acknowledged resource is obtained
+type RefreshCacheFunc func(ctx context.Context, argsI, respI interface{})
 
 const indexCommandSeparator = "."
 

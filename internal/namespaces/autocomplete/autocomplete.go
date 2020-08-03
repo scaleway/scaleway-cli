@@ -26,6 +26,8 @@ func GetCommands() *core.Commands {
 		autocompleteCompleteFishCommand(),
 		autocompleteCompleteZshCommand(),
 		autocompleteScriptCommand(),
+		autocompleteCacheCommand(),
+		autocompleteRefreshCommand(),
 	)
 }
 

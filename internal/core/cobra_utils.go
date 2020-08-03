@@ -153,6 +153,12 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 			return nil, err
 		}
 	}
+	// update cache
+	if meta := extractMeta(ctx); !meta.disableCache {
+		if cmd.RefreshCacheFunc != nil {
+			cmd.RefreshCacheFunc(ctx, data)
+		}
+	}
 	return data, nil
 }
 

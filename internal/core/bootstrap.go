@@ -6,8 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"time"
 
+	"github.com/jinzhu/gorm"
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/matomo"
@@ -42,6 +44,10 @@ type BootstrapConfig struct {
 	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
+
+	// DisableCache, if set to true will not create a cache database when CLI starts
+	// It won't also update the cache everytime a command is run
+	DisableCache bool
 
 	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
 	// This is useful for tests as it allows overriding env without relying on global state.
@@ -164,6 +170,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
+		disableCache:                config.DisableCache,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
@@ -181,6 +188,18 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = injectMeta(ctx, meta)
+
+	// We initialize a cache database
+	if !config.DisableCache {
+		cacheDir := ExtractCacheDir(ctx)
+		cacheDBPath := path.Join(cacheDir, "cache.sqlite")
+		database, err := gorm.Open("sqlite3", cacheDBPath)
+		if err != nil {
+			panic("failed to connect database")
+		}
+		defer database.Close()
+		extractMeta(ctx).CacheDB = database
+	}
 
 	// Send Matomo telemetry when exiting the bootstrap
 	start := time.Now()
