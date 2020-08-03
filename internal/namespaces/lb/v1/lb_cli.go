@@ -159,7 +159,14 @@ func lbLBList() *core.Command {
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
 			{
+				Name:       "project-id",
+				Short:      `Filter LBs by project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
+				Short:      `Filter LBs by organization ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -189,6 +196,12 @@ func lbLBCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateLBRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `Assign the resource to a project ID`,
+				Required:   true,
+				Positional: false,
+			},
 			{
 				Name:       "name",
 				Short:      `Resource names`,
@@ -410,7 +423,14 @@ func lbIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project-id",
+				Short:      `Filter IPs by project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
+				Short:      `Filter IPs by organization id`,
 				Required:   false,
 				Positional: false,
 			},
@@ -440,6 +460,12 @@ func lbIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `Assign the resource to a project ID`,
+				Required:   true,
+				Positional: false,
+			},
 			{
 				Name:       "reverse",
 				Short:      `Reverse domain name`,
