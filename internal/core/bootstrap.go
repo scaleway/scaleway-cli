@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-cli/internal/matomo"
+	"github.com/scaleway/scaleway-cli/internal/settings"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/pflag"
@@ -77,7 +78,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human")
+	flags.StringVarP(&outputFlag, "output", "o", "", "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -109,6 +110,16 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	log.level = logLevel
 	logger.SetLogger(log)
 	log.Debugf("running: %s\n", config.Args)
+
+	// We load CLI specific settings
+	cliSettings, settingsErr := settings.Load()
+	if settingsErr != nil {
+		log.Debug("settings loading error: ", settingsErr)
+		cliSettings = settings.Default()
+	}
+	if outputFlag == "" {
+		outputFlag = *cliSettings.Output
+	}
 
 	// The printer must be the first thing set in order to print errors
 	printer, err := NewPrinter(&PrinterConfig{
@@ -156,6 +167,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		OverrideExec:   config.OverrideExec,
 		ConfigPathFlag: configPathFlag,
 		Logger:         log,
+		CLISettings:    cliSettings,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
@@ -227,7 +239,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().StringVarP(&profileFlag, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
+	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", settings.DefaultPrinter, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
 	err = rootCmd.Execute()

@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 
+	"github.com/scaleway/scaleway-cli/internal/settings"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -17,6 +18,7 @@ type meta struct {
 	ProfileFlag    string
 	ConfigPathFlag string
 	Logger         *Logger
+	CLISettings    *settings.Settings
 
 	BuildInfo    *BuildInfo
 	Client       *scw.Client
