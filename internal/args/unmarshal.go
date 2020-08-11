@@ -40,12 +40,12 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		*(dest.(*scw.Size)) = scw.Size(bytes)
 		return nil
 	},
+
 	reflect.TypeOf((*scw.IPNet)(nil)).Elem(): func(value string, dest interface{}) error {
 		return dest.(*scw.IPNet).UnmarshalJSON([]byte(`"` + value + `"`))
 	},
 
 	reflect.TypeOf((*net.IP)(nil)).Elem(): func(value string, dest interface{}) error {
-
 		ip := net.ParseIP(value)
 		if ip == nil {
 			return fmt.Errorf("%s is not a valid IP", value)
