@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     bbcf3fb3-d5e9-4d72-b75d-d7986519e522
+ID                     4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -9,44 +9,46 @@ FrontendCount          0
 BackendCount           0
 Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
+ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
 Region                 fr-par
 
 IPs:
-ID                                    IP ADDRESS      ORGANIZATION ID                       LB ID                                 REVERSE                             REGION
-519188d9-50c9-4a37-b2e4-d20d74e054d0  195.154.69.123  951df375-e094-4d26-97c1-ba548eeb9c42  bbcf3fb3-d5e9-4d72-b75d-d7986519e522  195-154-69-123.lb.fr-par.scw.cloud  fr-par
+ID                                    IP ADDRESS     ORGANIZATION ID                       LB ID                                 REVERSE                            PROJECT ID                            REGION
+732084bc-89fc-440b-84ad-d43e8348af0a  51.159.26.250  951df375-e094-4d26-97c1-ba548eeb9c42  4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac  51-159-26-250.lb.fr-par.scw.cloud  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
 
 Instances:
-ID                                    STATUS  IP ADDRESS   REGION
-98c7a6c3-399a-484e-975e-ec73de9db0b0  ready   10.70.42.45  fr-par
-36c70928-2cbc-4242-a51a-79aaf46ce991  ready   10.65.34.21  fr-par
+ID                                    STATUS  IP ADDRESS    REGION
+5e19347c-e19f-4ca6-9735-e0a3e5276633  ready   10.68.26.177  fr-par
+30363741-bf31-4aa0-a5e7-ada82263ae25  ready   10.65.30.23   fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bbcf3fb3-d5e9-4d72-b75d-d7986519e522",
+  "id": "4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac",
   "name": "cli-test",
   "description": "cli-test",
   "status": "ready",
   "instances": [
     {
-      "id": "98c7a6c3-399a-484e-975e-ec73de9db0b0",
+      "id": "5e19347c-e19f-4ca6-9735-e0a3e5276633",
       "status": "ready",
-      "ip_address": "10.70.42.45",
+      "ip_address": "10.68.26.177",
       "region": "fr-par"
     },
     {
-      "id": "36c70928-2cbc-4242-a51a-79aaf46ce991",
+      "id": "30363741-bf31-4aa0-a5e7-ada82263ae25",
       "status": "ready",
-      "ip_address": "10.65.34.21",
+      "ip_address": "10.65.30.23",
       "region": "fr-par"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "519188d9-50c9-4a37-b2e4-d20d74e054d0",
-      "ip_address": "195.154.69.123",
+      "id": "732084bc-89fc-440b-84ad-d43e8348af0a",
+      "ip_address": "51.159.26.250",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "bbcf3fb3-d5e9-4d72-b75d-d7986519e522",
-      "reverse": "195-154-69-123.lb.fr-par.scw.cloud",
+      "lb_id": "4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac",
+      "reverse": "51-159-26-250.lb.fr-par.scw.cloud",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "region": "fr-par"
     }
   ],
@@ -56,5 +58,6 @@ ID                                    STATUS  IP ADDRESS   REGION
   "type": "lb-s",
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "region": "fr-par"
 }
