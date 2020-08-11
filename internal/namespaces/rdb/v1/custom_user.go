@@ -34,10 +34,10 @@ func userListBuilder(c *core.Command) *core.Command {
 				Name:      user.Name,
 				IsAdmin:   user.IsAdmin,
 				ReadOnly:  []string{},
-				ReadWrite: []string{},
-				All:       []string{},
-				Custom:    []string{},
-				None:      []string{},
+				ReadWrite: []string(nil),
+				All:       []string(nil),
+				Custom:    []string(nil),
+				None:      []string(nil),
 			}
 			res = append(res, user)
 			index[user.Name] = user
