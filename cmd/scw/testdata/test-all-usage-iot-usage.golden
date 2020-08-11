@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+This API allows you to manage IoT hubs and devices
+
+USAGE:
+  scw iot <command>
+
+AVAILABLE COMMANDS:
+  device      IoT Device commands
+  hub         IoT Hub commands
+  network     IoT Network commands
+  route       IoT Route commands
+
+FLAGS:
+  -h, --help   help for iot
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw iot [command] --help" for more information about a command.
