@@ -27,6 +27,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.InstanceStatus(0), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(0), human.EnumMarshalFunc(backupStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(0), human.EnumMarshalFunc(logStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.NodeTypeStock(0), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.ACLRuleAction(0), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),

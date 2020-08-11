@@ -1,57 +1,60 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     ffd53f8d-7845-4303-99b7-3de8f6cb340c
+ID                     84260a8b-304b-468a-a56f-be9522626d55
 Name                   cli-test
 Description            cli-test
 Status                 ready
-Instances.0.ID         9813d7d7-6e14-4d30-ac3b-13b3efb4da57
+Instances.0.ID         208e89c7-e492-430f-b474-d164bd3a5c7b
 Instances.0.Status     ready
-Instances.0.IPAddress  10.65.104.131
+Instances.0.IPAddress  10.68.142.101
 Instances.0.Region     fr-par
-Instances.1.ID         d9e4362b-1e43-404b-ae69-5b3c1bfd0753
+Instances.1.ID         27facb2b-3022-4b5b-a563-6833f935e1d9
 Instances.1.Status     ready
-Instances.1.IPAddress  10.64.220.125
+Instances.1.IPAddress  10.64.202.25
 Instances.1.Region     fr-par
 OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.ID                51b36cce-4180-447a-b607-b2f2a8c4f53d
-IP.0.IPAddress         195.154.70.59
+IP.0.ID                731d9cfb-7aa0-4ff0-a15a-347a5aacde77
+IP.0.IPAddress         195.154.68.138
 IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.LBID              ffd53f8d-7845-4303-99b7-3de8f6cb340c
-IP.0.Reverse           195-154-70-59.lb.fr-par.scw.cloud
+IP.0.LBID              84260a8b-304b-468a-a56f-be9522626d55
+IP.0.Reverse           195-154-68-138.lb.fr-par.scw.cloud
+IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 IP.0.Region            fr-par
 FrontendCount          0
 BackendCount           0
 Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
+ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
 Region                 fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ffd53f8d-7845-4303-99b7-3de8f6cb340c",
+  "id": "84260a8b-304b-468a-a56f-be9522626d55",
   "name": "cli-test",
   "description": "cli-test",
   "status": "ready",
   "instances": [
     {
-      "id": "9813d7d7-6e14-4d30-ac3b-13b3efb4da57",
+      "id": "208e89c7-e492-430f-b474-d164bd3a5c7b",
       "status": "ready",
-      "ip_address": "10.65.104.131",
+      "ip_address": "10.68.142.101",
       "region": "fr-par"
     },
     {
-      "id": "d9e4362b-1e43-404b-ae69-5b3c1bfd0753",
+      "id": "27facb2b-3022-4b5b-a563-6833f935e1d9",
       "status": "ready",
-      "ip_address": "10.64.220.125",
+      "ip_address": "10.64.202.25",
       "region": "fr-par"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "51b36cce-4180-447a-b607-b2f2a8c4f53d",
-      "ip_address": "195.154.70.59",
+      "id": "731d9cfb-7aa0-4ff0-a15a-347a5aacde77",
+      "ip_address": "195.154.68.138",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "ffd53f8d-7845-4303-99b7-3de8f6cb340c",
-      "reverse": "195-154-70-59.lb.fr-par.scw.cloud",
+      "lb_id": "84260a8b-304b-468a-a56f-be9522626d55",
+      "reverse": "195-154-68-138.lb.fr-par.scw.cloud",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "region": "fr-par"
     }
   ],
@@ -61,5 +64,6 @@ Region                 fr-par
   "type": "lb-s",
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "region": "fr-par"
 }

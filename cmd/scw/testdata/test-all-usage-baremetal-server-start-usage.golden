@@ -10,7 +10,7 @@ EXAMPLES:
     scw baremetal server start 11111111-1111-1111-1111-111111111111
 
   Start a server in rescue mode
-    scw baremetal server start 11111111-1111-1111-1111-111111111111
+    scw baremetal server start 11111111-1111-1111-1111-111111111111 boot-type=rescue
 
 ARGS:
   server-id         ID of the server to start

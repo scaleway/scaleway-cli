@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new Network.
+
+USAGE:
+  scw iot network create [arg=value ...]
+
+ARGS:
+  name                Network name
+  type                Type of network to connect with (unknown | sigfox | rest)
+  hub-id              Hub ID to connect the Network to
+  topic-prefix        Topic prefix for the Network
+  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

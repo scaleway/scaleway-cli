@@ -8,6 +8,7 @@ import (
 
 func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.LBTypeStock(0), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(lb.LBStatus(0), human.EnumMarshalFunc(lbStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.CertificateStatus(0), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.ACLActionType(0), human.EnumMarshalFunc(aclMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.BackendServerStatsHealthCheckStatus(0), human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs))

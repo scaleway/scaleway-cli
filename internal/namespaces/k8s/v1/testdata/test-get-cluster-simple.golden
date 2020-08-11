@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                000ffe06-a10a-4f2a-8e06-0d64c7908fdb
+ID                b431a5b7-98f3-42fe-870d-b404dfff90f7
 Name              cli-test
 Status            creating
 Version           1.17.3
@@ -8,8 +8,8 @@ Region            fr-par
 OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
 Cni               cilium
 Description       -
-ClusterURL        https://000ffe06-a10a-4f2a-8e06-0d64c7908fdb.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.000ffe06-a10a-4f2a-8e06-0d64c7908fdb.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://b431a5b7-98f3-42fe-870d-b404dfff90f7.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.b431a5b7-98f3-42fe-870d-b404dfff90f7.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -30,41 +30,9 @@ Auto-upgrade settings:
 Enabled                      false
 MaintenanceWindow.StartHour  0
 MaintenanceWindow.Day        any
+
+Pools:
+ID                                    Name     Status   Version  Node Type  Min Size  Size  Max Size  Autoscaling  Autohealing
+9db27bf1-bed8-4390-a8fc-d630c4da78f2  default  scaling  1.17.3   dev1_m     1         1     1         false        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{
-  "id": "000ffe06-a10a-4f2a-8e06-0d64c7908fdb",
-  "name": "cli-test",
-  "status": "creating",
-  "version": "1.17.3",
-  "region": "fr-par",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "tags": [],
-  "cni": "cilium",
-  "description": "",
-  "cluster_url": "https://000ffe06-a10a-4f2a-8e06-0d64c7908fdb.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.000ffe06-a10a-4f2a-8e06-0d64c7908fdb.nodes.k8s.fr-par.scw.cloud",
-  "created_at": "1970-01-01T00:00:00.0Z",
-  "updated_at": "1970-01-01T00:00:00.0Z",
-  "autoscaler_config": {
-    "scale_down_disabled": false,
-    "scale_down_delay_after_add": "10m",
-    "estimator": "binpacking",
-    "expander": "random",
-    "ignore_daemonsets_utilization": false,
-    "balance_similar_node_groups": false,
-    "expendable_pods_priority_cutoff": -10,
-    "scale_down_unneeded_time": "10m"
-  },
-  "dashboard_enabled": false,
-  "ingress": "none",
-  "auto_upgrade": {
-    "enabled": false,
-    "maintenance_window": {
-      "start_hour": 0,
-      "day": "any"
-    }
-  },
-  "upgrade_available": true,
-  "feature_gates": [],
-  "admission_plugins": []
-}
+"ID                b431a5b7-98f3-42fe-870d-b404dfff90f7\nName              cli-test\nStatus            creating\nVersion           1.17.3\nRegion            fr-par\nOrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42\nCni               cilium\nDescription       -\nClusterURL        https://b431a5b7-98f3-42fe-870d-b404dfff90f7.api.k8s.fr-par.scw.cloud:6443\nDNSWildcard       *.b431a5b7-98f3-42fe-870d-b404dfff90f7.nodes.k8s.fr-par.scw.cloud\nCreatedAt         few seconds ago\nUpdatedAt         few seconds ago\nDashboardEnabled  false\nIngress           none\nUpgradeAvailable  true\n\nAutoscaler configuration:\nScaleDownDisabled             false\nScaleDownDelayAfterAdd        10m\nEstimator                     binpacking\nExpander                      random\nIgnoreDaemonsetsUtilization   false\nBalanceSimilarNodeGroups      false\nExpendablePodsPriorityCutoff  -10\nScaleDownUnneededTime         10m\n\nAuto-upgrade settings:\nEnabled                      false\nMaintenanceWindow.StartHour  0\nMaintenanceWindow.Day        any\n\nPools:\nID                                    Name     Status   Version  Node Type  Min Size  Size  Max Size  Autoscaling  Autohealing\n9db27bf1-bed8-4390-a8fc-d630c4da78f2  default  scaling  1.17.3   dev1_m     1         1     1         false        false"
