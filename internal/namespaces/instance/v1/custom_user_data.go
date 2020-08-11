@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
@@ -84,6 +85,9 @@ func userDataListBuilder(c *core.Command) *core.Command {
 				Value: buf.String(),
 			})
 		}
+		sort.Slice(r, func(i, j int) bool {
+			return r[i].Key < r[j].Key
+		})
 
 		return r, nil
 	})
