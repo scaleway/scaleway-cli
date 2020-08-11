@@ -42,9 +42,9 @@ func addIP2Backend(ip string) core.BeforeFunc {
 	)
 }
 
-func createFrontend() core.BeforeFunc {
+func createFrontend(inboundPort int32) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Frontend",
-		"scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=8888",
+		fmt.Sprintf("scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=%d", inboundPort),
 	)
 }

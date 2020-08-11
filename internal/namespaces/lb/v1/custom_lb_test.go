@@ -61,7 +61,7 @@ func Test_GetStats(t *testing.T) {
 			createBackend(80),
 			createBackend(81),
 			addIP2Backend("{{ .Instance.PublicIP.Address }}"),
-			createFrontend(),
+			createFrontend(8888),
 			// We let enough time for the health checks to come through
 			core.BeforeFuncWhenUpdatingCassette(
 				func(ctx *core.BeforeFuncCtx) error {
