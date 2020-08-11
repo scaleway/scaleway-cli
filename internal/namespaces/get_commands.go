@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
+	iot "github.com/scaleway/scaleway-cli/internal/namespaces/iot/v1beta1"
 	k8s "github.com/scaleway/scaleway-cli/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
@@ -41,5 +42,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(info.GetCommands())
 	commands.Merge(rdb.GetCommands())
 	commands.Merge(lb.GetCommands())
+	commands.Merge(iot.GetCommands())
 	return commands
 }
