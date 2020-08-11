@@ -31,7 +31,7 @@ func Test_Load(t *testing.T) {
 		{
 			name: "Valid YAML but empty settings",
 			files: map[string]string{
-				".config/scw/cli.yaml": emptyFile,
+				path.Join(".config", "scw", "cli.yaml"): emptyFile,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
@@ -41,7 +41,7 @@ func Test_Load(t *testing.T) {
 		{
 			name: "Invalid YAML",
 			files: map[string]string{
-				".config/scw/cli.yaml": `foo;bar`,
+				path.Join(".config", "scw", "cli.yaml"): `foo;bar`,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
@@ -51,7 +51,7 @@ func Test_Load(t *testing.T) {
 		{
 			name: "Valid YAML with extra keys",
 			files: map[string]string{
-				".config/scw/cli.yaml": `output: json
+				path.Join(".config", "scw", "cli.yaml"): `output: json
 foo: bar
 `,
 			},
@@ -63,7 +63,7 @@ foo: bar
 		{
 			name: "Complete config",
 			files: map[string]string{
-				".config/scw/cli.yaml": `output: json=pretty`,
+				path.Join(".config", "scw", "cli.yaml"): `output: json=pretty`,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
