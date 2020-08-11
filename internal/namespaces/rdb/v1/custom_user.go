@@ -35,7 +35,7 @@ func userListBuilder(c *core.Command) *core.Command {
 			user := &customUser{
 				Name:      user.Name,
 				IsAdmin:   user.IsAdmin,
-				ReadOnly:  []string{},
+				ReadOnly:  []string(nil),
 				ReadWrite: []string(nil),
 				All:       []string(nil),
 				Custom:    []string(nil),
