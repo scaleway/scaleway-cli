@@ -1,6 +1,7 @@
 package args
 
 import (
+	"net"
 	"reflect"
 	"testing"
 	"time"
@@ -306,6 +307,17 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 		data: &map[string]string{},
 	}))
+
+	t.Run("IP", func(t *testing.T) {
+		ip := net.IPv4(1, 2, 3, 4)
+		run(TestCase{
+			args: []string{
+				"ip=1.2.3.4",
+			},
+			expected: ip,
+			data:     net.IPv4,
+		})
+	})
 
 	t.Run("data-is-an-enum", run(TestCase{
 		args: []string{

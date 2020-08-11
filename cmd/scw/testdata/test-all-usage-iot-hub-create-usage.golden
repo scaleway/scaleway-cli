@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a hub.
+
+USAGE:
+  scw iot hub create [arg=value ...]
+
+ARGS:
+  name                    Hub name (up to 255 characters)
+  product-plan            Hub feature set (plan_unknown | plan_shared | plan_dedicated | plan_ha)
+  [disable-events]        Disable Hub events (default false)
+  [events-topic-prefix]   Hub events topic prefix (default '$SCW/events')
+  [organization-id]       Organization ID to use. If none is passed will use default organization ID from the config
+  [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
