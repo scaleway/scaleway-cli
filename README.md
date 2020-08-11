@@ -75,12 +75,6 @@ For node version, check out [scaleway-cli-node](https://github.com/moul/scaleway
 
 ## Setup
 
-Install the latest stable release on Mac OS X using [Homebrew](http://brew.sh):
-
-```bash
-brew install scw
-```
-
 All release artifacts are available on the [latest release page](https://github.com/scaleway/scaleway-cli/releases/latest).
 
 Install the latest stable release on Mac OS X manually:
@@ -109,16 +103,6 @@ dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
 scw version
 ```
 
-Install the latest release on Windows with [Chocolatey](https://chocolatey.org) ([Automatically built](https://chocolatey.org/packages/scaleway-cli/)):
-
-```powershell
-# Install latest version
-choco install scaleway-cli
-
-# test
-scw version
-```
-
 ### Requirements
 
 By using the [static-compiled release binaries](https://github.com/scaleway/scaleway-cli/releases/latest), you only needs to have one of the following platform+architecture :
@@ -138,7 +122,7 @@ You can run scaleway-cli in a sandboxed way using Docker.
 :warning: caching is disabled
 
 ```console
-$ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli ps
+$ docker run -it --rm --volume=$HOME/.scwrc:/.scwrc scaleway/cli:v1 ps
 ```
 
 ### Manual build
