@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -81,6 +82,85 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
+	return c
+}
+
+func clusterGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+		cluster := res.(*k8s.Cluster)
+
+		args := argsI.(*k8s.GetClusterRequest)
+		pools, err := k8s.NewAPI(core.ExtractClient(ctx)).ListPools(&k8s.ListPoolsRequest{
+			Region:    args.Region,
+			ClusterID: args.ClusterID,
+		})
+		if err != nil {
+			return res, err
+		}
+
+		clusterMarshalled, err := human.Marshal(cluster, nil)
+		if err != nil {
+			return res, err
+		}
+		poolsMarshalled, err := human.Marshal(pools.Pools, &human.MarshalOpt{
+			Title: "Pools",
+			Fields: []*human.MarshalFieldOpt{
+				{
+					FieldName: "ID",
+					Label:     "ID",
+				},
+				{
+					FieldName: "Name",
+					Label:     "Name",
+				},
+				{
+					FieldName: "Status",
+					Label:     "Status",
+				},
+				{
+					FieldName: "Version",
+					Label:     "Version",
+				},
+				{
+					FieldName: "NodeType",
+					Label:     "Node Type",
+				},
+				{
+					FieldName: "MinSize",
+					Label:     "Min Size",
+				},
+				{
+					FieldName: "Size",
+					Label:     "Size",
+				},
+				{
+					FieldName: "MaxSize",
+					Label:     "Max Size",
+				},
+				{
+					FieldName: "Autoscaling",
+					Label:     "Autoscaling",
+				},
+				{
+					FieldName: "Autohealing",
+					Label:     "Autohealing",
+				},
+			},
+		})
+		if err != nil {
+			return res, err
+		}
+
+		return strings.Join([]string{
+			clusterMarshalled,
+			poolsMarshalled,
+		}, "\n\n"), nil
+	}
+
 	return c
 }
 
