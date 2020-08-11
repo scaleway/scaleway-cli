@@ -1,64 +1,27 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               REGION
-df9969f2-e408-471d-89ad-fec905268bc6  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
-ee00b31c-767a-4133-8ec0-cbcc42b5329c  cli-test  cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  fr-par
+ID                                    NAME               DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               PROJECT ID                            REGION
+8b873b80-5327-4ef1-8f99-6c74d54faed3  lb-boring-nash     -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
+c8abf8c6-3eb0-45af-9ff2-e6a2dd12d609  lb-pensive-bhabha  -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
+a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "df9969f2-e408-471d-89ad-fec905268bc6",
-    "name": "cli-test",
-    "description": "cli-test",
+    "id": "8b873b80-5327-4ef1-8f99-6c74d54faed3",
+    "name": "lb-boring-nash",
+    "description": "",
     "status": "ready",
     "instances": [
       {
-        "id": "223875c7-90b5-47b9-bce4-c31da7b72c5d",
+        "id": "1a141c2d-9061-46a5-99d9-eaccf669b41b",
         "status": "ready",
-        "ip_address": "10.68.130.123",
+        "ip_address": "10.68.42.73",
         "region": "fr-par"
       },
       {
-        "id": "722e1255-f976-4c10-8a30-e0a0140e05d8",
+        "id": "9ab0406f-7203-4956-baa7-81a53d48d603",
         "status": "ready",
-        "ip_address": "10.64.74.57",
-        "region": "fr-par"
-      }
-    ],
-    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "ip": [
-      {
-        "id": "513a8613-5d27-4839-a2e1-8100960b5402",
-        "ip_address": "195.154.69.128",
-        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "df9969f2-e408-471d-89ad-fec905268bc6",
-        "reverse": "195-154-69-128.lb.fr-par.scw.cloud",
-        "region": "fr-par"
-      }
-    ],
-    "tags": [],
-    "frontend_count": 0,
-    "backend_count": 0,
-    "type": "lb-s",
-    "subscriber": null,
-    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
-    "region": "fr-par"
-  },
-  {
-    "id": "ee00b31c-767a-4133-8ec0-cbcc42b5329c",
-    "name": "cli-test",
-    "description": "cli-test",
-    "status": "ready",
-    "instances": [
-      {
-        "id": "0d614db8-bffe-4b42-beb0-53754fdc9f0b",
-        "status": "ready",
-        "ip_address": "10.68.212.169",
-        "region": "fr-par"
-      },
-      {
-        "id": "0d5734af-26b7-4c56-814d-6bae65c60cdf",
-        "status": "ready",
-        "ip_address": "10.64.2.23",
+        "ip_address": "10.68.14.47",
         "region": "fr-par"
       }
     ],
@@ -68,8 +31,89 @@ ee00b31c-767a-4133-8ec0-cbcc42b5329c  cli-test  cli-test     ready   2          
         "id": "497f1f83-f0cc-4c92-95bb-a50408174cd2",
         "ip_address": "195.154.70.227",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "ee00b31c-767a-4133-8ec0-cbcc42b5329c",
+        "lb_id": "8b873b80-5327-4ef1-8f99-6c74d54faed3",
         "reverse": "195-154-70-227.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "region": "fr-par"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 1,
+    "backend_count": 1,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "region": "fr-par"
+  },
+  {
+    "id": "c8abf8c6-3eb0-45af-9ff2-e6a2dd12d609",
+    "name": "lb-pensive-bhabha",
+    "description": "",
+    "status": "ready",
+    "instances": [
+      {
+        "id": "de4c7d95-14b7-4462-be7e-c86b47f8c0df",
+        "status": "ready",
+        "ip_address": "10.69.58.91",
+        "region": "fr-par"
+      },
+      {
+        "id": "208acd52-d47d-404a-9c74-d29b225b826d",
+        "status": "ready",
+        "ip_address": "10.65.26.163",
+        "region": "fr-par"
+      }
+    ],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "1d220696-0a89-473f-a389-d66223a93100",
+        "ip_address": "195.154.68.89",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "c8abf8c6-3eb0-45af-9ff2-e6a2dd12d609",
+        "reverse": "195-154-68-89.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "region": "fr-par"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 1,
+    "backend_count": 1,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "region": "fr-par"
+  },
+  {
+    "id": "a665ecbc-f0b6-464a-9e95-5d12868ea946",
+    "name": "cli-test",
+    "description": "cli-test",
+    "status": "ready",
+    "instances": [
+      {
+        "id": "1ba0de55-bfb1-44f5-89fd-b71fc9aa67e6",
+        "status": "ready",
+        "ip_address": "10.68.70.45",
+        "region": "fr-par"
+      },
+      {
+        "id": "b2fce7f2-8e0c-4c9d-9ef4-1884f155ca8b",
+        "status": "ready",
+        "ip_address": "10.68.206.119",
+        "region": "fr-par"
+      }
+    ],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "739b8590-a067-4131-866e-74e5ee18dae1",
+        "ip_address": "51.159.26.103",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "a665ecbc-f0b6-464a-9e95-5d12868ea946",
+        "reverse": "51-159-26-103.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
         "region": "fr-par"
       }
     ],
@@ -79,6 +123,7 @@ ee00b31c-767a-4133-8ec0-cbcc42b5329c  cli-test  cli-test     ready   2          
     "type": "lb-s",
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "region": "fr-par"
   }
 ]
