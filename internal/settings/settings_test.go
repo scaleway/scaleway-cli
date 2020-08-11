@@ -108,8 +108,8 @@ func initEnv(t *testing.T) string {
 }
 
 func cleanEnv(t *testing.T, files map[string]string, homeDir string) {
-	for path := range files {
-		assert.NoError(t, os.RemoveAll(filepath.Join(homeDir, path)))
+	for filePath := range files {
+		assert.NoError(t, os.RemoveAll(filepath.Join(homeDir, filePath)))
 	}
 }
 
@@ -120,8 +120,8 @@ func setEnv(t *testing.T, env, files map[string]string, homeDir string) {
 		assert.NoError(t, os.Setenv(key, value))
 	}
 
-	for path, content := range files {
-		targetPath := filepath.Join(homeDir, path)
+	for filePath, content := range files {
+		targetPath := filepath.Join(homeDir, filePath)
 		assert.NoError(t, os.MkdirAll(filepath.Dir(targetPath), 0700))
 		assert.NoError(t, ioutil.WriteFile(targetPath, []byte(content), defaultPermission))
 	}
