@@ -25,7 +25,7 @@ func userListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		index := map[string]*customUser{}
+		index := make(map[string]*customUser)
 		var res []*customUser
 		listUserRequest := argsI.(*rdb.ListUsersRequest)
 		listUserResponse := resI.([]*rdb.User)
