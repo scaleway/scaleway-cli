@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// userListBuilder creates a table visualization of user's permission across different database in a given RDB instance
 func userListBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		type customUser struct {
@@ -25,6 +26,7 @@ func userListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
+		// We index user by their name and use customUser as the type holding the different privileges across databases
 		index := make(map[string]*customUser)
 		res := []*customUser(nil)
 		listUserRequest := argsI.(*rdb.ListUsersRequest)
@@ -64,6 +66,8 @@ func userListBuilder(c *core.Command) *core.Command {
 				index[privilege.UserName].None = append(index[privilege.UserName].None, privilege.DatabaseName)
 			case rdb.PermissionReadwrite:
 				index[privilege.UserName].ReadWrite = append(index[privilege.UserName].ReadWrite, privilege.DatabaseName)
+			default:
+				core.ExtractLogger(ctx).Errorf("unsupported permission value %s", privilege.Permission)
 			}
 		}
 		return res, nil
