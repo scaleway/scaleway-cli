@@ -11,6 +11,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.LBStatus(0), human.EnumMarshalFunc(lbStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.CertificateStatus(0), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.ACLActionType(0), human.EnumMarshalFunc(aclMarshalSpecs))
+	human.RegisterMarshalerFunc(lb.BackendServerStatsHealthCheckStatus(0), human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(lb.BackendServerStatsServerState(0), human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs))
 
 	cmds := GetGeneratedCommands()
 
@@ -21,6 +23,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("lb", "lb", "create").Override(lbCreateBuilder)
 	cmds.MustFind("lb", "lb", "get").Override(lbGetBuilder)
 	cmds.MustFind("lb", "lb", "migrate").Override(lbMigrateBuilder)
+	cmds.MustFind("lb", "lb", "get-stats").Override(lbGetStatsBuilder)
 
 	return cmds
 }
