@@ -28,12 +28,21 @@ func Test_Load(t *testing.T) {
 		expectedOutput string
 	}{
 		{
-			name: "Valid YAML but empty settings",
+			name: "YAML does not exists",
+			env: map[string]string{
+				"HOME":        "{HOME}",
+				"USERPROFILE": "{HOME}",
+			},
+			expectedError: "cli settings not found",
+		},
+		{
+			name: "YAML exists but is empty",
+			env: map[string]string{
+				"HOME":        "{HOME}",
+				"USERPROFILE": "{HOME}",
+			},
 			files: map[string]string{
 				filepath.Join(".config", "scw", "cli.yaml"): emptyFile,
-			},
-			env: map[string]string{
-				"HOME": "{HOME}",
 			},
 			expectedError: "cli settings file does not exist",
 		},
@@ -43,7 +52,8 @@ func Test_Load(t *testing.T) {
 				filepath.Join(".config", "scw", "cli.yaml"): `foo;bar`,
 			},
 			env: map[string]string{
-				"HOME": "{HOME}",
+				"HOME":        "{HOME}",
+				"USERPROFILE": "{HOME}",
 			},
 			expectedError: fmt.Sprintf("content of cli settings file %s is invalid", filepath.Join(dir, ".config", "scw", "cli.yaml")),
 		},
@@ -55,7 +65,8 @@ foo: bar
 `,
 			},
 			env: map[string]string{
-				"HOME": "{HOME}",
+				"HOME":        "{HOME}",
+				"USERPROFILE": "{HOME}",
 			},
 			expectedOutput: "json",
 		},
@@ -65,7 +76,8 @@ foo: bar
 				filepath.Join(".config", "scw", "cli.yaml"): `output: json=pretty`,
 			},
 			env: map[string]string{
-				"HOME": "{HOME}",
+				"HOME":        "{HOME}",
+				"USERPROFILE": "{HOME}",
 			},
 			expectedOutput: "json=pretty",
 		},

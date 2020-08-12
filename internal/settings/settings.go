@@ -86,7 +86,7 @@ func Load() (*Settings, error) {
 func LoadSettingsFromPath(path string) (*Settings, error) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		return nil, fmt.Errorf("cli settings not found error")
+		return nil, fmt.Errorf("cli settings not found")
 	}
 	if err != nil {
 		return nil, err
