@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -31,7 +30,7 @@ func Test_Load(t *testing.T) {
 		{
 			name: "Valid YAML but empty settings",
 			files: map[string]string{
-				path.Join(".config", "scw", "cli.yaml"): emptyFile,
+				filepath.Join(".config", "scw", "cli.yaml"): emptyFile,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
@@ -41,17 +40,17 @@ func Test_Load(t *testing.T) {
 		{
 			name: "Invalid YAML",
 			files: map[string]string{
-				path.Join(".config", "scw", "cli.yaml"): `foo;bar`,
+				filepath.Join(".config", "scw", "cli.yaml"): `foo;bar`,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
 			},
-			expectedError: fmt.Sprintf("content of cli settings file %s is invalid", path.Join(dir, ".config", "scw", "cli.yaml")),
+			expectedError: fmt.Sprintf("content of cli settings file %s is invalid", filepath.Join(dir, ".config", "scw", "cli.yaml")),
 		},
 		{
 			name: "Valid YAML with extra keys",
 			files: map[string]string{
-				path.Join(".config", "scw", "cli.yaml"): `output: json
+				filepath.Join(".config", "scw", "cli.yaml"): `output: json
 foo: bar
 `,
 			},
@@ -63,7 +62,7 @@ foo: bar
 		{
 			name: "Complete config",
 			files: map[string]string{
-				path.Join(".config", "scw", "cli.yaml"): `output: json=pretty`,
+				filepath.Join(".config", "scw", "cli.yaml"): `output: json=pretty`,
 			},
 			env: map[string]string{
 				"HOME": "{HOME}",
