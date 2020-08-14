@@ -233,8 +233,15 @@ func iotHubUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "product-plan",
+				Short:      `Hub feature set`,
+				Required:   false,
+				Positional: false,
+				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
+			},
+			{
 				Name:       "disable-events",
-				Short:      `Disable events`,
+				Short:      `Disable Hub events`,
 				Required:   false,
 				Positional: false,
 			},
