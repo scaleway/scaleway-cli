@@ -43,8 +43,8 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		EnableDefaultSecurity bool
 		OrganizationID        string
 		OrganizationDefault   bool
-		CreationDate          time.Time
-		ModificationDate      time.Time
+		CreationDate          *time.Time
+		ModificationDate      *time.Time
 		Stateful              bool
 	}{
 		ID:                    sg.ID,
@@ -174,7 +174,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSecurityGroupRequest
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		return runner(ctx, request)
 	})

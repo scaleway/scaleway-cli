@@ -162,7 +162,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 	serverReq := &instance.CreateServerRequest{
 		Zone:           args.Zone,
-		Organization:   args.OrganizationID,
+		Organization:   &args.OrganizationID,
 		Name:           args.Name,
 		CommercialType: args.Type,
 		EnableIPv6:     args.IPv6,

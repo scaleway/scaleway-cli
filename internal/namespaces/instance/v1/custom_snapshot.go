@@ -34,7 +34,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSnapshotRequest
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		return runner(ctx, request)
 	})

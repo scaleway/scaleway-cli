@@ -68,7 +68,7 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreatePlacementGroupRequest
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		return runner(ctx, request)
 	})

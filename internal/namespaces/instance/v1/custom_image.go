@@ -43,8 +43,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ServerID         string
 		Arch             instance.Arch
 		Organization     string
-		CreationDate     time.Time
-		ModificationDate time.Time
+		CreationDate     *time.Time
+		ModificationDate *time.Time
 	}
 
 	images := i.([]*imageListItem)
@@ -127,7 +127,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		request := args.CreateImageRequest
 		request.RootVolume = args.SnapshotID
 		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		// Extra volumes need to start at volumeIndex 1.
 		volumeIndex := 1
@@ -147,8 +147,8 @@ type imageListItem struct {
 	ID                string
 	Name              string
 	Arch              instance.Arch
-	CreationDate      time.Time
-	ModificationDate  time.Time
+	CreationDate      *time.Time
+	ModificationDate  *time.Time
 	DefaultBootscript *instance.Bootscript
 	ExtraVolumes      map[string]*instance.Volume
 	Organization      string

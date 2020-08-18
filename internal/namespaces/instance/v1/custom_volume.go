@@ -54,7 +54,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateVolumeRequest
-		request.Organization = args.OrganizationID
+		request.Organization = &args.OrganizationID
 
 		return runner(ctx, request)
 	})
