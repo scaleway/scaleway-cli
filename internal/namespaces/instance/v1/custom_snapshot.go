@@ -19,7 +19,7 @@ const (
 func snapshotCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSnapshotRequest struct {
 		*instance.CreateSnapshotRequest
-		OrganizationID string
+		OrganizationID *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
@@ -34,7 +34,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSnapshotRequest
-		request.Organization = &args.OrganizationID
+		request.Organization = args.OrganizationID
 
 		return runner(ctx, request)
 	})

@@ -96,7 +96,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		*instance.CreateImageRequest
 		AdditionalVolumes map[string]*instance.VolumeTemplate
 		SnapshotID        string
-		OrganizationID    string
+		OrganizationID    *string
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
@@ -127,7 +127,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		request := args.CreateImageRequest
 		request.RootVolume = args.SnapshotID
 		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
-		request.Organization = &args.OrganizationID
+		request.Organization = args.OrganizationID
 
 		// Extra volumes need to start at volumeIndex 1.
 		volumeIndex := 1

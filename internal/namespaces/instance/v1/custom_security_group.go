@@ -159,7 +159,7 @@ type customSecurityGroupResponse struct {
 func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSecurityGroupRequest struct {
 		*instance.CreateSecurityGroupRequest
-		OrganizationID string
+		OrganizationID *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
@@ -174,7 +174,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSecurityGroupRequest
-		request.Organization = &args.OrganizationID
+		request.Organization = args.OrganizationID
 
 		return runner(ctx, request)
 	})
