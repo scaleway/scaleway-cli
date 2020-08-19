@@ -258,7 +258,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if organizationID == nil {
 			orgFromCtx := core.GetOrganizationIDFromContext(ctx)
 			if orgFromCtx != "" {
-				organizationID = scw.StringPtr(orgFromCtx)
+				organizationID = &orgFromCtx
 			}
 		}
 
