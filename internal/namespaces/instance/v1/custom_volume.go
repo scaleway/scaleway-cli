@@ -39,7 +39,7 @@ func volumeMapMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 func volumeCreateBuilder(c *core.Command) *core.Command {
 	type customCreateVolumeRequest struct {
 		*instance.CreateVolumeRequest
-		OrganizationID string
+		OrganizationID *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
