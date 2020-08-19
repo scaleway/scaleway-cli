@@ -256,7 +256,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		// Get default organization ID.
 		organizationID := args.OrganizationID
 		if organizationID == nil {
-			organizationID = scw.StringPtr(core.GetOrganizationIDFromContext(ctx))
+			orgFromCtx := core.GetOrganizationIDFromContext(ctx)
+			if orgFromCtx != "" {
+				organizationID = scw.StringPtr(orgFromCtx)
+			}
 		}
 
 		// Create initial volume template map.
