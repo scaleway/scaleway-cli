@@ -353,6 +353,12 @@ func instanceServerList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "project",
+				Short:      `List only servers of this project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")`,
 				Required:   false,
@@ -521,6 +527,12 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
+			},
+			{
+				Name:       "volumes.{key}.project",
+				Short:      `Project ID of the volume`,
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "volumes.{key}.organization",
@@ -785,6 +797,11 @@ func instanceImageList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project",
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Required:   false,
 				Positional: false,
@@ -917,8 +934,20 @@ func instanceImageCreate() *core.Command {
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
+				Name:       "extra-volumes.{key}.project",
+				Short:      `Project ID of the volume`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "extra-volumes.{key}.organization",
 				Short:      `Organization ID of the volume`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project",
+				Short:      `Project ID of the image`,
 				Required:   false,
 				Positional: false,
 			},
@@ -1007,6 +1036,11 @@ func instanceSnapshotList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project",
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Required:   false,
 				Positional: false,
@@ -1058,6 +1092,11 @@ func instanceSnapshotCreate() *core.Command {
 				Name:       "volume-id",
 				Short:      `UUID of the volume`,
 				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "project",
+				Required:   false,
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
@@ -1187,6 +1226,12 @@ func instanceVolumeList() *core.Command {
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
+				Name:       "project",
+				Short:      `Filter volume by project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter volume by name (for eg. "vol" will return "myvolume" but not "data")`,
 				Required:   false,
@@ -1304,6 +1349,11 @@ func instanceVolumeCreate() *core.Command {
 			},
 			{
 				Name:       "base-snapshot",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project",
 				Required:   false,
 				Positional: false,
 			},
@@ -1479,6 +1529,12 @@ func instanceSecurityGroupList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project",
+				Short:      `The security group project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `The security group organization ID`,
 				Required:   false,
@@ -1530,7 +1586,20 @@ func instanceSecurityGroupCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project",
+				Short:      `Project ID the security group belong to`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-default",
+				Short:      `Whether this security group becomes the default security group for new instances`,
+				Required:   false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("false"),
+			},
+			{
+				Name:       "project-default",
 				Short:      `Whether this security group becomes the default security group for new instances`,
 				Required:   false,
 				Positional: false,
@@ -1679,6 +1748,12 @@ func instancePlacementGroupList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "project",
+				Short:      `List only placement groups of this project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")`,
 				Required:   false,
@@ -1732,6 +1807,11 @@ func instancePlacementGroupCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 				Default:    core.RandomValueGenerator("pg"),
+			},
+			{
+				Name:       "project",
+				Required:   false,
+				Positional: false,
 			},
 			{
 				Name:       "policy-mode",
