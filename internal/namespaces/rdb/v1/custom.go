@@ -24,11 +24,11 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 
-	human.RegisterMarshalerFunc(rdb.InstanceStatus(0), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(0), human.EnumMarshalFunc(backupStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(0), human.EnumMarshalFunc(logStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.NodeTypeStock(0), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.ACLRuleAction(0), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(""), human.EnumMarshalFunc(logStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.ACLRuleAction(""), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
@@ -45,6 +45,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
 
 	cmds.MustFind("rdb", "engine", "list").Override(engineListBuilder)
+
+	cmds.MustFind("rdb", "user", "list").Override(userListBuilder)
 
 	return cmds
 }

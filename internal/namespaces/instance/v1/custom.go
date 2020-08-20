@@ -39,7 +39,7 @@ func GetCommands() *core.Commands {
 	// Server
 	//
 	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(instance.ServerState(0), human.EnumMarshalFunc(serverStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.ServerState(""), human.EnumMarshalFunc(serverStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
@@ -85,7 +85,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
 	human.RegisterMarshalerFunc([]*imageListItem{}, imagesMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.ImageState(0), human.EnumMarshalFunc(imageStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.ImageState(""), human.EnumMarshalFunc(imageStateMarshalSpecs))
 
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
@@ -109,7 +109,7 @@ func GetCommands() *core.Commands {
 	// Volume
 	//
 	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
-	human.RegisterMarshalerFunc(instance.VolumeState(0), human.EnumMarshalFunc(volumeStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.VolumeState(""), human.EnumMarshalFunc(volumeStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
@@ -125,7 +125,7 @@ func GetCommands() *core.Commands {
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(""), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
 
 	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
@@ -141,7 +141,7 @@ func GetCommands() *core.Commands {
 	// Security Group Rule
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(""), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
 
 	//
 	// Placement Group
