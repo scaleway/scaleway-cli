@@ -19,6 +19,7 @@ EXAMPLES:
     scw instance server list name=server1
 
 ARGS:
+  [project]           List only servers of this project ID
   [name]              Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")
   [private-ip]        List servers by private_ip
   [without-ip]        List servers that are not attached to a public IP

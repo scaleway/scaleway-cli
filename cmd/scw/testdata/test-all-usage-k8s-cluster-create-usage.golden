@@ -13,6 +13,7 @@ EXAMPLES:
     scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
+  [project-id]                                          The project ID where the cluster will be created
   name                                                  The name of the cluster
   [description]                                         The description of the cluster
   [tags.{index}]                                        The tags associated with the cluster
