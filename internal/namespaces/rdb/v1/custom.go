@@ -35,6 +35,9 @@ func GetCommands() *core.Commands {
 		instanceConnectCommand(),
 		backupWaitCommand(),
 	))
+	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
+	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)
+
 	cmds.MustFind("rdb", "backup", "create").Override(backupCreateBuilder)
 	cmds.MustFind("rdb", "backup", "export").Override(backupExportBuilder)
 	cmds.MustFind("rdb", "backup", "restore").Override(backupRestoreBuilder)
