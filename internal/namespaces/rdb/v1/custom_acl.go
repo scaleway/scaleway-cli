@@ -23,10 +23,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 		aclAddResponse := aclAddResponseI.(*rdb.AddInstanceACLRulesResponse)
-		return rdb.ListInstanceACLRulesResponse{
-			Rules:      aclAddResponse.Rules,
-			TotalCount: uint32(len(aclAddResponse.Rules)),
-		}, nil
+		return aclAddResponse.Rules, nil
 	}
 
 	return c
