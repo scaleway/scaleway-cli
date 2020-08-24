@@ -64,8 +64,8 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		Tags              []string
 		ImageName         string
 		PlacementGroup    *instance.PlacementGroup
-		ModificationDate  time.Time
-		CreationDate      time.Time
+		ModificationDate  *time.Time
+		CreationDate      *time.Time
 		Volumes           int
 		Protected         bool
 		SecurityGroupName string
