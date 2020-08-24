@@ -68,9 +68,8 @@ func Test_CorePrinter(t *testing.T) {
 
 func Test_YamlPrinter(t *testing.T) {
 	type Human struct {
-		ID           string    `json:"id"`
-		Name         string    `json:"name"`
-		PhoneNumbers *[]string `yaml:"phone_numbers,omitempty" json:"phone_numbers,omitempty"`
+		ID   string `json:"id"`
+		Name string `json:"name"`
 	}
 
 	commands := NewCommands(
@@ -79,9 +78,8 @@ func Test_YamlPrinter(t *testing.T) {
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 				return Human{
-					ID:           "111111111-111111111",
-					Name:         "David Copperfield",
-					PhoneNumbers: nil,
+					ID:   "111111111-111111111",
+					Name: "David Copperfield",
 				}, nil
 			},
 		},
