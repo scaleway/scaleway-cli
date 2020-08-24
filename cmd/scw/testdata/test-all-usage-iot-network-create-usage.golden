@@ -6,7 +6,7 @@ USAGE:
   scw iot network create [arg=value ...]
 
 ARGS:
-  name                Network name
+  name=<generated>    Network name
   type                Type of network to connect with (unknown | sigfox | rest)
   hub-id              Hub ID to connect the Network to
   topic-prefix        Topic prefix for the Network
