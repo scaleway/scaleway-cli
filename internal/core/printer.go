@@ -223,11 +223,5 @@ func (p *Printer) printYAML(data interface{}) error {
 	}
 	encoder := yaml.NewEncoder(writer)
 
-	// We handle special case to make sure that a nil slice is marshal as `[]`
-	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
-		_, err := p.stdout.Write([]byte("[]\n"))
-		return err
-	}
-
 	return encoder.Encode(data)
 }
