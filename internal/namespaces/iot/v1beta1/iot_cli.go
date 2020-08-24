@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/iot/v1beta1"
+	iot "github.com/scaleway/scaleway-sdk-go/api/iot/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -155,7 +155,7 @@ func iotHubCreate() *core.Command {
 				Short:      `Hub feature set`,
 				Required:   true,
 				Positional: false,
-				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
+				EnumValues: []string{"plan_shared", "plan_dedicated", "plan_ha"},
 			},
 			{
 				Name:       "disable-events",
