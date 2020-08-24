@@ -24,17 +24,20 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 
-	human.RegisterMarshalerFunc(rdb.InstanceStatus(0), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(0), human.EnumMarshalFunc(backupStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(0), human.EnumMarshalFunc(logStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.NodeTypeStock(0), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.ACLRuleAction(0), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(""), human.EnumMarshalFunc(logStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(rdb.ACLRuleAction(""), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
 		instanceConnectCommand(),
 		backupWaitCommand(),
 	))
+	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
+	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)
+
 	cmds.MustFind("rdb", "backup", "create").Override(backupCreateBuilder)
 	cmds.MustFind("rdb", "backup", "export").Override(backupExportBuilder)
 	cmds.MustFind("rdb", "backup", "restore").Override(backupRestoreBuilder)

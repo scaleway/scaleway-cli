@@ -43,8 +43,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ServerID         string
 		Arch             instance.Arch
 		Organization     string
-		CreationDate     time.Time
-		ModificationDate time.Time
+		CreationDate     *time.Time
+		ModificationDate *time.Time
 	}
 
 	images := i.([]*imageListItem)
@@ -96,7 +96,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		*instance.CreateImageRequest
 		AdditionalVolumes map[string]*instance.VolumeTemplate
 		SnapshotID        string
-		OrganizationID    string
+		OrganizationID    *string
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
@@ -147,8 +147,8 @@ type imageListItem struct {
 	ID                string
 	Name              string
 	Arch              instance.Arch
-	CreationDate      time.Time
-	ModificationDate  time.Time
+	CreationDate      *time.Time
+	ModificationDate  *time.Time
 	DefaultBootscript *instance.Bootscript
 	ExtraVolumes      map[string]*instance.Volume
 	Organization      string
