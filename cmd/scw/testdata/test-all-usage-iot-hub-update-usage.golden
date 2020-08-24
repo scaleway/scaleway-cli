@@ -8,7 +8,8 @@ USAGE:
 ARGS:
   hub-id                  Hub ID
   [name]                  Hub name (up to 255 characters)
-  [disable-events]        Disable events
+  [product-plan]          Hub feature set (plan_unknown | plan_shared | plan_dedicated | plan_ha)
+  [disable-events]        Disable Hub events
   [events-topic-prefix]   Hub events topic prefix
   [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par)
 
