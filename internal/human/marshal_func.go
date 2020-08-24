@@ -37,6 +37,13 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	})
+	marshalerFuncs.Store(reflect.TypeOf(&time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+		t := i.(*time.Time)
+		if t == nil {
+			return Marshal(nil, nil)
+		}
+		return Marshal(*t, nil)
+	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, opt *MarshalOpt) (string, error) {
 		size := uint64(i.(scw.Size))
 
