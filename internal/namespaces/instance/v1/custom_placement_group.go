@@ -53,7 +53,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 func placementGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreatePlacementGroupRequest struct {
 		*instance.CreatePlacementGroupRequest
-		OrganizationID string
+		OrganizationID *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)

@@ -26,8 +26,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		Name             string
 		Zones            []scw.Zone
 		Archs            []string
-		ModificationDate time.Time
-		CreationDate     time.Time
+		ModificationDate *time.Time
+		CreationDate     *time.Time
 	}
 
 	images := i.([]*marketplace.Image)
@@ -66,9 +66,9 @@ func imageMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	humanImage := struct {
 		Label            string
 		Name             string
-		ModificationDate time.Time
-		CreationDate     time.Time
-		ValidUntil       time.Time
+		ModificationDate *time.Time
+		CreationDate     *time.Time
+		ValidUntil       *time.Time
 		Description      string
 	}{
 		Label:            image.Label,
