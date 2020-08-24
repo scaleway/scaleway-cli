@@ -7,8 +7,7 @@ USAGE:
 
 ARGS:
   [ip-address]        Use this to search by IP address
-  [project-id]        Filter IPs by project ID
-  [organization-id]   Filter IPs by organization id
+  [organization-id]   
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

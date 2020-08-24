@@ -114,12 +114,6 @@ func k8sClusterList() *core.Command {
 		ArgsType:  reflect.TypeOf(k8s.ListClustersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned clusters`,
-				Required:   false,
-				Positional: false,
-			},
-			{
 				Name:       "order-by",
 				Short:      `The sort order of the returned clusters`,
 				Required:   false,
@@ -190,7 +184,7 @@ func k8sClusterList() *core.Command {
 				FieldName: "Region",
 			},
 			{
-				FieldName: "ProjectID",
+				FieldName: "OrganizationID",
 			},
 			{
 				FieldName: "Tags",
@@ -223,12 +217,6 @@ func k8sClusterCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(k8s.CreateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `The project ID where the cluster will be created`,
-				Required:   false,
-				Positional: false,
-			},
 			{
 				Name:       "name",
 				Short:      `The name of the cluster`,
