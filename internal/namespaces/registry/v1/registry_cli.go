@@ -104,6 +104,12 @@ func registryNamespaceList() *core.Command {
 				EnumValues: []string{"created_at_asc", "created_at_desc", "description_asc", "description_desc", "name_asc", "name_desc"},
 			},
 			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter by the namespace name (exact match)`,
 				Required:   false,
@@ -111,7 +117,7 @@ func registryNamespaceList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter by the namespace owner`,
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -153,6 +159,9 @@ func registryNamespaceList() *core.Command {
 			},
 			{
 				FieldName: "OrganizationID",
+			},
+			{
+				FieldName: "ProjectID",
 			},
 			{
 				FieldName: "Status",
@@ -219,6 +228,12 @@ func registryNamespaceCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Define a description`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Assign the namespace to a project ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -335,6 +350,12 @@ func registryImageList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Filter by the Image name (exact match)`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID`,
 				Required:   false,
 				Positional: false,
 			},
