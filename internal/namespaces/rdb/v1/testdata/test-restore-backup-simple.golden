@@ -5,7 +5,7 @@ InstanceID    96913f91-5ba5-4104-a54d-f3b2036fcf0f
 DatabaseName  rdb
 Name          foobar
 Status        ready
-Size          2547
+Size          2.5 kB
 ExpiresAt     few seconds ago
 CreatedAt     few seconds ago
 UpdatedAt     few seconds ago
