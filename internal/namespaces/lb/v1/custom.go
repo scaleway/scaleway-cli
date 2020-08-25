@@ -25,5 +25,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("lb", "lb", "migrate").Override(lbMigrateBuilder)
 	cmds.MustFind("lb", "lb", "get-stats").Override(lbGetStatsBuilder)
 
+	cmds.MustFind("lb", "frontend", "get").Override(frontendGetBuilder)
+
 	return cmds
 }
