@@ -53,6 +53,13 @@ func init() {
 
 		return humanize.Bytes(size), nil
 	})
+	marshalerFuncs.Store(reflect.PtrTo(reflect.TypeOf(scw.Size(0))), func(i interface{}, opt *MarshalOpt) (string, error) {
+		t := i.(*scw.Size)
+		if t == nil {
+			return Marshal(nil, nil)
+		}
+		return Marshal(*t, nil)
+	})
 	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		sizes := i.([]scw.Size)
 		strs := []string(nil)
