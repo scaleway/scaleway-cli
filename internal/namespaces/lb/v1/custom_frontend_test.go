@@ -16,10 +16,10 @@ func Test_GetFrontend(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 			createInstance(),
-			createBackend(),
-			createFrontend(),
+			createBackend(80),
+			createFrontend(8888),
 		),
-		Cmd:   "scw lb frontend get {{ .LB.ID }}",
+		Cmd:   "scw lb frontend get {{ .Frontend.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),

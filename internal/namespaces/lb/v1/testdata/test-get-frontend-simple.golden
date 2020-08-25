@@ -1,10 +1,145 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Not found
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID           26c628f5-d7ec-49a8-a3ca-5ee26920e9f2
+Name         cli-test
+InboundPort  8888
+
+Lb:
+ID                     12a22791-7124-41f0-90d2-9067f2cc99da
+Name                   cli-test
+Description            cli-test
+Status                 ready
+OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.ID                1bdb8569-b2fc-47fb-9d1b-27b24033dcb9
+IP.0.IPAddress         195.154.69.237
+IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.LBID              12a22791-7124-41f0-90d2-9067f2cc99da
+IP.0.Reverse           195-154-69-237.lb.fr-par.scw.cloud
+IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+IP.0.Region            fr-par
+FrontendCount          1
+BackendCount           1
+Type                   lb-s
+SslCompatibilityLevel  ssl_compatibility_level_intermediate
+ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+Region                 fr-par
+
+Backend:
+ID                           e89cd474-c6d8-4515-b774-b5dfaff206c2
+Name                         cli-test
+ForwardProtocol              tcp
+ForwardPort                  80
+ForwardPortAlgorithm         roundrobin
+StickySessions               none
+StickySessionsCookieName     -
+HealthCheck.CheckMaxRetries  5
+HealthCheck.Port             8888
+HealthCheck.CheckTimeout     1s
+HealthCheck.CheckDelay       3s
+LB.ID                        12a22791-7124-41f0-90d2-9067f2cc99da
+LB.Name                      cli-test
+LB.Description               cli-test
+LB.Status                    ready
+LB.OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.ID                   1bdb8569-b2fc-47fb-9d1b-27b24033dcb9
+LB.IP.0.IPAddress            195.154.69.237
+LB.IP.0.OrganizationID       951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.LBID                 12a22791-7124-41f0-90d2-9067f2cc99da
+LB.IP.0.Reverse              195-154-69-237.lb.fr-par.scw.cloud
+LB.IP.0.ProjectID            951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.Region               fr-par
+LB.FrontendCount             1
+LB.BackendCount              1
+LB.Type                      lb-s
+LB.SslCompatibilityLevel     ssl_compatibility_level_intermediate
+LB.ProjectID                 951df375-e094-4d26-97c1-ba548eeb9c42
+LB.Region                    fr-par
+SendProxyV2                  false
+OnMarkedDownAction           on_marked_down_action_none
+ProxyProtocol                proxy_protocol_unknown
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "message": "not found",
-  "error": {
-    "message": "not found"
-  }
+  "id": "26c628f5-d7ec-49a8-a3ca-5ee26920e9f2",
+  "name": "cli-test",
+  "inbound_port": 8888,
+  "backend": {
+    "id": "e89cd474-c6d8-4515-b774-b5dfaff206c2",
+    "name": "cli-test",
+    "forward_protocol": "tcp",
+    "forward_port": 80,
+    "forward_port_algorithm": "roundrobin",
+    "sticky_sessions": "none",
+    "sticky_sessions_cookie_name": "",
+    "health_check": {
+      "check_max_retries": 5,
+      "tcp_config": {},
+      "port": 8888,
+      "check_timeout": 1000,
+      "check_delay": 3000
+    },
+    "pool": [],
+    "lb": {
+      "id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+      "name": "cli-test",
+      "description": "cli-test",
+      "status": "ready",
+      "instances": [],
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "ip": [
+        {
+          "id": "1bdb8569-b2fc-47fb-9d1b-27b24033dcb9",
+          "ip_address": "195.154.69.237",
+          "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+          "lb_id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+          "reverse": "195-154-69-237.lb.fr-par.scw.cloud",
+          "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+          "region": "fr-par"
+        }
+      ],
+      "tags": [],
+      "frontend_count": 1,
+      "backend_count": 1,
+      "type": "lb-s",
+      "subscriber": null,
+      "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "region": "fr-par"
+    },
+    "send_proxy_v2": false,
+    "on_marked_down_action": "on_marked_down_action_none",
+    "proxy_protocol": "proxy_protocol_unknown",
+    "timeout_server": null,
+    "timeout_connect": null,
+    "timeout_tunnel": null
+  },
+  "lb": {
+    "id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+    "name": "cli-test",
+    "description": "cli-test",
+    "status": "ready",
+    "instances": [],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "1bdb8569-b2fc-47fb-9d1b-27b24033dcb9",
+        "ip_address": "195.154.69.237",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "12a22791-7124-41f0-90d2-9067f2cc99da",
+        "reverse": "195-154-69-237.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "region": "fr-par"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 1,
+    "backend_count": 1,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "region": "fr-par"
+  },
+  "certificate": null,
+  "certificate_ids": [],
+  "timeout_client": null
 }
