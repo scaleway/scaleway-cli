@@ -7,6 +7,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type Struct struct {
@@ -21,6 +22,7 @@ type Struct struct {
 	Map         map[string]string
 	Stringer    Stringer
 	StringerPtr *Stringer
+	Size        *scw.Size
 }
 
 type Address struct {
@@ -102,6 +104,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
+			Size:        scw.SizePtr(13200),
 		},
 		result: `
 			String              This is a string
@@ -124,6 +127,7 @@ func TestMarshal(t *testing.T) {
 			Map.key2            v2
 			Stringer            a stringer
 			StringerPtr         a stringer
+			Size                13 kB
 		`,
 	}))
 
