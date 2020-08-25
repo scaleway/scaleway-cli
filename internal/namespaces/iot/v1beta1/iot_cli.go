@@ -149,12 +149,14 @@ func iotHubCreate() *core.Command {
 				Short:      `Hub name (up to 255 characters)`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("hub"),
 			},
 			{
 				Name:       "product-plan",
 				Short:      `Hub feature set`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("plan_shared"),
 				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
 			},
 			{
@@ -233,8 +235,15 @@ func iotHubUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "product-plan",
+				Short:      `Hub feature set`,
+				Required:   false,
+				Positional: false,
+				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
+			},
+			{
 				Name:       "disable-events",
-				Short:      `Disable events`,
+				Short:      `Disable Hub events`,
 				Required:   false,
 				Positional: false,
 			},
@@ -373,6 +382,7 @@ func iotHubGetMetrics() *core.Command {
 				Short:      `Period over which the metrics span`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("hour"),
 				EnumValues: []string{"hour", "day", "week", "month", "year"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
@@ -471,6 +481,7 @@ func iotDeviceCreate() *core.Command {
 				Short:      `Device name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("device"),
 			},
 			{
 				Name:       "hub-id",
@@ -719,6 +730,7 @@ func iotDeviceGetMetrics() *core.Command {
 				Short:      `Period over which the metrics span`,
 				Required:   true,
 				Positional: false,
+				Default:    core.DefaultValueSetter("hour"),
 				EnumValues: []string{"hour", "day", "week", "month", "year"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
@@ -805,6 +817,7 @@ func iotNetworkCreate() *core.Command {
 				Short:      `Network name`,
 				Required:   true,
 				Positional: false,
+				Default:    core.RandomValueGenerator("network"),
 			},
 			{
 				Name:       "type",

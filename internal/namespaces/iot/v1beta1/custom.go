@@ -9,9 +9,9 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(iot.HubStatus(0), human.EnumMarshalFunc(hubStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(iot.DeviceMessageFiltersPolicy(0), human.EnumMarshalFunc(deviceMessageFiltersPolicyMarshalSpecs))
-	human.RegisterMarshalerFunc(iot.DeviceStatus(0), human.EnumMarshalFunc(deviceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(iot.HubStatus(""), human.EnumMarshalFunc(hubStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(iot.DeviceMessageFiltersPolicy(""), human.EnumMarshalFunc(deviceMessageFiltersPolicyMarshalSpecs))
+	human.RegisterMarshalerFunc(iot.DeviceStatus(""), human.EnumMarshalFunc(deviceStatusMarshalSpecs))
 
 	return cmds
 }

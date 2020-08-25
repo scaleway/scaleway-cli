@@ -26,6 +26,7 @@ EXAMPLES:
 
 ARGS:
   [name=<generated>]   Name of the placement group
+  [project]            
   [policy-mode]         (optional | enforced)
   [policy-type]         (max_availability | low_latency)
   [organization-id]    Organization ID to use. If none is passed will use default organization ID from the config
