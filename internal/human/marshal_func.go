@@ -53,6 +53,15 @@ func init() {
 
 		return humanize.Bytes(size), nil
 	})
+	marshalerFuncs.Store(reflect.TypeOf(scw.SizePtr(0)), func(i interface{}, opt *MarshalOpt) (string, error) {
+		size := uint64(*i.(*scw.Size))
+
+		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
+			return humanize.IBytes(size), nil
+		}
+
+		return humanize.Bytes(size), nil
+	})
 	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		sizes := i.([]scw.Size)
 		strs := []string(nil)
