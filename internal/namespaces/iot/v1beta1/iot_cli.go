@@ -132,6 +132,50 @@ func iotHubList() *core.Command {
 			return resp.Hubs, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "ProductPlan",
+			},
+			{
+				FieldName: "Enabled",
+			},
+			{
+				FieldName: "DeviceCount",
+			},
+			{
+				FieldName: "ConnectedDeviceCount",
+			},
+			{
+				FieldName: "Endpoint",
+			},
+			{
+				FieldName: "EventsEnabled",
+			},
+			{
+				FieldName: "EventsTopicPrefix",
+			},
+			{
+				FieldName: "Region",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+		}},
 	}
 }
 
@@ -464,6 +508,41 @@ func iotDeviceList() *core.Command {
 			return resp.Devices, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "HubID",
+			},
+			{
+				FieldName: "LastActivityAt",
+			},
+			{
+				FieldName: "IsConnected",
+			},
+			{
+				FieldName: "AllowInsecure",
+			},
+			{
+				FieldName: "MessageFilters",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+		}},
 	}
 }
 
@@ -800,6 +879,35 @@ func iotNetworkList() *core.Command {
 			return resp.Networks, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Type",
+			},
+			{
+				FieldName: "Endpoint",
+			},
+			{
+				FieldName: "HubID",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "TopicPrefix",
+			},
+			{
+				FieldName: "Region",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+		}},
 	}
 }
 
