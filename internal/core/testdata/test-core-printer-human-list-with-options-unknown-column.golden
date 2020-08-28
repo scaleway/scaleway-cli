@@ -1,9 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Unknown field 'Unknown' in output options
-
-Hint:
-Valid fields are: ID, Name
+unknown field 'Unknown' in output options
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
