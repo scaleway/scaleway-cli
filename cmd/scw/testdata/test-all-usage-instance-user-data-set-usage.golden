@@ -3,7 +3,7 @@
 Add or update a user data with the given key on a server.
 
 USAGE:
-  scw instance user-data set <server-id ...> [arg=value ...]
+  scw instance user-data set [arg=value ...]
 
 ARGS:
   server-id         UUID of the server
