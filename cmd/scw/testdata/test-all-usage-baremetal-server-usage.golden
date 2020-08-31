@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete a baremetal server
   get         Get a specific baremetal server
   install     Install a baremetal server
-  list        List baremetal servers
+  list        List baremetal servers for organization
   reboot      Reboot a baremetal server
   start       Start a baremetal server
   stop        Stop a baremetal server
