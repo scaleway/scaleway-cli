@@ -17,6 +17,7 @@ require (
 	github.com/getsentry/raven-go v0.2.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/hashicorp/go-version v1.2.0
+	github.com/karrick/tparse v2.4.2+incompatible
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.4
 	github.com/mattn/go-isatty v0.0.11

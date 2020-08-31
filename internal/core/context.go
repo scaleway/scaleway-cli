@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -31,6 +32,7 @@ type meta struct {
 	result                      interface{}
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
+	TimeMap                     map[string]time.Time
 }
 
 type contextKey int
@@ -166,7 +168,11 @@ func ExtractProfileFlag(ctx context.Context) string {
 	return extractMeta(ctx).ProfileFlag
 }
 
-// GetDocGenContext reuturn a minimal context that can be used by scw-doc-gen
+func ExtractTimeMap(ctx context.Context) map[string]time.Time {
+	return extractMeta(ctx).TimeMap
+}
+
+// GetDocGenContext return a minimal context that can be used by scw-doc-gen
 func GetDocGenContext() context.Context {
 	ctx := context.Background()
 	client, _ := scw.NewClient(

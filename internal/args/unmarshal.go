@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/karrick/tparse"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -61,13 +62,24 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
-		t, err := time.Parse(time.RFC3339, value)
-		if err != nil {
-			return err
+		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
+		// Handle relative time
+		relativeTimeParsed, relativeErr := tparse.ParseNow(time.RFC3339, value)
+
+		if absoluteErr == nil {
+			*(dest.(*time.Time)) = absoluteTimeParsed
+			return nil
+		}
+		if relativeErr == nil {
+			*(dest.(*time.Time)) = relativeTimeParsed
+			return nil
 		}
 
-		*(dest.(*time.Time)) = t
-		return nil
+		return &CannotParseDateError{
+			ArgValue:               value,
+			AbsoluteTimeParseError: absoluteErr,
+			RelativeTimeParseError: relativeErr,
+		}
 	},
 }
 

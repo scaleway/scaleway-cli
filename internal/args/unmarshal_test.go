@@ -247,6 +247,33 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 	}))
 
+	t.Run("Relative date positive", run(TestCase{
+		args: []string{
+			"time=now+1m1s",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
+		},
+	}))
+
+	t.Run("Relative date negative", run(TestCase{
+		args: []string{
+			"time=now-1m1s",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
+		},
+	}))
+
+	t.Run("Unknown relative date markers", run(TestCase{
+		args: []string{
+			"time=-1R",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
+		},
+	}))
+
 	t.Run("nested-basic", run(TestCase{
 		args: []string{
 			"basic.string=test",

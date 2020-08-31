@@ -187,3 +187,19 @@ func missingIndices(index, length int) string {
 	}
 	return strings.Join(s, ",")
 }
+
+type CannotParseDateError struct {
+	ArgValue               string
+	AbsoluteTimeParseError error
+	RelativeTimeParseError error
+}
+
+func (e *CannotParseDateError) Error() string {
+	return fmt.Sprintf(`date parsing error: could not parse %s as either an absolute time (RFC3339) nor a relative time (now(+/-)RFC3339)
+
+Try using RFC3339 for absolute time '2006-01-02T15:04:05Z07:00'. You can also have relative time with 'now +/- a duration' ex: 'now+1d-3w4mo+7y6h4m'
+
+AbsoluteTimeParseError: %s
+RelativeTimeParseError: %s
+`, e.ArgValue, e.AbsoluteTimeParseError, e.RelativeTimeParseError)
+}
