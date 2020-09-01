@@ -266,8 +266,7 @@ func (p *Printer) printYAML(data interface{}) error {
 
 func (p *Printer) printTemplate(data interface{}) error {
 	writer := p.stdout
-	_, isError := data.(error)
-	if isError {
+	if _, isError := data.(error); isError {
 		return p.printHuman(data, nil)
 	}
 
