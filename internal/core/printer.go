@@ -30,11 +30,11 @@ const (
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
 
-	// Option to enable pretty output on json printer.
-	PrinterOptJSONPretty = "pretty"
-
 	// PrinterTypeTemplate defines a go template to use to format output.
 	PrinterTypeTemplate = PrinterType("template")
+
+	// Option to enable pretty output on json printer.
+	PrinterOptJSONPretty = "pretty"
 )
 
 type PrinterConfig struct {

@@ -58,7 +58,7 @@ type FlagSpec struct {
 }
 
 func (node *AutoCompleteNode) addGlobalFlags() {
-	printerType := []string{
+	printerTypes := []string{
 		PrinterTypeHuman.String(),
 		PrinterTypeJSON.String(),
 		PrinterTypeYAML.String(),
@@ -79,11 +79,11 @@ func (node *AutoCompleteNode) addGlobalFlags() {
 	})
 	node.Children["-o"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "-o",
-		EnumValues: printerType,
+		EnumValues: printerTypes,
 	})
 	node.Children["--output"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "--output",
-		EnumValues: printerType,
+		EnumValues: printerTypes,
 	})
 	node.Children["-p"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:             "-p",
