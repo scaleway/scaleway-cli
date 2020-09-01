@@ -283,14 +283,20 @@ func (p *Printer) printTemplate(data interface{}) error {
 					Hint: fmt.Sprintf("Acceptable values are:\n  - %s", strings.Join(gofields.ListFields(elemValue.Type()), "\n  - ")),
 				}, nil)
 			}
-			_, _ = writer.Write([]byte{'\n'})
+			_, err = writer.Write([]byte{'\n'})
+			if err != nil {
+				return err
+			}
 		}
 	default:
 		err := p.template.Execute(writer, data)
 		if err != nil {
 			return err
 		}
-		_, _ = writer.Write([]byte{'\n'})
+		_, err = writer.Write([]byte{'\n'})
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
