@@ -1,14 +1,8 @@
 package help
 
-import (
-	"context"
-	"reflect"
-
-	"github.com/scaleway/scaleway-cli/internal/core"
-)
-
-func helpOutput() *core.Command {
-	longText := `Output formatting in the CLI
+const (
+	shortOutput = "Get help about how the CLI output works"
+	longOutput  = `Output formatting in the CLI
 
 Human output
 
@@ -54,16 +48,4 @@ Visit https://golang.org/pkg/text/template/ to learn more about Go template form
 	TODO, show example here
 
 `
-	return &core.Command{
-		Short:                "Get help about how the CLI output works",
-		Long:                 longText,
-		Namespace:            "help",
-		Resource:             "output",
-		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(struct{}{}),
-		ArgSpecs:             core.ArgSpecs{},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			return longText, nil
-		},
-	}
-}
+)
