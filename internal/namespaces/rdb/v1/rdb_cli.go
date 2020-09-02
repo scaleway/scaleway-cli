@@ -695,6 +695,16 @@ func rdbInstanceCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
+			{
+				Name:       "init-settings.{index}.name",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "init-settings.{index}.value",
+				Required:   false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
