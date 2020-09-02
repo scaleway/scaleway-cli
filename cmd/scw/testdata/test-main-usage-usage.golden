@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   baremetal    Baremetal API
   config       Config file management
   feedback     Send feedback to the Scaleway CLI Team!
+  help         Get help about how the CLI works
   info         Get info about current settings
   init         Initialize the config
   instance     Instance API
