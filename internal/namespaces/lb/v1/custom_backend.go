@@ -3,6 +3,7 @@ package lb
 import (
 	"context"
 	"fmt"
+	"net"
 	"reflect"
 
 	"github.com/fatih/color"
@@ -35,6 +36,7 @@ func addServerCommand() *core.Command {
 		InstanceServerID  string
 		BaremetalServerID string
 		LBID              string
+		IP                *net.IPAddr
 		Protocol          *lb.Protocol
 		Port              int32
 		InstanceZone      scw.Zone
@@ -47,17 +49,22 @@ func addServerCommand() *core.Command {
 		Long:      `Import an instance as a load balancer backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "add-server",
+		Verb:      "import",
 		ArgsType:  reflect.TypeOf(importInstanceArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-server-id",
-				Short:      `ID of the instance server.`,
+				Short:      "ID of the instance server.",
 				OneOfGroup: "id",
 			},
 			{
 				Name:       "baremetal-server-id",
-				Short:      `ID of the baremetal server.`,
+				Short:      "ID of the baremetal server.",
+				OneOfGroup: "id",
+			},
+			{
+				Name:       "ip",
+				Short:      "IP of the server you want to add.",
 				OneOfGroup: "id",
 			},
 			{
@@ -71,7 +78,7 @@ func addServerCommand() *core.Command {
 				Required: true,
 			},
 			{
-				Name:  "use-public",
+				Name:  "use-instance-server-public-ip",
 				Short: "Use public IP address of the instance instead of the private one",
 			},
 			{
@@ -157,6 +164,18 @@ func addServerCommand() *core.Command {
 					ips = append(ips, ip.Address.String())
 				}
 				req.ServerIP = ips
+
+				lbAPI := lb.NewAPI(core.ExtractClient(ctx))
+				backend, err := lbAPI.CreateBackend(req)
+				if err != nil {
+					return nil, err
+				}
+				return backend, nil
+			}
+
+			if args.IP != nil {
+				req.Name = args.IP.String()
+				req.ServerIP = []string{args.IP.String()}
 
 				lbAPI := lb.NewAPI(core.ExtractClient(ctx))
 				backend, err := lbAPI.CreateBackend(req)
