@@ -8,6 +8,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -29,15 +30,16 @@ var (
 	}
 )
 
-func importInstanceCommand() *core.Command {
+func addServerCommand() *core.Command {
 	type importInstanceArgs struct {
-		InstanceID   string
-		LBID         string
-		Protocol     *lb.Protocol
-		Port         int32
-		InstanceZone scw.Zone
-		UsePublicIP  bool
-		Region       scw.Region
+		InstanceServerID  string
+		BaremetalServerID string
+		LBID              string
+		Protocol          *lb.Protocol
+		Port              int32
+		InstanceZone      scw.Zone
+		UsePublicIP       bool
+		Region            scw.Region
 	}
 
 	return &core.Command{
@@ -45,13 +47,18 @@ func importInstanceCommand() *core.Command {
 		Long:      `Import an instance as a load balancer backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "import-instance",
+		Verb:      "add-server",
 		ArgsType:  reflect.TypeOf(importInstanceArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:     "instance-id",
-				Short:    `ID of the instance.`,
-				Required: true,
+				Name:       "instance-server-id",
+				Short:      `ID of the instance server.`,
+				OneOfGroup: "id",
+			},
+			{
+				Name:       "baremetal-server-id",
+				Short:      `ID of the baremetal server.`,
+				OneOfGroup: "id",
 			},
 			{
 				Name:     "lb-id",
@@ -76,58 +83,94 @@ func importInstanceCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*importInstanceArgs)
-			instanceID := args.InstanceID
-			zone := args.InstanceZone
-			instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
-			server, err := instanceAPI.GetServer(&instance.GetServerRequest{
-				Zone:     zone,
-				ServerID: instanceID,
-			})
-			if err != nil {
-				return nil, err
+			req := &lb.CreateBackendRequest{}
+
+			req.LBID = args.LBID
+
+			req.ForwardPort = args.Port
+			req.HealthCheck = &lb.HealthCheck{
+				CheckMaxRetries: 5,
+				TCPConfig:       &lb.HealthCheckTCPConfig{},
+				Port:            args.Port,
 			}
 
-			forwardPort := args.Port
-
-			forwardProtocol := lb.ProtocolTCP
+			req.ForwardProtocol = lb.ProtocolTCP
 			if args.Protocol != nil {
-				forwardProtocol = *args.Protocol
+				req.ForwardProtocol = *args.Protocol
 			}
 
-			if server.Server.PrivateIP == nil {
-				return nil, &core.CliError{
-					Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-					Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
+			if args.InstanceServerID != "" {
+				instanceServerID := args.InstanceServerID
+				zone := args.InstanceZone
+				instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+				server, err := instanceAPI.GetServer(&instance.GetServerRequest{
+					Zone:     zone,
+					ServerID: instanceServerID,
+				})
+				if err != nil {
+					return nil, err
 				}
-			}
-			ip := *server.Server.PrivateIP
-			if args.UsePublicIP {
-				if server.Server.PublicIP == nil {
+
+				req.Name = server.Server.Name
+
+				if server.Server.PrivateIP == nil {
 					return nil, &core.CliError{
-						Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+						Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
+						Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
 					}
 				}
-				ip = server.Server.PublicIP.Address.String()
+				ip := *server.Server.PrivateIP
+				if args.UsePublicIP {
+					if server.Server.PublicIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+						}
+					}
+					ip = server.Server.PublicIP.Address.String()
+				}
+				req.ServerIP = []string{ip}
+
+				lbAPI := lb.NewAPI(core.ExtractClient(ctx))
+				backend, err := lbAPI.CreateBackend(req)
+				if err != nil {
+					return nil, err
+				}
+				return backend, nil
 			}
 
-			lbAPI := lb.NewAPI(core.ExtractClient(ctx))
-			backend, err := lbAPI.CreateBackend(&lb.CreateBackendRequest{
-				Name:            server.Server.Name,
-				LBID:            args.LBID,
-				ForwardProtocol: forwardProtocol,
-				ForwardPort:     forwardPort,
-				HealthCheck: &lb.HealthCheck{
-					CheckMaxRetries: 5,
-					TCPConfig:       &lb.HealthCheckTCPConfig{},
-					Port:            args.Port,
-				},
-				ServerIP: []string{ip},
-			})
-			if err != nil {
-				return nil, err
+			if args.BaremetalServerID != "" {
+				baremetalServerID := args.BaremetalServerID
+				zone := args.InstanceZone
+				baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
+				server, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
+					Zone:     zone,
+					ServerID: baremetalServerID,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				req.Name = server.Name
+
+				var ips []string
+				for _, ip := range server.IPs {
+					ips = append(ips, ip.Address.String())
+				}
+				req.ServerIP = ips
+
+				lbAPI := lb.NewAPI(core.ExtractClient(ctx))
+				backend, err := lbAPI.CreateBackend(req)
+				if err != nil {
+					return nil, err
+				}
+				return backend, nil
 			}
 
-			return backend, nil
+			return nil, &core.CliError{
+				Message: "Both instance-server-id and baremetal-server-id seems to be empty",
+				Details: fmt.Sprintf("instance-server-id: %s | baremetal-server-id: %s", args.InstanceServerID, args.BaremetalServerID),
+				Hint:    "Specify one of instance-server-id or baremetal-server-id",
+			}
 		},
 	}
 }

@@ -17,7 +17,7 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	cmds.Merge(core.NewCommands(
 		lbWaitCommand(),
-		importInstanceCommand(),
+		addServerCommand(),
 	))
 
 	cmds.MustFind("lb", "lb", "create").Override(lbCreateBuilder)

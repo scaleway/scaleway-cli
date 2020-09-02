@@ -7,7 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
 )
 
-func Test_ImportInstanceBackend(t *testing.T) {
+func Test_AddServerBackend(t *testing.T) {
 	cmds := GetCommands()
 	cmds.Merge(instance.GetCommands())
 
@@ -17,7 +17,7 @@ func Test_ImportInstanceBackend(t *testing.T) {
 			createLB(),
 			createRunningInstance(),
 		),
-		Cmd:   "scw lb backend import-instance instance-id={{ .Instance.ID }} lb-id={{ .LB.ID }} protocol=tcp port=443",
+		Cmd:   "scw lb backend add-server instance-server-id={{ .Instance.ID }} lb-id={{ .LB.ID }} protocol=tcp port=443",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
