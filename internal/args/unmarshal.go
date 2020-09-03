@@ -26,6 +26,8 @@ type Unmarshaler interface {
 
 type UnmarshalFunc func(value string, dest interface{}) error
 
+var TestForceNow *time.Time
+
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Only support G, GB for now (case insensitive).
@@ -63,18 +65,26 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
 		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
-		// Handle relative time
-		relativeTimeParsed, relativeErr := tparse.ParseNow(time.RFC3339, value)
-
 		if absoluteErr == nil {
 			*(dest.(*time.Time)) = absoluteTimeParsed
 			return nil
 		}
+
+		// Handle relative time
+		if value[0] != '+' && value[0] != '-' {
+			value = "+" + value
+		}
+		m := map[string]time.Time{
+			"t": time.Now(),
+		}
+		if TestForceNow != nil {
+			m["t"] = *TestForceNow
+		}
+		relativeTimeParsed, relativeErr := tparse.ParseWithMap(time.RFC3339, "t"+value, m)
 		if relativeErr == nil {
 			*(dest.(*time.Time)) = relativeTimeParsed
 			return nil
 		}
-
 		return &CannotParseDateError{
 			ArgValue:               value,
 			AbsoluteTimeParseError: absoluteErr,

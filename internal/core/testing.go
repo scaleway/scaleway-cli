@@ -21,6 +21,7 @@ import (
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
+	args "github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
@@ -282,6 +283,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if *Debug {
 			testLogger.level = logger.LogLevelDebug
 		}
+
+		// We need to set up this variable to ensure that relative date parsing stay consistent
+		frozenTime := time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC)
+		args.TestForceNow = &frozenTime
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
