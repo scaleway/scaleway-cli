@@ -311,6 +311,9 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			if err != nil {
 				return "", err
 			}
+			if str == "<nil>" {
+				str = "-"
+			}
 			row = append(row, str)
 		}
 		grid = append(grid, row)
