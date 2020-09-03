@@ -149,7 +149,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create leaves.0.size=", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size=L", "leaves.0.size=M", "leaves.0.size=S", "leaves.0.size=XL", "leaves.0.size=XXL"}}))
 	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-o", "-p"}}))
 	t.Run("scw test -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
-	t.Run("scw test flower -o ", run(&testCase{Suggestions: AutocompleteSuggestions{"human", "json"}}))
+	t.Run("scw test flower -o ", run(&testCase{Suggestions: AutocompleteSuggestions{PrinterTypeHuman.String(), PrinterTypeJSON.String(), PrinterTypeTemplate.String(), PrinterTypeYAML.String()}}))
 	t.Run("scw test flower -o json create -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "--wait", "-D", "-h", "-p", "-w"}}))
 	t.Run("scw test flower create name=p -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower create name=p -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.0.size=", "size=", "species="}}))
@@ -162,7 +162,7 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower create name=p --profile xxxx", run(&testCase{Suggestions: nil}))
 
 	t.Run("scw test flower -o json delete -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-p"}}))
-	t.Run("scw test flower delete -o ", run(&testCase{Suggestions: AutocompleteSuggestions{"human", "json"}}))
+	t.Run("scw test flower delete -o ", run(&testCase{Suggestions: AutocompleteSuggestions{PrinterTypeHuman.String(), PrinterTypeJSON.String(), PrinterTypeTemplate.String(), PrinterTypeYAML.String()}}))
 	t.Run("scw test flower delete -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower delete -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))
 	t.Run("scw test flower delete -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))

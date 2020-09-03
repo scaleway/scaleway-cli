@@ -56,4 +56,4 @@ jobs:
     - name: Build image in Docker
       run: docker build -t scaleway/cli .
     - name: Test help command in docker
-      run: docker run -i scaleway/cli help
+      run: docker run -i scaleway/cli version
