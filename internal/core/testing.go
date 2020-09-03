@@ -403,7 +403,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.Cmd
 		var result interface{}
 		var exitCode int
-		var renderedArgs []string
+		renderedArgs :=  []string(nil)
 		rawArgs := config.Args
 		if config.Cmd != "" {
 			renderedArgs = cmdToArgs(meta, config.Cmd)
