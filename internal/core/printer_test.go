@@ -138,3 +138,88 @@ func Test_YamlPrinter(t *testing.T) {
 		Check:    TestCheckGolden(),
 	}))
 }
+
+func Test_TemplatePrinter(t *testing.T) {
+	type Human struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	}
+
+	commands := NewCommands(
+		&Command{
+			Namespace: "get",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+				return Human{
+					ID:   "111111111-111111111",
+					Name: "David Copperfield",
+				}, nil
+			},
+		},
+		&Command{
+			Namespace: "list",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+				return []*Human{
+					{ID: "111111111-111111111", Name: "David Copperfield"},
+					{ID: "222222222-222222222", Name: "Xavier Niel"},
+				}, nil
+			},
+		},
+		&Command{
+			Namespace: "NilSlice",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+				return []Human{}, nil
+			},
+		},
+	)
+
+	t.Run("template-simple-without-option", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "get", "-o", "template",
+		},
+		Check: TestCheckGolden(),
+	}))
+
+	t.Run("template-simple-with-options", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "get", "-o", "template={{ .ID }}",
+		},
+		Check: TestCheckGolden(),
+	}))
+
+	t.Run("template-list-without-option", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "list", "-o", "template",
+		},
+		Check: TestCheckGolden(),
+	}))
+
+	t.Run("template-list-with-options", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "list", "-o", "template={{ .Name }} <-> {{ .ID }}",
+		},
+		Check: TestCheckGolden(),
+	}))
+
+	t.Run("template-list-with-options-unknown-column", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "list", "-o", "template={{ .Unknown }}",
+		},
+		Check: TestCheckGolden(),
+	}))
+
+	t.Run("nil-slice", Test(&TestConfig{
+		Commands: commands,
+		Args: []string{
+			"scw", "NilSlice", "-o", "template={{ .ID }}",
+		},
+		Check: TestCheckGolden(),
+	}))
+}

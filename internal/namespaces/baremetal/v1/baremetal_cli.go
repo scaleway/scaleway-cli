@@ -78,8 +78,8 @@ For instance, your KVM-IP management console could be accessed with it.
 
 func baremetalServerList() *core.Command {
 	return &core.Command{
-		Short:     `List baremetal servers`,
-		Long:      `List baremetal servers.`,
+		Short:     `List baremetal servers for organization`,
+		Long:      `List baremetal servers for organization.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "list",
@@ -107,6 +107,12 @@ func baremetalServerList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Filter servers by name`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter servers by project ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -186,6 +192,12 @@ func baremetalServerCreate() *core.Command {
 				Name:       "offer-id",
 				Short:      `Offer ID of the new server`,
 				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID with which the server will be created`,
+				Required:   false,
 				Positional: false,
 			},
 			{
