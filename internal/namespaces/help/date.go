@@ -17,7 +17,9 @@ You have two ways for managing date in the CLI: Absolute and Relative
 
   Relative time refers to a time calculated from adding a given duration to the time when a command is launched.
 
-	Example: now+1d4m => current time plus 1 day and 4 minutes
+	Example:
+	- +1d4m => current time plus 1 day and 4 minutes
+	- -1d4m => current time minus 1 day and 4 minutes
 
 - Units of time
 
