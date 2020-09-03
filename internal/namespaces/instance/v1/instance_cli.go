@@ -30,7 +30,6 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
-		instancePrivateNic(),
 		instanceServerTypeList(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
@@ -67,10 +66,6 @@ func GetGeneratedCommands() *core.Commands {
 		instanceIPGet(),
 		instanceIPUpdate(),
 		instanceIPDelete(),
-		instancePrivateNicList(),
-		instancePrivateNicCreate(),
-		instancePrivateNicGet(),
-		instancePrivateNicDelete(),
 	)
 }
 func instanceRoot() *core.Command {
@@ -281,18 +276,6 @@ UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.
 `,
 		Namespace: "instance",
 		Resource:  "volume",
-	}
-}
-
-func instancePrivateNic() *core.Command {
-	return &core.Command{
-		Short: `Private NIC management commands`,
-		Long: `A Private NIC is the network interface that connects a server to a
-Private Network. There can be at most one Private NIC connecting a
-server to a network.
-`,
-		Namespace: "instance",
-		Resource:  "private-nic",
 	}
 }
 
@@ -590,30 +573,6 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "placement-group",
 				Short:      `Placement group ID if server must be part of a placement group`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.id",
-				Short:      `The private NIC unique ID`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.server-id",
-				Short:      `The server the private NIC is attached to`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.private-network-id",
-				Short:      `The private network where the private NIC is attached`,
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.mac-address",
-				Short:      `The private NIC MAC address`,
 				Required:   false,
 				Positional: false,
 			},
@@ -2319,145 +2278,6 @@ func instanceIPDelete() *core.Command {
 				Short:    "Delete an IP using directly the given IP address",
 				ArgsJSON: `{"ip":"51.15.253.183"}`,
 			},
-		},
-	}
-}
-
-func instancePrivateNicList() *core.Command {
-	return &core.Command{
-		Short:     `List all private NICs`,
-		Long:      `List all private NICs of a given server.`,
-		Namespace: "instance",
-		Resource:  "private-nic",
-		Verb:      "list",
-		ArgsType:  reflect.TypeOf(instance.ListPrivateNICsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Required:   true,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.ListPrivateNICsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.ListPrivateNICs(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "List all private NICs on a specific server",
-				ArgsJSON: `null`,
-			},
-			{
-				Short:    "List private NICs of the server ID 'my_server_id'",
-				ArgsJSON: `{"server_id":"my_server_id"}`,
-			},
-		},
-	}
-}
-
-func instancePrivateNicCreate() *core.Command {
-	return &core.Command{
-		Short:     `Create a private NIC connecting a server to a private network`,
-		Long:      `Create a private NIC connecting a server to a private network.`,
-		Namespace: "instance",
-		Resource:  "private-nic",
-		Verb:      "create",
-		ArgsType:  reflect.TypeOf(instance.CreatePrivateNICRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Required:   true,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-id",
-				Required:   false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.CreatePrivateNICRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.CreatePrivateNIC(request)
-
-		},
-	}
-}
-
-func instancePrivateNicGet() *core.Command {
-	return &core.Command{
-		Short:     `Get a private NIC`,
-		Long:      `Get private NIC properties.`,
-		Namespace: "instance",
-		Resource:  "private-nic",
-		Verb:      "get",
-		ArgsType:  reflect.TypeOf(instance.GetPrivateNICRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Required:   true,
-				Positional: false,
-			},
-			{
-				Name:       "private-nic-id",
-				Required:   true,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.GetPrivateNICRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			return api.GetPrivateNIC(request)
-
-		},
-	}
-}
-
-func instancePrivateNicDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete a private NIC`,
-		Long:      `Delete a private NIC.`,
-		Namespace: "instance",
-		Resource:  "private-nic",
-		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(instance.DeletePrivateNICRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Required:   true,
-				Positional: false,
-			},
-			{
-				Name:       "private-nic-id",
-				Required:   true,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.DeletePrivateNICRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			e = api.DeletePrivateNIC(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "private-nic",
-				Verb:     "delete",
-			}, nil
 		},
 	}
 }
