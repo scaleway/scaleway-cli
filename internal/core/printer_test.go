@@ -186,7 +186,8 @@ func Test_TemplatePrinter(t *testing.T) {
 	t.Run("template-simple-with-options", Test(&TestConfig{
 		Commands: commands,
 		Args: []string{
-			"scw", "get", "-o", "template={{ .ID }}",
+			// We escape this sequence because there is already golang template rendering on commands in core.Test
+			"scw", "get", "-o", "{{`template={{ .ID }}`}}",
 		},
 		Check: TestCheckGolden(),
 	}))
@@ -202,7 +203,8 @@ func Test_TemplatePrinter(t *testing.T) {
 	t.Run("template-list-with-options", Test(&TestConfig{
 		Commands: commands,
 		Args: []string{
-			"scw", "list", "-o", "template={{ .Name }} <-> {{ .ID }}",
+			// We escape this sequence because there is already golang template rendering on commands in core.Test
+			"scw", "list", "-o", "{{`template={{ .Name }} <-> {{ .ID }}`}}",
 		},
 		Check: TestCheckGolden(),
 	}))
@@ -210,7 +212,8 @@ func Test_TemplatePrinter(t *testing.T) {
 	t.Run("template-list-with-options-unknown-column", Test(&TestConfig{
 		Commands: commands,
 		Args: []string{
-			"scw", "list", "-o", "template={{ .Unknown }}",
+			// We escape this sequence because there is already golang template rendering on commands in core.Test
+			"scw", "list", "-o", "{{`template={{ .Unknown }}`}}",
 		},
 		Check: TestCheckGolden(),
 	}))
