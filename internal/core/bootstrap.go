@@ -144,11 +144,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		}
 	}
 
-	// We use this map for relative time parsing.
-	// Using a tparse.ParseWithMap instead of tparse.ParseNow allows us to mock it in testing
-	timeMap := make(map[string]time.Time)
-	timeMap["now"] = time.Now()
-
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
 	meta := &meta{
@@ -161,7 +156,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		OverrideExec:   config.OverrideExec,
 		ConfigPathFlag: configPathFlag,
 		Logger:         log,
-		TimeMap:        timeMap,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
