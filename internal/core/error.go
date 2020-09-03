@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
@@ -66,6 +67,11 @@ func (s *CliError) MarshalHuman() (string, error) {
 			return "", err
 		}
 		sections = append(sections, str)
+	}
+
+	if sdkResponseError, isResponseError := s.Err.(*scw.ResponseError); isResponseError && s.Details == "" && s.Hint == "" {
+		rawBody := fmt.Sprintf("%s", sdkResponseError.RawBody)
+		sections = append(sections, rawBody)
 	}
 
 	return strings.Join(sections, "\n\n"), nil
