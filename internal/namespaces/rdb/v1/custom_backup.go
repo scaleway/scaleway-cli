@@ -2,7 +2,13 @@ package rdb
 
 import (
 	"context"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"os"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -111,4 +117,98 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func getDefaultFileName(rawURL string) (string, error) {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return "", err
+	}
+	splitURL := strings.Split(u.Path, "/")
+	filename := splitURL[len(splitURL)-1]
+	return filename, nil
+}
+
+func backupDownloadCommand() *core.Command {
+	type backupDownloadArgs struct {
+		BackupID string
+		Region   scw.Region
+		Output   string
+	}
+
+	return &core.Command{
+		Short:     `Download a backup locally`,
+		Long:      `Download a backup locally.`,
+		Namespace: "rdb",
+		Resource:  "backup",
+		Verb:      "download",
+		ArgsType:  reflect.TypeOf(backupDownloadArgs{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*backupDownloadArgs)
+			api := rdb.NewAPI(core.ExtractClient(ctx))
+			backup, err := api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
+				DatabaseBackupID: args.BackupID,
+				Region:           args.Region,
+				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				RetryInterval:    core.DefaultRetryInterval,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if backup.DownloadURL == nil {
+				return nil, fmt.Errorf("no download URL found")
+			}
+
+			res, err := http.Get(*backup.DownloadURL)
+			if err != nil {
+				return nil, err
+			}
+			defer res.Body.Close()
+
+			// Create the file
+			filename, err := getDefaultFileName(*backup.DownloadURL)
+			if err != nil {
+				return nil, err
+			}
+			if args.Output != "" {
+				filename = args.Output
+			}
+
+			out, err := os.Create(filename)
+			if err != nil {
+				return nil, err
+			}
+			defer out.Close()
+
+			// Write the body to file
+			size, err := io.Copy(out, res.Body)
+			if err != nil {
+				return nil, err
+			}
+			sizeStr, err := human.Marshal(scw.Size(size), nil)
+			if err != nil {
+				return nil, err
+			}
+			return fmt.Sprintf("Backup downloaded to %s successfully (%s written)", filename, sizeStr), nil
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup you want to download.`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "output",
+				Short: "Destination to write to",
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Download a backup",
+				ArgsJSON: `{"backup_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
 }

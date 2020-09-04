@@ -1,6 +1,7 @@
 package rdb
 
 import (
+	"path"
 	"testing"
 	"time"
 
@@ -79,5 +80,34 @@ func Test_ExportBackup(t *testing.T) {
 		),
 		AfterFunc:     deleteInstance(),
 		DefaultRegion: scw.RegionNlAms,
+	}))
+}
+
+func Test_DownloadBackup(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createInstance(engine),
+			core.ExecStoreBeforeCmd(
+				"Backup",
+				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+			),
+			core.ExecStoreBeforeCmd(
+				"BackupExport",
+				"scw rdb backup export {{ .Backup.ID }} --wait",
+			),
+			func(ctx *core.BeforeFuncCtx) error {
+				ctx.Meta["DEST"] = path.Join(ctx.OverrideEnv["HOME"], "dump")
+				return nil
+			},
+		),
+		Cmd: "scw rdb backup download {{ .Backup.ID }} output={{ .DEST }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc:     deleteInstance(),
+		DefaultRegion: scw.RegionNlAms,
+		TmpHomeDir:    true,
 	}))
 }

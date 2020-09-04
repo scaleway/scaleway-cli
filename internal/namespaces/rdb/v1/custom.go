@@ -34,6 +34,7 @@ func GetCommands() *core.Commands {
 		instanceWaitCommand(),
 		instanceConnectCommand(),
 		backupWaitCommand(),
+		backupDownloadCommand(),
 	))
 	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
 	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)
