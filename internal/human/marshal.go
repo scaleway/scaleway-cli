@@ -216,6 +216,8 @@ func getStructFieldsIndex(v reflect.Value) [][]int {
 
 	var recFunc func(v reflect.Value, parent []int)
 	recFunc = func(v reflect.Value, parent []int) {
+		// v can be a Ptr
+		v = reflect.Indirect(v)
 		for i := 0; i < v.NumField(); i++ {
 			field := v.Type().Field(i)
 			// If a field is anonymous we start recursive call
@@ -240,8 +242,10 @@ func getStructFieldsIndex(v reflect.Value) [][]int {
 			if result[i][n] != result[j][n] {
 				return result[i][n] < result[j][n]
 			}
+			n++
 		}
-		panic("this can never happen")
+		// if equal, less should be false
+		return false
 	})
 
 	return result
