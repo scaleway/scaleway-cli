@@ -14,7 +14,9 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	type baremetalCreateServerRequestCustom struct {
 		Zone scw.Zone `json:"-"`
 		// OrganizationID with which the server will be created
-		OrganizationID string `json:"organization_id"`
+		OrganizationID *string `json:"organization_id"`
+		// ProjectID with which the server will be created
+		ProjectID *string `json:"project_id"`
 		// Name of the server (≠hostname)
 		Name string `json:"name"`
 		// Description associated to the server, max 255 characters
@@ -60,7 +62,8 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		tmpRequest := argsI.(*baremetalCreateServerRequestCustom)
 		request := &baremetal.CreateServerRequest{
 			Zone:           tmpRequest.Zone,
-			OrganizationID: &tmpRequest.OrganizationID,
+			OrganizationID: tmpRequest.OrganizationID,
+			ProjectID:      tmpRequest.ProjectID,
 			Name:           tmpRequest.Name,
 			Description:    tmpRequest.Description,
 			Tags:           tmpRequest.Tags,
