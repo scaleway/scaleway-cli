@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path"
 	"reflect"
 	"strings"
 	"time"
@@ -166,12 +167,24 @@ func backupDownloadCommand() *core.Command {
 			defer res.Body.Close()
 
 			// Create the file
-			filename, err := getDefaultFileName(*backup.DownloadURL)
+			defaultFilename, err := getDefaultFileName(*backup.DownloadURL)
 			if err != nil {
 				return nil, err
 			}
+			filename := defaultFilename
 			if args.Output != "" {
-				filename = args.Output
+				fi, err := os.Stat(args.Output)
+				if err != nil {
+					return nil, err
+				}
+				switch mode := fi.Mode(); {
+				case mode.IsDir():
+					// do directory stuff
+					filename = path.Join(args.Output, defaultFilename)
+				case mode.IsRegular():
+					// do file stuff
+					filename = args.Output
+				}
 			}
 
 			out, err := os.Create(filename)
@@ -200,7 +213,7 @@ func backupDownloadCommand() *core.Command {
 			},
 			{
 				Name:  "output",
-				Short: "Destination to write to",
+				Short: "Filename to write to",
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
