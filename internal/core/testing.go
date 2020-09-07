@@ -218,6 +218,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithHTTPClient(&http.Client{
 			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},

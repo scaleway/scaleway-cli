@@ -273,7 +273,8 @@ func initCommand() *core.Command {
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &apiKey.OrganizationID, // An api key is always bound to an organization.
+				DefaultOrganizationID: &apiKey.OrganizationID,
+				DefaultProjectID:      &apiKey.ProjectID, // An API key is always bound to a project.
 			}
 
 			// Save the profile as default or as a named profile
