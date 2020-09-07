@@ -169,7 +169,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// If type is a struct
 			// We loop through all struct field
 			data := [][]string(nil)
-			for _, fieldIndex := range getStructFieldsIndex(value) {
+			for _, fieldIndex := range getStructFieldsIndex(value.Type()) {
 				subData, err := marshal(value.FieldByIndex(fieldIndex), append(keys, value.Type().FieldByIndex(fieldIndex).Name))
 				if err != nil {
 					return nil, err
@@ -210,19 +210,21 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 // getStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
 // This function will handle anonymous field and make sure that if a field is overwritten only the highest is returned.
 // You can use reflect GetFieldByIndex([]int) to get the correct field.
-func getStructFieldsIndex(v reflect.Value) [][]int {
+func getStructFieldsIndex(v reflect.Type) [][]int {
 	// Using a map we make sure only the field with the highest order is returned for a given Name
 	found := map[string][]int{}
 
-	var recFunc func(v reflect.Value, parent []int)
-	recFunc = func(v reflect.Value, parent []int) {
-		// v can be a Ptr
-		v = reflect.Indirect(v)
+	var recFunc func(v reflect.Type, parent []int)
+	recFunc = func(v reflect.Type, parent []int) {
+		for v.Kind() == reflect.Ptr {
+			v = v.Elem()
+		}
+
 		for i := 0; i < v.NumField(); i++ {
-			field := v.Type().Field(i)
+			field := v.Field(i)
 			// If a field is anonymous we start recursive call
 			if field.Anonymous {
-				recFunc(v.Field(i), append(parent, i))
+				recFunc(v.Field(i).Type, append(parent, i))
 			} else {
 				// else we add the field in the found map
 				found[field.Name] = append(parent, i)
