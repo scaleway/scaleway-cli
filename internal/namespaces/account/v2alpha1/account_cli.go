@@ -47,8 +47,8 @@ func accountSSHKey() *core.Command {
 
 func accountSSHKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List all SSH keys of your project`,
-		Long:      `List all SSH keys of your project.`,
+		Short:     `List all SSH keys of your organization`,
+		Long:      `List all SSH keys of your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "list",
@@ -102,7 +102,7 @@ func accountSSHKeyList() *core.Command {
 				FieldName: "UpdatedAt",
 			},
 			{
-				FieldName: "ProjectID",
+				FieldName: "OrganizationID",
 			},
 			{
 				FieldName: "CreationInfo.Address",
@@ -113,17 +113,14 @@ func accountSSHKeyList() *core.Command {
 			{
 				FieldName: "CreationInfo.UserAgent",
 			},
-			{
-				FieldName: "OrganizationID",
-			},
 		}},
 	}
 }
 
 func accountSSHKeyAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add an SSH key to your project`,
-		Long:      `Add an SSH key to your project.`,
+		Short:     `Add a SSH key to your organization`,
+		Long:      `Add a SSH key to your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "add",
@@ -178,8 +175,8 @@ func accountSSHKeyAdd() *core.Command {
 
 func accountSSHKeyGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an SSH key from your project`,
-		Long:      `Get an SSH key from your project.`,
+		Short:     `Get a SSH key from your organization`,
+		Long:      `Get a SSH key from your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "get",
@@ -205,8 +202,8 @@ func accountSSHKeyGet() *core.Command {
 
 func accountSSHKeyUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an SSH key on your project`,
-		Long:      `Update an SSH key on your project.`,
+		Short:     `Update a SSH key on your organization`,
+		Long:      `Update a SSH key on your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "update",
@@ -237,8 +234,8 @@ func accountSSHKeyUpdate() *core.Command {
 
 func accountSSHKeyRemove() *core.Command {
 	return &core.Command{
-		Short:     `Remove an SSH key from your project`,
-		Long:      `Remove an SSH key from your project.`,
+		Short:     `Remove a SSH key from your organization`,
+		Long:      `Remove a SSH key from your organization.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "remove",
