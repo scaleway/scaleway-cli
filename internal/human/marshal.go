@@ -311,9 +311,6 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			if err != nil {
 				return "", err
 			}
-			if str == "<nil>" {
-				str = "-"
-			}
 			row = append(row, str)
 		}
 		grid = append(grid, row)
@@ -336,7 +333,11 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	// If marshaler func is available.
 	// As we cannot set MarshalOpt of a nested slice opt will always be nil here.
 	case marshalerFunc != nil:
-		return marshalerFunc(slice.Interface(), nil)
+		str, err := marshalerFunc(slice.Interface(), nil)
+		if str == "<nil>" {
+			str = "-"
+		}
+		return str, err
 
 	// If it is a slice of scalar values.
 	case itemType.Kind() != reflect.Slice &&
