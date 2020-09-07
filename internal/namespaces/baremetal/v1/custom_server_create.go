@@ -60,7 +60,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		tmpRequest := argsI.(*baremetalCreateServerRequestCustom)
 		request := &baremetal.CreateServerRequest{
 			Zone:           tmpRequest.Zone,
-			OrganizationID: tmpRequest.OrganizationID,
+			OrganizationID: &tmpRequest.OrganizationID,
 			Name:           tmpRequest.Name,
 			Description:    tmpRequest.Description,
 			Tags:           tmpRequest.Tags,

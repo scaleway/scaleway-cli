@@ -119,6 +119,7 @@ ID                                    NAME                  TYPE    STATE    ZON
     "state_detail": "booting kernel",
     "arch": "x86_64",
     "placement_group": null,
+    "private_nics": [],
     "zone": "fr-par-1"
   }
 ]
