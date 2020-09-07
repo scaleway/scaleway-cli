@@ -130,6 +130,20 @@ func getDefaultFileName(rawURL string) (string, error) {
 	return filename, nil
 }
 
+type backupDownloadResult struct {
+	Size     scw.Size `json:"size"`
+	FileName string   `json:"file_name"`
+}
+
+func backupResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	backupResult := i.(backupDownloadResult)
+	sizeStr, err := human.Marshal(backupResult.Size, nil)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("Backup downloaded to %s successfully (%s written)", backupResult.FileName, sizeStr), nil
+}
+
 func backupDownloadCommand() *core.Command {
 	type backupDownloadArgs struct {
 		BackupID string
@@ -166,7 +180,7 @@ func backupDownloadCommand() *core.Command {
 			}
 			defer res.Body.Close()
 
-			// Create the file
+			// Find the filename for the dump
 			defaultFilename, err := getDefaultFileName(*backup.DownloadURL)
 			if err != nil {
 				return nil, err
@@ -175,18 +189,23 @@ func backupDownloadCommand() *core.Command {
 			if args.Output != "" {
 				fi, err := os.Stat(args.Output)
 				if err != nil {
-					return nil, err
-				}
-				switch mode := fi.Mode(); {
-				case mode.IsDir():
-					// do directory stuff
-					filename = path.Join(args.Output, defaultFilename)
-				case mode.IsRegular():
-					// do file stuff
+					if !os.IsNotExist(err) {
+						return nil, err
+					}
 					filename = args.Output
+				} else {
+					switch mode := fi.Mode(); {
+					case mode.IsDir():
+						// do directory stuff
+						filename = path.Join(args.Output, defaultFilename)
+					case mode.IsRegular():
+						// do file stuff
+						filename = args.Output
+					}
 				}
 			}
 
+			// Create the file
 			out, err := os.Create(filename)
 			if err != nil {
 				return nil, err
@@ -198,11 +217,10 @@ func backupDownloadCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			sizeStr, err := human.Marshal(scw.Size(size), nil)
-			if err != nil {
-				return nil, err
-			}
-			return fmt.Sprintf("Backup downloaded to %s successfully (%s written)", filename, sizeStr), nil
+			return backupDownloadResult{
+				Size:     scw.Size(size),
+				FileName: filename,
+			}, nil
 		},
 		ArgSpecs: core.ArgSpecs{
 			{

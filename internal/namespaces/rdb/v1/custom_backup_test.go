@@ -1,7 +1,7 @@
 package rdb
 
 import (
-	"path"
+	"os"
 	"testing"
 	"time"
 
@@ -96,17 +96,19 @@ func Test_DownloadBackup(t *testing.T) {
 				"BackupExport",
 				"scw rdb backup export {{ .Backup.ID }} --wait",
 			),
-			func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["DEST"] = path.Join(ctx.OverrideEnv["HOME"], "dump")
-				return nil
-			},
 		),
-		Cmd: "scw rdb backup download {{ .Backup.ID }} output={{ .DEST }}",
+		Cmd: "scw rdb backup download {{ .Backup.ID }} output=dump",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:     deleteInstance(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteInstance(),
+			func(ctx *core.AfterFuncCtx) error {
+				err := os.Remove("dump")
+				return err
+			},
+		),
 		DefaultRegion: scw.RegionNlAms,
 		TmpHomeDir:    true,
 	}))

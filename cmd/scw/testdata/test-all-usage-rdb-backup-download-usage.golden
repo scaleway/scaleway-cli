@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   backup-id         ID of the backup you want to download.
-  [output]          Destination to write to
+  [output]          Filename to write to
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
