@@ -321,6 +321,10 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 // marshalInlineSlice transforms nested scalar slices in an inline string representation
 // and other types of slices in a count representation.
 func marshalInlineSlice(slice reflect.Value) (string, error) {
+	if slice.IsNil() {
+		return defaultMarshalerFunc(nil, nil)
+	}
+
 	itemType := slice.Type().Elem()
 	for itemType.Kind() == reflect.Ptr {
 		itemType = itemType.Elem()
@@ -333,11 +337,7 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	// If marshaler func is available.
 	// As we cannot set MarshalOpt of a nested slice opt will always be nil here.
 	case marshalerFunc != nil:
-		str, err := marshalerFunc(slice.Interface(), nil)
-		if str == "<nil>" {
-			str = "-"
-		}
-		return str, err
+		return marshalerFunc(slice.Interface(), nil)
 
 	// If it is a slice of scalar values.
 	case itemType.Kind() != reflect.Slice &&
