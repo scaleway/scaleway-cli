@@ -11,7 +11,6 @@ func Test_GetPlacementGroup(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("PlacementGroup", "scw instance placement-group create"),
 			core.ExecStoreBeforeCmd("ServerA", "scw instance server create image=ubuntu_focal stopped=true placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}"),
-			core.ExecStoreBeforeCmd("ServerB", "scw instance server create image=ubuntu_focal stopped=true placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}"),
 		),
 		Commands: GetCommands(),
 		Cmd:      "scw instance placement-group get {{ .PlacementGroup.PlacementGroup.ID }}",
@@ -21,7 +20,6 @@ func Test_GetPlacementGroup(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd("scw instance placement-group delete {{ .PlacementGroup.PlacementGroup.ID }}"),
 			core.ExecAfterCmd("scw instance server delete {{ .ServerA.ID }}"),
-			core.ExecAfterCmd("scw instance server delete {{ .ServerB.ID }}"),
 		),
 	}))
 }
