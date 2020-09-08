@@ -160,6 +160,11 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
 	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
 
+	//
+	// Private NICs
+	//
+	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
+
 	return cmds
 }
 
