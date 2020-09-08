@@ -83,5 +83,6 @@ max_parallel_workers_per_gather  0
   },
   "is_ha_cluster": false,
   "read_replicas": [],
-  "node_type": "db-dev-s"
+  "node_type": "db-dev-s",
+  "init_settings": null
 }

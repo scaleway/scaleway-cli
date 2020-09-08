@@ -2,6 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                          719be133-dd66-4aee-8841-bb60a04963da
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID                   -
 Name                        cli-bm-unruffled-tesla
 Description                 -
 UpdatedAt                   few seconds ago
@@ -32,6 +33,7 @@ PingStatus                  up
 {
   "id": "719be133-dd66-4aee-8841-bb60a04963da",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "",
   "name": "cli-bm-unruffled-tesla",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
