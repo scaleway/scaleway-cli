@@ -256,20 +256,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// More format details in buildVolumeTemplate function.
 	//
 	if len(args.AdditionalVolumes) > 0 || args.RootVolume != "" {
-		// Get default project ID.
-		projectID := args.ProjectID
-		if projectID == nil {
-			projectID = args.OrganizationID
-			if projectID == nil {
-				projectFromCtx := core.GetProjectIDFromContext(ctx)
-				if projectFromCtx != "" {
-					projectID = &projectFromCtx
-				}
-			}
-		}
-
 		// Create initial volume template map.
-		volumes, err := buildVolumes(apiInstance, args.Zone, projectID, serverReq.Name, args.RootVolume, args.AdditionalVolumes)
+		volumes, err := buildVolumes(apiInstance, args.Zone, serverReq.Name, args.RootVolume, args.AdditionalVolumes)
 		if err != nil {
 			return nil, err
 		}
@@ -339,20 +327,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if needIPCreation {
 		logger.Debugf("creating IP")
-		projectID := args.ProjectID
-		if projectID == nil {
-			projectID = args.OrganizationID
-			if projectID == nil {
-				projectFromCtx := core.GetProjectIDFromContext(ctx)
-				if projectFromCtx != "" {
-					projectID = &projectFromCtx
-				}
-			}
-		}
 
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
-			Zone:    args.Zone,
-			Project: projectID,
+			Zone:         args.Zone,
+			Project:      args.ProjectID,
+			Organization: args.OrganizationID,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
@@ -423,20 +402,20 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
-func buildVolumes(api *instance.API, zone scw.Zone, projectID *string, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeTemplate, error) {
+func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeTemplate, error) {
 	volumes := make(map[string]*instance.VolumeTemplate)
 	if rootVolume != "" {
-		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, projectID, rootVolume)
+		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, rootVolume)
 		if err != nil {
 			return nil, err
 		}
-		rootVolumeTemplate.Organization = ""
-		rootVolumeTemplate.Project = ""
+		rootVolumeTemplate.Organization = nil
+		rootVolumeTemplate.Project = nil
 		volumes["0"] = rootVolumeTemplate
 	}
 
 	for i, v := range additionalVolumes {
-		volumeTemplate, err := buildVolumeTemplate(api, zone, projectID, v)
+		volumeTemplate, err := buildVolumeTemplate(api, zone, v)
 		if err != nil {
 			return nil, err
 		}
@@ -462,7 +441,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, projectID *string, serverNam
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a UUID format
 //
-func buildVolumeTemplate(api *instance.API, zone scw.Zone, projectID *string, flagV string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 
 	// Create volume.
@@ -483,10 +462,6 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, projectID *string, fl
 			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV) // TODO: improve msg [APIGW-1371]
 		}
 		vt.Size = scw.Size(size)
-
-		if projectID != nil {
-			vt.Project = *projectID
-		}
 
 		return vt, nil
 	}
