@@ -2,6 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                          b86b3b5f-1201-45fb-947d-230b24335eb4
 OrganizationID              b8fdefc6-c926-4a47-af24-24f14f724d6a
+ProjectID                   -
 Name                        cli-bm-infallible-einstein
 Description                 -
 UpdatedAt                   few seconds ago
@@ -28,6 +29,7 @@ PingStatus                  unknown
 {
   "id": "b86b3b5f-1201-45fb-947d-230b24335eb4",
   "organization_id": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+  "project_id": "",
   "name": "cli-bm-infallible-einstein",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
