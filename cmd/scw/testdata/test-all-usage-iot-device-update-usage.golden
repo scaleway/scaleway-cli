@@ -13,6 +13,7 @@ ARGS:
   [message-filters.publish.topics.{index}]     
   [message-filters.subscribe.policy]            (unknown | accept | reject)
   [message-filters.subscribe.topics.{index}]   
+  [hub-id]                                     Change Hub for this device, additional fees may apply, see IoT Hub pricing
   [region=fr-par]                              Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
