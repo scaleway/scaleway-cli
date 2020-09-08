@@ -237,6 +237,7 @@ func rdbBackupCreate() *core.Command {
 				Short:      `Name of the backup`,
 				Required:   false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("bkp"),
 			},
 			{
 				Name:       "expires-at",
@@ -650,8 +651,9 @@ func rdbInstanceCreate() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Name of the instance`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("ins"),
 			},
 			{
 				Name:       "engine",
