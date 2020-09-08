@@ -25,21 +25,25 @@ EXAMPLES:
     scw instance server update
 
 ARGS:
-  server-id                 UUID of the server
-  [name]                    Name of the server
-  [ip]                      IP that should be attached to the server (use ip=none to detach)
-  [cloud-init]              The cloud-init script to use
-  [boot-type]                (local | bootscript | rescue)
-  [tags.{index}]            Tags of the server
-  [volumes.{key}.project]   Project ID of the volume
-  [bootscript]              
-  [dynamic-ip-required]     
-  [enable-ipv6]             
-  [protected]               
-  [security-group-id]       
-  [volume-ids.{index}]      Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes)
-  [placement-group-id]      Placement group ID if server must be part of a placement group
-  [zone=fr-par-1]           Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  server-id                                   UUID of the server
+  [name]                                      Name of the server
+  [ip]                                        IP that should be attached to the server (use ip=none to detach)
+  [cloud-init]                                The cloud-init script to use
+  [boot-type]                                  (local | bootscript | rescue)
+  [tags.{index}]                              Tags of the server
+  [volumes.{key}.project]                     Project ID of the volume
+  [bootscript]                                
+  [dynamic-ip-required]                       
+  [enable-ipv6]                               
+  [protected]                                 
+  [security-group-id]                         
+  [volume-ids.{index}]                        Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes)
+  [placement-group-id]                        Placement group ID if server must be part of a placement group
+  [private-nics.{index}.id]                   The private NIC unique ID
+  [private-nics.{index}.server-id]            The server the private NIC is attached to
+  [private-nics.{index}.private-network-id]   The private network where the private NIC is attached
+  [private-nics.{index}.mac-address]          The private NIC MAC address
+  [zone=fr-par-1]                             Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for update

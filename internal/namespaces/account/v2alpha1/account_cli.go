@@ -122,8 +122,8 @@ func accountSSHKeyList() *core.Command {
 
 func accountSSHKeyAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add a SSH key to your project`,
-		Long:      `Add a SSH key to your project.`,
+		Short:     `Add an SSH key to your project`,
+		Long:      `Add an SSH key to your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "add",
@@ -178,8 +178,8 @@ func accountSSHKeyAdd() *core.Command {
 
 func accountSSHKeyGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a SSH key from your project`,
-		Long:      `Get a SSH key from your project.`,
+		Short:     `Get an SSH key from your project`,
+		Long:      `Get an SSH key from your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "get",
@@ -205,8 +205,8 @@ func accountSSHKeyGet() *core.Command {
 
 func accountSSHKeyUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a SSH key on your project`,
-		Long:      `Update a SSH key on your project.`,
+		Short:     `Update an SSH key on your project`,
+		Long:      `Update an SSH key on your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "update",
@@ -237,8 +237,8 @@ func accountSSHKeyUpdate() *core.Command {
 
 func accountSSHKeyRemove() *core.Command {
 	return &core.Command{
-		Short:     `Remove a SSH key from your project`,
-		Long:      `Remove a SSH key from your project.`,
+		Short:     `Remove an SSH key from your project`,
+		Long:      `Remove an SSH key from your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "remove",

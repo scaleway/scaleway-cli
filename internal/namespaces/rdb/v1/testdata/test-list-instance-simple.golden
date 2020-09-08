@@ -55,6 +55,7 @@ ID                                    NAME      NODE TYPE  STATUS  ENGINE       
     },
     "is_ha_cluster": false,
     "read_replicas": [],
-    "node_type": "db-dev-s"
+    "node_type": "db-dev-s",
+    "init_settings": null
   }
 ]
