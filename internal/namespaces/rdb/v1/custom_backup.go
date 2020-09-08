@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"net/http"
 	"net/url"
 	"os"
 	"path"
@@ -174,7 +173,8 @@ func backupDownloadCommand() *core.Command {
 				return nil, fmt.Errorf("no download URL found")
 			}
 
-			res, err := http.Get(*backup.DownloadURL)
+			httpClient := core.ExtractHTTPClient(ctx)
+			res, err := httpClient.Get(*backup.DownloadURL)
 			if err != nil {
 				return nil, err
 			}
