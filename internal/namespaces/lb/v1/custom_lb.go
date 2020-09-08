@@ -35,8 +35,9 @@ func lbWaitCommand() *core.Command {
 			api := lb.NewAPI(core.ExtractClient(ctx))
 			args := argsI.(*lb.WaitForLBRequest)
 			return api.WaitForLb(&lb.WaitForLBRequest{
-				LBID:   args.LBID,
-				Region: args.Region,
+				LBID:          args.LBID,
+				Region:        args.Region,
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -64,8 +65,9 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := lb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForLb(&lb.WaitForLBRequest{
-			LBID:   respI.(*lb.LB).ID,
-			Region: respI.(*lb.LB).Region,
+			LBID:          respI.(*lb.LB).ID,
+			Region:        respI.(*lb.LB).Region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 	return c
