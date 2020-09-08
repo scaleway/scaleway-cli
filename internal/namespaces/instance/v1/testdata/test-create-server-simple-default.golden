@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                       b4a94e26-39e3-4a5a-850b-560121b9ae75
-Name                     cli-srv-strange-wiles
-Organization             b8fdefc6-c926-4a47-af24-24f14f724d6a
-Project                  b8fdefc6-c926-4a47-af24-24f14f724d6a
+ID                       9789ff61-56f4-44be-af76-f608099a2c57
+Name                     cli-srv-practical-ramanujan
+Organization             951df375-e094-4d26-97c1-ba548eeb9c42
+Project                  951df375-e094-4d26-97c1-ba548eeb9c42
 AllowedActions.0         poweron
 AllowedActions.1         backup
 CommercialType           DEV1-S
 CreationDate             few seconds ago
 DynamicIPRequired        false
 EnableIPv6               false
-Hostname                 cli-srv-strange-wiles
+Hostname                 cli-srv-practical-ramanujan
 Image.ID                 f974feac-abae-4365-b988-8ec7d1cec10d
 Image.Name               Ubuntu Bionic Beaver
 Image.Arch               x86_64
@@ -26,25 +26,25 @@ Image.State              available
 Image.Project            51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone               fr-par-1
 Protected                false
-PublicIP.ID              3c3b31cf-fcc3-4e07-8c06-410309a3ff2b
-PublicIP.Address         51.15.243.126
+PublicIP.ID              3006a180-67e0-433c-8b6a-142e202bd931
+PublicIP.Address         51.158.70.223
 PublicIP.Dynamic         false
 ModificationDate         few seconds ago
 State                    archived
 Bootscript               x86_64 mainline 4.9.93 rev1
 BootType                 local
 Volumes                  1
-SecurityGroup.ID         c73f1fa9-a053-4839-ab81-2de8aa8e0b2c
+SecurityGroup.ID         54e2d5f6-d79c-44cc-b19f-613699b9cc7e
 SecurityGroup.Name       Default security group
 StateDetail              -
 Arch                     x86_64
 Zone                     fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "b4a94e26-39e3-4a5a-850b-560121b9ae75",
-  "name": "cli-srv-strange-wiles",
-  "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-  "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+  "id": "9789ff61-56f4-44be-af76-f608099a2c57",
+  "name": "cli-srv-practical-ramanujan",
+  "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -54,7 +54,7 @@ Zone                     fr-par-1
   "creation_date": "1970-01-01T00:00:00.0Z",
   "dynamic_ip_required": false,
   "enable_ipv6": false,
-  "hostname": "cli-srv-strange-wiles",
+  "hostname": "cli-srv-practical-ramanujan",
   "image": {
     "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
     "name": "Ubuntu Bionic Beaver",
@@ -92,8 +92,8 @@ Zone                     fr-par-1
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "3c3b31cf-fcc3-4e07-8c06-410309a3ff2b",
-    "address": "51.15.243.126",
+    "id": "3006a180-67e0-433c-8b6a-142e202bd931",
+    "address": "51.158.70.223",
     "dynamic": false
   },
   "modification_date": "1970-01-01T00:00:00.0Z",
@@ -117,25 +117,25 @@ Zone                     fr-par-1
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "a72830b5-f2fc-4c61-9729-24346b51621d",
+      "id": "265d0a2e-891f-4ef5-af1a-101e0406d617",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
       "export_uri": "",
       "size": 20000000000,
       "volume_type": "l_ssd",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
-      "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-      "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+      "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
       "server": {
-        "id": "b4a94e26-39e3-4a5a-850b-560121b9ae75",
-        "name": "cli-srv-strange-wiles"
+        "id": "9789ff61-56f4-44be-af76-f608099a2c57",
+        "name": "cli-srv-practical-ramanujan"
       },
       "state": "available",
       "zone": "fr-par-1"
     }
   },
   "security_group": {
-    "id": "c73f1fa9-a053-4839-ab81-2de8aa8e0b2c",
+    "id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
     "name": "Default security group"
   },
   "maintenances": [],

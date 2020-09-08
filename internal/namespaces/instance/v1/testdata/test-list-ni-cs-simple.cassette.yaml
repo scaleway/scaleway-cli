@@ -1,0 +1,43 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/4fe24c2a-3c65-4530-b274-574b22ba3d14/private_nics
+    method: GET
+  response:
+    body: '{"private_nics": [{"id": "b973e3c5-10f7-4fe3-86ae-9837d99dabaa", "private_network_id":
+      "d502e1ba-9d92-45cb-816b-4b51e7c09575", "server_id": "4fe24c2a-3c65-4530-b274-574b22ba3d14",
+      "mac_address": "02:00:00:00:1d:07", "creation_date": "2020-09-08T11:25:06.642359+00:00",
+      "zone": "fr-par-1"}, {"id": "ef7a30e5-9434-4cdd-8d26-fa80f97685e8", "private_network_id":
+      "a8861821-f593-48cb-aa20-df4c9f50a344", "server_id": "4fe24c2a-3c65-4530-b274-574b22ba3d14",
+      "mac_address": "02:00:00:00:1d:08", "creation_date": "2020-09-08T11:25:27.569495+00:00",
+      "zone": "fr-par-1"}]}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - "562"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 08 Sep 2020 11:47:16 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8df576e9-711e-4f67-908a-55d792bbe373
+    status: 200 OK
+    code: 200
+    duration: ""
