@@ -414,7 +414,7 @@ func instanceServerList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `List only servers of this organization`,
+				Short:      `List only servers of this organization ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -1280,7 +1280,7 @@ func instanceVolumeList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `Filter volume by organization`,
+				Short:      `Filter volume by organization ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -1334,7 +1334,10 @@ func instanceVolumeList() *core.Command {
 				FieldName: "Server.Name",
 			},
 			{
-				FieldName: "ExportURI",
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Project",
 			},
 			{
 				FieldName: "Size",
@@ -1349,10 +1352,10 @@ func instanceVolumeList() *core.Command {
 				FieldName: "ModificationDate",
 			},
 			{
-				FieldName: "Organization",
+				FieldName: "ExportURI",
 			},
 			{
-				FieldName: "Name",
+				FieldName: "Organization",
 			},
 		}},
 	}
@@ -1686,8 +1689,8 @@ func instanceSecurityGroupCreate() *core.Command {
 				ArgsJSON: `{"description":"foobar foobar","name":"foobar"}`,
 			},
 			{
-				Short:    "Create a Security Group that will be applied as a default on instances of your organization",
-				ArgsJSON: `{"organization_default":true}`,
+				Short:    "Create a Security Group that will be applied as a default on instances of your project",
+				ArgsJSON: `{"project_default":true}`,
 			},
 			{
 				Short:    "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
@@ -1802,7 +1805,7 @@ func instancePlacementGroupList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `List only placement groups of this organization`,
+				Short:      `List only placement groups of this organization ID`,
 				Required:   false,
 				Positional: false,
 			},
@@ -2054,14 +2057,14 @@ func instanceIPList() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "project",
-				Short:      `The project ID the IPs are reserved in`,
+				Name:       "name",
+				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "name",
-				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
+				Name:       "project",
+				Short:      `The project ID the IPs are reserved in`,
 				Required:   false,
 				Positional: false,
 			},
@@ -2106,7 +2109,7 @@ func instanceIPList() *core.Command {
 				FieldName: "Reverse",
 			},
 			{
-				FieldName: "Organization",
+				FieldName: "Project",
 			},
 			{
 				FieldName: "Server.ID",
@@ -2119,6 +2122,9 @@ func instanceIPList() *core.Command {
 			},
 			{
 				FieldName: "Zone",
+			},
+			{
+				FieldName: "Organization",
 			},
 		}},
 	}
