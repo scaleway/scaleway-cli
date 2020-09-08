@@ -42,7 +42,9 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		Description           string
 		EnableDefaultSecurity bool
 		OrganizationID        string
+		ProjectID             string
 		OrganizationDefault   bool
+		ProjectDefault        bool
 		CreationDate          *time.Time
 		ModificationDate      *time.Time
 		Stateful              bool
@@ -52,7 +54,9 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		Description:           sg.Description,
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
 		OrganizationID:        sg.Organization,
+		ProjectID:             sg.Project,
 		OrganizationDefault:   sg.OrganizationDefault,
+		ProjectDefault:        sg.ProjectDefault,
 		CreationDate:          sg.CreationDate,
 		ModificationDate:      sg.ModificationDate,
 		Stateful:              sg.Stateful,
@@ -160,9 +164,11 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSecurityGroupRequest struct {
 		*instance.CreateSecurityGroupRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
 
@@ -175,6 +181,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 
 		request := args.CreateSecurityGroupRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -213,9 +220,11 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 	type customListSecurityGroupsRequest struct {
 		*instance.ListSecurityGroupsRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
 
@@ -228,6 +237,7 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListSecurityGroupsRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -374,6 +384,9 @@ func securityGroupUpdateCommand() *core.Command {
 			},
 			{
 				Name: "organization-default",
+			},
+			{
+				Name: "project-default",
 			},
 			core.ZoneArgSpec(),
 		},

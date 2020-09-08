@@ -153,6 +153,14 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 	}
 }
 
+func ProjectIDArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:         "project-id",
+		Short:        "Project ID to use. If none is passed will use default project ID from the config",
+		ValidateFunc: ValidateProjectID(),
+	}
+}
+
 func OrganizationIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization-id",

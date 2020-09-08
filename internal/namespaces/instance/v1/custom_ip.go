@@ -42,9 +42,11 @@ func ipListBuilder(c *core.Command) *core.Command {
 	type customListIPsRequest struct {
 		*instance.ListIPsRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListIPsRequest{})
 
@@ -56,6 +58,7 @@ func ipListBuilder(c *core.Command) *core.Command {
 		}
 		request := args.ListIPsRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
