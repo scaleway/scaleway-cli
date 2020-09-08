@@ -686,6 +686,12 @@ func iotDeviceUpdate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
+			{
+				Name:       "hub-id",
+				Short:      `Change Hub for this device, additional fees may apply, see IoT Hub pricing`,
+				Required:   false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
