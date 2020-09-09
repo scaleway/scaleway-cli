@@ -33,7 +33,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 
 		return &struct {
 			*instance.PlacementGroup
-			Servers []*instance.PlacementGroupServer
+			Servers []*instance.PlacementGroupServer `json:"servers"`
 		}{
 			placementGroupResponse.PlacementGroup,
 			placementGroupServersResponse.Servers,
@@ -43,7 +43,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
 			{FieldName: "PlacementGroup", Title: "Placement Group"},
-			{FieldName: "servers", Title: "Servers"},
+			{FieldName: "Servers", Title: "Servers"},
 		},
 	}
 
