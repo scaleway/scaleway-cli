@@ -178,9 +178,11 @@ func serverListBuilder(c *core.Command) *core.Command {
 	type customListServersRequest struct {
 		*instance.ListServersRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
@@ -193,6 +195,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListServersRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -222,6 +225,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.DeleteByName("volumes.{key}.id")
 	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
 	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
+	c.ArgSpecs.DeleteByName("volumes.{key}.project")
 
 	// Add new arg specs.
 	c.ArgSpecs.AddBefore("placement-group-id", &core.ArgSpec{

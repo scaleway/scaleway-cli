@@ -40,9 +40,11 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 	type customCreateVolumeRequest struct {
 		*instance.CreateVolumeRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
 
@@ -55,6 +57,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 
 		request := args.CreateVolumeRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -65,9 +68,11 @@ func volumeListBuilder(c *core.Command) *core.Command {
 	type customListVolumesRequest struct {
 		*instance.ListVolumesRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
 
@@ -80,6 +85,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListVolumesRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})

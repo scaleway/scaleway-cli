@@ -62,6 +62,15 @@ func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
 	return organizationID
 }
 
+func GetProjectIDFromContext(ctx context.Context) (projectID string) {
+	client := ExtractClient(ctx)
+	projectID, exists := client.GetDefaultProjectID()
+	if !exists {
+		panic("no default project ID found")
+	}
+	return projectID
+}
+
 func ExtractClient(ctx context.Context) *scw.Client {
 	return extractMeta(ctx).Client
 }

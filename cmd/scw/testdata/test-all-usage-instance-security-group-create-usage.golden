@@ -24,7 +24,7 @@ EXAMPLES:
 ARGS:
   name=<generated>                   Name of the security group
   [description]                      Description of the security group
-  [project]                          Project ID the security group belong to
+  [project-id]                       Project ID the security group belong to
   [organization-default=false]       Whether this security group becomes the default security group for new instances
   [project-default=false]            Whether this security group becomes the default security group for new instances
   [stateful=true]                    Whether the security group is stateful or not

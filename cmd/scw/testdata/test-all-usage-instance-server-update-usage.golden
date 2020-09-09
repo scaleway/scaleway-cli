@@ -31,7 +31,6 @@ ARGS:
   [cloud-init]                                The cloud-init script to use
   [boot-type]                                  (local | bootscript | rescue)
   [tags.{index}]                              Tags of the server
-  [volumes.{key}.project]                     Project ID of the volume
   [bootscript]                                
   [dynamic-ip-required]                       
   [enable-ipv6]                               
