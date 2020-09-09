@@ -1137,6 +1137,7 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			{
 				Name:       "project",
+				Short:      `Project ID of the snapshot`,
 				Required:   false,
 				Positional: false,
 			},
@@ -1372,32 +1373,38 @@ func instanceVolumeCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
+				Short:      `The volume name`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "project",
+				Short:      `The volume project ID`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "volume-type",
+				Short:      `The volume type`,
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
 				Name:       "size",
+				Short:      `The volume disk size`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "base-volume",
+				Short:      `The ID of the volume on which this volume will be based`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "base-snapshot",
-				Required:   false,
-				Positional: false,
-			},
-			{
-				Name:       "project",
+				Short:      `The ID of the snapshot on which this volume will be based`,
 				Required:   false,
 				Positional: false,
 			},
@@ -1854,17 +1861,20 @@ func instancePlacementGroupCreate() *core.Command {
 			},
 			{
 				Name:       "project",
+				Short:      `Project ID of the placement group`,
 				Required:   false,
 				Positional: false,
 			},
 			{
 				Name:       "policy-mode",
+				Short:      `The operating mode of the placement group`,
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"optional", "enforced"},
 			},
 			{
 				Name:       "policy-type",
+				Short:      `The policy type of the placement group`,
 				Required:   false,
 				Positional: false,
 				EnumValues: []string{"max_availability", "low_latency"},
