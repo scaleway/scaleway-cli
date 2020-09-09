@@ -32,6 +32,18 @@ func k8sKubeconfigGetCommand() *core.Command {
 			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigGetRun,
+		Examples: []*core.Example{
+			{
+				Short:    "Get the kubeconfig for a given cluster",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw k8s kubeconfig install",
+				Short:   "Install a kubeconfig",
+			},
+		},
 	}
 }
 
