@@ -409,8 +409,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 		if err != nil {
 			return nil, err
 		}
-		rootVolumeTemplate.Organization = nil
-		rootVolumeTemplate.Project = nil
+
 		volumes["0"] = rootVolumeTemplate
 	}
 

@@ -42,8 +42,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ServerName       string
 		ServerID         string
 		Arch             instance.Arch
-		Organization     string
-		Project          string
+		OrganizationID   string
+		ProjectID        string
 		CreationDate     *time.Time
 		ModificationDate *time.Time
 	}
@@ -77,8 +77,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			ServerName:       image.ServerName,
 			ServerID:         image.ServerID,
 			Arch:             image.Arch,
-			Organization:     image.Organization,
-			Project:          image.Project,
+			OrganizationID:   image.OrganizationID,
+			ProjectID:        image.ProjectID,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
 		})
@@ -159,8 +159,8 @@ type imageListItem struct {
 	ModificationDate  *time.Time
 	DefaultBootscript *instance.Bootscript
 	ExtraVolumes      map[string]*instance.Volume
-	Organization      string
-	Project           string
+	OrganizationID    string
+	ProjectID         string
 	Public            bool
 	RootVolume        *instance.VolumeSummary
 	State             instance.ImageState
@@ -216,8 +216,8 @@ func imageListBuilder(c *core.Command) *core.Command {
 				ModificationDate:  image.ModificationDate,
 				DefaultBootscript: image.DefaultBootscript,
 				ExtraVolumes:      image.ExtraVolumes,
-				Organization:      image.Organization,
-				Project:           image.Project,
+				OrganizationID:    image.Organization,
+				ProjectID:         image.Project,
 				Public:            image.Public,
 				RootVolume:        image.RootVolume,
 				State:             image.State,
