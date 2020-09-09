@@ -9,8 +9,8 @@ EXAMPLES:
   Set the default outbound policy as drop
     scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 outbound-default-policy=drop
 
-  Set the given security group as the default for the organization
-    scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 organization-default=true
+  Set the given security group as the default for the project
+    scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 project-default=true
 
   Change the name of the given security group
     scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 name=foobar
