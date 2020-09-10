@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Add a given ssh key
-    scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"
+    scw account ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"
 
 ARGS:
   [name]              The name of the SSH key
