@@ -6,7 +6,7 @@ USAGE:
   scw rdb instance create [arg=value ...]
 
 ARGS:
-  name                            Name of the instance
+  [name=<generated>]              Name of the instance
   engine                          Database engine of the database (PostgreSQL, MySQL, ...)
   user-name                       Name of the user created when the instance is created
   password                        Password of the user

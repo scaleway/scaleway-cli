@@ -179,3 +179,24 @@ func ValidateOrganizationID() ArgSpecValidateFunc {
 		return nil
 	}
 }
+
+// ValidateProjectID validates a non-required project ID.
+// By default, for most command, the project ID is not required.
+// In that case, we allow the empty-string value "".
+func ValidateProjectID() ArgSpecValidateFunc {
+	return func(argSpec *ArgSpec, valueI interface{}) error {
+		value, isStr := valueI.(string)
+		valuePtr, isPtr := valueI.(*string)
+		if !isStr && isPtr && valuePtr != nil {
+			value = *valuePtr
+		}
+
+		if value == "" && !argSpec.Required {
+			return nil
+		}
+		if !validation.IsProjectID(value) {
+			return InvalidProjectIDError(value)
+		}
+		return nil
+	}
+}

@@ -26,9 +26,9 @@ EXAMPLES:
 
 ARGS:
   [name=<generated>]   Name of the placement group
-  [project]            
-  [policy-mode]         (optional | enforced)
-  [policy-type]         (max_availability | low_latency)
+  [project-id]         Project ID of the placement group
+  [policy-mode]        The operating mode of the placement group (optional | enforced)
+  [policy-type]        The policy type of the placement group (max_availability | low_latency)
   [organization-id]    Organization ID to use. If none is passed will use default organization ID from the config
   [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 

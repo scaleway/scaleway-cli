@@ -1,6 +1,7 @@
 package human
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -183,4 +184,45 @@ func TestMarshal(t *testing.T) {
 		},
 		result: `Name  Paul`,
 	}))
+}
+
+func Test_getStructFieldsIndex(t *testing.T) {
+	type args struct {
+		v reflect.Type
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want [][]int
+	}{
+		{
+			name: "simple",
+			args: args{
+				v: reflect.TypeOf(&Anonymous{
+					NestedAnonymous: NestedAnonymous{
+						Name: "Pierre",
+					},
+					Name: "Paul",
+				}),
+			},
+			want: [][]int{{1}},
+		},
+		{
+			name: "structs",
+			args: args{
+				v: reflect.TypeOf(&Struct{
+					Strings: []string{"aa", "ab"}},
+				),
+			},
+			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getStructFieldsIndex(tt.args.v); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getStructFieldsIndex() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

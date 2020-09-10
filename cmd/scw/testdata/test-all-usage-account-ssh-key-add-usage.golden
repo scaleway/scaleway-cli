@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add a SSH key to your organization.
+Add an SSH key to your project.
 
 USAGE:
   scw account ssh-key add [arg=value ...]

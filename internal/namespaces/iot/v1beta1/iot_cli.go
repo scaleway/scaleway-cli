@@ -104,7 +104,7 @@ func iotHubList() *core.Command {
 				Short:      `Ordering of requested hub`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "product_plan_asc", "product_plan_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "enabled_asc", "enabled_desc"},
+				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "product_plan_asc", "product_plan_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
 			},
 			{
 				Name:       "name",
@@ -456,7 +456,7 @@ func iotDeviceList() *core.Command {
 				Short:      `Ordering of requested devices`,
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "hub_id_asc", "hub_id_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "enabled_asc", "enabled_desc", "allow_insecure_asc", "allow_insecure_desc", "last_seen_at_asc", "last_seen_at_desc"},
+				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "hub_id_asc", "hub_id_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "allow_insecure_asc", "allow_insecure_desc"},
 			},
 			{
 				Name:       "name",
@@ -472,7 +472,7 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				Name:       "enabled",
-				Short:      `Filter on the enabled flag`,
+				Short:      `Deprecated, ignored filter`,
 				Required:   false,
 				Positional: false,
 			},
@@ -484,7 +484,7 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				Name:       "is-connected",
-				Short:      `Filter on the is_connected state`,
+				Short:      `Deprecated, ignored filter`,
 				Required:   false,
 				Positional: false,
 			},
@@ -683,6 +683,12 @@ func iotDeviceUpdate() *core.Command {
 			},
 			{
 				Name:       "message-filters.subscribe.topics.{index}",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "hub-id",
+				Short:      `Change Hub for this device, additional fees may apply, see IoT Hub pricing`,
 				Required:   false,
 				Positional: false,
 			},

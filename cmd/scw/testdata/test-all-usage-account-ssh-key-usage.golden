@@ -6,12 +6,12 @@ USAGE:
   scw account ssh-key <command>
 
 AVAILABLE COMMANDS:
-  add         Add a SSH key to your organization
-  get         Get a SSH key from your organization
+  add         Add an SSH key to your project
+  get         Get an SSH key from your project
   init        Initialize SSH key
-  list        List all SSH keys of your organization
-  remove      Remove a SSH key from your organization
-  update      Update a SSH key on your organization
+  list        List all SSH keys of your project
+  remove      Remove an SSH key from your project
+  update      Update an SSH key on your project
 
 FLAGS:
   -h, --help   help for ssh-key

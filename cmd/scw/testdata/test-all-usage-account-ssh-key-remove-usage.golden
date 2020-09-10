@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Remove a SSH key from your organization.
+Remove an SSH key from your project.
 
 USAGE:
   scw account ssh-key remove <ssh-key-id ...> [arg=value ...]
