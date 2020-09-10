@@ -160,7 +160,7 @@ func accountSSHKeyAdd() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a given ssh key",
-				Raw:   `scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"`,
+				Raw:   `scw account ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
