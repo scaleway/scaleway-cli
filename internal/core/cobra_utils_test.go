@@ -109,11 +109,15 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 
 	t.Run("relative date", Test(&TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test date date=+3d",
+		Cmd:      "scw test date date=+3R",
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("invalid value for 'date' argument: date parsing error: could not parse +3R"),
+				Message: "could not parse +3R as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339",
+				Details: `Absolute time error: parsing time "+3R" as "2006-01-02T15:04:05Z07:00": cannot parse "+3R" as "2006"
+Relative time error: unknown unit in duration: "R"
+`,
+				Err:  fmt.Errorf("date parsing error: +3R"),
 				Hint: "Run `scw help date` to learn more about date parsing",
 			}),
 		),

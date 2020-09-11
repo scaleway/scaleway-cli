@@ -392,7 +392,7 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		case "false":
 			dest.SetBool(false)
 		default:
-			return fmt.Errorf("invalid boolean value")
+			return &CannotParseBoolError{Value: value}
 		}
 		return nil
 	case reflect.String:
