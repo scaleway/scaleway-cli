@@ -16,7 +16,7 @@ ARGS:
   [tags.{index}]                  Tags to apply to the instance
   [init-settings.{index}.name]    
   [init-settings.{index}.value]   
-  [organization-id]               Organization ID to use. If none is passed will use default organization ID from the config
+  [organization-id]               Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

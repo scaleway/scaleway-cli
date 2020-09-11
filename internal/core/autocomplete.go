@@ -217,6 +217,11 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 
 		// We consider ArgSpecs as leaf in the autocomplete tree.
 		for _, argSpec := range cmd.ArgSpecs {
+			if argSpec.Deprecated {
+				// Do not autocomplete deprecated arguments.
+				continue
+			}
+
 			if argSpec.Positional {
 				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, argSpec)
 				continue

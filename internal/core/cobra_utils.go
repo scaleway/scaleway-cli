@@ -128,7 +128,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	if cmd.ValidateFunc != nil {
 		validateFunc = cmd.ValidateFunc
 	}
-	err = validateFunc(cmd, cmdArgs, rawArgs)
+	err = validateFunc(ctx, cmd, cmdArgs, rawArgs)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,9 @@ Relative time error: %s
 	case *args.UnknownArgError, *args.InvalidArgNameError:
 		argNames := []string(nil)
 		for _, argSpec := range cmd.ArgSpecs {
-			argNames = append(argNames, argSpec.Name)
+			if !argSpec.Deprecated {
+				argNames = append(argNames, argSpec.Name)
+			}
 		}
 
 		return &CliError{
