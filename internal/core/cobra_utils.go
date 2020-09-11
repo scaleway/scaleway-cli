@@ -177,14 +177,27 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 
 	switch e := wrappedErr.(type) {
 	case *args.CannotUnmarshalError:
-		hint := ""
-		if _, ok := e.Dest.(*bool); ok {
-			hint = "Possible values: true, false"
-		}
-
-		return &CliError{
-			Err:  fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
-			Hint: hint,
+		switch e.Err.(type) {
+		case *args.CannotParseBoolError:
+			return &CliError{
+				Err:     fmt.Errorf(""),
+				Message: fmt.Sprintf("invalid value for '%s' argument: invalid boolean value", unmarshalErr.ArgName),
+				Hint:    "Possible values: true, false",
+			}
+		case *args.CannotParseDateError:
+			dateErr := e.Err.(*args.CannotParseDateError)
+			return &CliError{
+				Err:     fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
+				Message: fmt.Sprintf("could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339", dateErr.ArgValue),
+				Details: fmt.Sprintf(`Absolute time error: %s
+Relative time error: %s
+`, dateErr.AbsoluteTimeParseError, dateErr.RelativeTimeParseError),
+				Hint: "Run `scw help date` to learn more about date parsing",
+			}
+		default:
+			return &CliError{
+				Err: fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
+			}
 		}
 
 	case *args.UnknownArgError, *args.InvalidArgNameError:
