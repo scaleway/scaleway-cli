@@ -21,6 +21,7 @@ AVAILABLE COMMANDS:
   rdb          Database RDB API
   registry     Container registry API
   version      Display cli version
+  vpc          VPC API
   help         Help about any command
 
 FLAGS:
