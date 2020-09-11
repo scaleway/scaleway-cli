@@ -176,7 +176,6 @@ func OrganizationArgSpec() *ArgSpec {
 	}
 }
 
-
 func OrganizationIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization-id",
