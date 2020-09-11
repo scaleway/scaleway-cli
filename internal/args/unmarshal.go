@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/karrick/tparse"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -24,6 +25,8 @@ type Unmarshaler interface {
 }
 
 type UnmarshalFunc func(value string, dest interface{}) error
+
+var TestForceNow *time.Time
 
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest interface{}) error {
@@ -61,13 +64,32 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
-		t, err := time.Parse(time.RFC3339, value)
-		if err != nil {
-			return err
+		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
+		if absoluteErr == nil {
+			*(dest.(*time.Time)) = absoluteTimeParsed
+			return nil
 		}
 
-		*(dest.(*time.Time)) = t
-		return nil
+		// Handle relative time
+		if value[0] != '+' && value[0] != '-' {
+			value = "+" + value
+		}
+		m := map[string]time.Time{
+			"t": time.Now(),
+		}
+		if TestForceNow != nil {
+			m["t"] = *TestForceNow
+		}
+		relativeTimeParsed, relativeErr := tparse.ParseWithMap(time.RFC3339, "t"+value, m)
+		if relativeErr == nil {
+			*(dest.(*time.Time)) = relativeTimeParsed
+			return nil
+		}
+		return &CannotParseDateError{
+			ArgValue:               value,
+			AbsoluteTimeParseError: absoluteErr,
+			RelativeTimeParseError: relativeErr,
+		}
 	},
 }
 
@@ -370,7 +392,7 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		case "false":
 			dest.SetBool(false)
 		default:
-			return fmt.Errorf("invalid boolean value")
+			return &CannotParseBoolError{Value: value}
 		}
 		return nil
 	case reflect.String:

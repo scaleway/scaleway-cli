@@ -11,6 +11,7 @@ func GetCommands() *core.Commands {
 	return core.NewCommands(
 		helpRoot(),
 		newHelpCommand("output", shortOutput, longOutput),
+		newHelpCommand("date", shortDate, longDate),
 	)
 }
 

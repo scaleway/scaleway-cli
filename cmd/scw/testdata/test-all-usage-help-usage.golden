@@ -6,6 +6,7 @@ USAGE:
   scw help <command>
 
 AVAILABLE COMMANDS:
+  date        Get help about how date parsing works in the CLI
   output      Get help about how the CLI output works
 
 FLAGS:

@@ -187,3 +187,21 @@ func missingIndices(index, length int) string {
 	}
 	return strings.Join(s, ",")
 }
+
+type CannotParseDateError struct {
+	ArgValue               string
+	AbsoluteTimeParseError error
+	RelativeTimeParseError error
+}
+
+func (e *CannotParseDateError) Error() string {
+	return fmt.Sprintf(`date parsing error: could not parse %s`, e.ArgValue)
+}
+
+type CannotParseBoolError struct {
+	Value string
+}
+
+func (e *CannotParseBoolError) Error() string {
+	return "invalid boolean value"
+}
