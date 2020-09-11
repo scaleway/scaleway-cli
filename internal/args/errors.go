@@ -195,6 +195,5 @@ type CannotParseDateError struct {
 }
 
 func (e *CannotParseDateError) Error() string {
-	return fmt.Sprintf(`date parsing error: could not parse %s as either an absolute time (RFC3339) nor a relative time (now(+/-)RFC3339)
-check out "scw help date" to know more about date parsing`, e.ArgValue)
+	return fmt.Sprintf(`date parsing error: could not parse %s`, e.ArgValue)
 }

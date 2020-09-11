@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
 )
@@ -12,6 +13,10 @@ import (
 type testType struct {
 	NameID string
 	Tag    string
+}
+
+type testDate struct {
+	Date *time.Time
 }
 
 func testGetCommands() *Commands {
@@ -64,6 +69,16 @@ func testGetCommands() *Commands {
 				return res, nil
 			},
 		},
+		&Command{
+			Namespace:            "test",
+			Resource:             "date",
+			ArgsType:             reflect.TypeOf(testDate{}),
+			AllowAnonymousClient: true,
+			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+				a := argsI.(*testDate)
+				return a.Date, nil
+			},
+		},
 	)
 }
 
@@ -88,6 +103,18 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 			TestCheckError(&CliError{
 				Err:  fmt.Errorf("unknown argument 'ubuntu_focal'"),
 				Hint: "Valid arguments are: name-id",
+			}),
+		),
+	}))
+
+	t.Run("relative date", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test date date=+3d",
+		Check: TestCheckCombine(
+			TestCheckExitCode(1),
+			TestCheckError(&CliError{
+				Err:  fmt.Errorf("invalid value for 'date' argument: date parsing error: could not parse +3R"),
+				Hint: "Run `scw help date` to learn more about date parsing",
 			}),
 		),
 	}))

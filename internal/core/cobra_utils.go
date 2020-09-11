@@ -198,6 +198,14 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
 		}
 
+	case *args.CannotParseDateError:
+		return &CliError{
+			Err:     fmt.Errorf("date parsing error: %s", e.ArgValue),
+			Message: fmt.Sprintf("could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339", e.ArgValue),
+			Details: fmt.Sprintf("Absolute time error: %s \n Relative time error: %s\n", e.AbsoluteTimeParseError, e.RelativeTimeParseError),
+			Hint:    "Run `scw help date` to learn more about date parsing",
+		}
+
 	default:
 		return &CliError{Err: unmarshalErr}
 	}
