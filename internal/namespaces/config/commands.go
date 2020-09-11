@@ -38,9 +38,9 @@ func configRoot() *core.Command {
 	for _, envVar := range [][5]string{
 		{"|", "Environment Variable", "|", "Description", "|"},
 		{"|", "--", "|", "--", "|"},
-		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
-		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
-		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)", "|"},
+		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)", "|"},
 		{"|", scw.ScwDefaultRegionEnv, "|", "The default region", "|"},
 		{"|", scw.ScwDefaultZoneEnv, "|", "The default availability zone", "|"},
 		{"|", scw.ScwAPIURLEnv, "|", "URL of the API", "|"},

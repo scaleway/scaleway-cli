@@ -10,9 +10,9 @@ The following environment variables are supported:
 
 |Environment Variable|Description|
 |--|--|
-|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/account/credentials)|
-|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/account/credentials)|
-|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)|
+|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/project/credentials)|
+|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/project/credentials)|
+|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)|
 |SCW_DEFAULT_REGION|The default region|
 |SCW_DEFAULT_ZONE|The default availability zone|
 |SCW_API_URL|URL of the API|
