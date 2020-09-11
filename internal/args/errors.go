@@ -203,5 +203,5 @@ type CannotParseBoolError struct {
 }
 
 func (e *CannotParseBoolError) Error() string {
-	return fmt.Sprintf("Cannot parse bool error: %s", e.Value)
+	return "invalid boolean value"
 }

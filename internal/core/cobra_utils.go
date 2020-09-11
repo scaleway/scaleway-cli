@@ -180,7 +180,8 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 		switch e.Err.(type) {
 		case *args.CannotParseBoolError:
 			return &CliError{
-				Hint: "Possible values: true, false",
+				Message: fmt.Sprintf("invalid value for '%s' argument: invalid boolean value", unmarshalErr.ArgName),
+				Hint:    "Possible values: true, false",
 			}
 		case *args.CannotParseDateError:
 			dateErr := e.Err.(*args.CannotParseDateError)
