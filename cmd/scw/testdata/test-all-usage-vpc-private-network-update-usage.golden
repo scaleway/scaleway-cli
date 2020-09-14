@@ -3,7 +3,7 @@
 Update private network.
 
 USAGE:
-  scw vpc private-network update [arg=value ...]
+  scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 ARGS:
   private-network-id   The private network ID
