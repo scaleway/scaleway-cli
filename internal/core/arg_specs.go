@@ -165,6 +165,14 @@ func ProjectIDArgSpec() *ArgSpec {
 	}
 }
 
+func ProjectArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:         "project",
+		Short:        "Project ID to use. If none is passed the default project ID will be used",
+		ValidateFunc: ValidateProjectID(),
+	}
+}
+
 // TODO: Remove me and:
 // - use OrganizationIDDeprecatedArgSpec in the generator
 // - stop using renameOrganizationIDArgSpec and renameProjectIDArgSpec for these use-cases
