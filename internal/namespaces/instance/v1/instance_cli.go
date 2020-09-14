@@ -413,6 +413,12 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-network",
+				Short:      `List servers in this Private Network`,
+				Required:   false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only servers of this organization ID`,
 				Required:   false,
@@ -986,12 +992,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			{
-				Name:       "project",
-				Short:      `Project ID of the image`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			{
 				Name:       "public",
 				Short:      `True to create a public image`,
@@ -1135,12 +1136,7 @@ func instanceSnapshotCreate() *core.Command {
 				Required:   true,
 				Positional: false,
 			},
-			{
-				Name:       "project",
-				Short:      `Project ID of the snapshot`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
@@ -1377,12 +1373,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			{
-				Name:       "project",
-				Short:      `The volume project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			{
 				Name:       "volume-type",
 				Short:      `The volume type`,
@@ -1636,12 +1627,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			{
-				Name:       "project",
-				Short:      `Project ID the security group belong to`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			{
 				Name:       "organization-default",
 				Short:      `Whether this security group becomes the default security group for new instances`,
@@ -1859,12 +1845,7 @@ func instancePlacementGroupCreate() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("pg"),
 			},
-			{
-				Name:       "project",
-				Short:      `Project ID of the placement group`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			{
 				Name:       "policy-mode",
 				Short:      `The operating mode of the placement group`,
@@ -2149,12 +2130,7 @@ func instanceIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(instance.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project",
-				Short:      `The project ID the IP is reserved in`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectArgSpec(),
 			{
 				Name:       "server",
 				Short:      `UUID of the server you want to attach the IP to`,

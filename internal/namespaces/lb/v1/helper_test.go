@@ -38,7 +38,7 @@ func createBackend(forwardPort int32) core.BeforeFunc {
 func addIP2Backend(ip string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"AddIP2Backend",
-		fmt.Sprintf("scw lb backend add {{ .Backend.ID }} server-ip.0=%s", ip),
+		fmt.Sprintf("scw lb backend add-servers {{ .Backend.ID }} server-ip.0=%s", ip),
 	)
 }
 

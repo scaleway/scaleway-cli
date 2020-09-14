@@ -1,18 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create an IP.
+Add a set of servers in a given backend.
 
 USAGE:
-  scw lb ip create [arg=value ...]
+  scw lb backend add-servers <backend-id ...> [arg=value ...]
 
 ARGS:
-  [project-id]        Project ID to use. If none is passed the default project ID will be used
-  [reverse]           Reverse domain name
-  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  backend-id          Backend ID
+  server-ip.{index}   Set all IPs to add on your backend
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help   help for add-servers
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -6,7 +6,7 @@ USAGE:
   scw lb lb create [arg=value ...]
 
 ARGS:
-  [project-id]                Assign the resource to a project ID
+  [project-id]                Project ID to use. If none is passed the default project ID will be used
   name=<generated>            Resource names
   [description]               Resource description
   [ip-id]                     Just like for compute instances, when you destroy a load balancer, you can keep its highly available IP address and reuse it for another load balancer later

@@ -118,7 +118,6 @@ func vpcPrivateNetworkCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(vpc.CreatePrivateNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `The name of the private network`,
@@ -126,6 +125,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("pn"),
 			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "tags.{index}",
 				Short:      `The private networks tags`,
