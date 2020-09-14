@@ -1733,7 +1733,7 @@ func lbCertificateList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Use this to search by name`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),

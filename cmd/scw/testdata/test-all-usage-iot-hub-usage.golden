@@ -11,7 +11,6 @@ AVAILABLE COMMANDS:
   disable     Disable a hub
   enable      Enable a hub
   get         Get a hub
-  get-metrics Get a hub's metrics
   list        List hubs
   update      Update a hub
 
