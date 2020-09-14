@@ -114,46 +114,6 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return human.Marshal(humanServers, opt)
 }
 
-func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	serverResponse := i.(instance.GetServerResponse)
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Server",
-			Title:     "Server",
-		},
-		{
-			FieldName: "Server.Image",
-			Title:     "Server Image",
-		}, {
-			FieldName: "Server.AllowedActions",
-			Title:     "Allowed Actions",
-		}, {
-			FieldName: "Volumes",
-			Title:     "Volumes",
-		}, {
-			FieldName: "Server.PrivateNics",
-			Title:     "Private NICs",
-		},
-	}
-
-	customServer := &struct {
-		Server  *instance.Server
-		Volumes []*instance.Volume
-	}{
-		serverResponse.Server,
-		orderVolumes(serverResponse.Server.Volumes),
-	}
-
-	str, err := human.Marshal(customServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
-
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
 func orderVolumes(v map[string]*instance.Volume) []*instance.Volume {
 	indexes := []string(nil)
@@ -408,16 +368,30 @@ func serverGetBuilder(c *core.Command) *core.Command {
 
 		return &struct {
 			*instance.Server
-			NICs []customNICs `json:"nics"`
+			Volumes     []*instance.Volume
+			PrivateNics []customNICs `json:"nics"`
 		}{
 			getServerResp.Server,
+			orderVolumes(getServerResp.Server.Volumes),
 			nics,
 		}, nil
 	}
 
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
-			{FieldName: "NICs", Title: "Private NICs"},
+			{
+				FieldName: "Image",
+				Title:     "Server Image",
+			}, {
+				FieldName: "AllowedActions",
+				Title:     "Allowed Actions",
+			}, {
+				FieldName: "Volumes",
+				Title:     "Volumes",
+			}, {
+				FieldName: "PrivateNics",
+				Title:     "Private NICs",
+			},
 		},
 	}
 
