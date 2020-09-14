@@ -16,6 +16,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -111,43 +112,6 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		})
 	}
 	return human.Marshal(humanServers, opt)
-}
-
-func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	serverResponse := i.(instance.GetServerResponse)
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Server",
-			Title:     "Server",
-		},
-		{
-			FieldName: "Server.Image",
-			Title:     "Server Image",
-		}, {
-			FieldName: "Server.AllowedActions",
-			Title:     "Allowed Actions",
-		}, {
-			FieldName: "Volumes",
-			Title:     "Volumes",
-		},
-	}
-
-	customServer := &struct {
-		Server  *instance.Server
-		Volumes []*instance.Volume
-	}{
-		serverResponse.Server,
-		orderVolumes(serverResponse.Server.Volumes),
-	}
-
-	str, err := human.Marshal(customServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
 }
 
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
@@ -367,6 +331,79 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		}
 		return suggestion
 	}
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		rawResp, err := runner(ctx, argsI)
+		if err != nil {
+			return rawResp, err
+		}
+		getServerResp := rawResp.(*instance.GetServerResponse)
+
+		client := core.ExtractClient(ctx)
+		vpcAPI := vpc.NewAPI(client)
+
+		type customNICs struct {
+			ID                 string
+			MacAddress         string
+			PrivateNetworkName string
+			PrivateNetworkID   string
+		}
+
+		nics := []customNICs{}
+
+		for _, nic := range getServerResp.Server.PrivateNics {
+			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+				PrivateNetworkID: nic.PrivateNetworkID,
+			})
+			if err != nil {
+				return nil, err
+			}
+			nics = append(nics, customNICs{
+				ID:                 nic.ID,
+				PrivateNetworkID:   pn.ID,
+				PrivateNetworkName: pn.Name,
+				MacAddress:         nic.MacAddress,
+			})
+		}
+
+		return &struct {
+			*instance.Server
+			Volumes     []*instance.Volume
+			PrivateNics []customNICs `json:"private_nics"`
+		}{
+			getServerResp.Server,
+			orderVolumes(getServerResp.Server.Volumes),
+			nics,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "Image",
+				Title:     "Server Image",
+			}, {
+				FieldName: "AllowedActions",
+				Title:     "Allowed Actions",
+			}, {
+				FieldName: "Volumes",
+				Title:     "Volumes",
+			},
+			{
+				Title:     "Public IP",
+				FieldName: "PublicIP",
+			},
+			{
+				Title:     "IPv6",
+				FieldName: "IPv6",
+			},
+			{
+				FieldName: "PrivateNics",
+				Title:     "Private NICs",
+			},
+		},
+	}
+
 	return c
 }
 
