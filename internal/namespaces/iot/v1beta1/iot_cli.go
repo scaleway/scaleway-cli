@@ -31,7 +31,6 @@ func GetGeneratedCommands() *core.Commands {
 		iotHubEnable(),
 		iotHubDisable(),
 		iotHubDelete(),
-		iotHubGetMetrics(),
 		iotDeviceList(),
 		iotDeviceCreate(),
 		iotDeviceGet(),
@@ -402,42 +401,6 @@ func iotHubDelete() *core.Command {
 				Resource: "hub",
 				Verb:     "delete",
 			}, nil
-		},
-	}
-}
-
-func iotHubGetMetrics() *core.Command {
-	return &core.Command{
-		Short:     `Get a hub's metrics`,
-		Long:      `Get a hub's metrics.`,
-		Namespace: "iot",
-		Resource:  "hub",
-		Verb:      "get-metrics",
-		ArgsType:  reflect.TypeOf(iot.GetHubMetricsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "hub-id",
-				Short:      `Hub ID`,
-				Required:   true,
-				Positional: true,
-			},
-			{
-				Name:       "period",
-				Short:      `Period over which the metrics span`,
-				Required:   true,
-				Positional: false,
-				Default:    core.DefaultValueSetter("hour"),
-				EnumValues: []string{"hour", "day", "week", "month", "year"},
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*iot.GetHubMetricsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := iot.NewAPI(client)
-			return api.GetHubMetrics(request)
-
 		},
 	}
 }
