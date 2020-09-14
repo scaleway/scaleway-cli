@@ -141,12 +141,7 @@ func accountSSHKeyAdd() *core.Command {
 				Required:   true,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Short:      `Project owning the resource`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
