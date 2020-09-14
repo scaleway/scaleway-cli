@@ -19,7 +19,7 @@ ARGS:
   [is-happy]                 
   [eyes-color]                (unknown | amber | blue | brown | gray | green | hazel | red | violet)
   [name]                     
-  [project-id]               
+  [project-id]               Project ID to use. If none is passed will use default project ID from the config
   [organization-id]          Organization ID to use. If none is passed will use default organization ID from the config
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par)
 

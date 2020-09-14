@@ -220,11 +220,7 @@ func testHumanCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
