@@ -18,12 +18,21 @@ const (
 )
 
 // buildUsageArgs builds usage args string.
+// If deprecated is true, true only deprecated argSpecs will be considered.
 // This string will be used by cobra usage template.
-func buildUsageArgs(ctx context.Context, cmd *Command) string {
+func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 
-	err := _buildUsageArgs(ctx, tw, cmd.ArgSpecs)
+	// Filter deprecated argSpecs.
+	argSpecs := ArgSpecs(nil)
+	for _, argSpec := range cmd.ArgSpecs {
+		if argSpec.Deprecated == deprecated {
+			argSpecs = append(argSpecs, argSpec)
+		}
+	}
+
+	err := _buildUsageArgs(ctx, tw, argSpecs)
 	if err != nil {
 		// TODO: decide how to handle this error
 		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)

@@ -84,6 +84,10 @@ type ArgSpec struct {
 
 	// Only one argument of the same OneOfGroup could be specified
 	OneOfGroup string
+
+	// Deprecated is used to flag an argument as deprecated.
+	// Use the short field to indicate migration tips for users.
+	Deprecated bool
 }
 
 func (a *ArgSpec) Prefix() string {
@@ -156,23 +160,35 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 func ProjectIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "project-id",
-		Short:        "Project ID to use. If none is passed will use default project ID from the config",
+		Short:        "Project ID to use. If none is passed the default project ID will be used",
 		ValidateFunc: ValidateProjectID(),
+	}
+}
+
+// TODO: Remove me and:
+// - use OrganizationIDDeprecatedArgSpec in the generator
+// - stop using renameOrganizationIDArgSpec and renameProjectIDArgSpec for these use-cases
+func OrganizationArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:         "organization",
+		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
+		ValidateFunc: ValidateOrganizationID(),
 	}
 }
 
 func OrganizationIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization-id",
-		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
 		ValidateFunc: ValidateOrganizationID(),
 	}
 }
 
-func OrganizationArgSpec() *ArgSpec {
+func OrganizationIDDeprecatedArgSpec() *ArgSpec {
 	return &ArgSpec{
-		Name:         "organization",
-		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+		Name:         "organization-id",
+		Short:        "Please use project-id instead",
 		ValidateFunc: ValidateOrganizationID(),
+		Deprecated:   true,
 	}
 }

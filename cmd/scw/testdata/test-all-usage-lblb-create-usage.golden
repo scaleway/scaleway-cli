@@ -13,7 +13,7 @@ ARGS:
   [tags.{index}]              List of keyword
   [type=LB-S]                 Load balancer offer type (LB-S | LB-GP-M | LB-GP-L)
   [ssl-compatibility-level]    (ssl_compatibility_level_unknown | ssl_compatibility_level_intermediate | ssl_compatibility_level_modern | ssl_compatibility_level_old)
-  [organization-id]           Organization ID to use. If none is passed will use default organization ID from the config
+  [organization-id]           Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
