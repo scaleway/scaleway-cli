@@ -369,7 +369,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		return &struct {
 			*instance.Server
 			Volumes     []*instance.Volume
-			PrivateNics []customNICs `json:"nics"`
+			PrivateNics []customNICs `json:"private_nics"`
 		}{
 			getServerResp.Server,
 			orderVolumes(getServerResp.Server.Volumes),
