@@ -35,8 +35,8 @@ var (
 )
 
 type backupWaitRequest struct {
-	DatabaseBackupID string
-	Region           scw.Region
+	BackupID string
+	Region   scw.Region
 }
 
 func backupWaitCommand() *core.Command {
@@ -50,7 +50,7 @@ func backupWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
-				DatabaseBackupID: argsI.(*backupWaitRequest).DatabaseBackupID,
+				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
 				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
