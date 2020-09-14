@@ -19,6 +19,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/registry/v1"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/vpc/v1"
 )
 
 // GetCommands returns a list of all commands in the CLI.
@@ -45,5 +46,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(lb.GetCommands())
 	commands.Merge(iot.GetCommands())
 	commands.Merge(help.GetCommands())
+	commands.Merge(vpc.GetCommands())
 	return commands
 }
