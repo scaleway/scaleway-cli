@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetwork(),
 		vpcPrivateNetworkList(),
 		vpcPrivateNetworkCreate(),
+		vpcPrivateNetworkGet(),
 		vpcPrivateNetworkUpdate(),
 		vpcPrivateNetworkDelete(),
 	)
@@ -144,6 +145,34 @@ func vpcPrivateNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.CreatePrivateNetwork(request)
+
+		},
+	}
+}
+
+func vpcPrivateNetworkGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a private network`,
+		Long:      `Get a private network.`,
+		Namespace: "vpc",
+		Resource:  "private-network",
+		Verb:      "get",
+		ArgsType:  reflect.TypeOf(vpc.GetPrivateNetworkRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "private-network-id",
+				Short:      `The private network id`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.GetPrivateNetworkRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.GetPrivateNetwork(request)
 
 		},
 	}
