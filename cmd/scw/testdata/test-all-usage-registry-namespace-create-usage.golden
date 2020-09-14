@@ -10,7 +10,7 @@ ARGS:
   [description]       Define a description
   [project-id]        Assign the namespace to a project ID
   [is-public]         Define the default visibility policy
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

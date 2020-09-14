@@ -21,7 +21,6 @@ import (
 // TODO: Add cloud-init
 type instanceCreateServerRequest struct {
 	Zone              scw.Zone
-	OrganizationID    *string
 	ProjectID         *string
 	Image             string
 	Type              string
@@ -36,6 +35,9 @@ type instanceCreateServerRequest struct {
 	PlacementGroupID  string
 	BootscriptID      string
 	CloudInit         string
+
+	// Deprecated, use project-id instead
+	OrganizationID *string
 }
 
 // TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
@@ -106,9 +108,9 @@ func serverCreateCommand() *core.Command {
 				Name:  "cloud-init",
 				Short: "The cloud-init script to use",
 			},
-			core.OrganizationIDArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
+			core.OrganizationIDDeprecatedArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),

@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -14,14 +15,14 @@ import (
 
 // CommandValidateFunc validates en entire command.
 // Used in core.cobraRun().
-type CommandValidateFunc func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error
+type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error
 
 // ArgSpecValidateFunc validates one argument of a command.
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
-	return func(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
+	return func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 		err := validateArgValues(cmd, cmdArgs)
 		if err != nil {
 			return err
@@ -34,6 +35,8 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 		if err != nil {
 			return err
 		}
+
+		validateDeprecated(ctx, cmd)
 		return nil
 	}
 }
@@ -107,6 +110,16 @@ func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 		}
 	}
 	return nil
+}
+
+// validateDeprecated print a warning message if a deprecated argument is used
+func validateDeprecated(ctx context.Context, cmd *Command) {
+	for _, argSpec := range cmd.ArgSpecs {
+		if argSpec.Deprecated {
+			helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
+			ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", argSpec.Name, helpCmd)
+		}
+	}
 }
 
 // DefaultArgSpecValidateFunc validates a value passed for an ArgSpec

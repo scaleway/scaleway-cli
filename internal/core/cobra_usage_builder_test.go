@@ -76,7 +76,7 @@ func Test_buildUsageArgs(t *testing.T) {
 				Short: "Additional volume name",
 			},
 		},
-	})
+	}, false)
 
 	assert.Equal(t, want, got)
 }
