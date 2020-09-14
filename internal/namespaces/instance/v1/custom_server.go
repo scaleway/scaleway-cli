@@ -388,7 +388,16 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			}, {
 				FieldName: "Volumes",
 				Title:     "Volumes",
-			}, {
+			},
+			{
+				Title:     "Public IP",
+				FieldName: "PublicIP",
+			},
+			{
+				Title:     "IPv6",
+				FieldName: "IPv6",
+			},
+			{
 				FieldName: "PrivateNics",
 				Title:     "Private NICs",
 			},
