@@ -356,7 +356,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				PrivateNetworkID: nic.PrivateNetworkID,
 			})
 			if err != nil {
-				return rawResp, nil
+				return nil, err
 			}
 			nics = append(nics, customNICs{
 				ID:                 nic.ID,
