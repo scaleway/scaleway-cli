@@ -231,12 +231,7 @@ func registryNamespaceCreate() *core.Command {
 				Required:   false,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Short:      `Assign the namespace to a project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "is-public",
 				Short:      `Define the default visibility policy`,

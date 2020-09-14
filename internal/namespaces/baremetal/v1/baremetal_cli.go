@@ -194,12 +194,7 @@ func baremetalServerCreate() *core.Command {
 				Required:   true,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Short:      `Project ID with which the server will be created`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Name of the server (≠hostname)`,
