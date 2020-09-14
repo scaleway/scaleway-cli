@@ -196,12 +196,7 @@ func lbLBCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateLBRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `Assign the resource to a project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Resource names`,
@@ -460,12 +455,7 @@ func lbIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `Assign the resource to a project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "reverse",
 				Short:      `Reverse domain name`,
