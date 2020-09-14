@@ -11,11 +11,11 @@ import (
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {
 	type customServer struct {
-		ServerID    string               `json:"server_id"`
-		ServerName  string               `json:"server_name"`
-		ServerState instance.ServerState `json:"server_state"`
-		NicID       string               `json:"nic_id"`
-		MacAddress  string               `json:"mac"`
+		ID         string               `json:"id"`
+		Name       string               `json:"name"`
+		State      instance.ServerState `json:"state"`
+		NicID      string               `json:"nic_id"`
+		MacAddress string               `json:"mac"`
 	}
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
@@ -39,11 +39,11 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			for _, nic := range server.PrivateNics {
 				if nic.PrivateNetworkID == pn.ID {
 					customServers = append(customServers, customServer{
-						NicID:       nic.ID,
-						ServerID:    nic.ServerID,
-						MacAddress:  nic.MacAddress,
-						ServerName:  server.Name,
-						ServerState: server.State,
+						NicID:      nic.ID,
+						ID:         nic.ServerID,
+						MacAddress: nic.MacAddress,
+						Name:       server.Name,
+						State:      server.State,
 					})
 				}
 			}

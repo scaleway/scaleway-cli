@@ -9,8 +9,8 @@ CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
 
 Servers:
-SERVER ID                             SERVER NAME                   SERVER STATE  NIC ID                                MAC ADDRESS
-f109874c-fd42-432a-b86c-e1a9c57696ee  cli-srv-compassionate-bhabha  archived      8a65f133-def7-4bbc-9773-6131ced5ec41  02:00:00:00:1d:49
+ID                                    NAME                          STATE     NIC ID                                MAC ADDRESS
+f109874c-fd42-432a-b86c-e1a9c57696ee  cli-srv-compassionate-bhabha  archived  8a65f133-def7-4bbc-9773-6131ced5ec41  02:00:00:00:1d:49
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "6e4eb07c-9dd8-4395-8c99-f5ab14af80db",
@@ -23,9 +23,9 @@ f109874c-fd42-432a-b86c-e1a9c57696ee  cli-srv-compassionate-bhabha  archived    
   "updated_at": "1970-01-01T00:00:00.0Z",
   "servers": [
     {
-      "server_id": "f109874c-fd42-432a-b86c-e1a9c57696ee",
-      "server_name": "cli-srv-compassionate-bhabha",
-      "server_state": "stopped",
+      "id": "f109874c-fd42-432a-b86c-e1a9c57696ee",
+      "name": "cli-srv-compassionate-bhabha",
+      "state": "stopped",
       "nic_id": "8a65f133-def7-4bbc-9773-6131ced5ec41",
       "mac": "02:00:00:00:1d:49"
     }
