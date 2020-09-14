@@ -17,7 +17,7 @@ EXAMPLES:
 
 ARGS:
   [name]              The volume name
-  [project-id]        The volume project ID
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
   [volume-type]       The volume type (l_ssd | b_ssd)
   [size]              The volume disk size
   [base-volume]       The ID of the volume on which this volume will be based
