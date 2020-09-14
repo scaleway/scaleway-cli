@@ -223,12 +223,7 @@ func k8sClusterCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(k8s.CreateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `The project ID where the cluster will be created`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `The name of the cluster`,

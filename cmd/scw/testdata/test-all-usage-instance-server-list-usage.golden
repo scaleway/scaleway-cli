@@ -26,6 +26,7 @@ ARGS:
   [commercial-type]   List servers of this commercial type
   [state]             List servers in this state (running | stopped | stopped in place | starting | stopping | locked)
   [tags.{index}]      List servers with these exact tags
+  [private-network]   List servers in this Private Network
   [organization-id]   List only servers of this organization ID
   [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
