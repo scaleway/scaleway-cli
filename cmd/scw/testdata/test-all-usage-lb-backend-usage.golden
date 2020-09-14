@@ -6,13 +6,13 @@ USAGE:
   scw lb backend <command>
 
 AVAILABLE COMMANDS:
-  add                Add a set of servers in a given backend
+  add-servers        Add a set of servers in a given backend
   create             Create a backend in a given load balancer
   delete             Delete a backend in a given load balancer
   get                Get a backend in a given load balancer
   list               List backends in a given load balancer
-  remove             Remove a set of servers for a given backend
-  set                Define all servers in a given backend
+  remove-servers     Remove a set of servers for a given backend
+  set-servers        Define all servers in a given backend
   update             Update a backend in a given load balancer
   update-healthcheck Update an healthcheck for a given backend
 
