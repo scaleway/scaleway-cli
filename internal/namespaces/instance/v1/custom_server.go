@@ -131,6 +131,9 @@ func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (strin
 		}, {
 			FieldName: "Volumes",
 			Title:     "Volumes",
+		}, {
+			FieldName: "Server.PrivateNics",
+			Title:     "Private NICs",
 		},
 	}
 
