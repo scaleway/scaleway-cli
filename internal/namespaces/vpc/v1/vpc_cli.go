@@ -191,7 +191,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 				Name:       "private-network-id",
 				Short:      `The private network ID`,
 				Required:   true,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -231,7 +231,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 				Name:       "private-network-id",
 				Short:      `The private network ID`,
 				Required:   true,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
