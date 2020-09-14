@@ -16,6 +16,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -370,6 +371,56 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		}
 		return suggestion
 	}
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		rawResp, err := runner(ctx, argsI)
+		if err != nil {
+			return rawResp, err
+		}
+		getServerResp := rawResp.(*instance.GetServerResponse)
+
+		client := core.ExtractClient(ctx)
+		vpcAPI := vpc.NewAPI(client)
+
+		type customNICs struct {
+			ID                 string
+			MacAddress         string
+			PrivateNetworkName string
+			PrivateNetworkID   string
+		}
+
+		nics := []customNICs{}
+
+		for _, nic := range getServerResp.Server.PrivateNics {
+			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+				PrivateNetworkID: nic.PrivateNetworkID,
+			})
+			if err != nil {
+				return rawResp, nil
+			}
+			nics = append(nics, customNICs{
+				ID:                 nic.ID,
+				PrivateNetworkID:   pn.ID,
+				PrivateNetworkName: pn.Name,
+				MacAddress:         nic.MacAddress,
+			})
+		}
+
+		return &struct {
+			*instance.Server
+			NICs []customNICs `json:"nics"`
+		}{
+			getServerResp.Server,
+			nics,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{FieldName: "NICs", Title: "Private NICs"},
+		},
+	}
+
 	return c
 }
 
