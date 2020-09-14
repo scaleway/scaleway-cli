@@ -43,9 +43,9 @@ func GetGeneratedCommands() *core.Commands {
 		lbBackendGet(),
 		lbBackendUpdate(),
 		lbBackendDelete(),
-		lbBackendAdd(),
-		lbBackendRemove(),
-		lbBackendSet(),
+		lbBackendAddServers(),
+		lbBackendRemoveServers(),
+		lbBackendSetServers(),
 		lbBackendUpdateHealthcheck(),
 		lbFrontendList(),
 		lbFrontendCreate(),
@@ -945,13 +945,13 @@ func lbBackendDelete() *core.Command {
 	}
 }
 
-func lbBackendAdd() *core.Command {
+func lbBackendAddServers() *core.Command {
 	return &core.Command{
 		Short:     `Add a set of servers in a given backend`,
 		Long:      `Add a set of servers in a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "add",
+		Verb:      "add-servers",
 		ArgsType:  reflect.TypeOf(lb.AddBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -979,13 +979,13 @@ func lbBackendAdd() *core.Command {
 	}
 }
 
-func lbBackendRemove() *core.Command {
+func lbBackendRemoveServers() *core.Command {
 	return &core.Command{
 		Short:     `Remove a set of servers for a given backend`,
 		Long:      `Remove a set of servers for a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "remove",
+		Verb:      "remove-servers",
 		ArgsType:  reflect.TypeOf(lb.RemoveBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1013,13 +1013,13 @@ func lbBackendRemove() *core.Command {
 	}
 }
 
-func lbBackendSet() *core.Command {
+func lbBackendSetServers() *core.Command {
 	return &core.Command{
 		Short:     `Define all servers in a given backend`,
 		Long:      `Define all servers in a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "set",
+		Verb:      "set-servers",
 		ArgsType:  reflect.TypeOf(lb.SetBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
