@@ -79,6 +79,7 @@ func infosRoot() *core.Command {
 					defaultRegion(ctx, config, profileName),
 					defaultZone(ctx, config, profileName),
 					defaultOrganizationID(ctx, config, profileName),
+					defaultProjectID(ctx, config, profileName),
 					accessKey(ctx, config, profileName),
 					secretKey(ctx, config, profileName, req.ShowSecret),
 				},
@@ -197,6 +198,29 @@ func defaultOrganizationID(ctx context.Context, config *scw.Config, profileName 
 	// Default config
 	case config.Profile.DefaultOrganizationID != nil:
 		setting.Value = *config.Profile.DefaultOrganizationID
+		setting.Origin = defaultProfileOrigin
+	default:
+		setting.Origin = unknownOrigin
+	}
+	return setting
+}
+func defaultProjectID(ctx context.Context, config *scw.Config, profileName string) *setting {
+	setting := &setting{Key: "default_project_id"}
+	switch {
+	// Environment variable check
+	case core.ExtractEnv(ctx, scw.ScwDefaultProjectIDEnv) != "":
+		setting.Value = core.ExtractEnv(ctx, scw.ScwDefaultProjectIDEnv)
+		setting.Origin = fmt.Sprintf("env (%s)", scw.ScwDefaultProjectIDEnv)
+	// There is no config file
+	case config == nil:
+		setting.Origin = ""
+	// Config file with profile name
+	case config.Profiles[profileName] != nil && config.Profiles[profileName].DefaultProjectID != nil:
+		setting.Value = *config.Profiles[profileName].DefaultProjectID
+		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
+	// Default config
+	case config.Profile.DefaultProjectID != nil:
+		setting.Value = *config.Profile.DefaultProjectID
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = unknownOrigin
