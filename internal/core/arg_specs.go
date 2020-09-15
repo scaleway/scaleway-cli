@@ -24,6 +24,7 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	return positionalArg
 }
 
+// GetDeprecated gets all fields filtered by the deprecation state.
 func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 	result := ArgSpecs{}
 	for _, argSpec := range s {
