@@ -114,11 +114,10 @@ func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 
 // validateDeprecated print a warning message if a deprecated argument is used
 func validateDeprecated(ctx context.Context, cmd *Command) {
-	for _, argSpec := range cmd.ArgSpecs {
-		if argSpec.Deprecated {
-			helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
-			ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", argSpec.Name, helpCmd)
-		}
+	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
+	for _, argSpec := range deprecatedArgs {
+		helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
+		ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", argSpec.Name, helpCmd)
 	}
 }
 

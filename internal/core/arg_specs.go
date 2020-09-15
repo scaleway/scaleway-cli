@@ -24,6 +24,16 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	return positionalArg
 }
 
+func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
+	result := ArgSpecs{}
+	for _, argSpec := range s {
+		if argSpec.Deprecated == deprecated {
+			result = append(result, argSpec)
+		}
+	}
+	return result
+}
+
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	for _, spec := range s {
 		if spec.Name == name {
