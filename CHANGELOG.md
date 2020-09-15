@@ -1,5 +1,47 @@
 # Changelog
 
+## v2.1.0 (2020-09-15)
+
+### Features
+
+* **baremetal**: add boot type in start server ([#1291](https://github.com/scaleway/scaleway-cli/pull/1291))
+* **baremetal**: add support for bmc in the CLI ([#1301](https://github.com/scaleway/scaleway-cli/pull/1301))
+* **baremetal**: add support for projects ([#1368](https://github.com/scaleway/scaleway-cli/pull/1368))
+* **core**: add support for relative date parsing ([#1366](https://github.com/scaleway/scaleway-cli/pull/1366))
+* **core**: add support for template output ([#1360](https://github.com/scaleway/scaleway-cli/pull/1360))
+* **core**: deprecate an argument ([#1411](https://github.com/scaleway/scaleway-cli/pull/1411))
+* **core**: add coloring for boolean values ([#1252](https://github.com/scaleway/scaleway-cli/pull/1252))
+* **init**: save project_id in config ([#1380](https://github.com/scaleway/scaleway-cli/pull/1380))
+* **instance**: add human marshalling for user-data ([#1300](https://github.com/scaleway/scaleway-cli/pull/1300))
+* **instance**: add project support for placement groups, security groups, volumes, snapshot and images
+* **instance**: add support for private nic ([#1362](https://github.com/scaleway/scaleway-cli/pull/1362))
+* **instance**: remove positional server-id in delete/set/get user-data ([#1307](https://github.com/scaleway/scaleway-cli/pull/1307))
+* **instance**: rename project to project-id ([#1410](https://github.com/scaleway/scaleway-cli/pull/1410))
+* **iot**: add generation for CLI commands ([#1321](https://github.com/scaleway/scaleway-cli/pull/1321))
+* **iot**: add support for hub-id in an UpdateDeviceRequest ([#1406](https://github.com/scaleway/scaleway-cli/pull/1406))
+* **k8s**: add example for kubeconfig get ([#1415](https://github.com/scaleway/scaleway-cli/pull/1415))
+* **k8s**: add projects ([#1341](https://github.com/scaleway/scaleway-cli/pull/1341))
+* **k8s**: add support for showing pools in get cluster ([#1311](https://github.com/scaleway/scaleway-cli/pull/1311))
+* **lb**: add lb product ([#1269](https://github.com/scaleway/scaleway-cli/pull/1269))
+* **printer**: add support for YAML output ([#1308](https://github.com/scaleway/scaleway-cli/pull/1308))
+* **qa**: add a qa about commands without examples ([#1298](https://github.com/scaleway/scaleway-cli/pull/1298))
+* **rdb**: add coloring for node-type availability and acl action ([#1304](https://github.com/scaleway/scaleway-cli/pull/1304))
+* **rdb**: add nice human marshalling for add/delete rules ([#1306](https://github.com/scaleway/scaleway-cli/pull/1306))
+* **rdb**: add privileges per databases in user list ([#1314](https://github.com/scaleway/scaleway-cli/pull/1314))
+* **rdb**: add support for downloading a backup locally ([#1389](https://github.com/scaleway/scaleway-cli/pull/1389))
+* **rdb**: allow setting initial settings while creating an RDB instance. ([#1376](https://github.com/scaleway/scaleway-cli/pull/1376))
+* **registry**: add support for project ([#1339](https://github.com/scaleway/scaleway-cli/pull/1339))
+* **vpc**: add support for VPC private-network ([#1420](https://github.com/scaleway/scaleway-cli/pull/1420))
+* **vpc**: add support to see all servers in a given private network ([#1426](https://github.com/scaleway/scaleway-cli/pull/1426))
+* **vpc**: add support to visualize private nic from instance get server ([#1429](https://github.com/scaleway/scaleway-cli/pull/1429))
+
+### Fixes
+
+* **account**: fix a cli example ([#1418](https://github.com/scaleway/scaleway-cli/pull/1418))
+* **gotty**: use new URLs ([#1413](https://github.com/scaleway/scaleway-cli/pull/1413))
+* **human**: always print header line in empty list ([#1442](https://github.com/scaleway/scaleway-cli/pull/1442))
+* **rdb**: fix argument parsing in backup wait ([#1430](https://github.com/scaleway/scaleway-cli/pull/1430))
+
 ## v2.0.0 (2020-07-16)
 
 ### Features
