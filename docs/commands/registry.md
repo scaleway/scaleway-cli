@@ -89,6 +89,7 @@ scw registry image list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Field by which to order the display of Images |
 | namespace-id |  | Filter by the Namespace ID |
 | name |  | Filter by the Image name (exact match) |
+| project-id |  | Filter by Project ID |
 | organization-id |  | Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
@@ -226,8 +227,9 @@ scw registry namespace create [arg=value ...]
 |------|---|-------------|
 | name | Required | Define a namespace name |
 | description |  | Define a description |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | is-public |  | Define the default visibility policy |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -288,8 +290,9 @@ scw registry namespace list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `description_asc`, `description_desc`, `name_asc`, `name_desc` | Field by which to order the display of Images |
+| project-id |  | Filter by Project ID |
 | name |  | Filter by the namespace name (exact match) |
-| organization-id |  | Filter by the namespace owner |
+| organization-id |  | Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -370,7 +373,7 @@ List all your tags.
 **Usage:**
 
 ```
-scw registry tag list <image-id ...> [arg=value ...]
+scw registry tag list [arg=value ...]
 ```
 
 

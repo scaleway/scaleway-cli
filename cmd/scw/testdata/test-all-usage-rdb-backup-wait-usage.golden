@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Wait for a backup to reach a stable state
-    scw rdb backup wait
+    scw rdb backup wait 11111111-1111-1111-1111-111111111111
 
 ARGS:
   backup-id         ID of the backup you want to wait for.

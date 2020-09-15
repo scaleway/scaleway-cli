@@ -58,6 +58,7 @@ scw k8s cluster create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Required | The name of the cluster |
 | description |  | The description of the cluster |
 | tags.{index} |  | The tags associated with the cluster |
@@ -88,7 +89,7 @@ scw k8s cluster create [arg=value ...]
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | The day of the week for the maintenance window |
 | feature-gates.{index} |  | List of feature gates to enable |
 | admission-plugins.{index} |  | List of admission plugins to enable |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -184,6 +185,7 @@ scw k8s cluster list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | The project ID on which to filter the returned clusters |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned clusters |
 | name |  | The name on which to filter the returned clusters |
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | The status on which to filter the returned clusters |
@@ -417,6 +419,16 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
+**Examples:**
+
+
+Get the kubeconfig for a given cluster
+```
+scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111
+```
+
+
+
 
 ### Install a kubeconfig
 
@@ -525,7 +537,7 @@ This method allows to list all the existing nodes for a specific Kubernetes clus
 **Usage:**
 
 ```
-scw k8s node list <cluster-id ...> [arg=value ...]
+scw k8s node list [arg=value ...]
 ```
 
 
@@ -667,7 +679,7 @@ This method allows to create a new pool in a specific Kubernetes cluster.
 **Usage:**
 
 ```
-scw k8s pool create <cluster-id ...> [arg=value ...]
+scw k8s pool create [arg=value ...]
 ```
 
 
@@ -777,7 +789,7 @@ This method allows to list all the existing pools for a specific Kubernetes clus
 **Usage:**
 
 ```
-scw k8s pool list <cluster-id ...> [arg=value ...]
+scw k8s pool list [arg=value ...]
 ```
 
 

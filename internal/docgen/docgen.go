@@ -124,6 +124,9 @@ func newTemplate() *template.Template {
 		},
 		"arg_spec_flag": func(arg *core.ArgSpec) string {
 			parts := []string(nil)
+			if arg.Deprecated {
+				parts = append(parts, "Deprecated")
+			}
 			if arg.Required {
 				parts = append(parts, "Required")
 			}
@@ -135,6 +138,13 @@ func newTemplate() *template.Template {
 				parts = append(parts, fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")))
 			}
 			return strings.Join(parts, "<br />")
+		},
+		"arg_spec_name": func(arg *core.ArgSpec) string {
+			res := arg.Name
+			if arg.Deprecated {
+				res = "~~" + arg.Name + "~~"
+			}
+			return res
 		},
 		"default": func(defaultValue string, value string) string {
 			if value == "" {

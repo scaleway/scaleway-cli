@@ -6,9 +6,9 @@ USAGE:
   scw lb ip create [arg=value ...]
 
 ARGS:
-  [project-id]        Assign the resource to a project ID
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
   [reverse]           Reverse domain name
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

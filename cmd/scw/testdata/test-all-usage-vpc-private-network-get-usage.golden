@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get a private network.
+
+USAGE:
+  scw vpc private-network get <private-network-id ...> [arg=value ...]
+
+ARGS:
+  private-network-id   The private network id
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

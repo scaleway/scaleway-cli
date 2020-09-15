@@ -97,7 +97,11 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	}
 
 	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd)
+		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
+	}
+
+	if cmd.ArgSpecs != nil {
+		cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
 	}
 
 	if cmd.Examples != nil {
@@ -139,7 +143,10 @@ EXAMPLES:
 {{.Annotations.Examples}}{{end}}{{if .Annotations.UsageArgs}}
 
 ARGS:
-{{.Annotations.UsageArgs}}{{end}}{{if .HasAvailableSubCommands}}
+{{.Annotations.UsageArgs}}{{end}}{{if .Annotations.UsageDeprecatedArgs}}
+
+DEPRECATED ARGS:
+{{.Annotations.UsageDeprecatedArgs}}{{end}}{{if .HasAvailableSubCommands}}
 
 AVAILABLE COMMANDS:{{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
   {{rpad .Name .NamePadding }} {{if .Short}}{{.Short}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}

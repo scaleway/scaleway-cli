@@ -20,9 +20,9 @@ ARGS:
   [additional-snapshots.{key}.volume-type]       Underlying volume type of the additional snapshot (l_ssd | b_ssd)
   [additional-snapshots.{key}.project-id]        Project ID that own the additional snapshot
   [additional-snapshots.{key}.organization-id]   Organization ID that own the additional snapshot
-  [project-id]                                   Project ID of the image
+  [project-id]                                   Project ID to use. If none is passed the default project ID will be used
   [public]                                       True to create a public image
-  [organization-id]                              Organization ID to use. If none is passed will use default organization ID from the config
+  [organization-id]                              Organization ID to use. If none is passed the default organization ID will be used
   [zone=fr-par-1]                                Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:

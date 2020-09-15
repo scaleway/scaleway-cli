@@ -64,6 +64,10 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200908180425-0a4ce2d8f2ad h1:s0ZGnCDNJAbkQqOKCjzoAKNBPQyvrZUaWLKUtDKPIcc=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200908180425-0a4ce2d8f2ad/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200911150340-00656aa3a030 h1:v4Ge/Hm1UnrDP83PG7Spt2dYJT/3+ppruwdYbJ658A4=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200911150340-00656aa3a030/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200914115748-b34ecf5eaa4a h1:CHGQgSORmr4wK9EbIu5EWHv3ky0bqG0iBgHGMmIZR1o=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200914115748-b34ecf5eaa4a/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=

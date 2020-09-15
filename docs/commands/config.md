@@ -25,6 +25,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Dump the config file](#dump-the-config-file)
 - [Get a value from the config file](#get-a-value-from-the-config-file)
 - [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
+  - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
 - [Reset the config](#reset-the-config)
 - [Set a line from the config file](#set-a-line-from-the-config-file)
@@ -83,6 +84,25 @@ scw -p prod config get default_region
 
 ## Allows the deletion of a profile from the config file
 
+
+
+
+### Mark a profile as active in the config file
+
+
+
+**Usage:**
+
+```
+scw config profile activate <profile-name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| profile-name | Required |  |
 
 
 

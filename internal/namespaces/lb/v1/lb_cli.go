@@ -43,9 +43,9 @@ func GetGeneratedCommands() *core.Commands {
 		lbBackendGet(),
 		lbBackendUpdate(),
 		lbBackendDelete(),
-		lbBackendAdd(),
-		lbBackendRemove(),
-		lbBackendSet(),
+		lbBackendAddServers(),
+		lbBackendRemoveServers(),
+		lbBackendSetServers(),
 		lbBackendUpdateHealthcheck(),
 		lbFrontendList(),
 		lbFrontendCreate(),
@@ -196,12 +196,7 @@ func lbLBCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateLBRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `Assign the resource to a project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Resource names`,
@@ -460,12 +455,7 @@ func lbIPCreate() *core.Command {
 		Verb:      "create",
 		ArgsType:  reflect.TypeOf(lb.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "project-id",
-				Short:      `Assign the resource to a project ID`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "reverse",
 				Short:      `Reverse domain name`,
@@ -955,13 +945,13 @@ func lbBackendDelete() *core.Command {
 	}
 }
 
-func lbBackendAdd() *core.Command {
+func lbBackendAddServers() *core.Command {
 	return &core.Command{
 		Short:     `Add a set of servers in a given backend`,
 		Long:      `Add a set of servers in a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "add",
+		Verb:      "add-servers",
 		ArgsType:  reflect.TypeOf(lb.AddBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -989,13 +979,13 @@ func lbBackendAdd() *core.Command {
 	}
 }
 
-func lbBackendRemove() *core.Command {
+func lbBackendRemoveServers() *core.Command {
 	return &core.Command{
 		Short:     `Remove a set of servers for a given backend`,
 		Long:      `Remove a set of servers for a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "remove",
+		Verb:      "remove-servers",
 		ArgsType:  reflect.TypeOf(lb.RemoveBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1023,13 +1013,13 @@ func lbBackendRemove() *core.Command {
 	}
 }
 
-func lbBackendSet() *core.Command {
+func lbBackendSetServers() *core.Command {
 	return &core.Command{
 		Short:     `Define all servers in a given backend`,
 		Long:      `Define all servers in a given backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
-		Verb:      "set",
+		Verb:      "set-servers",
 		ArgsType:  reflect.TypeOf(lb.SetBackendServersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1743,7 +1733,7 @@ func lbCertificateList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Use this to search by name`,
-				Required:   true,
+				Required:   false,
 				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),

@@ -42,7 +42,6 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.ServerState(""), human.EnumMarshalFunc(serverStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
 	cmds.MustFind("instance", "server", "list").Override(serverListBuilder)

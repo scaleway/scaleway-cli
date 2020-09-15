@@ -12,8 +12,8 @@ EXAMPLES:
 ARGS:
   [name]              The name of the SSH key
   public-key          SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported
-  [project-id]        Project owning the resource
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for add
