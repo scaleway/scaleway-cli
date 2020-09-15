@@ -9,13 +9,13 @@ Database RDB API
 - [Backup management commands](#backup-management-commands)
   - [Create a database backup](#create-a-database-backup)
   - [Delete a database backup](#delete-a-database-backup)
+  - [Download a backup locally](#download-a-backup-locally)
   - [Export a database backup](#export-a-database-backup)
   - [Get a database backup](#get-a-database-backup)
   - [List database backups](#list-database-backups)
   - [Restore a database backup](#restore-a-database-backup)
   - [Update a database backup](#update-a-database-backup)
-- [Instance TLS certificate management commands](#instance-tls-certificate-management-commands)
-  - [Get the TLS certificate of an instance](#get-the-tls-certificate-of-an-instance)
+  - [Wait for a backup to reach a stable state](#wait-for-a-backup-to-reach-a-stable-state)
 - [Database management commands](#database-management-commands)
   - [Create a database in a given instance](#create-a-database-in-a-given-instance)
   - [Delete a database in a given instance](#delete-a-database-in-a-given-instance)
@@ -24,15 +24,17 @@ Database RDB API
   - [List available database engines](#list-available-database-engines)
 - [Instance management commands](#instance-management-commands)
   - [Clone an instance](#clone-an-instance)
+  - [Connect to an instance using locally installed CLI](#connect-to-an-instance-using-locally-installed-cli)
   - [Create an instance](#create-an-instance)
   - [Delete an instance](#delete-an-instance)
   - [Get an instance](#get-an-instance)
+  - [Get the TLS certificate of an instance](#get-the-tls-certificate-of-an-instance)
   - [List instances](#list-instances)
-  - [Get instance metrics](#get-instance-metrics)
   - [Update an instance](#update-an-instance)
   - [Upgrade an instance to an higher instance type](#upgrade-an-instance-to-an-higher-instance-type)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
 - [Instance logs management commands](#instance-logs-management-commands)
+  - [Get specific logs of a given instance](#get-specific-logs-of-a-given-instance)
   - [List available logs of a given instance](#list-available-logs-of-a-given-instance)
   - [Prepare logs of a given instance](#prepare-logs-of-a-given-instance)
 - [Node types management commands](#node-types-management-commands)
@@ -40,9 +42,6 @@ Database RDB API
 - [User privileges management commands](#user-privileges-management-commands)
   - [List privileges of a given user in a given database in a given instance](#list-privileges-of-a-given-user-in-a-given-database-in-a-given-instance)
   - [Set privileges of a given user in a given database in a given instance](#set-privileges-of-a-given-user-in-a-given-database-in-a-given-instance)
-- [Settings management commands](#settings-management-commands)
-  - [Add an instance setting](#add-an-instance-setting)
-  - [Delete an instance setting](#delete-an-instance-setting)
 - [User management commands](#user-management-commands)
   - [Create an user in a given instance](#create-an-user-in-a-given-instance)
   - [Delete an user in a given instance](#delete-an-user-in-a-given-instance)
@@ -63,7 +62,7 @@ Add an ACL instance to a given instance.
 **Usage:**
 
 ```
-scw rdb acl add <instance-id ...> [arg=value ...]
+scw rdb acl add [arg=value ...]
 ```
 
 
@@ -85,7 +84,7 @@ Delete ACL rules of a given instance.
 **Usage:**
 
 ```
-scw rdb acl delete <instance-id ...> [arg=value ...]
+scw rdb acl delete [arg=value ...]
 ```
 
 
@@ -106,7 +105,7 @@ List ACL rules of a given instance.
 **Usage:**
 
 ```
-scw rdb acl list <instance-id ...> [arg=value ...]
+scw rdb acl list [arg=value ...]
 ```
 
 
@@ -142,7 +141,7 @@ scw rdb backup create [arg=value ...]
 |------|---|-------------|
 | instance-id |  | UUID of the instance |
 | database-name |  | Name of the database you want to make a backup of |
-| name |  | Name of the backup |
+| name | Default: `<generated>` | Name of the backup |
 | expires-at |  | Expiration date (Format ISO 8601) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
@@ -168,6 +167,37 @@ scw rdb backup delete <database-backup-id ...> [arg=value ...]
 
 
 
+### Download a backup locally
+
+Download a backup locally.
+
+**Usage:**
+
+```
+scw rdb backup download <backup-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| backup-id | Required | ID of the backup you want to download. |
+| output |  | Filename to write to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Download a backup
+```
+scw rdb backup download 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Export a database backup
 
 Export a database backup.
@@ -183,7 +213,7 @@ scw rdb backup export <database-backup-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| database-backup-id | Required |  |
+| database-backup-id | Required | UUID of the database backup you want to export |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -275,19 +305,14 @@ scw rdb backup update <database-backup-id ...> [arg=value ...]
 
 
 
-## Instance TLS certificate management commands
+### Wait for a backup to reach a stable state
 
-Instance TLS certificate management commands.
-
-
-### Get the TLS certificate of an instance
-
-Get the TLS certificate of an instance.
+Wait for a backup to reach a stable state. This is similar to using --wait flag.
 
 **Usage:**
 
 ```
-scw rdb certificate get <instance-id ...> [arg=value ...]
+scw rdb backup wait <backup-id ...> [arg=value ...]
 ```
 
 
@@ -295,8 +320,18 @@ scw rdb certificate get <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | UUID of the instance |
+| backup-id | Required | ID of the backup you want to wait for. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Wait for a backup to reach a stable state
+```
+scw rdb backup wait 11111111-1111-1111-1111-111111111111
+```
+
 
 
 
@@ -313,7 +348,7 @@ Create a database in a given instance.
 **Usage:**
 
 ```
-scw rdb database create <instance-id ...> [arg=value ...]
+scw rdb database create [arg=value ...]
 ```
 
 
@@ -355,7 +390,7 @@ List all database in a given instance.
 **Usage:**
 
 ```
-scw rdb database list <instance-id ...> [arg=value ...]
+scw rdb database list [arg=value ...]
 ```
 
 
@@ -425,6 +460,29 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 
 
 
+### Connect to an instance using locally installed CLI
+
+Connect to an instance using locally installed CLI such as psql or mysql.
+
+**Usage:**
+
+```
+scw rdb instance connect <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance |
+| username | Required | Name of the user to connect with to the database |
+| database | Default: `rdb` | Name of the database |
+| cli-db |  | Command line tool to use, default to psql/mysql |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Create an instance
 
 Create an instance.
@@ -440,7 +498,7 @@ scw rdb instance create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required | Name of the instance |
+| name | Default: `<generated>` | Name of the instance |
 | engine | Required | Database engine of the database (PostgreSQL, MySQL, ...) |
 | user-name | Required | Name of the user created when the instance is created |
 | password | Required | Password of the user |
@@ -448,7 +506,9 @@ scw rdb instance create [arg=value ...]
 | is-ha-cluster |  | Whether or not High-Availability is enabled |
 | disable-backup |  | Whether or not backups are disabled |
 | tags.{index} |  | Tags to apply to the instance |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
+| init-settings.{index}.name |  |  |
+| init-settings.{index}.value |  |  |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -493,6 +553,26 @@ scw rdb instance get <instance-id ...> [arg=value ...]
 
 
 
+### Get the TLS certificate of an instance
+
+Get the TLS certificate of an instance.
+
+**Usage:**
+
+```
+scw rdb instance get-certificate <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### List instances
 
 List instances.
@@ -512,29 +592,6 @@ scw rdb instance list [arg=value ...]
 | name |  | List instance that match a given name pattern |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` | Criteria to use when ordering instance listing |
 | organization-id |  | Organization ID to list the instance of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Get instance metrics
-
-Get database instance metrics.
-
-**Usage:**
-
-```
-scw rdb instance metrics <instance-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the instance |
-| start-date |  | Start date to gather metrics from |
-| end-date |  | End date to gather metrics from |
-| metric-name |  | Name of the metric to gather |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -579,9 +636,9 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required |  |
-| node-type | One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` |  |
-| enable-ha |  |  |
+| instance-id | Required | UUID of the instance you want to upgrade |
+| node-type | One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` | Node type of the instance you want to upgrade to |
+| enable-ha |  | Set to true to enable high availability on your instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -621,14 +678,14 @@ scw rdb instance wait 11111111-1111-1111-1111-111111111111
 Instance logs management commands.
 
 
-### List available logs of a given instance
+### Get specific logs of a given instance
 
-List available logs of a given instance.
+Get specific logs of a given instance.
 
 **Usage:**
 
 ```
-scw rdb log list <instance-id ...> [arg=value ...]
+scw rdb log get [arg=value ...]
 ```
 
 
@@ -636,8 +693,28 @@ scw rdb log list <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required |  |
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| instance-log-id | Required | UUID of the instance_log you want |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List available logs of a given instance
+
+List available logs of a given instance.
+
+**Usage:**
+
+```
+scw rdb log list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want logs of |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Criteria to use when ordering instance logs listing |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -649,7 +726,7 @@ Prepare your instance logs. Logs will be grouped on a minimum interval of a day.
 **Usage:**
 
 ```
-scw rdb log prepare <instance-id ...> [arg=value ...]
+scw rdb log prepare [arg=value ...]
 ```
 
 
@@ -703,7 +780,7 @@ List privileges of a given user in a given database in a given instance.
 **Usage:**
 
 ```
-scw rdb privilege list <instance-id ...> [arg=value ...]
+scw rdb privilege list [arg=value ...]
 ```
 
 
@@ -726,7 +803,7 @@ Set privileges of a given user in a given database in a given instance.
 **Usage:**
 
 ```
-scw rdb privilege set <instance-id ...> [arg=value ...]
+scw rdb privilege set [arg=value ...]
 ```
 
 
@@ -738,55 +815,6 @@ scw rdb privilege set <instance-id ...> [arg=value ...]
 | database-name |  | Name of the database |
 | user-name |  | Name of the user |
 | permission | One of: `readonly`, `readwrite`, `all`, `custom`, `none` | Permission to set (Read, Read/Write, All, Custom) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Settings management commands
-
-Instance Settings are tunables of Database Engines. Available settings depend on the database engine and its version.
-
-
-
-### Add an instance setting
-
-Add an instance setting.
-
-**Usage:**
-
-```
-scw rdb settings add <instance-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the instance you want to add settings to |
-| settings.{index}.name |  |  |
-| settings.{index}.value |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Delete an instance setting
-
-Delete an instance setting.
-
-**Usage:**
-
-```
-scw rdb settings delete <instance-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the instance to delete settings from |
-| setting-names.{index} |  | Settings names to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -804,7 +832,7 @@ Create an user in a given instance.
 **Usage:**
 
 ```
-scw rdb user create <instance-id ...> [arg=value ...]
+scw rdb user create [arg=value ...]
 ```
 
 
@@ -848,7 +876,7 @@ List users of a given instance.
 **Usage:**
 
 ```
-scw rdb user list <instance-id ...> [arg=value ...]
+scw rdb user list [arg=value ...]
 ```
 
 

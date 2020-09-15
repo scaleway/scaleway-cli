@@ -2,6 +2,10 @@
 # Documentation for `scw baremetal`
 Baremetal API
   
+- [Baseboard Management Controller (BMC) management commands](#baseboard-management-controller-(bmc)-management-commands)
+  - [Get BMC (Baseboard Management Controller) access for a given baremetal server](#get-bmc-(baseboard-management-controller)-access-for-a-given-baremetal-server)
+  - [Start BMC (Baseboard Management Controller) access for a given baremetal server](#start-bmc-(baseboard-management-controller)-access-for-a-given-baremetal-server)
+  - [Stop BMC (Baseboard Management Controller) access for a given baremetal server](#stop-bmc-(baseboard-management-controller)-access-for-a-given-baremetal-server)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
   - [List all available OS that can be install on a baremetal server](#list-all-available-os-that-can-be-install-on-a-baremetal-server)
@@ -10,7 +14,7 @@ Baremetal API
   - [Delete a baremetal server](#delete-a-baremetal-server)
   - [Get a specific baremetal server](#get-a-specific-baremetal-server)
   - [Install a baremetal server](#install-a-baremetal-server)
-  - [List baremetal servers](#list-baremetal-servers)
+  - [List baremetal servers for organization](#list-baremetal-servers-for-organization)
   - [Reboot a baremetal server](#reboot-a-baremetal-server)
   - [Start a baremetal server](#start-a-baremetal-server)
   - [Stop a baremetal server](#stop-a-baremetal-server)
@@ -18,6 +22,76 @@ Baremetal API
   - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
 
   
+## Baseboard Management Controller (BMC) management commands
+
+Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+For instance, your KVM-IP management console could be accessed with it.
+
+
+
+### Get BMC (Baseboard Management Controller) access for a given baremetal server
+
+Get the BMC (Baseboard Management Controller) access associated with the given ID.
+
+**Usage:**
+
+```
+scw baremetal bmc get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Start BMC (Baseboard Management Controller) access for a given baremetal server
+
+Start BMC (Baseboard Management Controller) access associated with the given ID.
+The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
+
+
+**Usage:**
+
+```
+scw baremetal bmc start [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| ip | Required | The IP authorized to connect to the given server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Stop BMC (Baseboard Management Controller) access for a given baremetal server
+
+Stop BMC (Baseboard Management Controller) access associated with the given ID.
+
+**Usage:**
+
+```
+scw baremetal bmc stop [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ## Operating System (OS) management commands
 
 An Operating System (OS) is the underlying software installed on your server
@@ -93,11 +167,15 @@ scw baremetal server create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Required<br />Default: `<generated>` | Name of the server (≠hostname) |
 | description |  | Description associated to the server, max 255 characters |
 | type | Default: `GP-BM1-S`<br />One of: `GP-BM1-L`, `GP-BM1-M`, `GP-BM1-S`, `HC-BM1-L`, `HC-BM1-S`, `HM-BM1-XL`, `HM-BM1-M` | Server commercial type |
 | tags.{index} |  | Tags to associate to the server |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
+| install.os-id |  |  |
+| install.hostname |  |  |
+| install.ssh-key-ids.{index} |  |  |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -211,9 +289,9 @@ scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111
 
 
 
-### List baremetal servers
+### List baremetal servers for organization
 
-List baremetal servers.
+List baremetal servers for organization.
 
 **Usage:**
 
@@ -230,6 +308,7 @@ scw baremetal server list [arg=value ...]
 | tags.{index} |  | Filter servers by tags |
 | status.{index} |  | Filter servers by status |
 | name |  | Filter servers by name |
+| project-id |  | Filter servers by project ID |
 | organization-id |  | Filter servers by organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -297,6 +376,7 @@ scw baremetal server start <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server to start |
+| boot-type | One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -306,6 +386,11 @@ scw baremetal server start <server-id ...> [arg=value ...]
 Start a baremetal server
 ```
 scw baremetal server start 11111111-1111-1111-1111-111111111111
+```
+
+Start a server in rescue mode
+```
+scw baremetal server start 11111111-1111-1111-1111-111111111111 boot-type=rescue
 ```
 
 
