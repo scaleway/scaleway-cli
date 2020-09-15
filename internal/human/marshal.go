@@ -45,10 +45,12 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 
 	// safely get the marshalerFunc
 	marshalerFunc, _ := getMarshalerFunc(rType)
+	isNil := isInterfaceNil(data)
+	isSlice := rType.Kind() == reflect.Slice
 
 	switch {
-	// If data is nil
-	case isInterfaceNil(data):
+	// If data is nil and is not a slice ( In case of a slice we want to print header row and not a simple dash )
+	case isNil && !isSlice:
 		return defaultMarshalerFunc(nil, opt)
 
 	// If data has a registered MarshalerFunc call it
@@ -72,7 +74,7 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 		return Marshal(rValue.Elem().Interface(), opt)
 
 	// If data is a slice uses marshalSlice
-	case rType.Kind() == reflect.Slice:
+	case isSlice:
 		return marshalSlice(rValue, opt)
 
 	// If data is a struct uses marshalStruct
