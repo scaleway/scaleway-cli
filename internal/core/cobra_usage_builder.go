@@ -25,12 +25,7 @@ func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 
 	// Filter deprecated argSpecs.
-	argSpecs := ArgSpecs(nil)
-	for _, argSpec := range cmd.ArgSpecs {
-		if argSpec.Deprecated == deprecated {
-			argSpecs = append(argSpecs, argSpec)
-		}
-	}
+	argSpecs := cmd.ArgSpecs.GetDeprecated(deprecated)
 
 	err := _buildUsageArgs(ctx, tw, argSpecs)
 	if err != nil {

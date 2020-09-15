@@ -202,10 +202,9 @@ Relative time error: %s
 
 	case *args.UnknownArgError, *args.InvalidArgNameError:
 		argNames := []string(nil)
-		for _, argSpec := range cmd.ArgSpecs {
-			if !argSpec.Deprecated {
-				argNames = append(argNames, argSpec.Name)
-			}
+		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
+		for _, argSpec := range nonDeprecatedArgs {
+			argNames = append(argNames, argSpec.Name)
 		}
 
 		return &CliError{
