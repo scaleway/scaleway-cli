@@ -6,6 +6,7 @@ USAGE:
   scw rdb instance create [arg=value ...]
 
 ARGS:
+  [project-id]                    Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]              Name of the instance
   engine                          Database engine of the database (PostgreSQL, MySQL, ...)
   user-name                       Name of the user created when the instance is created
