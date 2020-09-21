@@ -19,7 +19,7 @@ A package manager allows to install and upgrade the Scaleway CLI with a single c
 
 ### Homebrew
 
-Install the latest stable release on macOS using [Homebrew](http://brew.sh): _Comming soon..._
+Install the latest stable release on macOS using [Homebrew](http://brew.sh):
 
 ```sh
 brew install scw
