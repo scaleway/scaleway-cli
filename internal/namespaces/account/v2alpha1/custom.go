@@ -42,7 +42,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	var shortenedFilename string
 	var err error
 	var localSSHKeyContent []byte
-	for _, keyName := range [3]string{"id_dsa.pub", "id_ed25519.pub", "id_rsa.pub"}  {
+	for _, keyName := range [3]string{"id_ecdsa.pub", "id_ed25519.pub", "id_rsa.pub"}  {
 		// element is the element from someSlice for where we are
 		relativePath := path.Join(".ssh", keyName)
 		filename := path.Join(core.ExtractUserHomeDir(ctx), relativePath)
