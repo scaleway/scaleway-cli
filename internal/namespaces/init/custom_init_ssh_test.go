@@ -14,7 +14,7 @@ import (
 )
 
 func setUpSSHKeyLocally(key string) core.BeforeFunc {
-    return setUpSSHKeyLocallyWithKeyName(key, "id_rsa.pub")
+	return setUpSSHKeyLocallyWithKeyName(key, "id_rsa.pub")
 }
 
 func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
