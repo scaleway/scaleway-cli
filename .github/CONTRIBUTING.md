@@ -3,7 +3,7 @@
 `scaleway-cli` is Apache 2.0 licensed and accepts contributions via GitHub.
 This document will cover how to contribute to the project and report issues.
 
-<p align="center"><img width="50%" src="docs/static_files/cli-artwork.png" /></p>
+<p align="center"><img width="50%" src="../docs/static_files/cli-artwork.png" /></p>
 
 ## Topics
 
