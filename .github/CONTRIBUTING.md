@@ -52,7 +52,7 @@ To submit code:
 - Create a topic branch from where you want to base your work (usually master)
 - Add tests to cover contributed code
 - Push your commit(s) to your topic branch on your fork
-- Open a pull request against `scaleway-cli` `v2` branch that follows [PR guidelines](#pull-request-guidelines)
+- Open a pull request against `scaleway-cli` `master` branch that follows [PR guidelines](#pull-request-guidelines)
 
 The [maintainers](MAINTAINERS.md) of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
 After one or more maintainer states LGTM, we will merge.
@@ -73,9 +73,7 @@ The goal of the following guidelines is to have Pull Requests (PRs) that are fai
 - **Please, keep us updated.**
   We will try our best to merge your PR, but please notice that PRs may be closed after 30 days of inactivity.
 
-Your pull request should be rebased against the current `v2` branch. Please do not merge
-the current `v2` branch in with your topic branch, nor use the Update Branch button provided
-by GitHub on the pull request page.
+Your pull request should be rebased against the `master` branch.
 
 Keep in mind only the **pull request title** will be used as commit message as we stash all commits on merge.
 
