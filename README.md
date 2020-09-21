@@ -11,10 +11,11 @@ Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly f
 
 # Installation
 
-<!--- TODO:
 ## With a Package Manager (Recommended)
 
-A package manager allows to install and upgrade the Scaleway CLI with a single command. We recommend this installation mode for more simplicity and reliability. We support a growing set of package managers to feat your preferences and your platform. Note that some package managers are maintained by our community:
+A package manager allows to install and upgrade the Scaleway CLI with a single command. We recommend this installation mode for more simplicity and reliability:
+
+<!-- TODO: We support a growing set of package managers to feat your preferences and your platform. Note that some package managers are maintained by our community: -->
 
 ### Homebrew
 
@@ -24,6 +25,7 @@ Install the latest stable release on macOS using [Homebrew](http://brew.sh): _Co
 brew install scw
 ```
 
+<!--- TODO:
 ### Chocolatey
 
 Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/): _Coming soon..._
@@ -144,27 +146,26 @@ scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="
 scw instance server list
 
 # Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M and with 2 tags
-scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default tags.0=tag1 tags.1=tag2 
+scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default tags.0=tag1 tags.1=tag2
 ```
 
 # Reference documentation
 
-| Namespace      | Description                             | Documentation                                                                                        |
-|----------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------|
-| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                     |
-| `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                |
-| `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                      |
-| `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                    |
-| `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                        |
+| Namespace      | Description                             | Documentation                                                                                           |
+| -------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                       |
+| `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                  |
+| `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                        |
+| `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                      |
+| `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                          |
 | `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/) |
-| `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                        |
+| `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                          |
 | `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)   |
 | `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)             |
-| `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                 |
+| `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                   |
 | `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)      |
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://developers.scaleway.com/en/products/rdb/api/)             |
 | `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)   |
-
 
 ## Build it yourself
 
