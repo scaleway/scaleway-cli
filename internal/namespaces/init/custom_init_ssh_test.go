@@ -13,10 +13,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func setUpSSHKeyLocally(key string) core.BeforeFunc {
-	return setUpSSHKeyLocallyWithKeyName(key, "id_rsa.pub")
-}
-
 func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
@@ -89,7 +85,7 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				setUpSSHKeyLocally(dummySSHKey),
+				setUpSSHKeyLocallyWithKeyName(dummySSHKey, "id_rsa.pub"),
 				addSSHKeyToAccount("key", "test-cli-KeyRegistered", dummySSHKey),
 			),
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
@@ -105,7 +101,7 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				setUpSSHKeyLocally(dummySSHKey),
+				setUpSSHKeyLocallyWithKeyName(dummySSHKey, "id_rsa.pub"),
 			),
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check:      core.TestCheckGolden(),
