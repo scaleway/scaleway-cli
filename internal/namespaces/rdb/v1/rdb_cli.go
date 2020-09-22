@@ -193,6 +193,13 @@ func rdbBackupList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project-id",
+				Short:      `Project ID the database backups belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID the database backups belongs to`,
 				Required:   false,
@@ -594,8 +601,15 @@ func rdbInstanceList() *core.Command {
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "region", "status_asc", "status_desc"},
 			},
 			{
+				Name:       "project-id",
+				Short:      `Project ID to list the instance of`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
-				Short:      `Organization ID to list the instance of`,
+				Short:      `Please use ` + "`" + `project_id` + "`" + ` instead`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -689,6 +703,7 @@ func rdbInstanceCreate() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(rdb.CreateInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Name of the instance`,
