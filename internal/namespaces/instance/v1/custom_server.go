@@ -333,7 +333,6 @@ func serverGetBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*instance.GetServerRequest)
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err
@@ -355,7 +354,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		for _, nic := range getServerResp.Server.PrivateNics {
 			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
 				PrivateNetworkID: nic.PrivateNetworkID,
-				Zone:             args.Zone,
+				Zone:             getServerResp.Server.Zone,
 			})
 			if err != nil {
 				return nil, err
