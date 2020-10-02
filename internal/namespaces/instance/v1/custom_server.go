@@ -354,6 +354,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		for _, nic := range getServerResp.Server.PrivateNics {
 			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
 				PrivateNetworkID: nic.PrivateNetworkID,
+				Zone:             getServerResp.Server.Zone,
 			})
 			if err != nil {
 				return nil, err
