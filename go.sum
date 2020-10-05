@@ -136,6 +136,8 @@ github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200914115748-b34ecf5eaa4a 
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200914115748-b34ecf5eaa4a/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200915104032-ed5be7b4519b h1:ViS+OTI3hYpgsQ4AoxqkDvEQRcWmOG2Xbqfc53zfxsI=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200915104032-ed5be7b4519b/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200923142616-ae5d7880b199 h1:SVgNpFhrq0iOwzD4y881l0Bp7FwNTTjHhMmK/05vERw=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200923142616-ae5d7880b199/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/sergi/go-diff v1.1.0 h1:we8PVUC3FE2uYfodKH/nBHMSetSfHDR6scGdBi+erh0=
