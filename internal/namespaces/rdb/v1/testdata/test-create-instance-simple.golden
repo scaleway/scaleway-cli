@@ -5,6 +5,7 @@ Region          fr-par
 ID              36909685-55b8-4acf-95fa-e309e308271d
 Name            cli-test
 OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID       -
 Status          ready
 Engine          PostgreSQL-12
 IsHaCluster     false
@@ -42,6 +43,7 @@ max_parallel_workers_per_gather  0
   "id": "36909685-55b8-4acf-95fa-e309e308271d",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
