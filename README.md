@@ -27,7 +27,7 @@ brew install scw
 
 ### Chocolatey
 
-Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/):
+Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/) ([Package](https://chocolatey.org/packages/scaleway-cli)):
 
 ```powershell
 choco install scaleway-cli
