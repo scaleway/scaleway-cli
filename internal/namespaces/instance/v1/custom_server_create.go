@@ -35,6 +35,7 @@ type instanceCreateServerRequest struct {
 	PlacementGroupID  string
 	BootscriptID      string
 	CloudInit         string
+	BootType          string
 
 	// Deprecated, use project-id instead
 	OrganizationID *string
@@ -107,6 +108,12 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:  "cloud-init",
 				Short: "The cloud-init script to use",
+			},
+			{
+				Name:       "boot-type",
+				Short:      "The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set.",
+				Default:    core.DefaultValueSetter(instance.BootTypeLocal.String()),
+				EnumValues: []string{instance.BootTypeLocal.String(), instance.BootTypeBootscript.String(), instance.BootTypeRescue.String()},
 			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
@@ -285,6 +292,12 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		// Sanitize the volume map to respect API schemas
 		serverReq.Volumes = sanitizeVolumeMap(serverReq.Name, volumes)
 	}
+
+	//
+	// BootType.
+	//
+	bootType := instance.BootType(args.BootType)
+	serverReq.BootType = &bootType
 
 	//
 	// Bootscript.
