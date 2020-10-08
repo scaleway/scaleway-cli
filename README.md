@@ -25,19 +25,18 @@ Install the latest stable release on macOS using [Homebrew](http://brew.sh):
 brew install scw
 ```
 
-<!--- TODO:
 ### Chocolatey
 
-Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/): _Coming soon..._
+Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/):
 
 ```powershell
 choco install scaleway-cli
 ```
 
+<!--- TODO:
 ### Others
 
 TODO: Add other package managers:
-- [Chocolate](https://chocolatey.org/packages/scaleway-cli/)
 - [AUR](https://aur.archlinux.org/packages/scaleway-cli/)
 - [Snap](https://snapcraft.io/)
 - [Apt](https://wiki.debian.org/Apt)
