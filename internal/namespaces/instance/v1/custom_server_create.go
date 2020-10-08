@@ -18,7 +18,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// TODO: Add cloud-init
 type instanceCreateServerRequest struct {
 	Zone              scw.Zone
 	ProjectID         *string
@@ -41,7 +40,6 @@ type instanceCreateServerRequest struct {
 	OrganizationID *string
 }
 
-// TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
 func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
@@ -473,7 +471,7 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 
 		size, err := humanize.ParseBytes(parts[1])
 		if err != nil {
-			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV) // TODO: improve msg [APIGW-1371]
+			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
 		}
 		vt.Size = scw.Size(size)
 
