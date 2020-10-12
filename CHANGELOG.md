@@ -1,5 +1,28 @@
 # Changelog
 
+## v2.2.0 (2020-10-12)
+
+### Features
+
+* **init**: add support for ed25519 ssh key ([#1453](https://github.com/scaleway/scaleway-cli/pull/1453))
+* **instance**: add boot-type to create server ([#1465](https://github.com/scaleway/scaleway-cli/pull/1465))
+* **instance**: add new zones to the doc ([#1460](https://github.com/scaleway/scaleway-cli/pull/1460))
+* **lb**: add first to ForwardPortAlgorithm enum ([#1467](https://github.com/scaleway/scaleway-cli/pull/1467))
+* **rdb**: add Block Storage feature for RDB ([#1468](https://github.com/scaleway/scaleway-cli/pull/1468))
+* **rdb**: add project_id to resources ([#1456](https://github.com/scaleway/scaleway-cli/pull/1456))
+
+### Fixes
+
+* **instance**: use args zone on vpc call ([#1458](https://github.com/scaleway/scaleway-cli/pull/1458))
+
+### Others
+
+* **doc**: add AUR link to README ([#1464](https://github.com/scaleway/scaleway-cli/pull/1464))
+* **doc**: add brew to readme ([#1455](https://github.com/scaleway/scaleway-cli/pull/1455))
+* **docs**: add Chocolatey information ([#1463](https://github.com/scaleway/scaleway-cli/pull/1463))
+
+
+
 ## v2.1.0 (2020-09-15)
 
 ### Features
