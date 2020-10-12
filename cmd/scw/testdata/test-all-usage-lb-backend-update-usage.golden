@@ -10,7 +10,7 @@ ARGS:
   [name]                          
   [forward-protocol]               (tcp | http)
   [forward-port]                  
-  [forward-port-algorithm]         (roundrobin | leastconn)
+  [forward-port-algorithm]         (roundrobin | leastconn | first)
   [sticky-sessions]                (none | cookie | table)
   [sticky-sessions-cookie-name]   
   [timeout-server]                

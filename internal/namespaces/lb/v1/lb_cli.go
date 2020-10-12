@@ -700,7 +700,7 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("roundrobin"),
-				EnumValues: []string{"roundrobin", "leastconn"},
+				EnumValues: []string{"roundrobin", "leastconn", "first"},
 			},
 			{
 				Name:       "sticky-sessions",
@@ -931,7 +931,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"roundrobin", "leastconn"},
+				EnumValues: []string{"roundrobin", "leastconn", "first"},
 			},
 			{
 				Name:       "sticky-sessions",
