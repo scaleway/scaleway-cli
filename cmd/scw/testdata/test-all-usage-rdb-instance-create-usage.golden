@@ -17,6 +17,8 @@ ARGS:
   [tags.{index}]                  Tags to apply to the instance
   [init-settings.{index}.name]    
   [init-settings.{index}.value]   
+  [volume-type]                   Type of volume where data are stored (lssd, bssd, ...) (lssd | bssd)
+  [volume-size]                   Volume size when volume_type is not lssd
   [organization-id]               Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
