@@ -102,16 +102,16 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 		}
 
 		type customPool struct {
-			ID          string
-			Name        string
-			Status      k8s.PoolStatus
-			Version     string
-			NodeType    string
-			MinSize     uint32
-			Size        uint32
-			MaxSize     uint32
-			Autoscaling bool
-			Autohealing bool
+			ID          string         `json:"id"`
+			Name        string         `json:"name"`
+			Status      k8s.PoolStatus `json:"status"`
+			Version     string         `json:"version"`
+			NodeType    string         `json:"node_type"`
+			MinSize     uint32         `json:"min_size"`
+			Size        uint32         `json:"size"`
+			MaxSize     uint32         `json:"max_size"`
+			Autoscaling bool           `json:"autoscaling"`
+			Autohealing bool           `json:"autohealing"`
 		}
 
 		customPools := []customPool{}
