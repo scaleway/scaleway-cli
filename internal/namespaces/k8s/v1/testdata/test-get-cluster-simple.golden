@@ -75,16 +75,16 @@ c610deed-139b-4950-aff7-8e2ccd895507  default  scaling  1.17.3   dev1_m     0   
   "admission_plugins": [],
   "pools": [
     {
-      "ID": "c610deed-139b-4950-aff7-8e2ccd895507",
-      "Name": "default",
-      "Status": "scaling",
-      "Version": "1.17.3",
-      "NodeType": "dev1_m",
-      "MinSize": 0,
-      "Size": 1,
-      "MaxSize": 1,
-      "Autoscaling": false,
-      "Autohealing": false
+      "id": "c610deed-139b-4950-aff7-8e2ccd895507",
+      "name": "default",
+      "status": "scaling",
+      "version": "1.17.3",
+      "node_type": "dev1_m",
+      "min_size": 0,
+      "size": 1,
+      "max_size": 1,
+      "autoscaling": false,
+      "autohealing": false
     }
   ]
 }
