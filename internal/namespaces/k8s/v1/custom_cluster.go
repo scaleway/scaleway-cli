@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -102,63 +101,60 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 			return res, err
 		}
 
-		clusterMarshalled, err := human.Marshal(cluster, nil)
-		if err != nil {
-			return res, err
-		}
-		poolsMarshalled, err := human.Marshal(pools.Pools, &human.MarshalOpt{
-			Title: "Pools",
-			Fields: []*human.MarshalFieldOpt{
-				{
-					FieldName: "ID",
-					Label:     "ID",
-				},
-				{
-					FieldName: "Name",
-					Label:     "Name",
-				},
-				{
-					FieldName: "Status",
-					Label:     "Status",
-				},
-				{
-					FieldName: "Version",
-					Label:     "Version",
-				},
-				{
-					FieldName: "NodeType",
-					Label:     "Node Type",
-				},
-				{
-					FieldName: "MinSize",
-					Label:     "Min Size",
-				},
-				{
-					FieldName: "Size",
-					Label:     "Size",
-				},
-				{
-					FieldName: "MaxSize",
-					Label:     "Max Size",
-				},
-				{
-					FieldName: "Autoscaling",
-					Label:     "Autoscaling",
-				},
-				{
-					FieldName: "Autohealing",
-					Label:     "Autohealing",
-				},
-			},
-		})
-		if err != nil {
-			return res, err
+		type customPool struct {
+			ID          string
+			Name        string
+			Status      k8s.PoolStatus
+			Version     string
+			NodeType    string
+			MinSize     uint32
+			Size        uint32
+			MaxSize     uint32
+			Autoscaling bool
+			Autohealing bool
 		}
 
-		return strings.Join([]string{
-			clusterMarshalled,
-			poolsMarshalled,
-		}, "\n\n"), nil
+		customPools := []customPool{}
+
+		for _, pool := range pools.Pools {
+			customPools = append(customPools, customPool{
+				ID:          pool.ID,
+				Name:        pool.Name,
+				Status:      pool.Status,
+				Version:     pool.Version,
+				NodeType:    pool.NodeType,
+				MinSize:     pool.MinSize,
+				Size:        pool.Size,
+				MaxSize:     pool.MaxSize,
+				Autoscaling: pool.Autoscaling,
+				Autohealing: pool.Autohealing,
+			})
+		}
+
+		return struct {
+			*k8s.Cluster
+			Pools []customPool `json:"pools"`
+		}{
+			cluster,
+			customPools,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "AutoscalerConfig",
+				Title:     "Autoscaler configuration",
+			},
+			{
+				FieldName: "AutoUpgrade",
+				Title:     "Auto-upgrade settings",
+			},
+			{
+				FieldName: "Pools",
+				Title:     "Pools",
+			},
+		},
 	}
 
 	return c

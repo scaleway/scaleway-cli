@@ -33,7 +33,58 @@ MaintenanceWindow.StartHour  0
 MaintenanceWindow.Day        any
 
 Pools:
-ID                                    Name     Status   Version  Node Type  Min Size  Size  Max Size  Autoscaling  Autohealing
+ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING
 c610deed-139b-4950-aff7-8e2ccd895507  default  scaling  1.17.3   dev1_m     0         1     1         false        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-"ID                eaad7843-9a27-467f-b6d3-d45fc7f53580\nName              cli-test\nStatus            creating\nVersion           1.17.3\nRegion            fr-par\nOrganizationID    b8fdefc6-c926-4a47-af24-24f14f724d6a\nProjectID         -\nCni               cilium\nDescription       -\nClusterURL        https://eaad7843-9a27-467f-b6d3-d45fc7f53580.api.k8s.fr-par.scw.cloud:6443\nDNSWildcard       *.eaad7843-9a27-467f-b6d3-d45fc7f53580.nodes.k8s.fr-par.scw.cloud\nCreatedAt         few seconds ago\nUpdatedAt         few seconds ago\nDashboardEnabled  false\nIngress           none\nUpgradeAvailable  true\n\nAutoscaler configuration:\nScaleDownDisabled             false\nScaleDownDelayAfterAdd        10m\nEstimator                     binpacking\nExpander                      random\nIgnoreDaemonsetsUtilization   false\nBalanceSimilarNodeGroups      false\nExpendablePodsPriorityCutoff  -10\nScaleDownUnneededTime         10m\n\nAuto-upgrade settings:\nEnabled                      false\nMaintenanceWindow.StartHour  0\nMaintenanceWindow.Day        any\n\nPools:\nID                                    Name     Status   Version  Node Type  Min Size  Size  Max Size  Autoscaling  Autohealing\nc610deed-139b-4950-aff7-8e2ccd895507  default  scaling  1.17.3   dev1_m     0         1     1         false        false"
+{
+  "id": "eaad7843-9a27-467f-b6d3-d45fc7f53580",
+  "name": "cli-test",
+  "status": "creating",
+  "version": "1.17.3",
+  "region": "fr-par",
+  "organization_id": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+  "project_id": "",
+  "tags": [],
+  "cni": "cilium",
+  "description": "",
+  "cluster_url": "https://eaad7843-9a27-467f-b6d3-d45fc7f53580.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.eaad7843-9a27-467f-b6d3-d45fc7f53580.nodes.k8s.fr-par.scw.cloud",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "autoscaler_config": {
+    "scale_down_disabled": false,
+    "scale_down_delay_after_add": "10m",
+    "estimator": "binpacking",
+    "expander": "random",
+    "ignore_daemonsets_utilization": false,
+    "balance_similar_node_groups": false,
+    "expendable_pods_priority_cutoff": -10,
+    "scale_down_unneeded_time": "10m"
+  },
+  "dashboard_enabled": false,
+  "ingress": "none",
+  "auto_upgrade": {
+    "enabled": false,
+    "maintenance_window": {
+      "start_hour": 0,
+      "day": "any"
+    }
+  },
+  "upgrade_available": true,
+  "feature_gates": [],
+  "admission_plugins": [],
+  "pools": [
+    {
+      "ID": "c610deed-139b-4950-aff7-8e2ccd895507",
+      "Name": "default",
+      "Status": "scaling",
+      "Version": "1.17.3",
+      "NodeType": "dev1_m",
+      "MinSize": 0,
+      "Size": 1,
+      "MaxSize": 1,
+      "Autoscaling": false,
+      "Autohealing": false
+    }
+  ]
+}
