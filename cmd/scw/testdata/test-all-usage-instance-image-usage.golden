@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Images are backups of your instances.
-You can reuse that image to restore your data or create a series of instances with a predefined configuration.
+You can reuse these images to restore your data or create a series of instances with a predefined configuration.
 
 An image is a complete backup of your server including all volumes.
 

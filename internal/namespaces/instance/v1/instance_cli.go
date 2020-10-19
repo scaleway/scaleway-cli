@@ -85,7 +85,7 @@ func instanceImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
 		Long: `Images are backups of your instances.
-You can reuse that image to restore your data or create a series of instances with a predefined configuration.
+You can reuse these images to restore your data or create a series of instances with a predefined configuration.
 
 An image is a complete backup of your server including all volumes.
 `,
@@ -151,7 +151,7 @@ As a contrary, you have to switch in a stateless mode to define explicitly allow
 func instanceServer() *core.Command {
 	return &core.Command{
 		Short: `Server management commands`,
-		Long: `Server types are denomination of the different instances we provide.
+		Long: `Server types are a denomination of the different instances we provide.
 Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
 
 **Virtual Cloud Instances**
@@ -187,7 +187,7 @@ func instanceServerType() *core.Command {
 	return &core.Command{
 		Short: `Server type management commands`,
 		Long: `Server types will answer with all instance types available in a given zone.
-Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
+Each of these types will contain all the features of the instance (CPU, RAM, Storage) with their associated pricing.
 `,
 		Namespace: "instance",
 		Resource:  "server-type",
@@ -198,7 +198,7 @@ func instanceVolumeType() *core.Command {
 	return &core.Command{
 		Short: `Volume type management commands`,
 		Long: `Volume types will answer with all volume types available in a given zone.
-Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
+Each of these types will contain all the capabilities and constraints of the volume (min size, max size, snapshot).
 `,
 		Namespace: "instance",
 		Resource:  "volume-type",
@@ -228,10 +228,10 @@ snapshots will be available starting 2020.
 func instanceUserData() *core.Command {
 	return &core.Command{
 		Short: `User data management commands`,
-		Long: `User data is a key value store API you can use to provide data from and to your server without authentication.
+		Long: `User data is a key-value store API you can use to provide data from and to your server without authentication.
 
 As an example of use, Scaleway images contain the script scw-generate-ssh-keys which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
-This way, we ensure they are really connecting to their Scaleway instance and they are not victim of a man-in-the-middle attack.
+This way, we ensure they are really connecting to their Scaleway instance and they are not a victim of a man-in-the-middle attack.
 
 There are two endpoints to access user data:
  - **From a running instance**, by using the metadata API at http://169.254.42.42/user_data.
@@ -266,8 +266,8 @@ from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
   - ` + "`" + `fr-par-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
   - ` + "`" + `nl-ams-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
 
-Each types of volumes is also subject to a global quota for the sum of all the
-volumes. This quota depends of the level of support and may be
+Each type of volume is also subject to a global quota for the sum of all the
+volumes. This quota depends on the level of support and may be
 changed on demand.
 
 Be wary that when terminating an instance, if you want to keep
@@ -276,7 +276,7 @@ issue the ` + "`" + `terminate` + "`" + ` call.
 
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
-subject to change depending on the volumes order. Block devices
+subject to change depending on the order of the volumes. Block devices
 UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.
 `,
 		Namespace: "instance",
@@ -474,7 +474,7 @@ func instanceServerList() *core.Command {
 func instanceServerGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a server`,
-		Long:      `Get the details of a specified Server.`,
+		Long:      `Get the details of a specified server.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "get",
