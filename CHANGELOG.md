@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.2.1 (2020-10-20)
+
+### Fixes
+
+* **k8s**: fix k8s get json output ([#1476](https://github.com/scaleway/scaleway-cli/pull/1476))
+* **k8s**: fix k8s get json output case ([#1477](https://github.com/scaleway/scaleway-cli/pull/1477))
+* **release**: use dots instead of dashes in release assets name version ([#1490](https://github.com/scaleway/scaleway-cli/pull/1490))
+
+
+
+
 ## v2.2.0 (2020-10-12)
 
 ### Features
