@@ -18,7 +18,7 @@ if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
 
 
 BIN_DIR="./bin"
-VERSION=$(go run cmd/scw/main.go -o json version | jq -r .version | tr . -)
+VERSION=$(go run cmd/scw/main.go -o json version | jq -r .version)
 BIN_LINUX="$BIN_DIR/scw-$VERSION-linux-x86_64"
 BIN_LINUX_386="$BIN_DIR/scw-$VERSION-linux-386"
 BIN_DARWIN="$BIN_DIR/scw-$VERSION-darwin-x86_64"
