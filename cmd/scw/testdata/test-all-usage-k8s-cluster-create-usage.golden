@@ -44,6 +44,13 @@ ARGS:
   [auto-upgrade.maintenance-window.day]                 The day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
   [feature-gates.{index}]                               List of feature gates to enable
   [admission-plugins.{index}]                           List of admission plugins to enable
+  [open-id-connect-config.issuer-url]                   URL of the provider which allows the API server to discover public signing keys
+  [open-id-connect-config.client-id]                    A client id that all tokens must be issued for
+  [open-id-connect-config.username-claim]               JWT claim to use as the user name
+  [open-id-connect-config.username-prefix]              Prefix prepended to username
+  [open-id-connect-config.groups-claim.{index}]         JWT claim to use as the user's group
+  [open-id-connect-config.groups-prefix]                Prefix prepended to group claims
+  [open-id-connect-config.required-claim.{index}]       Multiple key=value pairs that describes a required claim in the ID Token
   [organization-id]                                     Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                       Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
