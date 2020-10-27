@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                eaad7843-9a27-467f-b6d3-d45fc7f53580
+ID                bae44bf5-f010-40ac-91cc-7ffbc93d40c6
 Name              cli-test
 Status            creating
 Version           1.17.3
 Region            fr-par
-OrganizationID    b8fdefc6-c926-4a47-af24-24f14f724d6a
-ProjectID         -
+OrganizationID    a6c249e9-c32d-46e4-badb-b57528eafc4b
+ProjectID         a6c249e9-c32d-46e4-badb-b57528eafc4b
 Cni               cilium
 Description       -
-ClusterURL        https://eaad7843-9a27-467f-b6d3-d45fc7f53580.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.eaad7843-9a27-467f-b6d3-d45fc7f53580.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://bae44bf5-f010-40ac-91cc-7ffbc93d40c6.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.bae44bf5-f010-40ac-91cc-7ffbc93d40c6.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -32,23 +32,30 @@ Enabled                      false
 MaintenanceWindow.StartHour  0
 MaintenanceWindow.Day        any
 
+Open ID Connect configuration:
+IssuerURL       -
+ClientID        -
+UsernameClaim   -
+UsernamePrefix  -
+GroupsPrefix    -
+
 Pools:
 ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING
-c610deed-139b-4950-aff7-8e2ccd895507  default  scaling  1.17.3   dev1_m     0         1     1         false        false
+868b0e3f-90d5-4567-a79a-d0904749b719  default  scaling  1.17.3   dev1_m     0         1     1         false        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "eaad7843-9a27-467f-b6d3-d45fc7f53580",
+  "id": "bae44bf5-f010-40ac-91cc-7ffbc93d40c6",
   "name": "cli-test",
   "status": "creating",
   "version": "1.17.3",
   "region": "fr-par",
-  "organization_id": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-  "project_id": "",
+  "organization_id": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+  "project_id": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://eaad7843-9a27-467f-b6d3-d45fc7f53580.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.eaad7843-9a27-467f-b6d3-d45fc7f53580.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://bae44bf5-f010-40ac-91cc-7ffbc93d40c6.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.bae44bf5-f010-40ac-91cc-7ffbc93d40c6.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -73,9 +80,18 @@ c610deed-139b-4950-aff7-8e2ccd895507  default  scaling  1.17.3   dev1_m     0   
   "upgrade_available": true,
   "feature_gates": [],
   "admission_plugins": [],
+  "open_id_connect_config": {
+    "issuer_url": "",
+    "client_id": "",
+    "username_claim": "",
+    "username_prefix": "",
+    "groups_claim": [],
+    "groups_prefix": "",
+    "required_claim": []
+  },
   "pools": [
     {
-      "id": "c610deed-139b-4950-aff7-8e2ccd895507",
+      "id": "868b0e3f-90d5-4567-a79a-d0904749b719",
       "name": "default",
       "status": "scaling",
       "version": "1.17.3",
