@@ -1,11 +1,11 @@
-FROM golang:1.14-alpine as builder
+FROM golang:1.15-alpine as builder
 
 ENV BUILD_IN_DOCKER true
 
 # ca-certificates is needed to add the certificates on the next image
 # since it's FROM scratch, it does not have any certificates
 # bash is needed to run the build script
-RUN apk update && apk add --no-cache bash git ca-certificates && update-ca-certificates
+RUN apk update && apk add --no-cache bash git
 
 WORKDIR /go/src/github.com/scaleway/scaleway-cli
 
@@ -20,8 +20,8 @@ COPY .git/ .git/
 
 RUN ./scripts/build.sh
 
-FROM scratch
+FROM alpine:3.12
 WORKDIR /
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+RUN apk update && apk add --no-cache bash ca-certificates openssh-client && update-ca-certificates
 COPY --from=builder /go/src/github.com/scaleway/scaleway-cli/scw .
 ENTRYPOINT ["/scw"]
