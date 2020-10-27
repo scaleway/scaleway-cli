@@ -84,6 +84,10 @@ type ArgSpec struct {
 	// EnumValues contains all possible values of an enum.
 	EnumValues []string
 
+	// BadEnumWarning is the warning printed when the value is not in the EnumValues
+	// If not set, the value has to be in EnumeValues
+	BadEnumWarning string
+
 	// AutoCompleteFunc is used to autocomplete possible values for a given argument.
 	AutoCompleteFunc AutoCompleteArgFunc
 
