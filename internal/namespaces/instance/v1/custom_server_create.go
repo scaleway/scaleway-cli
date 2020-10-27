@@ -253,6 +253,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	case args.IP == "dynamic":
 		serverReq.DynamicIPRequired = scw.BoolPtr(true)
 	case args.IP == "none":
+		serverReq.DynamicIPRequired = scw.BoolPtr(false)
 	default:
 		return nil, fmt.Errorf(`invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, args.IP)
 	}
