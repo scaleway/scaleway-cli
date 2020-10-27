@@ -55,6 +55,10 @@ func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			FieldName: "AutoUpgrade",
 			Title:     "Auto-upgrade settings",
 		},
+		{
+			FieldName: "OpenIDConnectConfig",
+			Title:     "Open ID Connect configuration",
+		},
 	}
 
 	str, err := human.Marshal(cluster, opt)
@@ -149,6 +153,10 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName: "AutoUpgrade",
 				Title:     "Auto-upgrade settings",
+			},
+			{
+				FieldName: "OpenIDConnectConfig",
+				Title:     "Open ID Connect configuration",
 			},
 			{
 				FieldName: "Pools",
