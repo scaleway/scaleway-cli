@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                16cbc227-9a47-4c2d-8835-8e58cfbd46d2
+ID                186d89cb-3ced-4d0b-b018-30d988cba67e
 Name              cli-test
 Status            ready
 Version           1.17.3
 Region            fr-par
-OrganizationID    b8fdefc6-c926-4a47-af24-24f14f724d6a
-ProjectID         -
+OrganizationID    a6c249e9-c32d-46e4-badb-b57528eafc4b
+ProjectID         a6c249e9-c32d-46e4-badb-b57528eafc4b
 Cni               cilium
 Description       -
-ClusterURL        https://16cbc227-9a47-4c2d-8835-8e58cfbd46d2.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.16cbc227-9a47-4c2d-8835-8e58cfbd46d2.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://186d89cb-3ced-4d0b-b018-30d988cba67e.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.186d89cb-3ced-4d0b-b018-30d988cba67e.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -31,20 +31,27 @@ Auto-upgrade settings:
 Enabled                      false
 MaintenanceWindow.StartHour  0
 MaintenanceWindow.Day        any
+
+Open ID Connect configuration:
+IssuerURL       -
+ClientID        -
+UsernameClaim   -
+UsernamePrefix  -
+GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "16cbc227-9a47-4c2d-8835-8e58cfbd46d2",
+  "id": "186d89cb-3ced-4d0b-b018-30d988cba67e",
   "name": "cli-test",
   "status": "ready",
   "version": "1.17.3",
   "region": "fr-par",
-  "organization_id": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-  "project_id": "",
+  "organization_id": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+  "project_id": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://16cbc227-9a47-4c2d-8835-8e58cfbd46d2.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.16cbc227-9a47-4c2d-8835-8e58cfbd46d2.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://186d89cb-3ced-4d0b-b018-30d988cba67e.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.186d89cb-3ced-4d0b-b018-30d988cba67e.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -68,5 +75,14 @@ MaintenanceWindow.Day        any
   },
   "upgrade_available": true,
   "feature_gates": [],
-  "admission_plugins": []
+  "admission_plugins": [],
+  "open_id_connect_config": {
+    "issuer_url": "",
+    "client_id": "",
+    "username_claim": "",
+    "username_prefix": "",
+    "groups_claim": [],
+    "groups_prefix": "",
+    "required_claim": []
+  }
 }
