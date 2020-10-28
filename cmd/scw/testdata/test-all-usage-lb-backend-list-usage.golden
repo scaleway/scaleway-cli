@@ -9,7 +9,7 @@ ARGS:
   lb-id             Load balancer ID
   [name]            Use this to search by name
   [order-by]        Choose order of response (created_at_asc | created_at_desc | name_asc | name_desc)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

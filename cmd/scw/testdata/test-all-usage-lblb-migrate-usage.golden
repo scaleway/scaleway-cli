@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   lb-id             Load balancer ID
   type              Load balancer type (check /lb-types to list all type) (LB-S | LB-GP-M | LB-GP-L)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for migrate
