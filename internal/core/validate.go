@@ -141,11 +141,7 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 			return nil
 		}
 
-		if !stringExists(argSpec.EnumValues, strValue) {
-			if argSpec.BadEnumWarning != "" {
-				logger.Warningf(argSpec.BadEnumWarning, strValue)
-				return nil
-			}
+		if !stringExists(argSpec.EnumValues, strValue) && !argSpec.AllowUnknownEnumValue {
 			return InvalidValueForEnumError(argSpec.Name, argSpec.EnumValues, strValue)
 		}
 		return nil
