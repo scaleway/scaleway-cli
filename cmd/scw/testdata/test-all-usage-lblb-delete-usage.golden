@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   lb-id             Load balancer ID
   [release-ip]      Set true if you don't want to keep this IP address
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for delete

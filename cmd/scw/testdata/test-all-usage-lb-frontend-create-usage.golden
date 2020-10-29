@@ -12,7 +12,7 @@ ARGS:
   backend-id                  Backend ID
   [timeout-client]            Set the maximum inactivity time on the client side
   [certificate-ids.{index}]   List of certificate IDs to bind on the frontend
-  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
   [certificate-id]   Certificate ID, deprecated in favor of certificate_ids array !
