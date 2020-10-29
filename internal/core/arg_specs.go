@@ -84,9 +84,6 @@ type ArgSpec struct {
 	// EnumValues contains all possible values of an enum.
 	EnumValues []string
 
-	// AllowUnknownEnumValue allows to bypass the enum values and to use another value
-	AllowUnknownEnumValue bool
-
 	// AutoCompleteFunc is used to autocomplete possible values for a given argument.
 	AutoCompleteFunc AutoCompleteArgFunc
 

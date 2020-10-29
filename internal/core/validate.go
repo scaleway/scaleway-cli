@@ -141,7 +141,7 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 			return nil
 		}
 
-		if !stringExists(argSpec.EnumValues, strValue) && !argSpec.AllowUnknownEnumValue {
+		if !stringExists(argSpec.EnumValues, strValue) {
 			return InvalidValueForEnumError(argSpec.Name, argSpec.EnumValues, strValue)
 		}
 		return nil

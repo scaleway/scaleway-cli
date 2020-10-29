@@ -56,11 +56,14 @@ func serverCreateCommand() *core.Command {
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
 			{
-				Name:                  "type",
-				Short:                 "Server commercial type",
-				Default:               core.DefaultValueSetter("DEV1-S"),
-				EnumValues:            []string{"GP1-XS", "GP1-S", "GP1-M", "GP1-L", "GP1-XL", "DEV1-S", "DEV1-M", "DEV1-L", "DEV1-XL", "RENDER-S"},
-				AllowUnknownEnumValue: true,
+				Name:       "type",
+				Short:      "Server commercial type",
+				Default:    core.DefaultValueSetter("DEV1-S"),
+				EnumValues: []string{"GP1-XS", "GP1-S", "GP1-M", "GP1-L", "GP1-XL", "DEV1-S", "DEV1-M", "DEV1-L", "DEV1-XL", "RENDER-S"},
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					// Allow all commercial types
+					return nil
+				},
 			},
 			{
 				Name:    "name",
