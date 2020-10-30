@@ -31,7 +31,7 @@ ARGS:
   [timeout-tunnel]                     Maximum tunnel inactivity time
   [on-marked-down-action]              Modify what occurs when a backend server is marked down (on_marked_down_action_none | shutdown_sessions)
   [proxy-protocol]                     PROXY protocol, forward client's address (must be supported by backend servers software) (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
-  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
   [send-proxy-v2]   Deprecated in favor of proxy_protocol field !
