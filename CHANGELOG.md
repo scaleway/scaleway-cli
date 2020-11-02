@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.2.2 (2020-11-02)
+
+### Features
+
+* **instance**: remove monthly prices from server types list ([#1509](https://github.com/scaleway/scaleway-cli/pull/1509))
+* **k8s**: add oidc config ([#1495](https://github.com/scaleway/scaleway-cli/pull/1495))
+
+### Fixes
+
+* **docker**: use alpine and add openssh-client ([#1502](https://github.com/scaleway/scaleway-cli/pull/1502))
+* **instance**: allow unknown commerical types ([#1500](https://github.com/scaleway/scaleway-cli/pull/1500))
+* **instance**: disable dynamic IP on none ([#1503](https://github.com/scaleway/scaleway-cli/pull/1503))
+* **scripts**: use dots instead of dashes in binary name version ([#1492](https://github.com/scaleway/scaleway-cli/pull/1492))
+
+
+
 ## v2.2.1 (2020-10-20)
 
 ### Fixes
