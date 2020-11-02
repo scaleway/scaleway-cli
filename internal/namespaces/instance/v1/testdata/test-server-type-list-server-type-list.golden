@@ -1,25 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME      MONTHLY PRICE  HOURLY PRICE  LOCAL VOLUME SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
-DEV1-S    € 2.99         € 0.006       20 GB              2    -    2.0 GiB  x86_64  available
-DEV1-M    € 7.99         € 0.016       40 GB              3    -    4.0 GiB  x86_64  available
-DEV1-L    € 15.99        € 0.032       80 GB              4    -    8.0 GiB  x86_64  available
-DEV1-XL   € 23.99        € 0.048       120 GB             4    -    12 GiB   x86_64  available
-GP1-XS    € 39.00        € 0.078       150 GB             4    -    16 GiB   x86_64  available
-GP1-S     € 79.00        € 0.158       300 GB             8    -    32 GiB   x86_64  available
-GP1-M     € 159.00       € 0.318       600 GB             16   -    64 GiB   x86_64  available
-GP1-L     € 299.00       € 0.598       600 GB             32   -    128 GiB  x86_64  available
-GP1-XL    € 569.00       € 1.138       600 GB             48   -    256 GiB  x86_64  available
-RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB   x86_64  available
+NAME      HOURLY PRICE  LOCAL VOLUME SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
+DEV1-S    € 0.006       20 GB              2    -    2.0 GiB  x86_64  available
+DEV1-M    € 0.016       40 GB              3    -    4.0 GiB  x86_64  available
+DEV1-L    € 0.032       80 GB              4    -    8.0 GiB  x86_64  available
+DEV1-XL   € 0.048       120 GB             4    -    12 GiB   x86_64  available
+GP1-XS    € 0.078       150 GB             4    -    16 GiB   x86_64  available
+GP1-S     € 0.158       300 GB             8    -    32 GiB   x86_64  available
+GP1-M     € 0.318       600 GB             16   -    64 GiB   x86_64  available
+GP1-L     € 0.598       600 GB             32   -    128 GiB  x86_64  available
+GP1-XL    € 1.138       600 GB             48   -    256 GiB  x86_64  available
+RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  available
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "name": "DEV1-S",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 2,
-      "nanos": 990000000
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -34,11 +29,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "DEV1-M",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 7,
-      "nanos": 990000000
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -53,11 +43,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "DEV1-L",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 15,
-      "nanos": 990000000
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -72,11 +57,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "DEV1-XL",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 23,
-      "nanos": 990000000
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -91,11 +71,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "GP1-XS",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 39,
-      "nanos": 0
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -110,11 +85,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "GP1-S",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 79,
-      "nanos": 0
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -129,11 +99,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "GP1-M",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 159,
-      "nanos": 0
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -148,11 +113,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "GP1-L",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 299,
-      "nanos": 0
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
@@ -167,11 +127,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "GP1-XL",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 569,
-      "nanos": 0
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 1,
@@ -186,11 +141,6 @@ RENDER-S  € 499.99       € 1.00        400 GB             10   1    45 GiB  
   },
   {
     "name": "RENDER-S",
-    "monthly_price": {
-      "currency_code": "EUR",
-      "units": 499,
-      "nanos": 990000000
-    },
     "hourly_price": {
       "currency_code": "EUR",
       "units": 1,
