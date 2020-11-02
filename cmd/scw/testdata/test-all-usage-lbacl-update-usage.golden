@@ -14,7 +14,7 @@ ARGS:
   [match.http-filter-value.{index}]   A list of possible values to match for the given HTTP filter
   [match.invert]                      If set to `true`, the ACL matching condition will be of type "UNLESS"
   index                               Order between your Acls (ascending order, 0 is first acl executed)
-  [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
