@@ -40,9 +40,6 @@ ARGS:
   [project-id]                   Project ID to use. If none is passed the default project ID will be used
   [zone=fr-par-1]                Zone to target. If none is passed will use default zone from the config
 
-DEPRECATED ARGS:
-  [organization-id]   Please use project-id instead
-
 FLAGS:
   -h, --help   help for create
   -w, --wait   wait until the server is ready

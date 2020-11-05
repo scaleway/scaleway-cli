@@ -9,17 +9,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-var (
-	oldOrganizationFieldName = "organization"
-	newOrganizationFieldName = "organization-id"
-	oldProjectFieldName      = "project"
-	newProjectFieldName      = "project-id"
+const (
+	oldProjectFieldName = "project"
+	newProjectFieldName = "project-id"
 )
 
 // helpers
-func renameOrganizationIDArgSpec(argSpecs core.ArgSpecs) {
-	argSpecs.GetByName(oldOrganizationFieldName).Name = newOrganizationFieldName
-}
 
 func renameProjectIDArgSpec(argSpecs core.ArgSpecs) {
 	argSpecs.GetByName(oldProjectFieldName).Name = newProjectFieldName

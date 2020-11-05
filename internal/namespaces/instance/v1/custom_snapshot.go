@@ -19,11 +19,9 @@ const (
 func snapshotCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSnapshotRequest struct {
 		*instance.CreateSnapshotRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
@@ -36,7 +34,6 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSnapshotRequest
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		return runner(ctx, request)
@@ -58,11 +55,9 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 func snapshotListBuilder(c *core.Command) *core.Command {
 	type customListSnapshotsRequest struct {
 		*instance.ListSnapshotsRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListSnapshotsRequest{})
@@ -75,7 +70,6 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.ListSnapshotsRequest
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		return runner(ctx, request)

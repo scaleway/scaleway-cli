@@ -41,7 +41,6 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		Name                  string
 		Description           string
 		EnableDefaultSecurity bool
-		OrganizationID        string
 		ProjectID             string
 		OrganizationDefault   bool
 		ProjectDefault        bool
@@ -53,9 +52,7 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		Name:                  sg.Name,
 		Description:           sg.Description,
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
-		OrganizationID:        sg.Organization,
 		ProjectID:             sg.Project,
-		OrganizationDefault:   sg.OrganizationDefault,
 		ProjectDefault:        sg.ProjectDefault,
 		CreationDate:          sg.CreationDate,
 		ModificationDate:      sg.ModificationDate,
@@ -163,11 +160,9 @@ type customSecurityGroupResponse struct {
 func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSecurityGroupRequest struct {
 		*instance.CreateSecurityGroupRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
@@ -180,7 +175,6 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.CreateSecurityGroupRequest
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		return runner(ctx, request)
@@ -219,11 +213,9 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 func securityGroupListBuilder(c *core.Command) *core.Command {
 	type customListSecurityGroupsRequest struct {
 		*instance.ListSecurityGroupsRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
@@ -236,7 +228,6 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.ListSecurityGroupsRequest
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		return runner(ctx, request)

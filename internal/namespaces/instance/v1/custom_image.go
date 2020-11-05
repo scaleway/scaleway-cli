@@ -42,7 +42,6 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ServerName       string
 		ServerID         string
 		Arch             instance.Arch
-		OrganizationID   string
 		ProjectID        string
 		CreationDate     *time.Time
 		ModificationDate *time.Time
@@ -77,7 +76,6 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			ServerName:       image.ServerName,
 			ServerID:         image.ServerID,
 			Arch:             image.Arch,
-			OrganizationID:   image.OrganizationID,
 			ProjectID:        image.ProjectID,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
@@ -98,7 +96,6 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		*instance.CreateImageRequest
 		AdditionalVolumes map[string]*instance.VolumeTemplate
 		SnapshotID        string
-		OrganizationID    *string
 		ProjectID         *string
 	}
 
@@ -123,7 +120,6 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
@@ -134,7 +130,6 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		request := args.CreateImageRequest
 		request.RootVolume = args.SnapshotID
 		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		// Extra volumes need to start at volumeIndex 1.
@@ -159,7 +154,6 @@ type imageListItem struct {
 	ModificationDate  *time.Time
 	DefaultBootscript *instance.Bootscript
 	ExtraVolumes      map[string]*instance.Volume
-	OrganizationID    string
 	ProjectID         string
 	Public            bool
 	RootVolume        *instance.VolumeSummary
@@ -176,11 +170,9 @@ type imageListItem struct {
 func imageListBuilder(c *core.Command) *core.Command {
 	type customListImageRequest struct {
 		*instance.ListImagesRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
@@ -194,7 +186,6 @@ func imageListBuilder(c *core.Command) *core.Command {
 		}
 
 		req := args.ListImagesRequest
-		req.Organization = args.OrganizationID
 		req.Project = args.ProjectID
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
@@ -216,7 +207,6 @@ func imageListBuilder(c *core.Command) *core.Command {
 				ModificationDate:  image.ModificationDate,
 				DefaultBootscript: image.DefaultBootscript,
 				ExtraVolumes:      image.ExtraVolumes,
-				OrganizationID:    image.Organization,
 				ProjectID:         image.Project,
 				Public:            image.Public,
 				RootVolume:        image.RootVolume,

@@ -13,8 +13,6 @@ import (
 func serverCreateBuilder(c *core.Command) *core.Command {
 	type baremetalCreateServerRequestCustom struct {
 		Zone scw.Zone `json:"-"`
-		// OrganizationID with which the server will be created
-		OrganizationID *string `json:"organization_id"`
 		// ProjectID with which the server will be created
 		ProjectID *string `json:"project_id"`
 		// Name of the server (≠hostname)
@@ -61,12 +59,11 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 
 		tmpRequest := argsI.(*baremetalCreateServerRequestCustom)
 		request := &baremetal.CreateServerRequest{
-			Zone:           tmpRequest.Zone,
-			OrganizationID: tmpRequest.OrganizationID,
-			ProjectID:      tmpRequest.ProjectID,
-			Name:           tmpRequest.Name,
-			Description:    tmpRequest.Description,
-			Tags:           tmpRequest.Tags,
+			Zone:        tmpRequest.Zone,
+			ProjectID:   tmpRequest.ProjectID,
+			Name:        tmpRequest.Name,
+			Description: tmpRequest.Description,
+			Tags:        tmpRequest.Tags,
 		}
 
 		// We need to find the offer ID.

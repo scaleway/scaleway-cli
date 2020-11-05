@@ -35,9 +35,6 @@ type instanceCreateServerRequest struct {
 	BootscriptID      string
 	CloudInit         string
 	BootType          string
-
-	// Deprecated, use project-id instead
-	OrganizationID *string
 }
 
 func serverCreateCommand() *core.Command {
@@ -131,7 +128,6 @@ func serverCreateCommand() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
-			core.OrganizationIDDeprecatedArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
@@ -187,7 +183,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 	serverReq := &instance.CreateServerRequest{
 		Zone:           args.Zone,
-		Organization:   args.OrganizationID,
 		Project:        args.ProjectID,
 		Name:           args.Name,
 		CommercialType: args.Type,
@@ -359,9 +354,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Debugf("creating IP")
 
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
-			Zone:         args.Zone,
-			Project:      args.ProjectID,
-			Organization: args.OrganizationID,
+			Zone:    args.Zone,
+			Project: args.ProjectID,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)

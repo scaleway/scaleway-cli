@@ -141,11 +141,9 @@ func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 func serverListBuilder(c *core.Command) *core.Command {
 	type customListServersRequest struct {
 		*instance.ListServersRequest
-		OrganizationID *string
-		ProjectID      *string
+		ProjectID *string
 	}
 
-	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
@@ -158,7 +156,6 @@ func serverListBuilder(c *core.Command) *core.Command {
 		}
 
 		request := args.ListServersRequest
-		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
 		return runner(ctx, request)
