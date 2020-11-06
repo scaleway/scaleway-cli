@@ -2088,6 +2088,7 @@ func instancePlacementGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "policy-mode",
+				Short:      `The operating mode of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2095,6 +2096,7 @@ func instancePlacementGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "policy-type",
+				Short:      `The policy type of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
