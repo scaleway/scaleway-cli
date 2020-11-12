@@ -526,6 +526,9 @@ func iotDeviceList() *core.Command {
 				FieldName: "AllowInsecure",
 			},
 			{
+				FieldName: "AllowMultipleConnections",
+			},
+			{
 				FieldName: "MessageFilters",
 			},
 			{
@@ -569,6 +572,13 @@ func iotDeviceCreate() *core.Command {
 			{
 				Name:       "allow-insecure",
 				Short:      `Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "allow-multiple-connections",
+				Short:      `Allow multiple physical devices to connect with this device's credentials`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -669,6 +679,13 @@ func iotDeviceUpdate() *core.Command {
 			{
 				Name:       "allow-insecure",
 				Short:      `Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "allow-multiple-connections",
+				Short:      `Allow multiple physical devices to connect with this device's credentials`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
