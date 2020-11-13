@@ -688,11 +688,11 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Short:    "Apply the given security group to a given server",
-				ArgsJSON: `{"security_group_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgsJSON: `null`,
 			},
 			{
 				Short:    "Put a given server in the given placement group. Server must be off",
-				ArgsJSON: `{"placement_group":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgsJSON: `null`,
 			},
 		},
 	}
