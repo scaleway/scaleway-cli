@@ -22,7 +22,7 @@ EXAMPLES:
     scw instance server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111
 
   Put a given server in the given placement group. Server must be off
-    scw instance server update 11111111-1111-1111-1111-111111111111 placement-group=11111111-1111-1111-1111-111111111111
+    scw instance server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
   server-id                                   UUID of the server
