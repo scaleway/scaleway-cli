@@ -687,12 +687,12 @@ func instanceServerUpdate() *core.Command {
 				ArgsJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Apply the given security group to a given server",
-				ArgsJSON: `{"security_group_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short: "Apply the given security group to a given server",
+				Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111`,
 			},
 			{
-				Short:    "Put a given server in the given placement group. Server must be off",
-				ArgsJSON: `{"placement_group":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+				Short: "Put a given server in the given placement group. Server must be off",
+				Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
