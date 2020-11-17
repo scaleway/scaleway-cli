@@ -23,9 +23,10 @@ func userDataDeleteBuilder(c *core.Command) *core.Command {
 
 func userDataSetBuilder(c *core.Command) *core.Command {
 	*c.ArgSpecs.GetByName("content.name") = core.ArgSpec{
-		Name:     "content",
-		Short:    "Content of the user data",
-		Required: true,
+		Name:        "content",
+		Short:       "Content of the user data",
+		Required:    true,
+		CanLoadFile: true,
 	}
 
 	c.ArgSpecs.DeleteByName("content.content-type")

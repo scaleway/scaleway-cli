@@ -115,6 +115,12 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		return nil, err
 	}
 
+	// Load args file imports.
+	err = loadArgsFileContent(cmd, cmdArgs)
+	if err != nil {
+		return nil, err
+	}
+
 	// PreValidate hook.
 	if cmd.PreValidateFunc != nil {
 		err = cmd.PreValidateFunc(ctx, cmdArgs)

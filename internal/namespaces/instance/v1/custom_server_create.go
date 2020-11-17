@@ -120,8 +120,9 @@ func serverCreateCommand() *core.Command {
 				Short: "The bootscript ID to use, if empty the local boot will be used",
 			},
 			{
-				Name:  "cloud-init",
-				Short: "The cloud-init script to use",
+				Name:        "cloud-init",
+				Short:       "The cloud-init script to use",
+				CanLoadFile: true,
 			},
 			{
 				Name:       "boot-type",

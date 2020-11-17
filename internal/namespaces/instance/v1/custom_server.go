@@ -201,8 +201,9 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		Short: `IP that should be attached to the server (use ip=none to detach)`,
 	})
 	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
-		Name:  "cloud-init",
-		Short: "The cloud-init script to use",
+		Name:        "cloud-init",
+		Short:       "The cloud-init script to use",
+		CanLoadFile: true,
 	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
