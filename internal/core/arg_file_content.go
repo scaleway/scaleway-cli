@@ -1,7 +1,9 @@
 package core
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"reflect"
 	"strings"
@@ -23,17 +25,29 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 		}
 
 		for _, v := range fieldValues {
-			if v.Kind() != reflect.String {
-				continue
-			}
-
-			valueString := v.String()
-			if strings.HasPrefix(valueString, "@") {
-				content, err := ioutil.ReadFile(valueString[1:])
+			switch i := v.Interface().(type) {
+			case io.Reader:
+				b, err := ioutil.ReadAll(i)
 				if err != nil {
-					return fmt.Errorf("could not open requested file: %s", err)
+					return fmt.Errorf("could not read argument: %s", err)
 				}
-				v.SetString(string(content))
+
+				if strings.HasPrefix(string(b), "@") {
+					content, err := ioutil.ReadFile(string(b)[1:])
+					if err != nil {
+						return fmt.Errorf("could not open requested file: %s", err)
+					}
+					test := bytes.NewBuffer(content)
+					v.Set(reflect.ValueOf(test))
+				}
+			case *string:
+				if strings.HasPrefix(*i, "@") {
+					content, err := ioutil.ReadFile((*i)[1:])
+					if err != nil {
+						return fmt.Errorf("could not open requested file: %s", err)
+					}
+					v.SetString(string(content))
+				}
 			}
 		}
 	}
