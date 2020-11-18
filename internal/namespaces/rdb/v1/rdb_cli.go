@@ -206,7 +206,7 @@ func rdbBackupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
@@ -262,7 +262,7 @@ func rdbBackupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateDatabaseBackupRequest)
@@ -292,7 +292,7 @@ func rdbBackupGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetDatabaseBackupRequest)
@@ -336,7 +336,7 @@ func rdbBackupUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateDatabaseBackupRequest)
@@ -366,7 +366,7 @@ func rdbBackupDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteDatabaseBackupRequest)
@@ -410,7 +410,7 @@ func rdbBackupRestore() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.RestoreDatabaseBackupRequest)
@@ -440,7 +440,7 @@ func rdbBackupExport() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ExportDatabaseBackupRequest)
@@ -484,7 +484,7 @@ func rdbInstanceClone() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CloneInstanceRequest)
@@ -507,7 +507,7 @@ func rdbEngineList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
@@ -555,7 +555,7 @@ func rdbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpgradeInstanceRequest)
@@ -614,7 +614,7 @@ func rdbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstancesRequest)
@@ -680,7 +680,7 @@ func rdbInstanceGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceRequest)
@@ -789,7 +789,7 @@ func rdbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateInstanceRequest)
@@ -854,7 +854,7 @@ func rdbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateInstanceRequest)
@@ -884,7 +884,7 @@ func rdbInstanceDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteInstanceRequest)
@@ -914,7 +914,7 @@ func rdbInstanceGetCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceCertificateRequest)
@@ -958,7 +958,7 @@ func rdbLogPrepare() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.PrepareInstanceLogsRequest)
@@ -996,7 +996,7 @@ func rdbLogList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceLogsRequest)
@@ -1026,7 +1026,7 @@ func rdbLogGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceLogRequest)
@@ -1056,7 +1056,7 @@ func rdbACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
@@ -1102,7 +1102,7 @@ func rdbACLAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.AddInstanceACLRulesRequest)
@@ -1139,7 +1139,7 @@ func rdbACLDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteInstanceACLRulesRequest)
@@ -1184,7 +1184,7 @@ func rdbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListUsersRequest)
@@ -1239,7 +1239,7 @@ func rdbUserCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateUserRequest)
@@ -1290,7 +1290,7 @@ func rdbUserUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateUserRequest)
@@ -1327,7 +1327,7 @@ func rdbUserDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteUserRequest)
@@ -1392,7 +1392,7 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
@@ -1433,7 +1433,7 @@ func rdbDatabaseCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateDatabaseRequest)
@@ -1470,7 +1470,7 @@ func rdbDatabaseDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteDatabaseRequest)
@@ -1528,7 +1528,7 @@ func rdbPrivilegeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
@@ -1584,7 +1584,7 @@ func rdbPrivilegeSet() *core.Command {
 				Positional: false,
 				EnumValues: []string{"readonly", "readwrite", "all", "custom", "none"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.SetPrivilegeRequest)
@@ -1614,7 +1614,7 @@ func rdbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
