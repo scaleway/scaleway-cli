@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   instance-id       UUID of the instance where to create the database
   [name]            Name of the database
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create
