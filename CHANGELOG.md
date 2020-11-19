@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.2.3 (2020-11-19)
+
+### Features
+
+* **iot**: anonymous devices support ([#1523](https://github.com/scaleway/scaleway-cli/pull/1523))
+
+### Fixes
+
+* **instance**: fix documentation on server update ([#1527](https://github.com/scaleway/scaleway-cli/pull/1527))
+* **object**: mc: change generated Signature Version from v2 to v4 ([#1522](https://github.com/scaleway/scaleway-cli/pull/1522))
+
+### Others
+
+* **rdb**: Add WAW region documentation ([#1536](https://github.com/scaleway/scaleway-cli/pull/1536))
+* **docs - instance**: add documentation on placement group ([#1520](https://github.com/scaleway/scaleway-cli/pull/1520))
+
+
+
 ## v2.2.2 (2020-11-02)
 
 ### Features
