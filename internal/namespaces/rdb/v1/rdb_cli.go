@@ -29,6 +29,9 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
+		rdbSnapshot(),
+		rdbEngineList(),
+		rdbNodeTypeList(),
 		rdbBackupList(),
 		rdbBackupCreate(),
 		rdbBackupGet(),
@@ -36,14 +39,13 @@ func GetGeneratedCommands() *core.Commands {
 		rdbBackupDelete(),
 		rdbBackupRestore(),
 		rdbBackupExport(),
-		rdbInstanceClone(),
-		rdbEngineList(),
 		rdbInstanceUpgrade(),
 		rdbInstanceList(),
 		rdbInstanceGet(),
 		rdbInstanceCreate(),
 		rdbInstanceUpdate(),
 		rdbInstanceDelete(),
+		rdbInstanceClone(),
 		rdbInstanceGetCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
@@ -60,7 +62,12 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabaseDelete(),
 		rdbPrivilegeList(),
 		rdbPrivilegeSet(),
-		rdbNodeTypeList(),
+		rdbSnapshotList(),
+		rdbSnapshotGet(),
+		rdbSnapshotCreate(),
+		rdbSnapshotUpdate(),
+		rdbSnapshotDelete(),
+		rdbSnapshotRestore(),
 	)
 }
 func rdbRoot() *core.Command {
@@ -157,6 +164,77 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
+	}
+}
+
+func rdbSnapshot() *core.Command {
+	return &core.Command{
+		Short: `Block snapshot management`,
+		Long: `Create, restore and manage block snapshot
+`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+	}
+}
+
+func rdbEngineList() *core.Command {
+	return &core.Command{
+		Short:     `List available database engines`,
+		Long:      `List available database engines.`,
+		Namespace: "rdb",
+		Resource:  "engine",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.ListDatabaseEnginesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			resp, err := api.ListDatabaseEngines(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Engines, nil
+
+		},
+	}
+}
+
+func rdbNodeTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List available node types`,
+		Long:      `List available node types.`,
+		Namespace: "rdb",
+		Resource:  "node-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "include-disabled-types",
+				Short:      `Whether or not to include disabled types`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.ListNodeTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			resp, err := api.ListNodeTypes(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.NodeTypes, nil
+
+		},
 	}
 }
 
@@ -448,77 +526,6 @@ func rdbBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.ExportDatabaseBackup(request)
-
-		},
-	}
-}
-
-func rdbInstanceClone() *core.Command {
-	return &core.Command{
-		Short:     `Clone an instance`,
-		Long:      `Clone an instance.`,
-		Namespace: "rdb",
-		Resource:  "instance",
-		Verb:      "clone",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want to clone`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "name",
-				Short:      `Name of the clone instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "node-type",
-				Short:      `Node type of the clone`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.CloneInstanceRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.CloneInstance(request)
-
-		},
-	}
-}
-
-func rdbEngineList() *core.Command {
-	return &core.Command{
-		Short:     `List available database engines`,
-		Long:      `List available database engines.`,
-		Namespace: "rdb",
-		Resource:  "engine",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.ListDatabaseEnginesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			resp, err := api.ListDatabaseEngines(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.Engines, nil
 
 		},
 	}
@@ -892,6 +899,50 @@ func rdbInstanceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.DeleteInstance(request)
+
+		},
+	}
+}
+
+func rdbInstanceClone() *core.Command {
+	return &core.Command{
+		Short:     `Clone an instance`,
+		Long:      `Clone an instance.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "clone",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance you want to clone`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the clone instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "node-type",
+				Short:      `Node type of the clone`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CloneInstanceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CloneInstance(request)
 
 		},
 	}
@@ -1597,19 +1648,48 @@ func rdbPrivilegeSet() *core.Command {
 	}
 }
 
-func rdbNodeTypeList() *core.Command {
+func rdbSnapshotList() *core.Command {
 	return &core.Command{
-		Short:     `List available node types`,
-		Long:      `List available node types.`,
+		Short:     `List instance snapshots`,
+		Long:      `List instance snapshots.`,
 		Namespace: "rdb",
-		Resource:  "node-type",
+		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeOf(rdb.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "include-disabled-types",
-				Short:      `Whether or not to include disabled types`,
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Criteria to use when ordering snapshot listing`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "expires_at_asc", "expires_at_desc"},
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID the snapshots belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID the snapshots belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1617,15 +1697,201 @@ func rdbNodeTypeList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.ListNodeTypesRequest)
+			request := args.(*rdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListNodeTypes(request, scw.WithAllPages())
+			resp, err := api.ListSnapshots(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
-			return resp.NodeTypes, nil
+			return resp.Snapshots, nil
+
+		},
+	}
+}
+
+func rdbSnapshotGet() *core.Command {
+	return &core.Command{
+		Short:     `Get an instance snapshot`,
+		Long:      `Get an instance snapshot.`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.GetSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetSnapshot(request)
+
+		},
+	}
+}
+
+func rdbSnapshotCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create an instance snapshot`,
+		Long:      `Create an instance snapshot.`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CreateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("snp"),
+			},
+			{
+				Name:       "expires-at",
+				Short:      `Expiration date (Format ISO 8601)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CreateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CreateSnapshot(request)
+
+		},
+	}
+}
+
+func rdbSnapshotUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an instance snapshot`,
+		Long:      `Update an instance snapshot.`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "expires-at",
+				Short:      `Expiration date (Format ISO 8601)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.UpdateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.UpdateSnapshot(request)
+
+		},
+	}
+}
+
+func rdbSnapshotDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an instance snapshot`,
+		Long:      `Delete an instance snapshot.`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.DeleteSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.DeleteSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.DeleteSnapshot(request)
+
+		},
+	}
+}
+
+func rdbSnapshotRestore() *core.Command {
+	return &core.Command{
+		Short:     `Create a new instance from a given snapshot`,
+		Long:      `Create a new instance from a given snapshot.`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CreateInstanceFromSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `Block snapshot of the instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "instance-name",
+				Short:      `Name of the instance created with the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CreateInstanceFromSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CreateInstanceFromSnapshot(request)
 
 		},
 	}
