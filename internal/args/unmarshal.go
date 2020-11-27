@@ -17,7 +17,6 @@ import (
 	"github.com/karrick/tparse"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type Unmarshaler interface {
@@ -310,11 +309,6 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// We enforce this check to avoid not well formatted argument name to work by "accident"
 		// as we use ToPublicGoName on the argument name later on.
 		if !validArgNameRegex.MatchString(argNameWords[0]) {
-			// TODO: return a special error to advice user to use the ID argument.
-			if validation.IsUUID(argNameWords[0]) {
-				return &UnknownArgError{}
-			}
-
 			return error(&InvalidArgNameError{})
 		}
 

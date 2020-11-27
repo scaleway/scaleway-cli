@@ -96,6 +96,9 @@ type ArgSpec struct {
 	// Only one argument of the same OneOfGroup could be specified
 	OneOfGroup string
 
+	// CanUseFile defines whether the arg can be loaded as a file with `@`
+	CanUseFile bool
+
 	// Deprecated is used to flag an argument as deprecated.
 	// Use the short field to indicate migration tips for users.
 	Deprecated bool
