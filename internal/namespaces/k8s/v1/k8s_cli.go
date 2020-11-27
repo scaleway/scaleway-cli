@@ -424,6 +424,13 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "autoscaler-config.max-graceful-termination-sec",
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Whether or not auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -667,6 +674,13 @@ func k8sClusterUpdate() *core.Command {
 			{
 				Name:       "autoscaler-config.scale-down-utilization-threshold",
 				Short:      `Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.max-graceful-termination-sec",
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
