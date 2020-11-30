@@ -27,6 +27,7 @@ ARGS:
   [container-runtime]    The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
   [autohealing]          The enablement of the autohealing feature for the pool
   [tags.{index}]         The tags associated with the pool
+  [kubelet-args.{key}]   
   [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
