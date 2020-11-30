@@ -41,6 +41,7 @@ ARGS:
   [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable
   [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down
   [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down
+  [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node
   [auto-upgrade.enable]                                  Whether or not auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]           The start hour of the 2-hour maintenance window
   [auto-upgrade.maintenance-window.day]                  The day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
