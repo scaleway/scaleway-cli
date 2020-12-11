@@ -386,7 +386,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority"},
+				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -641,7 +641,7 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority"},
+				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
