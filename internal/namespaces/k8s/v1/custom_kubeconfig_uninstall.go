@@ -60,7 +60,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 
 	// if the file does not exist, the cluster is not there
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
-		return fmt.Sprintf("File %s does not exists.", kubeconfigPath), nil
+		return fmt.Sprintf("File %s does not exist.", kubeconfigPath), nil
 	}
 
 	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)

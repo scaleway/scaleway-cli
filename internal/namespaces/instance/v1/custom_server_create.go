@@ -326,7 +326,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			BootscriptID: args.BootscriptID,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("bootscript ID %s does not exists", args.BootscriptID)
+			return nil, fmt.Errorf("bootscript ID %s does not exist", args.BootscriptID)
 		}
 
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
