@@ -1951,6 +1951,12 @@ func lbCertificateList() *core.Command {
 			{
 				FieldName: "Fingerprint",
 			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
 		}},
 	}
 }
