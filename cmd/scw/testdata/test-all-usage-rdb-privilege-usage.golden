@@ -6,8 +6,8 @@ USAGE:
   scw rdb privilege <command>
 
 AVAILABLE COMMANDS:
-  list        List privileges of a given user in a given database in a given instance
-  set         Set privileges of a given user in a given database in a given instance
+  list        List privileges of a given user for a given database on a given instance
+  set         Set privileges of a given user for a given database on a given instance
 
 FLAGS:
   -h, --help   help for privilege
