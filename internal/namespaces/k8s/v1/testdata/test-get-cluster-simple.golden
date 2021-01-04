@@ -27,6 +27,7 @@ BalanceSimilarNodeGroups       false
 ExpendablePodsPriorityCutoff   -10
 ScaleDownUnneededTime          10m
 ScaleDownUtilizationThreshold  0.5
+MaxGracefulTerminationSec      600
 
 Auto-upgrade settings:
 Enabled                      false
@@ -68,7 +69,8 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
     "balance_similar_node_groups": false,
     "expendable_pods_priority_cutoff": -10,
     "scale_down_unneeded_time": "10m",
-    "scale_down_utilization_threshold": 0.5
+    "scale_down_utilization_threshold": 0.5,
+    "max_graceful_termination_sec": 600
   },
   "dashboard_enabled": false,
   "ingress": "none",

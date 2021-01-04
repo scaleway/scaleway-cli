@@ -37,12 +37,16 @@ Region                 fr-par
       "id": "208e89c7-e492-430f-b474-d164bd3a5c7b",
       "status": "ready",
       "ip_address": "10.68.142.101",
+      "created_at": null,
+      "updated_at": null,
       "region": "fr-par"
     },
     {
       "id": "27facb2b-3022-4b5b-a563-6833f935e1d9",
       "status": "ready",
       "ip_address": "10.64.202.25",
+      "created_at": null,
+      "updated_at": null,
       "region": "fr-par"
     }
   ],
@@ -65,5 +69,7 @@ Region                 fr-par
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "created_at": null,
+  "updated_at": null,
   "region": "fr-par"
 }
