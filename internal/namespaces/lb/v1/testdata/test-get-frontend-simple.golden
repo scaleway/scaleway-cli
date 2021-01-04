@@ -103,11 +103,15 @@ ProxyProtocol                proxy_protocol_unknown
       "subscriber": null,
       "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
       "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "created_at": null,
+      "updated_at": null,
       "region": "fr-par"
     },
     "send_proxy_v2": false,
     "on_marked_down_action": "on_marked_down_action_none",
     "proxy_protocol": "proxy_protocol_unknown",
+    "created_at": null,
+    "updated_at": null,
     "timeout_server": null,
     "timeout_connect": null,
     "timeout_tunnel": null
@@ -137,9 +141,13 @@ ProxyProtocol                proxy_protocol_unknown
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": null,
+    "updated_at": null,
     "region": "fr-par"
   },
   "certificate": null,
   "certificate_ids": [],
+  "created_at": null,
+  "updated_at": null,
   "timeout_client": null
 }
