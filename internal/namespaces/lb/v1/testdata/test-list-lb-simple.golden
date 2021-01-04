@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME               DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               PROJECT ID                            REGION
-8b873b80-5327-4ef1-8f99-6c74d54faed3  lb-boring-nash     -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
-c8abf8c6-3eb0-45af-9ff2-e6a2dd12d609  lb-pensive-bhabha  -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
-a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
+ID                                    NAME               DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               PROJECT ID                            CREATED AT  UPDATED AT  REGION
+8b873b80-5327-4ef1-8f99-6c74d54faed3  lb-boring-nash     -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  -           -           fr-par
+c8abf8c6-3eb0-45af-9ff2-e6a2dd12d609  lb-pensive-bhabha  -            ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    1               1              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  -           -           fr-par
+a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2          951df375-e094-4d26-97c1-ba548eeb9c42  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  951df375-e094-4d26-97c1-ba548eeb9c42  -           -           fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -16,12 +16,16 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
         "id": "1a141c2d-9061-46a5-99d9-eaccf669b41b",
         "status": "ready",
         "ip_address": "10.68.42.73",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       },
       {
         "id": "9ab0406f-7203-4956-baa7-81a53d48d603",
         "status": "ready",
         "ip_address": "10.68.14.47",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       }
     ],
@@ -44,6 +48,8 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": null,
+    "updated_at": null,
     "region": "fr-par"
   },
   {
@@ -56,12 +62,16 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
         "id": "de4c7d95-14b7-4462-be7e-c86b47f8c0df",
         "status": "ready",
         "ip_address": "10.69.58.91",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       },
       {
         "id": "208acd52-d47d-404a-9c74-d29b225b826d",
         "status": "ready",
         "ip_address": "10.65.26.163",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       }
     ],
@@ -84,6 +94,8 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": null,
+    "updated_at": null,
     "region": "fr-par"
   },
   {
@@ -96,12 +108,16 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
         "id": "1ba0de55-bfb1-44f5-89fd-b71fc9aa67e6",
         "status": "ready",
         "ip_address": "10.68.70.45",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       },
       {
         "id": "b2fce7f2-8e0c-4c9d-9ef4-1884f155ca8b",
         "status": "ready",
         "ip_address": "10.68.206.119",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       }
     ],
@@ -124,6 +140,8 @@ a665ecbc-f0b6-464a-9e95-5d12868ea946  cli-test           cli-test     ready   2 
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": null,
+    "updated_at": null,
     "region": "fr-par"
   }
 ]
