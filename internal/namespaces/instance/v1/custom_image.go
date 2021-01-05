@@ -96,29 +96,29 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 func imageCreateBuilder(c *core.Command) *core.Command {
 	type customCreateImageRequest struct {
 		*instance.CreateImageRequest
-		AdditionalVolumes map[string]*instance.VolumeTemplate
+		AdditionalVolumes []*instance.VolumeTemplate
 		SnapshotID        string
 		OrganizationID    *string
 		ProjectID         *string
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{key}.id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{index}.id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Short = "Name of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{key}.name"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{index}.name"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Short = "Size of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{key}.size"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{index}.size"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Short = "Underlying volume type of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{key}.volume-type"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{index}.volume-type"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Short = "Organization ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{key}.organization-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{index}.organization-id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Short = "Project ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-snapshots.{key}.project-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-snapshots.{index}.project-id"
 
 	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
