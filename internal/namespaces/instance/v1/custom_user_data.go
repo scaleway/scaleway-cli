@@ -40,7 +40,7 @@ func userDataGetBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			if resErr, ok := err.(*scw.ResponseError); ok {
 				if resErr.StatusCode == http.StatusNotFound {
-					return nil, fmt.Errorf("'%s' key does not exists", req.Key)
+					return nil, fmt.Errorf("'%s' key does not exist", req.Key)
 				}
 			}
 			return nil, err

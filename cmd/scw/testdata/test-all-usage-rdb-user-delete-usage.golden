@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an user in a given instance.
+Delete a user on a given instance.
 
 USAGE:
   scw rdb user delete [arg=value ...]
