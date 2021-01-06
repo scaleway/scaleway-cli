@@ -23,7 +23,7 @@ EXAMPLES:
     scw instance server create image=ubuntu_focal ip=$ip
 
 ARGS:
-  image                          Image ID or label of the server
+  image=ubuntu_focal             Image ID or label of the server
   [type=DEV1-S]                  Server commercial type (GP1-XS | GP1-S | GP1-M | GP1-L | GP1-XL | DEV1-S | DEV1-M | DEV1-L | DEV1-XL | RENDER-S | STARDUST1-S)
   [name=<generated>]             Server name
   [root-volume]                  Local root volume of the server
