@@ -132,7 +132,7 @@ func serverCreateCommand() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
-			core.OrganizationIDDeprecatedArgSpec(),
+			core.OrganizationIDArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
