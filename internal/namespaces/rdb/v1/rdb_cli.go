@@ -29,6 +29,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
+		rdbSnapshot(),
 		rdbEngineList(),
 		rdbNodeTypeList(),
 		rdbBackupList(),
@@ -157,6 +158,16 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
+	}
+}
+
+func rdbSnapshot() *core.Command {
+	return &core.Command{
+		Short: `Block snapshot management`,
+		Long: `Create, restore and manage block snapshot
+`,
+		Namespace: "rdb",
+		Resource:  "snapshot",
 	}
 }
 
@@ -541,6 +552,13 @@ func rdbInstanceUpgrade() *core.Command {
 			{
 				Name:       "enable-ha",
 				Short:      `Set to true to enable high availability on your instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-size",
+				Short:      `Increase your block storage volume size`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
