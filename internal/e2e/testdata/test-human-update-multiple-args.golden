@@ -15,7 +15,6 @@ EyesColor             blue
 Status                stopped
 Name                  -
 ProjectID             11111111-1111-1111-1111-111111111111
-Region                fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
@@ -32,6 +31,5 @@ Region                fr-par
   "eyes_color": "blue",
   "status": "stopped",
   "name": "",
-  "project_id": "11111111-1111-1111-1111-111111111111",
-  "region": "fr-par"
+  "project_id": "11111111-1111-1111-1111-111111111111"
 }

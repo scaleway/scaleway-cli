@@ -6,8 +6,7 @@ USAGE:
   scw test human delete <human-id ...> [arg=value ...]
 
 ARGS:
-  human-id          UUID of the human you want to delete
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  human-id   UUID of the human you want to delete
 
 FLAGS:
   -h, --help   help for delete
