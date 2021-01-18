@@ -3,10 +3,10 @@
 Unknown argument 'invalid'
 
 Hint:
-Valid arguments are: human-id, region
+Valid arguments are: human-id
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "message": "unknown argument 'invalid'",
   "error": {},
-  "hint": "Valid arguments are: human-id, region"
+  "hint": "Valid arguments are: human-id"
 }
