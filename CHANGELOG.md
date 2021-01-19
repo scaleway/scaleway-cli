@@ -1,5 +1,33 @@
 # Changelog
 
+## v2.2.4 (2021-01-19)
+
+### Features
+
+* **core**: handle map in request arguments ([#1569](https://github.com/scaleway/scaleway-cli/pull/1569))
+* **instance**: add support for enable_default_security on CreateSecurityGroup ([#1595](https://github.com/scaleway/scaleway-cli/pull/1595))
+* **instance**: add ubuntu as default for image arg in server create ([#1638](https://github.com/scaleway/scaleway-cli/pull/1638))
+* **k8s**: add max_graceful_termination_sec to autoscaler flag ([#1572](https://github.com/scaleway/scaleway-cli/pull/1572))
+* **k8s**: add new autoscaler flag and add kubelet_args ([#1566](https://github.com/scaleway/scaleway-cli/pull/1566))
+* **k8s**: add pl-waw as an available region ([#1675](https://github.com/scaleway/scaleway-cli/pull/1675))
+* **k8s**: add price expander in autoscaling options ([#1598](https://github.com/scaleway/scaleway-cli/pull/1598))
+* **lb**: add CreatedAt and UpdatedAt for certificate list ([#1630](https://github.com/scaleway/scaleway-cli/pull/1630))
+* **registry**: add support for pl-waw ([#1587](https://github.com/scaleway/scaleway-cli/pull/1587))
+* remove deprecation warning on organization ([#1640](https://github.com/scaleway/scaleway-cli/pull/1640))
+
+### Fixes
+
+* **instance**: use a slice for addition snapshots in create volume ([#1575](https://github.com/scaleway/scaleway-cli/pull/1575))
+
+### Others
+
+* **rdb**: minor API doc spelling changes. ([#1627](https://github.com/scaleway/scaleway-cli/pull/1627))
+* **chore**: fix typo ([#1623](https://github.com/scaleway/scaleway-cli/pull/1623))
+* **doc**: create the security policy ([#1616](https://github.com/scaleway/scaleway-cli/pull/1616))
+* **doc**: fix contributing link in mantainers file ([#1615](https://github.com/scaleway/scaleway-cli/pull/1615))
+
+
+
 ## v2.2.3 (2020-11-19)
 
 ### Features
