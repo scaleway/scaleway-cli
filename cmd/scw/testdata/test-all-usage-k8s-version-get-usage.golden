@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   version-name      The requested version name
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for get

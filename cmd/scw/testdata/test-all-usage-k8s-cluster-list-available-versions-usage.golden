@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   cluster-id        The ID of the cluster which the available Kuberentes versions will be listed from
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list-available-versions
