@@ -12,7 +12,7 @@ EXAMPLES:
 ARGS:
   cluster-id                    The ID of the cluster to delete
   [with-additional-resources]   Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID
-  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for delete

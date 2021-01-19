@@ -41,7 +41,7 @@ ARGS:
   [open-id-connect-config.groups-claim.{index}]          JWT claim to use as the user's group
   [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims
   [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs that describes a required claim in the ID Token
-  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
