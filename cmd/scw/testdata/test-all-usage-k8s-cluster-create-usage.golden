@@ -32,6 +32,9 @@ ARGS:
   [pools.{index}.autohealing]                            The enablement of the autohealing feature for the pool
   [pools.{index}.tags.{index}]                           The tags associated with the pool
   [pools.{index}.kubelet-args.{key}]                     
+  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
+  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
+  [pools.{index}.zone]                                   The Zone in which the Pool's node will be spawn in
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up that scale down evaluation resumes
   [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
