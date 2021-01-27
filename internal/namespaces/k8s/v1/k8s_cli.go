@@ -373,6 +373,13 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "pools.{index}.zone",
+				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
 				Short:      `Disable the cluster autoscaler`,
 				Required:   false,
@@ -1124,6 +1131,9 @@ func k8sPoolList() *core.Command {
 				FieldName: "ClusterID",
 			},
 			{
+				FieldName: "Zone",
+			},
+			{
 				FieldName: "Region",
 			},
 			{
@@ -1244,6 +1254,13 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "upgrade-policy.max-surge",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "zone",
+				Short:      `The Zone in which the Pool's node will be spawn in`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

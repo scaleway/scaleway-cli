@@ -30,6 +30,7 @@ ARGS:
   [kubelet-args.{key}]               
   [upgrade-policy.max-unavailable]   
   [upgrade-policy.max-surge]         
+  [zone]                             The Zone in which the Pool's node will be spawn in
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
