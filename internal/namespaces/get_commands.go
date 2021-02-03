@@ -3,7 +3,7 @@ package namespaces
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	account "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
-	apple_silicon "github.com/scaleway/scaleway-cli/internal/namespaces/applesilicon/v1alpha1"
+	applesilicon "github.com/scaleway/scaleway-cli/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
@@ -48,6 +48,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(iot.GetCommands())
 	commands.Merge(help.GetCommands())
 	commands.Merge(vpc.GetCommands())
-	commands.Merge(apple_silicon.GetCommands())
+	commands.Merge(applesilicon.GetCommands())
 	return commands
 }
