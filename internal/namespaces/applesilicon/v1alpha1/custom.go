@@ -16,10 +16,13 @@ func GetCommands() *core.Commands {
 	)
 
 	human.RegisterMarshalerFunc(applesilicon.ServerStatus(""), human.EnumMarshalFunc(serverStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(applesilicon.ServerTypeStock(""), human.EnumMarshalFunc(serverTypeStockMarshalSpecs))
 
 	cmds.MustFind("apple-silicon", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("apple-silicon", "server", "reboot").Override(serverRebootBuilder)
 	cmds.MustFind("apple-silicon", "server", "delete").Override(serverDeleteBuilder)
+
+	cmds.MustFind("apple-silicon", "server-type", "list").Override(serverTypeBuilder)
 
 	return cmds
 }
