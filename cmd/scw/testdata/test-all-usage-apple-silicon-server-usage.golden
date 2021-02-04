@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   reboot      Reboot a server
   reinstall   Reinstall a server
   update      Update a server
+  wait        Wait for a server to reach a stable state
 
 FLAGS:
   -h, --help   help for server
