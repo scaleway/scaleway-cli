@@ -10,7 +10,7 @@ func Test_ServerSSH(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create"),
+			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
 		),
 		Cmd: "scw apple-silicon server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
@@ -30,7 +30,7 @@ func Test_ServerSSH(t *testing.T) {
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create"),
+			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
 		),
 		Cmd: "scw apple-silicon server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
