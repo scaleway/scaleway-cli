@@ -6,9 +6,9 @@ USAGE:
   scw apple-silicon server create [arg=value ...]
 
 ARGS:
-  [name]         Create a server with this given name
-  [project-id]   Project ID to use. If none is passed the default project ID will be used
-  [type]         Create a server of the given type
+  [name=<generated>]   Create a server with this given name
+  [project-id]         Project ID to use. If none is passed the default project ID will be used
+  [type=M1-M]          Create a server of the given type
 
 FLAGS:
   -h, --help   help for create

@@ -148,6 +148,7 @@ func appleSiliconServerCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("as"),
 			},
 			core.ProjectIDArgSpec(),
 			{
@@ -156,6 +157,7 @@ func appleSiliconServerCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("M1-M"),
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
