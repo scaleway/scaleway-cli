@@ -2,7 +2,7 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"","project_id":"11111111-1111-1111-1111-111111111111","type":""}'
+    body: '{"name":"cli-as-charming-knuth","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","type":"M1-M"}'
     form: {}
     headers:
       Content-Type:
@@ -12,16 +12,16 @@ interactions:
     url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+    body: '{"message":"resource is out of stock","resource":"server","type":"out_of_stock"}'
     headers:
       Content-Length:
-      - "109"
+      - "80"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 04 Feb 2021 23:01:24 GMT
+      - Thu, 04 Feb 2021 23:05:55 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -31,7 +31,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - e6364ba0-50e4-473f-b823-e3523f965a7a
-    status: 401 Unauthorized
-    code: 401
+      - 49277a30-1e57-4aad-af1a-9c099be103ba
+    status: 503 Service Unavailable
+    code: 503
     duration: ""
