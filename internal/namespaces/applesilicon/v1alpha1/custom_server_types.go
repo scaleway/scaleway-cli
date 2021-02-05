@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -19,36 +18,67 @@ var (
 	}
 )
 
+func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+	cpu := i.(applesilicon.ServerTypeCPU)
+	return fmt.Sprintf("%s (%d cores)", cpu.Name, cpu.CoreCount), nil
+}
+
+func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+	disk := i.(applesilicon.ServerTypeDisk)
+	capacityStr, err := human.Marshal(disk.Capacity, nil)
+	if err != nil {
+		return "", err
+	}
+	return capacityStr, nil
+}
+
+func memoryMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+	memory := i.(applesilicon.ServerTypeMemory)
+	capacityStr, err := human.Marshal(memory.Capacity, nil)
+	if err != nil {
+		return "", err
+	}
+	return capacityStr, nil
+}
+
 func serverTypeBuilder(c *core.Command) *core.Command {
-	type customServerType struct {
-		Name                 string                       `json:"name"`
-		CPU                  string                       `json:"cpu"`
-		Disk                 scw.Size                     `json:"disk"`
-		Memory               scw.Size                     `json:"memory"`
-		Stock                applesilicon.ServerTypeStock `json:"stock"`
-		MinimumLeaseDuration *scw.Duration                `json:"minimum_lease_duration"`
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "CPU",
+				FieldName: "CPU",
+			},
+			{
+				Label:     "Memory",
+				FieldName: "Memory",
+			},
+			{
+				Label:     "Disk",
+				FieldName: "Disk",
+			},
+			{
+				Label:     "Stock",
+				FieldName: "Stock",
+			},
+			{
+				Label:     "Minimum Lease Duration",
+				FieldName: "MinimumLeaseDuration",
+			},
+		},
 	}
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		listServerTypeResponse, err := runner(ctx, argsI)
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		originalRes, err := runner(ctx, argsI)
 		if err != nil {
-			return listServerTypeResponse, err
-		}
-		listServerType := listServerTypeResponse.(*applesilicon.ListServerTypesResponse)
-
-		var res []customServerType
-		for _, serverType := range listServerType.ServerTypes {
-			res = append(res, customServerType{
-				Name:                 serverType.Name,
-				CPU:                  fmt.Sprintf("%s (%d cores)", serverType.CPU.Name, serverType.CPU.CoreCount),
-				Disk:                 serverType.Disk.Capacity,
-				Memory:               serverType.Memory.Capacity,
-				Stock:                serverType.Stock,
-				MinimumLeaseDuration: serverType.MinimumLeaseDuration,
-			})
+			return nil, err
 		}
 
-		return res, nil
+		versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
+		return versionsResponse.ServerTypes, nil
 	})
 
 	return c
