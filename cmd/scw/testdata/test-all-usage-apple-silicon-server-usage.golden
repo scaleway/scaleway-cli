@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   list        List all servers
   reboot      Reboot a server
   reinstall   Reinstall a server
+  ssh         SSH into a server
   update      Update a server
   wait        Wait for a server to reach a stable state
 

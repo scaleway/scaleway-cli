@@ -9,11 +9,10 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	cmds.Merge(
-		core.NewCommands(
-			serverWaitCommand(),
-		),
-	)
+	cmds.Merge(core.NewCommands(
+		serverSSHCommand(),
+		serverWaitCommand(),
+	))
 
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeCPU{}, cpuMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeDisk{}, diskMarshalerFunc)
