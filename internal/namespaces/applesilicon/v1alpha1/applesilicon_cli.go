@@ -1,14 +1,14 @@
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-package applesilicon
+package apple_silicon
 
 import (
 	"context"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
