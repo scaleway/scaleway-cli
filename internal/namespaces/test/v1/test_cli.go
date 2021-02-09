@@ -84,7 +84,6 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RegisterRequest)
@@ -126,7 +125,6 @@ func testHumanList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.ListHumansRequest)
@@ -160,7 +158,6 @@ func testHumanGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.GetHumanRequest)
@@ -240,7 +237,6 @@ func testHumanCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.CreateHumanRequest)
@@ -331,7 +327,6 @@ func testHumanUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.UpdateHumanRequest)
@@ -361,7 +356,6 @@ func testHumanDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.DeleteHumanRequest)
@@ -391,7 +385,6 @@ func testHumanRun() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RunHumanRequest)
@@ -428,7 +421,6 @@ func testHumanSmoke() *core.Command {
 				Deprecated: true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.SmokeHumanRequest)

@@ -199,8 +199,18 @@ Relative time error: %s
 				Err: fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
 			}
 		}
+	case *args.InvalidArgNameError:
+		argNames := []string(nil)
+		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
+		for _, argSpec := range nonDeprecatedArgs {
+			argNames = append(argNames, argSpec.Name)
+		}
 
-	case *args.UnknownArgError, *args.InvalidArgNameError:
+		return &CliError{
+			Err:  fmt.Errorf("invalid argument '%s': %s", unmarshalErr.ArgName, e.Error()),
+			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
+		}
+	case *args.UnknownArgError:
 		argNames := []string(nil)
 		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
 		for _, argSpec := range nonDeprecatedArgs {

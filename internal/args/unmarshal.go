@@ -17,7 +17,6 @@ import (
 	"github.com/karrick/tparse"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type Unmarshaler interface {
@@ -122,25 +121,6 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	for _, kv := range argsSlice {
 		argName, argValue := kv[0], kv[1]
 		argNameWords := strings.Split(argName, ".")
-
-		// Make sure argument name is correct.
-		// We enforce this check to avoid not well formatted argument name to work by "accident"
-		// as we use ToPublicGoName on the argument name later on.
-		if !validArgNameRegex.MatchString(argName) {
-			err := error(&InvalidArgNameError{})
-
-			// Make an exception for users that try to pass resource UUID without corresponding ID argument.
-			// TODO: return a special error to advice user to use the ID argument.
-			if validation.IsUUID(argName) {
-				err = &UnknownArgError{}
-			}
-
-			return &UnmarshalArgError{
-				ArgName:  argName,
-				ArgValue: argValue,
-				Err:      err,
-			}
-		}
 
 		if processedArgNames[argName] {
 			return &UnmarshalArgError{
@@ -323,6 +303,13 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			} else {
 				fieldIndexByName[field.Name] = i
 			}
+		}
+
+		// Make sure argument name is correct.
+		// We enforce this check to avoid not well formatted argument name to work by "accident"
+		// as we use ToPublicGoName on the argument name later on.
+		if !validArgNameRegex.MatchString(argNameWords[0]) {
+			return error(&InvalidArgNameError{})
 		}
 
 		// Try to find the correct field in the current struct.

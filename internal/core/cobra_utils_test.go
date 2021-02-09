@@ -89,7 +89,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("unknown argument 'name_id'"),
+				Err:  fmt.Errorf("invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes"),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),
@@ -101,7 +101,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("unknown argument 'ubuntu_focal'"),
+				Err:  fmt.Errorf("invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes"),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),

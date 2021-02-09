@@ -151,7 +151,7 @@ func k8sClusterList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClustersRequest)
@@ -284,7 +284,8 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.name",
-				Required:   false,
+				Short:      `The name of the pool`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -353,6 +354,33 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "pools.{index}.kubelet-args.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.upgrade-policy.max-unavailable",
+				Short:      `The maximum number of nodes that can be not ready at the same time`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.upgrade-policy.max-surge",
+				Short:      `The maximum number of nodes to be created during the upgrade`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.zone",
+				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
 				Short:      `Disable the cluster autoscaler`,
 				Required:   false,
@@ -380,7 +408,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority"},
+				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -406,6 +434,20 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
 				Short:      `How long a node should be unneeded before it is eligible for scale down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.scale-down-utilization-threshold",
+				Short:      `Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.max-graceful-termination-sec",
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -496,7 +538,7 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreateClusterRequest)
@@ -536,7 +578,7 @@ func k8sClusterGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetClusterRequest)
@@ -621,7 +663,7 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority"},
+				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -647,6 +689,20 @@ func k8sClusterUpdate() *core.Command {
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
 				Short:      `How long a node should be unneeded before it is eligible for scale down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.scale-down-utilization-threshold",
+				Short:      `Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.max-graceful-termination-sec",
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -751,7 +807,7 @@ func k8sClusterUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdateClusterRequest)
@@ -798,7 +854,7 @@ func k8sClusterDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeleteClusterRequest)
@@ -848,7 +904,7 @@ func k8sClusterUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradeClusterRequest)
@@ -888,7 +944,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterAvailableVersionsRequest)
@@ -938,7 +994,7 @@ func k8sClusterResetAdminToken() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ResetClusterAdminTokenRequest)
@@ -1003,7 +1059,7 @@ func k8sPoolList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "ready", "deleting", "deleted", "scaling", "warning", "locked", "upgrading"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListPoolsRequest)
@@ -1076,7 +1132,13 @@ func k8sPoolList() *core.Command {
 				FieldName: "ClusterID",
 			},
 			{
+				FieldName: "Zone",
+			},
+			{
 				FieldName: "Region",
+			},
+			{
+				FieldName: "KubeletArgs",
 			},
 			{
 				FieldName: "PlacementGroupID",
@@ -1179,7 +1241,32 @@ func k8sPoolCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			{
+				Name:       "kubelet-args.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "upgrade-policy.max-unavailable",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "upgrade-policy.max-surge",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "zone",
+				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreatePoolRequest)
@@ -1223,7 +1310,7 @@ func k8sPoolGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetPoolRequest)
@@ -1266,7 +1353,7 @@ func k8sPoolUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradePoolRequest)
@@ -1344,7 +1431,25 @@ func k8sPoolUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			{
+				Name:       "kubelet-args.value.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "upgrade-policy.max-unavailable",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "upgrade-policy.max-surge",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdatePoolRequest)
@@ -1388,7 +1493,7 @@ func k8sPoolDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeletePoolRequest)
@@ -1452,9 +1557,9 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error"},
+				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListNodesRequest)
@@ -1534,7 +1639,7 @@ func k8sNodeGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetNodeRequest)
@@ -1570,7 +1675,7 @@ func k8sNodeReplace() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ReplaceNodeRequest)
@@ -1606,7 +1711,7 @@ func k8sNodeReboot() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.RebootNodeRequest)
@@ -1635,7 +1740,7 @@ func k8sVersionList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(k8s.ListVersionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListVersionsRequest)
@@ -1670,6 +1775,9 @@ func k8sVersionList() *core.Command {
 			{
 				FieldName: "AvailableAdmissionPlugins",
 			},
+			{
+				FieldName: "AvailableKubeletArgs",
+			},
 		}},
 	}
 }
@@ -1691,7 +1799,7 @@ func k8sVersionGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetVersionRequest)

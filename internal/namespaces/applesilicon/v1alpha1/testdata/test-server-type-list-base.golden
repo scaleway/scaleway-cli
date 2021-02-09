@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Name  CPU                 Memory  Disk    Stock      Minimum Lease Duration
+M1-M  Apple M1 (8 cores)  8.0 GB  256 GB  low stock  1 days
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "cpu": {
+      "name": "Apple M1",
+      "core_count": 8
+    },
+    "disk": {
+      "capacity": 256000000000,
+      "type": "SSD"
+    },
+    "name": "M1-M",
+    "memory": {
+      "capacity": 8000000000,
+      "type": "LPDDR4"
+    },
+    "stock": "low_stock",
+    "minimum_lease_duration": "86400.000000000s"
+  }
+]

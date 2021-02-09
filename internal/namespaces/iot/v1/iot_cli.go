@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/iot/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -37,6 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 		iotDeviceUpdate(),
 		iotDeviceEnable(),
 		iotDeviceDisable(),
+		iotDeviceRenewCertificate(),
 		iotDeviceDelete(),
 		iotDeviceGetMetrics(),
 		iotNetworkList(),
@@ -108,6 +109,13 @@ func iotHubList() *core.Command {
 				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "product_plan_asc", "product_plan_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
 			},
 			{
+				Name:       "project-id",
+				Short:      `Filter on project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "name",
 				Short:      `Filter on the name`,
 				Required:   false,
@@ -161,7 +169,7 @@ func iotHubList() *core.Command {
 				FieldName: "Endpoint",
 			},
 			{
-				FieldName: "EventsEnabled",
+				FieldName: "DisableEvents",
 			},
 			{
 				FieldName: "EventsTopicPrefix",
@@ -174,6 +182,9 @@ func iotHubList() *core.Command {
 			},
 			{
 				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "ProjectID",
 			},
 			{
 				FieldName: "OrganizationID",
@@ -200,6 +211,7 @@ func iotHubCreate() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("hub"),
 			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "product-plan",
 				Short:      `Hub feature set`,
@@ -211,7 +223,7 @@ func iotHubCreate() *core.Command {
 			},
 			{
 				Name:       "disable-events",
-				Short:      `Disable Hub events (default false)`,
+				Short:      `Disable Hub events`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -223,7 +235,6 @@ func iotHubCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -309,6 +320,13 @@ func iotHubUpdate() *core.Command {
 			{
 				Name:       "events-topic-prefix",
 				Short:      `Hub events topic prefix`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-device-auto-provisioning",
+				Short:      `Enable device auto provisioning`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -462,13 +480,6 @@ func iotDeviceList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "enabled",
-				Short:      `Deprecated, ignored filter`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "allow-insecure",
 				Short:      `Filter on the allow_insecure flag`,
 				Required:   false,
@@ -476,18 +487,12 @@ func iotDeviceList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "is-connected",
-				Short:      `Deprecated, ignored filter`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "organization-id",
-				Short:      `Filter on the organization`,
+				Name:       "status",
+				Short:      `Device status (enabled, disabled, etc.)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				EnumValues: []string{"unknown", "error", "enabled", "disabled"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -509,6 +514,9 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				FieldName: "Name",
+			},
+			{
+				FieldName: "Description",
 			},
 			{
 				FieldName: "Status",
@@ -536,9 +544,6 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				FieldName: "UpdatedAt",
-			},
-			{
-				FieldName: "OrganizationID",
 			},
 		}},
 	}
@@ -609,6 +614,13 @@ func iotDeviceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "description",
+				Short:      `Device description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -670,8 +682,8 @@ func iotDeviceUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "name",
-				Short:      `Device name`,
+				Name:       "description",
+				Short:      `Device description`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -796,6 +808,36 @@ func iotDeviceDisable() *core.Command {
 	}
 }
 
+func iotDeviceRenewCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Renew a device certificate`,
+		Long:      `Renew a device certificate.`,
+		Namespace: "iot",
+		Resource:  "device",
+		Verb:      "renew-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.RenewDeviceCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "device-id",
+				Short:      `Device ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.RenewDeviceCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.RenewDeviceCertificate(request)
+
+		},
+	}
+}
+
 func iotDeviceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Remove a device`,
@@ -850,13 +892,12 @@ func iotDeviceGetMetrics() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "period",
-				Short:      `Period over which the metrics span`,
+				Name:       "start-date",
+				Short:      `Start date used to compute the best scale for the returned metrics`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("hour"),
-				EnumValues: []string{"hour", "day", "week", "month", "year"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -910,13 +951,6 @@ func iotNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "organization-id",
-				Short:      `Filter on the organization`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -952,12 +986,6 @@ func iotNetworkList() *core.Command {
 			},
 			{
 				FieldName: "TopicPrefix",
-			},
-			{
-				FieldName: "Region",
-			},
-			{
-				FieldName: "OrganizationID",
 			},
 		}},
 	}
@@ -1003,7 +1031,6 @@ func iotNetworkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

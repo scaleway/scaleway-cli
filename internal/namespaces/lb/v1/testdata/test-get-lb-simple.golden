@@ -17,9 +17,9 @@ ID                                    IP ADDRESS     ORGANIZATION ID            
 732084bc-89fc-440b-84ad-d43e8348af0a  51.159.26.250  951df375-e094-4d26-97c1-ba548eeb9c42  4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac  51-159-26-250.lb.fr-par.scw.cloud  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
 
 Instances:
-ID                                    STATUS  IP ADDRESS    REGION
-5e19347c-e19f-4ca6-9735-e0a3e5276633  ready   10.68.26.177  fr-par
-30363741-bf31-4aa0-a5e7-ada82263ae25  ready   10.65.30.23   fr-par
+ID                                    STATUS  IP ADDRESS    CREATED AT  UPDATED AT  REGION
+5e19347c-e19f-4ca6-9735-e0a3e5276633  ready   10.68.26.177  -           -           fr-par
+30363741-bf31-4aa0-a5e7-ada82263ae25  ready   10.65.30.23   -           -           fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac",
@@ -31,12 +31,16 @@ ID                                    STATUS  IP ADDRESS    REGION
       "id": "5e19347c-e19f-4ca6-9735-e0a3e5276633",
       "status": "ready",
       "ip_address": "10.68.26.177",
+      "created_at": null,
+      "updated_at": null,
       "region": "fr-par"
     },
     {
       "id": "30363741-bf31-4aa0-a5e7-ada82263ae25",
       "status": "ready",
       "ip_address": "10.65.30.23",
+      "created_at": null,
+      "updated_at": null,
       "region": "fr-par"
     }
   ],
@@ -59,5 +63,7 @@ ID                                    STATUS  IP ADDRESS    REGION
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "created_at": null,
+  "updated_at": null,
   "region": "fr-par"
 }

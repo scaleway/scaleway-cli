@@ -1779,6 +1779,13 @@ func instanceSecurityGroupCreate() *core.Command {
 				Default:    core.DefaultValueSetter("accept"),
 				EnumValues: []string{"accept", "drop"},
 			},
+			{
+				Name:       "enable-default-security",
+				Short:      `True to block SMTP on IPv4 and IPv6`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},

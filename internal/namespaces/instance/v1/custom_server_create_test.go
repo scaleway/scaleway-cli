@@ -231,16 +231,6 @@ func Test_CreateServerErrors(t *testing.T) {
 	////
 	// Image errors
 	////
-	t.Run("Error: missing image label", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server create",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(1),
-		),
-		DisableParallel: true,
-	}))
-
 	t.Run("Error: invalid image label", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server create image=macos",

@@ -1,0 +1,195 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","type":"M1-M"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers
+    method: POST
+  response:
+    body: '{"id":"8675c43b-7767-46dd-ac15-bcb7682d6b81","type":"M1-M","name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":"195.154.249.131","vnc_url":"vnc://m1:eU8IjS8vdO6P@195.154.249.131:5900","status":"starting","created_at":"2021-02-05T15:23:09.572209Z","updated_at":"2021-02-05T15:23:09.572209Z","deletable_at":"2021-02-05T15:23:09.572209Z","zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "445"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:09 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 24143fec-0a7a-4d15-9c07-021078483de2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers/8675c43b-7767-46dd-ac15-bcb7682d6b81
+    method: GET
+  response:
+    body: '{"id":"8675c43b-7767-46dd-ac15-bcb7682d6b81","type":"M1-M","name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":"195.154.249.131","vnc_url":"vnc://m1:eU8IjS8vdO6P@195.154.249.131:5900","status":"starting","created_at":"2021-02-05T15:23:09.572209Z","updated_at":"2021-02-05T15:23:09.572209Z","deletable_at":"2021-02-05T15:23:09.572209Z","zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "445"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:09 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 14b6c904-1da2-46a2-9fa0-ccaa815f70e4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers/8675c43b-7767-46dd-ac15-bcb7682d6b81
+    method: GET
+  response:
+    body: '{"id":"8675c43b-7767-46dd-ac15-bcb7682d6b81","type":"M1-M","name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":"195.154.249.131","vnc_url":"vnc://m1:eU8IjS8vdO6P@195.154.249.131:5900","status":"starting","created_at":"2021-02-05T15:23:09.572209Z","updated_at":"2021-02-05T15:23:09.572209Z","deletable_at":"2021-02-05T15:23:09.572209Z","zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "445"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:24 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f04792db-1dd0-47fc-b9a7-675798f68124
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers/8675c43b-7767-46dd-ac15-bcb7682d6b81
+    method: GET
+  response:
+    body: '{"id":"8675c43b-7767-46dd-ac15-bcb7682d6b81","type":"M1-M","name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":"195.154.249.131","vnc_url":"vnc://m1:eU8IjS8vdO6P@195.154.249.131:5900","status":"ready","created_at":"2021-02-05T15:23:09.572209Z","updated_at":"2021-02-05T15:23:37.738360Z","deletable_at":"2021-02-05T15:23:09.572209Z","zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "442"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:39 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3474754d-8a51-4ec0-8a27-ad9ebd09023d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers/8675c43b-7767-46dd-ac15-bcb7682d6b81
+    method: GET
+  response:
+    body: '{"id":"8675c43b-7767-46dd-ac15-bcb7682d6b81","type":"M1-M","name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":"195.154.249.131","vnc_url":"vnc://m1:eU8IjS8vdO6P@195.154.249.131:5900","status":"ready","created_at":"2021-02-05T15:23:09.572209Z","updated_at":"2021-02-05T15:23:37.738360Z","deletable_at":"2021-02-05T15:23:09.572209Z","zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "442"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:39 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 691f98bf-7efe-4f30-9945-f98ce8c14b7b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/servers/8675c43b-7767-46dd-ac15-bcb7682d6b81
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 15:23:40 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 37816da5-37d1-4e68-8d25-1cf0863d28c1
+    status: 204 No Content
+    code: 204
+    duration: ""
