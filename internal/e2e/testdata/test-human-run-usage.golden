@@ -11,8 +11,7 @@ EXAMPLES:
     scw test human run xxxxx
 
 ARGS:
-  human-id          UUID of the human you want to make run
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  human-id   UUID of the human you want to make run
 
 FLAGS:
   -h, --help   help for run

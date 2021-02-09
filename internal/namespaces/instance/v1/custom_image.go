@@ -152,23 +152,23 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 // customImage is based on instance.Image, with additional information about the server
 type imageListItem struct {
-	ID                string
-	Name              string
-	Arch              instance.Arch
-	CreationDate      *time.Time
-	ModificationDate  *time.Time
-	DefaultBootscript *instance.Bootscript
-	ExtraVolumes      map[string]*instance.Volume
-	OrganizationID    string
-	ProjectID         string
-	Public            bool
-	RootVolume        *instance.VolumeSummary
-	State             instance.ImageState
+	ID                string                      `json:"id"`
+	Name              string                      `json:"name"`
+	Arch              instance.Arch               `json:"arch"`
+	CreationDate      *time.Time                  `json:"creation_date"`
+	ModificationDate  *time.Time                  `json:"modification_date"`
+	DefaultBootscript *instance.Bootscript        `json:"default_bootscript"`
+	ExtraVolumes      map[string]*instance.Volume `json:"extra_volumes"`
+	OrganizationID    string                      `json:"organization"`
+	ProjectID         string                      `json:"project"`
+	Public            bool                        `json:"public"`
+	RootVolume        *instance.VolumeSummary     `json:"root_volume"`
+	State             instance.ImageState         `json:"state"`
 
 	// Replace Image.FromServer
-	ServerID   string
-	ServerName string
-	Zone       scw.Zone
+	ServerID   string   `json:"server_id"`
+	ServerName string   `json:"server_name"`
+	Zone       scw.Zone `json:"zone"`
 }
 
 // imageListBuilder list the images for a given organization/project.
