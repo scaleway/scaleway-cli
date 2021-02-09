@@ -29,6 +29,10 @@ func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	// Sections
 	opt.Sections = []*human.MarshalSection{
 		{
+			FieldName: "AvailableKubeletArgs",
+			Title: "Available Kubelet Arguments",
+		},
+		{
 			FieldName: "AvailableCnis",
 			Title:     "Available CNIs",
 		},

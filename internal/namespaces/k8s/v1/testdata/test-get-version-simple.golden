@@ -1,12 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name                                    1.20.2
-Label                                   Kubernetes 1.20.2
-Region                                  fr-par
-AvailableKubeletArgs.cpuCFSQuota        bool
-AvailableKubeletArgs.cpuCFSQuotaPeriod  duration
-AvailableKubeletArgs.cpuManagerPolicy   enum:none|static
-AvailableKubeletArgs.maxPods            uint16
+Name    1.20.2
+Label   Kubernetes 1.20.2
+Region  fr-par
+
+Available Kubelet Arguments:
+map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
 
 Available CNIs:
 [cilium calico weave flannel]
