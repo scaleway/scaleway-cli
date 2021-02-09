@@ -284,7 +284,8 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.name",
-				Required:   false,
+				Short:      `The name of the pool`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
