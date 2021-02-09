@@ -791,13 +791,6 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "health-check.check-send-proxy",
-				Short:      `It defines whether the healthcheck should be done considering the proxy protocol`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "lb-id",
 				Short:      `Load balancer ID`,
 				Required:   true,
@@ -1240,13 +1233,6 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "https-config.code",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "check-send-proxy",
-				Short:      `It defines whether the healthcheck should be done considering the proxy protocol`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
