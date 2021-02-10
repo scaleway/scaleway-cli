@@ -26,6 +26,9 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
+	human.RegisterMarshalerFunc([]k8s.CNI{}, cniSliceMarshalerFunc)
+	human.RegisterMarshalerFunc([]k8s.Ingress{}, ingressSliceMarshalerFunc)
+	human.RegisterMarshalerFunc([]k8s.Runtime{}, runtimeSliceMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(""), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))

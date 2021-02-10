@@ -2,6 +2,8 @@ package k8s
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
@@ -20,6 +22,33 @@ func versionListBuilder(c *core.Command) *core.Command {
 	})
 
 	return c
+}
+
+func runtimeSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.Runtime)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
+}
+
+func ingressSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.Ingress)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
+}
+
+func cniSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.CNI)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
 }
 
 func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {

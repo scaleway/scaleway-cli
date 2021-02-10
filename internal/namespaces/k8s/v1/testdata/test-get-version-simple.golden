@@ -5,16 +5,27 @@ Label   Kubernetes 1.20.2
 Region  fr-par
 
 Available Kubelet Arguments:
-map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+cpuCFSQuota => bool
+cpuCFSQuotaPeriod => duration
+cpuManagerPolicy => enum:none|static
+maxPods => uint16
 
 Available CNIs:
-[cilium calico weave flannel]
+- cilium
+- calico
+- weave
+- flannel
 
 Available Ingresses:
-[none nginx traefik traefik2]
+- none
+- nginx
+- traefik
+- traefik2
 
 Available Container Runtimes:
-[containerd crio docker]
+- containerd
+- crio
+- docker
 
 Available Feature Gates:
 [TTLAfterFinished HPAScaleToZero ServiceTopology EphemeralContainers KubeletCredentialProviders GenericEphemeralVolume]

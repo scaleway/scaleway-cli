@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"reflect"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -116,6 +117,22 @@ func init() {
 			return "0 seconds", nil
 		}
 		return strings.Join(res, " "), nil
+	})
+	marshalerFuncs.Store(reflect.TypeOf(map[string]string{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+		res := []string(nil)
+		m := i.(map[string]string)
+
+		// maps are unordered, we need to have a sorted key list to keep a consistent printing
+		keys := make([]string, 0, len(m))
+		for k := range m {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+
+		for _, k := range keys {
+			res = append(res, fmt.Sprintf("%s => %s", k, m[k]))
+		}
+		return strings.Join(res, "\n"), nil
 	})
 }
 

@@ -124,11 +124,11 @@ func TestMarshal(t *testing.T) {
 			Structs.0.Bool      false
 			Structs.0.Time      a long while ago
 			Structs.0.Stringer  a stringer
-			Map.key1            v1
-			Map.key2            v2
-			Stringer            a stringer
-			StringerPtr         a stringer
-			Size                13 kB
+			Map                 key1 => v1
+								key2 => v2
+			Stringer     a stringer
+			StringerPtr  a stringer
+			Size         13 kB
 		`,
 	}))
 
