@@ -3,7 +3,7 @@ package iot
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	iot "github.com/scaleway/scaleway-sdk-go/api/iot/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
 var (

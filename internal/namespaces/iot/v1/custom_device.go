@@ -3,13 +3,13 @@ package iot
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	iot "github.com/scaleway/scaleway-sdk-go/api/iot/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
 var (
-	deviceMessageFiltersPolicyMarshalSpecs = human.EnumMarshalSpecs{
-		iot.DeviceMessageFiltersPolicyAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "accept"},
-		iot.DeviceMessageFiltersPolicyReject: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "reject"},
+	deviceMessageFiltersRulePolicyMarshalSpecs = human.EnumMarshalSpecs{
+		iot.DeviceMessageFiltersRulePolicyAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "accept"},
+		iot.DeviceMessageFiltersRulePolicyReject: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "reject"},
 	}
 
 	deviceStatusMarshalSpecs = human.EnumMarshalSpecs{

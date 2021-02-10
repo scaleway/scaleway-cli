@@ -234,9 +234,11 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 			clientOpts = append(clientOpts, scw.WithEnv())
 			config, err := scw.LoadConfig()
 			if err == nil {
-				p, err := config.GetActiveProfile()
+				activeProfile, err := config.GetActiveProfile()
 				require.NoError(t, err)
-				clientOpts = append(clientOpts, scw.WithProfile(p))
+				envProfile := scw.LoadEnvProfile()
+				profile := scw.MergeProfiles(activeProfile, envProfile)
+				clientOpts = append(clientOpts, scw.WithProfile(profile))
 			}
 		}
 	}

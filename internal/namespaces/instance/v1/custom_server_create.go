@@ -52,6 +52,7 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
+				Default:          core.DefaultValueSetter("ubuntu_focal"),
 				Required:         true,
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
@@ -132,7 +133,7 @@ func serverCreateCommand() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
-			core.OrganizationIDDeprecatedArgSpec(),
+			core.OrganizationIDArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
@@ -327,7 +328,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			BootscriptID: args.BootscriptID,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("bootscript ID %s does not exists", args.BootscriptID)
+			return nil, fmt.Errorf("bootscript ID %s does not exist", args.BootscriptID)
 		}
 
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)

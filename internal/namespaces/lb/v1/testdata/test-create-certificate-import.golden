@@ -57,12 +57,16 @@ Name                      cli-certiticate-sad-robinson
         "id": "359b62d2-395b-496c-9c9d-3ceb5c0b5495",
         "status": "ready",
         "ip_address": "10.68.26.177",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       },
       {
         "id": "4d87431c-53b9-4677-b869-ffcd06335bd0",
         "status": "ready",
         "ip_address": "10.68.148.5",
+        "created_at": null,
+        "updated_at": null,
         "region": "fr-par"
       }
     ],
@@ -85,7 +89,11 @@ Name                      cli-certiticate-sad-robinson
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": null,
+    "updated_at": null,
     "region": "fr-par"
   },
-  "name": "cli-certiticate-sad-robinson"
+  "name": "cli-certiticate-sad-robinson",
+  "created_at": null,
+  "updated_at": null
 }

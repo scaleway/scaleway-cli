@@ -29,6 +29,8 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
+		rdbEngineList(),
+		rdbNodeTypeList(),
 		rdbBackupList(),
 		rdbBackupCreate(),
 		rdbBackupGet(),
@@ -36,14 +38,13 @@ func GetGeneratedCommands() *core.Commands {
 		rdbBackupDelete(),
 		rdbBackupRestore(),
 		rdbBackupExport(),
-		rdbInstanceClone(),
-		rdbEngineList(),
 		rdbInstanceUpgrade(),
 		rdbInstanceList(),
 		rdbInstanceGet(),
 		rdbInstanceCreate(),
 		rdbInstanceUpdate(),
 		rdbInstanceDelete(),
+		rdbInstanceClone(),
 		rdbInstanceGetCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
@@ -60,7 +61,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabaseDelete(),
 		rdbPrivilegeList(),
 		rdbPrivilegeSet(),
-		rdbNodeTypeList(),
 	)
 }
 func rdbRoot() *core.Command {
@@ -157,6 +157,67 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
+	}
+}
+
+func rdbEngineList() *core.Command {
+	return &core.Command{
+		Short:     `List available database engines`,
+		Long:      `List available database engines.`,
+		Namespace: "rdb",
+		Resource:  "engine",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.ListDatabaseEnginesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			resp, err := api.ListDatabaseEngines(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Engines, nil
+
+		},
+	}
+}
+
+func rdbNodeTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List available node types`,
+		Long:      `List available node types.`,
+		Namespace: "rdb",
+		Resource:  "node-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "include-disabled-types",
+				Short:      `Whether or not to include disabled types`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.ListNodeTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			resp, err := api.ListNodeTypes(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.NodeTypes, nil
+
+		},
 	}
 }
 
@@ -448,77 +509,6 @@ func rdbBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.ExportDatabaseBackup(request)
-
-		},
-	}
-}
-
-func rdbInstanceClone() *core.Command {
-	return &core.Command{
-		Short:     `Clone an instance`,
-		Long:      `Clone an instance.`,
-		Namespace: "rdb",
-		Resource:  "instance",
-		Verb:      "clone",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want to clone`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "name",
-				Short:      `Name of the clone instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "node-type",
-				Short:      `Node type of the clone`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.CloneInstanceRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.CloneInstance(request)
-
-		},
-	}
-}
-
-func rdbEngineList() *core.Command {
-	return &core.Command{
-		Short:     `List available database engines`,
-		Long:      `List available database engines.`,
-		Namespace: "rdb",
-		Resource:  "engine",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.ListDatabaseEnginesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			resp, err := api.ListDatabaseEngines(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.Engines, nil
 
 		},
 	}
@@ -897,6 +887,50 @@ func rdbInstanceDelete() *core.Command {
 	}
 }
 
+func rdbInstanceClone() *core.Command {
+	return &core.Command{
+		Short:     `Clone an instance`,
+		Long:      `Clone an instance.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "clone",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance you want to clone`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the clone instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "node-type",
+				Short:      `Node type of the clone`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CloneInstanceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CloneInstance(request)
+
+		},
+	}
+}
+
 func rdbInstanceGetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Get the TLS certificate of an instance`,
@@ -1203,8 +1237,8 @@ func rdbUserList() *core.Command {
 
 func rdbUserCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an user in a given instance`,
-		Long:      `Create an user in a given instance.`,
+		Short:     `Create a user on a given instance`,
+		Long:      `Create a user on a given instance.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "create",
@@ -1254,8 +1288,8 @@ func rdbUserCreate() *core.Command {
 
 func rdbUserUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an user in a given instance`,
-		Long:      `Update an user in a given instance.`,
+		Short:     `Update a user on a given instance`,
+		Long:      `Update a user on a given instance.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "update",
@@ -1305,8 +1339,8 @@ func rdbUserUpdate() *core.Command {
 
 func rdbUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an user in a given instance`,
-		Long:      `Delete an user in a given instance.`,
+		Short:     `Delete a user on a given instance`,
+		Long:      `Delete a user on a given instance.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "delete",
@@ -1491,8 +1525,8 @@ func rdbDatabaseDelete() *core.Command {
 
 func rdbPrivilegeList() *core.Command {
 	return &core.Command{
-		Short:     `List privileges of a given user in a given database in a given instance`,
-		Long:      `List privileges of a given user in a given database in a given instance.`,
+		Short:     `List privileges of a given user for a given database on a given instance`,
+		Long:      `List privileges of a given user for a given database on a given instance.`,
 		Namespace: "rdb",
 		Resource:  "privilege",
 		Verb:      "list",
@@ -1547,8 +1581,8 @@ func rdbPrivilegeList() *core.Command {
 
 func rdbPrivilegeSet() *core.Command {
 	return &core.Command{
-		Short:     `Set privileges of a given user in a given database in a given instance`,
-		Long:      `Set privileges of a given user in a given database in a given instance.`,
+		Short:     `Set privileges of a given user for a given database on a given instance`,
+		Long:      `Set privileges of a given user for a given database on a given instance.`,
 		Namespace: "rdb",
 		Resource:  "privilege",
 		Verb:      "set",
@@ -1592,40 +1626,6 @@ func rdbPrivilegeSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.SetPrivilege(request)
-
-		},
-	}
-}
-
-func rdbNodeTypeList() *core.Command {
-	return &core.Command{
-		Short:     `List available node types`,
-		Long:      `List available node types.`,
-		Namespace: "rdb",
-		Resource:  "node-type",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "include-disabled-types",
-				Short:      `Whether or not to include disabled types`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.ListNodeTypesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			resp, err := api.ListNodeTypes(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.NodeTypes, nil
 
 		},
 	}

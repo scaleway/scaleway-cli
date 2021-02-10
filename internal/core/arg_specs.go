@@ -187,9 +187,6 @@ func ProjectArgSpec() *ArgSpec {
 	}
 }
 
-// TODO: Remove me and:
-// - use OrganizationIDDeprecatedArgSpec in the generator
-// - stop using renameOrganizationIDArgSpec and renameProjectIDArgSpec for these use-cases
 func OrganizationArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization",
@@ -203,14 +200,5 @@ func OrganizationIDArgSpec() *ArgSpec {
 		Name:         "organization-id",
 		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
 		ValidateFunc: ValidateOrganizationID(),
-	}
-}
-
-func OrganizationIDDeprecatedArgSpec() *ArgSpec {
-	return &ArgSpec{
-		Name:         "organization-id",
-		Short:        "Please use project-id instead",
-		ValidateFunc: ValidateOrganizationID(),
-		Deprecated:   true,
 	}
 }
