@@ -45,6 +45,7 @@ func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error {
 	for _, argSpec := range argSpecs {
 		argSpecUsageLeftPart := argSpec.Name
+		argSpecUsageRightPart := _buildArgShort(argSpec)
 		if argSpec.Default != nil {
 			_, doc := argSpec.Default(ctx)
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
@@ -52,8 +53,11 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 		if !argSpec.Required && !argSpec.Positional {
 			argSpecUsageLeftPart = fmt.Sprintf("[%s]", argSpecUsageLeftPart)
 		}
+		if argSpec.CanLoadFile {
+			argSpecUsageRightPart += " (Support file loading with @/path/to/file)"
+		}
 
-		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, _buildArgShort(argSpec))
+		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, argSpecUsageRightPart)
 		if err != nil {
 			return err
 		}
