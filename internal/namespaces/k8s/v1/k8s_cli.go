@@ -537,6 +537,13 @@ func k8sClusterCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "apiserver-cert-sans.{index}",
+				Short:      `Additional Subject Alternative Names for the Kubernetes API server certificate`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -803,6 +810,13 @@ func k8sClusterUpdate() *core.Command {
 			{
 				Name:       "open-id-connect-config.required-claim.{index}",
 				Short:      `Multiple key=value pairs that describes a required claim in the ID Token`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "apiserver-cert-sans.{index}",
+				Short:      `Additional Subject Alternative Names for the Kubernetes API server certificate`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
