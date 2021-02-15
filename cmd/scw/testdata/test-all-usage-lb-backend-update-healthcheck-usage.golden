@@ -19,6 +19,7 @@ ARGS:
   [https-config.uri]      
   [https-config.method]   
   [https-config.code]     
+  [check-send-proxy]      It defines whether the healthcheck should be done considering the proxy protocol
   [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
