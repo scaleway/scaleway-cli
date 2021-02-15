@@ -2,8 +2,11 @@ package k8s
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -19,4 +22,71 @@ func versionListBuilder(c *core.Command) *core.Command {
 	})
 
 	return c
+}
+
+func runtimeSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.Runtime)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
+}
+
+func ingressSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.Ingress)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
+}
+
+func cniSliceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	runtimeSlice := i.([]k8s.CNI)
+	var res []string
+	for _, value := range runtimeSlice {
+		res = append(res, fmt.Sprintf("- %s", value.String()))
+	}
+	return strings.Join(res, "\n"), nil
+}
+
+func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp k8s.Version
+	version := tmp(i.(k8s.Version))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "AvailableKubeletArgs",
+			Title:     "Available Kubelet Arguments",
+		},
+		{
+			FieldName: "AvailableCnis",
+			Title:     "Available CNIs",
+		},
+		{
+			FieldName: "AvailableIngresses",
+			Title:     "Available Ingresses",
+		},
+		{
+			FieldName: "AvailableContainerRuntimes",
+			Title:     "Available Container Runtimes",
+		},
+		{
+			FieldName: "AvailableFeatureGates",
+			Title:     "Available Feature Gates",
+		},
+		{
+			FieldName: "AvailableAdmissionPlugins",
+			Title:     "Available Admission Plugins",
+		},
+	}
+
+	str, err := human.Marshal(version, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
 }
