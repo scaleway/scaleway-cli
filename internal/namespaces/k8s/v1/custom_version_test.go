@@ -19,3 +19,13 @@ func Test_GetVersion(t *testing.T) {
 		),
 	}))
 }
+
+func Test_ListVersion_Basic(t *testing.T) {
+	t.Run("simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw k8s version list",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+		),
+	}))
+}
