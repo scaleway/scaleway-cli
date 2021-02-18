@@ -6,7 +6,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.8; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/k8s/v1/regions/fr-par/versions/1.20.2
     method: GET
   response:
@@ -19,7 +19,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 10 Feb 2021 15:25:17 GMT
+      - Thu, 18 Feb 2021 14:28:56 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6b5b146e-bdd6-485f-b38c-a8782f4eba52
+      - 29f9a8d1-4bc1-4df9-86a8-5e74f70d2e8c
     status: 200 OK
     code: 200
     duration: ""

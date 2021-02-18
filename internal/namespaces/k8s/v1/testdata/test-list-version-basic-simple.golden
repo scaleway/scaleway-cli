@@ -1,0 +1,228 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME     AVAILABLE CNIS                 AVAILABLE INGRESSES            AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                                                                                AVAILABLE ADMISSION PLUGINS                                                              AVAILABLE KUBELET ARGS
+1.20.3   [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished HPAScaleToZero ServiceTopology EphemeralContainers KubeletCredentialProviders GenericEphemeralVolume]                                [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+1.19.8   [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice EndpointSliceProxying HPAScaleToZero ServiceTopology EphemeralContainers GenericEphemeralVolume]  [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+1.18.16  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice EndpointSliceProxying HPAScaleToZero ServiceTopology EphemeralContainers]                         [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+1.17.17  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice HPAScaleToZero ServiceTopology EphemeralContainers]                                               [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+1.16.15  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice HPAScaleToZero EphemeralContainers]                                                               [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "1.20.3",
+    "label": "Kubernetes 1.20.3",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "weave",
+      "flannel"
+    ],
+    "available_ingresses": [
+      "none",
+      "nginx",
+      "traefik",
+      "traefik2"
+    ],
+    "available_container_runtimes": [
+      "containerd",
+      "crio",
+      "docker"
+    ],
+    "available_feature_gates": [
+      "TTLAfterFinished",
+      "HPAScaleToZero",
+      "ServiceTopology",
+      "EphemeralContainers",
+      "KubeletCredentialProviders",
+      "GenericEphemeralVolume"
+    ],
+    "available_admission_plugins": [
+      "PodSecurityPolicy",
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodPreset",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.19.8",
+    "label": "Kubernetes 1.19.8",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "weave",
+      "flannel"
+    ],
+    "available_ingresses": [
+      "none",
+      "nginx",
+      "traefik",
+      "traefik2"
+    ],
+    "available_container_runtimes": [
+      "containerd",
+      "crio",
+      "docker"
+    ],
+    "available_feature_gates": [
+      "TTLAfterFinished",
+      "ServiceNodeExclusion",
+      "EndpointSlice",
+      "EndpointSliceProxying",
+      "HPAScaleToZero",
+      "ServiceTopology",
+      "EphemeralContainers",
+      "GenericEphemeralVolume"
+    ],
+    "available_admission_plugins": [
+      "PodSecurityPolicy",
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodPreset",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.18.16",
+    "label": "Kubernetes 1.18.16",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "weave",
+      "flannel"
+    ],
+    "available_ingresses": [
+      "none",
+      "nginx",
+      "traefik",
+      "traefik2"
+    ],
+    "available_container_runtimes": [
+      "containerd",
+      "crio",
+      "docker"
+    ],
+    "available_feature_gates": [
+      "TTLAfterFinished",
+      "ServiceNodeExclusion",
+      "EndpointSlice",
+      "EndpointSliceProxying",
+      "HPAScaleToZero",
+      "ServiceTopology",
+      "EphemeralContainers"
+    ],
+    "available_admission_plugins": [
+      "PodSecurityPolicy",
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodPreset",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.17.17",
+    "label": "Kubernetes 1.17.17",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "weave",
+      "flannel"
+    ],
+    "available_ingresses": [
+      "none",
+      "nginx",
+      "traefik",
+      "traefik2"
+    ],
+    "available_container_runtimes": [
+      "containerd",
+      "crio",
+      "docker"
+    ],
+    "available_feature_gates": [
+      "TTLAfterFinished",
+      "ServiceNodeExclusion",
+      "EndpointSlice",
+      "HPAScaleToZero",
+      "ServiceTopology",
+      "EphemeralContainers"
+    ],
+    "available_admission_plugins": [
+      "PodSecurityPolicy",
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodPreset",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.16.15",
+    "label": "Kubernetes 1.16.15",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "weave",
+      "flannel"
+    ],
+    "available_ingresses": [
+      "none",
+      "nginx",
+      "traefik",
+      "traefik2"
+    ],
+    "available_container_runtimes": [
+      "containerd",
+      "crio",
+      "docker"
+    ],
+    "available_feature_gates": [
+      "TTLAfterFinished",
+      "ServiceNodeExclusion",
+      "EndpointSlice",
+      "HPAScaleToZero",
+      "EphemeralContainers"
+    ],
+    "available_admission_plugins": [
+      "PodSecurityPolicy",
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodPreset",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "maxPods": "uint16"
+    }
+  }
+]
