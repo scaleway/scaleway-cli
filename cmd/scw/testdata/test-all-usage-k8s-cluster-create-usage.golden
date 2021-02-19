@@ -17,7 +17,7 @@ ARGS:
   name=<generated>                                       The name of the cluster
   [description]                                          The description of the cluster
   [tags.{index}]                                         The tags associated with the cluster
-  version                                                The Kubernetes version of the cluster
+  version=latest                                         The Kubernetes version of the cluster
   cni=cilium                                             The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel)
   [enable-dashboard]                                     The enablement of the Kubernetes Dashboard in the cluster
   [ingress]                                              The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
