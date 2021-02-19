@@ -85,6 +85,9 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
+
+	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
+
 	return c
 }
 
