@@ -237,6 +237,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("k8s"),
 			},
 			{
 				Name:       "description",
@@ -1190,6 +1191,7 @@ func k8sPoolCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("pool"),
 			},
 			{
 				Name:       "node-type",

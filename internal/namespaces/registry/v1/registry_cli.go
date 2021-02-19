@@ -233,6 +233,7 @@ func registryNamespaceCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("ns"),
 			},
 			{
 				Name:       "description",
