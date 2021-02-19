@@ -87,6 +87,22 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
 
 	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
+	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		args := argsI.(*k8s.CreateClusterRequest)
+
+		// Handle default latest version for k8s cluster
+		if args.Version == "latest" {
+			latestVersion, err := getLatestK8SVersion(core.ExtractClient(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("could not retrieve latest K8S version")
+			}
+			args.Version = latestVersion
+		}
+
+		return runner(ctx, args)
+	}
 
 	return c
 }

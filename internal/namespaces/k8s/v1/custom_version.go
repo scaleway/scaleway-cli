@@ -2,10 +2,12 @@ package k8s
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func versionListBuilder(c *core.Command) *core.Command {
@@ -60,4 +62,20 @@ func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	}
 
 	return str, nil
+}
+
+func getLatestK8SVersion(scwClient *scw.Client) (string, error) {
+	api := k8s.NewAPI(scwClient)
+	versions, err := api.ListVersions(&k8s.ListVersionsRequest{})
+	if err != nil {
+		return "", fmt.Errorf("could not get latest K8S version: %s", err)
+	}
+
+	latestVersion := ""
+	for _, version := range versions.Versions {
+		if version.Name > latestVersion {
+			latestVersion = version.Name
+		}
+	}
+	return latestVersion, nil
 }
