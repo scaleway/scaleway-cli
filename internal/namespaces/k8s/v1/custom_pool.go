@@ -45,7 +45,7 @@ func poolCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionCreate)
 
 	c.ArgSpecs.GetByName("size").Default = core.DefaultValueSetter("1")
-	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("dev1_m")
+	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DEV1-M")
 
 	return c
 }
