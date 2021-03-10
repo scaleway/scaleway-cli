@@ -215,6 +215,7 @@ async function main() {
     console.log("    attach assets to the release".gray);
     const releaseAssets = [
         `scw-${newVersion}-darwin-x86_64`,
+        `scw-${newVersion}-darwin-arm64`,
         `scw-${newVersion}-linux-x86_64`,
         `scw-${newVersion}-linux-386`,
         `scw-${newVersion}-windows-x86_64.exe`,
