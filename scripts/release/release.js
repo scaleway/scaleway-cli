@@ -4,8 +4,8 @@
  * This script will trigger a release process for the scaleway CLI.
  *
  * The script will proceed as follow:
- *   - Create a new remote `scaleway-release` that points to main repo
- *   - Prompt the new version number
+USELESS  *   - Create a new remote `scaleway-release` that points to main repo
+FETCHED FROM TAG *   - Prompt the new version number
  *   - Create release commit
  *     - Generate a changelog
  *     - Update version in cmd/scw/main.go
@@ -16,11 +16,11 @@
  *     - Build binary that should be upload on the github release with their SHA256SUM
  *     - Create a github release
  *     - Attach compiled binary to the github release
- *   - Update S3 version file
+OK  *   - Update S3 version file
  *   - Create a post release commit
  *     - Update cmd/scw/main.go to add +dev at the end
  *     - Ask to merge this changes to master via PR
- *   - Delete temporary remote `scaleway-release` that was created earlier
+USELESS *   - Delete temporary remote `scaleway-release` that was created earlier
  ******************************************************************************/
 
 // Import standard node library

@@ -1,0 +1,70 @@
+before:
+  hooks:
+    - go mod download
+    # We generate the flag file in the before hook, so that we can use it in blobs section
+    - sh -c "echo {{ .Version }} > scw-cli-v2-version"
+
+builds:
+  - id: binaries
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/scw/main.go
+    goos:
+      - freebsd
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - 386
+      - amd64
+      - arm64
+    ignore:
+      - goos: darwin
+        goarch: 386
+    ldflags:
+      - -X main.Version={{ .Version }}
+
+archives:
+  - format: binary
+
+checksum:
+  name_template: 'SHA256SUMS'
+  algorithm: sha256
+
+changelog:
+  use: github-native
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+dockers:
+  - image_templates:
+      - "scaleway/cli:latest"
+      - "scaleway/cli:{{ .Tag }}"
+      - "scaleway/cli:{{ .Major }}"
+      - "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+
+release:
+  github:
+    owner: scaleway
+    name: scaleway-cli
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  prerelease: auto
+  draft: true
+  name_template: "{{ .Tag }}"
+
+# We deploy a flag to a bucket that will be checked regularly by the CLI in the wild to check whether a new version is available.
+blobs:
+  - provider: s3
+    endpoint: s3.fr-par.scw.cloud
+    bucket: scw-devtools
+    folder: "/"
+    extra_files:
+      - glob: scw-cli-v2-version
+    ids:
+      - binaries

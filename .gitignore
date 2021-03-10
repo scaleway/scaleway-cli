@@ -2,3 +2,6 @@
 .vscode
 /bin
 node_modules
+
+# Local release artifacts
+dist/
