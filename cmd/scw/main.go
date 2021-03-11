@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"runtime"
+	"runtime/debug"
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
@@ -28,7 +30,15 @@ var (
 	GoArch    = runtime.GOARCH
 )
 
+func cleanup() {
+	if r := recover(); r != nil {
+		fmt.Println(sentry.ErrorBanner)
+		fmt.Println("stacktrace from panic: \n" + string(debug.Stack()))
+	}
+}
+
 func main() {
+	defer cleanup()
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
 		BuildDate: BuildDate,
