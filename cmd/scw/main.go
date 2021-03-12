@@ -30,15 +30,19 @@ var (
 	GoArch    = runtime.GOARCH
 )
 
-func cleanup() {
-	if r := recover(); r != nil {
+func cleanup(buildInfo *core.BuildInfo) {
+	if err := recover(); err != nil {
 		fmt.Println(sentry.ErrorBanner)
 		fmt.Println("stacktrace from panic: \n" + string(debug.Stack()))
+
+		// This will send an anonymous report on Scaleway's sentry.
+		if buildInfo.IsRelease() {
+			sentry.RecoverPanicAndSendReport(buildInfo, err)
+		}
 	}
 }
 
 func main() {
-	defer cleanup()
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
 		BuildDate: BuildDate,
@@ -48,11 +52,7 @@ func main() {
 		GoOS:      GoOS,
 		GoArch:    GoArch,
 	}
-
-	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
-	if buildInfo.IsRelease() {
-		defer sentry.RecoverPanicAndSendReport(buildInfo)
-	}
+	defer cleanup(buildInfo)
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,

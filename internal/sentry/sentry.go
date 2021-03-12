@@ -19,13 +19,7 @@ Give us as many details as possible so we can reproduce the error and fix it.
 
 // RecoverPanicAndSendReport will recover error if any, log them, and send them to sentry.
 // It must be called with the defer built-in.
-func RecoverPanicAndSendReport(buildInfo *core.BuildInfo) {
-	e := recover()
-	if e == nil {
-		return
-	}
-	fmt.Println(ErrorBanner)
-
+func RecoverPanicAndSendReport(buildInfo *core.BuildInfo, e interface{}) {
 	sentryClient, err := newSentryClient(buildInfo)
 	if err != nil {
 		logger.Debugf("cannot create sentry client: %s", err)
