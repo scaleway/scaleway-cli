@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"runtime"
+	"runtime/debug"
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
@@ -28,6 +30,18 @@ var (
 	GoArch    = runtime.GOARCH
 )
 
+func cleanup(buildInfo *core.BuildInfo) {
+	if err := recover(); err != nil {
+		fmt.Println(sentry.ErrorBanner)
+		fmt.Println("stacktrace from panic: \n" + string(debug.Stack()))
+
+		// This will send an anonymous report on Scaleway's sentry.
+		if buildInfo.IsRelease() {
+			sentry.RecoverPanicAndSendReport(buildInfo, err)
+		}
+	}
+}
+
 func main() {
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
@@ -38,11 +52,7 @@ func main() {
 		GoOS:      GoOS,
 		GoArch:    GoArch,
 	}
-
-	// Catch every panic after this line. This will send an anonymous report on Scaleway's sentry.
-	if buildInfo.IsRelease() {
-		defer sentry.RecoverPanicAndSendReport(buildInfo)
-	}
+	defer cleanup(buildInfo)
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
