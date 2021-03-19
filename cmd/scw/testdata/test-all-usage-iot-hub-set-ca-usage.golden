@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Set the certificate authority of a hub.
+
+USAGE:
+  scw iot hub set-ca <hub-id ...> [arg=value ...]
+
+ARGS:
+  hub-id               Hub ID
+  ca-cert-pem          The CA's PEM-encoded certificate
+  challenge-cert-pem   Proof of possession PEM-encoded certificate
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for set-ca
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
