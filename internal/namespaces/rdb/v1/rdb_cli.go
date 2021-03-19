@@ -29,7 +29,6 @@ func GetGeneratedCommands() *core.Commands {
 		rdbDatabase(),
 		rdbNodeType(),
 		rdbLog(),
-		rdbSnapshot(),
 		rdbEngineList(),
 		rdbNodeTypeList(),
 		rdbBackupList(),
@@ -158,16 +157,6 @@ func rdbLog() *core.Command {
 		Long:      `Instance logs management commands.`,
 		Namespace: "rdb",
 		Resource:  "log",
-	}
-}
-
-func rdbSnapshot() *core.Command {
-	return &core.Command{
-		Short: `Block snapshot management`,
-		Long: `Create, restore and manage block snapshot
-`,
-		Namespace: "rdb",
-		Resource:  "snapshot",
 	}
 }
 
@@ -562,14 +551,6 @@ func rdbInstanceUpgrade() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "volume-type",
-				Short:      `Change your instance storage type`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"lssd", "bssd"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
