@@ -10,4 +10,4 @@ jobs:
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
       - name: Ensure the git diff is empty
-        run: git diff --exit-code --cached
+        run: '[ -z "$(git status --porcelain)" ]'
