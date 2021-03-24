@@ -9,5 +9,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
-      - name: Ensure the git diff is empty
-        run: '[ -z "$(git status --porcelain)" ]'
+      - name: Compute git status
+        run: gitStatus=$(git status --porcelain)
+      - name: Show git status
+        run: echo $gitStatus
+      - name: Error if non empty
+        run: "[ -z $gitStatus ]"
