@@ -164,8 +164,8 @@ scw config set [arg=value ...]
 | insecure |  | Set to true to allow insecure HTTPS connections |
 | default-organization-id |  | A default Scaleway organization id |
 | default-project-id |  | A default Scaleway project id |
-| default-region | One of: `fr-par`, `nl-ams` | A default Scaleway region |
-| default-zone | One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | A default Scaleway zone |
+| default-region | One of: `fr-par`, `nl-ams`, `pl-waw` | A default Scaleway region |
+| default-zone | One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | A default Scaleway zone |
 | send-telemetry |  | Set to false to disable telemetry |
 
 
