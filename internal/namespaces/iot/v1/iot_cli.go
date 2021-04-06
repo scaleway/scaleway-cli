@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		iotHubDisable(),
 		iotHubDelete(),
 		iotHubSetCa(),
+		iotHubGetCa(),
 		iotDeviceList(),
 		iotDeviceCreate(),
 		iotDeviceGet(),
@@ -491,6 +492,35 @@ func iotHubSetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.SetHubCA(request)
+
+		},
+	}
+}
+
+func iotHubGetCa() *core.Command {
+	return &core.Command{
+		Short:     `Get the certificate authority of a hub`,
+		Long:      `Get the certificate authority of a hub.`,
+		Namespace: "iot",
+		Resource:  "hub",
+		Verb:      "get-ca",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.GetHubCARequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hub-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.GetHubCARequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.GetHubCA(request)
 
 		},
 	}
