@@ -272,7 +272,7 @@ func k8sClusterCreate() *core.Command {
 				Name:       "enable-dashboard",
 				Short:      `The enablement of the Kubernetes Dashboard in the cluster`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -719,7 +719,7 @@ func k8sClusterUpdate() *core.Command {
 				Name:       "enable-dashboard",
 				Short:      `The new value of the Kubernetes Dashboard enablement`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
