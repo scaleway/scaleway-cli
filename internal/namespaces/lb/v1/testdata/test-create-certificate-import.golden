@@ -1,45 +1,57 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Type                      custom
-ID                        213d400e-5ddc-4049-b115-c99b41319fe4
-CommonName                alias.example.com
+ID                        af30de67-8745-4a76-9ca6-cdc1336c1623
+CommonName                server.example.com
 SubjectAlternativeName.0  alias.example.com
 Fingerprint               -
 NotValidBefore            few seconds ago
 NotValidAfter             few seconds ago
 Status                    ready
-LB.ID                     d7ea6c56-b388-4742-ba18-f5e386d7e0fd
+LB.ID                     f23fd29e-8b45-43d4-9f2b-4dc76ac4cd56
 LB.Name                   cli-test
 LB.Description            cli-test
 LB.Status                 ready
-LB.Instances.0.ID         359b62d2-395b-496c-9c9d-3ceb5c0b5495
+LB.Instances.0.ID         cd9ccfd7-a957-440f-a8ad-ebda1194a516
 LB.Instances.0.Status     ready
-LB.Instances.0.IPAddress  10.68.26.177
+LB.Instances.0.IPAddress  10.72.112.25
+LB.Instances.0.CreatedAt  few seconds ago
+LB.Instances.0.UpdatedAt  few seconds ago
 LB.Instances.0.Region     fr-par
-LB.Instances.1.ID         4d87431c-53b9-4677-b869-ffcd06335bd0
+LB.Instances.0.Zone       fr-par-1
+LB.Instances.1.ID         662d271b-4b3e-42b0-8082-7724af58ae71
 LB.Instances.1.Status     ready
-LB.Instances.1.IPAddress  10.68.148.5
+LB.Instances.1.IPAddress  10.71.86.41
+LB.Instances.1.CreatedAt  few seconds ago
+LB.Instances.1.UpdatedAt  few seconds ago
 LB.Instances.1.Region     fr-par
+LB.Instances.1.Zone       fr-par-1
 LB.OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-LB.IP.0.ID                76497a39-7f4e-43bb-aad4-6ee669da1581
-LB.IP.0.IPAddress         195.154.70.151
+LB.IP.0.ID                938d9b06-243c-42c5-bfdf-193c539665e3
+LB.IP.0.IPAddress         195.154.69.153
 LB.IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-LB.IP.0.LBID              d7ea6c56-b388-4742-ba18-f5e386d7e0fd
-LB.IP.0.Reverse           195-154-70-151.lb.fr-par.scw.cloud
+LB.IP.0.LBID              f23fd29e-8b45-43d4-9f2b-4dc76ac4cd56
+LB.IP.0.Reverse           195-154-69-153.lb.fr-par.scw.cloud
 LB.IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 LB.IP.0.Region            fr-par
+LB.IP.0.Zone              fr-par-1
 LB.FrontendCount          0
 LB.BackendCount           0
 LB.Type                   lb-s
 LB.SslCompatibilityLevel  ssl_compatibility_level_intermediate
 LB.ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+LB.CreatedAt              few seconds ago
+LB.UpdatedAt              few seconds ago
 LB.Region                 fr-par
-Name                      cli-certiticate-sad-robinson
+LB.Zone                   fr-par-1
+Name                      cli-certiticate-intelligent-jackson
+CreatedAt                 few seconds ago
+UpdatedAt                 few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "type": "custom",
-  "id": "213d400e-5ddc-4049-b115-c99b41319fe4",
-  "common_name": "alias.example.com",
+  "id": "af30de67-8745-4a76-9ca6-cdc1336c1623",
+  "common_name": "server.example.com",
   "subject_alternative_name": [
     "alias.example.com"
   ],
@@ -48,38 +60,41 @@ Name                      cli-certiticate-sad-robinson
   "not_valid_after": "2021-07-22T09:43:05Z",
   "status": "ready",
   "lb": {
-    "id": "d7ea6c56-b388-4742-ba18-f5e386d7e0fd",
+    "id": "f23fd29e-8b45-43d4-9f2b-4dc76ac4cd56",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "359b62d2-395b-496c-9c9d-3ceb5c0b5495",
+        "id": "cd9ccfd7-a957-440f-a8ad-ebda1194a516",
         "status": "ready",
-        "ip_address": "10.68.26.177",
-        "created_at": null,
-        "updated_at": null,
-        "region": "fr-par"
+        "ip_address": "10.72.112.25",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "region": "fr-par",
+        "zone": "fr-par-1"
       },
       {
-        "id": "4d87431c-53b9-4677-b869-ffcd06335bd0",
+        "id": "662d271b-4b3e-42b0-8082-7724af58ae71",
         "status": "ready",
-        "ip_address": "10.68.148.5",
-        "created_at": null,
-        "updated_at": null,
-        "region": "fr-par"
+        "ip_address": "10.71.86.41",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "region": "fr-par",
+        "zone": "fr-par-1"
       }
     ],
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "ip": [
       {
-        "id": "76497a39-7f4e-43bb-aad4-6ee669da1581",
-        "ip_address": "195.154.70.151",
+        "id": "938d9b06-243c-42c5-bfdf-193c539665e3",
+        "ip_address": "195.154.69.153",
         "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "lb_id": "d7ea6c56-b388-4742-ba18-f5e386d7e0fd",
-        "reverse": "195-154-70-151.lb.fr-par.scw.cloud",
+        "lb_id": "f23fd29e-8b45-43d4-9f2b-4dc76ac4cd56",
+        "reverse": "195-154-69-153.lb.fr-par.scw.cloud",
         "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-        "region": "fr-par"
+        "region": "fr-par",
+        "zone": "fr-par-1"
       }
     ],
     "tags": [],
@@ -89,11 +104,12 @@ Name                      cli-certiticate-sad-robinson
     "subscriber": null,
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "created_at": null,
-    "updated_at": null,
-    "region": "fr-par"
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "zone": "fr-par-1"
   },
-  "name": "cli-certiticate-sad-robinson",
-  "created_at": null,
-  "updated_at": null
+  "name": "cli-certiticate-intelligent-jackson",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z"
 }
