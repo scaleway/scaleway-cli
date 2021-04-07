@@ -27,7 +27,6 @@ ARGS:
   [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down
   [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down
   [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node
-  [enable-dashboard]                                     The new value of the Kubernetes Dashboard enablement
   [ingress]                                              The new Ingress Controller for the cluster (unknown_ingress | none | nginx | traefik | traefik2)
   [auto-upgrade.enable]                                  Whether or not auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]           The start hour of the 2-hour maintenance window
@@ -43,6 +42,9 @@ ARGS:
   [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs that describes a required claim in the ID Token
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [enable-dashboard]   The new value of the Kubernetes Dashboard enablement
 
 FLAGS:
   -h, --help   help for update
