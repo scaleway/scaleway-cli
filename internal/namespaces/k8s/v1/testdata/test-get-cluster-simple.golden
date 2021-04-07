@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                4afcb7b7-2b24-4f64-9128-d77cbcced789
+ID                5e04d093-20e1-4d2b-9a6d-3d7a15016dbf
 Name              cli-test
 Status            creating
 Version           1.17.3
@@ -9,8 +9,8 @@ OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
 ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 Cni               cilium
 Description       -
-ClusterURL        https://4afcb7b7-2b24-4f64-9128-d77cbcced789.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.4afcb7b7-2b24-4f64-9128-d77cbcced789.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://5e04d093-20e1-4d2b-9a6d-3d7a15016dbf.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.5e04d093-20e1-4d2b-9a6d-3d7a15016dbf.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -43,10 +43,10 @@ GroupsPrefix    -
 
 Pools:
 ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING
-2b61fb13-0ebb-4feb-8411-29812b971732  default  scaling  1.17.3   dev1_m     0         1     1         false        false
+22c9b049-abde-4ef1-8a4a-833cc65a856b  default  scaling  1.17.3   dev1_m     0         1     1         false        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4afcb7b7-2b24-4f64-9128-d77cbcced789",
+  "id": "5e04d093-20e1-4d2b-9a6d-3d7a15016dbf",
   "name": "cli-test",
   "status": "creating",
   "version": "1.17.3",
@@ -56,8 +56,8 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://4afcb7b7-2b24-4f64-9128-d77cbcced789.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.4afcb7b7-2b24-4f64-9128-d77cbcced789.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://5e04d093-20e1-4d2b-9a6d-3d7a15016dbf.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.5e04d093-20e1-4d2b-9a6d-3d7a15016dbf.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -93,9 +93,10 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
     "groups_prefix": "",
     "required_claim": []
   },
+  "apiserver_cert_sans": [],
   "pools": [
     {
-      "id": "2b61fb13-0ebb-4feb-8411-29812b971732",
+      "id": "22c9b049-abde-4ef1-8a4a-833cc65a856b",
       "name": "default",
       "status": "scaling",
       "version": "1.17.3",

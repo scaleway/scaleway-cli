@@ -1,65 +1,78 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     84260a8b-304b-468a-a56f-be9522626d55
+ID                     bb8a94d3-fa3b-44f3-9a95-5e540ff43833
 Name                   cli-test
 Description            cli-test
 Status                 ready
-Instances.0.ID         208e89c7-e492-430f-b474-d164bd3a5c7b
+Instances.0.ID         c41a309f-fca4-490a-8107-b8c91093c61a
 Instances.0.Status     ready
-Instances.0.IPAddress  10.68.142.101
+Instances.0.IPAddress  10.72.118.63
+Instances.0.CreatedAt  few seconds ago
+Instances.0.UpdatedAt  few seconds ago
 Instances.0.Region     fr-par
-Instances.1.ID         27facb2b-3022-4b5b-a563-6833f935e1d9
+Instances.0.Zone       fr-par-1
+Instances.1.ID         c7210cbb-a239-4dcd-9596-5efb13206b25
 Instances.1.Status     ready
-Instances.1.IPAddress  10.64.202.25
+Instances.1.IPAddress  10.64.142.31
+Instances.1.CreatedAt  few seconds ago
+Instances.1.UpdatedAt  few seconds ago
 Instances.1.Region     fr-par
+Instances.1.Zone       fr-par-1
 OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.ID                731d9cfb-7aa0-4ff0-a15a-347a5aacde77
-IP.0.IPAddress         195.154.68.138
+IP.0.ID                9250f201-9cf2-425b-929e-4422592eb2c2
+IP.0.IPAddress         51.159.114.215
 IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.LBID              84260a8b-304b-468a-a56f-be9522626d55
-IP.0.Reverse           195-154-68-138.lb.fr-par.scw.cloud
+IP.0.LBID              bb8a94d3-fa3b-44f3-9a95-5e540ff43833
+IP.0.Reverse           51-159-114-215.lb.fr-par.scw.cloud
 IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 IP.0.Region            fr-par
+IP.0.Zone              fr-par-1
 FrontendCount          0
 BackendCount           0
 Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
 ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+CreatedAt              few seconds ago
+UpdatedAt              few seconds ago
 Region                 fr-par
+Zone                   fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "84260a8b-304b-468a-a56f-be9522626d55",
+  "id": "bb8a94d3-fa3b-44f3-9a95-5e540ff43833",
   "name": "cli-test",
   "description": "cli-test",
   "status": "ready",
   "instances": [
     {
-      "id": "208e89c7-e492-430f-b474-d164bd3a5c7b",
+      "id": "c41a309f-fca4-490a-8107-b8c91093c61a",
       "status": "ready",
-      "ip_address": "10.68.142.101",
-      "created_at": null,
-      "updated_at": null,
-      "region": "fr-par"
+      "ip_address": "10.72.118.63",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     },
     {
-      "id": "27facb2b-3022-4b5b-a563-6833f935e1d9",
+      "id": "c7210cbb-a239-4dcd-9596-5efb13206b25",
       "status": "ready",
-      "ip_address": "10.64.202.25",
-      "created_at": null,
-      "updated_at": null,
-      "region": "fr-par"
+      "ip_address": "10.64.142.31",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "731d9cfb-7aa0-4ff0-a15a-347a5aacde77",
-      "ip_address": "195.154.68.138",
+      "id": "9250f201-9cf2-425b-929e-4422592eb2c2",
+      "ip_address": "51.159.114.215",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "84260a8b-304b-468a-a56f-be9522626d55",
-      "reverse": "195-154-68-138.lb.fr-par.scw.cloud",
+      "lb_id": "bb8a94d3-fa3b-44f3-9a95-5e540ff43833",
+      "reverse": "51-159-114-215.lb.fr-par.scw.cloud",
       "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "region": "fr-par"
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "tags": [],
@@ -69,7 +82,8 @@ Region                 fr-par
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "created_at": null,
-  "updated_at": null,
-  "region": "fr-par"
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "region": "fr-par",
+  "zone": "fr-par-1"
 }
