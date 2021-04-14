@@ -44,6 +44,7 @@ func GetGeneratedCommands() *core.Commands {
 		iotDeviceGetMetrics(),
 		iotRouteList(),
 		iotRouteCreate(),
+		iotRouteUpdate(),
 		iotRouteGet(),
 		iotRouteDelete(),
 		iotNetworkList(),
@@ -1189,6 +1190,130 @@ func iotRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.CreateRoute(request)
+
+		},
+	}
+}
+
+func iotRouteUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a route`,
+		Long:      `Update a route.`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.UpdateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route id`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Route name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "topic",
+				Short:      `Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.object-prefix",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.strategy",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "per_topic", "per_message"},
+			},
+			{
+				Name:       "db-config.host",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.dbname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.username",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.password",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.query",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rest-config.verb",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "get", "post", "put", "patch", "delete"},
+			},
+			{
+				Name:       "rest-config.uri",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rest-config.headers.value.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.UpdateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.UpdateRoute(request)
 
 		},
 	}
