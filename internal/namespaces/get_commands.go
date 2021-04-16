@@ -7,7 +7,7 @@ import (
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/domain/v2beta1"
+	domain "github.com/scaleway/scaleway-cli/internal/namespaces/domain/v2beta1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/feedback"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/help"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/info"
