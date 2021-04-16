@@ -97,7 +97,7 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 		}
 
 		// If it does not exist we try to find it in nested anonymous field
-		for fieldIndex := len(anonymousFieldIndexes) - 1; fieldIndex >= 0; fieldIndex-- {
+		for _, fieldIndex := range anonymousFieldIndexes {
 			newValues, err := getValuesForFieldByName(value.Field(fieldIndex), parts)
 			if err == nil {
 				return newValues, nil
