@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-DNS Zones.
+DNS Zones management.
 
 USAGE:
   scw dns zone <command>
@@ -9,6 +9,8 @@ AVAILABLE COMMANDS:
   clone       Clone a DNS zone
   create      Create a DNS zone
   delete      Delete DNS zone
+  export      Export raw DNS zone
+  import      Import raw DNS zone
   list        List DNS zones
   refresh     Refresh DNS zone
   update      Update a DNS zone

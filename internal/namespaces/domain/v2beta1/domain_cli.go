@@ -22,6 +22,9 @@ func GetGeneratedCommands() *core.Commands {
 		dnsRoot(),
 		dnsZone(),
 		dnsRecord(),
+		dnsTsigKey(),
+		dnsVersion(),
+		dnsCertificate(),
 		dnsZoneList(),
 		dnsZoneCreate(),
 		dnsZoneUpdate(),
@@ -32,7 +35,19 @@ func GetGeneratedCommands() *core.Commands {
 		dnsRecordListNameservers(),
 		dnsRecordUpdateNameservers(),
 		dnsRecordClear(),
+		dnsZoneExport(),
+		dnsZoneImport(),
 		dnsZoneRefresh(),
+		dnsVersionList(),
+		dnsVersionShow(),
+		dnsVersionDiff(),
+		dnsVersionRestore(),
+		dnsCertificateGet(),
+		dnsCertificateCreate(),
+		dnsCertificateList(),
+		dnsCertificateDelete(),
+		dnsTsigKeyGet(),
+		dnsTsigKeyDelete(),
 	)
 }
 func dnsRoot() *core.Command {
@@ -45,8 +60,8 @@ func dnsRoot() *core.Command {
 
 func dnsZone() *core.Command {
 	return &core.Command{
-		Short:     `DNS Zones`,
-		Long:      `DNS Zones.`,
+		Short:     `DNS Zones management`,
+		Long:      `DNS Zones management.`,
 		Namespace: "dns",
 		Resource:  "zone",
 	}
@@ -54,10 +69,37 @@ func dnsZone() *core.Command {
 
 func dnsRecord() *core.Command {
 	return &core.Command{
-		Short:     `Records`,
-		Long:      `Records.`,
+		Short:     `DNS records management`,
+		Long:      `DNS records management.`,
 		Namespace: "dns",
 		Resource:  "record",
+	}
+}
+
+func dnsTsigKey() *core.Command {
+	return &core.Command{
+		Short:     `Transaction SIGnature key management`,
+		Long:      `Transaction SIGnature key management.`,
+		Namespace: "dns",
+		Resource:  "tsig-key",
+	}
+}
+
+func dnsVersion() *core.Command {
+	return &core.Command{
+		Short:     `DNS zones version management`,
+		Long:      `DNS zones version management.`,
+		Namespace: "dns",
+		Resource:  "version",
+	}
+}
+
+func dnsCertificate() *core.Command {
+	return &core.Command{
+		Short:     `TLS certificate management`,
+		Long:      `TLS certificate management.`,
+		Namespace: "dns",
+		Resource:  "certificate",
 	}
 }
 
@@ -864,6 +906,87 @@ All edits will be versioned.
 	}
 }
 
+func dnsZoneExport() *core.Command {
+	return &core.Command{
+		Short:     `Export raw DNS zone`,
+		Long:      `Get a DNS zone in a given format with default NS.`,
+		Namespace: "dns",
+		Resource:  "zone",
+		Verb:      "export",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.ExportRawDNSZoneRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Short:      `The DNS zone to export`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "format",
+				Short:      `Format for DNS zone`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("bind"),
+				EnumValues: []string{"unknown_raw_format", "bind"},
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.ExportRawDNSZoneRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.ExportRawDNSZone(request)
+
+		},
+	}
+}
+
+func dnsZoneImport() *core.Command {
+	return &core.Command{
+		Short:     `Import raw DNS zone`,
+		Long:      `Import and replace records from a given provider format with default NS.`,
+		Namespace: "dns",
+		Resource:  "zone",
+		Verb:      "import",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.ImportRawDNSZoneRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Short:      `The DNS zone to import`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "content",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "format",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_raw_format", "bind"},
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.ImportRawDNSZoneRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.ImportRawDNSZone(request)
+
+		},
+	}
+}
+
 func dnsZoneRefresh() *core.Command {
 	return &core.Command{
 		Short: `Refresh DNS zone`,
@@ -905,6 +1028,319 @@ You can recreate the given DNS zone and its sub DNS zone if needed.
 			api := domain.NewAPI(client)
 			return api.RefreshDNSZone(request)
 
+		},
+	}
+}
+
+func dnsVersionList() *core.Command {
+	return &core.Command{
+		Short: `List DNS zone versions`,
+		Long: `Get a list of DNS zone versions.<br/>
+The maximum version count is 100.<br/>
+If the count reaches this limit, the oldest version will be deleted after each new modification.
+`,
+		Namespace: "dns",
+		Resource:  "version",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.ListDNSZoneVersionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.ListDNSZoneVersions(request)
+
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+		}},
+	}
+}
+
+func dnsVersionShow() *core.Command {
+	return &core.Command{
+		Short:     `List DNS zone version records`,
+		Long:      `Get a list of records from a previous DNS zone version.`,
+		Namespace: "dns",
+		Resource:  "version",
+		Verb:      "show",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionRecordsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone-version-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.ListDNSZoneVersionRecordsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.ListDNSZoneVersionRecords(request)
+
+		},
+	}
+}
+
+func dnsVersionDiff() *core.Command {
+	return &core.Command{
+		Short:     `Get DNS zone version diff`,
+		Long:      `Get all differences from a previous DNS zone version.`,
+		Namespace: "dns",
+		Resource:  "version",
+		Verb:      "diff",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.GetDNSZoneVersionDiffRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone-version-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.GetDNSZoneVersionDiffRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.GetDNSZoneVersionDiff(request)
+
+		},
+	}
+}
+
+func dnsVersionRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore DNS zone version`,
+		Long:      `Restore and activate a previous DNS zone version.`,
+		Namespace: "dns",
+		Resource:  "version",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.RestoreDNSZoneVersionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone-version-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.RestoreDNSZoneVersionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.RestoreDNSZoneVersion(request)
+
+		},
+	}
+}
+
+func dnsCertificateGet() *core.Command {
+	return &core.Command{
+		Short:     `Get the zone TLS certificate if it exists`,
+		Long:      `Get the zone TLS certificate if it exists.`,
+		Namespace: "dns",
+		Resource:  "certificate",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.GetSSLCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.GetSSLCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.GetSSLCertificate(request)
+
+		},
+	}
+}
+
+func dnsCertificateCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create or return the zone TLS certificate`,
+		Long:      `Create or return the zone TLS certificate.`,
+		Namespace: "dns",
+		Resource:  "certificate",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.CreateSSLCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "alternative-dns-zones.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.CreateSSLCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.CreateSSLCertificate(request)
+
+		},
+	}
+}
+
+func dnsCertificateList() *core.Command {
+	return &core.Command{
+		Short:     `List all user TLS certificates`,
+		Long:      `List all user TLS certificates.`,
+		Namespace: "dns",
+		Resource:  "certificate",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.ListSSLCertificatesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.ListSSLCertificatesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			resp, err := api.ListSSLCertificates(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Certificates, nil
+
+		},
+	}
+}
+
+func dnsCertificateDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an TLS certificate`,
+		Long:      `Delete an TLS certificate.`,
+		Namespace: "dns",
+		Resource:  "certificate",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.DeleteSSLCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.DeleteSSLCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.DeleteSSLCertificate(request)
+
+		},
+	}
+}
+
+func dnsTsigKeyGet() *core.Command {
+	return &core.Command{
+		Short:     `Get the DNS zone TSIG Key`,
+		Long:      `Get the DNS zone TSIG Key to allow AXFR request.`,
+		Namespace: "dns",
+		Resource:  "tsig-key",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.GetDNSZoneTsigKeyRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.GetDNSZoneTsigKeyRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			return api.GetDNSZoneTsigKey(request)
+
+		},
+	}
+}
+
+func dnsTsigKeyDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete the DNS zone TSIG Key`,
+		Long:      `Delete the DNS zone TSIG Key.`,
+		Namespace: "dns",
+		Resource:  "tsig-key",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(domain.DeleteDNSZoneTsigKeyRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "dns-zone",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*domain.DeleteDNSZoneTsigKeyRequest)
+
+			client := core.ExtractClient(ctx)
+			api := domain.NewAPI(client)
+			e = api.DeleteDNSZoneTsigKey(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "tsig-key",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
