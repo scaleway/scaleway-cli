@@ -81,7 +81,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		// Get server availabilities.
-		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{})
+		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{
+			Zone: request.Zone,
+		})
 		if err != nil {
 			return nil, err
 		}
