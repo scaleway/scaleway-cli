@@ -17,8 +17,13 @@ import (
 
 var (
 	volumeStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.VolumeStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.VolumeStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	}
 )
 

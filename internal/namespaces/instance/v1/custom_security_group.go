@@ -32,6 +32,12 @@ var (
 		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
 		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
+
+	securityGroupStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.SecurityGroupStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.SecurityGroupStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+	}
 )
 
 // MarshalHuman marshals a customSecurityGroupResponse.
@@ -39,6 +45,7 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	humanSecurityGroup := struct {
 		ID                    string
 		Name                  string
+		State                 instance.SecurityGroupState
 		Description           string
 		EnableDefaultSecurity bool
 		OrganizationID        string
@@ -51,6 +58,7 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	}{
 		ID:                    sg.ID,
 		Name:                  sg.Name,
+		State:                 sg.State,
 		Description:           sg.Description,
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
 		OrganizationID:        sg.Organization,
