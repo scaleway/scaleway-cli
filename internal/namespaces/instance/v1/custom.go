@@ -125,6 +125,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(""), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupState(""), human.EnumMarshalFunc(securityGroupStateMarshalSpecs))
 
 	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
@@ -162,6 +163,8 @@ func GetCommands() *core.Commands {
 	//
 	// Private NICs
 	//
+	human.RegisterMarshalerFunc(instance.PrivateNICState(""), human.EnumMarshalFunc(privateNICStateMarshalSpecs))
+
 	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
 
 	return cmds
