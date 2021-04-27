@@ -30,13 +30,13 @@ func lbWaitCommand() *core.Command {
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "wait",
-		ArgsType:  reflect.TypeOf(lb.WaitForLBRequest{}),
+		ArgsType:  reflect.TypeOf(lb.ZonedAPIWaitForLBRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			api := lb.NewAPI(core.ExtractClient(ctx))
-			args := argsI.(*lb.WaitForLBRequest)
-			return api.WaitForLb(&lb.WaitForLBRequest{
+			api := lb.NewZonedAPI(core.ExtractClient(ctx))
+			args := argsI.(*lb.ZonedAPIWaitForLBRequest)
+			return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 				LBID:          args.LBID,
-				Region:        args.Region,
+				Zone:          args.Zone,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -47,7 +47,7 @@ func lbWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZonePlWaw1, scw.ZoneNlAms1),
 		},
 		Examples: []*core.Example{
 			{
@@ -67,10 +67,10 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		api := lb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForLb(&lb.WaitForLBRequest{
+		api := lb.NewZonedAPI(core.ExtractClient(ctx))
+		return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 			LBID:          respI.(*lb.LB).ID,
-			Region:        respI.(*lb.LB).Region,
+			Zone:          respI.(*lb.LB).Zone,
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
