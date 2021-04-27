@@ -1087,6 +1087,7 @@ func iotRouteCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("route"),
 			},
 			{
 				Name:       "hub-id",
