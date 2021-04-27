@@ -36,8 +36,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 	customeCertificateArgSpecs.Required = false
 
 	type lbCreateCertificateRequestCustom struct {
-		Zone   scw.Zone `json:"-"`
-		Region scw.Region
+		Zone scw.Zone `json:"-"`
 		// OrganizationID with which the server will be created
 		OrganizationID string `json:"organization_id"`
 		// Name of the server (≠hostname)
@@ -52,12 +51,12 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		args := argsI.(*lbCreateCertificateRequestCustom)
-		var createCertificateRequest *lb.CreateCertificateRequest
+		var createCertificateRequest *lb.ZonedAPICreateCertificateRequest
 		if args.CustomCertificateChain != "" {
-			createCertificateRequest = &lb.CreateCertificateRequest{
-				Region: args.Region,
-				LBID:   args.LBID,
-				Name:   args.Name,
+			createCertificateRequest = &lb.ZonedAPICreateCertificateRequest{
+				Zone: args.Zone,
+				LBID: args.LBID,
+				Name: args.Name,
 				CustomCertificate: &lb.CreateCertificateRequestCustomCertificate{
 					CertificateChain: args.CustomCertificateChain,
 				},
@@ -66,10 +65,10 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if args.LetsencryptCommonName != "" {
-			createCertificateRequest = &lb.CreateCertificateRequest{
-				Region: args.Region,
-				LBID:   args.LBID,
-				Name:   args.Name,
+			createCertificateRequest = &lb.ZonedAPICreateCertificateRequest{
+				Zone: args.Zone,
+				LBID: args.LBID,
+				Name: args.Name,
 				Letsencrypt: &lb.CreateCertificateRequestLetsencryptConfig{
 					CommonName:             args.LetsencryptCommonName,
 					SubjectAlternativeName: args.LetsencryptAlternativeName,
