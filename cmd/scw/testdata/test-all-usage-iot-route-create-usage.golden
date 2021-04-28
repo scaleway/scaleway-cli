@@ -15,7 +15,7 @@ USAGE:
   scw iot route create [arg=value ...]
 
 ARGS:
-  [name]                        Route name
+  [name=<generated>]            Route name
   [hub-id]                      ID of the route's hub
   [topic]                       Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters
   [s3-config.bucket-region]     
