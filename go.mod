@@ -22,7 +22,7 @@ require (
 	github.com/mattn/go-colorable v0.1.7
 	github.com/mattn/go-isatty v0.0.12
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210426103954-8e31911750e7
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210427121621-c670eb8c8e8f
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5
