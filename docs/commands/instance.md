@@ -1191,7 +1191,7 @@ scw instance server create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image | Required<br />Default: `ubuntu_focal` | Image ID or label of the server |
-| type | Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S` | Server commercial type |
+| type | Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-XXL`, `ENT1-XXXL`, `ENT1-XXXXL` | Server commercial type |
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
@@ -1629,6 +1629,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | private-nics.{index}.server-id |  | The server the private NIC is attached to |
 | private-nics.{index}.private-network-id |  | The private network where the private NIC is attached |
 | private-nics.{index}.mac-address |  | The private NIC MAC address |
+| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | The private NIC state |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
