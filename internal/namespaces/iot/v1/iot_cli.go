@@ -1165,6 +1165,13 @@ func iotRouteCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
+			},
+			{
 				Name:       "rest-config.verb",
 				Required:   false,
 				Deprecated: false,
@@ -1287,6 +1294,13 @@ func iotRouteUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
 			},
 			{
 				Name:       "rest-config.verb",
