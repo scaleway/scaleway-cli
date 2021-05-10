@@ -175,6 +175,8 @@ github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210426103954-8e31911750e7 
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210426103954-8e31911750e7/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210427121621-c670eb8c8e8f h1:Rw09eSaxy7kzLCGYGYjz71C0hggZEnQO1KAWW1S4J5Q=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210427121621-c670eb8c8e8f/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210510090404-0b46577f308f h1:AkxRIEQ413mDXYlXFQ317j2JjIQaBIVhJbMgm4CRsL8=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210510090404-0b46577f308f/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=
 github.com/sergi/go-diff v1.1.0 h1:we8PVUC3FE2uYfodKH/nBHMSetSfHDR6scGdBi+erh0=
 github.com/sergi/go-diff v1.1.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
 github.com/shurcooL/sanitized_anchor_name v1.0.0 h1:PdmoCO6wvbs+7yrJyMORt4/BmY5IYyJwS/kOiWx8mHo=
