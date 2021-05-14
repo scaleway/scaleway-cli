@@ -19,6 +19,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 const (
@@ -474,6 +475,145 @@ func serverDetachVolumeCommand() *core.Command {
 			{
 				Short:    "Detach a volume from its server",
 				ArgsJSON: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
+			},
+		},
+	}
+}
+
+func serverAttachIPCommand() *core.Command {
+	type customIPAttachRequest struct {
+		OrganizationID *string
+		ProjectID      *string
+		// Server: UUID of the server you want to attach the IP to
+		ServerID string   `json:"server,omitempty"`
+		IP       string   `json:"-"`
+		Zone     scw.Zone `json:"zone"`
+	}
+
+	return &core.Command{
+		Short:     `Attach an IP to a server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "attach-ip",
+		ArgsType:  reflect.TypeOf(customIPAttachRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:     "ip",
+				Short:    `UUID of the IP to attach or its UUID`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			args := argsI.(*customIPAttachRequest)
+
+			var ip string
+			switch {
+			case validation.IsUUID(args.IP):
+				ip = args.IP
+			case net.ParseIP(args.IP) != nil:
+				// Find the corresponding flexible IP UUID.
+				logger.Debugf("finding public IP UUID from address: %s", args.IP)
+				res, err := api.GetIP(&instance.GetIPRequest{
+					Zone: args.Zone,
+					IP:   args.IP,
+				})
+				if err != nil { // FIXME: isNotFoundError
+					return nil, fmt.Errorf("%s does not belong to you", args.IP)
+				}
+				ip = res.IP.ID
+			default:
+				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
+			}
+
+			_, err = api.UpdateIP(&instance.UpdateIPRequest{
+				IP: ip,
+				Server: &instance.NullableStringValue{
+					Value: args.ServerID,
+				},
+				Zone: args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+			return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Attach an IP to a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","ip": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Attach an IP to a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","ip": "1.2.3.4"}`,
+			},
+		},
+	}
+}
+
+func serverDetachIPCommand() *core.Command {
+	type customIPDetachRequest struct {
+		OrganizationID *string
+		ProjectID      *string
+		Zone           scw.Zone `json:"zone"`
+		ServerID       string
+	}
+
+	return &core.Command{
+		Short:     `Detach an IP from a server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "detach-ip",
+		ArgsType:  reflect.TypeOf(customIPDetachRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `UUID of the server.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*customIPDetachRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			serverResponse, err := api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+			if err != nil {
+				return nil, err
+			}
+
+			if server := serverResponse.Server; server != nil {
+				if ip := server.PublicIP; ip != nil {
+					_, err := api.UpdateIP(&instance.UpdateIPRequest{
+						Zone: args.Zone,
+						// We detach an ip by specifying no serverResponse
+						Server: &instance.NullableStringValue{
+							Null: true,
+						},
+						IP: ip.ID,
+					})
+					if err != nil {
+						return nil, err
+					}
+					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+				}
+				return nil, fmt.Errorf("no public ip found")
+			}
+			return nil, fmt.Errorf("no server found")
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Detach IP from a given server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
