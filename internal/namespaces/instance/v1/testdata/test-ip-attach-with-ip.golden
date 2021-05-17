@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Invalid arguments 'server'
+
+Details:
+- 'server' does not respect constraints
+
+Hint:
+Server '24a6aa4d-80a7-461a-b1e5-9c168300ce63' is already attached to an IP address.
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "invalid arguments 'server'",
+  "error": {
+    "details": [
+      {
+        "argument_name": "server",
+        "reason": "constraint",
+        "help_message": "Server '24a6aa4d-80a7-461a-b1e5-9c168300ce63' is already attached to an IP address."
+      }
+    ]
+  },
+  "details": "- 'server' does not respect constraints",
+  "hint": "Server '24a6aa4d-80a7-461a-b1e5-9c168300ce63' is already attached to an IP address."
+}
