@@ -76,9 +76,7 @@ func serverCreateCommand() *core.Command {
 					"ENT1-M",
 					"ENT1-L",
 					"ENT1-XL",
-					"ENT1-XXL",
-					"ENT1-XXXL",
-					"ENT1-XXXXL",
+					"ENT1-2XL",
 				},
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					// Allow all commercial types
