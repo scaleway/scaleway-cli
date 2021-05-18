@@ -10,7 +10,7 @@ func Test_IPAttach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),
 		),
 		Cmd: "scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}",
@@ -20,7 +20,6 @@ func Test_IPAttach(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip"),
 		),
 		DisableParallel: true,
 	}))
@@ -28,7 +27,7 @@ func Test_IPAttach(t *testing.T) {
 	t.Run("With IP", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),
 		),
 		Cmd: "scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}",
@@ -38,7 +37,6 @@ func Test_IPAttach(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip"),
 		),
 		DisableParallel: true,
 	}))
@@ -48,18 +46,18 @@ func Test_IPDetach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			core.ExecStoreBeforeCmd("Ip", "scw instance ip create"),
-			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.Id }}"),
+			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.IP.Address }} server-id={{ .Server.ID }}"),
 		),
-		Cmd: "scw instance ip detach {{ .Ip.ID }}",
+		Cmd: "scw instance ip detach {{ .Ip.IP.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip"),
+			deleteIP("Ip.IP"),
 		),
 		DisableParallel: true,
 	}))
@@ -67,18 +65,18 @@ func Test_IPDetach(t *testing.T) {
 	t.Run("With IP", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			core.ExecStoreBeforeCmd("Ip", "scw instance ip create"),
-			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}"),
+			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.IP.Address }} server-id={{ .Server.ID }}"),
 		),
-		Cmd: "scw instance ip detach {{ .Ip.Address }}",
+		Cmd: "scw instance ip detach {{ .Ip.IP.Address }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip"),
+			deleteIP("Ip.IP"),
 		),
 		DisableParallel: true,
 	}))
