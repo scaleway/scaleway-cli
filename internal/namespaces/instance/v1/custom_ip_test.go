@@ -47,17 +47,17 @@ func Test_IPDetach(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
-			core.ExecStoreBeforeCmd("Ip", "scw instance ip create"),
-			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.IP.Address }} server-id={{ .Server.ID }}"),
+			createIP("Ip"),
+			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}"),
 		),
-		Cmd: "scw instance ip detach {{ .Ip.IP.ID }}",
+		Cmd: "scw instance ip detach {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip.IP"),
+			deleteIP("Ip"),
 		),
 		DisableParallel: true,
 	}))
@@ -66,17 +66,17 @@ func Test_IPDetach(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
-			core.ExecStoreBeforeCmd("Ip", "scw instance ip create"),
-			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.IP.Address }} server-id={{ .Server.ID }}"),
+			createIP("Ip"),
+			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}"),
 		),
-		Cmd: "scw instance ip detach {{ .Ip.IP.Address }}",
+		Cmd: "scw instance ip detach {{ .Ip.Address }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
-			deleteIP("Ip.IP"),
+			deleteIP("Ip"),
 		),
 		DisableParallel: true,
 	}))
