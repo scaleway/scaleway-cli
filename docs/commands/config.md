@@ -2,7 +2,7 @@
 # Documentation for `scw config`
 Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
 
-Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: /Users/sieben/.config/scw/config.yaml
+You can see your current configuration by using: scw config dump
 
 In this CLI, environment variables have priority over the configuration file.
 
@@ -63,7 +63,7 @@ scw config get <key ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the configt |
+| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
 
 
 **Examples:**
