@@ -517,7 +517,7 @@ func serverAttachIPCommand() *core.Command {
 			var ipID string
 			switch {
 			case validation.IsUUID(args.IP):
-				ip = args.IP
+				ipID = args.IP
 			case net.ParseIP(args.IP) != nil:
 				// Find the corresponding flexible IP UUID.
 				logger.Debugf("finding public IP UUID from address: %s", args.IP)
@@ -528,13 +528,13 @@ func serverAttachIPCommand() *core.Command {
 				if err != nil { // FIXME: isNotFoundError
 					return nil, fmt.Errorf("%s does not belong to you", args.IP)
 				}
-				ip = res.IP.ID
+				ipID = res.IP.ID
 			default:
 				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
 			}
 
 			_, err = api.UpdateIP(&instance.UpdateIPRequest{
-				IP: ip,
+				IP: ipID,
 				Server: &instance.NullableStringValue{
 					Value: args.ServerID,
 				},
