@@ -141,7 +141,7 @@ func ipDetachCommand() *core.Command {
 			args := argsI.(*customIPDetachRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
-			var ip string
+			var ipID string
 			switch {
 			case validation.IsUUID(args.IP):
 				ip = args.IP
