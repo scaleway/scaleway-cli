@@ -8,9 +8,11 @@ This API allows you to manage IoT hubs and devices
   - [Disable a device](#disable-a-device)
   - [Enable a device](#enable-a-device)
   - [Get a device](#get-a-device)
+  - [Get a device's certificate](#get-a-device's-certificate)
   - [Get a device's metrics](#get-a-device's-metrics)
   - [List devices](#list-devices)
   - [Renew a device certificate](#renew-a-device-certificate)
+  - [Set a custom certificate on a device](#set-a-custom-certificate-on-a-device)
   - [Update a device](#update-a-device)
 - [IoT Hub commands](#iot-hub-commands)
   - [Create a hub](#create-a-hub)
@@ -18,6 +20,7 @@ This API allows you to manage IoT hubs and devices
   - [Disable a hub](#disable-a-hub)
   - [Enable a hub](#enable-a-hub)
   - [Get a hub](#get-a-hub)
+  - [Get the certificate authority of a hub](#get-the-certificate-authority-of-a-hub)
   - [List hubs](#list-hubs)
   - [Set the certificate authority of a hub](#set-the-certificate-authority-of-a-hub)
   - [Update a hub](#update-a-hub)
@@ -31,6 +34,7 @@ This API allows you to manage IoT hubs and devices
   - [Delete a route](#delete-a-route)
   - [Get a route](#get-a-route)
   - [List routes](#list-routes)
+  - [Update a route](#update-a-route)
 
   
 ## IoT Device commands
@@ -146,6 +150,26 @@ scw iot device get <device-id ...> [arg=value ...]
 
 
 
+### Get a device's certificate
+
+Get a device's certificate.
+
+**Usage:**
+
+```
+scw iot device get-certificate <device-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| device-id | Required | Device ID |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Get a device's metrics
 
 Get a device's metrics.
@@ -207,6 +231,27 @@ scw iot device renew-certificate <device-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | device-id | Required | Device ID |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set a custom certificate on a device
+
+Set a custom certificate on a device.
+
+**Usage:**
+
+```
+scw iot device set-certificate <device-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| device-id | Required | Device ID |
+| certificate-pem | Required | The PEM-encoded custom certificate |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -345,6 +390,26 @@ scw iot hub get <hub-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hub-id | Required | Hub ID |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get the certificate authority of a hub
+
+Get the certificate authority of a hub.
+
+**Usage:**
+
+```
+scw iot hub get-ca [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hub-id | Required |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -540,7 +605,7 @@ scw iot route create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | Route name |
+| name | Default: `<generated>` | Route name |
 | hub-id |  | ID of the route's hub |
 | topic |  | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
 | s3-config.bucket-region |  |  |
@@ -553,6 +618,7 @@ scw iot route create [arg=value ...]
 | db-config.username |  |  |
 | db-config.password |  |  |
 | db-config.query |  |  |
+| db-config.engine | One of: `unknown`, `postgresql`, `mysql` |  |
 | rest-config.verb | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |  |
 | rest-config.uri |  |  |
 | rest-config.headers.{key} |  |  |
@@ -618,6 +684,42 @@ scw iot route list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc`, `hub_id_asc`, `hub_id_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes |
 | hub-id |  | Filter on the hub |
 | name |  | Filter on route's name |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a route
+
+Update a route.
+
+**Usage:**
+
+```
+scw iot route update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route id |
+| name |  | Route name |
+| topic |  | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
+| s3-config.bucket-region |  |  |
+| s3-config.bucket-name |  |  |
+| s3-config.object-prefix |  |  |
+| s3-config.strategy | One of: `unknown`, `per_topic`, `per_message` |  |
+| db-config.host |  |  |
+| db-config.port |  |  |
+| db-config.dbname |  |  |
+| db-config.username |  |  |
+| db-config.password |  |  |
+| db-config.query |  |  |
+| db-config.engine | One of: `unknown`, `postgresql`, `mysql` |  |
+| rest-config.verb | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |  |
+| rest-config.uri |  |  |
+| rest-config.headers.value.{key} |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

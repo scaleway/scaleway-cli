@@ -1629,6 +1629,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | private-nics.{index}.server-id |  | The server the private NIC is attached to |
 | private-nics.{index}.private-network-id |  | The private network where the private NIC is attached |
 | private-nics.{index}.mac-address |  | The private NIC MAC address |
+| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | The private NIC state |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
