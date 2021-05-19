@@ -62,6 +62,8 @@ func GetCommands() *core.Commands {
 		serverStandbyCommand(),
 		serverRebootCommand(),
 		serverWaitCommand(),
+		serverAttachIPCommand(),
+		serverDetachIPCommand(),
 	))
 
 	//
@@ -78,6 +80,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "ip", "create").Override(ipCreateBuilder)
 	cmds.MustFind("instance", "ip", "list").Override(ipListBuilder)
+	cmds.Merge(core.NewCommands(
+		ipAttachCommand(),
+		ipDetachCommand(),
+	))
 
 	//
 	// Image
