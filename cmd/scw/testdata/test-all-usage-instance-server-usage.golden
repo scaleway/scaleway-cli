@@ -31,11 +31,13 @@ USAGE:
   scw instance server <command>
 
 AVAILABLE COMMANDS:
+  attach-ip     Attach an IP to a server
   attach-volume Attach a volume to a server
   backup        Backup server
   console       Connect to the serial console of an instance
   create        Create server
   delete        Delete server
+  detach-ip     Detach an IP from a server
   detach-volume Detach a volume from its server
   get           Get a server
   list          List all servers
