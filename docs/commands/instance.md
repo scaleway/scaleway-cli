@@ -9,8 +9,10 @@ Instance API
   - [List instance images](#list-instance-images)
   - [Wait for image to reach a stable state](#wait-for-image-to-reach-a-stable-state)
 - [IP management commands](#ip-management-commands)
+  - [Attach an IP to a given server](#attach-an-ip-to-a-given-server)
   - [Reserve a flexible IP](#reserve-a-flexible-ip)
   - [Delete a flexible IP](#delete-a-flexible-ip)
+  - [Detach an ip from its server](#detach-an-ip-from-its-server)
   - [Get a flexible IP](#get-a-flexible-ip)
   - [List all flexible IPs](#list-all-flexible-ips)
   - [Update a flexible IP](#update-a-flexible-ip)
@@ -33,11 +35,13 @@ Instance API
   - [List security groups](#list-security-groups)
   - [Update security group](#update-security-group)
 - [Server management commands](#server-management-commands)
+  - [Attach an IP to a server](#attach-an-ip-to-a-server)
   - [Attach a volume to a server](#attach-a-volume-to-a-server)
   - [Backup server](#backup-server)
   - [Connect to the serial console of an instance](#connect-to-the-serial-console-of-an-instance)
   - [Create server](#create-server)
   - [Delete server](#delete-server)
+  - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Get a server](#get-a-server)
   - [List all servers](#list-all-servers)
@@ -267,6 +271,37 @@ Be aware that attaching a flexible IP address to a server will remove the previo
 
 
 
+### Attach an IP to a given server
+
+Attach an IP to a given server.
+
+**Usage:**
+
+```
+scw instance ip attach <ip ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| ip | Required | IP or UUID of the IP. |
+| server-id | Required | UUID of the server to attach the IP to |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Attach an IP to the given server
+```
+scw instance ip attach 1.2.3.4 server-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Reserve a flexible IP
 
 Reserve a flexible IP.
@@ -345,6 +380,41 @@ scw instance ip delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 Delete an IP using directly the given IP address
 ```
 scw instance ip delete 51.15.253.183
+```
+
+
+
+
+### Detach an ip from its server
+
+Detach an ip from its server.
+
+**Usage:**
+
+```
+scw instance ip detach <ip ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| ip | Required | IP or UUID of the IP. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Detach an IP by using its UUID
+```
+scw instance ip detach 11111111-1111-1111-1111-111111111111
+```
+
+Detach an IP by using its IP address
+```
+scw instance ip detach 1.2.3.4
 ```
 
 
@@ -1086,6 +1156,42 @@ For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-i
 
 
 
+### Attach an IP to a server
+
+
+
+**Usage:**
+
+```
+scw instance server attach-ip <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| ip | Required | UUID of the IP to attach or its UUID |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Attach an IP to a server
+```
+scw instance server attach-ip 11111111-1111-1111-1111-111111111111 ip=11111111-1111-1111-1111-111111111111
+```
+
+Attach an IP to a server
+```
+scw instance server attach-ip 11111111-1111-1111-1111-111111111111 ip=1.2.3.4
+```
+
+
+
+
 ### Attach a volume to a server
 
 
@@ -1274,6 +1380,36 @@ scw instance server delete 11111111-1111-1111-1111-111111111111
 Delete a server in fr-par-1 zone with a given id
 ```
 scw instance server delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+```
+
+
+
+
+### Detach an IP from a server
+
+
+
+**Usage:**
+
+```
+scw instance server detach-ip <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | UUID of the server. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Detach IP from a given server
+```
+scw instance server detach-ip 11111111-1111-1111-1111-111111111111
 ```
 
 
