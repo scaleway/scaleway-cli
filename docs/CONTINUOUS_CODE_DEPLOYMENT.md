@@ -5,7 +5,7 @@ This enables us to keep Scaleway toolings up to date with the latest version of 
 
 ## Generated files
 
-Generated files and folders are located in [scaleway-cli/internal/namespaces](../internal/namespaces). 
+Generated files and folders are located in [scaleway-cli/internal/namespaces](../v2/internal/namespaces). 
 They always start with the following line:
 
 ```c

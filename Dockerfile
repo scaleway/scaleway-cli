@@ -14,8 +14,8 @@ COPY go.sum go.sum
 RUN go mod download
 
 COPY scripts/ scripts/
-COPY cmd/ cmd/
-COPY internal/ internal/
+COPY v2/cmd/ cmd/
+COPY v2/internal/ internal/
 COPY .git/ .git/
 
 RUN ./scripts/build.sh
