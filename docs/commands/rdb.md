@@ -42,6 +42,13 @@ Database RDB API
 - [User privileges management commands](#user-privileges-management-commands)
   - [List privileges of a given user for a given database on a given instance](#list-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
   - [Set privileges of a given user for a given database on a given instance](#set-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
+- [Block snapshot management](#block-snapshot-management)
+  - [Create an instance snapshot](#create-an-instance-snapshot)
+  - [Delete an instance snapshot](#delete-an-instance-snapshot)
+  - [Get an instance snapshot](#get-an-instance-snapshot)
+  - [List instance snapshots](#list-instance-snapshots)
+  - [Create a new instance from a given snapshot](#create-a-new-instance-from-a-given-snapshot)
+  - [Update an instance snapshot](#update-an-instance-snapshot)
 - [User management commands](#user-management-commands)
   - [Create a user on a given instance](#create-a-user-on-a-given-instance)
   - [Delete a user on a given instance](#delete-a-user-on-a-given-instance)
@@ -645,6 +652,7 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 | node-type | One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` | Node type of the instance you want to upgrade to |
 | enable-ha |  | Set to true to enable high availability on your instance |
 | volume-size |  | Increase your block storage volume size |
+| volume-type | One of: `lssd`, `bssd` | Change your instance storage type |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -821,6 +829,143 @@ scw rdb privilege set [arg=value ...]
 | database-name |  | Name of the database |
 | user-name |  | Name of the user |
 | permission | One of: `readonly`, `readwrite`, `all`, `custom`, `none` | Permission to set (Read, Read/Write, All, Custom) |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Block snapshot management
+
+Create, restore and manage block snapshot
+
+
+
+### Create an instance snapshot
+
+Create an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance |
+| name | Required<br />Default: `<generated>` | Name of the snapshot |
+| expires-at |  | Expiration date (Format ISO 8601) |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete an instance snapshot
+
+Delete an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot delete <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get an instance snapshot
+
+Get an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot get <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List instance snapshots
+
+List instance snapshots.
+
+**Usage:**
+
+```
+scw rdb snapshot list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  | Name of the snapshot |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listing |
+| instance-id |  | UUID of the instance |
+| project-id |  | Project ID the snapshots belongs to |
+| organization-id |  | Organization ID the snapshots belongs to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create a new instance from a given snapshot
+
+Create a new instance from a given snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot restore <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | Block snapshot of the instance |
+| instance-name |  | Name of the instance created with the snapshot |
+| is-ha-cluster |  | Whether or not High-Availability is enabled on the new instance |
+| node-type |  | The node type used to restore the snapshot |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update an instance snapshot
+
+Update an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot to update |
+| name |  | Name of the snapshot |
+| expires-at |  | Expiration date (Format ISO 8601) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
