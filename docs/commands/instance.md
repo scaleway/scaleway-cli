@@ -2222,7 +2222,7 @@ scw instance volume create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | The volume name |
+| name | Default: `<generated>` | The volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | volume-type | One of: `l_ssd`, `b_ssd` | The volume type |
 | size |  | The volume disk size |
