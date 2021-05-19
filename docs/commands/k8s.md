@@ -64,7 +64,7 @@ scw k8s cluster create [arg=value ...]
 | tags.{index} |  | The tags associated with the cluster |
 | version | Required<br />Default: `latest` | The Kubernetes version of the cluster |
 | cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel` | The Container Network Interface (CNI) plugin that will run in the cluster |
-| enable-dashboard |  | The enablement of the Kubernetes Dashboard in the cluster |
+| ~~enable-dashboard~~ | Deprecated | The enablement of the Kubernetes Dashboard in the cluster |
 | ingress | One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The Ingress Controller that will run in the cluster |
 | pools.{index}.name | Required | The name of the pool |
 | pools.{index}.node-type | Required | The node type is the type of Scaleway Instance wanted for the pool |
@@ -317,7 +317,7 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down |
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
-| enable-dashboard |  | The new value of the Kubernetes Dashboard enablement |
+| ~~enable-dashboard~~ | Deprecated | The new value of the Kubernetes Dashboard enablement |
 | ingress | One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The new Ingress Controller for the cluster |
 | auto-upgrade.enable |  | Whether or not auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | The start hour of the 2-hour maintenance window |
