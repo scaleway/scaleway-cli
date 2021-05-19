@@ -1470,6 +1470,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("vol"),
 			},
 			core.ProjectArgSpec(),
 			{
