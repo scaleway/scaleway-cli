@@ -514,7 +514,7 @@ func serverAttachIPCommand() *core.Command {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			args := argsI.(*customIPAttachRequest)
 
-			var ip string
+			var ipID string
 			switch {
 			case validation.IsUUID(args.IP):
 				ip = args.IP
