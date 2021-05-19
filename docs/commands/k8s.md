@@ -63,7 +63,7 @@ scw k8s cluster create [arg=value ...]
 | description |  | The description of the cluster |
 | tags.{index} |  | The tags associated with the cluster |
 | version | Required<br />Default: `latest` | The Kubernetes version of the cluster |
-| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel` | The Container Network Interface (CNI) plugin that will run in the cluster |
+| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | The Container Network Interface (CNI) plugin that will run in the cluster |
 | ~~enable-dashboard~~ | Deprecated | The enablement of the Kubernetes Dashboard in the cluster |
 | ingress | One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The Ingress Controller that will run in the cluster |
 | pools.{index}.name | Required | The name of the pool |
