@@ -13,7 +13,7 @@ EXAMPLES:
     scw -p prod config get default_region
 
 ARGS:
-  key   the key to get from the configt (access-key | secret-key | api-url | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
+  key   the key to get from the config (access-key | secret-key | api-url | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
 
 FLAGS:
   -h, --help   help for get
