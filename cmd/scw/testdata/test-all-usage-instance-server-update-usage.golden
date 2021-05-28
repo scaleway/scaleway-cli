@@ -28,7 +28,7 @@ ARGS:
   server-id                                   UUID of the server
   [name]                                      Name of the server
   [ip]                                        IP that should be attached to the server (use ip=none to detach)
-  [cloud-init]                                The cloud-init script to use
+  [cloud-init]                                The cloud-init script to use (Support file loading with @/path/to/file)
   [boot-type]                                  (local | bootscript | rescue)
   [tags.{index}]                              Tags of the server
   [bootscript]                                

@@ -99,6 +99,9 @@ type ArgSpec struct {
 	// Deprecated is used to flag an argument as deprecated.
 	// Use the short field to indicate migration tips for users.
 	Deprecated bool
+
+	// CanLoadFile allow to use @ prefix to load a file as content
+	CanLoadFile bool
 }
 
 func (a *ArgSpec) Prefix() string {
