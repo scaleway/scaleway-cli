@@ -659,6 +659,14 @@ func instanceServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-nics.{index}.state",
+				Short:      `The private NIC state`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"available", "syncing", "syncing_error"},
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1462,6 +1470,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("vol"),
 			},
 			core.ProjectArgSpec(),
 			{

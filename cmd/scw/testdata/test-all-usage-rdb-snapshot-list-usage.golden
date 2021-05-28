@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List instance snapshots.
+
+USAGE:
+  scw rdb snapshot list [arg=value ...]
+
+ARGS:
+  [name]              Name of the snapshot
+  [order-by]          Criteria to use when ordering snapshot listing (created_at_asc | created_at_desc | name_asc | name_desc | expires_at_asc | expires_at_desc)
+  [instance-id]       UUID of the instance
+  [project-id]        Project ID the snapshots belongs to
+  [organization-id]   Organization ID the snapshots belongs to
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

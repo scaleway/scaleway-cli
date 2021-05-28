@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   autocomplete  Autocomplete related commands
   baremetal     Baremetal API
   config        Config file management
+  dns           DNS API
   feedback      Send feedback to the Scaleway CLI Team!
   help          Get help about how the CLI works
   info          Get info about current settings

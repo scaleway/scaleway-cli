@@ -237,6 +237,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("k8s"),
 			},
 			{
 				Name:       "description",
@@ -265,13 +266,13 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel"},
+				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"},
 			},
 			{
 				Name:       "enable-dashboard",
 				Short:      `The enablement of the Kubernetes Dashboard in the cluster`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -718,7 +719,7 @@ func k8sClusterUpdate() *core.Command {
 				Name:       "enable-dashboard",
 				Short:      `The new value of the Kubernetes Dashboard enablement`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1190,6 +1191,7 @@ func k8sPoolCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("pool"),
 			},
 			{
 				Name:       "node-type",

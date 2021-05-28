@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+IP.ID            edb87e2b-3637-4cb3-bca6-afaab47f6a30
+IP.Address       51.15.129.58
+IP.Server.ID     f8719720-3296-4553-be7b-948fcf0e7396
+IP.Server.Name   cli-srv-hopeful-ramanujan
+IP.Organization  951df375-e094-4d26-97c1-ba548eeb9c42
+IP.Project       951df375-e094-4d26-97c1-ba548eeb9c42
+IP.Zone          fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "ip": {
+    "id": "edb87e2b-3637-4cb3-bca6-afaab47f6a30",
+    "address": "51.15.129.58",
+    "reverse": null,
+    "server": {
+      "id": "f8719720-3296-4553-be7b-948fcf0e7396",
+      "name": "cli-srv-hopeful-ramanujan"
+    },
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "tags": [],
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "zone": "fr-par-1"
+  }
+}

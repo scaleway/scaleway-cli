@@ -1,5 +1,41 @@
 # Changelog
 
+## v2.3.0 (2021-03-10)
+
+### Features
+
+* **apple-silicon**: add support for M1 control ([#1739](https://github.com/scaleway/scaleway-cli/pull/1739))
+* **as**: add default value for create server ([#1747](https://github.com/scaleway/scaleway-cli/pull/1747))
+* **as**: add server type list format ([#1748](https://github.com/scaleway/scaleway-cli/pull/1748))
+* **as**: add ssh verb on the server resource to connect to a server ([#1741](https://github.com/scaleway/scaleway-cli/pull/1741))
+* **as**: add support for wait command and wait flag ([#1745](https://github.com/scaleway/scaleway-cli/pull/1745))
+* **autocomplete**: better map and slice handling ([#1574](https://github.com/scaleway/scaleway-cli/pull/1574))
+* **iot**: migrate to IoT API v1 ([#1688](https://github.com/scaleway/scaleway-cli/pull/1688))
+* **k8s**: add a default for choosing latest version in cluster create ([#1781](https://github.com/scaleway/scaleway-cli/pull/1781))
+* **k8s**: add a default generated name for create cluster and create pool ([#1779](https://github.com/scaleway/scaleway-cli/pull/1779))
+* **k8s**: add apiserver_cert_sans ([#1758](https://github.com/scaleway/scaleway-cli/pull/1758))
+* **k8s**: add default cni
+* **k8s**: add default node type and size in create pool ([#1782](https://github.com/scaleway/scaleway-cli/pull/1782))
+* **k8s**: add marshallers for get versions ([#1560](https://github.com/scaleway/scaleway-cli/pull/1560))
+* **k8s**: add upgrade policy field ([#1696](https://github.com/scaleway/scaleway-cli/pull/1696))
+* **k8s**: add zone to pool ([#1697](https://github.com/scaleway/scaleway-cli/pull/1697))
+* **k8s**: fix required name on pool creation in cluster ([#1753](https://github.com/scaleway/scaleway-cli/pull/1753))
+* **k8s**: fix version list and add a golden test ([#1769](https://github.com/scaleway/scaleway-cli/pull/1769))
+* **lb**: allow all types ([#1792](https://github.com/scaleway/scaleway-cli/pull/1792))
+* **rdb**: expose float engine settings ([#1771](https://github.com/scaleway/scaleway-cli/pull/1771))
+* **registry**: add default for name in create namespace request ([#1780](https://github.com/scaleway/scaleway-cli/pull/1780))
+* enable darwin/arm64
+
+### Fixes
+
+* **instance**: use snake case in json output format for image list ([#1750](https://github.com/scaleway/scaleway-cli/pull/1750))
+
+### Others
+
+* **typo**: ssh init already present ([#1756](https://github.com/scaleway/scaleway-cli/pull/1756))
+
+
+
 ## v2.2.4 (2021-01-19)
 
 ### Features

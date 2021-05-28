@@ -535,6 +535,10 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 }
 
 func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, CommercialType string) error {
+	// An instance might not have any constraints on the local volume size
+	if serverType.VolumesConstraint.MaxSize == 0 {
+		return nil
+	}
 	if image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			image.ID,

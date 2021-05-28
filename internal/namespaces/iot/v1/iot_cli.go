@@ -31,6 +31,8 @@ func GetGeneratedCommands() *core.Commands {
 		iotHubEnable(),
 		iotHubDisable(),
 		iotHubDelete(),
+		iotHubSetCa(),
+		iotHubGetCa(),
 		iotDeviceList(),
 		iotDeviceCreate(),
 		iotDeviceGet(),
@@ -38,8 +40,15 @@ func GetGeneratedCommands() *core.Commands {
 		iotDeviceEnable(),
 		iotDeviceDisable(),
 		iotDeviceRenewCertificate(),
+		iotDeviceSetCertificate(),
+		iotDeviceGetCertificate(),
 		iotDeviceDelete(),
 		iotDeviceGetMetrics(),
+		iotRouteList(),
+		iotRouteCreate(),
+		iotRouteUpdate(),
+		iotRouteGet(),
+		iotRouteDelete(),
 		iotNetworkList(),
 		iotNetworkCreate(),
 		iotNetworkGet(),
@@ -447,6 +456,79 @@ func iotHubDelete() *core.Command {
 	}
 }
 
+func iotHubSetCa() *core.Command {
+	return &core.Command{
+		Short:     `Set the certificate authority of a hub`,
+		Long:      `Set the certificate authority of a hub.`,
+		Namespace: "iot",
+		Resource:  "hub",
+		Verb:      "set-ca",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.SetHubCARequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hub-id",
+				Short:      `Hub ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "ca-cert-pem",
+				Short:      `The CA's PEM-encoded certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "challenge-cert-pem",
+				Short:      `Proof of possession PEM-encoded certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.SetHubCARequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.SetHubCA(request)
+
+		},
+	}
+}
+
+func iotHubGetCa() *core.Command {
+	return &core.Command{
+		Short:     `Get the certificate authority of a hub`,
+		Long:      `Get the certificate authority of a hub.`,
+		Namespace: "iot",
+		Resource:  "hub",
+		Verb:      "get-ca",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.GetHubCARequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hub-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.GetHubCARequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.GetHubCA(request)
+
+		},
+	}
+}
+
 func iotDeviceList() *core.Command {
 	return &core.Command{
 		Short:     `List devices`,
@@ -838,6 +920,73 @@ func iotDeviceRenewCertificate() *core.Command {
 	}
 }
 
+func iotDeviceSetCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Set a custom certificate on a device`,
+		Long:      `Set a custom certificate on a device.`,
+		Namespace: "iot",
+		Resource:  "device",
+		Verb:      "set-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.SetDeviceCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "device-id",
+				Short:      `Device ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "certificate-pem",
+				Short:      `The PEM-encoded custom certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.SetDeviceCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.SetDeviceCertificate(request)
+
+		},
+	}
+}
+
+func iotDeviceGetCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Get a device's certificate`,
+		Long:      `Get a device's certificate.`,
+		Namespace: "iot",
+		Resource:  "device",
+		Verb:      "get-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.GetDeviceCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "device-id",
+				Short:      `Device ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.GetDeviceCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.GetDeviceCertificate(request)
+
+		},
+	}
+}
+
 func iotDeviceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Remove a device`,
@@ -908,6 +1057,414 @@ func iotDeviceGetMetrics() *core.Command {
 			api := iot.NewAPI(client)
 			return api.GetDeviceMetrics(request)
 
+		},
+	}
+}
+
+func iotRouteList() *core.Command {
+	return &core.Command{
+		Short:     `List routes`,
+		Long:      `List routes.`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.ListRoutesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Ordering of requested routes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"name_asc", "name_desc", "hub_id_asc", "hub_id_desc", "type_asc", "type_desc", "created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "hub-id",
+				Short:      `Filter on the hub`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Filter on route's name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.ListRoutesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			resp, err := api.ListRoutes(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Routes, nil
+
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Topic",
+			},
+			{
+				FieldName: "Type",
+			},
+			{
+				FieldName: "HubID",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+		}},
+	}
+}
+
+func iotRouteCreate() *core.Command {
+	return &core.Command{
+		Short: `Create a route`,
+		Long: `Multiple route kinds can be created:
+- Database Route.
+  Create a route that will record subscribed MQTT messages into your database.
+  <b>You need to manage the database by yourself</b>.
+- REST Route.
+  Create a route that will call a REST API on received subscribed MQTT messages.
+- S3 Routes.
+  Create a route that will put subscribed MQTT messages into an S3 bucket.
+  You need to create the bucket yourself and grant us write access.
+  The grant can be done with s3cmd (` + "`" + `s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031` + "`" + `).
+`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.CreateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Route name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("route"),
+			},
+			{
+				Name:       "hub-id",
+				Short:      `ID of the route's hub`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "topic",
+				Short:      `Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.object-prefix",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.strategy",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "per_topic", "per_message"},
+			},
+			{
+				Name:       "db-config.host",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.dbname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.username",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.password",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.query",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
+			},
+			{
+				Name:       "rest-config.verb",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "get", "post", "put", "patch", "delete"},
+			},
+			{
+				Name:       "rest-config.uri",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rest-config.headers.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.CreateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.CreateRoute(request)
+
+		},
+	}
+}
+
+func iotRouteUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a route`,
+		Long:      `Update a route.`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.UpdateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route id`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Route name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "topic",
+				Short:      `Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.bucket-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.object-prefix",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "s3-config.strategy",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "per_topic", "per_message"},
+			},
+			{
+				Name:       "db-config.host",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.dbname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.username",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.password",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.query",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
+			},
+			{
+				Name:       "rest-config.verb",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "get", "post", "put", "patch", "delete"},
+			},
+			{
+				Name:       "rest-config.uri",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rest-config.headers.value.{key}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.UpdateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.UpdateRoute(request)
+
+		},
+	}
+}
+
+func iotRouteGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a route`,
+		Long:      `Get a route.`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.GetRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.GetRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.GetRoute(request)
+
+		},
+	}
+}
+
+func iotRouteDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a route`,
+		Long:      `Delete a route.`,
+		Namespace: "iot",
+		Resource:  "route",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.DeleteRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.DeleteRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			e = api.DeleteRoute(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "route",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

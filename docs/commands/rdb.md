@@ -40,13 +40,20 @@ Database RDB API
 - [Node types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 - [User privileges management commands](#user-privileges-management-commands)
-  - [List privileges of a given user in a given database in a given instance](#list-privileges-of-a-given-user-in-a-given-database-in-a-given-instance)
-  - [Set privileges of a given user in a given database in a given instance](#set-privileges-of-a-given-user-in-a-given-database-in-a-given-instance)
+  - [List privileges of a given user for a given database on a given instance](#list-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
+  - [Set privileges of a given user for a given database on a given instance](#set-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
+- [Block snapshot management](#block-snapshot-management)
+  - [Create an instance snapshot](#create-an-instance-snapshot)
+  - [Delete an instance snapshot](#delete-an-instance-snapshot)
+  - [Get an instance snapshot](#get-an-instance-snapshot)
+  - [List instance snapshots](#list-instance-snapshots)
+  - [Create a new instance from a given snapshot](#create-a-new-instance-from-a-given-snapshot)
+  - [Update an instance snapshot](#update-an-instance-snapshot)
 - [User management commands](#user-management-commands)
-  - [Create an user in a given instance](#create-an-user-in-a-given-instance)
-  - [Delete an user in a given instance](#delete-an-user-in-a-given-instance)
+  - [Create a user on a given instance](#create-a-user-on-a-given-instance)
+  - [Delete a user on a given instance](#delete-a-user-on-a-given-instance)
   - [List users of a given instance](#list-users-of-a-given-instance)
-  - [Update an user in a given instance](#update-an-user-in-a-given-instance)
+  - [Update a user on a given instance](#update-a-user-on-a-given-instance)
 
   
 ## Access Control List (ACL) management commands
@@ -73,7 +80,7 @@ scw rdb acl add [arg=value ...]
 | instance-id | Required | UUID of the instance you want to add acl rules to |
 | rules.{index}.ip |  |  |
 | rules.{index}.description |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -94,7 +101,7 @@ scw rdb acl delete [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want to delete an ACL rules from |
 | acl-rule-ips.{index} |  | ACL rules IP present on the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -114,7 +121,7 @@ scw rdb acl list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -143,7 +150,7 @@ scw rdb backup create [arg=value ...]
 | database-name |  | Name of the database you want to make a backup of |
 | name | Default: `<generated>` | Name of the backup |
 | expires-at |  | Expiration date (Format ISO 8601) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -163,7 +170,7 @@ scw rdb backup delete <database-backup-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | database-backup-id | Required | UUID of the database backup to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -214,7 +221,7 @@ scw rdb backup export <database-backup-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | database-backup-id | Required | UUID of the database backup you want to export |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -234,7 +241,7 @@ scw rdb backup get <database-backup-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | database-backup-id | Required | UUID of the database backup |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -256,8 +263,9 @@ scw rdb backup list [arg=value ...]
 | name |  | Name of the database backups |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering database backups listing |
 | instance-id |  | UUID of the instance |
+| project-id |  | Project ID the database backups belongs to |
 | organization-id |  | Organization ID the database backups belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -279,7 +287,7 @@ scw rdb backup restore <database-backup-id ...> [arg=value ...]
 | database-name |  | Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup |
 | database-backup-id | Required | Backup of a logical database |
 | instance-id | Required | Defines the rdb instance where the backup has to be restored |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -301,7 +309,7 @@ scw rdb backup update <database-backup-id ...> [arg=value ...]
 | database-backup-id | Required | UUID of the database backup to update |
 | name |  | Name of the Database Backup |
 | expires-at |  | Expiration date (Format ISO 8601) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -358,7 +366,7 @@ scw rdb database create [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the instance where to create the database |
 | name |  | Name of the database |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -379,7 +387,7 @@ scw rdb database delete [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the instance where to delete the database |
 | name | Required | Name of the database to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -403,7 +411,7 @@ scw rdb database list [arg=value ...]
 | owner |  | User that owns this database |
 | order-by | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` | Criteria to use when ordering database listing |
 | instance-id | Required | UUID of the instance to list database of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -428,7 +436,7 @@ scw rdb engine list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -456,7 +464,7 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the instance you want to clone |
 | name |  | Name of the clone instance |
 | node-type |  | Node type of the clone |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -498,6 +506,7 @@ scw rdb instance create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Default: `<generated>` | Name of the instance |
 | engine | Required | Database engine of the database (PostgreSQL, MySQL, ...) |
 | user-name | Required | Name of the user created when the instance is created |
@@ -508,8 +517,10 @@ scw rdb instance create [arg=value ...]
 | tags.{index} |  | Tags to apply to the instance |
 | init-settings.{index}.name |  |  |
 | init-settings.{index}.value |  |  |
+| volume-type | One of: `lssd`, `bssd` | Type of volume where data are stored (lssd, bssd, ...) |
+| volume-size |  | Volume size when volume_type is not lssd |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -529,7 +540,7 @@ scw rdb instance delete <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -549,7 +560,7 @@ scw rdb instance get <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -569,7 +580,7 @@ scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -591,8 +602,9 @@ scw rdb instance list [arg=value ...]
 | tags.{index} |  | List instance that have a given tags |
 | name |  | List instance that match a given name pattern |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` | Criteria to use when ordering instance listing |
-| organization-id |  | Organization ID to list the instance of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| project-id |  | Project ID to list the instance of |
+| organization-id |  | Please use `project_id` instead |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -617,7 +629,7 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 | name |  | Name of the instance |
 | instance-id | Required | UUID of the instance to update |
 | tags.{index} |  | Tags of a given instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -639,7 +651,9 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the instance you want to upgrade |
 | node-type | One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` | Node type of the instance you want to upgrade to |
 | enable-ha |  | Set to true to enable high availability on your instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| volume-size |  | Increase your block storage volume size |
+| volume-type | One of: `lssd`, `bssd` | Change your instance storage type |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -694,7 +708,7 @@ scw rdb log get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-log-id | Required | UUID of the instance_log you want |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -715,7 +729,7 @@ scw rdb log list [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want logs of |
 | order-by | One of: `created_at_asc`, `created_at_desc` | Criteria to use when ordering instance logs listing |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -737,7 +751,7 @@ scw rdb log prepare [arg=value ...]
 | instance-id | Required | UUID of the instance you want logs of |
 | start-date |  | Start datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` |
 | end-date |  | End datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -763,7 +777,7 @@ scw rdb node-type list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | include-disabled-types |  | Whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -773,9 +787,9 @@ Define some privileges to a user on a specific database.
 
 
 
-### List privileges of a given user in a given database in a given instance
+### List privileges of a given user for a given database on a given instance
 
-List privileges of a given user in a given database in a given instance.
+List privileges of a given user for a given database on a given instance.
 
 **Usage:**
 
@@ -792,13 +806,13 @@ scw rdb privilege list [arg=value ...]
 | database-name |  | Name of the database |
 | instance-id | Required | UUID of the instance |
 | user-name |  | Name of the user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Set privileges of a given user in a given database in a given instance
+### Set privileges of a given user for a given database on a given instance
 
-Set privileges of a given user in a given database in a given instance.
+Set privileges of a given user for a given database on a given instance.
 
 **Usage:**
 
@@ -815,7 +829,144 @@ scw rdb privilege set [arg=value ...]
 | database-name |  | Name of the database |
 | user-name |  | Name of the user |
 | permission | One of: `readonly`, `readwrite`, `all`, `custom`, `none` | Permission to set (Read, Read/Write, All, Custom) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Block snapshot management
+
+Create, restore and manage block snapshot
+
+
+
+### Create an instance snapshot
+
+Create an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance |
+| name | Required<br />Default: `<generated>` | Name of the snapshot |
+| expires-at |  | Expiration date (Format ISO 8601) |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete an instance snapshot
+
+Delete an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot delete <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get an instance snapshot
+
+Get an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot get <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List instance snapshots
+
+List instance snapshots.
+
+**Usage:**
+
+```
+scw rdb snapshot list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  | Name of the snapshot |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listing |
+| instance-id |  | UUID of the instance |
+| project-id |  | Project ID the snapshots belongs to |
+| organization-id |  | Organization ID the snapshots belongs to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create a new instance from a given snapshot
+
+Create a new instance from a given snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot restore <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | Block snapshot of the instance |
+| instance-name |  | Name of the instance created with the snapshot |
+| is-ha-cluster |  | Whether or not High-Availability is enabled on the new instance |
+| node-type |  | The node type used to restore the snapshot |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update an instance snapshot
+
+Update an instance snapshot.
+
+**Usage:**
+
+```
+scw rdb snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot to update |
+| name |  | Name of the snapshot |
+| expires-at |  | Expiration date (Format ISO 8601) |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -825,9 +976,9 @@ Manage users on your instance
 
 
 
-### Create an user in a given instance
+### Create a user on a given instance
 
-Create an user in a given instance.
+Create a user on a given instance.
 
 **Usage:**
 
@@ -844,13 +995,13 @@ scw rdb user create [arg=value ...]
 | name |  | Name of the user you want to create |
 | password |  | Password of the user you want to create |
 | is-admin |  | Whether the user you want to create will have administrative privileges |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Delete an user in a given instance
+### Delete a user on a given instance
 
-Delete an user in a given instance.
+Delete a user on a given instance.
 
 **Usage:**
 
@@ -865,7 +1016,7 @@ scw rdb user delete [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the instance to delete a user from |
 | name | Required | Name of the user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -887,13 +1038,13 @@ scw rdb user list [arg=value ...]
 | name |  | Name of the user |
 | order-by | One of: `name_asc`, `name_desc`, `is_admin_asc`, `is_admin_desc` | Criteria to use when ordering users listing |
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Update an user in a given instance
+### Update a user on a given instance
 
-Update an user in a given instance.
+Update a user on a given instance.
 
 **Usage:**
 
@@ -910,7 +1061,7 @@ scw rdb user update [arg=value ...]
 | name | Required | Name of the database user |
 | password |  | Password of the database user |
 | is-admin |  | Whether or not this user got administrative privileges |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

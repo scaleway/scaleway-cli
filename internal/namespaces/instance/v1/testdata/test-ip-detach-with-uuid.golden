@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+IP.ID            edb87e2b-3637-4cb3-bca6-afaab47f6a30
+IP.Address       51.15.129.58
+IP.Organization  951df375-e094-4d26-97c1-ba548eeb9c42
+IP.Project       951df375-e094-4d26-97c1-ba548eeb9c42
+IP.Zone          fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "ip": {
+    "id": "edb87e2b-3637-4cb3-bca6-afaab47f6a30",
+    "address": "51.15.129.58",
+    "reverse": null,
+    "server": null,
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "tags": [],
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "zone": "fr-par-1"
+  }
+}

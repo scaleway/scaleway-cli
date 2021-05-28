@@ -14,12 +14,11 @@ EXAMPLES:
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used
-  name                                                   The name of the cluster
+  name=<generated>                                       The name of the cluster
   [description]                                          The description of the cluster
   [tags.{index}]                                         The tags associated with the cluster
-  version                                                The Kubernetes version of the cluster
-  cni                                                    The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel)
-  [enable-dashboard]                                     The enablement of the Kubernetes Dashboard in the cluster
+  version=latest                                         The Kubernetes version of the cluster
+  cni=cilium                                             The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
   [ingress]                                              The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
   pools.{index}.name                                     The name of the pool
   pools.{index}.node-type                                The node type is the type of Scaleway Instance wanted for the pool
@@ -60,6 +59,9 @@ ARGS:
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [enable-dashboard]   The enablement of the Kubernetes Dashboard in the cluster
 
 FLAGS:
   -h, --help   help for create

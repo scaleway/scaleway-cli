@@ -1,6 +1,6 @@
 module github.com/scaleway/scaleway-cli
 
-go 1.12
+go 1.16
 
 require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
@@ -22,7 +22,7 @@ require (
 	github.com/mattn/go-colorable v0.1.7
 	github.com/mattn/go-isatty v0.0.12
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210209145236-309e765b4628
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210510090404-0b46577f308f
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5
