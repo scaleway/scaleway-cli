@@ -430,6 +430,14 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "order",
+				Short:      `Define the order of the returned servers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"creation_date_desc", "creation_date_asc", "modification_date_desc", "modification_date_asc"},
+			},
+			{
 				Name:       "organization",
 				Short:      `List only servers of this organization ID`,
 				Required:   false,
