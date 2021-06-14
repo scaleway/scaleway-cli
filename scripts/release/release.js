@@ -254,6 +254,7 @@ async function main() {
     console.log("Build and push a container image".blue);
     docker("build", "-t", `scaleway/cli:v${newVersion}`, ".");
     docker("push", `scaleway/cli:v${newVersion}`);
+    docker("push", "scaleway/cli:latest")
 
     //
     // Creating post release commit

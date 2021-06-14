@@ -40,6 +40,8 @@ func GetGeneratedCommands() *core.Commands {
 		iotDeviceEnable(),
 		iotDeviceDisable(),
 		iotDeviceRenewCertificate(),
+		iotDeviceSetCertificate(),
+		iotDeviceGetCertificate(),
 		iotDeviceDelete(),
 		iotDeviceGetMetrics(),
 		iotRouteList(),
@@ -918,6 +920,73 @@ func iotDeviceRenewCertificate() *core.Command {
 	}
 }
 
+func iotDeviceSetCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Set a custom certificate on a device`,
+		Long:      `Set a custom certificate on a device.`,
+		Namespace: "iot",
+		Resource:  "device",
+		Verb:      "set-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.SetDeviceCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "device-id",
+				Short:      `Device ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "certificate-pem",
+				Short:      `The PEM-encoded custom certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.SetDeviceCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.SetDeviceCertificate(request)
+
+		},
+	}
+}
+
+func iotDeviceGetCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Get a device's certificate`,
+		Long:      `Get a device's certificate.`,
+		Namespace: "iot",
+		Resource:  "device",
+		Verb:      "get-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iot.GetDeviceCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "device-id",
+				Short:      `Device ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iot.GetDeviceCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iot.NewAPI(client)
+			return api.GetDeviceCertificate(request)
+
+		},
+	}
+}
+
 func iotDeviceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Remove a device`,
@@ -1165,6 +1234,13 @@ func iotRouteCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
+			},
+			{
 				Name:       "rest-config.verb",
 				Required:   false,
 				Deprecated: false,
@@ -1287,6 +1363,13 @@ func iotRouteUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "db-config.engine",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "postgresql", "mysql"},
 			},
 			{
 				Name:       "rest-config.verb",

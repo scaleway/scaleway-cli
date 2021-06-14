@@ -266,7 +266,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel"},
+				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"},
 			},
 			{
 				Name:       "enable-dashboard",
