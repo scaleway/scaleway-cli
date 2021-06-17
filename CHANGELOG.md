@@ -1,5 +1,40 @@
 # Changelog
 
+## v2.3.1 (2021-06-08)
+
+### Features
+
+* **dns**: add dns commands ([#1879](https://github.com/scaleway/scaleway-cli/pull/1879))
+* **instance**: add a generated name for create volume ([#1917](https://github.com/scaleway/scaleway-cli/pull/1917))
+* **instance**: add attach/detach ip commands ([#1911](https://github.com/scaleway/scaleway-cli/pull/1911))
+* **instance**: add support for instances with no local volumes reqs ([#1840](https://github.com/scaleway/scaleway-cli/pull/1840))
+* **instance**: import file for cloud-init ([#1525](https://github.com/scaleway/scaleway-cli/pull/1525))
+* **iot**: Add name generator for iot route create ([#1895](https://github.com/scaleway/scaleway-cli/pull/1895))
+* **iot**: add route update method ([#1873](https://github.com/scaleway/scaleway-cli/pull/1873))
+* **iot**: add support for get-ca command ([#1863](https://github.com/scaleway/scaleway-cli/pull/1863))
+* **k8s**: add kilo CNI ([#1916](https://github.com/scaleway/scaleway-cli/pull/1916))
+* **k8s**: deprecate dashboard field ([#1857](https://github.com/scaleway/scaleway-cli/pull/1857))
+* **lb**: switch CLI to ZonedApi ([#1893](https://github.com/scaleway/scaleway-cli/pull/1893))
+* **rdb**: add support for snapshots and block volume storage ([#1875](https://github.com/scaleway/scaleway-cli/pull/1875))
+* add banner about scw feedback bug when a panic occurs ([#1813](https://github.com/scaleway/scaleway-cli/pull/1813))
+
+### Fixes
+
+* **instance**: use right zone for all calls in server-type ([#1883](https://github.com/scaleway/scaleway-cli/pull/1883))
+* ensure we upgrade the latest tag of the CLI in dockerhub ([#1912](https://github.com/scaleway/scaleway-cli/pull/1912))
+
+### Others
+
+* **chore - deps**: bump hosted-git-info in /scripts/release ([#1906](https://github.com/scaleway/scaleway-cli/pull/1906))
+* **chore**: add a test to ensure documentation is generated ([#1838](https://github.com/scaleway/scaleway-cli/pull/1838))
+* **chore**: bump sdk ([#1864](https://github.com/scaleway/scaleway-cli/pull/1864))
+* **chore**: cleanup after v2.3.0 release ([#1812](https://github.com/scaleway/scaleway-cli/pull/1812))
+* **chore**: make test fail if docs is not up to date ([#1913](https://github.com/scaleway/scaleway-cli/pull/1913))
+* **dns**: add support for enum marshall status for certificate ([#1881](https://github.com/scaleway/scaleway-cli/pull/1881))
+* **doc**: fix and update Docker documentation ([#1887](https://github.com/scaleway/scaleway-cli/pull/1887))
+
+
+
 ## v2.3.0 (2021-03-10)
 
 ### Features
