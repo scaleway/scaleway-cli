@@ -1498,6 +1498,7 @@ scw instance server list [arg=value ...]
 | state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List servers in this state |
 | tags.{index} |  | List servers with these exact tags |
 | private-network |  | List servers in this Private Network |
+| order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
 | organization-id |  | List only servers of this organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
