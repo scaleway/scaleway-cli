@@ -48,6 +48,16 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 					}
 					v.SetString(string(content))
 				}
+			case string:
+				if strings.HasPrefix(i, "@") {
+					content, err := ioutil.ReadFile(i[1:])
+					if err != nil {
+						return fmt.Errorf("could not open requested file: %s", err)
+					}
+					v.SetString(string(content))
+				}
+			default:
+				panic(fmt.Errorf("unsupported field type: %T", v.Interface()))
 			}
 		}
 	}
