@@ -35,6 +35,10 @@ func (b *cobraBuilder) build() *cobra.Command {
 		// Do not display usage on error.
 		SilenceUsage: true,
 	}
+
+	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
+
 	rootCmd.SetOut(b.meta.stderr)
 
 	for _, cmd := range b.commands {
