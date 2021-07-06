@@ -1,17 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This command will clear all the data for this record, replacing it with the given data.
+This command will replace all the data for this record with the given values.
 
 USAGE:
   scw dns record set <dns-zone ...> [arg=value ...]
 
+EXAMPLES:
+  Add or replace a CNAME
+    scw dns record set my-domain.tld values.0=www name=www2 type=CNAME
+
+  Add or replace a list of IP
+    scw dns record set my-domain.tld values.0=1.2.3.4 values.1=1.2.3.5 name=vpn type=A
+
 ARGS:
   dns-zone                                             DNS zone in which to set the record
-  data.{index}                                         
-  [name]                                               
+  values.{index}                                       A list of values for replacing the record data. (multiple values cannot be used for all type)
+  name                                                 
   [priority]                                           
   ttl=300                                              
-  type                                                  (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS)
+  type                                                  (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
   [comment]                                            
   [geo-ip-config.matches.{index}.countries.{index}]    
   [geo-ip-config.matches.{index}.continents.{index}]   

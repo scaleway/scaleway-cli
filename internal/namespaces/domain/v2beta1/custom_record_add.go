@@ -58,7 +58,7 @@ func dnsRecordAddCommand() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS"},
+				EnumValues: domainTypes,
 			},
 			{
 				Name:       "comment",
@@ -147,6 +147,16 @@ func dnsRecordAddCommand() *core.Command {
 			},
 		},
 		Run: dnsRecordAddRun,
+		Examples: []*core.Example{
+			{
+				Short:    "Add a CNAME",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "www2", "type": "CNAME", "data": "www"}`,
+			},
+			{
+				Short:    "Add an IP",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "vpn", "type": "A", "data": "1.2.3.4"}`,
+			},
+		},
 	}
 }
 

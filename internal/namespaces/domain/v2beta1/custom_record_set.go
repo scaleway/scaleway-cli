@@ -11,14 +11,14 @@ import (
 
 type dnsRecordSetRequest struct {
 	DNSZone string
-	Data    []string
+	Values  []string
 	*domain.Record
 }
 
 func dnsRecordSetCommand() *core.Command {
 	return &core.Command{
-		Short:     `Clear and set a DNS record`,
-		Long:      `This command will clear all the data for this record, replacing it with the given data.`,
+		Short:     `Update a DNS record`,
+		Long:      `This command will replace all the data for this record with the given values.`,
 		Namespace: "dns",
 		Verb:      "set",
 		Resource:  "record",
@@ -31,14 +31,15 @@ func dnsRecordSetCommand() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "data.{index}",
+				Name:       "values.{index}",
+				Short:      "A list of values for replacing the record data. (multiple values cannot be used for all type)",
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -60,7 +61,7 @@ func dnsRecordSetCommand() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS"},
+				EnumValues: domainTypes,
 			},
 			{
 				Name:       "comment",
@@ -149,6 +150,16 @@ func dnsRecordSetCommand() *core.Command {
 			},
 		},
 		Run: dnsRecordSetRun,
+		Examples: []*core.Example{
+			{
+				Short:    "Add or replace a CNAME",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "www2", "type": "CNAME", "values": ["www"]}`,
+			},
+			{
+				Short:    "Add or replace a list of IP",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "vpn", "type": "A", "values": ["1.2.3.4", "1.2.3.5"]}`,
+			},
+		},
 	}
 }
 
@@ -169,7 +180,11 @@ func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 		},
 	}
 
-	for _, data := range request.Data {
+	if len(request.Values) == 0 {
+		return nil, fmt.Errorf("at least one values (eg: values.0) is required")
+	}
+
+	for _, data := range request.Values {
 		record := *request.Record
 		record.Data = data
 		dnsRecordSetReq.Changes[0].Set.Records = append(dnsRecordSetReq.Changes[0].Set.Records, &record)

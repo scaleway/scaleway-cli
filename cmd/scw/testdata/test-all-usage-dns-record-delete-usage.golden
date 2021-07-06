@@ -5,12 +5,19 @@ Delete a DNS record
 USAGE:
   scw dns record delete <dns-zone ...> [arg=value ...]
 
+EXAMPLES:
+  Delete a CNAME
+    scw dns record delete my-domain.tld name=www type=CNAME
+
+  Delete a single IP from a record with more than one
+    scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
+
 ARGS:
   dns-zone   DNS zone in which to delete the record
   [data]     
   [name]     
   [ttl]      
-  type        (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS)
+  type        (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
 
 FLAGS:
   -h, --help   help for delete
