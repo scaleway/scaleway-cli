@@ -165,8 +165,9 @@ scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                        |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                      |
 | `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                          |
-| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/) |
 | `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                          |
+| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/) |
+| `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://developers.scaleway.com/en/products/domain/dns/api/)      |
 | `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)   |
 | `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)             |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                   |

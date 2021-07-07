@@ -54,10 +54,20 @@ func dnsRecordDeleteCommand() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS"},
+				EnumValues: domainTypes,
 			},
 		},
 		Run: dnsRecordDeleteRun,
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a CNAME",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "www", "type": "CNAME"}`,
+			},
+			{
+				Short:    "Delete a single IP from a record with more than one",
+				ArgsJSON: `{"dns_zone": "my-domain.tld", "name": "vpn", "type": "A", "data": "1.2.3.4"}`,
+			},
+		},
 	}
 }
 
