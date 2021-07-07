@@ -73,8 +73,9 @@ scw lb acl create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of your ACL ressource |
 | action.type | One of: `allow`, `deny` | The action type |
 | match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
-| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex` | The HTTP filter to match |
+| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
 | match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
+| match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -162,8 +163,9 @@ scw lb acl update <acl-id ...> [arg=value ...]
 | name | Required | Name of your ACL ressource |
 | action.type | One of: `allow`, `deny` | The action type |
 | match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
-| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex` | The HTTP filter to match |
+| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
 | match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
+| match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
