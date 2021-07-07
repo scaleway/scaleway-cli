@@ -19,7 +19,7 @@ require (
 	github.com/karrick/tparse v2.4.2+incompatible
 	github.com/mattn/go-colorable v0.1.8
 	github.com/mattn/go-isatty v0.0.13
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210510090404-0b46577f308f
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210707121459-c4899e298c98
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
