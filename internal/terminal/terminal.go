@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/fatih/color"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 func Style(msg string, styles ...color.Attribute) string {
@@ -12,7 +12,7 @@ func Style(msg string, styles ...color.Attribute) string {
 }
 
 func GetWidth() int {
-	w, _, err := terminal.GetSize(int(os.Stderr.Fd()))
+	w, _, err := term.GetSize(int(os.Stderr.Fd()))
 	if err != nil {
 		return -1
 	}
@@ -20,7 +20,7 @@ func GetWidth() int {
 }
 
 func GetHeight() int {
-	_, h, err := terminal.GetSize(int(os.Stderr.Fd()))
+	_, h, err := term.GetSize(int(os.Stderr.Fd()))
 	if err != nil {
 		return -1
 	}

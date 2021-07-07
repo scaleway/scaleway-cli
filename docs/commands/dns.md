@@ -14,7 +14,7 @@ Manage your DNS zones and records.
   - [Delete a DNS record](#delete-a-dns-record)
   - [List DNS zone records](#list-dns-zone-records)
   - [List DNS zone nameservers](#list-dns-zone-nameservers)
-  - [Clear and set a DNS record](#clear-and-set-a-dns-record)
+  - [Update a DNS record](#update-a-dns-record)
   - [Update DNS zone nameservers](#update-dns-zone-nameservers)
 - [Transaction SIGnature key management](#transaction-signature-key-management)
   - [Delete the DNS zone TSIG Key](#delete-the-dns-zone-tsig-key)
@@ -143,7 +143,7 @@ scw dns record add <dns-zone ...> [arg=value ...]
 | name |  |  |
 | priority |  |  |
 | ttl | Required<br />Default: `300` |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS` |  |
+| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
 | comment |  |  |
 | geo-ip-config.matches.{index}.countries.{index} |  |  |
 | geo-ip-config.matches.{index}.continents.{index} |  |  |
@@ -158,6 +158,21 @@ scw dns record add <dns-zone ...> [arg=value ...]
 | weighted-config.weighted-ips.{index}.weight |  |  |
 | view-config.views.{index}.subnet |  |  |
 | view-config.views.{index}.data |  |  |
+
+
+**Examples:**
+
+
+Add a CNAME
+```
+scw dns record add my-domain.tld data=www name=www2 type=CNAME
+```
+
+Add an IP
+```
+scw dns record add my-domain.tld data=1.2.3.4 name=vpn type=A
+```
+
 
 
 
@@ -289,7 +304,22 @@ scw dns record delete <dns-zone ...> [arg=value ...]
 | data |  |  |
 | name |  |  |
 | ttl |  |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS` |  |
+| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
+
+
+**Examples:**
+
+
+Delete a CNAME
+```
+scw dns record delete my-domain.tld name=www type=CNAME
+```
+
+Delete a single IP from a record with more than one
+```
+scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
+```
+
 
 
 
@@ -338,9 +368,9 @@ scw dns record list-nameservers <dns-zone ...> [arg=value ...]
 
 
 
-### Clear and set a DNS record
+### Update a DNS record
 
-This command will clear all the data for this record, replacing it with the given data.
+This command will replace all the data for this record with the given values.
 
 **Usage:**
 
@@ -354,11 +384,11 @@ scw dns record set <dns-zone ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dns-zone | Required | DNS zone in which to set the record |
-| data.{index} | Required |  |
-| name |  |  |
+| values.{index} | Required | A list of values for replacing the record data. (multiple values cannot be used for all type) |
+| name | Required |  |
 | priority |  |  |
 | ttl | Required<br />Default: `300` |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS` |  |
+| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
 | comment |  |  |
 | geo-ip-config.matches.{index}.countries.{index} |  |  |
 | geo-ip-config.matches.{index}.continents.{index} |  |  |
@@ -373,6 +403,21 @@ scw dns record set <dns-zone ...> [arg=value ...]
 | weighted-config.weighted-ips.{index}.weight |  |  |
 | view-config.views.{index}.subnet |  |  |
 | view-config.views.{index}.data |  |  |
+
+
+**Examples:**
+
+
+Add or replace a CNAME
+```
+scw dns record set my-domain.tld values.0=www name=www2 type=CNAME
+```
+
+Add or replace a list of IP
+```
+scw dns record set my-domain.tld values.0=1.2.3.4 values.1=1.2.3.5 name=vpn type=A
+```
+
 
 
 

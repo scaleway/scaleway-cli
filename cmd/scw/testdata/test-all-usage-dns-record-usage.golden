@@ -12,7 +12,7 @@ AVAILABLE COMMANDS:
   delete             Delete a DNS record
   list               List DNS zone records
   list-nameservers   List DNS zone nameservers
-  set                Clear and set a DNS record
+  set                Update a DNS record
   update-nameservers Update DNS zone nameservers
 
 FLAGS:
