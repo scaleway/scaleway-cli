@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v2beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -21,8 +21,9 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		baremetalRoot(),
 		baremetalServer(),
-		baremetalOs(),
+		baremetalImage(),
 		baremetalBmc(),
+		baremetalPartitioning(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
@@ -35,8 +36,9 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
-		baremetalOsList(),
-		baremetalOsGet(),
+		baremetalPartitioningGet(),
+		baremetalImageList(),
+		baremetalImageGet(),
 	)
 }
 func baremetalRoot() *core.Command {
@@ -56,12 +58,12 @@ func baremetalServer() *core.Command {
 	}
 }
 
-func baremetalOs() *core.Command {
+func baremetalImage() *core.Command {
 	return &core.Command{
-		Short:     `Operating System (OS) management commands`,
-		Long:      `An Operating System (OS) is the underlying software installed on your server`,
+		Short:     `Image management commands`,
+		Long:      `A disk image is a computer file containing the complete contents and structure of a storage medium. When it is transferred onto a boot device it allows the associated hardware to boot. The image usually includes the operating system`,
 		Namespace: "baremetal",
-		Resource:  "os",
+		Resource:  "image",
 	}
 }
 
@@ -73,6 +75,15 @@ For instance, your KVM-IP management console could be accessed with it.
 `,
 		Namespace: "baremetal",
 		Resource:  "bmc",
+	}
+}
+
+func baremetalPartitioning() *core.Command {
+	return &core.Command{
+		Short:     `Partitioning management commands`,
+		Long:      `Partitioning is use to create specifics zones on the disk. In this zones the data will be save with a specific configuration of RAID, filesystem, …`,
+		Namespace: "baremetal",
+		Resource:  "partitioning",
 	}
 }
 
@@ -129,7 +140,7 @@ func baremetalServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListServersRequest)
@@ -169,7 +180,7 @@ func baremetalServerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetServerRequest)
@@ -191,7 +202,7 @@ func baremetalServerGet() *core.Command {
 func baremetalServerCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a baremetal server`,
-		Long:      `Create a new baremetal server. Once the server is created, you probably want to install an OS.`,
+		Long:      `Create a new baremetal server. Once the server is created, you probably want to install an image.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "create",
@@ -228,7 +239,13 @@ func baremetalServerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "install.os-id",
+				Name:       "install.image-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "install.partitioning-schema-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -245,8 +262,7 @@ func baremetalServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.CreateServerRequest)
@@ -303,7 +319,7 @@ func baremetalServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.UpdateServerRequest)
@@ -319,7 +335,7 @@ func baremetalServerUpdate() *core.Command {
 func baremetalServerInstall() *core.Command {
 	return &core.Command{
 		Short:     `Install a baremetal server`,
-		Long:      `Install an OS on the server associated with the given ID.`,
+		Long:      `Install an image on the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "install",
@@ -334,8 +350,8 @@ func baremetalServerInstall() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "os-id",
-				Short:      `ID of the OS to install on the server`,
+				Name:       "image-id",
+				Short:      `ID of the image to install on the server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -354,7 +370,14 @@ func baremetalServerInstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			{
+				Name:       "partitioning-schema-id",
+				Short:      `The ID of the partitioning schema`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.InstallServerRequest)
@@ -366,8 +389,8 @@ func baremetalServerInstall() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Install an OS on a given server with a particular SSH key ID",
-				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
+				Short:    "Install an image on a given server with a particular SSH key ID",
+				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -376,8 +399,8 @@ func baremetalServerInstall() *core.Command {
 				Short:   "List all SSH keys",
 			},
 			{
-				Command: "scw baremetal os list",
-				Short:   "List OS (useful to get all OS IDs)",
+				Command: "scw baremetal images list",
+				Short:   "List images (useful to get all images IDs)",
 			},
 			{
 				Command: "scw baremetal server create",
@@ -404,7 +427,7 @@ func baremetalServerDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.DeleteServerRequest)
@@ -448,7 +471,7 @@ func baremetalServerReboot() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.RebootServerRequest)
@@ -460,7 +483,7 @@ func baremetalServerReboot() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Reboot a server using the same os",
+				Short:    "Reboot a server using the same image",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
@@ -496,7 +519,7 @@ func baremetalServerStart() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartServerRequest)
@@ -536,7 +559,7 @@ func baremetalServerStop() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopServerRequest)
@@ -581,7 +604,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartBMCAccessRequest)
@@ -611,7 +634,7 @@ func baremetalBmcGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetBMCAccessRequest)
@@ -641,7 +664,7 @@ func baremetalBmcStop() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopBMCAccessRequest)
@@ -660,70 +683,127 @@ func baremetalBmcStop() *core.Command {
 	}
 }
 
-func baremetalOsList() *core.Command {
+func baremetalPartitioningGet() *core.Command {
 	return &core.Command{
-		Short:     `List all available OS that can be install on a baremetal server`,
-		Long:      `List all available OS that can be install on a baremetal server.`,
+		Short:     `Get partitioning with a given offerID and imageID`,
+		Long:      `Return default partitioning for the given offerID and imageID.`,
 		Namespace: "baremetal",
-		Resource:  "os",
+		Resource:  "partitioning",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.GetPartitioningSchemaRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "partitioning-schema-id",
+				Short:      `ID of the partitioning, use 'default' in id to have the default template`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetPartitioningSchemaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetPartitioningSchema(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a partitioning",
+				ArgsJSON: `{}`,
+			},
+		},
+	}
+}
+
+func baremetalImageList() *core.Command {
+	return &core.Command{
+		Short:     `List all available images that can be install on a baremetal server`,
+		Long:      `List all available images that can be install on a baremetal server.`,
+		Namespace: "baremetal",
+		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOSRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
-				Short:      `Filter OS by offer ID`,
+				Short:      `Filter images by offer ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			{
+				Name:       "name",
+				Short:      `Filter images by name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "version-name",
+				Short:      `Filter images by version name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "version-number",
+				Short:      `Filter images by version number`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.ListOSRequest)
+			request := args.(*baremetal.ListImagesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListOS(request, scw.WithAllPages())
+			resp, err := api.ListImages(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
-			return resp.Os, nil
+			return resp.Images, nil
 
 		},
 	}
 }
 
-func baremetalOsGet() *core.Command {
+func baremetalImageGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an OS with a given ID`,
-		Long:      `Return specific OS for the given ID.`,
+		Short:     `Get an image with a given ID`,
+		Long:      `Return specific image for the given ID.`,
 		Namespace: "baremetal",
-		Resource:  "os",
+		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOSRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "os-id",
-				Short:      `ID of the OS`,
+				Name:       "image-id",
+				Short:      `ID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.GetOSRequest)
+			request := args.(*baremetal.GetImageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			return api.GetOS(request)
+			return api.GetImage(request)
 
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a specific OS ID",
+				Short:    "Get a specific image ID",
 				ArgsJSON: `{}`,
 			},
 		},
