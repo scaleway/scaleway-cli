@@ -8,9 +8,9 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/ghodss/yaml"
+	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"gopkg.in/yaml.v2"
 )
 
 // get the path to the wanted kubeconfig on disk
@@ -36,14 +36,14 @@ func getKubeconfigPath(ctx context.Context) (string, error) {
 	return kubeconfigPath, nil
 }
 
-func openAndUnmarshalKubeconfig(kubeconfigPath string) (*k8s.Kubeconfig, error) {
+func openAndUnmarshalKubeconfig(kubeconfigPath string) (*api.Config, error) {
 	// getting the existing file
 	file, err := ioutil.ReadFile(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
 
-	var kubeconfig k8s.Kubeconfig
+	var kubeconfig api.Config
 
 	err = yaml.Unmarshal(file, &kubeconfig)
 	if err != nil {
@@ -53,7 +53,7 @@ func openAndUnmarshalKubeconfig(kubeconfigPath string) (*k8s.Kubeconfig, error) 
 	return &kubeconfig, nil
 }
 
-func marshalAndWriteKubeconfig(kubeconfig *k8s.Kubeconfig, kubeconfigPath string) error {
+func marshalAndWriteKubeconfig(kubeconfig *api.Config, kubeconfigPath string) error {
 	newKubeconfig, err := yaml.Marshal(*kubeconfig)
 	if err != nil {
 		return err

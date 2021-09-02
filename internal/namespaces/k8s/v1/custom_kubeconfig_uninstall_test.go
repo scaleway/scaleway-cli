@@ -7,14 +7,15 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/ghodss/yaml"
+	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"gopkg.in/yaml.v2"
 )
 
 // testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
 // it test if the user, cluster and context of the kubeconfig file are not in the given file
-func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig *k8s.Kubeconfig) {
+func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
 	kubeconfigBytes, err := ioutil.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig k8s.Kubeconfig
@@ -41,7 +42,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 
 	found = false
 	for _, user := range existingKubeconfig.Users {
-		if user.Name == kubeconfig.Users[0].Name+suffix {
+		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
 			found = true
 			break
 		}
@@ -60,7 +61,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -93,7 +94,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig))
+				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8s.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "", testKubeconfig)
 			},
 			core.TestCheckExitCode(0),

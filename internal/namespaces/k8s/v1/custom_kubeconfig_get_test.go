@@ -4,8 +4,9 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/ghodss/yaml"
+	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
 func Test_GetKubeconfig(t *testing.T) {
@@ -19,7 +20,9 @@ func Test_GetKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, ctx.Result.(string), string(ctx.Meta["Kubeconfig"].(*k8s.Kubeconfig).GetRaw()))
+				config, err := yaml.Marshal(ctx.Meta["Kubeconfig"].(api.Config))
+				assert.Equal(t, err, nil)
+				assert.Equal(t, ctx.Result.(string), string(config))
 			},
 			core.TestCheckExitCode(0),
 		),

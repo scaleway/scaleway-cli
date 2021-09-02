@@ -14,9 +14,11 @@ require (
 	github.com/etdub/goparsetime v0.0.0-20160315173935-ea17b0ac3318 // indirect
 	github.com/fatih/color v1.12.0
 	github.com/getsentry/raven-go v0.2.0
+	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/hashicorp/go-version v1.3.0
 	github.com/karrick/tparse v2.4.2+incompatible
+	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.8
 	github.com/mattn/go-isatty v0.0.13
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210707121459-c4899e298c98
