@@ -156,16 +156,14 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	for _, user := range existingKubeconfig.AuthInfos {
 		if user.Name == kubeconfig.AuthInfos[0].Name+"-"+request.ClusterID {
 			userFoundInExistingKubeconfig = true
-			user.AuthInfo.Username = kubeconfig.AuthInfos[0].AuthInfo.Username
+			user.AuthInfo = kubeconfig.AuthInfos[0].AuthInfo
 			break
 		}
 	}
 	if !userFoundInExistingKubeconfig {
 		existingKubeconfig.AuthInfos = append(existingKubeconfig.AuthInfos, api.NamedAuthInfo{
-			Name: kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
-			AuthInfo: api.AuthInfo{
-				Username: kubeconfig.AuthInfos[0].AuthInfo.Username,
-			},
+			Name:     kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
+			AuthInfo: kubeconfig.AuthInfos[0].AuthInfo,
 		})
 	}
 
