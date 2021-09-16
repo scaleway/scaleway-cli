@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                1200de5c-2451-4a14-b40e-ccd883935022
+ID                af9af50a-de91-4d4c-aab3-de61db807d8a
+Type              kapsule
 Name              cli-test
 Status            ready
 Version           1.17.3
@@ -9,8 +10,8 @@ OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
 ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 Cni               cilium
 Description       -
-ClusterURL        https://1200de5c-2451-4a14-b40e-ccd883935022.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.1200de5c-2451-4a14-b40e-ccd883935022.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -42,7 +43,8 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1200de5c-2451-4a14-b40e-ccd883935022",
+  "id": "af9af50a-de91-4d4c-aab3-de61db807d8a",
+  "type": "kapsule",
   "name": "cli-test",
   "status": "ready",
   "version": "1.17.3",
@@ -52,8 +54,8 @@ GroupsPrefix    -
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://1200de5c-2451-4a14-b40e-ccd883935022.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.1200de5c-2451-4a14-b40e-ccd883935022.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
