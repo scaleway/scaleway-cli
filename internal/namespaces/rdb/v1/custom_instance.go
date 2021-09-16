@@ -297,7 +297,7 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		return []string{
 			clidb,
 			"--host", instance.Endpoints[0].IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoint.Port),
+			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
 			"--database", database,
 			"--user", args.Username,
 		}, nil
