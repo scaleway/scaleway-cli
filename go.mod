@@ -21,7 +21,7 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.8
 	github.com/mattn/go-isatty v0.0.13
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210707121459-c4899e298c98
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210915130531-0285df8effc0
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5

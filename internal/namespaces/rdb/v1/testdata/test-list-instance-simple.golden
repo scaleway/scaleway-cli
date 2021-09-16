@@ -1,7 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME      NODE TYPE  STATUS  ENGINE         REGION  TAGS  IS HA CLUSTER  BACKUP SCHEDULE  CREATED AT
-173121d7-13cc-47ab-9b19-98856cf8a30e  cli-test  db-dev-s   ready   PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+ID                                    NAME      NODE TYPE  STATUS        ENGINE         REGION  TAGS  IS HA CLUSTER  BACKUP SCHEDULE  CREATED AT
+d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         PostgreSQL-12  fr-par  []    true           Enabled          few seconds ago
+26c98d5f-08ad-4eb1-892a-2aaf4c5bb05c  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+30a7105c-0bdd-4910-abbb-4e047163a76d  cli-test  db-dev-s   backuping     PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+4e494bc4-5643-4893-8a28-c8759e2a954a  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+0dab5efb-a648-4dc9-9036-f03fcd1c8570  foobar    db-dev-m   provisioning  PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -11,15 +15,80 @@ ID                                    NAME      NODE TYPE  STATUS  ENGINE       
       "size": 5000000000
     },
     "region": "fr-par",
-    "id": "173121d7-13cc-47ab-9b19-98856cf8a30e",
-    "name": "cli-test",
-    "organization_id": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-    "project_id": "",
+    "id": "d327788c-9c0f-4809-9393-0ce9cf0cbafb",
+    "name": "postgis",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
     "endpoint": {
-      "ip": "195.154.71.31",
-      "port": 36723,
+      "id": "ebe30b78-af12-415e-ab65-6556b18d7459",
+      "ip": "51.159.113.252",
+      "port": 37888,
+      "name": null
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": true,
+    "read_replicas": [],
+    "node_type": "db-dev-s",
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "ebe30b78-af12-415e-ab65-6556b18d7459",
+        "ip": "51.159.113.252",
+        "port": 37888,
+        "name": null
+      }
+    ]
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "26c98d5f-08ad-4eb1-892a-2aaf4c5bb05c",
+    "name": "cli-test",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "ready",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "id": "a5b23996-a5f5-4298-8050-4ad5e918f1a1",
+      "ip": "51.159.115.246",
+      "port": 35083,
       "name": null
     },
     "tags": [],
@@ -57,6 +126,194 @@ ID                                    NAME      NODE TYPE  STATUS  ENGINE       
     "is_ha_cluster": false,
     "read_replicas": [],
     "node_type": "db-dev-s",
-    "init_settings": null
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "a5b23996-a5f5-4298-8050-4ad5e918f1a1",
+        "ip": "51.159.115.246",
+        "port": 35083,
+        "name": null
+      }
+    ]
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "30a7105c-0bdd-4910-abbb-4e047163a76d",
+    "name": "cli-test",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "backuping",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "id": "c55d7b5e-13e3-401c-8d60-d2c09fdc22e0",
+      "ip": "51.159.115.246",
+      "port": 36665,
+      "name": null
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-s",
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "c55d7b5e-13e3-401c-8d60-d2c09fdc22e0",
+        "ip": "51.159.115.246",
+        "port": 36665,
+        "name": null
+      }
+    ]
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "4e494bc4-5643-4893-8a28-c8759e2a954a",
+    "name": "cli-test",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "ready",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
+      "ip": "51.159.115.246",
+      "port": 2383,
+      "name": null
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-s",
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
+        "ip": "51.159.115.246",
+        "port": 2383,
+        "name": null
+      }
+    ]
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 25000000000
+    },
+    "region": "fr-par",
+    "id": "0dab5efb-a648-4dc9-9036-f03fcd1c8570",
+    "name": "foobar",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "provisioning",
+    "engine": "PostgreSQL-12",
+    "endpoint": null,
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-m",
+    "init_settings": [],
+    "endpoints": []
   }
 ]

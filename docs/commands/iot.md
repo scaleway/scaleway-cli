@@ -186,7 +186,7 @@ scw iot device get-metrics <device-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | device-id | Required | Device ID |
-| start-date | Required<br />Default: `hour` | Start date used to compute the best scale for the returned metrics |
+| start-date | Required | Start date used to compute the best scale for the returned metrics |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -309,6 +309,7 @@ scw iot hub create [arg=value ...]
 | product-plan | Required<br />Default: `plan_shared`<br />One of: `plan_unknown`, `plan_shared`, `plan_dedicated`, `plan_ha` | Hub feature set |
 | disable-events |  | Disable Hub events |
 | events-topic-prefix |  | Hub events topic prefix (default '$SCW/events') |
+| twins-graphite-config.push-uri |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -480,6 +481,7 @@ scw iot hub update <hub-id ...> [arg=value ...]
 | disable-events |  | Disable Hub events |
 | events-topic-prefix |  | Hub events topic prefix |
 | enable-device-auto-provisioning |  | Enable device auto provisioning |
+| twins-graphite-config.push-uri |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

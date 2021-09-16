@@ -244,6 +244,12 @@ func iotHubCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "twins-graphite-config.push-uri",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -336,6 +342,12 @@ func iotHubUpdate() *core.Command {
 			{
 				Name:       "enable-device-auto-provisioning",
 				Short:      `Enable device auto provisioning`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "twins-graphite-config.push-uri",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1046,7 +1058,6 @@ func iotDeviceGetMetrics() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("hour"),
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
