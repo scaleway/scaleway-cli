@@ -14,6 +14,7 @@ EXAMPLES:
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used
+  [type]                                                 The type of the cluster
   name=<generated>                                       The name of the cluster
   [description]                                          The description of the cluster
   [tags.{index}]                                         The tags associated with the cluster
