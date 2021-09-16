@@ -282,8 +282,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
 			clidb,
-			"--host", instance.Endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoint.Port),
+			"--host", instance.Endpoints[0].IP.String(),
+			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
@@ -296,8 +296,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
 			clidb,
-			"--host", instance.Endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoint.Port),
+			"--host", instance.Endpoints[0].IP.String(),
+			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
 			"--database", database,
 			"--user", args.Username,
 		}, nil

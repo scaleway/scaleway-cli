@@ -1,19 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt       few seconds ago
-Region          fr-par
-ID              54ea06de-3f2d-41ac-a825-41d0eba9a23c
-Name            cli-test
-OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID       -
-Status          ready
-Engine          PostgreSQL-12
-IsHaCluster     false
-NodeType        db-dev-m
+CreatedAt         few seconds ago
+Region            fr-par
+ID                4e494bc4-5643-4893-8a28-c8759e2a954a
+Name              cli-test
+OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+Status            ready
+Engine            PostgreSQL-12
+IsHaCluster       false
+NodeType          db-dev-m
+Endpoints.0.ID    5742cc59-197e-43ad-8b51-1c4645324b0c
+Endpoints.0.IP    51.159.115.246
+Endpoints.0.Port  2383
 
 Endpoint:
-IP    51.159.24.138
-Port  43194
+ID    5742cc59-197e-43ad-8b51-1c4645324b0c
+IP    51.159.115.246
+Port  2383
 
 Volume:
 Type  lssd
@@ -40,15 +44,16 @@ max_parallel_workers_per_gather  0
     "size": 25000000000
   },
   "region": "fr-par",
-  "id": "54ea06de-3f2d-41ac-a825-41d0eba9a23c",
+  "id": "4e494bc4-5643-4893-8a28-c8759e2a954a",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "ip": "51.159.24.138",
-    "port": 43194,
+    "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
+    "ip": "51.159.115.246",
+    "port": 2383,
     "name": null
   },
   "tags": [],
@@ -86,5 +91,13 @@ max_parallel_workers_per_gather  0
   "is_ha_cluster": false,
   "read_replicas": [],
   "node_type": "db-dev-m",
-  "init_settings": null
+  "init_settings": [],
+  "endpoints": [
+    {
+      "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
+      "ip": "51.159.115.246",
+      "port": 2383,
+      "name": null
+    }
+  ]
 }
