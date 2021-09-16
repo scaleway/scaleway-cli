@@ -145,6 +145,13 @@ func k8sClusterList() *core.Command {
 				EnumValues: []string{"unknown", "creating", "ready", "deleting", "deleted", "updating", "locked", "pool_required"},
 			},
 			{
+				Name:       "type",
+				Short:      `The type on which to filter the returned clusters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `The organization ID on which to filter the returned clusters`,
 				Required:   false,
@@ -216,6 +223,9 @@ func k8sClusterList() *core.Command {
 			{
 				FieldName: "UpdatedAt",
 			},
+			{
+				FieldName: "Type",
+			},
 		}},
 	}
 }
@@ -231,6 +241,13 @@ func k8sClusterCreate() *core.Command {
 		ArgsType: reflect.TypeOf(k8s.CreateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
+			{
+				Name:       "type",
+				Short:      `The type of the cluster`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			{
 				Name:       "name",
 				Short:      `The name of the cluster`,
