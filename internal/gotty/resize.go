@@ -1,3 +1,4 @@
+//nolint
 // +build !windows
 
 package gotty
