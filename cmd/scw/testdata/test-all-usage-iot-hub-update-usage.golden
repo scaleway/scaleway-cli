@@ -12,6 +12,7 @@ ARGS:
   [disable-events]                    Disable Hub events
   [events-topic-prefix]               Hub events topic prefix
   [enable-device-auto-provisioning]   Enable device auto provisioning
+  [twins-graphite-config.push-uri]    
   [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
