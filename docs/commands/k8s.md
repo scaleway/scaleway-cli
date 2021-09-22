@@ -59,6 +59,7 @@ scw k8s cluster create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| type |  | The type of the cluster |
 | name | Required<br />Default: `<generated>` | The name of the cluster |
 | description |  | The description of the cluster |
 | tags.{index} |  | The tags associated with the cluster |
@@ -203,6 +204,7 @@ scw k8s cluster list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned clusters |
 | name |  | The name on which to filter the returned clusters |
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | The status on which to filter the returned clusters |
+| type |  | The type on which to filter the returned clusters |
 | organization-id |  | The organization ID on which to filter the returned clusters |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 

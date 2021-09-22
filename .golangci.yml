@@ -16,7 +16,6 @@ linters:
     - errcheck
     - goconst
     - goimports
-    - golint
     - goprintffuncname
     - gosec
     - gosimple
@@ -25,6 +24,7 @@ linters:
     - misspell
     - nakedret
     - nolintlint
+    - revive
     - rowserrcheck
     - staticcheck
     - structcheck

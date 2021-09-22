@@ -519,6 +519,8 @@ scw rdb instance create [arg=value ...]
 | init-settings.{index}.value |  |  |
 | volume-type | One of: `lssd`, `bssd` | Type of volume where data are stored (lssd, bssd, ...) |
 | volume-size |  | Volume size when volume_type is not lssd |
+| init-endpoints.{index}.private-network.private-network-id |  |  |
+| init-endpoints.{index}.private-network.service-ip |  |  |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 

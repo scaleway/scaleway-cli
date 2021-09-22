@@ -1,19 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt       few seconds ago
-Region          fr-par
-ID              2fe91a35-e819-4691-bae5-33613fc841dc
-Name            foobar
-OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID       -
-Status          ready
-Engine          PostgreSQL-12
-IsHaCluster     false
-NodeType        db-dev-m
+CreatedAt         few seconds ago
+Region            fr-par
+ID                0dab5efb-a648-4dc9-9036-f03fcd1c8570
+Name              foobar
+OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+Status            ready
+Engine            PostgreSQL-12
+IsHaCluster       false
+NodeType          db-dev-m
+Endpoints.0.ID    82c43cb9-3eb6-4bd9-aa2f-af66f4b35f50
+Endpoints.0.IP    51.159.115.246
+Endpoints.0.Port  9533
 
 Endpoint:
-IP    51.159.26.195
-Port  24332
+ID    82c43cb9-3eb6-4bd9-aa2f-af66f4b35f50
+IP    51.159.115.246
+Port  9533
 
 Volume:
 Type  lssd
@@ -40,15 +44,16 @@ max_parallel_workers_per_gather  0
     "size": 25000000000
   },
   "region": "fr-par",
-  "id": "2fe91a35-e819-4691-bae5-33613fc841dc",
+  "id": "0dab5efb-a648-4dc9-9036-f03fcd1c8570",
   "name": "foobar",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "ip": "51.159.26.195",
-    "port": 24332,
+    "id": "82c43cb9-3eb6-4bd9-aa2f-af66f4b35f50",
+    "ip": "51.159.115.246",
+    "port": 9533,
     "name": null
   },
   "tags": [],
@@ -86,5 +91,13 @@ max_parallel_workers_per_gather  0
   "is_ha_cluster": false,
   "read_replicas": [],
   "node_type": "db-dev-m",
-  "init_settings": null
+  "init_settings": [],
+  "endpoints": [
+    {
+      "id": "82c43cb9-3eb6-4bd9-aa2f-af66f4b35f50",
+      "ip": "51.159.115.246",
+      "port": 9533,
+      "name": null
+    }
+  ]
 }
