@@ -6,10 +6,17 @@ USAGE:
   scw dns zone import <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone       The DNS zone to import
-  [content]      
-  [project-id]   Project ID to use. If none is passed the default project ID will be used
-  [format]        (unknown_raw_format | bind)
+  dns-zone                           The DNS zone to import
+  [project-id]                       Project ID to use. If none is passed the default project ID will be used
+  [bind-source.content]              
+  [axfr-source.name-server]          
+  [axfr-source.tsig-key.name]        
+  [axfr-source.tsig-key.key]         
+  [axfr-source.tsig-key.algorithm]   
+
+DEPRECATED ARGS:
+  [content]   
+  [format]     (unknown_raw_format | bind)
 
 FLAGS:
   -h, --help   help for import

@@ -260,6 +260,8 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.delete.id-fields.data |  |  |
 | changes.{index}.delete.id-fields.ttl |  |  |
 | return-all-records |  | Whether or not to return all the records |
+| disallow-new-zone-creation |  | Forbid the creation of the target zone if not existing (default action is yes) |
+| serial |  | Don't use the autoincremenent serial but the provided one (0 to keep the same) |
 
 
 
@@ -673,9 +675,14 @@ scw dns zone import <dns-zone ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dns-zone | Required | The DNS zone to import |
-| content |  |  |
+| ~~content~~ | Deprecated |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| format | One of: `unknown_raw_format`, `bind` |  |
+| ~~format~~ | Deprecated<br />One of: `unknown_raw_format`, `bind` |  |
+| bind-source.content |  |  |
+| axfr-source.name-server |  |  |
+| axfr-source.tsig-key.name |  |  |
+| axfr-source.tsig-key.key |  |  |
+| axfr-source.tsig-key.algorithm |  |  |
 
 
 
