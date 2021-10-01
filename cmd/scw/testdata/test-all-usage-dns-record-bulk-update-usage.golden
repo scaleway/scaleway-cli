@@ -74,6 +74,8 @@ ARGS:
   [changes.{index}.delete.id-fields.data]                                                  
   [changes.{index}.delete.id-fields.ttl]                                                   
   [return-all-records]                                                                     Whether or not to return all the records
+  [disallow-new-zone-creation]                                                             Forbid the creation of the target zone if not existing (default action is yes)
+  [serial]                                                                                 Don't use the autoincremenent serial but the provided one (0 to keep the same)
 
 FLAGS:
   -h, --help   help for bulk-update

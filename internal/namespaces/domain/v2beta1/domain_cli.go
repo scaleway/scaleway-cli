@@ -785,6 +785,20 @@ All edits will be versioned.
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "disallow-new-zone-creation",
+				Short:      `Forbid the creation of the target zone if not existing (default action is yes)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "serial",
+				Short:      `Don't use the autoincremenent serial but the provided one (0 to keep the same)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*domain.UpdateDNSZoneRecordsRequest)
@@ -964,16 +978,46 @@ func dnsZoneImport() *core.Command {
 			{
 				Name:       "content",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "format",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 				EnumValues: []string{"unknown_raw_format", "bind"},
+			},
+			{
+				Name:       "bind-source.content",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "axfr-source.name-server",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "axfr-source.tsig-key.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "axfr-source.tsig-key.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "axfr-source.tsig-key.algorithm",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
