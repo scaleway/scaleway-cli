@@ -19,7 +19,7 @@ require (
 	github.com/hashicorp/go-version v1.3.0
 	github.com/karrick/tparse v2.4.2+incompatible
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
-	github.com/mattn/go-colorable v0.1.9
+	github.com/mattn/go-colorable v0.1.11
 	github.com/mattn/go-isatty v0.0.14
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210915130531-0285df8effc0
