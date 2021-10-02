@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/repr v0.0.0-20200325044227-4184120f674c // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
-	github.com/containerd/console v1.0.2
+	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/dustin/go-humanize v1.0.0
 	github.com/etdub/goparsetime v0.0.0-20160315173935-ea17b0ac3318 // indirect
@@ -21,6 +21,7 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.9
 	github.com/mattn/go-isatty v0.0.14
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210915130531-0285df8effc0
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cobra v1.2.1
