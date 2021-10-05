@@ -10,7 +10,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/internal/gofields"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
