@@ -1108,19 +1108,19 @@ func k8sPoolList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "List all pools for a given cluster",
-				Raw:   `scw k8s pool list 11111111-1111-1111-111111111111`,
+				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111`,
 			},
 			{
 				Short: "List all scaling pools for a given cluster",
-				Raw:   `scw k8s pool list 11111111-1111-1111-111111111111 status=scaling`,
+				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling`,
 			},
 			{
 				Short: "List all pools for a given cluster that contain the word foo in the pool name",
-				Raw:   `scw k8s pool list 11111111-1111-1111-111111111111 name=foo`,
+				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo`,
 			},
 			{
 				Short: "List all pools for a given cluster and order them by ascending creation date",
-				Raw:   `scw k8s pool list 11111111-1111-1111-111111111111 order-by=created_at_asc`,
+				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1312,15 +1312,15 @@ func k8sPoolCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Create a pool named bar with 2 DEV1-XL on a given cluster",
-				Raw:   `scw k8s pool create 11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2`,
+				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2`,
 			},
 			{
 				Short: "Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster",
-				Raw:   `scw k8s pool create 11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd`,
+				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd`,
 			},
 			{
 				Short: "Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster",
-				Raw:   `scw k8s pool create 11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group`,
+				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group`,
 			},
 		},
 	}
