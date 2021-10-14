@@ -888,6 +888,20 @@ func rdbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "logs-policy.max-age-retention",
+				Short:      `Max age of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "logs-policy.total-disk-retention",
+				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
