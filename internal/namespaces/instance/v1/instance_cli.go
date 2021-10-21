@@ -1098,8 +1098,8 @@ func instanceImageCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create an image named 'foobar' for x86_64 instances from the given snapshot ID",
-				ArgsJSON: `null`,
+				Short:    "Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)",
+				ArgsJSON: `{"arch":"x86_64","name":"foobar","root_volume":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
