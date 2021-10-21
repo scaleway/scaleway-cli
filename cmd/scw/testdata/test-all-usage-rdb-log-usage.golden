@@ -6,9 +6,11 @@ USAGE:
   scw rdb log <command>
 
 AVAILABLE COMMANDS:
-  get         Get specific logs of a given instance
-  list        List available logs of a given instance
-  prepare     Prepare logs of a given instance
+  get          Get specific logs of a given instance
+  list         List available logs of a given instance
+  list-details List remote instances logs details
+  prepare      Prepare logs of a given instance
+  purge        Purge remote instances logs
 
 FLAGS:
   -h, --help   help for log
