@@ -119,9 +119,9 @@ scw instance image create [arg=value ...]
 **Examples:**
 
 
-Create an image named 'foobar' for x86_64 instances from the given root_volume ID (root_volume ID needs to be a snapshot UUID)
+Create an image named 'foobar' for x86_64 instances from the given snapshot ID
 ```
-scw instance image create name=foobar root-volume=11111111-1111-1111-1111-111111111111 arch=x86_64
+scw instance image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64
 ```
 
 
