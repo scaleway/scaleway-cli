@@ -47,12 +47,9 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceDelete(),
 		rdbInstanceClone(),
 		rdbInstanceGetCertificate(),
-		rdbInstanceRenewCertificate(),
 		rdbLogPrepare(),
 		rdbLogList(),
 		rdbLogGet(),
-		rdbLogPurge(),
-		rdbLogListDetails(),
 		rdbACLList(),
 		rdbACLAdd(),
 		rdbACLDelete(),
@@ -891,20 +888,6 @@ func rdbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "logs-policy.max-age-retention",
-				Short:      `Max age of remote logs to keep on the database instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "logs-policy.total-disk-retention",
-				Short:      `Max disk size of remote logs to keep on the database instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1022,42 +1005,6 @@ func rdbInstanceGetCertificate() *core.Command {
 	}
 }
 
-func rdbInstanceRenewCertificate() *core.Command {
-	return &core.Command{
-		Short:     `Renew the TLS certificate of an instance`,
-		Long:      `Renew the TLS certificate of an instance.`,
-		Namespace: "rdb",
-		Resource:  "instance",
-		Verb:      "renew-certificate",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RenewInstanceCertificateRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.RenewInstanceCertificateRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			e = api.RenewInstanceCertificate(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "instance",
-				Verb:     "renew-certificate",
-			}, nil
-		},
-	}
-}
-
 func rdbLogPrepare() *core.Command {
 	return &core.Command{
 		Short:     `Prepare logs of a given instance`,
@@ -1170,79 +1117,6 @@ func rdbLogGet() *core.Command {
 	}
 }
 
-func rdbLogPurge() *core.Command {
-	return &core.Command{
-		Short:     `Purge remote instances logs`,
-		Long:      `Purge remote instances logs.`,
-		Namespace: "rdb",
-		Resource:  "log",
-		Verb:      "purge",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.PurgeInstanceLogsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "log-name",
-				Short:      `Specific log name to purge`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.PurgeInstanceLogsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			e = api.PurgeInstanceLogs(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "log",
-				Verb:     "purge",
-			}, nil
-		},
-	}
-}
-
-func rdbLogListDetails() *core.Command {
-	return &core.Command{
-		Short:     `List remote instances logs details`,
-		Long:      `List remote instances logs details.`,
-		Namespace: "rdb",
-		Resource:  "log",
-		Verb:      "list-details",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceLogsDetailsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*rdb.ListInstanceLogsDetailsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			return api.ListInstanceLogsDetails(request)
-
-		},
-	}
-}
-
 func rdbACLList() *core.Command {
 	return &core.Command{
 		Short:     `List ACL rules of a given instance`,
@@ -1280,7 +1154,7 @@ func rdbACLList() *core.Command {
 func rdbACLAdd() *core.Command {
 	return &core.Command{
 		Short:     `Add an ACL instance to a given instance`,
-		Long:      `Add an additional ACL rule to a database instance.`,
+		Long:      `Add an ACL instance to a given instance.`,
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "add",
