@@ -3,7 +3,7 @@ package container
 import (
 	"github.com/scaleway/scaleway-cli/internal/core"
 	"github.com/scaleway/scaleway-cli/internal/human"
-	container "github.com/scaleway/scaleway-cli/protobuf/generated/scaleway-sdk-go/api/container/v1beta1"
+	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 )
 
 func GetCommands() *core.Commands {
