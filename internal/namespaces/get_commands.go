@@ -7,6 +7,7 @@ import (
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/baremetal/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
+	container "github.com/scaleway/scaleway-cli/internal/namespaces/container/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/internal/namespaces/domain/v2beta1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/feedback"
 	flexibleip "github.com/scaleway/scaleway-cli/internal/namespaces/flexibleip/v1alpha1"
@@ -53,5 +54,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(domain.GetCommands())
 	commands.Merge(applesilicon.GetCommands())
 	commands.Merge(flexibleip.GetCommands())
+	commands.Merge(container.GetCommands())
 	return commands
 }
