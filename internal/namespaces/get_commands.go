@@ -9,6 +9,7 @@ import (
 	configNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/config"
 	domain "github.com/scaleway/scaleway-cli/internal/namespaces/domain/v2beta1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/feedback"
+	flexibleip "github.com/scaleway/scaleway-cli/internal/namespaces/flexibleip/v1alpha1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/help"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
@@ -51,5 +52,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(vpc.GetCommands())
 	commands.Merge(domain.GetCommands())
 	commands.Merge(applesilicon.GetCommands())
+	commands.Merge(flexibleip.GetCommands())
 	return commands
 }
