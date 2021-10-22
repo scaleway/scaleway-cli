@@ -6,16 +6,17 @@ USAGE:
   scw rdb instance <command>
 
 AVAILABLE COMMANDS:
-  clone           Clone an instance
-  connect         Connect to an instance using locally installed CLI
-  create          Create an instance
-  delete          Delete an instance
-  get             Get an instance
-  get-certificate Get the TLS certificate of an instance
-  list            List instances
-  update          Update an instance
-  upgrade         Upgrade an instance to an higher instance type
-  wait            Wait for an instance to reach a stable state
+  clone             Clone an instance
+  connect           Connect to an instance using locally installed CLI
+  create            Create an instance
+  delete            Delete an instance
+  get               Get an instance
+  get-certificate   Get the TLS certificate of an instance
+  list              List instances
+  renew-certificate Renew the TLS certificate of an instance
+  update            Update an instance
+  upgrade           Upgrade an instance to an higher instance type
+  wait              Wait for an instance to reach a stable state
 
 FLAGS:
   -h, --help   help for instance
