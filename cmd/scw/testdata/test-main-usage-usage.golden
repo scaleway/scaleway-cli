@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   config        Config file management
   dns           DNS API
   feedback      Send feedback to the Scaleway CLI Team!
+  fip           Flexible IP API
   help          Get help about how the CLI works
   info          Get info about current settings
   init          Initialize the config

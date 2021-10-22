@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+MAC address management commands.
+
+USAGE:
+  scw fip mac <command>
+
+AVAILABLE COMMANDS:
+  create      Generate a virtual MAC on a given Flexible IP
+  delete      Remove a virtual MAC from a Flexible IP
+  duplicate   Duplicate a Virtual MAC
+
+FLAGS:
+  -h, --help   help for mac
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw fip mac [command] --help" for more information about a command.
