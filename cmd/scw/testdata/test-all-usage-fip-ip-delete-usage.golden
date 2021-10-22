@@ -3,7 +3,7 @@
 Delete a Flexible IP.
 
 USAGE:
-  scw fip ip delete [arg=value ...]
+  scw fip ip delete <fip-id ...> [arg=value ...]
 
 ARGS:
   fip-id            ID of the Flexible IP to delete

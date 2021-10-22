@@ -3,7 +3,7 @@
 Update a Flexible IP.
 
 USAGE:
-  scw fip ip update [arg=value ...]
+  scw fip ip update <fip-id ...> [arg=value ...]
 
 ARGS:
   fip-id            ID of the Flexible IP to update
