@@ -212,6 +212,41 @@ func fipIPList() *core.Command {
 			return resp.FlexibleIPs, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "IPAddress",
+			},
+			{
+				FieldName: "Status",
+			},
+			{
+				FieldName: "Reverse",
+			},
+			{
+				FieldName: "ServerID",
+			},
+			{
+				FieldName: "Description",
+			},
+			{
+				FieldName: "Tags",
+			},
+			{
+				FieldName: "ProjectID",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+		}},
 	}
 }
 
@@ -230,7 +265,7 @@ func fipIPUpdate() *core.Command {
 				Short:      `ID of the Flexible IP to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "description",
@@ -281,7 +316,7 @@ func fipIPDelete() *core.Command {
 				Short:      `ID of the Flexible IP to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
