@@ -30,13 +30,16 @@ Database RDB API
   - [Get an instance](#get-an-instance)
   - [Get the TLS certificate of an instance](#get-the-tls-certificate-of-an-instance)
   - [List instances](#list-instances)
+  - [Renew the TLS certificate of an instance](#renew-the-tls-certificate-of-an-instance)
   - [Update an instance](#update-an-instance)
   - [Upgrade an instance to an higher instance type](#upgrade-an-instance-to-an-higher-instance-type)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
 - [Instance logs management commands](#instance-logs-management-commands)
   - [Get specific logs of a given instance](#get-specific-logs-of-a-given-instance)
   - [List available logs of a given instance](#list-available-logs-of-a-given-instance)
+  - [List remote instances logs details](#list-remote-instances-logs-details)
   - [Prepare logs of a given instance](#prepare-logs-of-a-given-instance)
+  - [Purge remote instances logs](#purge-remote-instances-logs)
 - [Node types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 - [User privileges management commands](#user-privileges-management-commands)
@@ -64,7 +67,7 @@ Network Access Control List allows to control network in and out traffic by sett
 
 ### Add an ACL instance to a given instance
 
-Add an ACL instance to a given instance.
+Add an additional ACL rule to a database instance.
 
 **Usage:**
 
@@ -610,6 +613,26 @@ scw rdb instance list [arg=value ...]
 
 
 
+### Renew the TLS certificate of an instance
+
+Renew the TLS certificate of an instance.
+
+**Usage:**
+
+```
+scw rdb instance renew-certificate <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want logs of |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Update an instance
 
 Update an instance.
@@ -631,6 +654,8 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 | name |  | Name of the instance |
 | instance-id | Required | UUID of the instance to update |
 | tags.{index} |  | Tags of a given instance |
+| logs-policy.max-age-retention |  | Max age of remote logs to keep on the database instance |
+| logs-policy.total-disk-retention |  | Max disk size of remote logs to keep on the database instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -735,6 +760,26 @@ scw rdb log list [arg=value ...]
 
 
 
+### List remote instances logs details
+
+List remote instances logs details.
+
+**Usage:**
+
+```
+scw rdb log list-details [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want logs of |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Prepare logs of a given instance
 
 Prepare your instance logs. Logs will be grouped on a minimum interval of a day.
@@ -753,6 +798,27 @@ scw rdb log prepare [arg=value ...]
 | instance-id | Required | UUID of the instance you want logs of |
 | start-date |  | Start datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` |
 | end-date |  | End datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Purge remote instances logs
+
+Purge remote instances logs.
+
+**Usage:**
+
+```
+scw rdb log purge [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want logs of |
+| log-name |  | Specific log name to purge |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

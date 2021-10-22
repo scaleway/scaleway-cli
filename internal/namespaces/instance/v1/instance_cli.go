@@ -1098,8 +1098,8 @@ func instanceImageCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create an image named 'foobar' for x86_64 instances from the given snapshot ID",
-				ArgsJSON: `null`,
+				Short: "Create an image named 'foobar' for x86_64 instances from the given snapshot ID",
+				Raw:   `scw instance image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64`,
 			},
 		},
 	}
