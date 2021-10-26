@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   autocomplete  Autocomplete related commands
   baremetal     Baremetal API
   config        Config file management
+  container     Container as a Service API
   dns           DNS API
   feedback      Send feedback to the Scaleway CLI Team!
   fip           Flexible IP API
