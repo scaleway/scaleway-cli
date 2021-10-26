@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Function management commands.
+
+USAGE:
+  scw function function <command>
+
+AVAILABLE COMMANDS:
+  create           Create a new function
+  delete           Delete a function
+  deploy           Deploy a function
+  get              Get a function
+  get-download-url Get a download URL of a function
+  get-upload-url   Get an upload URL of a function
+  list             List all your functions
+  update           Update an existing function
+
+FLAGS:
+  -h, --help   help for function
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw function function [command] --help" for more information about a command.
