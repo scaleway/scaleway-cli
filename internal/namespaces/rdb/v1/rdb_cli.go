@@ -893,7 +893,7 @@ func rdbInstanceUpdate() *core.Command {
 			},
 			{
 				Name:       "logs-policy.max-age-retention",
-				Short:      `Max age of remote logs to keep on the database instance`,
+				Short:      `Max age (in day) of remote logs to keep on the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

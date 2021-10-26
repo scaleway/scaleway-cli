@@ -12,7 +12,7 @@ ARGS:
   [name]                               Name of the instance
   instance-id                          UUID of the instance to update
   [tags.{index}]                       Tags of a given instance
-  [logs-policy.max-age-retention]      Max age of remote logs to keep on the database instance
+  [logs-policy.max-age-retention]      Max age (in day) of remote logs to keep on the database instance
   [logs-policy.total-disk-retention]   Max disk size of remote logs to keep on the database instance
   [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
