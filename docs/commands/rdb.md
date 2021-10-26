@@ -654,7 +654,7 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 | name |  | Name of the instance |
 | instance-id | Required | UUID of the instance to update |
 | tags.{index} |  | Tags of a given instance |
-| logs-policy.max-age-retention |  | Max age of remote logs to keep on the database instance |
+| logs-policy.max-age-retention |  | Max age (in day) of remote logs to keep on the database instance |
 | logs-policy.total-disk-retention |  | Max disk size of remote logs to keep on the database instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
