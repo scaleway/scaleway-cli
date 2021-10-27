@@ -25,6 +25,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/registry/v1"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/vpc/v1"
+	"github.com/scaleway/scaleway-cli/internal/namespaces/vpcgw/v1"
 )
 
 // GetCommands returns a list of all commands in the CLI.
@@ -57,5 +58,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(flexibleip.GetCommands())
 	commands.Merge(container.GetCommands())
 	commands.Merge(function.GetCommands())
+	commands.Merge(vpcgw.GetCommands())
 	return commands
 }

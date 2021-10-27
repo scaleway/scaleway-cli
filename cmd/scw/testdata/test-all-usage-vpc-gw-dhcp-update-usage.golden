@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update a DHCP configuration.
+
+USAGE:
+  scw vpc-gw dhcp update <dhcpid ...> [arg=value ...]
+
+ARGS:
+  dhcpid                           DHCP config to update
+  [subnet]                         Subnet for the DHCP server
+  [address]                        Address of the DHCP server. This will be the gateway's address in the private network
+  [pool-low]                       Low IP (included) of the dynamic address pool
+  [pool-high]                      High IP (included) of the dynamic address pool
+  [enable-dynamic]                 Whether to enable dynamic pooling of IPs
+  [valid-lifetime.seconds]         
+  [valid-lifetime.nanos]           
+  [renew-timer.seconds]            
+  [renew-timer.nanos]              
+  [rebind-timer.seconds]           
+  [rebind-timer.nanos]             
+  [push-default-route]             Whether the gateway should push a default route to DHCP clients or only hand out IPs
+  [push-dns-server]                Whether the gateway should push custom DNS servers to clients
+  [dns-servers-override.{index}]   Override the DNS server list pushed to DHCP clients, instead of the gateway itself
+  [dns-search.{index}]             Additional DNS search paths
+  [dns-local-name]                 TLD given to hosts in the Private Network
+  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
