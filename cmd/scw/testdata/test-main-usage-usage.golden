@@ -27,6 +27,7 @@ AVAILABLE COMMANDS:
   registry      Container registry API
   version       Display cli version
   vpc           VPC API
+  vpc-gw        VPC Public Gateway API
   help          Help about any command
 
 FLAGS:
