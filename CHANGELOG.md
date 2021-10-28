@@ -1,5 +1,56 @@
 # Changelog
 
+## v2.4.0 (2021-10-28)
+
+### Features
+
+* **baremetal**: add fr-par-1 and nl-ams-1 ([#1949](https://github.com/scaleway/scaleway-cli/pull/1949))
+* **container**: initial support for v1beta1 ([#1990](https://github.com/scaleway/scaleway-cli/pull/1990))
+* **dns**: update set command and fix doc ([#1947](https://github.com/scaleway/scaleway-cli/pull/1947))
+* **domain**: add support for bind source and axfr source ([#1965](https://github.com/scaleway/scaleway-cli/pull/1965))
+* **flexibleip**: add support for v1alpha1 ([#1984](https://github.com/scaleway/scaleway-cli/pull/1984))
+* **flexibleip**: reorder columns and make fip_id positional in update and delete ([#1996](https://github.com/scaleway/scaleway-cli/pull/1996))
+* **function**: enable support for v1beta1 ([#2002](https://github.com/scaleway/scaleway-cli/pull/2002))
+* **instance**: add order field in list servers ([#1923](https://github.com/scaleway/scaleway-cli/pull/1923))
+* **instance**: add support for ent instances ([#1898](https://github.com/scaleway/scaleway-cli/pull/1898))
+* **iot**: add support for twins-graphite-config ([#1962](https://github.com/scaleway/scaleway-cli/pull/1962))
+* **k8s**: add support for k8s types ([#1958](https://github.com/scaleway/scaleway-cli/pull/1958))
+* **lb**: add support for fr-par-2 ([#1961](https://github.com/scaleway/scaleway-cli/pull/1961))
+* **lb**: add support for http_header_match ([#1950](https://github.com/scaleway/scaleway-cli/pull/1950))
+* **rdb**: add support for PrivateNetwork and LoadBalancer in Endpoint ([#1960](https://github.com/scaleway/scaleway-cli/pull/1960))
+* **rdb**: add support for log purging and certificate renew ([#1994](https://github.com/scaleway/scaleway-cli/pull/1994))
+* **vpcgw**: add initial support for v1 ([#2003](https://github.com/scaleway/scaleway-cli/pull/2003))
+
+### Fixes
+
+* cloud-init param for instance was not working ([#1943](https://github.com/scaleway/scaleway-cli/pull/1943))
+* use kubernetes-client/go-base for kubeconfig marshaling ([#1955](https://github.com/scaleway/scaleway-cli/pull/1955))
+
+### Others
+
+* **chore - deps**: bump github.com/containerd/console from 1.0.2 to 1.0.3 ([#1967](https://github.com/scaleway/scaleway-cli/pull/1967))
+* **chore - deps**: bump github.com/fatih/color from 1.12.0 to 1.13.0 ([#1970](https://github.com/scaleway/scaleway-cli/pull/1970))
+* **chore - deps**: bump github.com/fatih/color from 1.7.0 to 1.13.0 ([#1981](https://github.com/scaleway/scaleway-cli/pull/1981))
+* **chore - deps**: bump github.com/mattn/go-colorable from 0.0.9 to 0.1.11 ([#1982](https://github.com/scaleway/scaleway-cli/pull/1982))
+* **chore - deps**: bump github.com/mattn/go-colorable from 0.1.8 to 0.1.11 ([#1968](https://github.com/scaleway/scaleway-cli/pull/1968))
+* **chore - deps**: bump path-parse from 1.0.6 to 1.0.7 in /scripts/release ([#1953](https://github.com/scaleway/scaleway-cli/pull/1953))
+* **chore - deps**: bump trim-newlines from 3.0.0 to 3.0.1 in /scripts/release ([#1928](https://github.com/scaleway/scaleway-cli/pull/1928))
+* **chore**: add support for dependabot ([#1966](https://github.com/scaleway/scaleway-cli/pull/1966))
+* **chore**: bump dependencies ([#1945](https://github.com/scaleway/scaleway-cli/pull/1945))
+* **chore**: bump go version ([#1971](https://github.com/scaleway/scaleway-cli/pull/1971))
+* **chore**: bump scaleway sdk ([#1977](https://github.com/scaleway/scaleway-cli/pull/1977))
+* **chore**: bump sdk ([#1963](https://github.com/scaleway/scaleway-cli/pull/1963))
+* **chore**: bump sdk ([#2001](https://github.com/scaleway/scaleway-cli/pull/2001))
+* **chore**: cleanup after v2.3.1 release ([#1925](https://github.com/scaleway/scaleway-cli/pull/1925))
+* **chore**: remove matomo analytics ([#1957](https://github.com/scaleway/scaleway-cli/pull/1957))
+* **docs - instance**: fix example for image create ([#1995](https://github.com/scaleway/scaleway-cli/pull/1995))
+* **docs - instance**: fix example for image create ([#1995](https://github.com/scaleway/scaleway-cli/pull/1995))
+* **docs - k8s**: fix examples for pool ([#1976](https://github.com/scaleway/scaleway-cli/pull/1976))
+* **docs - rdb**: add precision in short for log policy max age retention ([#1998](https://github.com/scaleway/scaleway-cli/pull/1998))
+* **docs**: add generated documentation for fip and function ([#1999](https://github.com/scaleway/scaleway-cli/pull/1999))
+
+
+
 ## v2.3.1 (2021-06-08)
 
 ### Features
