@@ -825,6 +825,13 @@ func rdbInstanceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -901,6 +908,13 @@ func rdbInstanceUpdate() *core.Command {
 			{
 				Name:       "logs-policy.total-disk-retention",
 				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
