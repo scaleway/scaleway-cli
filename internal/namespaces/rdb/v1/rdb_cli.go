@@ -815,12 +815,21 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.private-network-id",
+				Short:      `UUID of the private network to be connected to the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.service-ip",
+				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -901,6 +910,13 @@ func rdbInstanceUpdate() *core.Command {
 			{
 				Name:       "logs-policy.total-disk-retention",
 				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
