@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceUpdate(),
 		rdbInstanceDelete(),
 		rdbInstanceClone(),
+		rdbInstanceRestart(),
 		rdbInstanceGetCertificate(),
 		rdbInstanceRenewCertificate(),
 		rdbLogPrepare(),
@@ -815,12 +816,21 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.private-network-id",
+				Short:      `UUID of the private network to be connected to the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.service-ip",
+				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -901,6 +911,13 @@ func rdbInstanceUpdate() *core.Command {
 			{
 				Name:       "logs-policy.total-disk-retention",
 				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -987,6 +1004,36 @@ func rdbInstanceClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.CloneInstance(request)
+
+		},
+	}
+}
+
+func rdbInstanceRestart() *core.Command {
+	return &core.Command{
+		Short:     `Restart an instance`,
+		Long:      `Restart an instance.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "restart",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.RestartInstanceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance you want to restart`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.RestartInstanceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.RestartInstance(request)
 
 		},
 	}
