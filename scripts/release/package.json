@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@octokit/rest": "^18.0.6",
-    "aws-sdk": "^2.752.0",
+    "aws-sdk": "^2.814.0",
     "colors": "^1.4.0",
     "external-editor": "^3.1.0",
     "get-stream": "^6.0.0",
