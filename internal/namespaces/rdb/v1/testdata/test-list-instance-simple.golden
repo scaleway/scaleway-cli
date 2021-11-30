@@ -1,11 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    NAME      NODE TYPE  STATUS        ENGINE         REGION  TAGS  IS HA CLUSTER  BACKUP SCHEDULE  CREATED AT
-d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         PostgreSQL-12  fr-par  []    true           Enabled          few seconds ago
-26c98d5f-08ad-4eb1-892a-2aaf4c5bb05c  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
-30a7105c-0bdd-4910-abbb-4e047163a76d  cli-test  db-dev-s   backuping     PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
-4e494bc4-5643-4893-8a28-c8759e2a954a  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
-0dab5efb-a648-4dc9-9036-f03fcd1c8570  foobar    db-dev-m   provisioning  PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+1ae832f6-8899-46fd-897a-ed99efeca9ad  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+fefe6fdd-328b-45ab-8384-fafad7e1459b  cli-test  db-dev-s   deleting      PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+82ebbabf-3471-40dd-ad76-e86b79e7ad2a  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+b3324dc6-ebd1-49a2-8ec8-4e6221f9e793  cli-test  db-dev-s   backuping     PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+430053b0-d834-49fd-84ba-15194a76097e  cli-test  db-dev-s   ready         PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
+3bdf44a5-d2c4-4d1a-9739-382fb13cdb6a  foobar    db-dev-m   provisioning  PostgreSQL-12  fr-par  []    false          Enabled          few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -15,81 +16,18 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
       "size": 5000000000
     },
     "region": "fr-par",
-    "id": "d327788c-9c0f-4809-9393-0ce9cf0cbafb",
-    "name": "postgis",
-    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-    "status": "ready",
-    "engine": "PostgreSQL-12",
-    "endpoint": {
-      "id": "ebe30b78-af12-415e-ab65-6556b18d7459",
-      "ip": "51.159.113.252",
-      "port": 37888,
-      "name": null
-    },
-    "tags": [],
-    "settings": [
-      {
-        "name": "work_mem",
-        "value": "4"
-      },
-      {
-        "name": "max_connections",
-        "value": "100"
-      },
-      {
-        "name": "effective_cache_size",
-        "value": "1300"
-      },
-      {
-        "name": "maintenance_work_mem",
-        "value": "150"
-      },
-      {
-        "name": "max_parallel_workers",
-        "value": "0"
-      },
-      {
-        "name": "max_parallel_workers_per_gather",
-        "value": "0"
-      }
-    ],
-    "backup_schedule": {
-      "frequency": 24,
-      "retention": 7,
-      "disabled": false
-    },
-    "is_ha_cluster": true,
-    "read_replicas": [],
-    "node_type": "db-dev-s",
-    "init_settings": [],
-    "endpoints": [
-      {
-        "id": "ebe30b78-af12-415e-ab65-6556b18d7459",
-        "ip": "51.159.113.252",
-        "port": 37888,
-        "name": null
-      }
-    ]
-  },
-  {
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "volume": {
-      "type": "lssd",
-      "size": 5000000000
-    },
-    "region": "fr-par",
-    "id": "26c98d5f-08ad-4eb1-892a-2aaf4c5bb05c",
+    "id": "1ae832f6-8899-46fd-897a-ed99efeca9ad",
     "name": "cli-test",
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
     "endpoint": {
-      "id": "a5b23996-a5f5-4298-8050-4ad5e918f1a1",
-      "ip": "51.159.115.246",
-      "port": 35083,
-      "name": null
+      "id": "f21df6a7-f903-4c7a-b4d1-6f9a42565d2a",
+      "ip": "51.159.9.176",
+      "port": 54236,
+      "name": null,
+      "load_balancer": {}
     },
     "tags": [],
     "settings": [
@@ -129,12 +67,19 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
     "init_settings": [],
     "endpoints": [
       {
-        "id": "a5b23996-a5f5-4298-8050-4ad5e918f1a1",
-        "ip": "51.159.115.246",
-        "port": 35083,
-        "name": null
+        "id": "f21df6a7-f903-4c7a-b4d1-6f9a42565d2a",
+        "ip": "51.159.9.176",
+        "port": 54236,
+        "name": null,
+        "load_balancer": {}
       }
-    ]
+    ],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
   },
   {
     "created_at": "1970-01-01T00:00:00.0Z",
@@ -143,17 +88,162 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
       "size": 5000000000
     },
     "region": "fr-par",
-    "id": "30a7105c-0bdd-4910-abbb-4e047163a76d",
+    "id": "fefe6fdd-328b-45ab-8384-fafad7e1459b",
+    "name": "cli-test",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "deleting",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
+      "ip": "51.159.9.176",
+      "port": 31733,
+      "name": null,
+      "load_balancer": {}
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-s",
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
+        "ip": "51.159.9.176",
+        "port": 31733,
+        "name": null,
+        "load_balancer": {}
+      }
+    ],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "82ebbabf-3471-40dd-ad76-e86b79e7ad2a",
+    "name": "cli-test",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "status": "ready",
+    "engine": "PostgreSQL-12",
+    "endpoint": {
+      "id": "96840902-c630-4ece-99f1-3ee6c5006e7c",
+      "ip": "195.154.70.55",
+      "port": 47677,
+      "name": null,
+      "load_balancer": {}
+    },
+    "tags": [],
+    "settings": [
+      {
+        "name": "work_mem",
+        "value": "4"
+      },
+      {
+        "name": "max_connections",
+        "value": "100"
+      },
+      {
+        "name": "effective_cache_size",
+        "value": "1300"
+      },
+      {
+        "name": "maintenance_work_mem",
+        "value": "150"
+      },
+      {
+        "name": "max_parallel_workers",
+        "value": "0"
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "value": "0"
+      }
+    ],
+    "backup_schedule": {
+      "frequency": 24,
+      "retention": 7,
+      "disabled": false
+    },
+    "is_ha_cluster": false,
+    "read_replicas": [],
+    "node_type": "db-dev-s",
+    "init_settings": [],
+    "endpoints": [
+      {
+        "id": "96840902-c630-4ece-99f1-3ee6c5006e7c",
+        "ip": "195.154.70.55",
+        "port": 47677,
+        "name": null,
+        "load_balancer": {}
+      }
+    ],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
+  },
+  {
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "volume": {
+      "type": "lssd",
+      "size": 5000000000
+    },
+    "region": "fr-par",
+    "id": "b3324dc6-ebd1-49a2-8ec8-4e6221f9e793",
     "name": "cli-test",
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "backuping",
     "engine": "PostgreSQL-12",
     "endpoint": {
-      "id": "c55d7b5e-13e3-401c-8d60-d2c09fdc22e0",
-      "ip": "51.159.115.246",
-      "port": 36665,
-      "name": null
+      "id": "d020f3be-7d93-4739-99ee-34f16d5821f5",
+      "ip": "195.154.70.55",
+      "port": 1190,
+      "name": null,
+      "load_balancer": {}
     },
     "tags": [],
     "settings": [
@@ -193,12 +283,19 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
     "init_settings": [],
     "endpoints": [
       {
-        "id": "c55d7b5e-13e3-401c-8d60-d2c09fdc22e0",
-        "ip": "51.159.115.246",
-        "port": 36665,
-        "name": null
+        "id": "d020f3be-7d93-4739-99ee-34f16d5821f5",
+        "ip": "195.154.70.55",
+        "port": 1190,
+        "name": null,
+        "load_balancer": {}
       }
-    ]
+    ],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
   },
   {
     "created_at": "1970-01-01T00:00:00.0Z",
@@ -207,17 +304,18 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
       "size": 5000000000
     },
     "region": "fr-par",
-    "id": "4e494bc4-5643-4893-8a28-c8759e2a954a",
+    "id": "430053b0-d834-49fd-84ba-15194a76097e",
     "name": "cli-test",
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
     "endpoint": {
-      "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
-      "ip": "51.159.115.246",
-      "port": 2383,
-      "name": null
+      "id": "a30d45c8-ba1f-4146-87b1-71f213e2d610",
+      "ip": "195.154.70.55",
+      "port": 19370,
+      "name": null,
+      "load_balancer": {}
     },
     "tags": [],
     "settings": [
@@ -257,12 +355,19 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
     "init_settings": [],
     "endpoints": [
       {
-        "id": "5742cc59-197e-43ad-8b51-1c4645324b0c",
-        "ip": "51.159.115.246",
-        "port": 2383,
-        "name": null
+        "id": "a30d45c8-ba1f-4146-87b1-71f213e2d610",
+        "ip": "195.154.70.55",
+        "port": 19370,
+        "name": null,
+        "load_balancer": {}
       }
-    ]
+    ],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
   },
   {
     "created_at": "1970-01-01T00:00:00.0Z",
@@ -271,7 +376,7 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
       "size": 25000000000
     },
     "region": "fr-par",
-    "id": "0dab5efb-a648-4dc9-9036-f03fcd1c8570",
+    "id": "3bdf44a5-d2c4-4d1a-9739-382fb13cdb6a",
     "name": "foobar",
     "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
@@ -314,6 +419,12 @@ d327788c-9c0f-4809-9393-0ce9cf0cbafb  postgis   db-dev-s   ready         Postgre
     "read_replicas": [],
     "node_type": "db-dev-m",
     "init_settings": [],
-    "endpoints": []
+    "endpoints": [],
+    "logs_policy": {
+      "max_age_retention": 30,
+      "total_disk_retention": null
+    },
+    "backup_same_region": false,
+    "maintenances": []
   }
 ]

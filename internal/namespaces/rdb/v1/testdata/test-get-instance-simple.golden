@@ -1,23 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt         few seconds ago
-Region            fr-par
-ID                56fb406f-85fc-4f98-86be-6c37fcee0ec0
-Name              cli-test
-OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
-Status            ready
-Engine            PostgreSQL-12
-IsHaCluster       false
-NodeType          db-dev-s
-Endpoints.0.ID    8185111a-c71e-439a-aceb-3f68aeff5b15
-Endpoints.0.IP    51.159.115.246
-Endpoints.0.Port  38004
+CreatedAt                   few seconds ago
+Region                      fr-par
+ID                          fefe6fdd-328b-45ab-8384-fafad7e1459b
+Name                        cli-test
+OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
+Status                      ready
+Engine                      PostgreSQL-12
+IsHaCluster                 false
+NodeType                    db-dev-s
+Endpoints.0.ID              4f5b874d-655f-44ec-8fad-d8a8d5b09590
+Endpoints.0.IP              51.159.9.176
+Endpoints.0.Port            31733
+LogsPolicy.MaxAgeRetention  30
+BackupSameRegion            false
 
 Endpoint:
-ID    8185111a-c71e-439a-aceb-3f68aeff5b15
-IP    51.159.115.246
-Port  38004
+ID    4f5b874d-655f-44ec-8fad-d8a8d5b09590
+IP    51.159.9.176
+Port  31733
 
 Volume:
 Type  lssd
@@ -44,17 +46,18 @@ max_parallel_workers_per_gather  0
     "size": 5000000000
   },
   "region": "fr-par",
-  "id": "56fb406f-85fc-4f98-86be-6c37fcee0ec0",
+  "id": "fefe6fdd-328b-45ab-8384-fafad7e1459b",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "id": "8185111a-c71e-439a-aceb-3f68aeff5b15",
-    "ip": "51.159.115.246",
-    "port": 38004,
-    "name": null
+    "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
+    "ip": "51.159.9.176",
+    "port": 31733,
+    "name": null,
+    "load_balancer": {}
   },
   "tags": [],
   "settings": [
@@ -94,10 +97,17 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "8185111a-c71e-439a-aceb-3f68aeff5b15",
-      "ip": "51.159.115.246",
-      "port": 38004,
-      "name": null
+      "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
+      "ip": "51.159.9.176",
+      "port": 31733,
+      "name": null,
+      "load_balancer": {}
     }
-  ]
+  ],
+  "logs_policy": {
+    "max_age_retention": 30,
+    "total_disk_retention": null
+  },
+  "backup_same_region": false,
+  "maintenances": []
 }
