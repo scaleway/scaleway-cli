@@ -51,8 +51,7 @@ func Test_RestoreBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:     deleteInstance(),
-		DefaultRegion: scw.RegionNlAms,
+		AfterFunc: deleteInstance(),
 	}))
 }
 
@@ -78,8 +77,7 @@ func Test_ExportBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:     deleteInstance(),
-		DefaultRegion: scw.RegionNlAms,
+		AfterFunc: deleteInstance(),
 	}))
 }
 

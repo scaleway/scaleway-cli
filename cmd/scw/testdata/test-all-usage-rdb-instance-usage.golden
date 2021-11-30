@@ -14,6 +14,7 @@ AVAILABLE COMMANDS:
   get-certificate   Get the TLS certificate of an instance
   list              List instances
   renew-certificate Renew the TLS certificate of an instance
+  restart           Restart an instance
   update            Update an instance
   upgrade           Upgrade an instance to an higher instance type
   wait              Wait for an instance to reach a stable state

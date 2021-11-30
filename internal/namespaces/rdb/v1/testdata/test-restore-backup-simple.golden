@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID            38096809-7da9-449e-a92c-425e1181347f
-InstanceID    96913f91-5ba5-4104-a54d-f3b2036fcf0f
+ID            14a94248-7c53-4290-9b8c-f7082d816759
+InstanceID    7236be15-2a03-4317-b06e-d90745defaf5
 DatabaseName  rdb
 Name          foobar
 Status        ready
@@ -10,11 +10,12 @@ ExpiresAt     few seconds ago
 CreatedAt     few seconds ago
 UpdatedAt     few seconds ago
 InstanceName  cli-test
-Region        nl-ams
+Region        fr-par
+SameRegion    false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "38096809-7da9-449e-a92c-425e1181347f",
-  "instance_id": "96913f91-5ba5-4104-a54d-f3b2036fcf0f",
+  "id": "14a94248-7c53-4290-9b8c-f7082d816759",
+  "instance_id": "7236be15-2a03-4317-b06e-d90745defaf5",
   "database_name": "rdb",
   "name": "foobar",
   "status": "ready",
@@ -25,5 +26,6 @@ Region        nl-ams
   "instance_name": "cli-test",
   "download_url": null,
   "download_url_expires_at": null,
-  "region": "nl-ams"
+  "region": "fr-par",
+  "same_region": false
 }
