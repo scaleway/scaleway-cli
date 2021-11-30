@@ -31,6 +31,7 @@ Database RDB API
   - [Get the TLS certificate of an instance](#get-the-tls-certificate-of-an-instance)
   - [List instances](#list-instances)
   - [Renew the TLS certificate of an instance](#renew-the-tls-certificate-of-an-instance)
+  - [Restart an instance](#restart-an-instance)
   - [Update an instance](#update-an-instance)
   - [Upgrade an instance to an higher instance type](#upgrade-an-instance-to-an-higher-instance-type)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
@@ -522,8 +523,9 @@ scw rdb instance create [arg=value ...]
 | init-settings.{index}.value |  |  |
 | volume-type | One of: `lssd`, `bssd` | Type of volume where data are stored (lssd, bssd, ...) |
 | volume-size |  | Volume size when volume_type is not lssd |
-| init-endpoints.{index}.private-network.private-network-id |  |  |
-| init-endpoints.{index}.private-network.service-ip |  |  |
+| init-endpoints.{index}.private-network.private-network-id |  | UUID of the private network to be connected to the database instance |
+| init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation. |
+| backup-same-region |  | Store logical backups in the same region as the database instance |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -633,6 +635,26 @@ scw rdb instance renew-certificate <instance-id ...> [arg=value ...]
 
 
 
+### Restart an instance
+
+Restart an instance.
+
+**Usage:**
+
+```
+scw rdb instance restart <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want to restart |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Update an instance
 
 Update an instance.
@@ -656,6 +678,7 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 | tags.{index} |  | Tags of a given instance |
 | logs-policy.max-age-retention |  | Max age (in day) of remote logs to keep on the database instance |
 | logs-policy.total-disk-retention |  | Max disk size of remote logs to keep on the database instance |
+| backup-same-region |  | Store logical backups in the same region as the database instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
