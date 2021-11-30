@@ -19,8 +19,9 @@ ARGS:
   [init-settings.{index}.value]                                 
   [volume-type]                                                 Type of volume where data are stored (lssd, bssd, ...) (lssd | bssd)
   [volume-size]                                                 Volume size when volume_type is not lssd
-  [init-endpoints.{index}.private-network.private-network-id]   
-  [init-endpoints.{index}.private-network.service-ip]           
+  [init-endpoints.{index}.private-network.private-network-id]   UUID of the private network to be connected to the database instance
+  [init-endpoints.{index}.private-network.service-ip]           Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.
+  [backup-same-region]                                          Store logical backups in the same region as the database instance
   [organization-id]                                             Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
