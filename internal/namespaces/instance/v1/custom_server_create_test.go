@@ -26,7 +26,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+					assert.Equal(t, "Ubuntu 18.04 Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
 				},
 				core.TestCheckExitCode(0),
 			),
