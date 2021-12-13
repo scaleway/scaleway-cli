@@ -31,6 +31,7 @@ ARGS:
   [cloud-init]                                The cloud-init script to use (Support file loading with @/path/to/file)
   [boot-type]                                  (local | bootscript | rescue)
   [tags.{index}]                              Tags of the server
+  [volumes.{key}.boot=false]                  Force the server to boot on this volume
   [bootscript]                                
   [dynamic-ip-required]                       
   [enable-ipv6]                               
