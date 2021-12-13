@@ -561,14 +561,6 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "volumes.{key}.boot",
-				Short:      `Force the server to boot on this volume`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
-			},
-			{
 				Name:       "volumes.{key}.name",
 				Short:      `Name of the volume`,
 				Required:   false,

@@ -1101,11 +1101,7 @@ If the count reaches this limit, the oldest version will be deleted after each n
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZoneVersions(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.Versions, nil
+			return api.ListDNSZoneVersions(request)
 
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1141,11 +1137,7 @@ func dnsVersionShow() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZoneVersionRecords(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.Records, nil
+			return api.ListDNSZoneVersionRecords(request)
 
 		},
 	}
