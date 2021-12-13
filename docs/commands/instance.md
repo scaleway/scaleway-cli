@@ -1755,6 +1755,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | cloud-init |  | The cloud-init script to use |
 | boot-type | One of: `local`, `bootscript`, `rescue` |  |
 | tags.{index} |  | Tags of the server |
+| volumes.{key}.boot | Default: `false` | Force the server to boot on this volume |
 | bootscript |  |  |
 | dynamic-ip-required |  |  |
 | enable-ipv6 |  |  |
