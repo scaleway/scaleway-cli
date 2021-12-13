@@ -116,13 +116,13 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 }
 
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
-func orderVolumes(v map[string]*instance.Volume) []*instance.Volume {
+func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer {
 	indexes := []string(nil)
 	for index := range v {
 		indexes = append(indexes, index)
 	}
 	sort.Strings(indexes)
-	var orderedVolumes []*instance.Volume
+	var orderedVolumes []*instance.VolumeServer
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
@@ -284,10 +284,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		// Update all volume IDs at once.
 		if customRequest.VolumeIDs != nil {
-			volumes := make(map[string]*instance.VolumeTemplate)
+			volumes := make(map[string]*instance.VolumeServerTemplate)
 			for i, volumeID := range *customRequest.VolumeIDs {
 				index := strconv.Itoa(i)
-				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
+				volumes[index] = &instance.VolumeServerTemplate{
+					ID:   volumeID,
+					Name: getServerResponse.Server.Name + "-" + index,
+				}
 			}
 			customRequest.Volumes = &volumes
 		}
@@ -371,7 +374,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 
 		return &struct {
 			*instance.Server
-			Volumes     []*instance.Volume
+			Volumes     []*instance.VolumeServer
 			PrivateNics []customNICs `json:"private_nics"`
 		}{
 			getServerResp.Server,
@@ -989,9 +992,9 @@ func serverDeleteCommand() *core.Command {
 					break
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeVolumeTypeLSSD:
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeVolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
@@ -1118,7 +1121,7 @@ func serverTerminateCommand() *core.Command {
 			if !deleteBlockVolumes {
 				// detach block storage volumes before terminating the instance to preserve them
 				for _, volume := range server.Server.Volumes {
-					if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
 						continue
 					}
 
@@ -1166,7 +1169,7 @@ func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerRes
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
 				continue
 			}
 
