@@ -24,7 +24,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instance.VolumeVolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instance.VolumeServerVolumeTypeBSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -41,7 +41,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instance.VolumeVolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instance.VolumeServerVolumeTypeLSSD, ctx.Result.(*instance.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
