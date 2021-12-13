@@ -439,8 +439,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
-func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeTemplate, error) {
-	volumes := make(map[string]*instance.VolumeTemplate)
+func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
+	volumes := make(map[string]*instance.VolumeServerTemplate)
 	if rootVolume != "" {
 		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, rootVolume)
 		if err != nil {
@@ -460,7 +460,10 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 
 		// Remove extra data for API validation.
 		if volumeTemplate.ID != "" {
-			volumeTemplate = &instance.VolumeTemplate{ID: volumeTemplate.ID, Name: volumeTemplate.Name}
+			volumeTemplate = &instance.VolumeServerTemplate{
+				ID:   volumeTemplate.ID,
+				Name: volumeTemplate.Name,
+			}
 		}
 
 		volumes[index] = volumeTemplate
@@ -477,12 +480,12 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a UUID format
 //
-func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 
 	// Create volume.
 	if len(parts) == 2 {
-		vt := &instance.VolumeTemplate{}
+		vt := &instance.VolumeServerTemplate{}
 
 		switch parts[0] {
 		case "l", "local":
@@ -518,7 +521,7 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 // Add volume types and sizes allow US to treat UUID volumes like the others and simplify the implementation.
 // The instance API refuse the type and the size for UUID volumes, therefore,
 // buildVolumeMap function will remove them.
-func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeServerTemplate, error) {
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
 		Zone:     zone,
 		VolumeID: volumeUUID,
@@ -532,7 +535,7 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 		return nil, fmt.Errorf("volume %s is already attached to %s server", res.Volume.ID, res.Volume.Server.ID)
 	}
 
-	return &instance.VolumeTemplate{
+	return &instance.VolumeServerTemplate{
 		ID:         res.Volume.ID,
 		VolumeType: res.Volume.VolumeType,
 		Size:       res.Volume.Size,
@@ -558,7 +561,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serverType *instance.ServerType, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -587,7 +590,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serve
 	return nil
 }
 
-func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeTemplate) error {
+func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeServerTemplate) error {
 	if rootVolume == nil {
 		return nil
 	}
@@ -611,8 +614,8 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeT
 }
 
 // sanitizeVolumeMap removes extra data for API validation.
-func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeTemplate) map[string]*instance.VolumeTemplate {
-	m := make(map[string]*instance.VolumeTemplate)
+func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
 		v.Name = serverName + "-" + index
@@ -620,9 +623,14 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeTem
 		// Remove extra data for API validation.
 		switch {
 		case v.ID != "":
-			v = &instance.VolumeTemplate{ID: v.ID, Name: v.Name}
+			v = &instance.VolumeServerTemplate{
+				ID:   v.ID,
+				Name: v.Name,
+			}
 		case index == "0" && v.Size != 0:
-			v = &instance.VolumeTemplate{Size: v.Size}
+			v = &instance.VolumeServerTemplate{
+				Size: v.Size,
+			}
 		}
 		m[index] = v
 	}
