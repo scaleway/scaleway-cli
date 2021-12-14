@@ -123,6 +123,13 @@ func baremetalServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "option-id",
+				Short:      `Filter servers by option ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter servers by organization ID`,
 				Required:   false,
@@ -241,6 +248,13 @@ func baremetalServerCreate() *core.Command {
 			},
 			{
 				Name:       "install.ssh-key-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "option-ids.{index}",
+				Short:      `IDs of options to enable on server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
