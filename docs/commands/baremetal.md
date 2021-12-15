@@ -175,6 +175,7 @@ scw baremetal server create [arg=value ...]
 | install.os-id |  |  |
 | install.hostname |  |  |
 | install.ssh-key-ids.{index} |  |  |
+| option-ids.{index} |  | IDs of options to enable on server |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -309,6 +310,7 @@ scw baremetal server list [arg=value ...]
 | status.{index} |  | Filter servers by status |
 | name |  | Filter servers by name |
 | project-id |  | Filter servers by project ID |
+| option-id |  | Filter servers by option ID |
 | organization-id |  | Filter servers by organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
