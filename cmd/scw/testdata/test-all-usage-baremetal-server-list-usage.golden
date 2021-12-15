@@ -15,6 +15,7 @@ ARGS:
   [status.{index}]    Filter servers by status
   [name]              Filter servers by name
   [project-id]        Filter servers by project ID
+  [option-id]         Filter servers by option ID
   [organization-id]   Filter servers by organization ID
   [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 

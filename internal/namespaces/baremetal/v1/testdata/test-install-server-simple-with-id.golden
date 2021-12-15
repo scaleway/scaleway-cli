@@ -70,5 +70,6 @@ PingStatus                  down
     ],
     "status": "completed"
   },
-  "ping_status": "ping_status_down"
+  "ping_status": "ping_status_down",
+  "options": null
 }
