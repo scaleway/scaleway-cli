@@ -29,6 +29,7 @@ Install.Hostname            test-install-server
 Install.SSHKeyIDs.0         48734124-36fc-409c-a515-40c87ed0e1b8
 Install.Status              completed
 PingStatus                  down
+ServiceURL                  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "85a4280a-4d3d-462c-9214-fb8d8d9d1971",
@@ -71,5 +72,6 @@ PingStatus                  down
     "status": "completed"
   },
   "ping_status": "ping_status_down",
-  "options": null
+  "options": null,
+  "service_url": ""
 }

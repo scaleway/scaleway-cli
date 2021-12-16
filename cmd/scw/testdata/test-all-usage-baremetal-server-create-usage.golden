@@ -21,6 +21,10 @@ ARGS:
   [install.os-id]                 
   [install.hostname]              
   [install.ssh-key-ids.{index}]   
+  [install.user]                  
+  [install.password]              
+  [install.service-user]          
+  [install.service-password]      
   [option-ids.{index}]            IDs of options to enable on server
   [organization-id]               Organization ID to use. If none is passed the default organization ID will be used
   [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
