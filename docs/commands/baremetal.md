@@ -175,6 +175,10 @@ scw baremetal server create [arg=value ...]
 | install.os-id |  |  |
 | install.hostname |  |  |
 | install.ssh-key-ids.{index} |  |  |
+| install.user |  |  |
+| install.password |  |  |
+| install.service-user |  |  |
+| install.service-password |  |  |
 | option-ids.{index} |  | IDs of options to enable on server |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
@@ -276,6 +280,10 @@ scw baremetal server install <server-id ...> [arg=value ...]
 | hostname | Required | Hostname of the server |
 | all-ssh-keys |  | Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids) |
 | ssh-key-ids.{index} | Required | SSH key IDs authorized on the server (cannot be used with all-ssh-keys) |
+| user |  | User used for the installation |
+| password |  | Password used for the installation |
+| service-user |  | User used for the service to install |
+| service-password |  | Password used for the service to install |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
