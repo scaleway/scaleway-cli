@@ -193,7 +193,7 @@ func vpcGwGatewayList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "stopped", "allocating", "configuring", "running", "stopping", "failed", "deleting", "deleted"},
+				EnumValues: []string{"unknown", "stopped", "allocating", "configuring", "running", "stopping", "failed", "deleting", "deleted", "locked"},
 			},
 			{
 				Name:       "private-network-id",
