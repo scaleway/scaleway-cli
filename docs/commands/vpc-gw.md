@@ -416,7 +416,7 @@ scw vpc-gw gateway list [arg=value ...]
 | name |  | Filter gateways including this name |
 | tags.{index} |  | Filter gateways with these tags |
 | type |  | Filter gateways of this type |
-| status | One of: `unknown`, `stopped`, `allocating`, `configuring`, `running`, `stopping`, `failed`, `deleting`, `deleted` | Filter gateways in this status (unknown for any) |
+| status | One of: `unknown`, `stopped`, `allocating`, `configuring`, `running`, `stopping`, `failed`, `deleting`, `deleted`, `locked` | Filter gateways in this status (unknown for any) |
 | private-network-id |  | Filter gateways attached to this private network |
 | organization-id |  | Include only gateways in this organization |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
