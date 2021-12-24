@@ -20,6 +20,7 @@ ARGS:
   [max-concurrency]                     
   [domain-name]                         
   [protocol]                             (unknown_protocol | http1 | h2c)
+  [port]                                
   [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
