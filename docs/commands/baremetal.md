@@ -314,12 +314,12 @@ scw baremetal server list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Order of the servers |
-| tags.{index} |  | Filter servers by tags |
-| status.{index} |  | Filter servers by status |
-| name |  | Filter servers by name |
-| project-id |  | Filter servers by project ID |
-| option-id |  | Filter servers by option ID |
-| organization-id |  | Filter servers by organization ID |
+| tags.{index} |  | Filter by tags |
+| status.{index} |  | Filter by status |
+| name |  | Filter by name |
+| project-id |  | Filter by project ID |
+| option-id |  | Filter by option ID |
+| organization-id |  | Filter by organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
