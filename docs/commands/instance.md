@@ -317,9 +317,9 @@ scw instance ip create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | server |  | UUID of the server you want to attach the IP to |
 | tags.{index} |  | An array of keywords you want to tag this IP with |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
