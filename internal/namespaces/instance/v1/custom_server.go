@@ -189,8 +189,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.DeleteByName("volumes.{key}.size")
 	c.ArgSpecs.DeleteByName("volumes.{key}.id")
 	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
-	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
-	c.ArgSpecs.DeleteByName("volumes.{key}.project")
 
 	// Add new arg specs.
 	c.ArgSpecs.AddBefore("placement-group-id", &core.ArgSpec{
