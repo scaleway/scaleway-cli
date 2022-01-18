@@ -6,7 +6,7 @@ USAGE:
   scw baremetal server stop <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Stop a baremetal server
+  Stop a elastic metal server
     scw baremetal server stop 11111111-1111-1111-1111-111111111111
 
 ARGS:

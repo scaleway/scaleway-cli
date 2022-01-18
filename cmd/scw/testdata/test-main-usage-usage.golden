@@ -7,7 +7,7 @@ AVAILABLE COMMANDS:
   account       Account API
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
-  baremetal     Baremetal API
+  baremetal     Elastic metal API
   config        Config file management
   container     Container as a Service API
   dns           DNS API
