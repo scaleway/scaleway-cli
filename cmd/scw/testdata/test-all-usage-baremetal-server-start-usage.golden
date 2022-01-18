@@ -6,7 +6,7 @@ USAGE:
   scw baremetal server start <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Start a baremetal server
+  Start a elastic metal server
     scw baremetal server start 11111111-1111-1111-1111-111111111111
 
   Start a server in rescue mode
