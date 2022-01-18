@@ -9,6 +9,7 @@ UpdatedAt                   few seconds ago
 CreatedAt                   few seconds ago
 Status                      ready
 OfferID                     c27dd792-2538-4c54-8989-f460b1aeb5fd
+OfferName                   -
 IPs.0.ID                    bae39857-7fbe-4ae6-afb4-330acd46714d
 IPs.0.Address               2001:bc8:1600:6:224:ecff:fef2:c008
 IPs.0.Reverse               eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
@@ -45,6 +46,7 @@ ServiceURL                  -
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
   "offer_id": "c27dd792-2538-4c54-8989-f460b1aeb5fd",
+  "offer_name": "",
   "tags": [],
   "ips": [
     {
