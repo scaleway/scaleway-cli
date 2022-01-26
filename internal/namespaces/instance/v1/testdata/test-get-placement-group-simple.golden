@@ -28,6 +28,7 @@ ID                                    NAME                  POLICY RESPECTED
   "name": "cli-pg-reverent-thompson",
   "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "tags": null,
   "policy_mode": "optional",
   "policy_type": "max_availability",
   "policy_respected": true,

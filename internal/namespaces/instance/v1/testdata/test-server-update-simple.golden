@@ -87,6 +87,7 @@ Server.Zone                        fr-par-1
       },
       "state": "available",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
     "protected": false,

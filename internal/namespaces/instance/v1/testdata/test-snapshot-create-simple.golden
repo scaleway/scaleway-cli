@@ -19,6 +19,7 @@ Zone              fr-par-1
     "name": "cli-snp-frosty-noether",
     "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
     "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "tags": null,
     "volume_type": "l_ssd",
     "size": 20000000000,
     "state": "available",
