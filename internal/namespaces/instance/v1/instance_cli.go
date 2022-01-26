@@ -417,7 +417,7 @@ func instanceServerList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `List servers with these exact tags (to filter with several tags, use commas to separate them)`,
+				Short:      `List servers with these exact tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -914,12 +914,6 @@ func instanceImageList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "organization",
 				Required:   false,
 				Deprecated: false,
@@ -1079,13 +1073,6 @@ func instanceImageCreate() *core.Command {
 			},
 			core.ProjectArgSpec(),
 			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the image`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "public",
 				Short:      `True to create a public image`,
 				Required:   false,
@@ -1181,12 +1168,6 @@ func instanceSnapshotList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "organization",
 				Required:   false,
 				Deprecated: false,
@@ -1241,13 +1222,6 @@ func instanceSnapshotCreate() *core.Command {
 				Name:       "volume-id",
 				Short:      `UUID of the volume`,
 				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the snapshot`,
-				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1392,13 +1366,6 @@ func instanceVolumeList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
-				Short:      `Filter volumes with these exact tags (to filter with several tags, use commas to separate them)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Filter volume by name (for eg. "vol" will return "myvolume" but not "data")`,
 				Required:   false,
@@ -1508,13 +1475,6 @@ func instanceVolumeCreate() *core.Command {
 				Default:    core.RandomValueGenerator("vol"),
 			},
 			core.ProjectArgSpec(),
-			{
-				Name:       "tags.{index}",
-				Short:      `The volume tags`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			{
 				Name:       "volume-type",
 				Short:      `The volume type`,
@@ -1633,13 +1593,6 @@ func instanceVolumeUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the volume`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "size",
 				Short:      `The volume disk size`,
 				Required:   false,
@@ -1740,13 +1693,6 @@ func instanceSecurityGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
-				Short:      `List security groups with these exact tags (to filter with several tags, use commas to separate them)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "organization",
 				Short:      `The security group organization ID`,
 				Required:   false,
@@ -1802,13 +1748,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Positional: false,
 			},
 			core.ProjectArgSpec(),
-			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the security group`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			{
 				Name:       "organization-default",
 				Short:      `Whether this security group becomes the default security group for new instances`,
@@ -1990,13 +1929,6 @@ func instancePlacementGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
-				Short:      `List placement groups with these exact tags (to filter with several tags, use commas to separate them)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")`,
 				Required:   false,
@@ -2056,13 +1988,6 @@ func instancePlacementGroupCreate() *core.Command {
 				Default:    core.RandomValueGenerator("pg"),
 			},
 			core.ProjectArgSpec(),
-			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the placement group`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			{
 				Name:       "policy-mode",
 				Short:      `The operating mode of the placement group`,
@@ -2180,13 +2105,6 @@ func instancePlacementGroupUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the placement group`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "policy-mode",
 				Short:      `The operating mode of the placement group`,
 				Required:   false,
@@ -2295,13 +2213,6 @@ func instanceIPList() *core.Command {
 			{
 				Name:       "project",
 				Short:      `The project ID the IPs are reserved in`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "tags.{index}",
-				Short:      `Filter IPs with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
