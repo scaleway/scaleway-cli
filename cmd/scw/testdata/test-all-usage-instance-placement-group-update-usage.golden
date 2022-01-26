@@ -20,7 +20,7 @@ ARGS:
   [name]               Name of the placement group
   [policy-mode]        The operating mode of the placement group (optional | enforced)
   [policy-type]        The policy type of the placement group (max_availability | low_latency)
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | pl-waw-1)
 
 FLAGS:
   -h, --help   help for update
