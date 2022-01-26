@@ -38,5 +38,5 @@ SEE ALSO:
   # List OS (useful to get all OS IDs)
   scw baremetal os list
 
-  # Create a baremetal server
+  # Create a elastic metal server
   scw baremetal server create

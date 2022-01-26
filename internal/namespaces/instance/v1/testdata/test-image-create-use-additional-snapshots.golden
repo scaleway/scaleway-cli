@@ -34,6 +34,7 @@ Zone              fr-par-1
     },
     "state": "available",
     "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "tags": null,
     "zone": "fr-par-1"
   },
   "Location": ""

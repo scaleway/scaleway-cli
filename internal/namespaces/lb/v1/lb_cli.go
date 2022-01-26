@@ -855,6 +855,13 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"proxy_protocol_unknown", "proxy_protocol_none", "proxy_protocol_v1", "proxy_protocol_v2", "proxy_protocol_v2_ssl", "proxy_protocol_v2_ssl_cn"},
 			},
+			{
+				Name:       "failover-host",
+				Short:      `Scaleway S3 bucket website to be served in case all backend servers are down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -990,6 +997,12 @@ func lbBackendUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"proxy_protocol_unknown", "proxy_protocol_none", "proxy_protocol_v1", "proxy_protocol_v2", "proxy_protocol_v2_ssl", "proxy_protocol_v2_ssl_cn"},
+			},
+			{
+				Name:       "failover-host",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},

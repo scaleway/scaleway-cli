@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all available OS that can be install on a elastic metal server.
+Deploy a container associated with the given id.
 
 USAGE:
-  scw baremetal os list [arg=value ...]
+  scw container container deploy <container-id ...> [arg=value ...]
 
 ARGS:
-  [offer-id]        Filter OS by offer ID
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+  container-id      
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help   help for deploy
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

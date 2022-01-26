@@ -41,6 +41,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
       },
       "state": "available",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
     "protected": false,
@@ -152,6 +153,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
       },
       "state": "available",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
     "protected": false,
@@ -263,6 +265,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
       },
       "state": "available",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
     "protected": false,
@@ -368,6 +371,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
       },
       "state": "available",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
     "protected": true,

@@ -41,7 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 }
 func baremetalRoot() *core.Command {
 	return &core.Command{
-		Short:     `Baremetal API`,
+		Short:     `Elastic metal API`,
 		Long:      ``,
 		Namespace: "baremetal",
 	}
@@ -67,8 +67,8 @@ func baremetalOs() *core.Command {
 
 func baremetalBmc() *core.Command {
 	return &core.Command{
-		Short: `Baseboard Management Controller (BMC) management commands`,
-		Long: `Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+		Short: `Unvailable - Baseboard Management Controller (BMC) management commands`,
+		Long: `Unvailable - Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
 `,
 		Namespace: "baremetal",
@@ -78,8 +78,8 @@ For instance, your KVM-IP management console could be accessed with it.
 
 func baremetalServerList() *core.Command {
 	return &core.Command{
-		Short:     `List baremetal servers for organization`,
-		Long:      `List baremetal servers for organization.`,
+		Short:     `List elastic metal servers for organization`,
+		Long:      `List elastic metal servers for organization.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "list",
@@ -161,7 +161,7 @@ func baremetalServerList() *core.Command {
 
 func baremetalServerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a specific baremetal server`,
+		Short:     `Get a specific elastic metal server`,
 		Long:      `Get the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -197,8 +197,8 @@ func baremetalServerGet() *core.Command {
 
 func baremetalServerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a baremetal server`,
-		Long:      `Create a new baremetal server. Once the server is created, you probably want to install an OS.`,
+		Short:     `Create a elastic metal server`,
+		Long:      `Create a new elastic metal server. Once the server is created, you probably want to install an OS.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "create",
@@ -296,7 +296,7 @@ func baremetalServerCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create instance a default baremetal instance",
+				Short:    "Create instance a default elastic metal instance",
 				ArgsJSON: `null`,
 			},
 		},
@@ -305,7 +305,7 @@ func baremetalServerCreate() *core.Command {
 
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a baremetal server`,
+		Short:     `Update a elastic metal server`,
 		Long:      `Update the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -356,7 +356,7 @@ func baremetalServerUpdate() *core.Command {
 
 func baremetalServerInstall() *core.Command {
 	return &core.Command{
-		Short:     `Install a baremetal server`,
+		Short:     `Install a elastic metal server`,
 		Long:      `Install an OS on the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -447,7 +447,7 @@ func baremetalServerInstall() *core.Command {
 			},
 			{
 				Command: "scw baremetal server create",
-				Short:   "Create a baremetal server",
+				Short:   "Create a elastic metal server",
 			},
 		},
 	}
@@ -455,7 +455,7 @@ func baremetalServerInstall() *core.Command {
 
 func baremetalServerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a baremetal server`,
+		Short:     `Delete a elastic metal server`,
 		Long:      `Delete the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -482,7 +482,7 @@ func baremetalServerDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a baremetal server",
+				Short:    "Delete a elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -491,7 +491,7 @@ func baremetalServerDelete() *core.Command {
 
 func baremetalServerReboot() *core.Command {
 	return &core.Command{
-		Short:     `Reboot a baremetal server`,
+		Short:     `Reboot a elastic metal server`,
 		Long:      `Reboot the server associated with the given ID, use boot param to reboot in rescue.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -539,7 +539,7 @@ func baremetalServerReboot() *core.Command {
 
 func baremetalServerStart() *core.Command {
 	return &core.Command{
-		Short:     `Start a baremetal server`,
+		Short:     `Start a elastic metal server`,
 		Long:      `Start the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -574,7 +574,7 @@ func baremetalServerStart() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Start a baremetal server",
+				Short:    "Start a elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
@@ -587,7 +587,7 @@ func baremetalServerStart() *core.Command {
 
 func baremetalServerStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop a baremetal server`,
+		Short:     `Stop a elastic metal server`,
 		Long:      `Stop the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -614,7 +614,7 @@ func baremetalServerStop() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Stop a baremetal server",
+				Short:    "Stop a elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -623,8 +623,8 @@ func baremetalServerStop() *core.Command {
 
 func baremetalBmcStart() *core.Command {
 	return &core.Command{
-		Short: `Start BMC (Baseboard Management Controller) access for a given baremetal server`,
-		Long: `Start BMC (Baseboard Management Controller) access associated with the given ID.
+		Short: `Unvailable - Start BMC (Baseboard Management Controller) access for a given elastic metal server`,
+		Long: `Unvailable - Start BMC (Baseboard Management Controller) access associated with the given ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
 `,
 		Namespace: "baremetal",
@@ -662,7 +662,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 
 func baremetalBmcGet() *core.Command {
 	return &core.Command{
-		Short:     `Get BMC (Baseboard Management Controller) access for a given baremetal server`,
+		Short:     `Get BMC (Baseboard Management Controller) access for a given elastic metal server`,
 		Long:      `Get the BMC (Baseboard Management Controller) access associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
@@ -692,7 +692,7 @@ func baremetalBmcGet() *core.Command {
 
 func baremetalBmcStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop BMC (Baseboard Management Controller) access for a given baremetal server`,
+		Short:     `Stop BMC (Baseboard Management Controller) access for a given elastic metal server`,
 		Long:      `Stop BMC (Baseboard Management Controller) access associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
@@ -728,8 +728,8 @@ func baremetalBmcStop() *core.Command {
 
 func baremetalOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all available OS that can be install on a baremetal server`,
-		Long:      `List all available OS that can be install on a baremetal server.`,
+		Short:     `List all available OS that can be install on a elastic metal server`,
+		Long:      `List all available OS that can be install on a elastic metal server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 		Verb:      "list",
