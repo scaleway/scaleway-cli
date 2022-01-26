@@ -35,38 +35,8 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("description").Required = false
 
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
-		Name:    "type",
-		Short:   "Server commercial type",
-		Default: core.DefaultValueSetter("GP-BM1-S"),
-
-		EnumValues: []string{
-			// General Purpose offers
-			"GP-BM1-L",
-			"GP-BM1-M",
-			"GP-BM1-S",
-			"GP-BM2-S",
-			"GP-BM2-M",
-
-			// High-computing offers
-			"HC-BM1-XS",
-			"HC-BM1-S",
-			"HC-BM1-L",
-			"HC-BM1-S",
-			"HC-BM2-M",
-			"HC-BM2-L",
-			"HC-BM2-XL",
-
-			// High-Memory offers
-			"HM-BM1-S",
-			"HM-BM1-M",
-			"HM-BM1-XL",
-			"HM-BM2-L",
-			"HM-BM2-XXL",
-
-			// Ultimate performance
-			"UP-BM2-M",
-			"UP-BM2-XL",
-		},
+		Name:  "type",
+		Short: "Server commercial type",
 	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
