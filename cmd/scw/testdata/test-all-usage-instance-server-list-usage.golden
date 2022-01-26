@@ -25,6 +25,7 @@ ARGS:
   [without-ip]        List servers that are not attached to a public IP
   [commercial-type]   List servers of this commercial type
   [state]             List servers in this state (running | stopped | stopped in place | starting | stopping | locked)
+  [tags.{index}]      List servers with these exact tags
   [private-network]   List servers in this Private Network
   [order]             Define the order of the returned servers (creation_date_desc | creation_date_asc | modification_date_desc | modification_date_asc)
   [organization-id]   List only servers of this organization ID
