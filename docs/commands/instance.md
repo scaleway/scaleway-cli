@@ -111,6 +111,7 @@ scw instance image create [arg=value ...]
 | additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | The tags of the image |
 | public |  | True to create a public image |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -217,6 +218,7 @@ scw instance image list [arg=value ...]
 | public |  |  |
 | arch |  |  |
 | project-id |  |  |
+| tags |  |  |
 | organization-id |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -318,8 +320,8 @@ scw instance ip create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | The tags of the IP |
 | server |  | UUID of the server you want to attach the IP to |
-| tags.{index} |  | An array of keywords you want to tag this IP with |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -477,6 +479,7 @@ scw instance ip list [arg=value ...]
 |------|---|-------------|
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
 | project-id |  | The project ID the IPs are reserved in |
+| tags.{index} |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | organization-id |  | The organization ID the IPs are reserved in |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -579,6 +582,7 @@ scw instance placement-group create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the placement group |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | The tags of the placement group |
 | policy-mode | One of: `optional`, `enforced` | The operating mode of the placement group |
 | policy-type | One of: `max_availability`, `low_latency` | The policy type of the placement group |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
@@ -702,6 +706,7 @@ scw instance placement-group list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | List only placement groups of this project ID |
+| tags.{index} |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo") |
 | organization-id |  | List only placement groups of this organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -740,6 +745,7 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group |
 | name |  | Name of the placement group |
+| tags.{index} |  | The tags of the placement group |
 | policy-mode | One of: `optional`, `enforced` | The operating mode of the placement group |
 | policy-type | One of: `max_availability`, `low_latency` | The policy type of the placement group |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -930,6 +936,7 @@ scw instance security-group create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of the security group |
 | description |  | Description of the security group |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | The tags of the security group |
 | ~~organization-default~~ | Deprecated<br />Default: `false` | Whether this security group becomes the default security group for new instances |
 | project-default | Default: `false` | Whether this security group becomes the default security group for new instances |
 | stateful | Default: `true` | Whether the security group is stateful or not |
@@ -1048,6 +1055,7 @@ scw instance security-group list [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the security group |
 | project-id |  | The security group project ID |
+| tags.{index} |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
 | organization-id |  | The security group organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1496,7 +1504,7 @@ scw instance server list [arg=value ...]
 | without-ip |  | List servers that are not attached to a public IP |
 | commercial-type |  | List servers of this commercial type |
 | state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List servers in this state |
-| tags.{index} |  | List servers with these exact tags |
+| tags.{index} |  | List servers with these exact tags (to filter with several tags, use commas to separate them) |
 | private-network |  | List servers in this Private Network |
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
 | organization-id |  | List only servers of this organization ID |
@@ -1756,8 +1764,6 @@ scw instance server update <server-id ...> [arg=value ...]
 | boot-type | One of: `local`, `bootscript`, `rescue` |  |
 | tags.{index} |  | Tags of the server |
 | volumes.{key}.boot | Default: `false` | Force the server to boot on this volume |
-| volumes.{key}.project |  | Project ID of the volume |
-| ~~volumes.{key}.organization~~ | Deprecated | Organization ID of the volume |
 | bootscript |  |  |
 | dynamic-ip-required |  |  |
 | enable-ipv6 |  |  |
@@ -1913,6 +1919,7 @@ scw instance snapshot create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the snapshot |
 | volume-id | Required | UUID of the volume |
+| tags.{index} |  | The tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -2026,6 +2033,7 @@ scw instance snapshot list [arg=value ...]
 |------|---|-------------|
 | name |  |  |
 | project-id |  |  |
+| tags |  |  |
 | organization-id |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2228,6 +2236,7 @@ scw instance volume create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | The volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | The volume tags |
 | volume-type | One of: `l_ssd`, `b_ssd` | The volume type |
 | size |  | The volume disk size |
 | base-volume |  | The ID of the volume on which this volume will be based |
@@ -2334,6 +2343,7 @@ scw instance volume list [arg=value ...]
 |------|---|-------------|
 | volume-type | One of: `l_ssd`, `b_ssd` | Filter by volume type |
 | project-id |  | Filter volume by project ID |
+| tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
 | organization-id |  | Filter volume by organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -2387,6 +2397,7 @@ scw instance volume update <volume-id ...> [arg=value ...]
 |------|---|-------------|
 | volume-id | Required | UUID of the volume |
 | name |  | The volume name |
+| tags.{index} |  | The tags of the volume |
 | size |  | The volume disk size |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
