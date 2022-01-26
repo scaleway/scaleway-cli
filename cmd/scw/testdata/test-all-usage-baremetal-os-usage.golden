@@ -7,7 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   get         Get an OS with a given ID
-  list        List all available OS that can be install on a elastic metal server
+  list        List all available OS that can be install on a baremetal server
 
 FLAGS:
   -h, --help   help for os

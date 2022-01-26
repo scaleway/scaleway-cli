@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Unvailable - Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
 
 USAGE:
   scw baremetal bmc <command>
 
 AVAILABLE COMMANDS:
-  get         Get BMC (Baseboard Management Controller) access for a given elastic metal server
-  start       Unvailable - Start BMC (Baseboard Management Controller) access for a given elastic metal server
-  stop        Stop BMC (Baseboard Management Controller) access for a given elastic metal server
+  get         Get BMC (Baseboard Management Controller) access for a given baremetal server
+  start       Start BMC (Baseboard Management Controller) access for a given baremetal server
+  stop        Stop BMC (Baseboard Management Controller) access for a given baremetal server
 
 FLAGS:
   -h, --help   help for bmc

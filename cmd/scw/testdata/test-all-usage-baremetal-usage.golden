@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Elastic metal API
+Baremetal API
 
 USAGE:
   scw baremetal <command>
 
 AVAILABLE COMMANDS:
-  bmc         Unvailable - Baseboard Management Controller (BMC) management commands
+  bmc         Baseboard Management Controller (BMC) management commands
   os          Operating System (OS) management commands
   server      Server management commands
 
