@@ -591,6 +591,20 @@ func instanceServerUpdate() *core.Command {
 				EnumValues: []string{"l_ssd", "b_ssd"},
 			},
 			{
+				Name:       "volumes.{key}.project",
+				Short:      `Project ID of the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volumes.{key}.organization",
+				Short:      `Organization ID of the volume`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
 				Name:       "bootscript",
 				Required:   false,
 				Deprecated: false,
