@@ -2306,15 +2306,15 @@ func instanceIPCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectArgSpec(),
 			{
-				Name:       "tags.{index}",
-				Short:      `The tags of the IP`,
+				Name:       "server",
+				Short:      `UUID of the server you want to attach the IP to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "server",
-				Short:      `UUID of the server you want to attach the IP to`,
+				Name:       "tags.{index}",
+				Short:      `An array of keywords you want to tag this IP with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
