@@ -336,6 +336,8 @@ github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb
 github.com/sagikazarmark/crypt v0.3.0/go.mod h1:uD/D+6UF4SrIR1uGEv7bBNkNqLGqUr43MRiaGWX1Nig=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20211228141032-f7f19086be1c h1:CwMQGNHGFoTalpfd7zYZ5XO9ocgJOTed1qcHTXuAfNw=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20211228141032-f7f19086be1c/go.mod h1:fCa7OJZ/9DRTnOKmxvT6pn+LPWUptQAmHF/SBJUGEcg=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20220126135734-1f317783529d h1:NFIWJoWGnMjAPQ1xk6l5sfWVKPFCwj9Vje98HxN29Jg=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20220126135734-1f317783529d/go.mod h1:fCa7OJZ/9DRTnOKmxvT6pn+LPWUptQAmHF/SBJUGEcg=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
 github.com/sergi/go-diff v1.2.0 h1:XU+rvMAioB0UC3q1MFrIQy4Vo5/4VsRDQQXHsEya6xQ=
 github.com/sergi/go-diff v1.2.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
