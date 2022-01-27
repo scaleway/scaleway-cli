@@ -54,6 +54,7 @@ scw container container create [arg=value ...]
 | max-concurrency |  |  |
 | domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
+| port |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -151,6 +152,7 @@ scw container container update <container-id ...> [arg=value ...]
 | max-concurrency |  |  |
 | domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
+| port |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
