@@ -101,13 +101,6 @@ func fipIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "is-ipv6",
-				Short:      `If true, creates a Flexible IP with an ipv6 address`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
