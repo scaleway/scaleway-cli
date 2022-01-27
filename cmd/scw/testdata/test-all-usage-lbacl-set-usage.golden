@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Set all ACLs for a given frontend.
+
+USAGE:
+  scw lb acl set [arg=value ...]
+
+ARGS:
+  acls.{index}.name                                Name of your ACL resource
+  [acls.{index}.action.type]                       The action type (allow | deny)
+  [acls.{index}.match.ip-subnet.{index}]           A list of IPs or CIDR v4/v6 addresses of the client of the session to match
+  [acls.{index}.match.http-filter]                 The HTTP filter to match (acl_http_filter_none | path_begin | path_end | regex | http_header_match)
+  [acls.{index}.match.http-filter-value.{index}]   A list of possible values to match for the given HTTP filter
+  [acls.{index}.match.http-filter-option]          A exra parameter. You can use this field with http_header_match acl type to set the header name to filter
+  [acls.{index}.match.invert]                      If set to `true`, the ACL matching condition will be of type "UNLESS"
+  acls.{index}.index                               Order between your Acls (ascending order, 0 is first acl executed)
+  frontend-id                                      The Frontend to change ACL to
+  [zone=fr-par-1]                                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+
+FLAGS:
+  -h, --help   help for set
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
