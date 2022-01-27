@@ -452,12 +452,6 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "http1", "h2c"},
 			},
-			{
-				Name:       "port",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -566,12 +560,6 @@ func containerContainerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "http1", "h2c"},
-			},
-			{
-				Name:       "port",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
