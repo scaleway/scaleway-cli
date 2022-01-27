@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerContainerCreate(),
 		containerContainerUpdate(),
 		containerContainerDelete(),
+		containerContainerDeploy(),
 		containerCronList(),
 		containerCronGet(),
 		containerCronDelete(),
@@ -451,6 +452,12 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "http1", "h2c"},
 			},
+			{
+				Name:       "port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -560,6 +567,12 @@ func containerContainerUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "http1", "h2c"},
 			},
+			{
+				Name:       "port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -597,6 +610,35 @@ func containerContainerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteContainer(request)
+
+		},
+	}
+}
+
+func containerContainerDeploy() *core.Command {
+	return &core.Command{
+		Short:     `Deploy a container`,
+		Long:      `Deploy a container associated with the given id.`,
+		Namespace: "container",
+		Resource:  "container",
+		Verb:      "deploy",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.DeployContainerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "container-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.DeployContainerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.DeployContainer(request)
 
 		},
 	}

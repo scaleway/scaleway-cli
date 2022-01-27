@@ -58,6 +58,7 @@ func GetGeneratedCommands() *core.Commands {
 		lbACLGet(),
 		lbACLUpdate(),
 		lbACLDelete(),
+		lbACLPut(),
 		lbCertificateCreate(),
 		lbCertificateList(),
 		lbCertificateGet(),
@@ -1855,6 +1856,94 @@ func lbACLDelete() *core.Command {
 				Resource: "acl",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func lbACLPut() *core.Command {
+	return &core.Command{
+		Short:     `Set all ACLs for a given frontend`,
+		Long:      `Set all ACLs for a given frontend.`,
+		Namespace: "lb",
+		Resource:  "acl",
+		Verb:      "put",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPISetACLsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "acls.{index}.name",
+				Short:      `Name of your ACL resource`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.action.type",
+				Short:      `The action type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"allow", "deny"},
+			},
+			{
+				Name:       "acls.{index}.match.ip-subnet.{index}",
+				Short:      `A list of IPs or CIDR v4/v6 addresses of the client of the session to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.match.http-filter",
+				Short:      `The HTTP filter to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"acl_http_filter_none", "path_begin", "path_end", "regex", "http_header_match"},
+			},
+			{
+				Name:       "acls.{index}.match.http-filter-value.{index}",
+				Short:      `A list of possible values to match for the given HTTP filter`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.match.http-filter-option",
+				Short:      `A exra parameter. You can use this field with http_header_match acl type to set the header name to filter`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.match.invert",
+				Short:      `If set to ` + "`" + `true` + "`" + `, the ACL matching condition will be of type "UNLESS"`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.index",
+				Short:      `Order between your Acls (ascending order, 0 is first acl executed)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "frontend-id",
+				Short:      `The Frontend to change ACL to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPISetACLsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.SetACLs(request)
+
 		},
 	}
 }
