@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/internal/core"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerContainerCreate(),
 		containerContainerUpdate(),
 		containerContainerDelete(),
+		containerContainerDeploy(),
 		containerCronList(),
 		containerCronGet(),
 		containerCronDelete(),
@@ -609,6 +610,35 @@ func containerContainerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteContainer(request)
+
+		},
+	}
+}
+
+func containerContainerDeploy() *core.Command {
+	return &core.Command{
+		Short:     `Deploy a container`,
+		Long:      `Deploy a container associated with the given id.`,
+		Namespace: "container",
+		Resource:  "container",
+		Verb:      "deploy",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.DeployContainerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "container-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.DeployContainerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.DeployContainer(request)
 
 		},
 	}
