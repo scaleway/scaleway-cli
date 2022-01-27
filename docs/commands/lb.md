@@ -7,6 +7,7 @@ This API allows you to manage your load balancer service
   - [Delete an ACL](#delete-an-acl)
   - [Get an ACL](#get-an-acl)
   - [List ACL for a given frontend](#list-acl-for-a-given-frontend)
+  - [Set all ACLs for a given frontend](#set-all-acls-for-a-given-frontend)
   - [Update an ACL](#update-an-acl)
 - [Backend management commands](#backend-management-commands)
   - [Add a set of servers in a given backend](#add-a-set-of-servers-in-a-given-backend)
@@ -140,6 +141,34 @@ scw lb acl list [arg=value ...]
 | frontend-id | Required | ID of your frontend |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | You can order the response by created_at asc/desc or name asc/desc |
 | name |  | Filter acl per name |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set all ACLs for a given frontend
+
+Set all ACLs for a given frontend.
+
+**Usage:**
+
+```
+scw lb acl put [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| acls.{index}.name | Required | Name of your ACL resource |
+| acls.{index}.action.type | One of: `allow`, `deny` | The action type |
+| acls.{index}.match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
+| acls.{index}.match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
+| acls.{index}.match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
+| acls.{index}.match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
+| acls.{index}.match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
+| acls.{index}.index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
+| frontend-id | Required | The Frontend to change ACL to |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
