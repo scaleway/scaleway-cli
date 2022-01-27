@@ -170,7 +170,7 @@ scw baremetal server create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Required<br />Default: `<generated>` | Name of the server (≠hostname) |
 | description |  | Description associated to the server, max 255 characters |
-| type | Default: `GP-BM1-S`<br />One of: `GP-BM1-L`, `GP-BM1-M`, `GP-BM1-S`, `GP-BM2-S`, `GP-BM2-M`, `HC-BM1-XS`, `HC-BM1-S`, `HC-BM1-L`, `HC-BM1-S`, `HC-BM2-M`, `HC-BM2-L`, `HC-BM2-XL`, `HM-BM1-S`, `HM-BM1-M`, `HM-BM1-XL`, `HM-BM2-L`, `HM-BM2-XXL`, `UP-BM2-M`, `UP-BM2-XL` | Server commercial type |
+| type |  | Server commercial type |
 | tags.{index} |  | Tags to associate to the server |
 | install.os-id |  |  |
 | install.hostname |  |  |
