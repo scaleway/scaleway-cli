@@ -5,6 +5,7 @@ Container as a Service API
 - [Container management commands](#container-management-commands)
   - [Create a new container](#create-a-new-container)
   - [Delete a container](#delete-a-container)
+  - [Deploy a container](#deploy-a-container)
   - [Get a container](#get-a-container)
   - [List all your containers](#list-all-your-containers)
   - [Update an existing container](#update-an-existing-container)
@@ -67,6 +68,26 @@ Delete the container associated with the given id.
 
 ```
 scw container container delete <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Deploy a container
+
+Deploy a container associated with the given id.
+
+**Usage:**
+
+```
+scw container container deploy <container-id ...> [arg=value ...]
 ```
 
 
