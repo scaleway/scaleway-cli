@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete an ACL
   get         Get an ACL
   list        List ACL for a given frontend
+  set         Set all ACLs for a given frontend
   update      Update an ACL
 
 FLAGS:
