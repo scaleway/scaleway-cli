@@ -26,7 +26,6 @@ Domain                      edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.bareme
 BootType                    normal
 Zone                        nl-ams-1
 PingStatus                  down
-ServiceURL                  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "edfb54ea-70af-46d0-9a62-cf347234cc8f",
@@ -63,6 +62,5 @@ ServiceURL                  -
   "zone": "nl-ams-1",
   "install": null,
   "ping_status": "ping_status_down",
-  "options": null,
-  "service_url": ""
+  "options": null
 }
