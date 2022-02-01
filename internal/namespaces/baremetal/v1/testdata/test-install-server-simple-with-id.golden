@@ -29,8 +29,10 @@ Install.OsID                03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Install.Hostname            test-install-server
 Install.SSHKeyIDs.0         48734124-36fc-409c-a515-40c87ed0e1b8
 Install.Status              completed
+Install.User                -
+Install.ServiceUser         -
+Install.ServiceURL          -
 PingStatus                  down
-ServiceURL                  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "85a4280a-4d3d-462c-9214-fb8d8d9d1971",
@@ -71,9 +73,11 @@ ServiceURL                  -
     "ssh_key_ids": [
       "48734124-36fc-409c-a515-40c87ed0e1b8"
     ],
-    "status": "completed"
+    "status": "completed",
+    "user": "",
+    "service_user": "",
+    "service_url": ""
   },
   "ping_status": "ping_status_down",
-  "options": null,
-  "service_url": ""
+  "options": null
 }
