@@ -29,12 +29,6 @@ require (
 	github.com/alecthomas/colour v0.1.0 // indirect
 	github.com/alecthomas/repr v0.0.0-20210801044451-80ca428c5142 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/etdub/goparsetime v0.0.0-20160315173935-ea17b0ac3318 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
-	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
