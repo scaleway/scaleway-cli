@@ -562,7 +562,7 @@ All edits will be versioned.
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"random", "hashed"},
+				EnumValues: []string{"random", "hashed", "all"},
 			},
 			{
 				Name:       "changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.ip",
@@ -715,7 +715,7 @@ All edits will be versioned.
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"random", "hashed"},
+				EnumValues: []string{"random", "hashed", "all"},
 			},
 			{
 				Name:       "changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.ip",
