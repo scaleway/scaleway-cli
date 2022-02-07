@@ -442,6 +442,8 @@ scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
 | name |  | Name fo the gateway |
 | tags.{index} |  | Tags for the gateway |
 | upstream-dns-servers.{index} |  | Override the gateway's default recursive DNS servers, if DNS features are enabled |
+| enable-bastion |  | Enable SSH bastion on the gateway |
+| bastion-port |  | Port of the SSH bastion |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
