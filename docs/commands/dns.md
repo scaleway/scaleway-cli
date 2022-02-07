@@ -223,7 +223,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.add.records.{index}.http-service-config.must-contain |  |  |
 | changes.{index}.add.records.{index}.http-service-config.url |  |  |
 | changes.{index}.add.records.{index}.http-service-config.user-agent |  |  |
-| changes.{index}.add.records.{index}.http-service-config.strategy | One of: `random`, `hashed`, `all` |  |
+| changes.{index}.add.records.{index}.http-service-config.strategy | One of: `random`, `hashed` |  |
 | changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.ip |  |  |
 | changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.weight |  |  |
 | changes.{index}.add.records.{index}.view-config.views.{index}.subnet |  |  |
@@ -248,7 +248,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.set.records.{index}.http-service-config.must-contain |  |  |
 | changes.{index}.set.records.{index}.http-service-config.url |  |  |
 | changes.{index}.set.records.{index}.http-service-config.user-agent |  |  |
-| changes.{index}.set.records.{index}.http-service-config.strategy | One of: `random`, `hashed`, `all` |  |
+| changes.{index}.set.records.{index}.http-service-config.strategy | One of: `random`, `hashed` |  |
 | changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.ip |  |  |
 | changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.weight |  |  |
 | changes.{index}.set.records.{index}.view-config.views.{index}.subnet |  |  |
