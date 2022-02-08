@@ -6,10 +6,12 @@ USAGE:
   scw function namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id                          
-  [environment-variables.value.{key}]   
-  [description]                         
-  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
+  namespace-id                                   
+  [environment-variables.value.{key}]            
+  [description]                                  
+  [secret-environment-variables.{index}.key]     
+  [secret-environment-variables.{index}.value]   
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

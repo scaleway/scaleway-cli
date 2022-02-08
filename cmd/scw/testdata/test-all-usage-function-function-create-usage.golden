@@ -6,19 +6,21 @@ USAGE:
   scw function function create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                    
-  [namespace-id]                        
-  [environment-variables.value.{key}]   
-  [min-scale]                           
-  [max-scale]                           
-  [runtime]                              (unknown_runtime | golang | python | python3 | node8 | node10 | node14)
-  [memory-limit]                        
-  [timeout.seconds]                     
-  [timeout.nanos]                       
-  [handler]                             
-  [privacy]                              (unknown_privacy | public | private)
-  [description]                         
-  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
+  [name=<generated>]                             
+  [namespace-id]                                 
+  [environment-variables.value.{key}]            
+  [min-scale]                                    
+  [max-scale]                                    
+  [runtime]                                       (unknown_runtime | golang | python | python3 | node8 | node10 | node14)
+  [memory-limit]                                 
+  [timeout.seconds]                              
+  [timeout.nanos]                                
+  [handler]                                      
+  [privacy]                                       (unknown_privacy | public | private)
+  [description]                                  
+  [secret-environment-variables.{index}.key]     
+  [secret-environment-variables.{index}.value]   
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create
