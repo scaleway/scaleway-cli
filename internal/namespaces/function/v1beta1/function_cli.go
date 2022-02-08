@@ -244,6 +244,18 @@ func functionNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -281,6 +293,18 @@ func functionNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -499,6 +523,18 @@ func functionFunctionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -585,6 +621,18 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

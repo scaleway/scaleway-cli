@@ -125,6 +125,8 @@ scw function function create [arg=value ...]
 | handler |  |  |
 | privacy | One of: `unknown_privacy`, `public`, `private` |  |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -280,6 +282,8 @@ scw function function update <function-id ...> [arg=value ...]
 | handler |  |  |
 | privacy | One of: `unknown_privacy`, `public`, `private` |  |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -334,6 +338,8 @@ scw function namespace create [arg=value ...]
 | environment-variables.value.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -419,6 +425,8 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 | namespace-id | Required |  |
 | environment-variables.value.{key} |  |  |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

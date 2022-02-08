@@ -6,11 +6,13 @@ USAGE:
   scw function namespace create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                    
-  [environment-variables.value.{key}]   
-  [project-id]                          Project ID to use. If none is passed the default project ID will be used
-  [description]                         
-  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
+  [name=<generated>]                             
+  [environment-variables.value.{key}]            
+  [project-id]                                   Project ID to use. If none is passed the default project ID will be used
+  [description]                                  
+  [secret-environment-variables.{index}.key]     
+  [secret-environment-variables.{index}.value]   
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create

@@ -6,22 +6,24 @@ USAGE:
   scw container container create [arg=value ...]
 
 ARGS:
-  [namespace-id]                        
-  [name=<generated>]                    
-  [environment-variables.value.{key}]   
-  [min-scale]                           
-  [max-scale]                           
-  [memory-limit]                        
-  [timeout.seconds]                     
-  [timeout.nanos]                       
-  [privacy]                              (unknown_privacy | public | private)
-  [description]                         
-  [registry-image]                      
-  [max-concurrency]                     
-  [domain-name]                         
-  [protocol]                             (unknown_protocol | http1 | h2c)
-  [port]                                
-  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
+  [namespace-id]                                 
+  [name=<generated>]                             
+  [environment-variables.value.{key}]            
+  [min-scale]                                    
+  [max-scale]                                    
+  [memory-limit]                                 
+  [timeout.seconds]                              
+  [timeout.nanos]                                
+  [privacy]                                       (unknown_privacy | public | private)
+  [description]                                  
+  [registry-image]                               
+  [max-concurrency]                              
+  [domain-name]                                  
+  [protocol]                                      (unknown_protocol | http1 | h2c)
+  [port]                                         
+  [secret-environment-variables.{index}.key]     
+  [secret-environment-variables.{index}.value]   
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create
