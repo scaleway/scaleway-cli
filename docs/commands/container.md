@@ -56,6 +56,8 @@ scw container container create [arg=value ...]
 | domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -174,6 +176,8 @@ scw container container update <container-id ...> [arg=value ...]
 | domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -268,6 +272,8 @@ scw container namespace create [arg=value ...]
 | environment-variables.value.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -353,6 +359,8 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | namespace-id | Required |  |
 | environment-variables.value.{key} |  |  |
 | description |  |  |
+| secret-environment-variables.{index}.key |  |  |
+| secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

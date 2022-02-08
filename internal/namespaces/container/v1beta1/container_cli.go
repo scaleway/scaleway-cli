@@ -185,6 +185,18 @@ func containerNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -222,6 +234,18 @@ func containerNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -458,6 +482,18 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -569,6 +605,18 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "port",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-environment-variables.{index}.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
