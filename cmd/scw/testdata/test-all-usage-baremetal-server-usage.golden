@@ -6,15 +6,15 @@ USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
-  create      Create a elastic metal server
-  delete      Delete a elastic metal server
+  create      Create an elastic metal server
+  delete      Delete an elastic metal server
   get         Get a specific elastic metal server
-  install     Install a elastic metal server
+  install     Install an elastic metal server
   list        List elastic metal servers for organization
-  reboot      Reboot a elastic metal server
-  start       Start a elastic metal server
-  stop        Stop a elastic metal server
-  update      Update a elastic metal server
+  reboot      Reboot an elastic metal server
+  start       Start an elastic metal server
+  stop        Stop an elastic metal server
+  update      Update an elastic metal server
   wait        Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:
