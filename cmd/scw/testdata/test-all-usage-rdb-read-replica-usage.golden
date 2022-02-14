@@ -1,21 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-An Operating System (OS) is the underlying software installed on your server
+A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
 
 USAGE:
-  scw baremetal os <command>
-
-AVAILABLE COMMANDS:
-  get         Get an OS with a given ID
-  list        List all available OS that can be install on an elastic metal server
+  scw rdb read-replica
 
 FLAGS:
-  -h, --help   help for os
+  -h, --help   help for read-replica
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw baremetal os [command] --help" for more information about a command.
