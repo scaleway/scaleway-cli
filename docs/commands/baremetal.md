@@ -8,17 +8,17 @@ Elastic metal API
   - [Stop BMC (Baseboard Management Controller) access for a given elastic metal server](#stop-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
-  - [List all available OS that can be install on a elastic metal server](#list-all-available-os-that-can-be-install-on-a-elastic-metal-server)
+  - [List all available OS that can be install on an elastic metal server](#list-all-available-os-that-can-be-install-on-an-elastic-metal-server)
 - [Server management commands](#server-management-commands)
-  - [Create a elastic metal server](#create-a-elastic-metal-server)
-  - [Delete a elastic metal server](#delete-a-elastic-metal-server)
+  - [Create an elastic metal server](#create-an-elastic-metal-server)
+  - [Delete an elastic metal server](#delete-an-elastic-metal-server)
   - [Get a specific elastic metal server](#get-a-specific-elastic-metal-server)
-  - [Install a elastic metal server](#install-a-elastic-metal-server)
+  - [Install an elastic metal server](#install-an-elastic-metal-server)
   - [List elastic metal servers for organization](#list-elastic-metal-servers-for-organization)
-  - [Reboot a elastic metal server](#reboot-a-elastic-metal-server)
-  - [Start a elastic metal server](#start-a-elastic-metal-server)
-  - [Stop a elastic metal server](#stop-a-elastic-metal-server)
-  - [Update a elastic metal server](#update-a-elastic-metal-server)
+  - [Reboot an elastic metal server](#reboot-an-elastic-metal-server)
+  - [Start an elastic metal server](#start-an-elastic-metal-server)
+  - [Stop an elastic metal server](#stop-an-elastic-metal-server)
+  - [Update an elastic metal server](#update-an-elastic-metal-server)
   - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
 
   
@@ -127,9 +127,9 @@ scw baremetal os get
 
 
 
-### List all available OS that can be install on a elastic metal server
+### List all available OS that can be install on an elastic metal server
 
-List all available OS that can be install on a elastic metal server.
+List all available OS that can be install on an elastic metal server.
 
 **Usage:**
 
@@ -152,7 +152,7 @@ scw baremetal os list [arg=value ...]
 A server is a denomination of a type of instances provided by Scaleway
 
 
-### Create a elastic metal server
+### Create an elastic metal server
 
 Create a new elastic metal server. Once the server is created, you probably want to install an OS.
 
@@ -200,7 +200,7 @@ scw baremetal server create name=foo tags.0=prod tags.1=blue type=GP-BM1-M
 
 
 
-### Delete a elastic metal server
+### Delete an elastic metal server
 
 Delete the server associated with the given ID.
 
@@ -222,7 +222,7 @@ scw baremetal server delete <server-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a elastic metal server
+Delete an elastic metal server
 ```
 scw baremetal server delete 11111111-1111-1111-1111-111111111111
 ```
@@ -260,7 +260,7 @@ scw baremetal server get 11111111-1111-1111-1111-111111111111
 
 
 
-### Install a elastic metal server
+### Install an elastic metal server
 
 Install an OS on the server associated with the given ID.
 
@@ -334,7 +334,7 @@ scw baremetal server list
 
 
 
-### Reboot a elastic metal server
+### Reboot an elastic metal server
 
 Reboot the server associated with the given ID, use boot param to reboot in rescue.
 
@@ -370,7 +370,7 @@ scw baremetal server reboot 11111111-1111-1111-1111-111111111111 boot-type=rescu
 
 
 
-### Start a elastic metal server
+### Start an elastic metal server
 
 Start the server associated with the given ID.
 
@@ -393,7 +393,7 @@ scw baremetal server start <server-id ...> [arg=value ...]
 **Examples:**
 
 
-Start a elastic metal server
+Start an elastic metal server
 ```
 scw baremetal server start 11111111-1111-1111-1111-111111111111
 ```
@@ -406,7 +406,7 @@ scw baremetal server start 11111111-1111-1111-1111-111111111111 boot-type=rescue
 
 
 
-### Stop a elastic metal server
+### Stop an elastic metal server
 
 Stop the server associated with the given ID.
 
@@ -428,7 +428,7 @@ scw baremetal server stop <server-id ...> [arg=value ...]
 **Examples:**
 
 
-Stop a elastic metal server
+Stop an elastic metal server
 ```
 scw baremetal server stop 11111111-1111-1111-1111-111111111111
 ```
@@ -436,7 +436,7 @@ scw baremetal server stop 11111111-1111-1111-1111-111111111111
 
 
 
-### Update a elastic metal server
+### Update an elastic metal server
 
 Update the server associated with the given ID.
 
