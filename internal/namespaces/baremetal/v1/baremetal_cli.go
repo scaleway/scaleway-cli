@@ -197,7 +197,7 @@ func baremetalServerGet() *core.Command {
 
 func baremetalServerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a elastic metal server`,
+		Short:     `Create an elastic metal server`,
 		Long:      `Create a new elastic metal server. Once the server is created, you probably want to install an OS.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -305,7 +305,7 @@ func baremetalServerCreate() *core.Command {
 
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a elastic metal server`,
+		Short:     `Update an elastic metal server`,
 		Long:      `Update the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -356,7 +356,7 @@ func baremetalServerUpdate() *core.Command {
 
 func baremetalServerInstall() *core.Command {
 	return &core.Command{
-		Short:     `Install a elastic metal server`,
+		Short:     `Install an elastic metal server`,
 		Long:      `Install an OS on the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -447,7 +447,7 @@ func baremetalServerInstall() *core.Command {
 			},
 			{
 				Command: "scw baremetal server create",
-				Short:   "Create a elastic metal server",
+				Short:   "Create an elastic metal server",
 			},
 		},
 	}
@@ -455,7 +455,7 @@ func baremetalServerInstall() *core.Command {
 
 func baremetalServerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a elastic metal server`,
+		Short:     `Delete an elastic metal server`,
 		Long:      `Delete the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -482,7 +482,7 @@ func baremetalServerDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a elastic metal server",
+				Short:    "Delete an elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -491,7 +491,7 @@ func baremetalServerDelete() *core.Command {
 
 func baremetalServerReboot() *core.Command {
 	return &core.Command{
-		Short:     `Reboot a elastic metal server`,
+		Short:     `Reboot an elastic metal server`,
 		Long:      `Reboot the server associated with the given ID, use boot param to reboot in rescue.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -539,7 +539,7 @@ func baremetalServerReboot() *core.Command {
 
 func baremetalServerStart() *core.Command {
 	return &core.Command{
-		Short:     `Start a elastic metal server`,
+		Short:     `Start an elastic metal server`,
 		Long:      `Start the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -574,7 +574,7 @@ func baremetalServerStart() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Start a elastic metal server",
+				Short:    "Start an elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
@@ -587,7 +587,7 @@ func baremetalServerStart() *core.Command {
 
 func baremetalServerStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop a elastic metal server`,
+		Short:     `Stop an elastic metal server`,
 		Long:      `Stop the server associated with the given ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
@@ -614,7 +614,7 @@ func baremetalServerStop() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Stop a elastic metal server",
+				Short:    "Stop an elastic metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -728,8 +728,8 @@ func baremetalBmcStop() *core.Command {
 
 func baremetalOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all available OS that can be install on a elastic metal server`,
-		Long:      `List all available OS that can be install on a elastic metal server.`,
+		Short:     `List all available OS that can be install on an elastic metal server`,
+		Long:      `List all available OS that can be install on an elastic metal server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 		Verb:      "list",
