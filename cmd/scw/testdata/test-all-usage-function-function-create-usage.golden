@@ -20,6 +20,7 @@ ARGS:
   [description]                                  
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
+  [http-option]                                  Configure how HTTP and HTTPS requests are handled
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
