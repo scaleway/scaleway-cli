@@ -127,6 +127,7 @@ scw function function create [arg=value ...]
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| http-option |  | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -284,6 +285,7 @@ scw function function update <function-id ...> [arg=value ...]
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| http-option |  | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
