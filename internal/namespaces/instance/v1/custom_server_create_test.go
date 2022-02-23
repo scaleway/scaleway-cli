@@ -287,6 +287,16 @@ func Test_CreateServerErrors(t *testing.T) {
 		DisableParallel: true,
 	}))
 
+	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=block:20GB",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+		DisableParallel: true,
+	}))
+
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=local:20GB",
@@ -322,16 +332,6 @@ func Test_CreateServerErrors(t *testing.T) {
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:2GB additional-volumes.0=local:18GB",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(1),
-		),
-		DisableParallel: true,
-	}))
-
-	t.Run("Error: invalid root volume type", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=block:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
