@@ -27,7 +27,7 @@ ARGS:
   [changes.{index}.add.records.{index}.name]                                               
   [changes.{index}.add.records.{index}.priority]                                           
   [changes.{index}.add.records.{index}.ttl]                                                
-  [changes.{index}.add.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
+  [changes.{index}.add.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
   [changes.{index}.add.records.{index}.comment]                                            
   [changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.countries.{index}]    
   [changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.continents.{index}]   
@@ -45,14 +45,14 @@ ARGS:
   [changes.{index}.add.records.{index}.id]                                                 
   [changes.{index}.set.id]                                                                 
   [changes.{index}.set.id-fields.name]                                                     
-  [changes.{index}.set.id-fields.type]                                                      (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
+  [changes.{index}.set.id-fields.type]                                                      (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
   [changes.{index}.set.id-fields.data]                                                     
   [changes.{index}.set.id-fields.ttl]                                                      
   [changes.{index}.set.records.{index}.data]                                               
   [changes.{index}.set.records.{index}.name]                                               
   [changes.{index}.set.records.{index}.priority]                                           
   [changes.{index}.set.records.{index}.ttl]                                                
-  [changes.{index}.set.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
+  [changes.{index}.set.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
   [changes.{index}.set.records.{index}.comment]                                            
   [changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.countries.{index}]    
   [changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.continents.{index}]   
@@ -70,7 +70,7 @@ ARGS:
   [changes.{index}.set.records.{index}.id]                                                 
   [changes.{index}.delete.id]                                                              
   [changes.{index}.delete.id-fields.name]                                                  
-  [changes.{index}.delete.id-fields.type]                                                   (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
+  [changes.{index}.delete.id-fields.type]                                                   (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
   [changes.{index}.delete.id-fields.data]                                                  
   [changes.{index}.delete.id-fields.ttl]                                                   
   [return-all-records]                                                                     Whether or not to return all the records
