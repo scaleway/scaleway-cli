@@ -595,10 +595,6 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeS
 		return nil
 	}
 
-	if rootVolume.VolumeType != instance.VolumeVolumeTypeLSSD {
-		return fmt.Errorf("first volume must be local")
-	}
-
 	if rootVolume.ID != "" {
 		return &core.CliError{
 			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
