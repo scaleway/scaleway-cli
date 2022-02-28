@@ -79,5 +79,6 @@ PingStatus                  down
     "service_url": ""
   },
   "ping_status": "ping_status_down",
-  "options": null
+  "options": null,
+  "rescue_server": null
 }
