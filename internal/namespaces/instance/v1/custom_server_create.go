@@ -625,7 +625,8 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 			}
 		case index == "0" && v.Size != 0:
 			v = &instance.VolumeServerTemplate{
-				Size: v.Size,
+				VolumeType: v.VolumeType,
+				Size:       v.Size,
 			}
 		}
 		m[index] = v
