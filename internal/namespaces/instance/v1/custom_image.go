@@ -42,9 +42,10 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ServerName       string
 		ServerID         string
 		Arch             instance.Arch
-		Organization     string
-		CreationDate     time.Time
-		ModificationDate time.Time
+		OrganizationID   string
+		ProjectID        string
+		CreationDate     *time.Time
+		ModificationDate *time.Time
 	}
 
 	images := i.([]*imageListItem)
@@ -76,7 +77,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			ServerName:       image.ServerName,
 			ServerID:         image.ServerID,
 			Arch:             image.Arch,
-			Organization:     image.Organization,
+			OrganizationID:   image.OrganizationID,
+			ProjectID:        image.ProjectID,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
 		})
@@ -94,30 +96,35 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 func imageCreateBuilder(c *core.Command) *core.Command {
 	type customCreateImageRequest struct {
 		*instance.CreateImageRequest
-		AdditionalVolumes map[string]*instance.VolumeTemplate
+		AdditionalVolumes []*instance.VolumeTemplate
 		SnapshotID        string
-		OrganizationID    string
+		OrganizationID    *string
+		ProjectID         *string
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{key}.id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{index}.id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Short = "Name of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{key}.name"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{index}.name"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Short = "Size of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{key}.size"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{index}.size"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Short = "Underlying volume type of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{key}.volume-type"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{index}.volume-type"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Short = "Organization ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{key}.organization-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{index}.organization-id"
+
+	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Short = "Project ID that own the additional snapshot"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-snapshots.{index}.project-id"
 
 	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
@@ -128,6 +135,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 		request.RootVolume = args.SnapshotID
 		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		// Extra volumes need to start at volumeIndex 1.
 		volumeIndex := 1
@@ -144,33 +152,36 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 // customImage is based on instance.Image, with additional information about the server
 type imageListItem struct {
-	ID                string
-	Name              string
-	Arch              instance.Arch
-	CreationDate      time.Time
-	ModificationDate  time.Time
-	DefaultBootscript *instance.Bootscript
-	ExtraVolumes      map[string]*instance.Volume
-	Organization      string
-	Public            bool
-	RootVolume        *instance.VolumeSummary
-	State             instance.ImageState
+	ID                string                      `json:"id"`
+	Name              string                      `json:"name"`
+	Arch              instance.Arch               `json:"arch"`
+	CreationDate      *time.Time                  `json:"creation_date"`
+	ModificationDate  *time.Time                  `json:"modification_date"`
+	DefaultBootscript *instance.Bootscript        `json:"default_bootscript"`
+	ExtraVolumes      map[string]*instance.Volume `json:"extra_volumes"`
+	OrganizationID    string                      `json:"organization"`
+	ProjectID         string                      `json:"project"`
+	Public            bool                        `json:"public"`
+	RootVolume        *instance.VolumeSummary     `json:"root_volume"`
+	State             instance.ImageState         `json:"state"`
 
 	// Replace Image.FromServer
-	ServerID   string
-	ServerName string
-	Zone       scw.Zone
+	ServerID   string   `json:"server_id"`
+	ServerName string   `json:"server_name"`
+	Zone       scw.Zone `json:"zone"`
 }
 
-// imageListBuilder list the images for a given organization.
+// imageListBuilder list the images for a given organization/project.
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
 	type customListImageRequest struct {
 		*instance.ListImagesRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
@@ -184,6 +195,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 
 		req := args.ListImagesRequest
 		req.Organization = args.OrganizationID
+		req.Project = args.ProjectID
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
@@ -204,7 +216,8 @@ func imageListBuilder(c *core.Command) *core.Command {
 				ModificationDate:  image.ModificationDate,
 				DefaultBootscript: image.DefaultBootscript,
 				ExtraVolumes:      image.ExtraVolumes,
-				Organization:      image.Organization,
+				OrganizationID:    image.Organization,
+				ProjectID:         image.Project,
 				Public:            image.Public,
 				RootVolume:        image.RootVolume,
 				State:             image.State,

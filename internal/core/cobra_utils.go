@@ -115,6 +115,12 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		return nil, err
 	}
 
+	// Load args file imports.
+	err = loadArgsFileContent(cmd, cmdArgs)
+	if err != nil {
+		return nil, err
+	}
+
 	// PreValidate hook.
 	if cmd.PreValidateFunc != nil {
 		err = cmd.PreValidateFunc(ctx, cmdArgs)
@@ -128,7 +134,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	if cmd.ValidateFunc != nil {
 		validateFunc = cmd.ValidateFunc
 	}
-	err = validateFunc(cmd, cmdArgs, rawArgs)
+	err = validateFunc(ctx, cmd, cmdArgs, rawArgs)
 	if err != nil {
 		return nil, err
 	}
@@ -177,19 +183,43 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 
 	switch e := wrappedErr.(type) {
 	case *args.CannotUnmarshalError:
-		hint := ""
-		if _, ok := e.Dest.(*bool); ok {
-			hint = "Possible values: true, false"
+		switch e.Err.(type) {
+		case *args.CannotParseBoolError:
+			return &CliError{
+				Err:     fmt.Errorf(""),
+				Message: fmt.Sprintf("invalid value for '%s' argument: invalid boolean value", unmarshalErr.ArgName),
+				Hint:    "Possible values: true, false",
+			}
+		case *args.CannotParseDateError:
+			dateErr := e.Err.(*args.CannotParseDateError)
+			return &CliError{
+				Err:     fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
+				Message: fmt.Sprintf("could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339", dateErr.ArgValue),
+				Details: fmt.Sprintf(`Absolute time error: %s
+Relative time error: %s
+`, dateErr.AbsoluteTimeParseError, dateErr.RelativeTimeParseError),
+				Hint: "Run `scw help date` to learn more about date parsing",
+			}
+		default:
+			return &CliError{
+				Err: fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
+			}
+		}
+	case *args.InvalidArgNameError:
+		argNames := []string(nil)
+		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
+		for _, argSpec := range nonDeprecatedArgs {
+			argNames = append(argNames, argSpec.Name)
 		}
 
 		return &CliError{
-			Err:  fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
-			Hint: hint,
+			Err:  fmt.Errorf("invalid argument '%s': %s", unmarshalErr.ArgName, e.Error()),
+			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
 		}
-
-	case *args.UnknownArgError, *args.InvalidArgNameError:
+	case *args.UnknownArgError:
 		argNames := []string(nil)
-		for _, argSpec := range cmd.ArgSpecs {
+		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
+		for _, argSpec := range nonDeprecatedArgs {
 			argNames = append(argNames, argSpec.Name)
 		}
 

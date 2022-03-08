@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   namespace-id      The unique ID of the Namespace
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for get

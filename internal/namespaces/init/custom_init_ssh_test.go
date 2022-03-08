@@ -13,11 +13,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func setUpSSHKeyLocally(key string) core.BeforeFunc {
+func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		// TODO we persist the key as ~/.ssh/id_rsa.pub regardless of the type of key it is (rsa, ed25519)
-		keyPath := path.Join(homeDir, ".ssh", "id_rsa.pub")
+		keyPath := path.Join(homeDir, ".ssh", name)
 		ctx.Logger.Info("public key path set to: ", keyPath)
 
 		// Ensure the subfolders for the configuration files are all created
@@ -85,7 +85,7 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				setUpSSHKeyLocally(dummySSHKey),
+				setUpSSHKeyLocallyWithKeyName(dummySSHKey, "id_rsa.pub"),
 				addSSHKeyToAccount("key", "test-cli-KeyRegistered", dummySSHKey),
 			),
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
@@ -101,7 +101,7 @@ func Test_InitSSH(t *testing.T) {
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
-				setUpSSHKeyLocally(dummySSHKey),
+				setUpSSHKeyLocallyWithKeyName(dummySSHKey, "id_rsa.pub"),
 			),
 			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
 			Check:      core.TestCheckGolden(),
@@ -117,4 +117,19 @@ func Test_InitSSH(t *testing.T) {
 		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
+
+	t.Run("WithLocalEd25519Key", func(t *testing.T) {
+		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJb42xh9l10D/u9imDFfLZ+U6KrZmr/F/qBClnmijCFF/qEehPJxK/3thmMiZg foobaz@foobaz"
+		core.Test(&core.TestConfig{
+			Commands: cmds,
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				setUpSSHKeyLocallyWithKeyName(dummySSHKey, "id_ed25519.pub"),
+			),
+			Cmd:        appendArgs("scw init with-ssh-key=true", defaultSettings),
+			Check:      core.TestCheckGolden(),
+			TmpHomeDir: true,
+			AfterFunc:  removeSSHKeyFromAccount(dummySSHKey),
+		})(t)
+	})
 }

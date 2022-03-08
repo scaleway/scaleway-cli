@@ -1,0 +1,114 @@
+package lb
+
+import (
+	"testing"
+
+	"github.com/scaleway/scaleway-cli/internal/core"
+)
+
+func Test_CreateCertificate(t *testing.T) {
+	// You can generate a private key and a Certificate Signing Request (CSR) using:
+	// openssl req -new -newkey rsa:4096 -nodes -keyout private_key.txt -out csr.txt -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"
+	// Generate Certificate
+	//	openssl x509 -req -sha256 -days 365 -in csr.txt -signkey private_key.txt -out certificate.txt -extensions req_ext
+
+	customCertificateChain := `
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+MIIFszCCA5ugAwIBAgIJANBJxhjW9oz3MA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNV
+BAYTAkZSMRYwFAYDVQQIDA1JbGUtZGUtRnJhbmNlMQ4wDAYDVQQHDAVQYXJpczEW
+MBQGA1UECgwNTXlDb21wYW55TmFtZTESMBAGA1UEAwwJbG9jYWxob3N0MRswGQYJ
+KoZIhvcNAQkBFgxtZUBlbWFpbC5jb20wHhcNMjAwNzIyMDk0MzA1WhcNMjEwNzIy
+MDk0MzA1WjB+MQswCQYDVQQGEwJGUjEWMBQGA1UECAwNSWxlLWRlLUZyYW5jZTEO
+MAwGA1UEBwwFUGFyaXMxFjAUBgNVBAoMDU15Q29tcGFueU5hbWUxEjAQBgNVBAMM
+CWxvY2FsaG9zdDEbMBkGCSqGSIb3DQEJARYMbWVAZW1haWwuY29tMIICIjANBgkq
+hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwM6FCUSBpmsDoNktO6E5EgxwqRU+q14u
+97MAiEKYFPWeEEz2F7nBKd4LT7agpG4kCCQIWohlqmYiWg6JJiEv2inKTTlYCYyU
+1VT0ZcP6xpkCL8r7oN4b3pwCPIjyRimo1Pf3DnvoyfDmL/O7MkafAJhFQ6STys7a
+KB9Q08mmc2nbCfjC1r+PIsYEI4OQRhDpZwSI4kJdLjjZS+lMaGv/US/yxYFnTju5
+MaSeIiQhrXQ9mXd1xHGAICrOut4aRN60qHCvTHF+fKjYj41L6CCjdVPB7kVSNdg1
+/hdEPMOL6mTL7oitporsneljhuhmkKCmVMtYwfyCr/Z3TiBIs2yD0ZrIkjdYSlkZ
+vbM2Fy2aSoGc+lYguCH36RaiLSKL5rXj63/EcRnYmm4/Qutjdl1ZVSzVB4V30cxh
+HedAZ1LQ77v9cFJKVthFxHGDa1uvCoRPbXMVP5zp6nIZWh2e39aClIniYKBTvHmN
+I6Ta9zI0DvpNQHnPJUkYfdbSq6cvopXgtucPF16oLw2e82PpfBy6bfzhKZ8Rlh3d
+1lRXYcx5NGo74vCiAEn8RorOMqB6Y22rVA7ugvAkd2j2x+3dXLixa2W2gunYBBIH
+3ZpXVWf3e8ityPL4ElWakU7S1p0qYLtLTSTQN/q93al4pd8sVeMWvYNlga8oZQVC
+Hqo5wJl6Xn0CAwEAAaM0MDIwMAYDVR0RBCkwJ4ISc2VydmVyLmV4YW1wbGUuY29t
+ghFhbGlhcy5leGFtcGxlLmNvbTANBgkqhkiG9w0BAQsFAAOCAgEAdPU0tVV1ryKL
+zsGZaCKeEM+izrXL6Mg2W/BjQJmyDVGgCW4WTNrXHwhINuT3gBdGOdc0FjI5lOwu
+jRyCVkWfxQANusClG4jJ3V90s2C//bT3VkQIT6Ajl2VYsEoSHE+/hN/8S7U6MCUz
+ezvhfyGKiTj7pD3pGyb47Gys4kXY1p5t/TO1kVoaAfhnEXFSYMeMQLYGct5VB59o
+NAQpSlt54umebbcHXz4V3M4/2R6RLQkkl1Jw9Xwq6uRRE52y3M/wAdVTpsRHixx/
+ueyUqjx+ctPEXvZ7uvRuqYELV2gY/bFlNpR2J2mRw9Unw3sxSoDQG/CYmoiOIypF
+fhdM7aVQMAyiKlCCVEj4mo67kR6Phnr6mOHm6oappJxhqMS7476+SQMGgMj4E8Zm
+4jrDB1OC1Xk5f+DaNNH3RC2ONi8ujgjdlm6/kvSX7/9Qv/VXEnl4j0lwFTS0+uWA
+ULsDgtZDL5rbIzyjHYsp3IsNStyTbgILVRzeG7ec8RQ9ywUQzdAgkUPnhZZCXeYa
+enQQD5IHhCPymbX1YaJtOrIIWxgstt4jM74fbke4RBTYjfdd/St0e0QT77x2nPSD
+W+PRZGQr+hGmvVf5TwVxOMNcwhVzBsFmo/fIwCef/F9N0j+8UUd8iv+LZ5DcWWCB
+u7hOptIAnzVMFt9d/EhtaU6+KoWS/sI=
+-----END CERTIFICATE-----
+`
+	t.Run("Import", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createLB(),
+		),
+		Args: []string{
+			"scw", "lb", "certificate", "create",
+			"lb-id={{ .LB.ID }}", "custom-certificate-chain=" + customCertificateChain,
+		},
+		Check:      core.TestCheckGolden(),
+		AfterFunc:  deleteLB(),
+		TmpHomeDir: true,
+	}))
+}

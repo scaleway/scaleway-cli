@@ -12,13 +12,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// Scaleway GoTTY websocket endpoint
-var wsURLs = map[scw.Zone]string{
-	scw.ZoneFrPar1: "wss://tty-par1.scaleway.com/v2/ws",
-	scw.ZoneFrPar2: "wss://tty-par2.scaleway.com/v2/ws",
-	scw.ZoneNlAms1: "wss://tty-ams1.scaleway.com/v2/ws",
-}
-
 const (
 	// GoTTY ingress message code
 	outputCode         = '0'
@@ -38,13 +31,8 @@ type Client struct {
 
 // NewClient returns a GoTTY client.
 func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error) {
-	wsURL, zoneExist := wsURLs[zone]
-	if !zoneExist {
-		return nil, fmt.Errorf("gotty is not available in zone %s", zone)
-	}
-
 	return &Client{
-		wsURL:     wsURL,
+		wsURL:     fmt.Sprintf("wss://tty.%s.scaleway.com/v2/ws", zone.String()),
 		serverID:  serverID,
 		secretKey: secretKey,
 	}, nil

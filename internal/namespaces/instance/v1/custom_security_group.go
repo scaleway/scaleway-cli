@@ -32,6 +32,12 @@ var (
 		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
 		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
 	}
+
+	securityGroupStateMarshalSpecs = human.EnumMarshalSpecs{
+		instance.SecurityGroupStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.SecurityGroupStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.SecurityGroupStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+	}
 )
 
 // MarshalHuman marshals a customSecurityGroupResponse.
@@ -39,20 +45,26 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	humanSecurityGroup := struct {
 		ID                    string
 		Name                  string
+		State                 instance.SecurityGroupState
 		Description           string
 		EnableDefaultSecurity bool
 		OrganizationID        string
+		ProjectID             string
 		OrganizationDefault   bool
-		CreationDate          time.Time
-		ModificationDate      time.Time
+		ProjectDefault        bool
+		CreationDate          *time.Time
+		ModificationDate      *time.Time
 		Stateful              bool
 	}{
 		ID:                    sg.ID,
 		Name:                  sg.Name,
+		State:                 sg.State,
 		Description:           sg.Description,
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
 		OrganizationID:        sg.Organization,
+		ProjectID:             sg.Project,
 		OrganizationDefault:   sg.OrganizationDefault,
+		ProjectDefault:        sg.ProjectDefault,
 		CreationDate:          sg.CreationDate,
 		ModificationDate:      sg.ModificationDate,
 		Stateful:              sg.Stateful,
@@ -159,10 +171,12 @@ type customSecurityGroupResponse struct {
 func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreateSecurityGroupRequest struct {
 		*instance.CreateSecurityGroupRequest
-		OrganizationID string
+		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
 
@@ -175,6 +189,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 
 		request := args.CreateSecurityGroupRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -213,9 +228,11 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 	type customListSecurityGroupsRequest struct {
 		*instance.ListSecurityGroupsRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
 
@@ -228,6 +245,7 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListSecurityGroupsRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -375,6 +393,9 @@ func securityGroupUpdateCommand() *core.Command {
 			{
 				Name: "organization-default",
 			},
+			{
+				Name: "project-default",
+			},
 			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
@@ -383,8 +404,8 @@ func securityGroupUpdateCommand() *core.Command {
 				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
 			},
 			{
-				Short:    "Set the given security group as the default for the organization",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "organization_default": true}`,
+				Short:    "Set the given security group as the default for the project",
+				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "project_default": true}`,
 			},
 			{
 				Short:    "Change the name of the given security group",
@@ -423,29 +444,29 @@ func securityGroupUpdateCommand() *core.Command {
 				return nil, &core.CliError{
 					Err: fmt.Errorf("your default security group cannot be stateful"),
 					Details: interactive.RemoveIndent(`
-						You have to make this security group stateless to use it as an organization default.
+						You have to make this security group stateless to use it as a project default.
 						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
 					`),
-					Hint: "scw instance security-group update " + req.SecurityGroupID + " organization-default=true stateful=false",
+					Hint: "scw instance security-group update " + req.SecurityGroupID + " project-default=true stateful=false",
 				}
 
-			case "cannot have more than one organization default":
-				defaultSG, err := getDefaultOrganizationSecurityGroup(ctx, req.Zone)
+			case "cannot have more than one project default", "cannot have more than one project default group":
+				defaultSG, err := getDefaultProjectSecurityGroup(ctx, req.Zone)
 				if err != nil {
 					// Abort and return the original error.
 					return nil, resErr
 				}
 
 				return nil, &core.CliError{
-					Err: fmt.Errorf("you cannot have more than one organization default"),
+					Err: fmt.Errorf("you cannot have more than one project default"),
 					Details: interactive.RemoveIndent(`
-						You already have an organization default security-group (` + defaultSG.ID + `).
+						You already have a project default security-group (` + defaultSG.ID + `).
 
-						First, you need to set your current organization default security-group as non-default with:
-						scw instance security-group update ` + defaultSG.ID + ` organization-default=false
+						First, you need to set your current project default security-group as non-default with:
+						scw instance security-group update ` + defaultSG.ID + ` project-default=false
 
 						Then, retry this command:
-						scw instance security-group update ` + req.SecurityGroupID + ` organization-default=true stateful=false
+						scw instance security-group update ` + req.SecurityGroupID + ` project-default=true stateful=false
 					`),
 				}
 			default:
@@ -456,23 +477,23 @@ func securityGroupUpdateCommand() *core.Command {
 	}
 }
 
-func getDefaultOrganizationSecurityGroup(ctx context.Context, zone scw.Zone) (*instance.SecurityGroup, error) {
+func getDefaultProjectSecurityGroup(ctx context.Context, zone scw.Zone) (*instance.SecurityGroup, error) {
 	api := instance.NewAPI(core.ExtractClient(ctx))
 
-	orgID := core.GetOrganizationIDFromContext(ctx)
+	projectID := core.GetProjectIDFromContext(ctx)
 	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{
-		Zone:         zone,
-		Organization: scw.StringPtr(orgID),
+		Zone:    zone,
+		Project: scw.StringPtr(projectID),
 	}, scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
 
 	for _, sg := range sgList.SecurityGroups {
-		if sg.OrganizationDefault {
+		if sg.ProjectDefault {
 			return sg, nil
 		}
 	}
 
-	return nil, fmt.Errorf("%s organization does not have a default security group", orgID)
+	return nil, fmt.Errorf("%s project does not have a default security group", projectID)
 }

@@ -33,7 +33,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 
 		return &struct {
 			*instance.PlacementGroup
-			Servers []*instance.PlacementGroupServer
+			Servers []*instance.PlacementGroupServer `json:"servers"`
 		}{
 			placementGroupResponse.PlacementGroup,
 			placementGroupServersResponse.Servers,
@@ -43,7 +43,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
 			{FieldName: "PlacementGroup", Title: "Placement Group"},
-			{FieldName: "servers", Title: "Servers"},
+			{FieldName: "Servers", Title: "Servers"},
 		},
 	}
 
@@ -53,10 +53,12 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 func placementGroupCreateBuilder(c *core.Command) *core.Command {
 	type customCreatePlacementGroupRequest struct {
 		*instance.CreatePlacementGroupRequest
-		OrganizationID string
+		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreatePlacementGroupRequest{})
 
@@ -69,6 +71,7 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 
 		request := args.CreatePlacementGroupRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -79,9 +82,11 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 	type customListPlacementGroupsRequest struct {
 		*instance.ListPlacementGroupsRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListPlacementGroupsRequest{})
 
@@ -94,6 +99,7 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListPlacementGroupsRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})

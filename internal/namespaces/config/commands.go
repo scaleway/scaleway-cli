@@ -38,9 +38,10 @@ func configRoot() *core.Command {
 	for _, envVar := range [][5]string{
 		{"|", "Environment Variable", "|", "Description", "|"},
 		{"|", "--", "|", "--", "|"},
-		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
-		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/account/credentials)", "|"},
-		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/account/credentials)", "|"},
+		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwDefaultProjectIDEnv, "|", "The default project ID (get your project ID at https://console.scaleway.com/project/credentials)", "|"},
 		{"|", scw.ScwDefaultRegionEnv, "|", "The default region", "|"},
 		{"|", scw.ScwDefaultZoneEnv, "|", "The default availability zone", "|"},
 		{"|", scw.ScwAPIURLEnv, "|", "URL of the API", "|"},
@@ -54,8 +55,12 @@ func configRoot() *core.Command {
 		Short: `Config file management`,
 		Long: interactive.RemoveIndent(`
 			Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
+			Default path for configuration file is based on the following priority order:
 
-			Scaleway config file is self-documented. We recommend you to have a look at it at least once before using Scaleway developer tools: ` + terminal.Style(configPath, color.Bold, color.FgBlue) + `
+			- $SCW_CONFIG_PATH
+			- $XDG_CONFIG_HOME/scw/config.yaml
+			- $HOME/.config/scw/config.yaml
+			- $USERPROFILE/.config/scw/config.yaml
 
 			In this CLI, ` + terminal.Style(`environment variables have priority over the configuration file`, color.Bold) + `.
 
@@ -105,7 +110,7 @@ func configGetCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key",
-				Short:      "the key to get from the configt",
+				Short:      "the key to get from the config",
 				Required:   true,
 				EnumValues: getProfileKeys(),
 				Positional: true,

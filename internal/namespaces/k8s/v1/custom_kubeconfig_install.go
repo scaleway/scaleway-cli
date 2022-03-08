@@ -7,6 +7,8 @@ import (
 	"path"
 	"reflect"
 
+	"github.com/ghodss/yaml"
+	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -74,7 +76,13 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	apiK8s := k8s.NewAPI(client)
 
 	// get the wanted kubeconfig
-	kubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
+	apiKubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
+	if err != nil {
+		return nil, err
+	}
+	var kubeconfig api.Config
+
+	err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +123,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 	}
 	if !clusterFoundInExistingKubeconfig {
-		existingKubeconfig.Clusters = append(existingKubeconfig.Clusters, &k8s.KubeconfigClusterWithName{
+		existingKubeconfig.Clusters = append(existingKubeconfig.Clusters, api.NamedCluster{
 			Name:    kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
 			Cluster: kubeconfig.Clusters[0].Cluster,
 		})
@@ -126,36 +134,36 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 	for _, kubeconfigContext := range existingKubeconfig.Contexts {
 		if kubeconfigContext.Name == kubeconfig.Contexts[0].Name+"-"+request.ClusterID {
 			contextFoundInExistingKubeconfig = true
-			kubeconfigContext.Context = k8s.KubeconfigContext{
-				Cluster: kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
-				User:    kubeconfig.Users[0].Name + "-" + request.ClusterID,
+			kubeconfigContext.Context = api.Context{
+				Cluster:  kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
+				AuthInfo: kubeconfig.AuthInfos[0].Name,
 			}
 			break
 		}
 	}
 	if !contextFoundInExistingKubeconfig {
-		existingKubeconfig.Contexts = append(existingKubeconfig.Contexts, &k8s.KubeconfigContextWithName{
+		existingKubeconfig.Contexts = append(existingKubeconfig.Contexts, api.NamedContext{
 			Name: kubeconfig.Contexts[0].Name + "-" + request.ClusterID,
-			Context: k8s.KubeconfigContext{
-				Cluster: kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
-				User:    kubeconfig.Users[0].Name + "-" + request.ClusterID,
+			Context: api.Context{
+				Cluster:  kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
+				AuthInfo: kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
 			},
 		})
 	}
 
 	// loop through all users and insert the wanted one if it does not exist
 	userFoundInExistingKubeconfig := false
-	for _, user := range existingKubeconfig.Users {
-		if user.Name == kubeconfig.Users[0].Name+"-"+request.ClusterID {
+	for _, user := range existingKubeconfig.AuthInfos {
+		if user.Name == kubeconfig.AuthInfos[0].Name+"-"+request.ClusterID {
 			userFoundInExistingKubeconfig = true
-			user.User = kubeconfig.Users[0].User
+			user.AuthInfo = kubeconfig.AuthInfos[0].AuthInfo
 			break
 		}
 	}
 	if !userFoundInExistingKubeconfig {
-		existingKubeconfig.Users = append(existingKubeconfig.Users, &k8s.KubeconfigUserWithName{
-			Name: kubeconfig.Users[0].Name + "-" + request.ClusterID,
-			User: kubeconfig.Users[0].User,
+		existingKubeconfig.AuthInfos = append(existingKubeconfig.AuthInfos, api.NamedAuthInfo{
+			Name:     kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
+			AuthInfo: kubeconfig.AuthInfos[0].AuthInfo,
 		})
 	}
 

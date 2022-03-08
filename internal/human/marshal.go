@@ -45,10 +45,12 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 
 	// safely get the marshalerFunc
 	marshalerFunc, _ := getMarshalerFunc(rType)
+	isNil := isInterfaceNil(data)
+	isSlice := rType.Kind() == reflect.Slice
 
 	switch {
-	// If data is nil
-	case isInterfaceNil(data):
+	// If data is nil and is not a slice ( In case of a slice we want to print header row and not a simple dash )
+	case isNil && !isSlice:
 		return defaultMarshalerFunc(nil, opt)
 
 	// If data has a registered MarshalerFunc call it
@@ -72,7 +74,7 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 		return Marshal(rValue.Elem().Interface(), opt)
 
 	// If data is a slice uses marshalSlice
-	case rType.Kind() == reflect.Slice:
+	case isSlice:
 		return marshalSlice(rValue, opt)
 
 	// If data is a struct uses marshalStruct
@@ -169,7 +171,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// If type is a struct
 			// We loop through all struct field
 			data := [][]string(nil)
-			for _, fieldIndex := range getStructFieldsIndex(value) {
+			for _, fieldIndex := range getStructFieldsIndex(value.Type()) {
 				subData, err := marshal(value.FieldByIndex(fieldIndex), append(keys, value.Type().FieldByIndex(fieldIndex).Name))
 				if err != nil {
 					return nil, err
@@ -210,17 +212,21 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 // getStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
 // This function will handle anonymous field and make sure that if a field is overwritten only the highest is returned.
 // You can use reflect GetFieldByIndex([]int) to get the correct field.
-func getStructFieldsIndex(v reflect.Value) [][]int {
+func getStructFieldsIndex(v reflect.Type) [][]int {
 	// Using a map we make sure only the field with the highest order is returned for a given Name
 	found := map[string][]int{}
 
-	var recFunc func(v reflect.Value, parent []int)
-	recFunc = func(v reflect.Value, parent []int) {
+	var recFunc func(v reflect.Type, parent []int)
+	recFunc = func(v reflect.Type, parent []int) {
+		for v.Kind() == reflect.Ptr {
+			v = v.Elem()
+		}
+
 		for i := 0; i < v.NumField(); i++ {
-			field := v.Type().Field(i)
+			field := v.Field(i)
 			// If a field is anonymous we start recursive call
 			if field.Anonymous {
-				recFunc(v.Field(i), append(parent, i))
+				recFunc(v.Field(i).Type, append(parent, i))
 			} else {
 				// else we add the field in the found map
 				found[field.Name] = append(parent, i)
@@ -240,8 +246,10 @@ func getStructFieldsIndex(v reflect.Value) [][]int {
 			if result[i][n] != result[j][n] {
 				return result[i][n] < result[j][n]
 			}
+			n++
 		}
-		panic("this can never happen")
+		// if equal, less should be false
+		return false
 	})
 
 	return result
@@ -321,6 +329,10 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 // marshalInlineSlice transforms nested scalar slices in an inline string representation
 // and other types of slices in a count representation.
 func marshalInlineSlice(slice reflect.Value) (string, error) {
+	if slice.IsNil() {
+		return defaultMarshalerFunc(nil, nil)
+	}
+
 	itemType := slice.Type().Elem()
 	for itemType.Kind() == reflect.Ptr {
 		itemType = itemType.Elem()

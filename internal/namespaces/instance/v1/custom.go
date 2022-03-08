@@ -39,10 +39,9 @@ func GetCommands() *core.Commands {
 	// Server
 	//
 	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(instance.ServerState(0), human.EnumMarshalFunc(serverStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.ServerState(""), human.EnumMarshalFunc(serverStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.GetServerResponse{}, getServerResponseMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
 	cmds.MustFind("instance", "server", "list").Override(serverListBuilder)
@@ -63,6 +62,8 @@ func GetCommands() *core.Commands {
 		serverStandbyCommand(),
 		serverRebootCommand(),
 		serverWaitCommand(),
+		serverAttachIPCommand(),
+		serverDetachIPCommand(),
 	))
 
 	//
@@ -79,13 +80,17 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "ip", "create").Override(ipCreateBuilder)
 	cmds.MustFind("instance", "ip", "list").Override(ipListBuilder)
+	cmds.Merge(core.NewCommands(
+		ipAttachCommand(),
+		ipDetachCommand(),
+	))
 
 	//
 	// Image
 	//
 	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
 	human.RegisterMarshalerFunc([]*imageListItem{}, imagesMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.ImageState(0), human.EnumMarshalFunc(imageStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.ImageState(""), human.EnumMarshalFunc(imageStateMarshalSpecs))
 
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
@@ -109,7 +114,7 @@ func GetCommands() *core.Commands {
 	// Volume
 	//
 	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
-	human.RegisterMarshalerFunc(instance.VolumeState(0), human.EnumMarshalFunc(volumeStateMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.VolumeState(""), human.EnumMarshalFunc(volumeStateMarshalSpecs))
 	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
@@ -125,7 +130,8 @@ func GetCommands() *core.Commands {
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupResponse{}, marshallNestedField("SecurityGroup"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(0), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupPolicy(""), human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupState(""), human.EnumMarshalFunc(securityGroupStateMarshalSpecs))
 
 	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
@@ -141,7 +147,7 @@ func GetCommands() *core.Commands {
 	// Security Group Rule
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
-	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(0), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(""), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
 
 	//
 	// Placement Group
@@ -159,6 +165,13 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
 	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
 	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
+
+	//
+	// Private NICs
+	//
+	human.RegisterMarshalerFunc(instance.PrivateNICState(""), human.EnumMarshalFunc(privateNICStateMarshalSpecs))
+
+	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
 
 	return cmds
 }

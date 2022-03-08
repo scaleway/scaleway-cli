@@ -9,7 +9,9 @@ ARGS:
   instance-id       UUID of the instance you want to upgrade
   [node-type]       Node type of the instance you want to upgrade to (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
   [enable-ha]       Set to true to enable high availability on your instance
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [volume-size]     Increase your block storage volume size
+  [volume-type]     Change your instance storage type (lssd | bssd)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for upgrade

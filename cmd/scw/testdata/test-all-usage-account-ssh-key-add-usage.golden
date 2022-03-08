@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add a SSH key to your organization.
+Add an SSH key to your project.
 
 USAGE:
   scw account ssh-key add [arg=value ...]
 
 EXAMPLES:
   Add a given ssh key
-    scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"
+    scw account ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"
 
 ARGS:
   [name]              The name of the SSH key
   public-key          SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported
-  [project-id]        Project owning the resource
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for add

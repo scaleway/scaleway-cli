@@ -1,18 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt       few seconds ago
-Region          fr-par
-ID              54ea06de-3f2d-41ac-a825-41d0eba9a23c
-Name            cli-test
-OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
-Status          ready
-Engine          PostgreSQL-12
-IsHaCluster     false
-NodeType        db-dev-m
+CreatedAt                   few seconds ago
+Region                      fr-par
+ID                          72c5e970-a6ea-48af-b0e9-3ccaf6b52ee3
+Name                        cli-test
+OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
+Status                      ready
+Engine                      PostgreSQL-12
+IsHaCluster                 false
+NodeType                    db-dev-m
+Endpoints.0.ID              2666b142-8613-41d7-8b4a-e7dbedcd70fd
+Endpoints.0.IP              51.159.9.176
+Endpoints.0.Port            55147
+LogsPolicy.MaxAgeRetention  30
+BackupSameRegion            false
 
 Endpoint:
-IP    51.159.24.138
-Port  43194
+ID    2666b142-8613-41d7-8b4a-e7dbedcd70fd
+IP    51.159.9.176
+Port  55147
 
 Volume:
 Type  lssd
@@ -39,15 +46,18 @@ max_parallel_workers_per_gather  0
     "size": 25000000000
   },
   "region": "fr-par",
-  "id": "54ea06de-3f2d-41ac-a825-41d0eba9a23c",
+  "id": "72c5e970-a6ea-48af-b0e9-3ccaf6b52ee3",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "ip": "51.159.24.138",
-    "port": 43194,
-    "name": null
+    "id": "2666b142-8613-41d7-8b4a-e7dbedcd70fd",
+    "ip": "51.159.9.176",
+    "port": 55147,
+    "name": null,
+    "load_balancer": {}
   },
   "tags": [],
   "settings": [
@@ -83,5 +93,21 @@ max_parallel_workers_per_gather  0
   },
   "is_ha_cluster": false,
   "read_replicas": [],
-  "node_type": "db-dev-m"
+  "node_type": "db-dev-m",
+  "init_settings": [],
+  "endpoints": [
+    {
+      "id": "2666b142-8613-41d7-8b4a-e7dbedcd70fd",
+      "ip": "51.159.9.176",
+      "port": 55147,
+      "name": null,
+      "load_balancer": {}
+    }
+  ],
+  "logs_policy": {
+    "max_age_retention": 30,
+    "total_disk_retention": null
+  },
+  "backup_same_region": false,
+  "maintenances": []
 }

@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                fb4dfd31-a1fa-44a2-b733-2a087a73cc93
-Name              cli-snp-inspiring-leakey
-Organization      aba2d0d0-b01d-4d88-b322-935edc96d0fd
+ID                69edd934-c6a6-4eb4-8854-c4dd0de988eb
+Name              cli-snp-frosty-noether
+Organization      b8fdefc6-c926-4a47-af24-24f14f724d6a
+Project           b8fdefc6-c926-4a47-af24-24f14f724d6a
 VolumeType        l_ssd
 Size              20 GB
 State             available
-BaseVolume.ID     ffa12de5-403d-49e2-befb-83bcf1c67e7d
+BaseVolume.ID     f79252f4-89d3-485f-9d0a-9b85bdb273b6
 BaseVolume.Name   snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
@@ -14,14 +15,16 @@ Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "snapshot": {
-    "id": "fb4dfd31-a1fa-44a2-b733-2a087a73cc93",
-    "name": "cli-snp-inspiring-leakey",
-    "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+    "id": "69edd934-c6a6-4eb4-8854-c4dd0de988eb",
+    "name": "cli-snp-frosty-noether",
+    "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "tags": null,
     "volume_type": "l_ssd",
     "size": 20000000000,
     "state": "available",
     "base_volume": {
-      "id": "ffa12de5-403d-49e2-befb-83bcf1c67e7d",
+      "id": "f79252f4-89d3-485f-9d0a-9b85bdb273b6",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"
     },
     "creation_date": "1970-01-01T00:00:00.0Z",

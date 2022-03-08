@@ -54,6 +54,8 @@ func TestInit(t *testing.T) {
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
+				assert.NotEmpty(t, *config.DefaultProjectID)
+				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
 			}),
 		),
 	}))

@@ -10,6 +10,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func init() {
+	TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+}
+
 func TestUnmarshalStruct(t *testing.T) {
 	type TestCase struct {
 		args     []string
@@ -245,6 +249,32 @@ func TestUnmarshalStruct(t *testing.T) {
 		expected: &WellKnownTypes{
 			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
 		},
+	}))
+
+	t.Run("Relative date positive", run(TestCase{
+		args: []string{
+			"time=+1m1s",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(1970, 01, 01, 0, 1, 1, 0, time.UTC),
+		},
+	}))
+
+	t.Run("Relative date negative", run(TestCase{
+		args: []string{
+			"time=-1m1s",
+		},
+		expected: &WellKnownTypes{
+			Time: time.Date(1969, 12, 31, 23, 58, 59, 0, time.UTC),
+		},
+	}))
+
+	t.Run("Unknown relative date markers", run(TestCase{
+		data: &time.Time{},
+		args: []string{
+			"time=-1R",
+		},
+		error: `cannot unmarshal arg 'time=-1R': cannot set nested field for unmarshalable type time.Time`,
 	}))
 
 	t.Run("nested-basic", run(TestCase{

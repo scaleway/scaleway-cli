@@ -6,13 +6,16 @@ USAGE:
   scw rdb instance update <instance-id ...> [arg=value ...]
 
 ARGS:
-  [backup-schedule-frequency]     In hours
-  [backup-schedule-retention]     In days
-  [is-backup-schedule-disabled]   Whether or not the backup schedule is disabled
-  [name]                          Name of the instance
-  instance-id                     UUID of the instance to update
-  [tags.{index}]                  Tags of a given instance
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [backup-schedule-frequency]          In hours
+  [backup-schedule-retention]          In days
+  [is-backup-schedule-disabled]        Whether or not the backup schedule is disabled
+  [name]                               Name of the instance
+  instance-id                          UUID of the instance to update
+  [tags.{index}]                       Tags of a given instance
+  [logs-policy.max-age-retention]      Max age (in day) of remote logs to keep on the database instance
+  [logs-policy.total-disk-retention]   Max disk size of remote logs to keep on the database instance
+  [backup-same-region]                 Store logical backups in the same region as the database instance
+  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update

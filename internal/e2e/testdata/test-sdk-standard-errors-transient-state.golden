@@ -3,10 +3,10 @@
 A positional argument is required for this command
 
 Hint:
-Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red region=fr-par
+Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "message": "a positional argument is required for this command",
   "error": {},
-  "hint": "Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red region=fr-par"
+  "hint": "Try running: scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red"
 }

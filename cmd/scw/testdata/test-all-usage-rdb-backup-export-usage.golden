@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   database-backup-id   UUID of the database backup you want to export
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for export

@@ -1,0 +1,119 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Type                      custom
+ID                        2402fcd0-e37d-422b-8923-8120bc4d32cd
+CommonName                server.example.com
+SubjectAlternativeName.0  alias.example.com
+Fingerprint               -
+NotValidBefore            few seconds ago
+NotValidAfter             few seconds ago
+Status                    ready
+LB.ID                     78dfb0ff-38f3-4b68-99b8-8712a2bc47de
+LB.Name                   cli-test
+LB.Description            cli-test
+LB.Status                 ready
+LB.Instances.0.ID         4a313199-f9be-4e80-923a-3ccae272737f
+LB.Instances.0.Status     ready
+LB.Instances.0.IPAddress  10.72.86.71
+LB.Instances.0.CreatedAt  few seconds ago
+LB.Instances.0.UpdatedAt  few seconds ago
+LB.Instances.0.Region     fr-par
+LB.Instances.0.Zone       fr-par-1
+LB.Instances.1.ID         ec7f3bb8-ea1c-4b93-90af-f44fb53fdd09
+LB.Instances.1.Status     ready
+LB.Instances.1.IPAddress  10.70.88.7
+LB.Instances.1.CreatedAt  few seconds ago
+LB.Instances.1.UpdatedAt  few seconds ago
+LB.Instances.1.Region     fr-par
+LB.Instances.1.Zone       fr-par-1
+LB.OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.ID                ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd
+LB.IP.0.IPAddress         195.154.69.107
+LB.IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.LBID              78dfb0ff-38f3-4b68-99b8-8712a2bc47de
+LB.IP.0.Reverse           195-154-69-107.lb.fr-par.scw.cloud
+LB.IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+LB.IP.0.Region            fr-par
+LB.IP.0.Zone              fr-par-1
+LB.FrontendCount          0
+LB.BackendCount           0
+LB.Type                   lb-s
+LB.SslCompatibilityLevel  ssl_compatibility_level_intermediate
+LB.ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+LB.CreatedAt              few seconds ago
+LB.UpdatedAt              few seconds ago
+LB.PrivateNetworkCount    0
+LB.RouteCount             0
+LB.Region                 fr-par
+LB.Zone                   fr-par-1
+Name                      cli-certiticate-festive-goldberg
+CreatedAt                 few seconds ago
+UpdatedAt                 few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "type": "custom",
+  "id": "2402fcd0-e37d-422b-8923-8120bc4d32cd",
+  "common_name": "server.example.com",
+  "subject_alternative_name": [
+    "alias.example.com"
+  ],
+  "fingerprint": "",
+  "not_valid_before": "2020-07-22T09:43:05Z",
+  "not_valid_after": "2021-07-22T09:43:05Z",
+  "status": "ready",
+  "lb": {
+    "id": "78dfb0ff-38f3-4b68-99b8-8712a2bc47de",
+    "name": "cli-test",
+    "description": "cli-test",
+    "status": "ready",
+    "instances": [
+      {
+        "id": "4a313199-f9be-4e80-923a-3ccae272737f",
+        "status": "ready",
+        "ip_address": "10.72.86.71",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "region": "fr-par",
+        "zone": "fr-par-1"
+      },
+      {
+        "id": "ec7f3bb8-ea1c-4b93-90af-f44fb53fdd09",
+        "status": "ready",
+        "ip_address": "10.70.88.7",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "region": "fr-par",
+        "zone": "fr-par-1"
+      }
+    ],
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "ip": [
+      {
+        "id": "ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd",
+        "ip_address": "195.154.69.107",
+        "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "lb_id": "78dfb0ff-38f3-4b68-99b8-8712a2bc47de",
+        "reverse": "195-154-69-107.lb.fr-par.scw.cloud",
+        "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "region": "fr-par",
+        "zone": "fr-par-1"
+      }
+    ],
+    "tags": [],
+    "frontend_count": 0,
+    "backend_count": 0,
+    "type": "lb-s",
+    "subscriber": null,
+    "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "private_network_count": 0,
+    "route_count": 0,
+    "region": "fr-par",
+    "zone": "fr-par-1"
+  },
+  "name": "cli-certiticate-festive-goldberg",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z"
+}

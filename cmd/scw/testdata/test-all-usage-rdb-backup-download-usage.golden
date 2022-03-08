@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Download a backup locally.
+
+USAGE:
+  scw rdb backup download <backup-id ...> [arg=value ...]
+
+EXAMPLES:
+  Download a backup
+    scw rdb backup download 11111111-1111-1111-1111-111111111111
+
+ARGS:
+  backup-id         ID of the backup you want to download.
+  [output]          Filename to write to
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for download
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

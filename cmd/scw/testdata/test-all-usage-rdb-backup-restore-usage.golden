@@ -9,7 +9,7 @@ ARGS:
   [database-name]      Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup
   database-backup-id   Backup of a logical database
   instance-id          Defines the rdb instance where the backup has to be restored
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for restore

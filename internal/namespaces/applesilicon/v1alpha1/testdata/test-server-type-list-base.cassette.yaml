@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/server-types
+    method: GET
+  response:
+    body: '{"server_types":[{"name":"M1-M","cpu":{"name":"Apple M1","core_count":8},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":8000000000,"type":"LPDDR4"},"stock":"low_stock","minimum_lease_duration":"86400s"}]}'
+    headers:
+      Content-Length:
+      - "224"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Feb 2021 18:04:16 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f68db5c3-b1c7-4cb4-98dd-67d6cd32c41a
+    status: 200 OK
+    code: 200
+    duration: ""

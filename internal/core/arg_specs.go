@@ -24,6 +24,17 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	return positionalArg
 }
 
+// GetDeprecated gets all fields filtered by the deprecation state.
+func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
+	result := ArgSpecs{}
+	for _, argSpec := range s {
+		if argSpec.Deprecated == deprecated {
+			result = append(result, argSpec)
+		}
+	}
+	return result
+}
+
 func (s ArgSpecs) GetByName(name string) *ArgSpec {
 	for _, spec := range s {
 		if spec.Name == name {
@@ -84,6 +95,13 @@ type ArgSpec struct {
 
 	// Only one argument of the same OneOfGroup could be specified
 	OneOfGroup string
+
+	// Deprecated is used to flag an argument as deprecated.
+	// Use the short field to indicate migration tips for users.
+	Deprecated bool
+
+	// CanLoadFile allow to use @ prefix to load a file as content
+	CanLoadFile bool
 }
 
 func (a *ArgSpec) Prefix() string {
@@ -153,18 +171,34 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 	}
 }
 
-func OrganizationIDArgSpec() *ArgSpec {
+func ProjectIDArgSpec() *ArgSpec {
 	return &ArgSpec{
-		Name:         "organization-id",
-		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
-		ValidateFunc: ValidateOrganizationID(),
+		Name:         "project-id",
+		Short:        "Project ID to use. If none is passed the default project ID will be used",
+		ValidateFunc: ValidateProjectID(),
+	}
+}
+
+func ProjectArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:         "project",
+		Short:        "Project ID to use. If none is passed the default project ID will be used",
+		ValidateFunc: ValidateProjectID(),
 	}
 }
 
 func OrganizationArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "organization",
-		Short:        "Organization ID to use. If none is passed will use default organization ID from the config",
+		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
+		ValidateFunc: ValidateOrganizationID(),
+	}
+}
+
+func OrganizationIDArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:         "organization-id",
+		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
 		ValidateFunc: ValidateOrganizationID(),
 	}
 }

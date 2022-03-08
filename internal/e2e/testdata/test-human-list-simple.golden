@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    ORGANIZATION ID                       CREATED AT       UPDATED AT       HEIGHT  SHOE SIZE  ALTITUDE IN METER  ALTITUDE IN MILLIMETER  FINGERS COUNT  HAIR COUNT  IS HAPPY  EYES COLOR  STATUS   NAME  PROJECT ID                            REGION
-0194fdc2-fa2f-fcc0-41d3-ff12045b73c8  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111  fr-par
-62a5eee8-2abd-f44a-2d0b-75fb180daf48  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111  fr-par
-39465185-0fd4-a178-892e-e285ece15114  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111  fr-par
+ID                                    ORGANIZATION ID                       CREATED AT       UPDATED AT       HEIGHT  SHOE SIZE  ALTITUDE IN METER  ALTITUDE IN MILLIMETER  FINGERS COUNT  HAIR COUNT  IS HAPPY  EYES COLOR  STATUS   NAME  PROJECT ID
+0194fdc2-fa2f-fcc0-41d3-ff12045b73c8  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111
+62a5eee8-2abd-f44a-2d0b-75fb180daf48  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111
+39465185-0fd4-a178-892e-e285ece15114  11111111-1111-1111-1111-111111111111  few seconds ago  few seconds ago  0       0          0                  0                       0              0           false     unknown     stopped  -     11111111-1111-1111-1111-111111111111
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -21,8 +21,7 @@ ID                                    ORGANIZATION ID                       CREA
     "eyes_color": "unknown",
     "status": "stopped",
     "name": "",
-    "project_id": "11111111-1111-1111-1111-111111111111",
-    "region": "fr-par"
+    "project_id": "11111111-1111-1111-1111-111111111111"
   },
   {
     "id": "62a5eee8-2abd-f44a-2d0b-75fb180daf48",
@@ -39,8 +38,7 @@ ID                                    ORGANIZATION ID                       CREA
     "eyes_color": "unknown",
     "status": "stopped",
     "name": "",
-    "project_id": "11111111-1111-1111-1111-111111111111",
-    "region": "fr-par"
+    "project_id": "11111111-1111-1111-1111-111111111111"
   },
   {
     "id": "39465185-0fd4-a178-892e-e285ece15114",
@@ -57,7 +55,6 @@ ID                                    ORGANIZATION ID                       CREA
     "eyes_color": "unknown",
     "status": "stopped",
     "name": "",
-    "project_id": "11111111-1111-1111-1111-111111111111",
-    "region": "fr-par"
+    "project_id": "11111111-1111-1111-1111-111111111111"
   }
 ]

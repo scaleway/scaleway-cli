@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+DEV1-S total local volume size must be equal to 20 GB
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "DEV1-S total local volume size must be equal to 20 GB"
+}

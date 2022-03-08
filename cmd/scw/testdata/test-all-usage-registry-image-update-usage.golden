@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   image-id          Image ID to update
   [visibility]      A `public` image is pullable from internet without authentication, opposed to a `private` image. `inherit` will use the namespace `is_public` parameter (visibility_unknown | inherit | public | private)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update

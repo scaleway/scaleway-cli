@@ -39,18 +39,23 @@ func initCommand() *core.Command {
 
 func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Get default local SSH key
-	relativePath := path.Join(".ssh", "id_rsa.pub")
-	filename := path.Join(core.ExtractUserHomeDir(ctx), relativePath)
-	shortenedFilename := "~/" + relativePath
-	localSSHKeyContent, err := ioutil.ReadFile(filename)
-
+	var shortenedFilename string
+	var err error
+	var localSSHKeyContent []byte
+	for _, keyName := range [3]string{"id_ecdsa.pub", "id_ed25519.pub", "id_rsa.pub"} {
+		// element is the element from someSlice for where we are
+		relativePath := path.Join(".ssh", keyName)
+		filename := path.Join(core.ExtractUserHomeDir(ctx), relativePath)
+		shortenedFilename = "~/" + relativePath
+		localSSHKeyContent, err = ioutil.ReadFile(filename)
+		// If we managed to load an ssh key, let's stop there
+		if err == nil {
+			break
+		}
+	}
 	addKeyInstructions := `scw account ssh-key add name=my-key key="$(cat path/to/my/key.pub)"`
-
-	// Early exit if key is not present locally
-	if os.IsNotExist(err) {
+	if err != nil && os.IsNotExist(err) {
 		return nil, sshKeyNotFound(shortenedFilename, addKeyInstructions)
-	} else if err != nil {
-		return nil, err
 	}
 
 	// Get all SSH keys from Scaleway
@@ -64,7 +69,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Early exit if the SSH key is present locally and on Scaleway
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
 		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSSHKeyContent)) {
-			_, _ = interactive.Println("Look like your local SSH key " + shortenedFilename + " is already present on your Scaleway account.")
+			_, _ = interactive.Println("Looks like your local SSH key " + shortenedFilename + " is already present in your Scaleway account.")
 			return nil, nil
 		}
 	}

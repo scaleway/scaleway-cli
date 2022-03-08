@@ -1,0 +1,43 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID               9b7bfa18-c4fa-49a6-9289-39ec37eacddc
+Name             cli-pg-reverent-thompson
+Organization     951df375-e094-4d26-97c1-ba548eeb9c42
+Project          951df375-e094-4d26-97c1-ba548eeb9c42
+PolicyMode       optional
+PolicyType       max_availability
+PolicyRespected  true
+Zone             fr-par-1
+
+Placement Group:
+ID               9b7bfa18-c4fa-49a6-9289-39ec37eacddc
+Name             cli-pg-reverent-thompson
+Organization     951df375-e094-4d26-97c1-ba548eeb9c42
+Project          951df375-e094-4d26-97c1-ba548eeb9c42
+PolicyMode       optional
+PolicyType       max_availability
+PolicyRespected  true
+Zone             fr-par-1
+
+Servers:
+ID                                    NAME                  POLICY RESPECTED
+133504b4-9a24-427a-99bd-a4195b74c608  cli-srv-nervous-bell  true
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "9b7bfa18-c4fa-49a6-9289-39ec37eacddc",
+  "name": "cli-pg-reverent-thompson",
+  "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "tags": null,
+  "policy_mode": "optional",
+  "policy_type": "max_availability",
+  "policy_respected": true,
+  "zone": "fr-par-1",
+  "servers": [
+    {
+      "id": "133504b4-9a24-427a-99bd-a4195b74c608",
+      "name": "cli-srv-nervous-bell",
+      "policy_respected": true
+    }
+  ]
+}

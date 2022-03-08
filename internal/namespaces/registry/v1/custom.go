@@ -30,9 +30,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("registry", "image", "get").Override(imageGetBuilder)
 	cmds.MustFind("registry", "image", "list").Override(imageListBuilder)
 
-	human.RegisterMarshalerFunc(registry.NamespaceStatus(0), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(registry.ImageStatus(0), human.EnumMarshalFunc(imageStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(registry.TagStatus(0), human.EnumMarshalFunc(tagStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(registry.NamespaceStatus(""), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(registry.ImageStatus(""), human.EnumMarshalFunc(imageStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(registry.TagStatus(""), human.EnumMarshalFunc(tagStatusMarshalSpecs))
 
 	return cmds
 }

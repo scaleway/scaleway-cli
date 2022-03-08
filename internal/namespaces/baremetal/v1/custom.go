@@ -13,7 +13,7 @@ func GetCommands() *core.Commands {
 		serverWaitCommand(),
 	))
 
-	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(0), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(""), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
 
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)

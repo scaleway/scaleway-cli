@@ -1,0 +1,16 @@
+name: Documentation Workflows
+on:
+  pull_request:
+jobs:
+  ensure-docs-generated:
+    name: Ensure docs are generated
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate code
+        run: go run ./cmd/scw-doc-gen
+        env:
+          # We need this to enable autocomplete documentation generation default
+          SHELL: /bin/bash
+      - name: Exit 1 if not empty
+        run: git diff --exit-code

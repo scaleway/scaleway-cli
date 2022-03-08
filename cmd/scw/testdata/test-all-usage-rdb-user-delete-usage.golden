@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an user in a given instance.
+Delete a user on a given instance.
 
 USAGE:
   scw rdb user delete [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   instance-id       UUID of the instance to delete a user from
   name              Name of the user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for delete

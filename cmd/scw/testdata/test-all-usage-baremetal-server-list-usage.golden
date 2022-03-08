@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List baremetal servers.
+List elastic metal servers for organization.
 
 USAGE:
   scw baremetal server list [arg=value ...]
@@ -11,11 +11,13 @@ EXAMPLES:
 
 ARGS:
   [order-by]          Order of the servers (created_at_asc | created_at_desc)
-  [tags.{index}]      Filter servers by tags
-  [status.{index}]    Filter servers by status
-  [name]              Filter servers by name
-  [organization-id]   Filter servers by organization ID
-  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [tags.{index}]      Filter by tags
+  [status.{index}]    Filter by status
+  [name]              Filter by name
+  [project-id]        Filter by project ID
+  [option-id]         Filter by option ID
+  [organization-id]   Filter by organization ID
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for list

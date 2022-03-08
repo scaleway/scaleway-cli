@@ -24,10 +24,11 @@ func GetCommands() *core.Commands {
 		k8sPoolWaitCommand(),
 	))
 
+	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.ClusterStatus(0), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(k8s.PoolStatus(0), human.EnumMarshalFunc(poolStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(k8s.NodeStatus(0), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(k8s.ClusterStatus(""), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
 	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)

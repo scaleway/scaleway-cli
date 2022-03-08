@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac
+ID                     9a76e8bb-f44d-40be-9c63-ec5ed9a98535
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -10,46 +10,58 @@ BackendCount           0
 Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
 ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+CreatedAt              few seconds ago
+UpdatedAt              few seconds ago
+PrivateNetworkCount    0
+RouteCount             0
 Region                 fr-par
+Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS     ORGANIZATION ID                       LB ID                                 REVERSE                            PROJECT ID                            REGION
-732084bc-89fc-440b-84ad-d43e8348af0a  51.159.26.250  951df375-e094-4d26-97c1-ba548eeb9c42  4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac  51-159-26-250.lb.fr-par.scw.cloud  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par
+ID                                    IP ADDRESS      ORGANIZATION ID                       LB ID                                 REVERSE                             PROJECT ID                            REGION  ZONE
+e9ea1dda-9e86-43e4-98f7-07e866d0f959  51.159.114.172  951df375-e094-4d26-97c1-ba548eeb9c42  9a76e8bb-f44d-40be-9c63-ec5ed9a98535  51-159-114-172.lb.fr-par.scw.cloud  951df375-e094-4d26-97c1-ba548eeb9c42  fr-par  fr-par-1
 
 Instances:
-ID                                    STATUS  IP ADDRESS    REGION
-5e19347c-e19f-4ca6-9735-e0a3e5276633  ready   10.68.26.177  fr-par
-30363741-bf31-4aa0-a5e7-ada82263ae25  ready   10.65.30.23   fr-par
+ID                                    STATUS  IP ADDRESS    CREATED AT       UPDATED AT       REGION  ZONE
+9f94b8dc-7fb1-4eb3-a7ba-754d147917d3  ready   10.71.58.69   few seconds ago  few seconds ago  fr-par  fr-par-1
+bae018a6-3d2e-4b44-808d-729d7f98ad73  ready   10.64.36.157  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac",
+  "id": "9a76e8bb-f44d-40be-9c63-ec5ed9a98535",
   "name": "cli-test",
   "description": "cli-test",
   "status": "ready",
   "instances": [
     {
-      "id": "5e19347c-e19f-4ca6-9735-e0a3e5276633",
+      "id": "9f94b8dc-7fb1-4eb3-a7ba-754d147917d3",
       "status": "ready",
-      "ip_address": "10.68.26.177",
-      "region": "fr-par"
+      "ip_address": "10.71.58.69",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     },
     {
-      "id": "30363741-bf31-4aa0-a5e7-ada82263ae25",
+      "id": "bae018a6-3d2e-4b44-808d-729d7f98ad73",
       "status": "ready",
-      "ip_address": "10.65.30.23",
-      "region": "fr-par"
+      "ip_address": "10.64.36.157",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "732084bc-89fc-440b-84ad-d43e8348af0a",
-      "ip_address": "51.159.26.250",
+      "id": "e9ea1dda-9e86-43e4-98f7-07e866d0f959",
+      "ip_address": "51.159.114.172",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "4b5fc8eb-dd09-4b34-bfa2-1ac1bad987ac",
-      "reverse": "51-159-26-250.lb.fr-par.scw.cloud",
+      "lb_id": "9a76e8bb-f44d-40be-9c63-ec5ed9a98535",
+      "reverse": "51-159-114-172.lb.fr-par.scw.cloud",
       "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "region": "fr-par"
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "tags": [],
@@ -59,5 +71,10 @@ ID                                    STATUS  IP ADDRESS    REGION
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "region": "fr-par"
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_count": 0,
+  "route_count": 0,
+  "region": "fr-par",
+  "zone": "fr-par-1"
 }

@@ -1,28 +1,29 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                        STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION                          CREATION DATE    MODIFICATION DATE
-491cd44c-38c7-4d09-a83c-32693f2f7afa  cli-img-flamboyant-babbage  available  false   fr-par-1  20 GB    -            -          x86_64  b3ba839a-dcf2-4b0a-ac81-fc32370052a0  few seconds ago  few seconds ago
+ID                                    NAME                      STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+1a5178fe-f813-404a-a31c-df3822256c43  cli-img-practical-banzai  available  false   fr-par-1  20 GB    -            -          x86_64  b8fdefc6-c926-4a47-af24-24f14f724d6a  b8fdefc6-c926-4a47-af24-24f14f724d6a  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "ID": "491cd44c-38c7-4d09-a83c-32693f2f7afa",
-    "Name": "cli-img-flamboyant-babbage",
-    "Arch": "x86_64",
-    "CreationDate": "1970-01-01T00:00:00.0Z",
-    "ModificationDate": "1970-01-01T00:00:00.0Z",
-    "DefaultBootscript": null,
-    "ExtraVolumes": {},
-    "Organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-    "Public": false,
-    "RootVolume": {
-      "id": "d8c916a2-b6ed-4eb4-bc5b-95f2ddd9f12d",
-      "name": "cli-snp-nostalgic-lamport",
+    "id": "1a5178fe-f813-404a-a31c-df3822256c43",
+    "name": "cli-img-practical-banzai",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "public": false,
+    "root_volume": {
+      "id": "032d525e-d014-4b48-aaed-ea7d2c611a94",
+      "name": "cli-snp-gifted-solomon",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
-    "State": "available",
-    "ServerID": "",
-    "ServerName": "",
-    "Zone": "fr-par-1"
+    "state": "available",
+    "server_id": "",
+    "server_name": "",
+    "zone": "fr-par-1"
   }
 ]

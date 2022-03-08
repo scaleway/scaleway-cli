@@ -15,7 +15,11 @@ ARGS:
   hostname              Hostname of the server
   [all-ssh-keys]        Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)
   ssh-key-ids.{index}   SSH key IDs authorized on the server (cannot be used with all-ssh-keys)
-  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [user]                User used for the installation
+  [password]            Password used for the installation
+  [service-user]        User used for the service to install
+  [service-password]    Password used for the service to install
+  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for install
@@ -34,5 +38,5 @@ SEE ALSO:
   # List OS (useful to get all OS IDs)
   scw baremetal os list
 
-  # Create a baremetal server
+  # Create an elastic metal server
   scw baremetal server create

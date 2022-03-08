@@ -58,14 +58,16 @@ scw k8s cluster create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required | The name of the cluster |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| type |  | The type of the cluster |
+| name | Required<br />Default: `<generated>` | The name of the cluster |
 | description |  | The description of the cluster |
 | tags.{index} |  | The tags associated with the cluster |
-| version | Required | The Kubernetes version of the cluster |
-| cni | Required<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel` | The Container Network Interface (CNI) plugin that will run in the cluster |
-| enable-dashboard |  | The enablement of the Kubernetes Dashboard in the cluster |
+| version | Required<br />Default: `latest` | The Kubernetes version of the cluster |
+| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | The Container Network Interface (CNI) plugin that will run in the cluster |
+| ~~enable-dashboard~~ | Deprecated | The enablement of the Kubernetes Dashboard in the cluster |
 | ingress | One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The Ingress Controller that will run in the cluster |
-| pools.{index}.name |  |  |
+| pools.{index}.name | Required | The name of the pool |
 | pools.{index}.node-type | Required | The node type is the type of Scaleway Instance wanted for the pool |
 | pools.{index}.placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
 | pools.{index}.autoscaling |  | The enablement of the autoscaling feature for the pool |
@@ -75,21 +77,35 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
 | pools.{index}.autohealing |  | The enablement of the autohealing feature for the pool |
 | pools.{index}.tags.{index} |  | The tags associated with the pool |
+| pools.{index}.kubelet-args.{key} |  |  |
+| pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
+| pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
+| pools.{index}.zone |  | The Zone in which the Pool's node will be spawn in |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority` | Type of node group expander to be used in scale up |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
 | autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
 | autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable |
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
 | auto-upgrade.enable |  | Whether or not auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | The start hour of the 2-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | The day of the week for the maintenance window |
 | feature-gates.{index} |  | List of feature gates to enable |
 | admission-plugins.{index} |  | List of admission plugins to enable |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys |
+| open-id-connect-config.client-id |  | A client id that all tokens must be issued for |
+| open-id-connect-config.username-claim |  | JWT claim to use as the user name |
+| open-id-connect-config.username-prefix |  | Prefix prepended to username |
+| open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
+| open-id-connect-config.groups-prefix |  | Prefix prepended to group claims |
+| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID Token |
+| apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -125,7 +141,7 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | The ID of the cluster to delete |
 | with-additional-resources |  | Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -155,7 +171,7 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | The ID of the requested cluster |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -184,11 +200,13 @@ scw k8s cluster list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | The project ID on which to filter the returned clusters |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned clusters |
 | name |  | The name on which to filter the returned clusters |
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | The status on which to filter the returned clusters |
+| type |  | The type on which to filter the returned clusters |
 | organization-id |  | The organization ID on which to filter the returned clusters |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -228,7 +246,7 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | The ID of the cluster which the available Kuberentes versions will be listed from |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -258,7 +276,7 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | The ID of the cluster of which the admin token will be renewed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -294,19 +312,29 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority` | Type of node group expander to be used in scale up |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
 | autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
 | autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable |
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down |
-| enable-dashboard |  | The new value of the Kubernetes Dashboard enablement |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
+| ~~enable-dashboard~~ | Deprecated | The new value of the Kubernetes Dashboard enablement |
 | ingress | One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The new Ingress Controller for the cluster |
 | auto-upgrade.enable |  | Whether or not auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | The start hour of the 2-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | The day of the week for the maintenance window |
 | feature-gates.{index} |  | List of feature gates to enable |
 | admission-plugins.{index} |  | List of admission plugins to enable |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys |
+| open-id-connect-config.client-id |  | A client id that all tokens must be issued for |
+| open-id-connect-config.username-claim |  | JWT claim to use as the user name |
+| open-id-connect-config.username-prefix |  | Prefix prepended to username |
+| open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
+| open-id-connect-config.groups-prefix |  | Prefix prepended to group claims |
+| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID Token |
+| apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -343,7 +371,7 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 | cluster-id | Required | The ID of the cluster to upgrade |
 | version | Required | The new Kubernetes version of the cluster |
 | upgrade-pools |  | The enablement of the pools upgrade |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -415,6 +443,16 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Get the kubeconfig for a given cluster
+```
+scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111
+```
+
 
 
 
@@ -504,7 +542,7 @@ scw k8s node get <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | The ID of the requested node |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -525,7 +563,7 @@ This method allows to list all the existing nodes for a specific Kubernetes clus
 **Usage:**
 
 ```
-scw k8s node list <cluster-id ...> [arg=value ...]
+scw k8s node list [arg=value ...]
 ```
 
 
@@ -537,8 +575,8 @@ scw k8s node list <cluster-id ...> [arg=value ...]
 | pool-id |  | The pool ID on which to filter the returned nodes |
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned nodes |
 | name |  | The name on which to filter the returned nodes |
-| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error` | The status on which to filter the returned nodes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading` | The status on which to filter the returned nodes |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -578,7 +616,7 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | The ID of the node to reboot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -608,7 +646,7 @@ scw k8s node replace <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | The ID of the node to replace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -667,7 +705,7 @@ This method allows to create a new pool in a specific Kubernetes cluster.
 **Usage:**
 
 ```
-scw k8s pool create <cluster-id ...> [arg=value ...]
+scw k8s pool create [arg=value ...]
 ```
 
 
@@ -676,17 +714,21 @@ scw k8s pool create <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | The ID of the cluster in which the pool will be created |
-| name | Required | The name of the pool |
-| node-type | Required | The node type is the type of Scaleway Instance wanted for the pool |
+| name | Required<br />Default: `<generated>` | The name of the pool |
+| node-type | Required<br />Default: `DEV1-M` | The node type is the type of Scaleway Instance wanted for the pool |
 | placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
 | autoscaling |  | The enablement of the autoscaling feature for the pool |
-| size | Required | The size (number of nodes) of the pool |
+| size | Required<br />Default: `1` | The size (number of nodes) of the pool |
 | min-size |  | The minimun size of the pool |
 | max-size |  | The maximum size of the pool |
 | container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
 | autohealing |  | The enablement of the autohealing feature for the pool |
 | tags.{index} |  | The tags associated with the pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| kubelet-args.{key} |  |  |
+| upgrade-policy.max-unavailable |  |  |
+| upgrade-policy.max-surge |  |  |
+| zone |  | The Zone in which the Pool's node will be spawn in |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -694,17 +736,17 @@ scw k8s pool create <cluster-id ...> [arg=value ...]
 
 Create a pool named bar with 2 DEV1-XL on a given cluster
 ```
-scw k8s pool create 11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
+scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
 ```
 
 Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster
 ```
-scw k8s pool create 11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd
+scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd
 ```
 
 Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster
 ```
-scw k8s pool create 11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group
+scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group
 ```
 
 
@@ -726,7 +768,7 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pool-id | Required | The ID of the pool to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -756,7 +798,7 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pool-id | Required | The ID of the requested pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -777,7 +819,7 @@ This method allows to list all the existing pools for a specific Kubernetes clus
 **Usage:**
 
 ```
-scw k8s pool list <cluster-id ...> [arg=value ...]
+scw k8s pool list [arg=value ...]
 ```
 
 
@@ -789,7 +831,7 @@ scw k8s pool list <cluster-id ...> [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned pools |
 | name |  | The name on which to filter the returned pools |
 | status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | The status on which to filter the returned pools |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -797,22 +839,22 @@ scw k8s pool list <cluster-id ...> [arg=value ...]
 
 List all pools for a given cluster
 ```
-scw k8s pool list 11111111-1111-1111-111111111111
+scw k8s pool list cluster-id=11111111-1111-1111-111111111111
 ```
 
 List all scaling pools for a given cluster
 ```
-scw k8s pool list 11111111-1111-1111-111111111111 status=scaling
+scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling
 ```
 
 List all pools for a given cluster that contain the word foo in the pool name
 ```
-scw k8s pool list 11111111-1111-1111-111111111111 name=foo
+scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo
 ```
 
 List all pools for a given cluster and order them by ascending creation date
 ```
-scw k8s pool list 11111111-1111-1111-111111111111 order-by=created_at_asc
+scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc
 ```
 
 
@@ -840,7 +882,10 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | max-size |  | The new maximum size for the pool |
 | autohealing |  | The new value for the enablement of autohealing for the pool |
 | tags.{index} |  | The new tags associated with the pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| kubelet-args.value.{key} |  |  |
+| upgrade-policy.max-unavailable |  |  |
+| upgrade-policy.max-surge |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -881,7 +926,7 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 |------|---|-------------|
 | pool-id | Required | The ID of the pool to upgrade |
 | version | Required | The new Kubernetes version for the pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -951,7 +996,7 @@ scw k8s version get <version-name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | version-name | Required | The requested version name |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -980,7 +1025,7 @@ scw k8s version list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**

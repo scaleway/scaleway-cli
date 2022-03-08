@@ -14,9 +14,9 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/karrick/tparse"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 type Unmarshaler interface {
@@ -24,6 +24,8 @@ type Unmarshaler interface {
 }
 
 type UnmarshalFunc func(value string, dest interface{}) error
+
+var TestForceNow *time.Time
 
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest interface{}) error {
@@ -61,13 +63,32 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
 		// Handle absolute time
-		t, err := time.Parse(time.RFC3339, value)
-		if err != nil {
-			return err
+		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
+		if absoluteErr == nil {
+			*(dest.(*time.Time)) = absoluteTimeParsed
+			return nil
 		}
 
-		*(dest.(*time.Time)) = t
-		return nil
+		// Handle relative time
+		if value[0] != '+' && value[0] != '-' {
+			value = "+" + value
+		}
+		m := map[string]time.Time{
+			"t": time.Now(),
+		}
+		if TestForceNow != nil {
+			m["t"] = *TestForceNow
+		}
+		relativeTimeParsed, relativeErr := tparse.ParseWithMap(time.RFC3339, "t"+value, m)
+		if relativeErr == nil {
+			*(dest.(*time.Time)) = relativeTimeParsed
+			return nil
+		}
+		return &CannotParseDateError{
+			ArgValue:               value,
+			AbsoluteTimeParseError: absoluteErr,
+			RelativeTimeParseError: relativeErr,
+		}
 	},
 }
 
@@ -100,25 +121,6 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	for _, kv := range argsSlice {
 		argName, argValue := kv[0], kv[1]
 		argNameWords := strings.Split(argName, ".")
-
-		// Make sure argument name is correct.
-		// We enforce this check to avoid not well formatted argument name to work by "accident"
-		// as we use ToPublicGoName on the argument name later on.
-		if !validArgNameRegex.MatchString(argName) {
-			err := error(&InvalidArgNameError{})
-
-			// Make an exception for users that try to pass resource UUID without corresponding ID argument.
-			// TODO: return a special error to advice user to use the ID argument.
-			if validation.IsUUID(argName) {
-				err = &UnknownArgError{}
-			}
-
-			return &UnmarshalArgError{
-				ArgName:  argName,
-				ArgValue: argValue,
-				Err:      err,
-			}
-		}
 
 		if processedArgNames[argName] {
 			return &UnmarshalArgError{
@@ -303,6 +305,13 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			}
 		}
 
+		// Make sure argument name is correct.
+		// We enforce this check to avoid not well formatted argument name to work by "accident"
+		// as we use ToPublicGoName on the argument name later on.
+		if !validArgNameRegex.MatchString(argNameWords[0]) {
+			return error(&InvalidArgNameError{})
+		}
+
 		// Try to find the correct field in the current struct.
 		fieldName := strcase.ToPublicGoName(argNameWords[0])
 		if fieldIndex, exist := fieldIndexByName[fieldName]; exist {
@@ -370,7 +379,7 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		case "false":
 			dest.SetBool(false)
 		default:
-			return fmt.Errorf("invalid boolean value")
+			return &CannotParseBoolError{Value: value}
 		}
 		return nil
 	case reflect.String:

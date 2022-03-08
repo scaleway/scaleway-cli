@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   create      Create a database backup
   delete      Delete a database backup
+  download    Download a backup locally
   export      Export a database backup
   get         Get a database backup
   list        List database backups

@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
 type k8sKubeconfigUninstallRequest struct {
@@ -60,7 +60,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 
 	// if the file does not exist, the cluster is not there
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
-		return fmt.Sprintf("File %s does not exists.", kubeconfigPath), nil
+		return fmt.Sprintf("File %s does not exist.", kubeconfigPath), nil
 	}
 
 	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)
@@ -68,22 +68,22 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return nil, err
 	}
 
-	newClusters := []*k8s.KubeconfigClusterWithName{}
+	newClusters := []api.NamedCluster{}
 	for _, cluster := range existingKubeconfig.Clusters {
 		if !strings.HasSuffix(cluster.Name, request.ClusterID) {
 			newClusters = append(newClusters, cluster)
 		}
 	}
 
-	newContexts := []*k8s.KubeconfigContextWithName{}
+	newContexts := []api.NamedContext{}
 	for _, kubeconfigContext := range existingKubeconfig.Contexts {
 		if !strings.HasSuffix(kubeconfigContext.Name, request.ClusterID) {
 			newContexts = append(newContexts, kubeconfigContext)
 		}
 	}
 
-	newUsers := []*k8s.KubeconfigUserWithName{}
-	for _, user := range existingKubeconfig.Users {
+	newUsers := []api.NamedAuthInfo{}
+	for _, user := range existingKubeconfig.AuthInfos {
 		if !strings.HasSuffix(user.Name, request.ClusterID) {
 			newUsers = append(newUsers, user)
 		}
@@ -97,7 +97,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 	// write the modification
 	existingKubeconfig.Clusters = newClusters
 	existingKubeconfig.Contexts = newContexts
-	existingKubeconfig.Users = newUsers
+	existingKubeconfig.AuthInfos = newUsers
 
 	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
 	if err != nil {

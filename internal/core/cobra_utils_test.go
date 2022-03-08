@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/args"
 )
@@ -12,6 +13,10 @@ import (
 type testType struct {
 	NameID string
 	Tag    string
+}
+
+type testDate struct {
+	Date *time.Time
 }
 
 func testGetCommands() *Commands {
@@ -64,6 +69,16 @@ func testGetCommands() *Commands {
 				return res, nil
 			},
 		},
+		&Command{
+			Namespace:            "test",
+			Resource:             "date",
+			ArgsType:             reflect.TypeOf(testDate{}),
+			AllowAnonymousClient: true,
+			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+				a := argsI.(*testDate)
+				return a.Date, nil
+			},
+		},
 	)
 }
 
@@ -74,7 +89,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("unknown argument 'name_id'"),
+				Err:  fmt.Errorf("invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes"),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),
@@ -86,8 +101,24 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: TestCheckCombine(
 			TestCheckExitCode(1),
 			TestCheckError(&CliError{
-				Err:  fmt.Errorf("unknown argument 'ubuntu_focal'"),
+				Err:  fmt.Errorf("invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes"),
 				Hint: "Valid arguments are: name-id",
+			}),
+		),
+	}))
+
+	t.Run("relative date", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test date date=+3R",
+		Check: TestCheckCombine(
+			TestCheckExitCode(1),
+			TestCheckError(&CliError{
+				Message: "could not parse +3R as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339",
+				Details: `Absolute time error: parsing time "+3R" as "2006-01-02T15:04:05Z07:00": cannot parse "+3R" as "2006"
+Relative time error: unknown unit in duration: "R"
+`,
+				Err:  fmt.Errorf("date parsing error: +3R"),
+				Hint: "Run `scw help date` to learn more about date parsing",
 			}),
 		),
 	}))

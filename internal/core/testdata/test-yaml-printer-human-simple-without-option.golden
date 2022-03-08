@@ -1,0 +1,9 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+id: 111111111-111111111
+name: David Copperfield
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "111111111-111111111",
+  "name": "David Copperfield"
+}

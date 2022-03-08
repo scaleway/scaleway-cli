@@ -14,7 +14,9 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	type baremetalCreateServerRequestCustom struct {
 		Zone scw.Zone `json:"-"`
 		// OrganizationID with which the server will be created
-		OrganizationID string `json:"organization_id"`
+		OrganizationID *string `json:"organization_id"`
+		// ProjectID with which the server will be created
+		ProjectID *string `json:"project_id"`
 		// Name of the server (≠hostname)
 		Name string `json:"name"`
 		// Description associated to the server, max 255 characters
@@ -33,24 +35,8 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("description").Required = false
 
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
-		Name:    "type",
-		Short:   "Server commercial type",
-		Default: core.DefaultValueSetter("GP-BM1-S"),
-
-		EnumValues: []string{
-			// General Purpose offers
-			"GP-BM1-L",
-			"GP-BM1-M",
-			"GP-BM1-S",
-
-			// High-computing offers
-			"HC-BM1-L",
-			"HC-BM1-S",
-
-			// High-Memory offers
-			"HM-BM1-XL",
-			"HM-BM1-M",
-		},
+		Name:  "type",
+		Short: "Server commercial type",
 	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -61,6 +47,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		request := &baremetal.CreateServerRequest{
 			Zone:           tmpRequest.Zone,
 			OrganizationID: tmpRequest.OrganizationID,
+			ProjectID:      tmpRequest.ProjectID,
 			Name:           tmpRequest.Name,
 			Description:    tmpRequest.Description,
 			Tags:           tmpRequest.Tags,

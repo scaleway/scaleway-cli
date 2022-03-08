@@ -13,38 +13,56 @@ EXAMPLES:
     scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
-  name                                                  The name of the cluster
-  [description]                                         The description of the cluster
-  [tags.{index}]                                        The tags associated with the cluster
-  version                                               The Kubernetes version of the cluster
-  cni                                                   The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel)
-  [enable-dashboard]                                    The enablement of the Kubernetes Dashboard in the cluster
-  [ingress]                                             The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
-  [pools.{index}.name]                                  
-  pools.{index}.node-type                               The node type is the type of Scaleway Instance wanted for the pool
-  [pools.{index}.placement-group-id]                    The placement group ID in which all the nodes of the pool will be created
-  [pools.{index}.autoscaling]                           The enablement of the autoscaling feature for the pool
-  pools.{index}.size                                    The size (number of nodes) of the pool
-  [pools.{index}.min-size]                              The minimun size of the pool
-  [pools.{index}.max-size]                              The maximum size of the pool
-  [pools.{index}.container-runtime]                     The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
-  [pools.{index}.autohealing]                           The enablement of the autohealing feature for the pool
-  [pools.{index}.tags.{index}]                          The tags associated with the pool
-  [autoscaler-config.scale-down-disabled]               Disable the cluster autoscaler
-  [autoscaler-config.scale-down-delay-after-add]        How long after scale up that scale down evaluation resumes
-  [autoscaler-config.estimator]                         Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
-  [autoscaler-config.expander]                          Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority)
-  [autoscaler-config.ignore-daemonsets-utilization]     Ignore DaemonSet pods when calculating resource utilization for scaling down
-  [autoscaler-config.balance-similar-node-groups]       Detect similar node groups and balance the number of nodes between them
-  [autoscaler-config.expendable-pods-priority-cutoff]   Pods with priority below cutoff will be expendable
-  [autoscaler-config.scale-down-unneeded-time]          How long a node should be unneeded before it is eligible for scale down
-  [auto-upgrade.enable]                                 Whether or not auto upgrade is enabled for the cluster
-  [auto-upgrade.maintenance-window.start-hour]          The start hour of the 2-hour maintenance window
-  [auto-upgrade.maintenance-window.day]                 The day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
-  [feature-gates.{index}]                               List of feature gates to enable
-  [admission-plugins.{index}]                           List of admission plugins to enable
-  [organization-id]                                     Organization ID to use. If none is passed will use default organization ID from the config
-  [region=fr-par]                                       Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [project-id]                                           Project ID to use. If none is passed the default project ID will be used
+  [type]                                                 The type of the cluster
+  name=<generated>                                       The name of the cluster
+  [description]                                          The description of the cluster
+  [tags.{index}]                                         The tags associated with the cluster
+  version=latest                                         The Kubernetes version of the cluster
+  cni=cilium                                             The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
+  [ingress]                                              The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
+  pools.{index}.name                                     The name of the pool
+  pools.{index}.node-type                                The node type is the type of Scaleway Instance wanted for the pool
+  [pools.{index}.placement-group-id]                     The placement group ID in which all the nodes of the pool will be created
+  [pools.{index}.autoscaling]                            The enablement of the autoscaling feature for the pool
+  pools.{index}.size                                     The size (number of nodes) of the pool
+  [pools.{index}.min-size]                               The minimun size of the pool
+  [pools.{index}.max-size]                               The maximum size of the pool
+  [pools.{index}.container-runtime]                      The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.autohealing]                            The enablement of the autohealing feature for the pool
+  [pools.{index}.tags.{index}]                           The tags associated with the pool
+  [pools.{index}.kubelet-args.{key}]                     
+  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
+  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
+  [pools.{index}.zone]                                   The Zone in which the Pool's node will be spawn in
+  [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
+  [autoscaler-config.scale-down-delay-after-add]         How long after scale up that scale down evaluation resumes
+  [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
+  [autoscaler-config.expander]                           Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority | price)
+  [autoscaler-config.ignore-daemonsets-utilization]      Ignore DaemonSet pods when calculating resource utilization for scaling down
+  [autoscaler-config.balance-similar-node-groups]        Detect similar node groups and balance the number of nodes between them
+  [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable
+  [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down
+  [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down
+  [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node
+  [auto-upgrade.enable]                                  Whether or not auto upgrade is enabled for the cluster
+  [auto-upgrade.maintenance-window.start-hour]           The start hour of the 2-hour maintenance window
+  [auto-upgrade.maintenance-window.day]                  The day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
+  [feature-gates.{index}]                                List of feature gates to enable
+  [admission-plugins.{index}]                            List of admission plugins to enable
+  [open-id-connect-config.issuer-url]                    URL of the provider which allows the API server to discover public signing keys
+  [open-id-connect-config.client-id]                     A client id that all tokens must be issued for
+  [open-id-connect-config.username-claim]                JWT claim to use as the user name
+  [open-id-connect-config.username-prefix]               Prefix prepended to username
+  [open-id-connect-config.groups-claim.{index}]          JWT claim to use as the user's group
+  [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims
+  [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs that describes a required claim in the ID Token
+  [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
+  [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [enable-dashboard]   The enablement of the Kubernetes Dashboard in the cluster
 
 FLAGS:
   -h, --help   help for create

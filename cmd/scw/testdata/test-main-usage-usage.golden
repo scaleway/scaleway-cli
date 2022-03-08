@@ -4,23 +4,31 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account      Account API
-  autocomplete Autocomplete related commands
-  baremetal    Baremetal API
-  config       Config file management
-  feedback     Send feedback to the Scaleway CLI Team!
-  info         Get info about current settings
-  init         Initialize the config
-  instance     Instance API
-  iot          This API allows you to manage IoT hubs and devices
-  k8s          Kapsule API
-  lb           This API allows you to manage your load balancer service
-  marketplace  Marketplace API
-  object       Object-storage utils
-  rdb          Database RDB API
-  registry     Container registry API
-  version      Display cli version
-  help         Help about any command
+  account       Account API
+  apple-silicon Apple silicon API
+  autocomplete  Autocomplete related commands
+  baremetal     Elastic metal API
+  config        Config file management
+  container     Container as a Service API
+  dns           DNS API
+  feedback      Send feedback to the Scaleway CLI Team!
+  fip           Flexible IP API
+  function      Function as a Service API
+  help          Get help about how the CLI works
+  info          Get info about current settings
+  init          Initialize the config
+  instance      Instance API
+  iot           This API allows you to manage IoT hubs and devices
+  k8s           Kapsule API
+  lb            This API allows you to manage your load balancer service
+  marketplace   Marketplace API
+  object        Object-storage utils
+  rdb           Database RDB API
+  registry      Container registry API
+  version       Display cli version
+  vpc           VPC API
+  vpc-gw        VPC Public Gateway API
+  help          Help about any command
 
 FLAGS:
   -c, --config string    The path to the config file

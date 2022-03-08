@@ -9,8 +9,9 @@ ARGS:
   [name]              Name of the database backups
   [order-by]          Criteria to use when ordering database backups listing (created_at_asc | created_at_desc | name_asc | name_desc | status_asc | status_desc)
   [instance-id]       UUID of the instance
+  [project-id]        Project ID the database backups belongs to
   [organization-id]   Organization ID the database backups belongs to
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

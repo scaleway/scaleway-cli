@@ -149,7 +149,6 @@ async function main() {
         .filter(semver.valid)
         .sort((a, b) => semver.rcompare(semver.clean(a), semver.clean(b)))[0];
     const lastVersion =  semver.clean(lastSemverTag);
-    const lastVersionWithDash = lastVersion.replace(/\./g, "-");
     console.log(`    Last found release tag was ${lastSemverTag}`.green);
 
     console.log("Listing commit since last release".blue);
@@ -162,7 +161,6 @@ async function main() {
     if (!newVersion) {
         throw new Error(`invalid version`);
     }
-    const newVersionWithDash = newVersion.replace(/\./g, "-");
 
     //
     // Creating release commit
@@ -173,7 +171,6 @@ async function main() {
     changelog.body = externalEditor.edit(changelog.body);
 
     replaceInFile(README_PATH, lastVersion, newVersion);
-    replaceInFile(README_PATH, lastVersionWithDash, newVersionWithDash);
     replaceInFile(CHANGELOG_PATH, "# Changelog", `# Changelog\n\n${changelog.header}\n\n${changelog.body}\n`);
     replaceInFile(GO_VERSION_PATH, /Version = "[^"]*"/, `Version = "v${newVersion}"`);
     console.log(`    Update success`.green);
@@ -217,11 +214,12 @@ async function main() {
 
     console.log("    attach assets to the release".gray);
     const releaseAssets = [
-        `scw-${newVersionWithDash}-darwin-x86_64`,
-        `scw-${newVersionWithDash}-linux-x86_64`,
-        `scw-${newVersionWithDash}-linux-386`,
-        `scw-${newVersionWithDash}-windows-x86_64.exe`,
-        `scw-${newVersionWithDash}-windows-386.exe`,
+        `scw-${newVersion}-darwin-x86_64`,
+        `scw-${newVersion}-darwin-arm64`,
+        `scw-${newVersion}-linux-x86_64`,
+        `scw-${newVersion}-linux-386`,
+        `scw-${newVersion}-windows-x86_64.exe`,
+        `scw-${newVersion}-windows-386.exe`,
         `SHA256SUMS`,
     ];
     await Promise.all(releaseAssets.map((assetName) => {
@@ -256,6 +254,7 @@ async function main() {
     console.log("Build and push a container image".blue);
     docker("build", "-t", `scaleway/cli:v${newVersion}`, ".");
     docker("push", `scaleway/cli:v${newVersion}`);
+    docker("push", "scaleway/cli:latest")
 
     //
     // Creating post release commit

@@ -21,6 +21,7 @@ import (
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
+	args "github.com/scaleway/scaleway-cli/internal/args"
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
@@ -218,6 +219,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithHTTPClient(&http.Client{
 			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
@@ -232,9 +234,11 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 			clientOpts = append(clientOpts, scw.WithEnv())
 			config, err := scw.LoadConfig()
 			if err == nil {
-				p, err := config.GetActiveProfile()
+				activeProfile, err := config.GetActiveProfile()
 				require.NoError(t, err)
-				clientOpts = append(clientOpts, scw.WithProfile(p))
+				envProfile := scw.LoadEnvProfile()
+				profile := scw.MergeProfiles(activeProfile, envProfile)
+				clientOpts = append(clientOpts, scw.WithProfile(profile))
 			}
 		}
 	}
@@ -282,6 +286,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if *Debug {
 			testLogger.level = logger.LogLevelDebug
 		}
+
+		// We need to set up this variable to ensure that relative date parsing stay consistent
+		args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
@@ -403,9 +410,15 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Run config.Cmd
 		var result interface{}
 		var exitCode int
-		args := config.Args
+		renderedArgs := []string(nil)
+		rawArgs := config.Args
 		if config.Cmd != "" {
-			args = cmdToArgs(meta, config.Cmd)
+			renderedArgs = cmdToArgs(meta, config.Cmd)
+		} else {
+			// We render raw arguments from meta
+			for _, arg := range rawArgs {
+				renderedArgs = append(renderedArgs, meta.render(arg))
+			}
 		}
 
 		// We create a separate logger for the command we want to test.
@@ -416,11 +429,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 			writer: io.MultiWriter(cmdLoggerBuffer, os.Stderr),
 			level:  testLogger.level,
 		}
-		if len(args) > 0 {
+		if len(renderedArgs) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
 			exitCode, result, err = Bootstrap(&BootstrapConfig{
-				Args:             args,
+				Args:             renderedArgs,
 				Commands:         config.Commands,
 				BuildInfo:        buildInfo,
 				Stdout:           stdout,

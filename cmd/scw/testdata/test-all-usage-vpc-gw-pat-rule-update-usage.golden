@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update a PAT rule.
+
+USAGE:
+  scw vpc-gw pat-rule update <pat-rule-id ...> [arg=value ...]
+
+ARGS:
+  pat-rule-id       PAT rule to update
+  [public-port]     Public port to listen on
+  [private-ip]      Private IP to forward data to
+  [private-port]    Private port to translate to
+  [protocol]        Protocol the rule should apply to (unknown | both | tcp | udp)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

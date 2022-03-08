@@ -1,12 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Invalid value 'MACBOOK1-S' for arg 'type'
-
-Hint:
-Accepted values for 'type' are [GP1-XS GP1-S GP1-M GP1-L GP1-XL DEV1-S DEV1-M DEV1-L DEV1-XL RENDER-S]
+Bad image label 'ubuntu_bionic' for MACBOOK1-S
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "invalid value 'MACBOOK1-S' for arg 'type'",
-  "error": {},
-  "hint": "Accepted values for 'type' are [GP1-XS GP1-S GP1-M GP1-L GP1-XL DEV1-S DEV1-M DEV1-L DEV1-XL RENDER-S]"
+  "error": "bad image label 'ubuntu_bionic' for MACBOOK1-S"
 }

@@ -18,10 +18,9 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// TODO: Add cloud-init
 type instanceCreateServerRequest struct {
 	Zone              scw.Zone
-	OrganizationID    string
+	ProjectID         *string
 	Image             string
 	Type              string
 	Name              string
@@ -35,9 +34,12 @@ type instanceCreateServerRequest struct {
 	PlacementGroupID  string
 	BootscriptID      string
 	CloudInit         string
+	BootType          string
+
+	// Deprecated, use project-id instead
+	OrganizationID *string
 }
 
-// TODO: Remove all error uppercase and punctuations when [APIGW-1367] will be done
 func serverCreateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Create server`,
@@ -50,14 +52,36 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
+				Default:          core.DefaultValueSetter("ubuntu_focal"),
 				Required:         true,
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
 			{
-				Name:       "type",
-				Short:      "Server commercial type",
-				Default:    core.DefaultValueSetter("DEV1-S"),
-				EnumValues: []string{"GP1-XS", "GP1-S", "GP1-M", "GP1-L", "GP1-XL", "DEV1-S", "DEV1-M", "DEV1-L", "DEV1-XL", "RENDER-S"},
+				Name:    "type",
+				Short:   "Server commercial type",
+				Default: core.DefaultValueSetter("DEV1-S"),
+				EnumValues: []string{
+					"GP1-XS",
+					"GP1-S",
+					"GP1-M",
+					"GP1-L",
+					"GP1-XL",
+					"DEV1-S",
+					"DEV1-M",
+					"DEV1-L",
+					"DEV1-XL",
+					"RENDER-S",
+					"STARDUST1-S",
+					"ENT1-S",
+					"ENT1-M",
+					"ENT1-L",
+					"ENT1-XL",
+					"ENT1-2XL",
+				},
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					// Allow all commercial types
+					return nil
+				},
 			},
 			{
 				Name:    "name",
@@ -102,11 +126,19 @@ func serverCreateCommand() *core.Command {
 				Short: "The bootscript ID to use, if empty the local boot will be used",
 			},
 			{
-				Name:  "cloud-init",
-				Short: "The cloud-init script to use",
+				Name:        "cloud-init",
+				Short:       "The cloud-init script to use",
+				CanLoadFile: true,
 			},
-			core.OrganizationIDArgSpec(),
+			{
+				Name:       "boot-type",
+				Short:      "The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set.",
+				Default:    core.DefaultValueSetter(instance.BootTypeLocal.String()),
+				EnumValues: []string{instance.BootTypeLocal.String(), instance.BootTypeBootscript.String(), instance.BootTypeRescue.String()},
+			},
+			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
+			core.OrganizationIDArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
 		WaitFunc: instanceWaitServerCreateRun(),
@@ -163,6 +195,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	serverReq := &instance.CreateServerRequest{
 		Zone:           args.Zone,
 		Organization:   args.OrganizationID,
+		Project:        args.ProjectID,
 		Name:           args.Name,
 		CommercialType: args.Type,
 		EnableIPv6:     args.IPv6,
@@ -243,6 +276,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	case args.IP == "dynamic":
 		serverReq.DynamicIPRequired = scw.BoolPtr(true)
 	case args.IP == "none":
+		serverReq.DynamicIPRequired = scw.BoolPtr(false)
 	default:
 		return nil, fmt.Errorf(`invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, args.IP)
 	}
@@ -253,14 +287,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// More format details in buildVolumeTemplate function.
 	//
 	if len(args.AdditionalVolumes) > 0 || args.RootVolume != "" {
-		// Get default organization ID.
-		organizationID := args.OrganizationID
-		if organizationID == "" {
-			organizationID = core.GetOrganizationIDFromContext(ctx)
-		}
-
 		// Create initial volume template map.
-		volumes, err := buildVolumes(apiInstance, args.Zone, organizationID, serverReq.Name, args.RootVolume, args.AdditionalVolumes)
+		volumes, err := buildVolumes(apiInstance, args.Zone, serverReq.Name, args.RootVolume, args.AdditionalVolumes)
 		if err != nil {
 			return nil, err
 		}
@@ -288,6 +316,12 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	//
+	// BootType.
+	//
+	bootType := instance.BootType(args.BootType)
+	serverReq.BootType = &bootType
+
+	//
 	// Bootscript.
 	//
 	if args.BootscriptID != "" {
@@ -299,7 +333,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			BootscriptID: args.BootscriptID,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("bootscript ID %s does not exists", args.BootscriptID)
+			return nil, fmt.Errorf("bootscript ID %s does not exist", args.BootscriptID)
 		}
 
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
@@ -330,13 +364,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	if needIPCreation {
 		logger.Debugf("creating IP")
-		organizationID := (*string)(nil)
-		if args.OrganizationID != "" {
-			organizationID = scw.StringPtr(args.OrganizationID)
-		}
+
 		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
 			Zone:         args.Zone,
-			Organization: organizationID,
+			Project:      args.ProjectID,
+			Organization: args.OrganizationID,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
@@ -407,19 +439,19 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
-func buildVolumes(api *instance.API, zone scw.Zone, organizationID, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeTemplate, error) {
-	volumes := make(map[string]*instance.VolumeTemplate)
+func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
+	volumes := make(map[string]*instance.VolumeServerTemplate)
 	if rootVolume != "" {
-		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, organizationID, rootVolume)
+		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, rootVolume)
 		if err != nil {
 			return nil, err
 		}
-		rootVolumeTemplate.Organization = ""
+
 		volumes["0"] = rootVolumeTemplate
 	}
 
 	for i, v := range additionalVolumes {
-		volumeTemplate, err := buildVolumeTemplate(api, zone, organizationID, v)
+		volumeTemplate, err := buildVolumeTemplate(api, zone, v)
 		if err != nil {
 			return nil, err
 		}
@@ -428,7 +460,10 @@ func buildVolumes(api *instance.API, zone scw.Zone, organizationID, serverName, 
 
 		// Remove extra data for API validation.
 		if volumeTemplate.ID != "" {
-			volumeTemplate = &instance.VolumeTemplate{ID: volumeTemplate.ID, Name: volumeTemplate.Name}
+			volumeTemplate = &instance.VolumeServerTemplate{
+				ID:   volumeTemplate.ID,
+				Name: volumeTemplate.Name,
+			}
 		}
 
 		volumes[index] = volumeTemplate
@@ -445,12 +480,12 @@ func buildVolumes(api *instance.API, zone scw.Zone, organizationID, serverName, 
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a UUID format
 //
-func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 
 	// Create volume.
 	if len(parts) == 2 {
-		vt := &instance.VolumeTemplate{}
+		vt := &instance.VolumeServerTemplate{}
 
 		switch parts[0] {
 		case "l", "local":
@@ -463,11 +498,9 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 
 		size, err := humanize.ParseBytes(parts[1])
 		if err != nil {
-			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV) // TODO: improve msg [APIGW-1371]
+			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
 		}
 		vt.Size = scw.Size(size)
-
-		vt.Organization = orgID
 
 		return vt, nil
 	}
@@ -488,7 +521,7 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, orgID, flagV string) 
 // Add volume types and sizes allow US to treat UUID volumes like the others and simplify the implementation.
 // The instance API refuse the type and the size for UUID volumes, therefore,
 // buildVolumeMap function will remove them.
-func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeTemplate, error) {
+func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeServerTemplate, error) {
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
 		Zone:     zone,
 		VolumeID: volumeUUID,
@@ -502,7 +535,7 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 		return nil, fmt.Errorf("volume %s is already attached to %s server", res.Volume.ID, res.Volume.Server.ID)
 	}
 
-	return &instance.VolumeTemplate{
+	return &instance.VolumeServerTemplate{
 		ID:         res.Volume.ID,
 		VolumeType: res.Volume.VolumeType,
 		Size:       res.Volume.Size,
@@ -510,6 +543,10 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 }
 
 func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, CommercialType string) error {
+	// An instance might not have any constraints on the local volume size
+	if serverType.VolumesConstraint.MaxSize == 0 {
+		return nil
+	}
 	if image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			image.ID,
@@ -524,7 +561,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serverType *instance.ServerType, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -553,13 +590,9 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeTemplate, serve
 	return nil
 }
 
-func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeTemplate) error {
+func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeServerTemplate) error {
 	if rootVolume == nil {
 		return nil
-	}
-
-	if rootVolume.VolumeType != instance.VolumeVolumeTypeLSSD {
-		return fmt.Errorf("first volume must be local")
 	}
 
 	if rootVolume.ID != "" {
@@ -577,8 +610,8 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeT
 }
 
 // sanitizeVolumeMap removes extra data for API validation.
-func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeTemplate) map[string]*instance.VolumeTemplate {
-	m := make(map[string]*instance.VolumeTemplate)
+func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
 		v.Name = serverName + "-" + index
@@ -586,9 +619,15 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeTem
 		// Remove extra data for API validation.
 		switch {
 		case v.ID != "":
-			v = &instance.VolumeTemplate{ID: v.ID, Name: v.Name}
+			v = &instance.VolumeServerTemplate{
+				ID:   v.ID,
+				Name: v.Name,
+			}
 		case index == "0" && v.Size != 0:
-			v = &instance.VolumeTemplate{Size: v.Size}
+			v = &instance.VolumeServerTemplate{
+				VolumeType: v.VolumeType,
+				Size:       v.Size,
+			}
 		}
 		m[index] = v
 	}

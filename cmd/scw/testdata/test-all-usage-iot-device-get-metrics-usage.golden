@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   device-id         Device ID
-  period            Period over which the metrics span (hour | day | week | month | year)
+  start-date        Start date used to compute the best scale for the returned metrics
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

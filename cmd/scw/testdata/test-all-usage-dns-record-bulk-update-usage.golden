@@ -1,0 +1,87 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Only available with default NS.<br/>
+Send a list of actions and records.
+
+Action can be:
+ - add:
+  - Add new record
+  - Can be more specific and add a new IP to an existing A record for example
+ - set:
+  - Edit a record
+  - Can be more specific and edit an IP from an existing A record for example
+ - delete:
+  - Delete a record
+  - Can be more specific and delete an IP from an existing A record for example
+ - clear:
+  - Delete all records from a DNS zone
+
+All edits will be versioned.
+
+USAGE:
+  scw dns record bulk-update <dns-zone ...> [arg=value ...]
+
+ARGS:
+  dns-zone                                                                                 The DNS zone where the DNS zone records will be updated
+  [changes.{index}.add.records.{index}.data]                                               
+  [changes.{index}.add.records.{index}.name]                                               
+  [changes.{index}.add.records.{index}.priority]                                           
+  [changes.{index}.add.records.{index}.ttl]                                                
+  [changes.{index}.add.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [changes.{index}.add.records.{index}.comment]                                            
+  [changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.countries.{index}]    
+  [changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.continents.{index}]   
+  [changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.data]                 
+  [changes.{index}.add.records.{index}.geo-ip-config.default]                              
+  [changes.{index}.add.records.{index}.http-service-config.ips.{index}]                    
+  [changes.{index}.add.records.{index}.http-service-config.must-contain]                   
+  [changes.{index}.add.records.{index}.http-service-config.url]                            
+  [changes.{index}.add.records.{index}.http-service-config.user-agent]                     
+  [changes.{index}.add.records.{index}.http-service-config.strategy]                        (random | hashed | all)
+  [changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.ip]            
+  [changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.weight]        
+  [changes.{index}.add.records.{index}.view-config.views.{index}.subnet]                   
+  [changes.{index}.add.records.{index}.view-config.views.{index}.data]                     
+  [changes.{index}.add.records.{index}.id]                                                 
+  [changes.{index}.set.id]                                                                 
+  [changes.{index}.set.id-fields.name]                                                     
+  [changes.{index}.set.id-fields.type]                                                      (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [changes.{index}.set.id-fields.data]                                                     
+  [changes.{index}.set.id-fields.ttl]                                                      
+  [changes.{index}.set.records.{index}.data]                                               
+  [changes.{index}.set.records.{index}.name]                                               
+  [changes.{index}.set.records.{index}.priority]                                           
+  [changes.{index}.set.records.{index}.ttl]                                                
+  [changes.{index}.set.records.{index}.type]                                                (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [changes.{index}.set.records.{index}.comment]                                            
+  [changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.countries.{index}]    
+  [changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.continents.{index}]   
+  [changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.data]                 
+  [changes.{index}.set.records.{index}.geo-ip-config.default]                              
+  [changes.{index}.set.records.{index}.http-service-config.ips.{index}]                    
+  [changes.{index}.set.records.{index}.http-service-config.must-contain]                   
+  [changes.{index}.set.records.{index}.http-service-config.url]                            
+  [changes.{index}.set.records.{index}.http-service-config.user-agent]                     
+  [changes.{index}.set.records.{index}.http-service-config.strategy]                        (random | hashed | all)
+  [changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.ip]            
+  [changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.weight]        
+  [changes.{index}.set.records.{index}.view-config.views.{index}.subnet]                   
+  [changes.{index}.set.records.{index}.view-config.views.{index}.data]                     
+  [changes.{index}.set.records.{index}.id]                                                 
+  [changes.{index}.delete.id]                                                              
+  [changes.{index}.delete.id-fields.name]                                                  
+  [changes.{index}.delete.id-fields.type]                                                   (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [changes.{index}.delete.id-fields.data]                                                  
+  [changes.{index}.delete.id-fields.ttl]                                                   
+  [return-all-records]                                                                     Whether or not to return all the records
+  [disallow-new-zone-creation]                                                             Forbid the creation of the target zone if not existing (default action is yes)
+  [serial]                                                                                 Don't use the autoincremenent serial but the provided one (0 to keep the same)
+
+FLAGS:
+  -h, --help   help for bulk-update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

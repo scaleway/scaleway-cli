@@ -6,11 +6,11 @@ USAGE:
   scw rdb backup create [arg=value ...]
 
 ARGS:
-  [instance-id]     UUID of the instance
-  [database-name]   Name of the database you want to make a backup of
-  [name]            Name of the backup
-  [expires-at]      Expiration date (Format ISO 8601)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [instance-id]        UUID of the instance
+  [database-name]      Name of the database you want to make a backup of
+  [name=<generated>]   Name of the backup
+  [expires-at]         Expiration date (Format ISO 8601)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

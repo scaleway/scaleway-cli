@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create an user in a given instance.
+Create a user on a given instance.
 
 USAGE:
   scw rdb user create [arg=value ...]
@@ -10,7 +10,7 @@ ARGS:
   [name]            Name of the user you want to create
   [password]        Password of the user you want to create
   [is-admin]        Whether the user you want to create will have administrative privileges
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

@@ -1,11 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    ADDRESS         REVERSE  ORGANIZATION                          SERVER ID                             SERVER NAME   TAGS  ZONE
-52f3bf8e-006f-48dc-9e2f-293ed2330dd1  51.158.113.81   -        32f707c5-df07-43c7-8b57-6e09b687dd03  ac2f54b4-3c02-4fc4-b7f7-85f7a4683a8d  oss-exporter  []    fr-par-1
-15312268-a2e4-48d2-bc7a-d86db2f7f493  51.158.102.193  -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1
-8ed1c207-86db-4e60-84cd-0a4e84031239  51.15.253.183   -        951df375-e094-4d26-97c1-ba548eeb9c42  fa37ff62-4665-4b94-93bf-385d264a7b4d  juju          []    fr-par-1
-687f1b17-1d8d-4267-9b69-22025f6a52e8  51.15.251.251   -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1
-dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1
+ID                                    ADDRESS         REVERSE  PROJECT                               SERVER ID                             SERVER NAME   TAGS  ZONE      ORGANIZATION
+52f3bf8e-006f-48dc-9e2f-293ed2330dd1  51.158.113.81   -        32f707c5-df07-43c7-8b57-6e09b687dd03  ac2f54b4-3c02-4fc4-b7f7-85f7a4683a8d  oss-exporter  []    fr-par-1  32f707c5-df07-43c7-8b57-6e09b687dd03
+15312268-a2e4-48d2-bc7a-d86db2f7f493  51.158.102.193  -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1  951df375-e094-4d26-97c1-ba548eeb9c42
+8ed1c207-86db-4e60-84cd-0a4e84031239  51.15.253.183   -        951df375-e094-4d26-97c1-ba548eeb9c42  fa37ff62-4665-4b94-93bf-385d264a7b4d  juju          []    fr-par-1  951df375-e094-4d26-97c1-ba548eeb9c42
+687f1b17-1d8d-4267-9b69-22025f6a52e8  51.15.251.251   -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1  951df375-e094-4d26-97c1-ba548eeb9c42
+dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d26-97c1-ba548eeb9c42                                                      []    fr-par-1  951df375-e094-4d26-97c1-ba548eeb9c42
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {

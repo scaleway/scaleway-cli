@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -56,6 +55,10 @@ func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			FieldName: "AutoUpgrade",
 			Title:     "Auto-upgrade settings",
 		},
+		{
+			FieldName: "OpenIDConnectConfig",
+			Title:     "Open ID Connect configuration",
+		},
 	}
 
 	str, err := human.Marshal(cluster, opt)
@@ -82,6 +85,25 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionCreate)
+
+	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
+	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		args := argsI.(*k8s.CreateClusterRequest)
+
+		// Handle default latest version for k8s cluster
+		if args.Version == "latest" {
+			latestVersion, err := getLatestK8SVersion(core.ExtractClient(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("could not retrieve latest K8S version")
+			}
+			args.Version = latestVersion
+		}
+
+		return runner(ctx, args)
+	}
+
 	return c
 }
 
@@ -102,63 +124,64 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 			return res, err
 		}
 
-		clusterMarshalled, err := human.Marshal(cluster, nil)
-		if err != nil {
-			return res, err
-		}
-		poolsMarshalled, err := human.Marshal(pools.Pools, &human.MarshalOpt{
-			Title: "Pools",
-			Fields: []*human.MarshalFieldOpt{
-				{
-					FieldName: "ID",
-					Label:     "ID",
-				},
-				{
-					FieldName: "Name",
-					Label:     "Name",
-				},
-				{
-					FieldName: "Status",
-					Label:     "Status",
-				},
-				{
-					FieldName: "Version",
-					Label:     "Version",
-				},
-				{
-					FieldName: "NodeType",
-					Label:     "Node Type",
-				},
-				{
-					FieldName: "MinSize",
-					Label:     "Min Size",
-				},
-				{
-					FieldName: "Size",
-					Label:     "Size",
-				},
-				{
-					FieldName: "MaxSize",
-					Label:     "Max Size",
-				},
-				{
-					FieldName: "Autoscaling",
-					Label:     "Autoscaling",
-				},
-				{
-					FieldName: "Autohealing",
-					Label:     "Autohealing",
-				},
-			},
-		})
-		if err != nil {
-			return res, err
+		type customPool struct {
+			ID          string         `json:"id"`
+			Name        string         `json:"name"`
+			Status      k8s.PoolStatus `json:"status"`
+			Version     string         `json:"version"`
+			NodeType    string         `json:"node_type"`
+			MinSize     uint32         `json:"min_size"`
+			Size        uint32         `json:"size"`
+			MaxSize     uint32         `json:"max_size"`
+			Autoscaling bool           `json:"autoscaling"`
+			Autohealing bool           `json:"autohealing"`
 		}
 
-		return strings.Join([]string{
-			clusterMarshalled,
-			poolsMarshalled,
-		}, "\n\n"), nil
+		customPools := []customPool{}
+
+		for _, pool := range pools.Pools {
+			customPools = append(customPools, customPool{
+				ID:          pool.ID,
+				Name:        pool.Name,
+				Status:      pool.Status,
+				Version:     pool.Version,
+				NodeType:    pool.NodeType,
+				MinSize:     pool.MinSize,
+				Size:        pool.Size,
+				MaxSize:     pool.MaxSize,
+				Autoscaling: pool.Autoscaling,
+				Autohealing: pool.Autohealing,
+			})
+		}
+
+		return struct {
+			*k8s.Cluster
+			Pools []customPool `json:"pools"`
+		}{
+			cluster,
+			customPools,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "AutoscalerConfig",
+				Title:     "Autoscaler configuration",
+			},
+			{
+				FieldName: "AutoUpgrade",
+				Title:     "Auto-upgrade settings",
+			},
+			{
+				FieldName: "OpenIDConnectConfig",
+				Title:     "Open ID Connect configuration",
+			},
+			{
+				FieldName: "Pools",
+				Title:     "Pools",
+			},
+		},
 	}
 
 	return c

@@ -1,0 +1,189 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers: {}
+    url: https://account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111
+    method: GET
+  response:
+    body: '{"token": {"access_key": "SCW8XT5JRAV4B0WQSHPE", "user_id": "721f2fde-1a01-4854-822b-fcca5638d73e",
+      "expires": null, "creation_date": "2020-06-23T14:06:56.763352+00:00", "creation_ip":
+      "195.154.229.35", "category": "user_created", "deletion_date": null, "inherits_user_perms":
+      true, "roles": {"role": null, "organization": null}, "description": "sieben-macbook",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "use_role_key": false}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "445"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 23 Jun 2020 14:33:35 GMT
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=15552000
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"ssh_keys":[{"id":"9bf6c340-687c-4f31-8aad-6a525761d8cd","name":"sieben-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAACAQDZrUk+hFs8hYZVu6PVzXIZH83glJfiqZU7gzxw9zSkinCNHZnJ0KViZmol/XUEvGPu0toWOnM5t9MUVRq3xMldo6TKOZ7tvqBDoYD/hMHSBZb+b5f12l7i43wV7dunypy+nKtlb+rv9YJdMdbVaXy29K5EPaQujYTZTvXFEB9b8P0NXt0jA+qsUEf6/TK7dONdh2PFrUFiLXtNxkw21n/q6JGfR78etQ3mIaDKffjoVYHKgMv2edGWpjAkZeM5eBg6U6kb7CMMstpxPfOPADkXu4hbWhMGG5TC4tuizfq8YAeE8t2nyfB+xq8MtQe5jTPLK1/B+NVuKvp+3WLDSrai6dbsMpFsZDXJL34BkoY7XsRf8FeaPiy5Z3ScD6YLTl986rztAPyLCKJrfPSSc2tAOgne9cGFVUPS+tehqtW+VPeD4qu00h7H9hX/x+hefqYL5cfS3h/qgpcUFw+69rVK6r1zcBwJyJAI9gUQ08628iirYku3KkUQ0VdlavrYYfB9wyStQ4VBUYpXKMhKgk5gCRRkEuJ2gETffj+nLZAqL13yFPm8lCOgRztp06S+K9Xq/cYVvAnDh8R2IsBGbs4KmpKMM7PA7mYf3XMI1KzAWXqc6RCv1a+PUwMK/AIKqnk040n2Q0yxuJSOufcVE6mWxVywHag9Ucww1FuSR54i7w==
+      rleone@scaleway.com","fingerprint":"4096 MD5:43:ba:7c:ec:66:6b:cc:fe:02:91:04:29:32:19:30:bf
+      rleone@scaleway.com (ssh-rsa)","created_at":"2019-05-02T08:26:01.304954Z","updated_at":"2020-05-13T22:32:46.471097Z","creation_info":{"address":"195.154.228.158","user_agent":"ansible
+      2.7.0.dev0 Python 2.7.16","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"cffa1bb1-57f0-4ad8-be20-f335df743b27","name":"juliencastets-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAABAQDMiV5DEMsYihbdS3kCJwzSBLgGO7L2j5z2/9+HVbJbzDvAz0HcUQ+sKOlvzEUzDgtNKNP+zs7C9sMcDKKUPsVzx2jpZgGN0hP9taDzWuMX+A4B4CBftTQHtZBV8dg+EVeI5Xv6HmY/WtAWC1Xfb8mvz5z+a/8D0u9IVURqiZy/n8moQwhjpK9+m634GorgMwduMZX1pPskSVL1m2ocaP8NFq8oV9L6zf9kSi7/Jwgci1TTsGYGsRSbpc665nP7MgyxZqpP0oQK8f6VW1ndFjsSgE1fT83/1WH8ro2Ou0Esh/FTs0Wxt2A5vIShYJIO+o680rNjbIhoWHLg5tU9+ip1
+      macbook","fingerprint":"2048 MD5:00:43:dc:7f:26:64:70:a2:b9:cd:06:77:35:f2:f6:f6
+      macbook (ssh-rsa)","created_at":"2020-02-26T12:46:58.241993Z","updated_at":"2020-02-26T12:46:58.241993Z","creation_info":{"address":"195.154.229.35","user_agent":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130
+      Safari/537.36","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"d4eb532f-b59a-4f9d-b079-e6082bc46016","name":"oss_exporter","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAABgQDHuJH34xHb/1LtKgMlCXN2x6SYc8TQKkevOTGItFfrOf+MCck9Y7Visl7uBD9uQO6e2JBkpG9LWg9HVd5TDMiTxai81CiuuQh9dHq0/UP7VQQMyDS3zWx2gaWX6uuvPuLbza4+yfahFN9LAM8mw/uGplJBDljJbvK1TEgP9M2/1hpWUn+qAWLFiNg943ahlVJBPyNIi3EbXJ8cy9GYAhA4GR/8vtH2CdFWokL7AUTF63G+DKC/5DfCqzEsF5PpraIUObZHJ/K7m0otCu3K7kJG0rltyAdxew3FOPAvVZyKyi0ES2avsBCrPtSU89GzqVvdSL09h0W0TzX8agraHwB0Fp21pQW7+o+TWmJ0RToAQA+s4xFH4OFvyc0S3iMB1/A1219ep6CM7EggIhLDn0KJfO92Vhtkl0Z8Uw5qqRVoIsrhriReD5csK6kwUA0fmJAANudjIJgTOCE27462OCeUZK/p0CNgqnkieHdCeFOnIkn5yiGOhV9AkjPHmmLlujs=
+      oss-exporter","fingerprint":"3072 MD5:d8:53:fc:ef:8e:ee:dd:65:3b:fc:e3:a7:96:05:f0:ac
+      oss-exporter (ssh-rsa)","created_at":"2020-05-18T14:06:54.887451Z","updated_at":"2020-05-18T14:12:35.090751Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"32f707c5-df07-43c7-8b57-6e09b687dd03"}],"total_count":3}'
+    headers:
+      Content-Length:
+      - "3090"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 23 Jun 2020 14:33:35 GMT
+      Server:
+      - agw_listener_public_vip
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 86c1516c-6356-45ca-95d2-f49b32e3cf74
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJb42xh9l10D/u9imDFfLZ+U6KrZmr/F/qBClnmijCFF/qEehPJxK/3thmMiZg 
+      foobaz@foobaz","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"255abc8e-4628-4d53-a497-e1bd23c06757","name":"","public_key":"ssh-ed25519
+      AAAAC3NzaC1lZDI1NTE5AAAAIJb42xh9l10D/u9imDFfLZ+U6KrZmr/F/qBClnmijCFF/qEehPJxK/3thmMiZg foobaz@foobaz","fingerprint":"256
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:03:44.732785Z","updated_at":"2020-06-23T14:33:35.687332Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    headers:
+      Content-Length:
+      - "473"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 23 Jun 2020 14:33:35 GMT
+      Server:
+      - agw_listener_public_vip
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ceba1f28-d81c-424b-beb6-18c4fd4060f6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-keys?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"ssh_keys":[{"id":"9bf6c340-687c-4f31-8aad-6a525761d8cd","name":"sieben-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAACAQDZrUk+hFs8hYZVu6PVzXIZH83glJfiqZU7gzxw9zSkinCNHZnJ0KViZmol/XUEvGPu0toWOnM5t9MUVRq3xMldo6TKOZ7tvqBDoYD/hMHSBZb+b5f12l7i43wV7dunypy+nKtlb+rv9YJdMdbVaXy29K5EPaQujYTZTvXFEB9b8P0NXt0jA+qsUEf6/TK7dONdh2PFrUFiLXtNxkw21n/q6JGfR78etQ3mIaDKffjoVYHKgMv2edGWpjAkZeM5eBg6U6kb7CMMstpxPfOPADkXu4hbWhMGG5TC4tuizfq8YAeE8t2nyfB+xq8MtQe5jTPLK1/B+NVuKvp+3WLDSrai6dbsMpFsZDXJL34BkoY7XsRf8FeaPiy5Z3ScD6YLTl986rztAPyLCKJrfPSSc2tAOgne9cGFVUPS+tehqtW+VPeD4qu00h7H9hX/x+hefqYL5cfS3h/qgpcUFw+69rVK6r1zcBwJyJAI9gUQ08628iirYku3KkUQ0VdlavrYYfB9wyStQ4VBUYpXKMhKgk5gCRRkEuJ2gETffj+nLZAqL13yFPm8lCOgRztp06S+K9Xq/cYVvAnDh8R2IsBGbs4KmpKMM7PA7mYf3XMI1KzAWXqc6RCv1a+PUwMK/AIKqnk040n2Q0yxuJSOufcVE6mWxVywHag9Ucww1FuSR54i7w==
+      rleone@scaleway.com","fingerprint":"4096 MD5:43:ba:7c:ec:66:6b:cc:fe:02:91:04:29:32:19:30:bf
+      rleone@scaleway.com (ssh-rsa)","created_at":"2019-05-02T08:26:01.304954Z","updated_at":"2020-05-13T22:32:46.471097Z","creation_info":{"address":"195.154.228.158","user_agent":"ansible
+      2.7.0.dev0 Python 2.7.16","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"cffa1bb1-57f0-4ad8-be20-f335df743b27","name":"juliencastets-macbook","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAABAQDMiV5DEMsYihbdS3kCJwzSBLgGO7L2j5z2/9+HVbJbzDvAz0HcUQ+sKOlvzEUzDgtNKNP+zs7C9sMcDKKUPsVzx2jpZgGN0hP9taDzWuMX+A4B4CBftTQHtZBV8dg+EVeI5Xv6HmY/WtAWC1Xfb8mvz5z+a/8D0u9IVURqiZy/n8moQwhjpK9+m634GorgMwduMZX1pPskSVL1m2ocaP8NFq8oV9L6zf9kSi7/Jwgci1TTsGYGsRSbpc665nP7MgyxZqpP0oQK8f6VW1ndFjsSgE1fT83/1WH8ro2Ou0Esh/FTs0Wxt2A5vIShYJIO+o680rNjbIhoWHLg5tU9+ip1
+      macbook","fingerprint":"2048 MD5:00:43:dc:7f:26:64:70:a2:b9:cd:06:77:35:f2:f6:f6
+      macbook (ssh-rsa)","created_at":"2020-02-26T12:46:58.241993Z","updated_at":"2020-02-26T12:46:58.241993Z","creation_info":{"address":"195.154.229.35","user_agent":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130
+      Safari/537.36","country_code":"FR"},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"},{"id":"d4eb532f-b59a-4f9d-b079-e6082bc46016","name":"oss_exporter","public_key":"ssh-rsa
+      AAAAB3NzaC1yc2EAAAADAQABAAABgQDHuJH34xHb/1LtKgMlCXN2x6SYc8TQKkevOTGItFfrOf+MCck9Y7Visl7uBD9uQO6e2JBkpG9LWg9HVd5TDMiTxai81CiuuQh9dHq0/UP7VQQMyDS3zWx2gaWX6uuvPuLbza4+yfahFN9LAM8mw/uGplJBDljJbvK1TEgP9M2/1hpWUn+qAWLFiNg943ahlVJBPyNIi3EbXJ8cy9GYAhA4GR/8vtH2CdFWokL7AUTF63G+DKC/5DfCqzEsF5PpraIUObZHJ/K7m0otCu3K7kJG0rltyAdxew3FOPAvVZyKyi0ES2avsBCrPtSU89GzqVvdSL09h0W0TzX8agraHwB0Fp21pQW7+o+TWmJ0RToAQA+s4xFH4OFvyc0S3iMB1/A1219ep6CM7EggIhLDn0KJfO92Vhtkl0Z8Uw5qqRVoIsrhriReD5csK6kwUA0fmJAANudjIJgTOCE27462OCeUZK/p0CNgqnkieHdCeFOnIkn5yiGOhV9AkjPHmmLlujs=
+      oss-exporter","fingerprint":"3072 MD5:d8:53:fc:ef:8e:ee:dd:65:3b:fc:e3:a7:96:05:f0:ac
+      oss-exporter (ssh-rsa)","created_at":"2020-05-18T14:06:54.887451Z","updated_at":"2020-05-18T14:12:35.090751Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"32f707c5-df07-43c7-8b57-6e09b687dd03"},{"id":"255abc8e-4628-4d53-a497-e1bd23c06757","name":"","public_key":"ssh-ed25519
+      AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2020-06-10T13:03:44.732785Z","updated_at":"2020-06-23T14:33:35.687332Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}],"total_count":4}'
+    headers:
+      Content-Length:
+      - "3564"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 23 Jun 2020 14:33:35 GMT
+      Server:
+      - agw_listener_public_vip
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 000ed79a-4d23-491b-832c-0097c472c46f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v2alpha1/ssh-key/255abc8e-4628-4d53-a497-e1bd23c06757
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 23 Jun 2020 14:33:35 GMT
+      Server:
+      - agw_listener_public_vip
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9f1fc349-7996-4343-a432-5bdb34cfeed3
+    status: 204 No Content
+    code: 204
+    duration: ""

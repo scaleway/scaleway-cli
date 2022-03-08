@@ -178,7 +178,7 @@ func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i inter
 	}
 
 	if !serverFound {
-		return nil, fmt.Errorf("endpoint %s does not exists", serverURL)
+		return nil, fmt.Errorf("endpoint %s does not exist", serverURL)
 	}
 
 	client := core.ExtractClient(ctx)

@@ -18,12 +18,16 @@ const (
 )
 
 // buildUsageArgs builds usage args string.
+// If deprecated is true, true only deprecated argSpecs will be considered.
 // This string will be used by cobra usage template.
-func buildUsageArgs(ctx context.Context, cmd *Command) string {
+func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 
-	err := _buildUsageArgs(ctx, tw, cmd.ArgSpecs)
+	// Filter deprecated argSpecs.
+	argSpecs := cmd.ArgSpecs.GetDeprecated(deprecated)
+
+	err := _buildUsageArgs(ctx, tw, argSpecs)
 	if err != nil {
 		// TODO: decide how to handle this error
 		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)
@@ -41,6 +45,7 @@ func buildUsageArgs(ctx context.Context, cmd *Command) string {
 func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error {
 	for _, argSpec := range argSpecs {
 		argSpecUsageLeftPart := argSpec.Name
+		argSpecUsageRightPart := _buildArgShort(argSpec)
 		if argSpec.Default != nil {
 			_, doc := argSpec.Default(ctx)
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
@@ -48,8 +53,11 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 		if !argSpec.Required && !argSpec.Positional {
 			argSpecUsageLeftPart = fmt.Sprintf("[%s]", argSpecUsageLeftPart)
 		}
+		if argSpec.CanLoadFile {
+			argSpecUsageRightPart += " (Support file loading with @/path/to/file)"
+		}
 
-		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, _buildArgShort(argSpec))
+		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, argSpecUsageRightPart)
 		if err != nil {
 			return err
 		}

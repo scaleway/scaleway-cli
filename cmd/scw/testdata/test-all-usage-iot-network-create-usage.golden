@@ -6,12 +6,11 @@ USAGE:
   scw iot network create [arg=value ...]
 
 ARGS:
-  name                Network name
-  type                Type of network to connect with (unknown | sigfox | rest)
-  hub-id              Hub ID to connect the Network to
-  topic-prefix        Topic prefix for the Network
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
+  name=<generated>   Network name
+  type               Type of network to connect with (unknown | sigfox | rest)
+  hub-id             Hub ID to connect the Network to
+  topic-prefix       Topic prefix for the Network
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create

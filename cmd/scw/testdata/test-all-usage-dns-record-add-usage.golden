@@ -1,0 +1,44 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Add a new DNS record
+
+USAGE:
+  scw dns record add <dns-zone ...> [arg=value ...]
+
+EXAMPLES:
+  Add a CNAME
+    scw dns record add my-domain.tld data=www name=www2 type=CNAME
+
+  Add an IP
+    scw dns record add my-domain.tld data=1.2.3.4 name=vpn type=A
+
+ARGS:
+  dns-zone                                             DNS zone in which to add the record
+  data                                                 
+  [name]                                               
+  [priority]                                           
+  ttl=300                                              
+  type                                                  (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
+  [comment]                                            
+  [geo-ip-config.matches.{index}.countries.{index}]    
+  [geo-ip-config.matches.{index}.continents.{index}]   
+  [geo-ip-config.matches.{index}.data]                 
+  [geo-ip-config.default]                              
+  [http-service-config.ips.{index}]                    
+  [http-service-config.must-contain]                   
+  [http-service-config.url]                            
+  [http-service-config.user-agent]                     
+  [http-service-config.strategy]                        (random | hashed)
+  [weighted-config.weighted-ips.{index}.ip]            
+  [weighted-config.weighted-ips.{index}.weight]        
+  [view-config.views.{index}.subnet]                   
+  [view-config.views.{index}.data]                     
+
+FLAGS:
+  -h, --help   help for add
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

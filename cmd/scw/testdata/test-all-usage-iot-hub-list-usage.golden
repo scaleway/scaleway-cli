@@ -6,7 +6,8 @@ USAGE:
   scw iot hub list [arg=value ...]
 
 ARGS:
-  [order-by]          Ordering of requested hub (name_asc | name_desc | status_asc | status_desc | product_plan_asc | product_plan_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | enabled_asc | enabled_desc)
+  [order-by]          Ordering of requested hub (name_asc | name_desc | status_asc | status_desc | product_plan_asc | product_plan_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc)
+  [project-id]        Filter on project
   [name]              Filter on the name
   [organization-id]   Filter on the organization
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)

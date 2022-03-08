@@ -1,13 +1,11 @@
 package baremetal
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // All test below should succeed to create an instance.
@@ -16,48 +14,30 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create -w",
+			Cmd:      "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			DefaultZone: scw.ZoneFrPar2,
-		}))
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
+		},
+		))
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=test-create-server-with-name -w",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetal.Server).Name)
 				},
 				core.TestCheckExitCode(0),
 			),
-			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-
-				return nil
-			},
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue -w",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*baremetal.Server).Tags[0])
@@ -65,33 +45,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			DefaultZone: scw.ZoneFrPar2,
-			AfterFunc: func(ctx *core.AfterFuncCtx) error {
-				_, err := baremetal.NewAPI(ctx.Client).DeleteServer(&baremetal.DeleteServerRequest{
-					ServerID: ctx.CmdResult.(*baremetal.Server).ID,
-				})
-				if err != nil {
-					return err
-				}
-
-				return nil
-			},
-		}))
-	})
-
-	// None of the tests below should succeed to create an instance.
-	t.Run("Errors", func(t *testing.T) {
-		// Instance type errors
-		t.Run("Error: invalid instance type", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create type=foobar",
-			Check: core.TestCheckCombine(
-				core.TestCheckError(&core.CliError{
-					Err:  fmt.Errorf("invalid value 'foobar' for arg 'type'"),
-					Hint: "Accepted values for 'type' are [GP-BM1-L GP-BM1-M GP-BM1-S HC-BM1-L HC-BM1-S HM-BM1-XL HM-BM1-M]",
-				}),
-				core.TestCheckExitCode(1),
-			),
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
 		}))
 	})
 }

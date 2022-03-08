@@ -6,11 +6,12 @@ USAGE:
   scw registry namespace create [arg=value ...]
 
 ARGS:
-  name                Define a namespace name
+  name=<generated>    Define a namespace name
   [description]       Define a description
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
   [is-public]         Define the default visibility policy
-  [organization-id]   Organization ID to use. If none is passed will use default organization ID from the config
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

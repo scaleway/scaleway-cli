@@ -12,14 +12,14 @@ const (
 	dsn = "https://a3d5d1ef6ae94810952ab245ce61af17@sentry.scaleway.com/186"
 )
 
+const ErrorBanner = `---------------------------------------------------------------------------------------
+An error occurred, we are sorry, please consider opening a ticket on github using: 'scw feedback bug'
+Give us as many details as possible so we can reproduce the error and fix it.
+---------------------------------------------------------------------------------------`
+
 // RecoverPanicAndSendReport will recover error if any, log them, and send them to sentry.
 // It must be called with the defer built-in.
-func RecoverPanicAndSendReport(buildInfo *core.BuildInfo) {
-	e := recover()
-	if e == nil {
-		return
-	}
-
+func RecoverPanicAndSendReport(buildInfo *core.BuildInfo, e interface{}) {
 	sentryClient, err := newSentryClient(buildInfo)
 	if err != nil {
 		logger.Debugf("cannot create sentry client: %s", err)

@@ -16,7 +16,6 @@ linters:
     - errcheck
     - goconst
     - goimports
-    - golint
     - goprintffuncname
     - gosec
     - gosimple
@@ -25,6 +24,7 @@ linters:
     - misspell
     - nakedret
     - nolintlint
+    - revive
     - rowserrcheck
     - staticcheck
     - structcheck
@@ -48,6 +48,13 @@ issues:
       linters:
         - stylecheck
         - gosec
+
+    # Organization ID is mark as deprecated in the SDK
+    # This rule ignore this deprecation
+    - path: internal/namespaces/instance
+      linters:
+        - staticcheck
+      text: "SA1019:.*Organization"
 
     - path: internal/tabwriter
       linters:

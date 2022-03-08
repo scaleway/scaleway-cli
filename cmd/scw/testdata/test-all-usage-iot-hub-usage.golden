@@ -11,8 +11,9 @@ AVAILABLE COMMANDS:
   disable     Disable a hub
   enable      Enable a hub
   get         Get a hub
-  get-metrics Get a hub's metrics
+  get-ca      Get the certificate authority of a hub
   list        List hubs
+  set-ca      Set the certificate authority of a hub
   update      Update a hub
 
 FLAGS:

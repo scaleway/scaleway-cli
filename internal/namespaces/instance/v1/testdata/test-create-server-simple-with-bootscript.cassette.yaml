@@ -6,7 +6,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/marketplace/v1/images?page=1
     method: GET
   response:
@@ -14,7 +14,7 @@ interactions:
       for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.",
       "creation_date": "2018-04-27T14:07:25.221998+00:00", "logo": "https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png",
       "id": "b381b2bf-804a-4b12-91f6-9f4ff273462f", "categories": ["distribution"],
-      "name": "Ubuntu Bionic", "modification_date": "2019-03-26T14:00:51.745705+00:00",
+      "name": "Ubuntu Bionic", "modification_date": "2020-08-24T12:56:36.205628+00:00",
       "versions": [{"creation_date": "2019-03-05T16:39:34.893732+00:00", "modification_date":
       "2019-03-05T16:39:34.893732+00:00", "id": "e640c621-305b-45f5-975f-a3f80c1cec66",
       "local_images": [{"compatible_commercial_types": ["GP1-XS", "DEV1-M", "DEV1-L",
@@ -35,12 +35,12 @@ interactions:
       "ARM64-8GB", "ARM64-2GB", "ARM64-64GB"], "arch": "arm64", "id": "7663c62b-40e3-4e6b-a835-70723ec2050b",
       "zone": "ams1"}], "name": "2019-03-05T16:39:34.377275"}], "current_public_version":
       "e640c621-305b-45f5-975f-a3f80c1cec66", "label": "ubuntu_bionic", "organization":
-      {"id": "6d6b64e5-6bad-4cc6-b7ef-2030884c3e11", "name": "mtouron@ocs.online.net"}},
-      {"valid_until": null, "description": "Ubuntu is the ideal distribution for scale-out
-      computing, Ubuntu Server helps you make the most of your infrastructure.", "creation_date":
-      "2016-04-22T13:27:33.769932+00:00", "logo": "https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png",
+      {"id": "51b656e3-4865-41e8-adbc-0c45bdd780db", "name": "Instances User Resources
+      Build System"}}, {"valid_until": null, "description": "Ubuntu is the ideal distribution
+      for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.",
+      "creation_date": "2016-04-22T13:27:33.769932+00:00", "logo": "https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png",
       "id": "acf93867-88d9-40ee-99ea-6b2bb1ee8f0c", "categories": ["distribution"],
-      "name": "Ubuntu Xenial", "modification_date": "2020-01-20T09:04:40.661026+00:00",
+      "name": "Ubuntu Xenial", "modification_date": "2020-08-14T12:52:38.320865+00:00",
       "versions": [{"creation_date": "2020-01-17T14:31:06.041118+00:00", "modification_date":
       "2020-01-17T14:31:06.041118+00:00", "id": "24cd2ef0-bbc5-4b1a-8b08-99f617eab446",
       "local_images": [{"compatible_commercial_types": ["GP1-XS", "DEV1-M", "DEV1-L",
@@ -61,12 +61,12 @@ interactions:
       ["C1"], "arch": "arm", "id": "a5f6bb77-3d64-4f7f-abe0-72492b1bc020", "zone":
       "par1"}], "name": "2020-01-17T14:31:06.031136"}], "current_public_version":
       "24cd2ef0-bbc5-4b1a-8b08-99f617eab446", "label": "ubuntu_xenial", "organization":
-      {"id": "6d6b64e5-6bad-4cc6-b7ef-2030884c3e11", "name": "mtouron@ocs.online.net"}},
-      {"valid_until": null, "description": "Debian is a free, powerful and stable
-      operating system.", "creation_date": "2017-06-26T15:37:13.460764+00:00", "logo":
-      "https://marketplace-logos.s3.nl-ams.scw.cloud/debian.png", "id": "c94b5df7-e698-4ac9-b273-565d18f5f8d2",
+      {"id": "51b656e3-4865-41e8-adbc-0c45bdd780db", "name": "Instances User Resources
+      Build System"}}, {"valid_until": null, "description": "Debian is a free, powerful
+      and stable operating system.", "creation_date": "2017-06-26T15:37:13.460764+00:00",
+      "logo": "https://marketplace-logos.s3.nl-ams.scw.cloud/debian.png", "id": "c94b5df7-e698-4ac9-b273-565d18f5f8d2",
       "categories": ["distribution"], "name": "Debian Stretch", "modification_date":
-      "2020-01-20T09:04:42.765883+00:00", "versions": [{"creation_date": "2020-01-15T11:38:06.396694+00:00",
+      "2020-08-26T14:21:26.132106+00:00", "versions": [{"creation_date": "2020-01-15T11:38:06.396694+00:00",
       "modification_date": "2020-01-15T11:38:06.396694+00:00", "id": "8342f5d0-46aa-46e7-8a6f-f41188c97fba",
       "local_images": [{"compatible_commercial_types": ["GP1-XS", "DEV1-M", "DEV1-L",
       "START1-XS", "DEV1-S", "RENDER-S", "GP1-XL", "C2S", "X64-15GB", "DEV1-XL", "C2L",
@@ -86,10 +86,10 @@ interactions:
       "ARM64-128GB", "ARM64-4GB", "ARM64-64GB", "ARM64-16GB"], "arch": "arm64", "id":
       "bd6ba96e-d4c4-41f9-88e2-8dad3e6f085b", "zone": "par1"}], "name": "2020-01-15T11:38:06.390074"}],
       "current_public_version": "8342f5d0-46aa-46e7-8a6f-f41188c97fba", "label": "debian_stretch",
-      "organization": {"id": "6d6b64e5-6bad-4cc6-b7ef-2030884c3e11", "name": "mtouron@ocs.online.net"}},
-      {"valid_until": null, "description": "Debian is a free, powerful and stable
-      operating system.", "creation_date": "2016-03-05T14:52:36.322319+00:00", "logo":
-      "https://marketplace-logos.s3.nl-ams.scw.cloud/debian.png", "id": "fb619bdf-834e-4c71-b7b8-15b5546d18bd",
+      "organization": {"id": "51b656e3-4865-41e8-adbc-0c45bdd780db", "name": "Instances
+      User Resources Build System"}}, {"valid_until": null, "description": "Debian
+      is a free, powerful and stable operating system.", "creation_date": "2016-03-05T14:52:36.322319+00:00",
+      "logo": "https://marketplace-logos.s3.nl-ams.scw.cloud/debian.png", "id": "fb619bdf-834e-4c71-b7b8-15b5546d18bd",
       "categories": ["distribution"], "name": "Debian Jessie", "modification_date":
       "2019-03-26T14:00:50.449502+00:00", "versions": [{"creation_date": "2018-04-10T22:31:04.322822+00:00",
       "modification_date": "2018-04-10T22:31:04.322822+00:00", "id": "d3846a7b-8219-4938-ad96-cc2173e22481",
@@ -665,17 +665,17 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "55793"
+      - "55838"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:25 GMT
+      - Wed, 09 Sep 2020 14:29:49 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -683,7 +683,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - e52fafa9-59b6-4bdf-ac8c-4d93b1b23239
+      - aa1be8ec-61b5-49cb-bc1d-c97dbb59fe44
       X-Total-Count:
       - "32"
     status: 200 OK
@@ -694,18 +694,19 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/f974feac-abae-4365-b988-8ec7d1cec10d
     method: GET
   response:
     body: '{"image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu
-      Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume":
-      {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
-      {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64
-      mainline 4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
+      Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
+      "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public": true, "arch":
+      "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00", "modification_date":
+      "2019-03-05T13:32:29.274319+00:00", "default_bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
+      "public": false, "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64",
+      "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
@@ -715,15 +716,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "1044"
+      - "1146"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:25 GMT
+      - Wed, 09 Sep 2020 14:29:49 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -731,7 +732,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 30fe6309-87ef-436d-8c5c-56593e7082ec
+      - 6f5358b5-b63e-4527-9963-8fb5465680d9
     status: 200 OK
     code: 200
     duration: ""
@@ -740,7 +741,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/products/servers
     method: GET
   response:
@@ -845,16 +846,16 @@ interactions:
       "ncpus": 4, "ram": 8589934592, "gpu": null, "volumes_constraint": {"min_size":
       80000000000, "max_size": 80000000000}, "per_volume_constraint": {"l_ssd": {"min_size":
       1000000000, "max_size": 800000000000}}, "baremetal": false, "monthly_price":
-      15.99, "hourly_price": 0.032, "capabilities": {"boot_types": ["bootscript",
-      "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
-      true, "placement_groups": true, "block_storage": true, "private_network": 8},
-      "network": {"ipv6_support": true, "sum_internal_bandwidth": 419430400, "sum_internet_bandwidth":
+      19.99, "hourly_price": 0.04, "capabilities": {"boot_types": ["bootscript", "rescue",
+      "local"], "default_boot_type": "local", "hot_snapshots_local_volume": true,
+      "placement_groups": true, "block_storage": true, "private_network": 8}, "network":
+      {"ipv6_support": true, "sum_internal_bandwidth": 419430400, "sum_internet_bandwidth":
       419430400, "interfaces": [{"internal_bandwidth": 419430400, "internet_bandwidth":
       null}, {"internal_bandwidth": null, "internet_bandwidth": 419430400}]}}, "DEV1-M":
       {"alt_names": [], "arch": "x86_64", "ncpus": 3, "ram": 4294967296, "gpu": null,
       "volumes_constraint": {"min_size": 40000000000, "max_size": 40000000000}, "per_volume_constraint":
       {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}}, "baremetal":
-      false, "monthly_price": 7.99, "hourly_price": 0.016, "capabilities": {"boot_types":
+      false, "monthly_price": 9.99, "hourly_price": 0.02, "capabilities": {"boot_types":
       ["bootscript", "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
       true, "placement_groups": true, "block_storage": true, "private_network": 8},
       "network": {"ipv6_support": true, "sum_internal_bandwidth": 314572800, "sum_internet_bandwidth":
@@ -863,7 +864,7 @@ interactions:
       {"alt_names": [], "arch": "x86_64", "ncpus": 2, "ram": 2147483648, "gpu": null,
       "volumes_constraint": {"min_size": 20000000000, "max_size": 20000000000}, "per_volume_constraint":
       {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}}, "baremetal":
-      false, "monthly_price": 2.99, "hourly_price": 0.006, "capabilities": {"boot_types":
+      false, "monthly_price": 4.99, "hourly_price": 0.01, "capabilities": {"boot_types":
       ["bootscript", "rescue", "local"], "default_boot_type": "local", "hot_snapshots_local_volume":
       true, "placement_groups": true, "block_storage": true, "private_network": 8},
       "network": {"ipv6_support": true, "sum_internal_bandwidth": 209715200, "sum_internet_bandwidth":
@@ -872,7 +873,7 @@ interactions:
       {"alt_names": [], "arch": "x86_64", "ncpus": 4, "ram": 12884901888, "gpu": null,
       "volumes_constraint": {"min_size": 120000000000, "max_size": 120000000000},
       "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size": 800000000000}},
-      "baremetal": false, "monthly_price": 23.99, "hourly_price": 0.048, "capabilities":
+      "baremetal": false, "monthly_price": 29.99, "hourly_price": 0.06, "capabilities":
       {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type": "local",
       "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
@@ -881,8 +882,8 @@ interactions:
       524288000}]}}, "GP1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 32, "ram":
       137438953472, "gpu": null, "volumes_constraint": {"min_size": 600000000000,
       "max_size": 600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
-      "max_size": 800000000000}}, "baremetal": false, "monthly_price": 299.0, "hourly_price":
-      0.598, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
+      "max_size": 800000000000}}, "baremetal": false, "monthly_price": 329.99, "hourly_price":
+      0.66, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
       5368709120, "sum_internet_bandwidth": 5368709120, "interfaces": [{"internal_bandwidth":
@@ -890,8 +891,8 @@ interactions:
       5368709120}]}}, "GP1-M": {"alt_names": [], "arch": "x86_64", "ncpus": 16, "ram":
       68719476736, "gpu": null, "volumes_constraint": {"min_size": 600000000000, "max_size":
       600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
-      800000000000}}, "baremetal": false, "monthly_price": 159.0, "hourly_price":
-      0.318, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
+      800000000000}}, "baremetal": false, "monthly_price": 169.99, "hourly_price":
+      0.34, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
       1610612736, "sum_internet_bandwidth": 1610612736, "interfaces": [{"internal_bandwidth":
@@ -899,8 +900,8 @@ interactions:
       1610612736}]}}, "GP1-S": {"alt_names": [], "arch": "x86_64", "ncpus": 8, "ram":
       34359738368, "gpu": null, "volumes_constraint": {"min_size": 300000000000, "max_size":
       300000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
-      800000000000}}, "baremetal": false, "monthly_price": 79.0, "hourly_price": 0.158,
-      "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
+      800000000000}}, "baremetal": false, "monthly_price": 84.99, "hourly_price":
+      0.17, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
       838860800, "sum_internet_bandwidth": 838860800, "interfaces": [{"internal_bandwidth":
@@ -908,8 +909,8 @@ interactions:
       838860800}]}}, "GP1-XL": {"alt_names": [], "arch": "x86_64", "ncpus": 48, "ram":
       274877906944, "gpu": null, "volumes_constraint": {"min_size": 600000000000,
       "max_size": 600000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000,
-      "max_size": 800000000000}}, "baremetal": false, "monthly_price": 569.0, "hourly_price":
-      1.138, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
+      "max_size": 800000000000}}, "baremetal": false, "monthly_price": 699.99, "hourly_price":
+      1.4, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
       10737418240, "sum_internet_bandwidth": 10737418240, "interfaces": [{"internal_bandwidth":
@@ -917,8 +918,8 @@ interactions:
       10737418240}]}}, "GP1-XS": {"alt_names": [], "arch": "x86_64", "ncpus": 4, "ram":
       17179869184, "gpu": null, "volumes_constraint": {"min_size": 150000000000, "max_size":
       150000000000}, "per_volume_constraint": {"l_ssd": {"min_size": 1000000000, "max_size":
-      800000000000}}, "baremetal": false, "monthly_price": 39.0, "hourly_price": 0.078,
-      "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
+      800000000000}}, "baremetal": false, "monthly_price": 41.99, "hourly_price":
+      0.084, "capabilities": {"boot_types": ["bootscript", "rescue", "local"], "default_boot_type":
       "local", "hot_snapshots_local_volume": true, "placement_groups": true, "block_storage":
       true, "private_network": 8}, "network": {"ipv6_support": true, "sum_internal_bandwidth":
       524288000, "sum_internet_bandwidth": 524288000, "interfaces": [{"internal_bandwidth":
@@ -1032,17 +1033,17 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "23709"
+      - "23705"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:25 GMT
+      - Wed, 09 Sep 2020 14:29:49 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1050,7 +1051,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8bbd060c-524b-4f1d-9362-f1e62d2de014
+      - 053facba-8e22-4c33-915c-389caed9e544
       X-Total-Count:
       - "32"
     status: 200 OK
@@ -1061,13 +1062,14 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/bootscripts/eb760e3c-30d8-49a3-b3ad-ad10c3aa440b
     method: GET
   response:
     body: '{"bootscript": {"id": "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", "public":
       true, "title": "x86_64 longterm 4.14 latest", "architecture": "x86_64", "organization":
-      "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
+      "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
+      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}}'
@@ -1075,15 +1077,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "469"
+      - "520"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:25 GMT
+      - Wed, 09 Sep 2020 14:29:49 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1091,40 +1093,40 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8d015752-83ba-42ef-9434-70caf8d9bd93
+      - 627aa8ec-e285-4f5a-a018-2770f71ba8ce
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"project":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0"}'
+    body: '{"project":"2fc962c2-2b78-4df0-a73e-e129e2230e4c"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "a805d28c-708c-4b43-ac35-ed626eb2aa97", "address": "51.158.121.43",
-      "reverse": null, "server": null, "organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "project": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0", "zone": "fr-par-1", "tags":
+    body: '{"ip": {"id": "0aafe922-b13d-4ee8-a87b-ce07501095f4", "address": "163.172.149.128",
+      "reverse": null, "server": null, "organization": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+      "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c", "zone": "fr-par-1", "tags":
       []}}'
     headers:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "254"
+      - "256"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:25 GMT
+      - Wed, 09 Sep 2020 14:29:52 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/a805d28c-708c-4b43-ac35-ed626eb2aa97
+      - https://cp-par1.scaleway.com/ips/0aafe922-b13d-4ee8-a87b-ce07501095f4
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1132,53 +1134,54 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6babb2c2-9981-4643-afa3-7cbb16371eb8
+      - abdd1957-7efc-47e2-be0d-7e4ce57b81bf
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-romantic-bassi","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"a805d28c-708c-4b43-ac35-ed626eb2aa97","boot_type":"bootscript","bootscript":"eb760e3c-30d8-49a3-b3ad-ad10c3aa440b","organization":"b3ba839a-dcf2-4b0a-ac81-fc32370052a0"}'
+    body: '{"name":"cli-srv-nice-visvesvaraya","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"0aafe922-b13d-4ee8-a87b-ce07501095f4","boot_type":"bootscript","bootscript":"eb760e3c-30d8-49a3-b3ad-ad10c3aa440b","project":"2fc962c2-2b78-4df0-a73e-e129e2230e4c"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi",
+    body: '{"server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78", "name": "cli-srv-nice-visvesvaraya",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "bootscript", "organization":
-      "b3ba839a-dcf2-4b0a-ac81-fc32370052a0", "project": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "hostname": "cli-srv-romantic-bassi", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
+      "a6c249e9-c32d-46e4-badb-b57528eafc4b", "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c",
+      "hostname": "cli-srv-nice-visvesvaraya", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
       "name": "Ubuntu Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
-      {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64
-      mainline 4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
+      "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public": true, "arch":
+      "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00", "modification_date":
+      "2019-03-05T13:32:29.274319+00:00", "default_bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
+      "public": false, "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64",
+      "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "298c3563-924b-4d1e-8cf6-0a9a713a5b37",
+      "fr-par-1"}, "volumes": {"0": {"id": "028ad602-3f13-4de8-891c-96600091f02a",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
-      "l_ssd", "export_uri": null, "organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.792676+00:00", "zone": "fr-par-1"}},
-      "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
-      {"id": "a805d28c-708c-4b43-ac35-ed626eb2aa97", "address": "51.158.121.43", "dynamic":
-      false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.875976+00:00", "bootscript": {"id":
+      "l_ssd", "export_uri": null, "organization": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+      "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c", "server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78",
+      "name": "cli-srv-nice-visvesvaraya"}, "size": 20000000000, "state": "available",
+      "creation_date": "2020-09-09T14:29:53.096238+00:00", "modification_date": "2020-09-09T14:29:53.798583+00:00",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": {"id": "0aafe922-b13d-4ee8-a87b-ce07501095f4", "address": "163.172.149.128",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-09-09T14:29:53.096238+00:00",
+      "modification_date": "2020-09-09T14:29:53.957894+00:00", "bootscript": {"id":
       "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", "public": true, "title": "x86_64 longterm
       4.14 latest", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
+      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      false, "zone": "fr-par-1"}, "security_group": {"id": "8c2471b6-317d-46a9-ba7d-081f1bc8ba69",
+      false, "zone": "fr-par-1"}, "security_group": {"id": "2031ffb6-714f-40aa-83e8-4fcadb123479",
       "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions":
       ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
       "fr-par-1"}}'
@@ -1186,17 +1189,17 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2971"
+      - "3186"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:26 GMT
+      - Wed, 09 Sep 2020 14:29:53 GMT
       Location:
-      - https://cp-par1.scaleway.com/servers/158a8539-5292-4908-a5c0-184bc9d1c4f0
+      - https://cp-par1.scaleway.com/servers/f98a3ae7-3222-4012-ab04-2ef53db11f78
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1204,7 +1207,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7fc8fe87-809e-4455-bbad-c70e9191322e
+      - 2ae230e9-f41f-41b8-9c71-2bbc8266c1ba
     status: 201 Created
     code: 201
     duration: ""
@@ -1213,42 +1216,43 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/158a8539-5292-4908-a5c0-184bc9d1c4f0
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f98a3ae7-3222-4012-ab04-2ef53db11f78
     method: GET
   response:
-    body: '{"server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi",
+    body: '{"server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78", "name": "cli-srv-nice-visvesvaraya",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "bootscript", "organization":
-      "b3ba839a-dcf2-4b0a-ac81-fc32370052a0", "project": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "hostname": "cli-srv-romantic-bassi", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
+      "a6c249e9-c32d-46e4-badb-b57528eafc4b", "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c",
+      "hostname": "cli-srv-nice-visvesvaraya", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
       "name": "Ubuntu Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
-      {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64
-      mainline 4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
+      "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public": true, "arch":
+      "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00", "modification_date":
+      "2019-03-05T13:32:29.274319+00:00", "default_bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
+      "public": false, "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64",
+      "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "298c3563-924b-4d1e-8cf6-0a9a713a5b37",
+      "fr-par-1"}, "volumes": {"0": {"id": "028ad602-3f13-4de8-891c-96600091f02a",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
-      "l_ssd", "export_uri": null, "organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.792676+00:00", "zone": "fr-par-1"}},
-      "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
-      {"id": "a805d28c-708c-4b43-ac35-ed626eb2aa97", "address": "51.158.121.43", "dynamic":
-      false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.875976+00:00", "bootscript": {"id":
+      "l_ssd", "export_uri": null, "organization": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+      "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c", "server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78",
+      "name": "cli-srv-nice-visvesvaraya"}, "size": 20000000000, "state": "available",
+      "creation_date": "2020-09-09T14:29:53.096238+00:00", "modification_date": "2020-09-09T14:29:53.798583+00:00",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": {"id": "0aafe922-b13d-4ee8-a87b-ce07501095f4", "address": "163.172.149.128",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-09-09T14:29:53.096238+00:00",
+      "modification_date": "2020-09-09T14:29:53.957894+00:00", "bootscript": {"id":
       "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", "public": true, "title": "x86_64 longterm
       4.14 latest", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
+      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      false, "zone": "fr-par-1"}, "security_group": {"id": "8c2471b6-317d-46a9-ba7d-081f1bc8ba69",
+      false, "zone": "fr-par-1"}, "security_group": {"id": "2031ffb6-714f-40aa-83e8-4fcadb123479",
       "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions":
       ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
       "fr-par-1"}}'
@@ -1256,15 +1260,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2971"
+      - "3186"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:26 GMT
+      - Wed, 09 Sep 2020 14:29:54 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1272,7 +1276,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 92e4b380-5c6a-4387-ae43-6ed06970a525
+      - 518bd331-9a90-4ff7-b1d4-58dd3bb10a50
     status: 200 OK
     code: 200
     duration: ""
@@ -1281,42 +1285,43 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/158a8539-5292-4908-a5c0-184bc9d1c4f0
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f98a3ae7-3222-4012-ab04-2ef53db11f78
     method: GET
   response:
-    body: '{"server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi",
+    body: '{"server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78", "name": "cli-srv-nice-visvesvaraya",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "bootscript", "organization":
-      "b3ba839a-dcf2-4b0a-ac81-fc32370052a0", "project": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "hostname": "cli-srv-romantic-bassi", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
+      "a6c249e9-c32d-46e4-badb-b57528eafc4b", "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c",
+      "hostname": "cli-srv-nice-visvesvaraya", "image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d",
       "name": "Ubuntu Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
-      "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84", "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
-      "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00",
-      "modification_date": "2019-03-05T13:32:29.274319+00:00", "default_bootscript":
-      {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8", "public": false, "title": "x86_64
-      mainline 4.9.93 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "dd5f5c10-23b1-4c9c-8445-eb6740957c84",
+      "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
+      "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public": true, "arch":
+      "x86_64", "creation_date": "2019-03-05T10:13:15.974944+00:00", "modification_date":
+      "2019-03-05T13:32:29.274319+00:00", "default_bootscript": {"id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
+      "public": false, "title": "x86_64 mainline 4.9.93 rev1", "architecture": "x86_64",
+      "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
       false, "zone": "fr-par-1"}, "from_server": null, "state": "available", "zone":
-      "fr-par-1"}, "volumes": {"0": {"id": "298c3563-924b-4d1e-8cf6-0a9a713a5b37",
+      "fr-par-1"}, "volumes": {"0": {"id": "028ad602-3f13-4de8-891c-96600091f02a",
       "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13", "volume_type":
-      "l_ssd", "export_uri": null, "organization": "b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
-      "server": {"id": "158a8539-5292-4908-a5c0-184bc9d1c4f0", "name": "cli-srv-romantic-bassi"},
-      "size": 20000000000, "state": "available", "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.792676+00:00", "zone": "fr-par-1"}},
-      "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip":
-      {"id": "a805d28c-708c-4b43-ac35-ed626eb2aa97", "address": "51.158.121.43", "dynamic":
-      false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6":
-      false, "private_ip": null, "creation_date": "2020-07-15T12:51:26.516270+00:00",
-      "modification_date": "2020-07-15T12:51:26.875976+00:00", "bootscript": {"id":
+      "l_ssd", "export_uri": null, "organization": "a6c249e9-c32d-46e4-badb-b57528eafc4b",
+      "project": "2fc962c2-2b78-4df0-a73e-e129e2230e4c", "server": {"id": "f98a3ae7-3222-4012-ab04-2ef53db11f78",
+      "name": "cli-srv-nice-visvesvaraya"}, "size": 20000000000, "state": "available",
+      "creation_date": "2020-09-09T14:29:53.096238+00:00", "modification_date": "2020-09-09T14:29:53.798583+00:00",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": {"id": "0aafe922-b13d-4ee8-a87b-ce07501095f4", "address": "163.172.149.128",
+      "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2020-09-09T14:29:53.096238+00:00",
+      "modification_date": "2020-09-09T14:29:53.957894+00:00", "bootscript": {"id":
       "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", "public": true, "title": "x86_64 longterm
       4.14 latest", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
+      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.14-latest/vmlinuz",
       "dtb": "", "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      false, "zone": "fr-par-1"}, "security_group": {"id": "8c2471b6-317d-46a9-ba7d-081f1bc8ba69",
+      false, "zone": "fr-par-1"}, "security_group": {"id": "2031ffb6-714f-40aa-83e8-4fcadb123479",
       "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions":
       ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
       "fr-par-1"}}'
@@ -1324,15 +1329,15 @@ interactions:
       Cache-Control:
       - no-cache
       Content-Length:
-      - "2971"
+      - "3186"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:26 GMT
+      - Wed, 09 Sep 2020 14:29:54 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1340,7 +1345,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 16b22793-da36-42c6-9ef5-1860f137f393
+      - 0a2963e5-a2a5-4401-a60d-443b6a12f90c
     status: 200 OK
     code: 200
     duration: ""
@@ -1349,8 +1354,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/158a8539-5292-4908-a5c0-184bc9d1c4f0
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/f98a3ae7-3222-4012-ab04-2ef53db11f78
     method: DELETE
   response:
     body: ""
@@ -1362,9 +1367,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:26 GMT
+      - Wed, 09 Sep 2020 14:29:54 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1372,7 +1377,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 978b3e44-934f-4afd-981c-8210af9add2c
+      - f375b40a-6a30-4576-8d91-56006294377d
     status: 204 No Content
     code: 204
     duration: ""
@@ -1381,8 +1386,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/a805d28c-708c-4b43-ac35-ed626eb2aa97
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/0aafe922-b13d-4ee8-a87b-ce07501095f4
     method: DELETE
   response:
     body: ""
@@ -1394,9 +1399,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:27 GMT
+      - Wed, 09 Sep 2020 14:29:55 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1404,7 +1409,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c32fa00d-3266-4e95-9a80-4db8648d953d
+      - 024b8152-cbba-435c-8f04-4b42a1493508
     status: 204 No Content
     code: 204
     duration: ""
@@ -1413,8 +1418,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/298c3563-924b-4d1e-8cf6-0a9a713a5b37
+      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.15.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/028ad602-3f13-4de8-891c-96600091f02a
     method: DELETE
   response:
     body: ""
@@ -1426,9 +1431,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 15 Jul 2020 12:51:27 GMT
+      - Wed, 09 Sep 2020 14:29:56 GMT
       Server:
-      - agw_listener_public_vip
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1436,7 +1441,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ba33a452-b162-4492-95e0-65232c75f7c7
+      - 9c12448e-43b4-44d2-9e1e-da60855dd3d1
     status: 204 No Content
     code: 204
     duration: ""

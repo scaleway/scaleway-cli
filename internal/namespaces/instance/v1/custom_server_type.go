@@ -61,7 +61,6 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		type customServerType struct {
 			Name            string                           `json:"name"`
-			MonthlyPrice    *scw.Money                       `json:"monthly_price"`
 			HourlyPrice     *scw.Money                       `json:"hourly_price"`
 			LocalVolumeSize scw.Size                         `json:"local_volume_size"`
 			CPU             uint32                           `json:"cpu"`
@@ -82,7 +81,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		// Get server availabilities.
-		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{})
+		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{
+			Zone: request.Zone,
+		})
 		if err != nil {
 			return nil, err
 		}
@@ -95,7 +96,6 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 			serverTypes = append(serverTypes, &customServerType{
 				Name:            name,
-				MonthlyPrice:    scw.NewMoneyFromFloat(float64(serverType.MonthlyPrice), "EUR", 2),
 				HourlyPrice:     scw.NewMoneyFromFloat(float64(serverType.HourlyPrice), "EUR", 3),
 				LocalVolumeSize: serverType.VolumesConstraint.MinSize,
 				CPU:             serverType.Ncpus,
@@ -112,7 +112,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			if categoryA != categoryB {
 				return categoryA < categoryB
 			}
-			return serverTypes[i].MonthlyPrice.ToFloat() < serverTypes[j].MonthlyPrice.ToFloat()
+			return serverTypes[i].HourlyPrice.ToFloat() < serverTypes[j].HourlyPrice.ToFloat()
 		})
 
 		return serverTypes, nil

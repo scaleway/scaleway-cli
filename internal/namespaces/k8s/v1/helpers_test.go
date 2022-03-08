@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"github.com/ghodss/yaml"
+	go_api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
@@ -34,13 +36,21 @@ func createClusterAndWaitAndKubeconfig(metaKey string, kubeconfigMetaKey string,
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
-		kubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    cluster.Region,
 			ClusterID: cluster.ID,
 		})
 		if err != nil {
 			return err
 		}
+
+		var kubeconfig go_api.Config
+
+		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+		if err != nil {
+			return err
+		}
+
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		return nil
 	}
@@ -55,13 +65,21 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
-		kubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    cluster.Region,
 			ClusterID: cluster.ID,
 		})
 		if err != nil {
 			return err
 		}
+
+		var kubeconfig go_api.Config
+
+		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+		if err != nil {
+			return err
+		}
+
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
@@ -78,13 +96,21 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(metaKey string, kubeconfig
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
-		kubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    cluster.Region,
 			ClusterID: cluster.ID,
 		})
 		if err != nil {
 			return err
 		}
+
+		var kubeconfig go_api.Config
+
+		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+		if err != nil {
+			return err
+		}
+
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		err = ioutil.WriteFile(file, content, 0644)
 		return err
@@ -100,13 +126,21 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, 
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
 		api := k8s.NewAPI(ctx.Client)
-		kubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    cluster.Region,
 			ClusterID: cluster.ID,
 		})
 		if err != nil {
 			return err
 		}
+
+		var kubeconfig go_api.Config
+
+		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+		if err != nil {
+			return err
+		}
+
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		err = ioutil.WriteFile(file, content, 0644)
 		if err != nil {

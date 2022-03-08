@@ -75,14 +75,15 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 		Namespace: "test",
 		Resource:  "user",
 		Verb:      "register",
-		ArgsType:  reflect.TypeOf(test.RegisterRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.RegisterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "username",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RegisterRequest)
@@ -102,25 +103,28 @@ func testHumanList() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(test.ListHumansRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.ListHumansRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "height_asc", "height_desc"},
 			},
 			{
 				Name:       "project-id",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.ListHumansRequest)
@@ -144,15 +148,16 @@ func testHumanGet() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(test.GetHumanRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.GetHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
 				Short:      `UUID of the human you want to get`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.GetHumanRequest)
@@ -172,61 +177,66 @@ func testHumanCreate() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "create",
-		ArgsType:  reflect.TypeOf(test.CreateHumanRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.CreateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "height",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "shoe-size",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "altitude-in-meter",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "altitude-in-millimeter",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "fingers-count",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hair-count",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-happy",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "eyes-color",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 			{
 				Name:       "name",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.CreateHumanRequest)
@@ -252,61 +262,71 @@ func testHumanUpdate() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(test.UpdateHumanRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.UpdateHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
 				Short:      `UUID of the human you want to update`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "height",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "shoe-size",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "altitude-in-meter",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "altitude-in-millimeter",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "fingers-count",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hair-count",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-happy",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "eyes-color",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
 			},
 			{
 				Name:       "name",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.UpdateHumanRequest)
@@ -326,15 +346,16 @@ func testHumanDelete() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(test.DeleteHumanRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.DeleteHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
 				Short:      `UUID of the human you want to delete`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.DeleteHumanRequest)
@@ -354,15 +375,16 @@ func testHumanRun() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "run",
-		ArgsType:  reflect.TypeOf(test.RunHumanRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(test.RunHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
 				Short:      `UUID of the human you want to make run`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.RunHumanRequest)
@@ -389,15 +411,16 @@ func testHumanSmoke() *core.Command {
 		Namespace: "test",
 		Resource:  "human",
 		Verb:      "smoke",
-		ArgsType:  reflect.TypeOf(test.SmokeHumanRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeOf(test.SmokeHumanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
 				Short:      `UUID of the human you want to make smoking`,
 				Required:   true,
+				Deprecated: true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*test.SmokeHumanRequest)

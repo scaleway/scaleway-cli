@@ -1,0 +1,44 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Multiple route kinds can be created:
+- Database Route.
+  Create a route that will record subscribed MQTT messages into your database.
+  <b>You need to manage the database by yourself</b>.
+- REST Route.
+  Create a route that will call a REST API on received subscribed MQTT messages.
+- S3 Routes.
+  Create a route that will put subscribed MQTT messages into an S3 bucket.
+  You need to create the bucket yourself and grant us write access.
+  The grant can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
+
+USAGE:
+  scw iot route create [arg=value ...]
+
+ARGS:
+  [name=<generated>]            Route name
+  [hub-id]                      ID of the route's hub
+  [topic]                       Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters
+  [s3-config.bucket-region]     
+  [s3-config.bucket-name]       
+  [s3-config.object-prefix]     
+  [s3-config.strategy]           (unknown | per_topic | per_message)
+  [db-config.host]              
+  [db-config.port]              
+  [db-config.dbname]            
+  [db-config.username]          
+  [db-config.password]          
+  [db-config.query]             
+  [db-config.engine]             (unknown | postgresql | mysql)
+  [rest-config.verb]             (unknown | get | post | put | patch | delete)
+  [rest-config.uri]             
+  [rest-config.headers.{key}]   
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

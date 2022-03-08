@@ -94,28 +94,39 @@ func registryNamespaceList() *core.Command {
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(registry.ListNamespacesRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.ListNamespacesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
 				Short:      `Field by which to order the display of Images`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "description_asc", "description_desc", "name_asc", "name_desc"},
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "name",
 				Short:      `Filter by the namespace name (exact match)`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter by the namespace owner`,
+				Short:      `Filter by Organization ID`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListNamespacesRequest)
@@ -155,6 +166,9 @@ func registryNamespaceList() *core.Command {
 				FieldName: "OrganizationID",
 			},
 			{
+				FieldName: "ProjectID",
+			},
+			{
 				FieldName: "Status",
 			},
 			{
@@ -180,15 +194,17 @@ func registryNamespaceGet() *core.Command {
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(registry.GetNamespaceRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.GetNamespaceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
 				Short:      `The unique ID of the Namespace`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.GetNamespaceRequest)
@@ -208,28 +224,34 @@ func registryNamespaceCreate() *core.Command {
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "create",
-		ArgsType:  reflect.TypeOf(registry.CreateNamespaceRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.CreateNamespaceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
 				Short:      `Define a namespace name`,
 				Required:   true,
+				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("ns"),
 			},
 			{
 				Name:       "description",
 				Short:      `Define a description`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "is-public",
 				Short:      `Define the default visibility policy`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.CreateNamespaceRequest)
@@ -249,27 +271,31 @@ func registryNamespaceUpdate() *core.Command {
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(registry.UpdateNamespaceRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.UpdateNamespaceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
 				Short:      `Namespace ID to update`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "description",
 				Short:      `Define a description`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-public",
 				Short:      `Define the default visibility policy`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.UpdateNamespaceRequest)
@@ -289,15 +315,17 @@ func registryNamespaceDelete() *core.Command {
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(registry.DeleteNamespaceRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.DeleteNamespaceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
 				Short:      `The unique ID of the Namespace`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.DeleteNamespaceRequest)
@@ -317,12 +345,14 @@ func registryImageList() *core.Command {
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(registry.ListImagesRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.ListImagesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
 				Short:      `Field by which to order the display of Images`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
@@ -330,21 +360,31 @@ func registryImageList() *core.Command {
 				Name:       "namespace-id",
 				Short:      `Filter by the Namespace ID`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
 				Short:      `Filter by the Image name (exact match)`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID`,
+				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
 				Short:      `Filter by Organization ID`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListImagesRequest)
@@ -400,15 +440,17 @@ func registryImageGet() *core.Command {
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(registry.GetImageRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
 				Short:      `The unique ID of the Image`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.GetImageRequest)
@@ -428,22 +470,25 @@ func registryImageUpdate() *core.Command {
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(registry.UpdateImageRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.UpdateImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
 				Short:      `Image ID to update`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "visibility",
 				Short:      `A ` + "`" + `public` + "`" + ` image is pullable from internet without authentication, opposed to a ` + "`" + `private` + "`" + ` image. ` + "`" + `inherit` + "`" + ` will use the namespace ` + "`" + `is_public` + "`" + ` parameter`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"visibility_unknown", "inherit", "public", "private"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.UpdateImageRequest)
@@ -463,15 +508,17 @@ func registryImageDelete() *core.Command {
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(registry.DeleteImageRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.DeleteImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
 				Short:      `The unique ID of the Image`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.DeleteImageRequest)
@@ -491,12 +538,14 @@ func registryTagList() *core.Command {
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(registry.ListTagsRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.ListTagsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
 				Short:      `Field by which to order the display of Images`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
@@ -504,15 +553,17 @@ func registryTagList() *core.Command {
 				Name:       "image-id",
 				Short:      `The unique ID of the image`,
 				Required:   true,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
 				Short:      `Filter by the tag name (exact match)`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListTagsRequest)
@@ -536,15 +587,17 @@ func registryTagGet() *core.Command {
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(registry.GetTagRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.GetTagRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
 				Short:      `The unique ID of the Tag`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.GetTagRequest)
@@ -564,21 +617,24 @@ func registryTagDelete() *core.Command {
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "delete",
-		ArgsType:  reflect.TypeOf(registry.DeleteTagRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(registry.DeleteTagRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
 				Short:      `The unique ID of the tag`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "force",
 				Short:      `If two tags share the same digest the deletion will fail unless this parameter is set to true`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.DeleteTagRequest)

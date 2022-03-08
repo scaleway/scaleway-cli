@@ -1,3 +1,4 @@
+//nolint
 // +build !windows
 
 package gotty
@@ -9,7 +10,7 @@ import (
 )
 
 func subscribeToResize(resizeChan chan bool) func() {
-	sigChan := make(chan os.Signal)
+	sigChan := make(chan os.Signal, 1)
 
 	go func() {
 		for {

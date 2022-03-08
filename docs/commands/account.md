@@ -3,12 +3,12 @@
 Account API
   
 - [SSH keys management commands](#ssh-keys-management-commands)
-  - [Add a SSH key to your organization](#add-a-ssh-key-to-your-organization)
-  - [Get a SSH key from your organization](#get-a-ssh-key-from-your-organization)
+  - [Add an SSH key to your project](#add-an-ssh-key-to-your-project)
+  - [Get an SSH key from your project](#get-an-ssh-key-from-your-project)
   - [Initialize SSH key](#initialize-ssh-key)
-  - [List all SSH keys of your organization](#list-all-ssh-keys-of-your-organization)
-  - [Remove a SSH key from your organization](#remove-a-ssh-key-from-your-organization)
-  - [Update a SSH key on your organization](#update-a-ssh-key-on-your-organization)
+  - [List all SSH keys of your project](#list-all-ssh-keys-of-your-project)
+  - [Remove an SSH key from your project](#remove-an-ssh-key-from-your-project)
+  - [Update an SSH key on your project](#update-an-ssh-key-on-your-project)
 
   
 ## SSH keys management commands
@@ -16,9 +16,9 @@ Account API
 SSH keys management commands.
 
 
-### Add a SSH key to your organization
+### Add an SSH key to your project
 
-Add a SSH key to your organization.
+Add an SSH key to your project.
 
 **Usage:**
 
@@ -33,8 +33,8 @@ scw account ssh-key add [arg=value ...]
 |------|---|-------------|
 | name |  | The name of the SSH key |
 | public-key | Required | SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported |
-| project-id |  | Project owning the resource |
-| organization-id |  | Organization ID to use. If none is passed will use default organization ID from the config |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 **Examples:**
@@ -42,15 +42,15 @@ scw account ssh-key add [arg=value ...]
 
 Add a given ssh key
 ```
-scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"
+scw account ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"
 ```
 
 
 
 
-### Get a SSH key from your organization
+### Get an SSH key from your project
 
-Get a SSH key from your organization.
+Get an SSH key from your project.
 
 **Usage:**
 
@@ -79,9 +79,9 @@ scw account ssh-key init
 
 
 
-### List all SSH keys of your organization
+### List all SSH keys of your project
 
-List all SSH keys of your organization.
+List all SSH keys of your project.
 
 **Usage:**
 
@@ -101,9 +101,9 @@ scw account ssh-key list [arg=value ...]
 
 
 
-### Remove a SSH key from your organization
+### Remove an SSH key from your project
 
-Remove a SSH key from your organization.
+Remove an SSH key from your project.
 
 **Usage:**
 
@@ -130,9 +130,9 @@ scw account ssh-key remove 11111111-1111-1111-1111-111111111111
 
 
 
-### Update a SSH key on your organization
+### Update an SSH key on your project
 
-Update a SSH key on your organization.
+Update an SSH key on your project.
 
 **Usage:**
 
@@ -146,7 +146,7 @@ scw account ssh-key update <ssh-key-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ssh-key-id | Required |  |
-| name |  |  |
+| name |  | Name of the SSH key |
 
 
 

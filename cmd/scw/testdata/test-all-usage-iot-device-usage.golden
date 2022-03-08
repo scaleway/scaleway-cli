@@ -6,14 +6,17 @@ USAGE:
   scw iot device <command>
 
 AVAILABLE COMMANDS:
-  create      Add a device
-  delete      Remove a device
-  disable     Disable a device
-  enable      Enable a device
-  get         Get a device
-  get-metrics Get a device's metrics
-  list        List devices
-  update      Update a device
+  create            Add a device
+  delete            Remove a device
+  disable           Disable a device
+  enable            Enable a device
+  get               Get a device
+  get-certificate   Get a device's certificate
+  get-metrics       Get a device's metrics
+  list              List devices
+  renew-certificate Renew a device certificate
+  set-certificate   Set a custom certificate on a device
+  update            Update a device
 
 FLAGS:
   -h, --help   help for device

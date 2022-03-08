@@ -47,32 +47,37 @@ func accountSSHKey() *core.Command {
 
 func accountSSHKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List all SSH keys of your organization`,
-		Long:      `List all SSH keys of your organization.`,
+		Short:     `List all SSH keys of your project`,
+		Long:      `List all SSH keys of your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(account.ListSSHKeysRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(account.ListSSHKeysRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
 			{
 				Name:       "name",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 		},
@@ -102,7 +107,7 @@ func accountSSHKeyList() *core.Command {
 				FieldName: "UpdatedAt",
 			},
 			{
-				FieldName: "OrganizationID",
+				FieldName: "ProjectID",
 			},
 			{
 				FieldName: "CreationInfo.Address",
@@ -113,37 +118,38 @@ func accountSSHKeyList() *core.Command {
 			{
 				FieldName: "CreationInfo.UserAgent",
 			},
+			{
+				FieldName: "OrganizationID",
+			},
 		}},
 	}
 }
 
 func accountSSHKeyAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add a SSH key to your organization`,
-		Long:      `Add a SSH key to your organization.`,
+		Short:     `Add an SSH key to your project`,
+		Long:      `Add an SSH key to your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "add",
-		ArgsType:  reflect.TypeOf(account.CreateSSHKeyRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(account.CreateSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
 				Short:      `The name of the SSH key`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "public-key",
 				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
 				Required:   true,
+				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "project-id",
-				Short:      `Project owning the resource`,
-				Required:   false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -157,7 +163,7 @@ func accountSSHKeyAdd() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a given ssh key",
-				Raw:   `scw account ssh-key add name=foobar public_key="$(cat <path/to/your/public/key>)"`,
+				Raw:   `scw account ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -175,17 +181,19 @@ func accountSSHKeyAdd() *core.Command {
 
 func accountSSHKeyGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a SSH key from your organization`,
-		Long:      `Get a SSH key from your organization.`,
+		Short:     `Get an SSH key from your project`,
+		Long:      `Get an SSH key from your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(account.GetSSHKeyRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(account.GetSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
 				Short:      `The ID of the SSH key`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 		},
@@ -202,22 +210,25 @@ func accountSSHKeyGet() *core.Command {
 
 func accountSSHKeyUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a SSH key on your organization`,
-		Long:      `Update a SSH key on your organization.`,
+		Short:     `Update an SSH key on your project`,
+		Long:      `Update an SSH key on your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(account.UpdateSSHKeyRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(account.UpdateSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
 				Short:      `Name of the SSH key`,
 				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 		},
@@ -234,16 +245,18 @@ func accountSSHKeyUpdate() *core.Command {
 
 func accountSSHKeyRemove() *core.Command {
 	return &core.Command{
-		Short:     `Remove a SSH key from your organization`,
-		Long:      `Remove a SSH key from your organization.`,
+		Short:     `Remove an SSH key from your project`,
+		Long:      `Remove an SSH key from your project.`,
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "remove",
-		ArgsType:  reflect.TypeOf(account.DeleteSSHKeyRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(account.DeleteSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 		},

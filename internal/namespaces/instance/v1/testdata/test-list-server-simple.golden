@@ -1,13 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                         TYPE    STATE     ZONE      PUBLIC IP       PRIVATE IP  TAGS  IMAGE NAME            MODIFICATION DATE  CREATION DATE    VOLUMES  PROTECTED  SECURITY GROUP NAME     SECURITY GROUP ID                     STATE DETAIL  ARCH    IMAGE ID
-18e19087-4435-420b-abf7-a47c50a77fe7  cli-srv-mystifying-brattain  DEV1-S  archived  fr-par-1  163.172.170.53  -           []    Ubuntu Bionic Beaver  few seconds ago    few seconds ago  1        false      Default security group  49822f6c-1d32-465c-a017-720691d159b2  -             x86_64  f974feac-abae-4365-b988-8ec7d1cec10d
+ID                                    NAME                              TYPE    STATE     ZONE      PUBLIC IP       PRIVATE IP   TAGS  IMAGE NAME                  MODIFICATION DATE  CREATION DATE    VOLUMES  PROTECTED  SECURITY GROUP NAME     SECURITY GROUP ID                     STATE DETAIL    ARCH    IMAGE ID
+b78e0677-78e7-499f-a0fe-693e9b91732d  cli-srv-distracted-chandrasekhar  DEV1-S  archived  fr-par-1  212.47.232.136  -            []    Ubuntu 18.04 Bionic Beaver  few seconds ago    few seconds ago  2        false      Default security group  54e2d5f6-d79c-44cc-b19f-613699b9cc7e  -               x86_64  96cfdd7b-a266-4bfd-8177-0b05ec324229
+ca2aad63-b8a6-4210-a6c6-661449b1e46c  cli-srv-agitated-benz             DEV1-S  archived  fr-par-1  51.15.248.118   -            []    Ubuntu 18.04 Bionic Beaver  few seconds ago    few seconds ago  2        false      Default security group  54e2d5f6-d79c-44cc-b19f-613699b9cc7e  -               x86_64  96cfdd7b-a266-4bfd-8177-0b05ec324229
+6e921a48-9567-459a-953a-2f77e6cd935d  cli-srv-heuristic-hugle           DEV1-S  archived  fr-par-1  51.158.70.223   -            []    Ubuntu 18.04 Bionic Beaver  few seconds ago    few seconds ago  1        false      Default security group  54e2d5f6-d79c-44cc-b19f-613699b9cc7e  -               x86_64  96cfdd7b-a266-4bfd-8177-0b05ec324229
+fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   running   fr-par-1  51.15.253.183   10.12.174.9  []    Ubuntu Bionic Beaver        few seconds ago    few seconds ago  1        true       Default security group  54e2d5f6-d79c-44cc-b19f-613699b9cc7e  booting kernel  x86_64  f974feac-abae-4365-b988-8ec7d1cec10d
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "18e19087-4435-420b-abf7-a47c50a77fe7",
-    "name": "cli-srv-mystifying-brattain",
-    "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
+    "id": "b78e0677-78e7-499f-a0fe-693e9b91732d",
+    "name": "cli-srv-distracted-chandrasekhar",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "allowed_actions": [
       "poweron",
       "backup"
@@ -17,7 +21,324 @@ ID                                    NAME                         TYPE    STATE
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
     "enable_ipv6": false,
-    "hostname": "cli-srv-mystifying-brattain",
+    "hostname": "cli-srv-distracted-chandrasekhar",
+    "image": {
+      "id": "96cfdd7b-a266-4bfd-8177-0b05ec324229",
+      "name": "Ubuntu 18.04 Bionic Beaver",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "91886dbe-41c8-4a18-85b1-02a724d83215",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "dd9e8df6-6775-4863-b517-e0b0ee3d7477",
+      "address": "212.47.232.136",
+      "dynamic": false
+    },
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "bootscript": {
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
+      "default": true,
+      "dtb": "",
+      "id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
+      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "11111111-1111-4111-8111-111111111111",
+      "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1",
+      "arch": "x86_64",
+      "zone": "fr-par-1"
+    },
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "c4983a35-10d5-423c-b405-5bf20e6d094a",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "export_uri": "",
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "b78e0677-78e7-499f-a0fe-693e9b91732d",
+          "name": "cli-srv-distracted-chandrasekhar"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "879974bf-c656-43a0-9b6e-0a5a4b93b142",
+        "name": "cli-test",
+        "export_uri": "",
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "b78e0677-78e7-499f-a0fe-693e9b91732d",
+          "name": "cli-srv-distracted-chandrasekhar"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "ca2aad63-b8a6-4210-a6c6-661449b1e46c",
+    "name": "cli-srv-agitated-benz",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-agitated-benz",
+    "image": {
+      "id": "96cfdd7b-a266-4bfd-8177-0b05ec324229",
+      "name": "Ubuntu 18.04 Bionic Beaver",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "91886dbe-41c8-4a18-85b1-02a724d83215",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b",
+      "address": "51.15.248.118",
+      "dynamic": false
+    },
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "bootscript": {
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
+      "default": true,
+      "dtb": "",
+      "id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
+      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "11111111-1111-4111-8111-111111111111",
+      "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1",
+      "arch": "x86_64",
+      "zone": "fr-par-1"
+    },
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "95c2775e-3dcc-4fbb-aa1c-4abe5163e232",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "export_uri": "",
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "ca2aad63-b8a6-4210-a6c6-661449b1e46c",
+          "name": "cli-srv-agitated-benz"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "a618912c-dbb0-4e82-8ba0-4f235edb7d09",
+        "name": "cli-test",
+        "export_uri": "",
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "ca2aad63-b8a6-4210-a6c6-661449b1e46c",
+          "name": "cli-srv-agitated-benz"
+        },
+        "size": 10000000000,
+        "volume_type": "b_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "6e921a48-9567-459a-953a-2f77e6cd935d",
+    "name": "cli-srv-heuristic-hugle",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-heuristic-hugle",
+    "image": {
+      "id": "96cfdd7b-a266-4bfd-8177-0b05ec324229",
+      "name": "Ubuntu 18.04 Bionic Beaver",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "91886dbe-41c8-4a18-85b1-02a724d83215",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "3006a180-67e0-433c-8b6a-142e202bd931",
+      "address": "51.158.70.223",
+      "dynamic": false
+    },
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "bootscript": {
+      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
+      "default": true,
+      "dtb": "",
+      "id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
+      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
+      "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "11111111-1111-4111-8111-111111111111",
+      "public": true,
+      "title": "x86_64 mainline 4.4.230 rev1",
+      "arch": "x86_64",
+      "zone": "fr-par-1"
+    },
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "e9e3204d-5fe5-4456-a480-3f7ec16c2ab3",
+        "name": "ubuntu_18.04_bionic_beaver:volume-0",
+        "export_uri": "",
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "6e921a48-9567-459a-953a-2f77e6cd935d",
+          "name": "cli-srv-heuristic-hugle"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "fa37ff62-4665-4b94-93bf-385d264a7b4d",
+    "name": "juju",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "allowed_actions": [
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "GP1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "enable_ipv6": true,
+    "hostname": "juju",
     "image": {
       "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
       "name": "Ubuntu Bionic Beaver",
@@ -29,9 +350,10 @@ ID                                    NAME                         TYPE    STATE
         "default": false,
         "dtb": "",
         "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-        "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-        "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
+        "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+        "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
         "organization": "11111111-1111-4111-8111-111111111111",
+        "project": "11111111-1111-4111-8111-111111111111",
         "public": false,
         "title": "x86_64 mainline 4.9.93 rev1",
         "arch": "x86_64",
@@ -48,27 +370,40 @@ ID                                    NAME                         TYPE    STATE
         "volume_type": "l_ssd"
       },
       "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": null,
       "zone": "fr-par-1"
     },
-    "protected": false,
-    "private_ip": null,
+    "protected": true,
+    "private_ip": "10.12.174.9",
     "public_ip": {
-      "id": "95c94531-cba7-4e57-aa5e-b6a4dd7a816c",
-      "address": "163.172.170.53",
+      "id": "8ed1c207-86db-4e60-84cd-0a4e84031239",
+      "address": "51.15.253.183",
       "dynamic": false
     },
     "modification_date": "1970-01-01T00:00:00.0Z",
-    "state": "stopped",
-    "location": null,
-    "ipv6": null,
+    "state": "running",
+    "location": {
+      "cluster_id": "5",
+      "hypervisor_id": "1301",
+      "node_id": "5",
+      "platform_id": "14",
+      "zone_id": "par1"
+    },
+    "ipv6": {
+      "address": "2001:bc8:4750:1804::1",
+      "gateway": "2001:bc8:4750:1804::",
+      "netmask": "64"
+    },
     "bootscript": {
       "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
       "default": false,
       "dtb": "",
       "id": "15fbd2f7-a0f9-412b-8502-6a44da8d98b8",
-      "initrd": "http://169.254.42.24/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "kernel": "http://169.254.42.24/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
+      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
+      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.9-4.9.93-rev1/vmlinuz-4.9.93",
       "organization": "11111111-1111-4111-8111-111111111111",
+      "project": "11111111-1111-4111-8111-111111111111",
       "public": false,
       "title": "x86_64 mainline 4.9.93 rev1",
       "arch": "x86_64",
@@ -77,30 +412,33 @@ ID                                    NAME                         TYPE    STATE
     "boot_type": "local",
     "volumes": {
       "0": {
-        "id": "9cc2d6d2-aefa-4ed1-a0cb-a0cb7a362db7",
-        "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13",
+        "id": "d2884dfc-ea5e-41ab-96c7-a6c50429fae9",
+        "name": "jujuLocal",
         "export_uri": "",
-        "size": 20000000000,
+        "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "server": {
+          "id": "fa37ff62-4665-4b94-93bf-385d264a7b4d",
+          "name": "juju"
+        },
+        "size": 300000000000,
         "volume_type": "l_ssd",
         "creation_date": "1970-01-01T00:00:00.0Z",
         "modification_date": "1970-01-01T00:00:00.0Z",
-        "organization": "aba2d0d0-b01d-4d88-b322-935edc96d0fd",
-        "server": {
-          "id": "18e19087-4435-420b-abf7-a47c50a77fe7",
-          "name": "cli-srv-mystifying-brattain"
-        },
         "state": "available",
+        "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+        "boot": false,
         "zone": "fr-par-1"
       }
     },
     "security_group": {
-      "id": "49822f6c-1d32-465c-a017-720691d159b2",
+      "id": "54e2d5f6-d79c-44cc-b19f-613699b9cc7e",
       "name": "Default security group"
     },
     "maintenances": [],
-    "state_detail": "",
+    "state_detail": "booting kernel",
     "arch": "x86_64",
     "placement_group": null,
+    "private_nics": [],
     "zone": "fr-par-1"
   }
 ]

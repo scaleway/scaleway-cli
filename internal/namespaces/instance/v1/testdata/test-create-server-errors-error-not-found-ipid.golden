@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: scaleway-sdk-go: http error 404 Not Found: ip '23165951-13fd-4a3b-84ed-22c2e96658f2' not found 
+Cannot create the server: scaleway-sdk-go: resource ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2 is not found
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "cannot create the server: scaleway-sdk-go: http error 404 Not Found: ip '23165951-13fd-4a3b-84ed-22c2e96658f2' not found "
+  "error": "cannot create the server: scaleway-sdk-go: resource ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2 is not found"
 }

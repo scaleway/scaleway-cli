@@ -1,8 +1,0 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Missing required argument 'image'
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
-{
-  "message": "missing required argument 'image'",
-  "error": {}
-}

@@ -1,12 +1,14 @@
 package human
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type Struct struct {
@@ -21,6 +23,7 @@ type Struct struct {
 	Map         map[string]string
 	Stringer    Stringer
 	StringerPtr *Stringer
+	Size        *scw.Size
 }
 
 type Address struct {
@@ -102,6 +105,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
+			Size:        scw.SizePtr(13200),
 		},
 		result: `
 			String              This is a string
@@ -124,6 +128,7 @@ func TestMarshal(t *testing.T) {
 			Map.key2            v2
 			Stringer            a stringer
 			StringerPtr         a stringer
+			Size                13 kB
 		`,
 	}))
 
@@ -179,4 +184,45 @@ func TestMarshal(t *testing.T) {
 		},
 		result: `Name  Paul`,
 	}))
+}
+
+func Test_getStructFieldsIndex(t *testing.T) {
+	type args struct {
+		v reflect.Type
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want [][]int
+	}{
+		{
+			name: "simple",
+			args: args{
+				v: reflect.TypeOf(&Anonymous{
+					NestedAnonymous: NestedAnonymous{
+						Name: "Pierre",
+					},
+					Name: "Paul",
+				}),
+			},
+			want: [][]int{{1}},
+		},
+		{
+			name: "structs",
+			args: args{
+				v: reflect.TypeOf(&Struct{
+					Strings: []string{"aa", "ab"}},
+				),
+			},
+			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getStructFieldsIndex(tt.args.v); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getStructFieldsIndex() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

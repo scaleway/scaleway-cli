@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Templating error
+
+Hint:
+Acceptable values are:
+  - ID
+  - Name
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "111111111-111111111",
+    "name": "David Copperfield"
+  },
+  {
+    "id": "222222222-222222222",
+    "name": "Xavier Niel"
+  }
+]

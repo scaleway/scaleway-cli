@@ -71,8 +71,14 @@ type initArgs struct {
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short:                `Initialize the config`,
-		Long:                 `Initialize the active profile of the config located in ` + scw.GetConfigPath(),
+		Short: `Initialize the config`,
+		Long: `Initialize the active profile of the config.
+Default path for configuration file is based on the following priority order:
+
+- $SCW_CONFIG_PATH
+- $XDG_CONFIG_HOME/scw/config.yaml
+- $HOME/.config/scw/config.yaml
+- $USERPROFILE/.config/scw/config.yaml`,
 		Namespace:            "init",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(initArgs{}),
@@ -273,7 +279,8 @@ func initCommand() *core.Command {
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &apiKey.OrganizationID, // An api key is always bound to an organization.
+				DefaultOrganizationID: &apiKey.OrganizationID,
+				DefaultProjectID:      &apiKey.ProjectID, // An API key is always bound to a project.
 			}
 
 			// Save the profile as default or as a named profile

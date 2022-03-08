@@ -14,6 +14,7 @@ AVAILABLE COMMANDS:
   log         Instance logs management commands
   node-type   Node types management commands
   privilege   User privileges management commands
+  snapshot    Block snapshot management
   user        User management commands
 
 FLAGS:

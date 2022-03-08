@@ -6,13 +6,13 @@ The CLI can be used in Docker without any problem.
 
 In order to use it you must mount the scaleway configuration file:
 ```sh
-docker run -it --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli
+docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0
 ```
 
 If you want to use `scw` instead of `docker run` you can add the following in your `~/.bashrc`:
 ```bash
 scw() {
-    docker run -it --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 "$@"
 }
 export -f scw
 ```
@@ -20,7 +20,7 @@ export -f scw
 Or if you use ZSH, add the following in your `~/.zshrc`:
 ```zsh
 scw() {
-    docker run -it --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli $@
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 $@
 }
 ```
 
@@ -44,14 +44,14 @@ complete -F _scw scw
 And in your `~/.bashrc` you can add:
 ```bash
 scw() {
-    docker run -it --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli "$@"
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 "$@"
 }
 export -f scw
 
 _scw() {
 	_get_comp_words_by_ref -n = cword words
 
-	output=$(docker run -i --rm -v $HOME/.config/scw/config.yaml:/.config/scw/config.yaml:ro scaleway/cli autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
+	output=$(docker run -i --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
 	COMPREPLY=($output)
 	# apply compopt option and ignore failure for older bash versions
 	[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true

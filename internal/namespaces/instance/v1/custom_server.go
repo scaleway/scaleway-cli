@@ -16,8 +16,10 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/human"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 const (
@@ -64,8 +66,8 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		Tags              []string
 		ImageName         string
 		PlacementGroup    *instance.PlacementGroup
-		ModificationDate  time.Time
-		CreationDate      time.Time
+		ModificationDate  *time.Time
+		CreationDate      *time.Time
 		Volumes           int
 		Protected         bool
 		SecurityGroupName string
@@ -113,51 +115,14 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return human.Marshal(humanServers, opt)
 }
 
-func getServerResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	serverResponse := i.(instance.GetServerResponse)
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Server",
-			Title:     "Server",
-		},
-		{
-			FieldName: "Server.Image",
-			Title:     "Server Image",
-		}, {
-			FieldName: "Server.AllowedActions",
-			Title:     "Allowed Actions",
-		}, {
-			FieldName: "Volumes",
-			Title:     "Volumes",
-		},
-	}
-
-	customServer := &struct {
-		Server  *instance.Server
-		Volumes []*instance.Volume
-	}{
-		serverResponse.Server,
-		orderVolumes(serverResponse.Server.Volumes),
-	}
-
-	str, err := human.Marshal(customServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
-
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
-func orderVolumes(v map[string]*instance.Volume) []*instance.Volume {
+func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer {
 	indexes := []string(nil)
 	for index := range v {
 		indexes = append(indexes, index)
 	}
 	sort.Strings(indexes)
-	var orderedVolumes []*instance.Volume
+	var orderedVolumes []*instance.VolumeServer
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
@@ -178,9 +143,11 @@ func serverListBuilder(c *core.Command) *core.Command {
 	type customListServersRequest struct {
 		*instance.ListServersRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
@@ -193,6 +160,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListServersRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -221,7 +189,6 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.DeleteByName("volumes.{key}.size")
 	c.ArgSpecs.DeleteByName("volumes.{key}.id")
 	c.ArgSpecs.DeleteByName("volumes.{key}.volume-type")
-	c.ArgSpecs.DeleteByName("volumes.{key}.organization")
 
 	// Add new arg specs.
 	c.ArgSpecs.AddBefore("placement-group-id", &core.ArgSpec{
@@ -233,8 +200,9 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		Short: `IP that should be attached to the server (use ip=none to detach)`,
 	})
 	c.ArgSpecs.AddBefore("boot-type", &core.ArgSpec{
-		Name:  "cloud-init",
-		Short: "The cloud-init script to use",
+		Name:        "cloud-init",
+		Short:       "The cloud-init script to use",
+		CanLoadFile: true,
 	})
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -314,10 +282,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 		// Update all volume IDs at once.
 		if customRequest.VolumeIDs != nil {
-			volumes := make(map[string]*instance.VolumeTemplate)
+			volumes := make(map[string]*instance.VolumeServerTemplate)
 			for i, volumeID := range *customRequest.VolumeIDs {
 				index := strconv.Itoa(i)
-				volumes[index] = &instance.VolumeTemplate{ID: volumeID, Name: getServerResponse.Server.Name + "-" + index}
+				volumes[index] = &instance.VolumeServerTemplate{
+					ID:   volumeID,
+					Name: getServerResponse.Server.Name + "-" + index,
+				}
 			}
 			customRequest.Volumes = &volumes
 		}
@@ -363,6 +334,80 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		}
 		return suggestion
 	}
+
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		rawResp, err := runner(ctx, argsI)
+		if err != nil {
+			return rawResp, err
+		}
+		getServerResp := rawResp.(*instance.GetServerResponse)
+
+		client := core.ExtractClient(ctx)
+		vpcAPI := vpc.NewAPI(client)
+
+		type customNICs struct {
+			ID                 string
+			MacAddress         string
+			PrivateNetworkName string
+			PrivateNetworkID   string
+		}
+
+		nics := []customNICs{}
+
+		for _, nic := range getServerResp.Server.PrivateNics {
+			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+				PrivateNetworkID: nic.PrivateNetworkID,
+				Zone:             getServerResp.Server.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+			nics = append(nics, customNICs{
+				ID:                 nic.ID,
+				PrivateNetworkID:   pn.ID,
+				PrivateNetworkName: pn.Name,
+				MacAddress:         nic.MacAddress,
+			})
+		}
+
+		return &struct {
+			*instance.Server
+			Volumes     []*instance.VolumeServer
+			PrivateNics []customNICs `json:"private_nics"`
+		}{
+			getServerResp.Server,
+			orderVolumes(getServerResp.Server.Volumes),
+			nics,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "Image",
+				Title:     "Server Image",
+			}, {
+				FieldName: "AllowedActions",
+				Title:     "Allowed Actions",
+			}, {
+				FieldName: "Volumes",
+				Title:     "Volumes",
+			},
+			{
+				Title:     "Public IP",
+				FieldName: "PublicIP",
+			},
+			{
+				Title:     "IPv6",
+				FieldName: "IPv6",
+			},
+			{
+				FieldName: "PrivateNics",
+				Title:     "Private NICs",
+			},
+		},
+	}
+
 	return c
 }
 
@@ -432,6 +477,145 @@ func serverDetachVolumeCommand() *core.Command {
 			{
 				Short:    "Detach a volume from its server",
 				ArgsJSON: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
+			},
+		},
+	}
+}
+
+func serverAttachIPCommand() *core.Command {
+	type customIPAttachRequest struct {
+		OrganizationID *string
+		ProjectID      *string
+		// Server: UUID of the server you want to attach the IP to
+		ServerID string   `json:"server,omitempty"`
+		IP       string   `json:"-"`
+		Zone     scw.Zone `json:"zone"`
+	}
+
+	return &core.Command{
+		Short:     `Attach an IP to a server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "attach-ip",
+		ArgsType:  reflect.TypeOf(customIPAttachRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:     "ip",
+				Short:    `UUID of the IP to attach or its UUID`,
+				Required: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			args := argsI.(*customIPAttachRequest)
+
+			var ipID string
+			switch {
+			case validation.IsUUID(args.IP):
+				ipID = args.IP
+			case net.ParseIP(args.IP) != nil:
+				// Find the corresponding flexible IP UUID.
+				logger.Debugf("finding public IP UUID from address: %s", args.IP)
+				res, err := api.GetIP(&instance.GetIPRequest{
+					Zone: args.Zone,
+					IP:   args.IP,
+				})
+				if err != nil { // FIXME: isNotFoundError
+					return nil, fmt.Errorf("%s does not belong to you", args.IP)
+				}
+				ipID = res.IP.ID
+			default:
+				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
+			}
+
+			_, err = api.UpdateIP(&instance.UpdateIPRequest{
+				IP: ipID,
+				Server: &instance.NullableStringValue{
+					Value: args.ServerID,
+				},
+				Zone: args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+			return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Attach an IP to a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","ip": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Attach an IP to a server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","ip": "1.2.3.4"}`,
+			},
+		},
+	}
+}
+
+func serverDetachIPCommand() *core.Command {
+	type customIPDetachRequest struct {
+		OrganizationID *string
+		ProjectID      *string
+		Zone           scw.Zone `json:"zone"`
+		ServerID       string
+	}
+
+	return &core.Command{
+		Short:     `Detach an IP from a server`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "detach-ip",
+		ArgsType:  reflect.TypeOf(customIPDetachRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `UUID of the server.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*customIPDetachRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			serverResponse, err := api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+			if err != nil {
+				return nil, err
+			}
+
+			if server := serverResponse.Server; server != nil {
+				if ip := server.PublicIP; ip != nil {
+					_, err := api.UpdateIP(&instance.UpdateIPRequest{
+						Zone: args.Zone,
+						// We detach an ip by specifying no serverResponse
+						Server: &instance.NullableStringValue{
+							Null: true,
+						},
+						IP: ip.ID,
+					})
+					if err != nil {
+						return nil, err
+					}
+					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+				}
+				return nil, fmt.Errorf("no public ip found")
+			}
+			return nil, fmt.Errorf("no server found")
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Detach IP from a given server",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -584,7 +768,7 @@ Once your image is ready you will be able to create a new server based on this i
 			if len(tmp) != 3 {
 				return nil, fmt.Errorf("cannot extract image id from task")
 			}
-			return api.GetImage(&instance.GetImageRequest{ImageID: tmp[2]})
+			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
 		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (i interface{}, err error) {
 			resp := respI.(*instance.GetImageResponse)
@@ -806,9 +990,9 @@ func serverDeleteCommand() *core.Command {
 					break
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeVolumeTypeLSSD:
+				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeVolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD:
 					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
@@ -935,7 +1119,7 @@ func serverTerminateCommand() *core.Command {
 			if !deleteBlockVolumes {
 				// detach block storage volumes before terminating the instance to preserve them
 				for _, volume := range server.Server.Volumes {
-					if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
 						continue
 					}
 
@@ -983,7 +1167,7 @@ func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerRes
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeVolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
 				continue
 			}
 

@@ -10,16 +10,19 @@ ARGS:
   [name]                          
   [forward-protocol]               (tcp | http)
   [forward-port]                  
-  [forward-port-algorithm]         (roundrobin | leastconn)
+  [forward-port-algorithm]         (roundrobin | leastconn | first)
   [sticky-sessions]                (none | cookie | table)
   [sticky-sessions-cookie-name]   
-  [send-proxy-v2]                 
   [timeout-server]                
   [timeout-connect]               
   [timeout-tunnel]                
   [on-marked-down-action]          (on_marked_down_action_none | shutdown_sessions)
   [proxy-protocol]                 (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [failover-host]                 
+  [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+
+DEPRECATED ARGS:
+  [send-proxy-v2]   
 
 FLAGS:
   -h, --help   help for update

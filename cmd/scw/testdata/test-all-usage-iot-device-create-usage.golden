@@ -6,13 +6,15 @@ USAGE:
   scw iot device create [arg=value ...]
 
 ARGS:
-  name                                         Device name
+  name=<generated>                             Device name
   hub-id                                       ID of the device's hub
   [allow-insecure]                             Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones
+  [allow-multiple-connections]                 Allow multiple physical devices to connect with this device's credentials
   [message-filters.publish.policy]              (unknown | accept | reject)
   [message-filters.publish.topics.{index}]     
   [message-filters.subscribe.policy]            (unknown | accept | reject)
   [message-filters.subscribe.topics.{index}]   
+  [description]                                Device description
   [region=fr-par]                              Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

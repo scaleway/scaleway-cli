@@ -9,8 +9,10 @@ USAGE:
   scw instance ip <command>
 
 AVAILABLE COMMANDS:
+  attach      Attach an IP to a given server
   create      Reserve a flexible IP
   delete      Delete a flexible IP
+  detach      Detach an ip from its server
   get         Get a flexible IP
   list        List all flexible IPs
   update      Update a flexible IP

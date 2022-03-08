@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   image           Image management commands
   ip              IP management commands
   placement-group Placement group management commands
+  private-nic     Private NIC management commands
   security-group  Security group management commands
   server          Server management commands
   server-type     Server type management commands

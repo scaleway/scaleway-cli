@@ -16,11 +16,13 @@ EXAMPLES:
     scw k8s cluster list region=fr-par name=cluster1
 
 ARGS:
+  [project-id]        The project ID on which to filter the returned clusters
   [order-by]          The sort order of the returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
   [name]              The name on which to filter the returned clusters
   [status]            The status on which to filter the returned clusters (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
+  [type]              The type on which to filter the returned clusters
   [organization-id]   The organization ID on which to filter the returned clusters
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

@@ -6,11 +6,9 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/scaleway/scaleway-cli/internal/account"
 	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/matomo"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/pflag"
@@ -181,33 +179,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = injectMeta(ctx, meta)
-
-	// Send Matomo telemetry when exiting the bootstrap
-	start := time.Now()
-	defer func() {
-		// skip telemetry report when at least one of the following criteria matches:
-		// - telemetry is explicitly disable in bootstrap config
-		// - no command was executed
-		// - telemetry is disabled on the ran command
-		// - telemetry is disabled from the config (user must consent)
-		if config.DisableTelemetry ||
-			meta.command == nil ||
-			meta.command.DisableTelemetry ||
-			matomo.IsTelemetryDisabled() {
-			logger.Debugf("skipping telemetry report\n")
-			return
-		}
-		matomoErr := matomo.SendCommandTelemetry(&matomo.SendCommandTelemetryRequest{
-			Command:       meta.command.getPath(),
-			Version:       config.BuildInfo.Version.String(),
-			ExecutionTime: time.Since(start),
-		})
-		if matomoErr != nil {
-			logger.Debugf("error during telemetry reporting: %s\n", matomoErr)
-		} else {
-			logger.Debugf("telemetry successfully sent\n")
-		}
-	}()
 
 	// Check CLI new version when exiting the bootstrap
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func

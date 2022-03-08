@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get help about how the CLI works
+
+USAGE:
+  scw help <command>
+
+AVAILABLE COMMANDS:
+  date        Get help about how date parsing works in the CLI
+  output      Get help about how the CLI output works
+
+FLAGS:
+  -h, --help   help for help
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw help [command] --help" for more information about a command.

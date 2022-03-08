@@ -6,16 +6,24 @@ USAGE:
   scw rdb instance create [arg=value ...]
 
 ARGS:
-  name                 Name of the instance
-  engine               Database engine of the database (PostgreSQL, MySQL, ...)
-  user-name            Name of the user created when the instance is created
-  password             Password of the user
-  node-type=DB-DEV-S   Type of node to use for the instance (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
-  [is-ha-cluster]      Whether or not High-Availability is enabled
-  [disable-backup]     Whether or not backups are disabled
-  [tags.{index}]       Tags to apply to the instance
-  [organization-id]    Organization ID to use. If none is passed will use default organization ID from the config
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [project-id]                                                  Project ID to use. If none is passed the default project ID will be used
+  [name=<generated>]                                            Name of the instance
+  engine                                                        Database engine of the database (PostgreSQL, MySQL, ...)
+  user-name                                                     Name of the user created when the instance is created
+  password                                                      Password of the user
+  node-type=DB-DEV-S                                            Type of node to use for the instance (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
+  [is-ha-cluster]                                               Whether or not High-Availability is enabled
+  [disable-backup]                                              Whether or not backups are disabled
+  [tags.{index}]                                                Tags to apply to the instance
+  [init-settings.{index}.name]                                  
+  [init-settings.{index}.value]                                 
+  [volume-type]                                                 Type of volume where data are stored (lssd, bssd, ...) (lssd | bssd)
+  [volume-size]                                                 Volume size when volume_type is not lssd
+  [init-endpoints.{index}.private-network.private-network-id]   UUID of the private network to be connected to the database instance
+  [init-endpoints.{index}.private-network.service-ip]           Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.
+  [backup-same-region]                                          Store logical backups in the same region as the database instance
+  [organization-id]                                             Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]                                               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

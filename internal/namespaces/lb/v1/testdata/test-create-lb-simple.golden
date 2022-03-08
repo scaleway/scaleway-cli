@@ -1,61 +1,80 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     df47ea4e-7585-42ce-bcbf-3b5f704f1ef4
+ID                     5560806a-9808-4bed-9b72-84316b033c9e
 Name                   foobar
 Description            foobar
 Status                 ready
-Instances.0.ID         9d2d8441-8172-45e8-9d77-35f6432424c8
+Instances.0.ID         ba2ff6e6-45e0-4139-8724-cf9d367c1f7f
 Instances.0.Status     ready
-Instances.0.IPAddress  10.68.206.111
+Instances.0.IPAddress  10.68.92.135
+Instances.0.CreatedAt  few seconds ago
+Instances.0.UpdatedAt  few seconds ago
 Instances.0.Region     fr-par
-Instances.1.ID         e821e381-295d-4f45-8986-0f03953cd737
+Instances.0.Zone       fr-par-1
+Instances.1.ID         9dd3c21c-3985-43d8-8e7d-a7690f982d73
 Instances.1.Status     ready
-Instances.1.IPAddress  10.70.38.9
+Instances.1.IPAddress  10.64.46.125
+Instances.1.CreatedAt  few seconds ago
+Instances.1.UpdatedAt  few seconds ago
 Instances.1.Region     fr-par
+Instances.1.Zone       fr-par-1
 OrganizationID         951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.ID                733a3c45-f975-42ef-b4ca-28419312f932
-IP.0.IPAddress         195.154.68.106
+IP.0.ID                eedc7401-e84a-4659-96d4-779337986bd2
+IP.0.IPAddress         51.159.74.232
 IP.0.OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-IP.0.LBID              df47ea4e-7585-42ce-bcbf-3b5f704f1ef4
-IP.0.Reverse           195-154-68-106.lb.fr-par.scw.cloud
+IP.0.LBID              5560806a-9808-4bed-9b72-84316b033c9e
+IP.0.Reverse           51-159-74-232.lb.fr-par.scw.cloud
 IP.0.ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 IP.0.Region            fr-par
+IP.0.Zone              fr-par-1
 FrontendCount          0
 BackendCount           0
 Type                   lb-s
 SslCompatibilityLevel  ssl_compatibility_level_intermediate
 ProjectID              951df375-e094-4d26-97c1-ba548eeb9c42
+CreatedAt              few seconds ago
+UpdatedAt              few seconds ago
+PrivateNetworkCount    0
+RouteCount             0
 Region                 fr-par
+Zone                   fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "df47ea4e-7585-42ce-bcbf-3b5f704f1ef4",
+  "id": "5560806a-9808-4bed-9b72-84316b033c9e",
   "name": "foobar",
   "description": "foobar",
   "status": "ready",
   "instances": [
     {
-      "id": "9d2d8441-8172-45e8-9d77-35f6432424c8",
+      "id": "ba2ff6e6-45e0-4139-8724-cf9d367c1f7f",
       "status": "ready",
-      "ip_address": "10.68.206.111",
-      "region": "fr-par"
+      "ip_address": "10.68.92.135",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     },
     {
-      "id": "e821e381-295d-4f45-8986-0f03953cd737",
+      "id": "9dd3c21c-3985-43d8-8e7d-a7690f982d73",
       "status": "ready",
-      "ip_address": "10.70.38.9",
-      "region": "fr-par"
+      "ip_address": "10.64.46.125",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "ip": [
     {
-      "id": "733a3c45-f975-42ef-b4ca-28419312f932",
-      "ip_address": "195.154.68.106",
+      "id": "eedc7401-e84a-4659-96d4-779337986bd2",
+      "ip_address": "51.159.74.232",
       "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "lb_id": "df47ea4e-7585-42ce-bcbf-3b5f704f1ef4",
-      "reverse": "195-154-68-106.lb.fr-par.scw.cloud",
+      "lb_id": "5560806a-9808-4bed-9b72-84316b033c9e",
+      "reverse": "51-159-74-232.lb.fr-par.scw.cloud",
       "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "region": "fr-par"
+      "region": "fr-par",
+      "zone": "fr-par-1"
     }
   ],
   "tags": [],
@@ -65,5 +84,10 @@ Region                 fr-par
   "subscriber": null,
   "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "region": "fr-par"
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_count": 0,
+  "route_count": 0,
+  "region": "fr-par",
+  "zone": "fr-par-1"
 }

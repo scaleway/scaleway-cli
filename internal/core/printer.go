@@ -6,8 +6,11 @@ import (
 	"io"
 	"reflect"
 	"strings"
+	"text/template"
 
+	"github.com/scaleway/scaleway-cli/internal/gofields"
 	"github.com/scaleway/scaleway-cli/internal/human"
+	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -21,8 +24,14 @@ const (
 	// PrinterTypeJSON defines a JSON formatter.
 	PrinterTypeJSON = PrinterType("json")
 
+	// PrinterTypeYAML defines a YAML formatter.
+	PrinterTypeYAML = PrinterType("yaml")
+
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
+
+	// PrinterTypeTemplate defines a go template to use to format output.
+	PrinterTypeTemplate = PrinterType("template")
 
 	// Option to enable pretty output on json printer.
 	PrinterOptJSONPretty = "pretty"
@@ -58,6 +67,13 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		if err != nil {
 			return nil, err
 		}
+	case PrinterTypeYAML.String():
+		printer.printerType = PrinterTypeYAML
+	case PrinterTypeTemplate.String():
+		err := setupTemplatePrinter(printer, printerOpt)
+		if err != nil {
+			return nil, err
+		}
 
 	default:
 		return nil, fmt.Errorf("invalid output format: %s", printerName)
@@ -78,6 +94,25 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	return nil
 }
 
+func setupTemplatePrinter(printer *Printer, opts string) error {
+	printer.printerType = PrinterTypeTemplate
+	if opts == "" {
+		return &CliError{
+			Err:     fmt.Errorf("cannot use a template output with an empty template"),
+			Hint:    `Try using golang template string: scw instance server list -o template="{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}"`,
+			Details: `https://golang.org/pkg/text/template`,
+		}
+	}
+
+	t, err := template.New("OutputFormat").Parse(opts)
+	if err != nil {
+		return err
+	}
+	printer.template = t
+
+	return nil
+}
+
 func setupHumanPrinter(printer *Printer, opts string) {
 	printer.printerType = PrinterTypeHuman
 	if opts != "" {
@@ -92,6 +127,9 @@ type Printer struct {
 
 	// Enable pretty print on json output
 	jsonPretty bool
+
+	// go template to use on template output
+	template *template.Template
 
 	// Allow to select specifics column in a table with human printer
 	humanFields []string
@@ -110,15 +148,17 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 		err = p.printHuman(data, opt)
 	case PrinterTypeJSON:
 		err = p.printJSON(data)
+	case PrinterTypeYAML:
+		err = p.printYAML(data)
+	case PrinterTypeTemplate:
+		err = p.printTemplate(data)
 	default:
 		err = fmt.Errorf("unknown format: %s", p.printerType)
 	}
 
 	if err != nil {
-		// Only try to print error using the printer if data is not already an error to avoid infinite recursion
-		if _, isError := data.(error); !isError {
-			return p.Print(err, nil)
-		}
+		// if the printer itself returns an error, don't try to format it just print it
+		_, err := fmt.Fprintln(p.stderr, err.Error())
 		return err
 	}
 	return nil
@@ -133,7 +173,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 		}
 
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
-			return fmt.Errorf("list of fields for human output is only supported for commands that return a list")
+			return p.printHuman(fmt.Errorf("list of fields for human output is only supported for commands that return a list"), nil)
 		}
 
 		if len(p.humanFields) > 0 {
@@ -149,10 +189,10 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 	str, err := human.Marshal(data, opt)
 	switch e := err.(type) {
 	case *human.UnknownFieldError:
-		return &CliError{
+		return p.printHuman(&CliError{
 			Err:  fmt.Errorf("unknown field '%s' in output options", e.FieldName),
 			Hint: fmt.Sprintf("Valid fields are: %s", strings.Join(e.ValidFields, ", ")),
-		}
+		}, nil)
 	case nil:
 		// Do nothing
 	default:
@@ -164,7 +204,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 		return nil
 	}
 
-	if _, isError := data.(error); isError {
+	if isError {
 		_, err = fmt.Fprintln(p.stderr, str)
 	} else {
 		_, err = fmt.Fprintln(p.stdout, str)
@@ -198,4 +238,61 @@ func (p *Printer) printJSON(data interface{}) error {
 	}
 
 	return encoder.Encode(data)
+}
+
+func (p *Printer) printYAML(data interface{}) error {
+	_, implementMarshaler := data.(yaml.Marshaler)
+	err, isError := data.(error)
+
+	if isError && !implementMarshaler {
+		data = map[string]string{
+			"error": err.Error(),
+		}
+	}
+
+	writer := p.stdout
+	if isError {
+		writer = p.stderr
+	}
+	encoder := yaml.NewEncoder(writer)
+
+	return encoder.Encode(data)
+}
+
+func (p *Printer) printTemplate(data interface{}) error {
+	writer := p.stdout
+	if _, isError := data.(error); isError {
+		return p.printHuman(data, nil)
+	}
+
+	dataValue := reflect.ValueOf(data)
+	switch dataValue.Type().Kind() {
+	// If we have a slice of value, we apply the template for each item
+	case reflect.Slice:
+		for i := 0; i < dataValue.Len(); i++ {
+			elemValue := dataValue.Index(i)
+			err := p.template.Execute(writer, elemValue)
+			if err != nil {
+				return p.printHuman(&CliError{
+					Err:     err,
+					Message: "templating error",
+					Hint:    fmt.Sprintf("Acceptable values are:\n  - %s", strings.Join(gofields.ListFields(elemValue.Type()), "\n  - ")),
+				}, nil)
+			}
+			_, err = writer.Write([]byte{'\n'})
+			if err != nil {
+				return err
+			}
+		}
+	default:
+		err := p.template.Execute(writer, data)
+		if err != nil {
+			return err
+		}
+		_, err = writer.Write([]byte{'\n'})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

@@ -58,6 +58,13 @@ type FlagSpec struct {
 }
 
 func (node *AutoCompleteNode) addGlobalFlags() {
+	printerTypes := []string{
+		PrinterTypeHuman.String(),
+		PrinterTypeJSON.String(),
+		PrinterTypeYAML.String(),
+		PrinterTypeTemplate.String(),
+	}
+
 	node.Children["-D"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-D",
 	})
@@ -72,11 +79,11 @@ func (node *AutoCompleteNode) addGlobalFlags() {
 	})
 	node.Children["-o"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "-o",
-		EnumValues: []string{"json", "human"},
+		EnumValues: printerTypes,
 	})
 	node.Children["--output"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:       "--output",
-		EnumValues: []string{"json", "human"},
+		EnumValues: printerTypes,
 	})
 	node.Children["-p"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name:             "-p",
@@ -209,7 +216,8 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		node.Command = cmd
 
 		// We consider ArgSpecs as leaf in the autocomplete tree.
-		for _, argSpec := range cmd.ArgSpecs {
+		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
+		for _, argSpec := range nonDeprecatedArgs {
 			if argSpec.Positional {
 				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, argSpec)
 				continue
@@ -336,12 +344,8 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			continue
 		}
 
-		switch {
-		case strings.Contains(key, sliceSchema):
-			suggestions = append(suggestions, keySuggestion(key, sliceSchema, completedArgs))
-		case strings.Contains(key, mapSchema):
-			suggestions = append(suggestions, keySuggestion(key, mapSchema, completedArgs))
-		default:
+		// if no special keys in the key, we don't need to modify it
+		if !strings.Contains(key, sliceSchema) && !strings.Contains(key, mapSchema) {
 			if _, exists := completedArgs[key]; exists {
 				continue
 			}
@@ -357,7 +361,11 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 				continue
 			}
 			suggestions = append(suggestions, key)
+			continue
 		}
+
+		// we know that we got either a slice, a map, or both
+		suggestions = append(suggestions, keySuggestion(key, completedArgs, wordToComplete)...)
 	}
 
 	return newAutoCompleteResponse(suggestions)
@@ -446,25 +454,88 @@ func hasPrefix(key, wordToComplete string) bool {
 
 // keySuggestion will suggest the next key available for the map (or array) argument.
 // Keys are suggested in ascending order arg.0, arg.1, arg.2...
-func keySuggestion(key, keySchema string, completedArg map[string]struct{}) string {
-	key = strings.ReplaceAll(key, keySchema, "([0-9]+)")
-	r := regexp.MustCompile(key)
-	usedIndex := make(map[string]struct{})
-	for arg := range completedArg {
-		matches := r.FindStringSubmatch(arg)
-		if len(matches) > 0 {
-			usedIndex[matches[1]] = struct{}{}
+func keySuggestion(key string, completedArg map[string]struct{}, wordToComplete string) []string {
+	splitKey := strings.Split(key, ".")
+	splitWordToComplete := strings.Split(wordToComplete, ".")
+
+	// let's replace the existing placeholder with already typed values
+	for i, k := range splitKey {
+		if i >= len(splitWordToComplete) {
+			continue
 		}
+		if k != splitWordToComplete[i] && (k == sliceSchema || k == mapSchema) && splitWordToComplete[i] != "" {
+			splitKey[i] = splitWordToComplete[i]
+		}
+	}
+	newKey := strings.Join(splitKey, ".")
+	if !strings.Contains(newKey, sliceSchema) && !strings.Contains(newKey, mapSchema) {
+		for arg := range completedArg {
+			// if the arg is already given, ignore it
+			if arg == newKey {
+				return []string{}
+			}
+		}
+		return []string{newKey}
 	}
 
-	// try to find next available index
-	i := 0
-	for {
-		_, exist := usedIndex[strconv.Itoa(i)]
-		if !exist {
-			break
+	usedIndex := make(map[string]struct{})
+
+	depth := 0
+	newKey = strings.ReplaceAll(newKey, sliceSchema, "([0-9]+)")
+	newKey = strings.ReplaceAll(newKey, mapSchema, "[0-9a-zA-Z\\-]+")
+	r := regexp.MustCompile(newKey)
+	for arg := range completedArg {
+		matches := r.FindStringSubmatch(arg)
+		// the matches will all have the same length
+		if len(matches) > 0 {
+			depth = len(matches) - 1
+			usedIndex[strings.Join(matches[1:], ".")] = struct{}{}
 		}
-		i++
 	}
-	return strings.ReplaceAll(key, "([0-9]+)", strconv.Itoa(i))
+	newKey = strings.ReplaceAll(newKey, "[0-9a-zA-Z\\-]+", mapSchema)
+
+	// let's cut the key on mapSchema
+	keyCut := strings.Split(newKey, mapSchema)
+	newKey = keyCut[0]
+
+	if depth == 0 {
+		return []string{strings.ReplaceAll(newKey, "([0-9]+)", "0")}
+	}
+
+	finalKeys := []string{}
+
+	baseIndex := make([]string, depth)
+	for i := range baseIndex {
+		baseIndex[i] = "0"
+	}
+	for j := 1; j <= depth; j++ {
+		for {
+			_, exist := usedIndex[strings.Join(baseIndex, ".")]
+			if !exist {
+				key := newKey
+				for _, v := range baseIndex {
+					key = strings.Replace(key, "([0-9]+)", v, 1)
+				}
+				finalKeys = append(finalKeys, key)
+				for k := 1; k <= j; k++ {
+					baseIndex[len(baseIndex)-k] = "0"
+				}
+				break
+			}
+			if strings.HasSuffix(newKey, ".") {
+				key := newKey
+				for _, v := range baseIndex {
+					key = strings.Replace(key, "([0-9]+)", v, 1)
+				}
+				finalKeys = append(finalKeys, key)
+			}
+			newIndex, _ := strconv.Atoi(baseIndex[len(baseIndex)-1])
+			baseIndex[len(baseIndex)-1] = strconv.Itoa(newIndex + 1)
+		}
+		if j != depth {
+			newIndex, _ := strconv.Atoi(baseIndex[len(baseIndex)-j-1])
+			baseIndex[len(baseIndex)-j-1] = strconv.Itoa(newIndex + 1)
+		}
+	}
+	return finalKeys
 }

@@ -49,7 +49,8 @@ interactions:
       "expires": null, "creation_date": "2020-06-23T14:06:56.763352+00:00", "creation_ip":
       "195.154.229.35", "category": "user_created", "deletion_date": null, "inherits_user_perms":
       true, "roles": {"role": null, "organization": null}, "description": "sieben-macbook",
-      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "use_role_key": false}}'
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "use_role_key": false}}'
     headers:
       Connection:
       - keep-alive

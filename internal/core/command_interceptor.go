@@ -105,7 +105,7 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 		var hint string
 		switch resourceName := sdkError.Resource; resourceName {
 		case "account_token":
-			hint = "Try to generate a new token here https://console.scaleway.com/account/credentials"
+			hint = "Try to generate a new token here https://console.scaleway.com/project/credentials"
 		}
 
 		return nil, &CliError{

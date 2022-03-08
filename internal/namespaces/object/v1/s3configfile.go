@@ -150,7 +150,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 					URL:       "https://s3." + c.Region.String() + ".scw.cloud",
 					AccessKey: c.AccessKey,
 					SecretKey: c.SecretKey,
-					API:       "S3v2",
+					API:       "S3v4",
 				},
 			},
 		}

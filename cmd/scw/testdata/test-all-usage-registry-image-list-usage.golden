@@ -9,8 +9,9 @@ ARGS:
   [order-by]          Field by which to order the display of Images (created_at_asc | created_at_desc | name_asc | name_desc)
   [namespace-id]      Filter by the Namespace ID
   [name]              Filter by the Image name (exact match)
+  [project-id]        Filter by Project ID
   [organization-id]   Filter by Organization ID
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

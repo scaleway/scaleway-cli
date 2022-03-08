@@ -1,61 +1,66 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                          75a4c881-2fa1-4172-ab22-7656e8c955ba
+ID                          edfb54ea-70af-46d0-9a62-cf347234cc8f
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
-Name                        cli-bm-crazy-northcutt
+ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
+Name                        cli-bm-amazing-leakey
 Description                 -
 UpdatedAt                   few seconds ago
 CreatedAt                   few seconds ago
 Status                      ready
-OfferID                     7fde3890-9787-488c-ac89-c4e00a4e5f83
-IPs.0.ID                    3deca5d7-b557-4220-b531-0d8f5c9e2772
-IPs.0.Address               51.159.31.75
-IPs.0.Reverse               75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+OfferID                     c27dd792-2538-4c54-8989-f460b1aeb5fd
+OfferName                   -
+IPs.0.ID                    409c47d1-bbc1-4031-be02-962c6eb697d3
+IPs.0.Address               51.158.156.33
+IPs.0.Reverse               edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud
 IPs.0.Version               IPv4
 IPs.0.ReverseStatus         pending
 IPs.0.ReverseStatusMessage  -
-IPs.1.ID                    c0d172c9-4d86-45ec-9f7e-cb23cd4c455b
-IPs.1.Address               2001:bc8:6005:1b:dac4:97ff:fe2a:2fb8
-IPs.1.Reverse               75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+IPs.1.ID                    5e02f53e-3224-429b-a5cf-2751ddc477b2
+IPs.1.Address               2001:bc8:1600:6:224:ecff:fef2:2acc
+IPs.1.Reverse               edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud
 IPs.1.Version               IPv6
 IPs.1.ReverseStatus         pending
 IPs.1.ReverseStatusMessage  -
-Domain                      75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud
+Domain                      edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud
 BootType                    normal
-Zone                        fr-par-2
-PingStatus                  unknown
+Zone                        nl-ams-1
+PingStatus                  down
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "75a4c881-2fa1-4172-ab22-7656e8c955ba",
+  "id": "edfb54ea-70af-46d0-9a62-cf347234cc8f",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "name": "cli-bm-crazy-northcutt",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "name": "cli-bm-amazing-leakey",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "7fde3890-9787-488c-ac89-c4e00a4e5f83",
+  "offer_id": "c27dd792-2538-4c54-8989-f460b1aeb5fd",
+  "offer_name": "",
   "tags": [],
   "ips": [
     {
-      "id": "3deca5d7-b557-4220-b531-0d8f5c9e2772",
-      "address": "51.159.31.75",
-      "reverse": "75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud",
+      "id": "409c47d1-bbc1-4031-be02-962c6eb697d3",
+      "address": "51.158.156.33",
+      "reverse": "edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "pending",
       "reverse_status_message": ""
     },
     {
-      "id": "c0d172c9-4d86-45ec-9f7e-cb23cd4c455b",
-      "address": "2001:bc8:6005:1b:dac4:97ff:fe2a:2fb8",
-      "reverse": "75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud",
+      "id": "5e02f53e-3224-429b-a5cf-2751ddc477b2",
+      "address": "2001:bc8:1600:6:224:ecff:fef2:2acc",
+      "reverse": "edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud",
       "version": "IPv6",
       "reverse_status": "pending",
       "reverse_status_message": ""
     }
   ],
-  "domain": "75a4c881-2fa1-4172-ab22-7656e8c955ba.fr-par-2.baremetal.scw.cloud",
+  "domain": "edfb54ea-70af-46d0-9a62-cf347234cc8f.nl-ams-1.baremetal.scw.cloud",
   "boot_type": "normal",
-  "zone": "fr-par-2",
+  "zone": "nl-ams-1",
   "install": null,
-  "ping_status": "ping_status_unknown"
+  "ping_status": "ping_status_down",
+  "options": null
 }

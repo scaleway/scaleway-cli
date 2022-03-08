@@ -4,6 +4,8 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/ghodss/yaml"
+	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -32,6 +34,18 @@ func k8sKubeconfigGetCommand() *core.Command {
 			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigGetRun,
+		Examples: []*core.Example{
+			{
+				Short:    "Get the kubeconfig for a given cluster",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw k8s kubeconfig install",
+				Short:   "Install a kubeconfig",
+			},
+		},
 	}
 }
 
@@ -46,10 +60,22 @@ func k8sKubeconfigGetRun(ctx context.Context, argsI interface{}) (i interface{},
 	client := core.ExtractClient(ctx)
 	apiK8s := k8s.NewAPI(client)
 
-	kubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
+	apiKubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
 	if err != nil {
 		return nil, err
 	}
 
-	return string(kubeconfig.GetRaw()), nil
+	var kubeconfig api.Config
+
+	err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+	if err != nil {
+		return nil, err
+	}
+
+	config, err := yaml.Marshal(kubeconfig)
+	if err != nil {
+		return nil, err
+	}
+
+	return string(config), nil
 }

@@ -1,7 +1,9 @@
 package core
 
 import (
+	"context"
 	"fmt"
+	"reflect"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -37,7 +39,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, fmt.Errorf("arg validation called"), err)
 		}
 	}
@@ -194,14 +196,14 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
 	}
 
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, MissingRequiredArgumentError(argName), err)
 		}
 	}
@@ -341,5 +343,30 @@ func Test_ValidateNoConflict(t *testing.T) {
 		rawArgs: []string{"all-ssh-keys=true", "ssh-key.0=11111111-1111-1111-1111-111111111111"},
 		arg1:    "ssh-key.{index}",
 		arg2:    "all-ssh-keys",
+	}))
+}
+
+func Test_ValidateDeprecated(t *testing.T) {
+	t.Run("Deprecated", Test(&TestConfig{
+		Commands: NewCommands(&Command{
+			Namespace:            "plop",
+			ArgsType:             reflect.TypeOf(args.RawArgs{}),
+			AllowAnonymousClient: true,
+			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+				return &SuccessResult{}, nil
+			},
+			ArgSpecs: ArgSpecs{
+				{
+					Name:       "a",
+					Deprecated: true,
+				},
+			},
+		}),
+		Cmd: "scw plop a=yo",
+		Check: TestCheckCombine(
+			func(t *testing.T, ctx *CheckFuncCtx) {
+				assert.Equal(t, "The argument 'a' is deprecated, more info with: scw plop --help\n", ctx.LogBuffer)
+			},
+		),
 	}))
 }

@@ -49,7 +49,7 @@ const tplStr = `
 | Name |   | Description |
 |------|---|-------------|
 {{ range $arg := .Cmd.ArgSpecs -}}
-| {{ $arg.Name }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
+| {{ arg_spec_name $arg }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
 {{ end -}}
 {{- end -}}
 {{- if .Cmd.Examples }}

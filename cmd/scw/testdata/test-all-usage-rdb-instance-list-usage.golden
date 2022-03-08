@@ -9,8 +9,9 @@ ARGS:
   [tags.{index}]      List instance that have a given tags
   [name]              List instance that match a given name pattern
   [order-by]          Criteria to use when ordering instance listing (created_at_asc | created_at_desc | name_asc | name_desc | region | status_asc | status_desc)
-  [organization-id]   Organization ID to list the instance of
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [project-id]        Project ID to list the instance of
+  [organization-id]   Please use `project_id` instead
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

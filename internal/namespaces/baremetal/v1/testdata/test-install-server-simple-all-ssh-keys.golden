@@ -1,76 +1,91 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                          fc0c61cf-d65c-4f27-863a-447a4898a180
+ID                          eaea9b3b-a780-4701-9d9c-8cd7da25fd48
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
-Name                        cli-bm-naughty-sanderson
+ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
+Name                        cli-bm-youthful-lichterman
 Description                 -
 UpdatedAt                   few seconds ago
 CreatedAt                   few seconds ago
 Status                      ready
-OfferID                     7fde3890-9787-488c-ac89-c4e00a4e5f83
-IPs.0.ID                    5d2b8d87-2e1e-4e8b-932f-de6c5b4b25e3
-IPs.0.Address               2001:bc8:6005:1b:aa1e:84ff:fef3:589c
-IPs.0.Reverse               fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+OfferID                     c27dd792-2538-4c54-8989-f460b1aeb5fd
+OfferName                   -
+IPs.0.ID                    bae39857-7fbe-4ae6-afb4-330acd46714d
+IPs.0.Address               2001:bc8:1600:6:224:ecff:fef2:c008
+IPs.0.Reverse               eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
 IPs.0.Version               IPv6
-IPs.0.ReverseStatus         active
+IPs.0.ReverseStatus         pending
 IPs.0.ReverseStatusMessage  -
-IPs.1.ID                    cf4c77ac-cfd7-4f83-a17f-d15fa6ff1d86
-IPs.1.Address               51.159.31.104
-IPs.1.Reverse               fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+IPs.1.ID                    bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73
+IPs.1.Address               51.158.156.45
+IPs.1.Reverse               eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
 IPs.1.Version               IPv4
 IPs.1.ReverseStatus         active
 IPs.1.ReverseStatusMessage  -
-Domain                      fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud
+Domain                      eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
 BootType                    normal
-Zone                        fr-par-2
-Install.OsID                d859aa89-8b4a-4551-af42-ff7c0c27260a
+Zone                        nl-ams-1
+Install.OsID                03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Install.Hostname            test-install-server
 Install.SSHKeyIDs.0         9bf6c340-687c-4f31-8aad-6a525761d8cd
-Install.SSHKeyIDs.1         cffa1bb1-57f0-4ad8-be20-f335df743b27
-Install.SSHKeyIDs.2         f06d9273-385e-4747-806c-d4673c410f9d
+Install.SSHKeyIDs.1         d957cb31-2a7f-4b68-9363-b128184b3c85
+Install.SSHKeyIDs.2         b97c757c-d530-4ff6-92c3-febddb801096
+Install.SSHKeyIDs.3         48734124-36fc-409c-a515-40c87ed0e1b8
+Install.SSHKeyIDs.4         66f16bba-3002-45d5-8348-58f13d31afaf
 Install.Status              completed
-PingStatus                  up
+Install.User                -
+Install.ServiceUser         -
+Install.ServiceURL          -
+PingStatus                  down
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "fc0c61cf-d65c-4f27-863a-447a4898a180",
+  "id": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "name": "cli-bm-naughty-sanderson",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "name": "cli-bm-youthful-lichterman",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "7fde3890-9787-488c-ac89-c4e00a4e5f83",
+  "offer_id": "c27dd792-2538-4c54-8989-f460b1aeb5fd",
+  "offer_name": "",
   "tags": [],
   "ips": [
     {
-      "id": "5d2b8d87-2e1e-4e8b-932f-de6c5b4b25e3",
-      "address": "2001:bc8:6005:1b:aa1e:84ff:fef3:589c",
-      "reverse": "fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud",
+      "id": "bae39857-7fbe-4ae6-afb4-330acd46714d",
+      "address": "2001:bc8:1600:6:224:ecff:fef2:c008",
+      "reverse": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
       "version": "IPv6",
-      "reverse_status": "active",
+      "reverse_status": "pending",
       "reverse_status_message": ""
     },
     {
-      "id": "cf4c77ac-cfd7-4f83-a17f-d15fa6ff1d86",
-      "address": "51.159.31.104",
-      "reverse": "fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud",
+      "id": "bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73",
+      "address": "51.158.156.45",
+      "reverse": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "fc0c61cf-d65c-4f27-863a-447a4898a180.fr-par-2.baremetal.scw.cloud",
+  "domain": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
   "boot_type": "normal",
-  "zone": "fr-par-2",
+  "zone": "nl-ams-1",
   "install": {
-    "os_id": "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+    "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
       "9bf6c340-687c-4f31-8aad-6a525761d8cd",
-      "cffa1bb1-57f0-4ad8-be20-f335df743b27",
-      "f06d9273-385e-4747-806c-d4673c410f9d"
+      "d957cb31-2a7f-4b68-9363-b128184b3c85",
+      "b97c757c-d530-4ff6-92c3-febddb801096",
+      "48734124-36fc-409c-a515-40c87ed0e1b8",
+      "66f16bba-3002-45d5-8348-58f13d31afaf"
     ],
-    "status": "completed"
+    "status": "completed",
+    "user": "",
+    "service_user": "",
+    "service_url": ""
   },
-  "ping_status": "ping_status_up"
+  "ping_status": "ping_status_down",
+  "options": null
 }

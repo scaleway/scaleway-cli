@@ -1,15 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                d6daab7b-4d76-465b-b6bb-2a725cf901d3
+ID                af9af50a-de91-4d4c-aab3-de61db807d8a
+Type              kapsule
 Name              cli-test
 Status            ready
 Version           1.17.3
 Region            fr-par
 OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
 Cni               cilium
 Description       -
-ClusterURL        https://d6daab7b-4d76-465b-b6bb-2a725cf901d3.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.d6daab7b-4d76-465b-b6bb-2a725cf901d3.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
@@ -17,32 +19,43 @@ Ingress           none
 UpgradeAvailable  true
 
 Autoscaler configuration:
-ScaleDownDisabled             false
-ScaleDownDelayAfterAdd        10m
-Estimator                     binpacking
-Expander                      random
-IgnoreDaemonsetsUtilization   false
-BalanceSimilarNodeGroups      false
-ExpendablePodsPriorityCutoff  -10
-ScaleDownUnneededTime         10m
+ScaleDownDisabled              false
+ScaleDownDelayAfterAdd         10m
+Estimator                      binpacking
+Expander                       random
+IgnoreDaemonsetsUtilization    false
+BalanceSimilarNodeGroups       false
+ExpendablePodsPriorityCutoff   -10
+ScaleDownUnneededTime          10m
+ScaleDownUtilizationThreshold  0.5
+MaxGracefulTerminationSec      600
 
 Auto-upgrade settings:
 Enabled                      false
 MaintenanceWindow.StartHour  0
 MaintenanceWindow.Day        any
+
+Open ID Connect configuration:
+IssuerURL       -
+ClientID        -
+UsernameClaim   -
+UsernamePrefix  -
+GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d6daab7b-4d76-465b-b6bb-2a725cf901d3",
+  "id": "af9af50a-de91-4d4c-aab3-de61db807d8a",
+  "type": "kapsule",
   "name": "cli-test",
   "status": "ready",
   "version": "1.17.3",
   "region": "fr-par",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://d6daab7b-4d76-465b-b6bb-2a725cf901d3.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.d6daab7b-4d76-465b-b6bb-2a725cf901d3.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -53,7 +66,9 @@ MaintenanceWindow.Day        any
     "ignore_daemonsets_utilization": false,
     "balance_similar_node_groups": false,
     "expendable_pods_priority_cutoff": -10,
-    "scale_down_unneeded_time": "10m"
+    "scale_down_unneeded_time": "10m",
+    "scale_down_utilization_threshold": 0.5,
+    "max_graceful_termination_sec": 600
   },
   "dashboard_enabled": false,
   "ingress": "none",
@@ -66,5 +81,15 @@ MaintenanceWindow.Day        any
   },
   "upgrade_available": true,
   "feature_gates": [],
-  "admission_plugins": []
+  "admission_plugins": [],
+  "open_id_connect_config": {
+    "issuer_url": "",
+    "client_id": "",
+    "username_claim": "",
+    "username_prefix": "",
+    "groups_claim": [],
+    "groups_prefix": "",
+    "required_claim": []
+  },
+  "apiserver_cert_sans": []
 }

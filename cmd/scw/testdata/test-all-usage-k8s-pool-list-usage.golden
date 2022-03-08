@@ -7,23 +7,23 @@ USAGE:
 
 EXAMPLES:
   List all pools for a given cluster
-    scw k8s pool list 11111111-1111-1111-111111111111
+    scw k8s pool list cluster-id=11111111-1111-1111-111111111111
 
   List all scaling pools for a given cluster
-    scw k8s pool list 11111111-1111-1111-111111111111 status=scaling
+    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling
 
   List all pools for a given cluster that contain the word foo in the pool name
-    scw k8s pool list 11111111-1111-1111-111111111111 name=foo
+    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo
 
   List all pools for a given cluster and order them by ascending creation date
-    scw k8s pool list 11111111-1111-1111-111111111111 order-by=created_at_asc
+    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc
 
 ARGS:
   cluster-id        The ID of the cluster from which the pools will be listed from
   [order-by]        The sort order of the returned pools (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
   [name]            The name on which to filter the returned pools
   [status]          The status on which to filter the returned pools (unknown | ready | deleting | deleted | scaling | warning | locked | upgrading)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for list

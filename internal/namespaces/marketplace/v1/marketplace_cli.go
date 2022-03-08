@@ -49,8 +49,9 @@ func marketplaceImageList() *core.Command {
 		Namespace: "marketplace",
 		Resource:  "image",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(marketplace.ListImagesRequest{}),
-		ArgSpecs:  core.ArgSpecs{},
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.ListImagesRequest{}),
+		ArgSpecs: core.ArgSpecs{},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*marketplace.ListImagesRequest)
 
@@ -79,12 +80,14 @@ func marketplaceImageGet() *core.Command {
 		Namespace: "marketplace",
 		Resource:  "image",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(marketplace.GetImageRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.GetImageRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
 				Short:      `Display the image name`,
 				Required:   true,
+				Deprecated: false,
 				Positional: true,
 			},
 		},

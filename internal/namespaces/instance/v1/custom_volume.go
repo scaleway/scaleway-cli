@@ -17,8 +17,13 @@ import (
 
 var (
 	volumeStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.VolumeStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.VolumeStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	}
 )
 
@@ -39,10 +44,12 @@ func volumeMapMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 func volumeCreateBuilder(c *core.Command) *core.Command {
 	type customCreateVolumeRequest struct {
 		*instance.CreateVolumeRequest
-		OrganizationID string
+		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
 
@@ -55,6 +62,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 
 		request := args.CreateVolumeRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})
@@ -65,9 +73,11 @@ func volumeListBuilder(c *core.Command) *core.Command {
 	type customListVolumesRequest struct {
 		*instance.ListVolumesRequest
 		OrganizationID *string
+		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
+	renameProjectIDArgSpec(c.ArgSpecs)
 
 	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
 
@@ -80,6 +90,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 
 		request := args.ListVolumesRequest
 		request.Organization = args.OrganizationID
+		request.Project = args.ProjectID
 
 		return runner(ctx, request)
 	})

@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Refresh SOA DNS zone.
+You can recreate the given DNS zone and its sub DNS zone if needed.
+
+USAGE:
+  scw dns zone refresh <dns-zone ...> [arg=value ...]
+
+ARGS:
+  dns-zone                  The DNS zone to refresh
+  [recreate-dns-zone]       Whether or not to recreate the DNS zone
+  [recreate-sub-dns-zone]   Whether or not to recreate the sub DNS zone
+
+FLAGS:
+  -h, --help   help for refresh
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

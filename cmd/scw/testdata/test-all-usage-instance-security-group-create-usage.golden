@@ -9,8 +9,8 @@ EXAMPLES:
   Create a Security Group with the given name and description
     scw instance security-group create name=foobar description=foobar foobar
 
-  Create a Security Group that will be applied as a default on instances of your organization
-    scw instance security-group create organization-default=true
+  Create a Security Group that will be applied as a default on instances of your project
+    scw instance security-group create project-default=true
 
   Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)
     scw instance security-group create inbound-default-policy=drop
@@ -24,12 +24,18 @@ EXAMPLES:
 ARGS:
   name=<generated>                   Name of the security group
   [description]                      Description of the security group
-  [organization-default=false]       Whether this security group becomes the default security group for new instances
+  [project-id]                       Project ID to use. If none is passed the default project ID will be used
+  [tags.{index}]                     The tags of the security group
+  [project-default=false]            Whether this security group becomes the default security group for new instances
   [stateful=true]                    Whether the security group is stateful or not
   [inbound-default-policy=accept]    Default policy for inbound rules (accept | drop)
   [outbound-default-policy=accept]   Default policy for outbound rules (accept | drop)
-  [organization-id]                  Organization ID to use. If none is passed will use default organization ID from the config
-  [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  [enable-default-security]          True to block SMTP on IPv4 and IPv6
+  [organization-id]                  Organization ID to use. If none is passed the default organization ID will be used
+  [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | pl-waw-1)
+
+DEPRECATED ARGS:
+  [organization-default=false]   Whether this security group becomes the default security group for new instances
 
 FLAGS:
   -h, --help   help for create
