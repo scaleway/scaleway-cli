@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbNodeType(),
 		rdbLog(),
 		rdbSnapshot(),
+		rdbReadReplica(),
 		rdbEngineList(),
 		rdbNodeTypeList(),
 		rdbBackupList(),
@@ -178,6 +179,16 @@ func rdbSnapshot() *core.Command {
 `,
 		Namespace: "rdb",
 		Resource:  "snapshot",
+	}
+}
+
+func rdbReadReplica() *core.Command {
+	return &core.Command{
+		Short: `Read replica management`,
+		Long: `A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
+`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
 	}
 }
 
