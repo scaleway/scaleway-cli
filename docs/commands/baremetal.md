@@ -2,9 +2,9 @@
 # Documentation for `scw baremetal`
 Elastic metal API
   
-- [Unvailable - Baseboard Management Controller (BMC) management commands](#unvailable---baseboard-management-controller-(bmc)-management-commands)
+- [Baseboard Management Controller (BMC) management commands](#baseboard-management-controller-(bmc)-management-commands)
   - [Get BMC (Baseboard Management Controller) access for a given elastic metal server](#get-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
-  - [Unvailable - Start BMC (Baseboard Management Controller) access for a given elastic metal server](#unvailable---start-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
+  - [Start BMC (Baseboard Management Controller) access for a given elastic metal server](#start-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
   - [Stop BMC (Baseboard Management Controller) access for a given elastic metal server](#stop-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
@@ -22,9 +22,9 @@ Elastic metal API
   - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
 
   
-## Unvailable - Baseboard Management Controller (BMC) management commands
+## Baseboard Management Controller (BMC) management commands
 
-Unvailable - Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
 
 
@@ -49,9 +49,9 @@ scw baremetal bmc get [arg=value ...]
 
 
 
-### Unvailable - Start BMC (Baseboard Management Controller) access for a given elastic metal server
+### Start BMC (Baseboard Management Controller) access for a given elastic metal server
 
-Unvailable - Start BMC (Baseboard Management Controller) access associated with the given ID.
+Start BMC (Baseboard Management Controller) access associated with the given ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
 
 
