@@ -20,7 +20,7 @@ require (
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220223135819-4133d5122603
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
