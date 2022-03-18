@@ -23,6 +23,9 @@ builds:
         goarch: 386
     ldflags:
       - -X main.Version={{ .Version }}
+      - -X main.BuildDate={{ .Date }}
+      - -X main.GitBranch={{ .GitBranch }}
+      - -X main.GitCommit={{ .GitShortCommit }}
 
 archives:
   - format: binary
