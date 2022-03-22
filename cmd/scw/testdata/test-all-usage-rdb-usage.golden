@@ -6,16 +6,17 @@ USAGE:
   scw rdb <command>
 
 AVAILABLE COMMANDS:
-  acl         Access Control List (ACL) management commands
-  backup      Backup management commands
-  database    Database management commands
-  engine      Database engines commands
-  instance    Instance management commands
-  log         Instance logs management commands
-  node-type   Node types management commands
-  privilege   User privileges management commands
-  snapshot    Block snapshot management
-  user        User management commands
+  acl          Access Control List (ACL) management commands
+  backup       Backup management commands
+  database     Database management commands
+  engine       Database engines commands
+  instance     Instance management commands
+  log          Instance logs management commands
+  node-type    Node types management commands
+  privilege    User privileges management commands
+  read-replica Read replica management
+  snapshot     Block snapshot management
+  user         User management commands
 
 FLAGS:
   -h, --help   help for rdb
