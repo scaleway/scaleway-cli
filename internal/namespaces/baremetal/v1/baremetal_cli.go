@@ -67,8 +67,8 @@ func baremetalOs() *core.Command {
 
 func baremetalBmc() *core.Command {
 	return &core.Command{
-		Short: `Unvailable - Baseboard Management Controller (BMC) management commands`,
-		Long: `Unvailable - Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+		Short: `Baseboard Management Controller (BMC) management commands`,
+		Long: `Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
 `,
 		Namespace: "baremetal",
@@ -623,8 +623,8 @@ func baremetalServerStop() *core.Command {
 
 func baremetalBmcStart() *core.Command {
 	return &core.Command{
-		Short: `Unvailable - Start BMC (Baseboard Management Controller) access for a given elastic metal server`,
-		Long: `Unvailable - Start BMC (Baseboard Management Controller) access associated with the given ID.
+		Short: `Start BMC (Baseboard Management Controller) access for a given elastic metal server`,
+		Long: `Start BMC (Baseboard Management Controller) access associated with the given ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
 `,
 		Namespace: "baremetal",
