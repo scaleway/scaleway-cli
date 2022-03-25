@@ -101,7 +101,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// create the file
-		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0644)
+		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0600)
 		if err != nil {
 			return nil, err
 		}
