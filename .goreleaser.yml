@@ -35,7 +35,7 @@ checksum:
   algorithm: sha256
 
 changelog:
-  use: github-native
+  use: github
   sort: asc
   filters:
     exclude:
