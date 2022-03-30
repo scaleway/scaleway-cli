@@ -24,8 +24,8 @@ builds:
     ldflags:
       - -X main.Version={{ .Version }}
       - -X main.BuildDate={{ .Date }}
-      - -X main.GitBranch={{ .GitBranch }}
-      - -X main.GitCommit={{ .GitShortCommit }}
+      - -X main.GitBranch={{ .Branch }}
+      - -X main.GitCommit={{ .ShortCommit }}
 
 archives:
   - format: binary
