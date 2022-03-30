@@ -20,7 +20,6 @@ ARGS:
   [tags.{index}]                                         The tags associated with the cluster
   version=latest                                         The Kubernetes version of the cluster
   cni=cilium                                             The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
-  [ingress]                                              The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
   pools.{index}.name                                     The name of the pool
   pools.{index}.node-type                                The node type is the type of Scaleway Instance wanted for the pool
   [pools.{index}.placement-group-id]                     The placement group ID in which all the nodes of the pool will be created
@@ -63,6 +62,7 @@ ARGS:
 
 DEPRECATED ARGS:
   [enable-dashboard]   The enablement of the Kubernetes Dashboard in the cluster
+  [ingress]            The Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
 
 FLAGS:
   -h, --help   help for create
