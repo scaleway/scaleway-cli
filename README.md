@@ -13,9 +13,8 @@ Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly f
 
 ## With a Package Manager (Recommended)
 
-A package manager allows to install and upgrade the Scaleway CLI with a single command. We recommend this installation mode for more simplicity and reliability:
-
-<!-- TODO: We support a growing set of package managers to feat your preferences and your platform. Note that some package managers are maintained by our community: -->
+A package manager installs and upgrades the Scaleway CLI with a single command.
+We recommend this installation mode for more simplicity and reliability:
 
 ### Homebrew
 
@@ -36,19 +35,11 @@ yay -S scaleway-cli
 
 ### Chocolatey
 
-Install the lastest stable release on Windows using [Chocolatey](https://chocolatey.org/) ([Package](https://chocolatey.org/packages/scaleway-cli)):
+Install the latest stable release on Windows using [Chocolatey](https://chocolatey.org/) ([Package](https://chocolatey.org/packages/scaleway-cli)):
 
 ```powershell
 choco install scaleway-cli
 ```
-
-<!--- TODO:
-### Others
-
-TODO: Add other package managers:
-- [Snap](https://snapcraft.io/)
-- [Apt](https://wiki.debian.org/Apt)
--->
 
 ## Manually
 
@@ -57,28 +48,14 @@ TODO: Add other package managers:
 We provide [static-compiled binaries](https://github.com/scaleway/scaleway-cli/releases/latest) for darwin (macOS), GNU/Linux, and Windows platforms.
 You just have to download the binary compatible with your platform to a directory available in your `PATH`:
 
-#### Mac OS
-
-```bash
-# Check that /usr/local/bin is in your PATH
-echo $PATH
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-# Download the release from github
-curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.4.0/scw-2.4.0-darwin-x86_64"
-
-# Allow executing file as program
-chmod +x /usr/local/bin/scw
-
-# Init the CLI
-scw init
-```
-
 #### Linux
 
 ```bash
+# Check out the latest release available on github <https://github.com/scaleway/scaleway-cli/releases/latest>
+VERSION="2.4.0"
+
 # Download the release from github
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.4.0/scw-2.4.0-linux-x86_64"
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v$VERSION/scw-$VERSION-linux-x86_64"
 
 # Allow executing file as program
 sudo chmod +x /usr/local/bin/scw
@@ -89,44 +66,15 @@ scw init
 
 #### Windows
 
-You can download the last release here: https://github.com/scaleway/scaleway-cli/releases/download/v2.4.0/scw-2.4.0-windows-x86_64.exe<br/>
+You can download the last release here: <https://github.com/scaleway/scaleway-cli/releases><br/>
 [This official guide](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574%28v%3Doffice.14%29) explains how to add tools to your `PATH`.
-
-<!-- TODO:
-
-### Debian
-
-First, download [the `.deb` file](https://github.com/scaleway/scaleway-cli/releases/latest) compatible with your architecture:
-
-```bash
-export ARCH=amd64 # Can be 'amd64', 'arm', 'arm64' or 'i386'
-wget "https://github.com/scaleway/scaleway-cli/releases/download/v2.4.0/scw-v2.4.0-${ARCH}.deb" -O /tmp/scw.deb
-```
-
-Then, run the installation and remove the `.deb` file:
-```bash
-dpkg -i /tmp/scw.deb && rm -f /tmp/scw.deb
-```
--->
-
-<!-- TODO:
-## With a Docker Image
-
-### Official releases (Coming soon..)
-
-For each release, we deliver a tagged image on the [Scaleway Docker Hub](https://hub.docker.com/r/scaleway/cli/tags) so can run `scw` in a sandboxed way: _Coming soon..._
-
-```sh
-docker run scaleway/cli version
-```
--->
 
 ## Docker Image
 
 You can use the CLI as you would run any Docker image:
 
 ```sh
-docker run -i --rm scaleway/cli:v2.4.0
+docker run -i --rm scaleway/cli:latest
 ```
 
 See more in-depth information about running the CLI in Docker [here](./docs/docker.md)
