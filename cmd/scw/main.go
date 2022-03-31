@@ -15,7 +15,7 @@ import (
 
 var (
 	// Version is updated by goreleaser
-	Version = "dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+	Version = "v2-dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
 
 	// These are initialized by the build script
 
