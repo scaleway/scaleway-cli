@@ -70,6 +70,9 @@ func baremetalBmc() *core.Command {
 		Short: `Baseboard Management Controller (BMC) management commands`,
 		Long: `Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
+You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
+Then you need to create Remote Access https://developers.scaleway.com/en/products/baremetal/api/#post-1af723.
+And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
 `,
 		Namespace: "baremetal",
 		Resource:  "bmc",
@@ -626,6 +629,8 @@ func baremetalBmcStart() *core.Command {
 		Short: `Start BMC (Baseboard Management Controller) access for a given elastic metal server`,
 		Long: `Start BMC (Baseboard Management Controller) access associated with the given ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
+You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
+ After start BMC, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
 `,
 		Namespace: "baremetal",
 		Resource:  "bmc",
