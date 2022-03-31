@@ -1,5 +1,7 @@
 # Changelog
 
+Changelog moved to Release Notes in [Github Releases](https://github.com/scaleway/scaleway-cli/releases)
+
 ## v2.4.0 (2021-10-28)
 
 ### Features
