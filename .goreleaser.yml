@@ -48,6 +48,13 @@ dockers:
       - "scaleway/cli:{{ .Tag }}"
       - "scaleway/cli:{{ .Major }}"
       - "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+    extra_files:
+      - go.mod
+      - go.sum
+      - scripts
+      - cmd
+      - internal
+      - .git
 
 release:
   github:
