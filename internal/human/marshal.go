@@ -14,6 +14,8 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // Padding between column
@@ -366,7 +368,7 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	title := section.Title
 	if title == "" {
 		title = strings.ReplaceAll(strcase.ToBashArg(section.FieldName), "-", " ")
-		title = strings.Title(strings.ReplaceAll(title, ".", " - "))
+		title = cases.Title(language.English).String(strings.ReplaceAll(title, ".", " - "))
 	}
 	subOpt.Title = title
 
