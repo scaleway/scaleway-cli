@@ -22,6 +22,7 @@ import (
 	"github.com/scaleway/scaleway-cli/internal/namespaces/marketplace/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/rdb/v1"
+	redis "github.com/scaleway/scaleway-cli/internal/namespaces/redis/v1alpha1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/registry/v1"
 	versionNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/vpc/v1"
@@ -59,5 +60,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(container.GetCommands())
 	commands.Merge(function.GetCommands())
 	commands.Merge(vpcgw.GetCommands())
+	commands.Merge(redis.GetCommands())
 	return commands
 }
