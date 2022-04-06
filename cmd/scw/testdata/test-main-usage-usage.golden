@@ -24,6 +24,7 @@ AVAILABLE COMMANDS:
   marketplace   Marketplace API
   object        Object-storage utils
   rdb           Database RDB API
+  redis         Database Redis API
   registry      Container registry API
   version       Display cli version
   vpc           VPC API
