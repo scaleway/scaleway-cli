@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Manage endpoints to access to your cluster trough Public or Private networks
+
+USAGE:
+  scw redis endpoint <command>
+
+AVAILABLE COMMANDS:
+  add         Add endpoints for a given cluster
+  delete      Delete an endpoint for a given cluster
+  get         Get an endpoint
+  set         Set endpoints for a given cluster
+
+FLAGS:
+  -h, --help   help for endpoint
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw redis endpoint [command] --help" for more information about a command.

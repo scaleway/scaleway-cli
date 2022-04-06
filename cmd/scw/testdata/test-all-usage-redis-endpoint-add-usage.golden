@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Add endpoints for a given cluster.
+
+USAGE:
+  scw redis endpoint add [arg=value ...]
+
+ARGS:
+  cluster-id                                                UUID of the cluster you want to add endpoints to
+  [endpoints.{index}.private-network.id]                    UUID of the private network to be connected to the cluster
+  [endpoints.{index}.private-network.service-ips.{index}]   Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.
+  [zone=fr-par-1]                                           Zone to target. If none is passed will use default zone from the config (fr-par-2)
+
+FLAGS:
+  -h, --help   help for add
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
