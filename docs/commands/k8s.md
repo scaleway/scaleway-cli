@@ -81,8 +81,6 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
 | pools.{index}.zone |  | The Zone in which the Pool's node will be spawn in |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | The system volume disk type |
-| pools.{index}.root-volume-size |  | The system volume disk size |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -730,8 +728,6 @@ scw k8s pool create [arg=value ...]
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | zone |  | The Zone in which the Pool's node will be spawn in |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | The system volume disk type |
-| root-volume-size |  | The system volume disk size |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
