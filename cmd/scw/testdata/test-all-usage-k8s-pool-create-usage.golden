@@ -31,6 +31,8 @@ ARGS:
   [upgrade-policy.max-unavailable]   
   [upgrade-policy.max-surge]         
   [zone]                             The Zone in which the Pool's node will be spawn in
+  [root-volume-type]                 The system volume disk type (default_volume_type | l_ssd | b_ssd)
+  [root-volume-size]                 The system volume disk size
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
