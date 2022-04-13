@@ -399,6 +399,21 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "pools.{index}.root-volume-type",
+				Short:      `The system volume disk type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+			},
+			{
+				Name:       "pools.{index}.root-volume-size",
+				Short:      `The system volume disk size`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
 				Short:      `Disable the cluster autoscaler`,
 				Required:   false,
@@ -1295,6 +1310,21 @@ func k8sPoolCreate() *core.Command {
 			{
 				Name:       "zone",
 				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "root-volume-type",
+				Short:      `The system volume disk type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+			},
+			{
+				Name:       "root-volume-size",
+				Short:      `The system volume disk size`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
