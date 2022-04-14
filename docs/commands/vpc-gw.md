@@ -351,6 +351,7 @@ scw vpc-gw gateway create [arg=value ...]
 | type | Default: `VPC-GW-S` | Gateway type |
 | upstream-dns-servers.{index} |  | Override the gateway's default recursive DNS servers, if DNS features are enabled |
 | ip-id |  | Attach an existing IP to the gateway |
+| enable-smtp |  | Allow SMTP traffic to pass through the gateway |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -444,6 +445,7 @@ scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
 | upstream-dns-servers.{index} |  | Override the gateway's default recursive DNS servers, if DNS features are enabled |
 | enable-bastion |  | Enable SSH bastion on the gateway |
 | bastion-port |  | Port of the SSH bastion |
+| enable-smtp |  | Allow SMTP traffic to pass through the gateway |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
