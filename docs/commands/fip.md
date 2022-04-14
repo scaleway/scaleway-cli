@@ -64,6 +64,7 @@ scw fip ip create [arg=value ...]
 | tags.{index} |  | Tags to associate to the Flexible IP |
 | server-id |  | Server ID on which to attach the created Flexible IP |
 | reverse |  | Reverse DNS value |
+| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
