@@ -339,13 +339,6 @@ func vpcGwGatewayCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "enable-smtp",
-				Short:      `Allow SMTP traffic to pass through the gateway`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -407,13 +400,6 @@ func vpcGwGatewayUpdate() *core.Command {
 			{
 				Name:       "bastion-port",
 				Short:      `Port of the SSH bastion`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "enable-smtp",
-				Short:      `Allow SMTP traffic to pass through the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
