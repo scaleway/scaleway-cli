@@ -79,7 +79,7 @@ scw lb acl create [arg=value ...]
 | match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -99,7 +99,7 @@ scw lb acl delete <acl-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acl-id | Required | ID of your ACL ressource |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -119,7 +119,7 @@ scw lb acl get <acl-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acl-id | Required | ID of your ACL ressource |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -141,7 +141,7 @@ scw lb acl list [arg=value ...]
 | frontend-id | Required | ID of your frontend |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | You can order the response by created_at asc/desc or name asc/desc |
 | name |  | Filter acl per name |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -169,7 +169,7 @@ scw lb acl set [arg=value ...]
 | acls.{index}.match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | acls.{index}.index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
 | frontend-id | Required | The Frontend to change ACL to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -197,7 +197,7 @@ scw lb acl update <acl-id ...> [arg=value ...]
 | match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -223,7 +223,7 @@ scw lb backend add-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | server-ip.{index} | Required | Set all IPs to add on your backend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -270,7 +270,7 @@ scw lb backend create [arg=value ...]
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Modify what occurs when a backend server is marked down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
 | failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -290,7 +290,7 @@ scw lb backend delete <backend-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | backend-id | Required | ID of the backend to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -310,7 +310,7 @@ scw lb backend get <backend-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | backend-id | Required | Backend ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -332,7 +332,7 @@ scw lb backend list [arg=value ...]
 | lb-id | Required | Load balancer ID |
 | name |  | Use this to search by name |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Choose order of response |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -353,7 +353,7 @@ scw lb backend remove-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | server-ip.{index} | Required | Set all IPs to remove of your backend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -374,7 +374,7 @@ scw lb backend set-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | server-ip.{index} | Required | Set all IPs to add on your backend and remove all other |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -407,7 +407,7 @@ scw lb backend update [arg=value ...]
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` |  |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` |  |
 | failover-host |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -440,7 +440,7 @@ scw lb backend update-healthcheck [arg=value ...]
 | https-config.method |  |  |
 | https-config.code |  |  |
 | check-send-proxy |  | It defines whether the healthcheck should be done considering the proxy protocol |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -469,7 +469,7 @@ scw lb certificate create [arg=value ...]
 | letsencrypt-common-name |  | Main domain name of certificate (make sure this domain exists and resolves to your load balancer HA IP) |
 | letsencrypt-alternative-name.{index} |  | Alternative domain names (make sure all domain names exists and resolves to your load balancer HA IP) |
 | custom-certificate-chain |  | The full PEM-formatted include an entire certificate chain including public key, private key, and optionally certificate authorities. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -489,7 +489,7 @@ scw lb certificate delete <certificate-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | certificate-id | Required | Certificate ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -509,7 +509,7 @@ scw lb certificate get <certificate-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | certificate-id | Required | Certificate ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -531,7 +531,7 @@ scw lb certificate list [arg=value ...]
 | lb-id | Required | Load balancer ID |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | You can order the response by created_at asc/desc or name asc/desc |
 | name |  | Use this to search by name |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -552,7 +552,7 @@ scw lb certificate update <certificate-id ...> [arg=value ...]
 |------|---|-------------|
 | certificate-id | Required | Certificate ID |
 | name | Required | Certificate name |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -583,7 +583,7 @@ scw lb frontend create [arg=value ...]
 | timeout-client |  | Set the maximum inactivity time on the client side |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array ! |
 | certificate-ids.{index} |  | List of certificate IDs to bind on the frontend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -603,7 +603,7 @@ scw lb frontend delete <frontend-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | frontend-id | Required | Frontend ID to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -623,7 +623,7 @@ scw lb frontend get <frontend-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | frontend-id | Required | Frontend ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -645,7 +645,7 @@ scw lb frontend list [arg=value ...]
 | lb-id | Required | Load balancer ID |
 | name |  | Use this to search by name |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Response order |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -671,7 +671,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 | timeout-client |  | Client session maximum inactivity time |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of `certificate_ids` array! |
 | certificate-ids.{index} |  | List of certificate IDs to bind on the frontend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -698,7 +698,7 @@ scw lb ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse domain name |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -718,7 +718,7 @@ scw lb ip delete <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | IP address ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -738,7 +738,7 @@ scw lb ip get <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | IP address ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -760,7 +760,7 @@ scw lb ip list [arg=value ...]
 | ip-address |  | Use this to search by IP address |
 | project-id |  | Filter IPs by project ID |
 | organization-id |  | Filter IPs by organization id |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -781,7 +781,7 @@ scw lb ip update <ip-id ...> [arg=value ...]
 |------|---|-------------|
 | ip-id | Required | IP address ID |
 | reverse |  | Reverse DNS |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -813,7 +813,7 @@ scw lb lb create [arg=value ...]
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load balancer offer type |
 | ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` |  |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -834,7 +834,7 @@ scw lb lb delete <lb-id ...> [arg=value ...]
 |------|---|-------------|
 | lb-id | Required | Load balancer ID |
 | release-ip |  | Set true if you don't want to keep this IP address |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -854,7 +854,7 @@ scw lb lb get <lb-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | lb-id | Required | Load balancer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -874,7 +874,7 @@ scw lb lb get-stats <lb-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | lb-id | Required | Load balancer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -897,7 +897,7 @@ scw lb lb list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
 | project-id |  | Filter LBs by project ID |
 | organization-id |  | Filter LBs by organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -918,7 +918,7 @@ scw lb lb migrate <lb-id ...> [arg=value ...]
 |------|---|-------------|
 | lb-id | Required | Load balancer ID |
 | type | Required<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load balancer type (check /lb-types to list all type) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -942,7 +942,7 @@ scw lb lb update <lb-id ...> [arg=value ...]
 | description | Required | Resource description |
 | tags.{index} |  | List of keywords |
 | ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -996,7 +996,7 @@ scw lb lb-types list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
