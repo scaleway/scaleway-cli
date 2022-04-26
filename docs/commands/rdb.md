@@ -46,7 +46,6 @@ Database RDB API
 - [User privileges management commands](#user-privileges-management-commands)
   - [List privileges of a given user for a given database on a given instance](#list-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
   - [Set privileges of a given user for a given database on a given instance](#set-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
-- [Read replica management](#read-replica-management)
 - [Block snapshot management](#block-snapshot-management)
   - [Create an instance snapshot](#create-an-instance-snapshot)
   - [Delete an instance snapshot](#delete-an-instance-snapshot)
@@ -922,22 +921,6 @@ scw rdb privilege set [arg=value ...]
 | user-name |  | Name of the user |
 | permission | One of: `readonly`, `readwrite`, `all`, `custom`, `none` | Permission to set (Read, Read/Write, All, Custom) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Read replica management
-
-A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
-
-
-A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
-
-
-**Usage:**
-
-```
-scw rdb read-replica
-```
 
 
 
