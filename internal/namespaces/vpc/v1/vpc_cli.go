@@ -141,6 +141,13 @@ func vpcPrivateNetworkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "subnets.{index}",
+				Short:      `Private network subnets CIDR`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneNlAms1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -211,6 +218,13 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `The private networks tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subnets.{index}",
+				Short:      `Private network subnets CIDR`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
