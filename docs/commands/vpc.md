@@ -40,6 +40,7 @@ scw vpc private-network create [arg=value ...]
 | name | Required<br />Default: `<generated>` | The name of the private network |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | The private networks tags |
+| subnets.{index} |  | Private network subnets CIDR |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -126,6 +127,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | private-network-id | Required | The private network ID |
 | name |  | The name of the private network |
 | tags.{index} |  | The private networks tags |
+| subnets.{index} |  | Private network subnets CIDR |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
