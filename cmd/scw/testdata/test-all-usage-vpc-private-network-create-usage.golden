@@ -6,10 +6,11 @@ USAGE:
   scw vpc private-network create [arg=value ...]
 
 ARGS:
-  name=<generated>   The name of the private network
-  [project-id]       Project ID to use. If none is passed the default project ID will be used
-  [tags.{index}]     The private networks tags
-  [zone=fr-par-1]    Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
+  name=<generated>    The name of the private network
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
+  [tags.{index}]      The private networks tags
+  [subnets.{index}]   Private network subnets CIDR
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for create
