@@ -91,7 +91,9 @@ func appleSiliconServerTypeList() *core.Command {
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(applesilicon.ListServerTypesRequest{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ListServerTypesRequest)
 
@@ -120,6 +122,7 @@ func appleSiliconServerTypeGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.GetServerTypeRequest)
@@ -159,6 +162,7 @@ func appleSiliconServerCreate() *core.Command {
 				Positional: false,
 				Default:    core.DefaultValueSetter("M1-M"),
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.CreateServerRequest)
@@ -203,6 +207,7 @@ func appleSiliconServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ListServersRequest)
@@ -243,6 +248,7 @@ func appleSiliconOsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ListOSRequest)
@@ -276,6 +282,7 @@ func appleSiliconOsGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.GetOSRequest)
@@ -305,6 +312,7 @@ func appleSiliconServerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.GetServerRequest)
@@ -341,6 +349,7 @@ func appleSiliconServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.UpdateServerRequest)
@@ -370,6 +379,7 @@ func appleSiliconServerDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.DeleteServerRequest)
@@ -405,6 +415,7 @@ func appleSiliconServerReboot() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.RebootServerRequest)
@@ -434,6 +445,7 @@ func appleSiliconServerReinstall() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ReinstallServerRequest)
