@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          3bdf44a5-d2c4-4d1a-9739-382fb13cdb6a
+ID                          1221fbbf-b6b8-48ba-a337-f9df98c8e2a6
 Name                        foobar
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
 ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
@@ -10,16 +10,16 @@ Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-m
-Endpoints.0.ID              797ff9f1-4b4a-401d-a187-25e97a485044
-Endpoints.0.IP              195.154.70.55
-Endpoints.0.Port            47358
+Endpoints.0.ID              389a42f1-9e27-49f6-8a54-73ffa3a80f03
+Endpoints.0.IP              51.159.112.132
+Endpoints.0.Port            10606
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    797ff9f1-4b4a-401d-a187-25e97a485044
-IP    195.154.70.55
-Port  47358
+ID    389a42f1-9e27-49f6-8a54-73ffa3a80f03
+IP    51.159.112.132
+Port  10606
 
 Volume:
 Type  lssd
@@ -46,16 +46,16 @@ max_parallel_workers_per_gather  0
     "size": 25000000000
   },
   "region": "fr-par",
-  "id": "3bdf44a5-d2c4-4d1a-9739-382fb13cdb6a",
+  "id": "1221fbbf-b6b8-48ba-a337-f9df98c8e2a6",
   "name": "foobar",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "id": "797ff9f1-4b4a-401d-a187-25e97a485044",
-    "ip": "195.154.70.55",
-    "port": 47358,
+    "id": "389a42f1-9e27-49f6-8a54-73ffa3a80f03",
+    "ip": "51.159.112.132",
+    "port": 10606,
     "name": null,
     "load_balancer": {}
   },
@@ -96,9 +96,9 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "797ff9f1-4b4a-401d-a187-25e97a485044",
-      "ip": "195.154.70.55",
-      "port": 47358,
+      "id": "389a42f1-9e27-49f6-8a54-73ffa3a80f03",
+      "ip": "51.159.112.132",
+      "port": 10606,
       "name": null,
       "load_balancer": {}
     }
