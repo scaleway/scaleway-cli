@@ -52,6 +52,7 @@ scw apple-silicon os get <os-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | os-id | Required | UUID of the OS you want to get |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -72,6 +73,7 @@ scw apple-silicon os list [arg=value ...]
 |------|---|-------------|
 | server-type |  | List of compatible server type |
 | name |  | Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12") |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -98,6 +100,7 @@ scw apple-silicon server create [arg=value ...]
 | name | Default: `<generated>` | Create a server with this given name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | type | Default: `M1-M` | Create a server of the given type |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -117,6 +120,7 @@ scw apple-silicon server delete <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -136,6 +140,7 @@ scw apple-silicon server get <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to get |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -157,6 +162,7 @@ scw apple-silicon server list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned servers |
 | project-id |  | List only servers of this project ID |
 | organization-id |  | List only servers of this organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -176,6 +182,7 @@ scw apple-silicon server reboot <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to reboot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -195,6 +202,7 @@ scw apple-silicon server reinstall <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to reinstall |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -238,6 +246,7 @@ scw apple-silicon server update <name ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to update |
 | name | Required | Updated name for your server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -292,6 +301,7 @@ scw apple-silicon server-type get <server-type ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-type | Required | Server type identifier |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -302,8 +312,15 @@ List all server types technical details.
 **Usage:**
 
 ```
-scw apple-silicon server-type list
+scw apple-silicon server-type list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

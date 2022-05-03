@@ -3,7 +3,10 @@
 List all server types technical details.
 
 USAGE:
-  scw apple-silicon server-type list
+  scw apple-silicon server-type list [arg=value ...]
+
+ARGS:
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
   -h, --help   help for list
