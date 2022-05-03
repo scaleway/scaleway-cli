@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          fefe6fdd-328b-45ab-8384-fafad7e1459b
+ID                          b51d2372-01a1-4249-9ce3-0e47600033ae
 Name                        cli-test
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
 ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
@@ -10,16 +10,16 @@ Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              4f5b874d-655f-44ec-8fad-d8a8d5b09590
-Endpoints.0.IP              51.159.9.176
-Endpoints.0.Port            31733
+Endpoints.0.ID              ab0013b4-223a-4079-9a75-1e1308ab3b9d
+Endpoints.0.IP              51.159.112.132
+Endpoints.0.Port            18736
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    4f5b874d-655f-44ec-8fad-d8a8d5b09590
-IP    51.159.9.176
-Port  31733
+ID    ab0013b4-223a-4079-9a75-1e1308ab3b9d
+IP    51.159.112.132
+Port  18736
 
 Volume:
 Type  lssd
@@ -46,16 +46,16 @@ max_parallel_workers_per_gather  0
     "size": 5000000000
   },
   "region": "fr-par",
-  "id": "fefe6fdd-328b-45ab-8384-fafad7e1459b",
+  "id": "b51d2372-01a1-4249-9ce3-0e47600033ae",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
-    "ip": "51.159.9.176",
-    "port": 31733,
+    "id": "ab0013b4-223a-4079-9a75-1e1308ab3b9d",
+    "ip": "51.159.112.132",
+    "port": 18736,
     "name": null,
     "load_balancer": {}
   },
@@ -92,14 +92,13 @@ max_parallel_workers_per_gather  0
     "disabled": false
   },
   "is_ha_cluster": false,
-  "read_replicas": [],
   "node_type": "db-dev-s",
   "init_settings": [],
   "endpoints": [
     {
-      "id": "4f5b874d-655f-44ec-8fad-d8a8d5b09590",
-      "ip": "51.159.9.176",
-      "port": 31733,
+      "id": "ab0013b4-223a-4079-9a75-1e1308ab3b9d",
+      "ip": "51.159.112.132",
+      "port": 18736,
       "name": null,
       "load_balancer": {}
     }
