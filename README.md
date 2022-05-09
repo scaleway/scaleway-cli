@@ -24,13 +24,13 @@ Install the latest stable release on macOS using [Homebrew](http://brew.sh):
 brew install scw
 ```
 
-### Archlinux
+### Arch Linux
 
-Install the latest stable release on Archlinux via [AUR](https://aur.archlinux.org/packages/scaleway-cli/).
-For instance with `yay`:
+Install the latest stable release on Arch Linux from [offcial repositories](https://archlinux.org/packages/community/x86_64/scaleway-cli/).
+For instance with `pacman`:
 
 ```sh
-yay -S scaleway-cli
+pacman -S scaleway-cli
 ```
 
 ### Chocolatey
