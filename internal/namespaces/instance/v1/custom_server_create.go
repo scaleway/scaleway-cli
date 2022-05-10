@@ -85,6 +85,7 @@ func serverCreateCommand() *core.Command {
 					"PLAY2-PICO",
 					"PLAY2-NANO",
 					"PLAY2-MICRO",
+					"GPU-3070-S",
 				},
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					// Allow all commercial types
