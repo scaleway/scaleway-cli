@@ -82,6 +82,9 @@ func serverCreateCommand() *core.Command {
 					"PRO2-S",
 					"PRO2-M",
 					"PRO2-L",
+					"PLAY2-PICO",
+					"PLAY2-NANO",
+					"PLAY2-MICRO",
 				},
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					// Allow all commercial types
