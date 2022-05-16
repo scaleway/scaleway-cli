@@ -55,8 +55,8 @@ You just have to download the binary compatible with your platform to a director
 VERSION="2.5.1"
 
 # Download the release from github
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v$VERSION/scaleway-cli_$VERSION_linux_amd64"
-# Naming changed lately, the url prior to 2.5.1 was https://github.com/scaleway/scaleway-cli/releases/download/v$VERSION/scw-$VERSION-linux-x86_64
+sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scaleway-cli_${VERSION}_linux_amd64"
+# Naming changed lately, the url prior to 2.5.1 was https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scw-${VERSION}-linux-x86_64
 
 # Allow executing file as program
 sudo chmod +x /usr/local/bin/scw
