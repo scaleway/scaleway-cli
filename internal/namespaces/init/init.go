@@ -29,27 +29,27 @@ See below the schema `scw init` follows to ask for default config:
 +---+  no +----v----+       |no
 |out+<----+Override?|       v
 +---+     +----+----+  +----+-----+
-               |       |Read email+-----------+
-               +------>+ or token |  token    |
+               |       |Read      +-----------+
+               +------>+    token |  token    |
                  yes   +----------+           |
-                            |email            |
-                            v                 v
-                        +---+----+     +------+---+
-                        |  Read  |     |Get access|
-                        |password|     |   key    |
-                        +---+----+     +------+---+
-                            |                 |
-                            v                 |
-           +--------+ yes +-+-+               |
-           |Read OTP+<----+2FA|               |
-           +---+----+     +---+               |
-               |            |no               |
-               |            v                 |
-               |      +-----+------+          |
-               +----->+Create token|          |
-                      +-----+------+          |
-                            |                 |
-                            v                 |
+                                              |
+                                              v
+                                       +------+---+
+                                       |Get access|
+                                       |   key    |
+                                       +------+---+
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
                     +-------+----------+      |
                     |ask default config+<-----+
                     +------------------+
@@ -371,56 +371,11 @@ func promptCredentials(ctx context.Context) (string, error) {
 	}
 
 	switch {
-	case validation.IsEmail(UUIDOrEmail):
-		passwordRetriesLeft := 3
-		for passwordRetriesLeft > 0 {
-			email := UUIDOrEmail
-			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-				Ctx:    ctx,
-				Prompt: "Enter your " + terminal.Style("password", color.Bold),
-			})
-			if err != nil {
-				return "", err
-			}
-			hostname, _ := os.Hostname()
-			loginReq := &account.LoginRequest{
-				Email:       email,
-				Password:    password,
-				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
-			}
-			for {
-				loginResp, err := account.Login(ctx, loginReq)
-				if err != nil {
-					return "", err
-				}
-				if loginResp.WrongPassword {
-					passwordRetriesLeft--
-					if loginReq.TwoFactorToken == "" {
-						interactive.Printf("Wrong username or password.\n")
-					} else {
-						interactive.Printf("Wrong 2FA code.\n")
-					}
-					break
-				}
-				if !loginResp.TwoFactorRequired {
-					return loginResp.Token.SecretKey, nil
-				}
-				loginReq.TwoFactorToken, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Ctx:    ctx,
-					Prompt: "Enter your 2FA code",
-				})
-				if err != nil {
-					return "", err
-				}
-			}
-		}
-		return "", fmt.Errorf("wrong password entered 3 times in a row, exiting")
-
 	case validation.IsUUID(UUIDOrEmail):
 		return UUIDOrEmail, nil
 
 	default:
-		return "", fmt.Errorf("invalid email or secret-key: '%v'", UUIDOrEmail)
+		return "", fmt.Errorf("invalid secret-key: '%v'", UUIDOrEmail)
 	}
 }
 
