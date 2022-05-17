@@ -69,6 +69,7 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 
 func Test_InitSSH(t *testing.T) {
 	defaultSettings := map[string]string{
+		"access-key":           "{{ .AccessKey }}",
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "false",
 		"remove-v1-config":     "false",
