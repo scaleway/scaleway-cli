@@ -14,6 +14,7 @@ import (
 
 func baseBeforeFunc() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
+		ctx.Meta["AccessKey"], _ = ctx.Client.GetAccessKey()
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
 		return nil
 	}
@@ -27,6 +28,7 @@ const (
 
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
+		"access-key":       "{{ .AccessKey }}",
 		"secret-key":       "{{ .SecretKey }}",
 		"send-telemetry":   "false",
 		"remove-v1-config": "false",
