@@ -69,6 +69,7 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 
 func Test_InitSSH(t *testing.T) {
 	defaultSettings := map[string]string{
+		"access-key":           "{{ .AccessKey }}",
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "false",
 		"remove-v1-config":     "false",
@@ -119,7 +120,7 @@ func Test_InitSSH(t *testing.T) {
 	}))
 
 	t.Run("WithLocalEd25519Key", func(t *testing.T) {
-		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJb42xh9l10D/u9imDFfLZ+U6KrZmr/F/qBClnmijCFF/qEehPJxK/3thmMiZg foobaz@foobaz"
+		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar"
 		core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(

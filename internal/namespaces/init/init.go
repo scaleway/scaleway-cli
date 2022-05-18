@@ -29,27 +29,27 @@ See below the schema `scw init` follows to ask for default config:
 +---+  no +----v----+       |no
 |out+<----+Override?|       v
 +---+     +----+----+  +----+-----+
-               |       |Read email+-----------+
-               +------>+ or token |  token    |
+               |       |Read      +-----------+
+               +------>+    token |  token    |
                  yes   +----------+           |
-                            |email            |
-                            v                 v
-                        +---+----+     +------+---+
-                        |  Read  |     |Get access|
-                        |password|     |   key    |
-                        +---+----+     +------+---+
-                            |                 |
-                            v                 |
-           +--------+ yes +-+-+               |
-           |Read OTP+<----+2FA|               |
-           +---+----+     +---+               |
-               |            |no               |
-               |            v                 |
-               |      +-----+------+          |
-               +----->+Create token|          |
-                      +-----+------+          |
-                            |                 |
-                            v                 |
+                                              |
+                                              v
+                                       +------+---+
+                                       |Get access|
+                                       |   key    |
+                                       +------+---+
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
+                                              |
                     +-------+----------+      |
                     |ask default config+<-----+
                     +------------------+
@@ -60,6 +60,7 @@ func GetCommands() *core.Commands {
 }
 
 type initArgs struct {
+	AccessKey           string
 	SecretKey           string
 	Region              scw.Region
 	Zone                scw.Zone
@@ -148,9 +149,17 @@ Default path for configuration file is based on the following priority order:
 			// Manually prompt for missing args:
 
 			// Credentials
+			if args.AccessKey == "" {
+				_, _ = interactive.Println()
+				args.AccessKey, err = promptAccessKey(ctx)
+				if err != nil {
+					return err
+				}
+			}
+
 			if args.SecretKey == "" {
 				_, _ = interactive.Println()
-				args.SecretKey, err = promptCredentials(ctx)
+				args.SecretKey, err = promptSecret(ctx)
 				if err != nil {
 					return err
 				}
@@ -346,24 +355,22 @@ Default path for configuration file is based on the following priority order:
 	}
 }
 
-func promptCredentials(ctx context.Context) (string, error) {
-	UUIDOrEmail, err := interactive.Readline(&interactive.ReadlineConfig{
+func promptSecret(ctx context.Context) (string, error) {
+	secret, err := interactive.Readline(&interactive.ReadlineConfig{
 		Ctx: ctx,
 		PromptFunc: func(value string) string {
-			secretKey, email := "secret-key", "email"
+			secretKey := "secret-key"
 			switch {
-			case validation.IsEmail(value):
-				email = terminal.Style(email, color.FgBlue)
 			case validation.IsUUID(value):
 				secretKey = terminal.Style(secretKey, color.FgBlue)
 			}
-			return terminal.Style(fmt.Sprintf("Enter a valid %s or an %s: ", secretKey, email), color.Bold)
+			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
 		},
 		ValidateFunc: func(s string) error {
-			if validation.IsEmail(s) || validation.IsSecretKey(s) {
+			if validation.IsSecretKey(s) {
 				return nil
 			}
-			return fmt.Errorf("invalid email or secret-key")
+			return fmt.Errorf("invalid secret-key")
 		},
 	})
 	if err != nil {
@@ -371,56 +378,41 @@ func promptCredentials(ctx context.Context) (string, error) {
 	}
 
 	switch {
-	case validation.IsEmail(UUIDOrEmail):
-		passwordRetriesLeft := 3
-		for passwordRetriesLeft > 0 {
-			email := UUIDOrEmail
-			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-				Ctx:    ctx,
-				Prompt: "Enter your " + terminal.Style("password", color.Bold),
-			})
-			if err != nil {
-				return "", err
-			}
-			hostname, _ := os.Hostname()
-			loginReq := &account.LoginRequest{
-				Email:       email,
-				Password:    password,
-				Description: fmt.Sprintf("scw-cli %s@%s", os.Getenv("USER"), hostname),
-			}
-			for {
-				loginResp, err := account.Login(ctx, loginReq)
-				if err != nil {
-					return "", err
-				}
-				if loginResp.WrongPassword {
-					passwordRetriesLeft--
-					if loginReq.TwoFactorToken == "" {
-						interactive.Printf("Wrong username or password.\n")
-					} else {
-						interactive.Printf("Wrong 2FA code.\n")
-					}
-					break
-				}
-				if !loginResp.TwoFactorRequired {
-					return loginResp.Token.SecretKey, nil
-				}
-				loginReq.TwoFactorToken, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Ctx:    ctx,
-					Prompt: "Enter your 2FA code",
-				})
-				if err != nil {
-					return "", err
-				}
-			}
-		}
-		return "", fmt.Errorf("wrong password entered 3 times in a row, exiting")
-
-	case validation.IsUUID(UUIDOrEmail):
-		return UUIDOrEmail, nil
+	case validation.IsUUID(secret):
+		return secret, nil
 
 	default:
-		return "", fmt.Errorf("invalid email or secret-key: '%v'", UUIDOrEmail)
+		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
+	}
+}
+
+func promptAccessKey(ctx context.Context) (string, error) {
+	accessKey, err := interactive.Readline(&interactive.ReadlineConfig{
+		Ctx: ctx,
+		PromptFunc: func(value string) string {
+			accessKey := "access-key"
+			switch {
+			case validation.IsUUID(value):
+				accessKey = terminal.Style(accessKey, color.FgBlue)
+			}
+			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
+		},
+		ValidateFunc: func(s string) error {
+			if validation.IsAccessKey(s) {
+				return nil
+			}
+			return fmt.Errorf("invalid access-key")
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+
+	switch {
+	case validation.IsAccessKey(accessKey):
+		return accessKey, nil
+	default:
+		return "", fmt.Errorf("invalid access-key: '%v'", accessKey)
 	}
 }
 
