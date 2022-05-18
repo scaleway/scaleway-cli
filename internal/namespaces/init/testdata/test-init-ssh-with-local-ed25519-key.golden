@@ -1,9 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Initialization completed with success.
-  Except for SSH key: scaleway-sdk-go: invalid argument(s): public_key is wrongly formatted, invalid key format: illegal base64 data at input byte 84
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Initialization completed with success",
-  "details": "Except for SSH key: scaleway-sdk-go: invalid argument(s): public_key is wrongly formatted, invalid key format: illegal base64 data at input byte 84"
+  "details": ""
 }
