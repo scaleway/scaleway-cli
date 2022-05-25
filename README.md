@@ -51,8 +51,11 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-# Check out the latest release available on github <https://github.com/scaleway/scaleway-cli/releases/latest>
-VERSION="2.5.1"
+# Use the latest release available on github (<https://github.com/scaleway/scaleway-cli/releases/latest>)
+VERSION="$(curl --no-progress-meter "https://api.github.com/repos/scaleway/scaleway-cli/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")' | cut -c 2-)"
+
+# Or use a specific (older) version (check out the available releases on github <https://github.com/scaleway/scaleway-cli/releases>)
+# VERSION="2.4.0"
 
 # Download the release from github
 sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scaleway-cli_${VERSION}_linux_amd64"
