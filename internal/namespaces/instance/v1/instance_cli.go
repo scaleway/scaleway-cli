@@ -217,8 +217,12 @@ have a server with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes).
 
-Snapshots only work on ` + "`" + `l_ssd` + "`" + ` volume type at the moment. ` + "`" + `b_ssd` + "`" + `
-snapshots will be available starting 2020.
+A snapshot's volume type can be either its original volume's type
+(` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `) or ` + "`" + `unified` + "`" + `. Similarly, volumes can be created as well from snapshots
+of their own type or ` + "`" + `unified` + "`" + `. Therefore, to migrate data from a ` + "`" + `l_ssd` + "`" + ` volume
+to a ` + "`" + `b_ssd` + "`" + ` volume, one can create a ` + "`" + `unified` + "`" + ` snapshot from the original volume
+and a new ` + "`" + `b_ssd` + "`" + ` volume from this snapshot. The newly created volume will hold a copy
+of the data of the original volume.
 `,
 		Namespace: "instance",
 		Resource:  "snapshot",
@@ -260,6 +264,9 @@ We have two different types of volume (` + "`" + `volume_type` + "`" + `):
     centralised cluster. You can plug and unplug a volume while
     your instance is running. As of today, ` + "`" + `b_ssd` + "`" + ` is only available
     for ` + "`" + `DEV1` + "`" + `, ` + "`" + `GP1` + "`" + ` and ` + "`" + `RENDER` + "`" + ` offers.
+
+note: The ` + "`" + `unified` + "`" + ` volume type is not available for volumes. This
+type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
@@ -588,7 +595,28 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
+			},
+			{
+				Name:       "volumes.{key}.base-snapshot",
+				Short:      `The ID of the snapshot on which this volume will be based`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volumes.{key}.project",
+				Short:      `Project ID of the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volumes.{key}.organization",
+				Short:      `Organization ID of the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "bootscript",
@@ -1061,7 +1089,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
 			},
 			{
 				Name:       "extra-volumes.{key}.project",
@@ -1252,6 +1280,14 @@ func instanceSnapshotCreate() *core.Command {
 				Positional: false,
 			},
 			core.ProjectArgSpec(),
+			{
+				Name:       "volume-type",
+				Short:      `The volume type of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_volume_type", "l_ssd", "b_ssd", "unified"},
+			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
 		},
@@ -1382,7 +1418,7 @@ func instanceVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
 			},
 			{
 				Name:       "project",
@@ -1521,7 +1557,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
 			},
 			{
 				Name:       "size",

@@ -19,7 +19,7 @@ ARGS:
   [name=<generated>]   The volume name
   [project-id]         Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]       The volume tags
-  [volume-type]        The volume type (l_ssd | b_ssd)
+  [volume-type]        The volume type (l_ssd | b_ssd | unified)
   [size]               The volume disk size
   [base-volume]        The ID of the volume on which this volume will be based
   [base-snapshot]      The ID of the snapshot on which this volume will be based

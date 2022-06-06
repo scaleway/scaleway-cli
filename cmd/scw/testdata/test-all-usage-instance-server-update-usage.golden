@@ -32,6 +32,9 @@ ARGS:
   [boot-type]                                  (local | bootscript | rescue)
   [tags.{index}]                              Tags of the server
   [volumes.{key}.boot=false]                  Force the server to boot on this volume
+  [volumes.{key}.base-snapshot]               The ID of the snapshot on which this volume will be based
+  [volumes.{key}.project]                     Project ID of the volume
+  [volumes.{key}.organization]                Organization ID of the volume
   [bootscript]                                
   [dynamic-ip-required]                       
   [enable-ipv6]                               
