@@ -17,7 +17,7 @@ ARGS:
   [additional-snapshots.{index}.id]            UUID of the snapshot to add
   [additional-snapshots.{index}.name]          Name of the additional snapshot
   [additional-snapshots.{index}.size]          Size of the additional snapshot
-  [additional-snapshots.{index}.volume-type]   Underlying volume type of the additional snapshot (l_ssd | b_ssd)
+  [additional-snapshots.{index}.volume-type]   Underlying volume type of the additional snapshot (l_ssd | b_ssd | unified)
   [additional-snapshots.{index}.project-id]    Project ID that own the additional snapshot
   [project-id]                                 Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]                               The tags of the image

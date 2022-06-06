@@ -107,7 +107,7 @@ scw instance image create [arg=value ...]
 | additional-snapshots.{index}.id |  | UUID of the snapshot to add |
 | additional-snapshots.{index}.name |  | Name of the additional snapshot |
 | additional-snapshots.{index}.size |  | Size of the additional snapshot |
-| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd` | Underlying volume type of the additional snapshot |
+| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Underlying volume type of the additional snapshot |
 | additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
@@ -1764,6 +1764,9 @@ scw instance server update <server-id ...> [arg=value ...]
 | boot-type | One of: `local`, `bootscript`, `rescue` |  |
 | tags.{index} |  | Tags of the server |
 | volumes.{key}.boot | Default: `false` | Force the server to boot on this volume |
+| volumes.{key}.base-snapshot |  | The ID of the snapshot on which this volume will be based |
+| volumes.{key}.project |  | Project ID of the volume |
+| volumes.{key}.organization |  | Organization ID of the volume |
 | bootscript |  |  |
 | dynamic-ip-required |  |  |
 | enable-ipv6 |  |  |
@@ -1897,8 +1900,12 @@ have a server with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes).
 
-Snapshots only work on `l_ssd` volume type at the moment. `b_ssd`
-snapshots will be available starting 2020.
+A snapshot's volume type can be either its original volume's type
+(`l_ssd` or `b_ssd`) or `unified`. Similarly, volumes can be created as well from snapshots
+of their own type or `unified`. Therefore, to migrate data from a `l_ssd` volume
+to a `b_ssd` volume, one can create a `unified` snapshot from the original volume
+and a new `b_ssd` volume from this snapshot. The newly created volume will hold a copy
+of the data of the original volume.
 
 
 
@@ -1921,6 +1928,7 @@ scw instance snapshot create [arg=value ...]
 | volume-id | Required | UUID of the volume |
 | tags.{index} |  | The tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| volume-type | One of: `unknown_volume_type`, `l_ssd`, `b_ssd`, `unified` | The volume type of the snapshot |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2199,6 +2207,9 @@ We have two different types of volume (`volume_type`):
     your instance is running. As of today, `b_ssd` is only available
     for `DEV1`, `GP1` and `RENDER` offers.
 
+note: The `unified` volume type is not available for volumes. This
+type can only be used on snapshots.
+
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone `/products/volumes` API endpoint. _I.e_ for:
   - `fr-par-1`  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
@@ -2237,7 +2248,7 @@ scw instance volume create [arg=value ...]
 | name | Default: `<generated>` | The volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | The volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd` | The volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | The volume type |
 | size |  | The volume disk size |
 | base-volume |  | The ID of the volume on which this volume will be based |
 | base-snapshot |  | The ID of the snapshot on which this volume will be based |
@@ -2341,7 +2352,7 @@ scw instance volume list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-type | One of: `l_ssd`, `b_ssd` | Filter by volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Filter by volume type |
 | project-id |  | Filter volume by project ID |
 | tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
