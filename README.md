@@ -50,6 +50,7 @@ You just have to download the binary compatible with your platform to a director
 
 #### Linux
 
+##### Precompiled binaries
 ```bash
 # Check out the latest release available on github <https://github.com/scaleway/scaleway-cli/releases/latest>
 VERSION="2.5.1"
@@ -63,6 +64,11 @@ sudo chmod +x /usr/local/bin/scw
 
 # Init the CLI
 scw init
+```
+
+##### From source
+```bash
+go install github.com/scaleway/scaleway-cli/cmd/scw@latest
 ```
 
 #### Windows
