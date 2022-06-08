@@ -55,6 +55,8 @@ dockers:
       - cmd
       - internal
       - .git
+    build_flag_templates:
+      - "--build-arg=VERSION={{ .Version }}"
 
 release:
   github:
