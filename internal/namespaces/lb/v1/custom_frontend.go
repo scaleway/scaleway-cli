@@ -1,6 +1,6 @@
 package lb
 
-import "github.com/scaleway/scaleway-cli/internal/core"
+import "github.com/scaleway/scaleway-cli/v2/internal/core"
 
 func frontendGetBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{

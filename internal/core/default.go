@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/namegenerator"
 )
 

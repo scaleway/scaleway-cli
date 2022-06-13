@@ -1,8 +1,8 @@
 package function
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	function "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 )
 

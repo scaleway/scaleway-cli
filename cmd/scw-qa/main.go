@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/namespaces"
-	"github.com/scaleway/scaleway-cli/internal/qa"
-	"github.com/scaleway/scaleway-cli/internal/tabwriter"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/qa"
+	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
 func main() {

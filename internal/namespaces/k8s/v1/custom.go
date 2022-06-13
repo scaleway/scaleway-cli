@@ -1,8 +1,8 @@
 package k8s
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 

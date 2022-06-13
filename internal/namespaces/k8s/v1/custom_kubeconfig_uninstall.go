@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 type k8sKubeconfigUninstallRequest struct {

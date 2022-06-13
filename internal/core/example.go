@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/args"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 )
 
 // Example represents an example for the usage of a CLI command.

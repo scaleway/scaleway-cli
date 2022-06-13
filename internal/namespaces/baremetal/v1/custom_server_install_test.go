@@ -3,8 +3,8 @@ package baremetal
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	account "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
 )
 
 func Test_InstallServer(t *testing.T) {

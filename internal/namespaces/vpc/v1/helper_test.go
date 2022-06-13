@@ -1,7 +1,7 @@
 package vpc
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func createInstance() core.BeforeFunc {

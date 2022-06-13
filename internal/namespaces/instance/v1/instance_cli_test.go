@@ -3,7 +3,7 @@ package instance
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
