@@ -14,7 +14,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
-const githubURL = "https://github.com/scaleway/scaleway-cli/v2/issues/new"
+const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
 
 type issueTemplate string
 
