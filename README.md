@@ -140,7 +140,7 @@ If you have a >= Go 1.13 environment, you can install the `HEAD` version to test
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
-go get github.com/scaleway/scaleway-cli/cmd/scw
+go install github.com/scaleway/scaleway-cli/v2/cmd/scw@latest
 ```
 
 Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.

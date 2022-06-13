@@ -3,7 +3,7 @@ package rdb
 import (
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 const (

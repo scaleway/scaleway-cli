@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -1778,6 +1778,13 @@ func instanceSecurityGroupList() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `List security groups with these exact tags (to filter with several tags, use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-default",
+				Short:      `Filter security groups with this value for project_default`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

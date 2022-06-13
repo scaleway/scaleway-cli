@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/gofields"
-	"github.com/scaleway/scaleway-cli/internal/tabwriter"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
+	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"golang.org/x/text/cases"

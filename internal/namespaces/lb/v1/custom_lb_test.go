@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 )
 
 func Test_ListLB(t *testing.T) {

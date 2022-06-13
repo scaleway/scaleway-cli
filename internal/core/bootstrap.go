@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/internal/account"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/account"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/pflag"

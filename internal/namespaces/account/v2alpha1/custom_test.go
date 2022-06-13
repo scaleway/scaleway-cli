@@ -6,7 +6,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
 )
 

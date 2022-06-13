@@ -3,7 +3,7 @@ package k8s
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_GetVersion(t *testing.T) {

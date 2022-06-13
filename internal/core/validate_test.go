@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 )
 
 type Element struct {
