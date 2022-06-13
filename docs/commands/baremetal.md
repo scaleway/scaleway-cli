@@ -297,7 +297,7 @@ scw baremetal server install <server-id ...> [arg=value ...]
 
 Install an OS on a given server with a particular SSH key ID
 ```
-scw baremetal server install 11111111-1111-1111-1111-111111111111 ssh-key-ids.0=11111111-1111-1111-1111-111111111111
+scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111-1111-1111-1111-111111111111 ssh-key-ids.0=11111111-1111-1111-1111-111111111111
 ```
 
 
