@@ -1056,7 +1056,6 @@ scw instance security-group list [arg=value ...]
 | name |  | Name of the security group |
 | project-id |  | The security group project ID |
 | tags.{index} |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
-| project-default |  | Filter security groups with this value for project_default |
 | organization-id |  | The security group organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
