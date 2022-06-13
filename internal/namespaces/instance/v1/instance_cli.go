@@ -1783,6 +1783,13 @@ func instanceSecurityGroupList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "project-default",
+				Short:      `Filter security groups with this value for project_default`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `The security group organization ID`,
 				Required:   false,
