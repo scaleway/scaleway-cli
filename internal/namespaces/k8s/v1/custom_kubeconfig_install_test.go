@@ -9,7 +9,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 

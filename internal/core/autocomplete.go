@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 )
 
 // AutocompleteSuggestions is a list of words to be set to the shell as autocomplete suggestions.

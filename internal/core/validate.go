@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"

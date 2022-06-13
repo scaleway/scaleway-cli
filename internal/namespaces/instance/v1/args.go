@@ -1,7 +1,7 @@
 package instance
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 

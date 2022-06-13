@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/internal/docgen"
-	"github.com/scaleway/scaleway-cli/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/docgen"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
 )
 
 // This command is used to generate markdown documentation for each commands (custom or generated) of the CLI

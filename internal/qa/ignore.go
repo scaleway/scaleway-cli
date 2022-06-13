@@ -3,8 +3,8 @@ package qa
 import (
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
 )
 
 func filterIgnore(unfilteredErrors []error) []error {

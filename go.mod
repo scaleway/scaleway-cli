@@ -1,4 +1,4 @@
-module github.com/scaleway/scaleway-cli
+module github.com/scaleway/scaleway-cli/v2
 
 go 1.17
 
