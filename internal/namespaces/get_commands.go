@@ -13,6 +13,7 @@ import (
 	flexibleip "github.com/scaleway/scaleway-cli/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/help"
+	iam "github.com/scaleway/scaleway-cli/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/internal/namespaces/instance/v1"
@@ -61,5 +62,6 @@ func GetCommands() *core.Commands {
 	commands.Merge(function.GetCommands())
 	commands.Merge(vpcgw.GetCommands())
 	commands.Merge(redis.GetCommands())
+	commands.Merge(iam.GetCommands())
 	return commands
 }

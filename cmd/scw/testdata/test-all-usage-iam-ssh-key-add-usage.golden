@@ -1,0 +1,31 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Add an SSH key.
+
+USAGE:
+  scw iam ssh-key add [arg=value ...]
+
+EXAMPLES:
+  Add a given ssh key
+    scw iam ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"
+
+ARGS:
+  [name]         The name of the SSH key
+  public-key     SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported
+  [project-id]   Project ID to use. If none is passed the default project ID will be used
+
+FLAGS:
+  -h, --help   help for add
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # List all SSH keys
+  scw iam ssh-key list
+
+  # Remove an SSH key
+  scw iam ssh-key remove

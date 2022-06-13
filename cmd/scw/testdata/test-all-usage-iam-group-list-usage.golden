@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List groups.
+
+USAGE:
+  scw iam group list [arg=value ...]
+
+ARGS:
+  [order-by]                  Sort order of groups (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
+  [name]                      Name of group to find
+  [application-ids.{index}]   Filter out by a list of application ID
+  [user-ids.{index}]          Filter out by a list of user ID
+  [group-ids.{index}]         Filter out by a list of group ID
+  [organization-id]           Filter by organization ID
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

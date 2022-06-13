@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List API keys.
+
+USAGE:
+  scw iam api-key list [arg=value ...]
+
+ARGS:
+  [order-by]          Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | expires_at_asc | expires_at_desc | access_key_asc | access_key_desc)
+  [application-id]    ID of application principal
+  [user-id]           ID of user principal
+  [editable]          Filter out editable API keys or not
+  [organization-id]   ID of organization
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
