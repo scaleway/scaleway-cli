@@ -1,6 +1,7 @@
 FROM golang:1.15-alpine as builder
 
 ENV BUILD_IN_DOCKER true
+ARG VERSION
 
 # ca-certificates is needed to add the certificates on the next image
 # since it's FROM scratch, it does not have any certificates
