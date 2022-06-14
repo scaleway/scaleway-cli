@@ -41,3 +41,5 @@ require (
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/scaleway/scaleway-sdk-go => /Users/jbernabe/workspace/src/gitlab.infra.online.net/protoc-gen/generated/scaleway-sdk-go

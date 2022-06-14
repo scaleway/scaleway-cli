@@ -259,7 +259,7 @@ func appleSiliconOsList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Os, nil
+			return resp.OS, nil
 
 		},
 	}

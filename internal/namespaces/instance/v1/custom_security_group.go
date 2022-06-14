@@ -63,7 +63,7 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		EnableDefaultSecurity: sg.EnableDefaultSecurity,
 		OrganizationID:        sg.Organization,
 		ProjectID:             sg.Project,
-		OrganizationDefault:   sg.OrganizationDefault,
+		OrganizationDefault:   *sg.OrganizationDefault,
 		ProjectDefault:        sg.ProjectDefault,
 		CreationDate:          sg.CreationDate,
 		ModificationDate:      sg.ModificationDate,
