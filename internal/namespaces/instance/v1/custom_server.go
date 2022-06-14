@@ -730,9 +730,10 @@ func serverRebootCommand() *core.Command {
 
 func serverBackupCommand() *core.Command {
 	type instanceBackupRequest struct {
-		Zone     scw.Zone
-		ServerID string
-		Name     string
+		Zone       scw.Zone
+		ServerID   string
+		Name       string
+		VolumeType string
 	}
 
 	return &core.Command{
@@ -754,12 +755,27 @@ Once your image is ready you will be able to create a new server based on this i
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			res, err := api.ServerAction(&instance.ServerActionRequest{
+			server, err := api.GetServer(&instance.GetServerRequest{
+				ServerID: args.ServerID,
+				Zone:     args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			req := &instance.ServerActionRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
 				Action:   instance.ServerActionBackup,
 				Name:     &args.Name,
-			})
+				Volumes:  map[string]*instance.ServerActionRequestVolumeBackupTemplate{},
+			}
+			for _, v := range server.Server.Volumes {
+				req.Volumes[v.ID] = &instance.ServerActionRequestVolumeBackupTemplate{
+					VolumeType: instance.SnapshotVolumeType(args.VolumeType),
+				}
+			}
+			res, err := api.ServerAction(req)
 			if err != nil {
 				return nil, err
 			}
@@ -791,6 +807,16 @@ Once your image is ready you will be able to create a new server based on this i
 				Name:    "name",
 				Short:   `Name of your backup.`,
 				Default: core.RandomValueGenerator("backup"),
+			},
+			{
+				Name:    "volume-type",
+				Short:   "Type of the volume to backup.",
+				Default: core.DefaultValueSetter(instance.SnapshotVolumeTypeUnified.String()),
+				EnumValues: []string{
+					instance.SnapshotVolumeTypeUnified.String(),
+					instance.SnapshotVolumeTypeLSSD.String(),
+					instance.SnapshotVolumeTypeBSSD.String(),
+				},
 			},
 			core.ZoneArgSpec(),
 		},
