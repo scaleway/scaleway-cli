@@ -1928,7 +1928,7 @@ scw instance snapshot create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the snapshot |
 | volume-id | Required | UUID of the volume |
-| unified | Default: `true` | Whether a snapshot is unified or not. |
+| unified |  | Whether a snapshot is unified or not. |
 | tags.{index} |  | The tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
