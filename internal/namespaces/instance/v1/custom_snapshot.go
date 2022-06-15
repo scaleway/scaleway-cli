@@ -28,9 +28,8 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 	renameProjectIDArgSpec(c.ArgSpecs)
 	c.ArgSpecs.DeleteByName("volume-type")
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
-		Name:    "unified",
-		Short:   "Whether a snapshot is unified or not.",
-		Default: core.DefaultValueSetter("true"),
+		Name:  "unified",
+		Short: "Whether a snapshot is unified or not.",
 	})
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})

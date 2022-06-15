@@ -817,9 +817,8 @@ Once your image is ready you will be able to create a new server based on this i
 				Default: core.RandomValueGenerator("backup"),
 			},
 			{
-				Name:    "unified",
-				Short:   "Whether or not the type of the snapshot is unified.",
-				Default: core.DefaultValueSetter("true"),
+				Name:  "unified",
+				Short: "Whether or not the type of the snapshot is unified.",
 			},
 			core.ZoneArgSpec(),
 		},

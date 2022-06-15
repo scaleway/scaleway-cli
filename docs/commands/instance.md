@@ -1256,7 +1256,7 @@ scw instance server backup <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to backup. |
 | name | Default: `<generated>` | Name of your backup. |
-| unified | Default: `true` | Whether or not the type of the snapshot is unified. |
+| unified |  | Whether or not the type of the snapshot is unified. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1928,7 +1928,7 @@ scw instance snapshot create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the snapshot |
 | volume-id | Required | UUID of the volume |
-| unified | Default: `true` | Whether a snapshot is unified or not. |
+| unified |  | Whether a snapshot is unified or not. |
 | tags.{index} |  | The tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
