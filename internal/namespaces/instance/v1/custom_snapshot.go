@@ -28,8 +28,9 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 	renameProjectIDArgSpec(c.ArgSpecs)
 	c.ArgSpecs.DeleteByName("volume-type")
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
-		Name:  "unified",
-		Short: "Whether a snapshot is unified or not.",
+		Name:    "unified",
+		Short:   "Whether a snapshot is unified or not.",
+		Default: core.DefaultValueSetter("true"),
 	})
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
@@ -45,12 +46,21 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
 
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
 		if args.Unified {
 			request.VolumeType = instance.SnapshotVolumeTypeUnified
 		} else {
-			// If the snapshot is not unified, we need to set the snapshot volume type to unknown.
-			// By doing this, the instance API will automatically set the snapshot volume type to the type of the targeted volume.
-			request.VolumeType = instance.SnapshotVolumeTypeUnknownVolumeType
+			// If the snapshot is not unified, we need to set the snapshot volume type to the same type as the volume we target.
+			volume, err := api.GetVolume(&instance.GetVolumeRequest{
+				VolumeID: args.VolumeID,
+				Zone:     args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			request.VolumeType = instance.SnapshotVolumeType(volume.Volume.VolumeType)
 		}
 
 		return runner(ctx, request)
