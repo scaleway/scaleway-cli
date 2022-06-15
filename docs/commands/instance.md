@@ -1256,7 +1256,7 @@ scw instance server backup <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to backup. |
 | name | Default: `<generated>` | Name of your backup. |
-| volume-type | Default: `unified`<br />One of: `unified`, `l_ssd`, `b_ssd` | Type of the volume to backup. |
+| unified | Default: `true` | Whether or not the type of the snapshot is unified. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
