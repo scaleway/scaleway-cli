@@ -730,10 +730,10 @@ func serverRebootCommand() *core.Command {
 
 func serverBackupCommand() *core.Command {
 	type instanceBackupRequest struct {
-		Zone       scw.Zone
-		ServerID   string
-		Name       string
-		VolumeType string
+		Zone     scw.Zone
+		ServerID string
+		Name     string
+		Unified  bool
 	}
 
 	return &core.Command{
@@ -771,9 +771,17 @@ Once your image is ready you will be able to create a new server based on this i
 				Volumes:  map[string]*instance.ServerActionRequestVolumeBackupTemplate{},
 			}
 			for _, v := range server.Server.Volumes {
-				req.Volumes[v.ID] = &instance.ServerActionRequestVolumeBackupTemplate{
-					VolumeType: instance.SnapshotVolumeType(args.VolumeType),
+				var template *instance.ServerActionRequestVolumeBackupTemplate
+				if args.Unified {
+					template = &instance.ServerActionRequestVolumeBackupTemplate{
+						VolumeType: instance.SnapshotVolumeTypeUnified,
+					}
+				} else {
+					template = &instance.ServerActionRequestVolumeBackupTemplate{
+						VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+					}
 				}
+				req.Volumes[v.ID] = template
 			}
 			res, err := api.ServerAction(req)
 			if err != nil {
@@ -809,14 +817,9 @@ Once your image is ready you will be able to create a new server based on this i
 				Default: core.RandomValueGenerator("backup"),
 			},
 			{
-				Name:    "volume-type",
-				Short:   "Type of the volume to backup.",
-				Default: core.DefaultValueSetter(instance.SnapshotVolumeTypeUnified.String()),
-				EnumValues: []string{
-					instance.SnapshotVolumeTypeUnified.String(),
-					instance.SnapshotVolumeTypeLSSD.String(),
-					instance.SnapshotVolumeTypeBSSD.String(),
-				},
+				Name:    "unified",
+				Short:   "Whether or not the type of the snapshot is unified.",
+				Default: core.DefaultValueSetter("true"),
 			},
 			core.ZoneArgSpec(),
 		},
