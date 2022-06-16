@@ -733,6 +733,7 @@ func serverBackupCommand() *core.Command {
 		Zone     scw.Zone
 		ServerID string
 		Name     string
+		Unified  bool
 	}
 
 	return &core.Command{
@@ -754,12 +755,35 @@ Once your image is ready you will be able to create a new server based on this i
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			res, err := api.ServerAction(&instance.ServerActionRequest{
+			server, err := api.GetServer(&instance.GetServerRequest{
+				ServerID: args.ServerID,
+				Zone:     args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			req := &instance.ServerActionRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
 				Action:   instance.ServerActionBackup,
 				Name:     &args.Name,
-			})
+				Volumes:  map[string]*instance.ServerActionRequestVolumeBackupTemplate{},
+			}
+			for _, v := range server.Server.Volumes {
+				var template *instance.ServerActionRequestVolumeBackupTemplate
+				if args.Unified {
+					template = &instance.ServerActionRequestVolumeBackupTemplate{
+						VolumeType: instance.SnapshotVolumeTypeUnified,
+					}
+				} else {
+					template = &instance.ServerActionRequestVolumeBackupTemplate{
+						VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+					}
+				}
+				req.Volumes[v.ID] = template
+			}
+			res, err := api.ServerAction(req)
 			if err != nil {
 				return nil, err
 			}
@@ -791,6 +815,10 @@ Once your image is ready you will be able to create a new server based on this i
 				Name:    "name",
 				Short:   `Name of your backup.`,
 				Default: core.RandomValueGenerator("backup"),
+			},
+			{
+				Name:  "unified",
+				Short: "Whether or not the type of the snapshot is unified.",
 			},
 			core.ZoneArgSpec(),
 		},
