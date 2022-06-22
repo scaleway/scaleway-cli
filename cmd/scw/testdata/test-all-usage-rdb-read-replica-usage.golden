@@ -1,17 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a cluster setting.
+A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
 
 USAGE:
-  scw redis setting delete [arg=value ...]
-
-ARGS:
-  cluster-id        UUID of the cluster where the settings has to be set
-  [settings-name]   Setting name to delete
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+  scw rdb read-replica
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for read-replica
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
