@@ -30,5 +30,16 @@ Zone              fr-par-1
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "zone": "fr-par-1"
+  },
+  "task": {
+    "id": "8a0e4c45-36c3-40f4-bc25-7c1834ce074d",
+    "description": "nop",
+    "progress": 0,
+    "started_at": "1970-01-01T00:00:00.0Z",
+    "terminated_at": null,
+    "status": "pending",
+    "href_from": "/snapshots",
+    "href_result": "snapshots/70731561-4e15-4f74-b238-f3140160ade8",
+    "zone": ""
   }
 }
