@@ -17,7 +17,7 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.12
 	github.com/mattn/go-isatty v0.0.14
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220613094705-be70f243d339
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220616135310-b11a2a9a6c76
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.4
@@ -41,5 +41,3 @@ require (
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/scaleway/scaleway-sdk-go => /Users/jbernabe/workspace/src/gitlab.infra.online.net/protoc-gen/generated/scaleway-sdk-go
