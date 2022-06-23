@@ -50,7 +50,7 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		EnableDefaultSecurity bool
 		OrganizationID        string
 		ProjectID             string
-		OrganizationDefault   bool
+		OrganizationDefault   *bool
 		ProjectDefault        bool
 		CreationDate          *time.Time
 		ModificationDate      *time.Time

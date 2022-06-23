@@ -56,7 +56,7 @@ scw redis acl add [arg=value ...]
 | cluster-id | Required | UUID of the cluster you want to add acl rules to |
 | acl-rules.{index}.ip |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -76,7 +76,7 @@ scw redis acl delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acl-id | Required | UUID of the acl rule you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -96,7 +96,7 @@ scw redis acl get <acl-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acl-id | Required | UUID of the acl rule you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -118,7 +118,7 @@ scw redis acl set [arg=value ...]
 | cluster-id | Required | UUID of the cluster where the ACL rules has to be set |
 | acl-rules.{index}.ip |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -158,7 +158,7 @@ scw redis cluster create [arg=value ...]
 | tls-enabled |  | Whether or not TLS is enabled |
 | cluster-settings.{index}.value |  | Value of the setting |
 | cluster-settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -178,7 +178,7 @@ scw redis cluster delete <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -198,7 +198,7 @@ scw redis cluster get <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -218,7 +218,7 @@ scw redis cluster get-certificate <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -241,7 +241,7 @@ scw redis cluster list [arg=value ...]
 | name |  | Name of the clusters to filter upon |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering cluster listing |
 | project-id |  | Project ID to list the cluster of |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -264,7 +264,7 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 | start-date |  | Start date to gather metrics from |
 | end-date |  | End date to gather metrics from |
 | metric-name |  | Name of the metric to gather |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -287,7 +287,7 @@ scw redis cluster migrate <cluster-id ...> [arg=value ...]
 | node-type |  | Type of node to use for the cluster |
 | cluster-size |  | Number of nodes for the cluster |
 | cluster-id | Required | UUID of the cluster to update |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -307,7 +307,7 @@ scw redis cluster renew-certificate <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -331,7 +331,7 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 | user-name |  | Name of the cluster user |
 | password |  | Password of the cluster user |
 | cluster-id | Required | UUID of the cluster to update |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -359,7 +359,7 @@ scw redis endpoint add [arg=value ...]
 | cluster-id | Required | UUID of the cluster you want to add endpoints to |
 | endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -379,7 +379,7 @@ scw redis endpoint delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | endpoint-id | Required |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -399,7 +399,7 @@ scw redis endpoint get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | endpoint-id | Required |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -421,7 +421,7 @@ scw redis endpoint set [arg=value ...]
 | cluster-id | Required | UUID of the cluster where the endpoints has to be set |
 | endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -447,7 +447,7 @@ scw redis node-type list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | include-disabled-types |  | Whether or not to include disabled types |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -475,7 +475,7 @@ scw redis setting add [arg=value ...]
 | cluster-id | Required | UUID of the cluster you want to add settings to |
 | settings.{index}.value |  | Value of the setting |
 | settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -496,7 +496,7 @@ scw redis setting delete [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster where the settings has to be set |
 | settings-name |  | Setting name to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -518,7 +518,7 @@ scw redis setting set [arg=value ...]
 | cluster-id | Required | UUID of the cluster where the settings has to be set |
 | settings.{index}.value |  | Value of the setting |
 | settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -546,7 +546,7 @@ scw redis version list [arg=value ...]
 | include-beta |  | Whether or not to include beta Redis versions |
 | include-deprecated |  | Whether or not to include deprecated Redis versions |
 | version-name |  | List Redis versions that match a given name pattern |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 

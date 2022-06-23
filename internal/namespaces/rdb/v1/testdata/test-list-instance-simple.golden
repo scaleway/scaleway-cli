@@ -665,7 +665,6 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "provisioning",
     "engine": "PostgreSQL-12",
-    "endpoint": null,
     "tags": [],
     "settings": [
       {
