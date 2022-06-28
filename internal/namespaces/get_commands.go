@@ -62,7 +62,7 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(function.GetCommands())
 	commands.Merge(vpcgw.GetCommands())
 	commands.Merge(redis.GetCommands())
-	if len(beta) == 1 && beta[0] == true {
+	if len(beta) == 1 && beta[0] {
 		commands.Merge(iam.GetCommands())
 	}
 	return commands
