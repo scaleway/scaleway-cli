@@ -231,7 +231,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			CommercialType: serverReq.CommercialType,
 		})
 		if err != nil {
-			return nil, fmt.Errorf("bad image label '%s' for %s", args.Image, serverReq.CommercialType)
+			return nil, err
 		}
 		serverReq.Image = imageID
 	default:

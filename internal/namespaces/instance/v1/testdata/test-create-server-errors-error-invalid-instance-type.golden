@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Bad image label 'ubuntu_bionic' for MACBOOK1-S
+Scaleway-sdk-go: couldn't find a matching image for the given label (ubuntu_bionic), zone (fr-par-1) and commercial type (MACBOOK1-S): couldn't find compatible local image for this image version (47d38b1a-71a9-4f29-80bc-2dbb7bda7f9f)
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "bad image label 'ubuntu_bionic' for MACBOOK1-S"
+  "error": "scaleway-sdk-go: couldn't find a matching image for the given label (ubuntu_bionic), zone (fr-par-1) and commercial type (MACBOOK1-S): couldn't find compatible local image for this image version (47d38b1a-71a9-4f29-80bc-2dbb7bda7f9f)"
 }
