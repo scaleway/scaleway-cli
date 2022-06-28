@@ -17,10 +17,10 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.12
 	github.com/mattn/go-isatty v0.0.14
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220616135310-b11a2a9a6c76
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220624140600-38685b7aadbb
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.7.4
+	github.com/stretchr/testify v1.7.5
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	golang.org/x/text v0.3.7
 	gopkg.in/yaml.v3 v3.0.1
