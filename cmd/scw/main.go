@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -28,6 +29,7 @@ var (
 	GoVersion = runtime.Version()
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
+	BetaMode  = os.Getenv(scw.ScwEnableBeta) != ""
 )
 
 func cleanup(buildInfo *core.BuildInfo) {
@@ -56,7 +58,7 @@ func main() {
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  namespaces.GetCommands(),
+		Commands:  namespaces.GetCommands(BetaMode),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),

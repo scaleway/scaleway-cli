@@ -13,6 +13,7 @@ import (
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
+	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -32,7 +33,7 @@ import (
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
 // We can not put it in `core` package as it would result in a import cycle `core` -> `namespaces/autocomplete` -> `core`.
-func GetCommands() *core.Commands {
+func GetCommands(beta ...bool) *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommands()
@@ -61,5 +62,8 @@ func GetCommands() *core.Commands {
 	commands.Merge(function.GetCommands())
 	commands.Merge(vpcgw.GetCommands())
 	commands.Merge(redis.GetCommands())
+	if len(beta) == 1 && beta[0] {
+		commands.Merge(iam.GetCommands())
+	}
 	return commands
 }
