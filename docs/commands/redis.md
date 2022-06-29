@@ -241,6 +241,7 @@ scw redis cluster list [arg=value ...]
 | name |  | Name of the clusters to filter upon |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering cluster listing |
 | project-id |  | Project ID to list the cluster of |
+| organization-id |  | Organization ID to list the cluster of |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
