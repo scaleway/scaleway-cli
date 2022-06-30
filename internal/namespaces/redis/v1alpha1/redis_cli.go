@@ -367,6 +367,13 @@ func redisClusterList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to list the cluster of`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
