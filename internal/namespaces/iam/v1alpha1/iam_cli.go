@@ -35,8 +35,6 @@ func GetGeneratedCommands() *core.Commands {
 		iamSSHKeyRemove(),
 		iamUsersList(),
 		iamUsersGet(),
-		iamUsersUpdate(),
-		iamUsersRemove(),
 		iamApplicationsList(),
 		iamApplicationsAdd(),
 		iamApplicationsGet(),
@@ -248,14 +246,14 @@ func iamSSHKeyAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The name of the SSH key`,
+				Short:      `The name of the SSH key. Max length is 1000`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "public-key",
-				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported`,
+				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -336,7 +334,7 @@ func iamSSHKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the SSH key`,
+				Short:      `Name of the SSH key. Max length is 1000`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -477,70 +475,6 @@ func iamUsersGet() *core.Command {
 	}
 }
 
-func iamUsersUpdate() *core.Command {
-	return &core.Command{
-		Short:     `Update an existing user`,
-		Long:      `Update an existing user.`,
-		Namespace: "iam",
-		Resource:  "users",
-		Verb:      "update",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "user-id",
-				Short:      `ID of user to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*iam.UpdateUserRequest)
-
-			client := core.ExtractClient(ctx)
-			api := iam.NewAPI(client)
-			return api.UpdateUser(request)
-
-		},
-	}
-}
-
-func iamUsersRemove() *core.Command {
-	return &core.Command{
-		Short:     `Remove a user`,
-		Long:      `Remove a user.`,
-		Namespace: "iam",
-		Resource:  "users",
-		Verb:      "remove",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteUserRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "user-id",
-				Short:      `ID of user to delete`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*iam.DeleteUserRequest)
-
-			client := core.ExtractClient(ctx)
-			api := iam.NewAPI(client)
-			e = api.DeleteUser(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "users",
-				Verb:     "remove",
-			}, nil
-		},
-	}
-}
-
 func iamApplicationsList() *core.Command {
 	return &core.Command{
 		Short:     `List applications of an organization`,
@@ -615,14 +549,14 @@ func iamApplicationsAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of application to create`,
+				Short:      `Name of application to create (max length is 64 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of application`,
+				Short:      `Description of application (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -688,14 +622,14 @@ func iamApplicationsUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of application`,
+				Short:      `New name of application (max length is 64 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of application`,
+				Short:      `New description of application (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -828,14 +762,14 @@ func iamGroupAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the group to create. MUST be unique inside an organization`,
+				Short:      `Name of the group to create (max length is 64 chars). MUST be unique inside an organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the group to create`,
+				Short:      `Description of the group to create (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -911,14 +845,14 @@ func iamGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name for the group. MUST be unique inside an organization`,
+				Short:      `New name for the group (max length is 64 chars). MUST be unique inside an organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description for the group`,
+				Short:      `New description for the group (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1071,14 +1005,14 @@ func iamPoliciesAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of policy to create`,
+				Short:      `Name of policy to create (max length is 64 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of policy to create`,
+				Short:      `Description of policy to create (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1193,14 +1127,14 @@ func iamPoliciesUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of policy`,
+				Short:      `New name of policy (max length is 64 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of policy`,
+				Short:      `New description of policy (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1500,7 +1434,7 @@ func iamAPIKeyAdd() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the API key`,
+				Short:      `The description of the API key (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
