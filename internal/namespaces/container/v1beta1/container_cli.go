@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerNamespace(),
 		containerContainer(),
 		containerCron(),
+		containerDomain(),
 		containerNamespaceList(),
 		containerNamespaceGet(),
 		containerNamespaceCreate(),
@@ -37,6 +38,10 @@ func GetGeneratedCommands() *core.Commands {
 		containerCronList(),
 		containerCronGet(),
 		containerCronDelete(),
+		containerDomainList(),
+		containerDomainGet(),
+		containerDomainCreate(),
+		containerDomainDelete(),
 	)
 }
 func containerRoot() *core.Command {
@@ -71,6 +76,15 @@ func containerCron() *core.Command {
 		Long:      `Cron management commands.`,
 		Namespace: "container",
 		Resource:  "cron",
+	}
+}
+
+func containerDomain() *core.Command {
+	return &core.Command{
+		Short:     `Domain management commands`,
+		Long:      `Domain management commands.`,
+		Namespace: "container",
+		Resource:  "domain",
 	}
 }
 
@@ -799,6 +813,139 @@ func containerCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteCron(request)
+
+		},
+	}
+}
+
+func containerDomainList() *core.Command {
+	return &core.Command{
+		Short:     `List all domain name bindings`,
+		Long:      `List all domain name bindings.`,
+		Namespace: "container",
+		Resource:  "domain",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.ListDomainsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "hostname_asc", "hostname_desc"},
+			},
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.ListDomainsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			resp, err := api.ListDomains(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Domains, nil
+
+		},
+	}
+}
+
+func containerDomainGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a domain name binding`,
+		Long:      `Get a domain name binding.`,
+		Namespace: "container",
+		Resource:  "domain",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.GetDomainRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.GetDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.GetDomain(request)
+
+		},
+	}
+}
+
+func containerDomainCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a domain name binding`,
+		Long:      `Create a domain name binding.`,
+		Namespace: "container",
+		Resource:  "domain",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.CreateDomainRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hostname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.CreateDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.CreateDomain(request)
+
+		},
+	}
+}
+
+func containerDomainDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a domain name binding`,
+		Long:      `Delete a domain name binding.`,
+		Namespace: "container",
+		Resource:  "domain",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.DeleteDomainRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.DeleteDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.DeleteDomain(request)
 
 		},
 	}
