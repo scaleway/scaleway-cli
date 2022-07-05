@@ -538,6 +538,12 @@ func functionFunctionCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "domain-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "secret-environment-variables.{index}.key",
 				Required:   false,
 				Deprecated: false,
@@ -649,6 +655,12 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-name",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
