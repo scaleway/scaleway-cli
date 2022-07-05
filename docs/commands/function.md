@@ -6,6 +6,11 @@ Function as a Service API
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
   - [List all your crons](#list-all-your-crons)
+- [Domain management commands](#domain-management-commands)
+  - [Create a domain name binding](#create-a-domain-name-binding)
+  - [Delete a domain name binding](#delete-a-domain-name-binding)
+  - [Get a domain name binding](#get-a-domain-name-binding)
+  - [List all domain name bindings](#list-all-domain-name-bindings)
 - [Function management commands](#function-management-commands)
   - [Create a new function](#create-a-new-function)
   - [Delete a function](#delete-a-function)
@@ -88,6 +93,93 @@ scw function cron list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| function-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Domain management commands
+
+Domain management commands.
+
+
+### Create a domain name binding
+
+Create a domain name binding.
+
+**Usage:**
+
+```
+scw function domain create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hostname |  |  |
+| function-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a domain name binding
+
+Delete a domain name binding.
+
+**Usage:**
+
+```
+scw function domain delete <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a domain name binding
+
+Get a domain name binding.
+
+**Usage:**
+
+```
+scw function domain get <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all domain name bindings
+
+List all domain name bindings.
+
+**Usage:**
+
+```
+scw function domain list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` |  |
 | function-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
