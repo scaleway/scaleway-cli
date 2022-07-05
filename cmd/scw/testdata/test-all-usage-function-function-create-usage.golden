@@ -18,6 +18,7 @@ ARGS:
   [handler]                                      
   [privacy]                                       (unknown_privacy | public | private)
   [description]                                  
+  [domain-name]                                  
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)

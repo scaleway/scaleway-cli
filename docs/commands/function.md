@@ -217,6 +217,7 @@ scw function function create [arg=value ...]
 | handler |  |  |
 | privacy | One of: `unknown_privacy`, `public`, `private` |  |
 | description |  |  |
+| domain-name |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
@@ -376,6 +377,7 @@ scw function function update <function-id ...> [arg=value ...]
 | handler |  |  |
 | privacy | One of: `unknown_privacy`, `public`, `private` |  |
 | description |  |  |
+| domain-name |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
