@@ -20,19 +20,19 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		iamRoot(),
-		iamSSHKey(),
-		iamGroup(),
-		iamAPIKey(),
+		iamSSHKeys(),
+		iamGroups(),
+		iamAPIKeys(),
 		iamUsers(),
 		iamApplications(),
 		iamPolicies(),
 		iamRules(),
 		iamPermissionSets(),
-		iamSSHKeyList(),
-		iamSSHKeyAdd(),
-		iamSSHKeyGet(),
-		iamSSHKeyUpdate(),
-		iamSSHKeyRemove(),
+		iamSSHKeysList(),
+		iamSSHKeysAdd(),
+		iamSSHKeysGet(),
+		iamSSHKeysUpdate(),
+		iamSSHKeysRemove(),
 		iamUsersList(),
 		iamUsersGet(),
 		iamApplicationsList(),
@@ -40,11 +40,11 @@ func GetGeneratedCommands() *core.Commands {
 		iamApplicationsGet(),
 		iamApplicationsUpdate(),
 		iamApplicationsRemove(),
-		iamGroupList(),
-		iamGroupAdd(),
-		iamGroupGet(),
-		iamGroupUpdate(),
-		iamGroupRemove(),
+		iamGroupsList(),
+		iamGroupsAdd(),
+		iamGroupsGet(),
+		iamGroupsUpdate(),
+		iamGroupsRemove(),
 		iamPoliciesList(),
 		iamPoliciesAdd(),
 		iamPoliciesGet(),
@@ -53,11 +53,11 @@ func GetGeneratedCommands() *core.Commands {
 		iamRulesUpdate(),
 		iamRulesList(),
 		iamPermissionSetsList(),
-		iamAPIKeyList(),
-		iamAPIKeyAdd(),
-		iamAPIKeyGet(),
-		iamAPIKeyUpdate(),
-		iamAPIKeyRemove(),
+		iamAPIKeysList(),
+		iamAPIKeysAdd(),
+		iamAPIKeysGet(),
+		iamAPIKeysUpdate(),
+		iamAPIKeysRemove(),
 	)
 }
 func iamRoot() *core.Command {
@@ -68,30 +68,30 @@ func iamRoot() *core.Command {
 	}
 }
 
-func iamSSHKey() *core.Command {
+func iamSSHKeys() *core.Command {
 	return &core.Command{
 		Short:     `SSH keys management commands`,
 		Long:      `SSH keys management commands.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 	}
 }
 
-func iamGroup() *core.Command {
+func iamGroups() *core.Command {
 	return &core.Command{
 		Short:     `Groups management commands`,
 		Long:      `Groups management commands.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 	}
 }
 
-func iamAPIKey() *core.Command {
+func iamAPIKeys() *core.Command {
 	return &core.Command{
 		Short:     `API keys management commands`,
 		Long:      `API keys management commands.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 	}
 }
 
@@ -140,12 +140,12 @@ func iamPermissionSets() *core.Command {
 	}
 }
 
-func iamSSHKeyList() *core.Command {
+func iamSSHKeysList() *core.Command {
 	return &core.Command{
 		Short:     `List SSH keys`,
 		Long:      `List SSH keys.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListSSHKeysRequest{}),
@@ -156,6 +156,7 @@ func iamSSHKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
 			{
@@ -234,12 +235,12 @@ func iamSSHKeyList() *core.Command {
 	}
 }
 
-func iamSSHKeyAdd() *core.Command {
+func iamSSHKeysAdd() *core.Command {
 	return &core.Command{
 		Short:     `Add an SSH key`,
 		Long:      `Add an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 		Verb:      "add",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateSSHKeyRequest{}),
@@ -287,12 +288,12 @@ func iamSSHKeyAdd() *core.Command {
 	}
 }
 
-func iamSSHKeyGet() *core.Command {
+func iamSSHKeysGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an SSH key`,
 		Long:      `Get an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetSSHKeyRequest{}),
@@ -316,12 +317,12 @@ func iamSSHKeyGet() *core.Command {
 	}
 }
 
-func iamSSHKeyUpdate() *core.Command {
+func iamSSHKeysUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an SSH key`,
 		Long:      `Update an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateSSHKeyRequest{}),
@@ -358,12 +359,12 @@ func iamSSHKeyUpdate() *core.Command {
 	}
 }
 
-func iamSSHKeyRemove() *core.Command {
+func iamSSHKeysRemove() *core.Command {
 	return &core.Command{
 		Short:     `Remove an SSH key`,
 		Long:      `Remove an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-key",
+		Resource:  "ssh-keys",
 		Verb:      "remove",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteSSHKeyRequest{}),
@@ -385,7 +386,7 @@ func iamSSHKeyRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "ssh-key",
+				Resource: "ssh-keys",
 				Verb:     "remove",
 			}, nil
 		},
@@ -414,6 +415,7 @@ func iamUsersList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "email_asc", "email_desc", "last_login_asc", "last_login_desc"},
 			},
 			{
@@ -426,9 +428,9 @@ func iamUsersList() *core.Command {
 			{
 				Name:       "organization-id",
 				Short:      `ID of organization to filter`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -461,7 +463,7 @@ func iamUsersGet() *core.Command {
 				Short:      `ID of user to find`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -491,6 +493,7 @@ func iamApplicationsList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
 			{
@@ -517,7 +520,7 @@ func iamApplicationsList() *core.Command {
 			{
 				Name:       "organization-id",
 				Short:      `ID of organization to filter`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -550,7 +553,7 @@ func iamApplicationsAdd() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Name of application to create (max length is 64 chars)`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -589,7 +592,7 @@ func iamApplicationsGet() *core.Command {
 				Short:      `ID of application to find`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -618,7 +621,7 @@ func iamApplicationsUpdate() *core.Command {
 				Short:      `ID of application to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -661,7 +664,7 @@ func iamApplicationsRemove() *core.Command {
 				Short:      `ID of application to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -681,12 +684,12 @@ func iamApplicationsRemove() *core.Command {
 	}
 }
 
-func iamGroupList() *core.Command {
+func iamGroupsList() *core.Command {
 	return &core.Command{
 		Short:     `List groups`,
 		Long:      `List groups.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListGroupsRequest{}),
@@ -697,6 +700,7 @@ func iamGroupList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
 			{
@@ -750,12 +754,12 @@ func iamGroupList() *core.Command {
 	}
 }
 
-func iamGroupAdd() *core.Command {
+func iamGroupsAdd() *core.Command {
 	return &core.Command{
 		Short:     `Add a new group`,
 		Long:      `Add a new group.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 		Verb:      "add",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateGroupRequest{}),
@@ -797,12 +801,12 @@ func iamGroupAdd() *core.Command {
 	}
 }
 
-func iamGroupGet() *core.Command {
+func iamGroupsGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a group`,
 		Long:      `Get a group.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetGroupRequest{}),
@@ -812,7 +816,7 @@ func iamGroupGet() *core.Command {
 				Short:      `ID of group`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -826,12 +830,12 @@ func iamGroupGet() *core.Command {
 	}
 }
 
-func iamGroupUpdate() *core.Command {
+func iamGroupsUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a group`,
 		Long:      `Update a group.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateGroupRequest{}),
@@ -841,7 +845,7 @@ func iamGroupUpdate() *core.Command {
 				Short:      `ID of group to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -869,12 +873,12 @@ func iamGroupUpdate() *core.Command {
 	}
 }
 
-func iamGroupRemove() *core.Command {
+func iamGroupsRemove() *core.Command {
 	return &core.Command{
 		Short:     `Delete a group`,
 		Long:      `Delete a group.`,
 		Namespace: "iam",
-		Resource:  "group",
+		Resource:  "groups",
 		Verb:      "remove",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteGroupRequest{}),
@@ -884,7 +888,7 @@ func iamGroupRemove() *core.Command {
 				Short:      `ID of group to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -897,7 +901,7 @@ func iamGroupRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "group",
+				Resource: "groups",
 				Verb:     "remove",
 			}, nil
 		},
@@ -926,6 +930,7 @@ func iamPoliciesList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"policy_name_asc", "policy_name_desc", "created_at_asc", "created_at_desc"},
 			},
 			{
@@ -973,7 +978,7 @@ func iamPoliciesList() *core.Command {
 			{
 				Name:       "organization-id",
 				Short:      `ID of organization to filter`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1006,7 +1011,7 @@ func iamPoliciesAdd() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Name of policy to create (max length is 64 chars)`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1094,7 +1099,7 @@ func iamPoliciesGet() *core.Command {
 				Short:      `Id of policy to search`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1123,7 +1128,7 @@ func iamPoliciesUpdate() *core.Command {
 				Short:      `Id of policy to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -1194,7 +1199,7 @@ func iamPoliciesRemove() *core.Command {
 				Short:      `Id of policy to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1227,9 +1232,9 @@ func iamRulesUpdate() *core.Command {
 			{
 				Name:       "policy-id",
 				Short:      `Id of policy to update`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "rules.{index}.permission-set-names.{index}",
@@ -1277,9 +1282,9 @@ func iamRulesList() *core.Command {
 			{
 				Name:       "policy-id",
 				Short:      `Id of policy to search`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1313,6 +1318,7 @@ func iamPermissionSetsList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc"},
 			},
 			core.OrganizationIDArgSpec(),
@@ -1332,12 +1338,12 @@ func iamPermissionSetsList() *core.Command {
 	}
 }
 
-func iamAPIKeyList() *core.Command {
+func iamAPIKeysList() *core.Command {
 	return &core.Command{
 		Short:     `List API keys`,
 		Long:      `List API keys.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListAPIKeysRequest{}),
@@ -1348,6 +1354,7 @@ func iamAPIKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "expires_at_asc", "expires_at_desc", "access_key_asc", "access_key_desc"},
 			},
 			{
@@ -1374,9 +1381,9 @@ func iamAPIKeyList() *core.Command {
 			{
 				Name:       "organization-id",
 				Short:      `ID of organization`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1394,12 +1401,12 @@ func iamAPIKeyList() *core.Command {
 	}
 }
 
-func iamAPIKeyAdd() *core.Command {
+func iamAPIKeysAdd() *core.Command {
 	return &core.Command{
 		Short:     `Add an API key`,
 		Long:      `Add an API key.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 		Verb:      "add",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateAPIKeyRequest{}),
@@ -1461,12 +1468,12 @@ func iamAPIKeyAdd() *core.Command {
 	}
 }
 
-func iamAPIKeyGet() *core.Command {
+func iamAPIKeysGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an API key`,
 		Long:      `Get an API key.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetAPIKeyRequest{}),
@@ -1476,7 +1483,7 @@ func iamAPIKeyGet() *core.Command {
 				Short:      `Access key to search for`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1490,12 +1497,12 @@ func iamAPIKeyGet() *core.Command {
 	}
 }
 
-func iamAPIKeyUpdate() *core.Command {
+func iamAPIKeysUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an API key`,
 		Long:      `Update an API key.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateAPIKeyRequest{}),
@@ -1505,7 +1512,7 @@ func iamAPIKeyUpdate() *core.Command {
 				Short:      `Access key to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "default-project-id",
@@ -1533,12 +1540,12 @@ func iamAPIKeyUpdate() *core.Command {
 	}
 }
 
-func iamAPIKeyRemove() *core.Command {
+func iamAPIKeysRemove() *core.Command {
 	return &core.Command{
 		Short:     `Remove an API key`,
 		Long:      `Remove an API key.`,
 		Namespace: "iam",
-		Resource:  "api-key",
+		Resource:  "api-keys",
 		Verb:      "remove",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteAPIKeyRequest{}),
@@ -1548,7 +1555,7 @@ func iamAPIKeyRemove() *core.Command {
 				Short:      `Access key to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1561,7 +1568,7 @@ func iamAPIKeyRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "api-key",
+				Resource: "api-keys",
 				Verb:     "remove",
 			}, nil
 		},
