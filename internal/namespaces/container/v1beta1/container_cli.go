@@ -478,12 +478,6 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "domain-name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "protocol",
 				Required:   false,
 				Deprecated: false,
@@ -607,12 +601,6 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "max-concurrency",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "domain-name",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

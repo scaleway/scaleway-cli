@@ -58,7 +58,6 @@ scw container container create [arg=value ...]
 | description |  |  |
 | registry-image |  |  |
 | max-concurrency |  |  |
-| domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -179,7 +178,6 @@ scw container container update <container-id ...> [arg=value ...]
 | description |  |  |
 | registry-image |  |  |
 | max-concurrency |  |  |
-| domain-name |  |  |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |

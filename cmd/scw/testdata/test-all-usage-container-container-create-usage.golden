@@ -18,7 +18,6 @@ ARGS:
   [description]                                  
   [registry-image]                               
   [max-concurrency]                              
-  [domain-name]                                  
   [protocol]                                      (unknown_protocol | http1 | h2c)
   [port]                                         
   [secret-environment-variables.{index}.key]     
