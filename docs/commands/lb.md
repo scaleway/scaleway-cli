@@ -385,7 +385,7 @@ Update a backend in a given load balancer.
 **Usage:**
 
 ```
-scw lb backend update [arg=value ...]
+scw lb backend update <backend-id ...> [arg=value ...]
 ```
 
 
@@ -393,20 +393,20 @@ scw lb backend update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| backend-id | Required |  |
-| name |  |  |
-| forward-protocol | One of: `tcp`, `http` |  |
-| forward-port |  |  |
-| forward-port-algorithm | One of: `roundrobin`, `leastconn`, `first` |  |
-| sticky-sessions | One of: `none`, `cookie`, `table` |  |
-| sticky-sessions-cookie-name |  |  |
-| ~~send-proxy-v2~~ | Deprecated |  |
-| timeout-server |  |  |
-| timeout-connect |  |  |
-| timeout-tunnel |  |  |
-| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` |  |
-| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` |  |
-| failover-host |  |  |
+| backend-id | Required | Backend ID to update |
+| name | Required | Resource name |
+| forward-protocol | Required<br />One of: `tcp`, `http` | Backend protocol. TCP or HTTP |
+| forward-port | Required | User sessions will be forwarded to this port of backend servers |
+| forward-port-algorithm | Required<br />One of: `roundrobin`, `leastconn`, `first` | Load balancing algorithm |
+| sticky-sessions | Required<br />One of: `none`, `cookie`, `table` | Enable cookie-based session persistence |
+| sticky-sessions-cookie-name |  | Cookie name for for sticky sessions |
+| ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field! |
+| timeout-server |  | Maximum server connection inactivity time |
+| timeout-connect |  | Maximum initial server connection establishment time |
+| timeout-tunnel |  | Maximum tunnel inactivity time |
+| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Modify what occurs when a backend server is marked down |
+| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
+| failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 

@@ -2329,13 +2329,6 @@ func instanceIPList() *core.Command {
 		ArgsType: reflect.TypeOf(instance.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
-				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "project",
 				Short:      `The project ID the IPs are reserved in`,
 				Required:   false,
@@ -2345,6 +2338,13 @@ func instanceIPList() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Filter IPs with these exact tags (to filter with several tags, use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2503,7 +2503,7 @@ func instanceIPGet() *core.Command {
 			},
 			{
 				Short:    "Get an IP using directly the given IP address",
-				ArgsJSON: `null`,
+				ArgsJSON: `{"ip":"51.15.253.183"}`,
 			},
 		},
 	}
