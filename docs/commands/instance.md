@@ -456,7 +456,7 @@ scw instance ip get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 Get an IP using directly the given IP address
 ```
-scw instance ip get
+scw instance ip get 51.15.253.183
 ```
 
 
@@ -477,9 +477,9 @@ scw instance ip list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
 | project-id |  | The project ID the IPs are reserved in |
 | tags.{index} |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
+| name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
 | organization-id |  | The organization ID the IPs are reserved in |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
