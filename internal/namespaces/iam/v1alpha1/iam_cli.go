@@ -396,6 +396,16 @@ func iamSSHKeysRemove() *core.Command {
 				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw iam ssh-key list",
+				Short:   "List all SSH keys",
+			},
+			{
+				Command: "scw iam ssh-key add",
+				Short:   "Add a SSH key",
+			},
+		},
 	}
 }
 
@@ -751,6 +761,29 @@ func iamGroupsList() *core.Command {
 			return resp.Groups, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "AccessKey",
+			},
+			{
+				FieldName: "SecretKey",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "ExpiresAt",
+			},
+			{
+				FieldName: "DefaultProjectID",
+			},
+		}},
 	}
 }
 
@@ -909,6 +942,16 @@ func iamGroupsRemove() *core.Command {
 			{
 				Short:    "Remove a given group",
 				ArgsJSON: `{"group_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw iam group list",
+				Short:   "List all groups",
+			},
+			{
+				Command: "scw iam group add",
+				Short:   "Add a group",
 			},
 		},
 	}
@@ -1398,6 +1441,29 @@ func iamAPIKeysList() *core.Command {
 			return resp.APIKeys, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "AccessKey",
+			},
+			{
+				FieldName: "SecretKey",
+			},
+			{
+				FieldName: "OrganizationID",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "ExpiresAt",
+			},
+			{
+				FieldName: "DefaultProjectID",
+			},
+		}},
 	}
 }
 
@@ -1576,6 +1642,16 @@ func iamAPIKeysRemove() *core.Command {
 			{
 				Short:    "Remove a given API key",
 				ArgsJSON: `{"access_key":"SCW00000000000"}`,
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw iam api-key list",
+				Short:   "List all API keys",
+			},
+			{
+				Command: "scw iam api-key add",
+				Short:   "Add an API key",
 			},
 		},
 	}
