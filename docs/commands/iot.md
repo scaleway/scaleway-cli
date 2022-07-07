@@ -61,10 +61,10 @@ scw iot device create [arg=value ...]
 | hub-id | Required | ID of the device's hub |
 | allow-insecure |  | Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
 | allow-multiple-connections |  | Allow multiple physical devices to connect with this device's credentials |
-| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` |  |
-| message-filters.publish.topics.{index} |  |  |
-| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` |  |
-| message-filters.subscribe.topics.{index} |  |  |
+| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
+| message-filters.publish.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
+| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
+| message-filters.subscribe.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
 | description |  | Device description |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -275,10 +275,10 @@ scw iot device update <device-id ...> [arg=value ...]
 | description |  | Device description |
 | allow-insecure |  | Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
 | allow-multiple-connections |  | Allow multiple physical devices to connect with this device's credentials |
-| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` |  |
-| message-filters.publish.topics.{index} |  |  |
-| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` |  |
-| message-filters.subscribe.topics.{index} |  |  |
+| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
+| message-filters.publish.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
+| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
+| message-filters.subscribe.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
 | hub-id |  | Change Hub for this device, additional fees may apply, see IoT Hub pricing |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

@@ -280,5 +280,15 @@ func accountSSHKeyRemove() *core.Command {
 				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw account ssh-key list",
+				Short:   "List all SSH keys",
+			},
+			{
+				Command: "scw account ssh-key add",
+				Short:   "Add a SSH key",
+			},
+		},
 	}
 }
