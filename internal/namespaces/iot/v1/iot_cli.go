@@ -684,6 +684,7 @@ func iotDeviceCreate() *core.Command {
 			},
 			{
 				Name:       "message-filters.publish.policy",
+				Short:      `How to use the topic list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -691,12 +692,14 @@ func iotDeviceCreate() *core.Command {
 			},
 			{
 				Name:       "message-filters.publish.topics.{index}",
+				Short:      `List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "message-filters.subscribe.policy",
+				Short:      `How to use the topic list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -704,6 +707,7 @@ func iotDeviceCreate() *core.Command {
 			},
 			{
 				Name:       "message-filters.subscribe.topics.{index}",
+				Short:      `List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -798,6 +802,7 @@ func iotDeviceUpdate() *core.Command {
 			},
 			{
 				Name:       "message-filters.publish.policy",
+				Short:      `How to use the topic list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -805,12 +810,14 @@ func iotDeviceUpdate() *core.Command {
 			},
 			{
 				Name:       "message-filters.publish.topics.{index}",
+				Short:      `List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "message-filters.subscribe.policy",
+				Short:      `How to use the topic list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -818,6 +825,7 @@ func iotDeviceUpdate() *core.Command {
 			},
 			{
 				Name:       "message-filters.subscribe.topics.{index}",
+				Short:      `List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
