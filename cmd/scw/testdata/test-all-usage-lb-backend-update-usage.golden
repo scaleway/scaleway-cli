@@ -3,26 +3,26 @@
 Update a backend in a given load balancer.
 
 USAGE:
-  scw lb backend update [arg=value ...]
+  scw lb backend update <backend-id ...> [arg=value ...]
 
 ARGS:
-  backend-id                      
-  [name]                          
-  [forward-protocol]               (tcp | http)
-  [forward-port]                  
-  [forward-port-algorithm]         (roundrobin | leastconn | first)
-  [sticky-sessions]                (none | cookie | table)
-  [sticky-sessions-cookie-name]   
-  [timeout-server]                
-  [timeout-connect]               
-  [timeout-tunnel]                
-  [on-marked-down-action]          (on_marked_down_action_none | shutdown_sessions)
-  [proxy-protocol]                 (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
-  [failover-host]                 
+  backend-id                      Backend ID to update
+  name                            Resource name
+  forward-protocol                Backend protocol. TCP or HTTP (tcp | http)
+  forward-port                    User sessions will be forwarded to this port of backend servers
+  forward-port-algorithm          Load balancing algorithm (roundrobin | leastconn | first)
+  sticky-sessions                 Enable cookie-based session persistence (none | cookie | table)
+  [sticky-sessions-cookie-name]   Cookie name for for sticky sessions
+  [timeout-server]                Maximum server connection inactivity time
+  [timeout-connect]               Maximum initial server connection establishment time
+  [timeout-tunnel]                Maximum tunnel inactivity time
+  [on-marked-down-action]         Modify what occurs when a backend server is marked down (on_marked_down_action_none | shutdown_sessions)
+  [proxy-protocol]                PROXY protocol, forward client's address (must be supported by backend servers software) (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
+  [failover-host]                 Scaleway S3 bucket website to be served in case all backend servers are down
   [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1)
 
 DEPRECATED ARGS:
-  [send-proxy-v2]   
+  [send-proxy-v2]   Deprecated in favor of proxy_protocol field!
 
 FLAGS:
   -h, --help   help for update
