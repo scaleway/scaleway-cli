@@ -133,7 +133,7 @@ func vpcGwIP() *core.Command {
 
 func vpcGwGatewayType() *core.Command {
 	return &core.Command{
-		Short: ``,
+		Short: `Gateway types information`,
 		Long: `Gateways come in multiple shapes and size, which are described by the various gateway types.
 `,
 		Namespace: "vpc-gw",
