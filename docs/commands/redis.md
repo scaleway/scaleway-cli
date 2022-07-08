@@ -379,7 +379,7 @@ scw redis endpoint delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| endpoint-id | Required |  |
+| endpoint-id | Required | UUID of the endpoint you want to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -391,7 +391,7 @@ Get an endpoint.
 **Usage:**
 
 ```
-scw redis endpoint get [arg=value ...]
+scw redis endpoint get <endpoint-id ...> [arg=value ...]
 ```
 
 
@@ -399,7 +399,7 @@ scw redis endpoint get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| endpoint-id | Required |  |
+| endpoint-id | Required | UUID of the endpoint you want to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
