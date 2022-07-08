@@ -1063,6 +1063,7 @@ func redisEndpointDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1098,9 +1099,10 @@ func redisEndpointGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
