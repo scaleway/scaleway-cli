@@ -28,7 +28,7 @@ VPC Public Gateway API
   - [Get a gateway connection to a Private Network](#get-a-gateway-connection-to-a-private-network)
   - [List gateway connections to Private Networks](#list-gateway-connections-to-private-networks)
   - [Update a gateway connection to a Private Network](#update-a-gateway-connection-to-a-private-network)
-- [](#)
+- [Gateway types information](#gateway-types-information)
   - [List VPC Public Gateway types](#list-vpc-public-gateway-types)
 - [IP address management](#ip-address-management)
   - [Reserve an IP](#reserve-an-ip)
@@ -593,7 +593,7 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 
 
 
-## 
+## Gateway types information
 
 Gateways come in multiple shapes and size, which are described by the various gateway types.
 

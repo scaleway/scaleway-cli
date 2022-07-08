@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   dhcp-entry      DHCP entries management
   gateway         VPC Public Gateway management
   gateway-network Gateway Networks management
-  gateway-type    
+  gateway-type    Gateway types information
   ip              IP address management
   pat-rule        PAT rules management
 
