@@ -2,6 +2,7 @@ package namespaces
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
 	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
@@ -64,6 +65,7 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(redis.GetCommands())
 	if len(beta) == 1 && beta[0] {
 		commands.Merge(iam.GetCommands())
+		commands.Merge(accountv2.GetCommands())
 	}
 	return commands
 }
