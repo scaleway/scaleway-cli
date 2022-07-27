@@ -6,7 +6,7 @@ USAGE:
   scw redis cluster migrate <cluster-id ...> [arg=value ...]
 
 ARGS:
-  [version]         Redis version of the cluster
+  [version]         Redis™ engine version of the cluster
   [node-type]       Type of node to use for the cluster
   [cluster-size]    Number of nodes for the cluster
   cluster-id        UUID of the cluster to update
