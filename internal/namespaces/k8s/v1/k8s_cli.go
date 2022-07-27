@@ -42,6 +42,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sNodeGet(),
 		k8sNodeReplace(),
 		k8sNodeReboot(),
+		k8sNodeDelete(),
 		k8sVersionList(),
 		k8sVersionGet(),
 	)
@@ -1620,7 +1621,7 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading"},
+				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading", "starting"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -1728,7 +1729,7 @@ func k8sNodeReplace() *core.Command {
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "replace",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(k8s.ReplaceNodeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1788,6 +1789,41 @@ func k8sNodeReboot() *core.Command {
 			{
 				Short: "Reboot a given node",
 				Raw:   `scw k8s node reboot 11111111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sNodeDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a node in a cluster`,
+		Long:      `This method allows to delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Namespace: "k8s",
+		Resource:  "node",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.DeleteNodeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "node-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.DeleteNodeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.DeleteNode(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Delete a given node",
+				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111`,
 			},
 		},
 	}
