@@ -8,6 +8,7 @@ USAGE:
   scw k8s node <command>
 
 AVAILABLE COMMANDS:
+  delete      Delete a node in a cluster
   get         Get a node in a cluster
   list        List all the nodes in a cluster
   reboot      Reboot a node in a cluster

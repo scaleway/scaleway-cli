@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Database Redis API
+Managed Database for Redis™ API
 
 USAGE:
   scw redis <command>
@@ -11,7 +11,7 @@ AVAILABLE COMMANDS:
   endpoint    Endpoints management commands
   node-type   Node Types management commands
   setting     Settings management commands
-  version     Redis Version management commands
+  version     Redis™ version management commands
 
 FLAGS:
   -h, --help   help for redis
