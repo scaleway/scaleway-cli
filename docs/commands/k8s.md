@@ -17,6 +17,7 @@ Kapsule API
   - [Install a kubeconfig](#install-a-kubeconfig)
   - [Uninstall a kubeconfig](#uninstall-a-kubeconfig)
 - [Kapsule node management commands](#kapsule-node-management-commands)
+  - [Delete a node in a cluster](#delete-a-node-in-a-cluster)
   - [Get a node in a cluster](#get-a-node-in-a-cluster)
   - [List all the nodes in a cluster](#list-all-the-nodes-in-a-cluster)
   - [Reboot a node in a cluster](#reboot-a-node-in-a-cluster)
@@ -528,6 +529,36 @@ Please note that Kubernetes nodes cannot be accessed with ssh.
 
 
 
+### Delete a node in a cluster
+
+This method allows to delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+
+**Usage:**
+
+```
+scw k8s node delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| node-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Delete a given node
+```
+scw k8s node delete 11111111-1111-1111-111111111111
+```
+
+
+
+
 ### Get a node in a cluster
 
 This method allows to get details about a specific Kubernetes node.
@@ -577,7 +608,7 @@ scw k8s node list [arg=value ...]
 | pool-id |  | The pool ID on which to filter the returned nodes |
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned nodes |
 | name |  | The name on which to filter the returned nodes |
-| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading` | The status on which to filter the returned nodes |
+| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting` | The status on which to filter the returned nodes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
