@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cluster Settings are tunables of Redis Cluster. Available settings depend on the Redis version.
+Available Redis™ settings. Available settings depend on the Redis™ version.
 
 USAGE:
   scw redis setting <command>

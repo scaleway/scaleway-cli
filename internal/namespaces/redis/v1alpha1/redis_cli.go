@@ -52,7 +52,7 @@ func GetGeneratedCommands() *core.Commands {
 }
 func redisRoot() *core.Command {
 	return &core.Command{
-		Short:     `Database Redis API`,
+		Short:     `Managed Database for Redis™ API`,
 		Long:      ``,
 		Namespace: "redis",
 	}
@@ -61,7 +61,7 @@ func redisRoot() *core.Command {
 func redisCluster() *core.Command {
 	return &core.Command{
 		Short: `Cluster management commands`,
-		Long: `A Redis cluster is composed of one or more Nodes depending of the cluster_size setting.
+		Long: `A Managed Database for Redis™ cluster is composed of one or more Nodes depending of the cluster_size setting.
 `,
 		Namespace: "redis",
 		Resource:  "cluster",
@@ -80,8 +80,8 @@ func redisNodeType() *core.Command {
 
 func redisVersion() *core.Command {
 	return &core.Command{
-		Short:     `Redis Version management commands`,
-		Long:      `Redis versions powering your cluster.`,
+		Short:     `Redis™ version management commands`,
+		Long:      `Redis™ versions powering your cluster.`,
 		Namespace: "redis",
 		Resource:  "version",
 	}
@@ -90,7 +90,7 @@ func redisVersion() *core.Command {
 func redisSetting() *core.Command {
 	return &core.Command{
 		Short: `Settings management commands`,
-		Long: `Cluster Settings are tunables of Redis Cluster. Available settings depend on the Redis version.
+		Long: `Available Redis™ settings. Available settings depend on the Redis™ version.
 `,
 		Namespace: "redis",
 		Resource:  "setting",
@@ -138,7 +138,7 @@ func redisClusterCreate() *core.Command {
 			},
 			{
 				Name:       "version",
-				Short:      `Redis version of the cluster`,
+				Short:      `Redis™ engine version of the cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -403,7 +403,7 @@ func redisClusterMigrate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
-				Short:      `Redis version of the cluster`,
+				Short:      `Redis™ engine version of the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -559,8 +559,8 @@ func redisNodeTypeList() *core.Command {
 
 func redisVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List available Redis versions`,
-		Long:      `List available Redis versions.`,
+		Short:     `List available Redis™ versions`,
+		Long:      `List available Redis™ versions.`,
 		Namespace: "redis",
 		Resource:  "version",
 		Verb:      "list",
@@ -569,28 +569,28 @@ func redisVersionList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
-				Short:      `Whether or not to include disabled Redis versions`,
+				Short:      `Whether or not to include disabled Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-beta",
-				Short:      `Whether or not to include beta Redis versions`,
+				Short:      `Whether or not to include beta Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-deprecated",
-				Short:      `Whether or not to include deprecated Redis versions`,
+				Short:      `Whether or not to include deprecated Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "version-name",
-				Short:      `List Redis versions that match a given name pattern`,
+				Short:      `List Redis™ engine versions that match a given name pattern`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [project-id]                                              Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]                                        Name of the cluster
-  version                                                   Redis version of the cluster
+  version                                                   Redis™ engine version of the cluster
   [tags.{index}]                                            Tags to apply to the cluster
   node-type                                                 Type of node to use for the cluster
   user-name                                                 Name of the user created when the cluster is created
