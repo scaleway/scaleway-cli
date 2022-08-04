@@ -29,3 +29,58 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  package-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+      - name: Add packaging config to goreleaser config
+        run: cat .goreleaser.pkg.yml >> .goreleaser.yml
+      - name: create gpg key
+        run: echo "${GPG_KEY}" > /root/gpg
+        env:
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+      - name: Build and package deb
+        run: ./goreleaser release --skip-validate --rm-dist --skip-publish
+#      - name: Build and package deb
+#        uses: goreleaser/goreleaser-action@v2
+#        with:
+#          version: latest
+#          args: release --skip-validate --rm-dist --skip-publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_KEY: '/root/gpg'
+  package-rpm:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    needs: [goreleaser]
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${TAG##v}
+        env:
+          TAG: ${{ steps.get_tag.outputs.TAG }}
+      - name: Install make
+        run: dnf install make -y
+      - name: Setup rpm-build
+        run: make rpm-setup
+      - name: Build srpm
+        run: make srpm-build
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - name: Publish rpm
+        run: |
+          mkdir -p ~/.config
+          echo "${SCW_COPR_CONFIG}" > ~/.config/copr
+          copr-cli build @scaleway/staging ~/rpmbuild/SRPMS/scw-*.rpm
+        env:
+          SCW_COPR_CONFIG: ${{ secrets.SCW_COPR_CONFIG }}

@@ -1,0 +1,16 @@
+nfpms:
+  -
+    package_name: scw
+    vendor: Scaleway
+    homepage: https://www.scaleway.com/
+    description: Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
+    maintainer: Scaleway Devtools <opensource@scaleway.com>
+    license: Apache 2.0
+    formats:
+      - deb
+    deb:
+      signature:
+        key_file: '{{ .Env.GPG_KEY }}'
+        key_id: F5BF26CADF6F9614
+        type: origin
+
