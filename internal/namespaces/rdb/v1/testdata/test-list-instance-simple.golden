@@ -66,6 +66,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -137,6 +138,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -208,6 +210,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -279,6 +282,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -350,6 +354,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -421,6 +426,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-m",
     "init_settings": [],
     "endpoints": [
@@ -492,6 +498,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -563,6 +570,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -634,6 +642,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
@@ -698,6 +707,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
       "disabled": false
     },
     "is_ha_cluster": false,
+    "read_replicas": [],
     "node_type": "db-dev-m",
     "init_settings": [],
     "endpoints": [],

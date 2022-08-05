@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a read replica.
+
+USAGE:
+  scw rdb read-replica create <instance-id ...> [arg=value ...]
+
+ARGS:
+  instance-id                                                  UUID of the instance you want a read replica of
+  [endpoint-spec.{index}.private-network.private-network-id]   UUID of the private network to be connected to the read replica
+  [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.
+  [region=fr-par]                                              Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

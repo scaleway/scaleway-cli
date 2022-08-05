@@ -47,6 +47,11 @@ Database RDB API
   - [List privileges of a given user for a given database on a given instance](#list-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
   - [Set privileges of a given user for a given database on a given instance](#set-privileges-of-a-given-user-for-a-given-database-on-a-given-instance)
 - [Read replica management](#read-replica-management)
+  - [Create a read replica](#create-a-read-replica)
+  - [Create a new endpoint for a given read replica](#create-a-new-endpoint-for-a-given-read-replica)
+  - [Delete a read replica](#delete-a-read-replica)
+  - [Get a read replica](#get-a-read-replica)
+  - [Reset a read replica](#reset-a-read-replica)
 - [Block snapshot management](#block-snapshot-management)
   - [Create an instance snapshot](#create-an-instance-snapshot)
   - [Delete an instance snapshot](#delete-an-instance-snapshot)
@@ -930,14 +935,108 @@ scw rdb privilege set [arg=value ...]
 A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
 
 
-A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
 
+### Create a read replica
+
+Create a read replica.
 
 **Usage:**
 
 ```
-scw rdb read-replica
+scw rdb read-replica create <instance-id ...> [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the instance you want a read replica of |
+| endpoint-spec.{index}.private-network.private-network-id |  | UUID of the private network to be connected to the read replica |
+| endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create a new endpoint for a given read replica
+
+Create a new endpoint for a given read replica.
+
+**Usage:**
+
+```
+scw rdb read-replica create-endpoint <read-replica-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| read-replica-id | Required | UUID of the read replica |
+| endpoint-spec.{index}.private-network.private-network-id |  | UUID of the private network to be connected to the read replica |
+| endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a read replica
+
+Delete a read replica.
+
+**Usage:**
+
+```
+scw rdb read-replica delete <read-replica-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| read-replica-id | Required | UUID of the read replica |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a read replica
+
+Get a read replica.
+
+**Usage:**
+
+```
+scw rdb read-replica get <read-replica-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| read-replica-id | Required | UUID of the read replica |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Reset a read replica
+
+Reset a read replica.
+
+**Usage:**
+
+```
+scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| read-replica-id | Required | UUID of the read replica |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

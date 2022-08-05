@@ -50,6 +50,11 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceRestart(),
 		rdbInstanceGetCertificate(),
 		rdbInstanceRenewCertificate(),
+		rdbReadReplicaCreate(),
+		rdbReadReplicaGet(),
+		rdbReadReplicaDelete(),
+		rdbReadReplicaReset(),
+		rdbReadReplicaCreateEndpoint(),
 		rdbLogPrepare(),
 		rdbLogList(),
 		rdbLogGet(),
@@ -1112,6 +1117,184 @@ func rdbInstanceRenewCertificate() *core.Command {
 				Resource: "instance",
 				Verb:     "renew-certificate",
 			}, nil
+		},
+	}
+}
+
+func rdbReadReplicaCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a read replica`,
+		Long:      `Create a read replica.`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance you want a read replica of`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.private-network-id",
+				Short:      `UUID of the private network to be connected to the read replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.service-ip",
+				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CreateReadReplicaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CreateReadReplica(request)
+
+		},
+	}
+}
+
+func rdbReadReplicaGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a read replica`,
+		Long:      `Get a read replica.`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.GetReadReplicaRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "read-replica-id",
+				Short:      `UUID of the read replica`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetReadReplicaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetReadReplica(request)
+
+		},
+	}
+}
+
+func rdbReadReplicaDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a read replica`,
+		Long:      `Delete a read replica.`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.DeleteReadReplicaRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "read-replica-id",
+				Short:      `UUID of the read replica`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.DeleteReadReplicaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.DeleteReadReplica(request)
+
+		},
+	}
+}
+
+func rdbReadReplicaReset() *core.Command {
+	return &core.Command{
+		Short:     `Reset a read replica`,
+		Long:      `Reset a read replica.`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
+		Verb:      "reset",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.ResetReadReplicaRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "read-replica-id",
+				Short:      `UUID of the read replica`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.ResetReadReplicaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.ResetReadReplica(request)
+
+		},
+	}
+}
+
+func rdbReadReplicaCreateEndpoint() *core.Command {
+	return &core.Command{
+		Short:     `Create a new endpoint for a given read replica`,
+		Long:      `Create a new endpoint for a given read replica.`,
+		Namespace: "rdb",
+		Resource:  "read-replica",
+		Verb:      "create-endpoint",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "read-replica-id",
+				Short:      `UUID of the read replica`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.private-network-id",
+				Short:      `UUID of the private network to be connected to the read replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.service-ip",
+				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CreateReadReplicaEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CreateReadReplicaEndpoint(request)
+
 		},
 	}
 }

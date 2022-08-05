@@ -584,7 +584,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "volumes.{key}.size",
-				Short:      `Disk size of the volume`,
+				Short:      `Disk size of the volume, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1078,7 +1078,7 @@ func instanceImageCreate() *core.Command {
 			},
 			{
 				Name:       "extra-volumes.{key}.size",
-				Short:      `Disk size of the volume`,
+				Short:      `Disk size of the volume, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1561,7 +1561,7 @@ func instanceVolumeCreate() *core.Command {
 			},
 			{
 				Name:       "size",
-				Short:      `The volume disk size`,
+				Short:      `The volume disk size, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1677,7 +1677,7 @@ func instanceVolumeUpdate() *core.Command {
 			},
 			{
 				Name:       "size",
-				Short:      `The volume disk size`,
+				Short:      `The volume disk size, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -92,6 +92,7 @@ max_parallel_workers_per_gather  0
     "disabled": false
   },
   "is_ha_cluster": false,
+  "read_replicas": [],
   "node_type": "db-dev-s",
   "init_settings": [],
   "endpoints": [
