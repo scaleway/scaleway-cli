@@ -3,14 +3,22 @@
 This method allows to delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
 
 USAGE:
-  scw k8s node delete [arg=value ...]
+  scw k8s node delete <node-id ...> [arg=value ...]
 
 EXAMPLES:
   Delete a given node
     scw k8s node delete 11111111-1111-1111-111111111111
 
+  Delete a given node without evicting workloads
+    scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true
+
+  Replace a given node by a new one
+    scw k8s node delete 11111111-1111-1111-111111111111 replace=true
+
 ARGS:
-  node-id           
+  node-id           The ID of the node to replace
+  [skip-drain]      Skip draining node from its workload
+  [replace]         Add a new node after the deletion of this node
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

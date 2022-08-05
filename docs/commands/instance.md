@@ -2251,7 +2251,7 @@ scw instance volume create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | The volume tags |
 | volume-type | One of: `l_ssd`, `b_ssd`, `unified` | The volume type |
-| size |  | The volume disk size |
+| size |  | The volume disk size, must be a multiple of 512 |
 | base-volume |  | The ID of the volume on which this volume will be based |
 | base-snapshot |  | The ID of the snapshot on which this volume will be based |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
@@ -2411,7 +2411,7 @@ scw instance volume update <volume-id ...> [arg=value ...]
 | volume-id | Required | UUID of the volume |
 | name |  | The volume name |
 | tags.{index} |  | The tags of the volume |
-| size |  | The volume disk size |
+| size |  | The volume disk size, must be a multiple of 512 |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 

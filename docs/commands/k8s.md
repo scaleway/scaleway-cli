@@ -536,7 +536,7 @@ This method allows to delete a specific node. Note that when there is not enough
 **Usage:**
 
 ```
-scw k8s node delete [arg=value ...]
+scw k8s node delete <node-id ...> [arg=value ...]
 ```
 
 
@@ -544,7 +544,9 @@ scw k8s node delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| node-id | Required |  |
+| node-id | Required | The ID of the node to replace |
+| skip-drain |  | Skip draining node from its workload |
+| replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -554,6 +556,16 @@ scw k8s node delete [arg=value ...]
 Delete a given node
 ```
 scw k8s node delete 11111111-1111-1111-111111111111
+```
+
+Delete a given node without evicting workloads
+```
+scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true
+```
+
+Replace a given node by a new one
+```
+scw k8s node delete 11111111-1111-1111-111111111111 replace=true
 ```
 
 
@@ -608,7 +620,7 @@ scw k8s node list [arg=value ...]
 | pool-id |  | The pool ID on which to filter the returned nodes |
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned nodes |
 | name |  | The name on which to filter the returned nodes |
-| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting` | The status on which to filter the returned nodes |
+| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | The status on which to filter the returned nodes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

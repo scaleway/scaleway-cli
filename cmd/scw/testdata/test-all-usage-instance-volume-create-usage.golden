@@ -20,7 +20,7 @@ ARGS:
   [project-id]         Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]       The volume tags
   [volume-type]        The volume type (l_ssd | b_ssd | unified)
-  [size]               The volume disk size
+  [size]               The volume disk size, must be a multiple of 512
   [base-volume]        The ID of the volume on which this volume will be based
   [base-snapshot]      The ID of the snapshot on which this volume will be based
   [organization-id]    Organization ID to use. If none is passed the default organization ID will be used

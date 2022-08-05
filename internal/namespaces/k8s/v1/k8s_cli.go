@@ -1621,7 +1621,7 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading", "starting"},
+				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading", "starting", "registering"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -1806,7 +1806,22 @@ func k8sNodeDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
+				Short:      `The ID of the node to replace`,
 				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "skip-drain",
+				Short:      `Skip draining node from its workload`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "replace",
+				Short:      `Add a new node after the deletion of this node`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1824,6 +1839,14 @@ func k8sNodeDelete() *core.Command {
 			{
 				Short: "Delete a given node",
 				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Delete a given node without evicting workloads",
+				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true`,
+			},
+			{
+				Short: "Replace a given node by a new one",
+				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111 replace=true`,
 			},
 		},
 	}
