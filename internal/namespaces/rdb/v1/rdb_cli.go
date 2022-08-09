@@ -190,7 +190,7 @@ func rdbSnapshot() *core.Command {
 func rdbReadReplica() *core.Command {
 	return &core.Command{
 		Short: `Read replica management`,
-		Long: `A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
+		Long: `A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads. Listing of read replicas is available in the instance response object.
 `,
 		Namespace: "rdb",
 		Resource:  "read-replica",
