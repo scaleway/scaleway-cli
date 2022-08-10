@@ -932,7 +932,7 @@ scw rdb privilege set [arg=value ...]
 
 ## Read replica management
 
-A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads.
+A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads. Listing of read replicas is available in the instance response object.
 
 
 
