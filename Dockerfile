@@ -1,4 +1,4 @@
-FROM golang:1.15-alpine as builder
+FROM golang:1.19-alpine as builder
 
 ENV BUILD_IN_DOCKER true
 ARG VERSION
