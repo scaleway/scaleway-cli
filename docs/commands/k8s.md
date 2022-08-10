@@ -69,7 +69,7 @@ scw k8s cluster create [arg=value ...]
 | ~~enable-dashboard~~ | Deprecated | The enablement of the Kubernetes Dashboard in the cluster |
 | ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The Ingress Controller that will run in the cluster |
 | pools.{index}.name | Required | The name of the pool |
-| pools.{index}.node-type | Required | The node type is the type of Scaleway Instance wanted for the pool |
+| pools.{index}.node-type | Required | The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST) |
 | pools.{index}.placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
 | pools.{index}.autoscaling |  | The enablement of the autoscaling feature for the pool |
 | pools.{index}.size | Required | The size (number of nodes) of the pool |
@@ -760,7 +760,7 @@ scw k8s pool create [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | The ID of the cluster in which the pool will be created |
 | name | Required<br />Default: `<generated>` | The name of the pool |
-| node-type | Required<br />Default: `DEV1-M` | The node type is the type of Scaleway Instance wanted for the pool |
+| node-type | Required<br />Default: `DEV1-M` | The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST) |
 | placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
 | autoscaling |  | The enablement of the autoscaling feature for the pool |
 | size | Required<br />Default: `1` | The size (number of nodes) of the pool |
