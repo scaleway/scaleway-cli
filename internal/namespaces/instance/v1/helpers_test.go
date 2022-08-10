@@ -14,7 +14,8 @@ import (
 
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func createServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
 }
@@ -27,7 +28,8 @@ func startServer(metaKey string) core.BeforeFunc {
 
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		server := ctx.Meta[metaKey].(*instance.Server)
@@ -47,7 +49,8 @@ func deleteServer(metaKey string) core.AfterFunc {
 
 // createVolume creates a volume of the given size and type and
 // register it in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolumeType) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw instance volume create name=cli-test size=%dGB volume-type=%s", sizeInGb, volumeType)

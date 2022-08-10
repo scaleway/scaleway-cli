@@ -1,7 +1,6 @@
 package k8s
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"testing"
@@ -16,7 +15,7 @@ import (
 // testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
 // it test if the user, cluster and context of the kubeconfig file are not in the given file
 func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
-	kubeconfigBytes, err := ioutil.ReadFile(filePath)
+	kubeconfigBytes, err := os.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig k8s.Kubeconfig
 	err = yaml.Unmarshal(kubeconfigBytes, &existingKubeconfig)

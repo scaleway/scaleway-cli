@@ -1,7 +1,6 @@
 package account
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"testing"
@@ -23,7 +22,7 @@ func Test_initCommand(t *testing.T) {
 				if err != nil {
 					return err
 				}
-				err = ioutil.WriteFile(pathToPublicKey, []byte(content), 0644)
+				err = os.WriteFile(pathToPublicKey, []byte(content), 0644)
 				return err
 			}
 			return err

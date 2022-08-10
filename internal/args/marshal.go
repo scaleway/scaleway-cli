@@ -94,10 +94,10 @@ func RegisterMarshalFunc(i interface{}, marshalFunc MarshalFunc) {
 // It will take care of pointers resolution, nested structs, etc.
 //
 // If this function is called with:
-//  - a marshalable value: [ "${keys.join(.)}=${marshaledValue}" ]
-//  - a go struct: [ "${keys.join(.)}.field1=${marshaledField1}", ... ]
-//  - a go map: [ "${keys.join(.)}.key1=${marshaledValue1}", ... ]
-//  - a go slice: [ "${keys.join(.)}.0=${marshaledValue0}", ... ]
+//   - a marshal-able value: [ "${keys.join(.)}=${marshaledValue}" ]
+//   - a go struct: [ "${keys.join(.)}.field1=${marshaledField1}", ... ]
+//   - a go map: [ "${keys.join(.)}.key1=${marshaledValue1}", ... ]
+//   - a go slice: [ "${keys.join(.)}.0=${marshaledValue0}", ... ]
 //
 // src: the value to marshal
 // keys: the parent keys used by recursion (nil on first level)

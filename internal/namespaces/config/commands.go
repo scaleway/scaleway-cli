@@ -510,9 +510,8 @@ func configResetCommand() *core.Command {
 	}
 }
 
-//
 // Helper functions
-//
+
 func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error) {
 	field, err := getProfileField(profile, fieldName)
 	if err != nil {

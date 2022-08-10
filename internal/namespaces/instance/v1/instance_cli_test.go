@@ -9,9 +9,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-//
 // Server
-//
+
 func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -36,9 +35,7 @@ func Test_GetServer(t *testing.T) {
 	}))
 }
 
-//
 // Volume
-//
 func Test_CreateVolume(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -202,9 +199,7 @@ func Test_ServerUpdate(t *testing.T) {
 	}))
 }
 
-//
 // Snapshot
-//
 func Test_SnapshotCreate(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),

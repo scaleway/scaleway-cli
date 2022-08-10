@@ -1,7 +1,6 @@
 package init
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -62,7 +61,7 @@ eval "$(scw autocomplete script shell=zsh)"
 						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".zshrc")
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
@@ -111,7 +110,7 @@ eval (scw autocomplete script shell=fish)
 						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".config", "fish", "config.fish")
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
@@ -154,7 +153,7 @@ eval "$(scw autocomplete script shell=bash)"
 						default:
 							t.Fatalf("unsupported OS")
 						}
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						if err != nil {
 							require.NoError(t, err)
 						}

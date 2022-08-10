@@ -2,7 +2,6 @@ package k8s
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path"
 	"runtime"
@@ -38,7 +37,7 @@ func getKubeconfigPath(ctx context.Context) (string, error) {
 
 func openAndUnmarshalKubeconfig(kubeconfigPath string) (*api.Config, error) {
 	// getting the existing file
-	file, err := ioutil.ReadFile(kubeconfigPath)
+	file, err := os.ReadFile(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
@@ -59,5 +58,5 @@ func marshalAndWriteKubeconfig(kubeconfig *api.Config, kubeconfigPath string) er
 		return err
 	}
 
-	return ioutil.WriteFile(kubeconfigPath, newKubeconfig, 0600)
+	return os.WriteFile(kubeconfigPath, newKubeconfig, 0600)
 }

@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -330,7 +329,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		if config.TmpHomeDir {
-			dir, err := ioutil.TempDir(os.TempDir(), "scw")
+			dir, err := os.MkdirTemp(os.TempDir(), "scw")
 			require.NoError(t, err)
 			defer func() {
 				err = os.RemoveAll(dir)
@@ -582,10 +581,10 @@ func TestCheckGolden() TestCheck {
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
 		}
 
-		expected, err := ioutil.ReadFile(goldenPath)
+		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
 		assert.Equal(t, string(expected), actual)
 	}

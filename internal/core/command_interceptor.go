@@ -3,7 +3,7 @@ package core
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -127,7 +127,7 @@ func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner Command
 	switch sdkValue := res.(type) {
 	case *scw.File:
 		ExtractLogger(ctx).Debug("Intercepting scw.File type, rendering as string")
-		fileContent, err := ioutil.ReadAll(sdkValue.Content)
+		fileContent, err := io.ReadAll(sdkValue.Content)
 		if err != nil {
 			return nil, err
 		}
