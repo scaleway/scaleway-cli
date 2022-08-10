@@ -310,7 +310,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
+				Short:      `The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1228,7 +1228,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
+				Short:      `The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
