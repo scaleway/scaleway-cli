@@ -1,7 +1,6 @@
 package instance
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -60,7 +59,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := ioutil.TempFile("", "test")
+				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 				return nil
@@ -83,7 +82,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := ioutil.TempFile("", "test")
+				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 				return nil

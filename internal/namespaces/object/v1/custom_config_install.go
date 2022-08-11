@@ -3,7 +3,6 @@ package object
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -100,7 +99,7 @@ func configInstallCommand() *core.Command {
 			}
 
 			// Write the configuration file
-			err = ioutil.WriteFile(configPath, []byte(newConfig), 0600)
+			err = os.WriteFile(configPath, []byte(newConfig), 0600)
 			if err != nil {
 				return "", err
 			}

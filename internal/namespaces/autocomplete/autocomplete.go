@@ -3,7 +3,7 @@ package autocomplete
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path"
 	"path/filepath"
@@ -197,7 +197,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// Early exit if eval line is already present in the shell configuration.
-	shellConfigurationFileContent, err := ioutil.ReadAll(f)
+	shellConfigurationFileContent, err := io.ReadAll(f)
 	if err != nil {
 		return nil, err
 	}

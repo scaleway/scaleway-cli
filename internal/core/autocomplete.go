@@ -112,7 +112,7 @@ func NewAutoCompleteCommandNode() *AutoCompleteNode {
 	}
 }
 
-// NewArgAutoCompleteNode creates a new node corresponding to a command argument.
+// NewAutoCompleteArgNode creates a new node corresponding to a command argument.
 // These nodes are leaf nodes.
 func NewAutoCompleteArgNode(cmd *Command, argSpec *ArgSpec) *AutoCompleteNode {
 	return &AutoCompleteNode{
@@ -123,11 +123,11 @@ func NewAutoCompleteArgNode(cmd *Command, argSpec *ArgSpec) *AutoCompleteNode {
 	}
 }
 
-// NewFlagAutoCompleteNode returns a node representing a Flag.
+// NewAutoCompleteFlagNode returns a node representing a Flag.
 // It creates the children node with possible values if they exist.
 // It sets parent.children as children of the lowest nodes:
-//  the lowest node is the flag if it has no possible value ;
-//  or the lowest nodes are the possible values if the exist.
+// the lowest node is the flag if it has no possible value ;
+// or the lowest nodes are the possible values if the exist.
 func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *AutoCompleteNode {
 	node := &AutoCompleteNode{
 		Children: make(map[string]*AutoCompleteNode),

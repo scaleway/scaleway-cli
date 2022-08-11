@@ -488,7 +488,6 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // A valid volume format is either
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a UUID format
-//
 func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 
