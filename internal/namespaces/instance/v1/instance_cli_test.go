@@ -10,7 +10,6 @@ import (
 )
 
 // Server
-
 func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
