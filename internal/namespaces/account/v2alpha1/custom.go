@@ -2,7 +2,6 @@ package account
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path"
 	"reflect"
@@ -47,7 +46,7 @@ func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		relativePath := path.Join(".ssh", keyName)
 		filename := path.Join(core.ExtractUserHomeDir(ctx), relativePath)
 		shortenedFilename = "~/" + relativePath
-		localSSHKeyContent, err = ioutil.ReadFile(filename)
+		localSSHKeyContent, err = os.ReadFile(filename)
 		// If we managed to load an ssh key, let's stop there
 		if err == nil {
 			break

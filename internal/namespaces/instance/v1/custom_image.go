@@ -252,7 +252,8 @@ func imageListBuilder(c *core.Command) *core.Command {
 }
 
 // imageDeleteBuilder override delete command to:
-//  - add a with-snapshots parameter
+
+// - add a with-snapshots parameter
 func imageDeleteBuilder(c *core.Command) *core.Command {
 	type customDeleteImageRequest struct {
 		*instance.DeleteImageRequest

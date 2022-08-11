@@ -2,7 +2,7 @@ package k8s
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/ghodss/yaml"
@@ -112,7 +112,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(metaKey string, kubeconfig
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = ioutil.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0644)
 		return err
 	}
 }
@@ -142,7 +142,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(metaKey string, 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = ioutil.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0644)
 		if err != nil {
 			return err
 		}

@@ -16,7 +16,8 @@ func createServer(metaKey string) core.BeforeFunc {
 
 // deleteServer deletes a server
 // previously registered in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw baremetal server delete zone=nl-ams-1 {{ ." + metaKey + ".ID }}")
 }

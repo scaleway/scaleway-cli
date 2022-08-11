@@ -50,7 +50,7 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 	}
 
 	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
-	cmd := exec.Command(args.Program, cmdArgs...) // nolint:gosec
+	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
 	cmd.Stdin = bytes.NewBufferString(secretKey)
 	exitCode, err := core.ExecCmd(ctx, cmd)
 

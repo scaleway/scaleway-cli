@@ -1,7 +1,6 @@
 package init
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -27,7 +26,7 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 		}
 
 		// Write the configuration file
-		err = ioutil.WriteFile(keyPath, []byte(key), 0600)
+		err = os.WriteFile(keyPath, []byte(key), 0600)
 		if err != nil {
 			return err
 		}
