@@ -18,11 +18,11 @@ EXAMPLES:
 ARGS:
   cluster-id                         The ID of the cluster in which the pool will be created
   name=<generated>                   The name of the pool
-  node-type=DEV1-M                   The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)
+  node-type=DEV1-M                   The node type is the type of Scaleway Instance wanted for the pool
   [placement-group-id]               The placement group ID in which all the nodes of the pool will be created
   [autoscaling]                      The enablement of the autoscaling feature for the pool
   size=1                             The size (number of nodes) of the pool
-  [min-size]                         The minimun size of the pool
+  [min-size]                         The minimum size of the pool
   [max-size]                         The maximum size of the pool
   [container-runtime]                The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
   [autohealing]                      The enablement of the autohealing feature for the pool
