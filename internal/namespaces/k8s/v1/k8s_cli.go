@@ -310,7 +310,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)`,
+				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -338,7 +338,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.min-size",
-				Short:      `The minimun size of the pool`,
+				Short:      `The minimum size of the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1228,7 +1228,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)`,
+				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1256,7 +1256,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "min-size",
-				Short:      `The minimun size of the pool`,
+				Short:      `The minimum size of the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
