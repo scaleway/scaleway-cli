@@ -21,11 +21,11 @@ ARGS:
   version=latest                                         The Kubernetes version of the cluster
   cni=cilium                                             The Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
   pools.{index}.name                                     The name of the pool
-  pools.{index}.node-type                                The node type is the type of Scaleway Instance wanted for the pool, nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST)
+  pools.{index}.node-type                                The node type is the type of Scaleway Instance wanted for the pool
   [pools.{index}.placement-group-id]                     The placement group ID in which all the nodes of the pool will be created
   [pools.{index}.autoscaling]                            The enablement of the autoscaling feature for the pool
   pools.{index}.size                                     The size (number of nodes) of the pool
-  [pools.{index}.min-size]                               The minimun size of the pool
+  [pools.{index}.min-size]                               The minimum size of the pool
   [pools.{index}.max-size]                               The maximum size of the pool
   [pools.{index}.container-runtime]                      The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
   [pools.{index}.autohealing]                            The enablement of the autohealing feature for the pool
