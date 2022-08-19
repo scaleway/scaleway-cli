@@ -36,7 +36,7 @@ func (b *BuildInfo) MarshalJSON() ([]byte, error) {
 
 const (
 	scwDisableCheckVersionEnv        = "SCW_DISABLE_CHECK_VERSION"
-	latestVersionFileURL             = "https://scw-devtools.s3.nl-ams.scw.cloud/scw-cli-v2-version"
+	latestGithubReleaseURL           = "https://api.github.com/repos/scaleway/scaleway-cli/releases/latest"
 	latestVersionUpdateFileLocalName = "latest-cli-version"
 	latestVersionRequestTimeout      = 1 * time.Second
 	userAgentPrefix                  = "scaleway-cli"
@@ -100,7 +100,7 @@ func getLatestVersion(client *http.Client) (*version.Version, error) {
 	ctx, cancelTimeout := context.WithTimeout(context.Background(), latestVersionRequestTimeout)
 	defer cancelTimeout()
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, latestVersionFileURL, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, latestGithubReleaseURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,16 @@ func getLatestVersion(client *http.Client) (*version.Version, error) {
 		return nil, err
 	}
 
-	return version.NewSemver(strings.Trim(string(body), "\n"))
+	jsonBody := struct {
+		TagName string `json:"tag_name"`
+	}{}
+
+	err = json.Unmarshal(body, &jsonBody)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal version from remote: %w", err)
+	}
+
+	return version.NewSemver(strings.TrimPrefix(jsonBody.TagName, "v"))
 }
 
 // wasFileModifiedLast24h checks whether the file has been updated during last 24 hours.
