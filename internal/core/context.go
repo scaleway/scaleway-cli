@@ -53,16 +53,13 @@ func ExtractCommands(ctx context.Context) *Commands {
 	return extractMeta(ctx).Commands
 }
 
-func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
+func GetOrganizationIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
-	organizationID, exists := client.GetDefaultOrganizationID()
-	if !exists {
-		panic("no default organization ID found")
-	}
+	organizationID, _ := client.GetDefaultOrganizationID()
 	return organizationID
 }
 
-func GetProjectIDFromContext(ctx context.Context) (projectID string) {
+func GetProjectIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
 	projectID, exists := client.GetDefaultProjectID()
 	if !exists {
