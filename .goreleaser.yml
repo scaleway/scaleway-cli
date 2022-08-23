@@ -69,14 +69,3 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
-
-# We deploy a flag to a bucket that will be checked regularly by the CLI in the wild to check whether a new version is available.
-blobs:
-  - provider: s3
-    endpoint: s3.fr-par.scw.cloud
-    bucket: scw-devtools
-    folder: "/"
-    extra_files:
-      - glob: scw-cli-v2-version
-    ids:
-      - binaries
