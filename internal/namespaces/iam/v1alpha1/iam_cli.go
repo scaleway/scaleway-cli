@@ -20,44 +20,46 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		iamRoot(),
-		iamSSHKeys(),
-		iamGroups(),
-		iamAPIKeys(),
-		iamUsers(),
-		iamApplications(),
-		iamPolicies(),
-		iamRules(),
-		iamPermissionSets(),
-		iamSSHKeysList(),
-		iamSSHKeysAdd(),
-		iamSSHKeysGet(),
-		iamSSHKeysUpdate(),
-		iamSSHKeysRemove(),
-		iamUsersList(),
-		iamUsersGet(),
-		iamApplicationsList(),
-		iamApplicationsAdd(),
-		iamApplicationsGet(),
-		iamApplicationsUpdate(),
-		iamApplicationsRemove(),
-		iamGroupsList(),
-		iamGroupsAdd(),
-		iamGroupsGet(),
-		iamGroupsUpdate(),
-		iamGroupsRemove(),
-		iamPoliciesList(),
-		iamPoliciesAdd(),
-		iamPoliciesGet(),
-		iamPoliciesUpdate(),
-		iamPoliciesRemove(),
-		iamRulesUpdate(),
-		iamRulesList(),
-		iamPermissionSetsList(),
-		iamAPIKeysList(),
-		iamAPIKeysAdd(),
-		iamAPIKeysGet(),
-		iamAPIKeysUpdate(),
-		iamAPIKeysRemove(),
+		iamSSHKey(),
+		iamGroup(),
+		iamAPIKey(),
+		iamUser(),
+		iamApplication(),
+		iamPolicy(),
+		iamRule(),
+		iamPermissionSet(),
+		iamSSHKeyList(),
+		iamSSHKeyCreate(),
+		iamSSHKeyGet(),
+		iamSSHKeyUpdate(),
+		iamSSHKeyDelete(),
+		iamUserList(),
+		iamUserGet(),
+		iamApplicationList(),
+		iamApplicationCreate(),
+		iamApplicationGet(),
+		iamApplicationUpdate(),
+		iamApplicationDelete(),
+		iamGroupList(),
+		iamGroupCreate(),
+		iamGroupGet(),
+		iamGroupUpdate(),
+		iamGroupAddMember(),
+		iamGroupRemoveMember(),
+		iamGroupDelete(),
+		iamPolicyList(),
+		iamPolicyCreate(),
+		iamPolicyGet(),
+		iamPolicyUpdate(),
+		iamPolicyDelete(),
+		iamRuleUpdate(),
+		iamRuleList(),
+		iamPermissionSetList(),
+		iamAPIKeyList(),
+		iamAPIKeyCreate(),
+		iamAPIKeyGet(),
+		iamAPIKeyUpdate(),
+		iamAPIKeyDelete(),
 	)
 }
 func iamRoot() *core.Command {
@@ -68,84 +70,84 @@ func iamRoot() *core.Command {
 	}
 }
 
-func iamSSHKeys() *core.Command {
+func iamSSHKey() *core.Command {
 	return &core.Command{
 		Short:     `SSH keys management commands`,
 		Long:      `SSH keys management commands.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
+		Resource:  "ssh-key",
 	}
 }
 
-func iamGroups() *core.Command {
+func iamGroup() *core.Command {
 	return &core.Command{
 		Short:     `Groups management commands`,
 		Long:      `Groups management commands.`,
 		Namespace: "iam",
-		Resource:  "groups",
+		Resource:  "group",
 	}
 }
 
-func iamAPIKeys() *core.Command {
+func iamAPIKey() *core.Command {
 	return &core.Command{
 		Short:     `API keys management commands`,
 		Long:      `API keys management commands.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
+		Resource:  "api-key",
 	}
 }
 
-func iamUsers() *core.Command {
+func iamUser() *core.Command {
 	return &core.Command{
 		Short:     `Users management commands`,
 		Long:      `Users management commands.`,
 		Namespace: "iam",
-		Resource:  "users",
+		Resource:  "user",
 	}
 }
 
-func iamApplications() *core.Command {
+func iamApplication() *core.Command {
 	return &core.Command{
 		Short:     `Applications management commands`,
 		Long:      `Applications management commands.`,
 		Namespace: "iam",
-		Resource:  "applications",
+		Resource:  "application",
 	}
 }
 
-func iamPolicies() *core.Command {
+func iamPolicy() *core.Command {
 	return &core.Command{
 		Short:     `Policies management commands`,
 		Long:      `Policies management commands.`,
 		Namespace: "iam",
-		Resource:  "policies",
+		Resource:  "policy",
 	}
 }
 
-func iamRules() *core.Command {
+func iamRule() *core.Command {
 	return &core.Command{
 		Short:     `Rules management commands`,
 		Long:      `Rules management commands.`,
 		Namespace: "iam",
-		Resource:  "rules",
+		Resource:  "rule",
 	}
 }
 
-func iamPermissionSets() *core.Command {
+func iamPermissionSet() *core.Command {
 	return &core.Command{
 		Short:     `Permission sets management commands`,
 		Long:      `Permission sets management commands.`,
 		Namespace: "iam",
-		Resource:  "permission-sets",
+		Resource:  "permission-set",
 	}
 }
 
-func iamSSHKeysList() *core.Command {
+func iamSSHKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List SSH keys`,
 		Long:      `List SSH keys.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
+		Resource:  "ssh-key",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListSSHKeysRequest{}),
@@ -211,9 +213,6 @@ func iamSSHKeysList() *core.Command {
 				FieldName: "CreatedAt",
 			},
 			{
-				FieldName: "UpdatedAt",
-			},
-			{
 				FieldName: "ProjectID",
 			},
 			{
@@ -235,13 +234,13 @@ func iamSSHKeysList() *core.Command {
 	}
 }
 
-func iamSSHKeysAdd() *core.Command {
+func iamSSHKeyCreate() *core.Command {
 	return &core.Command{
-		Short:     `Add an SSH key`,
-		Long:      `Add an SSH key.`,
+		Short:     `Create an SSH key`,
+		Long:      `Create an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
-		Verb:      "add",
+		Resource:  "ssh-key",
+		Verb:      "create",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -272,7 +271,7 @@ func iamSSHKeysAdd() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a given ssh key",
-				Raw:   `scw iam ssh-key add name=foobar public-key="$(cat <path/to/your/public/key>)"`,
+				Raw:   `scw iam ssh-key create name=foobar public-key="$(cat <path/to/your/public/key>)"`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -281,19 +280,19 @@ func iamSSHKeysAdd() *core.Command {
 				Short:   "List all SSH keys",
 			},
 			{
-				Command: "scw iam ssh-key remove",
-				Short:   "Remove an SSH key",
+				Command: "scw iam ssh-key delete",
+				Short:   "Delete an SSH key",
 			},
 		},
 	}
 }
 
-func iamSSHKeysGet() *core.Command {
+func iamSSHKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an SSH key`,
 		Long:      `Get an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
+		Resource:  "ssh-key",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetSSHKeyRequest{}),
@@ -317,12 +316,12 @@ func iamSSHKeysGet() *core.Command {
 	}
 }
 
-func iamSSHKeysUpdate() *core.Command {
+func iamSSHKeyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an SSH key`,
 		Long:      `Update an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
+		Resource:  "ssh-key",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateSSHKeyRequest{}),
@@ -359,13 +358,13 @@ func iamSSHKeysUpdate() *core.Command {
 	}
 }
 
-func iamSSHKeysRemove() *core.Command {
+func iamSSHKeyDelete() *core.Command {
 	return &core.Command{
-		Short:     `Remove an SSH key`,
-		Long:      `Remove an SSH key.`,
+		Short:     `Delete an SSH key`,
+		Long:      `Delete an SSH key.`,
 		Namespace: "iam",
-		Resource:  "ssh-keys",
-		Verb:      "remove",
+		Resource:  "ssh-key",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteSSHKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -386,13 +385,13 @@ func iamSSHKeysRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "ssh-keys",
-				Verb:     "remove",
+				Resource: "ssh-key",
+				Verb:     "delete",
 			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Remove a given SSH key",
+				Short:    "Delete a given SSH key",
 				ArgsJSON: `{"ssh_key_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -402,19 +401,19 @@ func iamSSHKeysRemove() *core.Command {
 				Short:   "List all SSH keys",
 			},
 			{
-				Command: "scw iam ssh-key add",
+				Command: "scw iam ssh-key create",
 				Short:   "Add a SSH key",
 			},
 		},
 	}
 }
 
-func iamUsersList() *core.Command {
+func iamUserList() *core.Command {
 	return &core.Command{
 		Short:     `List users of an organization`,
 		Long:      `List users of an organization.`,
 		Namespace: "iam",
-		Resource:  "users",
+		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListUsersRequest{}),
@@ -458,12 +457,12 @@ func iamUsersList() *core.Command {
 	}
 }
 
-func iamUsersGet() *core.Command {
+func iamUserGet() *core.Command {
 	return &core.Command{
 		Short:     `Retrieve a user from its ID`,
 		Long:      `Retrieve a user from its ID.`,
 		Namespace: "iam",
-		Resource:  "users",
+		Resource:  "user",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetUserRequest{}),
@@ -487,12 +486,12 @@ func iamUsersGet() *core.Command {
 	}
 }
 
-func iamApplicationsList() *core.Command {
+func iamApplicationList() *core.Command {
 	return &core.Command{
 		Short:     `List applications of an organization`,
 		Long:      `List applications of an organization.`,
 		Namespace: "iam",
-		Resource:  "applications",
+		Resource:  "application",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListApplicationsRequest{}),
@@ -550,13 +549,13 @@ func iamApplicationsList() *core.Command {
 	}
 }
 
-func iamApplicationsAdd() *core.Command {
+func iamApplicationCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new application`,
 		Long:      `Create a new application.`,
 		Namespace: "iam",
-		Resource:  "applications",
-		Verb:      "add",
+		Resource:  "application",
+		Verb:      "create",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateApplicationRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -587,12 +586,12 @@ func iamApplicationsAdd() *core.Command {
 	}
 }
 
-func iamApplicationsGet() *core.Command {
+func iamApplicationGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an existing application`,
 		Long:      `Get an existing application.`,
 		Namespace: "iam",
-		Resource:  "applications",
+		Resource:  "application",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetApplicationRequest{}),
@@ -616,12 +615,12 @@ func iamApplicationsGet() *core.Command {
 	}
 }
 
-func iamApplicationsUpdate() *core.Command {
+func iamApplicationUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing application`,
 		Long:      `Update an existing application.`,
 		Namespace: "iam",
-		Resource:  "applications",
+		Resource:  "application",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateApplicationRequest{}),
@@ -659,13 +658,13 @@ func iamApplicationsUpdate() *core.Command {
 	}
 }
 
-func iamApplicationsRemove() *core.Command {
+func iamApplicationDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an application`,
 		Long:      `Delete an application.`,
 		Namespace: "iam",
-		Resource:  "applications",
-		Verb:      "remove",
+		Resource:  "application",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteApplicationRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -687,19 +686,19 @@ func iamApplicationsRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "applications",
-				Verb:     "remove",
+				Resource: "application",
+				Verb:     "delete",
 			}, nil
 		},
 	}
 }
 
-func iamGroupsList() *core.Command {
+func iamGroupList() *core.Command {
 	return &core.Command{
 		Short:     `List groups`,
 		Long:      `List groups.`,
 		Namespace: "iam",
-		Resource:  "groups",
+		Resource:  "group",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListGroupsRequest{}),
@@ -763,37 +762,25 @@ func iamGroupsList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "AccessKey",
-			},
-			{
-				FieldName: "SecretKey",
-			},
-			{
 				FieldName: "OrganizationID",
 			},
 			{
-				FieldName: "CreatedAt",
+				FieldName: "UserIDs",
 			},
 			{
-				FieldName: "UpdatedAt",
-			},
-			{
-				FieldName: "ExpiresAt",
-			},
-			{
-				FieldName: "DefaultProjectID",
+				FieldName: "ApplicationIDs",
 			},
 		}},
 	}
 }
 
-func iamGroupsAdd() *core.Command {
+func iamGroupCreate() *core.Command {
 	return &core.Command{
-		Short:     `Add a new group`,
-		Long:      `Add a new group.`,
+		Short:     `Create a new group`,
+		Long:      `Create a new group.`,
 		Namespace: "iam",
-		Resource:  "groups",
-		Verb:      "add",
+		Resource:  "group",
+		Verb:      "create",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -827,19 +814,19 @@ func iamGroupsAdd() *core.Command {
 				Short:   "List all groups",
 			},
 			{
-				Command: "scw iam group remove",
-				Short:   "Remove a group",
+				Command: "scw iam group delete",
+				Short:   "Delete a group",
 			},
 		},
 	}
 }
 
-func iamGroupsGet() *core.Command {
+func iamGroupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a group`,
 		Long:      `Get a group.`,
 		Namespace: "iam",
-		Resource:  "groups",
+		Resource:  "group",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetGroupRequest{}),
@@ -863,12 +850,12 @@ func iamGroupsGet() *core.Command {
 	}
 }
 
-func iamGroupsUpdate() *core.Command {
+func iamGroupUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a group`,
 		Long:      `Update a group.`,
 		Namespace: "iam",
-		Resource:  "groups",
+		Resource:  "group",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateGroupRequest{}),
@@ -906,13 +893,99 @@ func iamGroupsUpdate() *core.Command {
 	}
 }
 
-func iamGroupsRemove() *core.Command {
+func iamGroupAddMember() *core.Command {
+	return &core.Command{
+		Short:     `Add a user of an application to a group`,
+		Long:      `Add a user of an application to a group.`,
+		Namespace: "iam",
+		Resource:  "group",
+		Verb:      "add-member",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.AddGroupMemberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Short:      `ID of group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "application-id",
+				Short:      `ID of the application to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.AddGroupMemberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.AddGroupMember(request)
+
+		},
+	}
+}
+
+func iamGroupRemoveMember() *core.Command {
+	return &core.Command{
+		Short:     `Remove a user or an application from a group`,
+		Long:      `Remove a user or an application from a group.`,
+		Namespace: "iam",
+		Resource:  "group",
+		Verb:      "remove-member",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.RemoveGroupMemberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Short:      `ID of group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to remove`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "application-id",
+				Short:      `ID of the application to remove`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.RemoveGroupMemberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.RemoveGroupMember(request)
+
+		},
+	}
+}
+
+func iamGroupDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a group`,
 		Long:      `Delete a group.`,
 		Namespace: "iam",
-		Resource:  "groups",
-		Verb:      "remove",
+		Resource:  "group",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteGroupRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -934,13 +1007,13 @@ func iamGroupsRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "groups",
-				Verb:     "remove",
+				Resource: "group",
+				Verb:     "delete",
 			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Remove a given group",
+				Short:    "Delete a given group",
 				ArgsJSON: `{"group_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -950,19 +1023,19 @@ func iamGroupsRemove() *core.Command {
 				Short:   "List all groups",
 			},
 			{
-				Command: "scw iam group add",
-				Short:   "Add a group",
+				Command: "scw iam group delete",
+				Short:   "Delete a group",
 			},
 		},
 	}
 }
 
-func iamPoliciesList() *core.Command {
+func iamPolicyList() *core.Command {
 	return &core.Command{
 		Short:     `List policies of an organization`,
 		Long:      `List policies of an organization.`,
 		Namespace: "iam",
-		Resource:  "policies",
+		Resource:  "policy",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListPoliciesRequest{}),
@@ -1041,13 +1114,13 @@ func iamPoliciesList() *core.Command {
 	}
 }
 
-func iamPoliciesAdd() *core.Command {
+func iamPolicyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new policy`,
 		Long:      `Create a new policy.`,
 		Namespace: "iam",
-		Resource:  "policies",
-		Verb:      "add",
+		Resource:  "policy",
+		Verb:      "create",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreatePolicyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -1127,12 +1200,12 @@ func iamPoliciesAdd() *core.Command {
 	}
 }
 
-func iamPoliciesGet() *core.Command {
+func iamPolicyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an existing policy`,
 		Long:      `Get an existing policy.`,
 		Namespace: "iam",
-		Resource:  "policies",
+		Resource:  "policy",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetPolicyRequest{}),
@@ -1156,12 +1229,12 @@ func iamPoliciesGet() *core.Command {
 	}
 }
 
-func iamPoliciesUpdate() *core.Command {
+func iamPolicyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing policy`,
 		Long:      `Update an existing policy.`,
 		Namespace: "iam",
-		Resource:  "policies",
+		Resource:  "policy",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdatePolicyRequest{}),
@@ -1227,13 +1300,13 @@ func iamPoliciesUpdate() *core.Command {
 	}
 }
 
-func iamPoliciesRemove() *core.Command {
+func iamPolicyDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a policy`,
 		Long:      `Delete a policy.`,
 		Namespace: "iam",
-		Resource:  "policies",
-		Verb:      "remove",
+		Resource:  "policy",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeletePolicyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -1255,19 +1328,19 @@ func iamPoliciesRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "policies",
-				Verb:     "remove",
+				Resource: "policy",
+				Verb:     "delete",
 			}, nil
 		},
 	}
 }
 
-func iamRulesUpdate() *core.Command {
+func iamRuleUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Set rules of an existing policy`,
 		Long:      `Set rules of an existing policy.`,
 		Namespace: "iam",
-		Resource:  "rules",
+		Resource:  "rule",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.SetRulesRequest{}),
@@ -1312,12 +1385,12 @@ func iamRulesUpdate() *core.Command {
 	}
 }
 
-func iamRulesList() *core.Command {
+func iamRuleList() *core.Command {
 	return &core.Command{
 		Short:     `List rules of an existing policy`,
 		Long:      `List rules of an existing policy.`,
 		Namespace: "iam",
-		Resource:  "rules",
+		Resource:  "rule",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListRulesRequest{}),
@@ -1345,12 +1418,12 @@ func iamRulesList() *core.Command {
 	}
 }
 
-func iamPermissionSetsList() *core.Command {
+func iamPermissionSetList() *core.Command {
 	return &core.Command{
 		Short:     `List permission sets`,
 		Long:      `List permission sets.`,
 		Namespace: "iam",
-		Resource:  "permission-sets",
+		Resource:  "permission-set",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListPermissionSetsRequest{}),
@@ -1381,12 +1454,12 @@ func iamPermissionSetsList() *core.Command {
 	}
 }
 
-func iamAPIKeysList() *core.Command {
+func iamAPIKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List API keys`,
 		Long:      `List API keys.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
+		Resource:  "api-key",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.ListAPIKeysRequest{}),
@@ -1467,13 +1540,13 @@ func iamAPIKeysList() *core.Command {
 	}
 }
 
-func iamAPIKeysAdd() *core.Command {
+func iamAPIKeyCreate() *core.Command {
 	return &core.Command{
-		Short:     `Add an API key`,
-		Long:      `Add an API key.`,
+		Short:     `Create an API key`,
+		Long:      `Create an API key.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
-		Verb:      "add",
+		Resource:  "api-key",
+		Verb:      "create",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.CreateAPIKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -1527,19 +1600,19 @@ func iamAPIKeysAdd() *core.Command {
 				Short:   "List all API keys",
 			},
 			{
-				Command: "scw iam api-key remove",
-				Short:   "Remove an API key",
+				Command: "scw iam api-key delete",
+				Short:   "Delete an API key",
 			},
 		},
 	}
 }
 
-func iamAPIKeysGet() *core.Command {
+func iamAPIKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an API key`,
 		Long:      `Get an API key.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
+		Resource:  "api-key",
 		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.GetAPIKeyRequest{}),
@@ -1563,12 +1636,12 @@ func iamAPIKeysGet() *core.Command {
 	}
 }
 
-func iamAPIKeysUpdate() *core.Command {
+func iamAPIKeyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an API key`,
 		Long:      `Update an API key.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
+		Resource:  "api-key",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.UpdateAPIKeyRequest{}),
@@ -1606,13 +1679,13 @@ func iamAPIKeysUpdate() *core.Command {
 	}
 }
 
-func iamAPIKeysRemove() *core.Command {
+func iamAPIKeyDelete() *core.Command {
 	return &core.Command{
-		Short:     `Remove an API key`,
-		Long:      `Remove an API key.`,
+		Short:     `Delete an API key`,
+		Long:      `Delete an API key.`,
 		Namespace: "iam",
-		Resource:  "api-keys",
-		Verb:      "remove",
+		Resource:  "api-key",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(iam.DeleteAPIKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -1634,13 +1707,13 @@ func iamAPIKeysRemove() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "api-keys",
-				Verb:     "remove",
+				Resource: "api-key",
+				Verb:     "delete",
 			}, nil
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Remove a given API key",
+				Short:    "Delete a given API key",
 				ArgsJSON: `{"access_key":"SCW00000000000"}`,
 			},
 		},
@@ -1650,8 +1723,8 @@ func iamAPIKeysRemove() *core.Command {
 				Short:   "List all API keys",
 			},
 			{
-				Command: "scw iam api-key add",
-				Short:   "Add an API key",
+				Command: "scw iam api-key create",
+				Short:   "Create an API key",
 			},
 		},
 	}
