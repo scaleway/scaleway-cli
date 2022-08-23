@@ -216,16 +216,7 @@ func iamSSHKeyList() *core.Command {
 				FieldName: "ProjectID",
 			},
 			{
-				FieldName: "CreationInfo.Address",
-			},
-			{
-				FieldName: "CreationInfo.CountryCode",
-			},
-			{
-				FieldName: "CreationInfo.UserAgent",
-			},
-			{
-				FieldName: "OrganizationID",
+				FieldName: "CreationIP",
 			},
 			{
 				FieldName: "Disabled",
@@ -247,9 +238,10 @@ func iamSSHKeyCreate() *core.Command {
 			{
 				Name:       "name",
 				Short:      `The name of the SSH key. Max length is 1000`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("key"),
 			},
 			{
 				Name:       "public-key",
@@ -439,7 +431,7 @@ func iamUserList() *core.Command {
 				Short:      `ID of organization to filter`,
 				Required:   true,
 				Deprecated: false,
-				Positional: true,
+				Positional: false,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -565,6 +557,7 @@ func iamApplicationCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("app"),
 			},
 			{
 				Name:       "description",
@@ -762,7 +755,10 @@ func iamGroupList() *core.Command {
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
-				FieldName: "OrganizationID",
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Name",
 			},
 			{
 				FieldName: "UserIDs",
@@ -787,9 +783,10 @@ func iamGroupCreate() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Name of the group to create (max length is 64 chars). MUST be unique inside an organization`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("grp"),
 			},
 			{
 				Name:       "description",
@@ -1130,6 +1127,7 @@ func iamPolicyCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("pol"),
 			},
 			{
 				Name:       "description",
@@ -1499,7 +1497,7 @@ func iamAPIKeyList() *core.Command {
 				Short:      `ID of organization`,
 				Required:   true,
 				Deprecated: false,
-				Positional: true,
+				Positional: false,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1522,13 +1520,7 @@ func iamAPIKeyList() *core.Command {
 				FieldName: "SecretKey",
 			},
 			{
-				FieldName: "OrganizationID",
-			},
-			{
 				FieldName: "CreatedAt",
-			},
-			{
-				FieldName: "UpdatedAt",
 			},
 			{
 				FieldName: "ExpiresAt",
