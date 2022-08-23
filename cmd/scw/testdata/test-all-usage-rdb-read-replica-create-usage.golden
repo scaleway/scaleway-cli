@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a read replica.
+You can only create a maximum of 3 read replicas for one instance.
 
 USAGE:
   scw rdb read-replica create <instance-id ...> [arg=value ...]
