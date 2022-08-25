@@ -191,6 +191,12 @@ func rdbReadReplica() *core.Command {
 	return &core.Command{
 		Short: `Read replica management`,
 		Long: `A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads. Listing of read replicas is available in the instance response object.
+A read replica can have at most one direct access and one private network endpoint. Loadbalancer endpoint is not available on read replica even if this resource is displayed in the read replica response example.
+If you want to remove a read replica endpoint, you can use the instance delete endpoint API call.
+Instance Access Control List (ACL) also applies on read replica direct access endpoint. Don't forget to set it to improve the security of your read replica nodes.
+Be aware that there can be replication lags between the primary node and its read replica nodes. You can try to reduce this lag with some good practices:
+* All your tables should have a primary key
+* Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.
 `,
 		Namespace: "rdb",
 		Resource:  "read-replica",
@@ -1124,7 +1130,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 func rdbReadReplicaCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a read replica`,
-		Long:      `Create a read replica.`,
+		Long:      `You can only create a maximum of 3 read replicas for one instance.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "create",
@@ -1227,8 +1233,10 @@ func rdbReadReplicaDelete() *core.Command {
 
 func rdbReadReplicaReset() *core.Command {
 	return &core.Command{
-		Short:     `Reset a read replica`,
-		Long:      `Reset a read replica.`,
+		Short: `Reset a read replica`,
+		Long: `Resetting a read replica resyncs data from the leader node. This operation can take some time, depending on the database's size.
+During this operation, the read replica will not be available. Endpoints will not change.
+`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "reset",
@@ -1258,7 +1266,7 @@ func rdbReadReplicaReset() *core.Command {
 func rdbReadReplicaCreateEndpoint() *core.Command {
 	return &core.Command{
 		Short:     `Create a new endpoint for a given read replica`,
-		Long:      `Create a new endpoint for a given read replica.`,
+		Long:      `A read replica can have at most one direct access and one private network endpoint.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "create-endpoint",

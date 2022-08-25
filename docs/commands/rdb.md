@@ -933,12 +933,18 @@ scw rdb privilege set [arg=value ...]
 ## Read replica management
 
 A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads. Listing of read replicas is available in the instance response object.
+A read replica can have at most one direct access and one private network endpoint. Loadbalancer endpoint is not available on read replica even if this resource is displayed in the read replica response example.
+If you want to remove a read replica endpoint, you can use the instance delete endpoint API call.
+Instance Access Control List (ACL) also applies on read replica direct access endpoint. Don't forget to set it to improve the security of your read replica nodes.
+Be aware that there can be replication lags between the primary node and its read replica nodes. You can try to reduce this lag with some good practices:
+* All your tables should have a primary key
+* Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.
 
 
 
 ### Create a read replica
 
-Create a read replica.
+You can only create a maximum of 3 read replicas for one instance.
 
 **Usage:**
 
@@ -960,7 +966,7 @@ scw rdb read-replica create <instance-id ...> [arg=value ...]
 
 ### Create a new endpoint for a given read replica
 
-Create a new endpoint for a given read replica.
+A read replica can have at most one direct access and one private network endpoint.
 
 **Usage:**
 
@@ -1022,7 +1028,9 @@ scw rdb read-replica get <read-replica-id ...> [arg=value ...]
 
 ### Reset a read replica
 
-Reset a read replica.
+Resetting a read replica resyncs data from the leader node. This operation can take some time, depending on the database's size.
+During this operation, the read replica will not be available. Endpoints will not change.
+
 
 **Usage:**
 
