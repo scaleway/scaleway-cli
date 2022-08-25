@@ -56,8 +56,9 @@ Instance API
 - [Server type management commands](#server-type-management-commands)
   - [List server types](#list-server-types)
 - [Snapshot management commands](#snapshot-management-commands)
-  - [Create a snapshot from a given volume](#create-a-snapshot-from-a-given-volume)
+  - [Create a snapshot from a given volume or from a QCOW2 file](#create-a-snapshot-from-a-given-volume-or-from-a-qcow2-file)
   - [Delete a snapshot](#delete-a-snapshot)
+  - [Export a snapshot](#export-a-snapshot)
   - [Get a snapshot](#get-a-snapshot)
   - [List snapshots](#list-snapshots)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
@@ -1911,9 +1912,9 @@ of the data of the original volume.
 
 
 
-### Create a snapshot from a given volume
+### Create a snapshot from a given volume or from a QCOW2 file
 
-Create a snapshot from a given volume.
+Create a snapshot from a given volume or from a QCOW2 file.
 
 **Usage:**
 
@@ -1931,6 +1932,9 @@ scw instance snapshot create [arg=value ...]
 | unified |  | Whether a snapshot is unified or not. |
 | tags.{index} |  | The tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| bucket |  | Bucket name for snapshot imports |
+| key |  | Object key for snapshot imports |
+| size |  | Imported snapshot size, must be a multiple of 512 |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1951,6 +1955,11 @@ scw instance snapshot create zone=fr-par-1 volume-id=11111111-1111-1111-1111-111
 Create a named snapshot from the given volume ID
 ```
 scw instance snapshot create name=foobar volume-id=11111111-1111-1111-1111-111111111111
+```
+
+Import a QCOW file as an instance snapshot
+```
+scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type=unified bucket=my-bucket key=my-qcow2-file-name
 ```
 
 
@@ -1986,6 +1995,38 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111
 Delete a snapshot in fr-par-1 zone with the given ID
 ```
 scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+```
+
+
+
+
+### Export a snapshot
+
+Export a snapshot to a given S3 bucket in the same region.
+
+**Usage:**
+
+```
+scw instance snapshot export [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| bucket |  | S3 bucket name |
+| key |  | S3 object key |
+| snapshot-id | Required | The snapshot ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Export a snapshot to an S3 bucket
+```
+scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-111111111111 bucket=my-bucket key=my-qcow2-file-name
 ```
 
 
