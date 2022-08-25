@@ -20,8 +20,9 @@ USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  create      Create a snapshot from a given volume
+  create      Create a snapshot from a given volume or from a QCOW2 file
   delete      Delete a snapshot
+  export      Export a snapshot
   get         Get a snapshot
   list        List snapshots
   wait        Wait for snapshot to reach a stable state

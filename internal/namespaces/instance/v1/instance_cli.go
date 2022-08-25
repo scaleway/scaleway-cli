@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSnapshotCreate(),
 		instanceSnapshotGet(),
 		instanceSnapshotDelete(),
+		instanceSnapshotExport(),
 		instanceVolumeList(),
 		instanceVolumeCreate(),
 		instanceVolumeGet(),
@@ -1249,8 +1250,8 @@ func instanceSnapshotList() *core.Command {
 
 func instanceSnapshotCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a snapshot from a given volume`,
-		Long:      `Create a snapshot from a given volume.`,
+		Short:     `Create a snapshot from a given volume or from a QCOW2 file`,
+		Long:      `Create a snapshot from a given volume or from a QCOW2 file.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "create",
@@ -1288,6 +1289,27 @@ func instanceSnapshotCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_volume_type", "l_ssd", "b_ssd", "unified"},
 			},
+			{
+				Name:       "bucket",
+				Short:      `Bucket name for snapshot imports`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `Object key for snapshot imports`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `Imported snapshot size, must be a multiple of 512`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
 		},
@@ -1311,6 +1333,10 @@ func instanceSnapshotCreate() *core.Command {
 			{
 				Short:    "Create a named snapshot from the given volume ID",
 				ArgsJSON: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Import a QCOW file as an instance snapshot",
+				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"unified","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -1397,6 +1423,56 @@ func instanceSnapshotDelete() *core.Command {
 			{
 				Short:    "Delete a snapshot in fr-par-1 zone with the given ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotExport() *core.Command {
+	return &core.Command{
+		Short:     `Export a snapshot`,
+		Long:      `Export a snapshot to a given S3 bucket in the same region.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "export",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ExportSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "bucket",
+				Short:      `S3 bucket name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `S3 object key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `The snapshot ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ExportSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ExportSnapshot(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Export a snapshot to an S3 bucket",
+				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
 	}
