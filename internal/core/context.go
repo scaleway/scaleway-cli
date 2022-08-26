@@ -160,7 +160,7 @@ func ReloadClient(ctx context.Context) error {
 	if meta.isClientFromBootstrapConfig {
 		return nil
 	}
-	meta.Client, err = createClient(meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+	meta.Client, err = createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
 	return err
 }
 
