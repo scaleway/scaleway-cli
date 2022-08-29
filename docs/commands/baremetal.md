@@ -197,11 +197,6 @@ Create instance
 scw baremetal server create
 ```
 
-Create a GP-BM1-M instance, give it a name and add tags
-```
-scw baremetal server create name=foo tags.0=prod tags.1=blue type=GP-BM1-M
-```
-
 
 
 
