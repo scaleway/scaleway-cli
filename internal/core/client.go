@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strings"
@@ -11,17 +12,20 @@ import (
 )
 
 // createClient creates a Scaleway SDK client.
-func createClient(httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
+func createClient(ctx context.Context, httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
 	_, err := scw.MigrateLegacyConfig()
 	if err != nil {
 		return nil, err
 	}
 
-	config, err := scw.LoadConfig()
-	// If the config file do not exist, don't return an error as we may find config in ENV or flags.
-	if _, isNotFoundError := err.(*scw.ConfigFileNotFoundError); isNotFoundError {
-		config = &scw.Config{}
-	} else if err != nil {
+	// Default path is based on the following priority order:
+	// * The config file's path provided via --config flag
+	// * $SCW_CONFIG_PATH
+	// * $XDG_CONFIG_HOME/scw/config.yaml
+	// * $HOME/.config/scw/config.yaml
+	// * $USERPROFILE/.config/scw/config.yaml
+	config, err := scw.LoadConfigFromPath(ExtractConfigPath(ctx))
+	if err != nil {
 		return nil, err
 	}
 
