@@ -35,6 +35,7 @@ deb-setup:
 	apt install devscripts equivs jq -y
 	mk-build-deps --install debian/control
 	go mod vendor
+	ln -s specs/deb debian
 
 deb-source-build: deb-setup template-deb
 	debuild -S -k524A68BAB1A91B2F74DCEC3B31F9FBCA5BD8707C
