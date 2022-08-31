@@ -52,7 +52,7 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:             "image",
 				Short:            "Image ID or label of the server",
-				Default:          core.DefaultValueSetter("ubuntu_focal"),
+				Default:          core.DefaultValueSetter("ubuntu_jammy"),
 				Required:         true,
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
