@@ -33,7 +33,7 @@ type LoginRequest struct {
 }
 
 var (
-	accountURL = "https://account.scaleway.com"
+	accountURL = "https://api.scaleway.com/account/v1"
 )
 
 func GetAPIKey(ctx context.Context, secretKey string) (*Token, error) {
