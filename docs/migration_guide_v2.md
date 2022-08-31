@@ -281,11 +281,11 @@ scw marketplace image list
 The constant URLs are not changing with the new CLI.
 You can still access them using their address.
 
-| Service     | URL                                    |
-|-------------|----------------------------------------|
-| account     | <https://account.scaleway.com>         |
-| metadata    | <http://169.254.42.42>                 |
-| marketplace | <https://api-marketplace.scaleway.com> |
+| Service     | URL                                        |
+|-------------|--------------------------------------------|
+| account     | <https://api.scaleway.com/account/v1>      |
+| metadata    | <http://169.254.42.42>                     |
+| marketplace | <https://api.scaleway.com/marketplace/v1>  |
 
 #### Quotas
 
@@ -293,16 +293,7 @@ CLI v2 does not support quotas at the moment.
 Your quotas can still be accessed through the [console](https://console.scaleway.com/account/user/profile) and the API:
 
 ```shell
-curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://account.scaleway.com/organizations/$SCW_DEFAULT_ORGANIZATION_ID/quotas
-```
-
-#### Permissions
-
-Permission management is scoped at the organization level at the moment.
-You can still access the complete list of your permissions using the API:
-
-```shell
-curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://account.scaleway.com/tokens/$SCW_SECRET_KEY/permissions
+curl -H "X-Auth-Token: $SCW_SECRET_KEY" https://api.scaleway.com/account/v1/organizations/$SCW_DEFAULT_ORGANIZATION_ID/quotas
 ```
 
 ### `scw inspect`
