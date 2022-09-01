@@ -14,7 +14,7 @@ Managed Database for Redis™ API
   - [Get the TLS certificate of a cluster](#get-the-tls-certificate-of-a-cluster)
   - [List clusters](#list-clusters)
   - [Get metrics of a cluster](#get-metrics-of-a-cluster)
-  - [Migrate a cluster](#migrate-a-cluster)
+  - [Migrate your cluster architecture](#migrate-your-cluster-architecture)
   - [Renew the TLS certificate of a cluster](#renew-the-tls-certificate-of-a-cluster)
   - [Update a cluster](#update-a-cluster)
 - [Endpoints management commands](#endpoints-management-commands)
@@ -269,9 +269,9 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 
 
 
-### Migrate a cluster
+### Migrate your cluster architecture
 
-Migrate a cluster.
+Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster will renew its TLS certificate.
 
 **Usage:**
 
