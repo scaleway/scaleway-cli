@@ -111,3 +111,36 @@ func Test_DownloadBackup(t *testing.T) {
 		TmpHomeDir:    true,
 	}))
 }
+
+func Test_ListBackup(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createInstance(engine),
+			core.BeforeFuncWhenUpdatingCassette(
+				func(ctx *core.BeforeFuncCtx) error {
+					time.Sleep(1 * time.Minute)
+					return nil
+				},
+			),
+			core.ExecStoreBeforeCmd(
+				"BackupA",
+				"scw rdb backup create name=will_be_exported expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+			),
+			core.ExecStoreBeforeCmd(
+				"BackupB",
+				"scw rdb backup create name=will_not_be_exported expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+			),
+			core.ExecStoreBeforeCmd(
+				"BackupExport",
+				"scw rdb backup export {{ .BackupA.ID }} --wait",
+			),
+		),
+		Cmd: "scw rdb backup list instance-id={{ .Instance.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
+	}))
+}

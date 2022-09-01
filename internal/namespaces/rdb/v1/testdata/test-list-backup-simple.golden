@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    Name                  Status  Instance ID                           Exported
+3b662b03-77c7-49c4-920c-1c68ed7fb79a  will_be_exported      ready   eaab3993-c8e1-436b-980d-f4e23eb0d36e  true
+7d69e393-2968-4688-86d2-b7e20920cc87  will_not_be_exported  ready   eaab3993-c8e1-436b-980d-f4e23eb0d36e  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "ID": "3b662b03-77c7-49c4-920c-1c68ed7fb79a",
+    "name": "will_be_exported",
+    "instance_ID": "eaab3993-c8e1-436b-980d-f4e23eb0d36e",
+    "exported": true,
+    "status": "ready"
+  },
+  {
+    "ID": "7d69e393-2968-4688-86d2-b7e20920cc87",
+    "name": "will_not_be_exported",
+    "instance_ID": "eaab3993-c8e1-436b-980d-f4e23eb0d36e",
+    "exported": false,
+    "status": "ready"
+  }
+]
