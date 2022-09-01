@@ -175,12 +175,12 @@ func backupListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func isExported(d *time.Time) bool {
-	exported := true
-	if d == nil {
+func isExported(expirationDate *time.Time) bool {
+	var exported bool
+	if expirationDate == nil {
 		exported = false
 	} else {
-		exported = time.Now().Before(*d)
+		exported = time.Now().Before(*expirationDate)
 	}
 	return exported
 }
