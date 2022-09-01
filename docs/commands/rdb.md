@@ -51,7 +51,7 @@ Database RDB API
   - [Create a new endpoint for a given read replica](#create-a-new-endpoint-for-a-given-read-replica)
   - [Delete a read replica](#delete-a-read-replica)
   - [Get a read replica](#get-a-read-replica)
-  - [Reset a read replica](#reset-a-read-replica)
+  - [Resync a read replica](#resync-a-read-replica)
 - [Block snapshot management](#block-snapshot-management)
   - [Create an instance snapshot](#create-an-instance-snapshot)
   - [Delete an instance snapshot](#delete-an-instance-snapshot)
@@ -1026,10 +1026,11 @@ scw rdb read-replica get <read-replica-id ...> [arg=value ...]
 
 
 
-### Reset a read replica
+### Resync a read replica
 
-Resetting a read replica resyncs data from the leader node. This operation can take some time, depending on the database's size.
-During this operation, the read replica will not be available. Endpoints will not change.
+When you resync a read replica, first it is reset, and then its data is resynchronized from the primary node.
+Your read replica will be unavailable during the resync process. The duration of this process is proportional to your Database Instance size.
+The configured endpoints will not change.
 
 
 **Usage:**
