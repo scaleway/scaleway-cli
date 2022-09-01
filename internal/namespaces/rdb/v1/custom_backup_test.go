@@ -117,12 +117,6 @@ func Test_ListBackup(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
-			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
-					time.Sleep(1 * time.Minute)
-					return nil
-				},
-			),
 			core.ExecStoreBeforeCmd(
 				"BackupA",
 				"scw rdb backup create name=will_be_exported expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",

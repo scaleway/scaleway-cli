@@ -161,24 +161,28 @@ func backupListBuilder(c *core.Command) *core.Command {
 		backupList := listBackupResp.([]*rdb.DatabaseBackup)
 		var res []customBackup
 		for _, backup := range backupList {
-			expired := false
-			if backup.DownloadURLExpiresAt == nil {
-				expired = true
-			} else {
-				expired = time.Now().After(*backup.DownloadURLExpiresAt)
-			}
 			res = append(res, customBackup{
 				ID:         backup.ID,
 				Name:       backup.Name,
 				Status:     backup.Status,
 				InstanceID: backup.InstanceID,
-				Exported:   !expired,
+				Exported:   isExported(backup.DownloadURLExpiresAt),
 			})
 		}
 		return res, nil
 	})
 
 	return c
+}
+
+func isExported(d *time.Time) bool {
+	exported := true
+	if d == nil {
+		exported = false
+	} else {
+		exported = time.Now().Before(*d)
+	}
+	return exported
 }
 
 func getDefaultFileName(rawURL string) (string, error) {
