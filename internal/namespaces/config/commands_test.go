@@ -210,6 +210,36 @@ func Test_ConfigDumpCommand(t *testing.T) {
 	}))
 }
 
+func Test_ConfigDestroyCommand(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config destroy",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("Check Config", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			beforeFuncCreateFullConfig(),
+			core.ExecStoreBeforeCmd(
+				"Destroy",
+				"scw config destroy",
+			),
+		),
+		Cmd: "scw config dump",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		homeDir := ctx.OverrideEnv["HOME"]
