@@ -26,6 +26,7 @@ The following environment variables are supported:
 
 Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
   
+- [Destroy the config file](#destroy-the-config-file)
 - [Dump the config file](#dump-the-config-file)
 - [Get a value from the config file](#get-a-value-from-the-config-file)
 - [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
@@ -36,6 +37,20 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Unset a line from the config file](#unset-a-line-from-the-config-file)
 
   
+## Destroy the config file
+
+
+
+
+
+**Usage:**
+
+```
+scw config destroy
+```
+
+
+
 ## Dump the config file
 
 
