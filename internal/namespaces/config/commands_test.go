@@ -221,23 +221,6 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 		),
 		TmpHomeDir: true,
 	}))
-
-	t.Run("Check Config", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(
-			beforeFuncCreateFullConfig(),
-			core.ExecStoreBeforeCmd(
-				"Destroy",
-				"scw config destroy",
-			),
-		),
-		Cmd: "scw config dump",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-			core.TestCheckGolden(),
-		),
-		TmpHomeDir: true,
-	}))
 }
 
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {

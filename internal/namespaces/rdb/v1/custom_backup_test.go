@@ -135,6 +135,7 @@ func Test_ListBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteInstance(),
+		AfterFunc:  deleteInstance(),
+		TmpHomeDir: true,
 	}))
 }
