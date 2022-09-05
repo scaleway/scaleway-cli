@@ -53,5 +53,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("rdb", "user", "list").Override(userListBuilder)
 
+	cmds.MustFind("rdb", "backup", "list").Override(backupListBuilder)
+
 	return cmds
 }
