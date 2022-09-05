@@ -16,7 +16,7 @@ AVAILABLE COMMANDS:
   create-endpoint Create a new endpoint for a given read replica
   delete          Delete a read replica
   get             Get a read replica
-  reset           Reset a read replica
+  reset           Resync a read replica
 
 FLAGS:
   -h, --help   help for read-replica
