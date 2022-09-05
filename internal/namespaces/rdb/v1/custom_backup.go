@@ -119,6 +119,72 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func backupListBuilder(c *core.Command) *core.Command {
+	type customBackup struct {
+		ID         string                   `json:"ID"`
+		Name       string                   `json:"name"`
+		InstanceID string                   `json:"instance_ID"`
+		Exported   bool                     `json:"exported"`
+		Status     rdb.DatabaseBackupStatus `json:"status"`
+	}
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Instance ID",
+				FieldName: "InstanceID",
+			},
+			{
+				Label:     "Exported",
+				FieldName: "Exported",
+			},
+		},
+	}
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		listBackupResp, err := runner(ctx, argsI)
+		if err != nil {
+			return listBackupResp, err
+		}
+		backupList := listBackupResp.([]*rdb.DatabaseBackup)
+		var res []customBackup
+		for _, backup := range backupList {
+			res = append(res, customBackup{
+				ID:         backup.ID,
+				Name:       backup.Name,
+				Status:     backup.Status,
+				InstanceID: backup.InstanceID,
+				Exported:   isExported(backup.DownloadURLExpiresAt),
+			})
+		}
+		return res, nil
+	})
+
+	return c
+}
+
+func isExported(expirationDate *time.Time) bool {
+	var exported bool
+	if expirationDate == nil {
+		exported = false
+	} else {
+		exported = time.Now().Before(*expirationDate)
+	}
+	return exported
+}
+
 func getDefaultFileName(rawURL string) (string, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
