@@ -112,6 +112,9 @@ func Test_DownloadBackup(t *testing.T) {
 	}))
 }
 
+// If ran please update the cassette by changing 'download_url_expires_at'
+// when it's not null to a much later date
+// E.g. from "2022-09-05T13:14:54.437192Z" to "2999-09-05T13:14:54.437192Z"
 func Test_ListBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
