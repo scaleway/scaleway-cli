@@ -12,7 +12,7 @@ AVAILABLE COMMANDS:
   get-certificate   Get the TLS certificate of a cluster
   list              List clusters
   metrics           Get metrics of a cluster
-  migrate           Migrate a cluster
+  migrate           Migrate your cluster architecture
   renew-certificate Renew the TLS certificate of a cluster
   update            Update a cluster
 
