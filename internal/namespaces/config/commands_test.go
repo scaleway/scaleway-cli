@@ -211,6 +211,8 @@ func Test_ConfigDumpCommand(t *testing.T) {
 }
 
 func Test_ConfigDestroyCommand(t *testing.T) {
+	path := "/tmp/test_config_destroy/"
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
@@ -220,6 +222,36 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 		TmpHomeDir: true,
+	}))
+
+	t.Run("Check Config File", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				err := os.MkdirAll(path, os.ModePerm)
+				if err != nil {
+					t.Fatalf("MkdirAll %q: %s", path, err)
+				}
+				return nil
+			},
+			beforeFuncCreateFullConfig(),
+			core.ExecStoreBeforeCmd(
+				"Destroy",
+				"scw config destroy",
+			),
+		),
+		Cmd: "scw config dump",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+		OverrideEnv: map[string]string{
+			"HOME": path,
+		},
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			_ = os.RemoveAll(path)
+			return nil
+		},
 	}))
 }
 
