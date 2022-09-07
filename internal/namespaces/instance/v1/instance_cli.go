@@ -1269,7 +1269,7 @@ func instanceSnapshotCreate() *core.Command {
 			{
 				Name:       "volume-id",
 				Short:      `UUID of the volume`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
