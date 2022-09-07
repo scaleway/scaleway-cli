@@ -65,6 +65,12 @@ func (node *AutoCompleteNode) addGlobalFlags() {
 		PrinterTypeTemplate.String(),
 	}
 
+	node.Children["-c"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+		Name: "-c",
+	})
+	node.Children["--config"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+		Name: "--config",
+	})
 	node.Children["-D"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 		Name: "-D",
 	})
