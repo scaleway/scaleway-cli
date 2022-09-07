@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   logs        Logs management commands
   namespace   Function namespace management commands
   runtime     Runtime management commands
+  token       Token management commands
 
 FLAGS:
   -h, --help   help for function
