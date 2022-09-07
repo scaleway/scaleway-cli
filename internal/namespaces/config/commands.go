@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"os"
 	"reflect"
 
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -28,6 +29,7 @@ func GetCommands() *core.Commands {
 		configDeleteProfileCommand(),
 		configActivateProfileCommand(),
 		configResetCommand(),
+		configDestroyCommand(),
 	)
 }
 
@@ -505,6 +507,29 @@ func configResetCommand() *core.Command {
 			}
 			return &core.SuccessResult{
 				Message: "successfully reset config",
+			}, nil
+		},
+	}
+}
+
+// configDestroyCommand destroys the config
+func configDestroyCommand() *core.Command {
+	type configDestroyArgs struct{}
+
+	return &core.Command{
+		Short:                `Destroy the config file`,
+		Namespace:            "config",
+		Resource:             "destroy",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configDestroyArgs{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			err := os.Remove(configPath)
+			if err != nil {
+				return err, nil
+			}
+			return &core.SuccessResult{
+				Message: "successfully destroy config",
 			}, nil
 		},
 	}
