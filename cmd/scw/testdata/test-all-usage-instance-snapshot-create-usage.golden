@@ -20,7 +20,7 @@ EXAMPLES:
 
 ARGS:
   [name=<generated>]   Name of the snapshot
-  volume-id            UUID of the volume
+  [volume-id]          UUID of the volume
   [unified]            Whether a snapshot is unified or not.
   [tags.{index}]       The tags of the snapshot
   [project-id]         Project ID to use. If none is passed the default project ID will be used

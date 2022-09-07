@@ -107,6 +107,13 @@ func accountProjectList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
+			{
+				Name:       "project-ids.{index}",
+				Short:      `Filter out by a list of project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

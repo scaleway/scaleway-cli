@@ -30,6 +30,11 @@ Function as a Service API
   - [Update an existing namespace](#update-an-existing-namespace)
 - [Runtime management commands](#runtime-management-commands)
   - [List function runtimes](#list-function-runtimes)
+- [Token management commands](#token-management-commands)
+  - [Create a new revocable token](#create-a-new-revocable-token)
+  - [Delete a token](#delete-a-token)
+  - [Get a token](#get-a-token)
+  - [List all tokens](#list-all-tokens)
 
   
 ## Cron management commands
@@ -546,6 +551,96 @@ scw function runtime list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Token management commands
+
+Token management commands.
+
+
+### Create a new revocable token
+
+Create a new revocable token.
+
+**Usage:**
+
+```
+scw function token create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| function-id |  |  |
+| namespace-id |  |  |
+| description |  |  |
+| expires-at |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a token
+
+Delete a token.
+
+**Usage:**
+
+```
+scw function token delete <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a token
+
+Get a token.
+
+**Usage:**
+
+```
+scw function token get <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all tokens
+
+List all tokens.
+
+**Usage:**
+
+```
+scw function token list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| function-id |  |  |
+| namespace-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
