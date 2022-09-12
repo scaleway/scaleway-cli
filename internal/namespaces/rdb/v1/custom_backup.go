@@ -226,17 +226,30 @@ func backupDownloadCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
-			backup, err := api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
+			backupRequest := &rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: args.BackupID,
 				Region:           args.Region,
 				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
-			})
+			}
+			backup, err := api.WaitForDatabaseBackup(backupRequest)
 			if err != nil {
 				return nil, err
 			}
 			if backup.DownloadURL == nil {
-				return nil, fmt.Errorf("no download URL found")
+				exportRequest := rdb.ExportDatabaseBackupRequest{
+					DatabaseBackupID: args.BackupID,
+					Region:           args.Region,
+				}
+				_, err = api.ExportDatabaseBackup(&exportRequest)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			backup, err = api.WaitForDatabaseBackup(backupRequest)
+			if err != nil {
+				return nil, err
 			}
 
 			httpClient := core.ExtractHTTPClient(ctx)

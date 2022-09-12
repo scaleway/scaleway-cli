@@ -95,7 +95,7 @@ func Test_DownloadBackup(t *testing.T) {
 				"scw rdb backup export {{ .Backup.ID }} --wait",
 			),
 		),
-		Cmd: "scw rdb backup download {{ .Backup.ID }} output=dump",
+		Cmd: "scw rdb backup download {{ .Backup.ID }} output=simple_dump",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -103,7 +103,32 @@ func Test_DownloadBackup(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteInstance(),
 			func(ctx *core.AfterFuncCtx) error {
-				err := os.Remove("dump")
+				err := os.Remove("simple_dump")
+				return err
+			},
+		),
+		DefaultRegion: scw.RegionNlAms,
+		TmpHomeDir:    true,
+	}))
+
+	t.Run("With no previous export backup", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createInstance(engine),
+			core.ExecStoreBeforeCmd(
+				"Backup",
+				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+			),
+		),
+		Cmd: "scw rdb backup download {{ .Backup.ID }} output=no_previous_export_dump",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteInstance(),
+			func(ctx *core.AfterFuncCtx) error {
+				err := os.Remove("no_previous_export_dump")
 				return err
 			},
 		),
