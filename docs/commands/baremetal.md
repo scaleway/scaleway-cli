@@ -6,6 +6,9 @@ Elastic metal API
   - [Get BMC (Baseboard Management Controller) access for a given elastic metal server](#get-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
   - [Start BMC (Baseboard Management Controller) access for a given elastic metal server](#start-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
   - [Stop BMC (Baseboard Management Controller) access for a given elastic metal server](#stop-bmc-(baseboard-management-controller)-access-for-a-given-elastic-metal-server)
+- [Server offer management commands](#server-offer-management-commands)
+  - [Get offer](#get-offer)
+  - [List offers](#list-offers)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
   - [List all available OS that can be install on an elastic metal server](#list-all-available-os-that-can-be-install-on-an-elastic-metal-server)
@@ -94,6 +97,78 @@ scw baremetal bmc stop [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Server offer management commands
+
+Server offers will answer with all different elastic metal server ranges available in a given zone.
+Each of them will contain all the features of the server (cpus, memories, disks) with their associated pricing.
+
+
+
+### Get offer
+
+Return specific offer for the given ID.
+
+**Usage:**
+
+```
+scw baremetal offer get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| offer-id | Required | ID of the researched Offer |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Get a server offer with the given ID
+```
+scw baremetal offer get zone=fr-par-1 offer-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### List offers
+
+List all available server offers.
+
+**Usage:**
+
+```
+scw baremetal offer list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly` | Period of subscription to filter offers |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+List all server offers in the default zone
+```
+scw baremetal offer list
+```
+
+List all server offers in fr-par-1 zone
+```
+scw baremetal offer list zone=fr-par-1
+```
+
 
 
 
