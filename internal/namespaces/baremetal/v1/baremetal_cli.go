@@ -21,6 +21,7 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		baremetalRoot(),
 		baremetalServer(),
+		baremetalOffer(),
 		baremetalOs(),
 		baremetalBmc(),
 		baremetalServerList(),
@@ -35,6 +36,8 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
+		baremetalOfferList(),
+		baremetalOfferGet(),
 		baremetalOsList(),
 		baremetalOsGet(),
 	)
@@ -53,6 +56,17 @@ func baremetalServer() *core.Command {
 		Long:      `A server is a denomination of a type of instances provided by Scaleway`,
 		Namespace: "baremetal",
 		Resource:  "server",
+	}
+}
+
+func baremetalOffer() *core.Command {
+	return &core.Command{
+		Short: `Server offer management commands`,
+		Long: `Server offers will answer with all different elastic metal server ranges available in a given zone.
+Each of them will contain all the features of the server (cpus, memories, disks) with their associated pricing.
+`,
+		Namespace: "baremetal",
+		Resource:  "offer",
 	}
 }
 
@@ -734,6 +748,87 @@ func baremetalBmcStop() *core.Command {
 				Resource: "bmc",
 				Verb:     "stop",
 			}, nil
+		},
+	}
+}
+
+func baremetalOfferList() *core.Command {
+	return &core.Command{
+		Short:     `List offers`,
+		Long:      `List all available server offers.`,
+		Namespace: "baremetal",
+		Resource:  "offer",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListOffersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscription-period",
+				Short:      `Period of subscription to filter offers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_subscription_period", "hourly", "monthly"},
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListOffersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			resp, err := api.ListOffers(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Offers, nil
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all server offers in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all server offers in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func baremetalOfferGet() *core.Command {
+	return &core.Command{
+		Short:     `Get offer`,
+		Long:      `Return specific offer for the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "offer",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.GetOfferRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "offer-id",
+				Short:      `ID of the researched Offer`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetOfferRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetOffer(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a server offer with the given ID",
+				ArgsJSON: `{"offer_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
