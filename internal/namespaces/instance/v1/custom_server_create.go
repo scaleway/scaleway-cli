@@ -57,9 +57,10 @@ func serverCreateCommand() *core.Command {
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
 			{
-				Name:    "type",
-				Short:   "Server commercial type",
-				Default: core.DefaultValueSetter("DEV1-S"),
+				Name:     "type",
+				Short:    "Server commercial type",
+				Default:  core.DefaultValueSetter("DEV1-S"),
+				Required: true,
 				EnumValues: []string{
 					"GP1-XS",
 					"GP1-S",
