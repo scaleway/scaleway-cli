@@ -8,14 +8,15 @@ import (
 	"strconv"
 	"strings"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 )
 
 // Padding between column
@@ -325,7 +326,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		}
 		grid = append(grid, row)
 	}
-	return formatGrid(grid)
+	return formatGrid(grid, !opt.DisableShrinking)
 }
 
 // marshalInlineSlice transforms nested scalar slices in an inline string representation
@@ -379,12 +380,15 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	return Marshal(field, &subOpt)
 }
 
-func formatGrid(grid [][]string) (string, error) {
+func formatGrid(grid [][]string, shrinkColumns bool) (string, error) {
 	buffer := bytes.Buffer{}
 	maxCols := computeMaxCols(grid)
 	w := tabwriter.NewWriter(&buffer, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
 	for _, line := range grid {
-		fmt.Fprintln(w, strings.Join(line[:maxCols], "\t"))
+		if shrinkColumns {
+			line = line[:maxCols]
+		}
+		fmt.Fprintln(w, strings.Join(line, "\t"))
 	}
 	w.Flush()
 	return strings.TrimSpace(buffer.String()), nil
