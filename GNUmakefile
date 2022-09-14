@@ -33,11 +33,11 @@ template-deb:
 
 deb-setup:
 	apt install devscripts equivs jq -y
-	mk-build-deps --install debian/control
+	ln -fs specs/deb debian
+	mk-build-deps --install debian/control -t "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y"
 	go mod vendor
-	ln -s specs/deb debian
 
-deb-source-build: deb-setup template-deb
+deb-source-build: template-deb deb-setup
 	debuild -S -k524A68BAB1A91B2F74DCEC3B31F9FBCA5BD8707C
 
 require-version:
