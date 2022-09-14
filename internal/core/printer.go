@@ -8,9 +8,10 @@ import (
 	"strings"
 	"text/template"
 
+	"gopkg.in/yaml.v3"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -29,6 +30,9 @@ const (
 
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
+
+	// PrinterTypeWide defines a human-readable formatted formatter without shrinking.
+	PrinterTypeWide = PrinterType("wide")
 
 	// PrinterTypeTemplate defines a go template to use to format output.
 	PrinterTypeTemplate = PrinterType("template")
@@ -62,6 +66,8 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 	switch printerName {
 	case PrinterTypeHuman.String():
 		setupHumanPrinter(printer, printerOpt)
+	case PrinterTypeWide.String():
+		setupWidePrinter(printer, printerOpt)
 	case PrinterTypeJSON.String():
 		err := setupJSONPrinter(printer, printerOpt)
 		if err != nil {
@@ -120,6 +126,11 @@ func setupHumanPrinter(printer *Printer, opts string) {
 	}
 }
 
+func setupWidePrinter(printer *Printer, opts string) {
+	setupHumanPrinter(printer, opts)
+	printer.printerType = PrinterTypeWide
+}
+
 type Printer struct {
 	printerType PrinterType
 	stdout      io.Writer
@@ -146,6 +157,8 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	switch p.printerType {
 	case PrinterTypeHuman:
 		err = p.printHuman(data, opt)
+	case PrinterTypeWide:
+		err = p.printWide(data, opt)
 	case PrinterTypeJSON:
 		err = p.printJSON(data)
 	case PrinterTypeYAML:
@@ -210,6 +223,17 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 		_, err = fmt.Fprintln(p.stdout, str)
 	}
 	return err
+}
+
+func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
+	if opt != nil {
+		opt.DisableShrinking = true
+	} else {
+		opt = &human.MarshalOpt{
+			DisableShrinking: true,
+		}
+	}
+	return p.printHuman(data, opt)
 }
 
 func (p *Printer) printJSON(data interface{}) error {

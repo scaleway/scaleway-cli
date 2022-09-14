@@ -14,6 +14,9 @@ type MarshalOpt struct {
 
 	// Is set to true if we are marshaling a table cell
 	TableCell bool
+
+	// DisableShrinking will disable columns shrinking based on terminal size
+	DisableShrinking bool
 }
 
 type MarshalFieldOpt struct {
