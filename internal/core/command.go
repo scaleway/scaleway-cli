@@ -182,6 +182,14 @@ func (c *Commands) MustFind(path ...string) *Command {
 	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
 }
 
+func (c *Commands) Remove(namespace, verb string) {
+	for i := range c.commands {
+		if c.commands[i].Namespace == namespace && c.commands[i].Verb == verb {
+			c.commands = append(c.commands[:i], c.commands[i+1:]...)
+		}
+	}
+}
+
 func (c *Commands) Add(cmd *Command) {
 	c.commands = append(c.commands, cmd)
 	c.commandIndex[cmd.getPath()] = cmd

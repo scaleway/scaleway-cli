@@ -194,6 +194,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	rootCmd := builder.build()
 
+	// ShellMode
+	if len(config.Args) >= 2 && config.Args[1] == "shell" {
+		RunShell(ctx, printer, meta, rootCmd, config.Args)
+		return 0, meta.result, nil
+	}
+
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
