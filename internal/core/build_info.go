@@ -13,13 +13,14 @@ import (
 )
 
 type BuildInfo struct {
-	Version   *version.Version `json:"-"`
-	BuildDate string           `json:"build_date"`
-	GoVersion string           `json:"go_version"`
-	GitBranch string           `json:"git_branch"`
-	GitCommit string           `json:"git_commit"`
-	GoArch    string           `json:"go_arch"`
-	GoOS      string           `json:"go_os"`
+	Version             *version.Version `json:"-"`
+	BuildDate           string           `json:"build_date"`
+	GoVersion           string           `json:"go_version"`
+	GitBranch           string           `json:"git_branch"`
+	GitCommit           string           `json:"git_commit"`
+	GoArch              string           `json:"go_arch"`
+	GoOS                string           `json:"go_os"`
+	DisableVersionCheck string           `json:"disable_version_check"`
 }
 
 func (b *BuildInfo) MarshalJSON() ([]byte, error) {
@@ -63,7 +64,7 @@ func (b *BuildInfo) Tags() map[string]string {
 }
 
 func (b *BuildInfo) checkVersion(ctx context.Context) {
-	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" {
+	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" || b.DisableVersionCheck == "true" {
 		ExtractLogger(ctx).Debug("skipping check version")
 		return
 	}
