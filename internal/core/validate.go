@@ -36,7 +36,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 			return err
 		}
 
-		validateDeprecated(ctx, cmd)
+		validateDeprecated(ctx, cmd, cmdArgs, rawArgs)
 		return nil
 	}
 }
@@ -113,11 +113,26 @@ func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 }
 
 // validateDeprecated print a warning message if a deprecated argument is used
-func validateDeprecated(ctx context.Context, cmd *Command) {
+func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) {
 	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
-	for _, argSpec := range deprecatedArgs {
-		helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
-		ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", argSpec.Name, helpCmd)
+	for _, arg := range deprecatedArgs {
+		fieldName := strcase.ToPublicGoName(arg.Name)
+		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		if err != nil {
+			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
+			if !arg.Required {
+				logger.Infof(validationErr.Error())
+				continue
+			}
+			panic(validationErr)
+		}
+
+		for i := range fieldValues {
+			if rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
+				helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
+				ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", arg.Name, helpCmd)
+			}
+		}
 	}
 }
 
