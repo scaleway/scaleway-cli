@@ -186,6 +186,7 @@ func (c *Commands) Remove(namespace, verb string) {
 	for i := range c.commands {
 		if c.commands[i].Namespace == namespace && c.commands[i].Verb == verb {
 			c.commands = append(c.commands[:i], c.commands[i+1:]...)
+			return
 		}
 	}
 }
