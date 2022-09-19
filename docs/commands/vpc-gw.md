@@ -67,7 +67,7 @@ scw vpc-gw dhcp create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| subnet |  | Subnet for the DHCP server |
+| subnet | Required | Subnet for the DHCP server |
 | address |  | Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet |
 | pool-low |  | Low IP (included) of the dynamic address pool |
 | pool-high |  | High IP (included) of the dynamic address pool |
