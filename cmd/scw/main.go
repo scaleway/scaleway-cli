@@ -24,6 +24,8 @@ var (
 	GitBranch = "unknown" // git symbolic-ref -q --short HEAD || echo HEAD"
 	GitCommit = "unknown" // git rev-parse --short HEAD
 
+	DisableVersionCheck = "false"
+
 	// These are GO constants
 
 	GoVersion = runtime.Version()
@@ -46,13 +48,14 @@ func cleanup(buildInfo *core.BuildInfo) {
 
 func main() {
 	buildInfo := &core.BuildInfo{
-		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
-		BuildDate: BuildDate,
-		GoVersion: GoVersion,
-		GitBranch: GitBranch,
-		GitCommit: GitCommit,
-		GoOS:      GoOS,
-		GoArch:    GoArch,
+		Version:             version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
+		BuildDate:           BuildDate,
+		GoVersion:           GoVersion,
+		GitBranch:           GitBranch,
+		GitCommit:           GitCommit,
+		GoOS:                GoOS,
+		GoArch:              GoArch,
+		DisableVersionCheck: DisableVersionCheck,
 	}
 	defer cleanup(buildInfo)
 
