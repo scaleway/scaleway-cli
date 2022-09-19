@@ -3,10 +3,10 @@
 Delete a DHCP configuration.
 
 USAGE:
-  scw vpc-gw dhcp delete <dhcpid ...> [arg=value ...]
+  scw vpc-gw dhcp delete <dhcp-id ...> [arg=value ...]
 
 ARGS:
-  dhcpid            DHCP config id to delete
+  dhcp-id           DHCP config id to delete
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
 
 FLAGS:

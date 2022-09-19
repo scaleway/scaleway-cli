@@ -558,7 +558,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `Filter by DHCP configuration`,
 				Required:   false,
 				Deprecated: false,
@@ -686,7 +686,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `Existing configuration`,
 				Required:   false,
 				Deprecated: false,
@@ -744,7 +744,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `New DHCP configuration`,
 				Required:   false,
 				Deprecated: false,
@@ -953,7 +953,7 @@ func vpcGwDHCPGet() *core.Command {
 		ArgsType: reflect.TypeOf(vpcgw.GetDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `ID of the DHCP config to fetch`,
 				Required:   true,
 				Deprecated: false,
@@ -1113,7 +1113,7 @@ func vpcGwDHCPUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(vpcgw.UpdateDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `DHCP config to update`,
 				Required:   true,
 				Deprecated: false,
@@ -1249,7 +1249,7 @@ func vpcGwDHCPDelete() *core.Command {
 		ArgsType: reflect.TypeOf(vpcgw.DeleteDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "dhcpid",
+				Name:       "dhcp-id",
 				Short:      `DHCP config id to delete`,
 				Required:   true,
 				Deprecated: false,
