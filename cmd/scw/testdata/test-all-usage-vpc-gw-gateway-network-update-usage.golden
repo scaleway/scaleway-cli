@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   gateway-network-id    ID of the GatewayNetwork to update
   [enable-masquerade]   New masquerade enablement
-  [dhcpid]              New DHCP configuration
+  [dhcp-id]             New DHCP configuration
   [enable-dhcp]         Whether to enable DHCP on the connected Private Network
   [address]             New static IP address
   [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)

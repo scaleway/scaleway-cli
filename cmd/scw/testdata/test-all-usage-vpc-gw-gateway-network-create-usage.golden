@@ -9,7 +9,7 @@ ARGS:
   [gateway-id]           Gateway to connect
   [private-network-id]   Private Network to connect
   [enable-masquerade]    Whether to enable masquerade on this network
-  [dhcpid]               Existing configuration
+  [dhcp-id]              Existing configuration
   [address]              Static IP address in CIDR format to to use without DHCP
   [enable-dhcp]          Whether to enable DHCP on this Private Network
   [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)

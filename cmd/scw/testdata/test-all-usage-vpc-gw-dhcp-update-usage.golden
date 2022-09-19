@@ -3,10 +3,10 @@
 Update a DHCP configuration.
 
 USAGE:
-  scw vpc-gw dhcp update <dhcpid ...> [arg=value ...]
+  scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 
 ARGS:
-  dhcpid                           DHCP config to update
+  dhcp-id                          DHCP config to update
   [subnet]                         Subnet for the DHCP server
   [address]                        Address of the DHCP server. This will be the gateway's address in the private network
   [pool-low]                       Low IP (included) of the dynamic address pool
