@@ -721,7 +721,7 @@ scw iot route update [arg=value ...]
 | db-config.engine | One of: `unknown`, `postgresql`, `mysql` |  |
 | rest-config.verb | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |  |
 | rest-config.uri |  |  |
-| rest-config.headers.value.{key} |  |  |
+| rest-config.headers.{key} |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

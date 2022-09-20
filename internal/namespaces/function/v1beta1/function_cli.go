@@ -260,7 +260,7 @@ func functionNamespaceCreate() *core.Command {
 				Default:    core.RandomValueGenerator("ns"),
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -314,7 +314,7 @@ func functionNamespaceUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -490,7 +490,7 @@ func functionFunctionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -600,7 +600,7 @@ func functionFunctionUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

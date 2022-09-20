@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [namespace-id]                                 
   [name=<generated>]                             
-  [environment-variables.value.{key}]            
+  [environment-variables.{key}]                  
   [min-scale]                                    
   [max-scale]                                    
   [memory-limit]                                 

@@ -212,7 +212,7 @@ scw function function create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` |  |
 | namespace-id |  |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
@@ -370,7 +370,7 @@ scw function function update <function-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | function-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
@@ -435,7 +435,7 @@ scw function namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -523,7 +523,7 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | namespace-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |

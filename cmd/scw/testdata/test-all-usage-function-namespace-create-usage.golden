@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [name=<generated>]                             
-  [environment-variables.value.{key}]            
+  [environment-variables.{key}]                  
   [project-id]                                   Project ID to use. If none is passed the default project ID will be used
   [description]                                  
   [secret-environment-variables.{index}.key]     

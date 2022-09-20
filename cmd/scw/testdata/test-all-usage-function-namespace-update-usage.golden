@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   namespace-id                                   
-  [environment-variables.value.{key}]            
+  [environment-variables.{key}]                  
   [description]                                  
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   

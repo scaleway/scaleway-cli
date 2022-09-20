@@ -929,7 +929,7 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | max-size |  | The new maximum size for the pool |
 | autohealing |  | The new value for the enablement of autohealing for the pool |
 | tags.{index} |  | The new tags associated with the pool |
-| kubelet-args.value.{key} |  |  |
+| kubelet-args.{key} |  | The new Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

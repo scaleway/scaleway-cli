@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   container-id                                   
-  [environment-variables.value.{key}]            
+  [environment-variables.{key}]                  
   [min-scale]                                    
   [max-scale]                                    
   [memory-limit]                                 
