@@ -255,11 +255,17 @@ func autocompleteCompleteBashCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
+			if len(rawArgs) < 3 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
 			wordIndex, err := strconv.Atoi(rawArgs[1])
 			if err != nil {
 				return nil, err
 			}
 			words := rawArgs[2:]
+			if len(words) <= wordIndex {
+				return nil, fmt.Errorf("index to complete is invalid")
+			}
 			leftWords := words[:wordIndex]
 			wordToComplete := words[wordIndex]
 			rightWords := words[wordIndex+1:]
@@ -293,6 +299,9 @@ func autocompleteCompleteFishCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
+			if len(rawArgs) < 4 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
 			leftWords := rawArgs[3:]
 			wordToComplete := rawArgs[2]
 
@@ -325,6 +334,9 @@ func autocompleteCompleteZshCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
+			if len(rawArgs) < 2 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
 
 			// First arg is the word index.
 			wordIndex, err := strconv.Atoi(rawArgs[0])
@@ -332,6 +344,10 @@ func autocompleteCompleteZshCommand() *core.Command {
 				return nil, err
 			}
 			wordIndex-- // In zsh word index starts at 1.
+
+			if wordIndex <= 0 {
+				return nil, fmt.Errorf("index cannot be 1 (0) or lower")
+			}
 
 			// Other args are all the words.
 			words := rawArgs[1:]
