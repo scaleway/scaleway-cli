@@ -201,7 +201,7 @@ func containerNamespaceCreate() *core.Command {
 				Default:    core.RandomValueGenerator("cns"),
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -255,7 +255,7 @@ func containerNamespaceUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -431,7 +431,7 @@ func containerContainerCreate() *core.Command {
 				Default:    core.RandomValueGenerator("ctnr"),
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -553,7 +553,7 @@ func containerContainerUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

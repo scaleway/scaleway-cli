@@ -53,7 +53,7 @@ scw container container create [arg=value ...]
 |------|---|-------------|
 | namespace-id |  |  |
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | memory-limit |  |  |
@@ -172,7 +172,7 @@ scw container container update <container-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | container-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | memory-limit |  |  |
@@ -366,7 +366,7 @@ scw container namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -454,7 +454,7 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | namespace-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |

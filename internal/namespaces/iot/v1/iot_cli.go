@@ -1404,7 +1404,7 @@ func iotRouteUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "rest-config.headers.value.{key}",
+				Name:       "rest-config.headers.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
