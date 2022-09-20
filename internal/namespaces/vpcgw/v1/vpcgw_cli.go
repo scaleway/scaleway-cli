@@ -986,7 +986,7 @@ func vpcGwDHCPCreate() *core.Command {
 			{
 				Name:       "subnet",
 				Short:      `Subnet for the DHCP server`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
