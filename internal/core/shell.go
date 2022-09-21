@@ -1,3 +1,7 @@
+//go:build !freebsd
+// +build !freebsd
+
+// shell is disabled on freebsd as current version of github.com/pkg/term@v1.1.0 is not compiling
 package core
 
 import (
