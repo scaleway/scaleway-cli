@@ -271,7 +271,7 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 
 ### Migrate your cluster architecture
 
-Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster will renew its TLS certificate.
+Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
 
 **Usage:**
 
