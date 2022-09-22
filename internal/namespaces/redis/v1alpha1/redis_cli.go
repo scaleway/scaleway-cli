@@ -394,7 +394,7 @@ func redisClusterList() *core.Command {
 func redisClusterMigrate() *core.Command {
 	return &core.Command{
 		Short:     `Migrate your cluster architecture`,
-		Long:      `Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster will renew its TLS certificate.`,
+		Long:      `Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "migrate",
