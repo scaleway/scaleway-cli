@@ -270,6 +270,7 @@ scw lb backend create [arg=value ...]
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Modify what occurs when a backend server is marked down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
 | failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
+| ssl-bridging |  | Enable SSL between load balancer and backend servers |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -407,6 +408,7 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Modify what occurs when a backend server is marked down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
 | failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
+| ssl-bridging |  | Enable SSL between load balancer and backend servers |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
