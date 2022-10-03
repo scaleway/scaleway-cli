@@ -3,8 +3,13 @@
 export DH_GOPKG := github.com/scaleway/scaleway-cli/v2
 export DH_GOLANG_BUILDPKG := ${DH_GOPKG}/cmd/scw
 
+VERSION := $(shell dpkg-parsechangelog -SVersion)
+
 %:
 	dh $@ --builddirectory=_build
 
 override_dh_auto_install:
 	dh_auto_install -- --no-source
+
+override_dh_auto_build:
+	dh_auto_build -- -ldflags "-w -extldflags -static -X main.Version=${VERSION}"

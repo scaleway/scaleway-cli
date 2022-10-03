@@ -10,3 +10,4 @@ Package: scw
 Architecture: all
 Description: Scaleway CLI
 XS-Go-Import-Path: github.com/scaleway/scaleway-cli/v2/cmd/scw
+Version: ${VERSION}
