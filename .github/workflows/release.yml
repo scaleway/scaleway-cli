@@ -36,26 +36,29 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
-      - name: Add packaging config to goreleaser config
-        run: cat .goreleaser.pkg.yml >> .goreleaser.yml
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${TAG##v}
+        env:
+          TAG: ${{ steps.get_tag.outputs.TAG }}
       - name: create gpg key
         run: echo "${GPG_KEY}" > /root/gpg
         env:
           GPG_KEY: ${{ secrets.GPG_KEY }}
-      - name: Build and package deb
-        run: ./goreleaser release --skip-validate --rm-dist --skip-publish
-#      - name: Build and package deb
-#        uses: goreleaser/goreleaser-action@v2
-#        with:
-#          version: latest
-#          args: release --skip-validate --rm-dist --skip-publish
+      - name: import gpg key
+        run: gpg --pinentry-mode=loopback --passphrase "$GPG_PASSPHRASE" --import /root/gpg
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPG_KEY: '/root/gpg'
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Install make
+        run: apt install make -y
+      - name: Build and package deb
+        run: make deb-source
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
   package-rpm:
     runs-on: ubuntu-latest
     container: fedora:latest
