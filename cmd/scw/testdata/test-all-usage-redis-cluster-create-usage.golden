@@ -14,7 +14,7 @@ ARGS:
   user-name                                                 Name of the user created when the cluster is created
   password                                                  Password of the user
   [cluster-size]                                            Number of nodes for the cluster
-  [acl-rules.{index}.ip]                                    IPv4 network address of the rule
+  [acl-rules.{index}.ip-cidr]                               IPv4 network address of the rule
   [acl-rules.{index}.description]                           Description of the rule
   [endpoints.{index}.private-network.id]                    UUID of the private network to be connected to the cluster
   [endpoints.{index}.private-network.service-ips.{index}]   Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.
