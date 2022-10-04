@@ -54,7 +54,7 @@ scw redis acl add [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster you want to add acl rules to |
-| acl-rules.{index}.ip |  | IPv4 network address of the rule |
+| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -116,7 +116,7 @@ scw redis acl set [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster where the ACL rules has to be set |
-| acl-rules.{index}.ip |  | IPv4 network address of the rule |
+| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -151,7 +151,7 @@ scw redis cluster create [arg=value ...]
 | user-name | Required | Name of the user created when the cluster is created |
 | password | Required | Password of the user |
 | cluster-size |  | Number of nodes for the cluster |
-| acl-rules.{index}.ip |  | IPv4 network address of the rule |
+| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
@@ -262,8 +262,8 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster |
-| start-date |  | Start date to gather metrics from |
-| end-date |  | End date to gather metrics from |
+| start-at |  | Start date to gather metrics from |
+| end-at |  | End date to gather metrics from |
 | metric-name |  | Name of the metric to gather |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -496,7 +496,7 @@ scw redis setting delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster where the settings has to be set |
-| settings-name |  | Setting name to delete |
+| setting-name | Required | Setting name to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -546,7 +546,7 @@ scw redis version list [arg=value ...]
 | include-disabled |  | Whether or not to include disabled Redis™ engine versions |
 | include-beta |  | Whether or not to include beta Redis™ engine versions |
 | include-deprecated |  | Whether or not to include deprecated Redis™ engine versions |
-| version-name |  | List Redis™ engine versions that match a given name pattern |
+| version |  | List Redis™ engine versions that match a given name pattern |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
