@@ -24,7 +24,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-	redis "github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
