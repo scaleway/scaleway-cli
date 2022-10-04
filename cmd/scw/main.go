@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"runtime/debug"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -47,7 +48,8 @@ func cleanup(buildInfo *core.BuildInfo) {
 func buildVersion() string {
 	if Version == "" {
 		buildInfos, ok := debug.ReadBuildInfo()
-		if ok && buildInfos.Main.Version != "(devel)" {
+		spew.Dump(buildInfos.Main)
+		if ok && buildInfos.Main.Version != "(devel)" && buildInfos.Main.Version != "" {
 			return buildInfos.Main.Version
 		}
 		return "v2+dev"
