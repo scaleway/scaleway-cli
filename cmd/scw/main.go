@@ -47,7 +47,7 @@ func cleanup(buildInfo *core.BuildInfo) {
 func buildVersion() string {
 	if Version == "" {
 		buildInfos, ok := debug.ReadBuildInfo()
-		if ok && buildInfos.Main.Version != "(devel)" {
+		if ok && buildInfos.Main.Version != "(devel)" && buildInfos.Main.Version != "" {
 			return buildInfos.Main.Version
 		}
 		return "v2+dev"
