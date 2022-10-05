@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		functionRuntime(),
 		functionLogs(),
 		functionDomain(),
+		functionToken(),
 		functionNamespaceList(),
 		functionNamespaceGet(),
 		functionNamespaceCreate(),
@@ -48,6 +49,10 @@ func GetGeneratedCommands() *core.Commands {
 		functionDomainGet(),
 		functionDomainCreate(),
 		functionDomainDelete(),
+		functionTokenCreate(),
+		functionTokenGet(),
+		functionTokenList(),
+		functionTokenDelete(),
 	)
 }
 func functionRoot() *core.Command {
@@ -109,6 +114,15 @@ func functionDomain() *core.Command {
 		Long:      `Domain management commands.`,
 		Namespace: "function",
 		Resource:  "domain",
+	}
+}
+
+func functionToken() *core.Command {
+	return &core.Command{
+		Short:     `Token management commands`,
+		Long:      `Token management commands.`,
+		Namespace: "function",
+		Resource:  "token",
 	}
 }
 
@@ -246,7 +260,7 @@ func functionNamespaceCreate() *core.Command {
 				Default:    core.RandomValueGenerator("ns"),
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -300,7 +314,7 @@ func functionNamespaceUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -476,7 +490,7 @@ func functionFunctionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -586,7 +600,7 @@ func functionFunctionUpdate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "environment-variables.value.{key}",
+				Name:       "environment-variables.{key}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1096,6 +1110,157 @@ func functionDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteDomain(request)
+
+		},
+	}
+}
+
+func functionTokenCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new revocable token`,
+		Long:      `Create a new revocable token.`,
+		Namespace: "function",
+		Resource:  "token",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.CreateTokenRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "expires-at",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.CreateTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.CreateToken(request)
+
+		},
+	}
+}
+
+func functionTokenGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a token`,
+		Long:      `Get a token.`,
+		Namespace: "function",
+		Resource:  "token",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.GetTokenRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "token-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.GetTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.GetToken(request)
+
+		},
+	}
+}
+
+func functionTokenList() *core.Command {
+	return &core.Command{
+		Short:     `List all tokens`,
+		Long:      `List all tokens.`,
+		Namespace: "function",
+		Resource:  "token",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.ListTokensRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.ListTokensRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			resp, err := api.ListTokens(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Tokens, nil
+
+		},
+	}
+}
+
+func functionTokenDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a token`,
+		Long:      `Delete a token.`,
+		Namespace: "function",
+		Resource:  "token",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.DeleteTokenRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "token-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.DeleteTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.DeleteToken(request)
 
 		},
 	}

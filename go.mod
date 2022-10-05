@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
+	github.com/c-bata/go-prompt v0.2.5
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
@@ -17,7 +18,7 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.13
 	github.com/mattn/go-isatty v0.0.16
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20220905101028-f685ad03ae6c
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.9.0.20221004094754-879a66c4d2f9
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.0
@@ -35,7 +36,10 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/etdub/goparsetime v0.0.0-20160315173935-ea17b0ac3318 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/mattn/go-tty v0.0.3 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
+	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect

@@ -157,27 +157,31 @@ Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
 
 **Virtual Cloud Instances**
 
-Virtual cloud instances are offering the best performance/price ratio for most workloads. Different CPU architectures are proposed: The **Development** and **General Purpose** ranges are based on AMD EPYC CPUs. The **ARM64** range is based on Cavium Thunder X ARM CPUs.
+Virtual cloud instances are offering the best performance/price ratio for most workloads.
+Different instance ranges are proposed:
 
-* The **Development** instances range provides stable and consistent performance for development needs.
-  Spin up a development or test environment within seconds.
-  Refer to the [Development Instance offer details](https://www.scaleway.com/en/development-instances/) for more information.
+* The **Development** instances range provides stable and consistent performance for
+  development and testing needs. Spin up a development or test environment within seconds.
+  Refer to the [Development Instance offer details](https://www.scaleway.com/en/virtual-instances/play2/)
+  for more information.
 
-* The **General Purpose** instances range is the solution for demanding workloads.
-  Powerful AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and 600GB of replicated local NVMe SSD storage.
-  Refer to the [General Purpose offer details](https://www.scaleway.com/en/general-purpose-instances/) for more information.
+* The General Purpose instances range is the solution for production workloads. Powerful
+  AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and storage
+  options up to 600GB of replicated local NVMe SSD storage and/or up to 10TB of Block Storage.
+  Refer to the [General Purpose offer details](https://www.scaleway.com/en/virtual-instances/pro2/) for more information.
 
-* The **ARM** instances range is based on Cavium ThunderX SoCs and provides up to 64 Cores ARM 64bit, 128GB of RAM and 1TB SSD storage.
-  Refer to the [ARM offer details](https://www.scaleway.com/en/arm-instances) for more information.
+* The Enterprise instances range is the solution for most demanding workloads and
+  mission-critical applications. Powerful AMD EPYC CPUs back those instances and
+  offer up to 96 Cores, 384GB of RAM and up to 10TB of Block Storage. Refer to the
+  [Enterprise offer details](https://www.scaleway.com/en/virtual-instances/enterprise/) for more information.
 
 **Dedicated GPU Instances**
 
-GPU instances are very powerful compute instances, providing lots of RAM, vCPU, and storage.
-
-They are equipped with Nvidia Tesla P100 GPUs, which are designed for handling rapidly, a massive amount of data.
-They are useful for heavy data processing, artificial intelligence and machine learning, video encoding, rendering, and so on.
-The GPU is dedicated to each instance and directly exposed through PCI-e.
-For more information, refer to [GPU Instances](https://www.scaleway.com/en/gpu-instances/).
+Scaleway GPU Instances are virtual compute instances equipped with dedicated high-end
+Nvidia graphical processing unit (GPUs). They are ideal for data processing, artificial
+intelligence, rendering and video encoding. The GPU is dedicated to each instance and
+directly exposed through PCI-e. For more information, refer to the
+[GPU Instances Developper Documentation](https://www.scaleway.com/en/docs/compute/gpu/quickstart/).
 `,
 		Namespace: "instance",
 		Resource:  "server",
@@ -1269,7 +1273,7 @@ func instanceSnapshotCreate() *core.Command {
 			{
 				Name:       "volume-id",
 				Short:      `UUID of the volume`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},

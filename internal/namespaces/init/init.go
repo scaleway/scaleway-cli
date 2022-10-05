@@ -149,14 +149,6 @@ Default path for configuration file is based on the following priority order:
 			// Manually prompt for missing args:
 
 			// Credentials
-			if args.AccessKey == "" {
-				_, _ = interactive.Println()
-				args.AccessKey, err = promptAccessKey(ctx)
-				if err != nil {
-					return err
-				}
-			}
-
 			if args.SecretKey == "" {
 				_, _ = interactive.Println()
 				args.SecretKey, err = promptSecret(ctx)
@@ -383,36 +375,6 @@ func promptSecret(ctx context.Context) (string, error) {
 
 	default:
 		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
-	}
-}
-
-func promptAccessKey(ctx context.Context) (string, error) {
-	accessKey, err := interactive.Readline(&interactive.ReadlineConfig{
-		Ctx: ctx,
-		PromptFunc: func(value string) string {
-			accessKey := "access-key"
-			switch {
-			case validation.IsUUID(value):
-				accessKey = terminal.Style(accessKey, color.FgBlue)
-			}
-			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
-		},
-		ValidateFunc: func(s string) error {
-			if validation.IsAccessKey(s) {
-				return nil
-			}
-			return fmt.Errorf("invalid access-key")
-		},
-	})
-	if err != nil {
-		return "", err
-	}
-
-	switch {
-	case validation.IsAccessKey(accessKey):
-		return accessKey, nil
-	default:
-		return "", fmt.Errorf("invalid access-key: '%v'", accessKey)
 	}
 }
 

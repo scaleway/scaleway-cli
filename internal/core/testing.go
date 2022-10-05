@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -650,6 +651,18 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}, nil
 }
 
+func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
+	var jsonInterface interface{}
+	if jsonStdout.Len() > 0 {
+		err := json.Unmarshal(jsonStdout.Bytes(), &jsonInterface)
+		require.NoError(t, err, "json stdout is invalid (%s)", getTestFilePath(t, ".cassette"))
+	}
+	if jsonStderr.Len() > 0 {
+		err := json.Unmarshal(jsonStderr.Bytes(), &jsonInterface)
+		require.NoError(t, err, "json stderr is invalid (%s)", getTestFilePath(t, ".cassette"))
+	}
+}
+
 func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	jsonStderr := &bytes.Buffer{}
 	jsonStdout := &bytes.Buffer{}
@@ -668,6 +681,10 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	if ctx.Result != nil {
 		err = jsonPrinter.Print(ctx.Result, nil)
 		require.NoError(t, err)
+	}
+
+	if _, isRawResult := ctx.Result.(RawResult); !isRawResult {
+		validateJSONGolden(t, jsonStdout, jsonStderr)
 	}
 
 	buffer := bytes.Buffer{}

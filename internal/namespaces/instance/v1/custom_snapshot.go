@@ -49,10 +49,11 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		api := instance.NewAPI(client)
 		if args.Unified {
 			request.VolumeType = instance.SnapshotVolumeTypeUnified
-		} else {
+		} else if request.VolumeID != nil {
 			// If the snapshot is not unified, we need to set the snapshot volume type to the same type as the volume we target.
+			// Done only when creating snapshot from volume
 			volume, err := api.GetVolume(&instance.GetVolumeRequest{
-				VolumeID: args.VolumeID,
+				VolumeID: *args.VolumeID,
 				Zone:     args.Zone,
 			})
 			if err != nil {

@@ -67,7 +67,7 @@ scw vpc-gw dhcp create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| subnet |  | Subnet for the DHCP server |
+| subnet | Required | Subnet for the DHCP server |
 | address |  | Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet |
 | pool-low |  | Low IP (included) of the dynamic address pool |
 | pool-high |  | High IP (included) of the dynamic address pool |
@@ -94,7 +94,7 @@ Delete a DHCP configuration.
 **Usage:**
 
 ```
-scw vpc-gw dhcp delete <dhcpid ...> [arg=value ...]
+scw vpc-gw dhcp delete <dhcp-id ...> [arg=value ...]
 ```
 
 
@@ -102,7 +102,7 @@ scw vpc-gw dhcp delete <dhcpid ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| dhcpid | Required | DHCP config id to delete |
+| dhcp-id | Required | DHCP config id to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -114,7 +114,7 @@ Get a DHCP configuration.
 **Usage:**
 
 ```
-scw vpc-gw dhcp get <dhcpid ...> [arg=value ...]
+scw vpc-gw dhcp get <dhcp-id ...> [arg=value ...]
 ```
 
 
@@ -122,7 +122,7 @@ scw vpc-gw dhcp get <dhcpid ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| dhcpid | Required | ID of the DHCP config to fetch |
+| dhcp-id | Required | ID of the DHCP config to fetch |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -158,7 +158,7 @@ Update a DHCP configuration.
 **Usage:**
 
 ```
-scw vpc-gw dhcp update <dhcpid ...> [arg=value ...]
+scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 ```
 
 
@@ -166,7 +166,7 @@ scw vpc-gw dhcp update <dhcpid ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| dhcpid | Required | DHCP config to update |
+| dhcp-id | Required | DHCP config to update |
 | subnet |  | Subnet for the DHCP server |
 | address |  | Address of the DHCP server. This will be the gateway's address in the private network |
 | pool-low |  | Low IP (included) of the dynamic address pool |
@@ -496,7 +496,7 @@ scw vpc-gw gateway-network create [arg=value ...]
 | gateway-id |  | Gateway to connect |
 | private-network-id |  | Private Network to connect |
 | enable-masquerade |  | Whether to enable masquerade on this network |
-| dhcpid |  | Existing configuration |
+| dhcp-id |  | Existing configuration |
 | address |  | Static IP address in CIDR format to to use without DHCP |
 | enable-dhcp |  | Whether to enable DHCP on this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
@@ -563,7 +563,7 @@ scw vpc-gw gateway-network list [arg=value ...]
 | gateway-id |  | Filter by gateway |
 | private-network-id |  | Filter by private network |
 | enable-masquerade |  | Filter by masquerade enablement |
-| dhcpid |  | Filter by DHCP configuration |
+| dhcp-id |  | Filter by DHCP configuration |
 | status | One of: `unknown`, `created`, `attaching`, `configuring`, `ready`, `detaching`, `deleted` | Filter GatewayNetworks by this status (unknown for any) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -586,7 +586,7 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to update |
 | enable-masquerade |  | New masquerade enablement |
-| dhcpid |  | New DHCP configuration |
+| dhcp-id |  | New DHCP configuration |
 | enable-dhcp |  | Whether to enable DHCP on the connected Private Network |
 | address |  | New static IP address |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |

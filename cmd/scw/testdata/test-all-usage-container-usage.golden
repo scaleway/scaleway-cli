@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   cron        Cron management commands
   domain      Domain management commands
   namespace   Namespace management commands
+  token       Token management commands
 
 FLAGS:
   -h, --help   help for container

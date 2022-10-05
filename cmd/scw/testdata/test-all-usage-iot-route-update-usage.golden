@@ -6,24 +6,24 @@ USAGE:
   scw iot route update [arg=value ...]
 
 ARGS:
-  route-id                            Route id
-  [name]                              Route name
-  [topic]                             Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters
-  [s3-config.bucket-region]           
-  [s3-config.bucket-name]             
-  [s3-config.object-prefix]           
-  [s3-config.strategy]                 (unknown | per_topic | per_message)
-  [db-config.host]                    
-  [db-config.port]                    
-  [db-config.dbname]                  
-  [db-config.username]                
-  [db-config.password]                
-  [db-config.query]                   
-  [db-config.engine]                   (unknown | postgresql | mysql)
-  [rest-config.verb]                   (unknown | get | post | put | patch | delete)
-  [rest-config.uri]                   
-  [rest-config.headers.value.{key}]   
-  [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par)
+  route-id                      Route id
+  [name]                        Route name
+  [topic]                       Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters
+  [s3-config.bucket-region]     
+  [s3-config.bucket-name]       
+  [s3-config.object-prefix]     
+  [s3-config.strategy]           (unknown | per_topic | per_message)
+  [db-config.host]              
+  [db-config.port]              
+  [db-config.dbname]            
+  [db-config.username]          
+  [db-config.password]          
+  [db-config.query]             
+  [db-config.engine]             (unknown | postgresql | mysql)
+  [rest-config.verb]             (unknown | get | post | put | patch | delete)
+  [rest-config.uri]             
+  [rest-config.headers.{key}]   
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

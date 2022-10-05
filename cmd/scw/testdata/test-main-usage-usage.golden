@@ -26,6 +26,7 @@ AVAILABLE COMMANDS:
   rdb           Database RDB API
   redis         Managed Database for Redis™ API
   registry      Container registry API
+  shell         Start shell mode
   version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API

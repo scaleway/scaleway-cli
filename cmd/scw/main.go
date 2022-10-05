@@ -16,7 +16,7 @@ import (
 
 var (
 	// Version is updated by goreleaser
-	Version = "v2-dev" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
+	Version = "" // ${BUILD_VERSION:-`git describe --tags --dirty --always`}"
 
 	// These are initialized by the build script
 
@@ -44,9 +44,20 @@ func cleanup(buildInfo *core.BuildInfo) {
 	}
 }
 
+func buildVersion() string {
+	if Version == "" {
+		buildInfos, ok := debug.ReadBuildInfo()
+		if ok && buildInfos.Main.Version != "(devel)" && buildInfos.Main.Version != "" {
+			return buildInfos.Main.Version
+		}
+		return "v2+dev"
+	}
+	return Version
+}
+
 func main() {
 	buildInfo := &core.BuildInfo{
-		Version:   version.Must(version.NewSemver(Version)), // panic when version does not respect semantic versionning
+		Version:   version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
 		BuildDate: BuildDate,
 		GoVersion: GoVersion,
 		GitBranch: GitBranch,

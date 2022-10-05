@@ -863,6 +863,13 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "ssl-bridging",
+				Short:      `Enable SSL between load balancer and backend servers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1015,6 +1022,13 @@ func lbBackendUpdate() *core.Command {
 			{
 				Name:       "failover-host",
 				Short:      `Scaleway S3 bucket website to be served in case all backend servers are down`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ssl-bridging",
+				Short:      `Enable SSL between load balancer and backend servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

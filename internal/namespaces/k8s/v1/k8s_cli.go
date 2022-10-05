@@ -374,6 +374,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.kubelet-args.{key}",
+				Short:      `The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1292,6 +1293,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "kubelet-args.{key}",
+				Short:      `The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1496,7 +1498,8 @@ func k8sPoolUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "kubelet-args.value.{key}",
+				Name:       "kubelet-args.{key}",
+				Short:      `The new Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

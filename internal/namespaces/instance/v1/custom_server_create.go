@@ -57,9 +57,10 @@ func serverCreateCommand() *core.Command {
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
 			{
-				Name:    "type",
-				Short:   "Server commercial type",
-				Default: core.DefaultValueSetter("DEV1-S"),
+				Name:     "type",
+				Short:    "Server commercial type",
+				Default:  core.DefaultValueSetter("DEV1-S"),
+				Required: true,
 				EnumValues: []string{
 					"GP1-XS",
 					"GP1-S",
@@ -643,20 +644,26 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 	return m
 }
 
+// Caching listImage response for shell completion
+var completeListImagesCache *marketplace.ListImagesResponse
+
 func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix string) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
 	api := marketplace.NewAPI(client)
 
-	res, err := api.ListImages(&marketplace.ListImagesRequest{}, scw.WithAllPages())
-	if err != nil {
-		return nil
+	if completeListImagesCache == nil {
+		res, err := api.ListImages(&marketplace.ListImagesRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+		completeListImagesCache = res
 	}
 
 	prefix = strings.ToLower(strings.Replace(prefix, "-", "_", -1))
 
-	for _, image := range res.Images {
+	for _, image := range completeListImagesCache.Images {
 		if strings.HasPrefix(image.Label, prefix) {
 			suggestions = append(suggestions, image.Label)
 		}

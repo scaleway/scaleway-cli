@@ -78,7 +78,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
 | pools.{index}.autohealing |  | The enablement of the autohealing feature for the pool |
 | pools.{index}.tags.{index} |  | The tags associated with the pool |
-| pools.{index}.kubelet-args.{key} |  |  |
+| pools.{index}.kubelet-args.{key} |  | The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
 | pools.{index}.zone |  | The Zone in which the Pool's node will be spawn in |
@@ -769,7 +769,7 @@ scw k8s pool create [arg=value ...]
 | container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
 | autohealing |  | The enablement of the autohealing feature for the pool |
 | tags.{index} |  | The tags associated with the pool |
-| kubelet-args.{key} |  |  |
+| kubelet-args.{key} |  | The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | zone |  | The Zone in which the Pool's node will be spawn in |
@@ -929,7 +929,7 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | max-size |  | The new maximum size for the pool |
 | autohealing |  | The new value for the enablement of autohealing for the pool |
 | tags.{index} |  | The new tags associated with the pool |
-| kubelet-args.value.{key} |  |  |
+| kubelet-args.{key} |  | The new Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

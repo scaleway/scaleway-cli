@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/redis/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -179,7 +179,7 @@ func redisClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "acl-rules.{index}.ip",
+				Name:       "acl-rules.{index}.ip-cidr",
 				Short:      `IPv4 network address of the rule`,
 				Required:   false,
 				Deprecated: false,
@@ -394,7 +394,7 @@ func redisClusterList() *core.Command {
 func redisClusterMigrate() *core.Command {
 	return &core.Command{
 		Short:     `Migrate your cluster architecture`,
-		Long:      `Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster will renew its TLS certificate.`,
+		Long:      `Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "migrate",
@@ -490,14 +490,14 @@ func redisClusterMetrics() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "start-date",
+				Name:       "start-at",
 				Short:      `Start date to gather metrics from`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "end-date",
+				Name:       "end-at",
 				Short:      `End date to gather metrics from`,
 				Required:   false,
 				Deprecated: false,
@@ -565,7 +565,7 @@ func redisVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListVersionsRequest{}),
+		ArgsType: reflect.TypeOf(redis.ListClusterVersionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
@@ -589,7 +589,7 @@ func redisVersionList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "version-name",
+				Name:       "version",
 				Short:      `List Redis™ engine versions that match a given name pattern`,
 				Required:   false,
 				Deprecated: false,
@@ -598,11 +598,11 @@ func redisVersionList() *core.Command {
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*redis.ListVersionsRequest)
+			request := args.(*redis.ListClusterVersionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			resp, err := api.ListVersions(request, scw.WithAllPages())
+			resp, err := api.ListClusterVersions(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -666,14 +666,8 @@ func redisClusterRenewCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			e = api.RenewClusterCertificate(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "cluster",
-				Verb:     "renew-certificate",
-			}, nil
+			return api.RenewClusterCertificate(request)
+
 		},
 	}
 }
@@ -740,9 +734,9 @@ func redisSettingDelete() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "settings-name",
+				Name:       "setting-name",
 				Short:      `Setting name to delete`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -753,14 +747,8 @@ func redisSettingDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			e = api.DeleteClusterSetting(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "setting",
-				Verb:     "delete",
-			}, nil
+			return api.DeleteClusterSetting(request)
+
 		},
 	}
 }
@@ -827,7 +815,7 @@ func redisACLSet() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "acl-rules.{index}.ip",
+				Name:       "acl-rules.{index}.ip-cidr",
 				Short:      `IPv4 network address of the rule`,
 				Required:   false,
 				Deprecated: false,
@@ -871,7 +859,7 @@ func redisACLAdd() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "acl-rules.{index}.ip",
+				Name:       "acl-rules.{index}.ip-cidr",
 				Short:      `IPv4 network address of the rule`,
 				Required:   false,
 				Deprecated: false,
@@ -921,14 +909,8 @@ func redisACLDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			e = api.DeleteACLRule(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "acl",
-				Verb:     "delete",
-			}, nil
+			return api.DeleteACLRule(request)
+
 		},
 	}
 }
@@ -1075,14 +1057,8 @@ func redisEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			e = api.DeleteEndpoint(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "endpoint",
-				Verb:     "delete",
-			}, nil
+			return api.DeleteEndpoint(request)
+
 		},
 	}
 }

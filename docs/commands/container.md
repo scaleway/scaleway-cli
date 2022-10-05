@@ -24,6 +24,11 @@ Container as a Service API
   - [Get a namespace](#get-a-namespace)
   - [List all your namespaces](#list-all-your-namespaces)
   - [Update an existing namespace](#update-an-existing-namespace)
+- [Token management commands](#token-management-commands)
+  - [Create a new revocable token](#create-a-new-revocable-token)
+  - [Delete a token](#delete-a-token)
+  - [Get a token](#get-a-token)
+  - [List all tokens](#list-all-tokens)
 
   
 ## Container management commands
@@ -48,7 +53,7 @@ scw container container create [arg=value ...]
 |------|---|-------------|
 | namespace-id |  |  |
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | memory-limit |  |  |
@@ -167,7 +172,7 @@ scw container container update <container-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | container-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | memory-limit |  |  |
@@ -361,7 +366,7 @@ scw container namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -449,10 +454,100 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | namespace-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Token management commands
+
+Token management commands.
+
+
+### Create a new revocable token
+
+Create a new revocable token.
+
+**Usage:**
+
+```
+scw container token create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id |  |  |
+| namespace-id |  |  |
+| description |  |  |
+| expires-at |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a token
+
+Delete a token.
+
+**Usage:**
+
+```
+scw container token delete <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a token
+
+Get a token.
+
+**Usage:**
+
+```
+scw container token get <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all tokens
+
+List all tokens.
+
+**Usage:**
+
+```
+scw container token list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| container-id |  |  |
+| namespace-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

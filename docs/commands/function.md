@@ -30,6 +30,11 @@ Function as a Service API
   - [Update an existing namespace](#update-an-existing-namespace)
 - [Runtime management commands](#runtime-management-commands)
   - [List function runtimes](#list-function-runtimes)
+- [Token management commands](#token-management-commands)
+  - [Create a new revocable token](#create-a-new-revocable-token)
+  - [Delete a token](#delete-a-token)
+  - [Get a token](#get-a-token)
+  - [List all tokens](#list-all-tokens)
 
   
 ## Cron management commands
@@ -207,7 +212,7 @@ scw function function create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` |  |
 | namespace-id |  |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
@@ -365,7 +370,7 @@ scw function function update <function-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | function-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
@@ -430,7 +435,7 @@ scw function namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -518,7 +523,7 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | namespace-id | Required |  |
-| environment-variables.value.{key} |  |  |
+| environment-variables.{key} |  |  |
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
@@ -546,6 +551,96 @@ scw function runtime list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Token management commands
+
+Token management commands.
+
+
+### Create a new revocable token
+
+Create a new revocable token.
+
+**Usage:**
+
+```
+scw function token create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| function-id |  |  |
+| namespace-id |  |  |
+| description |  |  |
+| expires-at |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a token
+
+Delete a token.
+
+**Usage:**
+
+```
+scw function token delete <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a token
+
+Get a token.
+
+**Usage:**
+
+```
+scw function token get <token-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all tokens
+
+List all tokens.
+
+**Usage:**
+
+```
+scw function token list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| function-id |  |  |
+| namespace-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

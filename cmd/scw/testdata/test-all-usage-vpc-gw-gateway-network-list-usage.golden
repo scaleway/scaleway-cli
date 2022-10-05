@@ -10,7 +10,7 @@ ARGS:
   [gateway-id]           Filter by gateway
   [private-network-id]   Filter by private network
   [enable-masquerade]    Filter by masquerade enablement
-  [dhcpid]               Filter by DHCP configuration
+  [dhcp-id]              Filter by DHCP configuration
   [status]               Filter GatewayNetworks by this status (unknown for any) (unknown | created | attaching | configuring | ready | detaching | deleted)
   [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
 
