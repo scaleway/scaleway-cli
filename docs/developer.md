@@ -31,14 +31,14 @@ Be sure to check out the resource you create in each test and remember to delete
 When running a test, you might need information such as ID that you cannot know in advance (such as ID of resources).
 The `core.Test` uses different helpers to pass useful information around.
 
-One of them is the [`core.testMetadata`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L80).
+One of them is the [`core.testMetadata`](https://github.com/scaleway/scaleway-cli/blob/master/internal/core/testing.go#L80).
 It is designed to store information such as ID or object describing a resource during a test.
 This metadata can use the `render` method to provide helpful golang templating features to have commands arguments computed dynamically.
 
 #### BeforeFunc and AfterFunc
 
 Usually, you might need to set up and teardown resources when you are running a test for testing a specific command.
-For that you can use [`BeforeFunc`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L84) and [`AfterFunc`](https://github.com/scaleway/scaleway-cli/blob/v2/internal/core/testing.go#L86).
+For that you can use [`BeforeFunc`](https://github.com/scaleway/scaleway-cli/blob/master/internal/core/testing.go#L100) and [`AfterFunc`](https://github.com/scaleway/scaleway-cli/blob/master/internal/core/testing.go#L102).
 Those types allow you to execute code before (`BeforeFunc`) or after (`AfterFunc`) the main command you want to test.
 Those functions can access the metadata to change dynamically their behavior.
 
