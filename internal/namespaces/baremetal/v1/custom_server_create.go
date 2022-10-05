@@ -93,10 +93,6 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			Short:    "Create instance",
 			ArgsJSON: `{}`,
 		},
-		{
-			Short:    "Create a GP-BM1-M instance, give it a name and add tags",
-			ArgsJSON: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
-		},
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
