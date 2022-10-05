@@ -875,7 +875,7 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 			ServerID: args.ServerID,
 			Action:   action,
 		})
-		return &core.SuccessResult{Message: fmt.Sprintf("%s successful for the server", action)}, err
+		return &core.SuccessResult{Message: fmt.Sprintf("%s successfully started for the server", action)}, err
 	}
 }
 
