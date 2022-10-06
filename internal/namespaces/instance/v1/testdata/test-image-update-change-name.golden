@@ -1,0 +1,40 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Image.ID                d3b56e3c-ab8e-4181-8283-78e0bc760801
+Image.Name              foo
+Image.Arch              x86_64
+Image.CreationDate      few seconds ago
+Image.ModificationDate  few seconds ago
+Image.ExtraVolumes      0
+Image.FromServer        -
+Image.Organization      564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Image.Public            false
+Image.RootVolume        55203474-8e0c-4d8a-b115-3b232644ba57
+Image.State             available
+Image.Project           564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Image.Zone              fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "Image": {
+    "id": "d3b56e3c-ab8e-4181-8283-78e0bc760801",
+    "name": "foo",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "public": false,
+    "root_volume": {
+      "id": "55203474-8e0c-4d8a-b115-3b232644ba57",
+      "name": "cli-snp-mystifying-goldberg",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "tags": [],
+    "zone": "fr-par-1"
+  }
+}
