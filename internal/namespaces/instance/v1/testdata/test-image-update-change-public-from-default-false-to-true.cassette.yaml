@@ -941,7 +941,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:50 GMT
+      - Thu, 06 Oct 2022 09:21:04 GMT
       Link:
       - </images?page=1&per_page=50&>; rel="last"
       Server:
@@ -953,7 +953,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 083b5bc3-ff93-4356-b45f-df5a737eff5b
+      - 36aeb2e0-09ee-4e60-a0e0-bf7504e15c30
       X-Total-Count:
       - "23"
     status: 200 OK
@@ -984,7 +984,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:51 GMT
+      - Thu, 06 Oct 2022 09:21:04 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -994,7 +994,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9ce71ba5-a7bc-4e55-86a9-67788a94033b
+      - 8d4c26d7-2ede-477c-bebf-339e0fc81516
     status: 200 OK
     code: 200
     duration: ""
@@ -1335,7 +1335,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:51 GMT
+      - Thu, 06 Oct 2022 09:21:05 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="last"
       Server:
@@ -1347,7 +1347,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b1063d1d-5755-428c-8ae8-057bf88a71b9
+      - 8b37f8b4-d781-490f-841b-e9fd0ce6b467
       X-Total-Count:
       - "36"
     status: 200 OK
@@ -1364,21 +1364,21 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "fd1991a8-b9da-4b9e-9093-29e0781a3b51", "address": "51.15.214.99",
+    body: '{"ip": {"id": "1ca1c933-9e1a-4fff-b5d8-b61704e821e2", "address": "51.158.103.230",
       "reverse": null, "server": null, "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "zone": "fr-par-1", "tags":
       []}}'
     headers:
       Content-Length:
-      - "253"
+      - "255"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:52 GMT
+      - Thu, 06 Oct 2022 09:21:06 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/fd1991a8-b9da-4b9e-9093-29e0781a3b51
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/1ca1c933-9e1a-4fff-b5d8-b61704e821e2
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1388,12 +1388,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c2f8e2c1-b864-429e-8395-7564b29f6c30
+      - 8a7f1443-7ace-44a7-8da1-b894e40f31a0
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-srv-zealous-davinci","commercial_type":"DEV1-S","image":"c332216b-5ab1-4b4f-97b5-e7499b11b149","public_ip":"fd1991a8-b9da-4b9e-9093-29e0781a3b51","boot_type":"local","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
+    body: '{"name":"cli-srv-awesome-wing","commercial_type":"DEV1-S","image":"c332216b-5ab1-4b4f-97b5-e7499b11b149","public_ip":"1ca1c933-9e1a-4fff-b5d8-b61704e821e2","boot_type":"local","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
     form: {}
     headers:
       Content-Type:
@@ -1403,27 +1403,27 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"server": {"id": "72c2fef1-b8bd-453e-80b4-223a6e481e1a", "name": "cli-srv-zealous-davinci",
+    body: '{"server": {"id": "d7295394-c82e-407b-bc5e-2977470aa773", "name": "cli-srv-awesome-wing",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "hostname": "cli-srv-zealous-davinci", "image": {"id": "c332216b-5ab1-4b4f-97b5-e7499b11b149",
+      "hostname": "cli-srv-awesome-wing", "image": {"id": "c332216b-5ab1-4b4f-97b5-e7499b11b149",
       "name": "Ubuntu 18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "ccf1c67a-a7e9-450e-9c14-b48de680ce26",
       "name": "ubuntu_18.04_bionic_beaver:volume-0", "volume_type": "unified", "size":
       10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
       "2022-08-01T08:26:01.854067+00:00", "modification_date": "2022-08-01T08:26:01.854067+00:00",
       "default_bootscript": null, "from_server": null, "state": "available", "tags":
-      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "id": "c53a62aa-1c32-4d5d-9319-5c83cd08304e",
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "id": "d91ec284-25db-46f0-8b60-5f442cb51180",
       "name": "ubuntu_18.04_bionic_beaver:volume-0", "volume_type": "l_ssd", "export_uri":
       null, "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "server": {"id": "72c2fef1-b8bd-453e-80b4-223a6e481e1a", "name": "cli-srv-zealous-davinci"},
-      "size": 20000000000, "state": "available", "creation_date": "2022-10-06T07:41:52.200827+00:00",
-      "modification_date": "2022-10-06T07:41:52.200827+00:00", "tags": [], "zone":
+      "server": {"id": "d7295394-c82e-407b-bc5e-2977470aa773", "name": "cli-srv-awesome-wing"},
+      "size": 20000000000, "state": "available", "creation_date": "2022-10-06T09:21:06.942753+00:00",
+      "modification_date": "2022-10-06T09:21:06.942753+00:00", "tags": [], "zone":
       "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
-      "", "public_ip": {"id": "fd1991a8-b9da-4b9e-9093-29e0781a3b51", "address": "51.15.214.99",
+      "", "public_ip": {"id": "1ca1c933-9e1a-4fff-b5d8-b61704e821e2", "address": "51.158.103.230",
       "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2022-10-06T07:41:52.200827+00:00",
-      "modification_date": "2022-10-06T07:41:52.200827+00:00", "bootscript": {"id":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2022-10-06T09:21:06.942753+00:00",
+      "modification_date": "2022-10-06T09:21:06.942753+00:00", "bootscript": {"id":
       "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
       4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1435,15 +1435,15 @@ interactions:
       "fr-par-1"}}'
     headers:
       Content-Length:
-      - "2660"
+      - "2653"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:52 GMT
+      - Thu, 06 Oct 2022 09:21:07 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/72c2fef1-b8bd-453e-80b4-223a6e481e1a
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/d7295394-c82e-407b-bc5e-2977470aa773
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1453,7 +1453,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0e0d51f4-fb43-499e-a6fa-1d3aa879675e
+      - 7d998d22-be6f-47da-ad68-d5636a99c864
     status: 201 Created
     code: 201
     duration: ""
@@ -1463,24 +1463,24 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/c53a62aa-1c32-4d5d-9319-5c83cd08304e
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/d91ec284-25db-46f0-8b60-5f442cb51180
     method: GET
   response:
-    body: '{"volume": {"id": "c53a62aa-1c32-4d5d-9319-5c83cd08304e", "name": "ubuntu_18.04_bionic_beaver:volume-0",
+    body: '{"volume": {"id": "d91ec284-25db-46f0-8b60-5f442cb51180", "name": "ubuntu_18.04_bionic_beaver:volume-0",
       "volume_type": "l_ssd", "export_uri": null, "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "server": {"id": "72c2fef1-b8bd-453e-80b4-223a6e481e1a",
-      "name": "cli-srv-zealous-davinci"}, "size": 20000000000, "state": "available",
-      "creation_date": "2022-10-06T07:41:52.200827+00:00", "modification_date": "2022-10-06T07:41:52.200827+00:00",
+      "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "server": {"id": "d7295394-c82e-407b-bc5e-2977470aa773",
+      "name": "cli-srv-awesome-wing"}, "size": 20000000000, "state": "available",
+      "creation_date": "2022-10-06T09:21:06.942753+00:00", "modification_date": "2022-10-06T09:21:06.942753+00:00",
       "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "534"
+      - "531"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:52 GMT
+      - Thu, 06 Oct 2022 09:21:07 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1490,12 +1490,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1a370845-c746-4b21-995f-f60c277e40db
+      - 7aeb21d7-bd52-4280-8cd7-fbf218c1d059
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"name":"cli-snp-unruffled-carson","volume_id":"c53a62aa-1c32-4d5d-9319-5c83cd08304e","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","volume_type":"l_ssd"}'
+    body: '{"name":"cli-snp-magical-leakey","volume_id":"d91ec284-25db-46f0-8b60-5f442cb51180","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","volume_type":"l_ssd"}'
     form: {}
     headers:
       Content-Type:
@@ -1505,25 +1505,25 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots
     method: POST
   response:
-    body: '{"snapshot": {"id": "beba2589-310c-4168-86da-c7553b16228c", "name": "cli-snp-unruffled-carson",
-      "volume_type": "l_ssd", "creation_date": "2022-10-06T07:41:53.043706+00:00",
-      "modification_date": "2022-10-06T07:41:53.043706+00:00", "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    body: '{"snapshot": {"id": "54612717-d74c-4afc-8b86-7d72f5ab2e98", "name": "cli-snp-magical-leakey",
+      "volume_type": "l_ssd", "creation_date": "2022-10-06T09:21:07.676855+00:00",
+      "modification_date": "2022-10-06T09:21:07.676855+00:00", "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "size": 20000000000, "state":
-      "available", "base_volume": {"id": "c53a62aa-1c32-4d5d-9319-5c83cd08304e", "name":
+      "available", "base_volume": {"id": "d91ec284-25db-46f0-8b60-5f442cb51180", "name":
       "ubuntu_18.04_bionic_beaver:volume-0"}, "tags": [], "zone": "fr-par-1", "error_details":
-      null}, "task": {"id": "add9e57b-a65c-43da-89ff-0784661a500f", "description":
-      "snapshot_beba2589-310c-4168-86da-c7553b16228c", "status": "pending", "href_from":
-      "/snapshots", "href_result": "snapshots/beba2589-310c-4168-86da-c7553b16228c",
-      "started_at": "2022-10-06T07:41:53.379635+00:00", "terminated_at": null}}'
+      null}, "task": {"id": "def988bd-3649-4fd2-b212-2e9e73b96f6f", "description":
+      "snapshot_54612717-d74c-4afc-8b86-7d72f5ab2e98", "status": "pending", "href_from":
+      "/snapshots", "href_result": "snapshots/54612717-d74c-4afc-8b86-7d72f5ab2e98",
+      "started_at": "2022-10-06T09:21:07.982761+00:00", "terminated_at": null}}'
     headers:
       Content-Length:
-      - "851"
+      - "849"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:53 GMT
+      - Thu, 06 Oct 2022 09:21:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1533,12 +1533,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 42805a91-fe33-4d8e-a803-e84df50264d3
+      - b6381634-6de0-4039-a44d-82b22cfa7f5f
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"cli-img-great-poitras","root_volume":"beba2589-310c-4168-86da-c7553b16228c","arch":"x86_64","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
+    body: '{"name":"cli-img-compassionate-hellman","root_volume":"54612717-d74c-4afc-8b86-7d72f5ab2e98","arch":"x86_64","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
     form: {}
     headers:
       Content-Type:
@@ -1548,24 +1548,24 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images
     method: POST
   response:
-    body: '{"image": {"id": "d9f170f2-e19f-406f-aee2-f03ca370dc0d", "name": "cli-img-great-poitras",
+    body: '{"image": {"id": "b0adae37-13ef-447c-89ce-2c948d33176b", "name": "cli-img-compassionate-hellman",
       "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "root_volume": {"id": "beba2589-310c-4168-86da-c7553b16228c", "name": "cli-snp-unruffled-carson",
+      "root_volume": {"id": "54612717-d74c-4afc-8b86-7d72f5ab2e98", "name": "cli-snp-magical-leakey",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2022-10-06T07:41:53.578254+00:00",
-      "modification_date": "2022-10-06T07:41:53.578254+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2022-10-06T09:21:08.159773+00:00",
+      "modification_date": "2022-10-06T09:21:08.159773+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "610"
+      - "616"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:53 GMT
+      - Thu, 06 Oct 2022 09:21:08 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/images/d9f170f2-e19f-406f-aee2-f03ca370dc0d
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/images/b0adae37-13ef-447c-89ce-2c948d33176b
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1575,7 +1575,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c2f875b4-54d6-4634-96a7-4df95230f5cc
+      - 46083b95-9c78-4c01-8aff-5692b00e259c
     status: 201 Created
     code: 201
     duration: ""
@@ -1585,25 +1585,25 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/d9f170f2-e19f-406f-aee2-f03ca370dc0d
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/b0adae37-13ef-447c-89ce-2c948d33176b
     method: GET
   response:
-    body: '{"image": {"id": "d9f170f2-e19f-406f-aee2-f03ca370dc0d", "name": "cli-img-great-poitras",
+    body: '{"image": {"id": "b0adae37-13ef-447c-89ce-2c948d33176b", "name": "cli-img-compassionate-hellman",
       "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "root_volume": {"id": "beba2589-310c-4168-86da-c7553b16228c", "name": "cli-snp-unruffled-carson",
+      "root_volume": {"id": "54612717-d74c-4afc-8b86-7d72f5ab2e98", "name": "cli-snp-magical-leakey",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2022-10-06T07:41:53.578254+00:00",
-      "modification_date": "2022-10-06T07:41:53.578254+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2022-10-06T09:21:08.159773+00:00",
+      "modification_date": "2022-10-06T09:21:08.159773+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "610"
+      - "616"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:53 GMT
+      - Thu, 06 Oct 2022 09:21:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1613,37 +1613,37 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 06eacf0b-e308-4505-a233-cc150ed97f46
+      - c8c3633b-ee2e-4e4c-acca-45ca80f0f174
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"zone":"fr-par-1","id":"d9f170f2-e19f-406f-aee2-f03ca370dc0d","name":"cli-img-great-poitras","arch":"x86_64","creation_date":"2022-10-06T07:41:53.578254Z","modification_date":"2022-10-06T07:41:53.578254Z","extra_volumes":{},"organization":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","public":true,"root_volume":{"id":"beba2589-310c-4168-86da-c7553b16228c","name":"cli-snp-unruffled-carson","size":20000000000,"volume_type":"l_ssd"},"state":"available","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
+    body: '{"zone":"fr-par-1","id":"b0adae37-13ef-447c-89ce-2c948d33176b","name":"cli-img-compassionate-hellman","arch":"x86_64","creation_date":"2022-10-06T09:21:08.159773Z","modification_date":"2022-10-06T09:21:08.159773Z","extra_volumes":{},"organization":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","public":true,"root_volume":{"id":"54612717-d74c-4afc-8b86-7d72f5ab2e98","name":"cli-snp-magical-leakey","size":20000000000,"volume_type":"l_ssd"},"state":"available","project":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/d9f170f2-e19f-406f-aee2-f03ca370dc0d
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/b0adae37-13ef-447c-89ce-2c948d33176b
     method: PUT
   response:
-    body: '{"image": {"id": "d9f170f2-e19f-406f-aee2-f03ca370dc0d", "name": "cli-img-great-poitras",
+    body: '{"image": {"id": "b0adae37-13ef-447c-89ce-2c948d33176b", "name": "cli-img-compassionate-hellman",
       "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "root_volume": {"id": "beba2589-310c-4168-86da-c7553b16228c", "name": "cli-snp-unruffled-carson",
+      "root_volume": {"id": "54612717-d74c-4afc-8b86-7d72f5ab2e98", "name": "cli-snp-magical-leakey",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2022-10-06T07:41:53.578254+00:00",
-      "modification_date": "2022-10-06T07:41:53.966449+00:00", "default_bootscript":
+      true, "arch": "x86_64", "creation_date": "2022-10-06T09:21:08.159773+00:00",
+      "modification_date": "2022-10-06T09:21:08.528237+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "609"
+      - "615"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:54 GMT
+      - Thu, 06 Oct 2022 09:21:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1653,7 +1653,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - bf373018-feb6-4dd4-834d-290fced04e0a
+      - ae124a27-57a1-42cd-aab5-d39acf86c98d
     status: 200 OK
     code: 200
     duration: ""
@@ -1663,30 +1663,30 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/72c2fef1-b8bd-453e-80b4-223a6e481e1a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/d7295394-c82e-407b-bc5e-2977470aa773
     method: GET
   response:
-    body: '{"server": {"id": "72c2fef1-b8bd-453e-80b4-223a6e481e1a", "name": "cli-srv-zealous-davinci",
+    body: '{"server": {"id": "d7295394-c82e-407b-bc5e-2977470aa773", "name": "cli-srv-awesome-wing",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "hostname": "cli-srv-zealous-davinci", "image": {"id": "c332216b-5ab1-4b4f-97b5-e7499b11b149",
+      "hostname": "cli-srv-awesome-wing", "image": {"id": "c332216b-5ab1-4b4f-97b5-e7499b11b149",
       "name": "Ubuntu 18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "ccf1c67a-a7e9-450e-9c14-b48de680ce26",
       "name": "ubuntu_18.04_bionic_beaver:volume-0", "volume_type": "unified", "size":
       10000000000}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
       "2022-08-01T08:26:01.854067+00:00", "modification_date": "2022-08-01T08:26:01.854067+00:00",
       "default_bootscript": null, "from_server": null, "state": "available", "tags":
-      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "id": "c53a62aa-1c32-4d5d-9319-5c83cd08304e",
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "id": "d91ec284-25db-46f0-8b60-5f442cb51180",
       "name": "ubuntu_18.04_bionic_beaver:volume-0", "volume_type": "l_ssd", "export_uri":
       null, "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "server": {"id": "72c2fef1-b8bd-453e-80b4-223a6e481e1a", "name": "cli-srv-zealous-davinci"},
-      "size": 20000000000, "state": "available", "creation_date": "2022-10-06T07:41:52.200827+00:00",
-      "modification_date": "2022-10-06T07:41:52.200827+00:00", "tags": [], "zone":
+      "server": {"id": "d7295394-c82e-407b-bc5e-2977470aa773", "name": "cli-srv-awesome-wing"},
+      "size": 20000000000, "state": "available", "creation_date": "2022-10-06T09:21:06.942753+00:00",
+      "modification_date": "2022-10-06T09:21:06.942753+00:00", "tags": [], "zone":
       "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
-      "", "public_ip": {"id": "fd1991a8-b9da-4b9e-9093-29e0781a3b51", "address": "51.15.214.99",
+      "", "public_ip": {"id": "1ca1c933-9e1a-4fff-b5d8-b61704e821e2", "address": "51.158.103.230",
       "dynamic": false}, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
-      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2022-10-06T07:41:52.200827+00:00",
-      "modification_date": "2022-10-06T07:41:52.200827+00:00", "bootscript": {"id":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2022-10-06T09:21:06.942753+00:00",
+      "modification_date": "2022-10-06T09:21:06.942753+00:00", "bootscript": {"id":
       "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64 mainline
       4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
       "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1698,13 +1698,13 @@ interactions:
       "fr-par-1"}}'
     headers:
       Content-Length:
-      - "2660"
+      - "2653"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:54 GMT
+      - Thu, 06 Oct 2022 09:21:08 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1714,7 +1714,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c7881378-f0e1-407d-9a64-78749f306f1d
+      - 08a92cd7-d5a2-4f9c-b872-8d122b19a6ca
     status: 200 OK
     code: 200
     duration: ""
@@ -1724,7 +1724,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/72c2fef1-b8bd-453e-80b4-223a6e481e1a
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/d7295394-c82e-407b-bc5e-2977470aa773
     method: DELETE
   response:
     body: ""
@@ -1732,7 +1732,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Thu, 06 Oct 2022 07:41:54 GMT
+      - Thu, 06 Oct 2022 09:21:09 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1742,7 +1742,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 49c7b9ea-3d0d-435d-9b64-58cb9736910f
+      - 2ba89497-fbba-43f0-b63c-4672bc712896
     status: 204 No Content
     code: 204
     duration: ""
@@ -1752,7 +1752,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/fd1991a8-b9da-4b9e-9093-29e0781a3b51
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/1ca1c933-9e1a-4fff-b5d8-b61704e821e2
     method: DELETE
   response:
     body: ""
@@ -1760,7 +1760,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Thu, 06 Oct 2022 07:41:54 GMT
+      - Thu, 06 Oct 2022 09:21:09 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1770,7 +1770,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 43b9e245-82af-4fce-816c-27905090403b
+      - a3cd5647-3f33-48e8-9328-fa4f55fdb154
     status: 204 No Content
     code: 204
     duration: ""
@@ -1780,7 +1780,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/c53a62aa-1c32-4d5d-9319-5c83cd08304e
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/d91ec284-25db-46f0-8b60-5f442cb51180
     method: DELETE
   response:
     body: ""
@@ -1788,7 +1788,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Thu, 06 Oct 2022 07:41:54 GMT
+      - Thu, 06 Oct 2022 09:21:09 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1798,7 +1798,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 227a4adc-688d-4109-9dc9-addbbaf2ca05
+      - 0dd74372-031c-4843-8ea5-07efe14c24c5
     status: 204 No Content
     code: 204
     duration: ""
@@ -1808,25 +1808,25 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/d9f170f2-e19f-406f-aee2-f03ca370dc0d
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/b0adae37-13ef-447c-89ce-2c948d33176b
     method: GET
   response:
-    body: '{"image": {"id": "d9f170f2-e19f-406f-aee2-f03ca370dc0d", "name": "cli-img-great-poitras",
+    body: '{"image": {"id": "b0adae37-13ef-447c-89ce-2c948d33176b", "name": "cli-img-compassionate-hellman",
       "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "root_volume": {"id": "beba2589-310c-4168-86da-c7553b16228c", "name": "cli-snp-unruffled-carson",
+      "root_volume": {"id": "54612717-d74c-4afc-8b86-7d72f5ab2e98", "name": "cli-snp-magical-leakey",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      true, "arch": "x86_64", "creation_date": "2022-10-06T07:41:53.578254+00:00",
-      "modification_date": "2022-10-06T07:41:53.966449+00:00", "default_bootscript":
+      true, "arch": "x86_64", "creation_date": "2022-10-06T09:21:08.159773+00:00",
+      "modification_date": "2022-10-06T09:21:08.528237+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "609"
+      - "615"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Oct 2022 07:41:55 GMT
+      - Thu, 06 Oct 2022 09:21:09 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1836,7 +1836,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4c6c6738-4777-44c3-a1c3-cdb747800c32
+      - b3b1c367-312d-4755-b913-f91d76c7c6e0
     status: 200 OK
     code: 200
     duration: ""
@@ -1846,7 +1846,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/d9f170f2-e19f-406f-aee2-f03ca370dc0d
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/b0adae37-13ef-447c-89ce-2c948d33176b
     method: DELETE
   response:
     body: ""
@@ -1854,7 +1854,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Thu, 06 Oct 2022 07:41:55 GMT
+      - Thu, 06 Oct 2022 09:21:09 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1864,7 +1864,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7b8ea313-9f7a-41f3-b3cf-da335fd4f81c
+      - ea061e1e-57a5-4c64-a0b4-18fb32ed7aad
     status: 204 No Content
     code: 204
     duration: ""
@@ -1874,7 +1874,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots/beba2589-310c-4168-86da-c7553b16228c
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots/54612717-d74c-4afc-8b86-7d72f5ab2e98
     method: DELETE
   response:
     body: ""
@@ -1882,7 +1882,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Thu, 06 Oct 2022 07:41:55 GMT
+      - Thu, 06 Oct 2022 09:21:10 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1892,7 +1892,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 71a36991-4a2d-491d-8d06-1bf4852b987b
+      - 0fca9f94-548c-4785-aeba-4b228061bbe5
     status: 204 No Content
     code: 204
     duration: ""

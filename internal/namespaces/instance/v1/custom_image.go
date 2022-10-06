@@ -322,7 +322,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 func imageUpdateCommand() *core.Command {
 	return &core.Command{
 		Short:     `Update an instance image`,
-		Long:      `Update an instance image.`,
+		Long:      `Update properties of an instance image.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "update",
@@ -411,7 +411,7 @@ func imageUpdateCommand() *core.Command {
 			if request.RootVolume == nil {
 				request.RootVolume = getImageResponse.Image.RootVolume
 			}
-			if request.Public == false && getImageResponse.Image.Public == false {
+			if !request.Public && !getImageResponse.Image.Public {
 				request.Public = getImageResponse.Image.Public
 			}
 

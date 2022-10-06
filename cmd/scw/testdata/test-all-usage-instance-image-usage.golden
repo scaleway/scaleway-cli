@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   delete      Delete an instance image
   get         Get an instance image
   list        List instance images
+  update      Update an instance image
   wait        Wait for image to reach a stable state
 
 FLAGS:
