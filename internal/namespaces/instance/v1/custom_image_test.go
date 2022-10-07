@@ -94,3 +94,61 @@ func Test_ImageList(t *testing.T) {
 		AfterFunc: deleteImage("Image"),
 	}))
 }
+
+func Test_ImageUpdate(t *testing.T) {
+	t.Run("Change name", core.Test(&core.TestConfig{
+		BeforeFunc: createImage("ImageName"),
+		Commands:   GetCommands(),
+		Cmd:        "scw instance image update image-id={{ .ImageName.Image.ID }} name=foo",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "foo", ctx.Result.(*instance.UpdateImageResponse).Image.Name)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteServer("Server"),
+			deleteImage("ImageName"),
+		),
+	}))
+
+	t.Run("Change public from default false to true", core.Test(&core.TestConfig{
+		BeforeFunc: createImage("ImagePub"),
+		Commands:   GetCommands(),
+		Cmd:        "scw instance image update image-id={{ .ImagePub.Image.ID }} public=true",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, true, ctx.Result.(*instance.UpdateImageResponse).Image.Public)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteServer("Server"),
+			deleteImage("ImagePub"),
+		),
+	}))
+
+	t.Run("Add extra volume", core.Test(&core.TestConfig{
+		BeforeFunc: core.BeforeFuncCombine(
+			createVolume("Volume", 20, instance.VolumeVolumeTypeBSSD),
+			core.ExecStoreBeforeCmd("SnapshotVol", `scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`),
+			createImage("ImageExtraVol"),
+		),
+		Commands: GetCommands(),
+		Cmd:      "scw instance image update image-id={{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "snapVol", ctx.Result.(*instance.UpdateImageResponse).Image.ExtraVolumes["1"].Name)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteServer("Server"),
+			deleteImage("ImageExtraVol"),
+			deleteVolume("Volume"),
+		),
+	}))
+}

@@ -7,6 +7,7 @@ Instance API
   - [Delete an instance image](#delete-an-instance-image)
   - [Get an instance image](#get-an-instance-image)
   - [List instance images](#list-instance-images)
+  - [Update an instance image](#update-an-instance-image)
   - [Wait for image to reach a stable state](#wait-for-image-to-reach-a-stable-state)
 - [IP management commands](#ip-management-commands)
   - [Attach an IP to a given server](#attach-an-ip-to-a-given-server)
@@ -230,6 +231,54 @@ scw instance image list [arg=value ...]
 List all public images in the default zone
 ```
 scw instance image list
+```
+
+
+
+
+### Update an instance image
+
+Update properties of an instance image.
+
+**Usage:**
+
+```
+scw instance image update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| image-id | Required |  |
+| name |  |  |
+| arch | One of: `x86_64`, `arm` |  |
+| extra-volumes.{index}.id |  | Additional extra-volume ID |
+| from-server |  |  |
+| public |  |  |
+| tags.{index} |  |  |
+| project |  | Project ID to use. If none is passed the default project ID will be used |
+| organization |  | Organization ID to use. If none is passed the default organization ID will be used |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Update image name
+```
+scw instance image update image-id=11111111-1111-1111-1111-111111111111 name=foo
+```
+
+Update image public
+```
+scw instance image update image-id=11111111-1111-1111-1111-111111111111 public=true
+```
+
+Add extra volume
+```
+scw instance image update image-id=11111111-1111-1111-1111-111111111111 extra-volumes.1.id=11111111-1111-1111-1111-111111111111
 ```
 
 

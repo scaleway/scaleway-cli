@@ -97,6 +97,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
 	cmds.Merge(core.NewCommands(
 		imageWaitCommand(),
+		imageUpdateCommand(),
 	))
 
 	//

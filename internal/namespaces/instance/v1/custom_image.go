@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -312,6 +313,125 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 	})
 
 	return c
+}
+
+//
+// Commands
+//
+
+func imageUpdateCommand() *core.Command {
+	return &core.Command{
+		Short:     `Update an instance image`,
+		Long:      `Update properties of an instance image.`,
+		Namespace: "instance",
+		Resource:  "image",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(instance.UpdateImageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "image-id",
+				Required:   true,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "arch",
+				Required:   false,
+				Positional: false,
+				EnumValues: []string{"x86_64", "arm"},
+			},
+			{
+				Name:       "extra-volumes.{index}.id",
+				Short:      `Additional extra-volume ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "from-server",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "public",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Required:   false,
+				Positional: false,
+			},
+			core.ProjectArgSpec(),
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			request := argsI.(*instance.UpdateImageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			getImageResponse, err := api.GetImage(&instance.GetImageRequest{
+				Zone:    request.Zone,
+				ImageID: request.ImageID,
+			})
+			if err != nil {
+				logger.Warningf("cannot get image %s: %s", request.Name, err)
+			}
+
+			if request.Name == nil {
+				request.Name = &getImageResponse.Image.Name
+			}
+			if request.Arch == "" {
+				request.Arch = getImageResponse.Image.Arch
+			}
+			if request.CreationDate == nil {
+				request.CreationDate = getImageResponse.Image.CreationDate
+			}
+			if request.ModificationDate == nil {
+				request.ModificationDate = getImageResponse.Image.ModificationDate
+			}
+			if request.ExtraVolumes == nil {
+				request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
+				for k, v := range getImageResponse.Image.ExtraVolumes {
+					volume := instance.VolumeTemplate{
+						ID:         v.ID,
+						Name:       v.Name,
+						Size:       v.Size,
+						VolumeType: v.VolumeType,
+					}
+					request.ExtraVolumes[k] = &volume
+				}
+			}
+			if request.RootVolume == nil {
+				request.RootVolume = getImageResponse.Image.RootVolume
+			}
+			if !request.Public && !getImageResponse.Image.Public {
+				request.Public = getImageResponse.Image.Public
+			}
+
+			return api.UpdateImage(request)
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Update image name",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 name=foo",
+			},
+			{
+				Short: "Update image public",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 public=true",
+			},
+			{
+				Short: "Add extra volume",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 extra-volumes.1.id=11111111-1111-1111-1111-111111111111",
+			},
+		},
+	}
 }
 
 func imageWaitCommand() *core.Command {
