@@ -420,15 +420,15 @@ func imageUpdateCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Update image name",
-				Raw:   "scw instance image update image-id=173814d5-7fbb-463c-8650-ec511c7f28e5 name=foo",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 name=foo",
 			},
 			{
 				Short: "Update image public",
-				Raw:   "scw instance image update image-id=173814d5-7fbb-463c-8650-ec511c7f28e5 public=true",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 public=true",
 			},
 			{
 				Short: "Add extra volume",
-				Raw:   "scw instance image update image-id=173814d5-7fbb-463c-8650-ec511c7f28e5 extra-volumes.1.id=",
+				Raw:   "scw instance image update image-id=11111111-1111-1111-1111-111111111111 extra-volumes.1.id=11111111-1111-1111-1111-111111111111",
 			},
 		},
 	}
