@@ -20,7 +20,7 @@ var (
 
 	// These are initialized by the build script
 
-	BuildDate = "unknown" // date -u '+%Y-%m-%d_%I:%M:%S%p'
+	BuildDate = "unknown" // RFC3339: date -u '+%Y-%m-%dT%H:%M:%SZ'
 	GitBranch = "unknown" // git symbolic-ref -q --short HEAD || echo HEAD"
 	GitCommit = "unknown" // git rev-parse --short HEAD
 
