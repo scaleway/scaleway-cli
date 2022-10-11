@@ -27,6 +27,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
+	transactional_email "github.com/scaleway/scaleway-cli/v2/internal/namespaces/transactional_email/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
@@ -65,6 +66,8 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(vpcgw.GetCommands())
 	commands.Merge(redis.GetCommands())
 	commands.Merge(shell.GetCommands())
+	commands.Merge(transactional_email.GetCommands())
+
 	if len(beta) == 1 && beta[0] {
 		commands.Merge(iam.GetCommands())
 		commands.Merge(accountv2.GetCommands())

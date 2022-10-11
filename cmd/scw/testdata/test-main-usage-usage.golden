@@ -27,6 +27,7 @@ AVAILABLE COMMANDS:
   redis         Managed Database for Redis™ API
   registry      Container registry API
   shell         Start shell mode
+  tem           Tem
   version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API

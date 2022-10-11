@@ -13,12 +13,12 @@ Different instance ranges are proposed:
   Refer to the [Development Instance offer details](https://www.scaleway.com/en/virtual-instances/play2/)
   for more information.
 
-* The **General Purpose** instances range is the solution for production workloads. Powerful
+* The General Purpose instances range is the solution for production workloads. Powerful
   AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and storage
   options up to 600GB of replicated local NVMe SSD storage and/or up to 10TB of Block Storage.
   Refer to the [General Purpose offer details](https://www.scaleway.com/en/virtual-instances/pro2/) for more information.
 
-* The **Enterprise** instances range is the solution for most demanding workloads and
+* The Enterprise instances range is the solution for most demanding workloads and
   mission-critical applications. Powerful AMD EPYC CPUs back those instances and
   offer up to 96 Cores, 384GB of RAM and up to 10TB of Block Storage. Refer to the
   [Enterprise offer details](https://www.scaleway.com/en/virtual-instances/enterprise/) for more information.
