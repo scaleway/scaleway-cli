@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
 func Test_ListInstance(t *testing.T) {
@@ -53,6 +55,58 @@ func Test_UpgradeInstance(t *testing.T) {
 		Cmd:        "scw rdb instance upgrade {{ .Instance.ID }} node-type=DB-DEV-M --wait",
 		Check:      core.TestCheckGolden(),
 		AfterFunc:  deleteInstance(),
+	}))
+}
+
+func Test_UpdateInstance(t *testing.T) {
+	t.Run("Update instance name", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb instance update {{ .Instance.ID }} name=foo --wait",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "foo", ctx.Result.(*rdb.Instance).Name)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Update instance tags", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb instance update {{ .Instance.ID }} tags.0=a --wait",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "a", ctx.Result.(*rdb.Instance).Tags[0])
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Set a timezone", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Modify default max_connections from 100 to 200", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=max_connections settings.0.value=200 --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
