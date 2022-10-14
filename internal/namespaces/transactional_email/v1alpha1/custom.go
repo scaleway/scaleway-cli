@@ -12,5 +12,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(transactional_email.DomainStatus(""), human.EnumMarshalFunc(domainStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(transactional_email.EmailStatus(""), human.EnumMarshalFunc(emailStatusMarshalSpecs))
 
+	cmds.MustFind("tem", "domain", "get").Override(domainGetBuilder)
+
 	return cmds
 }
