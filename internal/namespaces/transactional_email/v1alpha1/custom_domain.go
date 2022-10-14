@@ -4,17 +4,17 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	transactional_email "github.com/scaleway/scaleway-sdk-go/api/transactional_email/v1alpha1"
+	tem "github.com/scaleway/scaleway-sdk-go/api/transactional_email/v1alpha1"
 )
 
 var (
 	domainStatusMarshalSpecs = human.EnumMarshalSpecs{
-		transactional_email.DomainStatusChecked:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "checked"},
-		transactional_email.DomainStatusInvalid:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "invalid"},
-		transactional_email.DomainStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		transactional_email.DomainStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		transactional_email.DomainStatusRevoked:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "revoked"},
-		transactional_email.DomainStatusUnchecked: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "unchecked"},
+		tem.DomainStatusChecked:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "checked"},
+		tem.DomainStatusInvalid:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "invalid"},
+		tem.DomainStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+		tem.DomainStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
+		tem.DomainStatusRevoked:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "revoked"},
+		tem.DomainStatusUnchecked: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "unchecked"},
 	}
 )
 
