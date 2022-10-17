@@ -13,10 +13,11 @@ import (
 
 // createClient creates a Scaleway SDK client.
 func createClient(ctx context.Context, httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
-	_, err := scw.MigrateLegacyConfig()
-	if err != nil {
+	if _, err := scw.MigrateLegacyConfig(); err != nil {
 		return nil, err
 	}
+
+	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:
 	// * The config file's path provided via --config flag
@@ -25,18 +26,23 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 	// * $HOME/.config/scw/config.yaml
 	// * $USERPROFILE/.config/scw/config.yaml
 	config, err := scw.LoadConfigFromPath(ExtractConfigPath(ctx))
-	if err != nil {
+	switch {
+	case errIsConfigFileNotFound(err):
+		// no config file wass found -> nop
+
+	case err != nil:
+		// failed to read the config file -> fail
 		return nil, err
+
+	default:
+		// found and loaded a config file -> merge with env
+		activeProfile, err := config.GetProfile(profileName)
+		if err != nil {
+			return nil, err
+		}
+
+		profile = scw.MergeProfiles(activeProfile, profile)
 	}
-
-	activeProfile, err := config.GetProfile(profileName)
-	if err != nil {
-		return nil, err
-	}
-
-	envProfile := scw.LoadEnvProfile()
-
-	profile := scw.MergeProfiles(activeProfile, envProfile)
 
 	// If profile have a defaultZone but no defaultRegion we set the defaultRegion
 	// to the one of the defaultZone
@@ -198,4 +204,9 @@ func validateClient(client *scw.Client) error {
 	}
 
 	return nil
+}
+
+func errIsConfigFileNotFound(err error) bool {
+	_, ok := err.(*scw.ConfigFileNotFoundError)
+	return ok
 }
