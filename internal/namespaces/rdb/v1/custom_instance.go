@@ -252,14 +252,14 @@ func instanceUpdateBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Name:       "settings.{index}.name",
-				Short:      `Settings of a given instance`,
+				Short:      `Setting name of a given instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "settings.{index}.value",
-				Short:      `Settings of a given instance`,
+				Short:      `Setting value of a given instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -278,6 +278,9 @@ func instanceUpdateBuilder(c *core.Command) *core.Command {
 				Region:     customRequest.Region,
 				InstanceID: customRequest.InstanceID,
 			})
+			if err != nil {
+				return nil, err
+			}
 
 			if customRequest.Settings != nil {
 				settings := getResp.Settings
@@ -316,9 +319,11 @@ func instanceUpdateBuilder(c *core.Command) *core.Command {
 				Region:     updateInstanceResponse.Region,
 				InstanceID: updateInstanceResponse.ID,
 			})
+			if err != nil {
+				return nil, err
+			}
 
 			return resp, nil
-
 		},
 		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))

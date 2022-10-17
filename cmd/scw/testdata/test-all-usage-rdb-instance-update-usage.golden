@@ -25,8 +25,8 @@ ARGS:
   [logs-policy.max-age-retention]      Max age (in day) of remote logs to keep on the database instance
   [logs-policy.total-disk-retention]   Max disk size of remote logs to keep on the database instance
   [backup-same-region]                 Store logical backups in the same region as the database instance
-  [settings.{index}.name]              Settings of a given instance
-  [settings.{index}.value]             Settings of a given instance
+  [settings.{index}.name]              Setting name of a given instance
+  [settings.{index}.value]             Setting value of a given instance
   [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
