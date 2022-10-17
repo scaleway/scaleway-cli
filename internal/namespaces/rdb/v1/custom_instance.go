@@ -169,16 +169,6 @@ func instanceUpdateBuilder(c *core.Command) *core.Command {
 		Settings []*rdb.InstanceSetting
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		api := rdb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
-	}
-
 	return &core.Command{
 		Short:     `Update an instance`,
 		Long:      `Update an instance.`,
