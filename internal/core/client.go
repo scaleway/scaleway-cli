@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -207,6 +208,6 @@ func validateClient(client *scw.Client) error {
 }
 
 func errIsConfigFileNotFound(err error) bool {
-	_, ok := err.(*scw.ConfigFileNotFoundError)
-	return ok
+	var target *scw.ConfigFileNotFoundError
+	return errors.As(err, &target)
 }
