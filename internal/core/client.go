@@ -28,7 +28,7 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 	config, err := scw.LoadConfigFromPath(ExtractConfigPath(ctx))
 	switch {
 	case errIsConfigFileNotFound(err):
-		// no config file wass found -> nop
+		// no config file was found -> nop
 
 	case err != nil:
 		// failed to read the config file -> fail
