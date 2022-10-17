@@ -92,17 +92,57 @@ func Test_UpdateInstance(t *testing.T) {
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
 		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "timezone", ctx.Result.(*rdb.Instance).Settings[6].Name)
+				assert.Equal(t, "UTC", ctx.Result.(*rdb.Instance).Settings[6].Value)
+			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
 
-	t.Run("Modify default max_connections from 100 to 200", core.Test(&core.TestConfig{
+	t.Run("Modify default work_mem from 4 to 8 MB", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=max_connections settings.0.value=200 --wait",
+		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
 		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[0].Name)
+				assert.Equal(t, "8", ctx.Result.(*rdb.Instance).Settings[0].Value)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Modify 3 settings + add a new one", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createInstance("PostgreSQL-12"),
+			core.ExecBeforeCmd("scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8"+
+				" settings.1.name=max_connections settings.1.value=200"+
+				" settings.2.name=effective_cache_size settings.2.value=1000"+
+				" name=foo1 --wait"),
+		),
+		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=16" +
+			" settings.1.name=max_connections settings.1.value=150" +
+			" settings.2.name=effective_cache_size settings.2.value=1200" +
+			" settings.3.name=maintenance_work_mem settings.3.value=200" +
+			" name=foo2 --wait",
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[0].Name)
+				assert.Equal(t, "16", ctx.Result.(*rdb.Instance).Settings[0].Value)
+				assert.Equal(t, "max_connections", ctx.Result.(*rdb.Instance).Settings[1].Name)
+				assert.Equal(t, "150", ctx.Result.(*rdb.Instance).Settings[1].Value)
+				assert.Equal(t, "effective_cache_size", ctx.Result.(*rdb.Instance).Settings[2].Name)
+				assert.Equal(t, "1200", ctx.Result.(*rdb.Instance).Settings[2].Value)
+				assert.Equal(t, "maintenance_work_mem", ctx.Result.(*rdb.Instance).Settings[3].Name)
+				assert.Equal(t, "200", ctx.Result.(*rdb.Instance).Settings[3].Value)
+				assert.Equal(t, "foo2", ctx.Result.(*rdb.Instance).Name)
+			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),

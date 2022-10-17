@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          167a841d-8a1c-4d74-8e4c-cb71d843ac6b
+ID                          7c2a0276-0614-4f43-a243-6b733a1473fc
 Name                        cli-test
 OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
@@ -10,16 +10,16 @@ Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              b7508d38-4562-4d27-8be0-4181fccae679
-Endpoints.0.IP              51.158.57.216
-Endpoints.0.Port            17040
+Endpoints.0.ID              2c007a6d-0c52-4910-bd40-836fcca1bf49
+Endpoints.0.IP              195.154.69.50
+Endpoints.0.Port            23990
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    b7508d38-4562-4d27-8be0-4181fccae679
-IP    51.158.57.216
-Port  17040
+ID    2c007a6d-0c52-4910-bd40-836fcca1bf49
+IP    195.154.69.50
+Port  23990
 
 Volume:
 Type  lssd
@@ -32,13 +32,12 @@ Retention  7 days
 
 Settings:
 NAME                             VALUE
-work_mem                         4
+work_mem                         8
 max_connections                  100
 effective_cache_size             1300
 maintenance_work_mem             150
 max_parallel_workers             0
 max_parallel_workers_per_gather  0
-timezone                         UTC
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -47,16 +46,16 @@ timezone                         UTC
     "size": 5000000000
   },
   "region": "fr-par",
-  "id": "167a841d-8a1c-4d74-8e4c-cb71d843ac6b",
+  "id": "7c2a0276-0614-4f43-a243-6b733a1473fc",
   "name": "cli-test",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "id": "b7508d38-4562-4d27-8be0-4181fccae679",
-    "ip": "51.158.57.216",
-    "port": 17040,
+    "id": "2c007a6d-0c52-4910-bd40-836fcca1bf49",
+    "ip": "195.154.69.50",
+    "port": 23990,
     "name": null,
     "load_balancer": {}
   },
@@ -64,7 +63,7 @@ timezone                         UTC
   "settings": [
     {
       "name": "work_mem",
-      "value": "4"
+      "value": "8"
     },
     {
       "name": "max_connections",
@@ -85,10 +84,6 @@ timezone                         UTC
     {
       "name": "max_parallel_workers_per_gather",
       "value": "0"
-    },
-    {
-      "name": "timezone",
-      "value": "UTC"
     }
   ],
   "backup_schedule": {
@@ -102,9 +97,9 @@ timezone                         UTC
   "init_settings": [],
   "endpoints": [
     {
-      "id": "b7508d38-4562-4d27-8be0-4181fccae679",
-      "ip": "51.158.57.216",
-      "port": 17040,
+      "id": "2c007a6d-0c52-4910-bd40-836fcca1bf49",
+      "ip": "195.154.69.50",
+      "port": 23990,
       "name": null,
       "load_balancer": {}
     }

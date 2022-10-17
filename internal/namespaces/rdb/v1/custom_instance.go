@@ -305,15 +305,7 @@ func instanceUpdateBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
-			resp, err := api.GetInstance(&rdb.GetInstanceRequest{
-				Region:     updateInstanceResponse.Region,
-				InstanceID: updateInstanceResponse.ID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			return resp, nil
+			return updateInstanceResponse, nil
 		},
 		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))

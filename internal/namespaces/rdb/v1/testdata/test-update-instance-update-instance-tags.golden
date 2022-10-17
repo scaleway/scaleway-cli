@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          1ba9818f-2e16-43e6-9761-a98acf5c44c5
+ID                          eeb523d0-9808-4e3f-94ba-e5f6458f1aa7
 Name                        cli-test
 OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
@@ -11,16 +11,16 @@ Engine                      PostgreSQL-12
 Tags.0                      a
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              c9e34553-bd2f-42db-93f5-b489f78b6dee
-Endpoints.0.IP              51.159.8.105
-Endpoints.0.Port            40581
+Endpoints.0.ID              6fb9996f-3e7d-4077-855d-0bf7e4ca866e
+Endpoints.0.IP              51.158.57.216
+Endpoints.0.Port            39176
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    c9e34553-bd2f-42db-93f5-b489f78b6dee
-IP    51.159.8.105
-Port  40581
+ID    6fb9996f-3e7d-4077-855d-0bf7e4ca866e
+IP    51.158.57.216
+Port  39176
 
 Volume:
 Type  lssd
@@ -47,16 +47,16 @@ max_parallel_workers_per_gather  0
     "size": 5000000000
   },
   "region": "fr-par",
-  "id": "1ba9818f-2e16-43e6-9761-a98acf5c44c5",
+  "id": "eeb523d0-9808-4e3f-94ba-e5f6458f1aa7",
   "name": "cli-test",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "endpoint": {
-    "id": "c9e34553-bd2f-42db-93f5-b489f78b6dee",
-    "ip": "51.159.8.105",
-    "port": 40581,
+    "id": "6fb9996f-3e7d-4077-855d-0bf7e4ca866e",
+    "ip": "51.158.57.216",
+    "port": 39176,
     "name": null,
     "load_balancer": {}
   },
@@ -100,9 +100,9 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "c9e34553-bd2f-42db-93f5-b489f78b6dee",
-      "ip": "51.159.8.105",
-      "port": 40581,
+      "id": "6fb9996f-3e7d-4077-855d-0bf7e4ca866e",
+      "ip": "51.158.57.216",
+      "port": 39176,
       "name": null,
       "load_balancer": {}
     }
