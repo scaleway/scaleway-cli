@@ -446,6 +446,8 @@ scw rdb engine list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| name |  | Name of the Database Engine |
+| version |  | Version of the Database Engine |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
