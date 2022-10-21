@@ -1,4 +1,4 @@
-FROM golang:1.19-alpine as builder
+FROM golang:1.19-alpine3.16 as builder
 
 ENV BUILD_IN_DOCKER true
 ARG VERSION
@@ -21,7 +21,7 @@ COPY .git/ .git/
 
 RUN ./scripts/build.sh
 
-FROM alpine:3.12
+FROM alpine:3.16
 WORKDIR /
 RUN apk update && apk add --no-cache bash ca-certificates openssh-client && update-ca-certificates
 COPY --from=builder /go/src/github.com/scaleway/scaleway-cli/scw .
