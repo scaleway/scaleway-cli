@@ -213,6 +213,20 @@ func rdbEngineList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Name of the Database Engine`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "version",
+				Short:      `Version of the Database Engine`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

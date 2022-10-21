@@ -446,6 +446,8 @@ scw rdb engine list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| name |  | Name of the Database Engine |
+| version |  | Version of the Database Engine |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -685,7 +687,29 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 | logs-policy.max-age-retention |  | Max age (in day) of remote logs to keep on the database instance |
 | logs-policy.total-disk-retention |  | Max disk size of remote logs to keep on the database instance |
 | backup-same-region |  | Store logical backups in the same region as the database instance |
+| settings.{index}.name |  | Setting name of a given instance |
+| settings.{index}.value |  | Setting value of a given instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Update instance name
+```
+scw rdb instance update 11111111-1111-1111-1111-111111111111 name=foo --wait
+```
+
+Update instance tags
+```
+scw rdb instance update 11111111-1111-1111-1111-111111111111 tags.0=a --wait
+```
+
+Set a timezone
+```
+scw rdb instance update 11111111-1111-1111-1111-111111111111 settings.0.name=timezone settings.0.value=UTC --wait
+```
+
 
 
 

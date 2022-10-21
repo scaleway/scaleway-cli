@@ -163,6 +163,176 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func instanceUpdateBuilder(c *core.Command) *core.Command {
+	type rdbUpdateInstanceRequestCustom struct {
+		*rdb.UpdateInstanceRequest
+		Settings []*rdb.InstanceSetting
+	}
+
+	return &core.Command{
+		Short:     `Update an instance`,
+		Long:      `Update an instance.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(rdbUpdateInstanceRequestCustom{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "backup-schedule-frequency",
+				Short:      `In hours`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-schedule-retention",
+				Short:      `In days`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-backup-schedule-disabled",
+				Short:      `Whether or not the backup schedule is disabled`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of a given instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "logs-policy.max-age-retention",
+				Short:      `Max age (in day) of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "logs-policy.total-disk-retention",
+				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-same-region",
+				Short:      `Store logical backups in the same region as the database instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.name",
+				Short:      `Setting name of a given instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.value",
+				Short:      `Setting value of a given instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			customRequest := args.(*rdbUpdateInstanceRequestCustom)
+
+			updateInstanceRequest := customRequest.UpdateInstanceRequest
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+
+			getResp, err := api.GetInstance(&rdb.GetInstanceRequest{
+				Region:     customRequest.Region,
+				InstanceID: customRequest.InstanceID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if customRequest.Settings != nil {
+				settings := getResp.Settings
+				changes := customRequest.Settings
+
+				for _, change := range changes {
+					matched := false
+					for _, setting := range settings {
+						if change.Name == setting.Name {
+							setting.Value = change.Value
+							matched = true
+							break
+						}
+					}
+					if !matched {
+						settings = append(settings, change)
+					}
+				}
+
+				_, err = api.SetInstanceSettings(&rdb.SetInstanceSettingsRequest{
+					Region:     updateInstanceRequest.Region,
+					InstanceID: updateInstanceRequest.InstanceID,
+					Settings:   settings,
+				})
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			updateInstanceResponse, err := api.UpdateInstance(updateInstanceRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			return updateInstanceResponse, nil
+		},
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			api := rdb.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
+				InstanceID:    respI.(*rdb.Instance).ID,
+				Region:        respI.(*rdb.Instance).Region,
+				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Update instance name",
+				Raw:   "scw rdb instance update 11111111-1111-1111-1111-111111111111 name=foo --wait",
+			},
+			{
+				Short: "Update instance tags",
+				Raw:   "scw rdb instance update 11111111-1111-1111-1111-111111111111 tags.0=a --wait",
+			},
+			{
+				Short: "Set a timezone",
+				Raw:   "scw rdb instance update 11111111-1111-1111-1111-111111111111 settings.0.name=timezone settings.0.value=UTC --wait",
+			},
+		},
+	}
+}
+
 func instanceWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for an instance to reach a stable state`,
