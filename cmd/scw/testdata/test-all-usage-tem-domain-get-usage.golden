@@ -3,7 +3,7 @@
 Get information about a domain.
 
 USAGE:
-  scw tem domain get [arg=value ...]
+  scw tem domain get <domain-id ...> [arg=value ...]
 
 ARGS:
   domain-id         ID of the domain

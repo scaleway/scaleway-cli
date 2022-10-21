@@ -3,7 +3,7 @@
 Try to cancel an email if it has not yet been sent.
 
 USAGE:
-  scw tem email cancel [arg=value ...]
+  scw tem email cancel <email-id ...> [arg=value ...]
 
 ARGS:
   email-id          ID of the email to cancel

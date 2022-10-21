@@ -3,7 +3,7 @@
 Revoke a domain.
 
 USAGE:
-  scw tem domain revoke [arg=value ...]
+  scw tem domain revoke <domain-id ...> [arg=value ...]
 
 ARGS:
   domain-id         ID of the domain to revoke

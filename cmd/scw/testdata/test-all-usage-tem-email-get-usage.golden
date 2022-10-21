@@ -3,7 +3,7 @@
 Get information about an email.
 
 USAGE:
-  scw tem email get [arg=value ...]
+  scw tem email get <email-id ...> [arg=value ...]
 
 ARGS:
   email-id          ID of the email to retrieve

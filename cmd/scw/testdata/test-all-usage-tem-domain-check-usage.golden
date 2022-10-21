@@ -3,7 +3,7 @@
 Ask for an immediate check of a domain (DNS check).
 
 USAGE:
-  scw tem domain check [arg=value ...]
+  scw tem domain check <domain-id ...> [arg=value ...]
 
 ARGS:
   domain-id         ID of the domain to check
