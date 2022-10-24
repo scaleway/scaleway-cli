@@ -48,6 +48,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
+	cmds.MustFind("rdb", "instance", "update").Override(instanceUpdateBuilder)
 
 	cmds.MustFind("rdb", "engine", "list").Override(engineListBuilder)
 

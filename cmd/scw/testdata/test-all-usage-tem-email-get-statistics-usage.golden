@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get statistics on the email statuses.
+
+USAGE:
+  scw tem email get-statistics [arg=value ...]
+
+ARGS:
+  [project-id]      Optional, count emails for this project
+  [domain-id]       Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`)
+  [since]           Optional, count emails created after this date
+  [until]           Optional, count emails created before this date
+  [mail-from]       Optional, count emails sent with this `mail_from` sender's address
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for get-statistics
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

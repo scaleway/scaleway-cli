@@ -1,17 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List available database engines.
+Get information about an email.
 
 USAGE:
-  scw rdb engine list [arg=value ...]
+  scw tem email get <email-id ...> [arg=value ...]
 
 ARGS:
-  [name]            Name of the Database Engine
-  [version]         Version of the Database Engine
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  email-id          ID of the email to retrieve
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
