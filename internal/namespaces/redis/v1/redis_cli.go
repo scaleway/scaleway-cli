@@ -368,6 +368,13 @@ func redisClusterList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "version",
+				Short:      `Version of the clusters to filter upon`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to list the cluster of`,
 				Required:   false,
