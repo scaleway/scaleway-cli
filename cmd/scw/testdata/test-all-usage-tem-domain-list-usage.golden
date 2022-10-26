@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   [project-id]        
   [status.{index}]     (unknown | checked | unchecked | invalid | locked | revoked | pending)
+  [name]              
   [organization-id]   
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
 
