@@ -468,6 +468,12 @@ func temDomainList() *core.Command {
 				EnumValues: []string{"unknown", "checked", "unchecked", "invalid", "locked", "revoked", "pending"},
 			},
 			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Required:   false,
 				Deprecated: false,
