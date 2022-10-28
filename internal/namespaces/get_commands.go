@@ -22,6 +22,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v1"
+	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
@@ -67,6 +68,7 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(redis.GetCommands())
 	commands.Merge(shell.GetCommands())
 	commands.Merge(tem.GetCommands())
+	commands.Merge(mnq.GetCommands())
 
 	if len(beta) == 1 && beta[0] {
 		commands.Merge(iam.GetCommands())
