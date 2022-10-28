@@ -64,6 +64,7 @@ func GetCommands() *core.Commands {
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
+		serverSecureBehindLBSecurityGroupCommand(),
 	))
 
 	//

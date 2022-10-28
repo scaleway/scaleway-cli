@@ -10,12 +10,13 @@ USAGE:
   scw instance security-group <command>
 
 AVAILABLE COMMANDS:
-  clear       Remove all rules of a security group
-  create      Create a security group
-  delete      Delete a security group
-  get         Get a security group
-  list        List security groups
-  update      Update security group
+  clear            Remove all rules of a security group
+  create           Create a security group
+  delete           Delete a security group
+  get              Get a security group
+  list             List security groups
+  secure-behind-lb Secure an instance to only receive traffic from a given LB
+  update           Update security group
 
 FLAGS:
   -h, --help   help for security-group
