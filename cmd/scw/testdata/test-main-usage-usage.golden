@@ -22,6 +22,7 @@ AVAILABLE COMMANDS:
   k8s           Kapsule API
   lb            This API allows you to manage your load balancer service
   marketplace   Marketplace API
+  mnq           This API allows you to manage Messaging or Queueing brokers
   object        Object-storage utils
   rdb           Database RDB API
   redis         Managed Database for Redis™ API
