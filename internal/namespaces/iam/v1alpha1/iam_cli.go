@@ -35,6 +35,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamSSHKeyDelete(),
 		iamUserList(),
 		iamUserGet(),
+		iamUserDelete(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -474,6 +475,41 @@ func iamUserGet() *core.Command {
 			api := iam.NewAPI(client)
 			return api.GetUser(request)
 
+		},
+	}
+}
+
+func iamUserDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a user`,
+		Long:      `Delete a user.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of user to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.DeleteUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteUser(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "user",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
