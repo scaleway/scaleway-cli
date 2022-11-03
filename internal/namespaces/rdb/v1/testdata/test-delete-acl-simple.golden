@@ -1,24 +1,23 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Network Access Control List allows to control network in and out traffic by setting up ACL rules.
-
-USAGE:
-  scw rdb acl <command>
-
-AVAILABLE COMMANDS:
-  add         Add an ACL instance to a given instance
-  delete      Delete ACL rules of a given instance
-  list        List ACL rules of a given instance
-
-FLAGS:
-  -h, --help   help for acl
-
-GLOBAL FLAGS:
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
-
-Use "scw rdb acl [command] --help" for more information about a command.
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
-{}
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Rules.0.IP           1.2.3.4/32
+Rules.0.Port         59061
+Rules.0.Protocol     tcp
+Rules.0.Direction    inbound
+Rules.0.Action       allow
+Rules.0.Description  IP allowed
+TotalCount           1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "rules": [
+    {
+      "ip": "1.2.3.4/32",
+      "port": 59061,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "IP allowed"
+    }
+  ],
+  "total_count": 1
+}

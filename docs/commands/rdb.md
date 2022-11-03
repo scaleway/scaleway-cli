@@ -88,8 +88,8 @@ scw rdb acl add [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want to add acl rules to |
-| rules.{index}.ip |  |  |
-| rules.{index}.description |  |  |
+| rule.{index}.ip |  |  |
+| rule.{index}.description |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -110,7 +110,7 @@ scw rdb acl delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want to delete an ACL rules from |
-| acl-rule-ips.{index} | Required | ACL rules IP present on the instance |
+| rule.{index}.ip | Required | ACL rules IP present on the instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
