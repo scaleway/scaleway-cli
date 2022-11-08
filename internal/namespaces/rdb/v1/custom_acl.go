@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -41,6 +42,23 @@ func aclAddBuilder(c *core.Command) *core.Command {
 
 		aclAddResponse := aclAddResponseI.(*rdb.AddInstanceACLRulesResponse)
 		return aclAddResponse.Rules, nil
+	}
+
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		args := argsI.(*customAddACLRequest)
+
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    args.InstanceID,
+			Region:        args.Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		return respI.([]*rdb.ACLRule), nil
 	}
 
 	return c
@@ -78,6 +96,23 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			Rules:      aclDeleteResponse.Rules,
 			TotalCount: uint32(len(aclDeleteResponse.Rules)),
 		}, nil
+	}
+
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		args := argsI.(*customDeleteACLRequest)
+
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    args.InstanceID,
+			Region:        args.Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		return respI.(rdb.ListInstanceACLRulesResponse), nil
 	}
 
 	return c

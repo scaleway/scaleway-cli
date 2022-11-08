@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Rules.0.IP           1.2.3.4/32
-Rules.0.Port         59061
+Rules.0.Port         45271
 Rules.0.Protocol     tcp
 Rules.0.Direction    inbound
 Rules.0.Action       allow
@@ -12,7 +12,7 @@ TotalCount           1
   "rules": [
     {
       "ip": "1.2.3.4/32",
-      "port": 59061,
+      "port": 45271,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
