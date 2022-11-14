@@ -29,9 +29,11 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	opt.Sections = []*human.MarshalSection{
 		{
 			FieldName: "IP",
+			Title:     "IPs",
 		},
 		{
 			FieldName: "Instances",
+			Title:     "Servers",
 		},
 	}
 
