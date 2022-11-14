@@ -1,7 +1,6 @@
 package iot
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/fatih/color"
@@ -26,10 +25,11 @@ func iotNetworkCreateResponsedMarshalerFunc(i interface{}, opt *human.MarshalOpt
 	}
 	secretView := terminal.Style("Secret: ", color.Bold) + secretContent
 
+	warningSecret := "WARNING: The secret below is displayed only once, we do not keep it. Make sure to store it securely"
+
 	return strings.Join([]string{
 		networkView,
-		fmt.Sprintf("WARNING: The secret below is displayed only once, we do not keep it. Make sure to store it securely"),
+		warningSecret,
 		secretView,
 	}, "\n\n"), nil
-
 }

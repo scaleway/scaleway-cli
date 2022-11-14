@@ -1,15 +1,13 @@
 package iot
 
 import (
-	"fmt"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func createHub() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Hub",
-		fmt.Sprintf("scw iot hub create product-plan=plan_shared --wait"),
+		"scw iot hub create product-plan=plan_shared --wait",
 	)
 }
 
