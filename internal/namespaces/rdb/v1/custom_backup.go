@@ -121,11 +121,20 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 
 func backupListBuilder(c *core.Command) *core.Command {
 	type customBackup struct {
-		ID         string                   `json:"ID"`
-		Name       string                   `json:"name"`
-		InstanceID string                   `json:"instance_ID"`
-		Exported   bool                     `json:"exported"`
-		Status     rdb.DatabaseBackupStatus `json:"status"`
+		ID           string                   `json:"ID"`
+		InstanceID   string                   `json:"instance_ID"`
+		DatabaseName string                   `json:"database_name"`
+		Name         string                   `json:"name"`
+		Status       rdb.DatabaseBackupStatus `json:"status"`
+		Size         *scw.Size                `json:"size"`
+		ExpiresAt    *time.Time               `json:"expires_at"`
+		CreatedAt    *time.Time               `json:"created_at"`
+		UpdatedAt    *time.Time               `json:"updated_at"`
+		InstanceName string                   `json:"instance_name"`
+		DownloadURL  string                   `json:"download_url"`
+		URLExpired   bool                     `json:"url_expired"`
+		Region       scw.Region               `json:"region"`
+		SameRegion   bool                     `json:"same_region"`
 	}
 
 	c.View = &core.View{
@@ -139,6 +148,14 @@ func backupListBuilder(c *core.Command) *core.Command {
 				FieldName: "Name",
 			},
 			{
+				Label:     "Database Name",
+				FieldName: "DatabaseName",
+			},
+			{
+				Label:     "Size",
+				FieldName: "Size",
+			},
+			{
 				Label:     "Status",
 				FieldName: "Status",
 			},
@@ -147,8 +164,32 @@ func backupListBuilder(c *core.Command) *core.Command {
 				FieldName: "InstanceID",
 			},
 			{
-				Label:     "Exported",
-				FieldName: "Exported",
+				Label:     "URL Expired",
+				FieldName: "URLExpired",
+			},
+			{
+				Label:     "Download URL",
+				FieldName: "DownloadURL",
+			},
+			{
+				Label:     "Expires At",
+				FieldName: "ExpiresAt",
+			},
+			{
+				Label:     "Created At",
+				FieldName: "CreatedAt",
+			},
+			{
+				Label:     "Updated At",
+				FieldName: "UpdatedAt",
+			},
+			{
+				Label:     "Region",
+				FieldName: "Region",
+			},
+			{
+				Label:     "Same Region",
+				FieldName: "SameRegion",
 			},
 		},
 	}
@@ -161,12 +202,25 @@ func backupListBuilder(c *core.Command) *core.Command {
 		backupList := listBackupResp.([]*rdb.DatabaseBackup)
 		var res []customBackup
 		for _, backup := range backupList {
+			downloadURL := ""
+			if backup.DownloadURL != nil {
+				downloadURL = *backup.DownloadURL
+			}
 			res = append(res, customBackup{
-				ID:         backup.ID,
-				Name:       backup.Name,
-				Status:     backup.Status,
-				InstanceID: backup.InstanceID,
-				Exported:   isExported(backup.DownloadURLExpiresAt),
+				ID:           backup.ID,
+				InstanceID:   backup.InstanceID,
+				DatabaseName: backup.DatabaseName,
+				Name:         backup.Name,
+				Status:       backup.Status,
+				Size:         backup.Size,
+				ExpiresAt:    backup.ExpiresAt,
+				CreatedAt:    backup.CreatedAt,
+				UpdatedAt:    backup.UpdatedAt,
+				InstanceName: backup.InstanceName,
+				DownloadURL:  downloadURL,
+				URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
+				Region:       backup.Region,
+				SameRegion:   backup.SameRegion,
 			})
 		}
 		return res, nil
@@ -175,14 +229,12 @@ func backupListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func isExported(expirationDate *time.Time) bool {
-	var exported bool
+// urlExpired: indicates if the backup url is still valid after the indicated date.
+func urlExpired(expirationDate *time.Time) bool {
 	if expirationDate == nil {
-		exported = false
-	} else {
-		exported = time.Now().Before(*expirationDate)
+		return true
 	}
-	return exported
+	return time.Now().After(*expirationDate)
 }
 
 func getDefaultFileName(rawURL string) (string, error) {
@@ -200,7 +252,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {
@@ -226,30 +278,17 @@ func backupDownloadCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
-			backupRequest := &rdb.WaitForDatabaseBackupRequest{
+			backup, err := api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: args.BackupID,
 				Region:           args.Region,
 				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
-			}
-			backup, err := api.WaitForDatabaseBackup(backupRequest)
+			})
 			if err != nil {
 				return nil, err
 			}
 			if backup.DownloadURL == nil {
-				exportRequest := rdb.ExportDatabaseBackupRequest{
-					DatabaseBackupID: args.BackupID,
-					Region:           args.Region,
-				}
-				_, err = api.ExportDatabaseBackup(&exportRequest)
-				if err != nil {
-					return nil, err
-				}
-			}
-
-			backup, err = api.WaitForDatabaseBackup(backupRequest)
-			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("no download URL found")
 			}
 
 			httpClient := core.ExtractHTTPClient(ctx)
