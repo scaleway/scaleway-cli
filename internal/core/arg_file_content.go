@@ -56,6 +56,8 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 					}
 					v.SetString(string(content))
 				}
+			case nil:
+				continue
 			default:
 				panic(fmt.Errorf("unsupported field type: %T", v.Interface()))
 			}
