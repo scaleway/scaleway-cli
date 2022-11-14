@@ -52,6 +52,7 @@ max_parallel_workers_per_gather  0
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
+  "upgradable_version": null,
   "endpoint": {
     "id": "ab0013b4-223a-4079-9a75-1e1308ab3b9d",
     "ip": "51.159.112.132",
