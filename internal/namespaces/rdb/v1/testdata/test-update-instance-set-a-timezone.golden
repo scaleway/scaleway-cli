@@ -53,6 +53,7 @@ timezone                         UTC
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "status": "ready",
   "engine": "PostgreSQL-12",
+  "upgradable_version": null,
   "endpoint": {
     "id": "b7508d38-4562-4d27-8be0-4181fccae679",
     "ip": "51.158.57.216",

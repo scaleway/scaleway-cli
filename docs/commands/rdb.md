@@ -34,7 +34,7 @@ Database RDB API
   - [Renew the TLS certificate of an instance](#renew-the-tls-certificate-of-an-instance)
   - [Restart an instance](#restart-an-instance)
   - [Update an instance](#update-an-instance)
-  - [Upgrade an instance to an higher instance type](#upgrade-an-instance-to-an-higher-instance-type)
+  - [Upgrade an instance](#upgrade-an-instance)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
 - [Instance logs management commands](#instance-logs-management-commands)
   - [Get specific logs of a given instance](#get-specific-logs-of-a-given-instance)
@@ -745,9 +745,9 @@ scw rdb instance update 11111111-1111-1111-1111-111111111111 settings.0.name=tim
 
 
 
-### Upgrade an instance to an higher instance type
+### Upgrade an instance
 
-Upgrade your current `node_type` or enable high availability on your standalone database instance.
+Upgrade your current instance specifications like node type, high availability, volume, or db engine version.
 
 **Usage:**
 
@@ -765,6 +765,7 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 | enable-ha |  | Set to true to enable high availability on your instance |
 | volume-size |  | Increase your block storage volume size |
 | volume-type | One of: `lssd`, `bssd` | Change your instance storage type |
+| upgradable-version-id |  | Update your instance database engine to a newer version |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
