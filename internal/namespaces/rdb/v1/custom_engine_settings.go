@@ -28,7 +28,9 @@ func engineSettingsCommand() *core.Command {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 
 			databaseEnginesRequest := &rdb.ListDatabaseEnginesRequest{
-				Region: args.Region,
+				Region:  args.Region,
+				Name:    &args.Name,
+				Version: &args.Version,
 			}
 
 			engines, err := api.ListDatabaseEngines(databaseEnginesRequest)
@@ -38,11 +40,9 @@ func engineSettingsCommand() *core.Command {
 
 			var responseEngineSettings []*rdb.EngineSetting
 			for _, e := range engines.Engines {
-				if e.Name == args.Name && e.Region == args.Region {
-					for _, ev := range e.Versions {
-						if ev.Version == args.Version {
-							responseEngineSettings = ev.AvailableSettings
-						}
+				for _, ev := range e.Versions {
+					if ev.Version == args.Version {
+						responseEngineSettings = ev.AvailableSettings
 					}
 				}
 			}

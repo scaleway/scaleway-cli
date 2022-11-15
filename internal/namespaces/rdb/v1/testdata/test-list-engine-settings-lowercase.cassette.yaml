@@ -7,7 +7,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines?name=MySQL&version=8
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines?name=mysql&version=8
     method: GET
   response:
     body: '{"engines":[{"name":"MySQL","logo_url":"https://s3.nl-ams.scw.cloud/scw-rdb-logos/mysql.svg","versions":[{"version":"8","name":"MySQL-8","end_of_life":"2026-04-01T00:00:00Z","available_settings":[{"name":"auto_increment_increment","default_value":"1","hot_configurable":true,"description":"Controls
@@ -70,7 +70,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1eff821d-d5c3-4cb4-87d3-0adc3a03b264
+      - ff48621c-4813-42c1-aa69-ba67e9399571
     status: 200 OK
     code: 200
     duration: ""
