@@ -16,7 +16,7 @@ AVAILABLE COMMANDS:
   renew-certificate Renew the TLS certificate of an instance
   restart           Restart an instance
   update            Update an instance
-  upgrade           Upgrade an instance to an higher instance type
+  upgrade           Upgrade an instance
   wait              Wait for an instance to reach a stable state
 
 FLAGS:
