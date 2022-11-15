@@ -6,10 +6,11 @@ USAGE:
   scw baremetal <command>
 
 AVAILABLE COMMANDS:
-  bmc         Baseboard Management Controller (BMC) management commands
-  offer       Server offer management commands
-  os          Operating System (OS) management commands
-  server      Server management commands
+  bmc             Baseboard Management Controller (BMC) management commands
+  offer           Server offer management commands
+  os              Operating System (OS) management commands
+  private-network Private network management command
+  server          Server management commands
 
 FLAGS:
   -h, --help   help for baremetal
