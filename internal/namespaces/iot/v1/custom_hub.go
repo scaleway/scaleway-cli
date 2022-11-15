@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	hubActionTimeout = 20 * time.Minute
+	hubActionTimeout = 5 * time.Minute
 )
 
 var (
