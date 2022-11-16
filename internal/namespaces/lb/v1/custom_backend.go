@@ -33,7 +33,7 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		},
 		{
 			FieldName: "Instances",
-			Title:     "Servers",
+			Title:     "Backends",
 		},
 	}
 
