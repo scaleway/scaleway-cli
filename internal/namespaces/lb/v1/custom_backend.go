@@ -22,29 +22,6 @@ var (
 	}
 )
 
-func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.LB
-	loadbalancer := tmp(i.(lb.LB))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IP",
-			Title:     "IPs",
-		},
-		{
-			FieldName: "Instances",
-			Title:     "Backends",
-		},
-	}
-
-	str, err := human.Marshal(loadbalancer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
-
 func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Backend
 	backend := tmp(i.(lb.Backend))
