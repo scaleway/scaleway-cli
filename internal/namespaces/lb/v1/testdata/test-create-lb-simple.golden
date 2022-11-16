@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     66fac180-4c7c-4848-bcd0-c2070cc20bd5
+ID                     25054191-4dc1-47ef-843c-84b3f91b36c8
 Name                   foobar
 Description            foobar
 Status                 ready
@@ -18,23 +18,23 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS    ORGANIZATION ID                       LB ID                                 REVERSE                           PROJECT ID                            REGION  ZONE
-a9c56205-1167-4eae-b428-0ab444c8e852  51.159.8.183  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  66fac180-4c7c-4848-bcd0-c2070cc20bd5  51-159-8-183.lb.fr-par.scw.cloud  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  fr-par  fr-par-1
+ID                                    IP ADDRESS      ORGANIZATION ID                       LB ID                                 REVERSE                             PROJECT ID                            REGION  ZONE
+a94c8ed2-99bb-4aae-ba95-69483e8ec14f  51.159.207.140  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  25054191-4dc1-47ef-843c-84b3f91b36c8  51-159-207-140.lb.fr-par.scw.cloud  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  fr-par  fr-par-1
 
-Servers:
-ID                                    STATUS  IP ADDRESS     CREATED AT       UPDATED AT       REGION  ZONE
-48500149-901e-4bf1-af37-c925d2aba3f6  ready   10.64.186.107  few seconds ago  few seconds ago  fr-par  fr-par-1
+Backends:
+ID                                    STATUS  IP ADDRESS   CREATED AT       UPDATED AT       REGION  ZONE
+b5de9c10-de9f-4fad-9e31-234fa9301fff  ready   10.69.32.21  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "66fac180-4c7c-4848-bcd0-c2070cc20bd5",
+  "id": "25054191-4dc1-47ef-843c-84b3f91b36c8",
   "name": "foobar",
   "description": "foobar",
   "status": "ready",
   "instances": [
     {
-      "id": "48500149-901e-4bf1-af37-c925d2aba3f6",
+      "id": "b5de9c10-de9f-4fad-9e31-234fa9301fff",
       "status": "ready",
-      "ip_address": "10.64.186.107",
+      "ip_address": "10.69.32.21",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
       "region": "fr-par",
@@ -44,11 +44,11 @@ ID                                    STATUS  IP ADDRESS     CREATED AT       UP
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "ip": [
     {
-      "id": "a9c56205-1167-4eae-b428-0ab444c8e852",
-      "ip_address": "51.159.8.183",
+      "id": "a94c8ed2-99bb-4aae-ba95-69483e8ec14f",
+      "ip_address": "51.159.207.140",
       "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "lb_id": "66fac180-4c7c-4848-bcd0-c2070cc20bd5",
-      "reverse": "51-159-8-183.lb.fr-par.scw.cloud",
+      "lb_id": "25054191-4dc1-47ef-843c-84b3f91b36c8",
+      "reverse": "51-159-207-140.lb.fr-par.scw.cloud",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "region": "fr-par",
       "zone": "fr-par-1"

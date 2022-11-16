@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        ddccd417-e264-46df-a8f4-a6fb0d004d4f
+ID                        1f86ef51-9f6c-4eb5-8b62-1d21e967dcee
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -22,10 +22,10 @@ CheckDelay       3s
 CheckSendProxy   false
 
 Pool:
-[163.172.168.201]
+[212.47.230.22]
 
 Lb:
-ID                     d8e8cd5c-30a0-4b17-b4fd-784362ea9332
+ID                     c49d9a2a-f64b-42c0-a4fc-568617eb8118
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -44,14 +44,14 @@ Zone                   fr-par-1
 
 IPs:
 ID                                    IP ADDRESS      ORGANIZATION ID                       LB ID                                 REVERSE                             PROJECT ID                            REGION  ZONE
-92a0bfd1-bbca-4d19-8216-9f2760ea2af3  51.159.207.139  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d8e8cd5c-30a0-4b17-b4fd-784362ea9332  51-159-207-139.lb.fr-par.scw.cloud  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  fr-par  fr-par-1
+938b2e28-c5a2-47c8-a19b-6d349f8c057e  195.154.68.113  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  c49d9a2a-f64b-42c0-a4fc-568617eb8118  195-154-68-113.lb.fr-par.scw.cloud  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  fr-par  fr-par-1
 
-Servers:
-ID                                    STATUS  IP ADDRESS    CREATED AT       UPDATED AT       REGION  ZONE
-7134f218-9511-45c6-918e-e61165d0f985  ready   10.68.220.73  few seconds ago  few seconds ago  fr-par  fr-par-1
+Backends:
+ID                                    STATUS  IP ADDRESS   CREATED AT       UPDATED AT       REGION  ZONE
+0eca605d-1e04-4d5d-8dd6-7b6f7c6ab09e  ready   10.71.72.49  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ddccd417-e264-46df-a8f4-a6fb0d004d4f",
+  "id": "1f86ef51-9f6c-4eb5-8b62-1d21e967dcee",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -67,18 +67,18 @@ ID                                    STATUS  IP ADDRESS    CREATED AT       UPD
     "check_delay": 3000
   },
   "pool": [
-    "163.172.168.201"
+    "212.47.230.22"
   ],
   "lb": {
-    "id": "d8e8cd5c-30a0-4b17-b4fd-784362ea9332",
+    "id": "c49d9a2a-f64b-42c0-a4fc-568617eb8118",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "7134f218-9511-45c6-918e-e61165d0f985",
+        "id": "0eca605d-1e04-4d5d-8dd6-7b6f7c6ab09e",
         "status": "ready",
-        "ip_address": "10.68.220.73",
+        "ip_address": "10.71.72.49",
         "created_at": "1970-01-01T00:00:00.0Z",
         "updated_at": "1970-01-01T00:00:00.0Z",
         "region": "fr-par",
@@ -88,11 +88,11 @@ ID                                    STATUS  IP ADDRESS    CREATED AT       UPD
     "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "92a0bfd1-bbca-4d19-8216-9f2760ea2af3",
-        "ip_address": "51.159.207.139",
+        "id": "938b2e28-c5a2-47c8-a19b-6d349f8c057e",
+        "ip_address": "195.154.68.113",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "d8e8cd5c-30a0-4b17-b4fd-784362ea9332",
-        "reverse": "51-159-207-139.lb.fr-par.scw.cloud",
+        "lb_id": "c49d9a2a-f64b-42c0-a4fc-568617eb8118",
+        "reverse": "195-154-68-113.lb.fr-par.scw.cloud",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "region": "fr-par",
         "zone": "fr-par-1"
