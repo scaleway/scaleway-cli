@@ -26,6 +26,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "400a5d57-8c91-4cfe-bfed-b9748d24d8ac",
       "ip": "51.158.59.143",
@@ -98,6 +99,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "dc3e0459-77a1-4953-a43e-05f88f468857",
       "ip": "51.158.56.215",
@@ -170,6 +172,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "ac701eae-3bc0-4d36-a0e5-5a54e030c1df",
       "ip": "51.159.24.228",
@@ -242,6 +245,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "453374d4-2ed4-4a54-b142-01365a746c02",
       "ip": "195.154.69.177",
@@ -314,6 +318,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "f21b6d40-f053-4384-9b6c-5b8ed6d3cd25",
       "ip": "195.154.71.177",
@@ -386,6 +391,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "initializing",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "63a508a6-9d76-4656-a420-320e21ab1ece",
       "ip": "195.154.70.113",
@@ -458,6 +464,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "deleting",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "ab0013b4-223a-4079-9a75-1e1308ab3b9d",
       "ip": "51.159.112.132",
@@ -530,6 +537,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "backuping",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "fb0f23b8-8c13-4748-b1ab-11b160ddf0ab",
       "ip": "195.154.69.50",
@@ -602,6 +610,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "ready",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "endpoint": {
       "id": "e3eb041d-2b02-41b0-a879-dad257ae1830",
       "ip": "195.154.69.50",
@@ -674,6 +683,7 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "status": "provisioning",
     "engine": "PostgreSQL-12",
+    "upgradable_version": null,
     "tags": [],
     "settings": [
       {

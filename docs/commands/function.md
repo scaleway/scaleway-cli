@@ -215,7 +215,7 @@ scw function function create [arg=value ...]
 | environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311` |  |
 | memory-limit |  |  |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
@@ -373,7 +373,7 @@ scw function function update <function-id ...> [arg=value ...]
 | environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18` |  |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311` |  |
 | memory-limit |  |  |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
