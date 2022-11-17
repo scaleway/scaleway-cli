@@ -793,7 +793,116 @@ func containerContextCreate() *core.Command {
 	}
 }
 
-func containerContextStart() *core.Command { return nil }
+type startContextRequest struct {
+	Name string   `json:"-"`
+	Zone scw.Zone `json:"-"`
+	Type string   `json:"-"`
+}
+
+func containerContextStart() *core.Command {
+	return &core.Command{
+		Short:     `Delete context`,
+		Long:      `Stop a context and shutdown its compute resources.`,
+		Namespace: "container",
+		Resource:  "context",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(startContextRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:     "type",
+				Short:    "Machine type to use as Docker context. If none is passed will use DEV1-S",
+				Default:  core.DefaultValueSetter("DEV1-S"),
+				Required: true,
+				EnumValues: []string{
+					"GP1-XS",
+					"GP1-S",
+					"GP1-M",
+					"GP1-L",
+					"GP1-XL",
+					"DEV1-S",
+					"DEV1-M",
+					"DEV1-L",
+					"DEV1-XL",
+					"RENDER-S",
+					"STARDUST1-S",
+					"ENT1-S",
+					"ENT1-M",
+					"ENT1-L",
+					"ENT1-XL",
+					"ENT1-2XL",
+					"PRO2-XXS",
+					"PRO2-XS",
+					"PRO2-S",
+					"PRO2-M",
+					"PRO2-L",
+					"PLAY2-PICO",
+					"PLAY2-NANO",
+					"PLAY2-MICRO",
+					"GPU-3070-S",
+				},
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					// Allow all commercial types
+					return nil
+				},
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*startContextRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			x := instance.VolumeVolumeTypeBSSD
+			volumesResponse, err := api.ListVolumes(&instance.ListVolumesRequest{
+				Zone:       request.Zone,
+				VolumeType: &x,
+				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				Name:       scw.StringPtr(request.Name),
+			})
+			if err != nil {
+				return nil, err
+			}
+			if volumesResponse.TotalCount != 1 {
+				return nil, fmt.Errorf("Could not find volume named %q", request.Name)
+			}
+
+			ipsResponse, err := api.CreateIP(&instance.CreateIPRequest{
+				Zone: request.Zone,
+				Tags: []string{"builder", "b-a-a-s", request.Name},
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			return api.CreateServer(&instance.CreateServerRequest{
+				Zone: request.Zone,
+				Tags: []string{"builder", "b-a-a-s", request.Name},
+
+				Name: "", // auto-generated
+
+				CommercialType: request.Type,
+				Image:          "docker",
+				Volumes: map[string]*instance.VolumeServerTemplate{
+					"1": &instance.VolumeServerTemplate{
+						Boot: false,
+						ID:   volumesResponse.Volumes[0].ID,
+						Name: request.Name,
+					},
+				},
+				PublicIP: scw.StringPtr(ipsResponse.IP.ID),
+			})
+
+		},
+	}
+}
 
 type stopContextRequest struct {
 	Name string   `json:"-"`
