@@ -775,8 +775,6 @@ func containerContextCreate() *core.Command {
 					return nil
 				},
 			},
-			core.ProjectArgSpec(),
-			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -795,10 +793,61 @@ func containerContextCreate() *core.Command {
 	}
 }
 
-func containerContextStart() *core.Command  { return nil }
-func containerContextStop() *core.Command   { return nil }
-func containerContextDelete() *core.Command { return nil }
+func containerContextStart() *core.Command { return nil }
+func containerContextStop() *core.Command  { return nil }
 
+type deleteContextRequest struct {
+	Name string   `json:"-"`
+	Zone scw.Zone `json:"-"`
+	Size uint64   `json:"-"`
+}
+
+func containerContextDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete context`,
+		Long:      `Stop a context and shutdown its compute resources.`,
+		Namespace: "container",
+		Resource:  "context",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(deleteContextRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*deleteContextRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			x := instance.VolumeVolumeTypeBSSD
+			response, err := api.ListVolumes(&instance.ListVolumesRequest{
+				Zone:       request.Zone,
+				VolumeType: &x,
+				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				Name:       scw.StringPtr(request.Name),
+			})
+			if err != nil {
+				return nil, err
+			}
+			if response.TotalCount != 1 {
+				return nil, fmt.Errorf("Could not find volume named %q", request.Name)
+			}
+
+			err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+				Zone:     request.Zone,
+				VolumeID: response.Volumes[0].ID,
+			})
+			return nil, err
+		},
+	}
+}
 func containerCronList() *core.Command {
 	return &core.Command{
 		Short:     `List all your crons`,
