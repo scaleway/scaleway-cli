@@ -794,12 +794,60 @@ func containerContextCreate() *core.Command {
 }
 
 func containerContextStart() *core.Command { return nil }
-func containerContextStop() *core.Command  { return nil }
+
+type stopContextRequest struct {
+	Name string   `json:"-"`
+	Zone scw.Zone `json:"-"`
+}
+
+func containerContextStop() *core.Command {
+	return &core.Command{
+		Short:     `Delete context`,
+		Long:      `Stop a context and shutdown its compute resources.`,
+		Namespace: "container",
+		Resource:  "context",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(stopContextRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*stopContextRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			response, err := api.ListServers(&instance.ListServersRequest{
+				Zone: request.Zone,
+				Tags: []string{"builder", "b-a-a-s", request.Name},
+				Name: scw.StringPtr(request.Name),
+			})
+			if err != nil {
+				return nil, err
+			}
+			if response.TotalCount != 1 {
+				return nil, fmt.Errorf("Could not find context named %q", request.Name)
+			}
+
+			return api.ServerAction(&instance.ServerActionRequest{
+				Zone:     request.Zone,
+				ServerID: response.Servers[0].ID,
+				Action:   instance.ServerActionTerminate,
+			})
+		},
+	}
+}
 
 type deleteContextRequest struct {
 	Name string   `json:"-"`
 	Zone scw.Zone `json:"-"`
-	Size uint64   `json:"-"`
 }
 
 func containerContextDelete() *core.Command {
@@ -848,6 +896,7 @@ func containerContextDelete() *core.Command {
 		},
 	}
 }
+
 func containerCronList() *core.Command {
 	return &core.Command{
 		Short:     `List all your crons`,
