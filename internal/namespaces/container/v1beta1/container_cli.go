@@ -5,10 +5,13 @@ package container
 
 import (
 	"context"
+	"fmt"
 	"reflect"
+	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -22,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerRoot(),
 		containerNamespace(),
 		containerContainer(),
+		containerContext(),
 		containerCron(),
 		containerDomain(),
 		containerToken(),
@@ -36,6 +40,10 @@ func GetGeneratedCommands() *core.Commands {
 		containerContainerUpdate(),
 		containerContainerDelete(),
 		containerContainerDeploy(),
+		containerContextCreate(),
+		containerContextStart(),
+		containerContextStop(),
+		containerContextDelete(),
 		containerCronList(),
 		containerCronGet(),
 		containerCronDelete(),
@@ -72,6 +80,15 @@ func containerContainer() *core.Command {
 		Long:      `Container management commands.`,
 		Namespace: "container",
 		Resource:  "container",
+	}
+}
+
+func containerContext() *core.Command {
+	return &core.Command{
+		Short:     `Context management commands`,
+		Long:      `Context management commands.`,
+		Namespace: "container",
+		Resource:  "context",
 	}
 }
 
@@ -721,6 +738,66 @@ func containerContainerDeploy() *core.Command {
 		},
 	}
 }
+
+type createContextRequest struct {
+	Name string   `json:"-"`
+	Zone scw.Zone `json:"-"`
+	Size uint64   `json:"-"`
+}
+
+func containerContextCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create context storage`,
+		Long:      `Create block storage that one can attach to a container context.`,
+		Namespace: "container",
+		Resource:  "context",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(createContextRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name: "size",
+				// TODO: shove off with: docker builder prune --keep-storage 20000000000 -f
+				Short: "Size of block storage in GB",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					if _, err := strconv.ParseUint(value.(string), 10, 64); err != nil {
+						return &core.CliError{
+							Err:  fmt.Errorf("invalid size %s", value),
+							Hint: "Size should be an integer of gigabytes",
+						}
+					}
+					return nil
+				},
+			},
+			core.ProjectArgSpec(),
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*createContextRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.CreateVolume(&instance.CreateVolumeRequest{
+				Zone:       request.Zone,
+				Name:       request.Name,
+				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				VolumeType: instance.VolumeVolumeTypeBSSD,
+				Size:       scw.SizePtr(scw.Size(request.Size) * scw.GB),
+			})
+		},
+	}
+}
+
+func containerContextStart() *core.Command  { return nil }
+func containerContextStop() *core.Command   { return nil }
+func containerContextDelete() *core.Command { return nil }
 
 func containerCronList() *core.Command {
 	return &core.Command{

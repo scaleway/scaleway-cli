@@ -9,6 +9,11 @@ Container as a Service API
   - [Get a container](#get-a-container)
   - [List all your containers](#list-all-your-containers)
   - [Update an existing container](#update-an-existing-container)
+- [Context management commands](#context-management-commands)
+  - [Create context storage](#create-context-storage)
+  - [Start a context](#start-a-context)
+  - [Stop a context](#stop-a-context)
+  - [Remove context storage](#remove-context-storage)
 - [Cron management commands](#cron-management-commands)
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
@@ -188,6 +193,103 @@ scw container container update <container-id ...> [arg=value ...]
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Context management commands
+
+Context management commands.
+
+
+### Create context storage
+
+Create block storage that one can attach to a container context.
+
+**Usage:**
+
+```
+scw container context create <name> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| max-size |  | Maximum size of block storage in GB |
+| max-ttl |  | Maximum time to live of the files stored on block storage |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create context
+
+Start a context with given block storage.
+
+**Usage:**
+
+```
+scw container context start <name> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| type | Default: `DEV1-S` | Machine type to use as Docker context |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete context
+
+Stop a context and shutdown its compute resources.
+
+**Usage:**
+
+```
+scw container context stop <name>
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+  - [Remove block storage that's used by a context](#remove-context-storage)
+
+  - [Create context storage](#create-context-storage)
+  - [Start a context](#start-a-context)
+  - [Stop a context](#stop-a-context)
+  - [Remove context storage](#remove-context-storage)
+
+
+
+### Remove context storage
+
+Remove block storage that's used by a context.
+
+**Usage:**
+
+```
+scw container context delete <name>
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
