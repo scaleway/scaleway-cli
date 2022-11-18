@@ -12,7 +12,7 @@ Container as a Service API
 - [Context management commands](#context-management-commands)
   - [Create context storage](#create-context-storage)
   - [Remove context storage](#remove-context-storage)
-  - [Delete context](#delete-context)
+  - [Start a context machine](#start-a-context-machine)
   - [Stop a context machine](#stop-a-context-machine)
 - [Cron management commands](#cron-management-commands)
   - [Delete an existing cron](#delete-an-existing-cron)
@@ -244,9 +244,9 @@ scw container context delete <name ...> [arg=value ...]
 
 
 
-### Delete context
+### Start a context machine
 
-Stop a context and shutdown its compute resources.
+Start an instance with named block storage attached.
 
 **Usage:**
 

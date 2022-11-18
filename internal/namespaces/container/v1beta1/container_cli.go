@@ -809,8 +809,8 @@ type startContextRequest struct {
 
 func containerContextStart() *core.Command {
 	return &core.Command{
-		Short:     `Delete context`,
-		Long:      `Stop a context and shutdown its compute resources.`,
+		Short:     `Start a context machine`,
+		Long:      `Start an instance with named block storage attached.`,
 		Namespace: "container",
 		Resource:  "context",
 		Verb:      "start",
