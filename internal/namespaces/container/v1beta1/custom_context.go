@@ -147,6 +147,7 @@ func containerContextStart() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+
 			request := args.(*startContextRequest)
 
 			client := core.ExtractClient(ctx)
@@ -225,8 +226,8 @@ mounts:
 
 			serverIP := serverResponse.Server.PublicIP.Address.String()
 			failedToConnect := true
-			for range make([]struct{}, 100) {
-				conn, err := net.DialTimeout("tcp", serverIP, 2*time.Second)
+			for range make([]struct{}, 600) {
+				conn, err := net.DialTimeout("tcp", serverIP+":22", 2*time.Second)
 				if err != nil {
 					break
 				}
