@@ -155,6 +155,9 @@ func containerContextStart() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			if _, err := exec.LookPath("docker"); err != nil {
+				return nil, fmt.Errorf("This requires the `docker` command to be installed.")
+			}
 			request := args.(*startContextRequest)
 
 			client := core.ExtractClient(ctx)
@@ -277,7 +280,7 @@ mounts:
 			}
 			if request.AutoWriteToSSHKnownHosts || ok {
 				line := fmt.Sprintf("ssh-keyscan -H %q >>~/.ssh/known_hosts", serverIP)
-				cmd := exec.Command("/bin/sh", "-c", line)
+				cmd := exec.CommandContext(ctx, "/bin/sh", "-c", line)
 				cmd.Stdout = io.Discard
 				if err := cmd.Run(); err != nil {
 					return nil, err
@@ -288,14 +291,15 @@ mounts:
 				{`docker`, `context`, `create`, `--docker`, `host=ssh://root@` + serverIP, request.Name},
 				{`docker`, `context`, `use`, request.Name},
 			} {
-				cmd := exec.Command(line[0], line[1:]...)
+				cmd := exec.CommandContext(ctx, line[0], line[1:]...)
 				cmd.Stdout = io.Discard
 				if err := cmd.Run(); err != nil {
 					return nil, err
 				}
 			}
 
-			return nil, nil
+			msg := fmt.Sprintf("Docker context %q created!", request.Name)
+			return msg, nil
 		},
 	}
 }
@@ -324,6 +328,17 @@ func containerContextStop() *core.Command {
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*stopContextRequest)
 
+			for _, line := range [][]string{
+				{`docker`, `context`, `use`, `default`},
+				{`docker`, `context`, `rm`, request.Name},
+			} {
+				cmd := exec.CommandContext(ctx, line[0], line[1:]...)
+				cmd.Stdout = io.Discard
+				if err := cmd.Run(); err != nil {
+					return nil, err
+				}
+			}
+
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
@@ -347,6 +362,13 @@ func containerContextStop() *core.Command {
 				return nil, err
 			}
 
+			if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+				Zone:     serversResponse.Servers[0].Zone,
+				VolumeID: serversResponse.Servers[0].Volumes["0"].ID, // boot volume
+			}); err != nil {
+				return nil, err
+			}
+
 			if err := api.DeleteIP(&instance.DeleteIPRequest{
 				Zone: serversResponse.Servers[0].Zone,
 				IP:   serversResponse.Servers[0].PublicIP.Address.String(),
@@ -360,8 +382,7 @@ func containerContextStop() *core.Command {
 }
 
 type deleteContextRequest struct {
-	Name string   `json:"-"`
-	Zone scw.Zone `json:"-"`
+	Name string `json:"-"`
 }
 
 func containerContextDelete() *core.Command {
@@ -380,7 +401,6 @@ func containerContextDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*deleteContextRequest)
@@ -390,11 +410,10 @@ func containerContextDelete() *core.Command {
 
 			x := instance.VolumeVolumeTypeBSSD
 			response, err := api.ListVolumes(&instance.ListVolumesRequest{
-				Zone:       request.Zone,
 				VolumeType: &x,
 				Tags:       containerContextTags(request.Name),
 				Name:       scw.StringPtr(request.Name),
-			})
+			}, scw.WithZones(scw.AllZones...))
 			if err != nil {
 				return nil, err
 			}
@@ -402,11 +421,18 @@ func containerContextDelete() *core.Command {
 				return nil, fmt.Errorf("Could not find volume named %q", request.Name)
 			}
 
-			err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-				Zone:     request.Zone,
+			if err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+				Zone:     response.Volumes[0].Zone,
 				VolumeID: response.Volumes[0].ID,
-			})
-			return nil, err
+			}); err != nil {
+				return nil, err
+			}
+
+			msg := fmt.Sprintf("Volume named %q successfully deleted from zone %q",
+				request.Name,
+				response.Volumes[0].Zone,
+			)
+			return msg, nil
 		},
 	}
 }
