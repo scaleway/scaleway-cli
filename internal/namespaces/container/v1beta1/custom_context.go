@@ -26,7 +26,11 @@ func containerContext() *core.Command {
 }
 
 func containerContextTags(name string) []string {
-	return []string{"builder", "b-a-a-s", name}
+	return []string{
+		"scw-docker-context:builder",
+		"scw-docker-context:b-a-a-s",
+		"scw-docker-context:" + name,
+	}
 }
 
 type createContextRequest struct {
@@ -92,6 +96,7 @@ type startContextRequest struct {
 }
 
 func containerContextStart() *core.Command {
+	const autowrite = "auto-write-to-ssh-known-hosts"
 	return &core.Command{
 		Short:     `Start a context machine`,
 		Long:      `Start an instance with named block storage attached.`,
@@ -145,7 +150,7 @@ func containerContextStart() *core.Command {
 				},
 			},
 			{
-				Name:    "auto-write-to-ssh-known-hosts",
+				Name:    autowrite,
 				Default: core.DefaultValueSetter("false"),
 			},
 		},
@@ -257,22 +262,24 @@ mounts:
 				return nil, fmt.Errorf("Could not reach instance over SSH!")
 			}
 
-			line := fmt.Sprintf("ssh-keyscan -H %q >>~/.ssh/known_hosts", serverIP)
-			if request.AutoWriteToSSHKnownHosts {
+			var ok bool
+			if !request.AutoWriteToSSHKnownHosts {
+				if ok, err = interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Prompt: fmt.Sprintf(
+						"Do you want to cleanup already known SSH fingerprints for %s and update with the new one?\n"+
+							"You can add the flag %s=true to skip this step.\n",
+						serverIP, autowrite),
+					DefaultValue: false,
+					Ctx:          ctx,
+				}); err != nil {
+					return nil, err
+				}
+			}
+			if request.AutoWriteToSSHKnownHosts || ok {
+				line := fmt.Sprintf("ssh-keyscan -H %q >>~/.ssh/known_hosts", serverIP)
 				cmd := exec.Command("/bin/sh", "-c", line)
 				cmd.Stdout = io.Discard
 				if err := cmd.Run(); err != nil {
-					return nil, err
-				}
-			} else {
-				_, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt: fmt.Sprintf("You will need to replace your known_hosts entry.\n"+
-						"Enter this command before continuing:\n"+
-						"\t%s\n", line),
-					DefaultValue: false,
-					Ctx:          ctx,
-				})
-				if err != nil {
 					return nil, err
 				}
 			}
