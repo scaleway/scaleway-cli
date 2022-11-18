@@ -39,6 +39,8 @@ type createContextRequest struct {
 	Size uint64   `json:"-"`
 }
 
+const containerContextCreateDefaultSize = 50
+
 func containerContextCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create context storage`,
@@ -60,7 +62,8 @@ func containerContextCreate() *core.Command {
 				// TODO: shave off oversize storage with: docker builder prune --keep-storage 20000000000 -f
 				Short: "Size of block storage in GB",
 				Default: func(ctx context.Context) (value string, doc string) {
-					return "50", "50"
+					d := fmt.Sprintf("%d", containerContextCreateDefaultSize)
+					return d, d
 				},
 			},
 			{
@@ -174,16 +177,28 @@ func containerContextStart() *core.Command {
 			}
 			if volumesResponse.TotalCount != 1 {
 				// Create some block storage on the fly if none exist yet
-				if _, err := containerContextCreate().Run(ctx, args); err != nil {
+				defaultZone, ok := client.GetDefaultZone()
+				if !ok {
+					defaultZone = "fr-par-2"
+				}
+				if _, err := containerContextCreate().Run(ctx, &createContextRequest{
+					Name: request.Name,
+					Zone: defaultZone,
+					Size: containerContextCreateDefaultSize,
+				}); err != nil {
 					return nil, err
 				}
 				volumesResponse, err = api.ListVolumes(&instance.ListVolumesRequest{
+					Zone:       defaultZone,
 					VolumeType: &x,
 					Tags:       containerContextTags(request.Name),
 					Name:       scw.StringPtr(request.Name),
-				}, scw.WithZones(scw.AllZones...))
+				})
 				if err != nil {
 					return nil, err
+				}
+				if volumesResponse.TotalCount != 1 {
+					return nil, fmt.Errorf("Could not find volume named %q", request.Name)
 				}
 			}
 
