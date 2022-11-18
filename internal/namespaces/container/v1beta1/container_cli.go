@@ -6,9 +6,15 @@ package container
 import (
 	"context"
 	"fmt"
+	"io"
+	"net"
+	"os/exec"
 	"reflect"
+	"strings"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -796,8 +802,9 @@ func containerContextCreate() *core.Command {
 }
 
 type startContextRequest struct {
-	Name string `json:"-"`
-	Type string `json:"-"`
+	Name                     string `json:"-"`
+	Type                     string `json:"-"`
+	AutoWriteToSshKnownHosts bool   `json:"auto-write-to-ssh-known-hosts"`
 }
 
 func containerContextStart() *core.Command {
@@ -853,6 +860,11 @@ func containerContextStart() *core.Command {
 					return nil
 				},
 			},
+			{
+				Name:       "auto-write-to-ssh-known-hosts",
+				Default:    core.DefaultValueSetter("false"),
+				EnumValues: []string{"true", "false"},
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*startContextRequest)
@@ -881,7 +893,7 @@ func containerContextStart() *core.Command {
 				return nil, err
 			}
 
-			return api.CreateServer(&instance.CreateServerRequest{
+			serverResponse, err := api.CreateServer(&instance.CreateServerRequest{
 				Zone:           volumesResponse.Volumes[0].Zone,
 				Tags:           containerContextTags(request.Name),
 				Name:           "", // auto-generated
@@ -896,7 +908,93 @@ func containerContextStart() *core.Command {
 				},
 				PublicIP: scw.StringPtr(ipsResponse.IP.ID),
 			})
+			if err != nil {
+				return nil, err
+			}
 
+			cloudInit := `
+#cloud-config
+device_aliases:
+  cache_dev: /dev/sdb
+disk_setup:
+  cache_dev:
+    table_type: gpt
+fs_setup:
+  - label: cache_fs
+    device: cache_dev
+    filesystem: ext4
+mounts:
+  - [ "cache_dev", "/var/lib/docker" ]
+`[1:]
+			if err := api.SetAllServerUserData(&instance.SetAllServerUserDataRequest{
+				Zone:     serverResponse.Server.Zone,
+				ServerID: serverResponse.Server.ID,
+				UserData: map[string]io.Reader{
+					"cloud-init": strings.NewReader(cloudInit),
+				},
+			}); err != nil {
+				return nil, err
+			}
+
+			if err := api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
+				ServerID: serverResponse.Server.ID,
+				Zone:     serverResponse.Server.Zone,
+				Action:   instance.ServerActionPoweron,
+			}); err != nil {
+				return nil, err
+			}
+
+			serverIP := serverResponse.Server.PublicIP.Address.String()
+			failedToConnect := true
+			for range make([]struct{}, 100) {
+				conn, err := net.DialTimeout("tcp", serverIP, 2*time.Second)
+				if err != nil {
+					break
+				}
+				if conn != nil {
+					if err = conn.Close(); err != nil {
+						return nil, err
+					}
+					failedToConnect = false
+					break
+				}
+			}
+			if failedToConnect {
+				return nil, fmt.Errorf("Could not reach instance over SSH!")
+			}
+
+			line := fmt.Sprintf("ssh-keyscan -H %q >>~/.ssh/known_hosts", serverIP)
+			if request.AutoWriteToSshKnownHosts {
+				cmd := exec.Command("/bin/sh", "-c", line)
+				cmd.Stdout = io.Discard
+				if err := cmd.Run(); err != nil {
+					return nil, err
+				}
+			} else {
+				_, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+					Prompt: fmt.Sprintf("You will need to replace your known_hosts entry.\n"+
+						"Enter this command before continuing:\n"+
+						"\t%s\n", line),
+					DefaultValue: false,
+					Ctx:          ctx,
+				})
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			for _, line := range [][]string{
+				{`docker`, `context`, `create`, `--docker`, `host=ssh://root@` + serverIP, request.Name},
+				{`docker`, `context`, `use`, request.Name},
+			} {
+				cmd := exec.Command(line[0], line[1:]...)
+				cmd.Stdout = io.Discard
+				if err := cmd.Run(); err != nil {
+					return nil, err
+				}
+			}
+
+			return nil, nil
 		},
 	}
 }
