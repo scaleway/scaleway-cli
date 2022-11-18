@@ -218,7 +218,7 @@ scw container context create <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required |  |
-| size |  | Size of block storage in GB |
+| size | Default: `50` | Size of block storage in GB |
 | ttl |  | Delete data older than this on next use of block storage |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 

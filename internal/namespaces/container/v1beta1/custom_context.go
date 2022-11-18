@@ -55,6 +55,9 @@ func containerContextCreate() *core.Command {
 				Name: "size",
 				// TODO: shave off oversize storage with: docker builder prune --keep-storage 20000000000 -f
 				Short: "Size of block storage in GB",
+				Default: func(ctx context.Context) (value string, doc string) {
+					return "50", "50"
+				},
 			},
 			{
 				Name: "ttl",
