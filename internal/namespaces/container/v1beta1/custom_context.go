@@ -215,6 +215,9 @@ func containerContextStart() *core.Command {
 					return nil, fmt.Errorf("Could not find volume named %q", request.Name)
 				}
 			}
+			if server := volumesResponse.Volumes[0].Server; server != nil {
+				return nil, fmt.Errorf("Volume %q is already attached to server %s", request.Name, server.ID)
+			}
 
 			ipsResponse, err := api.CreateIP(&instance.CreateIPRequest{
 				Zone: volumesResponse.Volumes[0].Zone,
