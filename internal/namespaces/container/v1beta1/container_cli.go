@@ -792,9 +792,8 @@ func containerContextCreate() *core.Command {
 }
 
 type startContextRequest struct {
-	Name string   `json:"-"`
-	Zone scw.Zone `json:"-"`
-	Type string   `json:"-"`
+	Name string `json:"-"`
+	Type string `json:"-"`
 }
 
 func containerContextStart() *core.Command {
@@ -850,7 +849,6 @@ func containerContextStart() *core.Command {
 					return nil
 				},
 			},
-			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*startContextRequest)
@@ -860,11 +858,10 @@ func containerContextStart() *core.Command {
 
 			x := instance.VolumeVolumeTypeBSSD
 			volumesResponse, err := api.ListVolumes(&instance.ListVolumesRequest{
-				Zone:       request.Zone,
 				VolumeType: &x,
 				Tags:       []string{"builder", "b-a-a-s", request.Name},
 				Name:       scw.StringPtr(request.Name),
-			})
+			}, scw.WithZones(scw.AllZones...))
 			if err != nil {
 				return nil, err
 			}
@@ -873,7 +870,7 @@ func containerContextStart() *core.Command {
 			}
 
 			ipsResponse, err := api.CreateIP(&instance.CreateIPRequest{
-				Zone: request.Zone,
+				Zone: volumesResponse.Volumes[0].Zone,
 				Tags: []string{"builder", "b-a-a-s", request.Name},
 			})
 			if err != nil {
@@ -881,7 +878,7 @@ func containerContextStart() *core.Command {
 			}
 
 			return api.CreateServer(&instance.CreateServerRequest{
-				Zone:           request.Zone,
+				Zone:           volumesResponse.Volumes[0].Zone,
 				Tags:           []string{"builder", "b-a-a-s", request.Name},
 				Name:           "", // auto-generated
 				CommercialType: request.Type,
