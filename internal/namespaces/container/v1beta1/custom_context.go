@@ -27,7 +27,6 @@ func containerContext() *core.Command {
 
 func containerContextTags(name string) []string {
 	return []string{
-		"scw-docker-context:builder",
 		"scw-docker-context:b-a-a-s",
 		"scw-docker-context:" + name,
 	}
@@ -264,17 +263,14 @@ mounts:
 			serverIP := serverResponse.Server.PublicIP.Address.String()
 			failedToConnect := true
 			for range make([]struct{}, 600) {
-				conn, err := net.DialTimeout("tcp", serverIP+":22", 2*time.Second)
-				if err != nil {
-					break
-				}
-				if conn != nil {
+				if conn, _ := net.DialTimeout("tcp", serverIP+":22", 2*time.Second); conn != nil {
 					if err = conn.Close(); err != nil {
 						return nil, err
 					}
 					failedToConnect = false
 					break
 				}
+				time.Sleep(1 * time.Second)
 			}
 			if failedToConnect {
 				return nil, fmt.Errorf("Could not reach instance over SSH!")
@@ -343,6 +339,19 @@ func containerContextStop() *core.Command {
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*stopContextRequest)
 
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			serversResponse, err := api.ListServers(&instance.ListServersRequest{
+				Tags: containerContextTags(request.Name),
+			}, scw.WithZones(scw.AllZones...))
+			if err != nil {
+				return nil, err
+			}
+			if serversResponse.TotalCount != 1 {
+				return nil, fmt.Errorf("Could not find context named %q", request.Name)
+			}
+
 			for _, line := range [][]string{
 				{`docker`, `context`, `use`, `default`},
 				{`docker`, `context`, `rm`, request.Name},
@@ -354,18 +363,11 @@ func containerContextStop() *core.Command {
 				}
 			}
 
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-
-			serversResponse, err := api.ListServers(&instance.ListServersRequest{
-				Tags: containerContextTags(request.Name),
-				Name: scw.StringPtr(request.Name),
-			}, scw.WithZones(scw.AllZones...))
-			if err != nil {
+			if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+				Zone:     serversResponse.Servers[0].Zone,
+				VolumeID: serversResponse.Servers[0].Volumes["0"].ID, // boot volume
+			}); err != nil {
 				return nil, err
-			}
-			if serversResponse.TotalCount != 1 {
-				return nil, fmt.Errorf("Could not find context named %q", request.Name)
 			}
 
 			serverActionResponse, err := api.ServerAction(&instance.ServerActionRequest{
@@ -374,13 +376,6 @@ func containerContextStop() *core.Command {
 				Action:   instance.ServerActionTerminate,
 			})
 			if err != nil {
-				return nil, err
-			}
-
-			if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
-				Zone:     serversResponse.Servers[0].Zone,
-				VolumeID: serversResponse.Servers[0].Volumes["0"].ID, // boot volume
-			}); err != nil {
 				return nil, err
 			}
 
