@@ -205,10 +205,10 @@ func containerContextStart() *core.Command {
 				return nil, err
 			}
 
-			cloudInit := `
+			cloudInit := fmt.Sprintf(`
 #cloud-config
 device_aliases:
-  cache_dev: /dev/sdb
+  cache_dev: /dev/disk/by-id/scsi-0SCW_b_ssd_volume-%s
 disk_setup:
   cache_dev:
     table_type: gpt
@@ -218,7 +218,8 @@ fs_setup:
     filesystem: ext4
 mounts:
   - [ "cache_dev", "/var/lib/docker" ]
-`[1:]
+`[1:], volumesResponse.Volumes[0].ID)
+
 			if err := api.SetAllServerUserData(&instance.SetAllServerUserDataRequest{
 				Zone:     serverResponse.Server.Zone,
 				ServerID: serverResponse.Server.ID,
