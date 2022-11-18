@@ -367,7 +367,7 @@ func containerContextStop() *core.Command {
 				return nil, err
 			}
 			if serversResponse.TotalCount != 1 {
-				return nil, fmt.Errorf("Could not find context named %q", request.Name)
+				return nil, fmt.Errorf("Volume %q is not attached to any server", request.Name)
 			}
 
 			for _, line := range [][]string{
