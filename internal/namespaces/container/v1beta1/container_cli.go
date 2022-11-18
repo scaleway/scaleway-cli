@@ -763,16 +763,24 @@ func containerContextCreate() *core.Command {
 			},
 			{
 				Name: "size",
-				// TODO: shove off with: docker builder prune --keep-storage 20000000000 -f
+				// TODO: shave off oversize storage with: docker builder prune --keep-storage 20000000000 -f
 				Short: "Size of block storage in GB",
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					if _, err := strconv.ParseUint(value.(string), 10, 64); err != nil {
 						return &core.CliError{
 							Err:  fmt.Errorf("invalid size %s", value),
-							Hint: "Size should be an integer of gigabytes",
+							Hint: "Size should be an integer representing gigabytes",
 						}
 					}
 					return nil
+				},
+			},
+			{
+				Name: "ttl",
+				// TODO: docker builder prune -f --filter='unused-for=1h
+				Short: "Delete data older than this on next use of block storage",
+				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+					return fmt.Errorf("unimplemented!")
 				},
 			},
 			core.ZoneArgSpec(),
@@ -805,7 +813,7 @@ func containerContextStart() *core.Command {
 		Long:      `Stop a context and shutdown its compute resources.`,
 		Namespace: "container",
 		Resource:  "context",
-		Verb:      "delete",
+		Verb:      "start",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(startContextRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -883,15 +891,13 @@ func containerContextStart() *core.Command {
 			}
 
 			return api.CreateServer(&instance.CreateServerRequest{
-				Zone: request.Zone,
-				Tags: []string{"builder", "b-a-a-s", request.Name},
-
-				Name: "", // auto-generated
-
+				Zone:           request.Zone,
+				Tags:           []string{"builder", "b-a-a-s", request.Name},
+				Name:           "", // auto-generated
 				CommercialType: request.Type,
 				Image:          "docker",
 				Volumes: map[string]*instance.VolumeServerTemplate{
-					"1": &instance.VolumeServerTemplate{
+					"1": {
 						Boot: false,
 						ID:   volumesResponse.Volumes[0].ID,
 						Name: request.Name,
@@ -911,11 +917,11 @@ type stopContextRequest struct {
 
 func containerContextStop() *core.Command {
 	return &core.Command{
-		Short:     `Delete context`,
+		Short:     `Stop a context machine`,
 		Long:      `Stop a context and shutdown its compute resources.`,
 		Namespace: "container",
 		Resource:  "context",
-		Verb:      "delete",
+		Verb:      "stop",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(stopContextRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -961,8 +967,8 @@ type deleteContextRequest struct {
 
 func containerContextDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete context`,
-		Long:      `Stop a context and shutdown its compute resources.`,
+		Short:     `Remove context storage`,
+		Long:      `Remove block storage that's used by a context.`,
 		Namespace: "container",
 		Resource:  "context",
 		Verb:      "delete",

@@ -11,9 +11,9 @@ Container as a Service API
   - [Update an existing container](#update-an-existing-container)
 - [Context management commands](#context-management-commands)
   - [Create context storage](#create-context-storage)
-  - [Start a context](#start-a-context)
-  - [Stop a context](#stop-a-context)
   - [Remove context storage](#remove-context-storage)
+  - [Delete context](#delete-context)
+  - [Stop a context machine](#stop-a-context-machine)
 - [Cron management commands](#cron-management-commands)
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
@@ -209,7 +209,7 @@ Create block storage that one can attach to a container context.
 **Usage:**
 
 ```
-scw container context create <name> [arg=value ...]
+scw container context create <name ...> [arg=value ...]
 ```
 
 
@@ -218,59 +218,9 @@ scw container context create <name> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required |  |
-| max-size |  | Maximum size of block storage in GB |
-| max-ttl |  | Maximum time to live of the files stored on block storage |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Create context
-
-Start a context with given block storage.
-
-**Usage:**
-
-```
-scw container context start <name> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| name | Required |  |
-| type | Default: `DEV1-S` | Machine type to use as Docker context |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Delete context
-
-Stop a context and shutdown its compute resources.
-
-**Usage:**
-
-```
-scw container context stop <name>
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| name | Required |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-
-  - [Remove block storage that's used by a context](#remove-context-storage)
-
-  - [Create context storage](#create-context-storage)
-  - [Start a context](#start-a-context)
-  - [Stop a context](#stop-a-context)
-  - [Remove context storage](#remove-context-storage)
+| size |  | Size of block storage in GB |
+| ttl |  | Delete data older than this on next use of block storage |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -281,7 +231,7 @@ Remove block storage that's used by a context.
 **Usage:**
 
 ```
-scw container context delete <name>
+scw container context delete <name ...> [arg=value ...]
 ```
 
 
@@ -290,7 +240,48 @@ scw container context delete <name>
 | Name |   | Description |
 |------|---|-------------|
 | name | Required |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete context
+
+Stop a context and shutdown its compute resources.
+
+**Usage:**
+
+```
+scw container context start <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| type | Required<br />Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-2XL`, `PRO2-XXS`, `PRO2-XS`, `PRO2-S`, `PRO2-M`, `PRO2-L`, `PLAY2-PICO`, `PLAY2-NANO`, `PLAY2-MICRO`, `GPU-3070-S` | Machine type to use as Docker context. If none is passed will use DEV1-S |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Stop a context machine
+
+Stop a context and shutdown its compute resources.
+
+**Usage:**
+
+```
+scw container context stop <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
