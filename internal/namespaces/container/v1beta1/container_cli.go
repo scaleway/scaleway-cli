@@ -7,7 +7,6 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
@@ -765,15 +764,6 @@ func containerContextCreate() *core.Command {
 				Name: "size",
 				// TODO: shave off oversize storage with: docker builder prune --keep-storage 20000000000 -f
 				Short: "Size of block storage in GB",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
-					if _, err := strconv.ParseUint(value.(string), 10, 64); err != nil {
-						return &core.CliError{
-							Err:  fmt.Errorf("invalid size %s", value),
-							Hint: "Size should be an integer representing gigabytes",
-						}
-					}
-					return nil
-				},
 			},
 			{
 				Name: "ttl",
