@@ -376,10 +376,16 @@ func containerContextStop() *core.Command {
 				cmd.Run() // Ignore errors
 			}
 
-			if bootVolume, ok := serversResponse.Servers[0].Volumes["0"]; ok {
+			if nonbootVolume, ok := serversResponse.Servers[0].Volumes["1"]; ok {
 				if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
 					Zone:     serversResponse.Servers[0].Zone,
-					VolumeID: bootVolume.ID,
+					VolumeID: nonbootVolume.ID,
+				}); err != nil {
+					return nil, err
+				}
+				if _, err := api.WaitForVolume(&instance.WaitForVolumeRequest{
+					Zone:     serversResponse.Servers[0].Zone,
+					VolumeID: nonbootVolume.ID,
 				}); err != nil {
 					return nil, err
 				}
