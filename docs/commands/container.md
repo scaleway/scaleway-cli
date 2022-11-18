@@ -280,7 +280,6 @@ scw container context stop <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required |  |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 

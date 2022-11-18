@@ -902,8 +902,7 @@ func containerContextStart() *core.Command {
 }
 
 type stopContextRequest struct {
-	Name string   `json:"-"`
-	Zone scw.Zone `json:"-"`
+	Name string `json:"-"`
 }
 
 func containerContextStop() *core.Command {
@@ -922,7 +921,6 @@ func containerContextStop() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*stopContextRequest)
@@ -933,19 +931,31 @@ func containerContextStop() *core.Command {
 			serversResponse, err := api.ListServers(&instance.ListServersRequest{
 				Tags: containerContextTags(request.Name),
 				Name: scw.StringPtr(request.Name),
+			}, scw.WithZones(scw.AllZones...))
+			if err != nil {
+				return nil, err
+			}
+			if serversResponse.TotalCount != 1 {
+				return nil, fmt.Errorf("Could not find context named %q", request.Name)
+			}
+
+			serverActionResponse, err := api.ServerAction(&instance.ServerActionRequest{
+				Zone:     serversResponse.Servers[0].Zone,
+				ServerID: serversResponse.Servers[0].ID,
+				Action:   instance.ServerActionTerminate,
 			})
 			if err != nil {
 				return nil, err
 			}
-			if response.TotalCount != 1 {
-				return nil, fmt.Errorf("Could not find context named %q", request.Name)
+
+			if err := api.DeleteIP(&instance.DeleteIPRequest{
+				Zone: serversResponse.Servers[0].Zone,
+				IP:   serversResponse.Servers[0].PublicIP.Address.String(),
+			}); err != nil {
+				return nil, err
 			}
 
-			return api.ServerAction(&instance.ServerActionRequest{
-				Zone:     request.Zone,
-				ServerID: response.Servers[0].ID,
-				Action:   instance.ServerActionTerminate,
-			})
+			return serverActionResponse, nil
 		},
 	}
 }
