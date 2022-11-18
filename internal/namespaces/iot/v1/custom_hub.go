@@ -1,9 +1,18 @@
 package iot
 
 import (
+	"context"
+	"time"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+const (
+	hubActionTimeout = 5 * time.Minute
 )
 
 var (
@@ -15,3 +24,16 @@ var (
 		iot.HubStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
 	}
 )
+
+func hubCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := iot.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForHub(&iot.WaitForHubRequest{
+			HubID:         respI.(*iot.Hub).ID,
+			Region:        respI.(*iot.Hub).Region,
+			Timeout:       scw.TimeDurationPtr(hubActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+	return c
+}
