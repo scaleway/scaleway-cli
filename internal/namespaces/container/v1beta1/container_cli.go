@@ -738,6 +738,10 @@ func containerContainerDeploy() *core.Command {
 	}
 }
 
+func containerContextTags(name string) []string {
+	return []string{"builder", "b-a-a-s", name}
+}
+
 type createContextRequest struct {
 	Name string   `json:"-"`
 	Zone scw.Zone `json:"-"`
@@ -783,7 +787,7 @@ func containerContextCreate() *core.Command {
 			return api.CreateVolume(&instance.CreateVolumeRequest{
 				Zone:       request.Zone,
 				Name:       request.Name,
-				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				Tags:       containerContextTags(request.Name),
 				VolumeType: instance.VolumeVolumeTypeBSSD,
 				Size:       scw.SizePtr(scw.Size(request.Size) * scw.GB),
 			})
@@ -859,7 +863,7 @@ func containerContextStart() *core.Command {
 			x := instance.VolumeVolumeTypeBSSD
 			volumesResponse, err := api.ListVolumes(&instance.ListVolumesRequest{
 				VolumeType: &x,
-				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				Tags:       containerContextTags(request.Name),
 				Name:       scw.StringPtr(request.Name),
 			}, scw.WithZones(scw.AllZones...))
 			if err != nil {
@@ -871,7 +875,7 @@ func containerContextStart() *core.Command {
 
 			ipsResponse, err := api.CreateIP(&instance.CreateIPRequest{
 				Zone: volumesResponse.Volumes[0].Zone,
-				Tags: []string{"builder", "b-a-a-s", request.Name},
+				Tags: containerContextTags(request.Name),
 			})
 			if err != nil {
 				return nil, err
@@ -879,7 +883,7 @@ func containerContextStart() *core.Command {
 
 			return api.CreateServer(&instance.CreateServerRequest{
 				Zone:           volumesResponse.Volumes[0].Zone,
-				Tags:           []string{"builder", "b-a-a-s", request.Name},
+				Tags:           containerContextTags(request.Name),
 				Name:           "", // auto-generated
 				CommercialType: request.Type,
 				Image:          "docker",
@@ -926,9 +930,8 @@ func containerContextStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			response, err := api.ListServers(&instance.ListServersRequest{
-				Zone: request.Zone,
-				Tags: []string{"builder", "b-a-a-s", request.Name},
+			serversResponse, err := api.ListServers(&instance.ListServersRequest{
+				Tags: containerContextTags(request.Name),
 				Name: scw.StringPtr(request.Name),
 			})
 			if err != nil {
@@ -980,7 +983,7 @@ func containerContextDelete() *core.Command {
 			response, err := api.ListVolumes(&instance.ListVolumesRequest{
 				Zone:       request.Zone,
 				VolumeType: &x,
-				Tags:       []string{"builder", "b-a-a-s", request.Name},
+				Tags:       containerContextTags(request.Name),
 				Name:       scw.StringPtr(request.Name),
 			})
 			if err != nil {
