@@ -6,3 +6,5 @@ node_modules
 # Local release artifacts
 dist/
 scw-cli-v2-version
+
+/scw
