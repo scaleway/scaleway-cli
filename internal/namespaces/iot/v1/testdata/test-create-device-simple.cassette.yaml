@@ -1,0 +1,230 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-hub-goofy-faraday","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","product_plan":"plan_shared","disable_events":null,"events_topic_prefix":null}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs
+    method: POST
+  response:
+    body: '{"region":"fr-par","id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-goofy-faraday","status":"enabling","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-16T14:45:01.496Z","updated_at":"2022-11-16T14:45:01.496Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
+    headers:
+      Content-Length:
+      - "546"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:02 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 736705b2-5184-4d05-83af-4053b19bc954
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/2658f811-fbb5-4c50-b52a-3947fbbdfa34
+    method: GET
+  response:
+    body: '{"region":"fr-par","id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-goofy-faraday","status":"enabling","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-16T14:45:01.496Z","updated_at":"2022-11-16T14:45:01.496Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
+    headers:
+      Content-Length:
+      - "546"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:02 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7fc9705c-5aea-4fe8-84f2-37403be7692c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/2658f811-fbb5-4c50-b52a-3947fbbdfa34
+    method: GET
+  response:
+    body: '{"region":"fr-par","id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-goofy-faraday","status":"enabling","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-16T14:45:01.496Z","updated_at":"2022-11-16T14:45:01.496Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
+    headers:
+      Content-Length:
+      - "546"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:07 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 75aa2532-db88-4024-8af2-ce553be1d1f6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/2658f811-fbb5-4c50-b52a-3947fbbdfa34
+    method: GET
+  response:
+    body: '{"region":"fr-par","id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-goofy-faraday","status":"ready","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-16T14:45:01.496Z","updated_at":"2022-11-16T14:45:01.496Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
+    headers:
+      Content-Length:
+      - "543"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:12 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1901021e-ff77-40c8-a25f-8096bdbdb640
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"foo","hub_id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","allow_insecure":false,"allow_multiple_connections":false,"message_filters":null,"description":null}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/devices
+    method: POST
+  response:
+    body: '{"device":{"id":"87dc3ddb-dc41-414c-8527-d987dfeadb9b","name":"foo","status":"enabled","hub_id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","created_at":"2022-11-16T14:45:12.488Z","updated_at":"2022-11-16T14:45:12.488Z","allow_insecure":false,"last_activity_at":"1970-01-01T00:00:00Z","is_connected":false,"message_filters":{"publish":{"policy":"reject","topics":[]},"subscribe":{"policy":"reject","topics":[]}},"allow_multiple_connections":false,"description":"","has_custom_certificate":false},"certificate":{"crt":"-----BEGIN
+      CERTIFICATE-----\nMIIETjCCAzagAwIBAgIQfXLKLFLHcMNdN7okvo/VtDANBgkqhkiG9w0BAQsFADCB\nzjELMAkGA1UEBhMCRlIxDzANBgNVBAgTBkZyYW5jZTEOMAwGA1UEBxMFUGFyaXMx\nEjAQBgNVBAkTCUxhIE1haXNvbjEJMAcGA1UEERMAMRgwFgYDVQQKEw9TY2FsZXdh\neS9PbmxpbmUxEDAOBgNVBAsTB0xhYi9Jb1QxITAfBgNVBAMTGFNjYWxld2F5IElv\nVCBDZXJ0aWZpY2F0ZTEwMC4GA1UEBRMnMjE1MzE0NTA3MTE4NDY5Njc2OTQ1Njk5\nOTYwNjA4NzA5MjYxNTcwMB4XDTIyMTExNTE0NDUxMloXDTMyMTExNTE0NDUxMlow\ngZ4xCzAJBgNVBAYTAkZSMQwwCgYDVQQIEwNJREYxDjAMBgNVBAcTBVBhcmlzMTEw\nLwYDVQQKEygwNjBDRjlGRDQyRTUwQUM0NTM4RDQ5NzgyQjk3MTZBNjEyQjZDMUFE\nMQwwCgYDVQQDEwNmb28xMDAuBgNVBAUTJzE2Njc0OTUyMTg3MzM4NTQyMjI4MDAx\nNjY3NTIyODMxNzg5ODE2NDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAPkjLMYAOaWd5sL850g1/26socgsN0hJPgTiHSFntpHKncl7Euayi3+g51BSu9OS\nuzQK/BOzYcscIUCopGmgwnsgqZthRRghtNFYgO+Vb1vjrGJEmQqjLfyddrb528M8\nl0EKSiJBjmBkvZ6O9voRZD88SL4kFzbD6Vq98G4WFG03/LBFoW0mYfZgeuNc6q8Q\n1WijrLQay6bzf4ZrD9gVf2s7oFW+tVKKohu2qM+rbWsu8buGx13hKEPepnEUtNmQ\n4ayYlmWMYbSZSVvyOkD1ox7SrbjtPYqni9rNt/NHkCTL1mQqjcTx7WRfb2Es3zM2\nNophJbItwJwIHLuixpK3HlUCAwEAAaNWMFQwDgYDVR0PAQH/BAQDAgWgMBMGA1Ud\nJQQMMAoGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUquEHuIi7\nWs9yNTBergzZ9QSM3iMwDQYJKoZIhvcNAQELBQADggEBAH9v/RsVxEgdgmaGQ8lN\nu/74TBQ4bGgaX7lyspHsG3z/lBjzQzGTv/Yd60UmGgP1D83pLFmnKdxoG7yEzg5u\n35exNjgO8hV6HywRt686XSL7Tj1i6uZfYDN2qvd4zEYfjY5CyZqn2Kws0Gf4r71L\nXQkY/qdwcuYGkHWMW6OpSfltE8qbEqPlvCDCbKXE9+XL+3Ofq2ijQLq45CIIhqC+\n6xagHdabjVezUcDnWkyotImPVDOGVYABZlJi2gFI2P6XrYwuHEB3UthyAW/RsCqD\nru2JzrxFkqc3ToRiHkY3+RCIKw23JAPcCV4qXrJzJchC7p+c5bZfswmLXMI8dF/p\n0JE=\n-----END
+      CERTIFICATE-----\n","key":"-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEA+SMsxgA5pZ3mwvznSDX/bqyhyCw3SEk+BOIdIWe2kcqdyXsS\n5rKLf6DnUFK705K7NAr8E7NhyxwhQKikaaDCeyCpm2FFGCG00ViA75VvW+OsYkSZ\nCqMt/J12tvnbwzyXQQpKIkGOYGS9no72+hFkPzxIviQXNsPpWr3wbhYUbTf8sEWh\nbSZh9mB641zqrxDVaKOstBrLpvN/hmsP2BV/azugVb61UoqiG7aoz6ttay7xu4bH\nXeEoQ96mcRS02ZDhrJiWZYxhtJlJW/I6QPWjHtKtuO09iqeL2s2380eQJMvWZCqN\nxPHtZF9vYSzfMzY2imElsi3AnAgcu6LGkrceVQIDAQABAoIBAQDocADd2mfuNJuP\nYBUIMhjWUQm/kEEjl/Hc7HjxKaoT6027JLBFvF6Z/KzTK91BT6yIqZb1am7a6Ku9\nf5mlUu8foSGcbevgz9G7Xy8sV+dFe+zg4c9HNWc6QE7597MpO+aCL+9qdm83T8X5\noLicJo240a2seE+QMMgOeRdQHhmAqtw1pkcqH5+3Vc6LUIvtYYHm50lWkgnWWodE\nzL/KBYmg2B/WdmMESi8Q9/1YL9Dm9OSUCBVEk3/mEOz/V0dhnmLnF2PMzdmWmQqO\nWvd9hS7LqwQg5k+AK0TQGxXQIcFyokos7zaVbQho7MGmva5j90RpSVlUg5/gJ3Ln\ni9bfsYIhAoGBAPkwZhKhSHiVL0u8sCtzkwxRa6b2eAZ1f7yvsQ1JeZg3yUMy+sJU\nWJKl5UPZ5nML2p6tTPbGLt+a/mzkSqjGzJb3DeWcc/KKuPhdwbXJIa+vQjP+t6Oo\nna+XaLPArnWbpoJzN2xe1SPNI0UTcMs24LcTwMjMWGWR8byHuRa6qKXnAoGBAP/y\naiwV9lJSqnGiI9t6Ix5Mq+EsbBJdArFkDrLpbKB3iLxERH7jnMtAdv/OKDffsLi1\nRyPoaloalkF0HoaxkxG2M7npeliRzJ3dpJ59zc2mdF/R0BxIwVLSA/Ucj3NYZTc0\nvLhoNR0aApxOEoo3D1vBdoRdDcabysyHYwt4fppjAoGAaYFYdmLbMFLZ55NIc91H\nUVvX3KVWREXTg6xPpnSJiy1zhYQ8L7NOnSioXYYQ0H0gXza483MNvZb+SlSOV890\nKCcKN0F6xiJ+Fop7zeAO5zepLCKY1i46NXJB3nmiZCE26tylhrjQPYxJdqG4jBH8\nKweuBFagxsB4PX6pmzoE1dkCgYEA/PyVW4w91LNnTDjTLp70VX+9qS3qiOAsyEC5\nkrjNqXNd0ZG9DptXIURQG5uf/1J48KombmTNstBy0rG/dq3RTAGH8WzJhQBge25Y\nyFxbb7nnb8sI5Nw5Uu7KAJ7BYGbwbPgQzkoarfBGwk8dXkb8RFrfFgiQlE7rzuzH\nxs/MfDcCgYEAu7p+1KZ+zmJCUPt3x81CVSAH/ntJL6j++MqB7qeb9eCjzQuNKK46\nq2FkMIva1cQqIkQTyoofsDxDblNDdlwS3htF0bbs79tI+AJfn+WIV2kuepi9vmyy\na9pRpSCncvC3TaNfRzNBMGbjnghnqGXz89/GUYXoXK9fnbMhFNHUU6w=\n-----END
+      RSA PRIVATE KEY-----\n"}}'
+    headers:
+      Content-Length:
+      - "3811"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:13 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f5854fea-a79a-4365-882b-750a1ba4427a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/devices/87dc3ddb-dc41-414c-8527-d987dfeadb9b
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:13 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9b6f8134-d4e8-4cfc-bd82-a1040fe2defe
+    status: 204 No Content
+    code: 204
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/2658f811-fbb5-4c50-b52a-3947fbbdfa34
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 16 Nov 2022 14:45:13 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 31154b0f-6f73-490b-adc1-a4baa367b8dc
+    status: 204 No Content
+    code: 204
+    duration: ""
