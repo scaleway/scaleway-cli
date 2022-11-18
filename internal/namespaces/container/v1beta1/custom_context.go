@@ -80,6 +80,21 @@ func containerContextCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
+
+			x := instance.VolumeVolumeTypeBSSD
+			volumesResponse, err := api.ListVolumes(&instance.ListVolumesRequest{
+				Zone:       request.Zone,
+				VolumeType: &x,
+				Tags:       containerContextTags(request.Name),
+				Name:       scw.StringPtr(request.Name),
+			})
+			if err != nil {
+				return nil, err
+			}
+			if volumesResponse.TotalCount != 0 {
+				return nil, fmt.Errorf("A volume named %q in zone %q already exists!", request.Name, request.Zone)
+			}
+
 			return api.CreateVolume(&instance.CreateVolumeRequest{
 				Zone:       request.Zone,
 				Name:       request.Name,
@@ -358,16 +373,16 @@ func containerContextStop() *core.Command {
 			} {
 				cmd := exec.CommandContext(ctx, line[0], line[1:]...)
 				cmd.Stdout = io.Discard
-				if err := cmd.Run(); err != nil {
-					return nil, err
-				}
+				cmd.Run() // Ignore errors
 			}
 
-			if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
-				Zone:     serversResponse.Servers[0].Zone,
-				VolumeID: serversResponse.Servers[0].Volumes["0"].ID, // boot volume
-			}); err != nil {
-				return nil, err
+			if bootVolume, ok := serversResponse.Servers[0].Volumes["0"]; ok {
+				if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+					Zone:     serversResponse.Servers[0].Zone,
+					VolumeID: bootVolume.ID,
+				}); err != nil {
+					return nil, err
+				}
 			}
 
 			serverActionResponse, err := api.ServerAction(&instance.ServerActionRequest{
