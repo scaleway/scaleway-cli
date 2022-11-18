@@ -150,7 +150,6 @@ func containerContextStart() *core.Command {
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-
 			request := args.(*startContextRequest)
 
 			client := core.ExtractClient(ctx)
@@ -166,7 +165,18 @@ func containerContextStart() *core.Command {
 				return nil, err
 			}
 			if volumesResponse.TotalCount != 1 {
-				return nil, fmt.Errorf("Could not find volume named %q", request.Name)
+				// Create some block storage on the fly if none exist yet
+				if _, err := containerContextCreate().Run(ctx, args); err != nil {
+					return nil, err
+				}
+				volumesResponse, err = api.ListVolumes(&instance.ListVolumesRequest{
+					VolumeType: &x,
+					Tags:       containerContextTags(request.Name),
+					Name:       scw.StringPtr(request.Name),
+				}, scw.WithZones(scw.AllZones...))
+				if err != nil {
+					return nil, err
+				}
 			}
 
 			ipsResponse, err := api.CreateIP(&instance.CreateIPRequest{
