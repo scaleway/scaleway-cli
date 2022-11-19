@@ -2,21 +2,20 @@ package tasks
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 
 	"github.com/briandowns/spinner"
 )
 
 type Task func(args interface{}) (nextArgs interface{}, err error)
-type TaskWithCleanup func(args interface{}) (nextArgs interface{}, cleanUpArgs interface{}, err error)
-type CleanUpTask func(cleanUpArgs interface{}) error
+type TaskWithCleanup[T any] func(args interface{}) (nextArgs interface{}, cleanupArgs T, err error)
+type Cleanup[T any] func(cleanupArgs T) error
 
 type taskInfo struct {
 	Name          string
-	function      TaskWithCleanup
-	cleanFunction CleanUpTask
-	cleanUpArgs   interface{}
+	function      TaskWithCleanup[any]
+	cleanFunction Cleanup[any]
+	cleanupArgs   interface{}
 }
 
 type Tasks struct {
@@ -27,6 +26,7 @@ func Begin() *Tasks {
 	return &Tasks{}
 }
 
+// Add a task that does not need cleanup
 func (ts *Tasks) Add(name string, task Task) {
 	ts.tasks = append(ts.tasks, taskInfo{
 		Name: name,
@@ -37,11 +37,16 @@ func (ts *Tasks) Add(name string, task Task) {
 	})
 }
 
-func (ts *Tasks) AddWithCleanUp(name string, task TaskWithCleanup, clean CleanUpTask) {
+// AddWithCleanUp adds a task to the list with a cleanup function in case of fail during tasks execution
+func AddWithCleanUp[T any](ts *Tasks, name string, task TaskWithCleanup[T], clean Cleanup[T]) {
 	ts.tasks = append(ts.tasks, taskInfo{
-		Name:          name,
-		function:      task,
-		cleanFunction: clean,
+		Name: name,
+		function: func(args interface{}) (nextArgs interface{}, cleanUpArgs any, err error) {
+			return task(args)
+		},
+		cleanFunction: func(cleanupArgs any) error {
+			return clean(cleanupArgs.(T))
+		},
 	})
 }
 
@@ -50,13 +55,13 @@ func (ts *Tasks) Cleanup(failed int) {
 	totalTasks := len(ts.tasks)
 
 	i := failed - 1
-	for ; i >= 0; i -= 1 {
+	for ; i >= 0; i-- {
 		task := ts.tasks[i]
 
 		if task.cleanFunction != nil {
 			fmt.Printf("[%d/%d] Cleaning task %q\n", i+1, totalTasks, task.Name)
 
-			err := task.cleanFunction(task.cleanUpArgs)
+			err := task.cleanFunction(task.cleanupArgs)
 			if err != nil {
 				fmt.Printf("task %d failed to cleanup: %s", i+1, err.Error())
 			}
@@ -64,18 +69,18 @@ func (ts *Tasks) Cleanup(failed int) {
 	}
 }
 
+// Execute tasks with interactive display and cleanup on fail
 func (ts *Tasks) Execute(data interface{}) (interface{}, error) {
 	var err error
 	totalTasks := len(ts.tasks)
-	rand.Seed(time.Now().UnixNano())
-	spin := spinner.New(spinner.CharSets[rand.Int()%37], 100*time.Millisecond)
+	spin := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
 
 	for i := range ts.tasks {
 		task := &ts.tasks[i]
 		fmt.Printf("[%d/%d] %s\n", i+1, totalTasks, task.Name)
 		spin.Start()
 
-		data, task.cleanUpArgs, err = task.function(data)
+		data, task.cleanupArgs, err = task.function(data)
 		if err != nil {
 			spin.Stop()
 			fmt.Println("task failed, cleaning up created resources")
