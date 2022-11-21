@@ -1,6 +1,7 @@
 package tasks
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -70,7 +71,7 @@ func (ts *Tasks) Cleanup(failed int) {
 }
 
 // Execute tasks with interactive display and cleanup on fail
-func (ts *Tasks) Execute(data interface{}) (interface{}, error) {
+func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, error) {
 	var err error
 	totalTasks := len(ts.tasks)
 	spin := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
@@ -86,6 +87,15 @@ func (ts *Tasks) Execute(data interface{}) (interface{}, error) {
 			fmt.Println("task failed, cleaning up created resources")
 			ts.Cleanup(i)
 			return nil, fmt.Errorf("task %d %q failed: %w", i+1, task.Name, err)
+		}
+
+		select {
+		case <-ctx.Done():
+			spin.Stop()
+			fmt.Println("context canceled, cleaning up created resources")
+			ts.Cleanup(i + 1)
+			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
+		default:
 		}
 
 		spin.Stop()
