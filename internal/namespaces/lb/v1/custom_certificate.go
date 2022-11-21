@@ -84,5 +84,13 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 	}
 
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "LB",
+			},
+		},
+	}
+
 	return c
 }

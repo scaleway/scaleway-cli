@@ -12,6 +12,11 @@ Elastic metal API
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
   - [List all available OS that can be install on an elastic metal server](#list-all-available-os-that-can-be-install-on-an-elastic-metal-server)
+- [Private network management command](#private-network-management-command)
+  - [Add a server to a private network](#add-a-server-to-a-private-network)
+  - [Delete a private network](#delete-a-private-network)
+  - [List the private networks of a server](#list-the-private-networks-of-a-server)
+  - [Set multiple private networks on a server](#set-multiple-private-networks-on-a-server)
 - [Server management commands](#server-management-commands)
   - [Create an elastic metal server](#create-an-elastic-metal-server)
   - [Delete an elastic metal server](#delete-an-elastic-metal-server)
@@ -223,6 +228,106 @@ scw baremetal os list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | offer-id |  | Filter OS by offer ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Private network management command
+
+A private network allows interconnecting your resources
+(servers, instances, ...) in an isolated and private
+network. The network reachability is limited to the
+resources that are on the same private network.  A VLAN
+interface is available on the server and can be freely
+managed (adding IP addresses, shutdown interface...).
+
+Note that a resource can be a part of multiple private networks.
+
+
+
+### Add a server to a private network
+
+Add a server to a private network.
+
+**Usage:**
+
+```
+scw baremetal private-network add [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | The ID of the server |
+| private-network-id | Required | The ID of the private network |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete a private network
+
+Delete a private network.
+
+**Usage:**
+
+```
+scw baremetal private-network delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | The ID of the server |
+| private-network-id | Required | The ID of the private network |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List the private networks of a server
+
+List the private networks of a server.
+
+**Usage:**
+
+```
+scw baremetal private-network list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | The sort order for the returned private networks |
+| server-id |  | Filter private networks by server ID |
+| private-network-id |  | Filter private networks by private network ID |
+| project-id |  | Filter private networks by project ID |
+| organization-id |  | Filter private networks by organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set multiple private networks on a server
+
+Set multiple private networks on a server.
+
+**Usage:**
+
+```
+scw baremetal private-network set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | The ID of the server |
+| private-network-ids.{index} | Required | The IDs of the private networks |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
