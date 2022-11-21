@@ -2,26 +2,26 @@
 version: 1
 interactions:
 - request:
-    body: '{"project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-test","description":"cli-test","ip_id":null,"tags":null,"type":"LB-S","ssl_compatibility_level":"ssl_compatibility_level_unknown"}'
+    body: '{"project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-test","description":"cli-test","ip_id":null,"tags":null,"type":"LB-S","ssl_compatibility_level":"ssl_compatibility_level_unknown"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.16.5; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs
     method: POST
   response:
-    body: '{"id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","name":"cli-test","description":"cli-test","status":"pending","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd","ip_address":"195.154.69.107","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","reverse":"195-154-69-107.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2021-07-07T12:46:07.998519626Z","updated_at":"2021-07-07T12:46:07.998519626Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
+    body: '{"id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","name":"cli-test","description":"cli-test","status":"to_create","instances":[],"organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","ip":[{"id":"a1373141-b2ba-40c3-96cf-687b3a39bd5b","ip_address":"51.159.207.181","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","lb_id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","reverse":"51-159-207-181.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2022-11-16T14:09:23.557112283Z","updated_at":"2022-11-16T14:09:23.557112283Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "867"
+      - "869"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Jul 2021 12:46:08 GMT
+      - Wed, 16 Nov 2022 14:09:23 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -31,7 +31,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1b7d3fc5-8eca-466a-8133-a4bb1e5b0e75
+      - 80545c8e-e604-4e2b-9a31-2f280f803023
     status: 200 OK
     code: 200
     duration: ""
@@ -40,20 +40,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.16.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/78dfb0ff-38f3-4b68-99b8-8712a2bc47de
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/bc20f005-42bf-48f5-a77c-36e9ee545b01
     method: GET
   response:
-    body: '{"id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","name":"cli-test","description":"cli-test","status":"pending","instances":[],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd","ip_address":"195.154.69.107","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","reverse":"195-154-69-107.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2021-07-07T12:46:07.998520Z","updated_at":"2021-07-07T12:46:07.998520Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
+    body: '{"id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","name":"cli-test","description":"cli-test","status":"to_create","instances":[],"organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","ip":[{"id":"a1373141-b2ba-40c3-96cf-687b3a39bd5b","ip_address":"51.159.207.181","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","lb_id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","reverse":"51-159-207-181.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2022-11-16T14:09:23.557112Z","updated_at":"2022-11-16T14:09:23.557112Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "861"
+      - "863"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Jul 2021 12:46:08 GMT
+      - Wed, 16 Nov 2022 14:09:23 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -63,7 +63,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 74f2283b-9415-498a-94fc-e6474b7eeb78
+      - d1c77f70-0736-4aeb-a769-a9b030365660
     status: 200 OK
     code: 200
     duration: ""
@@ -72,20 +72,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.16.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/78dfb0ff-38f3-4b68-99b8-8712a2bc47de
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/bc20f005-42bf-48f5-a77c-36e9ee545b01
     method: GET
   response:
-    body: '{"id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"4a313199-f9be-4e80-923a-3ccae272737f","status":"ready","ip_address":"10.72.86.71","created_at":"2021-07-07T12:45:07.151876Z","updated_at":"2021-07-07T12:46:08.780930Z","region":"fr-par","zone":"fr-par-1"},{"id":"ec7f3bb8-ea1c-4b93-90af-f44fb53fdd09","status":"ready","ip_address":"10.70.88.7","created_at":"2021-07-07T12:45:02.421221Z","updated_at":"2021-07-07T12:46:08.965597Z","region":"fr-par","zone":"fr-par-1"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd","ip_address":"195.154.69.107","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","reverse":"195-154-69-107.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2021-07-07T12:46:07.998520Z","updated_at":"2021-07-07T12:46:09.470561Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
+    body: '{"id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"e314b6f0-0977-4372-b4a6-078250748a6a","status":"ready","ip_address":"10.72.120.23","created_at":"2022-11-16T14:08:21.359106Z","updated_at":"2022-11-16T14:09:24.308186Z","region":"fr-par","zone":"fr-par-1"}],"organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","ip":[{"id":"a1373141-b2ba-40c3-96cf-687b3a39bd5b","ip_address":"51.159.207.181","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","lb_id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","reverse":"51-159-207-181.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2022-11-16T14:09:23.557112Z","updated_at":"2022-11-16T14:09:24.832754Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "1281"
+      - "1071"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Jul 2021 12:46:10 GMT
+      - Wed, 16 Nov 2022 14:09:25 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -95,34 +95,34 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2a023908-d825-4d95-a65c-23894463790a
+      - 38af2638-030a-47d9-a509-05ab3848539a
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"name":"cli-certiticate-festive-goldberg","custom_certificate":{"certificate_chain":"\n-----BEGIN
-      RSA PRIVATE KEY-----\nMIIJKAIBAAKCAgEAtmpvK5p1lPG2xL/AObtv3xJXhAmSkqn/uhObSwuo8JkK+Lpi\n86AQ/XRAjxAzfkEOQF3MOJGSK1uOqrZ/G5yH2XqK86HnoUkVpIy60yiF5fzeed3D\nf8pF1ymi4IEe2Y+Uzs4rMP5jxAxHPbLYKQgfg1u7PNlwpngw3uo7ZPcL/jZJNMwy\nYj3aeu2vh8obmCQDiE2hIKqW9V7M95bcWpWtmVCcplFMfbvq0pByPmOtCwx22IUO\nuRgx3dxTRrXmAXzERRjfnzJLr1WYrApmrmUkdQSgSf5TOZpopHd4SWJLvlHLh30/\nbCO2ofr1y7DOICnLNURBqRdnjIYlJ2Atup9h2x11NwgmxkeWfvoxcuP0XUZnFQbf\ngVkKQWZM6Dy2xIZPz8oRmYXiJDXs4yTDbUbWdP9BzmWlPDWQeIYPokX/9bpEe9OF\nSHzBaQpFUKzlmo6Yra+RJzLa0EctMrzgME16oGZFBPkULHrPMhbdniHgVcql2A2P\nl9UQxw6Qqo3jMloci7NFEqWF3c3DazjYbXaveojIJa3MXveSulUgiBFgiJs0wvfi\nAY49p9jhj5LiS5tYvDULjzeIsHaLgzCG8zTA86zW/Enx5/8SIyPUKtHtrkjzsjlH\ndbQ2DSnQQ5Sk6kBp9tX0RliDgGrbQ7upZ4jPdl9YbY1Wfy1+cMwGqjJ+cEUCAwEA\nAQKCAgAC5npSBSitb5JqWmoiANrsfwwpK0XLUyyftsQXU14iRSype70rBnZ+sSR9\nodJPxZUGbPdcRuQ+EDyadkBbHggC6zHeYcqfA9x2O06VIOXQHE8lPONo2rx1iVHv\no93rs564EwsYwlKvwUo4rulE7b4ihojZlNN3sh2EzdCX8F2ecxqC3mRGr5kTr0fF\nLu91Yc00k5dmP5Aa4qD7pshmIE8cSu3SryQ6M4yuQGGwoEEWFeKl2qe7Rak1T9V7\nIFVB3Mv6FUUo8NHHPeMpiRjM2QrVWXd69bI5Dj1vr/6XnBp8Miy8QL+LZp32wVi7\nHlqIpGF4vVcV6ytYTqG0mJDhkLsri9Lwe5OvN+gJe8/VLrJUb6PoJ12wWgQ80uWi\nYMQr/3H/fFU8vkfXqDEWa6fq3RYy8IimE5L+stsVtrkejdyFx8XyQhDnucfrFkrS\nX/3pceozQRquFrpcrk8RpMNE8chP8M+BhO4pvAORT1dVCdDXzuVQWjanxocIc/GD\nx7EHqDFKwxBrxAjobGdlIWZoj+sz3nAXAetMgmZMbSHHPUB5PGRuGy3HnLX7APR6\n1b1C8c+QpuKUv3uoSKRIzeiF5nwMMKsNsLa7ZtYBZXbrUOkrKVlj6mRNuGFC0n1P\nvrPT0XI+4T+xgdBobS1YH5qQn2TLhwoPW8FPb1V6/iU+IO6GWQKCAQEA27fGQ0pf\n5VgdcCsSml2HpjcAOLZraN4TI5xImZ4VnyA7esyIV9rV5VFNyihNxESZ3chl4NcD\n5WQaJ2zWBIto5Y/5gbhrNCvyeWuoJQ9YqviwKpCN0lqkvm1P8lLJmJrYbyhEm2T9\n2LZIcbgv2eW8pzeLtdr7Qpep8pwhvFIUGUXmNjka6T/WlIrQl3VVfzjHxd/mUmV2\nzzAVYjs45mHFZDwxSi+f4xM9q9wYkG7oAq4QoDLXcVQ+FIV12QjzmTA7erBBm9NK\nScFinS5YZxZGqw95Oc3yjskO34I/538uWjAdDQlDOghde6igw0f8UPTSgxBhmV4l\nTIex0npXhdAWqwKCAQEA1InFpd0v8WnFUqs60FepaRIoo3NZ0ZA2Vb2TvvgQxz+Q\nye7QcDf3VdRuWoXd6X6vtfeJ4G1avsh7aEItTfdXMx0pYTzyPlpJTweut+uGOyy5\nZBjfyYqiR3WzqWghKn4RZNJ5gKYsn8/doQ68IDUpqcngW+FUDR16uDdtf09vhOec\nEKgEZh6bSvRrQ6Zrav3gDhiJjPRQZpcEacFZO8WlB2QOFuBgEvF8niliz1NITtZJ\nsI0jXe+2m91ntIZmDhDMqEOhrYZD5R+PB06osXqE+Kh0/2u6AsoOkQczVco2bVXH\nPL0hNpQjCUveMTWhxQSrw1LCS0S2GMEbcWH/l2RUzwKCAQBKyFgA2zWcd8s9PEvO\nonrjBeFbbCtOvBdDjZPgRUASswPLngXh8SfQL0YMwn8FiFvecrDKQCShVNraBF8r\nmM+RItnHXx+N2E9lKFFIm9qQBqjfM+gxaoycC9SkI61d9YYo/0mqoksMEa7ClfAj\nd+AoAe3ZbbkLR1eeramF0WHp4DKkzfbs4L+GO2EXy+XXsVm9baGU9dfkWPdOQd3x\n++EVZq9YErGWthvNfNIXhsgM8XXTMLrHZebjUTF1N2jCAPqdnZQXF2k3hUytNvL7\n00cmPdQC6qfeFWysgkaB4nXCWJHqt/ZbsDExP4nILZ4hZ9KmrVKqwrJrQ9wwSVe0\nwciVAoIBAQCgqn11Ax3o+zIlajeNo5b3TLjXxq1RVBke+66ioFfep1jGrfd3vXcF\ntQ6u859rkU822aeqtj/xFRDlIZGp7J5Ij3TmgvIE3K+qRH55nlvcg9SprHwPmPNP\n3dQw7fyUaLSxaMJc1EHLlZFO3RqtpkKWjXtDObUWLQDGHXBy2xPMfmFl3f1lTSHL\nqbUkcLunJ7+mKDpjCZV12BeH8peILcKxMZvNA1TdPRwdW9/MJoL0xdzyz966dimu\n7dIlj6u6Wky7rlScHnFY1WCD/5xafenjJ0U6iK8WyLP2QmE2KyS1xjBU5AwlfBp4\nPpf6zzY4/2zwvLEPwSN+1wvtzE0wnrHVAoIBAEV+CnNJSTACRtbEymmdVXXUh632\nE7D99ggrmYTRHplrcg/8Vibnkq7lEdHR801nR0b1cTZZ0DR/8goxjiJpnFtAhMnp\npc+GzYt1OayWxYuY5y9MdXZZLD0IVae5yxlz0rCTq9WQ+kxOZTrddJ14nNXdM+wr\npg2cIt8R/OWVfH7DvspNi88IvUVVz828qt1OkxvunC4MNIkz/6OBkOhYp4+LkvD2\nTG3xuK+574wgTbQrlUTLsA2RYSaWVYaXQKDBPujNGnIbYym3J5+4XSkiDz0KapeU\nnaBi1WZgzi1fm8aacu7YXxUTIbyJpXdc8Mz5+6NNAk0K2clKoYsO/VbQswY=\n-----END
-      RSA PRIVATE KEY-----\n-----BEGIN CERTIFICATE-----\nMIIFszCCA5ugAwIBAgIJANBJxhjW9oz3MA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNV\nBAYTAkZSMRYwFAYDVQQIDA1JbGUtZGUtRnJhbmNlMQ4wDAYDVQQHDAVQYXJpczEW\nMBQGA1UECgwNTXlDb21wYW55TmFtZTESMBAGA1UEAwwJbG9jYWxob3N0MRswGQYJ\nKoZIhvcNAQkBFgxtZUBlbWFpbC5jb20wHhcNMjAwNzIyMDk0MzA1WhcNMjEwNzIy\nMDk0MzA1WjB+MQswCQYDVQQGEwJGUjEWMBQGA1UECAwNSWxlLWRlLUZyYW5jZTEO\nMAwGA1UEBwwFUGFyaXMxFjAUBgNVBAoMDU15Q29tcGFueU5hbWUxEjAQBgNVBAMM\nCWxvY2FsaG9zdDEbMBkGCSqGSIb3DQEJARYMbWVAZW1haWwuY29tMIICIjANBgkq\nhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwM6FCUSBpmsDoNktO6E5EgxwqRU+q14u\n97MAiEKYFPWeEEz2F7nBKd4LT7agpG4kCCQIWohlqmYiWg6JJiEv2inKTTlYCYyU\n1VT0ZcP6xpkCL8r7oN4b3pwCPIjyRimo1Pf3DnvoyfDmL/O7MkafAJhFQ6STys7a\nKB9Q08mmc2nbCfjC1r+PIsYEI4OQRhDpZwSI4kJdLjjZS+lMaGv/US/yxYFnTju5\nMaSeIiQhrXQ9mXd1xHGAICrOut4aRN60qHCvTHF+fKjYj41L6CCjdVPB7kVSNdg1\n/hdEPMOL6mTL7oitporsneljhuhmkKCmVMtYwfyCr/Z3TiBIs2yD0ZrIkjdYSlkZ\nvbM2Fy2aSoGc+lYguCH36RaiLSKL5rXj63/EcRnYmm4/Qutjdl1ZVSzVB4V30cxh\nHedAZ1LQ77v9cFJKVthFxHGDa1uvCoRPbXMVP5zp6nIZWh2e39aClIniYKBTvHmN\nI6Ta9zI0DvpNQHnPJUkYfdbSq6cvopXgtucPF16oLw2e82PpfBy6bfzhKZ8Rlh3d\n1lRXYcx5NGo74vCiAEn8RorOMqB6Y22rVA7ugvAkd2j2x+3dXLixa2W2gunYBBIH\n3ZpXVWf3e8ityPL4ElWakU7S1p0qYLtLTSTQN/q93al4pd8sVeMWvYNlga8oZQVC\nHqo5wJl6Xn0CAwEAAaM0MDIwMAYDVR0RBCkwJ4ISc2VydmVyLmV4YW1wbGUuY29t\nghFhbGlhcy5leGFtcGxlLmNvbTANBgkqhkiG9w0BAQsFAAOCAgEAdPU0tVV1ryKL\nzsGZaCKeEM+izrXL6Mg2W/BjQJmyDVGgCW4WTNrXHwhINuT3gBdGOdc0FjI5lOwu\njRyCVkWfxQANusClG4jJ3V90s2C//bT3VkQIT6Ajl2VYsEoSHE+/hN/8S7U6MCUz\nezvhfyGKiTj7pD3pGyb47Gys4kXY1p5t/TO1kVoaAfhnEXFSYMeMQLYGct5VB59o\nNAQpSlt54umebbcHXz4V3M4/2R6RLQkkl1Jw9Xwq6uRRE52y3M/wAdVTpsRHixx/\nueyUqjx+ctPEXvZ7uvRuqYELV2gY/bFlNpR2J2mRw9Unw3sxSoDQG/CYmoiOIypF\nfhdM7aVQMAyiKlCCVEj4mo67kR6Phnr6mOHm6oappJxhqMS7476+SQMGgMj4E8Zm\n4jrDB1OC1Xk5f+DaNNH3RC2ONi8ujgjdlm6/kvSX7/9Qv/VXEnl4j0lwFTS0+uWA\nULsDgtZDL5rbIzyjHYsp3IsNStyTbgILVRzeG7ec8RQ9ywUQzdAgkUPnhZZCXeYa\nenQQD5IHhCPymbX1YaJtOrIIWxgstt4jM74fbke4RBTYjfdd/St0e0QT77x2nPSD\nW+PRZGQr+hGmvVf5TwVxOMNcwhVzBsFmo/fIwCef/F9N0j+8UUd8iv+LZ5DcWWCB\nu7hOptIAnzVMFt9d/EhtaU6+KoWS/sI=\n-----END
+    body: '{"name":"cli-certiticate-strange-elgamal","custom_certificate":{"certificate_chain":"\n-----BEGIN
+      PRIVATE KEY-----\n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\nMepiPn3PLfsjd0iqJJ/3k3oqCMAUrw==\n-----END
+      PRIVATE KEY-----\n-----BEGIN CERTIFICATE-----\nMIIFijCCA3KgAwIBAgIJAI+myVDGPxI7MA0GCSqGSIb3DQEBCwUAMG4xCzAJBgNV\nBAYTAkZSMRYwFAYDVQQIDA1JbGUtZGUtRnJhbmNlMQ4wDAYDVQQHDAVQYXJpczEd\nMBsGA1UECgwUTXlJbnRlcm5ldENvbXBhbnlMVEQxGDAWBgNVBAMMD3d3dy5leGFt\ncGxlLmNvbTAeFw0yMjExMTQxNjA5MTFaFw0yMzExMTQxNjA5MTFaMG4xCzAJBgNV\nBAYTAkZSMRYwFAYDVQQIDA1JbGUtZGUtRnJhbmNlMQ4wDAYDVQQHDAVQYXJpczEd\nMBsGA1UECgwUTXlJbnRlcm5ldENvbXBhbnlMVEQxGDAWBgNVBAMMD3d3dy5leGFt\ncGxlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAKOJJZJWGKyR\nMBTSwA1dzTz7NGoJLXLWQyOq2rOiqfG2uZ3Djy+ATjb6/mP+/SgEFHiS4ETCmvZZ\nPWU4bITm+FgEiOzyQ8EqdplH5Jrw54xim428ETydiASgghoiSSE+M9qzK4ROIrrf\nLHQPmrBGyb0Chr87mQo6kDDXs3Pdssk1ORhaPAul9vsnIbZWEX09rZ1+vuxqFjVM\nG70Zjwc1W9elYIYRYI1bwNCncHLbdHoGxSvAx6t/zxd/mGTEzji4dUJPAlrNx0yE\n8RiGzixruer+1YNRYXHeg9Y/FxhgQ2gIIm7pVQgac9wNcBcUxqiUFIPvyjiPSgK3\nSoBml4GAl3d1nP5+zAahV0UMty9Ez35lJq/qeLBTj2vyU34B7dEABG9JMllKxVLc\nn97xDjSL22cSSWB63wDHB1oVWLBnlSLZDZFLuWdAW3t05qvnkwieqgtrrIubxClF\n9VP92cyeggYNPmF3YspqYCxps22Y9JPU4m/cw6XRc/uBJUA6AMnw2OHUk3lfiq07\nca9NTMGiN+pt6Bwwt7wZTxlSLc9MSOon7TGddeLhkdOfevVrAhXKaYJU4/+ldsNS\nJ+V8FtVZk5C7k4XSUk8h6glLkDHlHcLS4OkK3w7T8LaSVrwVOw6BIWit359s43/7\nSuNA8revIlYJgq33KeWDGv9vnZqHZTiLAgMBAAGjKzApMCcGA1UdEQQgMB6CC2V4\nYW1wbGUuY29tgg93d3cuZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQADggIBAD/F\niIwu462RaaN8dZ7G0vhTGoz70hGsaLw7Qi8mOCN1hUfMrxh+oxLNUu9A/pNCx9zA\ng4N/8xvA3L85kv4RkvPDP5KQ9h/zIKgV2ADv8Swu67fclEVa6Mk4BmRPghfhs/h/\n9TEc3oyEyG6TQx5msPz9z9ghQyhgbYlo4DigAv8Gjz7RyGg1stD0LOeVg6pSVhK0\n37+dg55hox5mMN36g2O+xEM85u4uB4dqp4ibvKPapq+wAYg0YK3R79+KmlsbCVC1\nzFWyDwaH3H3VLb1a/aAHxUqvpTMmrJpeZWTPeVcsIKsml9NpjQgeIy4MjkjcHBJk\nZfZ9/R3OaM9Bl/OtUWEDadEXhMA/neJ0bZh8Bt2ql1GnKUYJPH0qWKgMwFThykcU\nl54C512JDGk8tBiNAh2cqbbKX+M0jqTuDmSeLZOcvWM+k0T/VbeERalPdH3xXO3L\nx4FFaqNY5W1sndunzYeWCpVNfK2unwcocj8hXl+Vcm0YgzDhz8CrgFQgp7qmtGH8\neewzvqkUm8i+N4c7Rax25M06EcT8dCfjHG0ScC+iOOrgm9V8bVNNsnUQzAqhwozp\nFKQ9WcK8j+KuYrWQJihn/omlWXSQ+zs12N7yKVLVRuY8aw4XuWZwvuu4EkRLYcUD\n5h467I4rNC2+9W+AcNkzCE2i/dCyt3f3y1Rtu8l0\n-----END
       CERTIFICATE-----\n"}}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.16.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/78dfb0ff-38f3-4b68-99b8-8712a2bc47de/certificates
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/bc20f005-42bf-48f5-a77c-36e9ee545b01/certificates
     method: POST
   response:
-    body: '{"id":"2402fcd0-e37d-422b-8923-8120bc4d32cd","type":"custom","status":"ready","common_name":"server.example.com","subject_alternative_name":["alias.example.com"],"fingerprint":"","not_valid_before":"2020-07-22T09:43:05Z","not_valid_after":"2021-07-22T09:43:05Z","lb":{"id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"4a313199-f9be-4e80-923a-3ccae272737f","status":"ready","ip_address":"10.72.86.71","created_at":"2021-07-07T12:45:07.151876Z","updated_at":"2021-07-07T12:46:08.780930Z","region":"fr-par","zone":"fr-par-1"},{"id":"ec7f3bb8-ea1c-4b93-90af-f44fb53fdd09","status":"ready","ip_address":"10.70.88.7","created_at":"2021-07-07T12:45:02.421221Z","updated_at":"2021-07-07T12:46:08.965597Z","region":"fr-par","zone":"fr-par-1"}],"organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","ip":[{"id":"ef28a018-dd4d-4ac0-96ec-7a0f0562a2dd","ip_address":"195.154.69.107","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","lb_id":"78dfb0ff-38f3-4b68-99b8-8712a2bc47de","reverse":"195-154-69-107.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2021-07-07T12:46:07.998520Z","updated_at":"2021-07-07T12:46:09.470561Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"},"name":"cli-certiticate-festive-goldberg","created_at":"2021-07-07T12:46:10.403011092Z","updated_at":"2021-07-07T12:46:10.403011092Z"}'
+    body: '{"id":"e8f67095-69ce-466b-98ec-58a1de2e29a7","type":"custom","status":"ready","common_name":"example.com","subject_alternative_name":["www.example.com"],"fingerprint":"","not_valid_before":"2022-11-14T16:09:11Z","not_valid_after":"2023-11-14T16:09:11Z","lb":{"id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","name":"cli-test","description":"cli-test","status":"ready","instances":[{"id":"e314b6f0-0977-4372-b4a6-078250748a6a","status":"ready","ip_address":"10.72.120.23","created_at":"2022-11-16T14:08:21.359106Z","updated_at":"2022-11-16T14:09:24.308186Z","region":"fr-par","zone":"fr-par-1"}],"organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","ip":[{"id":"a1373141-b2ba-40c3-96cf-687b3a39bd5b","ip_address":"51.159.207.181","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","lb_id":"bc20f005-42bf-48f5-a77c-36e9ee545b01","reverse":"51-159-207-181.lb.fr-par.scw.cloud","region":"fr-par","zone":"fr-par-1"}],"tags":[],"frontend_count":0,"backend_count":0,"type":"lb-s","subscriber":null,"ssl_compatibility_level":"ssl_compatibility_level_intermediate","created_at":"2022-11-16T14:09:23.557112Z","updated_at":"2022-11-16T14:09:24.832754Z","private_network_count":0,"route_count":0,"region":"fr-par","zone":"fr-par-1"},"name":"cli-certiticate-strange-elgamal","created_at":"2022-11-16T14:09:25.998462694Z","updated_at":"2022-11-16T14:09:25.998462694Z","status_details":null}'
     headers:
       Content-Length:
-      - "1683"
+      - "1485"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Jul 2021 12:46:10 GMT
+      - Wed, 16 Nov 2022 14:09:26 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -132,7 +132,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a1665aa0-e084-436e-9bbc-3dfa495c5dd0
+      - 2a82c684-a304-4ea1-8133-f2d93808d1df
     status: 200 OK
     code: 200
     duration: ""
@@ -141,8 +141,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.16.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/78dfb0ff-38f3-4b68-99b8-8712a2bc47de?release_ip=false
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/bc20f005-42bf-48f5-a77c-36e9ee545b01?release_ip=false
     method: DELETE
   response:
     body: ""
@@ -152,7 +152,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Jul 2021 12:46:10 GMT
+      - Wed, 16 Nov 2022 14:09:26 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -162,7 +162,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 3ca836df-0cc1-4bc2-9dbc-d33235f0508f
+      - 616db098-1413-4694-9fa0-6210fb008a97
     status: 204 No Content
     code: 204
     duration: ""
