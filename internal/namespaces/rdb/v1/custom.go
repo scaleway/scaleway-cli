@@ -23,7 +23,7 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
-	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshalerFunc)
+	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
 
 	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
@@ -36,6 +36,7 @@ func GetCommands() *core.Commands {
 		instanceConnectCommand(),
 		backupWaitCommand(),
 		backupDownloadCommand(),
+		engineSettingsCommand(),
 	))
 	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
 	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)
@@ -46,7 +47,6 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
-	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
 	cmds.MustFind("rdb", "instance", "update").Override(instanceUpdateBuilder)
 
