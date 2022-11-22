@@ -573,8 +573,8 @@ func rdbBackupExport() *core.Command {
 
 func rdbInstanceUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade an instance to an higher instance type`,
-		Long:      `Upgrade your current ` + "`" + `node_type` + "`" + ` or enable high availability on your standalone database instance.`,
+		Short:     `Upgrade an instance`,
+		Long:      `Upgrade your current instance specifications like node type, high availability, volume, or db engine version.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "upgrade",
@@ -616,6 +616,13 @@ func rdbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"lssd", "bssd"},
+			},
+			{
+				Name:       "upgradable-version-id",
+				Short:      `Update your instance database engine to a newer version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
