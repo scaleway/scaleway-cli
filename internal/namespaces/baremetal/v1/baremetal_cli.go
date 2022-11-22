@@ -24,7 +24,6 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOffer(),
 		baremetalOs(),
 		baremetalBmc(),
-		baremetalPrivateNetwork(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
@@ -41,10 +40,6 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOfferGet(),
 		baremetalOsList(),
 		baremetalOsGet(),
-		baremetalPrivateNetworkAdd(),
-		baremetalPrivateNetworkSet(),
-		baremetalPrivateNetworkList(),
-		baremetalPrivateNetworkDelete(),
 	)
 }
 func baremetalRoot() *core.Command {
@@ -95,23 +90,6 @@ And finally Get Remote Access to get the login/password https://developers.scale
 `,
 		Namespace: "baremetal",
 		Resource:  "bmc",
-	}
-}
-
-func baremetalPrivateNetwork() *core.Command {
-	return &core.Command{
-		Short: `Private network management command`,
-		Long: `A private network allows interconnecting your resources
-(servers, instances, ...) in an isolated and private
-network. The network reachability is limited to the
-resources that are on the same private network.  A VLAN
-interface is available on the server and can be freely
-managed (adding IP addresses, shutdown interface...).
-
-Note that a resource can be a part of multiple private networks.
-`,
-		Namespace: "baremetal",
-		Resource:  "private-network",
 	}
 }
 
@@ -921,186 +899,6 @@ func baremetalOsGet() *core.Command {
 				Short:    "Get a specific OS ID",
 				ArgsJSON: `{}`,
 			},
-		},
-	}
-}
-
-func baremetalPrivateNetworkAdd() *core.Command {
-	return &core.Command{
-		Short:     `Add a server to a private network`,
-		Long:      `Add a server to a private network.`,
-		Namespace: "baremetal",
-		Resource:  "private-network",
-		Verb:      "add",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.AddServerPrivateNetworkRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Short:      `The ID of the server`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-id",
-				Short:      `The ID of the private network`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.AddServerPrivateNetworkRequest)
-
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-			return api.AddServerPrivateNetwork(request)
-
-		},
-	}
-}
-
-func baremetalPrivateNetworkSet() *core.Command {
-	return &core.Command{
-		Short:     `Set multiple private networks on a server`,
-		Long:      `Set multiple private networks on a server.`,
-		Namespace: "baremetal",
-		Resource:  "private-network",
-		Verb:      "set",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.SetServerPrivateNetworksRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Short:      `The ID of the server`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-ids.{index}",
-				Short:      `The IDs of the private networks`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.SetServerPrivateNetworksRequest)
-
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-			return api.SetServerPrivateNetworks(request)
-
-		},
-	}
-}
-
-func baremetalPrivateNetworkList() *core.Command {
-	return &core.Command{
-		Short:     `List the private networks of a server`,
-		Long:      `List the private networks of a server.`,
-		Namespace: "baremetal",
-		Resource:  "private-network",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServerPrivateNetworksRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `The sort order for the returned private networks`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
-			},
-			{
-				Name:       "server-id",
-				Short:      `Filter private networks by server ID`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-id",
-				Short:      `Filter private networks by private network ID`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "project-id",
-				Short:      `Filter private networks by project ID`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "organization-id",
-				Short:      `Filter private networks by organization ID`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.ListServerPrivateNetworksRequest)
-
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-			resp, err := api.ListServerPrivateNetworks(request, scw.WithAllPages())
-			if err != nil {
-				return nil, err
-			}
-			return resp.ServerPrivateNetworks, nil
-
-		},
-	}
-}
-
-func baremetalPrivateNetworkDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete a private network`,
-		Long:      `Delete a private network.`,
-		Namespace: "baremetal",
-		Resource:  "private-network",
-		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteServerPrivateNetworkRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Short:      `The ID of the server`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-id",
-				Short:      `The ID of the private network`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.DeleteServerPrivateNetworkRequest)
-
-			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
-			e = api.DeleteServerPrivateNetwork(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "private-network",
-				Verb:     "delete",
-			}, nil
 		},
 	}
 }
