@@ -251,12 +251,15 @@ scw lb backend create [arg=value ...]
 | health-check.mysql-config.user |  |  |
 | health-check.check-max-retries |  |  |
 | health-check.pgsql-config.user |  |  |
-| health-check.http-config.uri |  |  |
-| health-check.http-config.method |  |  |
-| health-check.http-config.code |  |  |
-| health-check.https-config.uri |  |  |
-| health-check.https-config.method |  |  |
-| health-check.https-config.code |  |  |
+| health-check.http-config.uri |  | HTTP uri used with the request |
+| health-check.http-config.method |  | HTTP method used with the request |
+| health-check.http-config.code |  | A health check response will be considered as valid if the response's status code match |
+| health-check.http-config.host-header |  | HTTP host header used with the request |
+| health-check.https-config.uri |  | HTTP uri used with the request |
+| health-check.https-config.method |  | HTTP method used with the request |
+| health-check.https-config.code |  | A health check response will be considered as valid if the response's status code match |
+| health-check.https-config.host-header |  | HTTP host header used with the request |
+| health-check.https-config.sni |  | Specifies the SNI to use to do health checks over SSL |
 | health-check.port |  |  |
 | health-check.check-timeout |  |  |
 | health-check.check-delay |  |  |
@@ -271,6 +274,7 @@ scw lb backend create [arg=value ...]
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
 | failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
 | ssl-bridging |  | Enable SSL between load balancer and backend servers |
+| ignore-ssl-server-verify |  | Set to true to ignore server certificate verification |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -409,6 +413,7 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol, forward client's address (must be supported by backend servers software) |
 | failover-host |  | Scaleway S3 bucket website to be served in case all backend servers are down |
 | ssl-bridging |  | Enable SSL between load balancer and backend servers |
+| ignore-ssl-server-verify |  | Set to true to ignore server certificate verification |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -435,12 +440,15 @@ scw lb backend update-healthcheck [arg=value ...]
 | backend-id | Required | Backend ID |
 | mysql-config.user |  |  |
 | pgsql-config.user |  |  |
-| http-config.uri |  |  |
-| http-config.method |  |  |
-| http-config.code |  |  |
-| https-config.uri |  |  |
-| https-config.method |  |  |
-| https-config.code |  |  |
+| http-config.uri |  | HTTP uri used with the request |
+| http-config.method |  | HTTP method used with the request |
+| http-config.code |  | A health check response will be considered as valid if the response's status code match |
+| http-config.host-header |  | HTTP host header used with the request |
+| https-config.uri |  | HTTP uri used with the request |
+| https-config.method |  | HTTP method used with the request |
+| https-config.code |  | A health check response will be considered as valid if the response's status code match |
+| https-config.host-header |  | HTTP host header used with the request |
+| https-config.sni |  | Specifies the SNI to use to do health checks over SSL |
 | check-send-proxy |  | It defines whether the healthcheck should be done considering the proxy protocol |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -585,6 +593,7 @@ scw lb frontend create [arg=value ...]
 | timeout-client |  | Set the maximum inactivity time on the client side |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array ! |
 | certificate-ids.{index} |  | List of certificate IDs to bind on the frontend |
+| enable-http3 |  | Activate HTTP 3 protocol (beta) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -673,6 +682,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 | timeout-client |  | Client session maximum inactivity time |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of `certificate_ids` array! |
 | certificate-ids.{index} |  | List of certificate IDs to bind on the frontend |
+| enable-http3 |  | Activate HTTP 3 protocol (beta) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
 
 
