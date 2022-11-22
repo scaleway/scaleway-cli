@@ -21,11 +21,11 @@ var (
 func aclAddBuilder(c *core.Command) *core.Command {
 	type customAddACLRequest struct {
 		*rdb.AddInstanceACLRulesRequest
-		Rule []*rdb.ACLRuleRequest
+		Rules []*rdb.ACLRuleRequest
 	}
 
-	c.ArgSpecs.GetByName("rules.{index}.ip").Name = "rule.{index}.ip"
-	c.ArgSpecs.GetByName("rules.{index}.description").Name = "rule.{index}.description"
+	c.ArgSpecs.GetByName("rules.{index}.ip").Name = "rules.{index}.ip"
+	c.ArgSpecs.GetByName("rules.{index}.description").Name = "rules.{index}.description"
 
 	c.ArgsType = reflect.TypeOf(customAddACLRequest{})
 
@@ -33,7 +33,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		args := argsI.(*customAddACLRequest)
 
 		request := args.AddInstanceACLRulesRequest
-		request.Rules = args.Rule
+		request.Rules = args.Rules
 
 		aclAddResponseI, err := runner(ctx, request)
 		if err != nil {
@@ -65,16 +65,16 @@ func aclAddBuilder(c *core.Command) *core.Command {
 }
 
 func aclDeleteBuilder(c *core.Command) *core.Command {
-	type deleteRule struct {
+	type deleteRules struct {
 		IP string `json:"ip"`
 	}
 
 	type customDeleteACLRequest struct {
 		*rdb.DeleteInstanceACLRulesRequest
-		Rule []deleteRule
+		Rules []deleteRules
 	}
 
-	c.ArgSpecs.GetByName("acl-rule-ips.{index}").Name = "rule.{index}.ip"
+	c.ArgSpecs.GetByName("acl-rule-ips.{index}").Name = "rules.{index}.ip"
 
 	c.ArgsType = reflect.TypeOf(customDeleteACLRequest{})
 
@@ -82,7 +82,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		args := argsI.(*customDeleteACLRequest)
 
 		request := args.DeleteInstanceACLRulesRequest
-		for _, ip := range args.Rule {
+		for _, ip := range args.Rules {
 			request.ACLRuleIPs = append(request.ACLRuleIPs, ip.IP)
 		}
 
