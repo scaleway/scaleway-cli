@@ -1,6 +1,6 @@
 module github.com/scaleway/scaleway-cli/v2
 
-go 1.17
+go 1.19
 
 require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
