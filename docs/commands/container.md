@@ -67,7 +67,7 @@ scw container container create [arg=value ...]
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
+| ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -187,7 +187,7 @@ scw container container update <container-id ...> [arg=value ...]
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
+| ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

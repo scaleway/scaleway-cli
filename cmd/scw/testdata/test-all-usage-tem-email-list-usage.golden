@@ -8,7 +8,6 @@ USAGE:
 ARGS:
   [project-id]         Optional ID of the project in which to list the emails
   [domain-id]          Optional ID of the domain for which to list the emails
-  [message-id]         Optional ID of the message for which to list the emails
   [since]              Optional, list emails created after this date
   [until]              Optional, list emails created before this date
   [mail-from]          Optional, list emails sent with this `mail_from` sender's address
