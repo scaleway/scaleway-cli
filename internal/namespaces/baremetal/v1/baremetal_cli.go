@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOffer(),
 		baremetalOs(),
 		baremetalBmc(),
+		baremetalOptions(),
 		baremetalPrivateNetwork(),
 		baremetalServerList(),
 		baremetalServerGet(),
@@ -37,8 +38,12 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
+		baremetalOptionsAdd(),
+		baremetalOptionsDelete(),
 		baremetalOfferList(),
 		baremetalOfferGet(),
+		baremetalOptionsGet(),
+		baremetalOptionsList(),
 		baremetalOsList(),
 		baremetalOsGet(),
 		baremetalPrivateNetworkAdd(),
@@ -95,6 +100,16 @@ And finally Get Remote Access to get the login/password https://developers.scale
 `,
 		Namespace: "baremetal",
 		Resource:  "bmc",
+	}
+}
+
+func baremetalOptions() *core.Command {
+	return &core.Command{
+		Short: `Server options management commands`,
+		Long: `A Server has additional options that let you personalize it to better fit your needs.
+`,
+		Namespace: "baremetal",
+		Resource:  "options",
 	}
 }
 
@@ -774,6 +789,99 @@ func baremetalBmcStop() *core.Command {
 	}
 }
 
+func baremetalOptionsAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add server option`,
+		Long:      `Add an option to a specific server.`,
+		Namespace: "baremetal",
+		Resource:  "options",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.AddOptionServerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "option-id",
+				Short:      `ID of the option to add`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "expires-at",
+				Short:      `Auto expire the option after this date`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.AddOptionServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.AddOptionServer(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Add a given option to a server",
+				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func baremetalOptionsDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete server option`,
+		Long:      `Delete an option from a specific server.`,
+		Namespace: "baremetal",
+		Resource:  "options",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.DeleteOptionServerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "option-id",
+				Short:      `ID of the option to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.DeleteOptionServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.DeleteOptionServer(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a given option from a server",
+				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
 func baremetalOfferList() *core.Command {
 	return &core.Command{
 		Short:     `List offers`,
@@ -850,6 +958,93 @@ func baremetalOfferGet() *core.Command {
 			{
 				Short:    "Get a server offer with the given ID",
 				ArgsJSON: `{"offer_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func baremetalOptionsGet() *core.Command {
+	return &core.Command{
+		Short:     `Get option`,
+		Long:      `Return specific option for the given ID.`,
+		Namespace: "baremetal",
+		Resource:  "options",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.GetOptionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "option-id",
+				Short:      `ID of the option`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetOptionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetOption(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a server option with the given ID",
+				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func baremetalOptionsList() *core.Command {
+	return &core.Command{
+		Short:     `List options`,
+		Long:      `List all options matching with filters.`,
+		Namespace: "baremetal",
+		Resource:  "options",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListOptionsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "offer-id",
+				Short:      `Filter options by offer_id`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Filter options by name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListOptionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			resp, err := api.ListOptions(request, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			return resp.Options, nil
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all server options in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all server options in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -933,7 +1128,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 		Resource:  "private-network",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.AddServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -949,13 +1144,13 @@ func baremetalPrivateNetworkAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.AddServerPrivateNetworkRequest)
+			request := args.(*baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
+			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.AddServerPrivateNetwork(request)
 
 		},
@@ -970,7 +1165,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.SetServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -986,13 +1181,13 @@ func baremetalPrivateNetworkSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.SetServerPrivateNetworksRequest)
+			request := args.(*baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
+			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.SetServerPrivateNetworks(request)
 
 		},
@@ -1007,7 +1202,7 @@ func baremetalPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1045,13 +1240,13 @@ func baremetalPrivateNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.ListServerPrivateNetworksRequest)
+			request := args.(*baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
+			api := baremetal.NewPrivateNetworkAPI(client)
 			resp, err := api.ListServerPrivateNetworks(request, scw.WithAllPages())
 			if err != nil {
 				return nil, err
@@ -1070,7 +1265,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1086,13 +1281,13 @@ func baremetalPrivateNetworkDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*baremetal.DeleteServerPrivateNetworkRequest)
+			request := args.(*baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
-			api := baremetal.NewAPI(client)
+			api := baremetal.NewPrivateNetworkAPI(client)
 			e = api.DeleteServerPrivateNetwork(request)
 			if e != nil {
 				return nil, e
