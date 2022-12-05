@@ -71,6 +71,6 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(shell.GetCommands())
 	commands.Merge(tem.GetCommands())
 	commands.Merge(mnq.GetCommands())
-	
+
 	return commands
 }
