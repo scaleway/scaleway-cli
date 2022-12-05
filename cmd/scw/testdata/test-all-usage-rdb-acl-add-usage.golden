@@ -13,6 +13,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for add
+  -w, --wait   wait until the acl is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
