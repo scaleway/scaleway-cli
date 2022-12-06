@@ -2,7 +2,9 @@ package rdb
 
 import (
 	"context"
+	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -92,9 +94,14 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		}
 
 		aclDeleteResponse := aclDeleteResponseI.(*rdb.DeleteInstanceACLRulesResponse)
-		return rdb.ListInstanceACLRulesResponse{
-			Rules:      aclDeleteResponse.Rules,
-			TotalCount: uint32(len(aclDeleteResponse.Rules)),
+		aclResult := make([]string, 0, len(aclDeleteResponse.Rules))
+
+		for i := 0; i < len(aclDeleteResponse.Rules); i++ {
+			aclResult = append(aclResult, aclDeleteResponse.Rules[i].IP.String())
+		}
+
+		return &core.SuccessResult{
+			Message: fmt.Sprintf("ACL rule(s) %s successfully deleted", strings.Trim(fmt.Sprint(aclResult), "[]")),
 		}, nil
 	}
 
@@ -112,7 +119,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return respI.(rdb.ListInstanceACLRulesResponse), nil
+		return respI.(*core.SuccessResult), nil
 	}
 
 	return c
