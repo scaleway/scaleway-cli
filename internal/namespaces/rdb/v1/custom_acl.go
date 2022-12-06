@@ -81,8 +81,6 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customDeleteACLRequest{})
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		var aclResult []string
-
 		args := argsI.(*customDeleteACLRequest)
 
 		request := args.DeleteInstanceACLRulesRequest
@@ -96,6 +94,8 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		}
 
 		aclDeleteResponse := aclDeleteResponseI.(*rdb.DeleteInstanceACLRulesResponse)
+		aclResult := make([]string, 0, len(aclDeleteResponse.Rules))
+
 		for i := 0; i < len(aclDeleteResponse.Rules); i++ {
 			aclResult = append(aclResult, aclDeleteResponse.Rules[i].IP.String())
 		}
