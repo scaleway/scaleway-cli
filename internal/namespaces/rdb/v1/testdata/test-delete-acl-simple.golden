@@ -1,23 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Rules.0.IP           1.2.3.4/32
-Rules.0.Port         4440
-Rules.0.Protocol     tcp
-Rules.0.Direction    inbound
-Rules.0.Action       allow
-Rules.0.Description  IP allowed
-TotalCount           1
+✅ ACL rule(s) 1.2.3.4/32 successfully deleted.
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "rules": [
-    {
-      "ip": "1.2.3.4/32",
-      "port": 4440,
-      "protocol": "tcp",
-      "direction": "inbound",
-      "action": "allow",
-      "description": "IP allowed"
-    }
-  ],
-  "total_count": 1
+  "message": "ACL rule(s) 1.2.3.4/32 successfully deleted",
+  "details": ""
 }
