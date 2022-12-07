@@ -49,7 +49,7 @@ func interceptACL() core.CommandInterceptor {
 			return "", err
 		}
 
-		if res.(*lb.ACL).Frontend.LB.Tags[0] == kapsuleTag {
+		if len(res.(*lb.ACL).Frontend.LB.Tags) != 0 && res.(*lb.ACL).Frontend.LB.Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				ACLResp,
 				warningKapsuleTaggedMessageView(),

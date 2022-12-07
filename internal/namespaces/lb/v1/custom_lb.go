@@ -158,7 +158,7 @@ func interceptLB() core.CommandInterceptor {
 			return "", err
 		}
 
-		if res.(*lb.LB).Tags[0] == kapsuleTag {
+		if len(res.(*lb.LB).Tags) != 0 && res.(*lb.LB).Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				lbResp,
 				warningKapsuleTaggedMessageView(),

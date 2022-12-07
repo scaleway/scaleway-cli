@@ -52,7 +52,7 @@ func interceptFrontend() core.CommandInterceptor {
 			return "", err
 		}
 
-		if res.(*lb.Frontend).LB.Tags[0] == kapsuleTag {
+		if len(res.(*lb.Frontend).LB.Tags) != 0 && res.(*lb.Frontend).LB.Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				frontendResp,
 				warningKapsuleTaggedMessageView(),

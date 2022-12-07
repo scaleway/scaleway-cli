@@ -72,7 +72,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 				return "", err
 			}
 
-			if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
 				return strings.Join([]string{
 					certificateResp,
 					warningKapsuleTaggedMessageView(),
@@ -102,7 +102,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 				return "", err
 			}
 
-			if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
 				return strings.Join([]string{
 					certificateResp,
 					warningKapsuleTaggedMessageView(),
@@ -157,7 +157,7 @@ func interceptCertificate() core.CommandInterceptor {
 			return "", err
 		}
 
-		if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+		if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				certificateResp,
 				warningKapsuleTaggedMessageView(),

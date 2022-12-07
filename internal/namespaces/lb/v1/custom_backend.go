@@ -108,7 +108,7 @@ func backendUpdateHealthcheckBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		if getBackend.LB.Tags[0] == kapsuleTag {
+		if len(getBackend.LB.Tags) != 0 && getBackend.LB.Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				backendResp,
 				warningKapsuleTaggedMessageView(),
@@ -132,7 +132,7 @@ func interceptBackend() core.CommandInterceptor {
 			return "", err
 		}
 
-		if res.(*lb.Backend).LB.Tags[0] == kapsuleTag {
+		if len(res.(*lb.Backend).LB.Tags[0]) != 0 && res.(*lb.Backend).LB.Tags[0] == kapsuleTag {
 			return strings.Join([]string{
 				backendResp,
 				warningKapsuleTaggedMessageView(),
