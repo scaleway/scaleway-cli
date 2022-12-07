@@ -41,6 +41,7 @@ func GetCommands(beta ...bool) *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommands()
+	commands.Merge(iam.GetCommands())
 	commands.Merge(instance.GetCommands())
 	commands.Merge(baremetal.GetCommands())
 	commands.Merge(k8s.GetCommands())
@@ -48,6 +49,7 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(initNamespace.GetCommands())
 	commands.Merge(configNamespace.GetCommands())
 	commands.Merge(account.GetCommands())
+	commands.Merge(accountv2.GetCommands())
 	commands.Merge(autocompleteNamespace.GetCommands())
 	commands.Merge(object.GetCommands())
 	commands.Merge(versionNamespace.GetCommands())
@@ -70,9 +72,5 @@ func GetCommands(beta ...bool) *core.Commands {
 	commands.Merge(tem.GetCommands())
 	commands.Merge(mnq.GetCommands())
 
-	if len(beta) == 1 && beta[0] {
-		commands.Merge(iam.GetCommands())
-		commands.Merge(accountv2.GetCommands())
-	}
 	return commands
 }

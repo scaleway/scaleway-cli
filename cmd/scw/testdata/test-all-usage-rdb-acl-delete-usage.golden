@@ -6,12 +6,13 @@ USAGE:
   scw rdb acl delete [arg=value ...]
 
 ARGS:
-  instance-id            UUID of the instance you want to delete an ACL rules from
-  acl-rule-ips.{index}   ACL rules IP present on the instance
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  instance-id        UUID of the instance you want to delete an ACL rules from
+  rules.{index}.ip   ACL rules IP present on the instance
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for delete
+  -w, --wait   wait until the acl is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

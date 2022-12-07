@@ -4,7 +4,7 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account       Account API
+  account       User related data
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   fip           Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
+  iam           IAM API
   info          Get info about current settings
   init          Initialize the config
   instance      Instance API

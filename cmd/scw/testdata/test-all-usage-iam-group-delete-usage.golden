@@ -1,16 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage projects.
+Delete a group.
 
 USAGE:
-  scw account <command>
+  scw iam group delete <group-id ...> [arg=value ...]
 
-AVAILABLE COMMANDS:
-  project     Project management commands
-  ssh-key     SSH keys management commands
+EXAMPLES:
+  Delete a given group
+    scw iam group delete 11111111-1111-1111-1111-111111111111
+
+ARGS:
+  group-id   ID of group to delete
 
 FLAGS:
-  -h, --help   help for account
+  -h, --help   help for delete
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
@@ -18,4 +21,9 @@ GLOBAL FLAGS:
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
-Use "scw account [command] --help" for more information about a command.
+SEE ALSO:
+  # List all groups
+  scw iam group list
+
+  # Delete a group
+  scw iam group delete
