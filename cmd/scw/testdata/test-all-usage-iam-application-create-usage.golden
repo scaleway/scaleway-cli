@@ -1,21 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage projects.
+Create a new application.
 
 USAGE:
-  scw account <command>
+  scw iam application create [arg=value ...]
 
-AVAILABLE COMMANDS:
-  project     Project management commands
-  ssh-key     SSH keys management commands
+ARGS:
+  name=<generated>    Name of application to create (max length is 64 chars)
+  [description]       Description of application (max length is 200 chars)
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
-  -h, --help   help for account
+  -h, --help   help for create
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw account [command] --help" for more information about a command.
