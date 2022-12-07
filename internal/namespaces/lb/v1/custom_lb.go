@@ -3,6 +3,7 @@ package lb
 import (
 	"context"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -112,24 +113,22 @@ func lbMigrateBuilder(c *core.Command) *core.Command {
 		// Allow all lb types
 		return nil
 	}
-
+	c.Interceptor = interceptLB()
 	return c
 }
 
 func lbGetBuilder(c *core.Command) *core.Command {
-	c.View = &core.View{
-		Sections: []*core.ViewSection{
+	c.Interceptor = interceptLB()
+	return c
+}
 
-			{
-				FieldName: "IP",
-				Title:     "IPs",
-			},
-			{
-				FieldName: "Instances",
-			},
-		},
-	}
+func lbUpdateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptLB()
+	return c
+}
 
+func lbDeleteBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptLB()
 	return c
 }
 
@@ -145,4 +144,27 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func interceptLB() core.CommandInterceptor {
+	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		lbResp, err := human.Marshal(res.(*lb.LB), nil)
+		if err != nil {
+			return "", err
+		}
+
+		if res.(*lb.LB).Tags[0] == kapsuleTag {
+			return strings.Join([]string{
+				lbResp,
+				warningKapsuleTaggedMessageView(),
+			}, "\n\n"), nil
+		}
+
+		return res, nil
+	}
 }

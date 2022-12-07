@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -61,7 +62,24 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 					CertificateChain: args.CustomCertificateChain,
 				},
 			}
-			return runner(ctx, createCertificateRequest)
+			res, err := runner(ctx, createCertificateRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+			if err != nil {
+				return "", err
+			}
+
+			if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				return strings.Join([]string{
+					certificateResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
+
+			return res, nil
 		}
 
 		if args.LetsencryptCommonName != "" {
@@ -74,7 +92,24 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 					SubjectAlternativeName: args.LetsencryptAlternativeName,
 				},
 			}
-			return runner(ctx, createCertificateRequest)
+			res, err := runner(ctx, createCertificateRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+			if err != nil {
+				return "", err
+			}
+
+			if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				return strings.Join([]string{
+					certificateResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
+
+			return res, nil
 		}
 
 		return nil, &core.CliError{
@@ -93,4 +128,42 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func certificateGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func certificateUpdateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func certificateDeleteBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func interceptCertificate() core.CommandInterceptor {
+	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+		if err != nil {
+			return "", err
+		}
+
+		if res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+			return strings.Join([]string{
+				certificateResp,
+				warningKapsuleTaggedMessageView(),
+			}, "\n\n"), nil
+		}
+
+		return res, nil
+	}
 }

@@ -1,7 +1,11 @@
 package lb
 
 import (
+	"context"
+	"strings"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
@@ -44,4 +48,97 @@ func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 	}
 
 	return str, nil
+}
+
+func backendGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendCreateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendUpdateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendDeleteBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendAddServersBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendRemoveServersBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendSetServersBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptBackend()
+	return c
+}
+
+func backendUpdateHealthcheckBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		backendResp, err := human.Marshal(res.(*lb.HealthCheck), nil)
+		if err != nil {
+			return "", err
+		}
+
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
+		getBackend, err := api.GetBackend(&lb.ZonedAPIGetBackendRequest{
+			Zone:      argsI.(*lb.ZonedAPIUpdateHealthCheckRequest).Zone,
+			BackendID: argsI.(*lb.ZonedAPIUpdateHealthCheckRequest).BackendID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		if getBackend.LB.Tags[0] == kapsuleTag {
+			return strings.Join([]string{
+				backendResp,
+				warningKapsuleTaggedMessageView(),
+			}, "\n\n"), nil
+		}
+
+		return res, nil
+	}
+	return c
+}
+
+func interceptBackend() core.CommandInterceptor {
+	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		backendResp, err := human.Marshal(res.(*lb.Backend), nil)
+		if err != nil {
+			return "", err
+		}
+
+		if res.(*lb.Backend).LB.Tags[0] == kapsuleTag {
+			return strings.Join([]string{
+				backendResp,
+				warningKapsuleTaggedMessageView(),
+			}, "\n\n"), nil
+		}
+
+		return res, nil
+	}
 }
