@@ -9,6 +9,11 @@ Container as a Service API
   - [Get a container](#get-a-container)
   - [List all your containers](#list-all-your-containers)
   - [Update an existing container](#update-an-existing-container)
+- [Context management commands](#context-management-commands)
+  - [Create context storage](#create-context-storage)
+  - [Remove context storage](#remove-context-storage)
+  - [Start a context machine](#start-a-context-machine)
+  - [Stop a context machine](#stop-a-context-machine)
 - [Cron management commands](#cron-management-commands)
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
@@ -189,6 +194,92 @@ scw container container update <container-id ...> [arg=value ...]
 | secret-environment-variables.{index}.value |  |  |
 | ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Context management commands
+
+Context management commands.
+
+
+### Create context storage
+
+Create block storage that one can attach to a container context.
+
+**Usage:**
+
+```
+scw container context create <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| size | Default: `50` | Size of block storage in GB |
+| ttl |  | Delete data older than this on next use of block storage |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Remove context storage
+
+Remove block storage that's used by a context.
+
+**Usage:**
+
+```
+scw container context delete <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+
+
+
+### Start a context machine
+
+Start an instance with named block storage attached.
+
+**Usage:**
+
+```
+scw container context start <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
+| type | Required<br />Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-2XL`, `PRO2-XXS`, `PRO2-XS`, `PRO2-S`, `PRO2-M`, `PRO2-L`, `PLAY2-PICO`, `PLAY2-NANO`, `PLAY2-MICRO`, `GPU-3070-S` | Machine type to use as Docker context. If none is passed will use DEV1-S |
+| auto-write-to-ssh-known-hosts | Default: `false` |  |
+
+
+
+### Stop a context machine
+
+Stop a context and shutdown its compute resources.
+
+**Usage:**
+
+```
+scw container context stop <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required |  |
 
 
 

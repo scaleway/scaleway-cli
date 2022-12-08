@@ -870,6 +870,13 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "ignore-ssl-server-verify",
+				Short:      `Set to true to ignore server certificate verification`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1029,6 +1036,13 @@ func lbBackendUpdate() *core.Command {
 			{
 				Name:       "ssl-bridging",
 				Short:      `Enable SSL between load balancer and backend servers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ignore-ssl-server-verify",
+				Short:      `Set to true to ignore server certificate verification`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

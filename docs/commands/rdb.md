@@ -22,6 +22,7 @@ Database RDB API
   - [List all database in a given instance](#list-all-database-in-a-given-instance)
 - [Database engines commands](#database-engines-commands)
   - [List available database engines](#list-available-database-engines)
+  - [List available settings from an engine.](#list-available-settings-from-an-engine.)
 - [Instance management commands](#instance-management-commands)
   - [Clone an instance](#clone-an-instance)
   - [Connect to an instance using locally installed CLI](#connect-to-an-instance-using-locally-installed-cli)
@@ -110,7 +111,7 @@ scw rdb acl delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want to delete an ACL rules from |
-| acl-rule-ips.{index} | Required | ACL rules IP present on the instance |
+| rules.{index}.ip | Required | ACL rules IP present on the instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -449,6 +450,37 @@ scw rdb engine list [arg=value ...]
 | name |  | Name of the Database Engine |
 | version |  | Version of the Database Engine |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List available settings from an engine.
+
+List available settings from an engine.
+
+**Usage:**
+
+```
+scw rdb engine settings [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | The name of your engine where you want list the available settings. |
+| version | Required | The version of the engine. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+List Engine Settings
+```
+scw rdb engine settings name=MySQL version=8
+```
+
 
 
 

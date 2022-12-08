@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   13989  tcp       inbound    allow   Allow All
-4.2.3.4/32  13989  tcp       inbound    allow   IP allowed
+0.0.0.0/0   45107  tcp       inbound    allow   Allow All
+4.2.3.4/32  45107  tcp       inbound    allow   IP allowed
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "ip": "0.0.0.0/0",
-    "port": 13989,
+    "port": 45107,
     "protocol": "tcp",
     "direction": "inbound",
     "action": "allow",
@@ -15,7 +15,7 @@ IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   },
   {
     "ip": "4.2.3.4/32",
-    "port": 13989,
+    "port": 45107,
     "protocol": "tcp",
     "direction": "inbound",
     "action": "allow",

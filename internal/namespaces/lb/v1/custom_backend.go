@@ -21,3 +21,27 @@ var (
 		lb.BackendServerStatsServerStateStopping: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "stopping"},
 	}
 )
+
+func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp lb.Backend
+	backend := tmp(i.(lb.Backend))
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "HealthCheck",
+		},
+		{
+			FieldName: "Pool",
+		},
+		{
+			FieldName: "LB",
+		},
+	}
+
+	str, err := human.Marshal(backend, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}

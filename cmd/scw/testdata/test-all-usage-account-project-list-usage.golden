@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List projects.
+
+USAGE:
+  scw account project list [arg=value ...]
+
+ARGS:
+  [name]                  The name of the project
+  [order-by]              The sort order of the returned projects (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-ids.{index}]   Filter out by a list of project ID
+  [organization-id]       Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

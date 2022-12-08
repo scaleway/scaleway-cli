@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+IAM API
+
+USAGE:
+  scw iam <command>
+
+AVAILABLE COMMANDS:
+  api-key        API keys management commands
+  application    Applications management commands
+  group          Groups management commands
+  permission-set Permission sets management commands
+  policy         Policies management commands
+  rule           Rules management commands
+  ssh-key        SSH keys management commands
+  user           Users management commands
+
+FLAGS:
+  -h, --help   help for iam
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw iam [command] --help" for more information about a command.

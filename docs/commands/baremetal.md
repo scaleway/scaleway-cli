@@ -9,6 +9,11 @@ Elastic metal API
 - [Server offer management commands](#server-offer-management-commands)
   - [Get offer](#get-offer)
   - [List offers](#list-offers)
+- [Server options management commands](#server-options-management-commands)
+  - [Add server option](#add-server-option)
+  - [Delete server option](#delete-server-option)
+  - [Get option](#get-option)
+  - [List options](#list-options)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get an OS with a given ID](#get-an-os-with-a-given-id)
   - [List all available OS that can be install on an elastic metal server](#list-all-available-os-that-can-be-install-on-an-elastic-metal-server)
@@ -177,6 +182,141 @@ scw baremetal offer list zone=fr-par-1
 
 
 
+## Server options management commands
+
+A Server has additional options that let you personalize it to better fit your needs.
+
+
+
+### Add server option
+
+Add an option to a specific server.
+
+**Usage:**
+
+```
+scw baremetal options add [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| option-id | Required | ID of the option to add |
+| expires-at |  | Auto expire the option after this date |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Add a given option to a server
+```
+scw baremetal options add server-id=11111111-1111-1111-1111-111111111111 option-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### Delete server option
+
+Delete an option from a specific server.
+
+**Usage:**
+
+```
+scw baremetal options delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| option-id | Required | ID of the option to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Delete a given option from a server
+```
+scw baremetal options delete server-id=11111111-1111-1111-1111-111111111111 option-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### Get option
+
+Return specific option for the given ID.
+
+**Usage:**
+
+```
+scw baremetal options get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| option-id | Required | ID of the option |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Get a server option with the given ID
+```
+scw baremetal options get zone=fr-par-1 option-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### List options
+
+List all options matching with filters.
+
+**Usage:**
+
+```
+scw baremetal options list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| offer-id |  | Filter options by offer_id |
+| name |  | Filter options by name |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+List all server options in the default zone
+```
+scw baremetal options list
+```
+
+List all server options in fr-par-1 zone
+```
+scw baremetal options list zone=fr-par-1
+```
+
+
+
+
 ## Operating System (OS) management commands
 
 An Operating System (OS) is the underlying software installed on your server
@@ -262,7 +402,7 @@ scw baremetal private-network add [arg=value ...]
 |------|---|-------------|
 | server-id | Required | The ID of the server |
 | private-network-id | Required | The ID of the private network |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -283,7 +423,7 @@ scw baremetal private-network delete [arg=value ...]
 |------|---|-------------|
 | server-id | Required | The ID of the server |
 | private-network-id | Required | The ID of the private network |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -307,7 +447,7 @@ scw baremetal private-network list [arg=value ...]
 | private-network-id |  | Filter private networks by private network ID |
 | project-id |  | Filter private networks by project ID |
 | organization-id |  | Filter private networks by organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -328,7 +468,7 @@ scw baremetal private-network set [arg=value ...]
 |------|---|-------------|
 | server-id | Required | The ID of the server |
 | private-network-ids.{index} | Required | The IDs of the private networks |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

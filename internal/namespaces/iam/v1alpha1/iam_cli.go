@@ -481,8 +481,8 @@ func iamUserGet() *core.Command {
 
 func iamUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a user`,
-		Long:      `Delete a user.`,
+		Short:     `Delete a guest user from an organization`,
+		Long:      `Delete a guest user from an organization.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "delete",

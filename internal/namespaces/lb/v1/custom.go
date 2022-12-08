@@ -13,6 +13,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.ACLActionType(""), human.EnumMarshalFunc(aclMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.BackendServerStatsHealthCheckStatus(""), human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.BackendServerStatsServerState(""), human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs))
+	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
+	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
 
 	cmds := GetGeneratedCommands()
 

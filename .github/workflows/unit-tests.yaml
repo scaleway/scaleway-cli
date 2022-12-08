@@ -7,7 +7,7 @@ jobs:
   os-tests:
     strategy:
       matrix:
-        go-version: [1.17.x, 1.18.x]
+        go-version: [1.18.x, 1.19.x]
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
@@ -31,7 +31,7 @@ jobs:
   build-tests:
     strategy:
       matrix:
-        go-version: [1.17.x, 1.18.x]
+        go-version: [1.18.x, 1.19.x]
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
