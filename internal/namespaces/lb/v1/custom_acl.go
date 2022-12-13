@@ -39,21 +39,47 @@ func ACLDeleteBuilder(c *core.Command) *core.Command {
 
 func interceptACL() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
-		ACLResp, err := human.Marshal(res.(*lb.ACL), nil)
-		if err != nil {
-			return "", err
-		}
+		switch res.(type) {
+		case *lb.ACL:
+			if len(res.(*lb.ACL).Frontend.LB.Tags) != 0 && res.(*lb.ACL).Frontend.LB.Tags[0] == kapsuleTag {
+				ACLResp, err := human.Marshal(res.(*lb.ACL), nil)
+				if err != nil {
+					return "", err
+				}
 
-		if len(res.(*lb.ACL).Frontend.LB.Tags) != 0 && res.(*lb.ACL).Frontend.LB.Tags[0] == kapsuleTag {
-			return strings.Join([]string{
-				ACLResp,
-				warningKapsuleTaggedMessageView(),
-			}, "\n\n"), nil
+				return strings.Join([]string{
+					ACLResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
+		case *core.SuccessResult:
+			getACL, err := api.GetACL(&lb.ZonedAPIGetACLRequest{
+				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
+				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
+				ACLResp, err := human.Marshal(res.(*core.SuccessResult), nil)
+				if err != nil {
+					return "", err
+				}
+
+				return strings.Join([]string{
+					ACLResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
 		}
 
 		return res, nil

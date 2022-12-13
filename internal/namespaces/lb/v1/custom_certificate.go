@@ -67,12 +67,12 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
-			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-			if err != nil {
-				return "", err
-			}
-
 			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+				if err != nil {
+					return "", err
+				}
+
 				return strings.Join([]string{
 					certificateResp,
 					warningKapsuleTaggedMessageView(),
@@ -97,12 +97,12 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
-			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-			if err != nil {
-				return "", err
-			}
-
 			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+				if err != nil {
+					return "", err
+				}
+
 				return strings.Join([]string{
 					certificateResp,
 					warningKapsuleTaggedMessageView(),
@@ -147,21 +147,46 @@ func certificateDeleteBuilder(c *core.Command) *core.Command {
 
 func interceptCertificate() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
-		certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-		if err != nil {
-			return "", err
-		}
+		switch res.(type) {
+		case *lb.Frontend:
+			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
+			if err != nil {
+				return "", err
+			}
+			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				return strings.Join([]string{
+					certificateResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
+		case *core.SuccessResult:
+			getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
+				Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
+				CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
+			})
+			if err != nil {
+				return nil, err
+			}
 
-		if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
-			return strings.Join([]string{
-				certificateResp,
-				warningKapsuleTaggedMessageView(),
-			}, "\n\n"), nil
+			if len(getCertificate.LB.Tags) != 0 && getCertificate.LB.Tags[0] == kapsuleTag {
+				certificateResp, err := human.Marshal(res.(*core.SuccessResult), nil)
+				if err != nil {
+					return "", err
+				}
+
+				return strings.Join([]string{
+					certificateResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
 		}
 
 		return res, nil

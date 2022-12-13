@@ -148,21 +148,45 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 
 func interceptLB() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
-		lbResp, err := human.Marshal(res.(*lb.LB), nil)
-		if err != nil {
-			return "", err
-		}
+		switch res.(type) {
+		case *lb.LB:
+			if len(res.(*lb.LB).Tags) != 0 && res.(*lb.LB).Tags[0] == kapsuleTag {
+				lbResp, err := human.Marshal(res.(*lb.LB), nil)
+				if err != nil {
+					return "", err
+				}
+				return strings.Join([]string{
+					lbResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
+		case *core.SuccessResult:
+			getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
+				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+			})
+			if err != nil {
+				return nil, err
+			}
 
-		if len(res.(*lb.LB).Tags) != 0 && res.(*lb.LB).Tags[0] == kapsuleTag {
-			return strings.Join([]string{
-				lbResp,
-				warningKapsuleTaggedMessageView(),
-			}, "\n\n"), nil
+			if len(getLB.Tags) != 0 && getLB.Tags[0] == kapsuleTag {
+				lbResp, err := human.Marshal(res.(*core.SuccessResult), nil)
+				if err != nil {
+					return "", err
+				}
+				return strings.Join([]string{
+					lbResp,
+					warningKapsuleTaggedMessageView(),
+				}, "\n\n"), nil
+			}
 		}
 
 		return res, nil
