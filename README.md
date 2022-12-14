@@ -160,11 +160,6 @@ See more in-depth information about running the CLI in Docker [here](./docs/dock
 This repository is at its early stage and is still in active development.
 If you are looking for a way to contribute please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
-# Legacy version
-
-If you are looking for the legacy CLIv1 you can take a look at the [v1 branch](https://github.com/scaleway/scaleway-cli/blob/v1/README.md).
-We also wrote [a migration guide](./docs/migration_guide_v2.md) to help transition to the CLIv2.
-
 # Reach Us
 
 We love feedback.
