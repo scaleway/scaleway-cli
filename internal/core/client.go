@@ -14,10 +14,6 @@ import (
 
 // createClient creates a Scaleway SDK client.
 func createClient(ctx context.Context, httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
-	if _, err := scw.MigrateLegacyConfig(); err != nil {
-		return nil, err
-	}
-
 	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:
