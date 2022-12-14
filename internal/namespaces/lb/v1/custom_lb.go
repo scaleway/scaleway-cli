@@ -3,6 +3,7 @@ package lb
 import (
 	"context"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -36,6 +37,17 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			FieldName: "Instances",
 			Title:     "Backends",
 		},
+	}
+
+	if len(loadbalancer.Tags) != 0 && loadbalancer.Tags[0] == kapsuleTag {
+		lbResp, err := human.Marshal(loadbalancer, opt)
+		if err != nil {
+			return "", err
+		}
+		return strings.Join([]string{
+			lbResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
 	}
 
 	str, err := human.Marshal(loadbalancer, opt)
@@ -112,24 +124,22 @@ func lbMigrateBuilder(c *core.Command) *core.Command {
 		// Allow all lb types
 		return nil
 	}
-
+	c.Interceptor = interceptLB()
 	return c
 }
 
 func lbGetBuilder(c *core.Command) *core.Command {
-	c.View = &core.View{
-		Sections: []*core.ViewSection{
+	c.Interceptor = interceptLB()
+	return c
+}
 
-			{
-				FieldName: "IP",
-				Title:     "IPs",
-			},
-			{
-				FieldName: "Instances",
-			},
-		},
-	}
+func lbUpdateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptLB()
+	return c
+}
 
+func lbDeleteBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptLB()
 	return c
 }
 
@@ -145,4 +155,31 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func interceptLB() core.CommandInterceptor {
+	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		if _, ok := res.(*core.SuccessResult); ok {
+			getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
+				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if len(getLB.Tags) != 0 && getLB.Tags[0] == kapsuleTag {
+				return warningKapsuleTaggedMessageView(), nil
+			}
+		}
+
+		return res, nil
+	}
 }

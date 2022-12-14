@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 )
 
 func Test_ListLB(t *testing.T) {
@@ -75,6 +76,28 @@ func Test_GetStats(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteInstance(),
+		),
+	}))
+}
+
+func Test_GetK8sTaggedLB(t *testing.T) {
+	t.Skip("Skipping test as this uses kubectl commands")
+
+	cmds := GetCommands()
+	cmds.Merge(k8s.GetCommands())
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:        cmds,
+		DisableParallel: true,
+		BeforeFunc: core.BeforeFuncCombine(
+			createClusterAndWaitAndInstallKubeconfig("Cluster", "Kubeconfig", "1.24.7"),
+			retrieveLBID("LBID"),
+		),
+		Cmd:   "scw lb lb get {{ .LBID }}",
+		Check: core.TestCheckGolden(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteCluster("Cluster"),
+			core.ExecAfterCmd("scw lb lb delete {{ .LBID }}"),
 		),
 	}))
 }

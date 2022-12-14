@@ -2,8 +2,15 @@ package lb
 
 import (
 	"fmt"
+	"os/exec"
+	"strings"
+	"time"
 
+	"github.com/ghodss/yaml"
+	go_api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
 
 func createLB() core.BeforeFunc {
@@ -47,4 +54,72 @@ func createFrontend(inboundPort int32) core.BeforeFunc {
 		"Frontend",
 		fmt.Sprintf("scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=%d", inboundPort),
 	)
+}
+
+//nolint:unused
+func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		cluster := res.(*k8s.Cluster)
+		ctx.Meta[metaKey] = cluster
+		api := k8s.NewAPI(ctx.Client)
+		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+			Region:    cluster.Region,
+			ClusterID: cluster.ID,
+		})
+		if err != nil {
+			return err
+		}
+
+		var kubeconfig go_api.Config
+
+		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+		if err != nil {
+			return err
+		}
+
+		ctx.Meta[kubeconfigMetaKey] = kubeconfig
+		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+		return nil
+	}
+}
+
+//nolint:unused
+func deleteCluster(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
+}
+
+//nolint:unused
+func retrieveLBID(metaKey string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		_, err := exec.Command("bash", "-c", "kubectl create -f testfixture/lb.yaml").Output()
+		if err != nil {
+			return err
+		}
+		// We let enough time for kubeconfig to install
+		time.Sleep(5 * time.Second)
+
+		cmd, err := exec.Command("bash", "-c", "kubectl -n kube-system get service/traefik-ingress -o jsonpath='{.metadata.annotations.service\\.beta\\.kubernetes\\.io/scw-loadbalancer-id}'").Output()
+		if err != nil {
+			return err
+		}
+		parseID := strings.Split(string(cmd), "/")
+		if len(parseID) != 2 {
+			return fmt.Errorf("can't parse ID: %s", parseID)
+		}
+		lbID := parseID[1]
+
+		api := lb.NewZonedAPI(ctx.Client)
+		getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
+			LBID: lbID,
+		})
+		if err != nil {
+			return err
+		}
+		ctx.Meta[metaKey] = getLB.ID
+
+		return nil
+	}
 }
