@@ -81,6 +81,8 @@ func Test_GetStats(t *testing.T) {
 }
 
 func Test_GetK8sTaggedLB(t *testing.T) {
+	t.Skip("Skipping test as this uses kubectl commands")
+
 	cmds := GetCommands()
 	cmds.Merge(k8s.GetCommands())
 

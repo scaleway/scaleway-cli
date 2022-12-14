@@ -42,6 +42,18 @@ func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 		},
 	}
 
+	if len(backend.LB.Tags) != 0 && backend.LB.Tags[0] == kapsuleTag {
+		backendResp, err := human.Marshal(backend, opt)
+		if err != nil {
+			return "", err
+		}
+
+		return strings.Join([]string{
+			backendResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
+	}
+
 	str, err := human.Marshal(backend, opt)
 	if err != nil {
 		return "", err
@@ -101,18 +113,6 @@ func interceptBackend() core.CommandInterceptor {
 		}
 
 		switch res.(type) {
-		case *lb.Backend:
-			if len(res.(*lb.Backend).LB.Tags) != 0 && res.(*lb.Backend).LB.Tags[0] == kapsuleTag {
-				backendResp, err := human.Marshal(res.(*lb.Backend), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					backendResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
-			}
 		case *core.SuccessResult:
 			getBackend, err := api.GetBackend(&lb.ZonedAPIGetBackendRequest{
 				Zone:      argsI.(*lb.ZonedAPIDeleteBackendRequest).Zone,
@@ -123,15 +123,7 @@ func interceptBackend() core.CommandInterceptor {
 			}
 
 			if len(getBackend.LB.Tags) != 0 && getBackend.LB.Tags[0] == kapsuleTag {
-				backendResp, err := human.Marshal(res.(*core.SuccessResult), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					backendResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 		case *lb.HealthCheck:
 			getBackend, err := api.GetBackend(&lb.ZonedAPIGetBackendRequest{
@@ -143,15 +135,7 @@ func interceptBackend() core.CommandInterceptor {
 			}
 
 			if len(getBackend.LB.Tags) != 0 && getBackend.LB.Tags[0] == kapsuleTag {
-				healthCheckResp, err := human.Marshal(res.(*lb.HealthCheck), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					healthCheckResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
 

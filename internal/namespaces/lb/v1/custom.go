@@ -26,6 +26,9 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.BackendServerStatsServerState(""), human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
 	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
+	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)
+	human.RegisterMarshalerFunc(lb.Certificate{}, lbCertificateMarshalerFunc)
+	human.RegisterMarshalerFunc(lb.ACL{}, lbACLMarshalerFunc)
 
 	cmds := GetGeneratedCommands()
 

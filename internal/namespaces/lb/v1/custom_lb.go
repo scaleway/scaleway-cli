@@ -39,6 +39,17 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		},
 	}
 
+	if len(loadbalancer.Tags) != 0 && loadbalancer.Tags[0] == kapsuleTag {
+		lbResp, err := human.Marshal(loadbalancer, opt)
+		if err != nil {
+			return "", err
+		}
+		return strings.Join([]string{
+			lbResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
+	}
+
 	str, err := human.Marshal(loadbalancer, opt)
 	if err != nil {
 		return "", err
@@ -156,19 +167,7 @@ func interceptLB() core.CommandInterceptor {
 			return nil, err
 		}
 
-		switch res.(type) {
-		case *lb.LB:
-			if len(res.(*lb.LB).Tags) != 0 && res.(*lb.LB).Tags[0] == kapsuleTag {
-				lbResp, err := human.Marshal(res.(*lb.LB), nil)
-				if err != nil {
-					return "", err
-				}
-				return strings.Join([]string{
-					lbResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
-			}
-		case *core.SuccessResult:
+		if _, ok := res.(*core.SuccessResult); ok {
 			getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
 				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
 				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
@@ -176,16 +175,8 @@ func interceptLB() core.CommandInterceptor {
 			if err != nil {
 				return nil, err
 			}
-
 			if len(getLB.Tags) != 0 && getLB.Tags[0] == kapsuleTag {
-				lbResp, err := human.Marshal(res.(*core.SuccessResult), nil)
-				if err != nil {
-					return "", err
-				}
-				return strings.Join([]string{
-					lbResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
 

@@ -17,6 +17,35 @@ var (
 	}
 )
 
+func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp lb.ACL
+	acl := tmp(i.(lb.ACL))
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Frontend",
+		},
+	}
+
+	if len(acl.Frontend.LB.Tags) != 0 && acl.Frontend.LB.Tags[0] == kapsuleTag {
+		ACLResp, err := human.Marshal(acl, opt)
+		if err != nil {
+			return "", err
+		}
+		return strings.Join([]string{
+			ACLResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
+	}
+
+	str, err := human.Marshal(acl, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func ACLGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()
 	return c
@@ -47,20 +76,7 @@ func interceptACL() core.CommandInterceptor {
 			return nil, err
 		}
 
-		switch res.(type) {
-		case *lb.ACL:
-			if len(res.(*lb.ACL).Frontend.LB.Tags) != 0 && res.(*lb.ACL).Frontend.LB.Tags[0] == kapsuleTag {
-				ACLResp, err := human.Marshal(res.(*lb.ACL), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					ACLResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
-			}
-		case *core.SuccessResult:
+		if _, ok := res.(*core.SuccessResult); ok {
 			getACL, err := api.GetACL(&lb.ZonedAPIGetACLRequest{
 				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
 				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
@@ -68,17 +84,8 @@ func interceptACL() core.CommandInterceptor {
 			if err != nil {
 				return nil, err
 			}
-
 			if len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
-				ACLResp, err := human.Marshal(res.(*core.SuccessResult), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					ACLResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
 

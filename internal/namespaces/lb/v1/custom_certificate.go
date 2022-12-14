@@ -21,6 +21,35 @@ var (
 	}
 )
 
+func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp lb.Certificate
+	certificate := tmp(i.(lb.Certificate))
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "LB",
+		},
+	}
+
+	if len(certificate.LB.Tags) != 0 && certificate.LB.Tags[0] == kapsuleTag {
+		certificateResp, err := human.Marshal(certificate, opt)
+		if err != nil {
+			return "", err
+		}
+		return strings.Join([]string{
+			certificateResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
+	}
+
+	str, err := human.Marshal(certificate, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func certificateCreateBuilder(c *core.Command) *core.Command {
 	leCommonNameArgSpecs := c.ArgSpecs.GetByName("letsencrypt.common-name")
 	leAlternativeNames := c.ArgSpecs.GetByName("letsencrypt.subject-alternative-name.{index}")
@@ -68,15 +97,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 			}
 
 			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
-				certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					certificateResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 
 			return res, nil
@@ -98,15 +119,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 			}
 
 			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
-				certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					certificateResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 
 			return res, nil
@@ -117,14 +130,6 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 			Hint: fmt.Sprintf("You need to specify %s or %s", leCommonNameArgSpecs.Name, customeCertificateArgSpecs.Name),
 			Code: 1,
 		}
-	}
-
-	c.View = &core.View{
-		Sections: []*core.ViewSection{
-			{
-				FieldName: "LB",
-			},
-		},
 	}
 
 	return c
@@ -155,19 +160,7 @@ func interceptCertificate() core.CommandInterceptor {
 			return nil, err
 		}
 
-		switch res.(type) {
-		case *lb.Frontend:
-			certificateResp, err := human.Marshal(res.(*lb.Certificate), nil)
-			if err != nil {
-				return "", err
-			}
-			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
-				return strings.Join([]string{
-					certificateResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
-			}
-		case *core.SuccessResult:
+		if _, ok := res.(*core.SuccessResult); ok {
 			getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
 				Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
 				CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
@@ -175,17 +168,8 @@ func interceptCertificate() core.CommandInterceptor {
 			if err != nil {
 				return nil, err
 			}
-
 			if len(getCertificate.LB.Tags) != 0 && getCertificate.LB.Tags[0] == kapsuleTag {
-				certificateResp, err := human.Marshal(res.(*core.SuccessResult), nil)
-				if err != nil {
-					return "", err
-				}
-
-				return strings.Join([]string{
-					certificateResp,
-					warningKapsuleTaggedMessageView(),
-				}, "\n\n"), nil
+				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
 
