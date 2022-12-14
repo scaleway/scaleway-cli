@@ -3,8 +3,6 @@ package init
 import (
 	"context"
 	"fmt"
-	"os"
-	"path"
 	"reflect"
 	"strings"
 
@@ -67,7 +65,6 @@ type initArgs struct {
 	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
-	RemoveV1Config      *bool
 }
 
 func initCommand() *core.Command {
@@ -101,10 +98,6 @@ Default path for configuration file is based on the following priority order:
 			{
 				Name:  "install-autocomplete",
 				Short: "Whether the autocomplete script should be installed during initialisation",
-			},
-			{
-				Name:  "remove-v1-config",
-				Short: "Whether to remove the v1 configuration file if it exists",
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
@@ -229,26 +222,6 @@ Default path for configuration file is based on the following priority order:
 				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
 			}
 
-			// Ask whether to remove v1 configuration file if it exists
-			if args.RemoveV1Config == nil {
-				homeDir := core.ExtractUserHomeDir(ctx)
-				if err == nil {
-					configPath := path.Join(homeDir, ".scwrc")
-					if _, err := os.Stat(configPath); err == nil {
-						removeV1ConfigFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-							Ctx:          ctx,
-							Prompt:       "Do you want to permanently remove old configuration file (" + configPath + ")?",
-							DefaultValue: false,
-						})
-						if err != nil {
-							return err
-						}
-
-						args.RemoveV1Config = &removeV1ConfigFile
-					}
-				}
-			}
-
 			return nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -325,15 +298,6 @@ Default path for configuration file is based on the following priority order:
 				_, err := accountcommands.InitRun(ctx, nil)
 				if err != nil {
 					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
-				}
-			}
-
-			// Remove old configuration file
-			if args.RemoveV1Config != nil && *args.RemoveV1Config {
-				homeDir := core.ExtractUserHomeDir(ctx)
-				err = os.Remove(path.Join(homeDir, ".scwrc"))
-				if err != nil {
-					successDetails = append(successDetails, "Except for removing old configuration: "+err.Error())
 				}
 			}
 

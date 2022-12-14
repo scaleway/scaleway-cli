@@ -41,7 +41,6 @@ func TestInit(t *testing.T) {
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "true",
 		"install-autocomplete": "false",
-		"remove-v1-config":     "false",
 		"with-ssh-key":         "false",
 	}
 

@@ -71,7 +71,6 @@ func Test_InitSSH(t *testing.T) {
 		"access-key":           "{{ .AccessKey }}",
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "false",
-		"remove-v1-config":     "false",
 		"install-autocomplete": "false",
 	}
 	cmds := GetCommands()
