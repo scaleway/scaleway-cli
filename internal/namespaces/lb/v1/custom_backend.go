@@ -113,7 +113,6 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 			StickySessionsCookieName: tmpRequest.StickySessionsCookieName,
 			HealthCheck:              tmpRequest.HealthCheck,
 			ServerIP:                 tmpRequest.ServerIP,
-			SendProxyV2:              tmpRequest.SendProxyV2,
 			TimeoutServer:            tmpRequest.TimeoutServer,
 			TimeoutConnect:           tmpRequest.TimeoutConnect,
 			TimeoutTunnel:            tmpRequest.TimeoutTunnel,
@@ -156,9 +155,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
 				}
 
-				for _, ip := range serverIPs {
-					request.ServerIP = append(request.ServerIP, ip)
-				}
+				request.ServerIP = append(request.ServerIP, serverIPs...)
 			}
 		}
 
@@ -267,9 +264,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
 				}
 
-				for _, ip := range serverIPs {
-					request.ServerIP = append(request.ServerIP, ip)
-				}
+				request.ServerIP = append(request.ServerIP, serverIPs...)
 			}
 		}
 
@@ -367,9 +362,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
 				}
 
-				for _, ip := range serverIPs {
-					request.ServerIP = append(request.ServerIP, ip)
-				}
+				request.ServerIP = append(request.ServerIP, serverIPs...)
 			}
 		}
 
@@ -467,9 +460,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
 				}
 
-				for _, ip := range serverIPs {
-					request.ServerIP = append(request.ServerIP, ip)
-				}
+				request.ServerIP = append(request.ServerIP, serverIPs...)
 			}
 		}
 
