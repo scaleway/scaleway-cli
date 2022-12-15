@@ -177,13 +177,21 @@ func ExtractProfileFlag(ctx context.Context) string {
 	return extractMeta(ctx).ProfileFlag
 }
 
-// GetDocGenContext reuturn a minimal context that can be used by scw-doc-gen
+// GetDocGenContext return a minimal context that can be used by scw-doc-gen
 func GetDocGenContext() context.Context {
 	ctx := context.Background()
 	client, _ := scw.NewClient(
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
+	return injectMeta(ctx, &meta{
+		Client: client,
+	})
+}
+
+// NewClientContextWithOpts return a minimal context with auth options
+func NewClientContextWithOpts(ctx context.Context, opts ...scw.ClientOption) context.Context {
+	client, _ := scw.NewClient(opts...)
 	return injectMeta(ctx, &meta{
 		Client: client,
 	})

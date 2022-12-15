@@ -186,6 +186,20 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 	}
 }
 
+func ValidateAccessKey() ArgSpecValidateFunc {
+	return func(argSpec *ArgSpec, valueI interface{}) error {
+		value := valueI.(string)
+		err := DefaultArgSpecValidateFunc()(argSpec, value)
+		if err != nil {
+			return err
+		}
+		if !validation.IsAccessKey(value) {
+			return InvalidAccessKeyError(value)
+		}
+		return nil
+	}
+}
+
 // ValidateOrganizationID validates a non-required organization ID.
 // By default, for most command, the organization ID is not required.
 // In that case, we allow the empty-string value "".
