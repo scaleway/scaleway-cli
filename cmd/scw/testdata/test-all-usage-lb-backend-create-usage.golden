@@ -26,6 +26,9 @@ ARGS:
   [health-check.check-delay]           
   [health-check.check-send-proxy]      It defines whether the healthcheck should be done considering the proxy protocol
   lb-id                                Load balancer ID
+  [instance-server-id.{index}]         UIID of the instance server.
+  [use-instance-server-public-ip]      Use public IP address of the instance instead of the private one
+  [baremetal-server-id.{index}]        UIID of the baremetal server.
   server-ip.{index}                    Backend server IP addresses list (IPv4 or IPv6)
   [timeout-server]                     Maximum server connection inactivity time
   [timeout-connect]                    Maximum initical server connection establishment time
