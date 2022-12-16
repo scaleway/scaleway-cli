@@ -13,5 +13,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(container.ContainerStatus(""), human.EnumMarshalFunc(containerStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(container.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
 
+	cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
+
 	return cmds
 }
