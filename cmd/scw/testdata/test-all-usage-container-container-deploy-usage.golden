@@ -11,6 +11,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for deploy
+  -w, --wait   wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
