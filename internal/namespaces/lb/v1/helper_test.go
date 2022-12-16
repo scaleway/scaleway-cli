@@ -31,8 +31,19 @@ func createInstance() core.BeforeFunc {
 	)
 }
 
+func createRunningInstance() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"Instance",
+		"scw instance server create image=ubuntu_bionic -w",
+	)
+}
+
 func deleteInstance() core.AfterFunc {
 	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }}")
+}
+
+func deleteRunningInstance() core.AfterFunc {
+	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }} force-shutdown=true")
 }
 
 func createBackend(forwardPort int32) core.BeforeFunc {
