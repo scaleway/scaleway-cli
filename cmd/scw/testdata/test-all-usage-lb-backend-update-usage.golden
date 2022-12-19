@@ -21,7 +21,7 @@ ARGS:
   [failover-host]                 Scaleway S3 bucket website to be served in case all backend servers are down
   [ssl-bridging]                  Enable SSL between load balancer and backend servers
   [ignore-ssl-server-verify]      Set to true to ignore server certificate verification
-  [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1)
+  [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 DEPRECATED ARGS:
   [send-proxy-v2]   Deprecated in favor of proxy_protocol field!
