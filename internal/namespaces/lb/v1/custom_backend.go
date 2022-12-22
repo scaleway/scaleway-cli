@@ -2,6 +2,7 @@ package lb
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"strings"
@@ -12,6 +13,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -501,7 +503,44 @@ func interceptBackend() core.CommandInterceptor {
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
-			return nil, err
+			type rawBodyResponse struct {
+				Details []struct {
+					Field   string `json:"field"`
+					Message string `json:"message"`
+					Reason  string `json:"reason"`
+				} `json:"details"`
+				Message string `json:"message"`
+				Type    string `json:"type"`
+			}
+
+			resErr, isResErr := err.(*scw.ResponseError)
+			if !isResErr {
+				return nil, err
+			}
+
+			var data rawBodyResponse
+
+			err = json.Unmarshal(resErr.RawBody, &data)
+			if err != nil {
+				return nil, err
+			}
+
+			switch data.Details[0].Field {
+			case "health_check":
+				return "", &core.CliError{
+					Err: fmt.Errorf("missing required 'health-check.port' and 'health-check.check-max-retries' arguments"),
+				}
+			case "Port":
+				return "", &core.CliError{
+					Err: fmt.Errorf("missing required 'health-check.port' argument"),
+				}
+			case "CheckMaxRetries":
+				return "", &core.CliError{
+					Err: fmt.Errorf("missing required 'health-check.check-max-retries' argument"),
+				}
+			default:
+				return nil, resErr
+			}
 		}
 
 		switch res.(type) {
