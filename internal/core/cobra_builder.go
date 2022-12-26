@@ -16,7 +16,7 @@ func init() {
 // Cobra root command is a tree data struct. During the build process we
 // use an index to attache leaf command to their parent.
 type cobraBuilder struct {
-	commands []*Command
+	commands *Commands
 	meta     *meta
 	ctx      context.Context
 }
@@ -41,7 +41,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 
 	rootCmd.SetOut(b.meta.stderr)
 
-	for _, cmd := range b.commands {
+	for _, cmd := range b.commands.GetSortedCommand() {
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
 		if _, namespaceExist := index[cmd.Namespace]; !namespaceExist {
 			cobraCmd := &cobra.Command{Use: cmd.Namespace}
@@ -134,7 +134,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), NewCommands(b.commands...))
+	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
 }
 
 const usageTemplate = `USAGE:

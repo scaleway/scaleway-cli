@@ -70,6 +70,9 @@ type Command struct {
 
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
+
+	// cache command path
+	path string
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -94,6 +97,9 @@ func (c *Command) Override(builder func(command *Command) *Command) {
 }
 
 func (c *Command) getPath() string {
+	if c.path != "" {
+		return c.path
+	}
 	path := []string(nil)
 	if c.Namespace != "" {
 		path = append(path, c.Namespace)
@@ -105,7 +111,8 @@ func (c *Command) getPath() string {
 		path = append(path, c.Verb)
 	}
 
-	return strings.Join(path, indexCommandSeparator)
+	c.path = strings.Join(path, indexCommandSeparator)
+	return c.path
 }
 
 func (c *Command) GetCommandLine(binaryName string) string {
@@ -162,12 +169,30 @@ type Commands struct {
 
 func NewCommands(cmds ...*Command) *Commands {
 	c := &Commands{
-		commands:     []*Command(nil),
-		commandIndex: map[string]*Command{},
+		commands:     make([]*Command, 0, len(cmds)),
+		commandIndex: make(map[string]*Command, len(cmds)),
 	}
 
 	for _, cmd := range cmds {
 		c.Add(cmd)
+	}
+
+	return c
+}
+
+func NewCommandsMerge(cmdsList ...*Commands) *Commands {
+	cmdCount := 0
+	for _, cmds := range cmdsList {
+		cmdCount += len(cmds.commands)
+	}
+	c := &Commands{
+		commands:     make([]*Command, 0, cmdCount),
+		commandIndex: make(map[string]*Command, cmdCount),
+	}
+	for _, cmds := range cmdsList {
+		for _, cmd := range cmds.commands {
+			c.Add(cmd)
+		}
 	}
 
 	return c
