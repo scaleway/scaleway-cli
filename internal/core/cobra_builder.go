@@ -139,7 +139,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	if cmd.WaitFunc != nil {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
-
 }
 
 const usageTemplate = `USAGE:
