@@ -96,13 +96,13 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 
 	cobraCmd.SetUsageTemplate(usageTemplate)
 
-	if cobraCmd.Annotations == nil {
-		cobraCmd.Annotations = make(map[string]string)
-	}
-
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
 	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
+		if cobraCmd.Annotations == nil {
+			cobraCmd.Annotations = make(map[string]string)
+		}
+
 		if cmd.ArgsType != nil {
 			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
 		}
