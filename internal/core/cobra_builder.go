@@ -118,6 +118,8 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		if cmd.SeeAlsos != nil {
 			cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 		}
+
+		cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
 	}))
 
 	if cmd.Run != nil {
@@ -138,7 +140,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
 }
 
 const usageTemplate = `USAGE:
