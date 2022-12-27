@@ -244,6 +244,13 @@ func temEmailList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "message-id",
+				Short:      `Optional ID of the message for which to list the emails`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "since",
 				Short:      `Optional, list emails created after this date`,
 				Required:   false,
