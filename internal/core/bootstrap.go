@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
@@ -207,6 +208,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
+	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
 
 	if err != nil {
