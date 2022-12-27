@@ -187,7 +187,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{
-		commands: config.Commands.GetSortedCommand(),
+		commands: config.Commands,
 		meta:     meta,
 		ctx:      ctx,
 	}

@@ -16,7 +16,7 @@ func init() {
 // Cobra root command is a tree data struct. During the build process we
 // use an index to attache leaf command to their parent.
 type cobraBuilder struct {
-	commands []*Command
+	commands *Commands
 	meta     *meta
 	ctx      context.Context
 }
@@ -41,7 +41,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 
 	rootCmd.SetOut(b.meta.stderr)
 
-	for _, cmd := range b.commands {
+	for _, cmd := range b.commands.GetSortedCommand() {
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
 		if _, namespaceExist := index[cmd.Namespace]; !namespaceExist {
 			cobraCmd := &cobra.Command{Use: cmd.Namespace}
@@ -100,21 +100,25 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
-	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
-	}
+	// Use a custom function to print usage
+	// This function will build usage to avoid building it for each commands
+	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
+		if cmd.ArgsType != nil {
+			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
+		}
 
-	if cmd.ArgSpecs != nil {
-		cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
-	}
+		if cmd.ArgSpecs != nil {
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
+		}
 
-	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
-	}
+		if cmd.Examples != nil {
+			cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
+		}
 
-	if cmd.SeeAlsos != nil {
-		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
-	}
+		if cmd.SeeAlsos != nil {
+			cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
+		}
+	}))
 
 	if cmd.Run != nil {
 		cobraCmd.RunE = cobraRun(b.ctx, cmd)
@@ -134,7 +138,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 
-	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), NewCommands(b.commands...))
+	cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
 }
 
 const usageTemplate = `USAGE:
