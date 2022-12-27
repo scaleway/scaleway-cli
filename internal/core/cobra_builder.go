@@ -10,6 +10,7 @@ import (
 func init() {
 	// we disable cobra command sorting to position important commands at the top when looking at the usage.
 	cobra.EnableCommandSorting = false
+	cobra.AddTemplateFunc("orderCommands", orderCobraCommands)
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -23,8 +24,10 @@ type cobraBuilder struct {
 
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
-	index := map[string]*cobra.Command{}
-	commandsIndex := map[string]*Command{}
+	commands := b.commands.GetAll()
+
+	index := make(map[string]*cobra.Command, len(commands))
+	commandsIndex := make(map[string]*Command, len(commands))
 
 	rootCmd := &cobra.Command{
 		Use: b.meta.BinaryName,
@@ -41,7 +44,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 
 	rootCmd.SetOut(b.meta.stderr)
 
-	for _, cmd := range b.commands.GetSortedCommand() {
+	for _, cmd := range commands {
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
 		if _, namespaceExist := index[cmd.Namespace]; !namespaceExist {
 			cobraCmd := &cobra.Command{Use: cmd.Namespace}
@@ -156,7 +159,7 @@ ARGS:
 DEPRECATED ARGS:
 {{.Annotations.UsageDeprecatedArgs}}{{end}}{{if .HasAvailableSubCommands}}
 
-AVAILABLE COMMANDS:{{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
+AVAILABLE COMMANDS:{{range orderCommands .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
   {{rpad .Name .NamePadding }} {{if .Short}}{{.Short}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
 
 FLAGS:
