@@ -38,6 +38,13 @@ func createRunningInstance() core.BeforeFunc {
 	)
 }
 
+func createRunningInstanceWithTag() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"Instance",
+		"scw instance server create image=ubuntu_bionic tags.0=foo -w",
+	)
+}
+
 func deleteInstance() core.AfterFunc {
 	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }}")
 }
