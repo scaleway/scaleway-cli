@@ -10,6 +10,7 @@ import (
 func init() {
 	// we disable cobra command sorting to position important commands at the top when looking at the usage.
 	cobra.EnableCommandSorting = false
+	cobra.AddTemplateFunc("orderCommands", orderCobraCommands)
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -102,6 +103,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
+	cobraCmd.Commands()
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
 	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
@@ -158,7 +160,7 @@ ARGS:
 DEPRECATED ARGS:
 {{.Annotations.UsageDeprecatedArgs}}{{end}}{{if .HasAvailableSubCommands}}
 
-AVAILABLE COMMANDS:{{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
+AVAILABLE COMMANDS:{{range orderCommands .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
   {{rpad .Name .NamePadding }} {{if .Short}}{{.Short}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
 
 FLAGS:
