@@ -215,7 +215,7 @@ scw function function create [arg=value ...]
 | environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311` |  |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82` |  |
 | memory-limit |  |  |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
@@ -224,7 +224,7 @@ scw function function create [arg=value ...]
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
+| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -373,7 +373,7 @@ scw function function update <function-id ...> [arg=value ...]
 | environment-variables.{key} |  |  |
 | min-scale |  |  |
 | max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311` |  |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82` |  |
 | memory-limit |  |  |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
@@ -383,7 +383,7 @@ scw function function update <function-id ...> [arg=value ...]
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| ~~http-option~~ | Deprecated | Configure how HTTP and HTTPS requests are handled |
+| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
