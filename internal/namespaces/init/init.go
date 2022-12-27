@@ -3,7 +3,6 @@ package init
 import (
 	"context"
 	"fmt"
-	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"reflect"
 	"strings"
 
@@ -13,6 +12,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"

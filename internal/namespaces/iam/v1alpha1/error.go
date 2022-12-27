@@ -2,6 +2,7 @@ package iam
 
 import (
 	"fmt"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 

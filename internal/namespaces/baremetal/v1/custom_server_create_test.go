@@ -5,7 +5,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 // All test below should succeed to create an instance.

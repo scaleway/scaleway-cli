@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
 func Test_initCommand(t *testing.T) {
@@ -50,9 +50,9 @@ func Test_SSHKeyAddCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			api := iam.NewAPI(ctx.Client)
-			return api.DeleteSSHKey(&iam.DeleteSSHKeyRequest{
-				SSHKeyID: ctx.CmdResult.(*iam.SSHKey).ID,
+			api := iamsdk.NewAPI(ctx.Client)
+			return api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{
+				SSHKeyID: ctx.CmdResult.(*iamsdk.SSHKey).ID,
 			})
 		},
 	}))
