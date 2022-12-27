@@ -33,7 +33,7 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # List all SSH keys
-  scw account ssh-key list
+  scw iam ssh-key list
 
   # List OS (useful to get all OS IDs)
   scw baremetal os list

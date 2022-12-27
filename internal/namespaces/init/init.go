@@ -153,18 +153,18 @@ Default path for configuration file is based on the following priority order:
 
 			// Manually prompt for missing args:
 
-			// Credentials
-			if args.SecretKey == "" {
+			if args.AccessKey == "" {
 				_, _ = interactive.Println()
-				args.SecretKey, err = promptSecret(ctx)
+				args.AccessKey, err = promptAccessKey(ctx)
 				if err != nil {
 					return err
 				}
 			}
 
-			if args.AccessKey == "" {
+			// Credentials
+			if args.SecretKey == "" {
 				_, _ = interactive.Println()
-				args.AccessKey, err = promptAccessKey(ctx)
+				args.SecretKey, err = promptSecret(ctx)
 				if err != nil {
 					return err
 				}

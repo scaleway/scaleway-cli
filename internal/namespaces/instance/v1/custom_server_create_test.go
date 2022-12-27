@@ -84,7 +84,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Image UUID", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped=true",
+			Cmd:      "scw instance server create image=b2338ae2-f6a6-472e-814a-012a39169f76 stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)

@@ -7,11 +7,11 @@ import (
 // createServerAndWait creates a baremetal instance
 // register it in the context Meta at metaKey.
 func createServerAndWait(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S -w")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-A210R-HDD -w")
 }
 
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-A210R-HDD")
 }
 
 // deleteServer deletes a server
@@ -19,14 +19,14 @@ func createServer(metaKey string) core.BeforeFunc {
 //
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw baremetal server delete zone=nl-ams-1 {{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw baremetal server delete zone=fr-par-1 {{ ." + metaKey + ".ID }}")
 }
 
 // add an ssh key with a given meta key
 func addSSH(metaKey string, key string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		ctx.Meta[metaKey] = ctx.ExecuteCmd([]string{
-			"scw", "account", "ssh-key", "add", "public-key=" + key,
+			"scw", "iam", "ssh-key", "create", "public-key=" + key,
 		})
 		return nil
 	}
@@ -34,5 +34,5 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 
 // delete an ssh key with a given meta key
 func deleteSSH(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw account ssh-key remove {{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw iam ssh-key delete {{ ." + metaKey + ".ID }}")
 }

@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
-	accountsdk "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -36,8 +36,8 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 
 func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
-		api := accountsdk.NewAPI(ctx.Client)
-		resp, err := api.ListSSHKeys(&accountsdk.ListSSHKeysRequest{},
+		api := iamsdk.NewAPI(ctx.Client)
+		resp, err := api.ListSSHKeys(&iamsdk.ListSSHKeysRequest{},
 			scw.WithAllPages())
 		if err != nil {
 			return err
@@ -49,7 +49,7 @@ func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 			}
 		}
 		if id != "" {
-			err = api.DeleteSSHKey(&accountsdk.DeleteSSHKeyRequest{SSHKeyID: id})
+			err = api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{SSHKeyID: id})
 		}
 		return err
 	}
@@ -59,7 +59,7 @@ func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := []string{
-			"scw", "account", "ssh-key", "add", "public-key=" + key, "name=" + name,
+			"scw", "iam", "ssh-key", "create", "public-key=" + key, "name=" + name,
 		}
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
 		return nil
@@ -74,7 +74,7 @@ func Test_InitSSH(t *testing.T) {
 		"install-autocomplete": "false",
 	}
 	cmds := GetCommands()
-	cmds.Merge(account.GetCommands())
+	cmds.Merge(iam.GetCommands())
 
 	// We create a key in each tests to be able to run those tests in parallel
 

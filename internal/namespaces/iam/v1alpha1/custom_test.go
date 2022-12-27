@@ -1,4 +1,4 @@
-package account
+package iam
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
 func Test_initCommand(t *testing.T) {
@@ -27,7 +27,7 @@ func Test_initCommand(t *testing.T) {
 			}
 			return err
 		},
-		Cmd: `scw account ssh-key init with-ssh-key=true`,
+		Cmd: `scw iam ssh-key init with-ssh-key=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -43,16 +43,16 @@ func Test_SSHKeyAddCommand(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Args: []string{
-			"scw", "account", "ssh-key", "add", "name=foobar", "public-key=" + key,
+			"scw", "iam", "ssh-key", "create", "name=foobar", "public-key=" + key,
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
-			api := account.NewAPI(ctx.Client)
-			return api.DeleteSSHKey(&account.DeleteSSHKeyRequest{
-				SSHKeyID: ctx.CmdResult.(*account.SSHKey).ID,
+			api := iam.NewAPI(ctx.Client)
+			return api.DeleteSSHKey(&iam.DeleteSSHKeyRequest{
+				SSHKeyID: ctx.CmdResult.(*iam.SSHKey).ID,
 			})
 		},
 	}))
@@ -63,7 +63,7 @@ func Test_SSHKeyRemoveCommand(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: addSSHKey("Key", key),
-		Cmd:        "scw account ssh-key remove {{ .Key.ID }}",
+		Cmd:        "scw iam ssh-key remove {{ .Key.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

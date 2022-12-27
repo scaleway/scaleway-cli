@@ -1,0 +1,42 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-key-wizardly-kowalevski","public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGh9rvkJKMu5ljnevB4oRu4i/EnxGS734/UJ6fSDvXGIvT08jIglahc7tM5dvo02abPVXsbiazO25avZZtL6fjo=
+      foobar@foobar","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.4; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"ad21f70f-2076-4ce9-b396-2c57b38973e9","name":"cli-key-wizardly-kowalevski","public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGh9rvkJKMu5ljnevB4oRu4i/EnxGS734/UJ6fSDvXGIvT08jIglahc7tM5dvo02abPVXsbiazO25avZZtL6fjo=
+      foobar@foobar","fingerprint":"256 MD5:66:2f:05:a4:64:d2:22:89:b6:ad:e8:a9:3e:38:22:95
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2022-12-19T16:27:30.844885Z","updated_at":"2022-12-19T16:27:30.844885Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}'
+    headers:
+      Content-Length:
+      - "592"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 19 Dec 2022 16:27:30 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c8fe2ae1-c1bc-4f53-9282-6509822e015e
+    status: 200 OK
+    code: 200
+    duration: ""

@@ -7,7 +7,6 @@ USAGE:
 
 AVAILABLE COMMANDS:
   project     Project management commands
-  ssh-key     SSH keys management commands
 
 FLAGS:
   -h, --help   help for account
