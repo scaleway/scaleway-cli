@@ -11,7 +11,7 @@ ARGS:
   [environment-variables.{key}]                  
   [min-scale]                                    
   [max-scale]                                    
-  [runtime]                                       (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311)
+  [runtime]                                       (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82)
   [memory-limit]                                 
   [timeout.seconds]                              
   [timeout.nanos]                                
@@ -20,10 +20,8 @@ ARGS:
   [description]                                  
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
+  [http-option]                                  Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
-
-DEPRECATED ARGS:
-  [http-option]   Configure how HTTP and HTTPS requests are handled
 
 FLAGS:
   -h, --help   help for create
