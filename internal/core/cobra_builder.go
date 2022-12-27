@@ -100,21 +100,25 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
-	if cmd.ArgsType != nil {
-		cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
-	}
+	// Use a custom function to print usage
+	// This function will build usage to avoid building it for each commands
+	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
+		if cmd.ArgsType != nil {
+			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
+		}
 
-	if cmd.ArgSpecs != nil {
-		cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
-	}
+		if cmd.ArgSpecs != nil {
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
+		}
 
-	if cmd.Examples != nil {
-		cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
-	}
+		if cmd.Examples != nil {
+			cobraCmd.Annotations["Examples"] = buildExamples(b.meta.BinaryName, cmd)
+		}
 
-	if cmd.SeeAlsos != nil {
-		cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
-	}
+		if cmd.SeeAlsos != nil {
+			cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
+		}
+	}))
 
 	if cmd.Run != nil {
 		cobraCmd.RunE = cobraRun(b.ctx, cmd)
