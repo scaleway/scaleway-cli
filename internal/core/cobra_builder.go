@@ -103,7 +103,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.Annotations = make(map[string]string)
 	}
 
-	cobraCmd.Commands()
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
 	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
