@@ -9,6 +9,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+var AllLocalities = "all"
+
 type ArgSpecs []*ArgSpec
 
 func (s ArgSpecs) GetPositionalArg() *ArgSpec {
@@ -129,6 +131,11 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
 		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			for _, zone := range zones {
+				if value.(scw.Zone) == zone {
+					return nil
+				}
+			}
 			if validation.IsZone(value.(scw.Zone).String()) {
 				return nil
 			}
@@ -155,6 +162,11 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
 		ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+			for _, region := range regions {
+				if value.(scw.Region) == region {
+					return nil
+				}
+			}
 			if validation.IsRegion(value.(scw.Region).String()) {
 				return nil
 			}
