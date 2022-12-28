@@ -39,36 +39,37 @@ import (
 func GetCommands(beta ...bool) *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
-	commands := core.NewCommands()
-	commands.Merge(iam.GetCommands())
-	commands.Merge(instance.GetCommands())
-	commands.Merge(baremetal.GetCommands())
-	commands.Merge(k8s.GetCommands())
-	commands.Merge(marketplace.GetCommands())
-	commands.Merge(initNamespace.GetCommands())
-	commands.Merge(configNamespace.GetCommands())
-	commands.Merge(accountv2.GetCommands())
-	commands.Merge(autocompleteNamespace.GetCommands())
-	commands.Merge(object.GetCommands())
-	commands.Merge(versionNamespace.GetCommands())
-	commands.Merge(registry.GetCommands())
-	commands.Merge(feedback.GetCommands())
-	commands.Merge(info.GetCommands())
-	commands.Merge(rdb.GetCommands())
-	commands.Merge(lb.GetCommands())
-	commands.Merge(iot.GetCommands())
-	commands.Merge(help.GetCommands())
-	commands.Merge(vpc.GetCommands())
-	commands.Merge(domain.GetCommands())
-	commands.Merge(applesilicon.GetCommands())
-	commands.Merge(flexibleip.GetCommands())
-	commands.Merge(container.GetCommands())
-	commands.Merge(function.GetCommands())
-	commands.Merge(vpcgw.GetCommands())
-	commands.Merge(redis.GetCommands())
-	commands.Merge(shell.GetCommands())
-	commands.Merge(tem.GetCommands())
-	commands.Merge(mnq.GetCommands())
+	commands := core.NewCommandsMerge(
+		iam.GetCommands(),
+		instance.GetCommands(),
+		baremetal.GetCommands(),
+		k8s.GetCommands(),
+		marketplace.GetCommands(),
+		initNamespace.GetCommands(),
+		configNamespace.GetCommands(),
+		accountv2.GetCommands(),
+		autocompleteNamespace.GetCommands(),
+		object.GetCommands(),
+		versionNamespace.GetCommands(),
+		registry.GetCommands(),
+		feedback.GetCommands(),
+		info.GetCommands(),
+		rdb.GetCommands(),
+		lb.GetCommands(),
+		iot.GetCommands(),
+		help.GetCommands(),
+		vpc.GetCommands(),
+		domain.GetCommands(),
+		applesilicon.GetCommands(),
+		flexibleip.GetCommands(),
+		container.GetCommands(),
+		function.GetCommands(),
+		vpcgw.GetCommands(),
+		redis.GetCommands(),
+		shell.GetCommands(),
+		tem.GetCommands(),
+		mnq.GetCommands(),
+	)
 
 	return commands
 }

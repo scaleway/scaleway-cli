@@ -5,7 +5,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 // All test below should succeed to create an instance.
@@ -14,7 +14,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create zone=fr-par-1 type=EM-A210R-HDD -w",
+			Cmd:      "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
@@ -25,7 +25,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=fr-par-1 type=EM-A210R-HDD -w",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetal.Server).Name)
@@ -37,7 +37,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=fr-par-1 type=EM-A210R-HDD -w",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.Equal(t, "prod", ctx.Result.(*baremetal.Server).Tags[0])
@@ -45,7 +45,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=fr-par-1"),
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
 		}))
 	})
 }

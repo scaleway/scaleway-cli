@@ -6,7 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -33,9 +33,9 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		// SSH keys management
 		if tmpRequest.AllSSHKeys != nil && *tmpRequest.AllSSHKeys {
 			client := core.ExtractClient(ctx)
-			iamAPI := iamsdk.NewAPI(client)
+			iamAPI := iam.NewAPI(client)
 			orgID, _ := client.GetDefaultOrganizationID()
-			listKeys, err := iamAPI.ListSSHKeys(&iamsdk.ListSSHKeysRequest{
+			listKeys, err := iamAPI.ListSSHKeys(&iam.ListSSHKeysRequest{
 				OrganizationID: &orgID,
 			}, scw.WithAllPages())
 			if err != nil {

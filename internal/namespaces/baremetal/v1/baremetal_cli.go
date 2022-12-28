@@ -504,7 +504,7 @@ func baremetalServerInstall() *core.Command {
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
-				Command: "scw iam ssh-key list",
+				Command: "scw account ssh-key list",
 				Short:   "List all SSH keys",
 			},
 			{

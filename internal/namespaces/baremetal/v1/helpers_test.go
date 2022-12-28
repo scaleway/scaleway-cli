@@ -7,11 +7,11 @@ import (
 // createServerAndWait creates a baremetal instance
 // register it in the context Meta at metaKey.
 func createServerAndWait(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-A210R-HDD -w")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S -w")
 }
 
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-A210R-HDD")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S")
 }
 
 // deleteServer deletes a server
@@ -19,7 +19,7 @@ func createServer(metaKey string) core.BeforeFunc {
 //
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw baremetal server delete zone=fr-par-1 {{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw baremetal server delete zone=nl-ams-1 {{ ." + metaKey + ".ID }}")
 }
 
 // add an ssh key with a given meta key
