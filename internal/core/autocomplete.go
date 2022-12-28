@@ -401,6 +401,10 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 		possibleValues = argSpec.EnumValues
 	}
 
+	if len(possibleValues) == 0 && ExtractBetaMode(ctx) {
+		possibleValues = AutocompleteGetArg(ctx, cmd, argSpec)
+	}
+
 	suggestions := []string(nil)
 	for _, value := range possibleValues {
 		if strings.HasPrefix(value, argValuePrefix) {

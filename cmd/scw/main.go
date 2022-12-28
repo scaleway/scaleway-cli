@@ -74,6 +74,7 @@ func main() {
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
+		BetaMode:  BetaMode,
 	})
 
 	os.Exit(exitCode)

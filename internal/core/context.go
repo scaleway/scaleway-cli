@@ -31,6 +31,7 @@ type meta struct {
 	result                      interface{}
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
+	betaMode                    bool
 }
 
 type contextKey int
@@ -78,6 +79,10 @@ func ExtractLogger(ctx context.Context) *Logger {
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
+}
+
+func ExtractBetaMode(ctx context.Context) bool {
+	return extractMeta(ctx).betaMode
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {

@@ -61,6 +61,9 @@ type BootstrapConfig struct {
 	// Default HTTPClient to use. If not provided it will use a basic http client with a simple retry policy
 	// This client will be used to create SDK client, account call, version checking and telemetry
 	HTTPClient *http.Client
+
+	// Enable beta functionalities
+	BetaMode bool
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -163,6 +166,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
+		betaMode:                    config.BetaMode,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
