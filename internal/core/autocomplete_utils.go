@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
@@ -34,7 +35,7 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
-func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec) []string {
+func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, completedArgs map[string]string) []string {
 	commands := ExtractCommands(ctx)
 
 	// The argument we want to find (ex: server-id)
@@ -63,6 +64,23 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec) []s
 	// Build empty arguments and run command
 	// Has to use interceptor if it exists as ArgsType could be handled by interceptor
 	listCmdArgs := reflect.New(listCmd.ArgsType).Interface()
+
+	// Keep zone and region arguments
+	listRawArgs := []string(nil)
+	for arg, value := range completedArgs {
+		if strings.HasPrefix(arg, "zone") || strings.HasPrefix(arg, "region") {
+			listRawArgs = append(listRawArgs, arg+value)
+		}
+	}
+
+	// Unmarshal args.
+	// After that we are done working with rawArgs
+	// and will be working with cmdArgs.
+	err := args.UnmarshalStruct(listRawArgs, listCmdArgs)
+	if err != nil {
+		return nil
+	}
+
 	if listCmd.Interceptor == nil {
 		listCmd.Interceptor = func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error) {
 			return runner(ctx, argsI)
