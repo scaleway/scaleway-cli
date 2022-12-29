@@ -116,7 +116,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 | Namespace      | Description                             | Documentation                                                                                           |
 | -------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                       |
+| `account`      | User related data                       | [CLI](./docs/commands/account.md)                                                                       |
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                  |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                        |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                      |

@@ -4,7 +4,7 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account       Account API
+  account       User related data
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
