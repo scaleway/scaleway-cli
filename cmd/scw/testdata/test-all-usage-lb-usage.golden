@@ -6,13 +6,14 @@ USAGE:
   scw lb <command>
 
 AVAILABLE COMMANDS:
-  acl         Access Control List (ACL) management commands
-  backend     Backend management commands
-  certificate TLS certificate management commands
-  frontend    Frontend management commands
-  ip          IP management commands
-  lb          Load-balancer management commands
-  lb-types    Load-balancer types management commands
+  acl             Access Control List (ACL) management commands
+  backend         Backend management commands
+  certificate     TLS certificate management commands
+  frontend        Frontend management commands
+  ip              IP management commands
+  lb              Load balancer management commands
+  lb-types        Load balancer types management commands
+  private-network Private networks management commands
 
 FLAGS:
   -h, --help   help for lb
