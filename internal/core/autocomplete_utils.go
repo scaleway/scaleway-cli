@@ -52,6 +52,13 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 		}
 	}
 
+	// skip if creating a resource and the arg to complete is from the same resource
+	// does not complete name in "scw instance server create name=<tab>"
+	// but still complete for different resources ex: "scw container container create namespace-id=<tab>"
+	if cmd.Verb == "create" && argResource == cmd.Resource {
+		return nil
+	}
+
 	// remove resource from arg name (ex: server-id -> id)
 	argName = strings.TrimPrefix(argName, argResource)
 	argName = strings.TrimLeft(argName, "-")
@@ -100,11 +107,15 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	values := []string(nil)
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := 0; i < resources.Len(); i++ {
-		resource := resources.Index(i).Elem()
+		resource := resources.Index(i)
+		if resource.Kind() == reflect.Ptr {
+			resource = resource.Elem()
+		}
 		resourceField := resource.FieldByName(strcase.ToPublicGoName(argName))
 		if resourceField.Kind() == reflect.String {
 			values = append(values, resourceField.String())
 		}
 	}
+
 	return values
 }
