@@ -105,6 +105,13 @@ scw instance server list
 scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default tags.0=tag1 tags.1=tag2
 ```
 
+## Environment
+
+You can configure your config or enable functionalities with environment variables.
+
+Variables to override config are describe in [config documentation](docs/commands/config.md).
+To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
+
 # Reference documentation
 
 | Namespace      | Description                             | Documentation                                                                                           |
