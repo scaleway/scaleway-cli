@@ -2709,6 +2709,7 @@ func instancePrivateNicList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
+				Short:      `The server the private NIC is attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2748,13 +2749,15 @@ func instancePrivateNicCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
+				Short:      `UUID of the server the private NIC will be attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-network-id",
-				Required:   false,
+				Short:      `UUID of the private network where the private NIC will be attached`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -2783,12 +2786,14 @@ func instancePrivateNicGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
+				Short:      `The server the private NIC is attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nic-id",
+				Short:      `The private NIC unique ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2818,12 +2823,14 @@ func instancePrivateNicDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
+				Short:      `The server the private NIC is attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nic-id",
+				Short:      `The private NIC unique ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,

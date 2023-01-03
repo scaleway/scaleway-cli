@@ -845,8 +845,8 @@ scw instance private-nic create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required |  |
-| private-network-id |  |  |
+| server-id | Required | UUID of the server the private NIC will be attached to |
+| private-network-id | Required | UUID of the private network where the private NIC will be attached |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -866,8 +866,8 @@ scw instance private-nic delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required |  |
-| private-nic-id | Required |  |
+| server-id | Required | The server the private NIC is attached to |
+| private-nic-id | Required | The private NIC unique ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -887,8 +887,8 @@ scw instance private-nic get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required |  |
-| private-nic-id | Required |  |
+| server-id | Required | The server the private NIC is attached to |
+| private-nic-id | Required | The private NIC unique ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -908,7 +908,7 @@ scw instance private-nic list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required |  |
+| server-id | Required | The server the private NIC is attached to |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
