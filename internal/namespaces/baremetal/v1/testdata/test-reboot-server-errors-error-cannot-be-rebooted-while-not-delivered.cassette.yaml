@@ -6,26 +6,72 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/offers?page=1&subscription_period=unknown_subscription_period
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/offers?page=1&subscription_period=unknown_subscription_period
     method: GET
   response:
-    body: '{"total_count":6,"offers":[{"id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","name":"GP-BM2-S","stock":"available","bandwidth":750000000,"commercial_range":"general_purpose","disks":[{"capacity":480000000000,"type":"NVMe"},{"capacity":480000000000,"type":"NVMe"}],"enable":true,"cpus":[{"name":"Intel
-      Xeon E-2246G","core_count":6,"thread_count":12,"frequency":3600}],"memories":[{"capacity":32000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"bmaas_gp","price_per_hour":{"currency_code":"EUR","units":0,"nanos":187000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["3ea52186-1e57-499e-8146-ab38051a5c10"],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null},{"id":"964f9b38-577e-470f-a220-7d762f9e8672","name":"GP-BM1-M","stock":"empty","bandwidth":500000000,"commercial_range":"general_purpose","disks":[{"capacity":1024000000000,"type":"SSD"},{"capacity":1024000000000,"type":"SSD"},{"capacity":1024000000000,"type":"SSD"}],"enable":true,"cpus":[{"name":"Intel
-      Xeon E3 1240v6","core_count":4,"thread_count":8,"frequency":3700}],"memories":[{"capacity":64000000000,"type":"DDR4","frequency":2133,"is_ecc":true}],"quota_name":"bmaas_gp","price_per_hour":{"currency_code":"EUR","units":0,"nanos":266000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null},{"id":"674d1492-16d3-4f5b-8301-e17fc1410893","name":"HC-BM2-M","stock":"available","bandwidth":1000000000,"commercial_range":"high_cpu","disks":[{"capacity":1920000000000,"type":"NVMe"},{"capacity":1920000000000,"type":"NVMe"}],"enable":true,"cpus":[{"name":"Intel
-      Xeon Silver 4114","core_count":20,"thread_count":40,"frequency":2200},{"name":"Intel
-      Xeon Silver 4114","core_count":20,"thread_count":40,"frequency":2200}],"memories":[{"capacity":192000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"bmaas_high_cpu","price_per_hour":{"currency_code":"EUR","units":0,"nanos":833000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["3ea52186-1e57-499e-8146-ab38051a5c10","d859aa89-8b4a-4551-af42-ff7c0c27260a","d17d6872-0412-45d9-a198-af82c34d3c5c","eef03f45-057b-4192-b95f-c21cae01e959"],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null},{"id":"cb102584-cae1-4d9f-97c8-6ec47e94fc10","name":"HM-BM2-M","stock":"available","bandwidth":1000000000,"commercial_range":"high_memory","disks":[{"capacity":1920000000000,"type":"NVMe"},{"capacity":1920000000000,"type":"NVMe"}],"enable":true,"cpus":[{"name":"AMD
-      EPYC 7302P","core_count":16,"thread_count":32,"frequency":3000}],"memories":[{"capacity":256000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"bmaas_high_mem","price_per_hour":{"currency_code":"EUR","units":0,"nanos":833000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["3ea52186-1e57-499e-8146-ab38051a5c10","d859aa89-8b4a-4551-af42-ff7c0c27260a","d17d6872-0412-45d9-a198-af82c34d3c5c","eef03f45-057b-4192-b95f-c21cae01e959"],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null},{"id":"6b7acfa8-90c0-431a-9a41-d410e9da5188","name":"HC-BM2-L","stock":"available","bandwidth":1000000000,"commercial_range":"high_cpu","disks":[{"capacity":1920000000000,"type":"NVMe"},{"capacity":1920000000000,"type":"NVMe"}],"enable":true,"cpus":[{"name":"AMD
-      EPYC 7532","core_count":32,"thread_count":64,"frequency":2200}],"memories":[{"capacity":256000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"bmaas_high_cpu","price_per_hour":{"currency_code":"EUR","units":1,"nanos":208000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["d17d6872-0412-45d9-a198-af82c34d3c5c","eef03f45-057b-4192-b95f-c21cae01e959","3ea52186-1e57-499e-8146-ab38051a5c10","d859aa89-8b4a-4551-af42-ff7c0c27260a"],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null},{"id":"8c17b81e-9417-45b5-94c7-d6785df674e5","name":"HM-BM2-L","stock":"available","bandwidth":1000000000,"commercial_range":"high_memory","disks":[{"capacity":1920000000000,"type":"NVMe"},{"capacity":1920000000000,"type":"NVMe"}],"enable":true,"cpus":[{"name":"Intel
-      Xeon Silver 4214R","core_count":24,"thread_count":48,"frequency":2400},{"name":"Intel
-      Xeon Silver 4214R","core_count":24,"thread_count":48,"frequency":2400}],"memories":[{"capacity":576000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"bmaas_high_mem","price_per_hour":{"currency_code":"EUR","units":1,"nanos":250000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["3ea52186-1e57-499e-8146-ab38051a5c10","d859aa89-8b4a-4551-af42-ff7c0c27260a","d17d6872-0412-45d9-a198-af82c34d3c5c","eef03f45-057b-4192-b95f-c21cae01e959"],"subscription_period":"unknown_subscription_period","operation_path":"","fee":null}]}'
+    body: '{"total_count":8,"offers":[{"id":"25dcf38b-c90c-4b18-97a2-6956e9d1e113","name":"EM-A210R-HDD","stock":"empty","bandwidth":1000000000,"commercial_range":"aluminium","disks":[{"capacity":1000000000000,"type":"HDD"},{"capacity":1000000000000,"type":"HDD"}],"enable":true,"cpus":[{"name":"AMD
+      Ryzen PRO 3600","core_count":6,"thread_count":12,"frequency":3600,"benchmark":""}],"memories":[{"capacity":16000000000,"type":"DDR4","frequency":3200,"is_ecc":true}],"quota_name":"EM_A210R_SATA","price_per_hour":{"currency_code":"EUR","units":0,"nanos":122000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["5dfefb70-053e-4ba8-9d76-537b230db94e","ac5cc157-caee-406a-ae0a-a28d7c30389a","3ea52186-1e57-499e-8146-ab38051a5c10","b4816d13-8585-4005-a7c7-54a031dd933b","52a2423a-3fbc-4fc0-8ac6-91735a2aa47d","7c70ff80-dbfa-4e07-be73-1de0e60fe175","bf705b90-1548-4368-98ca-d17dbd8dd860","01d6eef6-6b96-47fd-b9f9-3857321abe4f","3422ae02-d6d7-4980-8a00-eb38c262fb41","a47ccf6f-1990-4488-8f64-332a6da3ef84","e04414b9-16d4-4ffb-8ba1-6b80704c7d2a","39176c6e-509d-4e6c-8e42-417d103f4579","bd17a2bb-e686-486a-aacf-44fa8ce6e553","7e865c16-1a63-4dc7-8181-dabc020fc21b","7fb86682-316e-4f6e-a845-de9b230cdd29"],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":107,"nanos":250000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":16,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":16,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"},{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":107,"nanos":250000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"}]},{"id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","name":"EM-L101X-SATA","stock":"available","bandwidth":1000000000,"commercial_range":"lithium","disks":[{"capacity":6000000000000,"type":"HDD"},{"capacity":6000000000000,"type":"HDD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 1410 v2","core_count":4,"thread_count":8,"frequency":2800,"benchmark":""}],"memories":[{"capacity":96000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_L101X_SATA","price_per_hour":{"currency_code":"EUR","units":0,"nanos":122000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"},{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"},{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"}]},{"id":"6ec5bbb2-8267-41cd-aaf6-d43ea1b59372","name":"EM-A315X-SSD","stock":"available","bandwidth":1000000000,"commercial_range":"aluminium","disks":[{"capacity":1000000000000,"type":"SSD"},{"capacity":1000000000000,"type":"SSD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 1410 v2","core_count":4,"thread_count":8,"frequency":2800,"benchmark":""}],"memories":[{"capacity":64000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_A315X_SSD","price_per_hour":{"currency_code":"EUR","units":0,"nanos":153000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":["bd17a2bb-e686-486a-aacf-44fa8ce6e553","bf705b90-1548-4368-98ca-d17dbd8dd860","3422ae02-d6d7-4980-8a00-eb38c262fb41","e04414b9-16d4-4ffb-8ba1-6b80704c7d2a","3ea52186-1e57-499e-8146-ab38051a5c10","7e865c16-1a63-4dc7-8181-dabc020fc21b","7fb86682-316e-4f6e-a845-de9b230cdd29","b4816d13-8585-4005-a7c7-54a031dd933b","7c70ff80-dbfa-4e07-be73-1de0e60fe175"],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"}]},{"id":"c5853302-63e4-40c7-a711-4a91629565c8","name":"EM-L105X-SATA","stock":"available","bandwidth":1000000000,"commercial_range":"lithium","disks":[{"capacity":6000000000000,"type":"HDD"},{"capacity":6000000000000,"type":"HDD"},{"capacity":6000000000000,"type":"HDD"},{"capacity":6000000000000,"type":"HDD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 1410 v2","core_count":4,"thread_count":8,"frequency":2800,"benchmark":""}],"memories":[{"capacity":96000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_L105X_SATA","price_per_hour":{"currency_code":"EUR","units":0,"nanos":213000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"},{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"}]},{"id":"8c2cf291-a3d3-4dc5-967f-f498a088411d","name":"EM-B111X-SATA","stock":"available","bandwidth":1000000000,"commercial_range":"beryllium","disks":[{"capacity":8000000000000,"type":"HDD"},{"capacity":8000000000000,"type":"HDD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 2620 or equivalent","core_count":6,"thread_count":12,"frequency":2000,"benchmark":""},{"name":"Intel
+      Xeon E5 2620 or equivalent","core_count":6,"thread_count":12,"frequency":2000,"benchmark":""}],"memories":[{"capacity":192000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_B111X_SATA","price_per_hour":{"currency_code":"EUR","units":0,"nanos":263000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":214,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":214,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":33,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":33,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"}]},{"id":"a5065ba4-dde2-45f3-adec-1ebbb27b766b","name":"EM-B112X-SSD","stock":"available","bandwidth":1000000000,"commercial_range":"beryllium","disks":[{"capacity":1000000000000,"type":"SSD"},{"capacity":1000000000000,"type":"SSD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 2620 or equivalent","core_count":6,"thread_count":12,"frequency":2000,"benchmark":""},{"name":"Intel
+      Xeon E5 2620 or equivalent","core_count":6,"thread_count":12,"frequency":2000,"benchmark":""}],"memories":[{"capacity":192000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_B112X_SSD","price_per_hour":{"currency_code":"EUR","units":0,"nanos":263000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":214,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":33,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":33,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"},{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":214,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"}]},{"id":"ddaf8ba6-b2b2-4279-8af3-51930fb602f8","name":"EM-B212X-SSD","stock":"available","bandwidth":1000000000,"commercial_range":"beryllium","disks":[{"capacity":1000000000000,"type":"SSD"},{"capacity":1000000000000,"type":"SSD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 2670 or equivalent","core_count":8,"thread_count":16,"frequency":2600,"benchmark":""},{"name":"Intel
+      Xeon E5 2670 or equivalent","core_count":8,"thread_count":16,"frequency":2600,"benchmark":""}],"memories":[{"capacity":256000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_B212X_SSD","price_per_hour":{"currency_code":"EUR","units":0,"nanos":321000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":286,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":44,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":286,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":44,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"}]},{"id":"a204136d-656b-44b7-9735-88ca2f62cb1f","name":"EM-L110X-SATA","stock":"available","bandwidth":1000000000,"commercial_range":"lithium","disks":[{"capacity":12000000000000,"type":"HDD"},{"capacity":12000000000000,"type":"HDD"},{"capacity":12000000000000,"type":"HDD"},{"capacity":12000000000000,"type":"HDD"}],"enable":true,"cpus":[{"name":"Intel
+      Xeon E5 1410 v2","core_count":4,"thread_count":8,"frequency":2800,"benchmark":""}],"memories":[{"capacity":96000000000,"type":"DDR3","frequency":1600,"is_ecc":true}],"quota_name":"EM_L110X_SATA","price_per_hour":{"currency_code":"EUR","units":0,"nanos":366000000},"price_per_month":null,"persistent_memories":[],"raid_controllers":[],"incompatible_os_ids":[],"subscription_period":"hourly","operation_path":"","fee":{"currency_code":"EUR","units":0,"nanos":0},"options":[{"id":"931df052-d713-4674-8b58-96a63244c8e2","name":"Remote
+      Access","price":{"currency_code":"EUR","units":0,"nanos":990000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f42a040b-6c91-4b11-beb0-b0b21e641fda","name":"Windows
+      2019 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"7c70ff80-dbfa-4e07-be73-1de0e60fe175"},{"id":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","name":"Private
+      Network","price":{"currency_code":"EUR","units":0,"nanos":30000000},"enabled":false,"subscription_period":"hourly","manageable":true,"os_id":"00000000-0000-0000-0000-000000000000"},{"id":"f74a6322-070e-41dd-a13f-8165ea63aca8","name":"Windows
+      2019 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"},{"id":"83a8fb91-47b4-4c20-82f9-84c31d79bfd8","name":"Windows
+      2022 standard","price":{"currency_code":"EUR","units":11,"nanos":0},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"bf705b90-1548-4368-98ca-d17dbd8dd860"},{"id":"c498071f-4f8d-49f3-bc52-afc219a48fe0","name":"Windows
+      2022 datacenter","price":{"currency_code":"EUR","units":71,"nanos":500000000},"enabled":false,"subscription_period":"monthly","manageable":false,"os_id":"3422ae02-d6d7-4980-8a00-eb38c262fb41"}]}]}'
     headers:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:57:31 GMT
+      - Tue, 03 Jan 2023 16:12:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -35,31 +81,31 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 823b76b5-ce8b-441c-a707-c556baeb8dd4
+      - 4ffb1d62-fcb1-40a3-be22-afea4b9ed617
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","tags":null,"install":null}'
+    body: '{"offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","tags":null,"install":null,"option_ids":null}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:31.482075974Z","created_at":"2021-10-08T09:57:31.482075974Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:57.253363Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "497"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:57:31 GMT
+      - Tue, 03 Jan 2023 16:12:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -69,7 +115,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b19ef1cf-a378-4908-8dc1-eacd0cf60633
+      - 7d67d87d-cb4b-4ec2-bfde-2f5618a9eb67
     status: 200 OK
     code: 200
     duration: ""
@@ -80,20 +126,20 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/zone-nl-ams-1/reboot
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29/reboot
     method: POST
   response:
-    body: '{"message":"Server not found"}'
+    body: '{"message":"Server is not delivered"}'
     headers:
       Content-Length:
-      - "30"
+      - "37"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:57:31 GMT
+      - Tue, 03 Jan 2023 16:12:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -103,29 +149,29 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 81b711d2-fa27-4810-b36d-92110c3090b4
-    status: 404 Not Found
-    code: 404
+      - fc1a1c2f-44e5-4238-8d08-131b97ac05f2
+    status: 400 Bad Request
+    code: 400
     duration: ""
 - request:
     body: ""
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:31.482076Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:57.253363Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:57:31 GMT
+      - Tue, 03 Jan 2023 16:12:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -135,7 +181,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4ce1050e-bc39-4465-af60-646c5edaa0a9
+      - dcfbccad-b6c1-40d3-85bd-f9c142832d8e
     status: 200 OK
     code: 200
     duration: ""
@@ -144,20 +190,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:57:46 GMT
+      - Tue, 03 Jan 2023 16:13:12 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -167,7 +213,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4edf8331-e4d1-4cc6-8533-52ca014d02c5
+      - bf4ee1b6-2331-4fbb-aa65-c580a872e275
     status: 200 OK
     code: 200
     duration: ""
@@ -176,20 +222,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:58:01 GMT
+      - Tue, 03 Jan 2023 16:13:27 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -199,7 +245,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9263e950-056c-43c4-819c-1e1eded1fff7
+      - 9dad2ee0-20dd-4322-90af-9b4049b6a6eb
     status: 200 OK
     code: 200
     duration: ""
@@ -208,20 +254,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:58:16 GMT
+      - Tue, 03 Jan 2023 16:13:42 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -231,7 +277,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - cbcf45eb-7bb7-45e6-b0df-6b75c9b0f020
+      - 66c28d40-382c-4622-b3b5-7381ed84a397
     status: 200 OK
     code: 200
     duration: ""
@@ -240,20 +286,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:58:32 GMT
+      - Tue, 03 Jan 2023 16:13:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -263,7 +309,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 74aed342-65d4-41bd-856e-d19b54ba764c
+      - 0d611951-3504-4a7d-9396-facf67d9341a
     status: 200 OK
     code: 200
     duration: ""
@@ -272,20 +318,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:58:47 GMT
+      - Tue, 03 Jan 2023 16:14:12 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -295,7 +341,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 35229527-300b-4e73-98ed-f15f4f4510c8
+      - 81d54836-f87b-46a5-afc2-2b7b3f6a9f00
     status: 200 OK
     code: 200
     duration: ""
@@ -304,20 +350,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:59:03 GMT
+      - Tue, 03 Jan 2023 16:14:27 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -327,7 +373,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 87066d66-6d83-4b95-b648-722e5b483eb5
+      - 1aad7eb1-77ef-4c85-a225-39d38d7b4ad7
     status: 200 OK
     code: 200
     duration: ""
@@ -336,20 +382,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:59:18 GMT
+      - Tue, 03 Jan 2023 16:14:42 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -359,7 +405,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 85fe47e4-123f-42e5-bd4b-6a98a110e4dd
+      - 4fff430f-dd75-4ce8-abae-70ba74acff7e
     status: 200 OK
     code: 200
     duration: ""
@@ -368,20 +414,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:59:33 GMT
+      - Tue, 03 Jan 2023 16:14:57 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -391,7 +437,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 619296d9-3d71-4411-bb98-4601f6b634fa
+      - fe2698e4-4e4a-4d64-b919-c8582b40c170
     status: 200 OK
     code: 200
     duration: ""
@@ -400,20 +446,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:12:58.439134Z","created_at":"2023-01-03T16:12:57.253363Z","status":"delivering","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "544"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 09:59:48 GMT
+      - Tue, 03 Jan 2023 16:15:13 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -423,7 +469,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f11b7e5c-0f9c-4d20-bc88-34b6d3acda61
+      - af0a0c93-6b10-42e0-993b-cbdd2edf0ac5
     status: 200 OK
     code: 200
     duration: ""
@@ -432,20 +478,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: GET
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T09:57:32.579161Z","created_at":"2021-10-08T09:57:31.482076Z","status":"delivering","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[],"domain":"","boot_type":"normal","ping_status":"ping_status_unknown","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:15:21.000627Z","created_at":"2023-01-03T16:12:57.253363Z","status":"ready","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[{"id":"3bc71a8b-d28d-4d34-a4ca-8b898b076a7f","address":"2001:0bc8:0701:0006:b283:feff:fee0:0c2d","reverse":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","version":"IPv6","reverse_status":"pending","reverse_status_message":""},{"id":"42deed09-b4cb-4abe-b7e0-1645ec550849","address":"62.210.88.156","reverse":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","version":"IPv4","reverse_status":"pending","reverse_status_message":""}],"domain":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "491"
+      - "1068"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 10:00:03 GMT
+      - Tue, 03 Jan 2023 16:15:28 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -455,7 +501,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4d068a9e-9c13-4293-b69a-fe54f586d824
+      - 51997e1a-dd29-4c82-a18a-09fff0f1a618
     status: 200 OK
     code: 200
     duration: ""
@@ -464,52 +510,20 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
-    method: GET
-  response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T10:00:16.240584Z","created_at":"2021-10-08T09:57:31.482076Z","status":"ready","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[{"id":"130b7245-546a-4801-87ff-348420d48e43","address":"2001:0bc8:1600:0006:224:ecff:fef2:3110","reverse":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","version":"IPv6","reverse_status":"pending","reverse_status_message":""},{"id":"4d2288d6-aa41-4e8b-aa20-88bf8315b138","address":"51.158.156.50","reverse":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","version":"IPv4","reverse_status":"pending","reverse_status_message":""}],"domain":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_down","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
-    headers:
-      Content-Length:
-      - "1016"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 08 Oct 2021 10:00:18 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - e42ba74f-6598-4691-980c-b67d3fa123a6
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.17.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/baremetal/v1/zones/nl-ams-1/servers/3d3662cd-1da0-4b00-8828-61d44fa9ee49
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/baremetal/v1/zones/fr-par-1/servers/72bb9499-e757-4d98-b0cb-662fd28ffd29
     method: DELETE
   response:
-    body: '{"id":"3d3662cd-1da0-4b00-8828-61d44fa9ee49","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","updated_at":"2021-10-08T10:00:18.629760Z","created_at":"2021-10-08T09:57:31.482076Z","status":"deleting","offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","install":null,"tags":[],"ips":[{"id":"130b7245-546a-4801-87ff-348420d48e43","address":"2001:0bc8:1600:0006:224:ecff:fef2:3110","reverse":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","version":"IPv6","reverse_status":"pending","reverse_status_message":""},{"id":"4d2288d6-aa41-4e8b-aa20-88bf8315b138","address":"51.158.156.50","reverse":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","version":"IPv4","reverse_status":"pending","reverse_status_message":""}],"domain":"3d3662cd-1da0-4b00-8828-61d44fa9ee49.nl-ams-1.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_down","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","zone":"nl-ams-1"}'
+    body: '{"id":"72bb9499-e757-4d98-b0cb-662fd28ffd29","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","name":"cli-bm-elegant-mclean","description":"","updated_at":"2023-01-03T16:15:28.144724Z","created_at":"2023-01-03T16:12:57.253363Z","status":"deleting","offer_id":"bd757ca3-a71b-4158-9ef5-39436b6db2a4","install":null,"tags":[],"ips":[{"id":"3bc71a8b-d28d-4d34-a4ca-8b898b076a7f","address":"2001:0bc8:0701:0006:b283:feff:fee0:0c2d","reverse":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","version":"IPv6","reverse_status":"pending","reverse_status_message":""},{"id":"42deed09-b4cb-4abe-b7e0-1645ec550849","address":"62.210.88.156","reverse":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","version":"IPv4","reverse_status":"pending","reverse_status_message":""}],"domain":"72bb9499-e757-4d98-b0cb-662fd28ffd29.fr-par-1.baremetal.scw.cloud","boot_type":"normal","ping_status":"ping_status_up","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","options":[],"offer_name":"EM-L101X-SATA","rescue_server":null,"zone":"fr-par-1"}'
     headers:
       Content-Length:
-      - "1019"
+      - "1071"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 08 Oct 2021 10:00:18 GMT
+      - Tue, 03 Jan 2023 16:15:28 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -519,7 +533,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4fb444de-ed11-4329-b256-6505bedcd2b2
+      - fed405f9-6b7a-4e92-8e5b-39171176129e
     status: 200 OK
     code: 200
     duration: ""
