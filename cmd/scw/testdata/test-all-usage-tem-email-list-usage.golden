@@ -14,7 +14,7 @@ ARGS:
   [mail-from]          Optional, list emails sent with this `mail_from` sender's address
   [mail-to]            Optional, list emails sent with this `mail_to` recipient's address
   [statuses.{index}]   Optional, list emails having any of this status (unknown | new | sending | sent | failed | canceled)
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list

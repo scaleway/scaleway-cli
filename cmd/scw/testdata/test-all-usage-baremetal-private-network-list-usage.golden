@@ -11,7 +11,7 @@ ARGS:
   [private-network-id]   Filter private networks by private network ID
   [project-id]           Filter private networks by project ID
   [organization-id]      Filter private networks by organization ID
-  [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-2 | all)
 
 FLAGS:
   -h, --help   help for list

@@ -157,7 +157,8 @@ You can filter the DNS zones by domain name.
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZones(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListDNSZones(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -412,7 +413,8 @@ You can filter the records by type and name.
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZoneRecords(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListDNSZoneRecords(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1108,7 +1110,8 @@ If the count reaches this limit, the oldest version will be deleted after each n
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZoneVersions(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListDNSZoneVersions(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1148,7 +1151,8 @@ func dnsVersionShow() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListDNSZoneVersionRecords(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListDNSZoneVersionRecords(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1304,7 +1308,8 @@ func dnsCertificateList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			resp, err := api.ListSSLCertificates(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListSSLCertificates(request, opts...)
 			if err != nil {
 				return nil, err
 			}

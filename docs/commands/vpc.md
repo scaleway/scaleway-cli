@@ -106,7 +106,7 @@ scw vpc private-network list [arg=value ...]
 | project-id |  | The project ID on which to filter the returned private networks |
 | private-network-ids.{index} |  | The PrivateNetwork IDs on which to filter the returned private networks |
 | organization-id |  | The organization ID on which to filter the returned private networks |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

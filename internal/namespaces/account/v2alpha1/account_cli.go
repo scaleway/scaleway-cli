@@ -86,7 +86,8 @@ func accountSSHKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewAPI(client)
-			resp, err := api.ListSSHKeys(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListSSHKeys(request, opts...)
 			if err != nil {
 				return nil, err
 			}

@@ -91,7 +91,7 @@ scw registry image list [arg=value ...]
 | name |  | Filter by the Image name (exact match) |
 | project-id |  | Filter by Project ID |
 | organization-id |  | Filter by Organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -293,7 +293,7 @@ scw registry namespace list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | name |  | Filter by the namespace name (exact match) |
 | organization-id |  | Filter by Organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -384,7 +384,7 @@ scw registry tag list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Field by which to order the display of Images |
 | image-id | Required | The unique ID of the image |
 | name |  | Filter by the tag name (exact match) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

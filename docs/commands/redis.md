@@ -243,7 +243,7 @@ scw redis cluster list [arg=value ...]
 | project-id |  | Project ID to list the cluster of |
 | version |  | Version of the clusters to filter upon |
 | organization-id |  | Organization ID to list the cluster of |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -449,7 +449,7 @@ scw redis node-type list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | include-disabled-types |  | Whether or not to include disabled types |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -548,7 +548,7 @@ scw redis version list [arg=value ...]
 | include-beta |  | Whether or not to include beta Redis™ engine versions |
 | include-deprecated |  | Whether or not to include deprecated Redis™ engine versions |
 | version |  | List Redis™ engine versions that match a given name pattern |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

@@ -6,21 +6,24 @@ USAGE:
   scw lb backend update-healthcheck [arg=value ...]
 
 ARGS:
-  port                    Specify the port used to health check
-  check-delay             Time between two consecutive health checks
-  check-timeout           Additional check timeout, after the connection has been already established
-  check-max-retries       Number of consecutive unsuccessful health checks, after wich the server will be considered dead
-  backend-id              Backend ID
-  [mysql-config.user]     
-  [pgsql-config.user]     
-  [http-config.uri]       
-  [http-config.method]    
-  [http-config.code]      
-  [https-config.uri]      
-  [https-config.method]   
-  [https-config.code]     
-  [check-send-proxy]      It defines whether the healthcheck should be done considering the proxy protocol
-  [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1)
+  port                         Specify the port used to health check
+  check-delay                  Time between two consecutive health checks
+  check-timeout                Maximum time a backend server has to reply to the health check
+  check-max-retries            Number of consecutive unsuccessful health checks, after which the server will be considered dead
+  backend-id                   Backend ID
+  [mysql-config.user]          
+  [pgsql-config.user]          
+  [http-config.uri]            HTTP uri used with the request
+  [http-config.method]         HTTP method used with the request
+  [http-config.code]           HTTP response code so the Healthcheck is considered successfull
+  [http-config.host-header]    HTTP host header used with the request
+  [https-config.uri]           HTTP uri used with the request
+  [https-config.method]        HTTP method used with the request
+  [https-config.code]          HTTP response code so the Healthcheck is considered successfull
+  [https-config.host-header]   HTTP host header used with the request
+  [https-config.sni]           Specifies the SNI to use to do health checks over SSL
+  [check-send-proxy]           It defines whether the health check should be done considering the proxy protocol
+  [zone=fr-par-1]              Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help   help for update-healthcheck

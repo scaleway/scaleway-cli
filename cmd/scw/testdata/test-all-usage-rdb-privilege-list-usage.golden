@@ -10,7 +10,7 @@ ARGS:
   [database-name]   Name of the database
   instance-id       UUID of the instance
   [user-name]       Name of the user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

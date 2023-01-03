@@ -102,7 +102,7 @@ scw mnq credential list [arg=value ...]
 |------|---|-------------|
 | namespace-id |  | Namespace containing the Credential |
 | order-by | One of: `id_asc`, `id_desc`, `name_asc`, `name_desc` | Field used for sorting results |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -215,7 +215,7 @@ scw mnq namespace list [arg=value ...]
 | project-id |  | Will list only the Namespaces contained into the specified project |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `id_asc`, `id_desc`, `name_asc`, `name_desc`, `project_id_asc`, `project_id_desc` | Field used for sorting results |
 | organization-id |  | Will list only the Namespaces owned by the specified organization |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

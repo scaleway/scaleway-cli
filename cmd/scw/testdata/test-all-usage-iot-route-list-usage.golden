@@ -9,7 +9,7 @@ ARGS:
   [order-by]        Ordering of requested routes (name_asc | name_desc | hub_id_asc | hub_id_desc | type_asc | type_desc | created_at_asc | created_at_desc)
   [hub-id]          Filter on the hub
   [name]            Filter on route's name
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list
