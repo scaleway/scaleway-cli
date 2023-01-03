@@ -138,14 +138,19 @@ func iotHubList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListHubsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			resp, err := api.ListHubs(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListHubs(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -588,14 +593,19 @@ func iotDeviceList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "error", "enabled", "disabled"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListDevicesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			resp, err := api.ListDevices(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDevices(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1112,14 +1122,19 @@ func iotRouteList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListRoutesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			resp, err := api.ListRoutes(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListRoutes(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1527,14 +1542,19 @@ func iotNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			resp, err := api.ListNetworks(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListNetworks(request, opts...)
 			if err != nil {
 				return nil, err
 			}

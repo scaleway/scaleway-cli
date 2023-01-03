@@ -101,7 +101,7 @@ scw tem domain list [arg=value ...]
 | status.{index} | One of: `unknown`, `checked`, `unchecked`, `invalid`, `locked`, `revoked`, `pending` |  |
 | name |  |  |
 | organization-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -252,7 +252,7 @@ scw tem email list [arg=value ...]
 | mail-from |  | Optional, list emails sent with this `mail_from` sender's address |
 | mail-to |  | Optional, list emails sent with this `mail_to` recipient's address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | Optional, list emails having any of this status |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

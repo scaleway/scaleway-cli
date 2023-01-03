@@ -161,14 +161,19 @@ func functionNamespaceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListNamespacesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListNamespaces(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListNamespaces(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -420,14 +425,19 @@ func functionFunctionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListFunctionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListFunctions(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFunctions(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -869,14 +879,19 @@ func functionCronList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListCronsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListCrons(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListCrons(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -967,14 +982,19 @@ func functionLogsList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"timestamp_desc", "timestamp_asc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListLogs(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListLogs(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1007,14 +1027,19 @@ func functionDomainList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListDomainsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListDomains(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDomains(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1222,14 +1247,19 @@ func functionTokenList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListTokensRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			resp, err := api.ListTokens(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTokens(request, opts...)
 			if err != nil {
 				return nil, err
 			}

@@ -211,7 +211,7 @@ scw iot device list [arg=value ...]
 | hub-id |  | Filter on the hub |
 | allow-insecure |  | Filter on the allow_insecure flag |
 | status | One of: `unknown`, `error`, `enabled`, `disabled` | Device status (enabled, disabled, etc.) |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -434,7 +434,7 @@ scw iot hub list [arg=value ...]
 | project-id |  | Filter on project |
 | name |  | Filter on the name |
 | organization-id |  | Filter on the organization |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -573,7 +573,7 @@ scw iot network list [arg=value ...]
 | name |  | Filter on Network name |
 | hub-id |  | Filter on the hub |
 | topic-prefix |  | Filter on the topic prefix |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -686,7 +686,7 @@ scw iot route list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc`, `hub_id_asc`, `hub_id_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes |
 | hub-id |  | Filter on the hub |
 | name |  | Filter on route's name |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

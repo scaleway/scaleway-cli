@@ -23,7 +23,7 @@ ARGS:
   [order-by]        The sort order of the returned pools (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
   [name]            The name on which to filter the returned pools
   [status]          The status on which to filter the returned pools (unknown | ready | deleting | deleted | scaling | warning | locked | upgrading)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list
