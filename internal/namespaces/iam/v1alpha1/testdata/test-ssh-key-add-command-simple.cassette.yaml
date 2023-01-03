@@ -3,20 +3,20 @@ version: 1
 interactions:
 - request:
     body: '{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a"}'
+      foobar@foobar","project_id":"105bdce1-64c0-48ab-899d-868455867ecf"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
     method: POST
   response:
-    body: '{"id":"6ab2d5a7-a5c3-41ae-8402-2fb1f03b89c9","name":"foobar","public_key":"ecdsa-sha2-nistp256
+    body: '{"id":"a13d02cc-0157-4d21-b5d7-f4bffce49413","name":"foobar","public_key":"ecdsa-sha2-nistp256
       AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
       foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2022-12-19T16:27:30.586429Z","updated_at":"2022-12-19T16:27:30.586429Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}'
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-01-03T16:21:47.990661Z","updated_at":"2023-01-03T16:21:47.990661Z","organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","disabled":false}'
     headers:
       Content-Length:
       - "571"
@@ -25,7 +25,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Dec 2022 16:27:30 GMT
+      - Tue, 03 Jan 2023 16:21:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -35,7 +35,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - fa56a950-32b9-4ac7-a8bb-12675df00ebd
+      - 000baea5-d996-4e6c-bb4b-afaa219ea6a6
     status: 200 OK
     code: 200
     duration: ""
@@ -44,8 +44,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/6ab2d5a7-a5c3-41ae-8402-2fb1f03b89c9
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/a13d02cc-0157-4d21-b5d7-f4bffce49413
     method: DELETE
   response:
     body: ""
@@ -55,7 +55,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Dec 2022 16:27:30 GMT
+      - Tue, 03 Jan 2023 16:21:48 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -65,7 +65,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ff81d834-feb4-461f-b693-981a7ca1a855
+      - 612d804e-a901-4cd6-aeee-065adcf469d4
     status: 204 No Content
     code: 204
     duration: ""

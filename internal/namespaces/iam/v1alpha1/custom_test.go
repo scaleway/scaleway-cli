@@ -32,7 +32,7 @@ func Test_SSHKeyRemoveCommand(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: addSSHKey("Key", key),
-		Cmd:        "scw iam ssh-key remove {{ .Key.ID }}",
+		Cmd:        "scw iam ssh-key delete {{ .Key.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
