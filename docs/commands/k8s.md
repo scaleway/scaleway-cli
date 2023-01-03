@@ -209,7 +209,7 @@ scw k8s cluster list [arg=value ...]
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | The status on which to filter the returned clusters |
 | type |  | The type on which to filter the returned clusters |
 | organization-id |  | The organization ID on which to filter the returned clusters |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -621,7 +621,7 @@ scw k8s node list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned nodes |
 | name |  | The name on which to filter the returned nodes |
 | status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | The status on which to filter the returned nodes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -878,7 +878,7 @@ scw k8s pool list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned pools |
 | name |  | The name on which to filter the returned pools |
 | status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | The status on which to filter the returned pools |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**

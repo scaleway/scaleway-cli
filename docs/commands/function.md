@@ -99,7 +99,7 @@ scw function cron list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | function-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -186,7 +186,7 @@ scw function domain list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` |  |
 | function-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -350,7 +350,7 @@ scw function function list [arg=value ...]
 | name |  |  |
 | project-id |  |  |
 | organization-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -410,7 +410,7 @@ scw function logs list [arg=value ...]
 |------|---|-------------|
 | function-id | Required |  |
 | order-by | One of: `timestamp_desc`, `timestamp_asc` |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -503,7 +503,7 @@ scw function namespace list [arg=value ...]
 | name |  |  |
 | project-id |  |  |
 | organization-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -641,7 +641,7 @@ scw function token list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | function-id |  |  |
 | namespace-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

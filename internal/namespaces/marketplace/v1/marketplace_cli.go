@@ -57,7 +57,8 @@ func marketplaceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			resp, err := api.ListImages(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListImages(request, opts...)
 			if err != nil {
 				return nil, err
 			}

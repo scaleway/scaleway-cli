@@ -73,7 +73,7 @@ scw apple-silicon os list [arg=value ...]
 |------|---|-------------|
 | server-type |  | List of compatible server type |
 | name |  | Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12") |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -162,7 +162,7 @@ scw apple-silicon server list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned servers |
 | project-id |  | List only servers of this project ID |
 | organization-id |  | List only servers of this organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
