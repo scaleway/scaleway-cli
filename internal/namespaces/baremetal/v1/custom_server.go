@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	serverActionTimeout = 20 * time.Minute
+	serverActionTimeout = 60 * time.Minute
 )
 
 var (

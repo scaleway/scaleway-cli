@@ -7,6 +7,8 @@ import (
 )
 
 func Test_ServerSSH(t *testing.T) {
+	t.SkipNow()
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(

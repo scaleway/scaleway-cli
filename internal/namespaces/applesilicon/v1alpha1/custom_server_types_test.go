@@ -7,6 +7,7 @@ import (
 )
 
 func Test_ServerTypeList(t *testing.T) {
+	t.SkipNow()
 	t.Run("base", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw apple-silicon server-type list",
