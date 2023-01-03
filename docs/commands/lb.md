@@ -227,8 +227,10 @@ scw lb backend add-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
+| instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
 | baremetal-server-id.{index} |  | UIID of the baremetal server. |
+| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
 | server-ip.{index} | Required | Set all IPs to add on your backend |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -273,8 +275,10 @@ scw lb backend create [arg=value ...]
 | health-check.check-send-proxy |  | It defines whether the health check should be done considering the proxy protocol |
 | lb-id | Required | Load balancer ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
+| instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
 | baremetal-server-id.{index} |  | UIID of the baremetal server. |
+| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
 | server-ip.{index} | Required | Backend server IP addresses list (IPv4 or IPv6) |
 | ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field ! |
 | timeout-server |  | Maximum server connection inactivity time (allowed time the server has to process the request) |
@@ -368,8 +372,10 @@ scw lb backend remove-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
+| instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
 | baremetal-server-id.{index} |  | UIID of the baremetal server. |
+| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
 | server-ip.{index} | Required | Set all IPs to remove of your backend |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -392,8 +398,10 @@ scw lb backend set-servers <backend-id ...> [arg=value ...]
 |------|---|-------------|
 | backend-id | Required | Backend ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
+| instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
 | baremetal-server-id.{index} |  | UIID of the baremetal server. |
+| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
 | server-ip.{index} | Required | Set all IPs to add on your backend and remove all other |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 

@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"sort"
 	"strings"
 	"text/tabwriter"
 
@@ -112,4 +113,14 @@ func usageFuncBuilder(cmd *cobra.Command, annotationBuilder func()) func(*cobra.
 		cmd.SetUsageFunc(nil)
 		return cmd.UsageFunc()(command)
 	}
+}
+
+func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
+	commands := make([]*cobra.Command, len(cobraCommands))
+	copy(commands, cobraCommands)
+
+	sort.Slice(commands, func(i, j int) bool {
+		return commands[i].Use < commands[j].Use
+	})
+	return commands
 }
