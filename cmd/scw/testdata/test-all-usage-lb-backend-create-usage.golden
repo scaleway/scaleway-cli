@@ -30,8 +30,10 @@ ARGS:
   [health-check.check-send-proxy]           It defines whether the health check should be done considering the proxy protocol
   lb-id                                     Load balancer ID
   [instance-server-id.{index}]              UIID of the instance server.
+  [instance-server-tag.{index}]             Tag of the instance server.
   [use-instance-server-public-ip]           Use public IP address of the instance instead of the private one
   [baremetal-server-id.{index}]             UIID of the baremetal server.
+  [baremetal-server-tag.{index}]            Tag of the baremetal server.
   server-ip.{index}                         Backend server IP addresses list (IPv4 or IPv6)
   [timeout-server]                          Maximum server connection inactivity time (allowed time the server has to process the request)
   [timeout-connect]                         Maximum initial server connection establishment time
@@ -42,7 +44,6 @@ ARGS:
   [ssl-bridging]                            Enable SSL between load balancer and backend servers
   [ignore-ssl-server-verify]                Set to true to ignore server certificate verification
   [zone=fr-par-1]                           Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
-
 
 DEPRECATED ARGS:
   [send-proxy-v2]   Deprecated in favor of proxy_protocol field !
