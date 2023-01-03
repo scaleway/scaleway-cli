@@ -163,7 +163,7 @@ scw baremetal offer list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly` | Period of subscription to filter offers |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -298,7 +298,7 @@ scw baremetal options list [arg=value ...]
 |------|---|-------------|
 | offer-id |  | Filter options by offer_id |
 | name |  | Filter options by name |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -368,7 +368,7 @@ scw baremetal os list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | offer-id |  | Filter OS by offer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -447,7 +447,7 @@ scw baremetal private-network list [arg=value ...]
 | private-network-id |  | Filter private networks by private network ID |
 | project-id |  | Filter private networks by project ID |
 | organization-id |  | Filter private networks by organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -640,7 +640,7 @@ scw baremetal server list [arg=value ...]
 | project-id |  | Filter by project ID |
 | option-id |  | Filter by option ID |
 | organization-id |  | Filter by organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**

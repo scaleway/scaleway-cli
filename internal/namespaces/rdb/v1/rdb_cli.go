@@ -227,14 +227,19 @@ func rdbEngineList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListDatabaseEngines(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDatabaseEngines(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -261,14 +266,19 @@ func rdbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListNodeTypes(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListNodeTypes(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -324,14 +334,19 @@ func rdbBackupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListDatabaseBackups(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDatabaseBackups(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -683,14 +698,19 @@ func rdbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListInstances(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListInstances(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1531,14 +1551,19 @@ func rdbACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListInstanceACLRules(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListInstanceACLRules(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1659,14 +1684,19 @@ func rdbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListUsers(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListUsers(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1867,14 +1897,19 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListDatabases(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDatabases(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -2003,14 +2038,19 @@ func rdbPrivilegeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListPrivileges(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListPrivileges(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -2118,14 +2158,19 @@ func rdbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			resp, err := api.ListSnapshots(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListSnapshots(request, opts...)
 			if err != nil {
 				return nil, err
 			}

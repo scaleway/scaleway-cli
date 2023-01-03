@@ -15,7 +15,7 @@ EXAMPLES:
 ARGS:
   [offer-id]        Filter options by offer_id
   [name]            Filter options by name
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 
 FLAGS:
   -h, --help   help for list

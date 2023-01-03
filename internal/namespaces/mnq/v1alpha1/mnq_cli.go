@@ -92,14 +92,19 @@ func mnqNamespaceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.ListNamespacesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewAPI(client)
-			resp, err := api.ListNamespaces(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListNamespaces(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -372,14 +377,19 @@ func mnqCredentialList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"id_asc", "id_desc", "name_asc", "name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.ListCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewAPI(client)
-			resp, err := api.ListCredentials(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListCredentials(request, opts...)
 			if err != nil {
 				return nil, err
 			}

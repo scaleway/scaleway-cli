@@ -66,37 +66,43 @@ func testAutocompleteGetCommands() *Commands {
 	)
 }
 
+type autoCompleteTestCase struct {
+	Suggestions         AutocompleteSuggestions
+	WordToCompleteIndex int
+	Words               []string
+}
+
+func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*testing.T) {
+	return func(t *testing.T) {
+		words := tc.Words
+		if len(words) == 0 {
+			name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
+			name = strings.Replace(name, "_", " ", -1)
+			words = strings.Split(name, " ")
+		}
+
+		wordToCompleteIndex := len(words) - 1
+		if tc.WordToCompleteIndex != 0 {
+			wordToCompleteIndex = tc.WordToCompleteIndex
+		}
+		leftWords := words[:wordToCompleteIndex]
+		wordToComplete := words[wordToCompleteIndex]
+		rightWord := words[wordToCompleteIndex+1:]
+
+		result := AutoComplete(ctx, leftWords, wordToComplete, rightWord)
+		assert.Equal(t, tc.Suggestions, result.Suggestions)
+	}
+}
+
 func TestAutocomplete(t *testing.T) {
 	ctx := injectMeta(context.Background(), &meta{
 		Commands: testAutocompleteGetCommands(),
 	})
 
-	type testCase struct {
-		Suggestions         AutocompleteSuggestions
-		WordToCompleteIndex int
-		Words               []string
-	}
+	type testCase = autoCompleteTestCase
 
 	run := func(tc *testCase) func(*testing.T) {
-		return func(t *testing.T) {
-			words := tc.Words
-			if len(words) == 0 {
-				name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
-				name = strings.Replace(name, "_", " ", -1)
-				words = strings.Split(name, " ")
-			}
-
-			wordToCompleteIndex := len(words) - 1
-			if tc.WordToCompleteIndex != 0 {
-				wordToCompleteIndex = tc.WordToCompleteIndex
-			}
-			leftWords := words[:wordToCompleteIndex]
-			wordToComplete := words[wordToCompleteIndex]
-			rightWord := words[wordToCompleteIndex+1:]
-
-			result := AutoComplete(ctx, leftWords, wordToComplete, rightWord)
-			assert.Equal(t, tc.Suggestions, result.Suggestions)
-		}
+		return runAutocompleteTest(ctx, tc)
 	}
 
 	t.Run("scw ", run(&testCase{Suggestions: AutocompleteSuggestions{"test"}}))
@@ -168,4 +174,81 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower delete -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))
 	t.Run("scw test flower delete -o json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
 	t.Run("scw test flower delete -o=json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
+}
+
+func TestAutocompleteArgs(t *testing.T) {
+	commands := testAutocompleteGetCommands()
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "flower",
+		Verb:      "get",
+		ArgsType: reflect.TypeOf(struct {
+			Name         string
+			MaterialName string
+		}{}),
+		ArgSpecs: ArgSpecs{
+			{
+				Name:       "name",
+				Positional: true,
+			},
+			{
+				Name: "material-name",
+			},
+		},
+	})
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "flower",
+		Verb:      "list",
+		ArgsType: reflect.TypeOf(struct {
+		}{}),
+		ArgSpecs: ArgSpecs{},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			return []*struct {
+				Name string
+			}{
+				{
+					Name: "flower1",
+				},
+				{
+					Name: "flower2",
+				},
+			}, nil
+		},
+	})
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "material",
+		Verb:      "list",
+		ArgsType: reflect.TypeOf(struct {
+		}{}),
+		ArgSpecs: ArgSpecs{},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			return []*struct {
+				Name string
+			}{
+				{
+					Name: "material1",
+				},
+				{
+					Name: "material2",
+				},
+			}, nil
+		},
+	})
+	ctx := injectMeta(context.Background(), &meta{
+		Commands: commands,
+		betaMode: true,
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+
+	t.Run("scw test flower get ", run(&testCase{Suggestions: AutocompleteSuggestions{"flower1", "flower2", "material-name="}}))
+	t.Run("scw test flower get material-name=", run(&testCase{Suggestions: AutocompleteSuggestions{"material-name=material1", "material-name=material2"}}))
+	t.Run("scw test flower get material-name=mat ", run(&testCase{Suggestions: AutocompleteSuggestions{"flower1", "flower2"}}))
+	t.Run("scw test flower create name=", run(&testCase{Suggestions: AutocompleteSuggestions(nil)}))
 }

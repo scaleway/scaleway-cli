@@ -190,14 +190,19 @@ func baremetalServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListServers(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServers(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -900,14 +905,19 @@ func baremetalOfferList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_subscription_period", "hourly", "monthly"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOffersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListOffers(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListOffers(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1023,14 +1033,19 @@ func baremetalOptionsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOptionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListOptions(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListOptions(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1067,14 +1082,19 @@ func baremetalOsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			resp, err := api.ListOS(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListOS(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1240,14 +1260,19 @@ func baremetalPrivateNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar2),
+			core.ZoneArgSpec(scw.ZoneFrPar2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
-			resp, err := api.ListServerPrivateNetworks(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServerPrivateNetworks(request, opts...)
 			if err != nil {
 				return nil, err
 			}

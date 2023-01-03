@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
@@ -60,6 +61,9 @@ type BootstrapConfig struct {
 	// Default HTTPClient to use. If not provided it will use a basic http client with a simple retry policy
 	// This client will be used to create SDK client, account call, version checking and telemetry
 	HTTPClient *http.Client
+
+	// Enable beta functionalities
+	BetaMode bool
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -162,6 +166,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
+		betaMode:                    config.BetaMode,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
@@ -207,6 +212,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(config.Args[1:])
+	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
 
 	if err != nil {

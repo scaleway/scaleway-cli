@@ -4,7 +4,7 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account       User related data
+  account       Account API
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
@@ -33,7 +33,6 @@ AVAILABLE COMMANDS:
   version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API
-  help          Help about any command
 
 FLAGS:
   -c, --config string    The path to the config file

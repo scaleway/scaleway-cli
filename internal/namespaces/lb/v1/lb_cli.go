@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		lbCertificate(),
 		lbACL(),
 		lbLBTypes(),
+		lbPrivateNetwork(),
 		lbLBList(),
 		lbLBCreate(),
 		lbLBGet(),
@@ -65,6 +66,9 @@ func GetGeneratedCommands() *core.Commands {
 		lbCertificateUpdate(),
 		lbCertificateDelete(),
 		lbLBTypesList(),
+		lbPrivateNetworkList(),
+		lbPrivateNetworkAttach(),
+		lbPrivateNetworkDetach(),
 	)
 }
 func lbRoot() *core.Command {
@@ -77,8 +81,8 @@ func lbRoot() *core.Command {
 
 func lbLB() *core.Command {
 	return &core.Command{
-		Short:     `Load-balancer management commands`,
-		Long:      `Load-balancer management commands.`,
+		Short:     `Load balancer management commands`,
+		Long:      `Load balancer management commands.`,
 		Namespace: "lb",
 		Resource:  "lb",
 	}
@@ -131,10 +135,19 @@ func lbACL() *core.Command {
 
 func lbLBTypes() *core.Command {
 	return &core.Command{
-		Short:     `Load-balancer types management commands`,
-		Long:      `Load-balancer types management commands.`,
+		Short:     `Load balancer types management commands`,
+		Long:      `Load balancer types management commands.`,
 		Namespace: "lb",
 		Resource:  "lb-types",
+	}
+}
+
+func lbPrivateNetwork() *core.Command {
+	return &core.Command{
+		Short:     `Private networks management commands`,
+		Long:      `Private networks management commands.`,
+		Namespace: "lb",
+		Resource:  "private-network",
 	}
 }
 
@@ -157,6 +170,7 @@ func lbLBList() *core.Command {
 			},
 			{
 				Name:       "order-by",
+				Short:      `Response order`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -176,14 +190,19 @@ func lbLBList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListLBsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListLBs(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListLBs(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -248,7 +267,7 @@ func lbLBCreate() *core.Command {
 				EnumValues: []string{"ssl_compatibility_level_unknown", "ssl_compatibility_level_intermediate", "ssl_compatibility_level_modern", "ssl_compatibility_level_old"},
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateLBRequest)
@@ -278,7 +297,7 @@ func lbLBGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetLBRequest)
@@ -336,7 +355,7 @@ func lbLBUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"ssl_compatibility_level_unknown", "ssl_compatibility_level_intermediate", "ssl_compatibility_level_modern", "ssl_compatibility_level_old"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateLBRequest)
@@ -373,7 +392,7 @@ func lbLBDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteLBRequest)
@@ -416,7 +435,7 @@ func lbLBMigrate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIMigrateLBRequest)
@@ -460,14 +479,19 @@ func lbIPList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListIPsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListIPs(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListIPs(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -496,7 +520,7 @@ func lbIPCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateIPRequest)
@@ -526,7 +550,7 @@ func lbIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetIPRequest)
@@ -556,7 +580,7 @@ func lbIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIReleaseIPRequest)
@@ -599,7 +623,7 @@ func lbIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateIPRequest)
@@ -638,20 +662,25 @@ func lbBackendList() *core.Command {
 			},
 			{
 				Name:       "order-by",
-				Short:      `Choose order of response`,
+				Short:      `Response order`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListBackendsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListBackends(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListBackends(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -714,7 +743,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions-cookie-name",
-				Short:      `Cookie name for for sticky sessions`,
+				Short:      `Cookie name for sticky sessions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -727,6 +756,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "health-check.check-max-retries",
+				Short:      `Number of consecutive unsuccessful health checks, after which the server will be considered dead`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -739,61 +769,91 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "health-check.http-config.uri",
+				Short:      `HTTP uri used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.http-config.method",
+				Short:      `HTTP method used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.http-config.code",
+				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http-config.host-header",
+				Short:      `HTTP host header used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.https-config.uri",
+				Short:      `HTTP uri used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.https-config.method",
+				Short:      `HTTP method used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.https-config.code",
+				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.host-header",
+				Short:      `HTTP host header used with the request`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.sni",
+				Short:      `Specifies the SNI to use to do health checks over SSL`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.port",
+				Short:      `TCP port to use for the backend server health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.check-timeout",
+				Short:      `Maximum time a backend server has to reply to the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.check-delay",
+				Short:      `Time between two consecutive health checks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.check-send-proxy",
-				Short:      `It defines whether the healthcheck should be done considering the proxy protocol`,
+				Short:      `It defines whether the health check should be done considering the proxy protocol`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -821,21 +881,21 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "timeout-server",
-				Short:      `Maximum server connection inactivity time`,
+				Short:      `Maximum server connection inactivity time (allowed time the server has to process the request)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-connect",
-				Short:      `Maximum initical server connection establishment time`,
+				Short:      `Maximum initial server connection establishment time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-tunnel",
-				Short:      `Maximum tunnel inactivity time`,
+				Short:      `Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -877,7 +937,7 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateBackendRequest)
@@ -907,7 +967,7 @@ func lbBackendGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetBackendRequest)
@@ -977,7 +1037,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions-cookie-name",
-				Short:      `Cookie name for for sticky sessions`,
+				Short:      `Cookie name for sticky sessions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -991,7 +1051,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "timeout-server",
-				Short:      `Maximum server connection inactivity time`,
+				Short:      `Maximum server connection inactivity time (allowed time the server has to process the request)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1005,7 +1065,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "timeout-tunnel",
-				Short:      `Maximum tunnel inactivity time`,
+				Short:      `Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1047,7 +1107,7 @@ func lbBackendUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateBackendRequest)
@@ -1077,7 +1137,7 @@ func lbBackendDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteBackendRequest)
@@ -1120,7 +1180,7 @@ func lbBackendAddServers() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIAddBackendServersRequest)
@@ -1157,7 +1217,7 @@ func lbBackendRemoveServers() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIRemoveBackendServersRequest)
@@ -1194,7 +1254,7 @@ func lbBackendSetServers() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPISetBackendServersRequest)
@@ -1233,14 +1293,14 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "check-timeout",
-				Short:      `Additional check timeout, after the connection has been already established`,
+				Short:      `Maximum time a backend server has to reply to the health check`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "check-max-retries",
-				Short:      `Number of consecutive unsuccessful health checks, after wich the server will be considered dead`,
+				Short:      `Number of consecutive unsuccessful health checks, after which the server will be considered dead`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1266,48 +1326,75 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "http-config.uri",
+				Short:      `HTTP uri used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.method",
+				Short:      `HTTP method used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.code",
+				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "http-config.host-header",
+				Short:      `HTTP host header used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.uri",
+				Short:      `HTTP uri used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.method",
+				Short:      `HTTP method used with the request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.code",
+				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "https-config.host-header",
+				Short:      `HTTP host header used with the request`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "https-config.sni",
+				Short:      `Specifies the SNI to use to do health checks over SSL`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "check-send-proxy",
-				Short:      `It defines whether the healthcheck should be done considering the proxy protocol`,
+				Short:      `It defines whether the health check should be done considering the proxy protocol`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateHealthCheckRequest)
@@ -1352,14 +1439,19 @@ func lbFrontendList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListFrontendsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListFrontends(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListFrontends(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1429,7 +1521,14 @@ func lbFrontendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			{
+				Name:       "enable-http3",
+				Short:      `Activate HTTP 3 protocol (beta)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateFrontendRequest)
@@ -1459,7 +1558,7 @@ func lbFrontendGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetFrontendRequest)
@@ -1531,7 +1630,14 @@ func lbFrontendUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			{
+				Name:       "enable-http3",
+				Short:      `Activate HTTP 3 protocol (beta)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateFrontendRequest)
@@ -1561,7 +1667,7 @@ func lbFrontendDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteFrontendRequest)
@@ -1597,7 +1703,7 @@ func lbLBGetStats() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetLBStatsRequest)
@@ -1629,7 +1735,7 @@ func lbACLList() *core.Command {
 			},
 			{
 				Name:       "order-by",
-				Short:      `You can order the response by created_at asc/desc or name asc/desc`,
+				Short:      `Response order`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1642,14 +1748,19 @@ func lbACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListACLsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListACLs(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListACLs(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1735,7 +1846,7 @@ func lbACLCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateACLRequest)
@@ -1765,7 +1876,7 @@ func lbACLGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetACLRequest)
@@ -1853,7 +1964,7 @@ func lbACLUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateACLRequest)
@@ -1883,7 +1994,7 @@ func lbACLDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteACLRequest)
@@ -1977,7 +2088,7 @@ func lbACLSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPISetACLsRequest)
@@ -2036,7 +2147,7 @@ func lbCertificateCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateCertificateRequest)
@@ -2068,7 +2179,7 @@ func lbCertificateList() *core.Command {
 			},
 			{
 				Name:       "order-by",
-				Short:      `You can order the response by created_at asc/desc or name asc/desc`,
+				Short:      `Response order`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2081,14 +2192,19 @@ func lbCertificateList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListCertificatesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListCertificates(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListCertificates(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -2129,6 +2245,9 @@ func lbCertificateList() *core.Command {
 			{
 				FieldName: "UpdatedAt",
 			},
+			{
+				FieldName: "StatusDetails",
+			},
 		}},
 	}
 }
@@ -2150,7 +2269,7 @@ func lbCertificateGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetCertificateRequest)
@@ -2187,7 +2306,7 @@ func lbCertificateUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateCertificateRequest)
@@ -2217,7 +2336,7 @@ func lbCertificateDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteCertificateRequest)
@@ -2246,19 +2365,157 @@ func lbLBTypesList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListLBTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			resp, err := api.ListLBTypes(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListLBTypes(request, opts...)
 			if err != nil {
 				return nil, err
 			}
 			return resp.LBTypes, nil
 
+		},
+	}
+}
+
+func lbPrivateNetworkList() *core.Command {
+	return &core.Command{
+		Short:     `List attached private network of load balancer`,
+		Long:      `List attached private network of load balancer.`,
+		Namespace: "lb",
+		Resource:  "private-network",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBPrivateNetworksRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Response order`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "lb-id",
+				Short:      `Load balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListLBPrivateNetworksRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListLBPrivateNetworks(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.PrivateNetwork, nil
+
+		},
+	}
+}
+
+func lbPrivateNetworkAttach() *core.Command {
+	return &core.Command{
+		Short:     `Add load balancer on instance private network`,
+		Long:      `Add load balancer on instance private network.`,
+		Namespace: "lb",
+		Resource:  "private-network",
+		Verb:      "attach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIAttachPrivateNetworkRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Set your instance private network id`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "static-config.ip-address.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIAttachPrivateNetworkRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.AttachPrivateNetwork(request)
+
+		},
+	}
+}
+
+func lbPrivateNetworkDetach() *core.Command {
+	return &core.Command{
+		Short:     `Remove load balancer of private network`,
+		Long:      `Remove load balancer of private network.`,
+		Namespace: "lb",
+		Resource:  "private-network",
+		Verb:      "detach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIDetachPrivateNetworkRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Set your instance private network id`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIDetachPrivateNetworkRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			e = api.DetachPrivateNetwork(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "private-network",
+				Verb:     "detach",
+			}, nil
 		},
 	}
 }

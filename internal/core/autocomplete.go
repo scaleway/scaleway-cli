@@ -291,7 +291,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	}
 
 	// keep track of the completed args
-	completedArgs := make(map[string]struct{})
+	completedArgs := make(map[string]string)
 
 	// keep track of the completed flags
 	completedFlags := make(map[string]struct{})
@@ -307,12 +307,12 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 
 		// handle arg=value
 		case isArg(word):
-			completedArgs[wordKey(word)+"="] = struct{}{}
+			completedArgs[wordKey(word)+"="] = wordValue(word)
 
 		// handle boolean arg
 		default:
 			if _, exist := node.Children[positionalValueNodeID]; exist && i > nodeIndexInWords {
-				completedArgs[word] = struct{}{}
+				completedArgs[word] = ""
 			}
 		}
 	}
@@ -324,7 +324,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			// We try to complete the value of an unknown arg
 			return &AutocompleteResponse{}
 		}
-		suggestions := AutoCompleteArgValue(ctx, argNode.Command, argNode.ArgSpec, argValuePrefix)
+		suggestions := AutoCompleteArgValue(ctx, argNode.Command, argNode.ArgSpec, argValuePrefix, completedArgs)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
 		for k, s := range suggestions {
@@ -338,7 +338,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	suggestions := []string(nil)
 	for key, child := range node.Children {
 		if key == positionalValueNodeID {
-			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete) {
+			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete, completedArgs) {
 				if _, exists := completedArgs[positionalSuggestion]; !exists {
 					suggestions = append(suggestions, positionalSuggestion)
 				}
@@ -380,7 +380,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
-func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, argValuePrefix string) []string {
+func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, argValuePrefix string, completedArgs map[string]string) []string {
 	if argSpec == nil {
 		return nil
 	}
@@ -399,6 +399,12 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 
 	if len(argSpec.EnumValues) > 0 {
 		possibleValues = argSpec.EnumValues
+	}
+
+	// Complete arg value using list verb if possible
+	// "instance server get <tab>" completes "server-id" arg with "id" in instance server list
+	if len(possibleValues) == 0 && ExtractBetaMode(ctx) {
+		possibleValues = AutocompleteGetArg(ctx, cmd, argSpec, completedArgs)
 	}
 
 	suggestions := []string(nil)
@@ -422,6 +428,14 @@ func splitArgWord(wordToComplete string) (string, string) {
 
 func wordKey(word string) string {
 	return strings.SplitN(word, "=", 2)[0]
+}
+
+func wordValue(word string) string {
+	words := strings.SplitN(word, "=", 2)
+	if len(words) >= 2 {
+		return words[1]
+	}
+	return ""
 }
 
 func isArg(wordToComplete string) bool {
@@ -460,7 +474,7 @@ func hasPrefix(key, wordToComplete string) bool {
 
 // keySuggestion will suggest the next key available for the map (or array) argument.
 // Keys are suggested in ascending order arg.0, arg.1, arg.2...
-func keySuggestion(key string, completedArg map[string]struct{}, wordToComplete string) []string {
+func keySuggestion(key string, completedArg map[string]string, wordToComplete string) []string {
 	splitKey := strings.Split(key, ".")
 	splitWordToComplete := strings.Split(wordToComplete, ".")
 

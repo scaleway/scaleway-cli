@@ -22,7 +22,7 @@ ARGS:
   [status]            The status on which to filter the returned clusters (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
   [type]              The type on which to filter the returned clusters
   [organization-id]   The organization ID on which to filter the returned clusters
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

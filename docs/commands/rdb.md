@@ -132,7 +132,7 @@ scw rdb acl list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -276,7 +276,7 @@ scw rdb backup list [arg=value ...]
 | instance-id |  | UUID of the instance |
 | project-id |  | Project ID the database backups belongs to |
 | organization-id |  | Organization ID the database backups belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -422,7 +422,7 @@ scw rdb database list [arg=value ...]
 | owner |  | User that owns this database |
 | order-by | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` | Criteria to use when ordering database listing |
 | instance-id | Required | UUID of the instance to list database of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -449,7 +449,7 @@ scw rdb engine list [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the Database Engine |
 | version |  | Version of the Database Engine |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -651,7 +651,7 @@ scw rdb instance list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` | Criteria to use when ordering instance listing |
 | project-id |  | Project ID to list the instance of |
 | organization-id |  | Please use `project_id` instead |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -931,7 +931,7 @@ scw rdb node-type list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | include-disabled-types |  | Whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -960,7 +960,7 @@ scw rdb privilege list [arg=value ...]
 | database-name |  | Name of the database |
 | instance-id | Required | UUID of the instance |
 | user-name |  | Name of the user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -1194,7 +1194,7 @@ scw rdb snapshot list [arg=value ...]
 | instance-id |  | UUID of the instance |
 | project-id |  | Project ID the snapshots belongs to |
 | organization-id |  | Organization ID the snapshots belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -1311,7 +1311,7 @@ scw rdb user list [arg=value ...]
 | name |  | Name of the user |
 | order-by | One of: `name_asc`, `name_desc`, `is_admin_asc`, `is_admin_desc` | Criteria to use when ordering users listing |
 | instance-id | Required | UUID of the instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

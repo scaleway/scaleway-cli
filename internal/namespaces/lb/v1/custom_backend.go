@@ -79,6 +79,8 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		InstanceServerID          []string
 		BaremetalServerID         []string
 		UseInstanceServerPublicIP bool
+		InstanceServerTag         []string
+		BaremetalServerTag        []string
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendCreateRequestCustom{})
@@ -86,6 +88,11 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
 		Short: "UIID of the instance server.",
+	})
+
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "instance-server-tag.{index}",
+		Short: "Tag of the instance server.",
 	})
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
@@ -98,9 +105,17 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		Short: "UIID of the baremetal server.",
 	})
 
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "baremetal-server-tag.{index}",
+		Short: "Tag of the baremetal server.",
+	})
+
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+		baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		tmpRequest := argsI.(*lbBackendCreateRequestCustom)
 
@@ -130,8 +145,6 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 			var serverIPs []string
 
 			for _, instanceID := range tmpRequest.InstanceServerID {
-				instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
-
 				server, err := instanceAPI.GetServer(&instance.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: instanceID,
@@ -163,8 +176,6 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 
 		if len(tmpRequest.BaremetalServerID) != 0 {
 			for _, baremetalID := range tmpRequest.BaremetalServerID {
-				baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
-
 				server, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: baremetalID,
@@ -176,6 +187,65 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 				for _, ip := range server.IPs {
 					request.ServerIP = append(request.ServerIP, ip.Address.String())
 				}
+			}
+		}
+
+		// IP/Tag management
+		if len(tmpRequest.InstanceServerTag) != 0 {
+			var serverIPs []string
+
+			listServersResponse, err := instanceAPI.ListServers(&instance.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.InstanceServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for _, server := range listServersResponse.Servers {
+				if tmpRequest.UseInstanceServerPublicIP {
+					if server.PublicIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+						}
+					}
+					serverIPs = append(serverIPs, server.PublicIP.Address.String())
+				} else {
+					if server.PrivateIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
+							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+						}
+					}
+					serverIPs = append(serverIPs, *server.PrivateIP)
+				}
+			}
+			request.ServerIP = append(request.ServerIP, serverIPs...)
+		}
+
+		if len(tmpRequest.BaremetalServerTag) != 0 {
+			listServersResponse, err := baremetalAPI.ListServers(&baremetal.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.BaremetalServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for i, server := range listServersResponse.Servers {
+				request.ServerIP = append(request.ServerIP, server.IPs[i].Address.String())
 			}
 		}
 
@@ -203,6 +273,8 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		InstanceServerID          []string
 		BaremetalServerID         []string
 		UseInstanceServerPublicIP bool
+		InstanceServerTag         []string
+		BaremetalServerTag        []string
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendAddBackendServersRequestCustom{})
@@ -210,6 +282,11 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
 		Short: "UIID of the instance server.",
+	})
+
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "instance-server-tag.{index}",
+		Short: "Tag of the instance server.",
 	})
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
@@ -222,9 +299,17 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		Short: "UIID of the baremetal server.",
 	})
 
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "baremetal-server-tag.{index}",
+		Short: "Tag of the baremetal server.",
+	})
+
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+		baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		tmpRequest := argsI.(*lbBackendAddBackendServersRequestCustom)
 
@@ -239,8 +324,6 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 			var serverIPs []string
 
 			for _, instanceID := range tmpRequest.InstanceServerID {
-				instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
-
 				server, err := instanceAPI.GetServer(&instance.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: instanceID,
@@ -272,8 +355,6 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 
 		if len(tmpRequest.BaremetalServerID) != 0 {
 			for _, baremetalID := range tmpRequest.BaremetalServerID {
-				baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
-
 				server, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: baremetalID,
@@ -285,6 +366,65 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 				for _, ip := range server.IPs {
 					request.ServerIP = append(request.ServerIP, ip.Address.String())
 				}
+			}
+		}
+
+		// IP/Tag management
+		if len(tmpRequest.InstanceServerTag) != 0 {
+			var serverIPs []string
+
+			listServersResponse, err := instanceAPI.ListServers(&instance.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.InstanceServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for _, server := range listServersResponse.Servers {
+				if tmpRequest.UseInstanceServerPublicIP {
+					if server.PublicIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+						}
+					}
+					serverIPs = append(serverIPs, server.PublicIP.Address.String())
+				} else {
+					if server.PrivateIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
+							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+						}
+					}
+					serverIPs = append(serverIPs, *server.PrivateIP)
+				}
+			}
+			request.ServerIP = append(request.ServerIP, serverIPs...)
+		}
+
+		if len(tmpRequest.BaremetalServerTag) != 0 {
+			listServersResponse, err := baremetalAPI.ListServers(&baremetal.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.BaremetalServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for i, server := range listServersResponse.Servers {
+				request.ServerIP = append(request.ServerIP, server.IPs[i].Address.String())
 			}
 		}
 
@@ -301,6 +441,8 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		InstanceServerID          []string
 		BaremetalServerID         []string
 		UseInstanceServerPublicIP bool
+		InstanceServerTag         []string
+		BaremetalServerTag        []string
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendRemoveBackendServersRequestCustom{})
@@ -308,6 +450,11 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
 		Short: "UIID of the instance server.",
+	})
+
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "instance-server-tag.{index}",
+		Short: "Tag of the instance server.",
 	})
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
@@ -320,9 +467,17 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		Short: "UIID of the baremetal server.",
 	})
 
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "baremetal-server-tag.{index}",
+		Short: "Tag of the baremetal server.",
+	})
+
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+		baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		tmpRequest := argsI.(*lbBackendRemoveBackendServersRequestCustom)
 
@@ -337,8 +492,6 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 			var serverIPs []string
 
 			for _, instanceID := range tmpRequest.InstanceServerID {
-				instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
-
 				server, err := instanceAPI.GetServer(&instance.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: instanceID,
@@ -370,8 +523,6 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 
 		if len(tmpRequest.BaremetalServerID) != 0 {
 			for _, baremetalID := range tmpRequest.BaremetalServerID {
-				baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
-
 				server, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: baremetalID,
@@ -383,6 +534,65 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 				for _, ip := range server.IPs {
 					request.ServerIP = append(request.ServerIP, ip.Address.String())
 				}
+			}
+		}
+
+		// IP/Tag management
+		if len(tmpRequest.InstanceServerTag) != 0 {
+			var serverIPs []string
+
+			listServersResponse, err := instanceAPI.ListServers(&instance.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.InstanceServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for _, server := range listServersResponse.Servers {
+				if tmpRequest.UseInstanceServerPublicIP {
+					if server.PublicIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+						}
+					}
+					serverIPs = append(serverIPs, server.PublicIP.Address.String())
+				} else {
+					if server.PrivateIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
+							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+						}
+					}
+					serverIPs = append(serverIPs, *server.PrivateIP)
+				}
+			}
+			request.ServerIP = append(request.ServerIP, serverIPs...)
+		}
+
+		if len(tmpRequest.BaremetalServerTag) != 0 {
+			listServersResponse, err := baremetalAPI.ListServers(&baremetal.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.BaremetalServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for i, server := range listServersResponse.Servers {
+				request.ServerIP = append(request.ServerIP, server.IPs[i].Address.String())
 			}
 		}
 
@@ -399,6 +609,8 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		InstanceServerID          []string
 		BaremetalServerID         []string
 		UseInstanceServerPublicIP bool
+		InstanceServerTag         []string
+		BaremetalServerTag        []string
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendSetBackendServersRequestCustom{})
@@ -406,6 +618,11 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
 		Short: "UIID of the instance server.",
+	})
+
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "instance-server-tag.{index}",
+		Short: "Tag of the instance server.",
 	})
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
@@ -418,9 +635,17 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		Short: "UIID of the baremetal server.",
 	})
 
+	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
+		Name:  "baremetal-server-tag.{index}",
+		Short: "Tag of the baremetal server.",
+	})
+
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+		baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		tmpRequest := argsI.(*lbBackendSetBackendServersRequestCustom)
 
@@ -435,8 +660,6 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 			var serverIPs []string
 
 			for _, instanceID := range tmpRequest.InstanceServerID {
-				instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
-
 				server, err := instanceAPI.GetServer(&instance.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: instanceID,
@@ -468,8 +691,6 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 
 		if len(tmpRequest.BaremetalServerID) != 0 {
 			for _, baremetalID := range tmpRequest.BaremetalServerID {
-				baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
-
 				server, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
 					Zone:     tmpRequest.Zone,
 					ServerID: baremetalID,
@@ -481,6 +702,65 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 				for _, ip := range server.IPs {
 					request.ServerIP = append(request.ServerIP, ip.Address.String())
 				}
+			}
+		}
+
+		// IP/Tag management
+		if len(tmpRequest.InstanceServerTag) != 0 {
+			var serverIPs []string
+
+			listServersResponse, err := instanceAPI.ListServers(&instance.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.InstanceServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for _, server := range listServersResponse.Servers {
+				if tmpRequest.UseInstanceServerPublicIP {
+					if server.PublicIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+						}
+					}
+					serverIPs = append(serverIPs, server.PublicIP.Address.String())
+				} else {
+					if server.PrivateIP == nil {
+						return nil, &core.CliError{
+							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
+							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+						}
+					}
+					serverIPs = append(serverIPs, *server.PrivateIP)
+				}
+			}
+			request.ServerIP = append(request.ServerIP, serverIPs...)
+		}
+
+		if len(tmpRequest.BaremetalServerTag) != 0 {
+			listServersResponse, err := baremetalAPI.ListServers(&baremetal.ListServersRequest{
+				Zone: tmpRequest.Zone,
+				Tags: tmpRequest.BaremetalServerTag,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(listServersResponse.Servers) == 0 {
+				return nil, &core.CliError{
+					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+				}
+			}
+
+			for i, server := range listServersResponse.Servers {
+				request.ServerIP = append(request.ServerIP, server.IPs[i].Address.String())
 			}
 		}
 

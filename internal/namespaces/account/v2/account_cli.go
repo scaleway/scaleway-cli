@@ -121,7 +121,8 @@ func accountProjectList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewAPI(client)
-			resp, err := api.ListProjects(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListProjects(request, opts...)
 			if err != nil {
 				return nil, err
 			}

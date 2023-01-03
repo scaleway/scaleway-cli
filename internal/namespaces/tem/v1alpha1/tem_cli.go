@@ -244,6 +244,13 @@ func temEmailList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "message-id",
+				Short:      `Optional ID of the message for which to list the emails`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "since",
 				Short:      `Optional, list emails created after this date`,
 				Required:   false,
@@ -279,14 +286,19 @@ func temEmailList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "new", "sending", "sent", "failed", "canceled"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*tem.ListEmailsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			resp, err := api.ListEmails(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListEmails(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -479,14 +491,19 @@ func temDomainList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*tem.ListDomainsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			resp, err := api.ListDomains(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDomains(request, opts...)
 			if err != nil {
 				return nil, err
 			}

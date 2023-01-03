@@ -246,7 +246,7 @@ func (c *Commands) GetSortedCommand() []*Command {
 	copy(commands, c.commands)
 
 	sort.Slice(commands, func(i, j int) bool {
-		return fmt.Sprintf("%s %s %s", commands[i].Namespace, commands[i].Resource, commands[i].Verb) < fmt.Sprintf("%s %s %s", commands[j].Namespace, commands[j].Resource, commands[j].Verb)
+		return commands[i].signature() < commands[j].signature()
 	})
 	return commands
 }
@@ -277,4 +277,9 @@ func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 		return c.View.getHumanMarshalerOpt()
 	}
 	return nil
+}
+
+// get a signature to sort commands
+func (c *Command) signature() string {
+	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
 }

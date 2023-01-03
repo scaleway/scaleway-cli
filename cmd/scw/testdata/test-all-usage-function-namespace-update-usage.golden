@@ -11,7 +11,7 @@ ARGS:
   [description]                                  
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update

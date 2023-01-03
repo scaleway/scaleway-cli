@@ -5,11 +5,13 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"sort"
 	"strings"
 	"text/tabwriter"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
+	"github.com/spf13/cobra"
 )
 
 const (
@@ -99,4 +101,26 @@ func buildExamples(binaryName string, cmd *Command) string {
 
 	// Return a single string for all examples.
 	return strings.Join(examples, "\n\n")
+}
+
+// usageFuncBuilder returns the usage function that will be used by cobra to print usage,
+// the builder also takes a function that will fill annotations used by the usage template,
+// this is done like this to avoid build annotations for each command if not required
+func usageFuncBuilder(cmd *cobra.Command, annotationBuilder func()) func(*cobra.Command) error {
+	return func(command *cobra.Command) error {
+		annotationBuilder()
+		// after building annotation we remove this function as we prefer to use default UsageFunc
+		cmd.SetUsageFunc(nil)
+		return cmd.UsageFunc()(command)
+	}
+}
+
+func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
+	commands := make([]*cobra.Command, len(cobraCommands))
+	copy(commands, cobraCommands)
+
+	sort.Slice(commands, func(i, j int) bool {
+		return commands[i].Use < commands[j].Use
+	})
+	return commands
 }
