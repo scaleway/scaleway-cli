@@ -150,7 +150,7 @@ scw fip ip list [arg=value ...]
 | server-ids.{index} |  | Filter Flexible IPs by server IDs |
 | project-id |  | Filter Flexible IPs by project ID |
 | organization-id |  | Filter Flexible IPs by organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

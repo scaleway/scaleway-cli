@@ -11,7 +11,7 @@ ARGS:
   [name]              Filter by the Image name (exact match)
   [project-id]        Filter by Project ID
   [organization-id]   Filter by Organization ID
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

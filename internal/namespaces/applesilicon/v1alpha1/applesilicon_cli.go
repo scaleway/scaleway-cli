@@ -207,14 +207,19 @@ func appleSiliconServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar3),
+			core.ZoneArgSpec(scw.ZoneFrPar3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			resp, err := api.ListServers(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServers(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -248,14 +253,19 @@ func appleSiliconOsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar3),
+			core.ZoneArgSpec(scw.ZoneFrPar3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*applesilicon.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			resp, err := api.ListOS(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListOS(request, opts...)
 			if err != nil {
 				return nil, err
 			}

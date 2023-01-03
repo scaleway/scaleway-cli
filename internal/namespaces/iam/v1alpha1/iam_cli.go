@@ -196,7 +196,8 @@ func iamSSHKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListSSHKeys(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListSSHKeys(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -440,7 +441,8 @@ func iamUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListUsers(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListUsers(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -567,7 +569,8 @@ func iamApplicationList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListApplications(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListApplications(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -782,7 +785,8 @@ func iamGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListGroups(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListGroups(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1157,7 +1161,8 @@ func iamPolicyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListPolicies(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListPolicies(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1468,7 +1473,8 @@ func iamRuleList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListRules(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListRules(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1504,7 +1510,8 @@ func iamPermissionSetList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListPermissionSets(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListPermissionSets(request, opts...)
 			if err != nil {
 				return nil, err
 			}
@@ -1567,7 +1574,8 @@ func iamAPIKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			resp, err := api.ListAPIKeys(request, scw.WithAllPages())
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListAPIKeys(request, opts...)
 			if err != nil {
 				return nil, err
 			}
