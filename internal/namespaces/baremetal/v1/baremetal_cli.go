@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOs(),
 		baremetalBmc(),
 		baremetalOptions(),
+		baremetalSettings(),
 		baremetalPrivateNetwork(),
 		baremetalServerList(),
 		baremetalServerGet(),
@@ -44,6 +45,8 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOfferGet(),
 		baremetalOptionsGet(),
 		baremetalOptionsList(),
+		baremetalSettingsList(),
+		baremetalSettingsUpdate(),
 		baremetalOsList(),
 		baremetalOsGet(),
 		baremetalPrivateNetworkAdd(),
@@ -110,6 +113,16 @@ func baremetalOptions() *core.Command {
 `,
 		Namespace: "baremetal",
 		Resource:  "options",
+	}
+}
+
+func baremetalSettings() *core.Command {
+	return &core.Command{
+		Short: `Settings management commands`,
+		Long: `Allows to configure the general settings for your elastic metal server.     
+`,
+		Namespace: "baremetal",
+		Resource:  "settings",
 	}
 }
 
@@ -1061,6 +1074,90 @@ func baremetalOptionsList() *core.Command {
 				Short:    "List all server options in fr-par-1 zone",
 				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
+		},
+	}
+}
+
+func baremetalSettingsList() *core.Command {
+	return &core.Command{
+		Short:     `List all settings`,
+		Long:      `Return all settings for a project ID.`,
+		Namespace: "baremetal",
+		Resource:  "settings",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListSettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Order the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "project-id",
+				Short:      `ID of the project`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListSettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListSettings(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Settings, nil
+
+		},
+	}
+}
+
+func baremetalSettingsUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update setting`,
+		Long:      `Update a setting for a project ID (enable or disable).`,
+		Namespace: "baremetal",
+		Resource:  "settings",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.UpdateSettingRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "setting-id",
+				Short:      `ID of the setting`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enabled",
+				Short:      `Enable/Disable the setting`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.UpdateSettingRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.UpdateSetting(request)
+
 		},
 	}
 }

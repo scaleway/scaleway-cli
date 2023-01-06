@@ -33,6 +33,9 @@ Elastic metal API
   - [Stop an elastic metal server](#stop-an-elastic-metal-server)
   - [Update an elastic metal server](#update-an-elastic-metal-server)
   - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
+- [Settings management commands](#settings-management-commands)
+  - [List all settings](#list-all-settings)
+  - [Update setting](#update-setting)
 
   
 ## Baseboard Management Controller (BMC) management commands
@@ -806,6 +809,54 @@ Wait for a server to reach a stable state
 scw baremetal server wait 11111111-1111-1111-1111-111111111111
 ```
 
+
+
+
+## Settings management commands
+
+Allows to configure the general settings for your elastic metal server.     
+
+
+
+### List all settings
+
+Return all settings for a project ID.
+
+**Usage:**
+
+```
+scw baremetal settings list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` | Order the response |
+| project-id | Required | ID of the project |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update setting
+
+Update a setting for a project ID (enable or disable).
+
+**Usage:**
+
+```
+scw baremetal settings update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| setting-id | Required | ID of the setting |
+| enabled |  | Enable/Disable the setting |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
