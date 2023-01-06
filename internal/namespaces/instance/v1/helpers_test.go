@@ -135,3 +135,17 @@ func deleteSecurityGroup(metaKey string) core.AfterFunc {
 func deleteSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
 }
+
+func createPN() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"PN",
+		"scw vpc private-network create",
+	)
+}
+
+func createNIC() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"NIC",
+		"scw instance private-nic create server-id={{ .Server.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
