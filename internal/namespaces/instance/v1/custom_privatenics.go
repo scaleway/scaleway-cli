@@ -65,8 +65,5 @@ func privateNicGetBuilder(c *core.Command) *core.Command {
 
 func isMacAddress(address string) bool {
 	_, err := net.ParseMAC(address)
-	if err != nil {
-		return false
-	}
-	return true
+	return err == nil
 }
