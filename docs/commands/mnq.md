@@ -151,7 +151,7 @@ scw mnq namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` | Namespace name |
-| protocol | Required<br />One of: `unknown`, `nats`, `sqs_sns`, `amqp` | Namespace protocol |
+| protocol | Required<br />One of: `unknown`, `nats`, `sqs_sns` | Namespace protocol |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
