@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [name=<generated>]   Namespace name
-  protocol             Namespace protocol (unknown | nats | sqs_sns | amqp)
+  protocol             Namespace protocol (unknown | nats | sqs_sns)
   [project-id]         Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par)
 

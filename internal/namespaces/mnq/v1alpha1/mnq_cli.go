@@ -138,7 +138,7 @@ func mnqNamespaceCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "nats", "sqs_sns", "amqp"},
+				EnumValues: []string{"unknown", "nats", "sqs_sns"},
 			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
