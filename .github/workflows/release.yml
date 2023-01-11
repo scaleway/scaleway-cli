@@ -29,3 +29,14 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  homebrew:
+    needs:
+      - goreleaser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bump scw Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{secrets.SCALEWAY_BOT_TOKEN}}
+          formula: scw
