@@ -125,7 +125,6 @@ func init() {
 		}
 		return string(data), nil
 	})
-
 }
 
 func registerMarshaler[T any](marshalFunc func(i T, opt *MarshalOpt) (string, error)) {
