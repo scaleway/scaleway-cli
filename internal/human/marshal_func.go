@@ -1,6 +1,7 @@
 package human
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"reflect"
@@ -116,6 +117,20 @@ func init() {
 			return "0 seconds", nil
 		}
 		return strings.Join(res, " "), nil
+	})
+	registerMarshaler(func(i scw.JSONObject, opt *MarshalOpt) (string, error) {
+		data, err := json.Marshal(i)
+		if err != nil {
+			return "", err
+		}
+		return string(data), nil
+	})
+}
+
+func registerMarshaler[T any](marshalFunc func(i T, opt *MarshalOpt) (string, error)) {
+	var val T
+	marshalerFuncs.Store(reflect.TypeOf(val), func(i interface{}, opt *MarshalOpt) (string, error) {
+		return marshalFunc(i.(T), opt)
 	})
 }
 
