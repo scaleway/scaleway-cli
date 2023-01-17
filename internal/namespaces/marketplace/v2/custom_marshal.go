@@ -7,7 +7,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func init() {
@@ -44,28 +43,4 @@ func imageMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// Concatenate
 	return terminal.Style("Image:", color.Bold) + "\n" +
 		imageContent, nil
-}
-
-func uniqueZones(zones []scw.Zone) []scw.Zone {
-	u := make([]scw.Zone, 0, len(zones))
-	m := make(map[scw.Zone]bool)
-	for _, val := range zones {
-		if _, ok := m[val]; !ok {
-			m[val] = true
-			u = append(u, val)
-		}
-	}
-	return u
-}
-
-func uniqueStrings(strs []string) []string {
-	u := make([]string, 0, len(strs))
-	m := make(map[string]bool)
-	for _, val := range strs {
-		if _, ok := m[val]; !ok {
-			m[val] = true
-			u = append(u, val)
-		}
-	}
-	return u
 }
