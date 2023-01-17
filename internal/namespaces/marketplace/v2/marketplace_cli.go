@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -51,7 +51,37 @@ func marketplaceImageList() *core.Command {
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(marketplace.ListImagesRequest{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Ordering to use`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+			},
+			{
+				Name:       "arch",
+				Short:      `Choose for which machine architecture to return images`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "category",
+				Short:      `Choose the category of images to get`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "include-eol",
+				Short:      `Choose to include end-of-life images`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*marketplace.ListImagesRequest)
 

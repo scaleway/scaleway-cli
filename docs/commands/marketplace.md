@@ -38,8 +38,18 @@ List marketplace images.
 **Usage:**
 
 ```
-scw marketplace image list
+scw marketplace image list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Ordering to use |
+| arch |  | Choose for which machine architecture to return images |
+| category |  | Choose the category of images to get |
+| include-eol |  | Choose to include end-of-life images |
 
 
 

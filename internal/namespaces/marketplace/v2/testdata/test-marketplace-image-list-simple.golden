@@ -1,0 +1,314 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                                DESCRIPTION                                                                                                                                                                                 LOGO                                                              CATEGORIES          CREATED AT       UPDATED AT       VALID UNTIL  LABEL
+0d3a22da-c634-45d6-a7dd-aff402f88b0c  AlmaLinux 8                         AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform  https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png   [distribution]      few seconds ago  few seconds ago  -            almalinux_8
+486ead23-9656-41d1-aa74-a5a780b2ae1b  AlmaLinux 9                         AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform  https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png   [distribution]      few seconds ago  few seconds ago  -            almalinux_9
+8f60c5dd-e659-48da-97e3-fb7de42195f5  Arch Linux                          Arch Linux is an independently developed Linux distribution versatile enough to suit any role.                                                                                              https://scw-marketplace-logos.s3.fr-par.scw.cloud/archlinux.png   [distribution]      few seconds ago  few seconds ago  -            arch_linux
+dc947de3-ddc7-4056-bc35-d51a316ebbb4  CentOS 7.9                          The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.                                                                         https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png      [distribution]      few seconds ago  few seconds ago  -            centos_7.9
+f49dc23e-82d1-48c3-b80e-6c697b1dda92  CentOS Stream 8                     The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.                                                                         https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png      [distribution]      few seconds ago  few seconds ago  -            centos_stream_8
+cfb3fa01-6406-4be8-9e9d-29daee2582fa  CentOS Stream 9                     The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.                                                                         https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png      [distribution]      few seconds ago  few seconds ago  -            centos_stream_9
+7bdc1afb-231f-486a-9b85-1b0478bc0e4a  Debian 10 (Buster)                  Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.                                                           https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png      [distribution]      few seconds ago  few seconds ago  -            debian_buster
+213b02cb-3d8d-4967-ba8d-e5767a57574e  Debian Bullseye                     Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.                                                           https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png      [distribution]      few seconds ago  few seconds ago  -            debian_bullseye
+c1b530d8-0ca0-45c4-80db-ba06608287b2  Docker                              Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications.                                                                                   https://scw-marketplace-logos.s3.fr-par.scw.cloud/docker.png      [instantapp]        few seconds ago  few seconds ago  -            docker
+198bbff7-c136-4b9c-9e28-8770df451fc1  Fedora 35                           Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services                   https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png      [distribution]      few seconds ago  few seconds ago  -            fedora_35
+186859f6-0152-45dd-9eb8-21fc5e8d774e  Fedora 36                           Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services                   https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png      [distribution]      few seconds ago  few seconds ago  -            fedora_36
+2b0e5802-eb82-4fd5-ac8f-6877c46aa14b  Fedora 37                           Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services                   https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png      [distribution]      few seconds ago  few seconds ago  -            fedora_37
+233074b9-e2ba-4e78-818e-dd4930ce6bee  GitLab                              GitLab is a web-based Git repository manager with wiki and issue tracking features.                                                                                                         https://scw-marketplace-logos.s3.fr-par.scw.cloud/gitlab.png      [instantapp]        few seconds ago  few seconds ago  -            gitlab
+7d4a7cb1-1fd5-4a64-920b-c79f47367254  NextCloud                           Nextcloud is an open source, self-hosted file share and communication platform.                                                                                                             https://scw-marketplace-logos.s3.fr-par.scw.cloud/nextcloud.png   [instantapp]        few seconds ago  few seconds ago  -            nextcloud
+b6f4edc8-21e6-4aa2-8f52-1030cf6d4dd8  OpenVPN                             Surf the web in a secure and anonymous way with OpenVPN InstantApp.                                                                                                                         https://scw-marketplace-logos.s3.fr-par.scw.cloud/openvpn.png     [instantapp]        few seconds ago  few seconds ago  -            openvpn
+1576bf6b-f640-47f2-9117-968419d0546e  Rocky Linux 8                       Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.                                                                                             https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png  [distribution]      few seconds ago  few seconds ago  -            rockylinux_8
+589c35a9-20ce-4ed9-92d7-16dc061be52b  Rocky Linux 9                       Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.                                                                                             https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png  [distribution]      few seconds ago  few seconds ago  -            rockylinux_9
+b381b2bf-804a-4b12-91f6-9f4ff273462f  Ubuntu 18.04 LTS (Bionic Beaver)    Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.                                                                     https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png      [distribution]      few seconds ago  few seconds ago  -            ubuntu_bionic
+3f1b9623-71ba-4fe3-b994-27fcdaa850ba  Ubuntu 20.04 TLS (Focal Fossa)      Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.                                                                     https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png      [distribution]      few seconds ago  few seconds ago  -            ubuntu_focal
+1123148c-7660-4cb2-9fd3-7b5b4896f72f  Ubuntu 22.04 TLS (Jammy Jellyfish)  Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.                                                                     https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png      [distribution]      few seconds ago  few seconds ago  -            ubuntu_jammy
+4dcc771c-820f-405c-b663-4564bdc2ed56  Ubuntu Focal GPU OS 11              Ubuntu 20.04 Focal Fossa for Nvidia GPU and Machine Learning                                                                                                                                https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png      [Machine Learning]  few seconds ago  few seconds ago  -            ubuntu_focal_gpu_os_11
+215a50f9-0ba8-4e9c-a4e7-10caf50e3586  WordPress                           WordPress is the most popular web software you can use to create a beautiful website or blog.                                                                                               https://scw-marketplace-logos.s3.fr-par.scw.cloud/wordpress.png   [instantapp]        few seconds ago  few seconds ago  -            wordpress
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "0d3a22da-c634-45d6-a7dd-aff402f88b0c",
+    "name": "AlmaLinux 8",
+    "description": "AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "almalinux_8"
+  },
+  {
+    "id": "486ead23-9656-41d1-aa74-a5a780b2ae1b",
+    "name": "AlmaLinux 9",
+    "description": "AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "almalinux_9"
+  },
+  {
+    "id": "8f60c5dd-e659-48da-97e3-fb7de42195f5",
+    "name": "Arch Linux",
+    "description": "Arch Linux is an independently developed Linux distribution versatile enough to suit any role.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/archlinux.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "arch_linux"
+  },
+  {
+    "id": "dc947de3-ddc7-4056-bc35-d51a316ebbb4",
+    "name": "CentOS 7.9",
+    "description": "The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "2019-12-25T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "centos_7.9"
+  },
+  {
+    "id": "f49dc23e-82d1-48c3-b80e-6c697b1dda92",
+    "name": "CentOS Stream 8",
+    "description": "The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "centos_stream_8"
+  },
+  {
+    "id": "cfb3fa01-6406-4be8-9e9d-29daee2582fa",
+    "name": "CentOS Stream 9",
+    "description": "The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "centos_stream_9"
+  },
+  {
+    "id": "7bdc1afb-231f-486a-9b85-1b0478bc0e4a",
+    "name": "Debian 10 (Buster)",
+    "description": "Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "debian_buster"
+  },
+  {
+    "id": "213b02cb-3d8d-4967-ba8d-e5767a57574e",
+    "name": "Debian Bullseye",
+    "description": "Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "debian_bullseye"
+  },
+  {
+    "id": "c1b530d8-0ca0-45c4-80db-ba06608287b2",
+    "name": "Docker",
+    "description": "Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/docker.png",
+    "categories": [
+      "instantapp"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "docker"
+  },
+  {
+    "id": "198bbff7-c136-4b9c-9e28-8770df451fc1",
+    "name": "Fedora 35",
+    "description": "Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "fedora_35"
+  },
+  {
+    "id": "186859f6-0152-45dd-9eb8-21fc5e8d774e",
+    "name": "Fedora 36",
+    "description": "Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "fedora_36"
+  },
+  {
+    "id": "2b0e5802-eb82-4fd5-ac8f-6877c46aa14b",
+    "name": "Fedora 37",
+    "description": "Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "fedora_37"
+  },
+  {
+    "id": "233074b9-e2ba-4e78-818e-dd4930ce6bee",
+    "name": "GitLab",
+    "description": "GitLab is a web-based Git repository manager with wiki and issue tracking features.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/gitlab.png",
+    "categories": [
+      "instantapp"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "gitlab"
+  },
+  {
+    "id": "7d4a7cb1-1fd5-4a64-920b-c79f47367254",
+    "name": "NextCloud",
+    "description": "Nextcloud is an open source, self-hosted file share and communication platform.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/nextcloud.png",
+    "categories": [
+      "instantapp"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "nextcloud"
+  },
+  {
+    "id": "b6f4edc8-21e6-4aa2-8f52-1030cf6d4dd8",
+    "name": "OpenVPN",
+    "description": "Surf the web in a secure and anonymous way with OpenVPN InstantApp.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/openvpn.png",
+    "categories": [
+      "instantapp"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "openvpn"
+  },
+  {
+    "id": "1576bf6b-f640-47f2-9117-968419d0546e",
+    "name": "Rocky Linux 8",
+    "description": "Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "rockylinux_8"
+  },
+  {
+    "id": "589c35a9-20ce-4ed9-92d7-16dc061be52b",
+    "name": "Rocky Linux 9",
+    "description": "Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "rockylinux_9"
+  },
+  {
+    "id": "b381b2bf-804a-4b12-91f6-9f4ff273462f",
+    "name": "Ubuntu 18.04 LTS (Bionic Beaver)",
+    "description": "Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "ubuntu_bionic"
+  },
+  {
+    "id": "3f1b9623-71ba-4fe3-b994-27fcdaa850ba",
+    "name": "Ubuntu 20.04 TLS (Focal Fossa)",
+    "description": "Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "ubuntu_focal"
+  },
+  {
+    "id": "1123148c-7660-4cb2-9fd3-7b5b4896f72f",
+    "name": "Ubuntu 22.04 TLS (Jammy Jellyfish)",
+    "description": "Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png",
+    "categories": [
+      "distribution"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "ubuntu_jammy"
+  },
+  {
+    "id": "4dcc771c-820f-405c-b663-4564bdc2ed56",
+    "name": "Ubuntu Focal GPU OS 11",
+    "description": "Ubuntu 20.04 Focal Fossa for Nvidia GPU and Machine Learning",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png",
+    "categories": [
+      "Machine Learning"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "ubuntu_focal_gpu_os_11"
+  },
+  {
+    "id": "215a50f9-0ba8-4e9c-a4e7-10caf50e3586",
+    "name": "WordPress",
+    "description": "WordPress is the most popular web software you can use to create a beautiful website or blog.",
+    "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/wordpress.png",
+    "categories": [
+      "instantapp"
+    ],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "valid_until": null,
+    "label": "wordpress"
+  }
+]

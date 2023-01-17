@@ -6,30 +6,13 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
 func updateCommands(commands *core.Commands) {
-	updateMarketplaceListImages(commands.MustFind("marketplace", "image", "list"))
 	updateMarketplaceGetImage(commands.MustFind("marketplace", "image", "get"))
-}
-
-// updateMarketplaceListImages is the custom Run for scw marketplace list images
-// TODO: remove when [APIGW-1959] is done
-func updateMarketplaceListImages(c *core.Command) {
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-		client := core.ExtractClient(ctx)
-		req := argsI.(*marketplace.ListImagesRequest)
-		api := marketplace.NewAPI(client)
-		req.PerPage = scw.Uint32Ptr(100)
-		imagesResponse, err := api.ListImages(req, scw.WithAllPages())
-		if err != nil {
-			return nil, err
-		}
-		return imagesResponse.Images, nil
-	}
 }
 
 // TODO : use generated command with label 'param'
@@ -50,7 +33,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 		args := argsI.(*getImagesArgs)
 		req := &marketplace.ListImagesRequest{}
-		req.PerPage = scw.Uint32Ptr(100)
+		req.PageSize = scw.Uint32Ptr(100)
 		client := core.ExtractClient(ctx)
 		api := marketplace.NewAPI(client)
 		resp, err := api.ListImages(req, scw.WithAllPages())
