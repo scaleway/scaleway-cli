@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   image       Marketplace images management commands
+  local-image Marketplace Local Images management commands
 
 FLAGS:
   -h, --help   help for marketplace

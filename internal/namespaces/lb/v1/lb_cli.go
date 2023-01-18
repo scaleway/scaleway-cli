@@ -28,6 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 		lbACL(),
 		lbLBTypes(),
 		lbPrivateNetwork(),
+		lbRoute(),
 		lbLBList(),
 		lbLBCreate(),
 		lbLBGet(),
@@ -53,6 +54,11 @@ func GetGeneratedCommands() *core.Commands {
 		lbFrontendGet(),
 		lbFrontendUpdate(),
 		lbFrontendDelete(),
+		lbRouteList(),
+		lbRouteCreate(),
+		lbRouteGet(),
+		lbRouteUpdate(),
+		lbRouteDelete(),
 		lbLBGetStats(),
 		lbACLList(),
 		lbACLCreate(),
@@ -148,6 +154,15 @@ func lbPrivateNetwork() *core.Command {
 		Long:      `Private networks management commands.`,
 		Namespace: "lb",
 		Resource:  "private-network",
+	}
+}
+
+func lbRoute() *core.Command {
+	return &core.Command{
+		Short:     `Route rules management commands`,
+		Long:      `Route rules management commands.`,
+		Namespace: "lb",
+		Resource:  "route",
 	}
 }
 
@@ -1686,6 +1701,220 @@ func lbFrontendDelete() *core.Command {
 	}
 }
 
+func lbRouteList() *core.Command {
+	return &core.Command{
+		Short:     `List all backend redirections`,
+		Long:      `List all backend redirections.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListRoutesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Response order`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "frontend-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListRoutesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListRoutes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Routes, nil
+
+		},
+	}
+}
+
+func lbRouteCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a backend redirection`,
+		Long:      `Create a backend redirection.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPICreateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "frontend-id",
+				Short:      `Origin of redirection`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `Destination of destination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.sni",
+				Short:      `Server Name Indication TLS extension (SNI)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.host-header",
+				Short:      `HTTP host header to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPICreateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.CreateRoute(request)
+
+		},
+	}
+}
+
+func lbRouteGet() *core.Command {
+	return &core.Command{
+		Short:     `Get single backend redirection`,
+		Long:      `Get single backend redirection.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIGetRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Id of route to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIGetRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.GetRoute(request)
+
+		},
+	}
+}
+
+func lbRouteUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Edit a backend redirection`,
+		Long:      `Edit a backend redirection.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route id to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `Backend id of redirection`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.sni",
+				Short:      `Server Name Indication TLS extension (SNI)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.host-header",
+				Short:      `HTTP host header to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUpdateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UpdateRoute(request)
+
+		},
+	}
+}
+
+func lbRouteDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a backend redirection`,
+		Long:      `Delete a backend redirection.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route id to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIDeleteRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			e = api.DeleteRoute(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "route",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
 func lbLBGetStats() *core.Command {
 	return &core.Command{
 		Short:     `Get usage statistics of a given load balancer`,
@@ -1846,6 +2075,13 @@ func lbACLCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "description",
+				Short:      `Description of your ACL ressource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1964,6 +2200,13 @@ func lbACLUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "description",
+				Short:      `Description of your ACL ressource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -2078,6 +2321,13 @@ func lbACLSet() *core.Command {
 				Name:       "acls.{index}.index",
 				Short:      `Order between your Acls (ascending order, 0 is first acl executed)`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.description",
+				Short:      `Description of your ACL ressource`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},

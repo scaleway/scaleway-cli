@@ -1060,7 +1060,7 @@ func iotDeviceGetMetrics() *core.Command {
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "get-metrics",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(iot.GetDeviceMetricsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
