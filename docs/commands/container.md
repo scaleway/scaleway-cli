@@ -10,9 +10,11 @@ Container as a Service API
   - [List all your containers](#list-all-your-containers)
   - [Update an existing container](#update-an-existing-container)
 - [Cron management commands](#cron-management-commands)
+  - [Create a new cron](#create-a-new-cron)
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
   - [List all your crons](#list-all-your-crons)
+  - [Update an existing cron](#update-an-existing-cron)
 - [Domain management commands](#domain-management-commands)
   - [Create a domain name binding](#create-a-domain-name-binding)
   - [Delete a domain name binding](#delete-a-domain-name-binding)
@@ -197,6 +199,29 @@ scw container container update <container-id ...> [arg=value ...]
 Cron management commands.
 
 
+### Create a new cron
+
+Create a new cron.
+
+**Usage:**
+
+```
+scw container cron create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id |  |  |
+| schedule |  |  |
+| args |  |  |
+| name |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Delete an existing cron
 
 Delete the cron associated with the given id.
@@ -255,6 +280,30 @@ scw container cron list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | container-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update an existing cron
+
+Update the cron associated with the given id.
+
+**Usage:**
+
+```
+scw container cron update <cron-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cron-id | Required |  |
+| container-id |  |  |
+| schedule |  |  |
+| args |  |  |
+| name |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -52,6 +52,12 @@ This API allows you to manage your load balancer service
   - [Add load balancer on instance private network](#add-load-balancer-on-instance-private-network)
   - [Remove load balancer of private network](#remove-load-balancer-of-private-network)
   - [List attached private network of load balancer](#list-attached-private-network-of-load-balancer)
+- [Route rules management commands](#route-rules-management-commands)
+  - [Create a backend redirection](#create-a-backend-redirection)
+  - [Delete a backend redirection](#delete-a-backend-redirection)
+  - [Get single backend redirection](#get-single-backend-redirection)
+  - [List all backend redirections](#list-all-backend-redirections)
+  - [Edit a backend redirection](#edit-a-backend-redirection)
 
   
 ## Access Control List (ACL) management commands
@@ -83,6 +89,7 @@ scw lb acl create [arg=value ...]
 | match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
+| description |  | Description of your ACL ressource |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -172,6 +179,7 @@ scw lb acl set [arg=value ...]
 | acls.{index}.match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | acls.{index}.match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | acls.{index}.index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
+| acls.{index}.description |  | Description of your ACL ressource |
 | frontend-id | Required | The Frontend to change ACL to |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -201,6 +209,7 @@ scw lb acl update <acl-id ...> [arg=value ...]
 | match.http-filter-option |  | A exra parameter. You can use this field with http_header_match acl type to set the header name to filter |
 | match.invert |  | If set to `true`, the ACL matching condition will be of type "UNLESS" |
 | index | Required | Order between your Acls (ascending order, 0 is first acl executed) |
+| description |  | Description of your ACL ressource |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1102,6 +1111,118 @@ scw lb private-network list <lb-id ...> [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` | Response order |
 | lb-id | Required | Load balancer ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Route rules management commands
+
+Route rules management commands.
+
+
+### Create a backend redirection
+
+Create a backend redirection.
+
+**Usage:**
+
+```
+scw lb route create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| frontend-id |  | Origin of redirection |
+| backend-id |  | Destination of destination |
+| match.sni |  | Server Name Indication TLS extension (SNI) |
+| match.host-header |  | HTTP host header to match |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete a backend redirection
+
+Delete a backend redirection.
+
+**Usage:**
+
+```
+scw lb route delete <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route id to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Get single backend redirection
+
+Get single backend redirection.
+
+**Usage:**
+
+```
+scw lb route get <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Id of route to get |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List all backend redirections
+
+List all backend redirections.
+
+**Usage:**
+
+```
+scw lb route list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` | Response order |
+| frontend-id |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Edit a backend redirection
+
+Edit a backend redirection.
+
+**Usage:**
+
+```
+scw lb route update <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route id to update |
+| backend-id |  | Backend id of redirection |
+| match.sni |  | Server Name Indication TLS extension (SNI) |
+| match.host-header |  | HTTP host header to match |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

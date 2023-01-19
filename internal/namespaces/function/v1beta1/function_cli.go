@@ -43,6 +43,8 @@ func GetGeneratedCommands() *core.Commands {
 		functionFunctionGetDownloadURL(),
 		functionCronList(),
 		functionCronGet(),
+		functionCronCreate(),
+		functionCronUpdate(),
 		functionCronDelete(),
 		functionLogsList(),
 		functionDomainList(),
@@ -925,6 +927,106 @@ func functionCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetCron(request)
+
+		},
+	}
+}
+
+func functionCronCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new cron`,
+		Long:      `Create a new cron.`,
+		Namespace: "function",
+		Resource:  "cron",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.CreateCronRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.CreateCronRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.CreateCron(request)
+
+		},
+	}
+}
+
+func functionCronUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an existing cron`,
+		Long:      `Update the cron associated with the given id.`,
+		Namespace: "function",
+		Resource:  "cron",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.UpdateCronRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cron-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.UpdateCronRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.UpdateCron(request)
 
 		},
 	}

@@ -5,6 +5,8 @@ Marketplace API
 - [Marketplace images management commands](#marketplace-images-management-commands)
   - [Get a specific marketplace image](#get-a-specific-marketplace-image)
   - [List marketplace images](#list-marketplace-images)
+- [Marketplace Local Images management commands](#marketplace-local-images-management-commands)
+  - [List local images from a specific image or version](#list-local-images-from-a-specific-image-or-version)
 
   
 ## Marketplace images management commands
@@ -50,6 +52,34 @@ scw marketplace image list [arg=value ...]
 | arch |  | Choose for which machine architecture to return images |
 | category |  | Choose the category of images to get |
 | include-eol |  | Choose to include end-of-life images |
+
+
+
+## Marketplace Local Images management commands
+
+Marketplace Local Images management commands.
+
+
+### List local images from a specific image or version
+
+List local images from a specific image or version.
+
+**Usage:**
+
+```
+scw marketplace local-image list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| image-id |  |  |
+| version-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| image-label |  |  |
+| zone |  |  |
 
 
 
