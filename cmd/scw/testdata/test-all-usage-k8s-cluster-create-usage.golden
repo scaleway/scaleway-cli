@@ -6,11 +6,11 @@ USAGE:
   scw k8s cluster create [arg=value ...]
 
 EXAMPLES:
-  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M
-    scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
+  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.24.7 and with a pool named default composed of 3 DEV1-M
+    scw k8s cluster create name=foo version=1.24.7 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 
-  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
-    scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
+  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.24.7 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+    scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used

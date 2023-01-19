@@ -6,11 +6,11 @@ USAGE:
   scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
-  Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)
-    scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4
+  Upgrade a given cluster to Kubernetes version 1.24.7 (without upgrading the pools)
+    scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7
 
-  Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)
-    scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4 upgrade-pools=true
+  Upgrade a given cluster to Kubernetes version 1.24.7 (and upgrade the pools)
+    scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7 upgrade-pools=true
 
 ARGS:
   cluster-id        The ID of the cluster to upgrade

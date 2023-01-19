@@ -597,12 +597,12 @@ func k8sClusterCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M",
-				Raw:   `scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default`,
+				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.24.7 and with a pool named default composed of 3 DEV1-M",
+				Raw:   `scw k8s cluster create name=foo version=1.24.7 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default`,
 			},
 			{
-				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
-				Raw:   `scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default`,
+				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.24.7 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
+				Raw:   `scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default`,
 			},
 		},
 	}
@@ -970,12 +970,12 @@ func k8sClusterUpgrade() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)",
-				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4`,
+				Short: "Upgrade a given cluster to Kubernetes version 1.24.7 (without upgrading the pools)",
+				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7`,
 			},
 			{
-				Short: "Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)",
-				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4 upgrade-pools=true`,
+				Short: "Upgrade a given cluster to Kubernetes version 1.24.7 (and upgrade the pools)",
+				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7 upgrade-pools=true`,
 			},
 		},
 	}
@@ -1441,8 +1441,8 @@ func k8sPoolUpgrade() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Upgrade a given pool to the Kubernetes version 1.17.4",
-				Raw:   `scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.17.4`,
+				Short: "Upgrade a given pool to the Kubernetes version 1.24.7",
+				Raw:   `scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.24.7`,
 			},
 		},
 	}
@@ -1951,8 +1951,8 @@ func k8sVersionGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Get the Kubernetes version 1.18.0",
-				Raw:   `scw k8s version get 1.18.0`,
+				Short: "Get the Kubernetes version 1.24.7",
+				Raw:   `scw k8s version get 1.24.7`,
 			},
 		},
 	}

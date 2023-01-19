@@ -6,8 +6,8 @@ USAGE:
   scw k8s version get <version-name ...> [arg=value ...]
 
 EXAMPLES:
-  Get the Kubernetes version 1.18.0
-    scw k8s version get 1.18.0
+  Get the Kubernetes version 1.24.7
+    scw k8s version get 1.24.7
 
 ARGS:
   version-name      The requested version name
