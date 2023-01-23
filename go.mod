@@ -9,7 +9,7 @@ require (
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/dustin/go-humanize v1.0.1
-	github.com/fatih/color v1.13.0
+	github.com/fatih/color v1.14.0
 	github.com/getsentry/raven-go v0.2.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.0
@@ -42,6 +42,6 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
-	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect
+	golang.org/x/sys v0.3.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
