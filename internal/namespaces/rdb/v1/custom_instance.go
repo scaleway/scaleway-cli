@@ -123,9 +123,36 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+// Caching ListNodeType response for shell completion
+var completeListNodeTypeCache *rdb.ListNodeTypesResponse
+
+func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := rdb.NewAPI(client)
+
+	if completeListNodeTypeCache == nil {
+		res, err := api.ListNodeTypes(&rdb.ListNodeTypesRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+		completeListNodeTypeCache = res
+	}
+	prefix = strings.ToLower(strings.Replace(prefix, "-", "_", -1))
+
+	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
+		if strings.HasPrefix(nodeType.Name, prefix) {
+			suggestions = append(suggestions, nodeType.Name)
+		}
+	}
+
+	return suggestions
+}
+
 func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
-	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
@@ -148,7 +175,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 }
 
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
