@@ -73,6 +73,8 @@ func serverCreateCommand() *core.Command {
 					"DEV1-XL",
 					"RENDER-S",
 					"STARDUST1-S",
+					"ENT1-XXS",
+					"ENT1-XS",
 					"ENT1-S",
 					"ENT1-M",
 					"ENT1-L",
