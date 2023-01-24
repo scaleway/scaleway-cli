@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to get a specific Kubernetes version and the details about the version.
+Update the cron associated with the given id.
 
 USAGE:
-  scw k8s version get <version-name ...> [arg=value ...]
-
-EXAMPLES:
-  Get the Kubernetes version 1.24.7
-    scw k8s version get 1.24.7
+  scw function cron update <cron-id ...> [arg=value ...]
 
 ARGS:
-  version-name      The requested version name
+  cron-id           
+  [function-id]     
+  [schedule]        
+  [args]            
+  [name]            
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help   help for update
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

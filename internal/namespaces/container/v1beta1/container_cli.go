@@ -38,6 +38,8 @@ func GetGeneratedCommands() *core.Commands {
 		containerContainerDeploy(),
 		containerCronList(),
 		containerCronGet(),
+		containerCronCreate(),
+		containerCronUpdate(),
 		containerCronDelete(),
 		containerDomainList(),
 		containerDomainGet(),
@@ -803,6 +805,106 @@ func containerCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetCron(request)
+
+		},
+	}
+}
+
+func containerCronCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new cron`,
+		Long:      `Create a new cron.`,
+		Namespace: "container",
+		Resource:  "cron",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.CreateCronRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.CreateCronRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.CreateCron(request)
+
+		},
+	}
+}
+
+func containerCronUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an existing cron`,
+		Long:      `Update the cron associated with the given id.`,
+		Namespace: "container",
+		Resource:  "cron",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.UpdateCronRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cron-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.UpdateCronRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.UpdateCron(request)
 
 		},
 	}

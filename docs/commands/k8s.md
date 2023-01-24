@@ -114,14 +114,14 @@ scw k8s cluster create [arg=value ...]
 **Examples:**
 
 
-Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M
+Create a Kubernetes cluster named foo with cilium as CNI, in version 1.24.7 and with a pool named default composed of 3 DEV1-M
 ```
-scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
+scw k8s cluster create name=foo version=1.24.7 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 ```
 
-Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.24.7 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
 ```
-scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
+scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 ```
 
 
@@ -380,14 +380,14 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)
+Upgrade a given cluster to Kubernetes version 1.24.7 (without upgrading the pools)
 ```
-scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4
+scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7
 ```
 
-Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)
+Upgrade a given cluster to Kubernetes version 1.24.7 (and upgrade the pools)
 ```
-scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4 upgrade-pools=true
+scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7 upgrade-pools=true
 ```
 
 
@@ -979,9 +979,9 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 **Examples:**
 
 
-Upgrade a given pool to the Kubernetes version 1.17.4
+Upgrade a given pool to the Kubernetes version 1.24.7
 ```
-scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.17.4
+scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.24.7
 ```
 
 
@@ -1049,9 +1049,9 @@ scw k8s version get <version-name ...> [arg=value ...]
 **Examples:**
 
 
-Get the Kubernetes version 1.18.0
+Get the Kubernetes version 1.24.7
 ```
-scw k8s version get 1.18.0
+scw k8s version get 1.24.7
 ```
 
 

@@ -21,8 +21,10 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		marketplaceRoot(),
 		marketplaceImage(),
+		marketplaceLocalImage(),
 		marketplaceImageList(),
 		marketplaceImageGet(),
+		marketplaceLocalImageList(),
 	)
 }
 func marketplaceRoot() *core.Command {
@@ -39,6 +41,15 @@ func marketplaceImage() *core.Command {
 		Long:      `Marketplace images management commands.`,
 		Namespace: "marketplace",
 		Resource:  "image",
+	}
+}
+
+func marketplaceLocalImage() *core.Command {
+	return &core.Command{
+		Short:     `Marketplace Local Images management commands`,
+		Long:      `Marketplace Local Images management commands.`,
+		Namespace: "marketplace",
+		Resource:  "local-image",
 	}
 }
 
@@ -128,6 +139,64 @@ func marketplaceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 			return api.GetImage(request)
+
+		},
+	}
+}
+
+func marketplaceLocalImageList() *core.Command {
+	return &core.Command{
+		Short:     `List local images from a specific image or version`,
+		Long:      `List local images from a specific image or version.`,
+		Namespace: "marketplace",
+		Resource:  "local-image",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.ListLocalImagesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "image-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "version-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "image-label",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "zone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.ListLocalImagesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListLocalImages(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.LocalImages, nil
 
 		},
 	}
