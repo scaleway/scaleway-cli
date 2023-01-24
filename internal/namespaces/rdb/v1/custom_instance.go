@@ -139,7 +139,6 @@ func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteS
 		}
 		completeListNodeTypeCache = res
 	}
-	prefix = strings.ToLower(strings.Replace(prefix, "-", "_", -1))
 
 	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
 		if strings.HasPrefix(nodeType.Name, prefix) {
