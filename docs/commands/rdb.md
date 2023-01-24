@@ -555,7 +555,7 @@ scw rdb instance create [arg=value ...]
 | engine | Required | Database engine of the database (PostgreSQL, MySQL, ...) |
 | user-name | Required | Name of the user created when the instance is created |
 | password | Required | Password of the user |
-| node-type | Required<br />Default: `DB-DEV-S`<br />One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` | Type of node to use for the instance |
+| node-type | Required<br />Default: `DB-DEV-S` | Type of node to use for the instance |
 | is-ha-cluster |  | Whether or not High-Availability is enabled |
 | disable-backup |  | Whether or not backups are disabled |
 | tags.{index} |  | Tags to apply to the instance |
@@ -761,7 +761,7 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the instance you want to upgrade |
-| node-type | One of: `DB-DEV-S`, `DB-DEV-M`, `DB-DEV-L`, `DB-DEV-XL`, `DB-GP-XS`, `DB-GP-S`, `DB-GP-M`, `DB-GP-L`, `DB-GP-XL` | Node type of the instance you want to upgrade to |
+| node-type |  | Node type of the instance you want to upgrade to |
 | enable-ha |  | Set to true to enable high availability on your instance |
 | volume-size |  | Increase your block storage volume size |
 | volume-type | One of: `lssd`, `bssd` | Change your instance storage type |

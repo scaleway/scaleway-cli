@@ -6,18 +6,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
-var nodeTypes = []string{
-	"DB-DEV-S",
-	"DB-DEV-M",
-	"DB-DEV-L",
-	"DB-DEV-XL",
-	"DB-GP-XS",
-	"DB-GP-S",
-	"DB-GP-M",
-	"DB-GP-L",
-	"DB-GP-XL",
-}
-
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
