@@ -82,7 +82,10 @@ scw lb acl create [arg=value ...]
 |------|---|-------------|
 | frontend-id | Required | ID of your frontend |
 | name | Required<br />Default: `<generated>` | Name of your ACL ressource |
-| action.type | One of: `allow`, `deny` | The action type |
+| action.type | One of: `allow`, `deny`, `redirect` | The action type |
+| action.redirect.type | One of: `location`, `scheme` | Redirect type |
+| action.redirect.target |  | Redirect target (target URL for `location`, or target `scheme`) |
+| action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
 | match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
@@ -172,7 +175,10 @@ scw lb acl set [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acls.{index}.name | Required | Name of your ACL resource |
-| acls.{index}.action.type | One of: `allow`, `deny` | The action type |
+| acls.{index}.action.type | One of: `allow`, `deny`, `redirect` | The action type |
+| acls.{index}.action.redirect.type | One of: `location`, `scheme` | Redirect type |
+| acls.{index}.action.redirect.target |  | Redirect target (target URL for `location`, or target `scheme`) |
+| acls.{index}.action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | acls.{index}.match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
 | acls.{index}.match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
 | acls.{index}.match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
@@ -202,7 +208,10 @@ scw lb acl update <acl-id ...> [arg=value ...]
 |------|---|-------------|
 | acl-id | Required | ID of your ACL ressource |
 | name | Required | Name of your ACL ressource |
-| action.type | One of: `allow`, `deny` | The action type |
+| action.type | One of: `allow`, `deny`, `redirect` | The action type |
+| action.redirect.type | One of: `location`, `scheme` | Redirect type |
+| action.redirect.target |  | Redirect target (target URL for `location`, or target `scheme`) |
+| action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | A list of IPs or CIDR v4/v6 addresses of the client of the session to match |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | The HTTP filter to match |
 | match.http-filter-value.{index} |  | A list of possible values to match for the given HTTP filter |
