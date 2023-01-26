@@ -266,7 +266,7 @@ func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.
 	p := prompt.New(
 		executor,
 		completer.Complete,
-		prompt.OptionPrefix(">>>"),
+		prompt.OptionPrefix(">>> "),
 		prompt.OptionSuggestionBGColor(prompt.Purple),
 		prompt.OptionSelectedSuggestionBGColor(prompt.Fuchsia),
 		prompt.OptionSelectedSuggestionTextColor(prompt.White),
