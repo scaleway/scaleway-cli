@@ -183,6 +183,10 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			}
 
 			return data, nil
+		case rType.Kind() == reflect.Interface:
+			// If type is interface{}
+			// marshal the underlying type
+			return marshal(value.Elem(), keys)
 		default:
 			str, err := defaultMarshalerFunc(value.Interface(), subOpts)
 			if err != nil {
