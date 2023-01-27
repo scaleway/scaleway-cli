@@ -583,8 +583,16 @@ func configInfoCommand() *core.Command {
 					values[key] = value
 				}
 			}
-
-			return profile, nil
+			
+			return struct {
+				ConfigPath  string
+				ProfileName string
+				Profile     map[string]any
+			}{
+				ConfigPath:  core.ExtractConfigPath(ctx),
+				ProfileName: core.ExtractProfileName(ctx),
+				Profile:     values,
+			}, nil
 		},
 	}
 }
