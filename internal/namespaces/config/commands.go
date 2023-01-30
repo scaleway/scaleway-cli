@@ -583,7 +583,7 @@ func configInfoCommand() *core.Command {
 					values[key] = value
 				}
 			}
-			
+
 			return struct {
 				ConfigPath  string
 				ProfileName string
