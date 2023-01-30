@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ConfigPath                       /tmp/scw1635042996/.config/scw/config.yaml
+ConfigPath                       /tmp/scw/.config/scw/config.yaml
 ProfileName                      default
 Profile.access-key               SCWXXXXXXXXXXXXXXXXX
 Profile.default-organization-id  11111111-1111-1111-1111-111111111111
@@ -11,7 +11,7 @@ Profile.secret-key               11111111-1111-1111-1111-111111111111
 Profile.send-telemetry           true
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "ConfigPath": "/tmp/scw1635042996/.config/scw/config.yaml",
+  "ConfigPath": "/tmp/scw/.config/scw/config.yaml",
   "ProfileName": "default",
   "Profile": {
     "access-key": "SCWXXXXXXXXXXXXXXXXX",
