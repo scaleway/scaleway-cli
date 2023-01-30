@@ -573,33 +573,41 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
-// GoldenIgnoreLine describe lines to be removed from golden check
-type GoldenIgnoreLine struct {
+// GoldenReplacement describe patterns to be replaced in goldens
+type GoldenReplacement struct {
 	// Line will be matched using this regex
-	Prefix string
-	// After is the number of line that should be ignored after the matched one
-	// 0 will only remove the matched one
-	After int
+	Pattern *regexp.Regexp
+	// Content that will replace the matched regex
+	// This is the format for repl in (*regexp.Regexp).ReplaceAll
+	// You can use $ to represent groups $1, $2...
+	Replacement string
 }
 
-func goldenIgnoreLines(golden string, ignores ...GoldenIgnoreLine) string {
-	lines := strings.Split(golden, "\n")
+// goldenReplacePatterns replace the list of patterns with their given replacement
+func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (string, error) {
+	var matchFailed []string
+	var changedGolden = golden
 
-	for _, ignore := range ignores {
-		for i := range lines {
-			if strings.HasPrefix(lines[i], ignore.Prefix) {
-				lines = append(lines[0:i], lines[i+1+ignore.After:]...)
-				return goldenIgnoreLines(strings.Join(lines, "\n"), ignores...)
-			}
+	for _, replacement := range replacements {
+		if !replacement.Pattern.MatchString(changedGolden) {
+			matchFailed = append(matchFailed, replacement.Pattern.String())
+			continue
 		}
+		changedGolden = replacement.Pattern.ReplaceAllString(changedGolden, replacement.Replacement)
 	}
-	return golden
+
+	if len(matchFailed) > 0 {
+		return changedGolden, fmt.Errorf("failed to match regex in golden: %#q", matchFailed)
+	}
+	return changedGolden, nil
 }
 
-func TestCheckGoldenAndIgnoreLines(ignores ...GoldenIgnoreLine) TestCheck {
+// TestCheckGoldenAndIgnoreLines assert stderr and stdout using golden,
+// golden are matched against given regex and edited with replacements
+func TestCheckGoldenAndIgnoreLines(replacements ...GoldenReplacement) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		actual := marshalGolden(t, ctx)
-		actual = goldenIgnoreLines(actual, ignores...)
+		actual, actualReplaceErr := goldenReplacePatterns(actual, replacements...)
 
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
@@ -610,8 +618,10 @@ func TestCheckGoldenAndIgnoreLines(ignores ...GoldenIgnoreLine) TestCheck {
 
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		expectedString := goldenIgnoreLines(string(expected), ignores...)
+		expectedString, expectedReplaceErr := goldenReplacePatterns(string(expected), replacements...)
 		assert.Equal(t, expectedString, actual)
+		assert.Nil(t, actualReplaceErr, "failed to match test output with regexes")
+		assert.Nil(t, expectedReplaceErr, "failed to match stored golden with regexes")
 	}
 }
 
