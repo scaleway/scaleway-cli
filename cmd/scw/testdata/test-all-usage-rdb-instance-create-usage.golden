@@ -11,7 +11,7 @@ ARGS:
   engine                                                        Database engine of the database (PostgreSQL, MySQL, ...)
   user-name                                                     Name of the user created when the instance is created
   password                                                      Password of the user
-  node-type=DB-DEV-S                                            Type of node to use for the instance (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
+  node-type=DB-DEV-S                                            Type of node to use for the instance
   [is-ha-cluster]                                               Whether or not High-Availability is enabled
   [disable-backup]                                              Whether or not backups are disabled
   [tags.{index}]                                                Tags to apply to the instance
