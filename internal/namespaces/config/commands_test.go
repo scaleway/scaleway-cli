@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path"
+	"regexp"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -256,13 +257,27 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 }
 
 func Test_ConfigInfoCommand(t *testing.T) {
+	// replace ConfigPath lines with "/tmp/scw/.config/scw/config.yaml"
+	configPathReplacements := []core.GoldenReplacement{
+		{
+			Pattern:     regexp.MustCompile(`(ConfigPath\s).*`),
+			Replacement: "$1/tmp/scw/.config/scw/config.yaml",
+		},
+		{
+			Pattern:     regexp.MustCompile(`(?m)^(\s*"ConfigPath":\s*").*(",)`),
+			Replacement: "$1/tmp/scw/.config/scw/config.yaml$2",
+		},
+	}
+	//configPathRegex := regexp.MustCompile("(.*\"?ConfigPath(?:\":)?\\s*\"?).*(\",)?")
+	//configPathReplacement := "$1/tmp/scw/.config/scw/config.yaml"
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config info",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			core.TestCheckGolden(),
+			core.TestCheckGoldenAndIgnoreLines(configPathReplacements...),
 		),
 		TmpHomeDir: true,
 	}))
@@ -273,7 +288,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 		Cmd:        "scw -p p1 config info",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			core.TestCheckGolden(),
+			core.TestCheckGoldenAndIgnoreLines(configPathReplacements...),
 		),
 		TmpHomeDir: true,
 	}))
