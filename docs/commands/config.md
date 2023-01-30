@@ -29,6 +29,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Destroy the config file](#destroy-the-config-file)
 - [Dump the config file](#dump-the-config-file)
 - [Get a value from the config file](#get-a-value-from-the-config-file)
+- [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
 - [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
   - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
@@ -96,6 +97,35 @@ scw config get default_organization_id
 Get the default region of the profile 'prod'
 ```
 scw -p prod config get default_region
+```
+
+
+
+
+## Get config values from the config file for the current profile
+
+
+
+
+
+**Usage:**
+
+```
+scw config info
+```
+
+
+**Examples:**
+
+
+Get the default config values
+```
+scw config info
+```
+
+Get the config values of the profile 'prod'
+```
+scw -p prod config info
 ```
 
 
