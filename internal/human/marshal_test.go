@@ -26,6 +26,13 @@ type Struct struct {
 	Size        *scw.Size
 }
 
+type StructAny struct {
+	String    interface{}
+	StringPtr interface{}
+	Map       map[string]interface{}
+	MapPtr    map[string]interface{}
+}
+
 type Address struct {
 	Street string
 	City   string
@@ -183,6 +190,26 @@ func TestMarshal(t *testing.T) {
 			Name: "Paul",
 		},
 		result: `Name  Paul`,
+	}))
+
+	var testAnyString = "MyString"
+	t.Run("any", run(&testCase{
+		data: &StructAny{
+			String:    testAnyString,
+			StringPtr: &testAnyString,
+			Map: map[string]interface{}{
+				"String": testAnyString,
+			},
+			MapPtr: map[string]interface{}{
+				"String": &testAnyString,
+			},
+		},
+		result: `
+			String         MyString
+			StringPtr      MyString
+			Map.String     MyString
+			MapPtr.String  MyString
+`,
 	}))
 }
 
