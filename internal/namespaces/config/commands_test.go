@@ -277,7 +277,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 		Cmd:        "scw config info",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			core.TestCheckGoldenAndIgnoreLines(configPathReplacements...),
+			core.TestCheckGoldenAndReplacePatterns(configPathReplacements...),
 		),
 		TmpHomeDir: true,
 	}))
@@ -288,7 +288,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 		Cmd:        "scw -p p1 config info",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			core.TestCheckGoldenAndIgnoreLines(configPathReplacements...),
+			core.TestCheckGoldenAndReplacePatterns(configPathReplacements...),
 		),
 		TmpHomeDir: true,
 	}))

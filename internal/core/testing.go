@@ -602,9 +602,9 @@ func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 	return changedGolden, nil
 }
 
-// TestCheckGoldenAndIgnoreLines assert stderr and stdout using golden,
+// TestCheckGoldenAndReplacePatterns assert stderr and stdout using golden,
 // golden are matched against given regex and edited with replacements
-func TestCheckGoldenAndIgnoreLines(replacements ...GoldenReplacement) TestCheck {
+func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		actual := marshalGolden(t, ctx)
 		actual, actualReplaceErr := goldenReplacePatterns(actual, replacements...)
