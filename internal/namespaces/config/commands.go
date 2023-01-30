@@ -30,6 +30,7 @@ func GetCommands() *core.Commands {
 		configActivateProfileCommand(),
 		configResetCommand(),
 		configDestroyCommand(),
+		configInfoCommand(),
 	)
 }
 
@@ -530,6 +531,67 @@ func configDestroyCommand() *core.Command {
 			}
 			return &core.SuccessResult{
 				Message: "successfully destroy config",
+			}, nil
+		},
+	}
+}
+
+// configInfoCommand values from the scaleway config for the current profile
+func configInfoCommand() *core.Command {
+	type configInfoArgs struct{}
+
+	return &core.Command{
+		Short:                `Get config values from the config file for the current profile`,
+		Namespace:            "config",
+		Resource:             "info",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configInfoArgs{}),
+		ArgSpecs:             core.ArgSpecs{},
+		Examples: []*core.Example{
+			{
+				Short: "Get the default config values",
+				Raw:   "scw config info",
+			},
+			{
+				Short: "Get the config values of the profile 'prod'",
+				Raw:   "scw -p prod config info",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config --help",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+			if err != nil {
+				return nil, err
+			}
+
+			profileName := core.ExtractProfileName(ctx)
+			// use config.GetProfile instead of getProfile as we want the profile merged with the default
+			profile, err := config.GetProfile(profileName)
+			if err != nil {
+				return nil, err
+			}
+
+			values := map[string]any{}
+			for _, key := range getProfileKeys() {
+				value, err := getProfileValue(profile, key)
+				if err == nil && value != nil {
+					values[key] = value
+				}
+			}
+
+			return struct {
+				ConfigPath  string
+				ProfileName string
+				Profile     map[string]any
+			}{
+				ConfigPath:  core.ExtractConfigPath(ctx),
+				ProfileName: core.ExtractProfileName(ctx),
+				Profile:     values,
 			}, nil
 		},
 	}
