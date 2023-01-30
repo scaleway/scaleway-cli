@@ -9,7 +9,7 @@ require (
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/dustin/go-humanize v1.0.1
-	github.com/fatih/color v1.14.0
+	github.com/fatih/color v1.14.1
 	github.com/getsentry/raven-go v0.2.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.0
@@ -18,7 +18,7 @@ require (
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
 	github.com/mattn/go-colorable v0.1.13
 	github.com/mattn/go-isatty v0.0.17
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.12.0.20230123141227-ef0129e3d08c
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.12.0.20230126092013-7a7770757f26
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.1
