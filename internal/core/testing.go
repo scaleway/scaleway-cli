@@ -573,6 +573,48 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
+// GoldenIgnoreLine describe lines to be removed from golden check
+type GoldenIgnoreLine struct {
+	// Line will be matched using this regex
+	Prefix string
+	// After is the number of line that should be ignored after the matched one
+	// 0 will only remove the matched one
+	After int
+}
+
+func goldenIgnoreLines(golden string, ignores ...GoldenIgnoreLine) string {
+	lines := strings.Split(golden, "\n")
+
+	for _, ignore := range ignores {
+		for i := range lines {
+			if strings.HasPrefix(lines[i], ignore.Prefix) {
+				lines = append(lines[0:i], lines[i+1+ignore.After:]...)
+				return goldenIgnoreLines(strings.Join(lines, "\n"), ignores...)
+			}
+		}
+	}
+	return golden
+}
+
+func TestCheckGoldenAndIgnoreLines(ignores ...GoldenIgnoreLine) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		actual := marshalGolden(t, ctx)
+		actual = goldenIgnoreLines(actual, ignores...)
+
+		goldenPath := getTestFilePath(t, ".golden")
+		// In order to avoid diff in goldens we set all timestamp to the same date
+		if *UpdateGoldens {
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+		}
+
+		expected, err := os.ReadFile(goldenPath)
+		require.NoError(t, err, "expected to find golden file %s", goldenPath)
+		expectedString := goldenIgnoreLines(string(expected), ignores...)
+		assert.Equal(t, expectedString, actual)
+	}
+}
+
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
