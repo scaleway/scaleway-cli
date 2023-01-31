@@ -260,7 +260,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 	// replace ConfigPath lines with "/tmp/scw/.config/scw/config.yaml"
 	configPathReplacements := []core.GoldenReplacement{
 		{
-			Pattern:     regexp.MustCompile(`(ConfigPath\s).*`),
+			Pattern:     regexp.MustCompile(`(ConfigPath\s+).*`),
 			Replacement: "$1/tmp/scw/.config/scw/config.yaml",
 		},
 		{
