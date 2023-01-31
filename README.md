@@ -139,6 +139,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://developers.scaleway.com/en/products/redis/api/v1/)              |
 | `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)           |
 | `shell`        | Start Shell mode                        | [CLI](./docs/commands/shell.md)                                                                                 |
+| `tem`          | Transactional Email API                 | [CLI](./docs/commands/tem.md) / [API](https://developers.scaleway.com/en/products/transactional_email/api/)     |
 | `vpc-gw`       | VPC Gateway API                         | [CLI](./docs/commands/vpc-gw.md) / [API](https://developers.scaleway.com/en/products/vpc-gw/api/v1/)            |
 | `vpc`          | VPC API                                 | [CLI](./docs/commands/vpc.md) / [API](https://developers.scaleway.com/en/products/vpc/api/)                     |
 
