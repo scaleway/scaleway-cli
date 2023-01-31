@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ConfigPath /tmp/scw/.config/scw/config.yaml
+ConfigPath                       /tmp/scw/.config/scw/config.yaml
 ProfileName                      p1
 Profile.access-key               SCWP1XXXXXXXXXXXXXXX
 Profile.api-url                  https://p1-mock-api-url.com
