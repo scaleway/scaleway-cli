@@ -458,6 +458,14 @@ func secretVersionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "status.{index}",
+				Short:      `Filter results by status`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "enabled", "disabled", "destroyed"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
