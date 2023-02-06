@@ -202,7 +202,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 		expected: &Slice{
 			Strings:    []string(nil),
-			SlicePtr:   scw.StringsPtr(nil),
+			SlicePtr:   scw.StringsPtr([]string{}),
 			StringsPtr: []*string(nil),
 		},
 	}))

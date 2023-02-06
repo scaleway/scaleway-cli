@@ -240,8 +240,11 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// - dest is a pointer to a slice
 		// - there is no more argNameWords left
 		// - value == none
-		// we let the slice empty and return
+		// slice ptr was allocated
+		// we allocate the empty slice and return
 		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
+			sliceDest := dest.Elem()
+			sliceDest.Set(reflect.MakeSlice(sliceDest.Type(), 0, 0))
 			return nil
 		}
 
