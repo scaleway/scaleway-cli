@@ -35,6 +35,7 @@ var (
 func cleanup(buildInfo *core.BuildInfo) {
 	if err := recover(); err != nil {
 		fmt.Println(sentry.ErrorBanner)
+		fmt.Println(err)
 		fmt.Println("stacktrace from panic: \n" + string(debug.Stack()))
 
 		// This will send an anonymous report on Scaleway's sentry.
