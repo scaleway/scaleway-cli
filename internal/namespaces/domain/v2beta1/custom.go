@@ -25,6 +25,8 @@ func GetCommands() *core.Commands {
 		dnsRecordDeleteCommand(),
 	))
 
+	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
+
 	human.RegisterMarshalerFunc(domain.DNSZoneStatus(""), human.EnumMarshalFunc(zoneStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(domain.SSLCertificateStatus(""), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
 	return cmds
