@@ -13,7 +13,6 @@ ARGS:
   [name=<generated>]                           Name of the image
   snapshot-id                                  UUID of the snapshot that will be used as root volume in the image
   arch                                         Architecture of the image (x86_64 | arm)
-  [default-bootscript]                         Default bootscript of the image
   [additional-snapshots.{index}.id]            UUID of the snapshot to add
   [additional-snapshots.{index}.name]          Name of the additional snapshot
   [additional-snapshots.{index}.size]          Size of the additional snapshot
@@ -26,6 +25,7 @@ ARGS:
   [zone=fr-par-1]                              Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 DEPRECATED ARGS:
+  [default-bootscript]                             Default bootscript of the image
   [additional-snapshots.{index}.organization-id]   Organization ID that own the additional snapshot
 
 FLAGS:

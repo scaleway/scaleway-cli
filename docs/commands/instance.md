@@ -105,7 +105,7 @@ scw instance image create [arg=value ...]
 | name | Default: `<generated>` | Name of the image |
 | snapshot-id | Required | UUID of the snapshot that will be used as root volume in the image |
 | arch | Required<br />One of: `x86_64`, `arm` | Architecture of the image |
-| default-bootscript |  | Default bootscript of the image |
+| ~~default-bootscript~~ | Deprecated | Default bootscript of the image |
 | additional-snapshots.{index}.id |  | UUID of the snapshot to add |
 | additional-snapshots.{index}.name |  | Name of the additional snapshot |
 | additional-snapshots.{index}.size |  | Size of the additional snapshot |
@@ -1823,7 +1823,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | volumes.{key}.base-snapshot |  | The ID of the snapshot on which this volume will be based |
 | volumes.{key}.project |  | Project ID of the volume |
 | volumes.{key}.organization |  | Organization ID of the volume |
-| bootscript |  |  |
+| ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
 | enable-ipv6 |  |  |
 | protected |  |  |
