@@ -629,17 +629,17 @@ scw k8s node list [arg=value ...]
 
 List all the nodes in the given cluster
 ```
-scw k8s node list 11111111-1111-1111-111111111111
+scw k8s node list cluster-id=11111111-1111-1111-111111111111
 ```
 
 List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster
 ```
-scw k8s node list 11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222
+scw k8s node list cluster-id=11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222
 ```
 
 List all ready nodes in the given cluster
 ```
-scw k8s node list 11111111-1111-1111-111111111111 status=ready
+scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready
 ```
 
 
