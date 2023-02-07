@@ -236,9 +236,9 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			},
 			{
 				Name:       "subnets.{index}",
-				Short:      `Private network subnets CIDR`,
+				Short:      `Private network subnets CIDR (deprecated)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
