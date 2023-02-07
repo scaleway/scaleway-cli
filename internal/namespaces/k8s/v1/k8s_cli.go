@@ -1658,15 +1658,15 @@ func k8sNodeList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "List all the nodes in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111`,
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111`,
 			},
 			{
 				Short: "List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222`,
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222`,
 			},
 			{
 				Short: "List all ready nodes in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111 status=ready`,
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
