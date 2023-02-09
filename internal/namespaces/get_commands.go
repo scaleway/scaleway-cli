@@ -19,6 +19,7 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
@@ -72,6 +73,9 @@ func GetCommands(beta ...bool) *core.Commands {
 		tem.GetCommands(),
 		mnq.GetCommands(),
 	)
+	if beta[0] {
+		commands.Merge(ipfs.GetCommands())
+	}
 
 	return commands
 }
