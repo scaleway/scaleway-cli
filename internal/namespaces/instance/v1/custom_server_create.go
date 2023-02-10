@@ -32,9 +32,10 @@ type instanceCreateServerRequest struct {
 	Stopped           bool
 	SecurityGroupID   string
 	PlacementGroupID  string
-	BootscriptID      string
-	CloudInit         string
-	BootType          string
+	// Deprecated
+	BootscriptID string
+	CloudInit    string
+	BootType     string
 
 	// Deprecated, use project-id instead
 	OrganizationID *string
@@ -340,6 +341,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if !validation.IsUUID(args.BootscriptID) {
 			return nil, fmt.Errorf("bootscript ID %s is not a valid UUID", args.BootscriptID)
 		}
+		//nolint: staticcheck // Bootscript is deprecated
 		_, err := apiInstance.GetBootscript(&instance.GetBootscriptRequest{
 			Zone:         args.Zone,
 			BootscriptID: args.BootscriptID,
@@ -348,6 +350,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, fmt.Errorf("bootscript ID %s does not exist", args.BootscriptID)
 		}
 
+		//nolint: staticcheck // Bootscript is deprecated
 		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
 		bootType := instance.BootTypeBootscript
 		serverReq.BootType = &bootType
