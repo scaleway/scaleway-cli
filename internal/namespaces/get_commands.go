@@ -1,6 +1,8 @@
 package namespaces
 
 import (
+	"os"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
 	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
@@ -19,6 +21,7 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
+	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
@@ -33,6 +36,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 )
+
+var labs = os.Getenv("SCW_LABS") == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -72,6 +77,9 @@ func GetCommands(beta ...bool) *core.Commands {
 		tem.GetCommands(),
 		mnq.GetCommands(),
 	)
+	if labs {
+		commands.Merge(ipfs.GetCommands())
+	}
 
 	return commands
 }

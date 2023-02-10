@@ -5,11 +5,11 @@ package ipfs
 
 import (
 	"context"
-	"reflect"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/ipfs/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+
+	"reflect"
 )
 
 // always import dependencies
