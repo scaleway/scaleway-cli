@@ -73,7 +73,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		tem.GetCommands(),
 		mnq.GetCommands(),
 	)
-	if beta[0] {
+	if beta != nil && beta[0] {
 		commands.Merge(ipfs.GetCommands())
 	}
 
