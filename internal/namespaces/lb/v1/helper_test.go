@@ -74,6 +74,7 @@ func createFrontend(inboundPort int32) core.BeforeFunc {
 	)
 }
 
+//nolint:unused
 func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
@@ -103,10 +104,12 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 	}
 }
 
+//nolint:unused
 func deleteCluster(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
 }
 
+//nolint:unused
 func retrieveLBID(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		_, err := exec.Command("bash", "-c", "kubectl create -f testfixture/lb.yaml").Output()
