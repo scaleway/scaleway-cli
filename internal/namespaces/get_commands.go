@@ -33,7 +33,10 @@ import (
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
+	"os"
 )
+
+var labs = os.Getenv("SCW_LABS") == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -73,7 +76,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		tem.GetCommands(),
 		mnq.GetCommands(),
 	)
-	if beta != nil && beta[0] {
+	if labs {
 		commands.Merge(ipfs.GetCommands())
 	}
 
