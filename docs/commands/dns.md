@@ -142,7 +142,7 @@ scw dns record add <dns-zone ...> [arg=value ...]
 | data | Required |  |
 | name |  |  |
 | priority |  |  |
-| ttl | Required<br />Default: `300` |  |
+| ttl | Required<br />Default: `3600` |  |
 | type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
 | comment |  |  |
 | geo-ip-config.matches.{index}.countries.{index} |  |  |
@@ -390,7 +390,7 @@ scw dns record set <dns-zone ...> [arg=value ...]
 | values.{index} | Required | A list of values for replacing the record data. (multiple values cannot be used for all type) |
 | name | Required |  |
 | priority |  |  |
-| ttl | Required<br />Default: `300` |  |
+| ttl | Required<br />Default: `3600` |  |
 | type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
 | comment |  |  |
 | geo-ip-config.matches.{index}.countries.{index} |  |  |

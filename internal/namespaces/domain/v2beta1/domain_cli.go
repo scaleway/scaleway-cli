@@ -17,6 +17,8 @@ var (
 	_ = scw.RegionFrPar
 )
 
+const defaultTTL = "3600"
+
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		dnsRoot(),
