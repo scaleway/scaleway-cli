@@ -10,6 +10,8 @@ var (
 	domainTypes = []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR"}
 )
 
+const defaultTTL = "3600"
+
 // GetCommands returns dns commands.
 //
 // This function:

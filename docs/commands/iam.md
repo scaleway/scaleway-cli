@@ -138,9 +138,14 @@ scw iam api-key list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `expires_at_asc`, `expires_at_desc`, `access_key_asc`, `access_key_desc` | Criteria for sorting results |
-| application-id |  | ID of an application bearer |
-| user-id |  | ID of a user bearer |
+| ~~application-id~~ | Deprecated | ID of an application bearer |
+| ~~user-id~~ | Deprecated | ID of a user bearer |
 | editable |  | Filter out editable API keys or not |
+| expirable |  | Filter out expirable API keys or not |
+| access-key |  | Filter out by access key |
+| description |  | Filter out by description |
+| bearer-id |  | Filter out by bearer ID |
+| bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter out by type of bearer |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of organization |
 
 

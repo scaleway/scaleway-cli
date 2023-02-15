@@ -7,10 +7,17 @@ USAGE:
 
 ARGS:
   [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | expires_at_asc | expires_at_desc | access_key_asc | access_key_desc)
-  [application-id]                          ID of an application bearer
-  [user-id]                                 ID of a user bearer
   [editable]                                Filter out editable API keys or not
+  [expirable]                               Filter out expirable API keys or not
+  [access-key]                              Filter out by access key
+  [description]                             Filter out by description
+  [bearer-id]                               Filter out by bearer ID
+  [bearer-type]                             Filter out by type of bearer (unknown_bearer_type | user | application)
   organization-id=<retrieved from config>   ID of organization
+
+DEPRECATED ARGS:
+  [application-id]   ID of an application bearer
+  [user-id]          ID of a user bearer
 
 FLAGS:
   -h, --help   help for list
