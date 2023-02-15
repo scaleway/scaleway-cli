@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/account"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	accountcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -33,7 +33,7 @@ See below the schema `scw init` follows to ask for default config:
                                               |
                                               v
                                        +------+---+
-                                       |Get access|
+                                       |Read access|
                                        |   key    |
                                        +------+---+
                                               |
@@ -87,6 +87,11 @@ Default path for configuration file is based on the following priority order:
 				ValidateFunc: core.ValidateSecretKey(),
 			},
 			{
+				Name:         "access-key",
+				Short:        "Scaleway access-key",
+				ValidateFunc: core.ValidateAccessKey(),
+			},
+			{
 				Name:  "send-telemetry",
 				Short: "Send usage statistics and diagnostics",
 			},
@@ -99,8 +104,8 @@ Default path for configuration file is based on the following priority order:
 				Name:  "install-autocomplete",
 				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.RegionArgSpec(scw.AllRegions...),
+			core.ZoneArgSpec(scw.AllZones...),
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -145,6 +150,14 @@ Default path for configuration file is based on the following priority order:
 			if args.SecretKey == "" {
 				_, _ = interactive.Println()
 				args.SecretKey, err = promptSecret(ctx)
+				if err != nil {
+					return err
+				}
+			}
+
+			if args.AccessKey == "" {
+				_, _ = interactive.Println()
+				args.AccessKey, err = promptAccessKey(ctx)
 				if err != nil {
 					return err
 				}
@@ -239,13 +252,15 @@ Default path for configuration file is based on the following priority order:
 				config.SendTelemetry = args.SendTelemetry
 			}
 
-			// Get access key
-			apiKey, err := account.GetAPIKey(ctx, args.SecretKey)
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
 			if err != nil {
-				return "", &core.CliError{
-					Err:     err,
-					Details: "Failed to retrieve Access Key from the given Secret Key.",
-				}
+				return nil, err
+			}
+
+			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: args.AccessKey}, scw.WithAuthRequest(args.AccessKey, args.SecretKey))
+			if err != nil {
+				return nil, err
 			}
 
 			profile := &scw.Profile{
@@ -253,8 +268,8 @@ Default path for configuration file is based on the following priority order:
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &apiKey.OrganizationID,
-				DefaultProjectID:      &apiKey.ProjectID, // An API key is always bound to a project.
+				DefaultOrganizationID: &apiKey.DefaultProjectID,
+				DefaultProjectID:      &apiKey.DefaultProjectID, // An API key is always bound to a project.
 			}
 
 			// Save the profile as default or as a named profile
@@ -276,7 +291,7 @@ Default path for configuration file is based on the following priority order:
 				return nil, err
 			}
 
-			// Now that the config has been save we reload the client with the new config
+			// Now that the config has been recorded we reload the client with the new config
 			err = core.ReloadClient(ctx)
 			if err != nil {
 				return nil, err
@@ -295,7 +310,7 @@ Default path for configuration file is based on the following priority order:
 			// Init SSH Key
 			if *args.WithSSHKey {
 				_, _ = interactive.Println()
-				_, err := accountcommands.InitRun(ctx, nil)
+				_, err := iamcommands.InitWithSSHKeyRun(ctx, nil)
 				if err != nil {
 					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
 				}
@@ -339,6 +354,38 @@ func promptSecret(ctx context.Context) (string, error) {
 
 	default:
 		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
+	}
+}
+
+func promptAccessKey(ctx context.Context) (string, error) {
+	key, err := interactive.Readline(&interactive.ReadlineConfig{
+		Ctx: ctx,
+		PromptFunc: func(value string) string {
+			accessKey := "access-key"
+			switch {
+			case validation.IsAccessKey(value):
+				accessKey = terminal.Style(accessKey, color.FgBlue)
+			}
+			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
+		},
+		ValidateFunc: func(s string) error {
+			if !validation.IsAccessKey(s) {
+				return fmt.Errorf("invalid access-key")
+			}
+
+			return nil
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+
+	switch {
+	case validation.IsAccessKey(key):
+		return key, nil
+
+	default:
+		return "", fmt.Errorf("invalid access-key: '%v'", key)
 	}
 }
 

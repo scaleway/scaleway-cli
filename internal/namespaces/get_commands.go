@@ -5,7 +5,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
-	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
@@ -53,7 +52,6 @@ func GetCommands(beta ...bool) *core.Commands {
 		marketplace.GetCommands(),
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
-		account.GetCommands(),
 		accountv2.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
