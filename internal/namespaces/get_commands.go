@@ -30,6 +30,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
@@ -73,6 +74,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		function.GetCommands(),
 		vpcgw.GetCommands(),
 		redis.GetCommands(),
+		secret.GetCommands(),
 		shell.GetCommands(),
 		tem.GetCommands(),
 		mnq.GetCommands(),
