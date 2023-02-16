@@ -104,6 +104,7 @@ scw secret secret get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the Secret |
+| secret-name |  | Name of the Secret (alternative to secret_id) |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -125,6 +126,7 @@ scw secret secret list [arg=value ...]
 |------|---|-------------|
 | project-id |  | ID of a project to filter on (optional) |
 | tags.{index} |  | List of tags to filter on (optional) |
+| name |  | Name of the secrets (optional) |
 | order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |  |
 | organization-id |  | ID of an organization to filter on (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
@@ -176,7 +178,8 @@ scw secret version access [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the Secret |
-| revision | Required | Revision of the SecretVersion (may be a number or "latest") |
+| secret-name |  | Name of the Secret (alternative to secret_id) |
+| revision | Required | Revision of the SecretVersion (may be a number, "latest" or "latest_enabled") |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -292,6 +295,7 @@ scw secret version get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the Secret |
+| secret-name |  | Name of the Secret (alternative to secret_id) |
 | revision | Required | Revision of the SecretVersion (may be a number or "latest") |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -313,6 +317,7 @@ scw secret version list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the Secret |
+| secret-name |  | Name of the Secret (alternative to secret_id) |
 | status.{index} | One of: `unknown`, `enabled`, `disabled`, `destroyed` | Filter results by status |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
