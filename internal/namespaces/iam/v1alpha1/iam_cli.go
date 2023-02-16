@@ -1562,8 +1562,8 @@ func iamAPIKeyList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "expirable",
-				Short:      `Filter out expirable API keys or not`,
+				Name:       "expired",
+				Short:      `Filter out expired API keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
