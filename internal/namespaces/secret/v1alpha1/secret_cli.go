@@ -542,7 +542,7 @@ func secretVersionDelete() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:    "Delete a given Secret Version",
-				ArgsJSON: `{"revision":1,"secret_id":"11111111-1111-1111-1111-111111111111"}`,
+				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
