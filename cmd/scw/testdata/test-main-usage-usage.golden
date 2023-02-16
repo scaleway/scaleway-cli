@@ -28,6 +28,7 @@ AVAILABLE COMMANDS:
   rdb           Database RDB API
   redis         Managed Database for Redis™ API
   registry      Container registry API
+  secret        This API allows you to conveniently store, access and share sensitive data
   shell         Start shell mode
   tem           Tem
   version       Display cli version

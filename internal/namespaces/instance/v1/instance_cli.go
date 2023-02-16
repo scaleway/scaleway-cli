@@ -631,7 +631,7 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "bootscript",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1074,7 +1074,7 @@ func instanceImageCreate() *core.Command {
 				Name:       "default-bootscript",
 				Short:      `Default bootscript of the image`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{

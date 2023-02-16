@@ -128,7 +128,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | private-network-id | Required | The private network ID |
 | name |  | The name of the private network |
 | tags.{index} |  | The private networks tags |
-| subnets.{index} |  | Private network subnets CIDR |
+| ~~subnets.{index}~~ | Deprecated | Private network subnets CIDR (deprecated) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

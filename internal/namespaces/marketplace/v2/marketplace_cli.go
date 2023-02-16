@@ -106,6 +106,35 @@ func marketplaceImageList() *core.Command {
 			return resp.Images, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Label",
+			},
+			{
+				FieldName: "Name",
+			},
+			{
+				FieldName: "Categories",
+			},
+			{
+				FieldName: "ValidUntil",
+			},
+			{
+				FieldName: "Description",
+			},
+			{
+				FieldName: "UpdatedAt",
+			},
+			{
+				FieldName: "CreatedAt",
+			},
+			{
+				FieldName: "Logo",
+			},
+		}},
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Command: "scw instance list images",

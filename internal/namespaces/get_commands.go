@@ -1,6 +1,8 @@
 package namespaces
 
 import (
+	"os"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
 	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
@@ -19,6 +21,7 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
+	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
@@ -27,12 +30,15 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 )
+
+var labs = os.Getenv("SCW_LABS") == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -68,10 +74,14 @@ func GetCommands(beta ...bool) *core.Commands {
 		function.GetCommands(),
 		vpcgw.GetCommands(),
 		redis.GetCommands(),
+		secret.GetCommands(),
 		shell.GetCommands(),
 		tem.GetCommands(),
 		mnq.GetCommands(),
 	)
+	if labs {
+		commands.Merge(ipfs.GetCommands())
+	}
 
 	return commands
 }

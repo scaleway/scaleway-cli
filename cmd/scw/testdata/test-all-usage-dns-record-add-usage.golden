@@ -17,7 +17,7 @@ ARGS:
   data                                                 
   [name]                                               
   [priority]                                           
-  ttl=300                                              
+  ttl=3600                                             
   type                                                  (A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR)
   [comment]                                            
   [geo-ip-config.matches.{index}.countries.{index}]    
