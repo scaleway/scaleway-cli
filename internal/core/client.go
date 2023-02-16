@@ -38,12 +38,10 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 			return nil, err
 		}
 
+		// Creates a client from the active profile
+		// It will trigger a validation step on its configuration to catch errors if any
 		opts := []scw.ClientOption{
-			scw.WithDefaultRegion(scw.RegionFrPar),
-			scw.WithDefaultZone(scw.ZoneFrPar1),
-			scw.WithUserAgent(buildInfo.GetUserAgent()),
 			scw.WithProfile(activeProfile),
-			scw.WithHTTPClient(httpClient),
 		}
 
 		_, err = scw.NewClient(opts...)
