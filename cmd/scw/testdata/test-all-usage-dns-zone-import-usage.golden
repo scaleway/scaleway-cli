@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   dns-zone                           The DNS zone to import
   [project-id]                       Project ID to use. If none is passed the default project ID will be used
-  [bind-source.content]              
+  [bind-source.content]               (Support file loading with @/path/to/file)
   [axfr-source.name-server]          
   [axfr-source.tsig-key.name]        
   [axfr-source.tsig-key.key]         
