@@ -5,11 +5,13 @@ package k8s
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 // always import dependencies
@@ -624,6 +626,23 @@ func k8sClusterGet() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+				ResolveFunc: func(ctx context.Context, arg string) (string, error) {
+					if validation.IsUUID(arg) {
+						return arg, nil
+					}
+					client := core.ExtractClient(ctx)
+					api := k8s.NewAPI(client)
+					clusters, err := api.ListClusters(&k8s.ListClustersRequest{Name: &arg}, scw.WithAllPages())
+					if err != nil {
+						return arg, fmt.Errorf("failed to resolve arg: %w", err)
+					}
+					for _, cluster := range clusters.Clusters {
+						if cluster.Name == arg {
+							return cluster.ID, nil
+						}
+					}
+					return arg, fmt.Errorf("could not resolve argument")
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},

@@ -121,6 +121,12 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		return nil, err
 	}
 
+	// Resolve args, ex: name -> id
+	err = resolveArgs(ctx, cmd, cmdArgs)
+	if err != nil {
+		return nil, err
+	}
+
 	// PreValidate hook.
 	if cmd.PreValidateFunc != nil {
 		err = cmd.PreValidateFunc(ctx, cmdArgs)
