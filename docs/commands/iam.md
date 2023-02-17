@@ -140,7 +140,7 @@ scw iam api-key list [arg=value ...]
 | ~~application-id~~ | Deprecated | ID of an application bearer |
 | ~~user-id~~ | Deprecated | ID of a user bearer |
 | editable |  | Filter out editable API keys or not |
-| expirable |  | Filter out expirable API keys or not |
+| expired |  | Filter out expired API keys or not |
 | access-key |  | Filter out by access key |
 | description |  | Filter out by description |
 | bearer-id |  | Filter out by bearer ID |
