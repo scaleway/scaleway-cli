@@ -115,7 +115,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 # Reference documentation
 
 | Namespace      | Description                             | Documentation                                                                                                   |
-| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+|----------------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                               |
 | `applesilicon` | Apple silicon API                       | [CLI](./docs/commands/apple-silicon.md) / [API](https://developers.scaleway.com/en/products/apple-silicon/api/) |
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                          |
@@ -138,6 +138,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://developers.scaleway.com/en/products/rdb/api/)                     |
 | `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://developers.scaleway.com/en/products/redis/api/v1/)              |
 | `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)           |
+| `secret`       | Secret manager API                      | [CLI](./docs/commands/secret.md)                                                                                |
 | `shell`        | Start Shell mode                        | [CLI](./docs/commands/shell.md)                                                                                 |
 | `tem`          | Transactional Email API                 | [CLI](./docs/commands/tem.md) / [API](https://developers.scaleway.com/en/products/transactional_email/api/)     |
 | `vpc-gw`       | VPC Gateway API                         | [CLI](./docs/commands/vpc-gw.md) / [API](https://developers.scaleway.com/en/products/vpc-gw/api/v1/)            |

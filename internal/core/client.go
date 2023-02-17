@@ -38,6 +38,17 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 			return nil, err
 		}
 
+		// Creates a client from the active profile
+		// It will trigger a validation step on its configuration to catch errors if any
+		opts := []scw.ClientOption{
+			scw.WithProfile(activeProfile),
+		}
+
+		_, err = scw.NewClient(opts...)
+		if err != nil {
+			return nil, err
+		}
+
 		profile = scw.MergeProfiles(activeProfile, profile)
 	}
 
