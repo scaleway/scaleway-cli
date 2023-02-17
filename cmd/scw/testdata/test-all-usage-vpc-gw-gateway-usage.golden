@@ -6,12 +6,13 @@ USAGE:
   scw vpc-gw gateway <command>
 
 AVAILABLE COMMANDS:
-  create      Create a VPC Public Gateway
-  delete      Delete a VPC Public Gateway
-  get         Get a VPC Public Gateway
-  list        List VPC Public Gateways
-  update      Update a VPC Public Gateway
-  upgrade     Upgrade a VPC Public Gateway to the latest version
+  create           Create a VPC Public Gateway
+  delete           Delete a VPC Public Gateway
+  get              Get a VPC Public Gateway
+  list             List VPC Public Gateways
+  refresh-ssh-keys Refresh SSH keys of a VPC Public Gateway
+  update           Update a VPC Public Gateway
+  upgrade          Upgrade a VPC Public Gateway to the latest version
 
 FLAGS:
   -h, --help   help for gateway
