@@ -20,6 +20,7 @@ VPC Public Gateway API
   - [Delete a VPC Public Gateway](#delete-a-vpc-public-gateway)
   - [Get a VPC Public Gateway](#get-a-vpc-public-gateway)
   - [List VPC Public Gateways](#list-vpc-public-gateways)
+  - [Refresh SSH keys of a VPC Public Gateway](#refresh-ssh-keys-of-a-vpc-public-gateway)
   - [Update a VPC Public Gateway](#update-a-vpc-public-gateway)
   - [Upgrade a VPC Public Gateway to the latest version](#upgrade-a-vpc-public-gateway-to-the-latest-version)
 - [Gateway Networks management](#gateway-networks-management)
@@ -423,6 +424,26 @@ scw vpc-gw gateway list [arg=value ...]
 | private-network-id |  | Filter gateways attached to this private network |
 | organization-id |  | Include only gateways in this organization |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Refresh SSH keys of a VPC Public Gateway
+
+Refresh SSH keys of a VPC Public Gateway.
+
+**Usage:**
+
+```
+scw vpc-gw gateway refresh-ssh-keys <gateway-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| gateway-id | Required | ID of the gateway that needs fresh ssh keys |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

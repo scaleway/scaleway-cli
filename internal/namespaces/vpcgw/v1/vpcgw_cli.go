@@ -61,6 +61,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcGwIPCreate(),
 		vpcGwIPUpdate(),
 		vpcGwIPDelete(),
+		vpcGwGatewayRefreshSSHKeys(),
 	)
 }
 func vpcGwRoot() *core.Command {
@@ -2192,6 +2193,36 @@ func vpcGwIPDelete() *core.Command {
 				Resource: "ip",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func vpcGwGatewayRefreshSSHKeys() *core.Command {
+	return &core.Command{
+		Short:     `Refresh SSH keys of a VPC Public Gateway`,
+		Long:      `Refresh SSH keys of a VPC Public Gateway.`,
+		Namespace: "vpc-gw",
+		Resource:  "gateway",
+		Verb:      "refresh-ssh-keys",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpcgw.RefreshSSHKeysRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "gateway-id",
+				Short:      `ID of the gateway that needs fresh ssh keys`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpcgw.RefreshSSHKeysRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpcgw.NewAPI(client)
+			return api.RefreshSSHKeys(request)
+
 		},
 	}
 }
