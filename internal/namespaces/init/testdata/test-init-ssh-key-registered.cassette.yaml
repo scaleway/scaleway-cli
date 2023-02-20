@@ -13,9 +13,9 @@ interactions:
     url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
     method: POST
   response:
-    body: '{"id":"4a945906-de32-4087-9ce9-713a301ad1ac","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
+    body: '{"id":"b5031816-c15a-4b0a-945d-e22b60228077","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE foobar@foobar","fingerprint":"256
-      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.563081Z","updated_at":"2023-02-16T16:01:25.563081Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}'
+      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.370383Z","updated_at":"2023-02-20T14:47:54.370383Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}'
     headers:
       Content-Length:
       - "499"
@@ -24,7 +24,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Feb 2023 16:01:25 GMT
+      - Mon, 20 Feb 2023 14:47:54 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -34,7 +34,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c73c1d36-fce2-4eb2-ae6c-8031daf59e37
+      - 1e7c379f-9bc5-4649-a4d3-ea4e392d5f39
     status: 200 OK
     code: 200
     duration: ""
@@ -56,7 +56,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Feb 2023 16:01:25 GMT
+      - Mon, 20 Feb 2023 14:47:54 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -66,7 +66,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9cbdd822-e3cd-449e-86bf-bf5d4d0f1ded
+      - 71db8764-daa2-4be0-a4bb-57f115acaa87
     status: 200 OK
     code: 200
     duration: ""
@@ -82,20 +82,20 @@ interactions:
     body: '{"ssh_keys":[{"id":"70581bce-87f3-4625-b481-f75b24e52a3b","name":"key-keen-elgamal","public_key":"ecdsa-sha2-nistp256
       AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
       foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-02-15T16:02:46.819741Z","updated_at":"2023-02-15T16:02:46.819741Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"4a945906-de32-4087-9ce9-713a301ad1ac","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-02-15T16:02:46.819741Z","updated_at":"2023-02-15T16:02:46.819741Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"b5031816-c15a-4b0a-945d-e22b60228077","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE foobar@foobar","fingerprint":"256
-      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.563081Z","updated_at":"2023-02-16T16:01:25.563081Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"76e98947-5b1d-4b82-b3a2-3c71aff863af","name":"key-competent-poincare","public_key":"ssh-ed25519
+      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.370383Z","updated_at":"2023-02-20T14:47:54.370383Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"cb3d0e42-1441-4b90-89a7-74ff85ea5f4e","name":"key-nostalgic-kalam","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
-      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.654016Z","updated_at":"2023-02-16T16:01:25.654016Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"1756463d-04e4-4822-b62b-0a50e394fe71","name":"key-wonderful-lovelace","public_key":"ssh-ed25519
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.460075Z","updated_at":"2023-02-20T14:47:54.460075Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"34caa2f1-cd4c-4cbe-b315-2522ac7925e6","name":"key-friendly-kare","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
-      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.671193Z","updated_at":"2023-02-16T16:01:25.671193Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}],"total_count":8}'
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.461997Z","updated_at":"2023-02-20T14:47:54.461997Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}],"total_count":4}'
     headers:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Feb 2023 16:01:25 GMT
+      - Mon, 20 Feb 2023 14:47:54 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -105,7 +105,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5afb9537-8ad8-4a28-a773-bd6eff1e8fbe
+      - e1d441ad-f59f-4eb5-aa64-dc45779aea25
     status: 200 OK
     code: 200
     duration: ""
@@ -121,20 +121,20 @@ interactions:
     body: '{"ssh_keys":[{"id":"70581bce-87f3-4625-b481-f75b24e52a3b","name":"key-keen-elgamal","public_key":"ecdsa-sha2-nistp256
       AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
       foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-02-15T16:02:46.819741Z","updated_at":"2023-02-15T16:02:46.819741Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"4a945906-de32-4087-9ce9-713a301ad1ac","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
+      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-02-15T16:02:46.819741Z","updated_at":"2023-02-15T16:02:46.819741Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"b5031816-c15a-4b0a-945d-e22b60228077","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE foobar@foobar","fingerprint":"256
-      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.563081Z","updated_at":"2023-02-16T16:01:25.563081Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"76e98947-5b1d-4b82-b3a2-3c71aff863af","name":"key-competent-poincare","public_key":"ssh-ed25519
+      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.370383Z","updated_at":"2023-02-20T14:47:54.370383Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"cb3d0e42-1441-4b90-89a7-74ff85ea5f4e","name":"key-nostalgic-kalam","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
-      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.654016Z","updated_at":"2023-02-16T16:01:25.654016Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"1756463d-04e4-4822-b62b-0a50e394fe71","name":"key-wonderful-lovelace","public_key":"ssh-ed25519
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.460075Z","updated_at":"2023-02-20T14:47:54.460075Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false},{"id":"34caa2f1-cd4c-4cbe-b315-2522ac7925e6","name":"key-friendly-kare","public_key":"ssh-ed25519
       AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar","fingerprint":"256
-      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-16T16:01:25.671193Z","updated_at":"2023-02-16T16:01:25.671193Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}],"total_count":8}'
+      MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 foobar@foobar (ssh-ed25519)","created_at":"2023-02-20T14:47:54.461997Z","updated_at":"2023-02-20T14:47:54.461997Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}],"total_count":4}'
     headers:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Feb 2023 16:01:25 GMT
+      - Mon, 20 Feb 2023 14:47:54 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -144,7 +144,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - bbe66fde-4d00-4ee6-b7f7-0acec9a6b2e1
+      - 049136e6-a318-4de7-ac8c-717b8bc067d4
     status: 200 OK
     code: 200
     duration: ""
@@ -154,7 +154,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/4a945906-de32-4087-9ce9-713a301ad1ac
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/b5031816-c15a-4b0a-945d-e22b60228077
     method: DELETE
   response:
     body: ""
@@ -164,7 +164,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 16 Feb 2023 16:01:25 GMT
+      - Mon, 20 Feb 2023 14:47:54 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -174,7 +174,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7e99e001-0326-4d6c-8a8d-0469270e482e
+      - 0b5837ba-8a71-4d99-91f5-1b80cb2a6296
     status: 204 No Content
     code: 204
     duration: ""
