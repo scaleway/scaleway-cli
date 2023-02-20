@@ -62,7 +62,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 	t.Run("Detach", func(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				require.NoError(t, ctx.Err)
@@ -158,7 +158,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }}"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }}")),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}",
 		Check: core.TestCheckCombine(
@@ -182,7 +182,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createSecurityGroup("SecurityGroup1"),
 			createSecurityGroup("SecurityGroup2"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic security-group-id={{ .SecurityGroup1.ID }}"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic security-group-id={{ .SecurityGroup1.ID }}")),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} security-group-id={{ .SecurityGroup2.ID }}",
 		Check: core.TestCheckCombine(
@@ -219,7 +219,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 
 		t.Run("detach all volumes", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server update {{ .Server.ID }} volume-ids=none`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				require.NoError(t, ctx.Err)
@@ -241,7 +241,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("with all volumes", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -252,7 +252,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("only block volumes", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=block`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -264,7 +264,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("only local volumes", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -284,7 +284,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("without IP", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -304,7 +304,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("with IP", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -324,7 +324,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("without block", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic additional-volumes.0=block:10G -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -336,7 +336,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("with block", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic additional-volumes.0=block:10G -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -353,7 +353,7 @@ func Test_ServerTerminate(t *testing.T) {
 func Test_ServerBackup(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
 		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

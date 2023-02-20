@@ -20,6 +20,11 @@ func createServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create type=DEV1-S stopped=true image=ubuntu-bionic")
 }
 
+// testServerCommand creates returns a create server command with the instance type and the given arguments
+func testServerCommand(params string) string {
+	return "scw instance server create type=DEV1-S " + params
+}
+
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
