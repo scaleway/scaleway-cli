@@ -244,8 +244,13 @@ Default path for configuration file is based on the following priority order:
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
-				config = &scw.Config{}
-				interactive.Printf("Creating new config at %s\n", configPath)
+				_, ok := err.(*scw.ConfigFileNotFoundError)
+				if ok {
+					config = &scw.Config{}
+					interactive.Printf("Creating new config at %s\n", configPath)
+				} else {
+					return nil, err
+				}
 			}
 
 			if args.SendTelemetry != nil {
@@ -254,10 +259,6 @@ Default path for configuration file is based on the following priority order:
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			if err != nil {
-				return nil, err
-			}
-
 			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: args.AccessKey}, scw.WithAuthRequest(args.AccessKey, args.SecretKey))
 			if err != nil {
 				return nil, err
