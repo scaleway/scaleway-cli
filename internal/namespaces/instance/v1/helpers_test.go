@@ -17,7 +17,7 @@ import (
 //
 //nolint:unparam
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create type=DEV1-S stopped=true image=ubuntu-bionic")
 }
 
 // createServer creates a stopped ubuntu-bionic server and
