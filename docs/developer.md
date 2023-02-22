@@ -54,6 +54,10 @@ go test ./internal/namespaces/init -debug
 
 When you are developing tests, you can also use the `Logger` field that is available in the different contexts to write your own logs.
 
+### Checking the version
+
+When you are running CLI commands the version check is made in every action. You can avoid these output setting `SCW_DISABLE_CHECK_VERSION` to false.
+
 #### Targeting specific tests
 
 The test suite is design to run quickly, but when you are recording interactions you probably don't want to record interactions for all the tests in the test suite.

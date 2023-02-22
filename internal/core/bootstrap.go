@@ -66,6 +66,10 @@ type BootstrapConfig struct {
 	BetaMode bool
 }
 
+const (
+	defaultOutput = "human"
+)
+
 // Bootstrap is the main entry point. It is directly called from main.
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
@@ -79,7 +83,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human")
+	flags.StringVarP(&outputFlag, "output", "o", defaultOutput, "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -96,11 +100,15 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
+	if outputFlag != defaultOutput {
+		logLevel = logger.LogLevelError
+	}
+
 	if debug {
 		logLevel = logger.LogLevelDebug // enable debug mode
 	}
 
-	// We force log to os.Stderr because we dont have a scoped logger feature and it create
+	// We force log to os.Stderr because we don't have a scoped logger feature, and it creates
 	// concurrency situation with golden files
 	log := config.Logger
 	if log == nil {

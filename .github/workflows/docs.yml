@@ -1,6 +1,7 @@
 name: Documentation Workflows
 on:
   pull_request:
+  merge_group:
 jobs:
   ensure-docs-generated:
     name: Ensure docs are generated
