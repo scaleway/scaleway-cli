@@ -29,10 +29,12 @@ const (
 
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
-		"access-key":     "{{ .AccessKey }}",
-		"secret-key":     "{{ .SecretKey }}",
-		"send-telemetry": "false",
-		"with-ssh-key":   "false",
+		"access-key":      "{{ .AccessKey }}",
+		"secret-key":      "{{ .SecretKey }}",
+		"send-telemetry":  "false",
+		"with-ssh-key":    "false",
+		"organization-id": "{{ .OrganizationID }}",
+		"project-id":      "{{ .ProjectID }}",
 	}
 
 	runAllShells := func(t *testing.T) {
