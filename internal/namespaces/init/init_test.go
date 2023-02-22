@@ -42,6 +42,8 @@ func TestInit(t *testing.T) {
 		"send-telemetry":       "true",
 		"install-autocomplete": "false",
 		"with-ssh-key":         "false",
+		"organization-id":      "{{ .OrganizationID }}",
+		"project-id":           "{{ .ProjectID }}",
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{

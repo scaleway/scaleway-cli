@@ -2,7 +2,9 @@ package init
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 	"reflect"
 	"strings"
 
@@ -58,8 +60,11 @@ func GetCommands() *core.Commands {
 }
 
 type initArgs struct {
-	AccessKey           string
-	SecretKey           string
+	AccessKey      string
+	SecretKey      string
+	ProjectID      string
+	OrganizationID string
+
 	Region              scw.Region
 	Zone                scw.Zone
 	SendTelemetry       *bool
@@ -90,6 +95,16 @@ Default path for configuration file is based on the following priority order:
 				Name:         "access-key",
 				Short:        "Scaleway access-key",
 				ValidateFunc: core.ValidateAccessKey(),
+			},
+			{
+				Name:         "organization-id",
+				Short:        "Scaleway organization ID",
+				ValidateFunc: core.ValidateOrganizationID(),
+			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID",
+				ValidateFunc: core.ValidateProjectID(),
 			},
 			{
 				Name:  "send-telemetry",
@@ -158,6 +173,23 @@ Default path for configuration file is based on the following priority order:
 			if args.AccessKey == "" {
 				_, _ = interactive.Println()
 				args.AccessKey, err = promptAccessKey(ctx)
+				if err != nil {
+					return err
+				}
+			}
+
+			if args.OrganizationID == "" {
+				_, _ = interactive.Println()
+				args.OrganizationID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Choose your default organization ID",
+					ValidateFunc: func(s string) error {
+						if !validation.IsUUID(s) {
+							return fmt.Errorf("organization id is not a valid uuid")
+						}
+						return nil
+					},
+				})
 				if err != nil {
 					return err
 				}
@@ -259,18 +291,40 @@ Default path for configuration file is based on the following priority order:
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: args.AccessKey}, scw.WithAuthRequest(args.AccessKey, args.SecretKey))
-			if err != nil {
+			if err != nil && !is403Error(err) {
+				// If 403 Unauthorized, API Key does not have permissions to get himself
 				return nil, err
 			}
 
+			if apiKey != nil && args.ProjectID == "" {
+				args.ProjectID = apiKey.DefaultProjectID
+			}
+
+			if args.ProjectID == "" {
+				args.ProjectID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Default project ID",
+					ValidateFunc: func(s string) error {
+						if !validation.IsUUID(s) {
+							return fmt.Errorf("given project ID is not a valid UUID")
+						}
+						return nil
+					},
+				})
+				if err != nil {
+					return nil, err
+				}
+			}
+
 			profile := &scw.Profile{
-				AccessKey:             &apiKey.AccessKey,
+				AccessKey:             &args.AccessKey,
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &apiKey.DefaultProjectID,
-				DefaultProjectID:      &apiKey.DefaultProjectID, // An API key is always bound to a project.
+				DefaultOrganizationID: &args.OrganizationID,
+				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
 			}
 
 			// Save the profile as default or as a named profile
@@ -388,6 +442,25 @@ func promptAccessKey(ctx context.Context) (string, error) {
 	default:
 		return "", fmt.Errorf("invalid access-key: '%v'", key)
 	}
+}
+
+// isHTTPCodeError returns true if err is an http error with code statusCode
+func isHTTPCodeError(err error, statusCode int) bool {
+	if err == nil {
+		return false
+	}
+
+	responseError := &scw.ResponseError{}
+	if errors.As(err, &responseError) && responseError.StatusCode == statusCode {
+		return true
+	}
+	return false
+}
+
+// is403Error returns true if err is an HTTP 403 error
+func is403Error(err error) bool {
+	permissionsDeniedError := &scw.PermissionsDeniedError{}
+	return isHTTPCodeError(err, http.StatusForbidden) || errors.As(err, &permissionsDeniedError)
 }
 
 const logo = `

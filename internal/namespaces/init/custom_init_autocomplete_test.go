@@ -15,6 +15,8 @@ func baseBeforeFunc() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		ctx.Meta["AccessKey"], _ = ctx.Client.GetAccessKey()
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
+		ctx.Meta["ProjectID"], _ = ctx.Client.GetDefaultProjectID()
+		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
 		return nil
 	}
 }
