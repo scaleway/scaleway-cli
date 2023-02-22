@@ -707,6 +707,13 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"available", "syncing", "syncing_error"},
 			},
+			{
+				Name:       "private-nics.{index}.tags.{index}",
+				Short:      `The private NIC tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -2749,14 +2756,30 @@ func instancePrivateNicList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "tags.{index}",
+				Short:      `The private NIC tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListPrivateNICsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			return api.ListPrivateNICs(request)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListPrivateNICs(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.PrivateNics, nil
 
 		},
 		Examples: []*core.Example{
@@ -2793,6 +2816,13 @@ func instancePrivateNicCreate() *core.Command {
 				Name:       "private-network-id",
 				Short:      `UUID of the private network where the private NIC will be attached`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `The private NIC tags`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
