@@ -172,6 +172,7 @@ func stringExists(strs []string, s string) bool {
 	return false
 }
 
+// ValidateSecretKey validates a secret key ID.
 func ValidateSecretKey() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
 		value := valueI.(string)
@@ -181,6 +182,21 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 		}
 		if !validation.IsSecretKey(value) {
 			return InvalidSecretKeyError(value)
+		}
+		return nil
+	}
+}
+
+// ValidateAccessKey validates an access key ID.
+func ValidateAccessKey() ArgSpecValidateFunc {
+	return func(argSpec *ArgSpec, valueI interface{}) error {
+		value := valueI.(string)
+		err := DefaultArgSpecValidateFunc()(argSpec, value)
+		if err != nil {
+			return err
+		}
+		if !validation.IsAccessKey(value) {
+			return InvalidAccessKeyError(value)
 		}
 		return nil
 	}

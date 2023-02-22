@@ -116,7 +116,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 | Namespace      | Description                             | Documentation                                                                                                   |
 |----------------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                               |
+| `account`      | User related data                       | [CLI](./docs/commands/account.md) / [API](https://developers.scaleway.com/en/products/account/api/v2/)          |
 | `applesilicon` | Apple silicon API                       | [CLI](./docs/commands/apple-silicon.md) / [API](https://developers.scaleway.com/en/products/apple-silicon/api/) |
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                          |
 | `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/)         |

@@ -2,17 +2,19 @@ package init
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 	"reflect"
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/account"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	accountcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -33,7 +35,7 @@ See below the schema `scw init` follows to ask for default config:
                                               |
                                               v
                                        +------+---+
-                                       |Get access|
+                                       |Read access|
                                        |   key    |
                                        +------+---+
                                               |
@@ -58,8 +60,11 @@ func GetCommands() *core.Commands {
 }
 
 type initArgs struct {
-	AccessKey           string
-	SecretKey           string
+	AccessKey      string
+	SecretKey      string
+	ProjectID      string
+	OrganizationID string
+
 	Region              scw.Region
 	Zone                scw.Zone
 	SendTelemetry       *bool
@@ -87,6 +92,21 @@ Default path for configuration file is based on the following priority order:
 				ValidateFunc: core.ValidateSecretKey(),
 			},
 			{
+				Name:         "access-key",
+				Short:        "Scaleway access-key",
+				ValidateFunc: core.ValidateAccessKey(),
+			},
+			{
+				Name:         "organization-id",
+				Short:        "Scaleway organization ID",
+				ValidateFunc: core.ValidateOrganizationID(),
+			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID",
+				ValidateFunc: core.ValidateProjectID(),
+			},
+			{
 				Name:  "send-telemetry",
 				Short: "Send usage statistics and diagnostics",
 			},
@@ -99,8 +119,8 @@ Default path for configuration file is based on the following priority order:
 				Name:  "install-autocomplete",
 				Short: "Whether the autocomplete script should be installed during initialisation",
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.RegionArgSpec(scw.AllRegions...),
+			core.ZoneArgSpec(scw.AllZones...),
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -145,6 +165,31 @@ Default path for configuration file is based on the following priority order:
 			if args.SecretKey == "" {
 				_, _ = interactive.Println()
 				args.SecretKey, err = promptSecret(ctx)
+				if err != nil {
+					return err
+				}
+			}
+
+			if args.AccessKey == "" {
+				_, _ = interactive.Println()
+				args.AccessKey, err = promptAccessKey(ctx)
+				if err != nil {
+					return err
+				}
+			}
+
+			if args.OrganizationID == "" {
+				_, _ = interactive.Println()
+				args.OrganizationID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Choose your default organization ID",
+					ValidateFunc: func(s string) error {
+						if !validation.IsUUID(s) {
+							return fmt.Errorf("organization id is not a valid uuid")
+						}
+						return nil
+					},
+				})
 				if err != nil {
 					return err
 				}
@@ -231,30 +276,55 @@ Default path for configuration file is based on the following priority order:
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
-				config = &scw.Config{}
-				interactive.Printf("Creating new config at %s\n", configPath)
+				_, ok := err.(*scw.ConfigFileNotFoundError)
+				if ok {
+					config = &scw.Config{}
+					interactive.Printf("Creating new config at %s\n", configPath)
+				} else {
+					return nil, err
+				}
 			}
 
 			if args.SendTelemetry != nil {
 				config.SendTelemetry = args.SendTelemetry
 			}
 
-			// Get access key
-			apiKey, err := account.GetAPIKey(ctx, args.SecretKey)
-			if err != nil {
-				return "", &core.CliError{
-					Err:     err,
-					Details: "Failed to retrieve Access Key from the given Secret Key.",
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: args.AccessKey}, scw.WithAuthRequest(args.AccessKey, args.SecretKey))
+			if err != nil && !is403Error(err) {
+				// If 403 Unauthorized, API Key does not have permissions to get himself
+				return nil, err
+			}
+
+			if apiKey != nil && args.ProjectID == "" {
+				args.ProjectID = apiKey.DefaultProjectID
+			}
+
+			if args.ProjectID == "" {
+				args.ProjectID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+					Ctx:    ctx,
+					Prompt: "Default project ID",
+					ValidateFunc: func(s string) error {
+						if !validation.IsUUID(s) {
+							return fmt.Errorf("given project ID is not a valid UUID")
+						}
+						return nil
+					},
+				})
+				if err != nil {
+					return nil, err
 				}
 			}
 
 			profile := &scw.Profile{
-				AccessKey:             &apiKey.AccessKey,
+				AccessKey:             &args.AccessKey,
 				SecretKey:             &args.SecretKey,
 				DefaultZone:           scw.StringPtr(args.Zone.String()),
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
-				DefaultOrganizationID: &apiKey.OrganizationID,
-				DefaultProjectID:      &apiKey.ProjectID, // An API key is always bound to a project.
+				DefaultOrganizationID: &args.OrganizationID,
+				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
 			}
 
 			// Save the profile as default or as a named profile
@@ -276,7 +346,7 @@ Default path for configuration file is based on the following priority order:
 				return nil, err
 			}
 
-			// Now that the config has been save we reload the client with the new config
+			// Now that the config has been recorded we reload the client with the new config
 			err = core.ReloadClient(ctx)
 			if err != nil {
 				return nil, err
@@ -295,7 +365,7 @@ Default path for configuration file is based on the following priority order:
 			// Init SSH Key
 			if *args.WithSSHKey {
 				_, _ = interactive.Println()
-				_, err := accountcommands.InitRun(ctx, nil)
+				_, err := iamcommands.InitWithSSHKeyRun(ctx, nil)
 				if err != nil {
 					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
 				}
@@ -340,6 +410,57 @@ func promptSecret(ctx context.Context) (string, error) {
 	default:
 		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
 	}
+}
+
+func promptAccessKey(ctx context.Context) (string, error) {
+	key, err := interactive.Readline(&interactive.ReadlineConfig{
+		Ctx: ctx,
+		PromptFunc: func(value string) string {
+			accessKey := "access-key"
+			switch {
+			case validation.IsAccessKey(value):
+				accessKey = terminal.Style(accessKey, color.FgBlue)
+			}
+			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
+		},
+		ValidateFunc: func(s string) error {
+			if !validation.IsAccessKey(s) {
+				return fmt.Errorf("invalid access-key")
+			}
+
+			return nil
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+
+	switch {
+	case validation.IsAccessKey(key):
+		return key, nil
+
+	default:
+		return "", fmt.Errorf("invalid access-key: '%v'", key)
+	}
+}
+
+// isHTTPCodeError returns true if err is an http error with code statusCode
+func isHTTPCodeError(err error, statusCode int) bool {
+	if err == nil {
+		return false
+	}
+
+	responseError := &scw.ResponseError{}
+	if errors.As(err, &responseError) && responseError.StatusCode == statusCode {
+		return true
+	}
+	return false
+}
+
+// is403Error returns true if err is an HTTP 403 error
+func is403Error(err error) bool {
+	permissionsDeniedError := &scw.PermissionsDeniedError{}
+	return isHTTPCodeError(err, http.StatusForbidden) || errors.As(err, &permissionsDeniedError)
 }
 
 const logo = `

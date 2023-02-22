@@ -37,6 +37,7 @@ IAM API
   - [Create an SSH key](#create-an-ssh-key)
   - [Delete an SSH key](#delete-an-ssh-key)
   - [Get an SSH key](#get-an-ssh-key)
+  - [Initialize SSH key](#initialize-ssh-key)
   - [List SSH keys](#list-ssh-keys)
   - [Update an SSH key](#update-an-ssh-key)
 - [Users management commands](#users-management-commands)
@@ -733,6 +734,18 @@ scw iam ssh-key get <ssh-key-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ssh-key-id | Required | The ID of the SSH key |
+
+
+
+### Initialize SSH key
+
+Initialize SSH key.
+
+**Usage:**
+
+```
+scw iam ssh-key init
+```
 
 
 

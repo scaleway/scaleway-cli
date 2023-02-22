@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   create      Create an SSH key
   delete      Delete an SSH key
   get         Get an SSH key
+  init        Initialize SSH key
   list        List SSH keys
   update      Update an SSH key
 
