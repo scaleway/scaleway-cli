@@ -3,7 +3,7 @@ module github.com/scaleway/scaleway-cli/v2
 go 1.19
 
 require (
-	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
+	github.com/alecthomas/assert v1.0.0
 	github.com/c-bata/go-prompt v0.2.5
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/containerd/console v1.0.3
