@@ -28,6 +28,7 @@ Instance API
   - [Delete a private NIC](#delete-a-private-nic)
   - [Get a private NIC](#get-a-private-nic)
   - [List all private NICs](#list-all-private-nics)
+  - [Update a private NIC](#update-a-private-nic)
 - [Security group management commands](#security-group-management-commands)
   - [Remove all rules of a security group](#remove-all-rules-of-a-security-group)
   - [Create a security group](#create-a-security-group)
@@ -847,6 +848,7 @@ scw instance private-nic create [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the server the private NIC will be attached to |
 | private-network-id | Required | UUID of the private network where the private NIC will be attached |
+| tags.{index} |  | The private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -909,7 +911,8 @@ scw instance private-nic list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | The server the private NIC is attached to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| tags.{index} |  | The private NIC tags |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -923,6 +926,38 @@ scw instance private-nic list
 List private NICs of the server ID 'my_server_id'
 ```
 scw instance private-nic list server-id=my_server_id
+```
+
+
+
+
+### Update a private NIC
+
+Update one or more parameter/s to a given private NIC.
+
+**Usage:**
+
+```
+scw instance private-nic update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | UUID of the server the private NIC will be attached to |
+| private-nic-id | Required | The private NIC unique ID |
+| tags.{index} |  | Tags used to select private NIC/s |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Update tags of a private NIC
+```
+scw instance private-nic update server-id=11111111-1111-1111-1111-111111111111 private-nic-id=11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
 ```
 
 
@@ -1835,6 +1870,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | private-nics.{index}.private-network-id |  | The private network where the private NIC is attached |
 | private-nics.{index}.mac-address |  | The private NIC MAC address |
 | private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | The private NIC state |
+| private-nics.{index}.tags.{index} |  | The private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

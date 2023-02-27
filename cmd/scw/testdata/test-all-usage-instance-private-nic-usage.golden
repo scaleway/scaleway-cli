@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   delete      Delete a private NIC
   get         Get a private NIC
   list        List all private NICs
+  update      Update a private NIC
 
 FLAGS:
   -h, --help   help for private-nic
