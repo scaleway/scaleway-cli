@@ -124,6 +124,7 @@ scw secret secret list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | ID of a project to filter on (optional) |
+| name |  | Secret name to filter on (optional) |
 | tags.{index} |  | List of tags to filter on (optional) |
 | order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |  |
 | organization-id |  | ID of an organization to filter on (optional) |
