@@ -8,10 +8,17 @@ import (
 )
 
 func Test_ListNICs(t *testing.T) {
+	cmds := GetCommands()
+	cmds.Merge(vpc.GetCommands())
+
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		// Temporary in waiting for the private network support in the CLI
-		Cmd: "scw instance private-nic list server-id=4fe24c2a-3c65-4530-b274-574b22ba3d14",
+		Commands: cmds,
+		BeforeFunc: core.BeforeFuncCombine(
+			createPN(),
+			createServer("Server"),
+			createNIC(),
+		),
+		Cmd: "scw instance private-nic list server-id={{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
