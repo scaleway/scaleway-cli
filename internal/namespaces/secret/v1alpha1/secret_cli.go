@@ -133,13 +133,6 @@ func secretSecretGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "secret-name",
-				Short:      `Name of the Secret (alternative to secret_id)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -224,13 +217,6 @@ func secretSecretList() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `List of tags to filter on (optional)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "name",
-				Short:      `Name of the secrets (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -392,13 +378,6 @@ func secretVersionGet() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "secret-name",
-				Short:      `Name of the Secret (alternative to secret_id)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "revision",
 				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
 				Required:   true,
@@ -476,13 +455,6 @@ func secretVersionList() *core.Command {
 				Name:       "secret-id",
 				Short:      `ID of the Secret`,
 				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "secret-name",
-				Short:      `Name of the Secret (alternative to secret_id)`,
-				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -668,15 +640,8 @@ func secretVersionAccess() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "secret-name",
-				Short:      `Name of the Secret (alternative to secret_id)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number, "latest" or "latest_enabled")`,
+				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
