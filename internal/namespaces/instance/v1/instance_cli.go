@@ -71,6 +71,7 @@ func GetGeneratedCommands() *core.Commands {
 		instancePrivateNicList(),
 		instancePrivateNicCreate(),
 		instancePrivateNicGet(),
+		instancePrivateNicUpdate(),
 		instancePrivateNicDelete(),
 	)
 }
@@ -2872,6 +2873,56 @@ func instancePrivateNicGet() *core.Command {
 			api := instance.NewAPI(client)
 			return api.GetPrivateNIC(request)
 
+		},
+	}
+}
+
+func instancePrivateNicUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a private NIC`,
+		Long:      `Update one or more parameter/s to a given private NIC.`,
+		Namespace: "instance",
+		Resource:  "private-nic",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdatePrivateNICRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `UUID of the server the private NIC will be attached to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-nic-id",
+				Short:      `The private NIC unique ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags used to select private NIC/s`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdatePrivateNICRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdatePrivateNIC(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Update tags of a private NIC",
+				ArgsJSON: `{"private_nic_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
+			},
 		},
 	}
 }
