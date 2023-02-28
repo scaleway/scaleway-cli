@@ -172,7 +172,6 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.PrivateNICState(""), human.EnumMarshalFunc(privateNICStateMarshalSpecs))
 
-	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
 	return cmds

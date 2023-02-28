@@ -18,21 +18,6 @@ var (
 	}
 )
 
-func privateNicListBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		listPrivateNicResp, err := runner(ctx, argsI)
-		if err != nil {
-			return listPrivateNicResp, err
-		}
-		l := listPrivateNicResp.(*instance.ListPrivateNICsResponse)
-		privateNic := l.PrivateNics
-
-		return privateNic, nil
-	})
-
-	return c
-}
-
 func privateNicGetBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("private-nic-id").Short = "The private NIC unique ID or MAC address"
 
