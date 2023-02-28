@@ -215,6 +215,13 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "name",
+				Short:      `Secret name to filter on (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `List of tags to filter on (optional)`,
 				Required:   false,
