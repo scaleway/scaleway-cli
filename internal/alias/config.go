@@ -1,7 +1,5 @@
 package alias
 
-import "strings"
-
 type Config struct {
 	// Aliases are raw aliases that allow to expand a command
 	// "scw instance sl", sl may be an alias and would expand command
@@ -66,7 +64,10 @@ func (c *Config) DeleteAlias(name string) bool {
 func (c *Config) fillAliasPath() {
 	c.aliasPath = make(map[string][]string, len(c.Aliases))
 	for alias, cmd := range c.Aliases {
-		path := strings.Join(cmd, ".")
+		if len(cmd) == 0 {
+			continue
+		}
+		path := cmd[0]
 		c.aliasPath[path] = append(c.aliasPath[path], alias)
 	}
 }

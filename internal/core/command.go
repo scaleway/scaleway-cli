@@ -298,18 +298,17 @@ func (c *Command) signature() string {
 // applyAliases add resource aliases to each commands
 func (c *Commands) applyAliases(config *alias.Config) {
 	for _, command := range c.commands {
-		cmdPath := command.getPath()
-		for {
-			aliases, exists := config.ResolvePath(cmdPath)
-			if exists {
-				command.Aliases = append(command.Aliases, aliases...)
-			}
-
-			separatorIndex := strings.Index(cmdPath, indexCommandSeparator)
-			if separatorIndex == -1 {
-				break
-			}
-			cmdPath = cmdPath[separatorIndex+1:]
+		aliases := []string(nil)
+		exists := false
+		if command.Verb != "" {
+			aliases, exists = config.ResolvePath(command.Verb)
+		} else if command.Resource != "" {
+			aliases, exists = config.ResolvePath(command.Resource)
+		} else if command.Namespace != "" {
+			aliases, exists = config.ResolvePath(command.Namespace)
+		}
+		if exists {
+			command.Aliases = append(command.Aliases, aliases...)
 		}
 	}
 }
