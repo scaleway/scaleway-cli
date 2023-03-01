@@ -7,6 +7,8 @@ import (
 	"os"
 	"path"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/alias"
+	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -23,6 +25,7 @@ type meta struct {
 	Commands     *Commands
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
+	CliConfig    *cliConfig.Config
 
 	command                     *Command
 	stdout                      io.Writer
@@ -52,6 +55,14 @@ func extractMeta(ctx context.Context) *meta {
 
 func ExtractCommands(ctx context.Context) *Commands {
 	return extractMeta(ctx).Commands
+}
+
+func ExtractCliConfig(ctx context.Context) *cliConfig.Config {
+	return extractMeta(ctx).CliConfig
+}
+
+func ExtractAliases(ctx context.Context) *alias.Config {
+	return ExtractCliConfig(ctx).Alias
 }
 
 func GetOrganizationIDFromContext(ctx context.Context) string {
@@ -155,6 +166,16 @@ func ExtractConfigPath(ctx context.Context) string {
 		return path.Join(home, ".config", "scw", "config.yaml")
 	}
 	return scw.GetConfigPath()
+}
+
+func ExtractCliConfigPath(ctx context.Context) string {
+	meta := extractMeta(ctx)
+	// This is only useful for test when we override home environment variable
+	if home := meta.OverrideEnv["HOME"]; home != "" {
+		return path.Join(home, ".config", "scw", "alias.yaml")
+	}
+	configPath, _ := cliConfig.FilePath()
+	return configPath
 }
 
 func ReloadClient(ctx context.Context) error {

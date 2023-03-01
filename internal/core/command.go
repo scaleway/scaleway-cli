@@ -7,6 +7,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
@@ -71,6 +72,8 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// Aliases contains a list of aliases for a command
+	Aliases []string
 	// cache command path
 	path string
 }
@@ -207,6 +210,14 @@ func (c *Commands) MustFind(path ...string) *Command {
 	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
 }
 
+func (c *Commands) Find(path ...string) *Command {
+	cmd, exist := c.find(path...)
+	if exist {
+		return cmd
+	}
+	return nil
+}
+
 func (c *Commands) Remove(namespace, verb string) {
 	for i := range c.commands {
 		if c.commands[i].Namespace == namespace && c.commands[i].Verb == verb {
@@ -282,4 +293,12 @@ func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 // get a signature to sort commands
 func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
+}
+
+// applyAliases add resource aliases to each commands
+func (c *Commands) applyAliases(config *alias.Config) {
+	for _, resourceAlias := range config.ListResourceAliases() {
+		command := c.MustFind(resourceAlias.Path...)
+		command.Aliases = append(command.Aliases, resourceAlias.Aliases...)
+	}
 }

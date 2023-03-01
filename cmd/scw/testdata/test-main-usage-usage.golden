@@ -5,6 +5,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   account       User related data
+  alias         Alias related commands
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API

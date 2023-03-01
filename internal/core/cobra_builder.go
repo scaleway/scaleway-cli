@@ -96,6 +96,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 	cobraCmd.Short = cmd.Short
 	cobraCmd.Long = cmd.Long
 	cobraCmd.Hidden = cmd.Hidden
+	cobraCmd.Aliases = cmd.Aliases
 
 	cobraCmd.SetUsageTemplate(usageTemplate)
 

@@ -109,6 +109,8 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 		rawCommand = append(rawCommand, suggest)
 	}
 
+	rawCommand = meta.CliConfig.Alias.ResolveAliases(rawCommand)
+
 	command, foundCommand := meta.Commands.find(rawCommand...)
 	if foundCommand {
 		return command
@@ -172,8 +174,10 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 
 // Complete returns the list of suggestion based on prompt content
 func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
-	argsBeforeCursor := strings.Split(d.TextBeforeCursor(), " ")
-	argsAfterCursor := strings.Split(d.TextAfterCursor(), " ")
+	meta := extractMeta(c.ctx)
+
+	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextBeforeCursor(), " "))
+	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
 	// args contains all arguments before the one with the cursor
@@ -183,7 +187,6 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	suggestions := []prompt.Suggest(nil)
 
-	meta := extractMeta(c.ctx)
 	rawSuggestions := []string(acr.Suggestions)
 
 	// if first suggestion is an option, all suggestions should be options
@@ -212,7 +215,7 @@ func NewShellCompleter(ctx context.Context) *Completer {
 func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s string) {
 	return func(s string) {
 		args := strings.Fields(s)
-		rootCmd.SetArgs(args)
+		rootCmd.SetArgs(meta.CliConfig.Alias.ResolveAliases(args))
 
 		err := rootCmd.Execute()
 		if err != nil {

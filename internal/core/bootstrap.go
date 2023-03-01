@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/account"
+	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -41,6 +42,9 @@ type BootstrapConfig struct {
 	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
+
+	// DisableAliases, if set to true this will disable aliases expanding
+	DisableAliases bool
 
 	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
 	// This is useful for tests as it allows overriding env without relying on global state.
@@ -193,10 +197,25 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = injectMeta(ctx, meta)
 
+	// Load CLI config
+	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
+	if err != nil {
+		printErr := printer.Print(err, nil)
+		if printErr != nil {
+			_, _ = fmt.Fprintln(config.Stderr, printErr)
+		}
+		return 1, nil, err
+	}
+	meta.CliConfig = cliCfg
+
 	// Check CLI new version when exiting the bootstrap
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
 		config.BuildInfo.checkVersion(ctx)
 	}()
+
+	if !config.DisableAliases {
+		config.Commands.applyAliases(meta.CliConfig.Alias)
+	}
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{
@@ -213,13 +232,19 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		return 0, meta.result, nil
 	}
 
+	args := config.Args[1:]
+	// Do not resolve aliases if using a disabled namespace
+	if (len(config.Args) < 2 || !aliasDisabled(config.Args[1])) && !config.DisableAliases {
+		args = meta.CliConfig.Alias.ResolveAliases(args)
+	}
+
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
 	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
-	rootCmd.SetArgs(config.Args[1:])
+	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
 

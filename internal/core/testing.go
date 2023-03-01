@@ -193,6 +193,9 @@ type TestConfig struct {
 
 	// Allow to mock stdin
 	Stdin io.Reader
+
+	// EnabledAliases enables aliases that are disabled in tests
+	EnableAliases bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -382,6 +385,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
@@ -441,6 +445,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
