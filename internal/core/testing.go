@@ -379,7 +379,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stderrBuffer := &bytes.Buffer{}
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
-				Commands:         config.Commands,
+				Commands:         config.Commands.Copy(), // Copy commands to ensure they are not modified
 				BuildInfo:        buildInfo,
 				Stdout:           stdoutBuffer,
 				Stderr:           stderrBuffer,

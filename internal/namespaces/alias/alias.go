@@ -6,13 +6,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 func GetCommands() *core.Commands {
-	human.RegisterMarshalerFunc(alias.Config{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
+
+	/*human.RegisterMarshalerFunc(alias.Config{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		cfg := i.(alias.Config)
 		// To avoid recursion of human.Marshal we create a dummy type
 		type tmp alias.Config
@@ -23,9 +23,6 @@ func GetCommands() *core.Commands {
 			{
 				FieldName: "Aliases",
 			},
-			{
-				FieldName: "ResourceAliases",
-			},
 		}
 
 		str, err := human.Marshal(cfgTmp, opt)
@@ -34,7 +31,7 @@ func GetCommands() *core.Commands {
 		}
 
 		return str, nil
-	})
+	})*/
 
 	human.RegisterMarshalerFunc(map[string][]string(nil), func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		aliasMap := i.(map[string][]string)
@@ -142,35 +139,22 @@ use resource argument to add a resource alias
 			args := argsI.(*CreateRequest)
 			cfg := core.ExtractCliConfig(ctx)
 
-			var replaced bool
 			response := struct {
 				Alias string `json:"alias"`
 			}{}
 
-			if args.Resource != "" {
-				// Resource alias
-				resourcePath := alias.SplitResourcePath(args.Resource)
-
-				cmd := core.ExtractCommands(ctx).Find(resourcePath...)
-				if cmd == nil {
-					return nil, fmt.Errorf("resource not found: %s", args.Resource)
-				}
-
-				cfg.Alias.AddResourceAlias(resourcePath, args.Alias)
-			} else {
-				// Raw alias
-				replaced = cfg.Alias.AddAlias(args.Alias, args.Command)
-			}
-
+			replaced := cfg.Alias.AddAlias(args.Alias, args.Command)
 			if replaced {
 				response.Alias = "replaced"
 			} else {
 				response.Alias = "created"
 			}
+
 			err := cfg.Save()
 			if err != nil {
 				return nil, fmt.Errorf("failed to save aliases: %w", err)
 			}
+
 			return response, nil
 		},
 	}
@@ -191,7 +175,7 @@ func aliasListCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			aliasCfg := core.ExtractAliases(ctx)
 
-			return aliasCfg, nil
+			return aliasCfg.Aliases, nil
 		},
 	}
 }
@@ -223,26 +207,13 @@ func aliasDeleteCommand() *core.Command {
 			args := argsI.(*DeleteRequest)
 			cfg := core.ExtractCliConfig(ctx)
 
-			var deleted bool
-
-			if args.Resource != "" {
-				// Resources Alias
-				resource := alias.SplitResourcePath(args.Resource)
-
-				cmd := core.ExtractCommands(ctx).Find(resource...)
-				if cmd == nil {
-					return nil, fmt.Errorf("resource not found: %s", args.Resource)
-				}
-
-				deleted = cfg.Alias.DeleteResourceAlias(resource, args.Alias)
-			} else {
-				deleted = cfg.Alias.DeleteAlias(args.Alias)
-			}
+			deleted := cfg.Alias.DeleteAlias(args.Alias)
 
 			err := cfg.Save()
 			if err != nil {
 				return nil, fmt.Errorf("failed to save aliases: %w", err)
 			}
+
 			response := struct {
 				Alias string `json:"alias"`
 			}{}

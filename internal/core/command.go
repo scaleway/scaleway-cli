@@ -297,8 +297,45 @@ func (c *Command) signature() string {
 
 // applyAliases add resource aliases to each commands
 func (c *Commands) applyAliases(config *alias.Config) {
-	for _, resourceAlias := range config.ListResourceAliases() {
-		command := c.MustFind(resourceAlias.Path...)
-		command.Aliases = append(command.Aliases, resourceAlias.Aliases...)
+	for _, command := range c.commands {
+		cmdPath := command.getPath()
+		for {
+			aliases, exists := config.ResolvePath(cmdPath)
+			if exists {
+				command.Aliases = append(command.Aliases, aliases...)
+			}
+
+			separatorIndex := strings.Index(cmdPath, indexCommandSeparator)
+			if separatorIndex == -1 {
+				break
+			}
+			cmdPath = cmdPath[separatorIndex+1:]
+		}
 	}
+}
+
+// Copy returns a copy of a command
+func (c *Command) Copy() *Command {
+	newCommand := *c
+	newCommand.Aliases = append([]string(nil), c.Aliases...)
+	newCommand.Examples = make([]*Example, len(c.Examples))
+	for i := range c.Examples {
+		e := *c.Examples[i]
+		newCommand.Examples[i] = &e
+	}
+	newCommand.SeeAlsos = make([]*SeeAlso, len(c.SeeAlsos))
+	for i := range c.SeeAlsos {
+		sa := *c.SeeAlsos[i]
+		newCommand.SeeAlsos[i] = &sa
+	}
+	return &newCommand
+}
+
+// Copy return a copy of all commands
+func (c *Commands) Copy() *Commands {
+	newCommands := make([]*Command, len(c.commands))
+	for i := range c.commands {
+		newCommands[i] = c.commands[i].Copy()
+	}
+	return NewCommands(newCommands...)
 }

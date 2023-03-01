@@ -19,6 +19,21 @@ const (
 	mapSchema   = "{key}"
 )
 
+func buildUsageAliases(ctx context.Context, cmd *Command) string {
+	var aliasesBuffer bytes.Buffer
+	tw := tabwriter.NewWriter(&aliasesBuffer, 0, 0, 2, ' ', 0)
+
+	aliasCfg := ExtractAliases(ctx)
+	for _, aliasName := range cmd.Aliases {
+		_, _ = fmt.Fprintf(tw, " %s\t%s\n", aliasName, strings.Join(aliasCfg.GetAlias(aliasName), " "))
+	}
+	tw.Flush()
+
+	aliasesStr := strings.TrimSuffix(aliasesBuffer.String(), "\n")
+
+	return aliasesStr
+}
+
 // buildUsageArgs builds usage args string.
 // If deprecated is true, true only deprecated argSpecs will be considered.
 // This string will be used by cobra usage template.

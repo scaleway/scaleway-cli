@@ -22,14 +22,3 @@ type ResourceAlias struct {
 	Path    []string
 	Aliases []string
 }
-
-func (c *Config) ListResourceAliases() []*ResourceAlias {
-	aliases := make([]*ResourceAlias, 0, len(c.ResourceAliases))
-	for route, alias := range c.ResourceAliases {
-		aliases = append(aliases, &ResourceAlias{
-			Path:    SplitResourcePath(route),
-			Aliases: alias,
-		})
-	}
-	return aliases
-}

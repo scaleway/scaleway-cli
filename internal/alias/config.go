@@ -1,19 +1,26 @@
 package alias
 
+import "strings"
+
 type Config struct {
 	// Aliases are raw aliases that allow to expand a command
 	// "scw instance sl", sl may be an alias and would expand command
 	// "scw instance server list"
+	// key = sl
+	// value = server, list
 	Aliases map[string][]string `yaml:"aliases"`
-	// ResourceAliases are aliases specific to a resource
-	// it allows to add an alternative name to a namespace, resource or verb
-	ResourceAliases map[string][]string `yaml:"resources"`
+
+	// map of alias using path as key
+	// path is made from command without arguments that contains =
+	// value can contain multiple aliases with the same path
+	// key = server.list
+	// value = sl
+	aliasPath map[string][]string
 }
 
 func EmptyConfig() *Config {
 	return &Config{
-		Aliases:         map[string][]string{},
-		ResourceAliases: map[string][]string{},
+		Aliases: map[string][]string{},
 	}
 }
 
@@ -54,4 +61,20 @@ func (c *Config) DeleteAlias(name string) bool {
 	_, exists := c.Aliases[name]
 	delete(c.Aliases, name)
 	return exists
+}
+
+func (c *Config) fillAliasPath() {
+	c.aliasPath = make(map[string][]string, len(c.Aliases))
+	for alias, cmd := range c.Aliases {
+		path := strings.Join(cmd, ".")
+		c.aliasPath[path] = append(c.aliasPath[path], alias)
+	}
+}
+
+func (c *Config) ResolvePath(path string) ([]string, bool) {
+	if c.aliasPath == nil {
+		c.fillAliasPath()
+	}
+	alias, ok := c.aliasPath[path]
+	return alias, ok
 }

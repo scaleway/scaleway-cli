@@ -28,9 +28,9 @@ func Test_Alias(t *testing.T) {
 
 	t.Run("resource alias", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i resource=instance"),
-			core.ExecBeforeCmd("scw alias create s resource=instance.server"),
-			core.ExecBeforeCmd("scw alias create l resource=instance.server.list"),
+			core.ExecBeforeCmd("scw alias create i command.0=instance"),
+			core.ExecBeforeCmd("scw alias create s command.0=server"),
+			core.ExecBeforeCmd("scw alias create l command.0=list"),
 		),
 		Commands:      namespaces.GetCommands(),
 		Cmd:           "scw i s l -h",

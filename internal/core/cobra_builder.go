@@ -107,6 +107,10 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 			cobraCmd.Annotations = make(map[string]string)
 		}
 
+		if len(cmd.Aliases) > 0 {
+			cobraCmd.Annotations["Aliases"] = buildUsageAliases(b.ctx, cmd)
+		}
+
 		if cmd.ArgsType != nil {
 			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
 		}
@@ -149,7 +153,9 @@ const usageTemplate = `USAGE:
   {{.Annotations.CommandUsage}}{{if gt (len .Aliases) 0}}
 
 ALIASES:
-  {{.NameAndAliases}}{{end}}{{if .Annotations.Examples}}
+ {{.Name}}
+{{.Annotations.Aliases}}
+{{- end}}{{if .Annotations.Examples}}
 
 EXAMPLES:
 {{.Annotations.Examples}}{{end}}{{if .Annotations.UsageArgs}}
