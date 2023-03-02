@@ -83,7 +83,7 @@ func GetGeneratedCommands() *core.Commands {
 func rdbRoot() *core.Command {
 	return &core.Command{
 		Short:     `Database RDB API`,
-		Long:      ``,
+		Long:      `Database RDB API.`,
 		Namespace: "rdb",
 	}
 }
@@ -1277,8 +1277,7 @@ func rdbReadReplicaReset() *core.Command {
 		Short: `Resync a read replica`,
 		Long: `When you resync a read replica, first it is reset, and then its data is resynchronized from the primary node.
 Your read replica will be unavailable during the resync process. The duration of this process is proportional to your Database Instance size.
-The configured endpoints will not change.
-`,
+The configured endpoints will not change.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "reset",

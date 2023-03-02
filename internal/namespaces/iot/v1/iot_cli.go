@@ -58,7 +58,7 @@ func GetGeneratedCommands() *core.Commands {
 func iotRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage IoT hubs and devices`,
-		Long:      ``,
+		Long:      `This API allows you to manage IoT hubs and devices.`,
 		Namespace: "iot",
 	}
 }
@@ -1176,8 +1176,7 @@ func iotRouteCreate() *core.Command {
 - S3 Routes.
   Create a route that will put subscribed MQTT messages into an S3 bucket.
   You need to create the bucket yourself and grant us write access.
-  The grant can be done with s3cmd (` + "`" + `s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031` + "`" + `).
-`,
+  The grant can be done with s3cmd (` + "`" + `s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031` + "`" + `).`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "create",

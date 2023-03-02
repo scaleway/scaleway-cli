@@ -31,7 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 func vpcRoot() *core.Command {
 	return &core.Command{
 		Short:     `VPC API`,
-		Long:      ``,
+		Long:      `VPC API.`,
 		Namespace: "vpc",
 	}
 }

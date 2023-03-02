@@ -50,7 +50,7 @@ func GetGeneratedCommands() *core.Commands {
 func k8sRoot() *core.Command {
 	return &core.Command{
 		Short:     `Kapsule API`,
-		Long:      ``,
+		Long:      `Kapsule API.`,
 		Namespace: "k8s",
 	}
 }

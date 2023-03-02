@@ -67,7 +67,7 @@ func GetGeneratedCommands() *core.Commands {
 func vpcGwRoot() *core.Command {
 	return &core.Command{
 		Short:     `VPC Public Gateway API`,
-		Long:      ``,
+		Long:      `VPC Public Gateway API.`,
 		Namespace: "vpc-gw",
 	}
 }
@@ -1508,9 +1508,8 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 
 func vpcGwDHCPEntrySet() *core.Command {
 	return &core.Command{
-		Short: `Set all DHCP reservations on a Gateway Network`,
-		Long: `Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries.
-`,
+		Short:     `Set all DHCP reservations on a Gateway Network`,
+		Long:      `Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "set",
@@ -1828,9 +1827,8 @@ func vpcGwPatRuleUpdate() *core.Command {
 
 func vpcGwPatRuleSet() *core.Command {
 	return &core.Command{
-		Short: `Set all PAT rules on a Gateway`,
-		Long: `Set the list of PAT rules attached to a Gateway. Rules are identified by their public port and protocol. This will sync the current PAT rule list with the givent list, creating, updating or deleting PAT rules.
-`,
+		Short:     `Set all PAT rules on a Gateway`,
+		Long:      `Set the list of PAT rules attached to a Gateway. Rules are identified by their public port and protocol. This will sync the current PAT rule list with the givent list, creating, updating or deleting PAT rules.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "set",
