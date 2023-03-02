@@ -23,7 +23,9 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitCockpit(),
 		cockpitToken(),
 		cockpitGrafanaUser(),
+		cockpitCockpitActivate(),
 		cockpitCockpitGet(),
+		cockpitCockpitDeactivate(),
 		cockpitCockpitResetGrafana(),
 		cockpitTokenCreate(),
 		cockpitTokenList(),
@@ -70,6 +72,29 @@ func cockpitGrafanaUser() *core.Command {
 	}
 }
 
+func cockpitCockpitActivate() *core.Command {
+	return &core.Command{
+		Short:     `Activate a cockpit`,
+		Long:      `Activate a cockpit associated with the given project ID.`,
+		Namespace: "cockpit",
+		Resource:  "cockpit",
+		Verb:      "activate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.ActivateCockpitRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.ActivateCockpitRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			return api.ActivateCockpit(request)
+
+		},
+	}
+}
+
 func cockpitCockpitGet() *core.Command {
 	return &core.Command{
 		Short:     `Get cockpit`,
@@ -88,6 +113,29 @@ func cockpitCockpitGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewAPI(client)
 			return api.GetCockpit(request)
+
+		},
+	}
+}
+
+func cockpitCockpitDeactivate() *core.Command {
+	return &core.Command{
+		Short:     `Deactivate a cockpit`,
+		Long:      `Deactivate a cockpit associated with the given project ID.`,
+		Namespace: "cockpit",
+		Resource:  "cockpit",
+		Verb:      "deactivate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.DeactivateCockpitRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.DeactivateCockpitRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			return api.DeactivateCockpit(request)
 
 		},
 	}
