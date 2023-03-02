@@ -68,7 +68,6 @@ func cockpitWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
 		},
 		Examples: []*core.Example{
 			{
