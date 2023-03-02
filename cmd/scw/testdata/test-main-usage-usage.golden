@@ -8,6 +8,7 @@ AVAILABLE COMMANDS:
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
+  cockpit       Cockpit API
   config        Config file management
   container     Container as a Service API
   dns           DNS API
