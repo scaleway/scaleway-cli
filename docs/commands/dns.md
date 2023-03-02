@@ -196,7 +196,6 @@ Action can be:
 
 All edits will be versioned.
 
-
 **Usage:**
 
 ```
@@ -271,7 +270,6 @@ Only available with default NS.<br/>
 Delete all the records from a DNS zone.
 All edits will be versioned.
 
-
 **Usage:**
 
 ```
@@ -329,7 +327,6 @@ scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
 
 Returns a list of DNS records of a DNS zone with default NS.
 You can filter the records by type and name.
-
 
 **Usage:**
 
@@ -518,7 +515,6 @@ Get a list of DNS zone versions.<br/>
 The maximum version count is 100.<br/>
 If the count reaches this limit, the oldest version will be deleted after each new modification.
 
-
 **Usage:**
 
 ```
@@ -692,7 +688,6 @@ scw dns zone import <dns-zone ...> [arg=value ...]
 Returns a list of manageable DNS zones.
 You can filter the DNS zones by domain name.
 
-
 **Usage:**
 
 ```
@@ -716,7 +711,6 @@ scw dns zone list [arg=value ...]
 
 Refresh SOA DNS zone.
 You can recreate the given DNS zone and its sub DNS zone if needed.
-
 
 **Usage:**
 

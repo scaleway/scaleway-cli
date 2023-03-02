@@ -31,7 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 func accountRoot() *core.Command {
 	return &core.Command{
 		Short:     `Account API`,
-		Long:      ``,
+		Long:      `Account API.`,
 		Namespace: "account",
 	}
 }

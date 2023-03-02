@@ -60,7 +60,7 @@ func GetGeneratedCommands() *core.Commands {
 func functionRoot() *core.Command {
 	return &core.Command{
 		Short:     `Function as a Service API`,
-		Long:      ``,
+		Long:      `Serverless functions API.`,
 		Namespace: "function",
 	}
 }

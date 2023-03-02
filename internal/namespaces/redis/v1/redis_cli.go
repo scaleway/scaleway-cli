@@ -53,7 +53,7 @@ func GetGeneratedCommands() *core.Commands {
 func redisRoot() *core.Command {
 	return &core.Command{
 		Short:     `Managed Database for Redis™ API`,
-		Long:      ``,
+		Long:      `Managed Database for Redis™ API.`,
 		Namespace: "redis",
 	}
 }

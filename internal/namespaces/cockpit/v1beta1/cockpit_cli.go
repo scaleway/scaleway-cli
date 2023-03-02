@@ -40,7 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 func cockpitRoot() *core.Command {
 	return &core.Command{
 		Short:     `Cockpit API`,
-		Long:      ``,
+		Long:      `This API allows to manage Cockpits.`,
 		Namespace: "cockpit",
 	}
 }

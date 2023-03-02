@@ -66,7 +66,7 @@ func GetGeneratedCommands() *core.Commands {
 func iamRoot() *core.Command {
 	return &core.Command{
 		Short:     `IAM API`,
-		Long:      ``,
+		Long:      `IAM API.`,
 		Namespace: "iam",
 	}
 }
