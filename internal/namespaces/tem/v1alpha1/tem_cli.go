@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func temRoot() *core.Command {
 	return &core.Command{
 		Short:     `Tem`,
-		Long:      ``,
+		Long:      `Tem.`,
 		Namespace: "tem",
 	}
 }

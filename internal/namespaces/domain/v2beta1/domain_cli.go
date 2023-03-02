@@ -107,8 +107,7 @@ func dnsZoneList() *core.Command {
 	return &core.Command{
 		Short: `List DNS zones`,
 		Long: `Returns a list of manageable DNS zones.
-You can filter the DNS zones by domain name.
-`,
+You can filter the DNS zones by domain name.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "list",
@@ -355,8 +354,7 @@ func dnsRecordList() *core.Command {
 	return &core.Command{
 		Short: `List DNS zone records`,
 		Long: `Returns a list of DNS records of a DNS zone with default NS.
-You can filter the records by type and name.
-`,
+You can filter the records by type and name.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "list",
@@ -466,8 +464,7 @@ Action can be:
  - clear:
   - Delete all records from a DNS zone
 
-All edits will be versioned.
-`,
+All edits will be versioned.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "bulk-update",
@@ -902,8 +899,7 @@ func dnsRecordClear() *core.Command {
 		Short: `Clear DNS zone records`,
 		Long: `Only available with default NS.<br/>
 Delete all the records from a DNS zone.
-All edits will be versioned.
-`,
+All edits will be versioned.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "clear",
@@ -1044,8 +1040,7 @@ func dnsZoneRefresh() *core.Command {
 	return &core.Command{
 		Short: `Refresh DNS zone`,
 		Long: `Refresh SOA DNS zone.
-You can recreate the given DNS zone and its sub DNS zone if needed.
-`,
+You can recreate the given DNS zone and its sub DNS zone if needed.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "refresh",
@@ -1090,8 +1085,7 @@ func dnsVersionList() *core.Command {
 		Short: `List DNS zone versions`,
 		Long: `Get a list of DNS zone versions.<br/>
 The maximum version count is 100.<br/>
-If the count reaches this limit, the oldest version will be deleted after each new modification.
-`,
+If the count reaches this limit, the oldest version will be deleted after each new modification.`,
 		Namespace: "dns",
 		Resource:  "version",
 		Verb:      "list",

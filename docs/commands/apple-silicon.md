@@ -11,7 +11,6 @@ Get set to explore, learn and build on a dedicated Mac mini M1 with more perform
 Mac mini and macOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
 IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used by Apple under license.
 Scaleway is not affiliated with Apple Inc.
-
   
 - [OS management commands](#os-management-commands)
   - [Get an Operating System (OS)](#get-an-operating-system-(os))

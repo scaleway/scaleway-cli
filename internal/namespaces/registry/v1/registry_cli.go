@@ -40,7 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 func registryRoot() *core.Command {
 	return &core.Command{
 		Short:     `Container registry API`,
-		Long:      ``,
+		Long:      `Container registry API.`,
 		Namespace: "registry",
 	}
 }

@@ -41,8 +41,7 @@ This service don't use the Scaleway authentication service but a fake one.
 It allows to use this test service publicly without requiring a Scaleway account.
 
 First, you need to register a user with ` + "`" + `scw test human register` + "`" + ` to get an access-key.
-Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.
-`,
+Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.`,
 		Namespace: "test",
 	}
 }
@@ -70,8 +69,7 @@ func testUserRegister() *core.Command {
 		Short: `Register a user`,
 		Long: `Register a human and return a access-key and a secret-key that must be used in all other commands.
 
-Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
-`,
+Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.`,
 		Namespace: "test",
 		Resource:  "user",
 		Verb:      "register",

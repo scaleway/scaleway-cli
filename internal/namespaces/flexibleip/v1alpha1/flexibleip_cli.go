@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func fipRoot() *core.Command {
 	return &core.Command{
 		Short:     `Flexible IP API`,
-		Long:      ``,
+		Long:      `Flexible IP API.`,
 		Namespace: "fip",
 	}
 }

@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func mnqRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage Messaging or Queueing brokers`,
-		Long:      ``,
+		Long:      `This API allows you to manage Messaging or Queueing brokers.`,
 		Namespace: "mnq",
 	}
 }

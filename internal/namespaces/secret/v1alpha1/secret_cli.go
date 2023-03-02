@@ -40,7 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to conveniently store, access and share sensitive data`,
-		Long:      ``,
+		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
 		Namespace: "secret",
 	}
 }
@@ -261,23 +261,6 @@ func secretSecretList() *core.Command {
 			return resp.Secrets, nil
 
 		},
-		View: &core.View{Fields: []*core.ViewField{
-			{
-				FieldName: "ID",
-			},
-			{
-				FieldName: "Name",
-			},
-			{
-				FieldName: "CreatedAt",
-			},
-			{
-				FieldName: "UpdatedAt",
-			},
-			{
-				FieldName: "ProjectID",
-			},
-		}},
 	}
 }
 
@@ -492,23 +475,6 @@ func secretVersionList() *core.Command {
 			return resp.Versions, nil
 
 		},
-		View: &core.View{Fields: []*core.ViewField{
-			{
-				FieldName: "SecretID",
-			},
-			{
-				FieldName: "Name",
-			},
-			{
-				FieldName: "CreatedAt",
-			},
-			{
-				FieldName: "UpdatedAt",
-			},
-			{
-				FieldName: "ProjectID",
-			},
-		}},
 	}
 }
 
