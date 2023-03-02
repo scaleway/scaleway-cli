@@ -8,6 +8,7 @@ import (
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
+	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
@@ -49,6 +50,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		iam.GetCommands(),
 		instance.GetCommands(),
 		baremetal.GetCommands(),
+		cockpit.GetCommands(),
 		k8s.GetCommands(),
 		marketplace.GetCommands(),
 		initNamespace.GetCommands(),

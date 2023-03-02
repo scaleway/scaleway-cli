@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List grafana users who are able to connect to your grafana instance.
+
+USAGE:
+  scw cockpit grafana-user list [arg=value ...]
+
+ARGS:
+  [order-by]      (login_asc | login_desc)
+  [project-id]   Project ID to use. If none is passed the default project ID will be used
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
