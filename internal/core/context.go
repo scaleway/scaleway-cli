@@ -172,7 +172,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 	meta := extractMeta(ctx)
 	// This is only useful for test when we override home environment variable
 	if home := meta.OverrideEnv["HOME"]; home != "" {
-		return path.Join(home, ".config", "scw", "alias.yaml")
+		return path.Join(home, ".config", "scw", "cli.yaml")
 	}
 	configPath, _ := cliConfig.FilePath()
 	return configPath
