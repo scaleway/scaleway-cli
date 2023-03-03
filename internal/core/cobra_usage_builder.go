@@ -23,8 +23,15 @@ func buildUsageAliases(ctx context.Context, cmd *Command) string {
 	var aliasesBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&aliasesBuffer, 0, 0, 2, ' ', 0)
 
+	// Copy and filter alias list
+	aliases := make([]string, len(cmd.Aliases))
+	for i := range cmd.Aliases {
+		aliases[i] = cmd.Aliases[i]
+	}
+	sort.Strings(aliases)
+
 	aliasCfg := ExtractAliases(ctx)
-	for _, aliasName := range cmd.Aliases {
+	for _, aliasName := range aliases {
 		_, _ = fmt.Fprintf(tw, " %s\t%s\n", aliasName, strings.Join(aliasCfg.GetAlias(aliasName), " "))
 	}
 	tw.Flush()

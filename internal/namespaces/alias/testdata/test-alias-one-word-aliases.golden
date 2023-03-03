@@ -6,7 +6,6 @@ USAGE:
   scw instance server list [arg=value ...]
 
 ALIASES:
- list
  l  list
 
 EXAMPLES:

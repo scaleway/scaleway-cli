@@ -153,7 +153,6 @@ const usageTemplate = `USAGE:
   {{.Annotations.CommandUsage}}{{if gt (len .Aliases) 0}}
 
 ALIASES:
- {{.Name}}
 {{.Annotations.Aliases}}
 {{- end}}{{if .Annotations.Examples}}
 
