@@ -28,6 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamPolicy(),
 		iamRule(),
 		iamPermissionSet(),
+		iamJwt(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -140,6 +141,15 @@ func iamPermissionSet() *core.Command {
 		Long:      `Permission sets management commands.`,
 		Namespace: "iam",
 		Resource:  "permission-set",
+	}
+}
+
+func iamJwt() *core.Command {
+	return &core.Command{
+		Short:     `JWTs management commands`,
+		Long:      `JWTs management commands.`,
+		Namespace: "iam",
+		Resource:  "jwt",
 	}
 }
 
