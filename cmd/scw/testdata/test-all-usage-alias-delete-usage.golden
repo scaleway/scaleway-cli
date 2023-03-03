@@ -6,8 +6,7 @@ USAGE:
   scw alias delete <alias ...> [arg=value ...]
 
 ARGS:
-  alias        alias name
-  [resource]   resource path is for resource aliases
+  alias   alias name
 
 FLAGS:
   -h, --help   help for delete

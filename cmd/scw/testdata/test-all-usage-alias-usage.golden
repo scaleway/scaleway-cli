@@ -1,29 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 This namespace allows you to manage your aliases
-Two alias types exist
-Raw aliases:
-	A command can contains multiple aliases
-	aliases in your commands are expanded and you get completion
-	with: isl = instance server list
-	"scw isl <TAB>" will complete as "scw instance server list <TAB>"
-	but "scw <TAB>" will not complete "isl"
-
-Resource aliases:
-	These are alternate names for namespaces, resources or verbs
-	resource aliases are provided by the completion
-	with: instance server create = c
-	"scw instance server <TAB>" will get "c" in completion
+You can use multiple aliases in one command
+aliases in your commands are evaluated and you get completion
+  with: isl = instance server list
+    "scw isl <TAB>" will complete as "scw instance server list <TAB>"
+    "scw <TAB>" will complete "isl"
 
 USAGE:
   scw alias <command>
 
 EXAMPLES:
   Create a custom alias 'isl' for 'instance server list'
-    scw alias create isl command.0=instance command.1=server command.2=list
+    scw alias create isl command="instance server list"
 
-  Add an alias to a verb
-    scw alias create c resource=instance.server.create
+  Create an alias for a verb
+    scw alias create c command=create
 
 AVAILABLE COMMANDS:
   create      Create a new alias for a command

@@ -6,33 +6,12 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/google/shlex"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 func GetCommands() *core.Commands {
-
-	/*human.RegisterMarshalerFunc(alias.Config{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
-		cfg := i.(alias.Config)
-		// To avoid recursion of human.Marshal we create a dummy type
-		type tmp alias.Config
-		cfgTmp := tmp(cfg)
-
-		// Sections
-		opt.Sections = []*human.MarshalSection{
-			{
-				FieldName: "Aliases",
-			},
-		}
-
-		str, err := human.Marshal(cfgTmp, opt)
-		if err != nil {
-			return "", err
-		}
-
-		return str, nil
-	})*/
-
 	human.RegisterMarshalerFunc(map[string][]string(nil), func(i interface{}, opt *human.MarshalOpt) (string, error) {
 		aliasMap := i.(map[string][]string)
 		type humanAlias struct {
@@ -62,28 +41,20 @@ func aliasRootCommand() *core.Command {
 	return &core.Command{
 		Short: "Alias related commands",
 		Long: `This namespace allows you to manage your aliases
-Two alias types exist
-Raw aliases:
-	A command can contains multiple aliases
-	aliases in your commands are expanded and you get completion
-	with: isl = instance server list
-	"scw isl <TAB>" will complete as "scw instance server list <TAB>"
-	but "scw <TAB>" will not complete "isl"
-
-Resource aliases:
-	These are alternate names for namespaces, resources or verbs
-	resource aliases are provided by the completion
-	with: instance server create = c
-	"scw instance server <TAB>" will get "c" in completion
+You can use multiple aliases in one command
+aliases in your commands are evaluated and you get completion
+  with: isl = instance server list
+    "scw isl <TAB>" will complete as "scw instance server list <TAB>"
+    "scw <TAB>" will complete "isl"
 `,
 		Examples: []*core.Example{
 			{
 				Short: "Create a custom alias 'isl' for 'instance server list'",
-				Raw:   "scw alias create isl command.0=instance command.1=server command.2=list",
+				Raw:   `scw alias create isl command="instance server list"`,
 			},
 			{
-				Short: "Add an alias to a verb",
-				Raw:   `scw alias create c resource=instance.server.create`,
+				Short: "Create an alias for a verb",
+				Raw:   `scw alias create c command=create`,
 			},
 		},
 		Namespace: "alias",
@@ -91,9 +62,8 @@ Resource aliases:
 }
 
 type CreateRequest struct {
-	Alias    string   `json:"alias"`
-	Command  []string `json:"command"`
-	Resource string   `json:"resource"`
+	Alias   string `json:"alias"`
+	Command string `json:"command"`
 }
 
 func aliasCreateCommand() *core.Command {
@@ -101,18 +71,15 @@ func aliasCreateCommand() *core.Command {
 		Short:     "Create a new alias for a command",
 		Namespace: "alias",
 		Resource:  "create",
-		Long: `This command help you create aliases and save it to your config
-use command argument to create a raw alias
-use resource argument to add a resource alias
-`,
+		Long:      `This command help you create aliases and save it to your config`,
 		Examples: []*core.Example{
 			{
 				Short: "Create a custom alias 'isl' for 'instance server list'",
-				Raw:   "scw alias create isl command.0=instance command.1=server command.2=list",
+				Raw:   `scw alias create isl command="instance server list""`,
 			},
 			{
 				Short: "Add an alias to a verb",
-				Raw:   `scw alias create c resource=instance.server.create`,
+				Raw:   `scw alias create c command=create`,
 			},
 		},
 		AllowAnonymousClient: true,
@@ -124,14 +91,9 @@ use resource argument to add a resource alias
 				Short:      "Alias name",
 			},
 			{
-				Name:       "command.{index}",
+				Name:       "command",
 				OneOfGroup: "command",
-				Short:      "Command to expand to for a raw alias",
-			},
-			{
-				Name:       "resource",
-				OneOfGroup: "command",
-				Short:      "resource to add alias to",
+				Short:      "Command to create an alias for",
 			},
 		},
 		ArgsType: reflect.TypeOf(CreateRequest{}),
@@ -142,15 +104,18 @@ use resource argument to add a resource alias
 			response := struct {
 				Alias string `json:"alias"`
 			}{}
-
-			replaced := cfg.Alias.AddAlias(args.Alias, args.Command)
+			command, err := shlex.Split(args.Command)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse command: %w", err)
+			}
+			replaced := cfg.Alias.AddAlias(args.Alias, command)
 			if replaced {
 				response.Alias = "replaced"
 			} else {
 				response.Alias = "created"
 			}
 
-			err := cfg.Save()
+			err = cfg.Save()
 			if err != nil {
 				return nil, fmt.Errorf("failed to save aliases: %w", err)
 			}
@@ -196,10 +161,6 @@ func aliasDeleteCommand() *core.Command {
 				Name:       "alias",
 				Positional: true,
 				Short:      "alias name",
-			},
-			{
-				Name:  "resource",
-				Short: "resource path is for resource aliases",
 			},
 		},
 		ArgsType: reflect.TypeOf(DeleteRequest{}),
