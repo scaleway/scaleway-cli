@@ -160,7 +160,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 
 // GetChildOrCreate search a child node by name,
 // and either returns it if found
-// or create new childs with the given name and aliases, and returns it.
+// or create new children with the given name and aliases, and returns it.
 func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string) *AutoCompleteNode {
 	if _, exist := node.Children[name]; !exist {
 		childNode := NewAutoCompleteCommandNode()
