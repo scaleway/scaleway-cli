@@ -301,11 +301,11 @@ func (c *Commands) applyAliases(config *alias.Config) {
 		aliases := []string(nil)
 		exists := false
 		if command.Verb != "" {
-			aliases, exists = config.ResolvePath(command.Verb)
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Verb)
 		} else if command.Resource != "" {
-			aliases, exists = config.ResolvePath(command.Resource)
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Resource)
 		} else if command.Namespace != "" {
-			aliases, exists = config.ResolvePath(command.Namespace)
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Namespace)
 		}
 		if exists {
 			command.Aliases = append(command.Aliases, aliases...)

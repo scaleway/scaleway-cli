@@ -8,12 +8,11 @@ type Config struct {
 	// value = server, list
 	Aliases map[string][]string `yaml:"aliases"`
 
-	// map of alias using path as key
-	// path is made from command without arguments that contains =
-	// value can contain multiple aliases with the same path
-	// key = server.list
-	// value = sl
-	aliasPath map[string][]string
+	// map of alias using their first word as key
+	// value can contain multiple aliases with the same first word
+	// key = instance
+	// value = isl, isc
+	aliasesByFirstWord map[string][]string
 }
 
 func EmptyConfig() *Config {
@@ -31,7 +30,7 @@ func (c *Config) GetAlias(name string) []string {
 	return nil
 }
 
-// ResolveAliases resolve raw aliases in given command
+// ResolveAliases resolve aliases in given command
 // "scw isl" may return "scw instance server list"
 func (c *Config) ResolveAliases(command []string) []string {
 	expandedCommand := make([]string, 0, len(command))
@@ -61,21 +60,26 @@ func (c *Config) DeleteAlias(name string) bool {
 	return exists
 }
 
-func (c *Config) fillAliasPath() {
-	c.aliasPath = make(map[string][]string, len(c.Aliases))
+func (c *Config) fillAliasByFirstWord() {
+	c.aliasesByFirstWord = make(map[string][]string, len(c.Aliases))
 	for alias, cmd := range c.Aliases {
 		if len(cmd) == 0 {
 			continue
 		}
 		path := cmd[0]
-		c.aliasPath[path] = append(c.aliasPath[path], alias)
+		c.aliasesByFirstWord[path] = append(c.aliasesByFirstWord[path], alias)
 	}
 }
 
-func (c *Config) ResolvePath(path string) ([]string, bool) {
-	if c.aliasPath == nil {
-		c.fillAliasPath()
+// ResolveAliasesByFirstWord return list of aliases that start with given first word
+// firstWord: instance
+// may return
+// isl => instance server list
+// isc => instance server create
+func (c *Config) ResolveAliasesByFirstWord(firstWord string) ([]string, bool) {
+	if c.aliasesByFirstWord == nil {
+		c.fillAliasByFirstWord()
 	}
-	alias, ok := c.aliasPath[path]
+	alias, ok := c.aliasesByFirstWord[firstWord]
 	return alias, ok
 }

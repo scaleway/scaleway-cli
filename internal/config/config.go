@@ -50,7 +50,7 @@ func LoadConfig(configPath string) (*Config, error) {
 	return config, nil
 }
 
-// Save marshal aliases to config file
+// Save marshal config to config file
 func (c *Config) Save() error {
 	config, err := yaml.Marshal(c)
 	if err != nil {
@@ -73,12 +73,4 @@ func FilePath() (string, error) {
 		return "", err
 	}
 	return filepath.Clean(filepath.Join(configDir, defaultConfigFileName)), nil
-}
-
-func LoadDefaultConfig() (*Config, error) {
-	configPath, err := FilePath()
-	if err != nil {
-		return nil, err
-	}
-	return LoadConfig(configPath)
 }
