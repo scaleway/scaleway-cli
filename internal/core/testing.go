@@ -552,6 +552,18 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 	}
 }
 
+// ExecBeforeCmdArgs executes the given command before command.
+func ExecBeforeCmdArgs(args []string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		for i := range args {
+			args[i] = ctx.Meta.render(args[i])
+		}
+		ctx.Logger.Debugf("ExecBeforeCmdArgs: args=%s\n", args)
+		ctx.ExecuteCmd(args)
+		return nil
+	}
+}
+
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {

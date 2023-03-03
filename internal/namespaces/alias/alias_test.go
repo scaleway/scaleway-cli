@@ -9,10 +9,10 @@ import (
 )
 
 func Test_Alias(t *testing.T) {
-	t.Run("raw alias", core.Test(&core.TestConfig{
+	t.Run("Multiple words", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i command.0=instance"),
-			core.ExecBeforeCmd("scw alias create sl command.0=server command.1=list"),
+			core.ExecBeforeCmd("scw alias create i command=instance"),
+			core.ExecBeforeCmdArgs([]string{"scw", "alias", "create", "sl", "command=server list"}),
 		),
 		Commands:      namespaces.GetCommands(),
 		Cmd:           "scw i sl -h",
@@ -26,11 +26,11 @@ func Test_Alias(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 
-	t.Run("resource alias", core.Test(&core.TestConfig{
+	t.Run("one word aliases", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i command.0=instance"),
-			core.ExecBeforeCmd("scw alias create s command.0=server"),
-			core.ExecBeforeCmd("scw alias create l command.0=list"),
+			core.ExecBeforeCmd("scw alias create i command=instance"),
+			core.ExecBeforeCmd("scw alias create s command=server"),
+			core.ExecBeforeCmd("scw alias create l command=list"),
 		),
 		Commands:      namespaces.GetCommands(),
 		Cmd:           "scw i s l -h",

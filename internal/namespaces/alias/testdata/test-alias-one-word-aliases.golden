@@ -6,7 +6,8 @@ USAGE:
   scw instance server list [arg=value ...]
 
 ALIASES:
-  list, l
+ list
+ l  list
 
 EXAMPLES:
   List all servers on your default zone
