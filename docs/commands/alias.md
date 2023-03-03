@@ -80,8 +80,17 @@ scw alias delete <alias ...> [arg=value ...]
 **Usage:**
 
 ```
-scw alias list
+scw alias list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | Default: `command_asc`<br />One of: `command_asc`, `command_desc`, `alias_asc`, `alias_desc` |  |
+| command |  | filter command |
+| alias |  | filter alias |
 
 
 

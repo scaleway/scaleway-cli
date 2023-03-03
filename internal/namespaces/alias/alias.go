@@ -4,31 +4,14 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/google/shlex"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 func GetCommands() *core.Commands {
-	human.RegisterMarshalerFunc(map[string][]string(nil), func(i interface{}, opt *human.MarshalOpt) (string, error) {
-		aliasMap := i.(map[string][]string)
-		type humanAlias struct {
-			Alias   string
-			Command string
-		}
-		aliases := make([]humanAlias, 0, len(aliasMap))
-
-		for key, value := range aliasMap {
-			aliases = append(aliases, humanAlias{
-				Alias:   key,
-				Command: strings.Join(value, " "),
-			})
-		}
-		return human.Marshal(aliases, opt)
-	})
-
 	return core.NewCommands(
 		aliasRootCommand(),
 		aliasCreateCommand(),
@@ -126,7 +109,41 @@ func aliasCreateCommand() *core.Command {
 }
 
 type ListRequest struct {
-	Alias string `json:"alias"`
+	Alias   string `json:"alias"`
+	OrderBy string `json:"order-by"`
+	Command string `json:"command"`
+}
+
+type aliasListItem struct {
+	Alias   string
+	Command string
+}
+
+type aliasListResponse []aliasListItem
+
+type aliasListOrderFunction func(aliases aliasListResponse) func(i, j int) bool
+
+var aliasListOrderFunctions = map[string]aliasListOrderFunction{
+	"command_asc": func(aliases aliasListResponse) func(i int, j int) bool {
+		return func(i, j int) bool {
+			return aliases[i].Command < aliases[j].Command
+		}
+	},
+	"command_desc": func(aliases aliasListResponse) func(i int, j int) bool {
+		return func(i, j int) bool {
+			return aliases[i].Command > aliases[j].Command
+		}
+	},
+	"alias_asc": func(aliases aliasListResponse) func(i int, j int) bool {
+		return func(i, j int) bool {
+			return aliases[i].Alias < aliases[j].Alias
+		}
+	},
+	"alias_desc": func(aliases aliasListResponse) func(i int, j int) bool {
+		return func(i, j int) bool {
+			return aliases[i].Alias > aliases[j].Alias
+		}
+	},
 }
 
 func aliasListCommand() *core.Command {
@@ -135,12 +152,56 @@ func aliasListCommand() *core.Command {
 		Namespace:            "alias",
 		Resource:             "list",
 		AllowAnonymousClient: true,
-		ArgSpecs:             core.ArgSpecs{},
-		ArgsType:             reflect.TypeOf(ListRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:    "order-by",
+				Default: core.DefaultValueSetter("command_asc"),
+				EnumValues: []string{
+					"command_asc",
+					"command_desc",
+					"alias_asc",
+					"alias_desc",
+				},
+			},
+			{
+				Name:  "command",
+				Short: "filter command",
+			},
+			{
+				Name:  "alias",
+				Short: "filter alias",
+			},
+		},
+		ArgsType: reflect.TypeOf(ListRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*ListRequest)
 			aliasCfg := core.ExtractAliases(ctx)
+			aliases := make(aliasListResponse, 0, len(aliasCfg.Aliases))
 
-			return aliasCfg.Aliases, nil
+			for key, value := range aliasCfg.Aliases {
+				aliases = append(aliases, aliasListItem{
+					Alias:   key,
+					Command: strings.Join(value, " "),
+				})
+			}
+
+			orderFunction, exists := aliasListOrderFunctions[args.OrderBy]
+			if !exists {
+				return nil, fmt.Errorf("order-by %s is not supported", args.OrderBy)
+			}
+
+			sort.Slice(aliases, orderFunction(aliases))
+
+			filteredAliases := aliasListResponse{}
+
+			for _, aliasItem := range aliases {
+				if strings.Contains(aliasItem.Command, args.Command) &&
+					strings.Contains(aliasItem.Alias, args.Alias) {
+					filteredAliases = append(filteredAliases, aliasItem)
+				}
+			}
+
+			return filteredAliases, nil
 		},
 	}
 }
