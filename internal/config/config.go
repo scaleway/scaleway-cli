@@ -14,7 +14,7 @@ import (
 const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
-	defaultConfigFileName   = "cli.yaml"
+	DefaultConfigFileName   = "cli.yaml"
 	defaultConfigPermission = 0600
 )
 
@@ -72,5 +72,5 @@ func FilePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Clean(filepath.Join(configDir, defaultConfigFileName)), nil
+	return filepath.Clean(filepath.Join(configDir, DefaultConfigFileName)), nil
 }
