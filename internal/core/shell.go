@@ -158,7 +158,7 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 	}
 
 	sort.Slice(argSpecs, func(i, j int) bool {
-		if argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
+		if argSpecs[i].Arg != nil && argSpecs[j].Arg != nil && argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
 			return argSpecs[i].Arg.Required
 		}
 		return argSpecs[i].Text < argSpecs[j].Text
