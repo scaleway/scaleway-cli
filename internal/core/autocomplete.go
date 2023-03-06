@@ -160,10 +160,14 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 
 // GetChildOrCreate search a child node by name,
 // and either returns it if found
-// or create a new child with the given name, and returns it.
-func (node *AutoCompleteNode) GetChildOrCreate(name string) *AutoCompleteNode {
+// or create new children with the given name and aliases, and returns it.
+func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string) *AutoCompleteNode {
 	if _, exist := node.Children[name]; !exist {
-		node.Children[name] = NewAutoCompleteCommandNode()
+		childNode := NewAutoCompleteCommandNode()
+		node.Children[name] = childNode
+		for _, alias := range aliases {
+			node.Children[alias] = childNode
+		}
 	}
 	return node.Children[name]
 }
@@ -214,7 +218,7 @@ func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
 		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
 			if part != "" {
-				node = node.GetChildOrCreate(part)
+				node = node.GetChildOrCreate(part, cmd.Aliases)
 				node.addGlobalFlags()
 			}
 		}

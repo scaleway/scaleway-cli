@@ -193,6 +193,9 @@ type TestConfig struct {
 
 	// Allow to mock stdin
 	Stdin io.Reader
+
+	// EnabledAliases enables aliases that are disabled in tests
+	EnableAliases bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -376,12 +379,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stderrBuffer := &bytes.Buffer{}
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
-				Commands:         config.Commands,
+				Commands:         config.Commands.Copy(), // Copy commands to ensure they are not modified
 				BuildInfo:        buildInfo,
 				Stdout:           stdoutBuffer,
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
@@ -441,6 +445,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
@@ -542,6 +547,18 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
+		ctx.ExecuteCmd(args)
+		return nil
+	}
+}
+
+// ExecBeforeCmdArgs executes the given command before command.
+func ExecBeforeCmdArgs(args []string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		for i := range args {
+			args[i] = ctx.Meta.render(args[i])
+		}
+		ctx.Logger.Debugf("ExecBeforeCmdArgs: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
 	}

@@ -3,6 +3,10 @@
 #
 # To execute linters in local the ./scripts/lint.sh script can be used.
 
+run:
+  skip-dirs:
+    - internal/pkg
+
 linters:
   disable-all: true
 

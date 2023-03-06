@@ -266,9 +266,12 @@ func autocompleteCompleteBashCommand() *core.Command {
 			if len(words) <= wordIndex {
 				return nil, fmt.Errorf("index to complete is invalid")
 			}
-			leftWords := words[:wordIndex]
+
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(words[:wordIndex])
 			wordToComplete := words[wordIndex]
-			rightWords := words[wordIndex+1:]
+			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
 			// If the wordToComplete is an argument label (cf. `arg=`), remove
 			// this prefix for all suggestions.
@@ -302,7 +305,10 @@ func autocompleteCompleteFishCommand() *core.Command {
 			if len(rawArgs) < 4 {
 				return nil, fmt.Errorf("not enough arguments")
 			}
-			leftWords := rawArgs[3:]
+
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(rawArgs[3:])
 			wordToComplete := rawArgs[2]
 
 			// TODO: compute rightWords once used by core.AutoComplete()
@@ -355,9 +361,11 @@ func autocompleteCompleteZshCommand() *core.Command {
 				words = append(words, "") // Handle case when last word is empty.
 			}
 
-			leftWords := words[:wordIndex]
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(words[:wordIndex])
 			wordToComplete := words[wordIndex]
-			rightWords := words[wordIndex+1:]
+			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			return strings.Join(res.Suggestions, " "), nil
