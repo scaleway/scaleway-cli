@@ -36,6 +36,7 @@ AVAILABLE COMMANDS:
   version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API
+  webhosting    Webhosting API
 
 FLAGS:
   -c, --config string    The path to the config file
