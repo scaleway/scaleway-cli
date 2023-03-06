@@ -80,6 +80,9 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 		}
 	}
 
+	// Apply default arguments
+	listRawArgs = ApplyDefaultValues(ctx, listCmd.ArgSpecs, listRawArgs)
+
 	// Unmarshal args.
 	// After that we are done working with rawArgs
 	// and will be working with cmdArgs.
