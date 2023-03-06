@@ -28,6 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamPolicy(),
 		iamRule(),
 		iamPermissionSet(),
+		iamJwt(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -61,6 +62,9 @@ func GetGeneratedCommands() *core.Commands {
 		iamAPIKeyGet(),
 		iamAPIKeyUpdate(),
 		iamAPIKeyDelete(),
+		iamJwtList(),
+		iamJwtGet(),
+		iamJwtDelete(),
 	)
 }
 func iamRoot() *core.Command {
@@ -140,6 +144,15 @@ func iamPermissionSet() *core.Command {
 		Long:      `Permission sets management commands.`,
 		Namespace: "iam",
 		Resource:  "permission-set",
+	}
+}
+
+func iamJwt() *core.Command {
+	return &core.Command{
+		Short:     `JWTs management commands`,
+		Long:      `JWTs management commands.`,
+		Namespace: "iam",
+		Resource:  "jwt",
 	}
 }
 
@@ -1824,6 +1837,120 @@ func iamAPIKeyDelete() *core.Command {
 				Command: "scw iam api-key create",
 				Short:   "Create an API key",
 			},
+		},
+	}
+}
+
+func iamJwtList() *core.Command {
+	return &core.Command{
+		Short:     `List JWTs`,
+		Long:      `List JWTs.`,
+		Namespace: "iam",
+		Resource:  "jwt",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ListJWTsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Criteria for sorting results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
+				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+			},
+			{
+				Name:       "audience-id",
+				Short:      `ID of the user to search`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "expired",
+				Short:      `Filter out expired JWTs or not`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.ListJWTsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListJWTs(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Jwts, nil
+
+		},
+	}
+}
+
+func iamJwtGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a JWT`,
+		Long:      `Get a JWT.`,
+		Namespace: "iam",
+		Resource:  "jwt",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetJWTRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "jti",
+				Short:      `JWT ID of the JWT to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.GetJWTRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.GetJWT(request)
+
+		},
+	}
+}
+
+func iamJwtDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a JWT`,
+		Long:      `Delete a JWT.`,
+		Namespace: "iam",
+		Resource:  "jwt",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteJWTRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "jti",
+				Short:      `JWT ID of the JWT to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.DeleteJWTRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteJWT(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "jwt",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

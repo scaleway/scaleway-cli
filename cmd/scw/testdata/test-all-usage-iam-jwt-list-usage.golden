@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List JWTs.
+
+USAGE:
+  scw iam jwt list <audience-id ...> [arg=value ...]
+
+ARGS:
+  [order-by=created_at_asc]   Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc)
+  audience-id                 ID of the user to search
+  [expired]                   Filter out expired JWTs or not
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
