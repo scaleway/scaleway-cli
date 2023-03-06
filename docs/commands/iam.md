@@ -22,6 +22,10 @@ IAM API.
   - [List groups](#list-groups)
   - [Remove a user or an application from a group](#remove-a-user-or-an-application-from-a-group)
   - [Update a group](#update-a-group)
+- [JWTs management commands](#jwts-management-commands)
+  - [Delete a JWT](#delete-a-jwt)
+  - [Get a JWT](#get-a-jwt)
+  - [List JWTs](#list-jwts)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -447,6 +451,70 @@ scw iam group update <group-id ...> [arg=value ...]
 | group-id | Required | ID of group to update |
 | name |  | New name for the group (max length is 64 chars). MUST be unique inside an organization |
 | description |  | New description for the group (max length is 200 chars) |
+
+
+
+## JWTs management commands
+
+JWTs management commands.
+
+
+### Delete a JWT
+
+Delete a JWT.
+
+**Usage:**
+
+```
+scw iam jwt delete <jti ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| jti | Required | JWT ID of the JWT to delete |
+
+
+
+### Get a JWT
+
+Get a JWT.
+
+**Usage:**
+
+```
+scw iam jwt get <jti ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| jti | Required | JWT ID of the JWT to get |
+
+
+
+### List JWTs
+
+List JWTs.
+
+**Usage:**
+
+```
+scw iam jwt list <audience-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Criteria for sorting results |
+| audience-id | Required | ID of the user to search |
+| expired |  | Filter out expired JWTs or not |
 
 
 
