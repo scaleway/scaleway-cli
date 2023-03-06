@@ -20,6 +20,11 @@ func TestCommandMatchAlias(t *testing.T) {
 	commandWithoutArg := &Command{
 		Namespace: "second",
 		Resource:  "command",
+		ArgSpecs: ArgSpecs{
+			{
+				Name: "other-arg",
+			},
+		},
 	}
 
 	testAlias := alias.Alias{
