@@ -15,7 +15,7 @@ const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
 	DefaultConfigFileName   = "cli.yaml"
-	defaultConfigPermission = 0600
+	defaultConfigPermission = 0644
 )
 
 type Config struct {
