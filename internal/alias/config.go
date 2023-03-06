@@ -12,7 +12,7 @@ type Config struct {
 	// value can contain multiple aliases with the same first word
 	// key = instance
 	// value = isl, isc
-	aliasesByFirstWord map[string][]string
+	aliasesByFirstWord map[string][]Alias
 }
 
 func EmptyConfig() *Config {
@@ -61,13 +61,16 @@ func (c *Config) DeleteAlias(name string) bool {
 }
 
 func (c *Config) fillAliasByFirstWord() {
-	c.aliasesByFirstWord = make(map[string][]string, len(c.Aliases))
+	c.aliasesByFirstWord = make(map[string][]Alias, len(c.Aliases))
 	for alias, cmd := range c.Aliases {
 		if len(cmd) == 0 {
 			continue
 		}
 		path := cmd[0]
-		c.aliasesByFirstWord[path] = append(c.aliasesByFirstWord[path], alias)
+		c.aliasesByFirstWord[path] = append(c.aliasesByFirstWord[path], Alias{
+			Name:    alias,
+			Command: cmd,
+		})
 	}
 }
 
@@ -76,7 +79,7 @@ func (c *Config) fillAliasByFirstWord() {
 // may return
 // isl => instance server list
 // isc => instance server create
-func (c *Config) ResolveAliasesByFirstWord(firstWord string) ([]string, bool) {
+func (c *Config) ResolveAliasesByFirstWord(firstWord string) ([]Alias, bool) {
 	if c.aliasesByFirstWord == nil {
 		c.fillAliasByFirstWord()
 	}
