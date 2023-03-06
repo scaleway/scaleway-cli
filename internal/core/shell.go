@@ -58,6 +58,16 @@ func trimLastArg(args []string) []string {
 	return []string(nil)
 }
 
+// trimLastArg returns all arguments but the first one
+// return a nil slice if there is no other arguments
+func trimFirstArg(args []string) []string {
+	l := len(args)
+	if l > 1 {
+		return args[1:]
+	}
+	return []string(nil)
+}
+
 // argIsOption returns if an argument is an option
 func argIsOption(arg string) bool {
 	return strings.Contains(arg, "=") || strings.Contains(arg, ".")
@@ -172,18 +182,66 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 	return suggests
 }
 
+// CompletionCache allows to keep last completion request in cache
+// Useful to avoid request spamming when adding a character
+type CompletionCache struct {
+	wordsSum     string
+	arg          string
+	LastResponse *AutocompleteResponse
+}
+
+// completionCacheResetCharacterList is the list of character that will trigger cache reset
+var completionCacheResetCharacterList = []string{"=", "."}
+var completionCache CompletionCache
+
+func (cache *CompletionCache) HasChanged(leftWords []string, currentArg string, rightWords []string) bool {
+	wordsSum := strings.Join(leftWords, "-") + "_" + strings.Join(rightWords, "-")
+	if cache.wordsSum != wordsSum {
+		cache.wordsSum = wordsSum
+		cache.arg = currentArg
+		return true
+	}
+
+	for _, character := range completionCacheResetCharacterList {
+		if strings.Count(cache.arg, character) != strings.Count(currentArg, character) {
+			cache.arg = currentArg
+			return true
+		}
+	}
+
+	cache.arg = currentArg
+	return false
+}
+
 // Complete returns the list of suggestion based on prompt content
 func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
+	// shell lib can request duplicate Complete request with empty strings as text
+	// skipping to avoid cache reset
+	if d.Text == "" {
+		return nil
+	}
+
 	meta := extractMeta(c.ctx)
 
 	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextBeforeCursor(), " "))
 	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
-	// args contains all arguments before the one with the cursor
-	args := trimLastArg(argsBeforeCursor)
+	// leftArgs contains all arguments before the one with the cursor
+	leftArgs := trimLastArg(argsBeforeCursor)
+	// rightWords contains all words after the selected one
+	rightWords := trimFirstArg(argsAfterCursor)
 
-	acr := AutoComplete(c.ctx, append([]string{"scw"}, args...), currentArg, argsAfterCursor)
+	leftWords := append([]string{"scw"}, leftArgs...)
+
+	var acr *AutocompleteResponse
+
+	if completionCache.HasChanged(leftWords, currentArg, rightWords) {
+		acr = AutoComplete(c.ctx, leftWords, currentArg, rightWords)
+		completionCache.LastResponse = acr
+	} else {
+		acr = completionCache.LastResponse
+	}
 
 	suggestions := []prompt.Suggest(nil)
 
@@ -192,13 +250,13 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
 	if len(rawSuggestions) > 0 && argIsOption(rawSuggestions[0]) {
-		rawSuggestions = sortOptions(meta, args, rawSuggestions[0], rawSuggestions)
+		rawSuggestions = sortOptions(meta, leftArgs, rawSuggestions[0], rawSuggestions)
 	}
 
 	for _, suggest := range rawSuggestions {
 		suggestions = append(suggestions, prompt.Suggest{
 			Text:        suggest,
-			Description: getSuggestDescription(meta, args, suggest),
+			Description: getSuggestDescription(meta, leftArgs, suggest),
 		})
 	}
 
