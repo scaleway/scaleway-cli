@@ -407,7 +407,7 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 
 	// Complete arg value using list verb if possible
 	// "instance server get <tab>" completes "server-id" arg with "id" in instance server list
-	if len(possibleValues) == 0 && ExtractBetaMode(ctx) {
+	if len(possibleValues) == 0 {
 		possibleValues = AutocompleteGetArg(ctx, cmd, argSpec, completedArgs)
 	}
 
