@@ -260,7 +260,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// We check if argNameWords[0] is a positive integer to handle cases like keys.0.value=12
-		index, err := strconv.ParseUint(argNameWords[0], 10, 64)
+		index, err := strconv.ParseUint(argNameWords[0], 10, 32) // a slice index is 32 bit
 		if err != nil {
 			return &InvalidIndexError{Index: argNameWords[0]}
 		}
