@@ -3,6 +3,8 @@ package namespaces
 import (
 	"os"
 
+	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -80,6 +82,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		tem.GetCommands(),
 		mnq.GetCommands(),
 		alias.GetCommands(),
+		webhosting.GetCommands(),
 	)
 	if labs {
 		commands.Merge(ipfs.GetCommands())

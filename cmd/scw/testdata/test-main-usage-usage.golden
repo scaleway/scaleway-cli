@@ -22,6 +22,7 @@ AVAILABLE COMMANDS:
   init          Initialize the config
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
+  ipfs          Pinning service ipfs API for Scaleway
   k8s           Kapsule API
   lb            This API allows you to manage your load balancer service
   marketplace   Marketplace API
@@ -36,6 +37,7 @@ AVAILABLE COMMANDS:
   version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API
+  webhosting    Webhosting API
 
 FLAGS:
   -c, --config string    The path to the config file

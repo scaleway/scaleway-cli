@@ -1,0 +1,31 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all offers.
+
+USAGE:
+  scw webhosting offer list [arg=value ...]
+
+EXAMPLES:
+  List all offers available for purchase
+    scw webhosting offer list
+
+  List only offers, no options
+    scw webhosting offer list without-options=true
+
+  List only options
+    scw webhosting offer list only-options=true
+
+ARGS:
+  [order-by]          Define the order of the returned hostings (price_asc)
+  [without-options]   Select only offers, no options
+  [only-options]      Select only options
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
