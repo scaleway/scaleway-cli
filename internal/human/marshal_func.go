@@ -125,6 +125,13 @@ func init() {
 		}
 		return string(data), nil
 	})
+	registerMarshaler(func(i []byte, opt *MarshalOpt) (string, error) {
+		data, err := json.Marshal(i)
+		if err != nil {
+			return "", err
+		}
+		return strings.Trim(string(data), "\""), nil
+	})
 }
 
 func registerMarshaler[T any](marshalFunc func(i T, opt *MarshalOpt) (string, error)) {

@@ -24,6 +24,7 @@ type Struct struct {
 	Stringer    Stringer
 	StringerPtr *Stringer
 	Size        *scw.Size
+	Bytes       []byte
 }
 
 type StructAny struct {
@@ -113,6 +114,7 @@ func TestMarshal(t *testing.T) {
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
 			Size:        scw.SizePtr(13200),
+			Bytes:       []byte{0, 1},
 		},
 		result: `
 			String              This is a string
@@ -136,6 +138,7 @@ func TestMarshal(t *testing.T) {
 			Stringer            a stringer
 			StringerPtr         a stringer
 			Size                13 kB
+			Bytes               AAE=
 		`,
 	}))
 
