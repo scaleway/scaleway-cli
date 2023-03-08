@@ -109,3 +109,32 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 	return nil, fmt.Errorf("case is not handled")
 }
+
+// getTypeForFieldByName recursively search for fields in an ArgsType
+// The search is based on the name of the field.
+func getTypeForFieldByName(value reflect.Type, parts []string) (reflect.Type, error) {
+	if len(parts) == 0 {
+		return value, nil
+	}
+
+	switch value.Kind() {
+	case reflect.Ptr:
+		return getTypeForFieldByName(value.Elem(), parts)
+
+	case reflect.Slice:
+		return getTypeForFieldByName(value.Elem(), parts[1:])
+
+	case reflect.Map:
+		return getTypeForFieldByName(value.Elem(), parts[1:])
+
+	case reflect.Struct:
+		fieldName := strcase.ToPublicGoName(parts[0])
+		field, hasField := value.FieldByName(fieldName)
+		if !hasField {
+			return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Name())
+		}
+		return getTypeForFieldByName(field.Type, parts[1:])
+	}
+
+	return nil, fmt.Errorf("type kind %s is not handled", value.Kind().String())
+}

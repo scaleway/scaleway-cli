@@ -3,9 +3,11 @@ package core
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
@@ -117,6 +119,13 @@ func (a *ArgSpec) IsPartOfMapOrSlice() bool {
 func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
 	return (a.OneOfGroup != "" && b.OneOfGroup != "") &&
 		(a.OneOfGroup == b.OneOfGroup)
+}
+
+// GetArgsTypeField returns the type of the argument in the given ArgsType
+func (a *ArgSpec) GetArgsTypeField(argsType reflect.Type) (reflect.Type, error) {
+	argSpecGoName := strcase.ToPublicGoName(a.Name)
+
+	return getTypeForFieldByName(argsType, strings.Split(argSpecGoName, "."))
 }
 
 type DefaultFunc func(ctx context.Context) (value string, doc string)
