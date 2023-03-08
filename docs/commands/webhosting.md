@@ -213,6 +213,7 @@ scw webhosting offer list [arg=value ...]
 | order-by | One of: `price_asc` | Define the order of the returned hostings |
 | without-options |  | Select only offers, no options |
 | only-options |  | Select only options |
+| hosting-id |  | Define a specific hosting id (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
