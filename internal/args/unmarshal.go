@@ -107,6 +107,10 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		*(dest.(*scw.JSONObject)) = jsonObject
 		return nil
 	},
+	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest interface{}) error {
+		*(dest.(*[]byte)) = []byte(value)
+		return nil
+	},
 }
 
 // UnmarshalStruct parses args like ["arg1=1", "arg2=2"] to a Go structure using reflection.

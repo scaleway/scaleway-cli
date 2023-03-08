@@ -198,7 +198,7 @@ scw secret version create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the Secret |
-| data |  | The base64-encoded secret payload of the SecretVersion |
+| data | Required | Content of the secret version. Base64 is handled by the SDK |
 | description |  | Description of the SecretVersion |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
