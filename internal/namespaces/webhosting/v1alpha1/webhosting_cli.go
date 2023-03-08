@@ -386,6 +386,13 @@ func webhostingOfferList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "hosting-id",
+				Short:      `Define a specific hosting id (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -399,7 +406,7 @@ func webhostingOfferList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:    "List all offers available for purchase",
-				ArgsJSON: `{"only_options":false,"without_options":false}`,
+				ArgsJSON: `{"hosting_id":"a3244331-5d32-4e36-9bf9-b60233e201c7","only_options":false,"without_options":false}`,
 			},
 			{
 				Short:    "List only offers, no options",

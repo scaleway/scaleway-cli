@@ -19,6 +19,7 @@ ARGS:
   [order-by]          Define the order of the returned hostings (price_asc)
   [without-options]   Select only offers, no options
   [only-options]      Select only options
+  [hosting-id]        Define a specific hosting id (optional)
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
