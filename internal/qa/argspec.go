@@ -28,7 +28,6 @@ func testArgSpecInvalidError(commands *core.Commands) []error {
 
 	for _, command := range commands.GetAll() {
 		for _, arg := range command.ArgSpecs {
-
 			_, err := args.GetArgType(command.ArgsType, arg.Name)
 			if err != nil {
 				errors = append(errors, &ArgSpecInvalidError{Command: command, argSpec: arg, innerError: err})
