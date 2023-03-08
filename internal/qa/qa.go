@@ -19,6 +19,8 @@ func LintCommands(commands *core.Commands) []error {
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	errors = append(errors, testDuplicatedCommandError(commands)...)
 	errors = append(errors, testAtLeastOneExampleIsPresentError(commands)...)
+	errors = append(errors, testArgSpecInvalidError(commands)...)
+	errors = append(errors, testArgSpecMissingError(commands)...)
 
 	errors = filterIgnore(errors)
 

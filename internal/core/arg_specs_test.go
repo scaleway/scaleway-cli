@@ -1,7 +1,6 @@
 package core
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -36,36 +35,4 @@ func TestOneOf(t *testing.T) {
 	assert.False(t, a.ConflictWith(e))
 	assert.False(t, a.ConflictWith(c))
 	assert.False(t, e.ConflictWith(e))
-}
-
-func TestArgSpecGetArgsTypeField(t *testing.T) {
-	data := struct {
-		Field       string
-		FieldStruct struct {
-			NestedField int
-		}
-		FieldSlice []float32
-		FieldMap   map[string]bool
-	}{}
-	dataType := reflect.TypeOf(data)
-
-	fieldSpec := ArgSpec{Name: "field"}
-	typ, err := fieldSpec.GetArgsTypeField(dataType)
-	assert.Nil(t, err)
-	assert.Equal(t, reflect.TypeOf("string"), typ, "%s is not string", typ.Name())
-
-	fieldSpec = ArgSpec{Name: "field-struct.nested-field"}
-	typ, err = fieldSpec.GetArgsTypeField(dataType)
-	assert.Nil(t, err)
-	assert.Equal(t, reflect.TypeOf(int(1)), typ, "%s is not int", typ.Name())
-
-	fieldSpec = ArgSpec{Name: "field-slice.{index}"}
-	typ, err = fieldSpec.GetArgsTypeField(dataType)
-	assert.Nil(t, err)
-	assert.Equal(t, reflect.TypeOf(float32(1)), typ, "%s is not float32", typ.Name())
-
-	fieldSpec = ArgSpec{Name: "field-map.{key}"}
-	typ, err = fieldSpec.GetArgsTypeField(dataType)
-	assert.Nil(t, err)
-	assert.Equal(t, reflect.TypeOf(true), typ, "%s is not bool", typ.Name())
 }
