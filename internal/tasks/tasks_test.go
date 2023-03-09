@@ -3,7 +3,9 @@ package tasks_test
 import (
 	"context"
 	"fmt"
+	"os"
 	"testing"
+	"time"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -41,7 +43,7 @@ func TestCleanupOnContext(t *testing.T) {
 	ts := tasks.Begin()
 
 	clean := 0
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx := context.Background()
 
 	tasks.AddWithCleanUp(ts, "Task 1",
 		func(context.Context, interface{}) (interface{}, string, error) {
@@ -60,9 +62,24 @@ func TestCleanupOnContext(t *testing.T) {
 		},
 	)
 	tasks.AddWithCleanUp(ts, "Task 3",
-		func(context.Context, interface{}) (interface{}, string, error) {
-			cancel()
-			return nil, "", nil
+		func(ctx context.Context, _ interface{}) (interface{}, string, error) {
+			p, err := os.FindProcess(os.Getpid())
+			if err != nil {
+				return nil, "", err
+			}
+
+			// Interrupt tasks, as done with Ctrl-C
+			err = p.Signal(os.Interrupt)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			select {
+			case <-time.After(time.Second):
+				return nil, "", nil
+			case <-ctx.Done():
+				return nil, "", fmt.Errorf("interrupted")
+			}
 		}, func(context.Context, string) error {
 			clean++
 			return nil
@@ -70,6 +87,6 @@ func TestCleanupOnContext(t *testing.T) {
 	)
 
 	_, err := ts.Execute(ctx, nil)
-	assert.NotNil(t, err)
-	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
+	assert.NotNil(t, err, "context should have been interrupted")
+	assert.Equal(t, clean, 2, "2 task cleanup should have been executed")
 }
