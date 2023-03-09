@@ -3,14 +3,13 @@ package tasks
 import (
 	"context"
 	"fmt"
-	"time"
-
-	"github.com/briandowns/spinner"
+	"os"
+	"os/signal"
 )
 
-type Task func(args interface{}) (nextArgs interface{}, err error)
-type TaskWithCleanup[T any] func(args interface{}) (nextArgs interface{}, cleanupArgs T, err error)
-type Cleanup[T any] func(cleanupArgs T) error
+type Task func(ctx context.Context, args interface{}) (nextArgs interface{}, err error)
+type TaskWithCleanup[T any] func(ctx context.Context, args interface{}) (nextArgs interface{}, cleanupArgs T, err error)
+type Cleanup[T any] func(ctx context.Context, cleanupArgs T) error
 
 type taskInfo struct {
 	Name          string
@@ -31,8 +30,8 @@ func Begin() *Tasks {
 func (ts *Tasks) Add(name string, task Task) {
 	ts.tasks = append(ts.tasks, taskInfo{
 		Name: name,
-		function: func(i interface{}) (passedData interface{}, cleanUpData interface{}, err error) {
-			passedData, err = task(i)
+		function: func(ctx context.Context, i interface{}) (passedData interface{}, cleanUpData interface{}, err error) {
+			passedData, err = task(ctx, i)
 			return
 		},
 	})
@@ -42,18 +41,26 @@ func (ts *Tasks) Add(name string, task Task) {
 func AddWithCleanUp[T any](ts *Tasks, name string, task TaskWithCleanup[T], clean Cleanup[T]) {
 	ts.tasks = append(ts.tasks, taskInfo{
 		Name: name,
-		function: func(args interface{}) (nextArgs interface{}, cleanUpArgs any, err error) {
-			return task(args)
+		function: func(ctx context.Context, args interface{}) (nextArgs interface{}, cleanUpArgs any, err error) {
+			return task(ctx, args)
 		},
-		cleanFunction: func(cleanupArgs any) error {
-			return clean(cleanupArgs.(T))
+		cleanFunction: func(ctx context.Context, cleanupArgs any) error {
+			return clean(ctx, cleanupArgs.(T))
 		},
 	})
 }
 
+// setupContext return a contextWithCancel that will cancel on os interrupt (Ctrl-C)
+func setupContext(ctx context.Context) (context.Context, func()) {
+	return signal.NotifyContext(ctx, os.Interrupt)
+}
+
 // Cleanup execute all tasks cleanup function before failed one in reverse order
-func (ts *Tasks) Cleanup(failed int) {
+func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
 	totalTasks := len(ts.tasks)
+	loader := setupLoader()
+	cancelableCtx, cleanCtx := setupContext(ctx)
+	defer cleanCtx()
 
 	i := failed - 1
 	for ; i >= 0; i-- {
@@ -61,10 +68,19 @@ func (ts *Tasks) Cleanup(failed int) {
 
 		if task.cleanFunction != nil {
 			fmt.Printf("[%d/%d] Cleaning task %q\n", i+1, totalTasks, task.Name)
+			loader.Start()
 
-			err := task.cleanFunction(task.cleanupArgs)
+			err := task.cleanFunction(cancelableCtx, task.cleanupArgs)
 			if err != nil {
-				fmt.Printf("task %d failed to cleanup: %s", i+1, err.Error())
+				fmt.Printf("task %d failed to cleanup: %s\n", i+1, err.Error())
+			}
+			loader.Stop()
+
+			select {
+			case <-cancelableCtx.Done():
+				fmt.Println("cleanup has been cancelled")
+				return
+			default:
 			}
 		}
 	}
@@ -74,31 +90,40 @@ func (ts *Tasks) Cleanup(failed int) {
 func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, error) {
 	var err error
 	totalTasks := len(ts.tasks)
-	spin := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
+	loader := setupLoader()
+
+	cancelableCtx, cleanCtx := setupContext(ctx)
+	defer cleanCtx()
 
 	for i := range ts.tasks {
 		task := &ts.tasks[i]
 		fmt.Printf("[%d/%d] %s\n", i+1, totalTasks, task.Name)
-		spin.Start()
+		loader.Start()
 
-		data, task.cleanupArgs, err = task.function(data)
-		if err != nil {
-			spin.Stop()
+		data, task.cleanupArgs, err = task.function(cancelableCtx, data)
+		taskIsCancelled := false
+		select {
+		case <-cancelableCtx.Done():
+			taskIsCancelled = true
+		default:
+		}
+		if err != nil || taskIsCancelled {
+			loader.Stop()
 			fmt.Println("task failed, cleaning up created resources")
-			ts.Cleanup(i)
+			ts.Cleanup(ctx, i)
 			return nil, fmt.Errorf("task %d %q failed: %w", i+1, task.Name, err)
 		}
 
 		select {
 		case <-ctx.Done():
-			spin.Stop()
+			loader.Stop()
 			fmt.Println("context canceled, cleaning up created resources")
-			ts.Cleanup(i + 1)
+			ts.Cleanup(ctx, i+1)
 			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
 		default:
 		}
 
-		spin.Stop()
+		loader.Stop()
 	}
 
 	return data, nil

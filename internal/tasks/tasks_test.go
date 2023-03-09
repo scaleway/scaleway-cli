@@ -14,22 +14,22 @@ func TestCleanup(t *testing.T) {
 
 	clean := 0
 
-	tasks.AddWithCleanUp(ts, "Task 1", func(_ interface{}) (interface{}, string, error) {
+	tasks.AddWithCleanUp(ts, "Task 1", func(context.Context, interface{}) (interface{}, string, error) {
 		return nil, "", nil
-	}, func(string) error {
-		clean += 1
+	}, func(context.Context, string) error {
+		clean++
 		return nil
 	})
-	tasks.AddWithCleanUp(ts, "Task 2", func(_ interface{}) (interface{}, string, error) {
+	tasks.AddWithCleanUp(ts, "Task 2", func(context.Context, interface{}) (interface{}, string, error) {
 		return nil, "", nil
-	}, func(string) error {
-		clean += 1
+	}, func(context.Context, string) error {
+		clean++
 		return nil
 	})
-	tasks.AddWithCleanUp(ts, "Task 3", func(_ interface{}) (interface{}, string, error) {
+	tasks.AddWithCleanUp(ts, "Task 3", func(context.Context, interface{}) (interface{}, string, error) {
 		return nil, "", fmt.Errorf("fail")
-	}, func(string) error {
-		clean += 1
+	}, func(context.Context, string) error {
+		clean++
 		return nil
 	})
 	_, err := ts.Execute(context.Background(), nil)
@@ -43,25 +43,32 @@ func TestCleanupOnContext(t *testing.T) {
 	clean := 0
 	ctx, cancel := context.WithCancel(context.Background())
 
-	tasks.AddWithCleanUp(ts, "Task 1", func(_ interface{}) (interface{}, string, error) {
-		return nil, "", nil
-	}, func(string) error {
-		clean += 1
-		return nil
-	})
-	tasks.AddWithCleanUp(ts, "Task 2", func(_ interface{}) (interface{}, string, error) {
-		return nil, "", nil
-	}, func(string) error {
-		clean += 1
-		return nil
-	})
-	tasks.AddWithCleanUp(ts, "Task 3", func(_ interface{}) (interface{}, string, error) {
-		cancel()
-		return nil, "", nil
-	}, func(string) error {
-		clean += 1
-		return nil
-	})
+	tasks.AddWithCleanUp(ts, "Task 1",
+		func(context.Context, interface{}) (interface{}, string, error) {
+			return nil, "", nil
+		}, func(context.Context, string) error {
+			clean++
+			return nil
+		},
+	)
+	tasks.AddWithCleanUp(ts, "Task 2",
+		func(context.Context, interface{}) (interface{}, string, error) {
+			return nil, "", nil
+		}, func(context.Context, string) error {
+			clean++
+			return nil
+		},
+	)
+	tasks.AddWithCleanUp(ts, "Task 3",
+		func(context.Context, interface{}) (interface{}, string, error) {
+			cancel()
+			return nil, "", nil
+		}, func(context.Context, string) error {
+			clean++
+			return nil
+		},
+	)
+
 	_, err := ts.Execute(ctx, nil)
 	assert.NotNil(t, err)
 	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
