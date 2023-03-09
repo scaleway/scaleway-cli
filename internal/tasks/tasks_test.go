@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"runtime"
 	"testing"
 	"time"
 
@@ -40,6 +41,9 @@ func TestCleanup(t *testing.T) {
 }
 
 func TestCleanupOnContext(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Cannot send signal on windows")
+	}
 	ts := tasks.Begin()
 
 	clean := 0
