@@ -66,22 +66,22 @@ func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
 	for ; i >= 0; i-- {
 		task := ts.tasks[i]
 
+		select {
+		case <-cancelableCtx.Done():
+			fmt.Println("cleanup has been cancelled, there may be dangling resources")
+			return
+		default:
+		}
+
 		if task.cleanFunction != nil {
 			fmt.Printf("[%d/%d] Cleaning task %q\n", i+1, totalTasks, task.Name)
 			loader.Start()
 
 			err := task.cleanFunction(cancelableCtx, task.cleanupArgs)
 			if err != nil {
-				fmt.Printf("task %d failed to cleanup: %s\n", i+1, err.Error())
+				fmt.Printf("task %d failed to cleanup, there may be dangling resources: %s\n", i+1, err.Error())
 			}
 			loader.Stop()
-		}
-		
-		select {
-		case <-cancelableCtx.Done():
-			fmt.Println("cleanup has been cancelled")
-			return
-		default:
 		}
 	}
 }
