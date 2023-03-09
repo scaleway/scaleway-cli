@@ -75,13 +75,13 @@ func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
 				fmt.Printf("task %d failed to cleanup: %s\n", i+1, err.Error())
 			}
 			loader.Stop()
-
-			select {
-			case <-cancelableCtx.Done():
-				fmt.Println("cleanup has been cancelled")
-				return
-			default:
-			}
+		}
+		
+		select {
+		case <-cancelableCtx.Done():
+			fmt.Println("cleanup has been cancelled")
+			return
+		default:
 		}
 	}
 }
