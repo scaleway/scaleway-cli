@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/validation"
 
@@ -569,6 +570,18 @@ func configInfoCommand() *core.Command {
 				return nil, err
 			}
 
+			profileEnv := scw.LoadEnvProfile()
+
+			// Search for env variable that will override profile
+			// Will be used to display them
+			overridedVariables := []string(nil)
+			for _, key := range getProfileKeys() {
+				value, err := getProfileField(profileEnv, key)
+				if err == nil && !value.IsZero() {
+					overridedVariables = append(overridedVariables, key)
+				}
+			}
+
 			profileName := core.ExtractProfileName(ctx)
 			// use config.GetProfile instead of getProfile as we want the profile merged with the default
 			profile, err := config.GetProfile(profileName)
@@ -576,12 +589,19 @@ func configInfoCommand() *core.Command {
 				return nil, err
 			}
 
+			profile = scw.MergeProfiles(profile, profileEnv)
+
 			values := map[string]any{}
 			for _, key := range getProfileKeys() {
 				value, err := getProfileValue(profile, key)
 				if err == nil && value != nil {
 					values[key] = value
 				}
+			}
+
+			if len(overridedVariables) > 0 {
+				msg := "Some variables are overridden by the environment: " + strings.Join(overridedVariables, ", ")
+				fmt.Println(terminal.Style(msg, color.FgRed))
 			}
 
 			return struct {
