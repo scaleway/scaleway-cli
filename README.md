@@ -121,10 +121,11 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                          |
 | `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/)         |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                                |
-| `container`    | Container API                           | [CLI](./docs/commands/container.md) / [API](https://developers.scaleway.com/en/products/registry/api/)          |
+| `container`    | Serverless Container API                | [CLI](./docs/commands/container.md) / [API](https://developers.scaleway.com/en/products/containers/api/)        |
 | `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://developers.scaleway.com/en/products/domain/dns/api/)              |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                              |
 | `flexibleip`   | Flexible IP API                         | [CLI](./docs/commands/fip.md)   / [API](https://developers.scaleway.com/en/products/flexible-ip/api/)           |
+| `function`     | Serverless Function API                 | [CLI](./docs/commands/function.md) / [API](https://developers.scaleway.com/en/products/functions/api/)          |
 | `iam`          | IAM API                                 | [CLI](./docs/commands/iam.md) / [API](https://developers.scaleway.com/en/products/iam/api/v1alpha1/)            |
 | `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                                  |
 | `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                                  |
