@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Purge remote instances logs.
+Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.
 
 USAGE:
   scw rdb log purge [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance you want logs of
-  [log-name]        Specific log name to purge
+  instance-id       UUID of the Database Instance you want logs of
+  [log-name]        Given log name to purge
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

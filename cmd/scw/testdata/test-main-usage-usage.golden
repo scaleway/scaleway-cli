@@ -27,7 +27,7 @@ AVAILABLE COMMANDS:
   marketplace   Marketplace API
   mnq           This API allows you to manage Messaging or Queueing brokers
   object        Object-storage utils
-  rdb           Database RDB API
+  rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API
   registry      Container registry API
   secret        This API allows you to conveniently store, access and share sensitive data

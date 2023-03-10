@@ -1,22 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Database Instance is composed of one or more Nodes, depending of the is_ha_cluster setting. Autohealing is enabled by default for HA clusters. Database automated backup is enabled by default in order to prevent data loss.
+A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data. 
+
+**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](https://developers.scaleway.com/en/products/rdb/api/#read-replicas-8e2cf2)
+
+Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 
 USAGE:
   scw rdb instance <command>
 
 AVAILABLE COMMANDS:
-  clone             Clone an instance
+  clone             Clone a Database Instance
   connect           Connect to an instance using locally installed CLI
-  create            Create an instance
-  delete            Delete an instance
-  get               Get an instance
-  get-certificate   Get the TLS certificate of an instance
-  list              List instances
-  renew-certificate Renew the TLS certificate of an instance
-  restart           Restart an instance
+  create            Create a Database Instance
+  delete            Delete a Database Instance
+  get               Get a Database Instance
+  get-certificate   Get the TLS certificate of a Database Instance
+  list              List Database Instances
+  renew-certificate Renew the TLS certificate of a Database Instance
+  restart           Restart Database Instance
   update            Update an instance
-  upgrade           Upgrade an instance
+  upgrade           Upgrade a Database Instance
   wait              Wait for an instance to reach a stable state
 
 FLAGS:

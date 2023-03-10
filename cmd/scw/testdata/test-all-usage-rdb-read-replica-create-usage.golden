@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-You can only create a maximum of 3 read replicas for one instance.
+Create a new Read Replica of a Database Instance. You must specify the `region` and the `instance_id`. You can only create a maximum of 3 Read Replicas per Database Instance.
 
 USAGE:
   scw rdb read-replica create <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id                                                  UUID of the instance you want a read replica of
-  [endpoint-spec.{index}.private-network.private-network-id]   UUID of the private network to be connected to the read replica
-  [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.
+  instance-id                                                  UUID of the Database Instance you want to create a Read Replica from
+  [endpoint-spec.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Read Replica
+  [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
   [region=fr-par]                                              Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

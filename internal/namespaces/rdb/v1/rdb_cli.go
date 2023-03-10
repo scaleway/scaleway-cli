@@ -82,8 +82,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func rdbRoot() *core.Command {
 	return &core.Command{
-		Short:     `Database RDB API`,
-		Long:      `Database RDB API.`,
+		Short:     `Managed Database for PostgreSQL and MySQL API`,
+		Long:      `Managed Database for PostgreSQL and MySQL API.`,
 		Namespace: "rdb",
 	}
 }
@@ -91,7 +91,7 @@ func rdbRoot() *core.Command {
 func rdbBackup() *core.Command {
 	return &core.Command{
 		Short: `Backup management commands`,
-		Long: `Save and restore backups of your database instance.
+		Long: `A database backup is a dated export of a Database Instance stored on an offsite backend located in a different region than your database, by default. Once a backup is created, it can be used to restore the database. Each logical database in a Database Instance is backed up and can be restored separately.
 `,
 		Namespace: "rdb",
 		Resource:  "backup",
@@ -101,7 +101,7 @@ func rdbBackup() *core.Command {
 func rdbEngine() *core.Command {
 	return &core.Command{
 		Short: `Database engines commands`,
-		Long: `Software that stores and retrieves data from a database. Each database engine has a name and versions.
+		Long: `A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
 `,
 		Namespace: "rdb",
 		Resource:  "engine",
@@ -111,7 +111,11 @@ func rdbEngine() *core.Command {
 func rdbInstance() *core.Command {
 	return &core.Command{
 		Short: `Instance management commands`,
-		Long: `A Database Instance is composed of one or more Nodes, depending of the is_ha_cluster setting. Autohealing is enabled by default for HA clusters. Database automated backup is enabled by default in order to prevent data loss.
+		Long: `A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data. 
+
+**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](https://developers.scaleway.com/en/products/rdb/api/#read-replicas-8e2cf2)
+
+Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 `,
 		Namespace: "rdb",
 		Resource:  "instance",
@@ -121,7 +125,7 @@ func rdbInstance() *core.Command {
 func rdbACL() *core.Command {
 	return &core.Command{
 		Short: `Access Control List (ACL) management commands`,
-		Long: `Network Access Control List allows to control network in and out traffic by setting up ACL rules.
+		Long: `Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
 `,
 		Namespace: "rdb",
 		Resource:  "acl",
@@ -131,7 +135,14 @@ func rdbACL() *core.Command {
 func rdbPrivilege() *core.Command {
 	return &core.Command{
 		Short: `User privileges management commands`,
-		Long: `Define some privileges to a user on a specific database.
+		Long: `Privileges are permissions that can be granted to database users. You can manage user permissions either via the console, the Scaleway APIs or SQL. Managed Database for PostgreSQL and MySQL provides a simplified and unified permission model through the API and the console to make things easier to manage and understand.
+
+Each user has associated permissions that give them access to zero or more logical databases. These include:
+
+* **None:** No access to the database
+* **Read:** Allow users to read tables and fields in a database
+* **Write:** Allow users to write content in databases.
+* **Admin:** Read and write access to the data, and extended privileges depending on the database engine. 
 `,
 		Namespace: "rdb",
 		Resource:  "privilege",
@@ -141,7 +152,7 @@ func rdbPrivilege() *core.Command {
 func rdbUser() *core.Command {
 	return &core.Command{
 		Short: `User management commands`,
-		Long: `Manage users on your instance
+		Long: `Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an ` + "`" + `admin` + "`" + ` role can create new databases and users. 
 `,
 		Namespace: "rdb",
 		Resource:  "user",
@@ -151,7 +162,7 @@ func rdbUser() *core.Command {
 func rdbDatabase() *core.Command {
 	return &core.Command{
 		Short: `Database management commands`,
-		Long: `Manage logical databases on your instance
+		Long: `Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.
 `,
 		Namespace: "rdb",
 		Resource:  "database",
@@ -161,7 +172,10 @@ func rdbDatabase() *core.Command {
 func rdbNodeType() *core.Command {
 	return &core.Command{
 		Short: `Node types management commands`,
-		Long: `Node types powering your instance
+		Long: `Two node type ranges are available: 
+
+* **General Purpose:** production-grade nodes designed for scalable database infrastructures.
+* **Development:** sandbox environments and reliable performance for development and testing purposes.
 `,
 		Namespace: "rdb",
 		Resource:  "node-type",
@@ -180,7 +194,7 @@ func rdbLog() *core.Command {
 func rdbSnapshot() *core.Command {
 	return &core.Command{
 		Short: `Block snapshot management`,
-		Long: `Create, restore and manage block snapshot
+		Long: `A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.
 `,
 		Namespace: "rdb",
 		Resource:  "snapshot",
@@ -190,11 +204,17 @@ func rdbSnapshot() *core.Command {
 func rdbReadReplica() *core.Command {
 	return &core.Command{
 		Short: `Read replica management`,
-		Long: `A read replica is a live copy of the main database instance only available for reading. Read replica allows you to scale your database instance for read-heavy database workloads. Read replicas can also be used for Business Intelligence workloads. Listing of read replicas is available in the instance response object.
-A read replica can have at most one direct access and one private network endpoint. Loadbalancer endpoint is not available on read replica even if this resource is displayed in the read replica response example.
-If you want to remove a read replica endpoint, you can use the instance delete endpoint API call.
-Instance Access Control List (ACL) also applies on read replica direct access endpoint. Don't forget to set it to improve the security of your read replica nodes.
-Be aware that there can be replication lags between the primary node and its read replica nodes. You can try to reduce this lag with some good practices:
+		Long: `A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections. 
+The replica mirrors the data of the primary Database node and any changes made are replicated to the replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database workloads. They can also be used for business intelligence workloads.
+
+A Read Replica can have at most one direct access and one Private Network endpoint. ` + "`" + `Loadbalancer` + "`" + ` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
+
+If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](https://developers.scaleway.com/en/products/rdb/api/#delete-401f48) API call.
+
+Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
+
+**Limitations:**
+There might be replication lags between the primary node and its Read Replica nodes. You can try to reduce this lag with some good practices:
 * All your tables should have a primary key
 * Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.
 `,
@@ -206,7 +226,7 @@ Be aware that there can be replication lags between the primary node and its rea
 func rdbEngineList() *core.Command {
 	return &core.Command{
 		Short:     `List available database engines`,
-		Long:      `List available database engines.`,
+		Long:      `List the PostgreSQL and MySQL database engines available at Scaleway.`,
 		Namespace: "rdb",
 		Resource:  "engine",
 		Verb:      "list",
@@ -215,14 +235,14 @@ func rdbEngineList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the Database Engine`,
+				Short:      `Name of the database engine`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "version",
-				Short:      `Version of the Database Engine`,
+				Short:      `Version of the database engine`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -252,7 +272,7 @@ func rdbEngineList() *core.Command {
 func rdbNodeTypeList() *core.Command {
 	return &core.Command{
 		Short:     `List available node types`,
-		Long:      `List available node types.`,
+		Long:      `List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "rdb",
 		Resource:  "node-type",
 		Verb:      "list",
@@ -261,7 +281,7 @@ func rdbNodeTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
-				Short:      `Whether or not to include disabled types`,
+				Short:      `Defines whether or not to include disabled types`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -291,7 +311,7 @@ func rdbNodeTypeList() *core.Command {
 func rdbBackupList() *core.Command {
 	return &core.Command{
 		Short:     `List database backups`,
-		Long:      `List database backups.`,
+		Long:      `List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "list",
@@ -315,21 +335,21 @@ func rdbBackupList() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID the database backups belongs to`,
+				Short:      `Project ID of the Project the database backups belong to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID the database backups belongs to`,
+				Short:      `Organization ID of the Organization the database backups belong to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -359,7 +379,7 @@ func rdbBackupList() *core.Command {
 func rdbBackupCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a database backup`,
-		Long:      `Create a database backup.`,
+		Long:      `Create a new backup. You must set the ` + "`" + `instance_id` + "`" + `, ` + "`" + `database_name` + "`" + `, ` + "`" + `name` + "`" + ` and ` + "`" + `expires_at` + "`" + ` parameters.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "create",
@@ -368,14 +388,14 @@ func rdbBackupCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "database-name",
-				Short:      `Name of the database you want to make a backup of`,
+				Short:      `Name of the database you want to back up`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -390,7 +410,7 @@ func rdbBackupCreate() *core.Command {
 			},
 			{
 				Name:       "expires-at",
-				Short:      `Expiration date (Format ISO 8601)`,
+				Short:      `Expiration date (must follow the ISO 8601 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -411,7 +431,7 @@ func rdbBackupCreate() *core.Command {
 func rdbBackupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a database backup`,
-		Long:      `Get a database backup.`,
+		Long:      `Retrieve information about a given backup, specified by its database backup ID and region. Full details about the backup, like size, URL and expiration date, are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "get",
@@ -441,7 +461,7 @@ func rdbBackupGet() *core.Command {
 func rdbBackupUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a database backup`,
-		Long:      `Update a database backup.`,
+		Long:      `Update the parameters of a backup, including name and expiration date.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "update",
@@ -464,7 +484,7 @@ func rdbBackupUpdate() *core.Command {
 			},
 			{
 				Name:       "expires-at",
-				Short:      `Expiration date (Format ISO 8601)`,
+				Short:      `Expiration date (must follow the ISO 8601 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -485,7 +505,7 @@ func rdbBackupUpdate() *core.Command {
 func rdbBackupDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a database backup`,
-		Long:      `Delete a database backup.`,
+		Long:      `Delete a backup, specified by its database backup ID and region. Deleting a backup is permanent, and cannot be undone.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "delete",
@@ -515,7 +535,7 @@ func rdbBackupDelete() *core.Command {
 func rdbBackupRestore() *core.Command {
 	return &core.Command{
 		Short:     `Restore a database backup`,
-		Long:      `Restore a database backup.`,
+		Long:      `Launch the process of restoring database backup. You must specify the ` + "`" + `instance_id` + "`" + ` of the Database Instance of destination, where the backup will be restored. Note that large database backups can take up to several hours to restore.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "restore",
@@ -524,7 +544,7 @@ func rdbBackupRestore() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-name",
-				Short:      `Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup`,
+				Short:      `Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -538,7 +558,7 @@ func rdbBackupRestore() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `Defines the rdb instance where the backup has to be restored`,
+				Short:      `Defines the Database Instance where the backup has to be restored`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -559,7 +579,7 @@ func rdbBackupRestore() *core.Command {
 func rdbBackupExport() *core.Command {
 	return &core.Command{
 		Short:     `Export a database backup`,
-		Long:      `Export a database backup.`,
+		Long:      `Export a backup, specified by the ` + "`" + `database_backup_id` + "`" + ` and the ` + "`" + `region` + "`" + ` parameters. The download URL is returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "export",
@@ -588,8 +608,8 @@ func rdbBackupExport() *core.Command {
 
 func rdbInstanceUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade an instance`,
-		Long:      `Upgrade your current instance specifications like node type, high availability, volume, or db engine version.`,
+		Short:     `Upgrade a Database Instance`,
+		Long:      `Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the ` + "`" + `enable_ha` + "`" + ` parameter can only be set to ` + "`" + `true` + "`" + `.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "upgrade",
@@ -598,21 +618,21 @@ func rdbInstanceUpgrade() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to upgrade`,
+				Short:      `UUID of the Database Instance you want to upgrade`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "node-type",
-				Short:      `Node type of the instance you want to upgrade to`,
+				Short:      `Node type of the Database Instance you want to upgrade to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-ha",
-				Short:      `Set to true to enable high availability on your instance`,
+				Short:      `Defines whether or not high availability should be enabled on the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -626,7 +646,7 @@ func rdbInstanceUpgrade() *core.Command {
 			},
 			{
 				Name:       "volume-type",
-				Short:      `Change your instance storage type`,
+				Short:      `Change your Database Instance storage type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -634,7 +654,7 @@ func rdbInstanceUpgrade() *core.Command {
 			},
 			{
 				Name:       "upgradable-version-id",
-				Short:      `Update your instance database engine to a newer version`,
+				Short:      `Update your database engine to a newer version`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -654,8 +674,8 @@ func rdbInstanceUpgrade() *core.Command {
 
 func rdbInstanceList() *core.Command {
 	return &core.Command{
-		Short:     `List instances`,
-		Long:      `List instances.`,
+		Short:     `List Database Instances`,
+		Long:      `List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `tags` + "`" + ` and ` + "`" + `name` + "`" + `. For the ` + "`" + `name` + "`" + ` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "list",
@@ -664,21 +684,21 @@ func rdbInstanceList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
-				Short:      `List instance that have a given tags`,
+				Short:      `List Database Instances that have a given tag`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `List instance that match a given name pattern`,
+				Short:      `Lists Database Instances that match a name pattern`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Criteria to use when ordering instance listing`,
+				Short:      `Criteria to use when ordering Database Instance listings`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -686,14 +706,14 @@ func rdbInstanceList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to list the instance of`,
+				Short:      `Project ID to list the Database Instance of`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Please use ` + "`" + `project_id` + "`" + ` instead`,
+				Short:      `Please use project_id instead`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -754,8 +774,8 @@ func rdbInstanceList() *core.Command {
 
 func rdbInstanceGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an instance`,
-		Long:      `Get an instance.`,
+		Short:     `Get a Database Instance`,
+		Long:      `Retrieve information about a given Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Its full details, including name, status, IP address and port, are returned in the response object.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "get",
@@ -764,7 +784,7 @@ func rdbInstanceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -784,8 +804,8 @@ func rdbInstanceGet() *core.Command {
 
 func rdbInstanceCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an instance`,
-		Long:      `Create an instance.`,
+		Short:     `Create a Database Instance`,
+		Long:      `Create a new Database Instance. You must set the ` + "`" + `engine` + "`" + `, ` + "`" + `user_name` + "`" + `, ` + "`" + `password` + "`" + ` and ` + "`" + `node_type` + "`" + ` parameters. Optionally, you can specify the volume type and size.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "create",
@@ -795,7 +815,7 @@ func rdbInstanceCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `Name of the instance`,
+				Short:      `Name of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -803,14 +823,14 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "engine",
-				Short:      `Database engine of the database (PostgreSQL, MySQL, ...)`,
+				Short:      `Database engine of the Database Instance (PostgreSQL, MySQL, ...)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-name",
-				Short:      `Name of the user created when the instance is created`,
+				Short:      `Username created when the Database Instance is created`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -824,28 +844,28 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `Type of node to use for the instance`,
+				Short:      `Type of node to use for the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-ha-cluster",
-				Short:      `Whether or not High-Availability is enabled`,
+				Short:      `Defines whether or not High-Availability is enabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "disable-backup",
-				Short:      `Whether or not backups are disabled`,
+				Short:      `Defines whether or not backups are disabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to apply to the instance`,
+				Short:      `Tags to apply to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -864,7 +884,7 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "volume-type",
-				Short:      `Type of volume where data are stored (lssd, bssd, ...)`,
+				Short:      `Type of volume where data is stored (lssd, bssd, ...)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -879,21 +899,21 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.private-network-id",
-				Short:      `UUID of the private network to be connected to the database instance`,
+				Short:      `UUID of the Private Network to be connected to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "init-endpoints.{index}.private-network.service-ip",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "backup-same-region",
-				Short:      `Store logical backups in the same region as the database instance`,
+				Short:      `Defines whether to or not to store logical backups in the same region as the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -914,8 +934,8 @@ func rdbInstanceCreate() *core.Command {
 
 func rdbInstanceUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an instance`,
-		Long:      `Update an instance.`,
+		Short:     `Update a Database Instance`,
+		Long:      `Update the parameters of a Database Instance, including name, tags and backup schedule details.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "update",
@@ -938,49 +958,49 @@ func rdbInstanceUpdate() *core.Command {
 			},
 			{
 				Name:       "is-backup-schedule-disabled",
-				Short:      `Whether or not the backup schedule is disabled`,
+				Short:      `Defines whether or not the backup schedule is disabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the instance`,
+				Short:      `Name of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance to update`,
+				Short:      `UUID of the Database Instance to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags of a given instance`,
+				Short:      `Tags of a Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "logs-policy.max-age-retention",
-				Short:      `Max age (in day) of remote logs to keep on the database instance`,
+				Short:      `Max age (in days) of remote logs to keep on the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "logs-policy.total-disk-retention",
-				Short:      `Max disk size of remote logs to keep on the database instance`,
+				Short:      `Max disk size of remote logs to keep on the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "backup-same-region",
-				Short:      `Store logical backups in the same region as the database instance`,
+				Short:      `Store logical backups in the same region as the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1000,8 +1020,8 @@ func rdbInstanceUpdate() *core.Command {
 
 func rdbInstanceDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an instance`,
-		Long:      `Delete an instance.`,
+		Short:     `Delete a Database Instance`,
+		Long:      `Delete a given Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "delete",
@@ -1010,7 +1030,7 @@ func rdbInstanceDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance to delete`,
+				Short:      `UUID of the Database Instance to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1030,8 +1050,8 @@ func rdbInstanceDelete() *core.Command {
 
 func rdbInstanceClone() *core.Command {
 	return &core.Command{
-		Short:     `Clone an instance`,
-		Long:      `Clone an instance.`,
+		Short:     `Clone a Database Instance`,
+		Long:      `Clone a given Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "clone",
@@ -1040,14 +1060,14 @@ func rdbInstanceClone() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to clone`,
+				Short:      `UUID of the Database Instance you want to clone`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the clone instance`,
+				Short:      `Name of the Database Instance clone`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1074,8 +1094,8 @@ func rdbInstanceClone() *core.Command {
 
 func rdbInstanceRestart() *core.Command {
 	return &core.Command{
-		Short:     `Restart an instance`,
-		Long:      `Restart an instance.`,
+		Short:     `Restart Database Instance`,
+		Long:      `Restart a given Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. The status of the Database Instance returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "restart",
@@ -1084,7 +1104,7 @@ func rdbInstanceRestart() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to restart`,
+				Short:      `UUID of the Database Instance you want to restart`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1104,8 +1124,8 @@ func rdbInstanceRestart() *core.Command {
 
 func rdbInstanceGetCertificate() *core.Command {
 	return &core.Command{
-		Short:     `Get the TLS certificate of an instance`,
-		Long:      `Get the TLS certificate of an instance.`,
+		Short:     `Get the TLS certificate of a Database Instance`,
+		Long:      `Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "get-certificate",
@@ -1114,7 +1134,7 @@ func rdbInstanceGetCertificate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1134,8 +1154,8 @@ func rdbInstanceGetCertificate() *core.Command {
 
 func rdbInstanceRenewCertificate() *core.Command {
 	return &core.Command{
-		Short:     `Renew the TLS certificate of an instance`,
-		Long:      `Renew the TLS certificate of an instance.`,
+		Short:     `Renew the TLS certificate of a Database Instance`,
+		Long:      `Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "renew-certificate",
@@ -1144,7 +1164,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
+				Short:      `UUID of the Database Instance you want logs of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1170,8 +1190,8 @@ func rdbInstanceRenewCertificate() *core.Command {
 
 func rdbReadReplicaCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a read replica`,
-		Long:      `You can only create a maximum of 3 read replicas for one instance.`,
+		Short:     `Create a Read Replica`,
+		Long:      `Create a new Read Replica of a Database Instance. You must specify the ` + "`" + `region` + "`" + ` and the ` + "`" + `instance_id` + "`" + `. You can only create a maximum of 3 Read Replicas per Database Instance.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "create",
@@ -1180,21 +1200,21 @@ func rdbReadReplicaCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want a read replica of`,
+				Short:      `UUID of the Database Instance you want to create a Read Replica from`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
-				Short:      `UUID of the private network to be connected to the read replica`,
+				Short:      `UUID of the Private Network to be connected to the Read Replica`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.service-ip",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1214,8 +1234,8 @@ func rdbReadReplicaCreate() *core.Command {
 
 func rdbReadReplicaGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a read replica`,
-		Long:      `Get a read replica.`,
+		Short:     `Get a Read Replica`,
+		Long:      `Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like ` + "`" + `endpoints` + "`" + `, ` + "`" + `status` + "`" + `  and ` + "`" + `region` + "`" + ` are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "get",
@@ -1224,7 +1244,7 @@ func rdbReadReplicaGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
-				Short:      `UUID of the read replica`,
+				Short:      `UUID of the Read Replica`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1244,8 +1264,8 @@ func rdbReadReplicaGet() *core.Command {
 
 func rdbReadReplicaDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a read replica`,
-		Long:      `Delete a read replica.`,
+		Short:     `Delete a Read Replica`,
+		Long:      `Delete a Read Replica of a Database Instance. You must specify the ` + "`" + `region` + "`" + ` and ` + "`" + `read_replica_id` + "`" + ` parameters of the Read Replica you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "delete",
@@ -1254,7 +1274,7 @@ func rdbReadReplicaDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
-				Short:      `UUID of the read replica`,
+				Short:      `UUID of the Read Replica`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1274,10 +1294,9 @@ func rdbReadReplicaDelete() *core.Command {
 
 func rdbReadReplicaReset() *core.Command {
 	return &core.Command{
-		Short: `Resync a read replica`,
-		Long: `When you resync a read replica, first it is reset, and then its data is resynchronized from the primary node.
-Your read replica will be unavailable during the resync process. The duration of this process is proportional to your Database Instance size.
-The configured endpoints will not change.`,
+		Short: `Resync a Read Replica`,
+		Long: `When you resync a Read Replica, first it is reset, then its data is resynchronized from the primary node. Your Read Replica remains unavailable during the resync process. The duration of this process is proportional to the size of your Database Instance.
+The configured endpoints do not change.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "reset",
@@ -1286,7 +1305,7 @@ The configured endpoints will not change.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
-				Short:      `UUID of the read replica`,
+				Short:      `UUID of the Read Replica`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1306,8 +1325,8 @@ The configured endpoints will not change.`,
 
 func rdbReadReplicaCreateEndpoint() *core.Command {
 	return &core.Command{
-		Short:     `Create a new endpoint for a given read replica`,
-		Long:      `A read replica can have at most one direct access and one private network endpoint.`,
+		Short:     `Create an endpoint for a Read Replica`,
+		Long:      `Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "create-endpoint",
@@ -1316,21 +1335,21 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
-				Short:      `UUID of the read replica`,
+				Short:      `UUID of the Read Replica`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
-				Short:      `UUID of the private network to be connected to the read replica`,
+				Short:      `UUID of the Private Network to be connected to the Read Replica`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.service-ip",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1350,8 +1369,8 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 
 func rdbLogPrepare() *core.Command {
 	return &core.Command{
-		Short:     `Prepare logs of a given instance`,
-		Long:      `Prepare your instance logs. Logs will be grouped on a minimum interval of a day.`,
+		Short:     `Prepare logs of a Database Instance`,
+		Long:      `Prepare your Database Instance logs. You can define the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + ` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a ` + "`" + `.log` + "`" + ` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours.`,
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "prepare",
@@ -1360,21 +1379,21 @@ func rdbLogPrepare() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
+				Short:      `UUID of the Database Instance you want logs of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "start-date",
-				Short:      `Start datetime of your log. Format: ` + "`" + `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` + "`" + ``,
+				Short:      `Start datetime of your log. (RFC 3339 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "end-date",
-				Short:      `End datetime of your log. Format: ` + "`" + `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z` + "`" + ``,
+				Short:      `End datetime of your log. (RFC 3339 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1394,8 +1413,8 @@ func rdbLogPrepare() *core.Command {
 
 func rdbLogList() *core.Command {
 	return &core.Command{
-		Short:     `List available logs of a given instance`,
-		Long:      `List available logs of a given instance.`,
+		Short:     `List available logs of a Database Instance`,
+		Long:      `List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "list",
@@ -1404,14 +1423,14 @@ func rdbLogList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
+				Short:      `UUID of the Database Instance you want logs of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Criteria to use when ordering instance logs listing`,
+				Short:      `Criteria to use when ordering Database Instance logs listing`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1432,8 +1451,8 @@ func rdbLogList() *core.Command {
 
 func rdbLogGet() *core.Command {
 	return &core.Command{
-		Short:     `Get specific logs of a given instance`,
-		Long:      `Get specific logs of a given instance.`,
+		Short:     `Get given logs of a Database Instance`,
+		Long:      `Retrieve information about the logs of a Database Instance. Specify the ` + "`" + `instance_log_id` + "`" + ` and ` + "`" + `region` + "`" + ` in your request to get information such as ` + "`" + `download_url` + "`" + `, ` + "`" + `status` + "`" + `, ` + "`" + `expires_at` + "`" + ` and ` + "`" + `created_at` + "`" + ` about your logs in the response.`,
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "get",
@@ -1462,8 +1481,8 @@ func rdbLogGet() *core.Command {
 
 func rdbLogPurge() *core.Command {
 	return &core.Command{
-		Short:     `Purge remote instances logs`,
-		Long:      `Purge remote instances logs.`,
+		Short:     `Purge remote Database Instance logs`,
+		Long:      `Purge a given remote log from a Database Instance. You can specify the ` + "`" + `log_name` + "`" + ` of the log you wish to clean from your Database Instance.`,
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "purge",
@@ -1472,14 +1491,14 @@ func rdbLogPurge() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
+				Short:      `UUID of the Database Instance you want logs of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "log-name",
-				Short:      `Specific log name to purge`,
+				Short:      `Given log name to purge`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1505,8 +1524,8 @@ func rdbLogPurge() *core.Command {
 
 func rdbLogListDetails() *core.Command {
 	return &core.Command{
-		Short:     `List remote instances logs details`,
-		Long:      `List remote instances logs details.`,
+		Short:     `List remote Database Instance logs details`,
+		Long:      `List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "list-details",
@@ -1515,7 +1534,7 @@ func rdbLogListDetails() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want logs of`,
+				Short:      `UUID of the Database Instance you want logs of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1535,8 +1554,8 @@ func rdbLogListDetails() *core.Command {
 
 func rdbACLList() *core.Command {
 	return &core.Command{
-		Short:     `List ACL rules of a given instance`,
-		Long:      `List ACL rules of a given instance.`,
+		Short:     `List ACL rules of a Database Instance`,
+		Long:      `List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.`,
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "list",
@@ -1545,7 +1564,7 @@ func rdbACLList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1574,8 +1593,8 @@ func rdbACLList() *core.Command {
 
 func rdbACLAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add an ACL instance to a given instance`,
-		Long:      `Add an additional ACL rule to a database instance.`,
+		Short:     `Add an ACL rule to a Database Instance`,
+		Long:      `Add an additional ACL rule to a Database Instance.`,
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "add",
@@ -1584,7 +1603,7 @@ func rdbACLAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to add acl rules to`,
+				Short:      `UUID of the Database Instance you want to add ACL rules to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1616,8 +1635,8 @@ func rdbACLAdd() *core.Command {
 
 func rdbACLDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete ACL rules of a given instance`,
-		Long:      `Delete ACL rules of a given instance.`,
+		Short:     `Delete ACL rules of a Database Instance`,
+		Long:      `Delete one or more ACL rules of a Database Instance.`,
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "delete",
@@ -1626,14 +1645,14 @@ func rdbACLDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to delete an ACL rules from`,
+				Short:      `UUID of the Database Instance you want to delete an ACL rule from`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acl-rule-ips.{index}",
-				Short:      `ACL rules IP present on the instance`,
+				Short:      `IP addresses defined in the ACL rules of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1653,8 +1672,8 @@ func rdbACLDelete() *core.Command {
 
 func rdbUserList() *core.Command {
 	return &core.Command{
-		Short:     `List users of a given instance`,
-		Long:      `List users of a given instance.`,
+		Short:     `List users of a Database Instance`,
+		Long:      `List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "list",
@@ -1670,7 +1689,7 @@ func rdbUserList() *core.Command {
 			},
 			{
 				Name:       "order-by",
-				Short:      `Criteria to use when ordering users listing`,
+				Short:      `Criteria to use when requesting user listing`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1678,7 +1697,7 @@ func rdbUserList() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1707,8 +1726,8 @@ func rdbUserList() *core.Command {
 
 func rdbUserCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a user on a given instance`,
-		Long:      `Create a user on a given instance.`,
+		Short:     `Create a user for a Database Instance`,
+		Long:      `Create a new user for a Database Instance. You must define the ` + "`" + `name` + "`" + `, ` + "`" + `password` + "`" + ` and ` + "`" + `is_admin` + "`" + ` parameters.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "create",
@@ -1717,7 +1736,7 @@ func rdbUserCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance you want to create a user in`,
+				Short:      `UUID of the Database Instance in which you want to create a user`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1738,7 +1757,7 @@ func rdbUserCreate() *core.Command {
 			},
 			{
 				Name:       "is-admin",
-				Short:      `Whether the user you want to create will have administrative privileges`,
+				Short:      `Defines whether the user will have administrative privileges`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1758,8 +1777,8 @@ func rdbUserCreate() *core.Command {
 
 func rdbUserUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a user on a given instance`,
-		Long:      `Update a user on a given instance.`,
+		Short:     `Update a user on a Database Instance`,
+		Long:      `Update the parameters of a user on a Database Instance. You can update the ` + "`" + `password` + "`" + ` and ` + "`" + `is_admin` + "`" + ` parameters, but you cannot change the name of the user.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "update",
@@ -1768,7 +1787,7 @@ func rdbUserUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance the user belongs to`,
+				Short:      `UUID of the Database Instance the user belongs to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1789,7 +1808,7 @@ func rdbUserUpdate() *core.Command {
 			},
 			{
 				Name:       "is-admin",
-				Short:      `Whether or not this user got administrative privileges`,
+				Short:      `Defines whether or not this user got administrative privileges`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1809,8 +1828,8 @@ func rdbUserUpdate() *core.Command {
 
 func rdbUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a user on a given instance`,
-		Long:      `Delete a user on a given instance.`,
+		Short:     `Delete a user on a Database Instance`,
+		Long:      `Delete a given user on a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the user you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "delete",
@@ -1819,7 +1838,7 @@ func rdbUserDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance to delete a user from`,
+				Short:      `UUID of the Database Instance to delete the user from`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1852,8 +1871,8 @@ func rdbUserDelete() *core.Command {
 
 func rdbDatabaseList() *core.Command {
 	return &core.Command{
-		Short:     `List all database in a given instance`,
-		Long:      `List all database in a given instance.`,
+		Short:     `List databases in a Database Instance`,
+		Long:      `List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `name` + "`" + `, ` + "`" + `managed` + "`" + ` and ` + "`" + `owner` + "`" + `.`,
 		Namespace: "rdb",
 		Resource:  "database",
 		Verb:      "list",
@@ -1869,7 +1888,7 @@ func rdbDatabaseList() *core.Command {
 			},
 			{
 				Name:       "managed",
-				Short:      `Whether or not the database is managed`,
+				Short:      `Defines whether or not the database is managed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1891,7 +1910,7 @@ func rdbDatabaseList() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance to list database of`,
+				Short:      `UUID of the Database Instance to list the databases of`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1920,8 +1939,8 @@ func rdbDatabaseList() *core.Command {
 
 func rdbDatabaseCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a database in a given instance`,
-		Long:      `Create a database in a given instance.`,
+		Short:     `Create a database in a Database Instance`,
+		Long:      `Create a new database. You must define the ` + "`" + `name` + "`" + ` parameter in the request.`,
 		Namespace: "rdb",
 		Resource:  "database",
 		Verb:      "create",
@@ -1930,7 +1949,7 @@ func rdbDatabaseCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance where to create the database`,
+				Short:      `UUID of the Database Instance where to create the database`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1957,8 +1976,8 @@ func rdbDatabaseCreate() *core.Command {
 
 func rdbDatabaseDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a database in a given instance`,
-		Long:      `Delete a database in a given instance.`,
+		Short:     `Delete a database in a Database Instance`,
+		Long:      `Delete a given database on a Database Instance. You must specify, in the endpoint, the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the database you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "database",
 		Verb:      "delete",
@@ -1967,7 +1986,7 @@ func rdbDatabaseDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance where to delete the database`,
+				Short:      `UUID of the Database Instance where to delete the database`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2000,8 +2019,8 @@ func rdbDatabaseDelete() *core.Command {
 
 func rdbPrivilegeList() *core.Command {
 	return &core.Command{
-		Short:     `List privileges of a given user for a given database on a given instance`,
-		Long:      `List privileges of a given user for a given database on a given instance.`,
+		Short:     `List user privileges for a database`,
+		Long:      `List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `database_name` + "`" + ` and ` + "`" + `user_name` + "`" + `.`,
 		Namespace: "rdb",
 		Resource:  "privilege",
 		Verb:      "list",
@@ -2025,7 +2044,7 @@ func rdbPrivilegeList() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2061,8 +2080,8 @@ func rdbPrivilegeList() *core.Command {
 
 func rdbPrivilegeSet() *core.Command {
 	return &core.Command{
-		Short:     `Set privileges of a given user for a given database on a given instance`,
-		Long:      `Set privileges of a given user for a given database on a given instance.`,
+		Short:     `Set user privileges for a database`,
+		Long:      `Set the privileges of a user on a database. You must define ` + "`" + `database_name` + "`" + `, ` + "`" + `user_name` + "`" + ` and ` + "`" + `permission` + "`" + ` in the request body.`,
 		Namespace: "rdb",
 		Resource:  "privilege",
 		Verb:      "set",
@@ -2071,7 +2090,7 @@ func rdbPrivilegeSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2113,8 +2132,8 @@ func rdbPrivilegeSet() *core.Command {
 
 func rdbSnapshotList() *core.Command {
 	return &core.Command{
-		Short:     `List instance snapshots`,
-		Long:      `List instance snapshots.`,
+		Short:     `List snapshots`,
+		Long:      `List snapshots. You can include the ` + "`" + `instance_id` + "`" + ` or ` + "`" + `project_id` + "`" + ` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "list",
@@ -2138,7 +2157,7 @@ func rdbSnapshotList() *core.Command {
 			},
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2181,8 +2200,8 @@ func rdbSnapshotList() *core.Command {
 
 func rdbSnapshotGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an instance snapshot`,
-		Long:      `Get an instance snapshot.`,
+		Short:     `Get a Database Instance snapshot`,
+		Long:      `Retrieve information about a given snapshot, specified by its ` + "`" + `snapshot_id` + "`" + ` and ` + "`" + `region` + "`" + `. Full details about the snapshot, like size and expiration date, are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "get",
@@ -2211,8 +2230,8 @@ func rdbSnapshotGet() *core.Command {
 
 func rdbSnapshotCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an instance snapshot`,
-		Long:      `Create an instance snapshot.`,
+		Short:     `Create a Database Instance snapshot`,
+		Long:      `Create a new snapshot of a Database Instance. You must define the ` + "`" + `name` + "`" + ` parameter in the request.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "create",
@@ -2221,7 +2240,7 @@ func rdbSnapshotCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
-				Short:      `UUID of the instance`,
+				Short:      `UUID of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2236,7 +2255,7 @@ func rdbSnapshotCreate() *core.Command {
 			},
 			{
 				Name:       "expires-at",
-				Short:      `Expiration date (Format ISO 8601)`,
+				Short:      `Expiration date (must follow the ISO 8601 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2256,8 +2275,8 @@ func rdbSnapshotCreate() *core.Command {
 
 func rdbSnapshotUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an instance snapshot`,
-		Long:      `Update an instance snapshot.`,
+		Short:     `Update a Database Instance snapshot`,
+		Long:      `Update the parameters of a snapshot of a Database Instance. You can update the ` + "`" + `name` + "`" + ` and ` + "`" + `expires_at` + "`" + ` parameters.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "update",
@@ -2280,7 +2299,7 @@ func rdbSnapshotUpdate() *core.Command {
 			},
 			{
 				Name:       "expires-at",
-				Short:      `Expiration date (Format ISO 8601)`,
+				Short:      `Expiration date (must follow the ISO 8601 format)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2300,8 +2319,8 @@ func rdbSnapshotUpdate() *core.Command {
 
 func rdbSnapshotDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an instance snapshot`,
-		Long:      `Delete an instance snapshot.`,
+		Short:     `Delete a Database Instance snapshot`,
+		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + ` and ` + "`" + `snapshot_id` + "`" + ` parameters of the snapshot you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "delete",
@@ -2330,8 +2349,8 @@ func rdbSnapshotDelete() *core.Command {
 
 func rdbSnapshotRestore() *core.Command {
 	return &core.Command{
-		Short:     `Create a new instance from a given snapshot`,
-		Long:      `Create a new instance from a given snapshot.`,
+		Short:     `Create a new Database Instance from a snapshot`,
+		Long:      `Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "restore",
@@ -2340,21 +2359,21 @@ func rdbSnapshotRestore() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
-				Short:      `Block snapshot of the instance`,
+				Short:      `Block snapshot of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "instance-name",
-				Short:      `Name of the instance created with the snapshot`,
+				Short:      `Name of the Database Instance created with the snapshot`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-ha-cluster",
-				Short:      `Whether or not High-Availability is enabled on the new instance`,
+				Short:      `Defines whether or not High-Availability is enabled on the new Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

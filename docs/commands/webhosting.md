@@ -222,7 +222,7 @@ scw webhosting offer list [arg=value ...]
 
 List all offers available for purchase
 ```
-scw webhosting offer list
+scw webhosting offer list hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
 ```
 
 List only offers, no options

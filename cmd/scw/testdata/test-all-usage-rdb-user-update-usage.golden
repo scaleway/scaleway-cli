@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a user on a given instance.
+Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user.
 
 USAGE:
   scw rdb user update [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance the user belongs to
+  instance-id       UUID of the Database Instance the user belongs to
   name              Name of the database user
   [password]        Password of the database user
-  [is-admin]        Whether or not this user got administrative privileges
+  [is-admin]        Defines whether or not this user got administrative privileges
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

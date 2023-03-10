@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a user on a given instance.
+Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
 
 USAGE:
   scw rdb user create [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance you want to create a user in
+  instance-id       UUID of the Database Instance in which you want to create a user
   [name]            Name of the user you want to create
   [password]        Password of the user you want to create
-  [is-admin]        Whether the user you want to create will have administrative privileges
+  [is-admin]        Defines whether the user will have administrative privileges
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
