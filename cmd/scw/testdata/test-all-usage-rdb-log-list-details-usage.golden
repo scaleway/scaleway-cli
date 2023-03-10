@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List remote instances logs details.
+List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 
 USAGE:
   scw rdb log list-details [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance you want logs of
+  instance-id       UUID of the Database Instance you want logs of
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

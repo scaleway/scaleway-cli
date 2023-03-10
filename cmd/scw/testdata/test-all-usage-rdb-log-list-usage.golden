@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List available logs of a given instance.
+List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 
 USAGE:
   scw rdb log list [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance you want logs of
-  [order-by]        Criteria to use when ordering instance logs listing (created_at_asc | created_at_desc)
+  instance-id       UUID of the Database Instance you want logs of
+  [order-by]        Criteria to use when ordering Database Instance logs listing (created_at_asc | created_at_desc)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

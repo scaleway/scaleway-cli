@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List database backups.
+List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 
 USAGE:
   scw rdb backup list [arg=value ...]
@@ -8,9 +8,9 @@ USAGE:
 ARGS:
   [name]              Name of the database backups
   [order-by]          Criteria to use when ordering database backups listing (created_at_asc | created_at_desc | name_asc | name_desc | status_asc | status_desc)
-  [instance-id]       UUID of the instance
-  [project-id]        Project ID the database backups belongs to
-  [organization-id]   Organization ID the database backups belongs to
+  [instance-id]       UUID of the Database Instance
+  [project-id]        Project ID of the Project the database backups belong to
+  [organization-id]   Organization ID of the Organization the database backups belong to
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

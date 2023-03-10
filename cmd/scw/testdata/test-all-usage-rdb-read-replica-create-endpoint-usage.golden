@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A read replica can have at most one direct access and one private network endpoint.
+Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.
 
 USAGE:
   scw rdb read-replica create-endpoint <read-replica-id ...> [arg=value ...]
 
 ARGS:
-  read-replica-id                                              UUID of the read replica
-  [endpoint-spec.{index}.private-network.private-network-id]   UUID of the private network to be connected to the read replica
-  [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.
+  read-replica-id                                              UUID of the Read Replica
+  [endpoint-spec.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Read Replica
+  [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
   [region=fr-par]                                              Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

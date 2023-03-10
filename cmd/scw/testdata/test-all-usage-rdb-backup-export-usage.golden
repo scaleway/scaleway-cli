@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Export a database backup.
+Export a backup, specified by the `database_backup_id` and the `region` parameters. The download URL is returned in the response.
 
 USAGE:
   scw rdb backup export <database-backup-id ...> [arg=value ...]

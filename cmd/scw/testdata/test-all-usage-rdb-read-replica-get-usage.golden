@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a read replica.
+Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
 
 USAGE:
   scw rdb read-replica get <read-replica-id ...> [arg=value ...]
 
 ARGS:
-  read-replica-id   UUID of the read replica
+  read-replica-id   UUID of the Read Replica
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a database backup.
+Delete a backup, specified by its database backup ID and region. Deleting a backup is permanent, and cannot be undone.
 
 USAGE:
   scw rdb backup delete <database-backup-id ...> [arg=value ...]
