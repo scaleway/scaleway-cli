@@ -6,11 +6,11 @@ USAGE:
   scw lb certificate <command>
 
 AVAILABLE COMMANDS:
-  create      Create a TLS certificate
-  delete      Delete a TLS certificate
-  get         Get a TLS certificate
-  list        List all TLS certificates on a given load balancer
-  update      Update a TLS certificate
+  create      Create an SSL/TLS certificate
+  delete      Delete an SSL/TLS certificate
+  get         Get an SSL/TLS certificate
+  list        List all SSL/TLS certificates on a given Load Balancer
+  update      Update an SSL/TLS certificate
 
 FLAGS:
   -h, --help   help for certificate

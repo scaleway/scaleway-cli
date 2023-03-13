@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get an IP.
+Retrieve the full details of a Load Balancer flexible IP address.
 
 USAGE:
   scw lb ip get <ip-id ...> [arg=value ...]
