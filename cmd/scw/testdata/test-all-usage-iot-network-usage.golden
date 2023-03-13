@@ -5,7 +5,7 @@ IoT Network commands.
 USAGE:
   scw iot network <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new Network
   delete      Delete a Network
   get         Retrieve a specific Network

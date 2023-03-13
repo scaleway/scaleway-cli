@@ -5,7 +5,7 @@ The set of DNS record of a specific domain associated to a hosting.
 USAGE:
   scw webhosting dns-record <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   get         Get the DNS records
 
 FLAGS:

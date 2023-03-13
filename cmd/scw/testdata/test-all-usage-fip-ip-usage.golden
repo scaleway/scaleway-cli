@@ -6,7 +6,7 @@ A server can be linked with multiple Flexible IPs attached to it.
 USAGE:
   scw fip ip <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   attach      Attach a Flexible IP to a server
   create      Create a Flexible IP
   delete      Delete a Flexible IP

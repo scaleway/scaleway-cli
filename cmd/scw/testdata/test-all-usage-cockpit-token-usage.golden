@@ -5,7 +5,7 @@ Token management commands.
 USAGE:
   scw cockpit token <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a token
   delete      Delete token
   get         Get token

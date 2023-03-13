@@ -5,7 +5,7 @@ Domain management commands.
 USAGE:
   scw function domain <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a domain name binding
   delete      Delete a domain name binding
   get         Get a domain name binding

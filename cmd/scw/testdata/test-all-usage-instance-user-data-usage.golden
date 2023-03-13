@@ -15,7 +15,7 @@ There are two endpoints to access user data:
 USAGE:
   scw instance user-data <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   delete      Delete user data
   get         Get user data
   list        List user data

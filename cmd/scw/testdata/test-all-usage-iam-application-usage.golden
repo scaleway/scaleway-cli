@@ -5,7 +5,7 @@ Applications management commands.
 USAGE:
   scw iam application <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new application
   delete      Delete an application
   get         Get an existing application

@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 
 func feedbackRoot() *core.Command {
 	return &core.Command{
+		Groups:    []string{"utility"},
 		Short:     `Send feedback to the Scaleway CLI Team!`,
 		Namespace: "feedback",
 		ArgsType:  reflect.TypeOf(struct{}{}),
@@ -26,6 +27,7 @@ func feedbackRoot() *core.Command {
 
 func feedbackBugCommand() *core.Command {
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                `Send a bug-report`,
 		Long:                 `Send a bug-report to the Scaleway CLI team.`,
 		Namespace:            "feedback",
@@ -53,6 +55,7 @@ func feedbackBugCommand() *core.Command {
 
 func feedbackFeatureRequestCommand() *core.Command {
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                `Send a feature request`,
 		Long:                 `Send a feature request to the Scaleway CLI team.`,
 		Namespace:            "feedback",

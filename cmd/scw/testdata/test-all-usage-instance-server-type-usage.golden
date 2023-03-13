@@ -6,7 +6,7 @@ Each of these types will contains all the features of the instance (CPU, RAM, St
 USAGE:
   scw instance server-type <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List server types
 
 FLAGS:

@@ -14,7 +14,7 @@ A namespace can be either public or private (default), which determines who can 
 USAGE:
   scw registry namespace <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new namespace
   delete      Delete an existing namespace
   get         Get a namespace

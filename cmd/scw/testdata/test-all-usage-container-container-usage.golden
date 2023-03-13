@@ -5,7 +5,7 @@ Container management commands.
 USAGE:
   scw container container <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new container
   delete      Delete a container
   deploy      Deploy a container

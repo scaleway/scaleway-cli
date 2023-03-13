@@ -5,7 +5,7 @@ This API allows to manage your Bare metal server.
 USAGE:
   scw baremetal <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   bmc             Baseboard Management Controller (BMC) management commands
   offer           Server offer management commands
   options         Server options management commands

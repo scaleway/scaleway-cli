@@ -5,7 +5,7 @@ Runtime management commands.
 USAGE:
   scw function runtime <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List function runtimes
 
 FLAGS:

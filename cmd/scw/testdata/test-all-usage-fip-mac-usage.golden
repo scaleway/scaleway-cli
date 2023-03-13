@@ -5,7 +5,7 @@ MAC address management commands.
 USAGE:
   scw fip mac <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Generate a virtual MAC on a given Flexible IP
   delete      Remove a virtual MAC from a Flexible IP
   duplicate   Duplicate a Virtual MAC

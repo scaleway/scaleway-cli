@@ -17,7 +17,7 @@ There might be replication lags between the primary node and its Read Replica no
 USAGE:
   scw rdb read-replica <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create          Create a Read Replica
   create-endpoint Create an endpoint for a Read Replica
   delete          Delete a Read Replica

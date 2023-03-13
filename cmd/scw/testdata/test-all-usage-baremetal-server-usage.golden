@@ -5,7 +5,7 @@ A server is a denomination of a type of instances provided by Scaleway
 USAGE:
   scw baremetal server <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create an elastic metal server
   delete      Delete an elastic metal server
   get         Get a specific elastic metal server

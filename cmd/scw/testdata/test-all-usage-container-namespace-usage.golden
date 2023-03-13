@@ -5,7 +5,7 @@ Namespace management commands.
 USAGE:
   scw container namespace <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new namespace
   delete      Delete an existing namespace
   get         Get a namespace

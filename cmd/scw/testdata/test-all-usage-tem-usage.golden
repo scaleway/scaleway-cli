@@ -5,7 +5,7 @@ Tem.
 USAGE:
   scw tem <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   domain      Domain management commands
   email       Email management commands
 

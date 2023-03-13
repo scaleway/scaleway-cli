@@ -5,7 +5,7 @@ DNS records management.
 USAGE:
   scw dns record <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   add                Add a new DNS record
   bulk-update        Update DNS zone records
   clear              Clear DNS zone records

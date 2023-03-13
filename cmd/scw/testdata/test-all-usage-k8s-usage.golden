@@ -5,7 +5,7 @@ Kapsule API.
 USAGE:
   scw k8s <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   cluster     Kapsule cluster management commands
   kubeconfig  Manage your Kubernetes Kapsule cluster's kubeconfig files
   node        Kapsule node management commands

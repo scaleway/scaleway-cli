@@ -5,7 +5,7 @@ Databases can be used to store and manage sets of structured information, or dat
 USAGE:
   scw rdb database <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a database in a Database Instance
   delete      Delete a database in a Database Instance
   list        List databases in a Database Instance

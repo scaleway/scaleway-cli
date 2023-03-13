@@ -5,7 +5,7 @@ This API allows to manage Cockpits.
 USAGE:
   scw cockpit <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   cockpit      Cockpit management commands
   grafana-user Grafana user management commands
   token        Token management commands

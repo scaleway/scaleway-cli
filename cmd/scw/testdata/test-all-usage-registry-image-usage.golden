@@ -8,7 +8,7 @@ It can be changed with an update on the image via the registry API.
 USAGE:
   scw registry image <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   delete      Delete an image
   get         Get a image
   list        List all your images

@@ -5,7 +5,7 @@ Groups management commands.
 USAGE:
   scw iam group <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   add-member    Add a user of an application to a group
   create        Create a new group
   delete        Delete a group

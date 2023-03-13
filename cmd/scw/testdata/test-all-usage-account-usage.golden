@@ -5,7 +5,7 @@ This API allows you to manage projects.
 USAGE:
   scw account <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   project     Project management commands
 
 FLAGS:

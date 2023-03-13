@@ -13,6 +13,7 @@ func GetCommands() *core.Commands {
 
 func versionCommand() *core.Command {
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                `Display cli version`,
 		Namespace:            "version",
 		AllowAnonymousClient: true,

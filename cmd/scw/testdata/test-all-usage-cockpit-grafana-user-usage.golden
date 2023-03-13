@@ -5,7 +5,7 @@ Grafana user management commands.
 USAGE:
   scw cockpit grafana-user <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create         Create a grafana user
   delete         Delete a grafana user
   list           List grafana users

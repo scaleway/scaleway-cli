@@ -5,7 +5,7 @@ Flexible IP API.
 USAGE:
   scw fip <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   ip          Flexible IP management commands
   mac         MAC address management commands
 

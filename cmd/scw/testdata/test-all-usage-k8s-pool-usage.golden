@@ -7,7 +7,7 @@ A "default pool" is automatically created with every cluster.
 USAGE:
   scw k8s pool <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new pool in a cluster
   delete      Delete a pool in a cluster
   get         Get a pool in a cluster

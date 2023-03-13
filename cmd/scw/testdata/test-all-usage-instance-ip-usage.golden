@@ -8,7 +8,7 @@ Be aware that attaching a flexible IP address to a server will remove the previo
 USAGE:
   scw instance ip <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   attach      Attach an IP to a given server
   create      Reserve a flexible IP
   delete      Delete a flexible IP

@@ -22,6 +22,11 @@ type cobraBuilder struct {
 	ctx      context.Context
 }
 
+var groups = map[string]*cobra.Group{
+	"product": {ID: "product", Title: "PRODUCT COMMANDS"},
+	"utility": {ID: "utility", Title: "UTILITY COMMANDS"},
+}
+
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
 	commands := b.commands.GetAll()
@@ -37,6 +42,9 @@ func (b *cobraBuilder) build() *cobra.Command {
 
 		// Do not display usage on error.
 		SilenceUsage: true,
+	}
+	for _, group := range groups {
+		rootCmd.AddGroup(group)
 	}
 
 	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
@@ -144,41 +152,83 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		}
 	}
 
+	// If a command has no groups, we add it to the product group.
+	if len(cmd.Groups) == 0 && len(cobraCmd.Groups()) == 0 {
+		cobraCmd.AddGroup(groups["product"])
+	} else {
+		for _, groupID := range cmd.Groups {
+			cobraCmd.AddGroup(groups[groupID])
+		}
+	}
+
 	if cmd.WaitFunc != nil {
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
 	}
 }
 
 const usageTemplate = `USAGE:
-  {{.Annotations.CommandUsage}}{{if gt (len .Aliases) 0}}
+  {{.Annotations.CommandUsage}}
+{{- if gt (len .Aliases) 0}}
 
 ALIASES:
 {{.Annotations.Aliases}}
-{{- end}}{{if .Annotations.Examples}}
+{{- end}}
+{{- if .Annotations.Examples}}
 
 EXAMPLES:
-{{.Annotations.Examples}}{{end}}{{if .Annotations.UsageArgs}}
+{{.Annotations.Examples}}
+{{- end }}
+{{- if .Annotations.UsageArgs}}
 
 ARGS:
-{{.Annotations.UsageArgs}}{{end}}{{if .Annotations.UsageDeprecatedArgs}}
+{{.Annotations.UsageArgs}}
+{{- end}}
+{{- if .Annotations.UsageDeprecatedArgs}}
 
 DEPRECATED ARGS:
-{{.Annotations.UsageDeprecatedArgs}}{{end}}{{if .HasAvailableSubCommands}}
+{{.Annotations.UsageDeprecatedArgs}}
+{{- end}}
+{{- if .HasAvailableSubCommands}}
 
-AVAILABLE COMMANDS:{{range orderCommands .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
-  {{rpad .Name .NamePadding }} {{if .Short}}{{.Short}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
+{{- range $_, $group := .Groups }}
+
+{{ $group.Title }}:
+{{- range $_, $command := orderCommands $.Commands }}
+{{- if $command.IsAvailableCommand }}
+  {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
+  {{ rpad $command.Name .NamePadding }} {{ if $command.Short }}{{ $command.Short }}{{end}}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .HasAvailableLocalFlags }}
 
 FLAGS:
-{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .HasAvailableInheritedFlags}}
+{{ .LocalFlags.FlagUsages | trimTrailingWhitespaces }}
+{{- end}}
+{{- if .HasAvailableInheritedFlags }}
 
 GLOBAL FLAGS:
-{{ .InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .Annotations.SeeAlsos}}
+{{ .InheritedFlags.FlagUsages | trimTrailingWhitespaces}}
+{{- end}}
+{{- if .Annotations.SeeAlsos}}
 
 SEE ALSO:
-{{.Annotations.SeeAlsos}}{{end}}{{if .HasHelpSubCommands}}
+{{.Annotations.SeeAlsos}}
+{{- end}}
+{{- if .HasHelpSubCommands}}
 
-Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
-  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
+Additional help topics:
+{{- range .Commands}}
+{{- if .IsAdditionalHelpTopicCommand}}
+  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}
+{{- end}}
+{{- end}}
 
-Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
+{{- end}}
+{{- if .HasAvailableSubCommands}}
+
+Use "{{.CommandPath}} [command] --help" for more information about a command.
+{{- end}}
 `

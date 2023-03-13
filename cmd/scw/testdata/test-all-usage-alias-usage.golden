@@ -24,7 +24,7 @@ EXAMPLES:
   Create an alias for a verb
     scw alias create c command=create
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new alias for a command
   delete      Delete an alias
   list        List aliases and their commands

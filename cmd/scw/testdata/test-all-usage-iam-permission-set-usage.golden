@@ -5,7 +5,7 @@ Permission sets management commands.
 USAGE:
   scw iam permission-set <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List permission sets
 
 FLAGS:

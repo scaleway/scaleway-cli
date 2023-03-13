@@ -5,7 +5,7 @@ A database backup is a dated export of a Database Instance stored on an offsite 
 USAGE:
   scw rdb backup <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a database backup
   delete      Delete a database backup
   download    Download a backup locally

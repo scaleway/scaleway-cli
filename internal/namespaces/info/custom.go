@@ -55,6 +55,7 @@ func infosRoot() *core.Command {
 	}
 
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                `Get info about current settings`,
 		Namespace:            "info",
 		AllowAnonymousClient: true,

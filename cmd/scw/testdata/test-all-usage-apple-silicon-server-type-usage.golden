@@ -5,7 +5,7 @@ Server-Types management commands
 USAGE:
   scw apple-silicon server-type <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   get         Get a server type
   list        List server types
 

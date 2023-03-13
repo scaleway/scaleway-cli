@@ -5,7 +5,7 @@ DNS zones version management.
 USAGE:
   scw dns version <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   diff        Get DNS zone version diff
   list        List DNS zone versions
   restore     Restore DNS zone version

@@ -19,7 +19,7 @@ of the data of the original volume.
 USAGE:
   scw instance snapshot <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a snapshot from a given volume or from a QCOW2 file
   delete      Delete a snapshot
   export      Export a snapshot

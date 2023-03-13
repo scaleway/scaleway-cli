@@ -12,7 +12,7 @@ Each user has associated permissions that give them access to zero or more logic
 USAGE:
   scw rdb privilege <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List user privileges for a database
   set         Set user privileges for a database
 

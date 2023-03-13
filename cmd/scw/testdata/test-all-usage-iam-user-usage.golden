@@ -5,7 +5,7 @@ Users management commands.
 USAGE:
   scw iam user <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   delete      Delete a guest user from an organization
   get         Retrieve a user from its ID
   list        List users of an organization

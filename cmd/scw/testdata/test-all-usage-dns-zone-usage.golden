@@ -5,7 +5,7 @@ DNS Zones management.
 USAGE:
   scw dns zone <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   clone       Clone a DNS zone
   create      Create a DNS zone
   delete      Delete DNS zone

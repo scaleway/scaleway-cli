@@ -5,7 +5,7 @@ Managed Database for PostgreSQL and MySQL API.
 USAGE:
   scw rdb <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   acl          Access Control List (ACL) management commands
   backup       Backup management commands
   database     Database management commands

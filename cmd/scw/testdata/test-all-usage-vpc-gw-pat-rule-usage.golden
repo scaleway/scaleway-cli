@@ -5,7 +5,7 @@ PAT (Port Address Translation) rules are global to a gateway. They define the fo
 USAGE:
   scw vpc-gw pat-rule <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a PAT rule
   delete      Delete a PAT rule
   get         Get a PAT rule

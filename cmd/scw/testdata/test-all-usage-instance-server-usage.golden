@@ -34,7 +34,7 @@ directly exposed through PCI-e. For more information, refer to the
 USAGE:
   scw instance server <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   attach-ip     Attach an IP to a server
   attach-volume Attach a volume to a server
   backup        Backup server

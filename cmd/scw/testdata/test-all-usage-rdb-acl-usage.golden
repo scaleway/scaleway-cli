@@ -5,7 +5,7 @@ Network Access Control Lists allow you to control incoming network traffic by se
 USAGE:
   scw rdb acl <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   add         Add an ACL rule to a Database Instance
   delete      Delete ACL rules of a Database Instance
   list        List ACL rules of a Database Instance

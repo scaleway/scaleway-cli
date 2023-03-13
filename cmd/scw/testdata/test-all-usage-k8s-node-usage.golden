@@ -7,7 +7,7 @@ Please note that Kubernetes nodes cannot be accessed with ssh.
 USAGE:
   scw k8s node <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   delete      Delete a node in a cluster
   get         Get a node in a cluster
   list        List all the nodes in a cluster

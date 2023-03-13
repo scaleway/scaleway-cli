@@ -5,7 +5,7 @@ Serverless functions API.
 USAGE:
   scw function <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   cron        Cron management commands
   domain      Domain management commands
   function    Function management commands

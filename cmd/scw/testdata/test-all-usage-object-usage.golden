@@ -5,7 +5,7 @@ Object-storage utils
 USAGE:
   scw object <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   config      Manage configuration files for popular S3 tools
 
 FLAGS:

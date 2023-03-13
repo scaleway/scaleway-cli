@@ -5,7 +5,7 @@ This API allows you to manage IoT hubs and devices.
 USAGE:
   scw iot <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   device      IoT Device commands
   hub         IoT Hub commands
   network     IoT Network commands

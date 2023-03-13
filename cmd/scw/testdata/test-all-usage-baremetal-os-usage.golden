@@ -5,7 +5,7 @@ An Operating System (OS) is the underlying software installed on your server
 USAGE:
   scw baremetal os <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   get         Get an OS with a given ID
   list        List all available OS that can be install on an elastic metal server
 

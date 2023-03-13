@@ -5,7 +5,7 @@ Network Access Control List allows to control network inbound traffic allowed by
 USAGE:
   scw redis acl <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   add         Add ACL rules for a given cluster
   delete      Delete an ACL rule for a given cluster
   get         Get an ACL rule

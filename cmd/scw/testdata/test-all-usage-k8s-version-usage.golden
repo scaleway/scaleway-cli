@@ -9,7 +9,7 @@ Also each version have a different set of container runtimes, CNIs, ingresses, f
 USAGE:
   scw k8s version <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   get         Get details about a specific version
   list        List all available versions
 

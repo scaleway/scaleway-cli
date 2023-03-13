@@ -5,7 +5,7 @@ A Server has additional options that let you personalize it to better fit your n
 USAGE:
   scw baremetal options <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   add         Add server option
   delete      Delete server option
   get         Get option

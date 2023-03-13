@@ -5,7 +5,7 @@ A Managed Database for Redis™ cluster is composed of one or more Nodes dependi
 USAGE:
   scw redis cluster <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create            Create a cluster
   delete            Delete a cluster
   get               Get a cluster

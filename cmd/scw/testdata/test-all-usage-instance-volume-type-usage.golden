@@ -6,7 +6,7 @@ Each of these types will contains all the capabilities and constraints of the vo
 USAGE:
   scw instance volume-type <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List volumes types
 
 FLAGS:

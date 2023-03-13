@@ -5,7 +5,7 @@ Cockpit management commands.
 USAGE:
   scw cockpit cockpit <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   activate      Activate a cockpit
   deactivate    Deactivate a cockpit
   get           Get cockpit

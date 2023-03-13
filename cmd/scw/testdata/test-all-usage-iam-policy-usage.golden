@@ -5,7 +5,7 @@ Policies management commands.
 USAGE:
   scw iam policy <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a new policy
   delete      Delete a policy
   get         Get an existing policy

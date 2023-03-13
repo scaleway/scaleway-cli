@@ -5,7 +5,7 @@ A database engine is the software component that stores and retrieves your data 
 USAGE:
   scw rdb engine <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List available database engines
   settings    List available settings from an engine.
 

@@ -5,7 +5,7 @@ Configuration generation for S3 tools.
 USAGE:
   scw object config <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   get         Generate a S3 tool configuration file
   install     Install a S3 tool configuration file to its default location
 

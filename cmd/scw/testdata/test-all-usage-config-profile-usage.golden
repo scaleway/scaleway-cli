@@ -5,7 +5,7 @@ Allows the deletion of a profile from the config file
 USAGE:
   scw config profile <command>
 
-AVAILABLE COMMANDS:
+UTILITY COMMANDS:
   activate    Mark a profile as active in the config file
   delete      Delete a profile from the config file
 

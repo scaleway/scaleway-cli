@@ -5,7 +5,7 @@ A snapshot is a consistent, instantaneous copy of the Block Storage volume of yo
 USAGE:
   scw rdb snapshot <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a Database Instance snapshot
   delete      Delete a Database Instance snapshot
   get         Get a Database Instance snapshot

@@ -5,7 +5,7 @@ Get help about how the CLI works
 USAGE:
   scw help <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   date        Get help about how date parsing works in the CLI
   output      Get help about how the CLI output works
 

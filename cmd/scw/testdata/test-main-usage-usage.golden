@@ -3,23 +3,19 @@
 USAGE:
   scw <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   account       User related data
   alias         Alias related commands
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
   cockpit       Cockpit API
-  config        Config file management
   container     Container as a Service API
   dns           DNS API
-  feedback      Send feedback to the Scaleway CLI Team!
   fip           Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
   iam           IAM API
-  info          Get info about current settings
-  init          Initialize the config
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
   k8s           Kapsule API
@@ -31,12 +27,19 @@ AVAILABLE COMMANDS:
   redis         Managed Database for Redis™ API
   registry      Container registry API
   secret        This API allows you to conveniently store, access and share sensitive data
-  shell         Start shell mode
   tem           Tem
-  version       Display cli version
   vpc           VPC API
   vpc-gw        VPC Public Gateway API
   webhosting    Webhosting API
+
+UTILITY COMMANDS:
+  config        Config file management
+  feedback      Send feedback to the Scaleway CLI Team!
+  help          Get help about how the CLI works
+  info          Get info about current settings
+  init          Initialize the config
+  shell         Start shell mode
+  version       Display cli version
 
 FLAGS:
   -c, --config string    The path to the config file

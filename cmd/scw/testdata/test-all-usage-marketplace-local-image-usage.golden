@@ -5,7 +5,7 @@ Marketplace Local Images management commands.
 USAGE:
   scw marketplace local-image <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   list        List local images from a specific image or version
 
 FLAGS:

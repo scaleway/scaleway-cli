@@ -11,7 +11,7 @@ Note that an instance can be a part of multiple private networks.
 USAGE:
   scw vpc private-network <command>
 
-AVAILABLE COMMANDS:
+PRODUCT COMMANDS:
   create      Create a private network
   delete      Delete a private network
   get         Get a private network
