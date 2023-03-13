@@ -838,6 +838,7 @@ func serverWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			return waitForServerFunc()(ctx, argsI, nil)

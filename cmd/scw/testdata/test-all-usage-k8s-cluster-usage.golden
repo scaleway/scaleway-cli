@@ -16,6 +16,8 @@ AVAILABLE COMMANDS:
   reset-admin-token       Reset the admin token of a cluster
   update                  Update a cluster
   upgrade                 Upgrade a cluster
+
+WORKFLOW COMMANDS:
   wait                    Wait for a cluster to reach a stable state
 
 FLAGS:

@@ -52,6 +52,8 @@ AVAILABLE COMMANDS:
   stop          Power off server
   terminate     Terminate server
   update        Update a server
+
+WORKFLOW COMMANDS:
   wait          Wait for server to reach a stable state
 
 FLAGS:

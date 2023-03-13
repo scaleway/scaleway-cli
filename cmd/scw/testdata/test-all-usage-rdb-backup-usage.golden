@@ -14,6 +14,8 @@ AVAILABLE COMMANDS:
   list        List database backups
   restore     Restore a database backup
   update      Update a database backup
+
+WORKFLOW COMMANDS:
   wait        Wait for a backup to reach a stable state
 
 FLAGS:

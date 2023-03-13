@@ -12,6 +12,7 @@ func init() {
 	cobra.EnableCommandSorting = false
 	cobra.AddTemplateFunc("orderCommands", orderCobraCommands)
 	cobra.AddTemplateFunc("orderGroups", orderCobraGroups)
+	cobra.AddTemplateFunc("getCommandsGroups", getCobraCommandsGroups)
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -30,7 +31,6 @@ func (b *cobraBuilder) build() *cobra.Command {
 		"config":    {ID: "config", Title: "CONFIGURATION"},
 		"utility":   {ID: "utility", Title: "UTILITY"},
 	}
-	var usedGroups = make(map[string]interface{})
 
 	commands := b.commands.GetAll()
 
@@ -90,13 +90,10 @@ func (b *cobraBuilder) build() *cobra.Command {
 	}
 
 	for k := range index {
-		b.hydrateCobra(index[k], commandsIndex[k], groups, usedGroups)
+		b.hydrateCobra(index[k], commandsIndex[k], groups)
 	}
 
-	for groupID := range usedGroups {
-		rootCmd.AddGroup(groups[groupID])
-	}
-	b.hydrateCobra(rootCmd, &Command{}, groups, usedGroups)
+	b.hydrateCobra(rootCmd, &Command{}, groups)
 
 	return rootCmd
 }
@@ -104,7 +101,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 // hydrateCobra hydrates a cobra command from a *Command.
 // Field like Short, Long will be copied over.
 // More complex field like PreRun or Run will also be generated if needed.
-func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, groups map[string]*cobra.Group, usedGroups map[string]interface{}) {
+func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, groups map[string]*cobra.Group) {
 	cobraCmd.Short = cmd.Short
 	cobraCmd.Long = cmd.Long
 	cobraCmd.Hidden = cmd.Hidden
@@ -159,7 +156,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 	// If a command has no groups, we add it to the available group.
 	if len(cmd.Groups) == 0 && len(cobraCmd.Groups()) == 0 {
 		cobraCmd.AddGroup(groups["available"])
-		usedGroups["available"] = nil
 	} else {
 		for _, groupID := range cmd.Groups {
 			if _, ok := groups[groupID]; !ok {
@@ -170,7 +166,6 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 			}
 
 			cobraCmd.AddGroup(groups[groupID])
-			usedGroups[groupID] = nil
 		}
 	}
 
@@ -203,7 +198,7 @@ DEPRECATED ARGS:
 {{- end}}
 {{- if .HasAvailableSubCommands}}
 
-{{- range $_, $group := orderGroups .Groups }}
+{{- range $_, $group := orderGroups (getCommandsGroups .Commands) }}
 
 {{ $group.Title }} COMMANDS:
 {{- range $_, $command := orderCommands $.Commands }}

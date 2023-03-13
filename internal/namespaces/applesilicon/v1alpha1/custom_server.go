@@ -89,6 +89,7 @@ func serverWaitCommand() *core.Command {
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(customServerWaitArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customServerWaitArgs)

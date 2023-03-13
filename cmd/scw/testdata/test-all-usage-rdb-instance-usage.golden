@@ -21,6 +21,8 @@ AVAILABLE COMMANDS:
   restart           Restart Database Instance
   update            Update an instance
   upgrade           Upgrade a Database Instance
+
+WORKFLOW COMMANDS:
   wait              Wait for an instance to reach a stable state
 
 FLAGS:

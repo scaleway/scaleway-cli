@@ -65,6 +65,7 @@ func lbWaitCommand() *core.Command {
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(lb.ZonedAPIWaitForLBRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := lb.NewZonedAPI(core.ExtractClient(ctx))

@@ -366,6 +366,7 @@ func instanceWaitCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))

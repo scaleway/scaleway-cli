@@ -154,3 +154,25 @@ func orderCobraGroups(cobraGroups []*cobra.Group) []*cobra.Group {
 	})
 	return groups
 }
+
+func getCobraCommandsGroups(cobraCommands []*cobra.Command) []*cobra.Group {
+	var groups []*cobra.Group
+	addedGroups := make(map[string]struct{})
+
+	for _, cobraCommand := range cobraCommands {
+		if !cobraCommand.IsAvailableCommand() {
+			continue
+		}
+
+		for _, group := range cobraCommand.Groups() {
+			if _, ok := addedGroups[group.ID]; ok {
+				continue
+			}
+
+			addedGroups[group.ID] = struct{}{}
+			groups = append(groups, group)
+		}
+	}
+
+	return groups
+}

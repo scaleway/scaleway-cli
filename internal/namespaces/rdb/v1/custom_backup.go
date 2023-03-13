@@ -46,6 +46,7 @@ func backupWaitCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
