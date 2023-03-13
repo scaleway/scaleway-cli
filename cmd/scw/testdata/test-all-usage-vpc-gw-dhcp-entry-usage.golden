@@ -5,7 +5,7 @@ DHCP entries hold both dynamic DHCP leases (IP addresses dynamically assigned by
 USAGE:
   scw vpc-gw dhcp-entry <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a static DHCP reservation
   delete      Delete a DHCP reservation
   get         Get DHCP entries

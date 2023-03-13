@@ -5,7 +5,7 @@ VPC Public Gateway API.
 USAGE:
   scw vpc-gw <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   dhcp            DHCP configuration management
   dhcp-entry      DHCP entries management
   gateway         VPC Public Gateway management

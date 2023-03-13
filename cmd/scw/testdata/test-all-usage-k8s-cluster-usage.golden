@@ -7,7 +7,7 @@ It is composed of different pools, each pool containing the same kind of nodes.
 USAGE:
   scw k8s cluster <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create                  Create a new cluster
   delete                  Delete a cluster
   get                     Get a cluster

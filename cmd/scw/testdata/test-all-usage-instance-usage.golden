@@ -5,7 +5,7 @@ Instance API.
 USAGE:
   scw instance <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   image           Image management commands
   ip              IP management commands
   placement-group Placement group management commands

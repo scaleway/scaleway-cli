@@ -5,7 +5,7 @@ Function management commands.
 USAGE:
   scw function function <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create           Create a new function
   delete           Delete a function
   deploy           Deploy a function

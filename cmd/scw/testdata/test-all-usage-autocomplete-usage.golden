@@ -5,7 +5,7 @@ Autocomplete related commands
 USAGE:
   scw autocomplete <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   install     Install autocomplete script
   script      Show autocomplete script for current shell
 

@@ -15,7 +15,7 @@ Scaleway is not affiliated with Apple Inc.
 USAGE:
   scw apple-silicon <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   os          OS management commands
   server      Apple silicon management commands
   server-type Server-Types management commands

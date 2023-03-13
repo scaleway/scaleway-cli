@@ -6,7 +6,7 @@ Each of them will contain all the features of the server (cpus, memories, disks)
 USAGE:
   scw baremetal offer <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   get         Get offer
   list        List offers
 

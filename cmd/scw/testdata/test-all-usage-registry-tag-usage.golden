@@ -5,7 +5,7 @@ A tag represents a container tag of an image.
 USAGE:
   scw registry tag <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   delete      Delete a tag
   get         Get a tag
   list        List all your tags

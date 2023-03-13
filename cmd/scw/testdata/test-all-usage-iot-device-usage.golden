@@ -5,7 +5,7 @@ IoT Device commands.
 USAGE:
   scw iot device <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create            Add a device
   delete            Remove a device
   disable           Disable a device

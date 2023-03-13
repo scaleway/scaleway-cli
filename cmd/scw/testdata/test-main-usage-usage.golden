@@ -3,7 +3,7 @@
 USAGE:
   scw <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   account       User related data
   alias         Alias related commands
   apple-silicon Apple silicon API
@@ -32,12 +32,14 @@ PRODUCT COMMANDS:
   vpc-gw        VPC Public Gateway API
   webhosting    Webhosting API
 
-UTILITY COMMANDS:
+CONFIGURATION COMMANDS:
   config        Config file management
-  feedback      Send feedback to the Scaleway CLI Team!
-  help          Get help about how the CLI works
   info          Get info about current settings
   init          Initialize the config
+
+UTILITY COMMANDS:
+  feedback      Send feedback to the Scaleway CLI Team!
+  help          Get help about how the CLI works
   shell         Start shell mode
   version       Display cli version
 

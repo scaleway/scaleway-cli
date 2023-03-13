@@ -23,15 +23,15 @@ type cobraBuilder struct {
 	ctx      context.Context
 }
 
-var groups = map[string]*cobra.Group{
-	"available": {ID: "available", Title: "AVAILABLE"},
-	"utility":   {ID: "utility", Title: "UTILITY"},
-}
-
-var usedGroups = make(map[string]interface{})
-
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
+	var groups = map[string]*cobra.Group{
+		"available": {ID: "available", Title: "AVAILABLE"},
+		"config":    {ID: "config", Title: "CONFIGURATION"},
+		"utility":   {ID: "utility", Title: "UTILITY"},
+	}
+	var usedGroups = make(map[string]interface{})
+
 	commands := b.commands.GetAll()
 
 	index := make(map[string]*cobra.Command, len(commands))
@@ -90,13 +90,13 @@ func (b *cobraBuilder) build() *cobra.Command {
 	}
 
 	for k := range index {
-		b.hydrateCobra(index[k], commandsIndex[k])
+		b.hydrateCobra(index[k], commandsIndex[k], groups, usedGroups)
 	}
 
 	for groupID := range usedGroups {
 		rootCmd.AddGroup(groups[groupID])
 	}
-	b.hydrateCobra(rootCmd, &Command{})
+	b.hydrateCobra(rootCmd, &Command{}, groups, usedGroups)
 
 	return rootCmd
 }
@@ -104,7 +104,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 // hydrateCobra hydrates a cobra command from a *Command.
 // Field like Short, Long will be copied over.
 // More complex field like PreRun or Run will also be generated if needed.
-func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
+func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, groups map[string]*cobra.Group, usedGroups map[string]interface{}) {
 	cobraCmd.Short = cmd.Short
 	cobraCmd.Long = cmd.Long
 	cobraCmd.Hidden = cmd.Hidden

@@ -8,7 +8,7 @@ An image is a complete backup of your server including all volumes.
 USAGE:
   scw instance image <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create an instance image
   delete      Delete an instance image
   get         Get an instance image

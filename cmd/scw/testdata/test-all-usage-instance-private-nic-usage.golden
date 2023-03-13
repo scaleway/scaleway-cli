@@ -7,7 +7,7 @@ server to a network.
 USAGE:
   scw instance private-nic <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a private NIC connecting a server to a private network
   delete      Delete a private NIC
   get         Get a private NIC

@@ -5,7 +5,7 @@ Allows to configure the general settings for your elastic metal server.
 USAGE:
   scw baremetal settings <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   list        List all settings
   update      Update setting
 

@@ -9,7 +9,7 @@ And finally Get Remote Access to get the login/password https://developers.scale
 USAGE:
   scw baremetal bmc <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   get         Get BMC (Baseboard Management Controller) access for a given elastic metal server
   start       Start BMC (Baseboard Management Controller) access for a given elastic metal server
   stop        Stop BMC (Baseboard Management Controller) access for a given elastic metal server

@@ -5,7 +5,7 @@ TLS certificate management.
 USAGE:
   scw dns certificate <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create or return the zone TLS certificate
   delete      Delete an TLS certificate
   get         Get the zone TLS certificate if it exists

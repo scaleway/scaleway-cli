@@ -5,7 +5,7 @@ This API allows you to manage your Scaleway Load Balancer services.
 USAGE:
   scw lb <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   acl             Access Control List (ACL) management commands
   backend         Backend management commands
   certificate     TLS certificate management commands

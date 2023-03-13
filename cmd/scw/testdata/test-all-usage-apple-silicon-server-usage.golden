@@ -5,7 +5,7 @@ Apple silicon management commands
 USAGE:
   scw apple-silicon server <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a server
   delete      Delete a server
   get         Get a server

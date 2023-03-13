@@ -5,7 +5,7 @@ Managed Database for Redis™ API.
 USAGE:
   scw redis <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   acl         Access Control List (ACL) management commands
   cluster     Cluster management commands
   endpoint    Endpoints management commands

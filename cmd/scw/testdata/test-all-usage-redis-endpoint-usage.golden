@@ -5,7 +5,7 @@ Manage endpoints to access to your cluster trough Public or Private networks
 USAGE:
   scw redis endpoint <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   add         Add endpoints for a given cluster
   delete      Delete an endpoint for a given cluster
   get         Get an endpoint

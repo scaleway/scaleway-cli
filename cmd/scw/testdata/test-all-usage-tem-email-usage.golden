@@ -5,7 +5,7 @@ Email management commands.
 USAGE:
   scw tem email <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   cancel         Try to cancel an email if it has not yet been sent
   create         Send an email
   get            Get information about an email

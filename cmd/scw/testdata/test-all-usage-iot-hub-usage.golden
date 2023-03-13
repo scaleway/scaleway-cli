@@ -5,7 +5,7 @@ IoT Hub commands.
 USAGE:
   scw iot hub <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a hub
   delete      Delete a hub
   disable     Disable a hub

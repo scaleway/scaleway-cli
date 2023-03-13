@@ -22,7 +22,7 @@ The `policy_mode` is set by default to `optional`.
 USAGE:
   scw instance placement-group <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a placement group
   delete      Delete the given placement group
   get         Get a placement group

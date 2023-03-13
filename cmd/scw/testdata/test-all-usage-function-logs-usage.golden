@@ -5,7 +5,7 @@ Logs management commands.
 USAGE:
   scw function logs <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   list        List your application logs
 
 FLAGS:

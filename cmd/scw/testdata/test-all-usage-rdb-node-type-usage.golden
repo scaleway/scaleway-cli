@@ -8,7 +8,7 @@ Two node type ranges are available:
 USAGE:
   scw rdb node-type <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   list        List available node types
 
 FLAGS:

@@ -5,7 +5,7 @@ VPC API.
 USAGE:
   scw vpc <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   private-network Private network management command
 
 FLAGS:

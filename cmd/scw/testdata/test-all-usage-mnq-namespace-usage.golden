@@ -5,7 +5,7 @@ MnQ Namespace commands.
 USAGE:
   scw mnq namespace <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a namespace
   delete      Delete a namespace
   get         Get a namespace

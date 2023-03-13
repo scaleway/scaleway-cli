@@ -5,7 +5,7 @@ Container registry API.
 USAGE:
   scw registry <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   image                 Image management commands
   install-docker-helper Install a local Docker credential helper
   login                 Login to a registry

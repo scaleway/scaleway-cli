@@ -5,7 +5,7 @@ Cron management commands.
 USAGE:
   scw container cron <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a new cron
   delete      Delete an existing cron
   get         Get a cron

@@ -37,7 +37,7 @@ UUIDs can be found in `/dev/disk/by-id/`.
 USAGE:
   scw instance volume <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a volume
   delete      Delete a volume
   get         Get a volume

@@ -5,7 +5,7 @@ Available Redis™ settings. Available settings depend on the Redis™ version.
 USAGE:
   scw redis setting <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   add         Add cluster settings
   delete      Delete a cluster setting
   set         Set cluster settings

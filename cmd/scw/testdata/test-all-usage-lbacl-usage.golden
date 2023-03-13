@@ -5,7 +5,7 @@ Access Control List (ACL) management commands.
 USAGE:
   scw lb acl <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create an ACL for a given frontend
   delete      Delete an ACL
   get         Get an ACL

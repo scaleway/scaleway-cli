@@ -5,7 +5,7 @@ IoT Route commands.
 USAGE:
   scw iot route <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a route
   delete      Delete a route
   get         Get a route

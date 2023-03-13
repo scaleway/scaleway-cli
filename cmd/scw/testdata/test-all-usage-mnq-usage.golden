@@ -5,7 +5,7 @@ This API allows you to manage Messaging or Queueing brokers.
 USAGE:
   scw mnq <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   credential  MnQ Credentials commands
   namespace   MnQ Namespace commands
 

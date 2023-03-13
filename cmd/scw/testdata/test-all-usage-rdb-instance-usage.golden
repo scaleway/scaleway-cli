@@ -9,7 +9,7 @@ Read Replicas can be used for certain read-only workflows such as Business Intel
 USAGE:
   scw rdb instance <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   clone             Clone a Database Instance
   connect           Connect to an instance using locally installed CLI
   create            Create a Database Instance

@@ -3,7 +3,7 @@
 USAGE:
   scw instance <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   server      
 
 FLAGS:

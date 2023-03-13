@@ -5,7 +5,7 @@ Project management commands.
 USAGE:
   scw account project <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create project
   delete      Delete project
   get         Get project

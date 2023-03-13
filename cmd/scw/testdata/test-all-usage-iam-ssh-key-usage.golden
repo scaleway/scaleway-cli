@@ -5,7 +5,7 @@ SSH keys management commands.
 USAGE:
   scw iam ssh-key <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create an SSH key
   delete      Delete an SSH key
   get         Get an SSH key

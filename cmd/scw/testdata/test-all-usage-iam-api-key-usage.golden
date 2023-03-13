@@ -5,7 +5,7 @@ API keys management commands.
 USAGE:
   scw iam api-key <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create an API key
   delete      Delete an API key
   get         Get an API key

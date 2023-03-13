@@ -5,7 +5,7 @@ Webhosting API.
 USAGE:
   scw webhosting <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   dns-record  DNS record management commands
   hosting     Hosting management commands
   offer       Offer management commands

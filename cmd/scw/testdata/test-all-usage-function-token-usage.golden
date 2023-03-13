@@ -5,7 +5,7 @@ Token management commands.
 USAGE:
   scw function token <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a new revocable token
   delete      Delete a token
   get         Get a token

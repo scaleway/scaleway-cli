@@ -5,7 +5,7 @@ DHCP configuration allows you to set parameters for assignment of IP addresses t
 USAGE:
   scw vpc-gw dhcp <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a DHCP configuration
   delete      Delete a DHCP configuration
   get         Get a DHCP configuration

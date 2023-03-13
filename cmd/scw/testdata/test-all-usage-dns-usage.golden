@@ -5,7 +5,7 @@ Manage your DNS zones and records.
 USAGE:
   scw dns <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   certificate TLS certificate management
   record      DNS records management
   tsig-key    Transaction SIGnature key management

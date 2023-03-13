@@ -5,7 +5,7 @@ A Gateway Network represents the connection of a Private Network to a VPC Public
 USAGE:
   scw vpc-gw gateway-network <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Attach a gateway to a Private Network
   delete      Detach a gateway from a Private Network
   get         Get a gateway connection to a Private Network

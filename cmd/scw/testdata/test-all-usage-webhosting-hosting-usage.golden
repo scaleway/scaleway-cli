@@ -5,7 +5,7 @@ A Scaleway web hosting associated with a domain name.
 USAGE:
   scw webhosting hosting <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a hosting
   get         Get a hosting
   list        List all hostings

@@ -5,7 +5,7 @@ Redis™ versions powering your cluster.
 USAGE:
   scw redis version <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   list        List available Redis™ versions
 
 FLAGS:

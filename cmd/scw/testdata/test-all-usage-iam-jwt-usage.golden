@@ -5,7 +5,7 @@ JWTs management commands.
 USAGE:
   scw iam jwt <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   delete      Delete a JWT
   get         Get a JWT
   list        List JWTs

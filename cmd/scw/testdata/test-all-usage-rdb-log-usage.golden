@@ -5,7 +5,7 @@ Instance logs management commands.
 USAGE:
   scw rdb log <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   get          Get given logs of a Database Instance
   list         List available logs of a Database Instance
   list-details List remote Database Instance logs details

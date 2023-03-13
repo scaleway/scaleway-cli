@@ -9,7 +9,7 @@ As a contrary, you have to switch in a stateless mode to define explicitly allow
 USAGE:
   scw instance security-group <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   clear       Remove all rules of a security group
   create      Create a security group
   delete      Delete a security group

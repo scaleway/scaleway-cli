@@ -5,7 +5,7 @@ A VPC Public Gateway has a public IP address, allowing it to reach the public in
 USAGE:
   scw vpc-gw ip <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Reserve an IP
   delete      Delete an IP
   get         Get an IP

@@ -5,7 +5,7 @@ Marketplace images management commands.
 USAGE:
   scw marketplace image <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   get         Get a specific marketplace image
   list        List marketplace images
 

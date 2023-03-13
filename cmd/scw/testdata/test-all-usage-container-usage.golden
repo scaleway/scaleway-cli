@@ -5,7 +5,7 @@ Serverless Containers API.
 USAGE:
   scw container <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   container   Container management commands
   cron        Cron management commands
   domain      Domain management commands

@@ -5,7 +5,7 @@ Marketplace API.
 USAGE:
   scw marketplace <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   image       Marketplace images management commands
   local-image Marketplace Local Images management commands
 

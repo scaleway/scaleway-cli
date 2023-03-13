@@ -5,7 +5,7 @@ The VPC Public Gateway is a building block for your infrastructure on Scaleway's
 USAGE:
   scw vpc-gw gateway <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create           Create a VPC Public Gateway
   delete           Delete a VPC Public Gateway
   get              Get a VPC Public Gateway

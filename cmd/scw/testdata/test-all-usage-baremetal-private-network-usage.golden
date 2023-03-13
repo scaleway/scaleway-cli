@@ -12,7 +12,7 @@ Note that a resource can be a part of multiple private networks.
 USAGE:
   scw baremetal private-network <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   add         Add a server to a private network
   delete      Delete a private network
   list        List the private networks of a server

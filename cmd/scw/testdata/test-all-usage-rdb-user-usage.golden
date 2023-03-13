@@ -5,7 +5,7 @@ Users are profiles to which you can attribute database-level permissions. They a
 USAGE:
   scw rdb user <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   create      Create a user for a Database Instance
   delete      Delete a user on a Database Instance
   list        List users of a Database Instance

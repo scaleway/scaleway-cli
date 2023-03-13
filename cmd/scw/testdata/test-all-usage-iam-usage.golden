@@ -5,7 +5,7 @@ IAM API.
 USAGE:
   scw iam <command>
 
-PRODUCT COMMANDS:
+AVAILABLE COMMANDS:
   api-key        API keys management commands
   application    Applications management commands
   group          Groups management commands

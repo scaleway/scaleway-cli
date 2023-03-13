@@ -56,7 +56,7 @@ func configRoot() *core.Command {
 	}
 	w.Flush()
 	return &core.Command{
-		Groups: []string{"utility"},
+		Groups: []string{"config"},
 		Short:  `Config file management`,
 		Long: interactive.RemoveIndent(`
 			Config management engine is common across all Scaleway developer tools (CLI, terraform, SDK, ... ). It allows to handle Scaleway config through two ways: environment variables and/or config file.
@@ -107,7 +107,7 @@ func configGetCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Get a value from the config file`,
 		Namespace:            "config",
 		Resource:             "get",
@@ -168,7 +168,7 @@ func configSetCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Groups: []string{"utility"},
+		Groups: []string{"config"},
 		Short:  `Set a line from the config file`,
 		Long: `This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure`,
@@ -316,7 +316,7 @@ func configUnsetCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Unset a line from the config file`,
 		Namespace:            "config",
 		Resource:             "unset",
@@ -366,7 +366,7 @@ func configDumpCommand() *core.Command {
 	type configDumpArgs struct{}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Dump the config file`,
 		Namespace:            "config",
 		Resource:             "dump",
@@ -391,7 +391,7 @@ func configDumpCommand() *core.Command {
 
 func configProfileCommand() *core.Command {
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Allows the deletion of a profile from the config file`,
 		Namespace:            "config",
 		Resource:             "profile",
@@ -406,7 +406,7 @@ func configDeleteProfileCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Delete a profile from the config file`,
 		Namespace:            "config",
 		Resource:             "profile",
@@ -451,7 +451,7 @@ func configActivateProfileCommand() *core.Command {
 	}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Mark a profile as active in the config file`,
 		Namespace:            "config",
 		Resource:             "profile",
@@ -500,7 +500,7 @@ func configResetCommand() *core.Command {
 	type configResetArgs struct{}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Reset the config`,
 		Namespace:            "config",
 		Resource:             "reset",
@@ -528,7 +528,7 @@ func configDestroyCommand() *core.Command {
 	type configDestroyArgs struct{}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Destroy the config file`,
 		Namespace:            "config",
 		Resource:             "destroy",
@@ -552,7 +552,7 @@ func configInfoCommand() *core.Command {
 	type configInfoArgs struct{}
 
 	return &core.Command{
-		Groups:               []string{"utility"},
+		Groups:               []string{"config"},
 		Short:                `Get config values from the config file for the current profile`,
 		Namespace:            "config",
 		Resource:             "info",
