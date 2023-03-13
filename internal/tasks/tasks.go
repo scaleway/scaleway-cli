@@ -127,7 +127,7 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 			taskIsCancelled = true
 		default:
 		}
-		if err != nil && taskIsCancelled {
+		if err != nil {
 			loader.Stop()
 			if taskIsCancelled {
 				fmt.Println("task canceled, cleaning up created resources")
