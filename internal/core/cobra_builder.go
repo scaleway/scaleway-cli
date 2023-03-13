@@ -44,9 +44,6 @@ func (b *cobraBuilder) build() *cobra.Command {
 		// Do not display usage on error.
 		SilenceUsage: true,
 	}
-	for _, group := range groups {
-		rootCmd.AddGroup(group)
-	}
 
 	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
@@ -94,7 +91,11 @@ func (b *cobraBuilder) build() *cobra.Command {
 		b.hydrateCobra(index[k], commandsIndex[k])
 	}
 
+	for _, groupID := range groups {
+		rootCmd.AddGroup(groupID)
+	}
 	b.hydrateCobra(rootCmd, &Command{})
+
 	return rootCmd
 }
 
@@ -158,6 +159,13 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		cobraCmd.AddGroup(groups["product"])
 	} else {
 		for _, groupID := range cmd.Groups {
+			if _, ok := groups[groupID]; !ok {
+				groups[groupID] = &cobra.Group{
+					ID:    groupID,
+					Title: strings.ToUpper(groupID),
+				}
+			}
+
 			cobraCmd.AddGroup(groups[groupID])
 		}
 	}
