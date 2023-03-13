@@ -24,9 +24,11 @@ type cobraBuilder struct {
 }
 
 var groups = map[string]*cobra.Group{
-	"product": {ID: "product", Title: "PRODUCT COMMANDS"},
-	"utility": {ID: "utility", Title: "UTILITY COMMANDS"},
+	"available": {ID: "available", Title: "AVAILABLE"},
+	"utility":   {ID: "utility", Title: "UTILITY"},
 }
+
+var usedGroups = make(map[string]interface{})
 
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
@@ -91,8 +93,8 @@ func (b *cobraBuilder) build() *cobra.Command {
 		b.hydrateCobra(index[k], commandsIndex[k])
 	}
 
-	for _, groupID := range groups {
-		rootCmd.AddGroup(groupID)
+	for groupID := range usedGroups {
+		rootCmd.AddGroup(groups[groupID])
 	}
 	b.hydrateCobra(rootCmd, &Command{})
 
@@ -154,9 +156,10 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 		}
 	}
 
-	// If a command has no groups, we add it to the product group.
+	// If a command has no groups, we add it to the available group.
 	if len(cmd.Groups) == 0 && len(cobraCmd.Groups()) == 0 {
-		cobraCmd.AddGroup(groups["product"])
+		cobraCmd.AddGroup(groups["available"])
+		usedGroups["available"] = nil
 	} else {
 		for _, groupID := range cmd.Groups {
 			if _, ok := groups[groupID]; !ok {
@@ -167,6 +170,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command) {
 			}
 
 			cobraCmd.AddGroup(groups[groupID])
+			usedGroups[groupID] = nil
 		}
 	}
 
@@ -201,7 +205,7 @@ DEPRECATED ARGS:
 
 {{- range $_, $group := orderGroups .Groups }}
 
-{{ $group.Title }}:
+{{ $group.Title }} COMMANDS:
 {{- range $_, $command := orderCommands $.Commands }}
 {{- if $command.IsAvailableCommand }}
   {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
