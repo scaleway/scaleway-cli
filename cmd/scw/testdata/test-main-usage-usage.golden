@@ -23,7 +23,7 @@ AVAILABLE COMMANDS:
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
   k8s           Kapsule API
-  lb            This API allows you to manage your load balancer service
+  lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
   mnq           This API allows you to manage Messaging or Queueing brokers
   object        Object-storage utils

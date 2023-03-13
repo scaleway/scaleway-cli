@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a backend in a given load balancer.
+Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.
 
 USAGE:
   scw lb backend delete <backend-id ...> [arg=value ...]

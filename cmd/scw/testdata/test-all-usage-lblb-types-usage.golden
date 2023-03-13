@@ -6,7 +6,7 @@ USAGE:
   scw lb lb-types <command>
 
 AVAILABLE COMMANDS:
-  list        List all load balancer offer type
+  list        List all Load Balancer offer types
 
 FLAGS:
   -h, --help   help for lb-types

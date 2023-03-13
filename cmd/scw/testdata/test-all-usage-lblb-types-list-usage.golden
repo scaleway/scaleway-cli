@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all load balancer offer type.
+List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
 
 USAGE:
   scw lb lb-types list [arg=value ...]

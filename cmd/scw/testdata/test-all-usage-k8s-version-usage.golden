@@ -1,10 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A version is a vanilla Kubernetes version like `x.y.z`.
-It is composed of a major version x, a minor version y and a patch version z.
-Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.
-
-Also each version have a different set of container runtimes, CNIs, ingresses, feature gates and admission plugins available.
+A version is a vanilla Kubernetes version like `x.y.z`. It comprises a major version x, a minor version y, and a patch version z. Scaleway's managed Kubernetes, Kapsule, will support at minimum the last patch version for the last three minor releases. Also, each version has a different set of container runtimes, CNIs, ingresses, feature gates, and admission plugins available.
 
 USAGE:
   scw k8s version <command>

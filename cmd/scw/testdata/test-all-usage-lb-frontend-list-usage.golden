@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List frontends in a given load balancer.
+List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.
 
 USAGE:
   scw lb frontend list [arg=value ...]
 
 ARGS:
-  lb-id             Load balancer ID
-  [name]            Use this to search by name
-  [order-by]        Response order (created_at_asc | created_at_desc | name_asc | name_desc)
+  lb-id             Load Balancer ID
+  [name]            Name of the frontend to filter for
+  [order-by]        Sort order of frontends in the response (created_at_asc | created_at_desc | name_asc | name_desc)
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:

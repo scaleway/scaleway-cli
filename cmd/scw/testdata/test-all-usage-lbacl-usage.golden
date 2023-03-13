@@ -9,8 +9,8 @@ AVAILABLE COMMANDS:
   create      Create an ACL for a given frontend
   delete      Delete an ACL
   get         Get an ACL
-  list        List ACL for a given frontend
-  set         Set all ACLs for a given frontend
+  list        List ACLs for a given frontend
+  set         Define all ACLs for a given frontend
   update      Update an ACL
 
 FLAGS:
