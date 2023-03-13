@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/briandowns/spinner v1.19.0
+	github.com/briandowns/spinner v1.23.0
 	github.com/c-bata/go-prompt v0.2.5
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.3
