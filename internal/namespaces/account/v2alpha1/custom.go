@@ -30,6 +30,7 @@ func initCommand() *core.Command {
 		Namespace: "account",
 		Resource:  "ssh-key",
 		Verb:      "init",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 		ArgSpecs:  core.ArgSpecs{},
 		Run:       InitRun,

@@ -26,6 +26,7 @@ func serverSSHCommand() *core.Command {
 		Namespace: "apple-silicon",
 		Verb:      "ssh",
 		Resource:  "server",
+		Groups:    []string{"utility"},
 		ArgsType:  reflect.TypeOf(serverSSHConnectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

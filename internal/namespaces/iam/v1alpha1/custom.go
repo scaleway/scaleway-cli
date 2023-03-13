@@ -64,6 +64,7 @@ func initWithSSHCommand() *core.Command {
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "init",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(args.RawArgs{}),
 		ArgSpecs:  core.ArgSpecs{},
 		Run:       InitWithSSHKeyRun,

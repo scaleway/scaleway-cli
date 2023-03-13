@@ -5,7 +5,6 @@ USAGE:
 
 AVAILABLE COMMANDS:
   account       User related data
-  alias         Alias related commands
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic metal API
@@ -33,6 +32,7 @@ AVAILABLE COMMANDS:
   webhosting    Webhosting API
 
 CONFIGURATION COMMANDS:
+  alias         Alias related commands
   config        Config file management
   info          Get info about current settings
   init          Initialize the config
