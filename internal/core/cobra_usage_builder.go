@@ -144,3 +144,13 @@ func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
 	})
 	return commands
 }
+
+func orderCobraGroups(cobraGroups []*cobra.Group) []*cobra.Group {
+	groups := make([]*cobra.Group, len(cobraGroups))
+	copy(groups, cobraGroups)
+
+	sort.Slice(groups, func(i, j int) bool {
+		return groups[i].Title < groups[j].Title
+	})
+	return groups
+}

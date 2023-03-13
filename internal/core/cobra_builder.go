@@ -11,6 +11,7 @@ func init() {
 	// we disable cobra command sorting to position important commands at the top when looking at the usage.
 	cobra.EnableCommandSorting = false
 	cobra.AddTemplateFunc("orderCommands", orderCobraCommands)
+	cobra.AddTemplateFunc("orderGroups", orderCobraGroups)
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -190,7 +191,7 @@ DEPRECATED ARGS:
 {{- end}}
 {{- if .HasAvailableSubCommands}}
 
-{{- range $_, $group := .Groups }}
+{{- range $_, $group := orderGroups .Groups }}
 
 {{ $group.Title }}:
 {{- range $_, $command := orderCommands $.Commands }}
