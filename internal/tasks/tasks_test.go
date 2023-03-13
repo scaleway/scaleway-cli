@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+	"strings"
 	"testing"
 	"time"
 
@@ -17,24 +18,28 @@ func TestCleanup(t *testing.T) {
 
 	clean := 0
 
-	tasks.AddWithCleanUp(ts, "Task 1", func(context.Context, interface{}) (interface{}, string, error) {
-		return nil, "", nil
-	}, func(context.Context, string) error {
-		clean++
-		return nil
+	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
+			clean++
+			return nil
+		})
+		return nil, nil
 	})
-	tasks.AddWithCleanUp(ts, "Task 2", func(context.Context, interface{}) (interface{}, string, error) {
-		return nil, "", nil
-	}, func(context.Context, string) error {
-		clean++
-		return nil
+	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
+			clean++
+			return nil
+		})
+		return nil, nil
 	})
-	tasks.AddWithCleanUp(ts, "Task 3", func(context.Context, interface{}) (interface{}, string, error) {
-		return nil, "", fmt.Errorf("fail")
-	}, func(context.Context, string) error {
-		clean++
-		return nil
+	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
+			clean++
+			return nil
+		})
+		return nil, fmt.Errorf("fail")
 	})
+
 	_, err := ts.Execute(context.Background(), nil)
 	assert.NotNil(t, err, "Execute should return error after cleanup")
 	assert.Equal(t, clean, 2, "2 task cleanup should have been executed")
@@ -49,48 +54,46 @@ func TestCleanupOnContext(t *testing.T) {
 	clean := 0
 	ctx := context.Background()
 
-	tasks.AddWithCleanUp(ts, "Task 1",
-		func(context.Context, interface{}) (interface{}, string, error) {
-			return nil, "", nil
-		}, func(context.Context, string) error {
+	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
 			clean++
 			return nil
-		},
-	)
-	tasks.AddWithCleanUp(ts, "Task 2",
-		func(context.Context, interface{}) (interface{}, string, error) {
-			return nil, "", nil
-		}, func(context.Context, string) error {
+		})
+		return nil, nil
+	})
+	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
 			clean++
 			return nil
-		},
-	)
-	tasks.AddWithCleanUp(ts, "Task 3",
-		func(ctx context.Context, _ interface{}) (interface{}, string, error) {
-			p, err := os.FindProcess(os.Getpid())
-			if err != nil {
-				return nil, "", err
-			}
+		})
+		return nil, nil
+	})
+	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(ctx context.Context) error {
+			clean++
+			return nil
+		})
+		p, err := os.FindProcess(os.Getpid())
+		if err != nil {
+			return nil, err
+		}
 
-			// Interrupt tasks, as done with Ctrl-C
-			err = p.Signal(os.Interrupt)
-			if err != nil {
-				t.Fatal(err)
-			}
+		// Interrupt tasks, as done with Ctrl-C
+		err = p.Signal(os.Interrupt)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-			select {
-			case <-time.After(time.Second):
-				return nil, "", nil
-			case <-ctx.Done():
-				return nil, "", fmt.Errorf("interrupted")
-			}
-		}, func(context.Context, string) error {
-			clean++
-			return nil
-		},
-	)
+		select {
+		case <-task.Ctx.Done():
+			return nil, fmt.Errorf("interrupted")
+		case <-time.After(time.Second * 3):
+			return nil, nil
+		}
+	})
 
 	_, err := ts.Execute(ctx, nil)
 	assert.NotNil(t, err, "context should have been interrupted")
+	assert.True(t, strings.Contains(err.Error(), "interrupted"), "error is not interrupted: %s", err)
 	assert.Equal(t, clean, 2, "2 task cleanup should have been executed")
 }
