@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a PAT rule.
+Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.
 
 USAGE:
   scw vpc-gw pat-rule update <pat-rule-id ...> [arg=value ...]
 
 ARGS:
-  pat-rule-id       PAT rule to update
+  pat-rule-id       ID of the PAT rule to update
   [public-port]     Public port to listen on
   [private-ip]      Private IP to forward data to
   [private-port]    Private port to translate to

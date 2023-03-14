@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Gateways come in multiple shapes and size, which are described by the various gateway types.
+Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
 
 USAGE:
   scw vpc-gw gateway-type <command>
 
 AVAILABLE COMMANDS:
-  list        List VPC Public Gateway types
+  list        List Public Gateway types
 
 FLAGS:
   -h, --help   help for gateway-type

@@ -28,7 +28,7 @@ AVAILABLE COMMANDS:
   secret        This API allows you to conveniently store, access and share sensitive data
   tem           Tem
   vpc           VPC API
-  vpc-gw        VPC Public Gateway API
+  vpc-gw        Public Gateways API
   webhosting    Webhosting API
 
 CONFIGURATION COMMANDS:
