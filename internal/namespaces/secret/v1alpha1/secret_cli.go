@@ -40,7 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to conveniently store, access and share sensitive data`,
-		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
+		Long:      `Secret API (beta).`,
 		Namespace: "secret",
 	}
 }

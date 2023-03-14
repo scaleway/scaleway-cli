@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func ipfsRoot() *core.Command {
 	return &core.Command{
 		Short:     `Pinning service ipfs API for Scaleway`,
-		Long:      `Pinning service ipfs API for Scaleway.`,
+		Long:      `Ipfs pinning service v1alpha1.`,
 		Namespace: "ipfs",
 	}
 }

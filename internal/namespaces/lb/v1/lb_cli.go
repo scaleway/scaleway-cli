@@ -80,7 +80,7 @@ func GetGeneratedCommands() *core.Commands {
 func lbRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Scaleway Load Balancer services`,
-		Long:      `This API allows you to manage your Scaleway Load Balancer services.`,
+		Long:      `Load Balancer API.`,
 		Namespace: "lb",
 	}
 }

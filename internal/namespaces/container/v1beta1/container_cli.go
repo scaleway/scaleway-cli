@@ -54,7 +54,7 @@ func GetGeneratedCommands() *core.Commands {
 func containerRoot() *core.Command {
 	return &core.Command{
 		Short:     `Container as a Service API`,
-		Long:      `Serverless Containers API.`,
+		Long:      `Containers API.`,
 		Namespace: "container",
 	}
 }
