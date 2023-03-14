@@ -6,11 +6,11 @@ USAGE:
   scw lb route <command>
 
 AVAILABLE COMMANDS:
-  create      Create a backend redirection
-  delete      Delete a backend redirection
-  get         Get single backend redirection
-  list        List all backend redirections
-  update      Edit a backend redirection
+  create      Create a route
+  delete      Delete a route
+  get         Get a route
+  list        List all routes
+  update      Update a route
 
 FLAGS:
   -h, --help   help for route

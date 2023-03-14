@@ -1,30 +1,30 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a backend in a given load balancer.
+Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 
 USAGE:
   scw lb backend update <backend-id ...> [arg=value ...]
 
 ARGS:
-  backend-id                      Backend ID to update
-  name                            Resource name
-  forward-protocol                Backend protocol. TCP or HTTP (tcp | http)
-  forward-port                    User sessions will be forwarded to this port of backend servers
-  forward-port-algorithm          Load balancing algorithm (roundrobin | leastconn | first)
-  sticky-sessions                 Enable cookie-based session persistence (none | cookie | table)
-  [sticky-sessions-cookie-name]   Cookie name for sticky sessions
-  [timeout-server]                Maximum server connection inactivity time (allowed time the server has to process the request)
-  [timeout-connect]               Maximum initial server connection establishment time
-  [timeout-tunnel]                Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
-  [on-marked-down-action]         Modify what occurs when a backend server is marked down (on_marked_down_action_none | shutdown_sessions)
-  [proxy-protocol]                PROXY protocol, forward client's address (must be supported by backend servers software) (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
-  [failover-host]                 Scaleway S3 bucket website to be served in case all backend servers are down
-  [ssl-bridging]                  Enable SSL between load balancer and backend servers
-  [ignore-ssl-server-verify]      Set to true to ignore server certificate verification
+  backend-id                      Backend ID
+  name                            Backend name
+  forward-protocol                Protocol to be used by the backend when forwarding traffic to backend servers (tcp | http)
+  forward-port                    Port to be used by the backend when forwarding traffic to backend servers
+  forward-port-algorithm          Load balancing algorithm to be used when determining which backend server to forward new traffic to (roundrobin | leastconn | first)
+  sticky-sessions                 Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server (none | cookie | table)
+  [sticky-sessions-cookie-name]   Cookie name for cookie-based sticky sessions
+  [timeout-server]                Maximum allowed time for a backend server to process a request
+  [timeout-connect]               Maximum allowed time for establishing a connection to a backend server
+  [timeout-tunnel]                Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)
+  [on-marked-down-action]         Action to take when a backend server is marked down (on_marked_down_action_none | shutdown_sessions)
+  [proxy-protocol]                PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
+  [failover-host]                 Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://)
+  [ssl-bridging]                  Defines whether to enable SSL bridging between the Load Balancer and backend servers
+  [ignore-ssl-server-verify]      Defines whether the server certificate verification should be ignored
   [zone=fr-par-1]                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 DEPRECATED ARGS:
-  [send-proxy-v2]   Deprecated in favor of proxy_protocol field!
+  [send-proxy-v2]   Deprecated in favor of proxy_protocol field
 
 FLAGS:
   -h, --help   help for update

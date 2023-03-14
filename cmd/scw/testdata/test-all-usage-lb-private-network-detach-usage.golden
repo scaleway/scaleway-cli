@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Remove load balancer of private network.
+Detach a specified Load Balancer from a specified Private Network.
 
 USAGE:
   scw lb private-network detach <lb-id ...> [arg=value ...]

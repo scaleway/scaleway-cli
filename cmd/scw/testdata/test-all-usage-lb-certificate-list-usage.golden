@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all TLS certificates on a given load balancer.
+List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.
 
 USAGE:
   scw lb certificate list [arg=value ...]
 
 ARGS:
-  lb-id             Load balancer ID
-  [order-by]        Response order (created_at_asc | created_at_desc | name_asc | name_desc)
-  [name]            Use this to search by name
+  lb-id             Load Balancer ID
+  [order-by]        Sort order of certificates in the response (created_at_asc | created_at_desc | name_asc | name_desc)
+  [name]            Certificate name to filter for, only certificates of this name will be returned
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:

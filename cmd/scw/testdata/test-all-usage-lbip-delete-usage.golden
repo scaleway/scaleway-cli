@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an IP.
+Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.
 
 USAGE:
   scw lb ip delete <ip-id ...> [arg=value ...]
