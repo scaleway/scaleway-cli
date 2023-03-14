@@ -8,9 +8,9 @@ USAGE:
 AVAILABLE COMMANDS:
   create      Create a new application
   delete      Delete an application
-  get         Get an existing application
-  list        List applications of an organization
-  update      Update an existing application
+  get         Get a given application
+  list        List applications of an Organization
+  update      Update an application
 
 FLAGS:
   -h, --help   help for application
