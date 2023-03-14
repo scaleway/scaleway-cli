@@ -286,6 +286,13 @@ func temEmailList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "new", "sending", "sent", "failed", "canceled"},
 			},
+			{
+				Name:       "subject",
+				Short:      `Optional, list emails having this subject`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -409,6 +416,14 @@ func temDomainCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "domain-name",
+				Short:      `Fully qualified domain dame`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "accept-tos",
+				Short:      `Accept the Scaleway Terms of Service`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

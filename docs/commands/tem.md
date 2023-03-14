@@ -57,7 +57,8 @@ scw tem domain create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| domain-name |  |  |
+| domain-name |  | Fully qualified domain dame |
+| accept-tos |  | Accept the Scaleway Terms of Service |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -252,6 +253,7 @@ scw tem email list [arg=value ...]
 | mail-from |  | Optional, list emails sent with this `mail_from` sender's address |
 | mail-to |  | Optional, list emails sent with this `mail_to` recipient's address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | Optional, list emails having any of this status |
+| subject |  | Optional, list emails having this subject |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
