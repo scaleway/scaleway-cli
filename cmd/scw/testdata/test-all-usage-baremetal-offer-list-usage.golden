@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all available server offers.
+List all available Elastic Metal server configurations.
 
 USAGE:
   scw baremetal offer list [arg=value ...]
@@ -13,7 +13,7 @@ EXAMPLES:
     scw baremetal offer list zone=fr-par-1
 
 ARGS:
-  [subscription-period]   Period of subscription to filter offers (unknown_subscription_period | hourly | monthly)
+  [subscription-period]   Subscription period type to filter offers by (unknown_subscription_period | hourly | monthly)
   [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 
 FLAGS:

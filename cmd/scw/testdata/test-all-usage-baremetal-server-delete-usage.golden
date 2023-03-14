@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the server associated with the given ID.
+Delete the server associated with the ID.
 
 USAGE:
   scw baremetal server delete <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete an elastic metal server
+  Delete an Elastic Metal server
     scw baremetal server delete 11111111-1111-1111-1111-111111111111
 
 ARGS:

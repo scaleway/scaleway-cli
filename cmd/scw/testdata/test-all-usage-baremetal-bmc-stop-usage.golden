@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Stop BMC (Baseboard Management Controller) access associated with the given ID.
+Stop BMC (Baseboard Management Controller) access associated with the ID.
 
 USAGE:
   scw baremetal bmc stop [arg=value ...]

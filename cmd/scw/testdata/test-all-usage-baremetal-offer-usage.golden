@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Server offers will answer with all different elastic metal server ranges available in a given zone.
-Each of them will contain all the features of the server (cpus, memories, disks) with their associated pricing.
+Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.
 
 USAGE:
   scw baremetal offer <command>

@@ -6,7 +6,7 @@ USAGE:
   scw baremetal settings list [arg=value ...]
 
 ARGS:
-  [order-by]        Order the response (created_at_asc | created_at_desc)
+  [order-by]        Sort order for items in the response (created_at_asc | created_at_desc)
   project-id        ID of the project
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 

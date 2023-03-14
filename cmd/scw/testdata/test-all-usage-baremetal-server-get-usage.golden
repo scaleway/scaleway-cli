@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the server associated with the given ID.
+Get full details of an existing Elastic Metal server associated with the ID.
 
 USAGE:
   scw baremetal server get <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Get a given server
+  Get a specific server
     scw baremetal server get 11111111-1111-1111-1111-111111111111
 
 ARGS:

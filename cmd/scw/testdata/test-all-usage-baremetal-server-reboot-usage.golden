@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Reboot the server associated with the given ID, use boot param to reboot in rescue.
+Reboot the Elastic Metal server associated with the ID, use the `boot_type` `rescue` to reboot the server in rescue mode.
 
 USAGE:
   scw baremetal server reboot <server-id ...> [arg=value ...]
