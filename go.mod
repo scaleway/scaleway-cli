@@ -8,6 +8,7 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
+	github.com/docker/docker v23.0.0-rc.1+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.15.0
 	github.com/getsentry/raven-go v0.2.0
@@ -31,6 +32,7 @@ require (
 )
 
 require (
+	cloud.google.com/go v0.57.0 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/alecthomas/colour v0.1.0 // indirect
 	github.com/alecthomas/repr v0.0.0-20210801044451-80ca428c5142 // indirect
@@ -40,6 +42,8 @@ require (
 	github.com/containerd/typeurl v1.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect
+	github.com/docker/go-connections v0.4.0 // indirect
+	github.com/docker/go-units v0.5.0 // indirect
 	github.com/etdub/goparsetime v0.0.0-20160315173935-ea17b0ac3318 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -51,12 +55,18 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/klauspost/compress v1.15.12 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mattn/go-tty v0.0.3 // indirect
 	github.com/moby/patternmatcher v0.5.0 // indirect
+	github.com/moby/sys/sequential v0.5.0 // indirect
 	github.com/moby/sys/signal v0.7.0 // indirect
+	github.com/moby/term v0.0.0-20200312100748-672ec06f55cd // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/opencontainers/image-spec v1.0.3-0.20220303224323-02efb9a75ee1 // indirect
+	github.com/opencontainers/runc v1.1.3 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
@@ -78,5 +88,7 @@ require (
 	google.golang.org/genproto v0.0.0-20220706185917-7780775163c4 // indirect
 	google.golang.org/grpc v1.50.1 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gotest.tools/v3 v3.4.0 // indirect
 )
