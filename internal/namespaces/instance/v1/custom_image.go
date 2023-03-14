@@ -441,6 +441,7 @@ func imageWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))

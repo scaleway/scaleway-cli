@@ -12,6 +12,8 @@ AVAILABLE COMMANDS:
   list        List all the pools in a cluster
   update      Update a pool in a cluster
   upgrade     Upgrade a pool in a cluster
+
+WORKFLOW COMMANDS:
   wait        Wait for a pool to reach a stable state
 
 FLAGS:

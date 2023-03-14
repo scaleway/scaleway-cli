@@ -13,6 +13,8 @@ AVAILABLE COMMANDS:
   list        List Load Balancers
   migrate     Migrate a Load Balancer
   update      Update a Load Balancer
+
+WORKFLOW COMMANDS:
   wait        Wait for a load balancer to reach a stable state
 
 FLAGS:

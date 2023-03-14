@@ -38,6 +38,7 @@ func serverWaitCommand() *core.Command {
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := baremetal.NewAPI(core.ExtractClient(ctx))

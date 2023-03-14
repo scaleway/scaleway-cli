@@ -114,6 +114,7 @@ func snapshotWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))

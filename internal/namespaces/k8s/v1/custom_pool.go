@@ -101,6 +101,7 @@ func k8sPoolWaitCommand() *core.Command {
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))

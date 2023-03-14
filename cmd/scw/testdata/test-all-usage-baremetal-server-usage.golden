@@ -15,6 +15,8 @@ AVAILABLE COMMANDS:
   start       Start an elastic metal server
   stop        Stop an elastic metal server
   update      Update an elastic metal server
+
+WORKFLOW COMMANDS:
   wait        Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:

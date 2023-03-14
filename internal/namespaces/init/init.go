@@ -74,7 +74,8 @@ type initArgs struct {
 
 func initCommand() *core.Command {
 	return &core.Command{
-		Short: `Initialize the config`,
+		Groups: []string{"config"},
+		Short:  `Initialize the config`,
 		Long: `Initialize the active profile of the config.
 Default path for configuration file is based on the following priority order:
 

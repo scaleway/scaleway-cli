@@ -144,3 +144,35 @@ func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
 	})
 	return commands
 }
+
+func orderCobraGroups(cobraGroups []*cobra.Group) []*cobra.Group {
+	groups := make([]*cobra.Group, len(cobraGroups))
+	copy(groups, cobraGroups)
+
+	sort.Slice(groups, func(i, j int) bool {
+		return groups[i].Title < groups[j].Title
+	})
+	return groups
+}
+
+func getCobraCommandsGroups(cobraCommands []*cobra.Command) []*cobra.Group {
+	var groups []*cobra.Group
+	addedGroups := make(map[string]struct{})
+
+	for _, cobraCommand := range cobraCommands {
+		if !cobraCommand.IsAvailableCommand() {
+			continue
+		}
+
+		for _, group := range cobraCommand.Groups() {
+			if _, ok := addedGroups[group.ID]; ok {
+				continue
+			}
+
+			addedGroups[group.ID] = struct{}{}
+			groups = append(groups, group)
+		}
+	}
+
+	return groups
+}

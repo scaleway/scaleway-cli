@@ -25,6 +25,8 @@ AVAILABLE COMMANDS:
   export      Export a snapshot
   get         Get a snapshot
   list        List snapshots
+
+WORKFLOW COMMANDS:
   wait        Wait for snapshot to reach a stable state
 
 FLAGS:

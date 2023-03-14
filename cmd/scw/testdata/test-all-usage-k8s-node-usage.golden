@@ -11,6 +11,8 @@ AVAILABLE COMMANDS:
   list        List all the nodes in a cluster
   reboot      Reboot a node in a cluster
   replace     Replace a node in a cluster
+
+WORKFLOW COMMANDS:
   wait        Wait for a node to reach a stable state
 
 FLAGS:

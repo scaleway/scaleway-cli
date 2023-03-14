@@ -10,6 +10,8 @@ AVAILABLE COMMANDS:
   deactivate    Deactivate a cockpit
   get           Get cockpit
   reset-grafana Reset Grafana
+
+WORKFLOW COMMANDS:
   wait          Wait for a cockpit to reach a stable state (installation)
 
 FLAGS:

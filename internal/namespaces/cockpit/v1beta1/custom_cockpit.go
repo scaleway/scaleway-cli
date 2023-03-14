@@ -39,6 +39,7 @@ func cockpitWaitCommand() *core.Command {
 		Namespace: "cockpit",
 		Resource:  "cockpit",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(cockpitWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := cockpit.NewAPI(core.ExtractClient(ctx))

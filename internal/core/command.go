@@ -76,6 +76,9 @@ type Command struct {
 	Aliases []string
 	// cache command path
 	path string
+
+	// Groups contains a list of groups IDs
+	Groups []string
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.

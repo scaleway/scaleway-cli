@@ -14,6 +14,8 @@ AVAILABLE COMMANDS:
   get         Get an instance image
   list        List instance images
   update      Update an instance image
+
+WORKFLOW COMMANDS:
   wait        Wait for image to reach a stable state
 
 FLAGS:

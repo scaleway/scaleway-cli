@@ -22,7 +22,8 @@ func GetCommands() *core.Commands {
 
 func aliasRootCommand() *core.Command {
 	return &core.Command{
-		Short: "Alias related commands",
+		Groups: []string{"config"},
+		Short:  "Alias related commands",
 		Long: `This namespace allows you to manage your aliases
 Aliases are store in cli config file, Default path for this configuration file is based on the following priority order:
 
