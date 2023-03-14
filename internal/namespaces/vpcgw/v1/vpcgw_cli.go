@@ -66,16 +66,16 @@ func GetGeneratedCommands() *core.Commands {
 }
 func vpcGwRoot() *core.Command {
 	return &core.Command{
-		Short:     `VPC Public Gateway API`,
-		Long:      `VPC Public Gateway API.`,
+		Short:     `Public Gateways API`,
+		Long:      `Public Gateways API.`,
 		Namespace: "vpc-gw",
 	}
 }
 
 func vpcGwGateway() *core.Command {
 	return &core.Command{
-		Short: `VPC Public Gateway management`,
-		Long: `The VPC Public Gateway is a building block for your infrastructure on Scaleway's shared public cloud. It provides a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
+		Short: `Public Gateway management`,
+		Long: `Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
@@ -85,7 +85,7 @@ func vpcGwGateway() *core.Command {
 func vpcGwGatewayNetwork() *core.Command {
 	return &core.Command{
 		Short: `Gateway Networks management`,
-		Long: `A Gateway Network represents the connection of a Private Network to a VPC Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
+		Long: `A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
@@ -95,7 +95,7 @@ func vpcGwGatewayNetwork() *core.Command {
 func vpcGwDHCP() *core.Command {
 	return &core.Command{
 		Short: `DHCP configuration management`,
-		Long: `DHCP configuration allows you to set parameters for assignment of IP addresses to devices on a Private Network attached to a VPC Public Gateway (subnet, lease time etc).
+		Long: `These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
@@ -105,7 +105,7 @@ func vpcGwDHCP() *core.Command {
 func vpcGwDHCPEntry() *core.Command {
 	return &core.Command{
 		Short: `DHCP entries management`,
-		Long: `DHCP entries hold both dynamic DHCP leases (IP addresses dynamically assigned by the gateway to instances) and static user-created DHCP reservations.
+		Long: `DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
@@ -115,7 +115,7 @@ func vpcGwDHCPEntry() *core.Command {
 func vpcGwPatRule() *core.Command {
 	return &core.Command{
 		Short: `PAT rules management`,
-		Long: `PAT (Port Address Translation) rules are global to a gateway. They define the forwarding of a public port to a specific instance on a Private Network.
+		Long: `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
@@ -125,7 +125,7 @@ func vpcGwPatRule() *core.Command {
 func vpcGwIP() *core.Command {
 	return &core.Command{
 		Short: `IP address management`,
-		Long: `A VPC Public Gateway has a public IP address, allowing it to reach the public internet, as well as forward (masquerade) traffic from member instances of attached Private Networks.
+		Long: `Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
@@ -135,7 +135,7 @@ func vpcGwIP() *core.Command {
 func vpcGwGatewayType() *core.Command {
 	return &core.Command{
 		Short: `Gateway types information`,
-		Long: `Gateways come in multiple shapes and size, which are described by the various gateway types.
+		Long: `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
 `,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
@@ -144,8 +144,8 @@ func vpcGwGatewayType() *core.Command {
 
 func vpcGwGatewayList() *core.Command {
 	return &core.Command{
-		Short:     `List VPC Public Gateways`,
-		Long:      `List VPC Public Gateways.`,
+		Short:     `List Public Gateways`,
+		Long:      `List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "list",
@@ -162,35 +162,35 @@ func vpcGwGatewayList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Include only gateways in this project`,
+				Short:      `Include only gateways in this Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter gateways including this name`,
+				Short:      `Filter for gateways which have this search term in their name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Filter gateways with these tags`,
+				Short:      `Filter for gateways with these tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
-				Short:      `Filter gateways of this type`,
+				Short:      `Filter for gateways of this type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status",
-				Short:      `Filter gateways in this status (unknown for any)`,
+				Short:      `Filter for gateways with this current status. Use ` + "`" + `unknown` + "`" + ` to include all statuses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -198,14 +198,14 @@ func vpcGwGatewayList() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Filter gateways attached to this private network`,
+				Short:      `Filter for gateways attached to this Private nNetwork`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Include only gateways in this organization`,
+				Short:      `Include only gateways in this Organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -269,8 +269,8 @@ func vpcGwGatewayList() *core.Command {
 
 func vpcGwGatewayGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a VPC Public Gateway`,
-		Long:      `Get a VPC Public Gateway.`,
+		Short:     `Get a Public Gateway`,
+		Long:      `Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "get",
@@ -299,8 +299,8 @@ func vpcGwGatewayGet() *core.Command {
 
 func vpcGwGatewayCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a VPC Public Gateway`,
-		Long:      `Create a VPC Public Gateway.`,
+		Short:     `Create a Public Gateway`,
+		Long:      `Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "create",
@@ -310,7 +310,7 @@ func vpcGwGatewayCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `Name of the gateway`,
+				Short:      `Name for the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -325,7 +325,7 @@ func vpcGwGatewayCreate() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Gateway type`,
+				Short:      `Gateway type (commercial offer type)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -333,28 +333,28 @@ func vpcGwGatewayCreate() *core.Command {
 			},
 			{
 				Name:       "upstream-dns-servers.{index}",
-				Short:      `Override the gateway's default recursive DNS servers, if DNS features are enabled`,
+				Short:      `Array of DNS server IP addresses to override the gateway's default recursive DNS servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ip-id",
-				Short:      `Attach an existing IP to the gateway`,
+				Short:      `Existing IP address to attach to the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-smtp",
-				Short:      `Allow SMTP traffic to pass through the gateway`,
+				Short:      `Defines whether SMTP traffic should be allowed pass through the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-bastion",
-				Short:      `Enable SSH bastion on the gateway`,
+				Short:      `Defines whether SSH bastion should be enabled the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -381,8 +381,8 @@ func vpcGwGatewayCreate() *core.Command {
 
 func vpcGwGatewayUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a VPC Public Gateway`,
-		Long:      `Update a VPC Public Gateway.`,
+		Short:     `Update a Public Gateway`,
+		Long:      `Update the parameters of an existing Public Gateway, for example, its **name**, **tags**, **SSH bastion configuration**, and **DNS servers**.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "update",
@@ -398,7 +398,7 @@ func vpcGwGatewayUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Name fo the gateway`,
+				Short:      `Name for the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -412,14 +412,14 @@ func vpcGwGatewayUpdate() *core.Command {
 			},
 			{
 				Name:       "upstream-dns-servers.{index}",
-				Short:      `Override the gateway's default recursive DNS servers, if DNS features are enabled`,
+				Short:      `Array of DNS server IP addresses to override the gateway's default recursive DNS servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-bastion",
-				Short:      `Enable SSH bastion on the gateway`,
+				Short:      `Defines whether SSH bastion should be enabled the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -433,7 +433,7 @@ func vpcGwGatewayUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-smtp",
-				Short:      `Allow SMTP traffic to pass through the gateway`,
+				Short:      `Defines whether SMTP traffic should be allowed to pass through the gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -453,8 +453,8 @@ func vpcGwGatewayUpdate() *core.Command {
 
 func vpcGwGatewayDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a VPC Public Gateway`,
-		Long:      `Delete a VPC Public Gateway.`,
+		Short:     `Delete a Public Gateway`,
+		Long:      `Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "delete",
@@ -470,7 +470,7 @@ func vpcGwGatewayDelete() *core.Command {
 			},
 			{
 				Name:       "cleanup-dhcp",
-				Short:      `Whether to cleanup attached DHCP configurations`,
+				Short:      `Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -496,8 +496,8 @@ func vpcGwGatewayDelete() *core.Command {
 
 func vpcGwGatewayUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade a VPC Public Gateway to the latest version`,
-		Long:      `Upgrade a VPC Public Gateway to the latest version.`,
+		Short:     `Upgrade a Public Gateway to the latest version`,
+		Long:      `Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "upgrade",
@@ -526,8 +526,8 @@ func vpcGwGatewayUpgrade() *core.Command {
 
 func vpcGwGatewayNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List gateway connections to Private Networks`,
-		Long:      `List gateway connections to Private Networks.`,
+		Short:     `List Public Gateway connections to Private Networks`,
+		Long:      `List the connections between Public Gateways and Private Networks (a connection = a GatewayNetwork). You can choose to filter by ` + "`" + `gateway-id` + "`" + ` to list all Private Networks attached to the specified Public Gateway, or by ` + "`" + `private_network_id` + "`" + ` to list all Public Gateways attached to the specified Private Network. Other query parameters are also available. The result is an array of GatewayNetwork objects, each giving details of the connection between a given Public Gateway and a given Private Network.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "list",
@@ -544,35 +544,35 @@ func vpcGwGatewayNetworkList() *core.Command {
 			},
 			{
 				Name:       "gateway-id",
-				Short:      `Filter by gateway`,
+				Short:      `Filter for GatewayNetworks connected to this gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Filter by private network`,
+				Short:      `Filter for GatewayNetworks connected to this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Filter by masquerade enablement`,
+				Short:      `Filter for GatewayNetworks with this ` + "`" + `enable_masquerade` + "`" + ` setting`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dhcp-id",
-				Short:      `Filter by DHCP configuration`,
+				Short:      `Filter for GatewayNetworks using this DHCP configuration`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status",
-				Short:      `Filter GatewayNetworks by this status (unknown for any)`,
+				Short:      `Filter for GatewayNetworks with this current status this status. Use ` + "`" + `unknown` + "`" + ` to include all statuses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -637,8 +637,8 @@ func vpcGwGatewayNetworkList() *core.Command {
 
 func vpcGwGatewayNetworkGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a gateway connection to a Private Network`,
-		Long:      `Get a gateway connection to a Private Network.`,
+		Short:     `Get a Public Gateway connection to a Private Network`,
+		Long:      `Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its ` + "`" + `gateway_network_id` + "`" + `. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "get",
@@ -667,8 +667,8 @@ func vpcGwGatewayNetworkGet() *core.Command {
 
 func vpcGwGatewayNetworkCreate() *core.Command {
 	return &core.Command{
-		Short:     `Attach a gateway to a Private Network`,
-		Long:      `Attach a gateway to a Private Network.`,
+		Short:     `Attach a Public Gateway to a Private Network`,
+		Long:      `Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "create",
@@ -677,7 +677,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
-				Short:      `Gateway to connect`,
+				Short:      `Public Gateway to connect`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -691,14 +691,14 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Whether to enable masquerade on this network`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on this network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dhcp-id",
-				Short:      `Existing configuration`,
+				Short:      `ID of an existing DHCP configuration object to use for this GatewayNetwork`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -712,7 +712,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "enable-dhcp",
-				Short:      `Whether to enable DHCP on this Private Network`,
+				Short:      `Defines whether to enable DHCP on this Private Network. Defaults to ` + "`" + `true` + "`" + ` if either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` are present. If set to ` + "`" + `true` + "`" + `, either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` must be present`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -732,8 +732,8 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 
 func vpcGwGatewayNetworkUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a gateway connection to a Private Network`,
-		Long:      `Update a gateway connection to a Private Network.`,
+		Short:     `Update a Public Gateway's connection to a Private Network`,
+		Long:      `Update the configuration parameters of a connection between a given Public Gateway and Private Network (the connection = a GatewayNetwork). Updatable parameters include DHCP settings and whether to enable traffic masquerade (dynamic NAT).`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "update",
@@ -749,21 +749,21 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `New masquerade enablement`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dhcp-id",
-				Short:      `New DHCP configuration`,
+				Short:      `ID of the new DHCP configuration object to use with this GatewayNetwork`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-dhcp",
-				Short:      `Whether to enable DHCP on the connected Private Network`,
+				Short:      `Defines whether to enable DHCP on the connected Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -790,8 +790,8 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 
 func vpcGwGatewayNetworkDelete() *core.Command {
 	return &core.Command{
-		Short:     `Detach a gateway from a Private Network`,
-		Long:      `Detach a gateway from a Private Network.`,
+		Short:     `Detach a Public Gateway from a Private Network`,
+		Long:      `Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "delete",
@@ -800,14 +800,14 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
-				Short:      `GatewayNetwork to delete`,
+				Short:      `ID of the GatewayNetwork to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "cleanup-dhcp",
-				Short:      `Whether to cleanup the attached DHCP configuration`,
+				Short:      `Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -834,7 +834,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 func vpcGwDHCPList() *core.Command {
 	return &core.Command{
 		Short:     `List DHCP configurations`,
-		Long:      `List DHCP configurations.`,
+		Long:      `List DHCP configurations, optionally filtering by Organization, Project, Public Gateway IP address or more. The response is an array of DHCP configuration objects, each identified by a DHCP ID and containing configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the ` + "`" + `List Public Gateway connections to Private Networks` + "`" + ` method for that purpose, filtering on DHCP ID.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "list",
@@ -851,28 +851,28 @@ func vpcGwDHCPList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Include only DHCPs in this project`,
+				Short:      `Include only DHCP configuration objects in this Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "address",
-				Short:      `Filter on gateway address`,
+				Short:      `Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "has-address",
-				Short:      `Filter on subnets containing address`,
+				Short:      `Filter for DHCP configuration objects with subnets containing this IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Include only DHCPs in this organization`,
+				Short:      `Include only DHCP configuration objects in this Organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -961,7 +961,7 @@ func vpcGwDHCPList() *core.Command {
 func vpcGwDHCPGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a DHCP configuration`,
-		Long:      `Get a DHCP configuration.`,
+		Long:      `Get a DHCP configuration object, identified by its DHCP ID. The response object contains configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the ` + "`" + `List Public Gateway connections to Private Networks` + "`" + ` method for that purpose, filtering on DHCP ID.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "get",
@@ -970,7 +970,7 @@ func vpcGwDHCPGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dhcp-id",
-				Short:      `ID of the DHCP config to fetch`,
+				Short:      `ID of the DHCP configuration to fetch`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -991,7 +991,7 @@ func vpcGwDHCPGet() *core.Command {
 func vpcGwDHCPCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a DHCP configuration`,
-		Long:      `Create a DHCP configuration.`,
+		Long:      `Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to ` + "`" + `Create a Public Gateway connection to a Private Network` + "`" + ` or ` + "`" + `Update a Public Gateway connection to a Private Network` + "`" + ` to directly apply this DHCP configuration.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "create",
@@ -1008,28 +1008,28 @@ func vpcGwDHCPCreate() *core.Command {
 			},
 			{
 				Name:       "address",
-				Short:      `Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet`,
+				Short:      `IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pool-low",
-				Short:      `Low IP (included) of the dynamic address pool`,
+				Short:      `Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pool-high",
-				Short:      `High IP (included) of the dynamic address pool`,
+				Short:      `High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-dynamic",
-				Short:      `Whether to enable dynamic pooling of IPs`,
+				Short:      `Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1072,35 +1072,35 @@ func vpcGwDHCPCreate() *core.Command {
 			},
 			{
 				Name:       "push-default-route",
-				Short:      `Whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true`,
+				Short:      `Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "push-dns-server",
-				Short:      `Whether the gateway should push custom DNS servers to clients`,
+				Short:      `Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-servers-override.{index}",
-				Short:      `Override the DNS server list pushed to DHCP clients, instead of the gateway itself`,
+				Short:      `Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-search.{index}",
-				Short:      `Additional DNS search paths`,
+				Short:      `Array of search paths in addition to the pushed DNS configuration`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-local-name",
-				Short:      `TLD given to hosts in the Private Network`,
+				Short:      `TLD given to hostnames in the Private Network. Allowed characters are ` + "`" + `a-z0-9-.` + "`" + `. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to ` + "`" + `priv` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1121,7 +1121,7 @@ func vpcGwDHCPCreate() *core.Command {
 func vpcGwDHCPUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a DHCP configuration`,
-		Long:      `Update a DHCP configuration.`,
+		Long:      `Update a DHCP configuration object, identified by its DHCP ID.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "update",
@@ -1130,7 +1130,7 @@ func vpcGwDHCPUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dhcp-id",
-				Short:      `DHCP config to update`,
+				Short:      `DHCP configuration to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1144,28 +1144,28 @@ func vpcGwDHCPUpdate() *core.Command {
 			},
 			{
 				Name:       "address",
-				Short:      `Address of the DHCP server. This will be the gateway's address in the private network`,
+				Short:      `IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pool-low",
-				Short:      `Low IP (included) of the dynamic address pool`,
+				Short:      `Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pool-high",
-				Short:      `High IP (included) of the dynamic address pool`,
+				Short:      `High IP (inclusive) of the dynamic address pool. Must be in the config's subnet`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-dynamic",
-				Short:      `Whether to enable dynamic pooling of IPs`,
+				Short:      `Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1208,35 +1208,35 @@ func vpcGwDHCPUpdate() *core.Command {
 			},
 			{
 				Name:       "push-default-route",
-				Short:      `Whether the gateway should push a default route to DHCP clients or only hand out IPs`,
+				Short:      `Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "push-dns-server",
-				Short:      `Whether the gateway should push custom DNS servers to clients`,
+				Short:      `Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-servers-override.{index}",
-				Short:      `Override the DNS server list pushed to DHCP clients, instead of the gateway itself`,
+				Short:      `Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-search.{index}",
-				Short:      `Additional DNS search paths`,
+				Short:      `Array of search paths in addition to the pushed DNS configuration`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-local-name",
-				Short:      `TLD given to hosts in the Private Network`,
+				Short:      `TLD given to hostnames in the Private Networks. If an instance with hostname ` + "`" + `foo` + "`" + ` gets a lease, and this is set to ` + "`" + `bar` + "`" + `, ` + "`" + `foo.bar` + "`" + ` will resolve. Allowed characters are ` + "`" + `a-z0-9-.` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1257,7 +1257,7 @@ func vpcGwDHCPUpdate() *core.Command {
 func vpcGwDHCPDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a DHCP configuration`,
-		Long:      `Delete a DHCP configuration.`,
+		Long:      `Delete a DHCP configuration object, identified by its DHCP ID. Note that you cannot delete a DHCP configuration object that is currently being used by a Gateway Network.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "delete",
@@ -1266,7 +1266,7 @@ func vpcGwDHCPDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dhcp-id",
-				Short:      `DHCP config id to delete`,
+				Short:      `DHCP configuration ID to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1293,7 +1293,7 @@ func vpcGwDHCPDelete() *core.Command {
 func vpcGwDHCPEntryList() *core.Command {
 	return &core.Command{
 		Short:     `List DHCP entries`,
-		Long:      `List DHCP entries.`,
+		Long:      `List DHCP entries, whether dynamically assigned and/or statically reserved. DHCP entries can be filtered by the Gateway Network they are on, their MAC address, IP address, type or hostname.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "list",
@@ -1310,35 +1310,35 @@ func vpcGwDHCPEntryList() *core.Command {
 			},
 			{
 				Name:       "gateway-network-id",
-				Short:      `Filter entries based on the gateway network they are on`,
+				Short:      `Filter for entries on this GatewayNetwork`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "mac-address",
-				Short:      `Filter entries on their MAC address`,
+				Short:      `Filter for entries with this MAC address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ip-address",
-				Short:      `Filter entries on their IP address`,
+				Short:      `Filter for entries with this IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hostname",
-				Short:      `Filter entries on their hostname substring`,
+				Short:      `Filter for entries with this hostname substring`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
-				Short:      `Filter entries on their type`,
+				Short:      `Filter for entries of this type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1397,8 +1397,8 @@ func vpcGwDHCPEntryList() *core.Command {
 
 func vpcGwDHCPEntryGet() *core.Command {
 	return &core.Command{
-		Short:     `Get DHCP entries`,
-		Long:      `Get DHCP entries.`,
+		Short:     `Get a DHCP entry`,
+		Long:      `Get a DHCP entry, specified by its DHCP entry ID.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "get",
@@ -1427,8 +1427,8 @@ func vpcGwDHCPEntryGet() *core.Command {
 
 func vpcGwDHCPEntryCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a static DHCP reservation`,
-		Long:      `Create a static DHCP reservation.`,
+		Short:     `Create a DHCP entry`,
+		Long:      `Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "create",
@@ -1451,7 +1451,7 @@ func vpcGwDHCPEntryCreate() *core.Command {
 			},
 			{
 				Name:       "ip-address",
-				Short:      `IP address to give to the machine`,
+				Short:      `IP address to give to the device`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1472,7 +1472,7 @@ func vpcGwDHCPEntryCreate() *core.Command {
 func vpcGwDHCPEntryUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a DHCP entry`,
-		Long:      `Update a DHCP entry.`,
+		Long:      `Update the IP address for a DHCP entry, specified by its DHCP entry ID. You can update an existing DHCP entry of any type (` + "`" + `reservation` + "`" + ` (static), ` + "`" + `lease` + "`" + ` (dynamic) or ` + "`" + `unknown` + "`" + `), but in manually updating the IP address the entry will necessarily be of type ` + "`" + `reservation` + "`" + ` after the update.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "update",
@@ -1481,14 +1481,14 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dhcp-entry-id",
-				Short:      `DHCP entry ID to update`,
+				Short:      `ID of the DHCP entry to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "ip-address",
-				Short:      `New IP address to give to the machine`,
+				Short:      `New IP address to give to the device`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1509,7 +1509,7 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 func vpcGwDHCPEntrySet() *core.Command {
 	return &core.Command{
 		Short:     `Set all DHCP reservations on a Gateway Network`,
-		Long:      `Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries.`,
+		Long:      `Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries accordingly.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "set",
@@ -1518,7 +1518,7 @@ func vpcGwDHCPEntrySet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
-				Short:      `Gateway Network on which to set DHCP reservation list`,
+				Short:      `ID of the Gateway Network on which to set DHCP reservation list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1532,7 +1532,7 @@ func vpcGwDHCPEntrySet() *core.Command {
 			},
 			{
 				Name:       "dhcp-entries.{index}.ip-address",
-				Short:      `IP address to give to the machine`,
+				Short:      `IP address to give to the device`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1552,8 +1552,8 @@ func vpcGwDHCPEntrySet() *core.Command {
 
 func vpcGwDHCPEntryDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a DHCP reservation`,
-		Long:      `Delete a DHCP reservation.`,
+		Short:     `Delete a DHCP entry`,
+		Long:      `Delete a static DHCP reservation, identified by its DHCP entry ID. Note that you cannot delete DHCP entries of type ` + "`" + `lease` + "`" + `, these are deleted automatically when their time-to-live expires.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "delete",
@@ -1562,7 +1562,7 @@ func vpcGwDHCPEntryDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dhcp-entry-id",
-				Short:      `DHCP entry ID to delete`,
+				Short:      `ID of the DHCP entry to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1589,7 +1589,7 @@ func vpcGwDHCPEntryDelete() *core.Command {
 func vpcGwPatRuleList() *core.Command {
 	return &core.Command{
 		Short:     `List PAT rules`,
-		Long:      `List PAT rules.`,
+		Long:      `List PAT rules. You can filter by gateway ID to list all PAT rules for a particular gateway, or filter for PAT rules targeting a specific IP address or using a specific protocol.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "list",
@@ -1606,21 +1606,21 @@ func vpcGwPatRuleList() *core.Command {
 			},
 			{
 				Name:       "gateway-id",
-				Short:      `Fetch rules for this gateway`,
+				Short:      `Filter for PAT rules on this Gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-ip",
-				Short:      `Fetch rules targeting this private ip`,
+				Short:      `Filter for PAT rules targeting this private ip`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "protocol",
-				Short:      `Fetch rules for this protocol`,
+				Short:      `Filter for PAT rules with this protocol`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1680,7 +1680,7 @@ func vpcGwPatRuleList() *core.Command {
 func vpcGwPatRuleGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a PAT rule`,
-		Long:      `Get a PAT rule.`,
+		Long:      `Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "get",
@@ -1689,7 +1689,7 @@ func vpcGwPatRuleGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
-				Short:      `PAT rule to get`,
+				Short:      `ID of the PAT rule to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1710,7 +1710,7 @@ func vpcGwPatRuleGet() *core.Command {
 func vpcGwPatRuleCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a PAT rule`,
-		Long:      `Create a PAT rule.`,
+		Long:      `Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "create",
@@ -1719,7 +1719,7 @@ func vpcGwPatRuleCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
-				Short:      `Gateway on which to attach the rule to`,
+				Short:      `ID of the Gateway on which to create the rule`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1769,7 +1769,7 @@ func vpcGwPatRuleCreate() *core.Command {
 func vpcGwPatRuleUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a PAT rule`,
-		Long:      `Update a PAT rule.`,
+		Long:      `Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "update",
@@ -1778,7 +1778,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
-				Short:      `PAT rule to update`,
+				Short:      `ID of the PAT rule to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1827,8 +1827,8 @@ func vpcGwPatRuleUpdate() *core.Command {
 
 func vpcGwPatRuleSet() *core.Command {
 	return &core.Command{
-		Short:     `Set all PAT rules on a Gateway`,
-		Long:      `Set the list of PAT rules attached to a Gateway. Rules are identified by their public port and protocol. This will sync the current PAT rule list with the givent list, creating, updating or deleting PAT rules.`,
+		Short:     `Set all PAT rules`,
+		Long:      `Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "set",
@@ -1837,7 +1837,7 @@ func vpcGwPatRuleSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
-				Short:      `Gateway on which to set the PAT rules`,
+				Short:      `ID of the gateway on which to set the PAT rules`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1887,7 +1887,7 @@ func vpcGwPatRuleSet() *core.Command {
 func vpcGwPatRuleDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a PAT rule`,
-		Long:      `Delete a PAT rule.`,
+		Long:      `Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "delete",
@@ -1896,7 +1896,7 @@ func vpcGwPatRuleDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
-				Short:      `PAT rule to delete`,
+				Short:      `ID of the PAT rule to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1922,8 +1922,8 @@ func vpcGwPatRuleDelete() *core.Command {
 
 func vpcGwGatewayTypeList() *core.Command {
 	return &core.Command{
-		Short:     `List VPC Public Gateway types`,
-		Long:      `List VPC Public Gateway types.`,
+		Short:     `List Public Gateway types`,
+		Long:      `List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
 		Verb:      "list",
@@ -1946,7 +1946,7 @@ func vpcGwGatewayTypeList() *core.Command {
 func vpcGwIPList() *core.Command {
 	return &core.Command{
 		Short:     `List IPs`,
-		Long:      `List IPs.`,
+		Long:      `List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "list",
@@ -1963,35 +1963,35 @@ func vpcGwIPList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Include only IPs in this project`,
+				Short:      `Filter for IP addresses in this Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Filter IPs with these tags`,
+				Short:      `Filter for IP addresses with these tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "reverse",
-				Short:      `Filter by reverse containing this string`,
+				Short:      `Filter for IP addresses that have a reverse containing this string`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-free",
-				Short:      `Filter whether the IP is attached to a gateway or not`,
+				Short:      `Filter based on whether the IP is attached to a gateway or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Include only IPs in this organization`,
+				Short:      `Filter for IP addresses in this Organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2050,7 +2050,7 @@ func vpcGwIPList() *core.Command {
 func vpcGwIPGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an IP`,
-		Long:      `Get an IP.`,
+		Long:      `Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "get",
@@ -2059,7 +2059,7 @@ func vpcGwIPGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
-				Short:      `ID of the IP to get`,
+				Short:      `ID of the IP address to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -2080,7 +2080,7 @@ func vpcGwIPGet() *core.Command {
 func vpcGwIPCreate() *core.Command {
 	return &core.Command{
 		Short:     `Reserve an IP`,
-		Long:      `Reserve an IP.`,
+		Long:      `Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "create",
@@ -2090,7 +2090,7 @@ func vpcGwIPCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to give to the IP`,
+				Short:      `Tags to give to the IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2111,7 +2111,7 @@ func vpcGwIPCreate() *core.Command {
 func vpcGwIPUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an IP`,
-		Long:      `Update an IP.`,
+		Long:      `Update details of an existing flexible IP address, including its tags, reverse and the Public Gateway it is assigned to.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "update",
@@ -2120,28 +2120,28 @@ func vpcGwIPUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
-				Short:      `ID of the IP to update`,
+				Short:      `ID of the IP address to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to give to the IP`,
+				Short:      `Tags to give to the IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "reverse",
-				Short:      `Reverse to set on the IP. Empty string to unset`,
+				Short:      `Reverse to set on the address. Empty string to unset`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "gateway-id",
-				Short:      `Gateway to attach the IP to. Empty string to detach`,
+				Short:      `Gateway to attach the IP address to. Empty string to detach`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2162,7 +2162,7 @@ func vpcGwIPUpdate() *core.Command {
 func vpcGwIPDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an IP`,
-		Long:      `Delete an IP.`,
+		Long:      `Delete a flexible IP address from your account. This action is irreversible.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "delete",
@@ -2171,7 +2171,7 @@ func vpcGwIPDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
-				Short:      `ID of the IP to delete`,
+				Short:      `ID of the IP address to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -2197,8 +2197,8 @@ func vpcGwIPDelete() *core.Command {
 
 func vpcGwGatewayRefreshSSHKeys() *core.Command {
 	return &core.Command{
-		Short:     `Refresh SSH keys of a VPC Public Gateway`,
-		Long:      `Refresh SSH keys of a VPC Public Gateway.`,
+		Short:     `Refresh a Public Gateway's SSH keys`,
+		Long:      `Refresh the SSH keys of a given Public Gateway, specified by its gateway ID. This adds any new SSH keys in the gateway's Scaleway Project to the gateway itself.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "refresh-ssh-keys",
@@ -2207,7 +2207,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
-				Short:      `ID of the gateway that needs fresh ssh keys`,
+				Short:      `ID of the gateway to refresh SSH keys on`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,

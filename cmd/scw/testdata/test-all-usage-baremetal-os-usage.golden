@@ -6,8 +6,8 @@ USAGE:
   scw baremetal os <command>
 
 AVAILABLE COMMANDS:
-  get         Get an OS with a given ID
-  list        List all available OS that can be install on an elastic metal server
+  get         Get an OS with an ID
+  list        List available OSes
 
 FLAGS:
   -h, --help   help for os

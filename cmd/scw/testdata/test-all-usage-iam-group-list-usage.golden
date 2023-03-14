@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List groups.
+List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
 
 USAGE:
   scw iam group list [arg=value ...]
@@ -8,10 +8,10 @@ USAGE:
 ARGS:
   [order-by=created_at_asc]                   Sort order of groups (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
   [name]                                      Name of group to find
-  [application-ids.{index}]                   Filter out by a list of application ID
-  [user-ids.{index}]                          Filter out by a list of user ID
-  [group-ids.{index}]                         Filter out by a list of group ID
-  [organization-id=<retrieved from config>]   Filter by organization ID
+  [application-ids.{index}]                   Filter by a list of application IDs
+  [user-ids.{index}]                          Filter by a list of user IDs
+  [group-ids.{index}]                         Filter by a list of group IDs
+  [organization-id=<retrieved from config>]   Filter by Organization ID
 
 FLAGS:
   -h, --help   help for list

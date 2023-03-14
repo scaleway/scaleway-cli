@@ -1,22 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A private network allows interconnecting your resources
+A Private Network allows you to interconnect your resources
 (servers, instances, ...) in an isolated and private
 network. The network reachability is limited to the
-resources that are on the same private network.  A VLAN
+resources that are on the same Private Network .  A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface...).
 
-Note that a resource can be a part of multiple private networks.
+Note that a resource can be a part of multiple Private Networks.
 
 USAGE:
   scw baremetal private-network <command>
 
 AVAILABLE COMMANDS:
-  add         Add a server to a private network
-  delete      Delete a private network
-  list        List the private networks of a server
-  set         Set multiple private networks on a server
+  add         Add a server to a Private Network
+  delete      Delete a Private Network
+  list        List the Private Networks of a server
+  set         Set multiple Private Networks on a server
 
 FLAGS:
   -h, --help   help for private-network

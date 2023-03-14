@@ -6,11 +6,11 @@ USAGE:
   scw account project <command>
 
 AVAILABLE COMMANDS:
-  create      Create project
-  delete      Delete project
-  get         Get project
-  list        List projects
-  update      Update project
+  create      Create a new Project for an Organization
+  delete      Delete an existing Project
+  get         Get an existing Project
+  list        List all Projects of an Organization
+  update      Update Project
 
 FLAGS:
   -h, --help   help for project

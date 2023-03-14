@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new elastic metal server. Once the server is created, you probably want to install an OS.
+Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).
 
 USAGE:
   scw baremetal server create [arg=value ...]
@@ -12,15 +12,15 @@ EXAMPLES:
 ARGS:
   [project-id]                    Project ID to use. If none is passed the default project ID will be used
   name=<generated>                Name of the server (≠hostname)
-  [description]                   Description associated to the server, max 255 characters
+  [description]                   Description associated with the server, max 255 characters
   [type]                          Server commercial type
   [tags.{index}]                  Tags to associate to the server
-  [install.os-id]                 ID of the OS to install on the server
+  [install.os-id]                 ID of the OS to installation on the server
   [install.hostname]              Hostname of the server
   [install.ssh-key-ids.{index}]   SSH key IDs authorized on the server
-  [install.user]                  User used for the installation
-  [install.password]              Password used for the installation
-  [install.service-user]          User used for the service to install
+  [install.user]                  User for the installation
+  [install.password]              Password for the installation
+  [install.service-user]          Regular user that runs the service to be installed on the server
   [install.service-password]      Password used for the service to install
   [option-ids.{index}]            IDs of options to enable on server
   [organization-id]               Organization ID to use. If none is passed the default organization ID will be used

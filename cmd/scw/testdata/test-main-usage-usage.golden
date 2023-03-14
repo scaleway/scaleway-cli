@@ -7,7 +7,7 @@ AVAILABLE COMMANDS:
   account       User related data
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
-  baremetal     Elastic metal API
+  baremetal     Elastic Metal API
   cockpit       Cockpit API
   container     Container as a Service API
   dns           DNS API
@@ -28,7 +28,7 @@ AVAILABLE COMMANDS:
   secret        This API allows you to conveniently store, access and share sensitive data
   tem           Tem
   vpc           VPC API
-  vpc-gw        VPC Public Gateway API
+  vpc-gw        Public Gateways API
   webhosting    Webhosting API
 
 CONFIGURATION COMMANDS:

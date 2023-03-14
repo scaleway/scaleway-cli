@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   setting-id        ID of the setting
-  [enabled]         Enable/Disable the setting
+  [enabled]         Defines whether the setting is enabled
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:

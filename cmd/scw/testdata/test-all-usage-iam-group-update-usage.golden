@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a group.
+Update the parameters of group, including `name` and `description`.
 
 USAGE:
   scw iam group update <group-id ...> [arg=value ...]
 
 ARGS:
-  group-id        ID of group to update
-  [name]          New name for the group (max length is 64 chars). MUST be unique inside an organization
+  group-id        ID of the group to update
+  [name]          New name for the group (max length is 64 chars). MUST be unique inside an Organization
   [description]   New description for the group (max length is 200 chars)
 
 FLAGS:

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Upgrade a VPC Public Gateway to the latest version.
+Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.
 
 USAGE:
   scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]

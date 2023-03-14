@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List permission sets.
+List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
 
 USAGE:
   scw iam permission-set list [arg=value ...]
