@@ -1,8 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A node (short for worker node) is an abstraction for a Scaleway Instance.
-It is part of a pool and is instantiated by Scaleway, making Kubernetes software installed and configured automatically on it.
-Please note that Kubernetes nodes cannot be accessed with ssh.
+A node (short for worker node) is an abstraction for a Scaleway Instance. A node is always part of a pool. Each of them will have Kubernetes software automatically installed and configured by Scaleway. Please note that Kubernetes nodes cannot be accessed with SSH.
 
 USAGE:
   scw k8s node <command>

@@ -1,38 +1,38 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to create a new pool in a specific Kubernetes cluster.
+Create a new pool in a specific Kubernetes cluster.
 
 USAGE:
   scw k8s pool create [arg=value ...]
 
 EXAMPLES:
-  Create a pool named bar with 2 DEV1-XL on a given cluster
+  Create a pool named bar with 2 DEV1-XL on a cluster
     scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
 
-  Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster
+  Create a pool named 'fish' with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a cluster
     scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd
 
-  Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster
+  Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a cluster
     scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group
 
 ARGS:
-  cluster-id                         The ID of the cluster in which the pool will be created
-  name=<generated>                   The name of the pool
-  node-type=DEV1-M                   The node type is the type of Scaleway Instance wanted for the pool
-  [placement-group-id]               The placement group ID in which all the nodes of the pool will be created
-  [autoscaling]                      The enablement of the autoscaling feature for the pool
-  size=1                             The size (number of nodes) of the pool
-  [min-size]                         The minimum size of the pool
-  [max-size]                         The maximum size of the pool
-  [container-runtime]                The container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
-  [autohealing]                      The enablement of the autohealing feature for the pool
-  [tags.{index}]                     The tags associated with the pool
-  [kubelet-args.{key}]               The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental
+  cluster-id                         ID of the cluster in which the pool will be created
+  name=<generated>                   Name of the pool
+  node-type=DEV1-M                   Node type is the type of Scaleway Instance wanted for the pool
+  [placement-group-id]               Placement group ID in which all the nodes of the pool will be created
+  [autoscaling]                      Defines whether the autoscaling feature is enabled for the pool
+  size=1                             Size (number of nodes) of the pool
+  [min-size]                         Minimum size of the pool
+  [max-size]                         Maximum size of the pool
+  [container-runtime]                Container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
+  [autohealing]                      Defines whether the autohealing feature is enabled for the pool
+  [tags.{index}]                     Tags associated with the pool
+  [kubelet-args.{key}]               Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental
   [upgrade-policy.max-unavailable]   
   [upgrade-policy.max-surge]         
-  [zone]                             The Zone in which the Pool's node will be spawn in
-  [root-volume-type]                 The system volume disk type (default_volume_type | l_ssd | b_ssd)
-  [root-volume-size]                 The system volume disk size
+  [zone]                             Zone in which the pool's nodes will be spawned
+  [root-volume-type]                 System volume disk type (default_volume_type | l_ssd | b_ssd)
+  [root-volume-size]                 System volume disk size
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

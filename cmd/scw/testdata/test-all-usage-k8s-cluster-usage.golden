@@ -10,8 +10,8 @@ USAGE:
 AVAILABLE COMMANDS:
   create                  Create a new cluster
   delete                  Delete a cluster
-  get                     Get a cluster
-  list                    List all the clusters
+  get                     Get specific cluster information
+  list                    List all clusters
   list-available-versions List available versions for a cluster
   reset-admin-token       Reset the admin token of a cluster
   update                  Update a cluster

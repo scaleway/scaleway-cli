@@ -5,8 +5,8 @@ Kapsule API.
 - [Kapsule cluster management commands](#kapsule-cluster-management-commands)
   - [Create a new cluster](#create-a-new-cluster)
   - [Delete a cluster](#delete-a-cluster)
-  - [Get a cluster](#get-a-cluster)
-  - [List all the clusters](#list-all-the-clusters)
+  - [Get specific cluster information](#get-specific-cluster-information)
+  - [List all clusters](#list-all-clusters)
   - [List available versions for a cluster](#list-available-versions-for-a-cluster)
   - [Reset the admin token of a cluster](#reset-the-admin-token-of-a-cluster)
   - [Update a cluster](#update-a-cluster)
@@ -46,7 +46,7 @@ It is composed of different pools, each pool containing the same kind of nodes.
 
 ### Create a new cluster
 
-This method allows to create a new Kubernetes cluster on an account.
+Creates a new Kubernetes cluster on a Scaleway account.
 
 **Usage:**
 
@@ -60,30 +60,30 @@ scw k8s cluster create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type |  | The type of the cluster |
-| name | Required<br />Default: `<generated>` | The name of the cluster |
-| description |  | The description of the cluster |
-| tags.{index} |  | The tags associated with the cluster |
-| version | Required<br />Default: `latest` | The Kubernetes version of the cluster |
-| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | The Container Network Interface (CNI) plugin that will run in the cluster |
-| ~~enable-dashboard~~ | Deprecated | The enablement of the Kubernetes Dashboard in the cluster |
-| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The Ingress Controller that will run in the cluster |
-| pools.{index}.name | Required | The name of the pool |
-| pools.{index}.node-type | Required | The node type is the type of Scaleway Instance wanted for the pool |
-| pools.{index}.placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
-| pools.{index}.autoscaling |  | The enablement of the autoscaling feature for the pool |
-| pools.{index}.size | Required | The size (number of nodes) of the pool |
-| pools.{index}.min-size |  | The minimum size of the pool |
-| pools.{index}.max-size |  | The maximum size of the pool |
-| pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
-| pools.{index}.autohealing |  | The enablement of the autohealing feature for the pool |
-| pools.{index}.tags.{index} |  | The tags associated with the pool |
-| pools.{index}.kubelet-args.{key} |  | The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
+| type |  | Type of the cluster |
+| name | Required<br />Default: `<generated>` | Name of the cluster |
+| description |  | Description of the cluster |
+| tags.{index} |  | Tags associated with the cluster |
+| version | Required<br />Default: `latest` | Kubernetes version of the cluster |
+| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | Container Network Interface (CNI) plugin that will run in the cluster |
+| ~~enable-dashboard~~ | Deprecated | Defines if the Kubernetes Dashboard is enabled in the cluster |
+| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | Ingress Controller that will run in the cluster |
+| pools.{index}.name | Required | Name of the pool |
+| pools.{index}.node-type | Required | Node type is the type of Scaleway Instance wanted for the pool |
+| pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
+| pools.{index}.autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
+| pools.{index}.size | Required | Size (number of nodes) of the pool |
+| pools.{index}.min-size |  | Minimum size of the pool |
+| pools.{index}.max-size |  | Maximum size of the pool |
+| pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Container runtime for the nodes of the pool |
+| pools.{index}.autohealing |  | Defines whether the autohealing feature is enabled for the pool |
+| pools.{index}.tags.{index} |  | Tags associated with the pool |
+| pools.{index}.kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
-| pools.{index}.zone |  | The Zone in which the Pool's node will be spawn in |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | The system volume disk type |
-| pools.{index}.root-volume-size |  | The system volume disk size |
+| pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
+| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | System volume disk type |
+| pools.{index}.root-volume-size |  | System volume disk size |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -95,8 +95,8 @@ scw k8s cluster create [arg=value ...]
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
 | auto-upgrade.enable |  | Whether or not auto upgrade is enabled for the cluster |
-| auto-upgrade.maintenance-window.start-hour |  | The start hour of the 2-hour maintenance window |
-| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | The day of the week for the maintenance window |
+| auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
+| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
 | feature-gates.{index} |  | List of feature gates to enable |
 | admission-plugins.{index} |  | List of admission plugins to enable |
 | open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys |
@@ -105,7 +105,7 @@ scw k8s cluster create [arg=value ...]
 | open-id-connect-config.username-prefix |  | Prefix prepended to username |
 | open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
 | open-id-connect-config.groups-prefix |  | Prefix prepended to group claims |
-| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID Token |
+| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID token |
 | apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -129,7 +129,7 @@ scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calic
 
 ### Delete a cluster
 
-This method allows to delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
+Deletes a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
 
 **Usage:**
 
@@ -142,7 +142,7 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster to delete |
+| cluster-id | Required | ID of the cluster to delete |
 | with-additional-resources |  | Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -150,7 +150,7 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a given cluster
+Delete a cluster
 ```
 scw k8s cluster delete 11111111-1111-1111-111111111111
 ```
@@ -158,9 +158,9 @@ scw k8s cluster delete 11111111-1111-1111-111111111111
 
 
 
-### Get a cluster
+### Get specific cluster information
 
-This method allows to get details about a specific Kubernetes cluster.
+Get details about a specific Kubernetes cluster.
 
 **Usage:**
 
@@ -180,7 +180,7 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Get a given cluster
+Get a cluster information
 ```
 scw k8s cluster get 11111111-1111-1111-111111111111
 ```
@@ -188,9 +188,9 @@ scw k8s cluster get 11111111-1111-1111-111111111111
 
 
 
-### List all the clusters
+### List all clusters
 
-This method allows to list all the existing Kubernetes clusters in an account.
+List all the existing Kubernetes clusters in a specific Region.
 
 **Usage:**
 
@@ -203,19 +203,19 @@ scw k8s cluster list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | The project ID on which to filter the returned clusters |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned clusters |
-| name |  | The name on which to filter the returned clusters |
-| status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | The status on which to filter the returned clusters |
-| type |  | The type on which to filter the returned clusters |
-| organization-id |  | The organization ID on which to filter the returned clusters |
+| project-id |  | Project ID on which to filter the returned clusters |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of the returned clusters |
+| name |  | Name on which to filter the returned clusters |
+| status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | Status on which to filter the returned clusters |
+| type |  | Type on which to filter the returned clusters |
+| organization-id |  | Organization ID on which to filter the returned clusters |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-List all the clusters on your default region
+List all clusters on your default region
 ```
 scw k8s cluster list
 ```
@@ -235,7 +235,7 @@ scw k8s cluster list region=fr-par name=cluster1
 
 ### List available versions for a cluster
 
-This method allows to list the versions that a specific Kubernetes cluster is allowed to upgrade to. Note that it will be every patch version greater than the actual one as well a one minor version ahead of the actual one. Upgrades skipping a minor version will not work.
+List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will comprise every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.
 
 **Usage:**
 
@@ -248,14 +248,14 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster which the available Kuberentes versions will be listed from |
+| cluster-id | Required | ID of the cluster which the available Kuberentes versions will be listed from |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-List all available versions for a given cluster to upgrade to
+List all available versions for a cluster to upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
 ```
@@ -265,7 +265,7 @@ scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
 
 ### Reset the admin token of a cluster
 
-This method allows to reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable after) and create a new one. Note that the redownload of the kubeconfig will be necessary to keep interacting with the cluster (if the old admin token was used).
+Reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to redownload kubeconfig in order to keep interacting with the cluster.
 
 **Usage:**
 
@@ -278,14 +278,14 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster of which the admin token will be renewed |
+| cluster-id | Required | ID of the cluster on which the admin token will be renewed |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Reset the admin token for a given cluster
+Reset the admin token for a cluster
 ```
 scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
 ```
@@ -295,7 +295,7 @@ scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
 
 ### Update a cluster
 
-This method allows to update a specific Kubernetes cluster. Note that this method is not made to upgrade a Kubernetes cluster.
+Update a specific Kubernetes cluster. Note that this method is designed to update details such as name, description, tags and configuration. However, you cannot upgrade a cluster with this method. To do so, use the dedicated endpoint.
 
 **Usage:**
 
@@ -308,10 +308,10 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster to update |
-| name |  | The new name of the cluster |
-| description |  | The new description of the cluster |
-| tags.{index} |  | The new tags associated with the cluster |
+| cluster-id | Required | ID of the cluster to update |
+| name |  | New external name of the cluster |
+| description |  | New description of the cluster |
+| tags.{index} |  | New tags associated with the cluster |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -322,11 +322,11 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down |
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
-| ~~enable-dashboard~~ | Deprecated | The new value of the Kubernetes Dashboard enablement |
-| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | The new Ingress Controller for the cluster |
+| ~~enable-dashboard~~ | Deprecated | New value of the Kubernetes Dashboard enablement |
+| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | New Ingress Controller for the cluster |
 | auto-upgrade.enable |  | Whether or not auto upgrade is enabled for the cluster |
-| auto-upgrade.maintenance-window.start-hour |  | The start hour of the 2-hour maintenance window |
-| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | The day of the week for the maintenance window |
+| auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
+| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
 | feature-gates.{index} |  | List of feature gates to enable |
 | admission-plugins.{index} |  | List of admission plugins to enable |
 | open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys |
@@ -335,7 +335,7 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | open-id-connect-config.username-prefix |  | Prefix prepended to username |
 | open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
 | open-id-connect-config.groups-prefix |  | Prefix prepended to group claims |
-| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID Token |
+| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID token |
 | apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -343,12 +343,12 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Enable dashboard on a given cluster
+Enable dashboard on a cluster
 ```
 scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true
 ```
 
-Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster
+Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster
 ```
 scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion
 ```
@@ -358,7 +358,7 @@ scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterF
 
 ### Upgrade a cluster
 
-This method allows to upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
+Upgrades a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
 
 **Usage:**
 
@@ -371,21 +371,21 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster to upgrade |
-| version | Required | The new Kubernetes version of the cluster |
-| upgrade-pools |  | The enablement of the pools upgrade |
+| cluster-id | Required | ID of the cluster to upgrade |
+| version | Required | New Kubernetes version of the cluster |
+| upgrade-pools |  | Enablement of the pools upgrade |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Upgrade a given cluster to Kubernetes version 1.24.7 (without upgrading the pools)
+Upgrade a cluster to Kubernetes version 1.24.7 (without upgrading the pools)
 ```
 scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7
 ```
 
-Upgrade a given cluster to Kubernetes version 1.24.7 (and upgrade the pools)
+Upgrade a cluster to Kubernetes version 1.24.7 (and upgrade the pools)
 ```
 scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7 upgrade-pools=true
 ```
@@ -523,15 +523,13 @@ scw k8s kubeconfig uninstall 11111111-1111-1111-1111-111111111111
 
 ## Kapsule node management commands
 
-A node (short for worker node) is an abstraction for a Scaleway Instance.
-It is part of a pool and is instantiated by Scaleway, making Kubernetes software installed and configured automatically on it.
-Please note that Kubernetes nodes cannot be accessed with ssh.
+A node (short for worker node) is an abstraction for a Scaleway Instance. A node is always part of a pool. Each of them will have Kubernetes software automatically installed and configured by Scaleway. Please note that Kubernetes nodes cannot be accessed with SSH.
 
 
 
 ### Delete a node in a cluster
 
-This method allows to delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+Delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one-node cluster for instance), you may experience some disruption of your applications.
 
 **Usage:**
 
@@ -544,7 +542,7 @@ scw k8s node delete <node-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| node-id | Required | The ID of the node to replace |
+| node-id | Required | ID of the node to replace |
 | skip-drain |  | Skip draining node from its workload |
 | replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -553,17 +551,17 @@ scw k8s node delete <node-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a given node
+Delete a node
 ```
 scw k8s node delete 11111111-1111-1111-111111111111
 ```
 
-Delete a given node without evicting workloads
+Delete a node without evicting workloads
 ```
 scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true
 ```
 
-Replace a given node by a new one
+Replace a node by a new one
 ```
 scw k8s node delete 11111111-1111-1111-111111111111 replace=true
 ```
@@ -573,7 +571,7 @@ scw k8s node delete 11111111-1111-1111-111111111111 replace=true
 
 ### Get a node in a cluster
 
-This method allows to get details about a specific Kubernetes node.
+Get details about a specific Kubernetes node.
 
 **Usage:**
 
@@ -586,14 +584,14 @@ scw k8s node get <node-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| node-id | Required | The ID of the requested node |
+| node-id | Required | ID of the requested node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Get a given node
+Get a node
 ```
 scw k8s node get 11111111-1111-1111-111111111111
 ```
@@ -603,7 +601,7 @@ scw k8s node get 11111111-1111-1111-111111111111
 
 ### List all the nodes in a cluster
 
-This method allows to list all the existing nodes for a specific Kubernetes cluster.
+List all the existing nodes for a specific Kubernetes cluster.
 
 **Usage:**
 
@@ -616,28 +614,28 @@ scw k8s node list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The cluster ID from which the nodes will be listed from |
-| pool-id |  | The pool ID on which to filter the returned nodes |
-| order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned nodes |
-| name |  | The name on which to filter the returned nodes |
-| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | The status on which to filter the returned nodes |
+| cluster-id | Required | Cluster ID from which the nodes will be listed from |
+| pool-id |  | Pool ID on which to filter the returned nodes |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of the returned nodes |
+| name |  | Name on which to filter the returned nodes |
+| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | Status on which to filter the returned nodes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-List all the nodes in the given cluster
+List all the nodes in the cluster
 ```
 scw k8s node list cluster-id=11111111-1111-1111-111111111111
 ```
 
-List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster
+List all the nodes in the pool 2222222222222-2222-222222222222 in the cluster
 ```
 scw k8s node list cluster-id=11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222
 ```
 
-List all ready nodes in the given cluster
+List all ready nodes in the cluster
 ```
 scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready
 ```
@@ -647,7 +645,7 @@ scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready
 
 ### Reboot a node in a cluster
 
-This method allows to reboot a specific node. This node will frist be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+Reboot a specific node. This node will first be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one-node cluster, for instance), you may experience some disruption of your applications.
 
 **Usage:**
 
@@ -660,14 +658,14 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| node-id | Required | The ID of the node to reboot |
+| node-id | Required | ID of the node to reboot |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Reboot a given node
+Reboot a node
 ```
 scw k8s node reboot 11111111-1111-1111-111111111111
 ```
@@ -677,7 +675,7 @@ scw k8s node reboot 11111111-1111-1111-111111111111
 
 ### Replace a node in a cluster
 
-This method allows to replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+Replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
 
 **Usage:**
 
@@ -690,14 +688,14 @@ scw k8s node replace <node-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| node-id | Required | The ID of the node to replace |
+| node-id | Required | ID of the node to replace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Replace a given node
+Replace a node
 ```
 scw k8s node replace 11111111-1111-1111-111111111111
 ```
@@ -737,15 +735,13 @@ scw k8s node wait 11111111-1111-1111-1111-111111111111
 
 ## Kapsule pool management commands
 
-A pool is a set of identical Nodes. A pool has a name, a size (its current number of nodes), nodes number limits (min, max) and a Scaleway instance type.
-Changing those limits increases/decreases the size of a pool. Thus, when autoscaling is enabled, the pool will grow or shrink inside those limits, depending on its load.
-A "default pool" is automatically created with every cluster.
+A pool is a set of identical nodes. A pool has a name, a size (its current number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. Thus, the pool will grow or shrink inside those limits when autoscaling is enabled, depending on its load. A "default pool" is automatically created with every cluster.
 
 
 
 ### Create a new pool in a cluster
 
-This method allows to create a new pool in a specific Kubernetes cluster.
+Create a new pool in a specific Kubernetes cluster.
 
 **Usage:**
 
@@ -758,40 +754,40 @@ scw k8s pool create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster in which the pool will be created |
-| name | Required<br />Default: `<generated>` | The name of the pool |
-| node-type | Required<br />Default: `DEV1-M` | The node type is the type of Scaleway Instance wanted for the pool |
-| placement-group-id |  | The placement group ID in which all the nodes of the pool will be created |
-| autoscaling |  | The enablement of the autoscaling feature for the pool |
-| size | Required<br />Default: `1` | The size (number of nodes) of the pool |
-| min-size |  | The minimum size of the pool |
-| max-size |  | The maximum size of the pool |
-| container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | The container runtime for the nodes of the pool |
-| autohealing |  | The enablement of the autohealing feature for the pool |
-| tags.{index} |  | The tags associated with the pool |
-| kubelet-args.{key} |  | The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
+| cluster-id | Required | ID of the cluster in which the pool will be created |
+| name | Required<br />Default: `<generated>` | Name of the pool |
+| node-type | Required<br />Default: `DEV1-M` | Node type is the type of Scaleway Instance wanted for the pool |
+| placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
+| autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
+| size | Required<br />Default: `1` | Size (number of nodes) of the pool |
+| min-size |  | Minimum size of the pool |
+| max-size |  | Maximum size of the pool |
+| container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Container runtime for the nodes of the pool |
+| autohealing |  | Defines whether the autohealing feature is enabled for the pool |
+| tags.{index} |  | Tags associated with the pool |
+| kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
-| zone |  | The Zone in which the Pool's node will be spawn in |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | The system volume disk type |
-| root-volume-size |  | The system volume disk size |
+| zone |  | Zone in which the pool's nodes will be spawned |
+| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | System volume disk type |
+| root-volume-size |  | System volume disk size |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Create a pool named bar with 2 DEV1-XL on a given cluster
+Create a pool named bar with 2 DEV1-XL on a cluster
 ```
 scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
 ```
 
-Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster
+Create a pool named 'fish' with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a cluster
 ```
 scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd
 ```
 
-Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster
+Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a cluster
 ```
 scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group
 ```
@@ -801,7 +797,7 @@ scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-
 
 ### Delete a pool in a cluster
 
-This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.
+Delete a specific pool from a cluster. All of the pool's nodes will also be deleted.
 
 **Usage:**
 
@@ -814,14 +810,14 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| pool-id | Required | The ID of the pool to delete |
+| pool-id | Required | ID of the pool to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Delete a given pool
+Delete a specific pool
 ```
 scw k8s pool delete 11111111-1111-1111-111111111111
 ```
@@ -831,7 +827,7 @@ scw k8s pool delete 11111111-1111-1111-111111111111
 
 ### Get a pool in a cluster
 
-This method allows to get details about a specific pool.
+Get details about a specific pool in a Kubernetes cluster.
 
 **Usage:**
 
@@ -844,7 +840,7 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| pool-id | Required | The ID of the requested pool |
+| pool-id | Required | ID of the requested pool |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -861,7 +857,7 @@ scw k8s pool get 11111111-1111-1111-111111111111
 
 ### List all the pools in a cluster
 
-This method allows to list all the existing pools for a specific Kubernetes cluster.
+List all the existing pools for a specific Kubernetes cluster.
 
 **Usage:**
 
@@ -874,32 +870,32 @@ scw k8s pool list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | The ID of the cluster from which the pools will be listed from |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | The sort order of the returned pools |
-| name |  | The name on which to filter the returned pools |
-| status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | The status on which to filter the returned pools |
+| cluster-id | Required | ID of the cluster from which the pools will be listed from |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of the returned pools |
+| name |  | Name on which to filter the returned pools |
+| status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | Status on which to filter the returned pools |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-List all pools for a given cluster
+List all pools for a cluster
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-111111111111
 ```
 
-List all scaling pools for a given cluster
+List all scaling pools for a cluster
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling
 ```
 
-List all pools for a given cluster that contain the word foo in the pool name
+List all pools for a cluster that contains the word 'foo' in the pool name
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo
 ```
 
-List all pools for a given cluster and order them by ascending creation date
+List all pools for a cluster and order them by ascending creation date
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc
 ```
@@ -909,7 +905,7 @@ scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at
 
 ### Update a pool in a cluster
 
-This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...
+Update attributes of a specific pool, such as size, autoscaling settings, and tags.
 
 **Usage:**
 
@@ -922,14 +918,14 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| pool-id | Required | The ID of the pool to update |
-| autoscaling |  | The new value for the enablement of autoscaling for the pool |
-| size |  | The new size for the pool |
-| min-size |  | The new minimun size for the pool |
-| max-size |  | The new maximum size for the pool |
-| autohealing |  | The new value for the enablement of autohealing for the pool |
-| tags.{index} |  | The new tags associated with the pool |
-| kubelet-args.{key} |  | The new Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
+| pool-id | Required | ID of the pool to update |
+| autoscaling |  | New value for the enablement of autoscaling for the pool |
+| size |  | New size for the pool |
+| min-size |  | New minimun size for the pool |
+| max-size |  | New maximum size for the pool |
+| autohealing |  | New value for the enablement of autohealing for the pool |
+| tags.{index} |  | New tags associated with the pool |
+| kubelet-args.{key} |  | New Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -958,7 +954,7 @@ scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=
 
 ### Upgrade a pool in a cluster
 
-This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
+Upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
 
 **Usage:**
 
@@ -971,15 +967,15 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| pool-id | Required | The ID of the pool to upgrade |
-| version | Required | The new Kubernetes version for the pool |
+| pool-id | Required | ID of the pool to upgrade |
+| version | Required | New Kubernetes version for the pool |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Upgrade a given pool to the Kubernetes version 1.24.7
+Upgrade a specific pool to the Kubernetes version 1.24.7
 ```
 scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.24.7
 ```
@@ -1019,17 +1015,13 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 
 ## Available Kubernetes version commands
 
-A version is a vanilla Kubernetes version like `x.y.z`.
-It is composed of a major version x, a minor version y and a patch version z.
-Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.
-
-Also each version have a different set of container runtimes, CNIs, ingresses, feature gates and admission plugins available.
+A version is a vanilla Kubernetes version like `x.y.z`. It comprises a major version x, a minor version y, and a patch version z. Scaleway's managed Kubernetes, Kapsule, will support at minimum the last patch version for the last three minor releases. Also, each version has a different set of container runtimes, CNIs, ingresses, feature gates, and admission plugins available.
 
 
 
 ### Get details about a specific version
 
-This method allows to get a specific Kubernetes version and the details about the version.
+Get a specific Kubernetes version and the details about the version.
 
 **Usage:**
 
@@ -1042,7 +1034,7 @@ scw k8s version get <version-name ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| version-name | Required | The requested version name |
+| version-name | Required | Requested version name |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -1059,7 +1051,7 @@ scw k8s version get 1.24.7
 
 ### List all available versions
 
-This method allows to list all available versions for the creation of a new Kubernetes cluster.
+List all available versions for the creation of a new Kubernetes cluster.
 
 **Usage:**
 
