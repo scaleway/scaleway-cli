@@ -46,7 +46,7 @@ It is composed of different pools, each pool containing the same kind of nodes.
 
 ### Create a new cluster
 
-Creates a new Kubernetes cluster on a Scaleway account.
+Create a new Kubernetes cluster on a Scaleway account.
 
 **Usage:**
 
@@ -129,7 +129,7 @@ scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calic
 
 ### Delete a cluster
 
-Deletes a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
+Delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
 
 **Usage:**
 
@@ -358,7 +358,7 @@ scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterF
 
 ### Upgrade a cluster
 
-Upgrades a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
+Upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
 
 **Usage:**
 
