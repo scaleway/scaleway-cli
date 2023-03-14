@@ -12,6 +12,9 @@ AVAILABLE COMMANDS:
   namespace   Namespace management commands
   token       Token management commands
 
+WORKFLOW COMMANDS:
+  deploy      Deploy a container
+
 FLAGS:
   -h, --help   help for container
 

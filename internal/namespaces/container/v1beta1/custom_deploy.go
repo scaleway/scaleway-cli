@@ -23,7 +23,10 @@ import (
 type containerDeployRequest struct {
 	Region scw.Region
 
-	Name string
+	Name        string
+	Dockerfile  string
+	BuildSource string
+	Port        uint32
 }
 
 func containerDeployCommand() *core.Command {
@@ -53,6 +56,21 @@ func containerDeployCommand() *core.Command {
 					return name, name
 				},
 			},
+			{
+				Name:    "dockerfile",
+				Short:   "Path to the Dockerfile",
+				Default: core.DefaultValueSetter("Dockerfile"),
+			},
+			{
+				Name:    "build-source",
+				Short:   "Path to the build context",
+				Default: core.DefaultValueSetter("."),
+			},
+			{
+				Name:    "port",
+				Short:   "Port to expose",
+				Default: core.DefaultValueSetter("8080"),
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: containerDeployRun,
@@ -65,13 +83,13 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	client := core.ExtractClient(ctx)
 	api := container.NewAPI(client)
 
-	fileInfo, err := os.Stat("Dockerfile")
+	fileInfo, err := os.Stat(args.Dockerfile)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("could not stat '%s': %v", args.Dockerfile, err)
 	}
 
 	if fileInfo.IsDir() {
-		return nil, fmt.Errorf("'Dockerfile' is a directory")
+		return nil, fmt.Errorf("'%s' is a directory", args.Dockerfile)
 	}
 
 	cli, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation())
@@ -95,7 +113,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 		tar       io.ReadCloser
 	}
 	tasks.Add(actions, "Packing image", func(t *tasks.Task, namespace *container.Namespace) (*packingImageResponse, error) {
-		tar, err := archive.TarWithOptions(".", &archive.TarOptions{})
+		tar, err := archive.TarWithOptions(args.BuildSource, &archive.TarOptions{})
 		if err != nil {
 			return nil, fmt.Errorf("could not create tar: %v", err)
 		}
@@ -114,7 +132,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 		tag := packing.namespace.RegistryEndpoint + "/" + args.Name + ":latest"
 
 		imageBuildResponse, err := cli.ImageBuild(t.Ctx, packing.tar, dockerTypes.ImageBuildOptions{
-			Dockerfile: "Dockerfile",
+			Dockerfile: args.Dockerfile,
 			Tags:       []string{tag},
 		})
 		if err != nil {
@@ -175,6 +193,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 			Region:        args.Region,
 			ContainerID:   targetContainer.ID,
 			RegistryImage: &build.tag,
+			Port:          scw.Uint32Ptr(args.Port),
 			Redeploy:      scw.BoolPtr(false),
 		}, scw.WithContext(t.Ctx))
 		if err != nil {
@@ -279,7 +298,6 @@ func getOrCreateContainer(ctx context.Context, api *container.API, region scw.Re
 		Region:      region,
 		NamespaceID: namespaceID,
 		Name:        name,
-		Port:        scw.Uint32Ptr(80),
 	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, err
