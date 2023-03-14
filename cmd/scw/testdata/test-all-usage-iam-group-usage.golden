@@ -6,8 +6,8 @@ USAGE:
   scw iam group <command>
 
 AVAILABLE COMMANDS:
-  add-member    Add a user of an application to a group
-  create        Create a new group
+  add-member    Add a user or an application to a group
+  create        Create a group
   delete        Delete a group
   get           Get a group
   list          List groups

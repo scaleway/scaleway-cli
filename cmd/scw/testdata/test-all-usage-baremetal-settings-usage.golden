@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Allows to configure the general settings for your elastic metal server.
+Allows to configure the general settings for your Elastic Metal server.
 
 USAGE:
   scw baremetal settings <command>

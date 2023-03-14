@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a guest user from an organization.
+Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
 
 USAGE:
   scw iam user delete <user-id ...> [arg=value ...]
 
 ARGS:
-  user-id   ID of user to delete
+  user-id   ID of the user to delete
 
 FLAGS:
   -h, --help   help for delete

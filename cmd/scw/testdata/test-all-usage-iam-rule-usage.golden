@@ -6,8 +6,8 @@ USAGE:
   scw iam rule <command>
 
 AVAILABLE COMMANDS:
-  list        List rules of an existing policy
-  update      Set rules of an existing policy
+  list        List rules of a given policy
+  update      Set rules of a given policy
 
 FLAGS:
   -h, --help   help for rule

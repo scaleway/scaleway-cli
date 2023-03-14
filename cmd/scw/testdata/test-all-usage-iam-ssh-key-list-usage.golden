@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List SSH keys.
+List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
 
 USAGE:
   scw iam ssh-key list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                   Sort order of SSH keys (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
+  [order-by=created_at_asc]                   Sort order of the SSH keys (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
   [name]                                      Name of group to find
-  [project-id]                                Filter by project ID
-  [disabled]                                  Filter out disabled SSH keys or not
-  [organization-id=<retrieved from config>]   Filter by organization ID
+  [project-id]                                Filter by Project ID
+  [disabled]                                  Whether to include disabled SSH keys or not
+  [organization-id=<retrieved from config>]   Filter by Organization ID
 
 FLAGS:
   -h, --help   help for list

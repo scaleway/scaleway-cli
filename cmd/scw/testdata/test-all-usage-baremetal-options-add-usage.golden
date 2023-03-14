@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add an option to a specific server.
+Add an option, such as Private Networks, to a specific server.
 
 USAGE:
   scw baremetal options add [arg=value ...]
 
 EXAMPLES:
-  Add a given option to a server
+  Add an option, such as Private Networks, to a server
     scw baremetal options add server-id=11111111-1111-1111-1111-111111111111 option-id=11111111-1111-1111-1111-111111111111
 
 ARGS:

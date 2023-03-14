@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Stop the server associated with the given ID.
+Stop the server associated with the ID. The server remains allocated to your account and all data remains on the local storage of the server.
 
 USAGE:
   scw baremetal server stop <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Stop an elastic metal server
+  Stop an Elastic Metal server
     scw baremetal server stop 11111111-1111-1111-1111-111111111111
 
 ARGS:

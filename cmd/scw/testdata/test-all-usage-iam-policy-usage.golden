@@ -9,7 +9,7 @@ AVAILABLE COMMANDS:
   create      Create a new policy
   delete      Delete a policy
   get         Get an existing policy
-  list        List policies of an organization
+  list        List policies of an Organization
   update      Update an existing policy
 
 FLAGS:

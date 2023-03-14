@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all Operating System (OS).
+List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
 
 USAGE:
   scw apple-silicon os list [arg=value ...]
 
 ARGS:
-  [server-type]     List of compatible server type
-  [name]            Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12")
+  [server-type]     List of compatible server types
+  [name]            Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12"))
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3 | all)
 
 FLAGS:
