@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Creates a new Kubernetes cluster on a Scaleway account.
+Create a new Kubernetes cluster on a Scaleway account.
 
 USAGE:
   scw k8s cluster create [arg=value ...]

@@ -231,7 +231,7 @@ func k8sClusterList() *core.Command {
 func k8sClusterCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new cluster`,
-		Long:      `Creates a new Kubernetes cluster on a Scaleway account.`,
+		Long:      `Create a new Kubernetes cluster on a Scaleway account.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "create",
@@ -879,7 +879,7 @@ func k8sClusterUpdate() *core.Command {
 func k8sClusterDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a cluster`,
-		Long:      `Deletes a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.`,
+		Long:      `Delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "delete",
@@ -922,7 +922,7 @@ func k8sClusterDelete() *core.Command {
 func k8sClusterUpgrade() *core.Command {
 	return &core.Command{
 		Short:     `Upgrade a cluster`,
-		Long:      `Upgrades a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.`,
+		Long:      `Upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "upgrade",
