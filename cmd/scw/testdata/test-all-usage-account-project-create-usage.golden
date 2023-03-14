@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create project.
+Generate a new Project for an Organization, specifying its configuration including name and description.
 
 USAGE:
   scw account project create [arg=value ...]
 
 ARGS:
-  [name]              The name of the project
-  [description]       The description of the project
+  [name]              Name of the Project
+  [description]       Description of the Project
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

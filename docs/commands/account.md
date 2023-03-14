@@ -3,11 +3,11 @@
 This API allows you to manage projects.
   
 - [Project management commands](#project-management-commands)
-  - [Create project](#create-project)
-  - [Delete project](#delete-project)
-  - [Get project](#get-project)
-  - [List projects](#list-projects)
-  - [Update project](#update-project)
+  - [Create a new Project for an Organization](#create-a-new-project-for-an-organization)
+  - [Delete an existing Project](#delete-an-existing-project)
+  - [Get an existing Project](#get-an-existing-project)
+  - [List all Projects of an Organization](#list-all-projects-of-an-organization)
+  - [Update Project](#update-project)
 
   
 ## Project management commands
@@ -15,9 +15,9 @@ This API allows you to manage projects.
 Project management commands.
 
 
-### Create project
+### Create a new Project for an Organization
 
-Create project.
+Generate a new Project for an Organization, specifying its configuration including name and description.
 
 **Usage:**
 
@@ -30,15 +30,15 @@ scw account project create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | The name of the project |
-| description |  | The description of the project |
+| name |  | Name of the Project |
+| description |  | Description of the Project |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
-### Delete project
+### Delete an existing Project
 
-Delete project.
+Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
 
 **Usage:**
 
@@ -55,9 +55,9 @@ scw account project delete [arg=value ...]
 
 
 
-### Get project
+### Get an existing Project
 
-Get project.
+Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
 
 **Usage:**
 
@@ -74,9 +74,9 @@ scw account project get [arg=value ...]
 
 
 
-### List projects
+### List all Projects of an Organization
 
-List projects.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
 
 **Usage:**
 
@@ -89,16 +89,16 @@ scw account project list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | The name of the project |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | The sort order of the returned projects |
-| project-ids.{index} |  | Filter out by a list of project ID |
+| name |  | Name of the Project |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned Projects |
+| project-ids.{index} |  | Project IDs to filter for. The results will be limited to any Projects with an ID in this array |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
-### Update project
+### Update Project
 
-Update project.
+Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
 
 **Usage:**
 
@@ -112,8 +112,8 @@ scw account project update [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | The name of the project |
-| description |  | The description of the project |
+| name |  | Name of the Project |
+| description |  | Description of the Project |
 
 
 
