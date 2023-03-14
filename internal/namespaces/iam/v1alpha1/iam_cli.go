@@ -159,7 +159,7 @@ func iamJwt() *core.Command {
 func iamSSHKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List SSH keys`,
-		Long:      `List SSH keys.`,
+		Long:      `List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You can define additional parameters for your query such as ` + "`" + `organization_id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `project_id` + "`" + ` and ` + "`" + `disabled` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "list",
@@ -168,7 +168,7 @@ func iamSSHKeyList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Sort order of SSH keys`,
+				Short:      `Sort order of the SSH keys`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -184,21 +184,21 @@ func iamSSHKeyList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter by project ID`,
+				Short:      `Filter by Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "disabled",
-				Short:      `Filter out disabled SSH keys or not`,
+				Short:      `Whether to include disabled SSH keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter by organization ID`,
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -243,7 +243,7 @@ func iamSSHKeyList() *core.Command {
 func iamSSHKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create an SSH key`,
-		Long:      `Create an SSH key.`,
+		Long:      `Add a new SSH key to a Scaleway Project. You must specify the ` + "`" + `name` + "`" + `, ` + "`" + `public_key` + "`" + ` and ` + "`" + `project_id` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "create",
@@ -260,7 +260,7 @@ func iamSSHKeyCreate() *core.Command {
 			},
 			{
 				Name:       "public-key",
-				Short:      `SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000`,
+				Short:      `SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -297,7 +297,7 @@ func iamSSHKeyCreate() *core.Command {
 func iamSSHKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an SSH key`,
-		Long:      `Get an SSH key.`,
+		Long:      `Retrieve information about a given SSH key, specified by the ` + "`" + `ssh_key_id` + "`" + ` parameter. The SSH key's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `public_key` + "`" + `, and ` + "`" + `project_id` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "get",
@@ -326,7 +326,7 @@ func iamSSHKeyGet() *core.Command {
 func iamSSHKeyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an SSH key`,
-		Long:      `Update an SSH key.`,
+		Long:      `Update the parameters of an SSH key, including ` + "`" + `name` + "`" + ` and ` + "`" + `disable` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "update",
@@ -368,7 +368,7 @@ func iamSSHKeyUpdate() *core.Command {
 func iamSSHKeyDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an SSH key`,
-		Long:      `Delete an SSH key.`,
+		Long:      `Delete a given SSH key, specified by the ` + "`" + `ssh_key_id` + "`" + `. Deleting an SSH is permanent, and cannot be undone. Note that you might need to update any configurations that used the SSH key.`,
 		Namespace: "iam",
 		Resource:  "ssh-key",
 		Verb:      "delete",
@@ -417,8 +417,8 @@ func iamSSHKeyDelete() *core.Command {
 
 func iamUserList() *core.Command {
 	return &core.Command{
-		Short:     `List users of an organization`,
-		Long:      `List users of an organization.`,
+		Short:     `List users of an Organization`,
+		Long:      `List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request. You can also define additional parameters for your query such as ` + "`" + `user_ids` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "list",
@@ -436,14 +436,14 @@ func iamUserList() *core.Command {
 			},
 			{
 				Name:       "user-ids.{index}",
-				Short:      `Filter out by a list of ID`,
+				Short:      `Filter by list of IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `ID of organization to filter`,
+				Short:      `ID of the Organization to filter`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -467,8 +467,8 @@ func iamUserList() *core.Command {
 
 func iamUserGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve a user from its ID`,
-		Long:      `Retrieve a user from its ID.`,
+		Short:     `Get a given user`,
+		Long:      `Retrieve information about a user, specified by the ` + "`" + `user_id` + "`" + ` parameter. The user's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `email` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `two_factor_enabled` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "get",
@@ -477,7 +477,7 @@ func iamUserGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
-				Short:      `ID of user to find`,
+				Short:      `ID of the user to find`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -496,8 +496,8 @@ func iamUserGet() *core.Command {
 
 func iamUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a guest user from an organization`,
-		Long:      `Delete a guest user from an organization.`,
+		Short:     `Delete a guest user from an Organization`,
+		Long:      `Remove a user from an Organization in which they are a guest. You must define the ` + "`" + `user_id` + "`" + ` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "delete",
@@ -506,7 +506,7 @@ func iamUserDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
-				Short:      `ID of user to delete`,
+				Short:      `ID of the user to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -531,8 +531,8 @@ func iamUserDelete() *core.Command {
 
 func iamApplicationList() *core.Command {
 	return &core.Command{
-		Short:     `List applications of an organization`,
-		Long:      `List applications of an organization.`,
+		Short:     `List applications of an Organization`,
+		Long:      `List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request. You can also define additional parameters for your query such as ` + "`" + `application_ids` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "application",
 		Verb:      "list",
@@ -550,28 +550,28 @@ func iamApplicationList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Name of application to filter`,
+				Short:      `Name of the application to filter`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "editable",
-				Short:      `Filter out editable applications or not`,
+				Short:      `Whether to filter out editable applications or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "application-ids.{index}",
-				Short:      `Filter out by a list of ID`,
+				Short:      `Filter by list of IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `ID of organization to filter`,
+				Short:      `ID of the Organization to filter`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -596,7 +596,7 @@ func iamApplicationList() *core.Command {
 func iamApplicationCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new application`,
-		Long:      `Create a new application.`,
+		Long:      `Create a new application. You must define the ` + "`" + `name` + "`" + ` parameter in the request.`,
 		Namespace: "iam",
 		Resource:  "application",
 		Verb:      "create",
@@ -605,7 +605,7 @@ func iamApplicationCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of application to create (max length is 64 chars)`,
+				Short:      `Name of the application to create (max length is 64 characters)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -613,7 +613,7 @@ func iamApplicationCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Description of application (max length is 200 chars)`,
+				Short:      `Description of the application (max length is 200 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -633,8 +633,8 @@ func iamApplicationCreate() *core.Command {
 
 func iamApplicationGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an existing application`,
-		Long:      `Get an existing application.`,
+		Short:     `Get a given application`,
+		Long:      `Retrieve information about an application, specified by the ` + "`" + `application_id` + "`" + ` parameter. The application's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `email` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `two_factor_enabled` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "application",
 		Verb:      "get",
@@ -643,7 +643,7 @@ func iamApplicationGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
-				Short:      `ID of application to find`,
+				Short:      `ID of the application to find`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -662,8 +662,8 @@ func iamApplicationGet() *core.Command {
 
 func iamApplicationUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an existing application`,
-		Long:      `Update an existing application.`,
+		Short:     `Update an application`,
+		Long:      `Update the parameters of an application, including ` + "`" + `name` + "`" + ` and ` + "`" + `description` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "application",
 		Verb:      "update",
@@ -672,21 +672,21 @@ func iamApplicationUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
-				Short:      `ID of application to update`,
+				Short:      `ID of the application to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `New name of application (max length is 64 chars)`,
+				Short:      `New name for the application (max length is 64 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of application (max length is 200 chars)`,
+				Short:      `New description for the application (max length is 200 chars)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -706,7 +706,7 @@ func iamApplicationUpdate() *core.Command {
 func iamApplicationDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an application`,
-		Long:      `Delete an application.`,
+		Long:      `Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.`,
 		Namespace: "iam",
 		Resource:  "application",
 		Verb:      "delete",
@@ -715,7 +715,7 @@ func iamApplicationDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
-				Short:      `ID of application to delete`,
+				Short:      `ID of the application to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -741,7 +741,7 @@ func iamApplicationDelete() *core.Command {
 func iamGroupList() *core.Command {
 	return &core.Command{
 		Short:     `List groups`,
-		Long:      `List groups.`,
+		Long:      `List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You can define additional parameters to filter your query. Use ` + "`" + `user_ids` + "`" + ` or ` + "`" + `application_ids` + "`" + ` to list all groups certain users or applications belong to.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "list",
@@ -766,28 +766,28 @@ func iamGroupList() *core.Command {
 			},
 			{
 				Name:       "application-ids.{index}",
-				Short:      `Filter out by a list of application ID`,
+				Short:      `Filter by a list of application IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-ids.{index}",
-				Short:      `Filter out by a list of user ID`,
+				Short:      `Filter by a list of user IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "group-ids.{index}",
-				Short:      `Filter out by a list of group ID`,
+				Short:      `Filter by a list of group IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter by organization ID`,
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -825,8 +825,8 @@ func iamGroupList() *core.Command {
 
 func iamGroupCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new group`,
-		Long:      `Create a new group.`,
+		Short:     `Create a group`,
+		Long:      `Create a new group. You must define the ` + "`" + `name` + "`" + ` and ` + "`" + `organization_id` + "`" + ` parameters in the request.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "create",
@@ -835,7 +835,7 @@ func iamGroupCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the group to create (max length is 64 chars). MUST be unique inside an organization`,
+				Short:      `Name of the group to create (max length is 64 chars). MUST be unique inside an Organization`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -884,7 +884,7 @@ func iamGroupCreate() *core.Command {
 func iamGroupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a group`,
-		Long:      `Get a group.`,
+		Long:      `Retrive information about a given group, specified by the ` + "`" + `group_id` + "`" + ` parameter. The group's full details, including ` + "`" + `user_ids` + "`" + ` and ` + "`" + `application_ids` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "get",
@@ -893,7 +893,7 @@ func iamGroupGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
-				Short:      `ID of group`,
+				Short:      `ID of the group`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -913,7 +913,7 @@ func iamGroupGet() *core.Command {
 func iamGroupUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a group`,
-		Long:      `Update a group.`,
+		Long:      `Update the parameters of group, including ` + "`" + `name` + "`" + ` and ` + "`" + `description` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "update",
@@ -922,14 +922,14 @@ func iamGroupUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
-				Short:      `ID of group to update`,
+				Short:      `ID of the group to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `New name for the group (max length is 64 chars). MUST be unique inside an organization`,
+				Short:      `New name for the group (max length is 64 chars). MUST be unique inside an Organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -955,8 +955,8 @@ func iamGroupUpdate() *core.Command {
 
 func iamGroupAddMember() *core.Command {
 	return &core.Command{
-		Short:     `Add a user of an application to a group`,
-		Long:      `Add a user of an application to a group.`,
+		Short:     `Add a user or an application to a group`,
+		Long:      `Add a user or an application to a group. You can specify a ` + "`" + `user_id` + "`" + ` and and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only add one of each per request.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "add-member",
@@ -965,7 +965,7 @@ func iamGroupAddMember() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
-				Short:      `ID of group`,
+				Short:      `ID of the group`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -999,7 +999,7 @@ func iamGroupAddMember() *core.Command {
 func iamGroupRemoveMember() *core.Command {
 	return &core.Command{
 		Short:     `Remove a user or an application from a group`,
-		Long:      `Remove a user or an application from a group.`,
+		Long:      `Remove a user or an application from a group. You can specify a ` + "`" + `user_id` + "`" + ` and and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "remove-member",
@@ -1008,7 +1008,7 @@ func iamGroupRemoveMember() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
-				Short:      `ID of group`,
+				Short:      `ID of the group`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1052,7 +1052,7 @@ func iamGroupRemoveMember() *core.Command {
 func iamGroupDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a group`,
-		Long:      `Delete a group.`,
+		Long:      `Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "delete",
@@ -1061,7 +1061,7 @@ func iamGroupDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
-				Short:      `ID of group to delete`,
+				Short:      `ID of the group to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1102,8 +1102,8 @@ func iamGroupDelete() *core.Command {
 
 func iamPolicyList() *core.Command {
 	return &core.Command{
-		Short:     `List policies of an organization`,
-		Long:      `List policies of an organization.`,
+		Short:     `List policies of an Organization`,
+		Long:      `List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request. You can also define additional parameters to filter your query, such as ` + "`" + `user_ids` + "`" + `, ` + "`" + `groups_ids` + "`" + `, ` + "`" + `application_ids` + "`" + `, and ` + "`" + `policy_name` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "list",
@@ -1121,49 +1121,49 @@ func iamPolicyList() *core.Command {
 			},
 			{
 				Name:       "editable",
-				Short:      `Filter out editable policies or not`,
+				Short:      `Whether or not filter out editable policies`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-ids.{index}",
-				Short:      `Filter out by a list of user ID`,
+				Short:      `Whether or not to filter by list of user IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "group-ids.{index}",
-				Short:      `Filter out by a list of group ID`,
+				Short:      `Whether or not to filter by list of group IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "application-ids.{index}",
-				Short:      `Filter out by a list of application ID`,
+				Short:      `Filter by a list of application IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "no-principal",
-				Short:      `True when the policy do not belong to any principal`,
+				Short:      `Whether or not the policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "policy-name",
-				Short:      `Name of policy to fetch`,
+				Short:      `Name of the policy to fetch`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `ID of organization to filter`,
+				Short:      `ID of the Organization to filter`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1188,7 +1188,7 @@ func iamPolicyList() *core.Command {
 func iamPolicyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new policy`,
-		Long:      `Create a new policy.`,
+		Long:      `Create a new application. You must define the ` + "`" + `name` + "`" + ` parameter in the request. You can specify parameters such as ` + "`" + `user_id` + "`" + `, ` + "`" + `groups_id` + "`" + `, ` + "`" + `application_id` + "`" + `, ` + "`" + `no_principal` + "`" + `, ` + "`" + `rules` + "`" + ` and its child attributes.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "create",
@@ -1197,7 +1197,7 @@ func iamPolicyCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of policy to create (max length is 64 chars)`,
+				Short:      `Name of the policy to create (max length is 64 characters)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1205,7 +1205,7 @@ func iamPolicyCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Description of policy to create (max length is 200 chars)`,
+				Short:      `Description of the policy to create (max length is 200 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1219,42 +1219,42 @@ func iamPolicyCreate() *core.Command {
 			},
 			{
 				Name:       "rules.{index}.project-ids.{index}",
-				Short:      `List of project IDs scoped to the rule`,
+				Short:      `List of Project IDs the rule is scoped to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "rules.{index}.organization-id",
-				Short:      `ID of organization scoped to the rule`,
+				Short:      `ID of Organization the rule is scoped to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-id",
-				Short:      `ID of user, owner of the policy`,
+				Short:      `ID of user attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "group-id",
-				Short:      `ID of group, owner of the policy`,
+				Short:      `ID of group attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "application-id",
-				Short:      `ID of application, owner of the policy`,
+				Short:      `ID of application attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "no-principal",
-				Short:      `True when the policy do not belong to any principal`,
+				Short:      `Whether or not a policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1281,7 +1281,7 @@ func iamPolicyCreate() *core.Command {
 func iamPolicyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an existing policy`,
-		Long:      `Get an existing policy.`,
+		Long:      `Retrieve information about a policy, speficified by the ` + "`" + `policy_id` + "`" + ` parameter. The policy's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `nb_rules` + "`" + ` and ` + "`" + `nb_scopes` + "`" + `, ` + "`" + `nb_permission_sets` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "get",
@@ -1310,7 +1310,7 @@ func iamPolicyGet() *core.Command {
 func iamPolicyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing policy`,
-		Long:      `Update an existing policy.`,
+		Long:      `Update the parameters of a policy, including ` + "`" + `name` + "`" + `, ` + "`" + `description` + "`" + `, ` + "`" + `user_id` + "`" + `, ` + "`" + `group_id` + "`" + `, ` + "`" + `application_id` + "`" + ` and ` + "`" + `no_principal` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "update",
@@ -1326,42 +1326,42 @@ func iamPolicyUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of policy (max length is 64 chars)`,
+				Short:      `New name for the policy (max length is 64 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of policy (max length is 200 chars)`,
+				Short:      `New description of policy (max length is 200 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-id",
-				Short:      `New ID of user, owner of the policy`,
+				Short:      `New ID of user attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "group-id",
-				Short:      `New ID of group, owner of the policy`,
+				Short:      `New ID of group attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "application-id",
-				Short:      `New ID of application, owner of the policy`,
+				Short:      `New ID of application attributed to the policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "no-principal",
-				Short:      `True when the policy do not belong to any principal`,
+				Short:      `Whether or not the policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1381,7 +1381,7 @@ func iamPolicyUpdate() *core.Command {
 func iamPolicyDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a policy`,
-		Long:      `Delete a policy.`,
+		Long:      `Delete a policy. You must define specify the ` + "`" + `policy_id` + "`" + ` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "delete",
@@ -1415,8 +1415,8 @@ func iamPolicyDelete() *core.Command {
 
 func iamRuleUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Set rules of an existing policy`,
-		Long:      `Set rules of an existing policy.`,
+		Short:     `Set rules of a given policy`,
+		Long:      `Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only.`,
 		Namespace: "iam",
 		Resource:  "rule",
 		Verb:      "update",
@@ -1439,14 +1439,14 @@ func iamRuleUpdate() *core.Command {
 			},
 			{
 				Name:       "rules.{index}.project-ids.{index}",
-				Short:      `List of project IDs scoped to the rule`,
+				Short:      `List of Project IDs the rule is scoped to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "rules.{index}.organization-id",
-				Short:      `ID of organization scoped to the rule`,
+				Short:      `ID of Organization the rule is scoped to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1465,8 +1465,8 @@ func iamRuleUpdate() *core.Command {
 
 func iamRuleList() *core.Command {
 	return &core.Command{
-		Short:     `List rules of an existing policy`,
-		Long:      `List rules of an existing policy.`,
+		Short:     `List rules of a given policy`,
+		Long:      `List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You must define the ` + "`" + `policy_id` + "`" + ` in the query path of your request.`,
 		Namespace: "iam",
 		Resource:  "rule",
 		Verb:      "list",
@@ -1500,7 +1500,7 @@ func iamRuleList() *core.Command {
 func iamPermissionSetList() *core.Command {
 	return &core.Command{
 		Short:     `List permission sets`,
-		Long:      `List permission sets.`,
+		Long:      `List permission sets available for given Organization. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request.`,
 		Namespace: "iam",
 		Resource:  "permission-set",
 		Verb:      "list",
@@ -1537,7 +1537,7 @@ func iamPermissionSetList() *core.Command {
 func iamAPIKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List API keys`,
-		Long:      `List API keys.`,
+		Long:      `List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field. You can define additional parameters for your query such as ` + "`" + `editable` + "`" + `, ` + "`" + `expired` + "`" + `, ` + "`" + `access_key` + "`" + ` and ` + "`" + `bearer_id` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "list",
@@ -1555,56 +1555,56 @@ func iamAPIKeyList() *core.Command {
 			},
 			{
 				Name:       "application-id",
-				Short:      `ID of an application bearer`,
+				Short:      `ID of application that bears the API key`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "user-id",
-				Short:      `ID of a user bearer`,
+				Short:      `ID of user that bears the API key`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "editable",
-				Short:      `Filter out editable API keys or not`,
+				Short:      `Whether to filter out editable API keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "expired",
-				Short:      `Filter out expired API keys or not`,
+				Short:      `Whether to filter out expired API keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "access-key",
-				Short:      `Filter out by access key`,
+				Short:      `Filter by access key`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Filter out by description`,
+				Short:      `Filter by description`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "bearer-id",
-				Short:      `Filter out by bearer ID`,
+				Short:      `Filter by bearer ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "bearer-type",
-				Short:      `Filter out by type of bearer`,
+				Short:      `Filter by type of bearer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1612,7 +1612,7 @@ func iamAPIKeyList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `ID of organization`,
+				Short:      `ID of Organization`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1654,7 +1654,7 @@ func iamAPIKeyList() *core.Command {
 func iamAPIKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create an API key`,
-		Long:      `Create an API key.`,
+		Long:      `Create an API key. You must specify the ` + "`" + `application_id` + "`" + ` or the ` + "`" + `user_id` + "`" + ` and the description. You can also specify the ` + "`" + `default_project_id` + "`" + ` which is the Project ID of your preferred Project, to use with Object Storage. The ` + "`" + `access_key` + "`" + ` and ` + "`" + `secret_key` + "`" + ` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "create",
@@ -1663,14 +1663,14 @@ func iamAPIKeyCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
-				Short:      `ID of application principal`,
+				Short:      `ID of the application`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-id",
-				Short:      `ID of user principal`,
+				Short:      `ID of the user`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1684,14 +1684,14 @@ func iamAPIKeyCreate() *core.Command {
 			},
 			{
 				Name:       "default-project-id",
-				Short:      `The default project ID to use with object storage`,
+				Short:      `The default Project ID to use with Object Storage`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the API key (max length is 200 chars)`,
+				Short:      `The description of the API key (max length is 200 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1721,7 +1721,7 @@ func iamAPIKeyCreate() *core.Command {
 func iamAPIKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an API key`,
-		Long:      `Get an API key.`,
+		Long:      `Retrive information about an API key, specified by the ` + "`" + `access_key` + "`" + ` parameter. The API key's details, including either the ` + "`" + `user_id` + "`" + ` or ` + "`" + `application_id` + "`" + ` of its bearer are returned in the response. Note that the string value for the ` + "`" + `secret_key` + "`" + ` is nullable, and therefore is not displayed in the response. The ` + "`" + `secret_key` + "`" + ` value is only displayed upon API key creation.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "get",
@@ -1750,7 +1750,7 @@ func iamAPIKeyGet() *core.Command {
 func iamAPIKeyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an API key`,
-		Long:      `Update an API key.`,
+		Long:      `Update the parameters of an API key, including ` + "`" + `default_project_id` + "`" + ` and ` + "`" + `description` + "`" + `.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "update",
@@ -1766,7 +1766,7 @@ func iamAPIKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "default-project-id",
-				Short:      `The new default project ID to set`,
+				Short:      `The new default Project ID to set`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1793,7 +1793,7 @@ func iamAPIKeyUpdate() *core.Command {
 func iamAPIKeyDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an API key`,
-		Long:      `Delete an API key.`,
+		Long:      `Delete an API key. Note that this action is irreversible and cannot be undone. Make sure you update any configurations using the API keys you delete.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "delete",

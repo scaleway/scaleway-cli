@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Set rules of an existing policy.
+Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only.
 
 USAGE:
   scw iam rule update <policy-id ...> [arg=value ...]
@@ -8,8 +8,8 @@ USAGE:
 ARGS:
   policy-id                                      Id of policy to update
   [rules.{index}.permission-set-names.{index}]   Names of permission sets bound to the rule
-  [rules.{index}.project-ids.{index}]            List of project IDs scoped to the rule
-  [rules.{index}.organization-id]                ID of organization scoped to the rule
+  [rules.{index}.project-ids.{index}]            List of Project IDs the rule is scoped to
+  [rules.{index}.organization-id]                ID of Organization the rule is scoped to
 
 FLAGS:
   -h, --help   help for update

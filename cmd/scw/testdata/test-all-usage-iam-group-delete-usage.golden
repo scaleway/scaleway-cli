@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a group.
+Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.
 
 USAGE:
   scw iam group delete <group-id ...> [arg=value ...]
@@ -10,7 +10,7 @@ EXAMPLES:
     scw iam group delete 11111111-1111-1111-1111-111111111111
 
 ARGS:
-  group-id   ID of group to delete
+  group-id   ID of the group to delete
 
 FLAGS:
   -h, --help   help for delete

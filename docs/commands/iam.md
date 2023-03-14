@@ -11,12 +11,12 @@ IAM API.
 - [Applications management commands](#applications-management-commands)
   - [Create a new application](#create-a-new-application)
   - [Delete an application](#delete-an-application)
-  - [Get an existing application](#get-an-existing-application)
-  - [List applications of an organization](#list-applications-of-an-organization)
-  - [Update an existing application](#update-an-existing-application)
+  - [Get a given application](#get-a-given-application)
+  - [List applications of an Organization](#list-applications-of-an-organization)
+  - [Update an application](#update-an-application)
 - [Groups management commands](#groups-management-commands)
-  - [Add a user of an application to a group](#add-a-user-of-an-application-to-a-group)
-  - [Create a new group](#create-a-new-group)
+  - [Add a user or an application to a group](#add-a-user-or-an-application-to-a-group)
+  - [Create a group](#create-a-group)
   - [Delete a group](#delete-a-group)
   - [Get a group](#get-a-group)
   - [List groups](#list-groups)
@@ -32,11 +32,11 @@ IAM API.
   - [Create a new policy](#create-a-new-policy)
   - [Delete a policy](#delete-a-policy)
   - [Get an existing policy](#get-an-existing-policy)
-  - [List policies of an organization](#list-policies-of-an-organization)
+  - [List policies of an Organization](#list-policies-of-an-organization)
   - [Update an existing policy](#update-an-existing-policy)
 - [Rules management commands](#rules-management-commands)
-  - [List rules of an existing policy](#list-rules-of-an-existing-policy)
-  - [Set rules of an existing policy](#set-rules-of-an-existing-policy)
+  - [List rules of a given policy](#list-rules-of-a-given-policy)
+  - [Set rules of a given policy](#set-rules-of-a-given-policy)
 - [SSH keys management commands](#ssh-keys-management-commands)
   - [Create an SSH key](#create-an-ssh-key)
   - [Delete an SSH key](#delete-an-ssh-key)
@@ -45,9 +45,9 @@ IAM API.
   - [List SSH keys](#list-ssh-keys)
   - [Update an SSH key](#update-an-ssh-key)
 - [Users management commands](#users-management-commands)
-  - [Delete a guest user from an organization](#delete-a-guest-user-from-an-organization)
-  - [Retrieve a user from its ID](#retrieve-a-user-from-its-id)
-  - [List users of an organization](#list-users-of-an-organization)
+  - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
+  - [Get a given user](#get-a-given-user)
+  - [List users of an Organization](#list-users-of-an-organization)
 
   
 ## API keys management commands
@@ -57,7 +57,7 @@ API keys management commands.
 
 ### Create an API key
 
-Create an API key.
+Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
 
 **Usage:**
 
@@ -70,17 +70,17 @@ scw iam api-key create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| application-id |  | ID of application principal |
-| user-id |  | ID of user principal |
+| application-id |  | ID of the application |
+| user-id |  | ID of the user |
 | expires-at |  | Expiration date of the API key |
-| default-project-id |  | The default project ID to use with object storage |
-| description |  | The description of the API key (max length is 200 chars) |
+| default-project-id |  | The default Project ID to use with Object Storage |
+| description |  | The description of the API key (max length is 200 characters) |
 
 
 
 ### Delete an API key
 
-Delete an API key.
+Delete an API key. Note that this action is irreversible and cannot be undone. Make sure you update any configurations using the API keys you delete.
 
 **Usage:**
 
@@ -109,7 +109,7 @@ scw iam api-key delete SCW00000000000
 
 ### Get an API key
 
-Get an API key.
+Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
 
 **Usage:**
 
@@ -128,7 +128,7 @@ scw iam api-key get <access-key ...> [arg=value ...]
 
 ### List API keys
 
-List API keys.
+List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
 
 **Usage:**
 
@@ -142,21 +142,21 @@ scw iam api-key list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `expires_at_asc`, `expires_at_desc`, `access_key_asc`, `access_key_desc` | Criteria for sorting results |
-| ~~application-id~~ | Deprecated | ID of an application bearer |
-| ~~user-id~~ | Deprecated | ID of a user bearer |
-| editable |  | Filter out editable API keys or not |
-| expired |  | Filter out expired API keys or not |
-| access-key |  | Filter out by access key |
-| description |  | Filter out by description |
-| bearer-id |  | Filter out by bearer ID |
-| bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter out by type of bearer |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of organization |
+| ~~application-id~~ | Deprecated | ID of application that bears the API key |
+| ~~user-id~~ | Deprecated | ID of user that bears the API key |
+| editable |  | Whether to filter out editable API keys or not |
+| expired |  | Whether to filter out expired API keys or not |
+| access-key |  | Filter by access key |
+| description |  | Filter by description |
+| bearer-id |  | Filter by bearer ID |
+| bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter by type of bearer |
+| organization-id | Required<br />Default: `<retrieved from config>` | ID of Organization |
 
 
 
 ### Update an API key
 
-Update an API key.
+Update the parameters of an API key, including `default_project_id` and `description`.
 
 **Usage:**
 
@@ -170,7 +170,7 @@ scw iam api-key update <access-key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | access-key | Required | Access key to update |
-| default-project-id |  | The new default project ID to set |
+| default-project-id |  | The new default Project ID to set |
 | description |  | The new description to update |
 
 
@@ -182,7 +182,7 @@ Applications management commands.
 
 ### Create a new application
 
-Create a new application.
+Create a new application. You must define the `name` parameter in the request.
 
 **Usage:**
 
@@ -195,15 +195,15 @@ scw iam application create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of application to create (max length is 64 chars) |
-| description |  | Description of application (max length is 200 chars) |
+| name | Required<br />Default: `<generated>` | Name of the application to create (max length is 64 characters) |
+| description |  | Description of the application (max length is 200 characters) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
 ### Delete an application
 
-Delete an application.
+Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.
 
 **Usage:**
 
@@ -216,13 +216,13 @@ scw iam application delete <application-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| application-id | Required | ID of application to delete |
+| application-id | Required | ID of the application to delete |
 
 
 
-### Get an existing application
+### Get a given application
 
-Get an existing application.
+Retrieve information about an application, specified by the `application_id` parameter. The application's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
 
 **Usage:**
 
@@ -235,13 +235,13 @@ scw iam application get <application-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| application-id | Required | ID of application to find |
+| application-id | Required | ID of the application to find |
 
 
 
-### List applications of an organization
+### List applications of an Organization
 
-List applications of an organization.
+List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
 
 **Usage:**
 
@@ -255,16 +255,16 @@ scw iam application list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Criteria for sorting results |
-| name |  | Name of application to filter |
-| editable |  | Filter out editable applications or not |
-| application-ids.{index} |  | Filter out by a list of ID |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of organization to filter |
+| name |  | Name of the application to filter |
+| editable |  | Whether to filter out editable applications or not |
+| application-ids.{index} |  | Filter by list of IDs |
+| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
 
-### Update an existing application
+### Update an application
 
-Update an existing application.
+Update the parameters of an application, including `name` and `description`.
 
 **Usage:**
 
@@ -277,9 +277,9 @@ scw iam application update <application-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| application-id | Required | ID of application to update |
-| name |  | New name of application (max length is 64 chars) |
-| description |  | New description of application (max length is 200 chars) |
+| application-id | Required | ID of the application to update |
+| name |  | New name for the application (max length is 64 chars) |
+| description |  | New description for the application (max length is 200 chars) |
 
 
 
@@ -288,9 +288,9 @@ scw iam application update <application-id ...> [arg=value ...]
 Groups management commands.
 
 
-### Add a user of an application to a group
+### Add a user or an application to a group
 
-Add a user of an application to a group.
+Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
 
 **Usage:**
 
@@ -303,15 +303,15 @@ scw iam group add-member <group-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id | Required | ID of group |
+| group-id | Required | ID of the group |
 | user-id |  | ID of the user to add |
 | application-id |  | ID of the application to add |
 
 
 
-### Create a new group
+### Create a group
 
-Create a new group.
+Create a new group. You must define the `name` and `organization_id` parameters in the request.
 
 **Usage:**
 
@@ -324,7 +324,7 @@ scw iam group create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an organization |
+| name | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | Description of the group to create (max length is 200 chars) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
@@ -342,7 +342,7 @@ scw iam group create name=foobar
 
 ### Delete a group
 
-Delete a group.
+Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.
 
 **Usage:**
 
@@ -355,7 +355,7 @@ scw iam group delete <group-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id | Required | ID of group to delete |
+| group-id | Required | ID of the group to delete |
 
 
 **Examples:**
@@ -371,7 +371,7 @@ scw iam group delete 11111111-1111-1111-1111-111111111111
 
 ### Get a group
 
-Get a group.
+Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
 
 **Usage:**
 
@@ -384,13 +384,13 @@ scw iam group get <group-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id | Required | ID of group |
+| group-id | Required | ID of the group |
 
 
 
 ### List groups
 
-List groups.
+List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
 
 **Usage:**
 
@@ -405,16 +405,16 @@ scw iam group list [arg=value ...]
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of groups |
 | name |  | Name of group to find |
-| application-ids.{index} |  | Filter out by a list of application ID |
-| user-ids.{index} |  | Filter out by a list of user ID |
-| group-ids.{index} |  | Filter out by a list of group ID |
-| organization-id | Default: `<retrieved from config>` | Filter by organization ID |
+| application-ids.{index} |  | Filter by a list of application IDs |
+| user-ids.{index} |  | Filter by a list of user IDs |
+| group-ids.{index} |  | Filter by a list of group IDs |
+| organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
 
 
 
 ### Remove a user or an application from a group
 
-Remove a user or an application from a group.
+Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
 
 **Usage:**
 
@@ -427,7 +427,7 @@ scw iam group remove-member <group-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id | Required | ID of group |
+| group-id | Required | ID of the group |
 | user-id |  | ID of the user to remove |
 | application-id |  | ID of the application to remove |
 
@@ -435,7 +435,7 @@ scw iam group remove-member <group-id ...> [arg=value ...]
 
 ### Update a group
 
-Update a group.
+Update the parameters of group, including `name` and `description`.
 
 **Usage:**
 
@@ -448,8 +448,8 @@ scw iam group update <group-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id | Required | ID of group to update |
-| name |  | New name for the group (max length is 64 chars). MUST be unique inside an organization |
+| group-id | Required | ID of the group to update |
+| name |  | New name for the group (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | New description for the group (max length is 200 chars) |
 
 
@@ -525,7 +525,7 @@ Permission sets management commands.
 
 ### List permission sets
 
-List permission sets.
+List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
 
 **Usage:**
 
@@ -550,7 +550,7 @@ Policies management commands.
 
 ### Create a new policy
 
-Create a new policy.
+Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes.
 
 **Usage:**
 
@@ -563,15 +563,15 @@ scw iam policy create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of policy to create (max length is 64 chars) |
-| description |  | Description of policy to create (max length is 200 chars) |
+| name | Required<br />Default: `<generated>` | Name of the policy to create (max length is 64 characters) |
+| description |  | Description of the policy to create (max length is 200 characters) |
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
-| rules.{index}.project-ids.{index} |  | List of project IDs scoped to the rule |
-| rules.{index}.organization-id |  | ID of organization scoped to the rule |
-| user-id |  | ID of user, owner of the policy |
-| group-id |  | ID of group, owner of the policy |
-| application-id |  | ID of application, owner of the policy |
-| no-principal |  | True when the policy do not belong to any principal |
+| rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
+| rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
+| user-id |  | ID of user attributed to the policy |
+| group-id |  | ID of group attributed to the policy |
+| application-id |  | ID of application attributed to the policy |
+| no-principal |  | Whether or not a policy is attributed to a principal |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -588,7 +588,7 @@ scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.orga
 
 ### Delete a policy
 
-Delete a policy.
+Delete a policy. You must define specify the `policy_id` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked.
 
 **Usage:**
 
@@ -607,7 +607,7 @@ scw iam policy delete <policy-id ...> [arg=value ...]
 
 ### Get an existing policy
 
-Get an existing policy.
+Retrieve information about a policy, speficified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response.
 
 **Usage:**
 
@@ -624,9 +624,9 @@ scw iam policy get <policy-id ...> [arg=value ...]
 
 
 
-### List policies of an organization
+### List policies of an Organization
 
-List policies of an organization.
+List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
 
 **Usage:**
 
@@ -640,19 +640,19 @@ scw iam policy list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `policy_name_asc`, `policy_name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results |
-| editable |  | Filter out editable policies or not |
-| user-ids.{index} |  | Filter out by a list of user ID |
-| group-ids.{index} |  | Filter out by a list of group ID |
-| application-ids.{index} |  | Filter out by a list of application ID |
-| no-principal |  | True when the policy do not belong to any principal |
-| policy-name |  | Name of policy to fetch |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of organization to filter |
+| editable |  | Whether or not filter out editable policies |
+| user-ids.{index} |  | Whether or not to filter by list of user IDs |
+| group-ids.{index} |  | Whether or not to filter by list of group IDs |
+| application-ids.{index} |  | Filter by a list of application IDs |
+| no-principal |  | Whether or not the policy is attributed to a principal |
+| policy-name |  | Name of the policy to fetch |
+| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
 
 ### Update an existing policy
 
-Update an existing policy.
+Update the parameters of a policy, including `name`, `description`, `user_id`, `group_id`, `application_id` and `no_principal`.
 
 **Usage:**
 
@@ -666,12 +666,12 @@ scw iam policy update <policy-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | policy-id | Required | Id of policy to update |
-| name |  | New name of policy (max length is 64 chars) |
-| description |  | New description of policy (max length is 200 chars) |
-| user-id |  | New ID of user, owner of the policy |
-| group-id |  | New ID of group, owner of the policy |
-| application-id |  | New ID of application, owner of the policy |
-| no-principal |  | True when the policy do not belong to any principal |
+| name |  | New name for the policy (max length is 64 characters) |
+| description |  | New description of policy (max length is 200 characters) |
+| user-id |  | New ID of user attributed to the policy |
+| group-id |  | New ID of group attributed to the policy |
+| application-id |  | New ID of application attributed to the policy |
+| no-principal |  | Whether or not the policy is attributed to a principal |
 
 
 
@@ -680,9 +680,9 @@ scw iam policy update <policy-id ...> [arg=value ...]
 Rules management commands.
 
 
-### List rules of an existing policy
+### List rules of a given policy
 
-List rules of an existing policy.
+List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request.
 
 **Usage:**
 
@@ -699,9 +699,9 @@ scw iam rule list <policy-id ...> [arg=value ...]
 
 
 
-### Set rules of an existing policy
+### Set rules of a given policy
 
-Set rules of an existing policy.
+Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only.
 
 **Usage:**
 
@@ -716,8 +716,8 @@ scw iam rule update <policy-id ...> [arg=value ...]
 |------|---|-------------|
 | policy-id | Required | Id of policy to update |
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
-| rules.{index}.project-ids.{index} |  | List of project IDs scoped to the rule |
-| rules.{index}.organization-id |  | ID of organization scoped to the rule |
+| rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
+| rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
 
 
 
@@ -728,7 +728,7 @@ SSH keys management commands.
 
 ### Create an SSH key
 
-Create an SSH key.
+Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
 
 **Usage:**
 
@@ -742,7 +742,7 @@ scw iam ssh-key create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | The name of the SSH key. Max length is 1000 |
-| public-key | Required | SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 |
+| public-key | Required | SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
 
@@ -759,7 +759,7 @@ scw iam ssh-key create name=foobar public-key="$(cat <path/to/your/public/key>)"
 
 ### Delete an SSH key
 
-Delete an SSH key.
+Delete a given SSH key, specified by the `ssh_key_id`. Deleting an SSH is permanent, and cannot be undone. Note that you might need to update any configurations that used the SSH key.
 
 **Usage:**
 
@@ -788,7 +788,7 @@ scw iam ssh-key delete 11111111-1111-1111-1111-111111111111
 
 ### Get an SSH key
 
-Get an SSH key.
+Retrieve information about a given SSH key, specified by the `ssh_key_id` parameter. The SSH key's full details, including `id`, `name`, `public_key`, and `project_id` are returned in the response.
 
 **Usage:**
 
@@ -819,7 +819,7 @@ scw iam ssh-key init
 
 ### List SSH keys
 
-List SSH keys.
+List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
 
 **Usage:**
 
@@ -832,17 +832,17 @@ scw iam ssh-key list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of SSH keys |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of the SSH keys |
 | name |  | Name of group to find |
-| project-id |  | Filter by project ID |
-| disabled |  | Filter out disabled SSH keys or not |
-| organization-id | Default: `<retrieved from config>` | Filter by organization ID |
+| project-id |  | Filter by Project ID |
+| disabled |  | Whether to include disabled SSH keys or not |
+| organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
 
 
 
 ### Update an SSH key
 
-Update an SSH key.
+Update the parameters of an SSH key, including `name` and `disable`.
 
 **Usage:**
 
@@ -866,9 +866,9 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 Users management commands.
 
 
-### Delete a guest user from an organization
+### Delete a guest user from an Organization
 
-Delete a guest user from an organization.
+Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
 
 **Usage:**
 
@@ -881,13 +881,13 @@ scw iam user delete <user-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| user-id | Required | ID of user to delete |
+| user-id | Required | ID of the user to delete |
 
 
 
-### Retrieve a user from its ID
+### Get a given user
 
-Retrieve a user from its ID.
+Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
 
 **Usage:**
 
@@ -900,13 +900,13 @@ scw iam user get <user-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| user-id | Required | ID of user to find |
+| user-id | Required | ID of the user to find |
 
 
 
-### List users of an organization
+### List users of an Organization
 
-List users of an organization.
+List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
 
 **Usage:**
 
@@ -920,8 +920,8 @@ scw iam user list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
-| user-ids.{index} |  | Filter out by a list of ID |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of organization to filter |
+| user-ids.{index} |  | Filter by list of IDs |
+| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
 

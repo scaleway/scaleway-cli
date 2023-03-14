@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new policy.
+Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes.
 
 USAGE:
   scw iam policy create [arg=value ...]
@@ -10,15 +10,15 @@ EXAMPLES:
     scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstanceFullAccess
 
 ARGS:
-  name=<generated>                               Name of policy to create (max length is 64 chars)
-  [description]                                  Description of policy to create (max length is 200 chars)
+  name=<generated>                               Name of the policy to create (max length is 64 characters)
+  [description]                                  Description of the policy to create (max length is 200 characters)
   [rules.{index}.permission-set-names.{index}]   Names of permission sets bound to the rule
-  [rules.{index}.project-ids.{index}]            List of project IDs scoped to the rule
-  [rules.{index}.organization-id]                ID of organization scoped to the rule
-  [user-id]                                      ID of user, owner of the policy
-  [group-id]                                     ID of group, owner of the policy
-  [application-id]                               ID of application, owner of the policy
-  [no-principal]                                 True when the policy do not belong to any principal
+  [rules.{index}.project-ids.{index}]            List of Project IDs the rule is scoped to
+  [rules.{index}.organization-id]                ID of Organization the rule is scoped to
+  [user-id]                                      ID of user attributed to the policy
+  [group-id]                                     ID of group attributed to the policy
+  [application-id]                               ID of application attributed to the policy
+  [no-principal]                                 Whether or not a policy is attributed to a principal
   [organization-id]                              Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
