@@ -15,7 +15,7 @@ import (
 	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/container_utils"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/containerutils"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -125,7 +125,7 @@ type DeployStepCreateNamespaceResponse struct {
 }
 
 func DeployStepCreateNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepCreateNamespaceResponse, error) {
-	namespace, err := container_utils.GetOrCreateNamespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
+	namespace, err := containerutils.GetOrCreateNamespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ type DeployStepCreateContainerResponse struct {
 }
 
 func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse) (*DeployStepCreateContainerResponse, error) {
-	targetContainer, err := container_utils.GetOrCreateContainer(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
+	targetContainer, err := containerutils.GetOrCreateContainer(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
 	if err != nil {
 		return nil, fmt.Errorf("could not get or create container: %v", err)
 	}

@@ -1,4 +1,4 @@
-package container_utils
+package containerutils
 
 import (
 	"context"
