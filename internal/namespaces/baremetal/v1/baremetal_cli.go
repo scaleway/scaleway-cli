@@ -58,7 +58,7 @@ func GetGeneratedCommands() *core.Commands {
 func baremetalRoot() *core.Command {
 	return &core.Command{
 		Short:     `Elastic Metal API`,
-		Long:      `This API allows to manage your Elastic Metal server.`,
+		Long:      `Elastic Metal API.`,
 		Namespace: "baremetal",
 	}
 }
