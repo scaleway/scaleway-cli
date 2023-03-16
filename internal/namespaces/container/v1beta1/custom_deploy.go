@@ -11,12 +11,15 @@ import (
 	"reflect"
 	"time"
 
-	dockerTypes "github.com/docker/docker/api/types"
+	dockertypes "github.com/docker/docker/api/types"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
+	"github.com/docker/docker/pkg/jsonmessage"
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/containerutils"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -27,7 +30,9 @@ type containerDeployRequest struct {
 	Name        string
 	Dockerfile  string
 	BuildSource string
-	Port        uint32
+	Cache       bool
+
+	Port uint32
 }
 
 func containerDeployCommand() *core.Command {
@@ -66,6 +71,11 @@ func containerDeployCommand() *core.Command {
 				Name:    "build-source",
 				Short:   "Path to the build context",
 				Default: core.DefaultValueSetter("."),
+			},
+			{
+				Name:    "cache",
+				Short:   "Use cache when building the image",
+				Default: core.DefaultValueSetter("true"),
 			},
 			{
 				Name:    "port",
@@ -110,7 +120,8 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 		return nil, err
 	}
 
-	return result.(*DeployStepDeployContainerResponse).Container, nil
+	container := result.(*DeployStepDeployContainerResponse).Container
+	return fmt.Sprintln(terminal.Style("Your application is now available at", color.FgGreen), terminal.Style("https://"+container.DomainName, color.FgGreen, color.Bold)), nil
 }
 
 type DeployStepData struct {
@@ -170,18 +181,27 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 		return nil, fmt.Errorf("could not connect to Docker: %v", err)
 	}
 
-	imageBuildResponse, err := dockerClient.ImageBuild(t.Ctx, data.Tar, dockerTypes.ImageBuildOptions{
+	imageBuildResponse, err := dockerClient.ImageBuild(t.Ctx, data.Tar, dockertypes.ImageBuildOptions{
 		Dockerfile: data.Args.Dockerfile,
 		Tags:       []string{tag},
+		NoCache:    !data.Args.Cache,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not build image: %v", err)
 	}
 	defer imageBuildResponse.Body.Close()
 
-	_, err = io.Copy(os.Stdout, imageBuildResponse.Body)
+	err = jsonmessage.DisplayJSONMessagesStream(imageBuildResponse.Body, t.Logs, uintptr(0), true, nil)
 	if err != nil {
-		return nil, fmt.Errorf("could not read image build response: %v", err)
+		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+			// If no error code is set, default to 1
+			if jerr.Code == 0 {
+				jerr.Code = 1
+			}
+			return nil, fmt.Errorf("docker build failed with error code %d: %s", jerr.Code, jerr.Message)
+		}
+
+		return nil, err
 	}
 
 	return &DeployStepBuildImageResponse{
@@ -201,7 +221,7 @@ type DeployStepPushImageResponse struct {
 func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*DeployStepPushImageResponse, error) {
 	accessKey, _ := data.Client.GetAccessKey()
 	secretKey, _ := data.Client.GetSecretKey()
-	authConfig := dockerTypes.AuthConfig{
+	authConfig := dockertypes.AuthConfig{
 		ServerAddress: data.Namespace.RegistryEndpoint,
 		Username:      accessKey,
 		Password:      secretKey,
@@ -214,7 +234,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
 
-	imagePushResponse, err := data.DockerClient.ImagePush(t.Ctx, data.Tag, dockerTypes.ImagePushOptions{
+	imagePushResponse, err := data.DockerClient.ImagePush(t.Ctx, data.Tag, dockertypes.ImagePushOptions{
 		RegistryAuth: authStr,
 	})
 	if err != nil {
@@ -222,9 +242,17 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 	}
 	defer imagePushResponse.Close()
 
-	_, err = io.Copy(os.Stdout, imagePushResponse)
+	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, uintptr(0), true, nil)
 	if err != nil {
-		return nil, fmt.Errorf("could not read image push response: %v", err)
+		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+			// If no error code is set, default to 1
+			if jerr.Code == 0 {
+				jerr.Code = 1
+			}
+			return nil, fmt.Errorf("docker build failed with error code %d: %s", jerr.Code, jerr.Message)
+		}
+
+		return nil, err
 	}
 
 	return &DeployStepPushImageResponse{
