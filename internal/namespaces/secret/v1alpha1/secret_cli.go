@@ -58,7 +58,7 @@ func secretSecret() *core.Command {
 func secretVersion() *core.Command {
 	return &core.Command{
 		Short: `Secret Version management commands`,
-		Long: `Immutable version of a secret.
+		Long: `Immutable version of a Secret.
 `,
 		Namespace: "secret",
 		Resource:  "version",
@@ -109,7 +109,7 @@ func secretSecretCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Add a given secret",
+				Short: "Add a given Secret",
 				Raw:   `scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"`,
 			},
 		},
@@ -266,8 +266,8 @@ func secretSecretList() *core.Command {
 
 func secretSecretDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a secret`,
-		Long:      `Delete a secret.`,
+		Short:     `Delete a Secret`,
+		Long:      `Delete a Secret.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "delete",
@@ -299,7 +299,7 @@ func secretSecretDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a given secret",
+				Short:    "Delete a given Secret",
 				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -433,8 +433,8 @@ func secretVersionUpdate() *core.Command {
 
 func secretVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List versions of a secret, not returning any sensitive data`,
-		Long:      `List versions of a secret, not returning any sensitive data.`,
+		Short:     `List versions of a Secret, not returning any sensitive data`,
+		Long:      `List versions of a Secret, not returning any sensitive data.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "list",
@@ -514,7 +514,7 @@ func secretVersionDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a given Secret Version",
+				Short:    "Delete a given SecretVersion",
 				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},

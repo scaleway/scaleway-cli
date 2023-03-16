@@ -4,7 +4,7 @@ Secret API (beta).
   
 - [Secret management commands](#secret-management-commands)
   - [Create a Secret containing no versions](#create-a-secret-containing-no-versions)
-  - [Delete a secret](#delete-a-secret)
+  - [Delete a Secret](#delete-a-secret)
   - [Get metadata of a Secret](#get-metadata-of-a-secret)
   - [List Secrets](#list-secrets)
   - [Update metadata of a Secret](#update-metadata-of-a-secret)
@@ -15,7 +15,7 @@ Secret API (beta).
   - [Disable a SecretVersion](#disable-a-secretversion)
   - [Enable a SecretVersion](#enable-a-secretversion)
   - [Get metadata of a SecretVersion](#get-metadata-of-a-secretversion)
-  - [List versions of a secret, not returning any sensitive data](#list-versions-of-a-secret,-not-returning-any-sensitive-data)
+  - [List versions of a Secret, not returning any sensitive data](#list-versions-of-a-secret,-not-returning-any-sensitive-data)
   - [Update metadata of a SecretVersion](#update-metadata-of-a-secretversion)
 
   
@@ -50,7 +50,7 @@ scw secret secret create [arg=value ...]
 **Examples:**
 
 
-Add a given secret
+Add a given Secret
 ```
 scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"
 ```
@@ -58,9 +58,9 @@ scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"
 
 
 
-### Delete a secret
+### Delete a Secret
 
-Delete a secret.
+Delete a Secret.
 
 **Usage:**
 
@@ -80,7 +80,7 @@ scw secret secret delete [arg=value ...]
 **Examples:**
 
 
-Delete a given secret
+Delete a given Secret
 ```
 scw secret secret delete secret-id=11111111-1111-1111-1111-111111111111
 ```
@@ -157,7 +157,7 @@ scw secret secret update [arg=value ...]
 
 ## Secret Version management commands
 
-Immutable version of a secret.
+Immutable version of a Secret.
 
 
 
@@ -227,7 +227,7 @@ scw secret version delete [arg=value ...]
 **Examples:**
 
 
-Delete a given Secret Version
+Delete a given SecretVersion
 ```
 scw secret version delete secret-id=11111111-1111-1111-1111-111111111111 revision=1
 ```
@@ -298,9 +298,9 @@ scw secret version get [arg=value ...]
 
 
 
-### List versions of a secret, not returning any sensitive data
+### List versions of a Secret, not returning any sensitive data
 
-List versions of a secret, not returning any sensitive data.
+List versions of a Secret, not returning any sensitive data.
 
 **Usage:**
 
