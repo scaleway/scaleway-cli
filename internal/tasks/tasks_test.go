@@ -16,6 +16,7 @@ import (
 
 func TestGeneric(t *testing.T) {
 	ts := tasks.Begin()
+	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
 	tasks.Add(ts, "convert int to string", func(t *tasks.Task, args int) (nextArgs string, err error) {
 		return fmt.Sprintf("%d", args), nil
@@ -41,6 +42,7 @@ func TestInvalidGeneric(t *testing.T) {
 	}()
 
 	ts := tasks.Begin()
+	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
 	tasks.Add(ts, "convert int to string", func(t *tasks.Task, args int) (nextArgs string, err error) {
 		return fmt.Sprintf("%d", args), nil

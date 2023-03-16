@@ -13,10 +13,9 @@ type TaskFunc[T any, U any] func(t *Task, args T) (nextArgs U, err error)
 type CleanupFunc func(ctx context.Context) error
 
 type Task struct {
-	Name   string
-	Ctx    context.Context
-	Logs   io.Writer
-	LogsFd uintptr
+	Name string
+	Ctx  context.Context
+	Logs io.Writer
 
 	taskFunction   TaskFunc[any, any]
 	argType        reflect.Type
@@ -133,7 +132,6 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 	for i, task := range ts.tasks {
 		loggerEntries[i] = logger.AddEntry(task.Name)
 		task.Logs = loggerEntries[i].Logs
-		task.LogsFd = loggerEntries[i].Fd
 	}
 
 	for i := range ts.tasks {
