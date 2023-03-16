@@ -14,8 +14,6 @@ import (
 )
 
 type Logger struct {
-	out console.File
-
 	status   chan *buildkit.SolveStatus
 	done     <-chan struct{}
 	err      error
@@ -52,7 +50,6 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 
 	doneChan := make(chan struct{})
 	logger := &Logger{
-		out:    cons,
 		status: make(chan *buildkit.SolveStatus),
 		done:   doneChan,
 	}
@@ -78,7 +75,6 @@ func (l *Logger) CloseAndWait() error {
 
 type LoggerEntry struct {
 	Logs io.Writer
-	Fd   uintptr
 
 	Start    func()
 	Complete func(err error)
@@ -116,7 +112,6 @@ func (l *Logger) AddEntry(name string) *LoggerEntry {
 
 	return &LoggerEntry{
 		Logs: w,
-		Fd:   l.out.Fd(),
 		Start: func() {
 			started = time.Now()
 			l.Write(&buildkit.SolveStatus{
