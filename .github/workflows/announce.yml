@@ -1,0 +1,45 @@
+on:
+  release:
+    types:
+      - published
+jobs:
+  slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${TAG##v}" >> $GITHUB_OUTPUT
+        env:
+          TAG: ${{ steps.get_tag.outputs.TAG }}
+      - name: Prepare message
+        id: get_message
+        run: echo "MSG=${{ secrets.SLACK_MESSAGE }}" >> $GITHUB_OUTPUT
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          TAG: ${{ steps.get_tag.outputs.TAG }}
+          RELEASE_URL: "https://github.com/scaleway/scaleway-cli/releases/tag/${{ steps.get_tag.outputs.TAG }}"
+      - name: Announce on slack
+        id: announce_slack
+        run: |
+          readarray -td' ' URL_LIST <<<$SLACK_WEBHOOKS; 
+          for WEBHOOK_URL in ${URL_LIST[@]};
+          do curl -X POST -H 'Content-type: application/json' \
+          --data '{
+          	"blocks": [
+              {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "'"${MESSAGE}"'"
+                  }
+              }
+            ]
+          }' \
+          ${WEBHOOK_URL};
+          done
+        env:
+          SLACK_WEBHOOKS: ${{ secrets.SLACK_WEBHOOKS }}
+          MESSAGE: ${{ steps.get_message.outputs.MSG }}
