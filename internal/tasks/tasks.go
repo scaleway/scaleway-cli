@@ -3,6 +3,7 @@ package tasks
 import (
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
 	"reflect"
@@ -12,8 +13,10 @@ type TaskFunc[T any, U any] func(t *Task, args T) (nextArgs U, err error)
 type CleanupFunc func(ctx context.Context) error
 
 type Task struct {
-	Name string
-	Ctx  context.Context
+	Name   string
+	Ctx    context.Context
+	Logs   io.Writer
+	LogsFd uintptr
 
 	taskFunction   TaskFunc[any, any]
 	argType        reflect.Type
@@ -22,11 +25,19 @@ type Task struct {
 }
 
 type Tasks struct {
-	tasks []Task
+	tasks []*Task
+
+	LoggerMode LoggerMode
 }
 
 func Begin() *Tasks {
-	return &Tasks{}
+	return &Tasks{
+		LoggerMode: PrinterModeAuto,
+	}
+}
+
+func (ts *Tasks) SetLoggerMode(mode LoggerMode) {
+	ts.LoggerMode = mode
 }
 
 func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[TaskArg, TaskReturn]) {
@@ -37,13 +48,13 @@ func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[
 
 	tasksAmount := len(ts.tasks)
 	if tasksAmount > 0 {
-		lastTask := &ts.tasks[tasksAmount-1]
+		lastTask := ts.tasks[tasksAmount-1]
 		if argType != lastTask.returnType {
 			panic(fmt.Errorf("invalid task declared, wait for %s, previous task returns %s", argType.Name(), lastTask.returnType.Name()))
 		}
 	}
 
-	ts.tasks = append(ts.tasks, Task{
+	ts.tasks = append(ts.tasks, &Task{
 		Name:       name,
 		argType:    argType,
 		returnType: returnType,
@@ -104,21 +115,35 @@ func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
 
 // Execute tasks with interactive display and cleanup on fail
 func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, error) {
-	var err error
-	totalTasks := len(ts.tasks)
-	loader := setupLoader()
-
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
+	logger, err := NewTasksLogger(cancelableCtx, ts.LoggerMode)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		err := logger.CloseAndWait()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	loggerEntries := make([]*LoggerEntry, len(ts.tasks))
+	for i, task := range ts.tasks {
+		loggerEntries[i] = logger.AddEntry(task.Name)
+		task.Logs = loggerEntries[i].Logs
+		task.LogsFd = loggerEntries[i].Fd
+	}
+
 	for i := range ts.tasks {
-		task := &ts.tasks[i]
+		task := ts.tasks[i]
+		loggerEntry := loggerEntries[i]
+		loggerEntry.Start()
+
 		// Add context and reset cleanup functions, allows to execute multiple times
 		task.Ctx = cancelableCtx
 		task.cleanFunctions = []CleanupFunc(nil)
-
-		fmt.Printf("[%d/%d] %s\n", i+1, totalTasks, task.Name)
-		loader.Start()
 
 		data, err = task.taskFunction(task, data)
 		taskIsCancelled := false
@@ -128,7 +153,7 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 		default:
 		}
 		if err != nil {
-			loader.Stop()
+			loggerEntry.Complete(err)
 			if taskIsCancelled {
 				fmt.Println("task canceled, cleaning up created resources")
 			} else {
@@ -140,14 +165,14 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 
 		select {
 		case <-ctx.Done():
-			loader.Stop()
+			loggerEntry.Complete(ctx.Err())
 			fmt.Println("context canceled, cleaning up created resources")
 			ts.Cleanup(ctx, i+1)
 			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
 		default:
 		}
 
-		loader.Stop()
+		loggerEntry.Complete(nil)
 	}
 
 	return data, nil
