@@ -191,7 +191,7 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 	}
 	defer imageBuildResponse.Body.Close()
 
-	err = jsonmessage.DisplayJSONMessagesStream(imageBuildResponse.Body, t.Logs, uintptr(0), true, nil)
+	err = jsonmessage.DisplayJSONMessagesStream(imageBuildResponse.Body, t.Logs, t.Logs.Fd(), true, nil)
 	if err != nil {
 		if jerr, ok := err.(*jsonmessage.JSONError); ok {
 			// If no error code is set, default to 1
@@ -242,7 +242,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 	}
 	defer imagePushResponse.Close()
 
-	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, uintptr(0), true, nil)
+	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, t.Logs.Fd(), true, nil)
 	if err != nil {
 		if jerr, ok := err.(*jsonmessage.JSONError); ok {
 			// If no error code is set, default to 1
