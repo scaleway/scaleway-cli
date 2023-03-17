@@ -11,15 +11,27 @@ import (
 )
 
 var SkipEditor = false
-var marshalMode = MarshalModeYaml
+var marshalMode = MarshalModeYAML
 
 type GetResourceFunc func(interface{}) (interface{}, error)
+
+func editorPathAndArgs(fileName string) (string, []string) {
+	defaultEditor := config.GetDefaultEditor()
+	editorAndArguments := strings.Fields(defaultEditor)
+	args := []string{fileName}
+
+	if len(editorAndArguments) > 1 {
+		args = append(editorAndArguments[1:], args...)
+	}
+
+	return editorAndArguments[0], args
+}
 
 // edit create a temporary file with given content, start a text editor then return edited content
 // temporary file will be deleted on complete
 // temporary file is not deleted if edit fails
 func edit(content []byte) ([]byte, error) {
-	if SkipEditor == true {
+	if SkipEditor {
 		return content, nil
 	}
 
@@ -28,13 +40,8 @@ func edit(content []byte) ([]byte, error) {
 		return nil, fmt.Errorf("failed to create temporary file: %w", err)
 	}
 
-	defaultEditor := config.GetDefaultEditor()
-	editorAndArguments := strings.Fields(defaultEditor)
-	args := []string{tmpFileName}
-	if len(editorAndArguments) > 1 {
-		args = append(editorAndArguments[1:], args...)
-	}
-	cmd := exec.Command(editorAndArguments[0], args...)
+	editorPath, args := editorPathAndArgs(tmpFileName)
+	cmd := exec.Command(editorPath, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 

@@ -4,13 +4,6 @@ import (
 	"reflect"
 )
 
-func tryElem(v reflect.Value) reflect.Value {
-	if v.Kind() == reflect.Pointer {
-		return v.Elem()
-	}
-	return v
-}
-
 func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
 	v1t := v1.Type()
 	v2t := v2.Type()
@@ -30,7 +23,7 @@ func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
 
 // valueMapper get all fields present both in src and dest and set them in dest
 // if argument is not zero-value in dest, it is not set
-func valueMapper(dest reflect.Value, src reflect.Value) interface{} {
+func valueMapper(dest reflect.Value, src reflect.Value) {
 	if dest.Kind() == reflect.Pointer {
 		dest = dest.Elem()
 	}
@@ -55,6 +48,4 @@ func valueMapper(dest reflect.Value, src reflect.Value) interface{} {
 
 		destField.Set(srcField)
 	}
-
-	return dest
 }

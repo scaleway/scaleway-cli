@@ -8,9 +8,9 @@ import (
 func temporaryFileNamePattern(marshalMode MarshalMode) string {
 	pattern := "scw-updateResourceEditor"
 	switch marshalMode {
-	case MarshalModeYaml:
+	case MarshalModeYAML:
 		pattern += "*.yml"
-	case MarshalModeJson:
+	case MarshalModeJSON:
 		pattern += "*.json"
 	}
 	return pattern

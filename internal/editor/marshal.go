@@ -10,15 +10,15 @@ import (
 type MarshalMode string
 
 const (
-	MarshalModeYaml = MarshalMode("yaml")
-	MarshalModeJson = MarshalMode("json")
+	MarshalModeYAML = MarshalMode("yaml")
+	MarshalModeJSON = MarshalMode("json")
 )
 
 func Marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 	switch mode {
-	case MarshalModeYaml:
+	case MarshalModeYAML:
 		return yaml.Marshal(i)
-	case MarshalModeJson:
+	case MarshalModeJSON:
 		return json.MarshalIndent(i, "", "  ")
 	}
 
@@ -27,9 +27,9 @@ func Marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 
 func Unmarshal(data []byte, i interface{}, mode MarshalMode) error {
 	switch mode {
-	case MarshalModeYaml:
+	case MarshalModeYAML:
 		return yaml.Unmarshal(data, i)
-	case MarshalModeJson:
+	case MarshalModeJSON:
 		return json.Unmarshal(data, i)
 	}
 
