@@ -116,14 +116,14 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
-	logger, err := NewTasksLogger(cancelableCtx, ts.LoggerMode)
+	logger, err := NewTasksLogger(context.Background(), ts.LoggerMode)
 	if err != nil {
 		return nil, err
 	}
 	defer func() {
 		err := logger.CloseAndWait()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("failed to close logger:", err)
 		}
 	}()
 
@@ -141,20 +141,15 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 		data, err = task.taskFunction(task, data)
 		if err != nil {
 			loggerEntry.Complete(err)
-			if taskIsCancelled {
-				fmt.Println("task canceled, cleaning up created resources")
-			} else {
-				fmt.Println("task failed, cleaning up created resources")
-			}
-			ts.Cleanup(ctx, i)
+			ts.Cleanup(ctx, logger, i)
+
 			return nil, fmt.Errorf("task %d %q failed: %w", i+1, task.Name, err)
 		}
 
 		select {
 		case <-ctx.Done():
-			loggerEntry.Complete(ctx.Err())
-			fmt.Println("context canceled, cleaning up created resources")
-			ts.Cleanup(ctx, i+1)
+			loggerEntry.Complete(context.Canceled)
+			ts.Cleanup(ctx, logger, i)
 			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
 		default:
 		}
