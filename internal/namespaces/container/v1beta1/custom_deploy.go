@@ -32,7 +32,8 @@ type containerDeployRequest struct {
 	BuildSource string
 	Cache       bool
 
-	Port uint32
+	NamespaceID *string
+	Port        uint32
 }
 
 func containerDeployCommand() *core.Command {
@@ -82,6 +83,10 @@ func containerDeployCommand() *core.Command {
 				Short:   "Port to expose",
 				Default: core.DefaultValueSetter("8080"),
 			},
+			{
+				Name:  "namespace-id",
+				Short: "Container Namespace ID to deploy to",
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: containerDeployRun,
@@ -104,7 +109,13 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	}
 
 	actions := tasks.Begin()
-	tasks.Add(actions, "Creating namespace", DeployStepCreateNamespace)
+
+	if args.NamespaceID != nil {
+		tasks.Add(actions, "Fetching namespace", DeployStepFetchNamespace)
+	} else {
+		tasks.Add(actions, "Creating namespace", DeployStepCreateNamespace)
+	}
+
 	tasks.Add(actions, "Packing image", DeployStepPackImage)
 	tasks.Add(actions, "Building image", DeployStepBuildImage)
 	tasks.Add(actions, "Pushing image", DeployStepPushImage)
@@ -133,6 +144,21 @@ type DeployStepData struct {
 type DeployStepCreateNamespaceResponse struct {
 	*DeployStepData
 	Namespace *container.Namespace
+}
+
+func DeployStepFetchNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepCreateNamespaceResponse, error) {
+	namespace, err := data.API.GetNamespace(&container.GetNamespaceRequest{
+		Region:      data.Args.Region,
+		NamespaceID: *data.Args.NamespaceID,
+	}, scw.WithContext(t.Ctx))
+	if err != nil {
+		return nil, fmt.Errorf("could not fetch namespace: %v", err)
+	}
+
+	return &DeployStepCreateNamespaceResponse{
+		DeployStepData: data,
+		Namespace:      namespace,
+	}, nil
 }
 
 func DeployStepCreateNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepCreateNamespaceResponse, error) {
