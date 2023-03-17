@@ -3,7 +3,6 @@ package tasks
 import (
 	"context"
 	"fmt"
-	"io"
 	"os"
 	"os/signal"
 	"reflect"
@@ -15,7 +14,7 @@ type CleanupFunc func(ctx context.Context) error
 type Task struct {
 	Name string
 	Ctx  context.Context
-	Logs io.Writer
+	Logs *os.File
 
 	taskFunction   TaskFunc[any, any]
 	argType        reflect.Type
@@ -128,15 +127,11 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 		}
 	}()
 
-	loggerEntries := make([]*LoggerEntry, len(ts.tasks))
-	for i, task := range ts.tasks {
-		loggerEntries[i] = logger.AddEntry(task.Name)
-		task.Logs = loggerEntries[i].Logs
-	}
-
 	for i := range ts.tasks {
 		task := ts.tasks[i]
-		loggerEntry := loggerEntries[i]
+
+		loggerEntry := logger.AddEntry(task.Name)
+		task.Logs = loggerEntry.Logs
 		loggerEntry.Start()
 
 		// Add context and reset cleanup functions, allows to execute multiple times
