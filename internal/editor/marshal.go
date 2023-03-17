@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"gopkg.in/yaml.v3"
+	"github.com/ghodss/yaml"
 )
 
 type MarshalMode string
