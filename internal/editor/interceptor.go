@@ -12,7 +12,7 @@ func Interceptor(getter *core.Command) core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		argsV := reflect.ValueOf(argsI)
 
-		editedArgs, err := Editor(argsI, getter.ArgsType, func(i interface{}) (interface{}, error) {
+		editedArgs, err := UpdateResourceEditor(argsI, getter.ArgsType, func(i interface{}) (interface{}, error) {
 			return getter.Run(ctx, i)
 		})
 		if err != nil {

@@ -8,7 +8,7 @@ import (
 	"github.com/alecthomas/assert"
 )
 
-func Test_editor(t *testing.T) {
+func Test_updateResourceEditor(t *testing.T) {
 	SkipEditor = true
 
 	resource := &struct {
@@ -18,7 +18,7 @@ func Test_editor(t *testing.T) {
 		"uuid",
 		"name",
 	}
-	resourceUpdate := &struct {
+	updateRequest := &struct {
 		ID   string
 		Name string
 	}{
@@ -26,14 +26,14 @@ func Test_editor(t *testing.T) {
 		"",
 	}
 
-	_, err := editor(resource, resourceUpdate)
+	_, err := updateResourceEditor(resource, updateRequest)
 	assert.Nil(t, err)
 }
 
-func Test_editor_pointers(t *testing.T) {
+func Test_updateResourceEditor_pointers(t *testing.T) {
 	SkipEditor = true
 
-	type ResourceUpdate struct {
+	type UpdateRequest struct {
 		ID   string
 		Name *string
 	}
@@ -45,22 +45,23 @@ func Test_editor_pointers(t *testing.T) {
 		"name",
 	}
 
-	resourceUpdate := &ResourceUpdate{
+	updateRequest := &UpdateRequest{
 		"uuid",
 		nil,
 	}
 
-	editedResourceUpdateI, err := editor(resource, resourceUpdate)
+	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest)
 	assert.Nil(t, err)
-	editedResourceUpdate := editedResourceUpdateI.(*ResourceUpdate)
-	assert.NotNil(t, editedResourceUpdate.Name)
-	assert.Equal(t, resource.Name, *editedResourceUpdate.Name)
+	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
+
+	assert.NotNil(t, editedUpdateRequest.Name)
+	assert.Equal(t, resource.Name, *editedUpdateRequest.Name)
 }
 
-func Test_editor_map(t *testing.T) {
+func Test_updateResourceEditor_map(t *testing.T) {
 	SkipEditor = true
 
-	type ResourceUpdate struct {
+	type UpdateRequest struct {
 		ID  string             `json:"id"`
 		Env *map[string]string `json:"env"`
 	}
@@ -74,22 +75,23 @@ func Test_editor_map(t *testing.T) {
 		},
 	}
 
-	resourceUpdate := &ResourceUpdate{
+	updateRequest := &UpdateRequest{
 		"uuid",
 		nil,
 	}
 
 	SkipEditor = true
-	editedResourceUpdateI, err := editor(resource, resourceUpdate, `
-	{"id":"uuid", "env": {}}
+	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, `
+id: uuid
+env: {}
 `)
 	assert.Nil(t, err)
-	editedResourceUpdate := editedResourceUpdateI.(*ResourceUpdate)
-	assert.NotNil(t, editedResourceUpdate.Env)
-	assert.True(t, len(*editedResourceUpdate.Env) == 0)
+	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
+	assert.NotNil(t, editedUpdateRequest.Env)
+	assert.True(t, len(*editedUpdateRequest.Env) == 0)
 }
 
-func TestEditor(t *testing.T) {
+func TestUpdateResourceEditor(t *testing.T) {
 	SkipEditor = true
 
 	resource := &struct {
@@ -99,7 +101,7 @@ func TestEditor(t *testing.T) {
 		"uuid",
 		"name",
 	}
-	resourceUpdate := &struct {
+	updateRequest := &struct {
 		ID   string
 		Name string
 	}{
@@ -107,9 +109,9 @@ func TestEditor(t *testing.T) {
 		"",
 	}
 
-	editedResource, err := Editor(resourceUpdate, reflect.TypeOf(*resource), func(i interface{}) (interface{}, error) {
+	editedUpdateRequest, err := UpdateResourceEditor(updateRequest, reflect.TypeOf(*resource), func(i interface{}) (interface{}, error) {
 		return resource, nil
 	})
 	assert.Nil(t, err)
-	log.Println(editedResource)
+	log.Println(editedUpdateRequest)
 }
