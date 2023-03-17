@@ -74,7 +74,7 @@ func (l *Logger) CloseAndWait() error {
 }
 
 type LoggerEntry struct {
-	Logs io.Writer
+	Logs *os.File
 
 	Start    func()
 	Complete func(err error)
@@ -83,7 +83,11 @@ type LoggerEntry struct {
 func (l *Logger) AddEntry(name string) *LoggerEntry {
 	id := digest.FromString(name)
 
-	r, w := io.Pipe()
+	r, w, err := os.Pipe()
+	if err != nil {
+		panic(err)
+	}
+
 	go func() {
 		data := make([]byte, 1024)
 
