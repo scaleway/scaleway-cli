@@ -81,7 +81,7 @@ func TestCleanup(t *testing.T) {
 
 	_, err := ts.Execute(context.Background(), nil)
 	assert.NotNil(t, err, "Execute should return error after cleanup")
-	assert.Equal(t, clean, 2, "2 task cleanup should have been executed")
+	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
 }
 
 func TestCleanupOnContext(t *testing.T) {
@@ -134,5 +134,5 @@ func TestCleanupOnContext(t *testing.T) {
 	_, err := ts.Execute(ctx, nil)
 	assert.NotNil(t, err, "context should have been interrupted")
 	assert.True(t, strings.Contains(err.Error(), "interrupted"), "error is not interrupted: %s", err)
-	assert.Equal(t, clean, 2, "2 task cleanup should have been executed")
+	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
 }
