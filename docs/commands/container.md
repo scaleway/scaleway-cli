@@ -328,7 +328,9 @@ scw container deploy [arg=value ...]
 | name | Default: `app-scaleway-cli` | Name of the application |
 | dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
 | build-source | Default: `.` | Path to the build context |
+| cache | Default: `true` | Use cache when building the image |
 | port | Default: `8080` | Port to expose |
+| namespace-id |  | Container Namespace ID to deploy to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
