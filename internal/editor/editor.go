@@ -1,11 +1,10 @@
 package editor
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"os/exec"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
 )
@@ -18,19 +17,31 @@ func edit(content []byte) ([]byte, error) {
 	if SkipEditor == true {
 		return content, nil
 	}
-	editionBuffer := bytes.NewBuffer(nil)
 
-	defaultEditor := config.GetDefaultEditor()
-	cmd := exec.Command(defaultEditor)
-	cmd.Stdin = bytes.NewBuffer(content)
-	cmd.Stdout = editionBuffer
-
-	err := cmd.Run()
+	tmpFileName, err := createTemporaryFile(content)
 	if err != nil {
-		return nil, fmt.Errorf("failed to edit temporary file: %w", err)
+		return nil, fmt.Errorf("failed to create temporary file: %w", err)
 	}
 
-	return editionBuffer.Bytes(), nil
+	defaultEditor := config.GetDefaultEditor()
+	editorAndArguments := strings.Fields(defaultEditor)
+	args := []string{tmpFileName}
+	if len(editorAndArguments) > 1 {
+		args = append(editorAndArguments[1:], args...)
+	}
+	cmd := exec.Command(editorAndArguments[0], args...)
+
+	err = cmd.Run()
+	if err != nil {
+		return nil, fmt.Errorf("failed to edit temporary file %q: %w", tmpFileName, err)
+	}
+
+	editedContent, err := readAndDeleteFile(tmpFileName)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read and delete temporary file: %w", err)
+	}
+
+	return editedContent, nil
 }
 
 // editor takes a complete resource and a partial resourceUpdate
