@@ -12,6 +12,8 @@ import (
 
 var SkipEditor = false
 
+type GetResourceFunc func(interface{}) (interface{}, error)
+
 func edit(content []byte) ([]byte, error) {
 	if SkipEditor == true {
 		return content, nil
@@ -32,57 +34,64 @@ func edit(content []byte) ([]byte, error) {
 }
 
 // editor takes a complete resource and a partial resourceUpdate
-func editor(resource interface{}, resourceUpdate interface{}, editedJson ...string) (interface{}, error) {
+func editor(resource interface{}, updateResourceRequest interface{}, editedJson ...string) (interface{}, error) {
 	resourceV := reflect.ValueOf(resource)
-	resourceUpdateV := reflect.ValueOf(resourceUpdate)
+	updateResourceRequestV := reflect.ValueOf(updateResourceRequest)
 
-	// Create a new resourceUpdate that will be edited
+	// Create a new updateResourceRequest that will be edited
 	// It will allow user to edit it, then we will extract diff to perform update
-	resourceUpdateToEdit := reflect.New(resourceUpdateV.Type().Elem())
-	valueMapper(resourceUpdateV, resourceUpdateToEdit)
-	valueMapper(resourceV, resourceUpdateToEdit)
+	updateResourceRequestToEditV := reflect.New(updateResourceRequestV.Type().Elem())
+	valueMapper(updateResourceRequestToEditV, updateResourceRequestV)
+	valueMapper(updateResourceRequestToEditV, resourceV)
 
-	tmpArgsJson, err := json.MarshalIndent(resourceUpdateToEdit.Interface(), "", "  ")
+	// TODO: allow yaml marshal
+	updateResourceRequestJson, err := Marshal(updateResourceRequestToEditV.Interface(), MarshalModeJson)
 	if err != nil {
-		return nil, fmt.Errorf("failed to convert update request to json: %w", err)
+		return nil, fmt.Errorf("failed to marshal update request: %w", err)
 	}
 
-	tmpArgsJson, err = edit(tmpArgsJson)
+	// Start text editor to edit json
+	updateResourceRequestJson, err = edit(updateResourceRequestJson)
 	if err != nil {
-		return nil, fmt.Errorf("failed to edit json: %w", err)
+		return nil, fmt.Errorf("failed to edit marshalled data: %w", err)
 	}
 
+	// If editedJson is present, override edited json
+	// This is useful for testing purpose
 	if len(editedJson) == 1 {
-		tmpArgsJson = []byte(editedJson[0])
+		updateResourceRequestJson = []byte(editedJson[0])
 	}
 
-	// Create a new resourceUpdate as destination for edited one
-	resourceUpdateEdited := reflect.New(resourceUpdateV.Type().Elem())
+	// Create a new updateResourceRequest as destination for edited one
+	updateResourceRequestEdited := reflect.New(updateResourceRequestV.Type().Elem())
 
-	err = json.Unmarshal(tmpArgsJson, resourceUpdateEdited.Interface())
+	err = Unmarshal(updateResourceRequestJson, updateResourceRequestEdited.Interface(), MarshalModeJson)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal edited data: %w", err)
+		return nil, fmt.Errorf("failed to unmarshal edited data: %w", err)
 	}
 
-	return resourceUpdateEdited.Interface(), nil
+	return updateResourceRequestEdited.Interface(), nil
 }
 
 // Editor takes a partial UpdateResourceRequest, the type of the GetResourceRequest and a function that return the resource using GetResourceRequest
-func Editor(resourceUpdate interface{}, resourceGetType reflect.Type, resourceGetter func(interface{}) (interface{}, error)) (interface{}, error) {
-	resourceUpdateV := reflect.ValueOf(resourceUpdate)
+func Editor(updateResourceRequest interface{}, getResourceRequestType reflect.Type, getResource GetResourceFunc) (interface{}, error) {
+	updateResourceRequestV := reflect.ValueOf(updateResourceRequest)
 
-	resourceGetterArg := reflect.New(resourceGetType).Interface()
-	resourceGetterArgV := reflect.ValueOf(resourceGetterArg)
+	// Create GetResourceRequest to be able to fetch the actual resource
+	getResourceRequest := reflect.New(getResourceRequestType).Interface()
+	getResourceRequestV := reflect.ValueOf(getResourceRequest)
 
-	// Fill Getter args using Update arg content
-	valueMapper(resourceUpdateV, resourceGetterArgV)
+	// Fill GetResourceRequest args using Update arg content
+	// This should copy important argument like ResourceID
+	valueMapper(getResourceRequestV, updateResourceRequestV)
 
-	resource, err := resourceGetter(resourceGetterArg)
+	resource, err := getResource(getResourceRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get resource: %w", err)
 	}
 
-	editedArgs, err := editor(resource, resourceUpdateV.Interface())
+	// Start edition of UpdateResourceRequest
+	editedArgs, err := editor(resource, updateResourceRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit update arguments: %w", err)
 	}

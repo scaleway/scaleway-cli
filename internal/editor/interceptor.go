@@ -20,7 +20,7 @@ func Interceptor(getter *core.Command) core.CommandInterceptor {
 		}
 
 		// TODO: only map diff
-		valueMapper(reflect.ValueOf(editedArgs), argsV)
+		valueMapper(argsV, reflect.ValueOf(editedArgs))
 
 		return runner(ctx, argsI)
 	}

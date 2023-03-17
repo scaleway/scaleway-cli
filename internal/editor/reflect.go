@@ -30,7 +30,7 @@ func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
 
 // valueMapper get all fields present both in src and dest and set them in dest
 // if argument is not zero-value in dest, it is not set
-func valueMapper(src reflect.Value, dest reflect.Value) interface{} {
+func valueMapper(dest reflect.Value, src reflect.Value) interface{} {
 	if dest.Kind() == reflect.Pointer {
 		dest = dest.Elem()
 	}
