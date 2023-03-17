@@ -2,6 +2,7 @@ package editor
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"reflect"
 	"strings"
@@ -10,6 +11,7 @@ import (
 )
 
 var SkipEditor = false
+var marshalMode = MarshalModeYaml
 
 type GetResourceFunc func(interface{}) (interface{}, error)
 
@@ -18,7 +20,7 @@ func edit(content []byte) ([]byte, error) {
 		return content, nil
 	}
 
-	tmpFileName, err := createTemporaryFile(content)
+	tmpFileName, err := createTemporaryFile(content, marshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create temporary file: %w", err)
 	}
@@ -30,6 +32,8 @@ func edit(content []byte) ([]byte, error) {
 		args = append(editorAndArguments[1:], args...)
 	}
 	cmd := exec.Command(editorAndArguments[0], args...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
 
 	err = cmd.Run()
 	if err != nil {
@@ -55,8 +59,7 @@ func editor(resource interface{}, updateResourceRequest interface{}, editedJson 
 	valueMapper(updateResourceRequestToEditV, updateResourceRequestV)
 	valueMapper(updateResourceRequestToEditV, resourceV)
 
-	// TODO: allow yaml marshal
-	updateResourceRequestJson, err := Marshal(updateResourceRequestToEditV.Interface(), MarshalModeJson)
+	updateResourceRequestJson, err := Marshal(updateResourceRequestToEditV.Interface(), marshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal update request: %w", err)
 	}
@@ -76,7 +79,7 @@ func editor(resource interface{}, updateResourceRequest interface{}, editedJson 
 	// Create a new updateResourceRequest as destination for edited one
 	updateResourceRequestEdited := reflect.New(updateResourceRequestV.Type().Elem())
 
-	err = Unmarshal(updateResourceRequestJson, updateResourceRequestEdited.Interface(), MarshalModeJson)
+	err = Unmarshal(updateResourceRequestJson, updateResourceRequestEdited.Interface(), marshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal edited data: %w", err)
 	}
