@@ -52,7 +52,7 @@ scw secret secret create [arg=value ...]
 
 Add a given Secret
 ```
-scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"
+scw secret secret create project-id=<your-project-id> name="foobar" description="bar"
 ```
 
 
@@ -201,6 +201,16 @@ scw secret version create [arg=value ...]
 | data | Required | Content of the secret version. Base64 is handled by the SDK |
 | description |  | Description of the SecretVersion |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Add a given Secret Version
+```
+scw secret version create name=foobar secret-id="<secret-id>" data=@<path/to/your/secret/file>
+```
+
 
 
 
