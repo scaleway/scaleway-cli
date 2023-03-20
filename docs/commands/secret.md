@@ -52,7 +52,7 @@ scw secret secret create [arg=value ...]
 
 Add a given Secret
 ```
-scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"
+scw secret secret create name=foobar description=barfoo
 ```
 
 
@@ -189,7 +189,7 @@ Create a SecretVersion.
 **Usage:**
 
 ```
-scw secret version create [arg=value ...]
+scw secret version create data="$(cat <path/to/your/secret>)" [arg=value ...]
 ```
 
 
