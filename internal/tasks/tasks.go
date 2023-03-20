@@ -14,6 +14,7 @@ type CleanupFunc func(ctx context.Context) error
 type Task struct {
 	Name string
 	Ctx  context.Context
+	Logs *os.File
 
 	taskFunction   TaskFunc[any, any]
 	argType        reflect.Type
@@ -22,11 +23,19 @@ type Task struct {
 }
 
 type Tasks struct {
-	tasks []Task
+	tasks []*Task
+
+	LoggerMode LoggerMode
 }
 
 func Begin() *Tasks {
-	return &Tasks{}
+	return &Tasks{
+		LoggerMode: PrinterModeAuto,
+	}
+}
+
+func (ts *Tasks) SetLoggerMode(mode LoggerMode) {
+	ts.LoggerMode = mode
 }
 
 func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[TaskArg, TaskReturn]) {
@@ -37,13 +46,13 @@ func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[
 
 	tasksAmount := len(ts.tasks)
 	if tasksAmount > 0 {
-		lastTask := &ts.tasks[tasksAmount-1]
+		lastTask := ts.tasks[tasksAmount-1]
 		if argType != lastTask.returnType {
 			panic(fmt.Errorf("invalid task declared, wait for %s, previous task returns %s", argType.Name(), lastTask.returnType.Name()))
 		}
 	}
 
-	ts.tasks = append(ts.tasks, Task{
+	ts.tasks = append(ts.tasks, &Task{
 		Name:       name,
 		argType:    argType,
 		returnType: returnType,
@@ -69,14 +78,11 @@ func setupContext(ctx context.Context) (context.Context, func()) {
 }
 
 // Cleanup execute all tasks cleanup function before failed one in reverse order
-func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
-	totalTasks := len(ts.tasks)
-	loader := setupLoader()
+func (ts *Tasks) Cleanup(ctx context.Context, logger *Logger, failed int) {
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
-	i := failed - 1
-	for ; i >= 0; i-- {
+	for i := failed; i >= 0; i-- {
 		task := ts.tasks[i]
 
 		select {
@@ -87,67 +93,68 @@ func (ts *Tasks) Cleanup(ctx context.Context, failed int) {
 		}
 
 		if len(task.cleanFunctions) != 0 {
-			fmt.Printf("[%d/%d] Cleaning task %q\n", i+1, totalTasks, task.Name)
-			loader.Start()
+			var err error
+			for i, cleanUpFunc := range task.cleanFunctions {
+				loggerEntry := logger.AddEntry(fmt.Sprintf("Cleaning task %q %d/%d", task.Name, i+1, len(task.cleanFunctions)))
+				task.Logs = loggerEntry.Logs
+				loggerEntry.Start()
 
-			for _, cleanUpFunc := range task.cleanFunctions {
-				err := cleanUpFunc(cancelableCtx)
+				err = cleanUpFunc(cancelableCtx)
 				if err != nil {
-					fmt.Printf("task %d failed to cleanup, there may be dangling resources: %s\n", i+1, err.Error())
+					loggerEntry.Complete(err)
+					break
 				}
-			}
 
-			loader.Stop()
+				loggerEntry.Complete(nil)
+			}
 		}
 	}
 }
 
 // Execute tasks with interactive display and cleanup on fail
 func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, error) {
-	var err error
-	totalTasks := len(ts.tasks)
-	loader := setupLoader()
-
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
+	logger, err := NewTasksLogger(context.Background(), ts.LoggerMode)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		err := logger.CloseAndWait()
+		if err != nil {
+			fmt.Println("failed to close logger:", err)
+		}
+	}()
+
 	for i := range ts.tasks {
-		task := &ts.tasks[i]
+		task := ts.tasks[i]
+
+		loggerEntry := logger.AddEntry(task.Name)
+		task.Logs = loggerEntry.Logs
+		loggerEntry.Start()
+
 		// Add context and reset cleanup functions, allows to execute multiple times
 		task.Ctx = cancelableCtx
 		task.cleanFunctions = []CleanupFunc(nil)
 
-		fmt.Printf("[%d/%d] %s\n", i+1, totalTasks, task.Name)
-		loader.Start()
-
 		data, err = task.taskFunction(task, data)
-		taskIsCancelled := false
-		select {
-		case <-cancelableCtx.Done():
-			taskIsCancelled = true
-		default:
-		}
 		if err != nil {
-			loader.Stop()
-			if taskIsCancelled {
-				fmt.Println("task canceled, cleaning up created resources")
-			} else {
-				fmt.Println("task failed, cleaning up created resources")
-			}
-			ts.Cleanup(ctx, i)
+			loggerEntry.Complete(err)
+			ts.Cleanup(ctx, logger, i)
+
 			return nil, fmt.Errorf("task %d %q failed: %w", i+1, task.Name, err)
 		}
 
 		select {
 		case <-ctx.Done():
-			loader.Stop()
-			fmt.Println("context canceled, cleaning up created resources")
-			ts.Cleanup(ctx, i+1)
+			loggerEntry.Complete(context.Canceled)
+			ts.Cleanup(ctx, logger, i)
 			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
 		default:
 		}
 
-		loader.Stop()
+		loggerEntry.Complete(nil)
 	}
 
 	return data, nil
