@@ -87,20 +87,6 @@ func Test_ConfigSetCommand(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 
-	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config set send-telemetry=true",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			core.TestCheckGolden(),
-			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Equal(t, true, *config.SendTelemetry)
-			}),
-		),
-		TmpHomeDir: true,
-	}))
-
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
@@ -140,20 +126,6 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
 				assert.Nil(t, config.Profiles["p1"].AccessKey)
-			}),
-		),
-		TmpHomeDir: true,
-	}))
-
-	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: beforeFuncCreateFullConfig(),
-		Cmd:        "scw config unset send-telemetry",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			core.TestCheckGolden(),
-			checkConfig(func(t *testing.T, config *scw.Config) {
-				assert.Nil(t, config.SendTelemetry)
 			}),
 		),
 		TmpHomeDir: true,
@@ -335,7 +307,6 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 			DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 			DefaultRegion:         scw.StringPtr("fr-par"),
 			DefaultZone:           scw.StringPtr("fr-par-1"),
-			SendTelemetry:         scw.BoolPtr(true),
 		},
 		Profiles: map[string]*scw.Profile{
 			"p1": {
@@ -346,7 +317,6 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				DefaultRegion:         scw.StringPtr("fr-par"),
 				DefaultZone:           scw.StringPtr("fr-par-1"),
-				SendTelemetry:         scw.BoolPtr(true),
 			},
 			"p2": {
 				AccessKey:             scw.StringPtr("SCWP2XXXXXXXXXXXXXXX"),
@@ -356,7 +326,6 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				DefaultRegion:         scw.StringPtr("fr-par"),
 				DefaultZone:           scw.StringPtr("fr-par-1"),
-				SendTelemetry:         scw.BoolPtr(true),
 			},
 		},
 	})

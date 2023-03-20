@@ -67,7 +67,6 @@ type initArgs struct {
 
 	Region              scw.Region
 	Zone                scw.Zone
-	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
 }
@@ -229,26 +228,6 @@ Default path for configuration file is based on the following priority order:
 				}
 			}
 
-			// Ask for send usage permission
-			if args.SendTelemetry == nil {
-				_, _ = interactive.Println()
-				_, _ = interactive.PrintlnWithoutIndent(`
-					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
-				`)
-
-				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to send usage statistics and diagnostics?",
-					DefaultValue: true,
-					Ctx:          ctx,
-				})
-				if err != nil {
-					return err
-				}
-
-				args.SendTelemetry = scw.BoolPtr(sendTelemetry)
-			}
-
 			// Ask whether we should install autocomplete
 			if args.InstallAutocomplete == nil {
 				_, _ = interactive.Println()
@@ -284,10 +263,6 @@ Default path for configuration file is based on the following priority order:
 				} else {
 					return nil, err
 				}
-			}
-
-			if args.SendTelemetry != nil {
-				config.SendTelemetry = args.SendTelemetry
 			}
 
 			client := core.ExtractClient(ctx)
