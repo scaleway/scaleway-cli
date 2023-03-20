@@ -45,6 +45,8 @@ func edit(content []byte) ([]byte, error) {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 
+	// TODO: always delete temp file to avoid credentials leak
+
 	err = cmd.Run()
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit temporary file %q: %w", tmpFileName, err)
@@ -60,9 +62,14 @@ func edit(content []byte) ([]byte, error) {
 
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
-func updateResourceEditor(resource interface{}, updateRequest interface{}, editedResource ...string) (interface{}, error) {
+func updateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool, editedResource ...string) (interface{}, error) {
 	// Create a copy of updateRequest completed with resource content
 	completeUpdateRequest := copyAndCompleteUpdateRequest(updateRequest, resource)
+
+	// TODO: fields present in updateRequest should be removed from marshal
+	// ex: namespace_id, region, zone
+	// Currently not an issue as fields that should be removed are mostly path parameter /{zone}/namespace/{namespace_id}
+	// Path parameter have "-" as json tag and are not marshaled
 
 	updateRequestMarshaled, err := Marshal(completeUpdateRequest, marshalMode)
 	if err != nil {
@@ -85,6 +92,7 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, edite
 	// Must be a new one to avoid merge of maps content
 	updateRequestEdited := newRequest(updateRequest)
 
+	// TODO: if !putRequest
 	// TODO: fill updateRequestEdited with only edited fields and fields present in updateRequest
 	// TODO: fields should be compared with completeUpdateRequest to find edited ones
 
@@ -100,7 +108,8 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, edite
 // - a partial UpdateRequest
 // - the type of the GetRequest
 // - a function that return the resource using GetRequest
-func UpdateResourceEditor(updateRequest interface{}, getRequestType reflect.Type, getResource GetResourceFunc) (interface{}, error) {
+// - a bool true if updateRequest is a PUT request
+func UpdateResourceEditor(updateRequest interface{}, getRequestType reflect.Type, getResource GetResourceFunc, putRequest bool) (interface{}, error) {
 	getRequest := createGetRequest(updateRequest, getRequestType)
 
 	resource, err := getResource(getRequest)
@@ -109,7 +118,7 @@ func UpdateResourceEditor(updateRequest interface{}, getRequestType reflect.Type
 	}
 
 	// Start edition of UpdateRequest
-	editedUpdateRequest, err := updateResourceEditor(resource, updateRequest)
+	editedUpdateRequest, err := updateResourceEditor(resource, updateRequest, putRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit update arguments: %w", err)
 	}

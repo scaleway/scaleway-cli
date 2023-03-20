@@ -14,7 +14,7 @@ func Interceptor(getter *core.Command) core.CommandInterceptor {
 
 		editedArgs, err := UpdateResourceEditor(argsI, getter.ArgsType, func(i interface{}) (interface{}, error) {
 			return getter.Run(ctx, i)
-		})
+		}, false)
 		if err != nil {
 			return nil, fmt.Errorf("failed to edit args: %w", err)
 		}
