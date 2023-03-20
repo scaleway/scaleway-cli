@@ -192,9 +192,9 @@ github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:
 github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6LYCDYWNEvQ=
 github.com/russross/blackfriday v1.6.0/go.mod h1:ti0ldHuxg49ri4ksnFxlkCfN+hvslNlmVHqNRXXJNAY=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.14.0.20230314173919-2ec24bb08c42 h1:8X7HJIk2/9N3PCt7jrp3DPLDr8ev3ilzJJaW+vx4LN4=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.14.0.20230314173919-2ec24bb08c42/go.mod h1:fCa7OJZ/9DRTnOKmxvT6pn+LPWUptQAmHF/SBJUGEcg=
 github.com/secure-systems-lab/go-securesystemslib v0.4.0 h1:b23VGrQhTA8cN2CbBw7/FulN9fTtqYUdS5+Oxzt+DUE=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.14.0.20230318120603-8df14b12fd02 h1:Ipdjm5oXQtzoHxsc1Pj7LqOlNJh5HrVb4R9TRpFiwKM=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.14.0.20230318120603-8df14b12fd02/go.mod h1:fCa7OJZ/9DRTnOKmxvT6pn+LPWUptQAmHF/SBJUGEcg=
 github.com/sergi/go-diff v1.2.0 h1:XU+rvMAioB0UC3q1MFrIQy4Vo5/4VsRDQQXHsEya6xQ=
 github.com/sergi/go-diff v1.2.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
 github.com/shibumi/go-pathspec v1.3.0 h1:QUyMZhFo0Md5B8zV8x2tesohbb5kfbpTi9rBnKh5dkI=

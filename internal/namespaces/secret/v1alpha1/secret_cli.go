@@ -110,7 +110,7 @@ func secretSecretCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a given Secret",
-				Raw:   `scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"`,
+				Raw:   `scw secret secret create project-id=<your-project-id> name="foobar" description="bar"`,
 			},
 		},
 	}
@@ -346,6 +346,12 @@ func secretVersionCreate() *core.Command {
 			api := secret.NewAPI(client)
 			return api.CreateSecretVersion(request)
 
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Add a given Secret Version",
+				Raw:   `scw secret version create name=foobar secret-id="<secret-id>" data=@<path/to/your/secret/file>`,
+			},
 		},
 	}
 }
