@@ -25,11 +25,12 @@ func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
 		v2t = v2t.Elem()
 	}
 
-	return v1t == v2t
-}
+	// If both are struct consider them equal, valueMapper will try to map fields
+	if v1t.Kind() == reflect.Struct && v2t.Kind() == reflect.Struct {
+		return true
+	}
 
-func valueMapperScalar(dest reflect.Value, src reflect.Value) {
-	dest.Set(src)
+	return v1t == v2t
 }
 
 // valueMapper get all fields present both in src and dest and set them in dest
@@ -42,6 +43,7 @@ func valueMapper(dest reflect.Value, src reflect.Value) {
 			fieldType := dest.Type().Field(i)
 			srcField := src.FieldByName(fieldType.Name)
 
+			// TODO: Move to default
 			if !srcField.IsValid() || srcField.IsZero() || !areSameType(srcField, destField) {
 				continue
 			}
@@ -49,14 +51,15 @@ func valueMapper(dest reflect.Value, src reflect.Value) {
 			valueMapper(destField, srcField)
 		}
 	case reflect.Pointer:
-		// If source is not a pointer, we allocate destination if needed
-		if src.Kind() != reflect.Pointer && dest.IsZero() {
-			dest.Set(reflect.New(src.Type()))
+		// If destination is a pointer, we allocate destination if needed
+		if dest.IsZero() {
+			dest.Set(reflect.New(dest.Type().Elem()))
 		}
 
 		if src.Kind() == reflect.Pointer {
 			src = src.Elem()
 		}
+
 		dest = dest.Elem()
 
 		valueMapper(dest, src)
@@ -71,5 +74,4 @@ func valueMapper(dest reflect.Value, src reflect.Value) {
 		// Should be scalar types
 		dest.Set(src)
 	}
-
 }
