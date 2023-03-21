@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
+Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
 
 USAGE:
   scw redis cluster migrate <cluster-id ...> [arg=value ...]
 
 ARGS:
-  [version]         Redis™ engine version of the cluster
-  [node-type]       Type of node to use for the cluster
-  [cluster-size]    Number of nodes for the cluster
-  cluster-id        UUID of the cluster to update
+  [version]         Redis™ engine version of the Database Instance
+  [node-type]       Type of node to use for the Database Instance
+  [cluster-size]    Number of nodes for the Database Instance
+  cluster-id        UUID of the Database Instance to update
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:

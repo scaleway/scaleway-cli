@@ -258,7 +258,7 @@ scw rdb backup get <database-backup-id ...> [arg=value ...]
 
 ### List database backups
 
-List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+List all backups in a specified region, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 
 **Usage:**
 
@@ -486,7 +486,7 @@ scw rdb engine settings name=MySQL version=8
 
 ## Instance management commands
 
-A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data. 
+A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.
 
 **Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](https://developers.scaleway.com/en/products/rdb/api/#read-replicas-8e2cf2)
 
@@ -637,7 +637,7 @@ scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 
 ### List Database Instances
 
-List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
+List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
 
 **Usage:**
 
@@ -915,7 +915,7 @@ scw rdb log purge [arg=value ...]
 
 ## Node types management commands
 
-Two node type ranges are available: 
+Two node type ranges are available:
 
 * **General Purpose:** production-grade nodes designed for scalable database infrastructures.
 * **Development:** sandbox environments and reliable performance for development and testing purposes.
@@ -924,7 +924,7 @@ Two node type ranges are available:
 
 ### List available node types
 
-List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 
 **Usage:**
 
@@ -951,7 +951,7 @@ Each user has associated permissions that give them access to zero or more logic
 * **None:** No access to the database
 * **Read:** Allow users to read tables and fields in a database
 * **Write:** Allow users to write content in databases.
-* **Admin:** Read and write access to the data, and extended privileges depending on the database engine. 
+* **Admin:** Read and write access to the data, and extended privileges depending on the database engine.
 
 
 
@@ -1003,7 +1003,7 @@ scw rdb privilege set [arg=value ...]
 
 ## Read replica management
 
-A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections. 
+A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections.
 The replica mirrors the data of the primary Database node and any changes made are replicated to the replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database workloads. They can also be used for business intelligence workloads.
 
 A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
@@ -1194,7 +1194,7 @@ scw rdb snapshot get <snapshot-id ...> [arg=value ...]
 
 ### List snapshots
 
-List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 
 **Usage:**
 
@@ -1263,7 +1263,7 @@ scw rdb snapshot update <snapshot-id ...> [arg=value ...]
 
 ## User management commands
 
-Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an `admin` role can create new databases and users. 
+Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an `admin` role can create new databases and users.
 
 
 
