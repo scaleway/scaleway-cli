@@ -2,53 +2,18 @@
 # Documentation for `scw webhosting`
 Webhosting API.
   
-- [DNS record management commands](#dns-record-management-commands)
-  - [Get the DNS records](#get-the-dns-records)
 - [Hosting management commands](#hosting-management-commands)
   - [Create a hosting](#create-a-hosting)
+  - [Delete a hosting](#delete-a-hosting)
   - [Get a hosting](#get-a-hosting)
+  - [Get the DNS records](#get-the-dns-records)
   - [List all hostings](#list-all-hostings)
+  - [Restore a hosting](#restore-a-hosting)
   - [Update a hosting](#update-a-hosting)
 - [Offer management commands](#offer-management-commands)
   - [List all offers](#list-all-offers)
 
   
-## DNS record management commands
-
-The set of DNS record of a specific domain associated to a hosting.
-
-
-
-### Get the DNS records
-
-Get the DNS records of a specified domain.
-
-**Usage:**
-
-```
-scw webhosting dns-record get [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| domain | Required | Domain associated to the DNS records |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Get DNS records associated to the given domain
-```
-scw webhosting dns-record get domain=foo.com
-```
-
-
-
-
 ## Hosting management commands
 
 A Scaleway web hosting associated with a domain name.
@@ -80,6 +45,36 @@ scw webhosting hosting create [arg=value ...]
 
 
 
+### Delete a hosting
+
+Delete a hosting with the given ID.
+
+**Usage:**
+
+```
+scw webhosting hosting delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | Hosting ID |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Delete a Hosting with the given ID
+```
+scw webhosting hosting delete hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+```
+
+
+
+
 ### Get a hosting
 
 Get the details of a Hosting with the given ID.
@@ -105,6 +100,36 @@ scw webhosting hosting get [arg=value ...]
 Get a Hosting with the given ID
 ```
 scw webhosting hosting get hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+```
+
+
+
+
+### Get the DNS records
+
+The set of DNS record of a specific domain associated to a hosting.
+
+**Usage:**
+
+```
+scw webhosting hosting get-dns-records [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required | Domain associated to the DNS records |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Get DNS records associated to the given domain
+```
+scw webhosting hosting get-dns-records domain=foo.com
 ```
 
 
@@ -140,6 +165,36 @@ scw webhosting hosting list [arg=value ...]
 List all hostings of a given project ID
 ```
 scw webhosting hosting list project-id=a3244331-5d32-4e36-9bf9-b60233e201c7 organization-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+```
+
+
+
+
+### Restore a hosting
+
+Restore a hosting with the given ID.
+
+**Usage:**
+
+```
+scw webhosting hosting restore [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | Hosting ID |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Restore a Hosting with the given ID
+```
+scw webhosting hosting restore hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
 ```
 
 

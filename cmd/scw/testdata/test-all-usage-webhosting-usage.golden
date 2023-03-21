@@ -6,7 +6,6 @@ USAGE:
   scw webhosting <command>
 
 AVAILABLE COMMANDS:
-  dns-record  DNS record management commands
   hosting     Hosting management commands
   offer       Offer management commands
 
