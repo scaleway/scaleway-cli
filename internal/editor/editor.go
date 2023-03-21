@@ -106,6 +106,9 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 	// TODO: fill updateRequestEdited with only edited fields and fields present in updateRequest
 	// TODO: fields should be compared with completeUpdateRequest to find edited ones
 
+	// Add back required non-marshaled fields (zone, ID)
+	copyRequestPathParameters(updateRequestEdited, updateRequest)
+
 	err = unmarshal(updateRequestMarshaled, updateRequestEdited, cfg.MarshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal edited data: %w", err)
