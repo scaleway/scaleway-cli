@@ -38,22 +38,21 @@ func edit(content []byte) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create temporary file: %w", err)
 	}
+	defer os.Remove(tmpFileName)
 
 	editorPath, args := editorPathAndArgs(tmpFileName)
 	cmd := exec.Command(editorPath, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
-
-	// TODO: always delete temp file to avoid credentials leak
-
+	
 	err = cmd.Run()
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit temporary file %q: %w", tmpFileName, err)
 	}
 
-	editedContent, err := readAndDeleteFile(tmpFileName)
+	editedContent, err := os.ReadFile(tmpFileName)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read and delete temporary file: %w", err)
+		return nil, fmt.Errorf("failed to read temporary file %q: %w", tmpFileName, err)
 	}
 
 	return editedContent, nil

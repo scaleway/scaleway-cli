@@ -32,17 +32,3 @@ func createTemporaryFile(content []byte, marshalMode MarshalMode) (string, error
 
 	return tmpFile.Name(), nil
 }
-
-func readAndDeleteFile(name string) ([]byte, error) {
-	content, err := os.ReadFile(name)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read file %q: %w", name, err)
-	}
-
-	err = os.Remove(name)
-	if err != nil {
-		return nil, fmt.Errorf("failed to delete file %q: %w", name, err)
-	}
-
-	return content, nil
-}
