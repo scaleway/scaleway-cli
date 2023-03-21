@@ -1,8 +1,6 @@
 package editor
 
 import (
-	"log"
-	"reflect"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -89,29 +87,4 @@ env: {}
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 	assert.NotNil(t, editedUpdateRequest.Env)
 	assert.True(t, len(*editedUpdateRequest.Env) == 0)
-}
-
-func TestUpdateResourceEditor(t *testing.T) {
-	SkipEditor = true
-
-	resource := &struct {
-		ID   string
-		Name string
-	}{
-		"uuid",
-		"name",
-	}
-	updateRequest := &struct {
-		ID   string
-		Name string
-	}{
-		"uuid",
-		"",
-	}
-
-	editedUpdateRequest, err := UpdateResourceEditor(updateRequest, reflect.TypeOf(*resource), func(i interface{}) (interface{}, error) {
-		return resource, nil
-	}, false)
-	assert.Nil(t, err)
-	log.Println(editedUpdateRequest)
 }

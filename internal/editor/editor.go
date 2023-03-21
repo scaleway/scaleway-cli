@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
@@ -104,24 +103,10 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 	return updateRequestEdited, nil
 }
 
-// UpdateResourceEditor takes:
-// - a partial UpdateRequest
-// - the type of the GetRequest
-// - a function that return the resource using GetRequest
-// - a bool true if updateRequest is a PUT request
-func UpdateResourceEditor(updateRequest interface{}, getRequestType reflect.Type, getResource GetResourceFunc, putRequest bool) (interface{}, error) {
-	getRequest := createGetRequest(updateRequest, getRequestType)
-
-	resource, err := getResource(getRequest)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get resource: %w", err)
-	}
-
-	// Start edition of UpdateRequest
-	editedUpdateRequest, err := updateResourceEditor(resource, updateRequest, putRequest)
-	if err != nil {
-		return nil, fmt.Errorf("failed to edit update arguments: %w", err)
-	}
-
-	return editedUpdateRequest, nil
+// UpdateResourceEditor takes a complete resource and a partial updateRequest
+// will return a copy of updateRequest that has been edited
+// Only edited fields will be present in returned updateRequest
+// If putRequest is true, all fields will be present, edited or not
+func UpdateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool) (interface{}, error) {
+	return updateResourceEditor(resource, updateRequest, putRequest)
 }
