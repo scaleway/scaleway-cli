@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List clusters.
+List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
 
 USAGE:
   scw redis cluster list [arg=value ...]
 
 ARGS:
-  [tags.{index}]      Tags of the clusters to filter upon
-  [name]              Name of the clusters to filter upon
-  [order-by]          Criteria to use when ordering cluster listing (created_at_asc | created_at_desc | name_asc | name_desc)
-  [project-id]        Project ID to list the cluster of
-  [version]           Version of the clusters to filter upon
-  [organization-id]   Organization ID to list the cluster of
+  [tags.{index}]      Filter by Database Instance tags
+  [name]              Filter by Database Instance names
+  [order-by]          Criteria to use when ordering the list (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]        Filter by Project ID
+  [version]           Filter by Redis™ engine version
+  [organization-id]   Filter by Organization ID
   [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:

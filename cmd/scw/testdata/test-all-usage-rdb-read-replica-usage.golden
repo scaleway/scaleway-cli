@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections. 
+A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections.
 The replica mirrors the data of the primary Database node and any changes made are replicated to the replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database workloads. They can also be used for business intelligence workloads.
 
 A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.

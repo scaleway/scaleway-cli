@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Managed Database for Redis™ cluster is composed of one or more Nodes depending of the cluster_size setting.
+A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
 
 USAGE:
   scw redis cluster <command>
 
 AVAILABLE COMMANDS:
-  create            Create a cluster
-  delete            Delete a cluster
-  get               Get a cluster
+  create            Create a Redis™ Database Instance
+  delete            Delete a Redis™ Database Instance
+  get               Get a Redis™ Database Instance
   get-certificate   Get the TLS certificate of a cluster
-  list              List clusters
-  metrics           Get metrics of a cluster
-  migrate           Migrate your cluster architecture
+  list              List Redis™ Database Instances
+  metrics           Get metrics of a Redis™ Database Instance
+  migrate           Scale up a Redis™ Database Instance
   renew-certificate Renew the TLS certificate of a cluster
-  update            Update a cluster
+  update            Update a Redis™ Database Instance
 
 FLAGS:
   -h, --help   help for cluster

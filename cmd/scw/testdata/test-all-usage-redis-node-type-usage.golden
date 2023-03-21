@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Node types powering your cluster.
+Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.
 
 USAGE:
   scw redis node-type <command>
