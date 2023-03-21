@@ -146,11 +146,13 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 		TotalCount: 0,
 		Rules: []*instance.SecurityGroupRule{
 			{
-				ID:           "id",
-				Protocol:     "protocol",
-				Direction:    "direction",
-				Action:       "action",
-				IPRange:      scw.IPNet{*ipnet},
+				ID:        "id",
+				Protocol:  "protocol",
+				Direction: "direction",
+				Action:    "action",
+				IPRange: scw.IPNet{
+					IPNet: *ipnet,
+				},
 				DestPortFrom: scw.Uint32Ptr(1000),
 				DestPortTo:   scw.Uint32Ptr(2000),
 				Position:     12,

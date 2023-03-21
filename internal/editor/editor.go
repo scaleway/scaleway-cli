@@ -44,7 +44,7 @@ func edit(content []byte) ([]byte, error) {
 	cmd := exec.Command(editorPath, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
-	
+
 	err = cmd.Run()
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit temporary file %q: %w", tmpFileName, err)
@@ -60,7 +60,7 @@ func edit(content []byte) ([]byte, error) {
 
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
-func updateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool, editedResource ...string) (interface{}, error) {
+func updateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool, editedResource string) (interface{}, error) {
 	// Create a copy of updateRequest completed with resource content
 	completeUpdateRequest := copyAndCompleteUpdateRequest(updateRequest, resource)
 
@@ -82,14 +82,15 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 
 	// If editedResource is present, override edited resource
 	// This is useful for testing purpose
-	if len(editedResource) == 1 {
-		updateRequestMarshaled = []byte(editedResource[0])
+	if editedResource != "" {
+		updateRequestMarshaled = []byte(editedResource)
 	}
 
 	// Create a new updateRequest as destination for edited yaml/json
 	// Must be a new one to avoid merge of maps content
 	updateRequestEdited := newRequest(updateRequest)
 
+	_ = putRequest
 	// TODO: if !putRequest
 	// TODO: fill updateRequestEdited with only edited fields and fields present in updateRequest
 	// TODO: fields should be compared with completeUpdateRequest to find edited ones
@@ -107,5 +108,5 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 // Only edited fields will be present in returned updateRequest
 // If putRequest is true, all fields will be present, edited or not
 func UpdateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool) (interface{}, error) {
-	return updateResourceEditor(resource, updateRequest, putRequest)
+	return updateResourceEditor(resource, updateRequest, putRequest, "")
 }

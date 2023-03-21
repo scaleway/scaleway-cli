@@ -24,7 +24,7 @@ func Test_updateResourceEditor(t *testing.T) {
 		"",
 	}
 
-	_, err := updateResourceEditor(resource, updateRequest, false)
+	_, err := updateResourceEditor(resource, updateRequest, false, "")
 	assert.Nil(t, err)
 }
 
@@ -48,7 +48,7 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, false)
+	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, false, "")
 	assert.Nil(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 
