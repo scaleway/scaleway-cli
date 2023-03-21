@@ -14,6 +14,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -496,4 +497,112 @@ func getDefaultProjectSecurityGroup(ctx context.Context, zone scw.Zone) (*instan
 	}
 
 	return nil, fmt.Errorf("%s project does not have a default security group", projectID)
+}
+
+func serverSecureBehindLBSecurityGroupCommand() *core.Command {
+	type secureBehindLBSecurityGroup struct {
+		InstanceID string
+		LBID       string
+		Zone       scw.Zone
+		Region     scw.Region
+	}
+
+	return &core.Command{
+		Short:     `Secure an instance to only receive traffic from a given LB`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "secure-behind-lb",
+		ArgsType:  reflect.TypeOf(secureBehindLBSecurityGroup{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "instance-id",
+				Short:    "ID of the instance server.",
+				Required: true,
+			},
+			{
+				Name:     "lb-id",
+				Short:    "ID of the load balancer you want to import the instance into",
+				Required: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*secureBehindLBSecurityGroup)
+
+			LBAPI := lb.NewAPI(core.ExtractClient(ctx))
+			loadbalancer, err := LBAPI.GetLB(&lb.GetLBRequest{
+				Region: args.Region,
+				LBID:   args.LBID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
+			server, err := instanceAPI.GetServer(&instance.GetServerRequest{
+				Zone:     args.Zone,
+				ServerID: args.InstanceID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			securityGroupRequest := &instance.CreateSecurityGroupRequest{
+				Name:                 server.Server.Name,
+				Project:              &server.Server.Project,
+				Stateful:             false,
+				InboundDefaultPolicy: "drop",
+				Zone:                 args.Zone,
+			}
+
+			securityGroup, err := instanceAPI.CreateSecurityGroup(securityGroupRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			var ipList []string
+			for _, ip := range loadbalancer.IP {
+				ipList = append(ipList, ip.IPAddress)
+			}
+
+			var ipRange scw.IPNet
+			err = ipRange.UnmarshalJSON([]byte(`"` + ipList[0] + `"`))
+			if err != nil {
+				return nil, err
+			}
+
+			ruleRequest := &instance.CreateSecurityGroupRuleRequest{
+				SecurityGroupID: securityGroup.SecurityGroup.ID,
+				Protocol:        "ANY",
+				Direction:       "inbound",
+				Action:          "accept",
+				IPRange:         ipRange,
+				Zone:            args.Zone,
+			}
+
+			rule, err := instanceAPI.CreateSecurityGroupRule(ruleRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			securityGroupTemplate := instance.SecurityGroupTemplate{
+				ID:   securityGroup.SecurityGroup.ID,
+				Name: securityGroup.SecurityGroup.Name,
+			}
+
+			updateServerRequest := &instance.UpdateServerRequest{
+				Zone:          args.Zone,
+				ServerID:      args.InstanceID,
+				SecurityGroup: &securityGroupTemplate,
+			}
+
+			_, err = instanceAPI.UpdateServer(updateServerRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			return rule, nil
+		},
+	}
 }

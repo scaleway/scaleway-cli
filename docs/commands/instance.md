@@ -35,6 +35,7 @@ Instance API.
   - [Delete a security group](#delete-a-security-group)
   - [Get a security group](#get-a-security-group)
   - [List security groups](#list-security-groups)
+  - [Secure an instance to only receive traffic from a given LB](#secure-an-instance-to-only-receive-traffic-from-a-given-lb)
   - [Update security group](#update-security-group)
 - [Server management commands](#server-management-commands)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
@@ -1154,6 +1155,28 @@ List all security groups that match the given name
 scw instance security-group list name=foobar
 ```
 
+
+
+
+### Secure an instance to only receive traffic from a given LB
+
+
+
+**Usage:**
+
+```
+scw instance security-group secure-behind-lb [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the instance server. |
+| lb-id | Required | ID of the load balancer you want to import the instance into |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

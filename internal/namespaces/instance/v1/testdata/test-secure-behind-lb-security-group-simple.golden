@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID         0057d928-e892-415d-81da-898adfc62287
+Protocol   ANY
+Direction  inbound
+Action     accept
+IPRange    51.158.56.141/32
+Position   1
+Editable   true
+Zone       fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "rule": {
+    "id": "0057d928-e892-415d-81da-898adfc62287",
+    "protocol": "ANY",
+    "direction": "inbound",
+    "action": "accept",
+    "ip_range": "51.158.56.141/32",
+    "dest_port_from": null,
+    "dest_port_to": null,
+    "position": 1,
+    "editable": true,
+    "zone": "fr-par-1"
+  }
+}
