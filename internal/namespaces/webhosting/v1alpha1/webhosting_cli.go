@@ -21,13 +21,14 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		webhostingRoot(),
 		webhostingHosting(),
-		webhostingDNSRecord(),
 		webhostingOffer(),
 		webhostingHostingCreate(),
 		webhostingHostingList(),
 		webhostingHostingGet(),
 		webhostingHostingUpdate(),
-		webhostingDNSRecordGet(),
+		webhostingHostingDelete(),
+		webhostingHostingRestore(),
+		webhostingHostingGetDNSRecords(),
 		webhostingOfferList(),
 	)
 }
@@ -46,16 +47,6 @@ func webhostingHosting() *core.Command {
 `,
 		Namespace: "webhosting",
 		Resource:  "hosting",
-	}
-}
-
-func webhostingDNSRecord() *core.Command {
-	return &core.Command{
-		Short: `DNS record management commands`,
-		Long: `The set of DNS record of a specific domain associated to a hosting.
-`,
-		Namespace: "webhosting",
-		Resource:  "dns-record",
 	}
 }
 
@@ -318,13 +309,85 @@ func webhostingHostingUpdate() *core.Command {
 	}
 }
 
-func webhostingDNSRecordGet() *core.Command {
+func webhostingHostingDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a hosting`,
+		Long:      `Delete a hosting with the given ID.`,
+		Namespace: "webhosting",
+		Resource:  "hosting",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.DeleteHostingRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `Hosting ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.DeleteHostingRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			return api.DeleteHosting(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a Hosting with the given ID",
+				ArgsJSON: `{"hosting_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
+			},
+		},
+	}
+}
+
+func webhostingHostingRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore a hosting`,
+		Long:      `Restore a hosting with the given ID.`,
+		Namespace: "webhosting",
+		Resource:  "hosting",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.RestoreHostingRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `Hosting ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.RestoreHostingRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			return api.RestoreHosting(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Restore a Hosting with the given ID",
+				ArgsJSON: `{"hosting_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
+			},
+		},
+	}
+}
+
+func webhostingHostingGetDNSRecords() *core.Command {
 	return &core.Command{
 		Short:     `Get the DNS records`,
-		Long:      `Get the DNS records of a specified domain.`,
+		Long:      `The set of DNS record of a specific domain associated to a hosting.`,
 		Namespace: "webhosting",
-		Resource:  "dns-record",
-		Verb:      "get",
+		Resource:  "hosting",
+		Verb:      "get-dns-records",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(webhosting.GetDomainDNSRecordsRequest{}),
 		ArgSpecs: core.ArgSpecs{

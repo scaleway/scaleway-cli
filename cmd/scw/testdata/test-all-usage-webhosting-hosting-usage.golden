@@ -6,10 +6,13 @@ USAGE:
   scw webhosting hosting <command>
 
 AVAILABLE COMMANDS:
-  create      Create a hosting
-  get         Get a hosting
-  list        List all hostings
-  update      Update a hosting
+  create          Create a hosting
+  delete          Delete a hosting
+  get             Get a hosting
+  get-dns-records Get the DNS records
+  list            List all hostings
+  restore         Restore a hosting
+  update          Update a hosting
 
 FLAGS:
   -h, --help   help for hosting
