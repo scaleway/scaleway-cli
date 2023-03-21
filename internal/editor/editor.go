@@ -13,6 +13,18 @@ var SkipEditor = false
 var marshalMode = MarshalModeYAML
 
 type GetResourceFunc func(interface{}) (interface{}, error)
+type Config struct {
+	// PutRequest means that the request replace all fields
+	// If false, fields that were not edited will not be sent
+	// If true, all fields will be sent
+	PutRequest bool
+
+	MarshalMode MarshalMode
+
+	// If not empty, this will replace edited text as if it was edited in the terminal
+	// Should be paired with global SkipEditor as true, useful for tests
+	editedResource string
+}
 
 func editorPathAndArgs(fileName string) (string, []string) {
 	defaultEditor := config.GetDefaultEditor()
@@ -60,7 +72,7 @@ func edit(content []byte) ([]byte, error) {
 
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
-func updateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool, editedResource string) (interface{}, error) {
+func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *Config) (interface{}, error) {
 	// Create a copy of updateRequest completed with resource content
 	completeUpdateRequest := copyAndCompleteUpdateRequest(updateRequest, resource)
 
@@ -69,7 +81,7 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 	// Currently not an issue as fields that should be removed are mostly path parameter /{zone}/namespace/{namespace_id}
 	// Path parameter have "-" as json tag and are not marshaled
 
-	updateRequestMarshaled, err := Marshal(completeUpdateRequest, marshalMode)
+	updateRequestMarshaled, err := marshal(completeUpdateRequest, cfg.MarshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal update request: %w", err)
 	}
@@ -82,20 +94,19 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 
 	// If editedResource is present, override edited resource
 	// This is useful for testing purpose
-	if editedResource != "" {
-		updateRequestMarshaled = []byte(editedResource)
+	if cfg.editedResource != "" {
+		updateRequestMarshaled = []byte(cfg.editedResource)
 	}
 
 	// Create a new updateRequest as destination for edited yaml/json
 	// Must be a new one to avoid merge of maps content
 	updateRequestEdited := newRequest(updateRequest)
 
-	_ = putRequest
 	// TODO: if !putRequest
 	// TODO: fill updateRequestEdited with only edited fields and fields present in updateRequest
 	// TODO: fields should be compared with completeUpdateRequest to find edited ones
 
-	err = Unmarshal(updateRequestMarshaled, updateRequestEdited, marshalMode)
+	err = unmarshal(updateRequestMarshaled, updateRequestEdited, cfg.MarshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal edited data: %w", err)
 	}
@@ -107,6 +118,6 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, putRe
 // will return a copy of updateRequest that has been edited
 // Only edited fields will be present in returned updateRequest
 // If putRequest is true, all fields will be present, edited or not
-func UpdateResourceEditor(resource interface{}, updateRequest interface{}, putRequest bool) (interface{}, error) {
-	return updateResourceEditor(resource, updateRequest, putRequest, "")
+func UpdateResourceEditor(resource interface{}, updateRequest interface{}, cfg *Config) (interface{}, error) {
+	return updateResourceEditor(resource, updateRequest, cfg)
 }

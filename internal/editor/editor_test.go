@@ -24,7 +24,7 @@ func Test_updateResourceEditor(t *testing.T) {
 		"",
 	}
 
-	_, err := updateResourceEditor(resource, updateRequest, false, "")
+	_, err := updateResourceEditor(resource, updateRequest, &Config{})
 	assert.Nil(t, err)
 }
 
@@ -48,7 +48,7 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, false, "")
+	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, &Config{})
 	assert.Nil(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 
@@ -78,11 +78,12 @@ func Test_updateResourceEditor_map(t *testing.T) {
 		nil,
 	}
 
-	SkipEditor = true
-	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, false, `
+	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, &Config{
+		editedResource: `
 id: uuid
 env: {}
-`)
+`,
+	})
 	assert.Nil(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 	assert.NotNil(t, editedUpdateRequest.Env)

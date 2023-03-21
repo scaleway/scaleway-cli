@@ -14,18 +14,35 @@ const (
 	MarshalModeJSON = MarshalMode("json")
 )
 
-func Marshal(i interface{}, mode MarshalMode) ([]byte, error) {
+func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
+	if mode == "" {
+		mode = MarshalModeYAML
+	}
+
+	var marshaledData []byte
+	var err error
+
 	switch mode {
 	case MarshalModeYAML:
-		return yaml.Marshal(i)
+		marshaledData, err = yaml.Marshal(i)
 	case MarshalModeJSON:
-		return json.MarshalIndent(i, "", "  ")
+		marshaledData, err = json.MarshalIndent(i, "", "  ")
+	}
+	if err != nil {
+		return marshaledData, err
+	}
+	if marshaledData != nil {
+		return marshaledData, err
 	}
 
 	return nil, fmt.Errorf("unknown marshal mode %q", mode)
 }
 
-func Unmarshal(data []byte, i interface{}, mode MarshalMode) error {
+func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
+	if mode == "" {
+		mode = MarshalModeYAML
+	}
+
 	switch mode {
 	case MarshalModeYAML:
 		return yaml.Unmarshal(data, i)
