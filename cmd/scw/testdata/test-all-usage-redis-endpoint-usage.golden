@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete an endpoint for a cluster
   get         Get an endpoint
   set         Set endpoints for a cluster
+  update      Update an endpoint
 
 FLAGS:
   -h, --help   help for endpoint
