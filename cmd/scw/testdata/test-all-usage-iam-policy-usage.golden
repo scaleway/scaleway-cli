@@ -6,6 +6,7 @@ USAGE:
   scw iam policy <command>
 
 AVAILABLE COMMANDS:
+  clone       Clone a policy
   create      Create a new policy
   delete      Delete a policy
   get         Get an existing policy

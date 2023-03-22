@@ -91,5 +91,6 @@ GroupsPrefix    -
     "groups_prefix": "",
     "required_claim": []
   },
-  "apiserver_cert_sans": []
+  "apiserver_cert_sans": [],
+  "private_network_id": null
 }
