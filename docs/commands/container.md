@@ -325,7 +325,7 @@ scw container deploy [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Default: `app-scaleway-cli` | Name of the application |
+| name |  | Name of the application (defaults to build-source's directory name) |
 | dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
 | build-source | Default: `.` | Path to the build context |
 | cache | Default: `true` | Use cache when building the image |
