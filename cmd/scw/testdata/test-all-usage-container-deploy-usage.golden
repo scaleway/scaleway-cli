@@ -6,7 +6,7 @@ USAGE:
   scw container deploy [arg=value ...]
 
 ARGS:
-  [name=app-scw]            Name of the application
+  [name]                    Name of the application (defaults to build-source's directory name)
   [dockerfile=Dockerfile]   Path to the Dockerfile
   [build-source=.]          Path to the build context
   [cache=true]              Use cache when building the image
