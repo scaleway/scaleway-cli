@@ -103,8 +103,8 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 	updateRequestEdited := newRequest(updateRequest)
 
 	// TODO: if !putRequest
-	// TODO: fill updateRequestEdited with only edited fields and fields present in updateRequest
-	// TODO: fields should be compared with completeUpdateRequest to find edited ones
+	// fill updateRequestEdited with only edited fields and fields present in updateRequest
+	// fields should be compared with completeUpdateRequest to find edited ones
 
 	// Add back required non-marshaled fields (zone, ID)
 	copyRequestPathParameters(updateRequestEdited, updateRequest)
