@@ -1,0 +1,43 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create rule.
+
+USAGE:
+  scw instance security-group create-rule [arg=value ...]
+
+EXAMPLES:
+  Allow incoming SSH
+    scw instance security-group create-rule security-group-id=1248283f-17de-464a-b03b-3f975ada3fa8 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=22
+
+  Allow HTTP
+    scw instance security-group create-rule security-group-id=e8ba77c1-9ccb-4c0c-b08d-555cfd7f57e4 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=80
+
+  Allow HTTPS
+    scw instance security-group create-rule security-group-id=e5906437-8650-4fe2-8ca7-32e1d7320c1b protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=443
+
+  Allow a specific IP range
+    scw instance security-group create-rule security-group-id=b6a58155-a2f8-48bd-9da9-3ff9783fa0d4 protocol=ANY direction=inbound action=accept ip-range=10.0.0.0/16
+
+  Allow FTP
+    scw instance security-group create-rule security-group-id=9c46df03-83c2-46fb-936c-16ecb44860e1 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=20 dest-port-to=21
+
+ARGS:
+  security-group-id    UUID of the security group
+  protocol              (TCP | UDP | ICMP | ANY)
+  direction             (inbound | outbound)
+  action                (accept | drop)
+  ip-range=0.0.0.0/0   
+  [dest-port-from]     The beginning of the range of ports to apply this rule to (inclusive)
+  [dest-port-to]       The end of the range of ports to apply this rule to (inclusive)
+  [position]           The position of this rule in the security group rules list
+  [editable]           Indicates if this rule is editable (will be ignored)
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+
+FLAGS:
+  -h, --help   help for create-rule
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

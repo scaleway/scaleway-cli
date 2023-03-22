@@ -45,6 +45,7 @@ AVAILABLE COMMANDS:
   detach-volume Detach a volume from its server
   get           Get a server
   list          List all servers
+  list-actions  List server actions
   reboot        Reboot server
   ssh           SSH into a server
   standby       Put server in standby mode
