@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		redisEndpointAdd(),
 		redisEndpointDelete(),
 		redisEndpointGet(),
+		redisEndpointUpdate(),
 	)
 }
 func redisRoot() *core.Command {
@@ -1112,6 +1113,49 @@ func redisEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetEndpoint(request)
+
+		},
+	}
+}
+
+func redisEndpointUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an endpoint`,
+		Long:      `Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like ` + "`" + `ips` + "`" + `, ` + "`" + `port` + "`" + `, ` + "`" + `private_network` + "`" + ` and ` + "`" + `public_network` + "`" + ` specifications are returned in the response.`,
+		Namespace: "redis",
+		Resource:  "endpoint",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(redis.UpdateEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network.id",
+				Short:      `UUID of the Private Network to connect to the Database Instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network.service-ips.{index}",
+				Short:      `Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*redis.UpdateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := redis.NewAPI(client)
+			return api.UpdateEndpoint(request)
 
 		},
 	}

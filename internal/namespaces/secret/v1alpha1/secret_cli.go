@@ -40,7 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to conveniently store, access and share sensitive data`,
-		Long:      `Secret API (beta).`,
+		Long:      `Secret Manager API documentation.`,
 		Namespace: "secret",
 	}
 }
@@ -48,7 +48,7 @@ func secretRoot() *core.Command {
 func secretSecret() *core.Command {
 	return &core.Command{
 		Short: `Secret management commands`,
-		Long: `Logical container made up of zero or more immutable versions, that hold the sensitive data.
+		Long: `Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
 `,
 		Namespace: "secret",
 		Resource:  "secret",
@@ -58,7 +58,7 @@ func secretSecret() *core.Command {
 func secretVersion() *core.Command {
 	return &core.Command{
 		Short: `Secret Version management commands`,
-		Long: `Immutable version of a Secret.
+		Long: `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).
 `,
 		Namespace: "secret",
 		Resource:  "version",
@@ -67,8 +67,8 @@ func secretVersion() *core.Command {
 
 func secretSecretCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a Secret containing no versions`,
-		Long:      `Create a Secret containing no versions.`,
+		Short:     `Create a secret`,
+		Long:      `You must sepcify the ` + "`" + `region` + "`" + ` to create a secret.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "create",
@@ -78,21 +78,21 @@ func secretSecretCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `Name of the Secret`,
+				Short:      `Name of the secret`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `List of tags associated to this Secret`,
+				Short:      `List of the secret's tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the Secret`,
+				Short:      `Description of the secret`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -109,8 +109,8 @@ func secretSecretCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Add a given Secret",
-				Raw:   `scw secret secret create project-id=<your-project-id> name="foobar" description="bar"`,
+				Short: "Add a given secret",
+				Raw:   `scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"`,
 			},
 		},
 	}
@@ -118,8 +118,8 @@ func secretSecretCreate() *core.Command {
 
 func secretSecretGet() *core.Command {
 	return &core.Command{
-		Short:     `Get metadata of a Secret`,
-		Long:      `Get metadata of a Secret.`,
+		Short:     `Get metadata using the secret's name`,
+		Long:      `Retrieve the metadata of a secret specified by the ` + "`" + `region` + "`" + ` and the ` + "`" + `secret_name` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "get",
@@ -128,7 +128,7 @@ func secretSecretGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -148,8 +148,8 @@ func secretSecretGet() *core.Command {
 
 func secretSecretUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update metadata of a Secret`,
-		Long:      `Update metadata of a Secret.`,
+		Short:     `Update metadata of a secret`,
+		Long:      `Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the ` + "`" + `secret_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "update",
@@ -158,28 +158,28 @@ func secretSecretUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `New name of the Secret (optional)`,
+				Short:      `Secret's updated name (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `New list of tags associated to this Secret (optional)`,
+				Short:      `Secret's updated list of tags (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the Secret`,
+				Short:      `Description of the secret`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -199,8 +199,8 @@ func secretSecretUpdate() *core.Command {
 
 func secretSecretList() *core.Command {
 	return &core.Command{
-		Short:     `List Secrets`,
-		Long:      `List Secrets.`,
+		Short:     `List secrets`,
+		Long:      `Retrieve the list of secrets created within an Organization and/or Project. You must specify either the ` + "`" + `organization_id` + "`" + ` or the ` + "`" + `project_id` + "`" + ` and the ` + "`" + `region` + "`" + `.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "list",
@@ -209,14 +209,14 @@ func secretSecretList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `ID of a project to filter on (optional)`,
+				Short:      `Filter by Project ID (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Secret name to filter on (optional)`,
+				Short:      `Filter by secret name (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -237,7 +237,7 @@ func secretSecretList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `ID of an organization to filter on (optional)`,
+				Short:      `Filter by Organization ID (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -266,8 +266,8 @@ func secretSecretList() *core.Command {
 
 func secretSecretDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a Secret`,
-		Long:      `Delete a Secret.`,
+		Short:     `Delete a secret`,
+		Long:      `Delete a given secret specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `secret_id` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "delete",
@@ -276,7 +276,7 @@ func secretSecretDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -299,7 +299,7 @@ func secretSecretDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a given Secret",
+				Short:    "Delete a given secret",
 				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -308,8 +308,8 @@ func secretSecretDelete() *core.Command {
 
 func secretVersionCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a SecretVersion`,
-		Long:      `Create a SecretVersion.`,
+		Short:     `Create a version`,
+		Long:      `Create a version of a given secret specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `secret_id` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "create",
@@ -318,21 +318,21 @@ func secretVersionCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "data",
-				Short:      `The base64-encoded secret payload of the SecretVersion`,
+				Short:      `The base64-encoded secret payload of the version`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the SecretVersion`,
+				Short:      `Description of the version`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -347,19 +347,13 @@ func secretVersionCreate() *core.Command {
 			return api.CreateSecretVersion(request)
 
 		},
-		Examples: []*core.Example{
-			{
-				Short: "Add a given Secret Version",
-				Raw:   `scw secret version create name=foobar secret-id="<secret-id>" data=@<path/to/your/secret/file>`,
-			},
-		},
 	}
 }
 
 func secretVersionGet() *core.Command {
 	return &core.Command{
-		Short:     `Get metadata of a SecretVersion`,
-		Long:      `Get metadata of a SecretVersion.`,
+		Short:     `Get metadata of a secret's version using the secret's ID`,
+		Long:      `Retrieve the metadata of a secret's given version specified by the ` + "`" + `region` + "`" + `, ` + "`" + `secret_id` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "get",
@@ -368,14 +362,14 @@ func secretVersionGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -395,8 +389,8 @@ func secretVersionGet() *core.Command {
 
 func secretVersionUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update metadata of a SecretVersion`,
-		Long:      `Update metadata of a SecretVersion.`,
+		Short:     `Update metadata of a version`,
+		Long:      `Edit the metadata of a secret's given version, specified by the ` + "`" + `region` + "`" + `, ` + "`" + `secret_id` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "update",
@@ -405,21 +399,21 @@ func secretVersionUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the SecretVersion`,
+				Short:      `Description of the version`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -439,8 +433,8 @@ func secretVersionUpdate() *core.Command {
 
 func secretVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List versions of a Secret, not returning any sensitive data`,
-		Long:      `List versions of a Secret, not returning any sensitive data.`,
+		Short:     `List versions of a secret using the secret's ID`,
+		Long:      `Retrieve the list of a given secret's versions specified by the ` + "`" + `secret_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "list",
@@ -449,7 +443,7 @@ func secretVersionList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -486,8 +480,8 @@ func secretVersionList() *core.Command {
 
 func secretVersionDelete() *core.Command {
 	return &core.Command{
-		Short:     `Destroy a SecretVersion, permanently destroying the sensitive data`,
-		Long:      `Destroy a SecretVersion, permanently destroying the sensitive data.`,
+		Short:     `Delete a version`,
+		Long:      `Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "delete",
@@ -496,14 +490,14 @@ func secretVersionDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -520,7 +514,7 @@ func secretVersionDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a given SecretVersion",
+				Short:    "Delete a given Secret Version",
 				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -529,8 +523,8 @@ func secretVersionDelete() *core.Command {
 
 func secretVersionEnable() *core.Command {
 	return &core.Command{
-		Short:     `Enable a SecretVersion`,
-		Long:      `Enable a SecretVersion.`,
+		Short:     `Enable a version`,
+		Long:      `Make a specific version accessible. You must specify the ` + "`" + `region` + "`" + `, ` + "`" + `secret_id` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "enable",
@@ -539,14 +533,14 @@ func secretVersionEnable() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -566,8 +560,8 @@ func secretVersionEnable() *core.Command {
 
 func secretVersionDisable() *core.Command {
 	return &core.Command{
-		Short:     `Disable a SecretVersion`,
-		Long:      `Disable a SecretVersion.`,
+		Short:     `Disable a version`,
+		Long:      `Make a specific version inaccessible. You must specify the ` + "`" + `region` + "`" + `, ` + "`" + `secret_id` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "disable",
@@ -576,14 +570,14 @@ func secretVersionDisable() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -603,8 +597,8 @@ func secretVersionDisable() *core.Command {
 
 func secretVersionAccess() *core.Command {
 	return &core.Command{
-		Short:     `Access a SecretVersion, returning the sensitive data`,
-		Long:      `Access a SecretVersion, returning the sensitive data.`,
+		Short:     `Access a secret's version using the secret's ID`,
+		Long:      `Access sensitive data in a secret's version specified by the ` + "`" + `region` + "`" + `, ` + "`" + `secret_id` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "version",
 		Verb:      "access",
@@ -613,14 +607,14 @@ func secretVersionAccess() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
-				Short:      `ID of the Secret`,
+				Short:      `ID of the secret`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "revision",
-				Short:      `Revision of the SecretVersion (may be a number or "latest")`,
+				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
