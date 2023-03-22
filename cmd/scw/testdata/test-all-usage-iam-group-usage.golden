@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   get           Get a group
   list          List groups
   remove-member Remove a user or an application from a group
+  set-members   Overwrite users and applications of a group
   update        Update a group
 
 FLAGS:
