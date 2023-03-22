@@ -1,23 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-MAC address management commands.
+Get availability for all server types.
 
 USAGE:
-  scw fip mac <command>
+  scw instance server-type get [arg=value ...]
 
-AVAILABLE COMMANDS:
-  create      Generate a virtual MAC on a given Flexible IP
-  delete      Remove a virtual MAC from a Flexible IP
-  duplicate   Duplicate a Virtual MAC
-  move        Move a virtual MAC
+ARGS:
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
-  -h, --help   help for mac
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw fip mac [command] --help" for more information about a command.

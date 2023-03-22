@@ -21,8 +21,12 @@ Instance API.
   - [Create a placement group](#create-a-placement-group)
   - [Delete the given placement group](#delete-the-given-placement-group)
   - [Get a placement group](#get-a-placement-group)
+  - [Get placement group servers](#get-placement-group-servers)
   - [List placement groups](#list-placement-groups)
+  - [Set placement group](#set-placement-group)
+  - [Set placement group servers](#set-placement-group-servers)
   - [Update a placement group](#update-a-placement-group)
+  - [Update placement group servers](#update-placement-group-servers)
 - [Private NIC management commands](#private-nic-management-commands)
   - [Create a private NIC connecting a server to a private network](#create-a-private-nic-connecting-a-server-to-a-private-network)
   - [Delete a private NIC](#delete-a-private-nic)
@@ -32,9 +36,15 @@ Instance API.
 - [Security group management commands](#security-group-management-commands)
   - [Remove all rules of a security group](#remove-all-rules-of-a-security-group)
   - [Create a security group](#create-a-security-group)
+  - [Create rule](#create-rule)
   - [Delete a security group](#delete-a-security-group)
+  - [Delete rule](#delete-rule)
   - [Get a security group](#get-a-security-group)
+  - [Get rule](#get-rule)
   - [List security groups](#list-security-groups)
+  - [Get default rules](#get-default-rules)
+  - [List rules](#list-rules)
+  - [Update all the rules of a security group](#update-all-the-rules-of-a-security-group)
   - [Update security group](#update-security-group)
 - [Server management commands](#server-management-commands)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
@@ -47,6 +57,7 @@ Instance API.
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Get a server](#get-a-server)
   - [List all servers](#list-all-servers)
+  - [List server actions](#list-server-actions)
   - [Reboot server](#reboot-server)
   - [SSH into a server](#ssh-into-a-server)
   - [Put server in standby mode](#put-server-in-standby-mode)
@@ -56,6 +67,7 @@ Instance API.
   - [Update a server](#update-a-server)
   - [Wait for server to reach a stable state](#wait-for-server-to-reach-a-stable-state)
 - [Server type management commands](#server-type-management-commands)
+  - [Get availability](#get-availability)
   - [List server types](#list-server-types)
 - [Snapshot management commands](#snapshot-management-commands)
   - [Create a snapshot from a given volume or from a QCOW2 file](#create-a-snapshot-from-a-given-volume-or-from-a-qcow2-file)
@@ -741,6 +753,26 @@ scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 
 
 
+### Get placement group servers
+
+Get all servers belonging to the given placement group.
+
+**Usage:**
+
+```
+scw instance placement-group get-servers [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| placement-group-id | Required |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### List placement groups
 
 List all placement groups.
@@ -774,6 +806,63 @@ scw instance placement-group list
 List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
 ```
 scw instance placement-group list name=cluster1
+```
+
+
+
+
+### Set placement group
+
+Set all parameters of the given placement group.
+
+**Usage:**
+
+```
+scw instance placement-group set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| placement-group-id | Required |  |
+| name |  |  |
+| policy-mode | One of: `optional`, `enforced` |  |
+| policy-type | One of: `max_availability`, `low_latency` |  |
+| project |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  |  |
+| organization |  | Organization ID to use. If none is passed the default organization ID will be used |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set placement group servers
+
+Set all servers belonging to the given placement group.
+
+**Usage:**
+
+```
+scw instance placement-group set-servers [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| placement-group-id | Required |  |
+| servers.{index} |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Update the complete set of instances in a given placement group. (All instances must be down)
+```
+scw instance placement-group set-servers placement-group-id=ced0fd4d-bcf0-4479-85b6-7027e54456e6 servers.0=5a250608-24ec-4c31-9631-b3ded8c861cb servers.1=e54fd249-0787-4794-ab14-af6ee74df274
 ```
 
 
@@ -820,6 +909,27 @@ Update the policy type of a placement group (All instances in your placement gro
 scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
 ```
 
+
+
+
+### Update placement group servers
+
+Update all servers belonging to the given placement group.
+
+**Usage:**
+
+```
+scw instance placement-group update-servers [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| placement-group-id | Required | UUID of the placement group |
+| servers.{index} | Required |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1063,6 +1173,64 @@ scw instance security-group create
 
 
 
+### Create rule
+
+Create rule.
+
+**Usage:**
+
+```
+scw instance security-group create-rule [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | UUID of the security group |
+| protocol | Required<br />One of: `TCP`, `UDP`, `ICMP`, `ANY` |  |
+| direction | Required<br />One of: `inbound`, `outbound` |  |
+| action | Required<br />One of: `accept`, `drop` |  |
+| ip-range | Required<br />Default: `0.0.0.0/0` |  |
+| dest-port-from |  | The beginning of the range of ports to apply this rule to (inclusive) |
+| dest-port-to |  | The end of the range of ports to apply this rule to (inclusive) |
+| position |  | The position of this rule in the security group rules list |
+| editable |  | Indicates if this rule is editable (will be ignored) |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Allow incoming SSH
+```
+scw instance security-group create-rule security-group-id=1248283f-17de-464a-b03b-3f975ada3fa8 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=22
+```
+
+Allow HTTP
+```
+scw instance security-group create-rule security-group-id=e8ba77c1-9ccb-4c0c-b08d-555cfd7f57e4 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=80
+```
+
+Allow HTTPS
+```
+scw instance security-group create-rule security-group-id=e5906437-8650-4fe2-8ca7-32e1d7320c1b protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=443
+```
+
+Allow a specific IP range
+```
+scw instance security-group create-rule security-group-id=b6a58155-a2f8-48bd-9da9-3ff9783fa0d4 protocol=ANY direction=inbound action=accept ip-range=10.0.0.0/16
+```
+
+Allow FTP
+```
+scw instance security-group create-rule security-group-id=9c46df03-83c2-46fb-936c-16ecb44860e1 protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=20 dest-port-to=21
+```
+
+
+
+
 ### Delete a security group
 
 Delete a security group.
@@ -1093,6 +1261,37 @@ scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 
 
+### Delete rule
+
+Delete a security group rule with the given ID.
+
+**Usage:**
+
+```
+scw instance security-group delete-rule [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required |  |
+| security-group-rule-id | Required |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Delete a Security Group Rule with the given ID
+```
+scw instance security-group delete-rule security-group-id=a01a36e5-5c0c-42c1-ae06-167e587b7ac4 security-group-rule-id=b8c773ef-a6ea-4b50-a7c1-737864290a3f
+```
+
+
+
+
 ### Get a security group
 
 Get the details of a Security Group with the given ID.
@@ -1118,6 +1317,37 @@ scw instance security-group get <security-group-id ...> [arg=value ...]
 Get a security group with the given ID
 ```
 scw instance security-group get a3244331-5d32-4e36-9bf9-b60233e201c7
+```
+
+
+
+
+### Get rule
+
+Get details of a security group rule with the given ID.
+
+**Usage:**
+
+```
+scw instance security-group get-rule [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required |  |
+| security-group-rule-id | Required |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Get details of a security group rule with the given ID
+```
+scw instance security-group get-rule security-group-id=d900fa38-2f0d-4b09-b6d7-f3e46a13f34c security-group-rule-id=1f9a16a5-7229-4c03-9327-253e257cf38a
 ```
 
 
@@ -1154,6 +1384,75 @@ List all security groups that match the given name
 scw instance security-group list name=foobar
 ```
 
+
+
+
+### Get default rules
+
+Lists the default rules applied to all the security groups.
+
+**Usage:**
+
+```
+scw instance security-group list-default-rules [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List rules
+
+List rules.
+
+**Usage:**
+
+```
+scw instance security-group list-rules [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | UUID of the security group |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update all the rules of a security group
+
+Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
+
+**Usage:**
+
+```
+scw instance security-group set-rules [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | UUID of the security group to update the rules on |
+| rules.{index}.id |  | UUID of the security rule to update. If no value is provided, a new rule will be created |
+| rules.{index}.action | One of: `accept`, `drop` | Action to apply when the rule matches a packet |
+| rules.{index}.protocol | One of: `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
+| rules.{index}.direction | One of: `inbound`, `outbound` | Direction the rule applies to |
+| rules.{index}.ip-range |  | The range of IP address this rules applies to |
+| rules.{index}.dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY |
+| rules.{index}.dest-port-to |  | End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from |
+| rules.{index}.position |  | Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined |
+| rules.{index}.editable |  | Indicates if this rule is editable. Rules with the value false will be ignored |
+| rules.{index}.zone |  | Zone of the rule. This field is ignored |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1628,6 +1927,26 @@ scw instance server list name=server1
 
 
 
+### List server actions
+
+List all actions that can currently be performed on a server.
+
+**Usage:**
+
+```
+scw instance server list-actions [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Reboot server
 
 
@@ -1944,6 +2263,25 @@ scw instance server wait 11111111-1111-1111-1111-111111111111
 
 Server types will answer with all instance types available in a given zone.
 Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
+
+
+
+### Get availability
+
+Get availability for all server types.
+
+**Usage:**
+
+```
+scw instance server-type get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

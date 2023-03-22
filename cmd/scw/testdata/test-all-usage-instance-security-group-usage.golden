@@ -10,12 +10,18 @@ USAGE:
   scw instance security-group <command>
 
 AVAILABLE COMMANDS:
-  clear       Remove all rules of a security group
-  create      Create a security group
-  delete      Delete a security group
-  get         Get a security group
-  list        List security groups
-  update      Update security group
+  clear              Remove all rules of a security group
+  create             Create a security group
+  create-rule        Create rule
+  delete             Delete a security group
+  delete-rule        Delete rule
+  get                Get a security group
+  get-rule           Get rule
+  list               List security groups
+  list-default-rules Get default rules
+  list-rules         List rules
+  set-rules          Update all the rules of a security group
+  update             Update security group
 
 FLAGS:
   -h, --help   help for security-group
