@@ -22,6 +22,7 @@ Managed Database for Redis™ API.
   - [Delete an endpoint for a cluster](#delete-an-endpoint-for-a-cluster)
   - [Get an endpoint](#get-an-endpoint)
   - [Set endpoints for a cluster](#set-endpoints-for-a-cluster)
+  - [Update an endpoint](#update-an-endpoint)
 - [Node Types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 - [Settings management commands](#settings-management-commands)
@@ -423,6 +424,28 @@ scw redis endpoint set [arg=value ...]
 | cluster-id | Required | UUID of the Database Instance where the endpoints have to be set |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update an endpoint
+
+Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
+
+**Usage:**
+
+```
+scw redis endpoint update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required |  |
+| private-network.id |  | UUID of the Private Network to connect to the Database Instance |
+| private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

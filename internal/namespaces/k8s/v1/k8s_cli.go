@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterUpdate(),
 		k8sClusterDelete(),
 		k8sClusterUpgrade(),
+		k8sClusterSetType(),
 		k8sClusterListAvailableVersions(),
 		k8sClusterResetAdminToken(),
 		k8sPoolList(),
@@ -576,6 +577,13 @@ func k8sClusterCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network-id",
+				Short:      `Private network ID for internal cluster communication (cannot be changed later)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -968,6 +976,49 @@ func k8sClusterUpgrade() *core.Command {
 			{
 				Short: "Upgrade a cluster to Kubernetes version 1.24.7 (and upgrade the pools)",
 				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.24.7 upgrade-pools=true`,
+			},
+		},
+	}
+}
+
+func k8sClusterSetType() *core.Command {
+	return &core.Command{
+		Short:     `Change type of a cluster`,
+		Long:      `Change type of a specific Kubernetes cluster.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "set-type",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.SetClusterTypeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster to migrate from one type to another`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the cluster`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.SetClusterTypeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.SetClusterType(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Convert a kapsule cluster to a kapsule-dedicated-16 cluster",
+				Raw:   `scw k8s cluster set-type 11111111-1111-1111-111111111111 type=kapsule-dedicated-16`,
 			},
 		},
 	}
