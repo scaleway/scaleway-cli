@@ -96,6 +96,7 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
     "required_claim": []
   },
   "apiserver_cert_sans": [],
+  "private_network_id": null,
   "pools": [
     {
       "id": "42b228cf-ad4b-458e-b69b-046f8aa3c10c",

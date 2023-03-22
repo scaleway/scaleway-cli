@@ -31,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		fipIPDetach(),
 		fipMacCreate(),
 		fipMacDuplicate(),
+		fipMacMove(),
 		fipMacDelete(),
 	)
 }
@@ -486,6 +487,41 @@ func fipMacDuplicate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.DuplicateMACAddr(request)
+
+		},
+	}
+}
+
+func fipMacMove() *core.Command {
+	return &core.Command{
+		Short:     `Move a virtual MAC`,
+		Long:      `Move a Virtual MAC from a given Flexible IP onto another Flexible IP.`,
+		Namespace: "fip",
+		Resource:  "mac",
+		Verb:      "move",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(flexibleip.MoveMACAddrRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "fip-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dst-fip-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*flexibleip.MoveMACAddrRequest)
+
+			client := core.ExtractClient(ctx)
+			api := flexibleip.NewAPI(client)
+			return api.MoveMACAddr(request)
 
 		},
 	}
