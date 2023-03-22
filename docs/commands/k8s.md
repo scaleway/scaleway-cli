@@ -9,6 +9,7 @@ Kapsule API.
   - [List all clusters](#list-all-clusters)
   - [List available versions for a cluster](#list-available-versions-for-a-cluster)
   - [Reset the admin token of a cluster](#reset-the-admin-token-of-a-cluster)
+  - [Change type of a cluster](#change-type-of-a-cluster)
   - [Update a cluster](#update-a-cluster)
   - [Upgrade a cluster](#upgrade-a-cluster)
   - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
@@ -107,6 +108,7 @@ scw k8s cluster create [arg=value ...]
 | open-id-connect-config.groups-prefix |  | Prefix prepended to group claims |
 | open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs that describes a required claim in the ID token |
 | apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
+| private-network-id |  | Private network ID for internal cluster communication (cannot be changed later) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -288,6 +290,37 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 Reset the admin token for a cluster
 ```
 scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
+```
+
+
+
+
+### Change type of a cluster
+
+Change type of a specific Kubernetes cluster.
+
+**Usage:**
+
+```
+scw k8s cluster set-type <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster to migrate from one type to another |
+| type | Required | Type of the cluster |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Convert a kapsule cluster to a kapsule-dedicated-16 cluster
+```
+scw k8s cluster set-type 11111111-1111-1111-111111111111 type=kapsule-dedicated-16
 ```
 
 
