@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration.
+
+USAGE:
+  scw iam group set-members [arg=value ...]
+
+ARGS:
+  group-id                  
+  user-ids.{index}          
+  application-ids.{index}   
+
+FLAGS:
+  -h, --help   help for set-members
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Remove a group member
+  scw iam group remove-member
+
+  # Create a group
+  scw iam group create

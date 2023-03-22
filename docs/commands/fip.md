@@ -14,6 +14,7 @@ Flexible IP API.
   - [Generate a virtual MAC on a given Flexible IP](#generate-a-virtual-mac-on-a-given-flexible-ip)
   - [Remove a virtual MAC from a Flexible IP](#remove-a-virtual-mac-from-a-flexible-ip)
   - [Duplicate a Virtual MAC](#duplicate-a-virtual-mac)
+  - [Move a virtual MAC](#move-a-virtual-mac)
 
   
 ## Flexible IP management commands
@@ -240,6 +241,27 @@ scw fip mac duplicate [arg=value ...]
 |------|---|-------------|
 | fip-id | Required | Flexible IP ID on which to duplicate the Virtual MAC |
 | duplicate-from-fip-id | Required | Flexible IP ID to duplicate the Virtual MAC from |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Move a virtual MAC
+
+Move a Virtual MAC from a given Flexible IP onto another Flexible IP.
+
+**Usage:**
+
+```
+scw fip mac move [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| fip-id | Required |  |
+| dst-fip-id |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
