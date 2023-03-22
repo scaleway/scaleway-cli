@@ -530,7 +530,7 @@ func securityGroupEditCommand() *core.Command {
 			// Get only rules that can be edited
 			editableRules := []*instance.SecurityGroupRule(nil)
 			for _, rule := range rules.Rules {
-				if rule.Editable == true {
+				if rule.Editable {
 					editableRules = append(editableRules, rule)
 				}
 			}
