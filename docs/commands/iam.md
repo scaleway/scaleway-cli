@@ -21,6 +21,7 @@ IAM API.
   - [Get a group](#get-a-group)
   - [List groups](#list-groups)
   - [Remove a user or an application from a group](#remove-a-user-or-an-application-from-a-group)
+  - [Overwrite users and applications of a group](#overwrite-users-and-applications-of-a-group)
   - [Update a group](#update-a-group)
 - [JWTs management commands](#jwts-management-commands)
   - [Delete a JWT](#delete-a-jwt)
@@ -29,6 +30,7 @@ IAM API.
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
+  - [Clone a policy](#clone-a-policy)
   - [Create a new policy](#create-a-new-policy)
   - [Delete a policy](#delete-a-policy)
   - [Get an existing policy](#get-an-existing-policy)
@@ -433,6 +435,27 @@ scw iam group remove-member <group-id ...> [arg=value ...]
 
 
 
+### Overwrite users and applications of a group
+
+Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration.
+
+**Usage:**
+
+```
+scw iam group set-members [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| group-id | Required |  |
+| user-ids.{index} | Required |  |
+| application-ids.{index} | Required |  |
+
+
+
 ### Update a group
 
 Update the parameters of group, including `name` and `description`.
@@ -546,6 +569,25 @@ scw iam permission-set list [arg=value ...]
 ## Policies management commands
 
 Policies management commands.
+
+
+### Clone a policy
+
+Clone a policy. You must define specify the `policy_id` parameter in your request.
+
+**Usage:**
+
+```
+scw iam policy clone [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| policy-id | Required |  |
+
 
 
 ### Create a new policy
