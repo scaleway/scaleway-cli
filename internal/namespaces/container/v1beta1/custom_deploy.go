@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
 	"path/filepath"
 	"reflect"
 	"time"
@@ -21,6 +20,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -47,21 +47,7 @@ func containerDeployCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "name",
-				Short: "Name of the application",
-				Default: func(ctx context.Context) (value string, doc string) {
-					currentDirection, err := os.Getwd()
-					if err != nil {
-						return "", ""
-					}
-
-					name := filepath.Base(currentDirection)
-					if name == "." {
-						return "", ""
-					}
-
-					name = "app-" + name
-					return name, name
-				},
+				Short: "Name of the application (defaults to build-source's directory name)",
 			},
 			{
 				Name:    "dockerfile",
@@ -95,18 +81,23 @@ func containerDeployCommand() *core.Command {
 
 func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	args := argsI.(*containerDeployRequest)
+	buildSource, err := filepath.Abs(args.BuildSource)
+	if err != nil {
+		return nil, err
+	}
+	args.BuildSource = buildSource
+
+	if args.Name == "" {
+		args.Name = filepath.Base(args.BuildSource)
+		if args.Name == "." {
+			return nil, fmt.Errorf("unable to determine application name, please specify it with name=")
+		}
+
+		args.Name = "app-" + args.Name
+	}
 
 	client := core.ExtractClient(ctx)
 	api := container.NewAPI(client)
-
-	fileInfo, err := os.Stat(args.Dockerfile)
-	if err != nil {
-		return nil, fmt.Errorf("could not open %q: %w", args.Dockerfile, err)
-	}
-
-	if fileInfo.IsDir() {
-		return nil, fmt.Errorf("%q is a directory", args.Dockerfile)
-	}
 
 	actions := tasks.Begin()
 
@@ -116,6 +107,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 		tasks.Add(actions, "Creating namespace", DeployStepCreateNamespace)
 	}
 
+	tasks.Add(actions, "Fetch or create image registry", DeployStepFetchOrCreateRegistry)
 	tasks.Add(actions, "Packing image", DeployStepPackImage)
 	tasks.Add(actions, "Building image", DeployStepBuildImage)
 	tasks.Add(actions, "Pushing image", DeployStepPushImage)
@@ -162,7 +154,7 @@ func DeployStepFetchNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepC
 }
 
 func DeployStepCreateNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepCreateNamespaceResponse, error) {
-	namespace, err := getorcreate.GetOrCreateNamespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
+	namespace, err := getorcreate.Namespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -173,22 +165,49 @@ func DeployStepCreateNamespace(t *tasks.Task, data *DeployStepData) (*DeployStep
 	}, nil
 }
 
-type DeployStepPackImageResponse struct {
+type DeployStepFetchOrCreateResponse struct {
 	*DeployStepData
-	Namespace *container.Namespace
-	Tar       io.Reader
+	Namespace        *container.Namespace
+	RegistryEndpoint string
 }
 
-func DeployStepPackImage(_ *tasks.Task, data *DeployStepCreateNamespaceResponse) (*DeployStepPackImageResponse, error) {
+func DeployStepFetchOrCreateRegistry(t *tasks.Task, data *DeployStepCreateNamespaceResponse) (*DeployStepFetchOrCreateResponse, error) {
+	registryEndpoint := data.Namespace.RegistryEndpoint
+	if registryEndpoint == "" {
+		registryAPI := registry.NewAPI(data.Client)
+		registryNamespace, err := getorcreate.Registry(t.Ctx, registryAPI, data.Args.Region, data.Namespace.Name)
+		if err != nil {
+			return nil, err
+		}
+
+		registryEndpoint = registryNamespace.Endpoint
+	}
+
+	return &DeployStepFetchOrCreateResponse{
+		DeployStepData:   data.DeployStepData,
+		Namespace:        data.Namespace,
+		RegistryEndpoint: registryEndpoint,
+	}, nil
+}
+
+type DeployStepPackImageResponse struct {
+	*DeployStepData
+	Namespace        *container.Namespace
+	RegistryEndpoint string
+	Tar              io.Reader
+}
+
+func DeployStepPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepPackImageResponse, error) {
 	tar, err := archive.TarWithOptions(data.Args.BuildSource, &archive.TarOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("could not create tar: %v", err)
 	}
 
 	return &DeployStepPackImageResponse{
-		DeployStepData: data.DeployStepData,
-		Namespace:      data.Namespace,
-		Tar:            tar,
+		DeployStepData:   data.DeployStepData,
+		Namespace:        data.Namespace,
+		RegistryEndpoint: data.RegistryEndpoint,
+		Tar:              tar,
 	}, nil
 }
 
@@ -200,7 +219,7 @@ type DeployStepBuildImageResponse struct {
 }
 
 func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {
-	tag := data.Namespace.RegistryEndpoint + "/" + data.Args.Name + ":latest"
+	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
 	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation())
 	if err != nil {
@@ -294,7 +313,7 @@ type DeployStepCreateContainerResponse struct {
 }
 
 func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse) (*DeployStepCreateContainerResponse, error) {
-	targetContainer, err := getorcreate.GetOrCreateContainer(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
+	targetContainer, err := getorcreate.Container(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
 	if err != nil {
 		return nil, fmt.Errorf("could not get or create container: %v", err)
 	}
