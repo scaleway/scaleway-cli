@@ -17,7 +17,7 @@ import (
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/containerutils"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
@@ -101,11 +101,11 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 
 	fileInfo, err := os.Stat(args.Dockerfile)
 	if err != nil {
-		return nil, fmt.Errorf("could not stat '%s': %v", args.Dockerfile, err)
+		return nil, fmt.Errorf("could not open %q: %w", args.Dockerfile, err)
 	}
 
 	if fileInfo.IsDir() {
-		return nil, fmt.Errorf("'%s' is a directory", args.Dockerfile)
+		return nil, fmt.Errorf("%q is a directory", args.Dockerfile)
 	}
 
 	actions := tasks.Begin()
@@ -152,7 +152,7 @@ func DeployStepFetchNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepC
 		NamespaceID: *data.Args.NamespaceID,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
-		return nil, fmt.Errorf("could not fetch namespace: %v", err)
+		return nil, fmt.Errorf("could not fetch namespace: %w", err)
 	}
 
 	return &DeployStepCreateNamespaceResponse{
@@ -162,7 +162,7 @@ func DeployStepFetchNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepC
 }
 
 func DeployStepCreateNamespace(t *tasks.Task, data *DeployStepData) (*DeployStepCreateNamespaceResponse, error) {
-	namespace, err := containerutils.GetOrCreateNamespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
+	namespace, err := getorcreate.GetOrCreateNamespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ type DeployStepPackImageResponse struct {
 	Tar       io.Reader
 }
 
-func DeployStepPackImage(t *tasks.Task, data *DeployStepCreateNamespaceResponse) (*DeployStepPackImageResponse, error) {
+func DeployStepPackImage(_ *tasks.Task, data *DeployStepCreateNamespaceResponse) (*DeployStepPackImageResponse, error) {
 	tar, err := archive.TarWithOptions(data.Args.BuildSource, &archive.TarOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("could not create tar: %v", err)
@@ -294,7 +294,7 @@ type DeployStepCreateContainerResponse struct {
 }
 
 func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse) (*DeployStepCreateContainerResponse, error) {
-	targetContainer, err := containerutils.GetOrCreateContainer(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
+	targetContainer, err := getorcreate.GetOrCreateContainer(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
 	if err != nil {
 		return nil, fmt.Errorf("could not get or create container: %v", err)
 	}
