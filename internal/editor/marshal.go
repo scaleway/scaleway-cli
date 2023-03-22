@@ -7,16 +7,19 @@ import (
 	"github.com/ghodss/yaml"
 )
 
-type MarshalMode string
+type MarshalMode = string
 
 const (
 	MarshalModeYAML = MarshalMode("yaml")
 	MarshalModeJSON = MarshalMode("json")
 )
 
+var MarshalModeDefault = MarshalModeYAML
+var MarshalModeEnum = []MarshalMode{MarshalModeYAML, MarshalModeJSON}
+
 func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 	if mode == "" {
-		mode = MarshalModeYAML
+		mode = MarshalModeDefault
 	}
 
 	var marshaledData []byte
@@ -40,7 +43,7 @@ func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 
 func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
 	if mode == "" {
-		mode = MarshalModeYAML
+		mode = MarshalModeDefault
 	}
 
 	switch mode {

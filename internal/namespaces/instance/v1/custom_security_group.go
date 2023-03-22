@@ -492,6 +492,7 @@ func securityGroupUpdateCommand() *core.Command {
 type instanceSecurityGroupEditArgs struct {
 	Zone            scw.Zone
 	SecurityGroupID string
+	Mode            editor.MarshalMode
 }
 
 func securityGroupEditCommand() *core.Command {
@@ -509,6 +510,7 @@ func securityGroupEditCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
+			editor.MarshalModeArgSpec(),
 			core.ZoneArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -516,11 +518,6 @@ func securityGroupEditCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-
-			updateRequest := &instance.SetSecurityGroupRulesRequest{
-				Zone:            args.Zone,
-				SecurityGroupID: args.SecurityGroupID,
-			}
 
 			rules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
 				Zone:            args.Zone,
@@ -539,15 +536,22 @@ func securityGroupEditCommand() *core.Command {
 			}
 			rules.Rules = editableRules
 
-			updateRequestI, err := editor.UpdateResourceEditor(rules, updateRequest, &editor.Config{
-				PutRequest: true,
+			setRequest := &instance.SetSecurityGroupRulesRequest{
+				Zone:            args.Zone,
+				SecurityGroupID: args.SecurityGroupID,
+			}
+
+			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
+				PutRequest:  true,
+				MarshalMode: args.Mode,
 			})
 			if err != nil {
 				return nil, err
 			}
-			updateRequest = updateRequestI.(*instance.SetSecurityGroupRulesRequest)
 
-			return api.SetSecurityGroupRules(updateRequest, scw.WithContext(ctx))
+			setRequest = editedSetRequest.(*instance.SetSecurityGroupRulesRequest)
+
+			return api.SetSecurityGroupRules(setRequest, scw.WithContext(ctx))
 		},
 	}
 }
