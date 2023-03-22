@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   create-rule        Create rule
   delete             Delete a security group
   delete-rule        Delete rule
+  edit               Edit all rules of a security group
   get                Get a security group
   get-rule           Get rule
   list               List security groups
