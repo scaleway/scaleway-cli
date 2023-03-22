@@ -39,6 +39,7 @@ Instance API.
   - [Create rule](#create-rule)
   - [Delete a security group](#delete-a-security-group)
   - [Delete rule](#delete-rule)
+  - [Edit all rules of a security group](#edit-all-rules-of-a-security-group)
   - [Get a security group](#get-a-security-group)
   - [Get rule](#get-rule)
   - [List security groups](#list-security-groups)
@@ -1289,6 +1290,29 @@ Delete a Security Group Rule with the given ID
 scw instance security-group delete-rule security-group-id=a01a36e5-5c0c-42c1-ae06-167e587b7ac4 security-group-rule-id=b8c773ef-a6ea-4b50-a7c1-737864290a3f
 ```
 
+
+
+
+### Edit all rules of a security group
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or will be 'vi'
+
+
+**Usage:**
+
+```
+scw instance security-group edit <security-group-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | ID of the security group to reset. |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
