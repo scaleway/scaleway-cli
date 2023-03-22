@@ -20,7 +20,7 @@ func Test_valueMapper(t *testing.T) {
 		Arg2 int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.Equal(t, src.Arg2, dest.Arg2)
 }
@@ -35,7 +35,7 @@ func Test_valueMapperInvalidType(t *testing.T) {
 		Arg2 bool
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.Zero(t, dest.Arg2)
 }
@@ -50,7 +50,7 @@ func Test_valueMapperDifferentFields(t *testing.T) {
 		Arg4 bool
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.Zero(t, dest.Arg3)
 	assert.Zero(t, dest.Arg4)
 }
@@ -65,7 +65,7 @@ func Test_valueMapperPointers(t *testing.T) {
 		Arg2 *int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, *dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -82,7 +82,7 @@ func Test_valueMapperPointersWithPointers(t *testing.T) {
 		Arg2 *int32
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -102,7 +102,7 @@ func Test_valueMapperSlice(t *testing.T) {
 		Arg2 []int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -122,7 +122,7 @@ func Test_valueMapperSliceOfPointers(t *testing.T) {
 		Arg2 []*int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.NotNil(t, dest.Arg1)
 	assert.Equal(t, len(src.Arg1), len(dest.Arg1))
 	for i := range src.Arg1 {
@@ -165,7 +165,7 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 		Rules: nil,
 	}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), nil)
 	assert.NotNil(t, dest.Rules)
 	assert.Equal(t, 1, len(dest.Rules))
 	expectedRule := src.Rules[0]
@@ -185,4 +185,19 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 	assert.Equal(t, expectedRule.Editable, *actualRule.Editable)
 	assert.NotNil(t, actualRule.Zone)
 	assert.Equal(t, expectedRule.Zone, *actualRule.Zone)
+}
+
+func Test_valueMapperTags(t *testing.T) {
+	src := struct {
+		Arg1 string `json:"map"`
+		Arg2 int    `json:"nomap"`
+	}{"1", 1}
+	dest := struct {
+		Arg1 string `json:"map"`
+		Arg2 int    `json:"nomap"`
+	}{}
+
+	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), []string{"map"})
+	assert.Equal(t, src.Arg1, dest.Arg1)
+	assert.NotEqual(t, src.Arg2, dest.Arg2)
 }
