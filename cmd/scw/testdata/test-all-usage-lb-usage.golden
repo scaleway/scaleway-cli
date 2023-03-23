@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   lb-types        Load balancer types management commands
   private-network Private networks management commands
   route           Route rules management commands
+  subscriber      Subscriber management commands
 
 FLAGS:
   -h, --help   help for lb

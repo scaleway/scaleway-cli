@@ -6,7 +6,9 @@ USAGE:
   scw cockpit <command>
 
 AVAILABLE COMMANDS:
+  alert        Managed alerts management commands
   cockpit      Cockpit management commands
+  contact      Contacts management commands
   grafana-user Grafana user management commands
   token        Token management commands
 

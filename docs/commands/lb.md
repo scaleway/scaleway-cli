@@ -15,6 +15,7 @@ Load Balancer API.
   - [Delete a backend of a given Load Balancer](#delete-a-backend-of-a-given-load-balancer)
   - [Get a backend of a given Load Balancer](#get-a-backend-of-a-given-load-balancer)
   - [List the backends of a given Load Balancer](#list-the-backends-of-a-given-load-balancer)
+  - [List backend server statistics](#list-backend-server-statistics)
   - [Remove a set of servers for a given backend](#remove-a-set-of-servers-for-a-given-backend)
   - [Define all backend servers for a given backend](#define-all-backend-servers-for-a-given-backend)
   - [Update a backend of a given Load Balancer](#update-a-backend-of-a-given-load-balancer)
@@ -58,6 +59,14 @@ Load Balancer API.
   - [Get a route](#get-a-route)
   - [List all routes](#list-all-routes)
   - [Update a route](#update-a-route)
+- [Subscriber management commands](#subscriber-management-commands)
+  - [Create a subscriber](#create-a-subscriber)
+  - [Delete a subscriber](#delete-a-subscriber)
+  - [Get a subscriber](#get-a-subscriber)
+  - [List all subscribers](#list-all-subscribers)
+  - [Subscribe a subscriber to alerts for a given Load Balancer](#subscribe-a-subscriber-to-alerts-for-a-given-load-balancer)
+  - [Unsubscribe a subscriber from alerts for a given Load Balancer](#unsubscribe-a-subscriber-from-alerts-for-a-given-load-balancer)
+  - [Update a subscriber](#update-a-subscriber)
 
   
 ## Access Control List (ACL) management commands
@@ -369,6 +378,26 @@ scw lb backend list [arg=value ...]
 | lb-id | Required | Load Balancer ID |
 | name |  | Name of the backend to filter for |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of backends in the response |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List backend server statistics
+
+List information about your backend servers, including their state and the result of their last health check.
+
+**Usage:**
+
+```
+scw lb backend list-statistics <lb-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| lb-id | Required | Load Balancer ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1231,6 +1260,162 @@ scw lb route update <route-id ...> [arg=value ...]
 | backend-id |  | ID of the target backend for the route |
 | match.sni |  | Server Name Indication (SNI) value to match |
 | match.host-header |  | HTTP host header to match |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Subscriber management commands
+
+Subscriber management commands.
+
+
+### Create a subscriber
+
+Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.
+
+**Usage:**
+
+```
+scw lb subscriber create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | Subscriber name |
+| email-config.email | Required | Email address to send alerts to |
+| webhook-config.uri | Required | URI to receive POST requests |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete a subscriber
+
+Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.
+
+**Usage:**
+
+```
+scw lb subscriber delete <subscriber-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| subscriber-id | Required | Subscriber ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Get a subscriber
+
+Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.
+
+**Usage:**
+
+```
+scw lb subscriber get <subscriber-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| subscriber-id | Required | Subscriber ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List all subscribers
+
+List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.
+
+**Usage:**
+
+```
+scw lb subscriber list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of subscribers in the response |
+| name | Required | Subscriber name to search for |
+| project-id |  | Filter subscribers by Project ID |
+| organization-id |  | Filter subscribers by Organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Subscribe a subscriber to alerts for a given Load Balancer
+
+Subscribe an existing subscriber to alerts for a given Load Balancer.
+
+**Usage:**
+
+```
+scw lb subscriber subscribe [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| lb-id | Required | Load Balancer ID |
+| subscriber-id | Required | Subscriber ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Unsubscribe a subscriber from alerts for a given Load Balancer
+
+Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.
+
+**Usage:**
+
+```
+scw lb subscriber unsubscribe [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| lb-id | Required | Load Balancer ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update a subscriber
+
+Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.
+
+**Usage:**
+
+```
+scw lb subscriber update <subscriber-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| subscriber-id | Required | Subscriber ID |
+| name | Required | Subscriber name |
+| email-config.email | Required | Email address to send alerts to |
+| webhook-config.uri | Required | URI to receive POST requests |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

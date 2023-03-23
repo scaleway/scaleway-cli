@@ -2,13 +2,56 @@
 # Documentation for `scw marketplace`
 Marketplace API.
   
+- [Marketplace category management commands](#marketplace-category-management-commands)
+  - [Get marketplace resources](#get-marketplace-resources)
+  - [List marketplace resources](#list-marketplace-resources)
 - [Marketplace images management commands](#marketplace-images-management-commands)
   - [Get a specific marketplace image](#get-a-specific-marketplace-image)
   - [List marketplace images](#list-marketplace-images)
 - [Marketplace Local Images management commands](#marketplace-local-images-management-commands)
+  - [Get marketplace resources](#get-marketplace-resources)
   - [List local images from a specific image or version](#list-local-images-from-a-specific-image-or-version)
+- [Marketplace version management commands](#marketplace-version-management-commands)
+  - [Get marketplace resources](#get-marketplace-resources)
+  - [List marketplace resources](#list-marketplace-resources)
 
   
+## Marketplace category management commands
+
+Marketplace category management commands.
+
+
+### Get marketplace resources
+
+Get marketplace resources.
+
+**Usage:**
+
+```
+scw marketplace category get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| category-id | Required |  |
+
+
+
+### List marketplace resources
+
+List marketplace resources.
+
+**Usage:**
+
+```
+scw marketplace category list
+```
+
+
+
 ## Marketplace images management commands
 
 Marketplace images management commands.
@@ -60,6 +103,25 @@ scw marketplace image list [arg=value ...]
 Marketplace Local Images management commands.
 
 
+### Get marketplace resources
+
+Get marketplace resources.
+
+**Usage:**
+
+```
+scw marketplace local-image get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| local-image-id | Required |  |
+
+
+
 ### List local images from a specific image or version
 
 List local images from a specific image or version.
@@ -80,6 +142,50 @@ scw marketplace local-image list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | image-label |  |  |
 | zone |  |  |
+
+
+
+## Marketplace version management commands
+
+Marketplace version management commands.
+
+
+### Get marketplace resources
+
+Get marketplace resources.
+
+**Usage:**
+
+```
+scw marketplace version get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| version-id | Required |  |
+
+
+
+### List marketplace resources
+
+List marketplace resources.
+
+**Usage:**
+
+```
+scw marketplace version list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| image-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
 
 
 
