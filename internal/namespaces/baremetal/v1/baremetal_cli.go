@@ -41,6 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
+		baremetalServerUpdateIP(),
 		baremetalOptionsAdd(),
 		baremetalOptionsDelete(),
 		baremetalOfferList(),
@@ -881,6 +882,50 @@ func baremetalBmcStop() *core.Command {
 				Resource: "bmc",
 				Verb:     "stop",
 			}, nil
+		},
+	}
+}
+
+func baremetalServerUpdateIP() *core.Command {
+	return &core.Command{
+		Short:     `Update IP`,
+		Long:      `Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "update-ip",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.UpdateIPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ip-id",
+				Short:      `ID of the IP to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "reverse",
+				Short:      `New reverse IP to update, not updated if null`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.UpdateIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.UpdateIP(request)
+
 		},
 	}
 }
