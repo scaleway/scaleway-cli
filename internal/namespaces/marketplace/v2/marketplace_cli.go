@@ -22,9 +22,16 @@ func GetGeneratedCommands() *core.Commands {
 		marketplaceRoot(),
 		marketplaceImage(),
 		marketplaceLocalImage(),
+		marketplaceVersion(),
+		marketplaceCategory(),
 		marketplaceImageList(),
 		marketplaceImageGet(),
+		marketplaceVersionList(),
+		marketplaceVersionGet(),
 		marketplaceLocalImageList(),
+		marketplaceLocalImageGet(),
+		marketplaceCategoryList(),
+		marketplaceCategoryGet(),
 	)
 }
 func marketplaceRoot() *core.Command {
@@ -50,6 +57,24 @@ func marketplaceLocalImage() *core.Command {
 		Long:      `Marketplace Local Images management commands.`,
 		Namespace: "marketplace",
 		Resource:  "local-image",
+	}
+}
+
+func marketplaceVersion() *core.Command {
+	return &core.Command{
+		Short:     `Marketplace version management commands`,
+		Long:      `Marketplace version management commands.`,
+		Namespace: "marketplace",
+		Resource:  "version",
+	}
+}
+
+func marketplaceCategory() *core.Command {
+	return &core.Command{
+		Short:     `Marketplace category management commands`,
+		Long:      `Marketplace category management commands.`,
+		Namespace: "marketplace",
+		Resource:  "category",
 	}
 }
 
@@ -173,6 +198,74 @@ func marketplaceImageGet() *core.Command {
 	}
 }
 
+func marketplaceVersionList() *core.Command {
+	return &core.Command{
+		Short:     `List marketplace resources`,
+		Long:      `List marketplace resources.`,
+		Namespace: "marketplace",
+		Resource:  "version",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.ListVersionsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "image-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.ListVersionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListVersions(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Versions, nil
+
+		},
+	}
+}
+
+func marketplaceVersionGet() *core.Command {
+	return &core.Command{
+		Short:     `Get marketplace resources`,
+		Long:      `Get marketplace resources.`,
+		Namespace: "marketplace",
+		Resource:  "version",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.GetVersionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "version-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.GetVersionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			return api.GetVersion(request)
+
+		},
+	}
+}
+
 func marketplaceLocalImageList() *core.Command {
 	return &core.Command{
 		Short:     `List local images from a specific image or version`,
@@ -226,6 +319,88 @@ func marketplaceLocalImageList() *core.Command {
 				return nil, err
 			}
 			return resp.LocalImages, nil
+
+		},
+	}
+}
+
+func marketplaceLocalImageGet() *core.Command {
+	return &core.Command{
+		Short:     `Get marketplace resources`,
+		Long:      `Get marketplace resources.`,
+		Namespace: "marketplace",
+		Resource:  "local-image",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.GetLocalImageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "local-image-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.GetLocalImageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			return api.GetLocalImage(request)
+
+		},
+	}
+}
+
+func marketplaceCategoryList() *core.Command {
+	return &core.Command{
+		Short:     `List marketplace resources`,
+		Long:      `List marketplace resources.`,
+		Namespace: "marketplace",
+		Resource:  "category",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.ListCategoriesRequest{}),
+		ArgSpecs: core.ArgSpecs{},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.ListCategoriesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListCategories(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Categories, nil
+
+		},
+	}
+}
+
+func marketplaceCategoryGet() *core.Command {
+	return &core.Command{
+		Short:     `Get marketplace resources`,
+		Long:      `Get marketplace resources.`,
+		Namespace: "marketplace",
+		Resource:  "category",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(marketplace.GetCategoryRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "category-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*marketplace.GetCategoryRequest)
+
+			client := core.ExtractClient(ctx)
+			api := marketplace.NewAPI(client)
+			return api.GetCategory(request)
 
 		},
 	}
