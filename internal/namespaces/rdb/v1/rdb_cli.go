@@ -31,6 +31,8 @@ func GetGeneratedCommands() *core.Commands {
 		rdbLog(),
 		rdbSnapshot(),
 		rdbReadReplica(),
+		rdbSetting(),
+		rdbEndpoint(),
 		rdbEngineList(),
 		rdbNodeTypeList(),
 		rdbBackupList(),
@@ -50,6 +52,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbInstanceRestart(),
 		rdbInstanceGetCertificate(),
 		rdbInstanceRenewCertificate(),
+		rdbInstanceGetMetrics(),
 		rdbReadReplicaCreate(),
 		rdbReadReplicaGet(),
 		rdbReadReplicaDelete(),
@@ -60,8 +63,12 @@ func GetGeneratedCommands() *core.Commands {
 		rdbLogGet(),
 		rdbLogPurge(),
 		rdbLogListDetails(),
+		rdbSettingAdd(),
+		rdbSettingDelete(),
+		rdbSettingSet(),
 		rdbACLList(),
 		rdbACLAdd(),
+		rdbACLSet(),
 		rdbACLDelete(),
 		rdbUserList(),
 		rdbUserCreate(),
@@ -78,6 +85,10 @@ func GetGeneratedCommands() *core.Commands {
 		rdbSnapshotUpdate(),
 		rdbSnapshotDelete(),
 		rdbSnapshotRestore(),
+		rdbEndpointCreate(),
+		rdbEndpointDelete(),
+		rdbEndpointGet(),
+		rdbEndpointMigrate(),
 	)
 }
 func rdbRoot() *core.Command {
@@ -220,6 +231,36 @@ There might be replication lags between the primary node and its Read Replica no
 `,
 		Namespace: "rdb",
 		Resource:  "read-replica",
+	}
+}
+
+func rdbSetting() *core.Command {
+	return &core.Command{
+		Short: `Setting management`,
+		Long: `Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
+
+Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](https://developers.scaleway.com/en/products/rdb/api/#get-1eafb7) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
+`,
+		Namespace: "rdb",
+		Resource:  "setting",
+	}
+}
+
+func rdbEndpoint() *core.Command {
+	return &core.Command{
+		Short: `Endpoint management`,
+		Long: `A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and a port. It contains the information about whether the endpoint is read-write or not. The endpoints always point to the main node of a Database Instance.
+
+All endpoints have TLS enabled. You can use TLS to make your data and your passwords unreadable in transit to anyone but you.
+
+For added security, you can set up ACL rules to restrict access to your endpoint to a set of trusted hosts or networks of your choice.
+
+Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby). The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent within a 6-hour timeframe. We recommend using connection pooling on the application side to renew database connections regularly.
+`,
+		Namespace: "rdb",
+		Resource:  "endpoint",
 	}
 }
 
@@ -1188,6 +1229,57 @@ func rdbInstanceRenewCertificate() *core.Command {
 	}
 }
 
+func rdbInstanceGetMetrics() *core.Command {
+	return &core.Command{
+		Short:     `Get Database Instance metrics`,
+		Long:      `Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "get-metrics",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "start-date",
+				Short:      `Start date to gather metrics from`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "end-date",
+				Short:      `End date to gather metrics from`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "metric-name",
+				Short:      `Name of the metric to gather`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetInstanceMetricsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetInstanceMetrics(request)
+
+		},
+	}
+}
+
 func rdbReadReplicaCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a Read Replica`,
@@ -1552,6 +1644,127 @@ func rdbLogListDetails() *core.Command {
 	}
 }
 
+func rdbSettingAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add Database Instance advanced settings`,
+		Long:      `Add an advanced setting to a Database Instance. You must set the ` + "`" + `name` + "`" + ` and the ` + "`" + `value` + "`" + ` of each setting.`,
+		Namespace: "rdb",
+		Resource:  "setting",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.AddInstanceSettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance you want to add settings to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.AddInstanceSettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.AddInstanceSettings(request)
+
+		},
+	}
+}
+
+func rdbSettingDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete Database Instance advanced settings`,
+		Long:      `Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.`,
+		Namespace: "rdb",
+		Resource:  "setting",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.DeleteInstanceSettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance to delete settings from`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "setting-names.{index}",
+				Short:      `Settings names to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.DeleteInstanceSettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.DeleteInstanceSettings(request)
+
+		},
+	}
+}
+
+func rdbSettingSet() *core.Command {
+	return &core.Command{
+		Short:     `Set Database Instance advanced settings`,
+		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
+		Namespace: "rdb",
+		Resource:  "setting",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.SetInstanceSettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance where the settings must be set`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "settings.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.SetInstanceSettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.SetInstanceSettings(request)
+
+		},
+	}
+}
+
 func rdbACLList() *core.Command {
 	return &core.Command{
 		Short:     `List ACL rules of a Database Instance`,
@@ -1628,6 +1841,48 @@ func rdbACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.AddInstanceACLRules(request)
+
+		},
+	}
+}
+
+func rdbACLSet() *core.Command {
+	return &core.Command{
+		Short:     `Set ACL rules for a Database Instance`,
+		Long:      `Replace all the ACL rules of a Database Instance.`,
+		Namespace: "rdb",
+		Resource:  "acl",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.SetInstanceACLRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance where the ACL rules must be set`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.ip",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.SetInstanceACLRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.SetInstanceACLRules(request)
 
 		},
 	}
@@ -2393,6 +2648,153 @@ func rdbSnapshotRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			return api.CreateInstanceFromSnapshot(request)
+
+		},
+	}
+}
+
+func rdbEndpointCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new Database Instance endpoint`,
+		Long:      `Create a new endpoint for a Database Instance. You can add ` + "`" + `load_balancer` + "`" + ` and ` + "`" + `private_network` + "`" + ` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.`,
+		Namespace: "rdb",
+		Resource:  "endpoint",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.CreateEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance you to which you want to add an endpoint`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.private-network.private-network-id",
+				Short:      `UUID of the Private Network to be connected to the Database Instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.private-network.service-ip",
+				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.CreateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.CreateEndpoint(request)
+
+		},
+	}
+}
+
+func rdbEndpointDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Database Instance endpoint`,
+		Long:      `Delete the endpoint of a Database Instance. You must specify the ` + "`" + `region` + "`" + ` and ` + "`" + `endpoint_id` + "`" + ` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.`,
+		Namespace: "rdb",
+		Resource:  "endpoint",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.DeleteEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.DeleteEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			e = api.DeleteEndpoint(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "endpoint",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func rdbEndpointGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a Database Instance endpoint`,
+		Long:      `Retrieve information about a Database Instance endpoint. Full details about the endpoint, like ` + "`" + `ip` + "`" + `, ` + "`" + `port` + "`" + `, ` + "`" + `private_network` + "`" + ` and ` + "`" + `load_balancer` + "`" + ` specifications are returned in the response.`,
+		Namespace: "rdb",
+		Resource:  "endpoint",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.GetEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.GetEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.GetEndpoint(request)
+
+		},
+	}
+}
+
+func rdbEndpointMigrate() *core.Command {
+	return &core.Command{
+		Short:     `Migrate an existing instance endpoint to another instance`,
+		Long:      `Migrate an existing instance endpoint to another instance.`,
+		Namespace: "rdb",
+		Resource:  "endpoint",
+		Verb:      "migrate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(rdb.MigrateEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to migrate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the instance you want to attach the endpoint to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*rdb.MigrateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+			return api.MigrateEndpoint(request)
 
 		},
 	}
