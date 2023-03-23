@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   delete             Delete a backend of a given Load Balancer
   get                Get a backend of a given Load Balancer
   list               List the backends of a given Load Balancer
+  list-statistics    List backend server statistics
   remove-servers     Remove a set of servers for a given backend
   set-servers        Define all backend servers for a given backend
   update             Update a backend of a given Load Balancer

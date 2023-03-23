@@ -2,12 +2,20 @@
 # Documentation for `scw cockpit`
 Cockpit API.
   
+- [Managed alerts management commands](#managed-alerts-management-commands)
+  - [Disable managed alerts](#disable-managed-alerts)
+  - [Enable managed alerts](#enable-managed-alerts)
+  - [Trigger a test alert](#trigger-a-test-alert)
 - [Cockpit management commands](#cockpit-management-commands)
   - [Activate a cockpit](#activate-a-cockpit)
   - [Deactivate a cockpit](#deactivate-a-cockpit)
   - [Get cockpit](#get-cockpit)
   - [Reset Grafana](#reset-grafana)
   - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
+- [Contacts management commands](#contacts-management-commands)
+  - [Create an alert contact point](#create-an-alert-contact-point)
+  - [Delete an alert contact point](#delete-an-alert-contact-point)
+  - [List alert contact points](#list-alert-contact-points)
 - [Grafana user management commands](#grafana-user-management-commands)
   - [Create a grafana user](#create-a-grafana-user)
   - [Delete a grafana user](#delete-a-grafana-user)
@@ -20,6 +28,68 @@ Cockpit API.
   - [List tokens](#list-tokens)
 
   
+## Managed alerts management commands
+
+Managed alerts management commands.
+
+
+### Disable managed alerts
+
+Disable managed alerts.
+
+**Usage:**
+
+```
+scw cockpit alert disable [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### Enable managed alerts
+
+Enable managed alerts.
+
+**Usage:**
+
+```
+scw cockpit alert enable [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### Trigger a test alert
+
+Trigger a test alert to all receivers.
+
+**Usage:**
+
+```
+scw cockpit alert test [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
 ## Cockpit management commands
 
 Cockpit management commands.
@@ -127,6 +197,70 @@ Wait for a cockpit to reach a stable state
 scw cockpit cockpit wait 11111111-1111-1111-1111-111111111111
 ```
 
+
+
+
+## Contacts management commands
+
+Contacts management commands.
+
+
+### Create an alert contact point
+
+Create an alert contact point for the default receiver.
+
+**Usage:**
+
+```
+scw cockpit contact create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| contact-point.email.to |  |  |
+
+
+
+### Delete an alert contact point
+
+Delete an alert contact point for the default receiver.
+
+**Usage:**
+
+```
+scw cockpit contact delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| contact-point.email.to |  |  |
+
+
+
+### List alert contact points
+
+List alert contact points associated with the given cockpit ID.
+
+**Usage:**
+
+```
+scw cockpit contact list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
 
 

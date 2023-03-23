@@ -6,6 +6,7 @@ Managed Database for PostgreSQL and MySQL API.
   - [Add an ACL rule to a Database Instance](#add-an-acl-rule-to-a-database-instance)
   - [Delete ACL rules of a Database Instance](#delete-acl-rules-of-a-database-instance)
   - [List ACL rules of a Database Instance](#list-acl-rules-of-a-database-instance)
+  - [Set ACL rules for a Database Instance](#set-acl-rules-for-a-database-instance)
 - [Backup management commands](#backup-management-commands)
   - [Create a database backup](#create-a-database-backup)
   - [Delete a database backup](#delete-a-database-backup)
@@ -20,6 +21,11 @@ Managed Database for PostgreSQL and MySQL API.
   - [Create a database in a Database Instance](#create-a-database-in-a-database-instance)
   - [Delete a database in a Database Instance](#delete-a-database-in-a-database-instance)
   - [List databases in a Database Instance](#list-databases-in-a-database-instance)
+- [Endpoint management](#endpoint-management)
+  - [Create a new Database Instance endpoint](#create-a-new-database-instance-endpoint)
+  - [Delete a Database Instance endpoint](#delete-a-database-instance-endpoint)
+  - [Get a Database Instance endpoint](#get-a-database-instance-endpoint)
+  - [Migrate an existing instance endpoint to another instance](#migrate-an-existing-instance-endpoint-to-another-instance)
 - [Database engines commands](#database-engines-commands)
   - [List available database engines](#list-available-database-engines)
   - [List available settings from an engine.](#list-available-settings-from-an-engine.)
@@ -30,6 +36,7 @@ Managed Database for PostgreSQL and MySQL API.
   - [Delete a Database Instance](#delete-a-database-instance)
   - [Get a Database Instance](#get-a-database-instance)
   - [Get the TLS certificate of a Database Instance](#get-the-tls-certificate-of-a-database-instance)
+  - [Get Database Instance metrics](#get-database-instance-metrics)
   - [List Database Instances](#list-database-instances)
   - [Renew the TLS certificate of a Database Instance](#renew-the-tls-certificate-of-a-database-instance)
   - [Restart Database Instance](#restart-database-instance)
@@ -53,6 +60,10 @@ Managed Database for PostgreSQL and MySQL API.
   - [Delete a Read Replica](#delete-a-read-replica)
   - [Get a Read Replica](#get-a-read-replica)
   - [Resync a Read Replica](#resync-a-read-replica)
+- [Setting management](#setting-management)
+  - [Add Database Instance advanced settings](#add-database-instance-advanced-settings)
+  - [Delete Database Instance advanced settings](#delete-database-instance-advanced-settings)
+  - [Set Database Instance advanced settings](#set-database-instance-advanced-settings)
 - [Block snapshot management](#block-snapshot-management)
   - [Create a Database Instance snapshot](#create-a-database-instance-snapshot)
   - [Delete a Database Instance snapshot](#delete-a-database-instance-snapshot)
@@ -133,6 +144,28 @@ scw rdb acl list [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set ACL rules for a Database Instance
+
+Replace all the ACL rules of a Database Instance.
+
+**Usage:**
+
+```
+scw rdb acl set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance where the ACL rules must be set |
+| rules.{index}.ip |  |  |
+| rules.{index}.description |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -426,6 +459,101 @@ scw rdb database list [arg=value ...]
 
 
 
+## Endpoint management
+
+A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and a port. It contains the information about whether the endpoint is read-write or not. The endpoints always point to the main node of a Database Instance.
+
+All endpoints have TLS enabled. You can use TLS to make your data and your passwords unreadable in transit to anyone but you.
+
+For added security, you can set up ACL rules to restrict access to your endpoint to a set of trusted hosts or networks of your choice.
+
+Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby). The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent within a 6-hour timeframe. We recommend using connection pooling on the application side to renew database connections regularly.
+
+
+
+### Create a new Database Instance endpoint
+
+Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
+
+**Usage:**
+
+```
+scw rdb endpoint create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance you to which you want to add an endpoint |
+| endpoint-spec.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
+| endpoint-spec.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a Database Instance endpoint
+
+Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
+
+**Usage:**
+
+```
+scw rdb endpoint delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required | UUID of the endpoint you want to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a Database Instance endpoint
+
+Retrieve information about a Database Instance endpoint. Full details about the endpoint, like `ip`, `port`, `private_network` and `load_balancer` specifications are returned in the response.
+
+**Usage:**
+
+```
+scw rdb endpoint get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required | UUID of the endpoint you want to get |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Migrate an existing instance endpoint to another instance
+
+Migrate an existing instance endpoint to another instance.
+
+**Usage:**
+
+```
+scw rdb endpoint migrate [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required | UUID of the endpoint you want to migrate |
+| instance-id | Required | UUID of the instance you want to attach the endpoint to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Database engines commands
 
 A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
@@ -631,6 +759,29 @@ scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get Database Instance metrics
+
+Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
+
+**Usage:**
+
+```
+scw rdb instance get-metrics <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance |
+| start-date |  | Start date to gather metrics from |
+| end-date |  | End date to gather metrics from |
+| metric-name |  | Name of the metric to gather |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -1120,6 +1271,81 @@ scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | read-replica-id | Required | UUID of the Read Replica |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Setting management
+
+Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
+
+Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](https://developers.scaleway.com/en/products/rdb/api/#get-1eafb7) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
+
+
+
+### Add Database Instance advanced settings
+
+Add an advanced setting to a Database Instance. You must set the `name` and the `value` of each setting.
+
+**Usage:**
+
+```
+scw rdb setting add [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance you want to add settings to |
+| settings.{index}.name |  |  |
+| settings.{index}.value |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete Database Instance advanced settings
+
+Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.
+
+**Usage:**
+
+```
+scw rdb setting delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance to delete settings from |
+| setting-names.{index} | Required | Settings names to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set Database Instance advanced settings
+
+Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
+
+**Usage:**
+
+```
+scw rdb setting set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance where the settings must be set |
+| settings.{index}.name |  |  |
+| settings.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
