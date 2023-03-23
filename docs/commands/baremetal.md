@@ -34,6 +34,7 @@ Elastic Metal API.
   - [Start an Elastic Metal server](#start-an-elastic-metal-server)
   - [Stop an Elastic Metal server](#stop-an-elastic-metal-server)
   - [Update an Elastic Metal server](#update-an-elastic-metal-server)
+  - [Update IP](#update-ip)
   - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
 - [Settings management commands](#settings-management-commands)
   - [List all settings](#list-all-settings)
@@ -820,6 +821,28 @@ scw baremetal server update <server-id ...> [arg=value ...]
 | name |  | Name of the server (≠hostname), not updated if null |
 | description |  | Description associated with the server, max 255 characters, not updated if null |
 | tags.{index} |  | Tags associated with the server, not updated if null |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update IP
+
+Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.
+
+**Usage:**
+
+```
+scw baremetal server update-ip [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| ip-id | Required | ID of the IP to update |
+| reverse |  | New reverse IP to update, not updated if null |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
