@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamGroupCreate(),
 		iamGroupGet(),
 		iamGroupUpdate(),
+		iamGroupSetMembers(),
 		iamGroupAddMember(),
 		iamGroupRemoveMember(),
 		iamGroupDelete(),
@@ -54,6 +55,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamPolicyGet(),
 		iamPolicyUpdate(),
 		iamPolicyDelete(),
+		iamPolicyClone(),
 		iamRuleUpdate(),
 		iamRuleList(),
 		iamPermissionSetList(),
@@ -953,6 +955,56 @@ func iamGroupUpdate() *core.Command {
 	}
 }
 
+func iamGroupSetMembers() *core.Command {
+	return &core.Command{
+		Short:     `Overwrite users and applications of a group`,
+		Long:      `Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration.`,
+		Namespace: "iam",
+		Resource:  "group",
+		Verb:      "set-members",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.SetGroupMembersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-ids.{index}",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "application-ids.{index}",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.SetGroupMembersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.SetGroupMembers(request)
+
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Command: "scw iam group remove-member",
+				Short:   "Remove a group member",
+			},
+			{
+				Command: "scw iam group create",
+				Short:   "Create a group",
+			},
+		},
+	}
+}
+
 func iamGroupAddMember() *core.Command {
 	return &core.Command{
 		Short:     `Add a user or an application to a group`,
@@ -1409,6 +1461,34 @@ func iamPolicyDelete() *core.Command {
 				Resource: "policy",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func iamPolicyClone() *core.Command {
+	return &core.Command{
+		Short:     `Clone a policy`,
+		Long:      `Clone a policy. You must define specify the ` + "`" + `policy_id` + "`" + ` parameter in your request.`,
+		Namespace: "iam",
+		Resource:  "policy",
+		Verb:      "clone",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ClonePolicyRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "policy-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.ClonePolicyRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.ClonePolicy(request)
+
 		},
 	}
 }

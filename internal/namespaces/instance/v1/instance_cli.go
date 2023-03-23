@@ -31,11 +31,13 @@ func GetGeneratedCommands() *core.Commands {
 		instanceUserData(),
 		instanceVolume(),
 		instancePrivateNic(),
+		instanceServerTypeGet(),
 		instanceServerTypeList(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
 		instanceServerUpdate(),
+		instanceServerListActions(),
 		instanceUserDataList(),
 		instanceUserDataDelete(),
 		instanceUserDataSet(),
@@ -58,11 +60,21 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
 		instanceSecurityGroupDelete(),
+		instanceSecurityGroupListDefaultRules(),
+		instanceSecurityGroupListRules(),
+		instanceSecurityGroupCreateRule(),
+		instanceSecurityGroupSetRules(),
+		instanceSecurityGroupDeleteRule(),
+		instanceSecurityGroupGetRule(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
+		instancePlacementGroupSet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
+		instancePlacementGroupGetServers(),
+		instancePlacementGroupSetServers(),
+		instancePlacementGroupUpdateServers(),
 		instanceIPList(),
 		instanceIPCreate(),
 		instanceIPGet(),
@@ -306,6 +318,29 @@ server to a network.
 `,
 		Namespace: "instance",
 		Resource:  "private-nic",
+	}
+}
+
+func instanceServerTypeGet() *core.Command {
+	return &core.Command{
+		Short:     `Get availability`,
+		Long:      `Get availability for all server types.`,
+		Namespace: "instance",
+		Resource:  "server-type",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.GetServerTypesAvailabilityRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetServerTypesAvailabilityRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.GetServerTypesAvailability(request)
+
+		},
 	}
 }
 
@@ -750,6 +785,35 @@ func instanceServerUpdate() *core.Command {
 				Short: "Put a given server in the given placement group. Server must be off",
 				Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111`,
 			},
+		},
+	}
+}
+
+func instanceServerListActions() *core.Command {
+	return &core.Command{
+		Short:     `List server actions`,
+		Long:      `List all actions that can currently be performed on a server.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "list-actions",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ListServerActionsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListServerActionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ListServerActions(request)
+
 		},
 	}
 }
@@ -2128,6 +2192,367 @@ func instanceSecurityGroupDelete() *core.Command {
 	}
 }
 
+func instanceSecurityGroupListDefaultRules() *core.Command {
+	return &core.Command{
+		Short:     `Get default rules`,
+		Long:      `Lists the default rules applied to all the security groups.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "list-default-rules",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ListDefaultSecurityGroupRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListDefaultSecurityGroupRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.ListDefaultSecurityGroupRules(request)
+
+		},
+	}
+}
+
+func instanceSecurityGroupListRules() *core.Command {
+	return &core.Command{
+		Short:     `List rules`,
+		Long:      `List rules.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "list-rules",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ListSecurityGroupRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ListSecurityGroupRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListSecurityGroupRules(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Rules, nil
+
+		},
+	}
+}
+
+func instanceSecurityGroupCreateRule() *core.Command {
+	return &core.Command{
+		Short:     `Create rule`,
+		Long:      `Create rule.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "create-rule",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.CreateSecurityGroupRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "protocol",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+			},
+			{
+				Name:       "direction",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"inbound", "outbound"},
+			},
+			{
+				Name:       "action",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"accept", "drop"},
+			},
+			{
+				Name:       "ip-range",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("0.0.0.0/0"),
+			},
+			{
+				Name:       "dest-port-from",
+				Short:      `The beginning of the range of ports to apply this rule to (inclusive)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dest-port-to",
+				Short:      `The end of the range of ports to apply this rule to (inclusive)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "position",
+				Short:      `The position of this rule in the security group rules list`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "editable",
+				Short:      `Indicates if this rule is editable (will be ignored)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.CreateSecurityGroupRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.CreateSecurityGroupRule(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Allow incoming SSH",
+				ArgsJSON: `{"action":"accept","dest_port_from":22,"direction":"inbound","protocol":"TCP","security_group_id":"1248283f-17de-464a-b03b-3f975ada3fa8"}`,
+			},
+			{
+				Short:    "Allow HTTP",
+				ArgsJSON: `{"action":"accept","dest_port_from":80,"direction":"inbound","protocol":"TCP","security_group_id":"e8ba77c1-9ccb-4c0c-b08d-555cfd7f57e4"}`,
+			},
+			{
+				Short:    "Allow HTTPS",
+				ArgsJSON: `{"action":"accept","dest_port_from":443,"direction":"inbound","protocol":"TCP","security_group_id":"e5906437-8650-4fe2-8ca7-32e1d7320c1b"}`,
+			},
+			{
+				Short:    "Allow a specific IP range",
+				ArgsJSON: `{"action":"accept","direction":"inbound","ip_range":"10.0.0.0/16","protocol":"ANY","security_group_id":"b6a58155-a2f8-48bd-9da9-3ff9783fa0d4"}`,
+			},
+			{
+				Short:    "Allow FTP",
+				ArgsJSON: `{"action":"accept","dest_port_from":20,"dest_port_to":21,"direction":"inbound","protocol":"TCP","security_group_id":"9c46df03-83c2-46fb-936c-16ecb44860e1"}`,
+			},
+		},
+	}
+}
+
+func instanceSecurityGroupSetRules() *core.Command {
+	return &core.Command{
+		Short:     `Update all the rules of a security group`,
+		Long:      `Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "set-rules",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.SetSecurityGroupRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group to update the rules on`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.id",
+				Short:      `UUID of the security rule to update. If no value is provided, a new rule will be created`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.action",
+				Short:      `Action to apply when the rule matches a packet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"accept", "drop"},
+			},
+			{
+				Name:       "rules.{index}.protocol",
+				Short:      `Protocol family this rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+			},
+			{
+				Name:       "rules.{index}.direction",
+				Short:      `Direction the rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"inbound", "outbound"},
+			},
+			{
+				Name:       "rules.{index}.ip-range",
+				Short:      `The range of IP address this rules applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dest-port-from",
+				Short:      `Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dest-port-to",
+				Short:      `End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.position",
+				Short:      `Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.editable",
+				Short:      `Indicates if this rule is editable. Rules with the value false will be ignored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.zone",
+				Short:      `Zone of the rule. This field is ignored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.SetSecurityGroupRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.SetSecurityGroupRules(request)
+
+		},
+	}
+}
+
+func instanceSecurityGroupDeleteRule() *core.Command {
+	return &core.Command{
+		Short:     `Delete rule`,
+		Long:      `Delete a security group rule with the given ID.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "delete-rule",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.DeleteSecurityGroupRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-rule-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DeleteSecurityGroupRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			e = api.DeleteSecurityGroupRule(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "security-group",
+				Verb:     "delete-rule",
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a Security Group Rule with the given ID",
+				ArgsJSON: `{"security_group_id":"a01a36e5-5c0c-42c1-ae06-167e587b7ac4","security_group_rule_id":"b8c773ef-a6ea-4b50-a7c1-737864290a3f"}`,
+			},
+		},
+	}
+}
+
+func instanceSecurityGroupGetRule() *core.Command {
+	return &core.Command{
+		Short:     `Get rule`,
+		Long:      `Get details of a security group rule with the given ID.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "get-rule",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.GetSecurityGroupRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-rule-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetSecurityGroupRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.GetSecurityGroupRule(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get details of a security group rule with the given ID",
+				ArgsJSON: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
+			},
+		},
+	}
+}
+
 func instancePlacementGroupList() *core.Command {
 	return &core.Command{
 		Short:     `List placement groups`,
@@ -2316,6 +2741,63 @@ func instancePlacementGroupGet() *core.Command {
 	}
 }
 
+func instancePlacementGroupSet() *core.Command {
+	return &core.Command{
+		Short:     `Set placement group`,
+		Long:      `Set all parameters of the given placement group.`,
+		Namespace: "instance",
+		Resource:  "placement-group",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.SetPlacementGroupRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "placement-group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "policy-mode",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"optional", "enforced"},
+			},
+			{
+				Name:       "policy-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"max_availability", "low_latency"},
+			},
+			core.ProjectArgSpec(),
+			{
+				Name:       "tags.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.SetPlacementGroupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.SetPlacementGroup(request)
+
+		},
+	}
+}
+
 func instancePlacementGroupUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a placement group`,
@@ -2432,6 +2914,112 @@ func instancePlacementGroupDelete() *core.Command {
 				Short:    "Delete a placement group in fr-par-1 zone with the given ID",
 				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
+		},
+	}
+}
+
+func instancePlacementGroupGetServers() *core.Command {
+	return &core.Command{
+		Short:     `Get placement group servers`,
+		Long:      `Get all servers belonging to the given placement group.`,
+		Namespace: "instance",
+		Resource:  "placement-group",
+		Verb:      "get-servers",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.GetPlacementGroupServersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "placement-group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetPlacementGroupServersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.GetPlacementGroupServers(request)
+
+		},
+	}
+}
+
+func instancePlacementGroupSetServers() *core.Command {
+	return &core.Command{
+		Short:     `Set placement group servers`,
+		Long:      `Set all servers belonging to the given placement group.`,
+		Namespace: "instance",
+		Resource:  "placement-group",
+		Verb:      "set-servers",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "placement-group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.SetPlacementGroupServersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.SetPlacementGroupServers(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Update the complete set of instances in a given placement group. (All instances must be down)",
+				ArgsJSON: `{"placement_group_id":"ced0fd4d-bcf0-4479-85b6-7027e54456e6","servers":["5a250608-24ec-4c31-9631-b3ded8c861cb","e54fd249-0787-4794-ab14-af6ee74df274"]}`,
+			},
+		},
+	}
+}
+
+func instancePlacementGroupUpdateServers() *core.Command {
+	return &core.Command{
+		Short:     `Update placement group servers`,
+		Long:      `Update all servers belonging to the given placement group.`,
+		Namespace: "instance",
+		Resource:  "placement-group",
+		Verb:      "update-servers",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdatePlacementGroupServersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "placement-group-id",
+				Short:      `UUID of the placement group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdatePlacementGroupServersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdatePlacementGroupServers(request)
+
 		},
 	}
 }

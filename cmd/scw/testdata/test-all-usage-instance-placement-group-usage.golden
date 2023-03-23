@@ -23,11 +23,15 @@ USAGE:
   scw instance placement-group <command>
 
 AVAILABLE COMMANDS:
-  create      Create a placement group
-  delete      Delete the given placement group
-  get         Get a placement group
-  list        List placement groups
-  update      Update a placement group
+  create         Create a placement group
+  delete         Delete the given placement group
+  get            Get a placement group
+  get-servers    Get placement group servers
+  list           List placement groups
+  set            Set placement group
+  set-servers    Set placement group servers
+  update         Update a placement group
+  update-servers Update placement group servers
 
 FLAGS:
   -h, --help   help for placement-group
