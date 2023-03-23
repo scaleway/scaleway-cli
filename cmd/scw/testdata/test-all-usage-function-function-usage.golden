@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   deploy           Deploy a function
   get              Get a function
   get-download-url Get a download URL of a function
+  get-logs         List your application logs
   get-upload-url   Get an upload URL of a function
   list             List all your functions
   update           Update an existing function

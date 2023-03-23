@@ -24,7 +24,6 @@ func GetGeneratedCommands() *core.Commands {
 		functionFunction(),
 		functionCron(),
 		functionRuntime(),
-		functionLogs(),
 		functionDomain(),
 		functionToken(),
 		functionNamespaceList(),
@@ -46,7 +45,7 @@ func GetGeneratedCommands() *core.Commands {
 		functionCronCreate(),
 		functionCronUpdate(),
 		functionCronDelete(),
-		functionLogsList(),
+		functionFunctionGetLogs(),
 		functionDomainList(),
 		functionDomainGet(),
 		functionDomainCreate(),
@@ -98,15 +97,6 @@ func functionRuntime() *core.Command {
 		Long:      `Runtime management commands.`,
 		Namespace: "function",
 		Resource:  "runtime",
-	}
-}
-
-func functionLogs() *core.Command {
-	return &core.Command{
-		Short:     `Logs management commands`,
-		Long:      `Logs management commands.`,
-		Namespace: "function",
-		Resource:  "logs",
 	}
 }
 
@@ -1063,13 +1053,13 @@ func functionCronDelete() *core.Command {
 	}
 }
 
-func functionLogsList() *core.Command {
+func functionFunctionGetLogs() *core.Command {
 	return &core.Command{
 		Short:     `List your application logs`,
 		Long:      `List your application logs.`,
 		Namespace: "function",
-		Resource:  "logs",
-		Verb:      "list",
+		Resource:  "function",
+		Verb:      "get-logs",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(function.ListLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -1077,7 +1067,7 @@ func functionLogsList() *core.Command {
 				Name:       "function-id",
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "order-by",
