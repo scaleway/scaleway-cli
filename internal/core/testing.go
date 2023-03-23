@@ -710,8 +710,15 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		delete(i.Request.Headers, "X-Auth-Token")
 		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
 		i.Request.URL = regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
-		i.Request.URL = strings.ReplaceAll(i.Request.URL, "//./pipe/docker_engine", "/var/run/docker.sock")
 		return nil
+	})
+
+	r.SetMatcher(func(r *http.Request, i cassette.Request) bool {
+		if r.URL.Host == "//./pipe/docker_engine" {
+			r.URL.Host = "/var/run/docker.sock"
+		}
+
+		return cassette.DefaultMatcher(r, i)
 	})
 
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
