@@ -201,7 +201,7 @@ type DeployStepPackImageResponse struct {
 func DeployStepPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepPackImageResponse, error) {
 	tar, err := archive.TarWithOptions(data.Args.BuildSource, &archive.TarOptions{})
 	if err != nil {
-		return nil, fmt.Errorf("could not create tar: %v", err)
+		return nil, fmt.Errorf("could not create tar: %w", err)
 	}
 
 	return &DeployStepPackImageResponse{
@@ -225,7 +225,7 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 	httpClient := core.ExtractHTTPClient(t.Ctx)
 	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation(), docker.WithHTTPClient(httpClient))
 	if err != nil {
-		return nil, fmt.Errorf("could not connect to Docker: %v", err)
+		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
 
 	imageBuildResponse, err := dockerClient.ImageBuild(t.Ctx, data.Tar, dockertypes.ImageBuildOptions{
@@ -234,7 +234,7 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 		NoCache:    !data.Args.Cache,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("could not build image: %v", errors.Unwrap(err))
+		return nil, fmt.Errorf("could not build image: %w", errors.Unwrap(err))
 	}
 	defer imageBuildResponse.Body.Close()
 
@@ -276,7 +276,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 
 	encodedJSON, err := json.Marshal(authConfig)
 	if err != nil {
-		return nil, fmt.Errorf("could not marshal auth config: %v", err)
+		return nil, fmt.Errorf("could not marshal auth config: %w", err)
 	}
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
@@ -285,7 +285,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 		RegistryAuth: authStr,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("could not push image: %v", err)
+		return nil, fmt.Errorf("could not push image: %w", err)
 	}
 	defer imagePushResponse.Close()
 
@@ -317,7 +317,7 @@ type DeployStepCreateContainerResponse struct {
 func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse) (*DeployStepCreateContainerResponse, error) {
 	targetContainer, err := getorcreate.Container(t.Ctx, data.API, data.Args.Region, data.Namespace.ID, data.Args.Name)
 	if err != nil {
-		return nil, fmt.Errorf("could not get or create container: %v", err)
+		return nil, fmt.Errorf("could not get or create container: %w", err)
 	}
 
 	_, err = data.API.UpdateContainer(&container.UpdateContainerRequest{
@@ -328,7 +328,7 @@ func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse)
 		Redeploy:      scw.BoolPtr(false),
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
-		return nil, fmt.Errorf("could not update container: %v", err)
+		return nil, fmt.Errorf("could not update container: %w", err)
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
@@ -337,7 +337,7 @@ func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse)
 		Timeout:     scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
-		return nil, fmt.Errorf("failed to deploy container: %v", err)
+		return nil, fmt.Errorf("failed to deploy container: %w", err)
 	}
 
 	return &DeployStepCreateContainerResponse{
@@ -357,7 +357,7 @@ func DeployStepDeployContainer(t *tasks.Task, data *DeployStepCreateContainerRes
 		ContainerID: data.Container.ID,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
-		return nil, fmt.Errorf("could not deploy container: %v", err)
+		return nil, fmt.Errorf("could not deploy container: %w", err)
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
@@ -366,7 +366,7 @@ func DeployStepDeployContainer(t *tasks.Task, data *DeployStepCreateContainerRes
 		Timeout:     scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
-		return nil, fmt.Errorf("failed to deploy container: %v", err)
+		return nil, fmt.Errorf("failed to deploy container: %w", err)
 	}
 
 	return &DeployStepDeployContainerResponse{
