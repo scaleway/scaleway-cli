@@ -23,6 +23,8 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitCockpit(),
 		cockpitToken(),
 		cockpitGrafanaUser(),
+		cockpitAlert(),
+		cockpitContact(),
 		cockpitCockpitActivate(),
 		cockpitCockpitGet(),
 		cockpitCockpitDeactivate(),
@@ -31,6 +33,12 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitTokenList(),
 		cockpitTokenGet(),
 		cockpitTokenDelete(),
+		cockpitContactCreate(),
+		cockpitContactList(),
+		cockpitContactDelete(),
+		cockpitAlertEnable(),
+		cockpitAlertDisable(),
+		cockpitAlertTest(),
 		cockpitGrafanaUserCreate(),
 		cockpitGrafanaUserList(),
 		cockpitGrafanaUserDelete(),
@@ -69,6 +77,24 @@ func cockpitGrafanaUser() *core.Command {
 		Long:      `Grafana user management commands.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
+	}
+}
+
+func cockpitAlert() *core.Command {
+	return &core.Command{
+		Short:     `Managed alerts management commands`,
+		Long:      `Managed alerts management commands.`,
+		Namespace: "cockpit",
+		Resource:  "alert",
+	}
+}
+
+func cockpitContact() *core.Command {
+	return &core.Command{
+		Short:     `Contacts management commands`,
+		Long:      `Contacts management commands.`,
+		Namespace: "cockpit",
+		Resource:  "contact",
 	}
 }
 
@@ -327,6 +353,185 @@ func cockpitTokenDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "token",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func cockpitContactCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create an alert contact point`,
+		Long:      `Create an alert contact point for the default receiver.`,
+		Namespace: "cockpit",
+		Resource:  "contact",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.CreateContactPointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "contact-point.email.to",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.CreateContactPointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			return api.CreateContactPoint(request)
+
+		},
+	}
+}
+
+func cockpitContactList() *core.Command {
+	return &core.Command{
+		Short:     `List alert contact points`,
+		Long:      `List alert contact points associated with the given cockpit ID.`,
+		Namespace: "cockpit",
+		Resource:  "contact",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.ListContactPointsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.ListContactPointsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListContactPoints(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ContactPoints, nil
+
+		},
+	}
+}
+
+func cockpitContactDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an alert contact point`,
+		Long:      `Delete an alert contact point for the default receiver.`,
+		Namespace: "cockpit",
+		Resource:  "contact",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.DeleteContactPointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "contact-point.email.to",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.DeleteContactPointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			e = api.DeleteContactPoint(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "contact",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func cockpitAlertEnable() *core.Command {
+	return &core.Command{
+		Short:     `Enable managed alerts`,
+		Long:      `Enable managed alerts.`,
+		Namespace: "cockpit",
+		Resource:  "alert",
+		Verb:      "enable",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.EnableManagedAlertsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.EnableManagedAlertsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			e = api.EnableManagedAlerts(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "alert",
+				Verb:     "enable",
+			}, nil
+		},
+	}
+}
+
+func cockpitAlertDisable() *core.Command {
+	return &core.Command{
+		Short:     `Disable managed alerts`,
+		Long:      `Disable managed alerts.`,
+		Namespace: "cockpit",
+		Resource:  "alert",
+		Verb:      "disable",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.DisableManagedAlertsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.DisableManagedAlertsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			e = api.DisableManagedAlerts(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "alert",
+				Verb:     "disable",
+			}, nil
+		},
+	}
+}
+
+func cockpitAlertTest() *core.Command {
+	return &core.Command{
+		Short:     `Trigger a test alert`,
+		Long:      `Trigger a test alert to all receivers.`,
+		Namespace: "cockpit",
+		Resource:  "alert",
+		Verb:      "test",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.TriggerTestAlertRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.TriggerTestAlertRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			e = api.TriggerTestAlert(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "alert",
+				Verb:     "test",
 			}, nil
 		},
 	}
