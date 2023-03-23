@@ -332,9 +332,10 @@ func DeployStepCreateContainer(t *tasks.Task, data *DeployStepPushImageResponse)
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-		Region:      data.Args.Region,
-		ContainerID: targetContainer.ID,
-		Timeout:     scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		Region:        data.Args.Region,
+		ContainerID:   targetContainer.ID,
+		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy container: %w", err)
@@ -361,9 +362,10 @@ func DeployStepDeployContainer(t *tasks.Task, data *DeployStepCreateContainerRes
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-		Region:      data.Args.Region,
-		ContainerID: targetContainer.ID,
-		Timeout:     scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		Region:        data.Args.Region,
+		ContainerID:   targetContainer.ID,
+		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy container: %w", err)
