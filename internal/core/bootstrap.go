@@ -139,7 +139,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	httpClient := config.HTTPClient
 	if httpClient == nil {
 		httpClient = &http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
 		}
 	}
 

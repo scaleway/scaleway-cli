@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"path/filepath"
@@ -221,7 +222,8 @@ type DeployStepBuildImageResponse struct {
 func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
-	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation())
+	httpClient := core.ExtractHTTPClient(t.Ctx)
+	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation(), docker.WithHTTPClient(httpClient))
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %v", err)
 	}
@@ -232,7 +234,7 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 		NoCache:    !data.Args.Cache,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("could not build image: %v", err)
+		return nil, fmt.Errorf("could not build image: %v", errors.Unwrap(err))
 	}
 	defer imageBuildResponse.Body.Close()
 

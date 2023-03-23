@@ -225,7 +225,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithHTTPClient(&http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
 		}),
 	}
 
@@ -699,7 +699,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, nil)
+	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, &SocketPassthroughTransport{})
 	if err != nil {
 		return nil, nil, err
 	}
