@@ -29,6 +29,7 @@ func GetGeneratedCommands() *core.Commands {
 		lbLBTypes(),
 		lbPrivateNetwork(),
 		lbRoute(),
+		lbSubscriber(),
 		lbLBList(),
 		lbLBCreate(),
 		lbLBGet(),
@@ -60,6 +61,7 @@ func GetGeneratedCommands() *core.Commands {
 		lbRouteUpdate(),
 		lbRouteDelete(),
 		lbLBGetStats(),
+		lbBackendListStatistics(),
 		lbACLList(),
 		lbACLCreate(),
 		lbACLGet(),
@@ -72,6 +74,13 @@ func GetGeneratedCommands() *core.Commands {
 		lbCertificateUpdate(),
 		lbCertificateDelete(),
 		lbLBTypesList(),
+		lbSubscriberCreate(),
+		lbSubscriberGet(),
+		lbSubscriberList(),
+		lbSubscriberUpdate(),
+		lbSubscriberDelete(),
+		lbSubscriberSubscribe(),
+		lbSubscriberUnsubscribe(),
 		lbPrivateNetworkList(),
 		lbPrivateNetworkAttach(),
 		lbPrivateNetworkDetach(),
@@ -163,6 +172,15 @@ func lbRoute() *core.Command {
 		Long:      `Route rules management commands.`,
 		Namespace: "lb",
 		Resource:  "route",
+	}
+}
+
+func lbSubscriber() *core.Command {
+	return &core.Command{
+		Short:     `Subscriber management commands`,
+		Long:      `Subscriber management commands.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
 	}
 }
 
@@ -1947,6 +1965,45 @@ func lbLBGetStats() *core.Command {
 	}
 }
 
+func lbBackendListStatistics() *core.Command {
+	return &core.Command{
+		Short:     `List backend server statistics`,
+		Long:      `List information about your backend servers, including their state and the result of their last health check.`,
+		Namespace: "lb",
+		Resource:  "backend",
+		Verb:      "list-statistics",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListBackendStatsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListBackendStatsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListBackendStats(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.BackendServersStats, nil
+
+		},
+	}
+}
+
 func lbACLList() *core.Command {
 	return &core.Command{
 		Short:     `List ACLs for a given frontend`,
@@ -2700,6 +2757,297 @@ func lbLBTypesList() *core.Command {
 				return nil, err
 			}
 			return resp.LBTypes, nil
+
+		},
+	}
+}
+
+func lbSubscriberCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a subscriber`,
+		Long:      `Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPICreateSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Subscriber name`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email-config.email",
+				Short:      `Email address to send alerts to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "webhook-config.uri",
+				Short:      `URI to receive POST requests`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPICreateSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.CreateSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a subscriber`,
+		Long:      `Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIGetSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIGetSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.GetSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberList() *core.Command {
+	return &core.Command{
+		Short:     `List all subscribers`,
+		Long:      `List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of subscribers in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+			},
+			{
+				Name:       "name",
+				Short:      `Subscriber name to search for`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter subscribers by Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter subscribers by Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListSubscriber(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Subscribers, nil
+
+		},
+	}
+}
+
+func lbSubscriberUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a subscriber`,
+		Long:      `Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Subscriber name`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email-config.email",
+				Short:      `Email address to send alerts to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "webhook-config.uri",
+				Short:      `URI to receive POST requests`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUpdateSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UpdateSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a subscriber`,
+		Long:      `Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIDeleteSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			e = api.DeleteSubscriber(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "subscriber",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func lbSubscriberSubscribe() *core.Command {
+	return &core.Command{
+		Short:     `Subscribe a subscriber to alerts for a given Load Balancer`,
+		Long:      `Subscribe an existing subscriber to alerts for a given Load Balancer.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "subscribe",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPISubscribeToLBRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPISubscribeToLBRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.SubscribeToLB(request)
+
+		},
+	}
+}
+
+func lbSubscriberUnsubscribe() *core.Command {
+	return &core.Command{
+		Short:     `Unsubscribe a subscriber from alerts for a given Load Balancer`,
+		Long:      `Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "unsubscribe",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUnsubscribeFromLBRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUnsubscribeFromLBRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UnsubscribeFromLB(request)
 
 		},
 	}

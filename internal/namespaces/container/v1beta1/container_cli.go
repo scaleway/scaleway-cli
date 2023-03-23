@@ -41,6 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerCronCreate(),
 		containerCronUpdate(),
 		containerCronDelete(),
+		containerContainerGetLogs(),
 		containerDomainList(),
 		containerDomainGet(),
 		containerDomainCreate(),
@@ -936,6 +937,51 @@ func containerCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteCron(request)
+
+		},
+	}
+}
+
+func containerContainerGetLogs() *core.Command {
+	return &core.Command{
+		Short:     `List your container logs`,
+		Long:      `List your container logs.`,
+		Namespace: "container",
+		Resource:  "container",
+		Verb:      "get-logs",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.ListLogsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "container-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"timestamp_desc", "timestamp_asc"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.ListLogsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListLogs(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Logs, nil
 
 		},
 	}

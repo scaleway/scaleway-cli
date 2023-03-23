@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete a container
   deploy      Deploy a container
   get         Get a container
+  get-logs    List your container logs
   list        List all your containers
   update      Update an existing container
 

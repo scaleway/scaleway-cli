@@ -9,7 +9,6 @@ AVAILABLE COMMANDS:
   cron        Cron management commands
   domain      Domain management commands
   function    Function management commands
-  logs        Logs management commands
   namespace   Function namespace management commands
   runtime     Runtime management commands
   token       Token management commands

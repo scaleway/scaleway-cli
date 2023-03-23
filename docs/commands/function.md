@@ -19,11 +19,10 @@ Functions API.
   - [Deploy a function](#deploy-a-function)
   - [Get a function](#get-a-function)
   - [Get a download URL of a function](#get-a-download-url-of-a-function)
+  - [List your application logs](#list-your-application-logs)
   - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
   - [List all your functions](#list-all-your-functions)
   - [Update an existing function](#update-an-existing-function)
-- [Logs management commands](#logs-management-commands)
-  - [List your application logs](#list-your-application-logs)
 - [Function namespace management commands](#function-namespace-management-commands)
   - [Create a new namespace](#create-a-new-namespace)
   - [Delete an existing namespace](#delete-an-existing-namespace)
@@ -358,6 +357,27 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 
 
+### List your application logs
+
+List your application logs.
+
+**Usage:**
+
+```
+scw function function get-logs <function-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| function-id | Required |  |
+| order-by | One of: `timestamp_desc`, `timestamp_asc` |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Get an upload URL of a function
 
 Get an upload URL of a function associated with the given id.
@@ -434,32 +454,6 @@ scw function function update <function-id ...> [arg=value ...]
 | secret-environment-variables.{index}.value |  |  |
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Logs management commands
-
-Logs management commands.
-
-
-### List your application logs
-
-List your application logs.
-
-**Usage:**
-
-```
-scw function logs list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required |  |
-| order-by | One of: `timestamp_desc`, `timestamp_asc` |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
