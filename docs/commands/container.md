@@ -16,6 +16,7 @@ Containers API.
   - [Get a cron](#get-a-cron)
   - [List all your crons](#list-all-your-crons)
   - [Update an existing cron](#update-an-existing-cron)
+- [Deploy a container](#deploy-a-container)
 - [Domain management commands](#domain-management-commands)
   - [Create a domain name binding](#create-a-domain-name-binding)
   - [Delete a domain name binding](#delete-a-domain-name-binding)
@@ -326,6 +327,33 @@ scw container cron update <cron-id ...> [arg=value ...]
 | args |  |  |
 | name |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Deploy a container
+
+Automatically build and deploy a container.
+
+Automatically build and deploy a container.
+
+**Usage:**
+
+```
+scw container deploy [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  | Name of the application (defaults to build-source's directory name) |
+| dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
+| build-source | Default: `.` | Path to the build context |
+| cache | Default: `true` | Use cache when building the image |
+| port | Default: `8080` | Port to expose |
+| namespace-id |  | Container Namespace ID to deploy to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

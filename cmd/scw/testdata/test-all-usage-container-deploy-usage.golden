@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Automatically build and deploy a container.
+
+USAGE:
+  scw container deploy [arg=value ...]
+
+ARGS:
+  [name]                    Name of the application (defaults to build-source's directory name)
+  [dockerfile=Dockerfile]   Path to the Dockerfile
+  [build-source=.]          Path to the build context
+  [cache=true]              Use cache when building the image
+  [port=8080]               Port to expose
+  [namespace-id]            Container Namespace ID to deploy to
+  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+
+FLAGS:
+  -h, --help   help for deploy
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

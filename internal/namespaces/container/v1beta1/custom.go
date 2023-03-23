@@ -15,5 +15,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
 
+	cmds.Add(containerDeployCommand())
+
 	return cmds
 }

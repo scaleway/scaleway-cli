@@ -225,7 +225,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithHTTPClient(&http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
 		}),
 	}
 
@@ -699,7 +699,7 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, nil)
+	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, &SocketPassthroughTransport{})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -711,6 +711,14 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
 		i.Request.URL = regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
 		return nil
+	})
+
+	r.SetMatcher(func(r *http.Request, i cassette.Request) bool {
+		if r.URL.Host == "//./pipe/docker_engine" {
+			r.URL.Host = "/var/run/docker.sock"
+		}
+
+		return cassette.DefaultMatcher(r, i)
 	})
 
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
