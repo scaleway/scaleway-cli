@@ -26,8 +26,10 @@ Elastic Metal API.
   - [Create an Elastic Metal server](#create-an-elastic-metal-server)
   - [Delete an Elastic Metal server](#delete-an-elastic-metal-server)
   - [Get a specific Elastic Metal server](#get-a-specific-elastic-metal-server)
+  - [Return server metrics](#return-server-metrics)
   - [Install an Elastic Metal server](#install-an-elastic-metal-server)
   - [List Elastic Metal servers for an organization](#list-elastic-metal-servers-for-an-organization)
+  - [List server events](#list-server-events)
   - [Reboot an Elastic Metal server](#reboot-an-elastic-metal-server)
   - [Start an Elastic Metal server](#start-an-elastic-metal-server)
   - [Stop an Elastic Metal server](#stop-an-elastic-metal-server)
@@ -582,6 +584,26 @@ scw baremetal server get 11111111-1111-1111-1111-111111111111
 
 
 
+### Return server metrics
+
+Get the ping status of the server associated with the ID.
+
+**Usage:**
+
+```
+scw baremetal server get-metrics [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | Server ID to get the metrics |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Install an Elastic Metal server
 
 Install an Operating System (OS) on the Elastic Metal server with a specific ID.
@@ -653,6 +675,27 @@ List all servers in your default zone
 scw baremetal server list
 ```
 
+
+
+
+### List server events
+
+List event (i.e. start/stop/reboot) associated to the server ID.
+
+**Usage:**
+
+```
+scw baremetal server list-events [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server events searched |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the server events |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

@@ -32,10 +32,12 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerCreate(),
 		baremetalServerUpdate(),
 		baremetalServerInstall(),
+		baremetalServerGetMetrics(),
 		baremetalServerDelete(),
 		baremetalServerReboot(),
 		baremetalServerStart(),
 		baremetalServerStop(),
+		baremetalServerListEvents(),
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
@@ -532,6 +534,36 @@ func baremetalServerInstall() *core.Command {
 	}
 }
 
+func baremetalServerGetMetrics() *core.Command {
+	return &core.Command{
+		Short:     `Return server metrics`,
+		Long:      `Get the ping status of the server associated with the ID.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "get-metrics",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.GetServerMetricsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `Server ID to get the metrics`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetServerMetricsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetServerMetrics(request)
+
+		},
+	}
+}
+
 func baremetalServerDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an Elastic Metal server`,
@@ -696,6 +728,53 @@ func baremetalServerStop() *core.Command {
 				Short:    "Stop an Elastic Metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func baremetalServerListEvents() *core.Command {
+	return &core.Command{
+		Short:     `List server events`,
+		Long:      `List event (i.e. start/stop/reboot) associated to the server ID.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "list-events",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListServerEventsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server events searched`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order of the server events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListServerEventsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServerEvents(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Events, nil
+
 		},
 	}
 }
