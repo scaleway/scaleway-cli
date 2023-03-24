@@ -489,7 +489,7 @@ func securityGroupUpdateCommand() *core.Command {
 	}
 }
 
-var instanceSecurityGroupEditYamlExample = `
+var instanceSecurityGroupEditYamlExample = `rules:
 - action: drop
   dest_port_from: 1200
   dest_port_to: 1300
