@@ -120,3 +120,16 @@ func cockpitCockpitDeactivateBuilder(command *core.Command) *core.Command {
 	}
 	return command
 }
+
+func cockpitTokenGetBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				Title:     "Scopes",
+				FieldName: "Scopes",
+			},
+		},
+	}
+
+	return c
+}
