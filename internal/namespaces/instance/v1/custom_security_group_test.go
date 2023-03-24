@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -14,7 +15,11 @@ func Test_SecurityGroupGet(t *testing.T) {
 		),
 		Cmd: "scw instance security-group get {{ .SecurityGroup.ID }}",
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckGoldenAndReplacePatterns(core.GoldenReplacement{
+				// For windows tests
+				Pattern:     regexp.MustCompile("notepad|vi"),
+				Replacement: "vi",
+			}),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteSecurityGroup("SecurityGroup"),
