@@ -560,9 +560,10 @@ func securityGroupEditCommand() *core.Command {
 			}
 
 			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
-				PutRequest:  true,
-				MarshalMode: args.Mode,
-				Template:    instanceSecurityGroupEditYamlExample,
+				PutRequest:   true,
+				MarshalMode:  args.Mode,
+				Template:     instanceSecurityGroupEditYamlExample,
+				IgnoreFields: []string{"editable"},
 			})
 			if err != nil {
 				return nil, err

@@ -201,3 +201,38 @@ func Test_valueMapperTags(t *testing.T) {
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.NotEqual(t, src.Arg2, dest.Arg2)
 }
+
+func Test_deleteRecursive(t *testing.T) {
+	m := map[string]interface{}{
+		"delete":   "1",
+		"nodelete": 1,
+	}
+
+	deleteRecursive(m, "delete")
+
+	_, deleteExists := m["delete"]
+	_, nodeleteExists := m["nodelete"]
+
+	assert.False(t, deleteExists)
+	assert.True(t, nodeleteExists)
+}
+
+func Test_deleteRecursiveSlice(t *testing.T) {
+	m := map[string]interface{}{
+		"slice": []map[string]interface{}{
+			{
+				"delete":   "1",
+				"nodelete": 1,
+			},
+		},
+	}
+
+	deleteRecursive(m, "delete")
+
+	slice := m["slice"].([]map[string]interface{})
+	_, deleteExists := slice[0]["delete"]
+	_, nodeleteExists := slice[0]["nodelete"]
+
+	assert.False(t, deleteExists)
+	assert.True(t, nodeleteExists)
+}

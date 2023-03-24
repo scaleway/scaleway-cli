@@ -57,6 +57,18 @@ func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
 	return fmt.Errorf("unknown marshal mode %q", mode)
 }
 
+// removeFields remove some fields from marshaled data
+func removeFields(data []byte, mode MarshalMode, fields []string) ([]byte, error) {
+	i := map[string]interface{}{}
+	err := unmarshal(data, &i, mode)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal: %w", err)
+	}
+	deleteRecursive(i, fields...)
+
+	return marshal(i, mode)
+}
+
 func addTemplate(content []byte, template string, mode MarshalMode) []byte {
 	if mode != MarshalModeYAML || len(template) == 0 {
 		return content

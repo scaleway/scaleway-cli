@@ -24,6 +24,10 @@ type Config struct {
 	// Template is a template that will be shown before marshaled data in edited file
 	Template string
 
+	// IgnoreFields is a list of json tags that will be removed from marshaled data
+	// The content of these fields will be lost in edited data
+	IgnoreFields []string
+
 	// If not empty, this will replace edited text as if it was edited in the terminal
 	// Should be paired with global SkipEditor as true, useful for tests
 	editedResource string
@@ -87,6 +91,13 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 	updateRequestMarshaled, err := marshal(completeUpdateRequest, cfg.MarshalMode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal update request: %w", err)
+	}
+
+	if len(cfg.IgnoreFields) > 0 {
+		updateRequestMarshaled, err = removeFields(updateRequestMarshaled, cfg.MarshalMode, cfg.IgnoreFields)
+		if err != nil {
+			return nil, fmt.Errorf("failed to remove ignored fields: %w", err)
+		}
 	}
 
 	if cfg.Template != "" {
