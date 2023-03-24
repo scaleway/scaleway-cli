@@ -28,6 +28,7 @@ Containers API.
   - [Get a namespace](#get-a-namespace)
   - [List all your namespaces](#list-all-your-namespaces)
   - [Update an existing namespace](#update-an-existing-namespace)
+  - [Wait for a namespace to reach a stable state (installation)](#wait-for-a-namespace-to-reach-a-stable-state-(installation))
 - [Token management commands](#token-management-commands)
   - [Create a new revocable token](#create-a-new-revocable-token)
   - [Delete a token](#delete-a-token)
@@ -557,6 +558,26 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | description |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Wait for a namespace to reach a stable state (installation)
+
+Wait for a namespace to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the namespace.
+
+**Usage:**
+
+```
+scw container namespace wait <namespace-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id | Required |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
