@@ -13,7 +13,10 @@ func Test_SecurityGroupGet(t *testing.T) {
 			createSecurityGroup("SecurityGroup"),
 		),
 		Cmd:       "scw instance security-group get {{ .SecurityGroup.ID }}",
-		Check:     core.TestCheckGolden(),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
 		AfterFunc: deleteSecurityGroup("SecurityGroup"),
 	}))
 }
