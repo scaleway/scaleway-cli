@@ -571,7 +571,12 @@ func securityGroupEditCommand() *core.Command {
 
 			setRequest = editedSetRequest.(*instance.SetSecurityGroupRulesRequest)
 
-			return api.SetSecurityGroupRules(setRequest, scw.WithContext(ctx))
+			resp, err := api.SetSecurityGroupRules(setRequest, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Rules, nil
 		},
 	}
 }
