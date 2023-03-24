@@ -133,4 +133,3 @@ func cockpitCockpitGetBuilder(c *core.Command) *core.Command {
 
 	return c
 }
-
