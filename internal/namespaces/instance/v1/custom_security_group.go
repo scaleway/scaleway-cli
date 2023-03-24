@@ -40,6 +40,42 @@ var (
 	}
 )
 
+func marshalSecurityGroupRules(i interface{}, opt *human.MarshalOpt) (out string, err error) {
+	rules := i.([]*instance.SecurityGroupRule)
+
+	type humanRule struct {
+		ID       string
+		Protocol instance.SecurityGroupRuleProtocol
+		Action   instance.SecurityGroupRuleAction
+		IPRange  string
+		Dest     string
+	}
+
+	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
+		dest := "ALL"
+		if rule.DestPortFrom != nil {
+			dest = strconv.Itoa(int(*rule.DestPortFrom))
+		}
+		if rule.DestPortTo != nil {
+			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
+		}
+		return &humanRule{
+			ID:       rule.ID,
+			Protocol: rule.Protocol,
+			Action:   rule.Action,
+			IPRange:  rule.IPRange.String(),
+			Dest:     dest,
+		}
+	}
+	humanRules := make([]*humanRule, len(rules))
+
+	for i, rule := range rules {
+		humanRules[i] = toHumanRule(rule)
+	}
+
+	return human.Marshal(humanRules, nil)
+}
+
 // MarshalHuman marshals a customSecurityGroupResponse.
 func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	humanSecurityGroup := struct {
@@ -76,39 +112,14 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	}
 	securityGroupView = terminal.Style("Security Group:\n", color.Bold) + securityGroupView
 
-	type humanRule struct {
-		ID       string
-		Protocol instance.SecurityGroupRuleProtocol
-		Action   instance.SecurityGroupRuleAction
-		IPRange  string
-		Dest     string
-	}
-
-	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
-		dest := "ALL"
-		if rule.DestPortFrom != nil {
-			dest = strconv.Itoa(int(*rule.DestPortFrom))
-		}
-		if rule.DestPortTo != nil {
-			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
-		}
-		return &humanRule{
-			ID:       rule.ID,
-			Protocol: rule.Protocol,
-			Action:   rule.Action,
-			IPRange:  rule.IPRange.String(),
-			Dest:     dest,
-		}
-	}
-
-	inboundRules := []*humanRule(nil)
-	outboundRules := []*humanRule(nil)
+	inboundRules := []*instance.SecurityGroupRule(nil)
+	outboundRules := []*instance.SecurityGroupRule(nil)
 	for _, rule := range sg.Rules {
 		switch rule.Direction {
 		case instance.SecurityGroupRuleDirectionInbound:
-			inboundRules = append(inboundRules, toHumanRule(rule))
+			inboundRules = append(inboundRules, rule)
 		case instance.SecurityGroupRuleDirectionOutbound:
-			outboundRules = append(outboundRules, toHumanRule(rule))
+			outboundRules = append(outboundRules, rule)
 		default:
 			logger.Warningf("invalid security group rule direction: %v", rule.Direction)
 		}
