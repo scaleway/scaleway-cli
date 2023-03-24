@@ -51,7 +51,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 		},
 		{
 			Name:       "file-path",
-			Short:      `Wanted file locality`,
+			Short:      `Wanted file path`,
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
