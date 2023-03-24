@@ -17,7 +17,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("container", "namespace", "create").Override(containerNamespaceCreateBuilder)
 	cmds.MustFind("container", "namespace", "delete").Override(containerNamespaceDeleteBuilder)
 
-	cmds.Add(containerNamespaceWaitCommand())
 	cmds.Add(containerDeployCommand())
 
 	return cmds
