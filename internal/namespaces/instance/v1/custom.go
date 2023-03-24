@@ -149,6 +149,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(""), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
 
 	//
 	// Placement Group
