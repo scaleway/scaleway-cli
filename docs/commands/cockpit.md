@@ -371,7 +371,7 @@ scw cockpit token create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  |  |
+| name | Default: `<generated>` |  |
 | scopes.query-metrics |  |  |
 | scopes.write-metrics |  |  |
 | scopes.setup-metrics-rules |  |  |

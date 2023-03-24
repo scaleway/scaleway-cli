@@ -206,6 +206,7 @@ func cockpitTokenCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("token"),
 			},
 			{
 				Name:       "scopes.query-metrics",
