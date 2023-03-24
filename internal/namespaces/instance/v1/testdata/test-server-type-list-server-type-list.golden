@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME      HOURLY PRICE  LOCAL VOLUME SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
-DEV1-S    € 0.006       20 GB              2    -    2.0 GiB  x86_64  available
-DEV1-M    € 0.016       40 GB              3    -    4.0 GiB  x86_64  available
-DEV1-L    € 0.032       80 GB              4    -    8.0 GiB  x86_64  available
-DEV1-XL   € 0.048       120 GB             4    -    12 GiB   x86_64  available
-GP1-XS    € 0.078       150 GB             4    -    16 GiB   x86_64  available
-GP1-S     € 0.158       300 GB             8    -    32 GiB   x86_64  available
-GP1-M     € 0.318       600 GB             16   -    64 GiB   x86_64  available
-GP1-L     € 0.598       600 GB             32   -    128 GiB  x86_64  available
-GP1-XL    € 1.138       600 GB             48   -    256 GiB  x86_64  available
-RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  available
+NAME      HOURLY PRICE  LOCAL VOLUME MAX SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
+DEV1-S    € 0.006       20 GB                  2    -    2.0 GiB  x86_64  available
+DEV1-M    € 0.016       40 GB                  3    -    4.0 GiB  x86_64  available
+DEV1-L    € 0.032       80 GB                  4    -    8.0 GiB  x86_64  available
+DEV1-XL   € 0.048       120 GB                 4    -    12 GiB   x86_64  available
+GP1-XS    € 0.078       150 GB                 4    -    16 GiB   x86_64  available
+GP1-S     € 0.158       300 GB                 8    -    32 GiB   x86_64  available
+GP1-M     € 0.318       600 GB                 16   -    64 GiB   x86_64  available
+GP1-L     € 0.598       600 GB                 32   -    128 GiB  x86_64  available
+GP1-XL    € 1.138       600 GB                 48   -    256 GiB  x86_64  available
+RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  available
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -20,7 +20,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 6000000
     },
-    "local_volume_size": 20000000000,
+    "local_volume_max_size": 20000000000,
     "cpu": 2,
     "gpu": null,
     "ram": 2147483648,
@@ -34,7 +34,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 16000000
     },
-    "local_volume_size": 40000000000,
+    "local_volume_max_size": 40000000000,
     "cpu": 3,
     "gpu": null,
     "ram": 4294967296,
@@ -48,7 +48,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 32000000
     },
-    "local_volume_size": 80000000000,
+    "local_volume_max_size": 80000000000,
     "cpu": 4,
     "gpu": null,
     "ram": 8589934592,
@@ -62,7 +62,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 48000000
     },
-    "local_volume_size": 120000000000,
+    "local_volume_max_size": 120000000000,
     "cpu": 4,
     "gpu": null,
     "ram": 12884901888,
@@ -76,7 +76,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 78000000
     },
-    "local_volume_size": 150000000000,
+    "local_volume_max_size": 150000000000,
     "cpu": 4,
     "gpu": null,
     "ram": 17179869184,
@@ -90,7 +90,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 158000000
     },
-    "local_volume_size": 300000000000,
+    "local_volume_max_size": 300000000000,
     "cpu": 8,
     "gpu": null,
     "ram": 34359738368,
@@ -104,7 +104,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 318000000
     },
-    "local_volume_size": 600000000000,
+    "local_volume_max_size": 600000000000,
     "cpu": 16,
     "gpu": null,
     "ram": 68719476736,
@@ -118,7 +118,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 0,
       "nanos": 598000000
     },
-    "local_volume_size": 600000000000,
+    "local_volume_max_size": 600000000000,
     "cpu": 32,
     "gpu": null,
     "ram": 137438953472,
@@ -132,7 +132,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 1,
       "nanos": 138000000
     },
-    "local_volume_size": 600000000000,
+    "local_volume_max_size": 600000000000,
     "cpu": 48,
     "gpu": null,
     "ram": 274877906944,
@@ -146,7 +146,7 @@ RENDER-S  € 1.00        400 GB             10   1    45 GiB   x86_64  availabl
       "units": 1,
       "nanos": 0
     },
-    "local_volume_size": 400000000000,
+    "local_volume_max_size": 400000000000,
     "cpu": 10,
     "gpu": 1,
     "ram": 48318382080,
