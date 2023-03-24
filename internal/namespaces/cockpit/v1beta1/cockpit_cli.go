@@ -206,6 +206,7 @@ func cockpitTokenCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("token"),
 			},
 			{
 				Name:       "scopes.query-metrics",
@@ -310,7 +311,7 @@ func cockpitTokenGet() *core.Command {
 				Name:       "token-id",
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

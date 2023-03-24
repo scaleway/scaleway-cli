@@ -6,11 +6,11 @@ USAGE:
   scw tem domain <command>
 
 AVAILABLE COMMANDS:
-  check       Ask for an immediate check of a domain (DNS check)
+  check       Domain DNS check
   create      Register a domain in a project
   get         Get information about a domain
-  list        List domains in a project and/or in an organization
-  revoke      Revoke a domain
+  list        List domains
+  revoke      Delete a domain
 
 FLAGS:
   -h, --help   help for domain

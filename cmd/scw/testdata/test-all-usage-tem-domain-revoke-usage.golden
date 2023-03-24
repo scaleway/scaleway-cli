@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Revoke a domain.
+You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone.
 
 USAGE:
   scw tem domain revoke <domain-id ...> [arg=value ...]
 
 ARGS:
-  domain-id         ID of the domain to revoke
+  domain-id         ID of the domain to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
