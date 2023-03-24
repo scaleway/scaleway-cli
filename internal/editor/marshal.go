@@ -3,6 +3,7 @@ package editor
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/ghodss/yaml"
 )
@@ -54,4 +55,19 @@ func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
 	}
 
 	return fmt.Errorf("unknown marshal mode %q", mode)
+}
+
+func addTemplate(content []byte, template string, mode MarshalMode) []byte {
+	if mode != MarshalModeYAML || len(template) == 0 {
+		return content
+	}
+	newContent := []byte(nil)
+
+	for _, line := range strings.Split(template, "\n") {
+		newContent = append(newContent, []byte("#"+line+"\n")...)
+	}
+
+	newContent = append(newContent, content...)
+
+	return newContent
 }

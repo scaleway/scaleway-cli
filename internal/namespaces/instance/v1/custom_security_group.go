@@ -489,6 +489,24 @@ func securityGroupUpdateCommand() *core.Command {
 	}
 }
 
+var instanceSecurityGroupEditYamlExample = `
+- action: drop
+  dest_port_from: 1200
+  dest_port_to: 1300
+  direction: inbound
+  ip_range: 192.168.0.0/24
+  protocol: TCP
+- action: drop
+  direction: inbound
+  protocol: ICMP
+  ip_range: 0.0.0.0/0
+- action: accept
+  dest_port_from: 25565
+  direction: outbound
+  ip_range: 0.0.0.0/0
+  protocol: UDP
+`
+
 type instanceSecurityGroupEditArgs struct {
 	Zone            scw.Zone
 	SecurityGroupID string
@@ -544,6 +562,7 @@ func securityGroupEditCommand() *core.Command {
 			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
 				PutRequest:  true,
 				MarshalMode: args.Mode,
+				Template:    instanceSecurityGroupEditYamlExample,
 			})
 			if err != nil {
 				return nil, err
