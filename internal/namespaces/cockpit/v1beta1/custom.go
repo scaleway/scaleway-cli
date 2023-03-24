@@ -18,6 +18,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("cockpit", "cockpit", "activate").Override(cockpitCockpitActivateBuilder)
 	cmds.MustFind("cockpit", "cockpit", "deactivate").Override(cockpitCockpitDeactivateBuilder)
 	cmds.MustFind("cockpit", "cockpit", "get").Override(cockpitCockpitGetBuilder)
+	cmds.MustFind("cockpit", "token", "get").Override(cockpitTokenGetBuilder)
 
 	return cmds
 }
