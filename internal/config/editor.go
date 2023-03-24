@@ -1,12 +1,24 @@
 package config
 
-import "os"
+import (
+	"os"
+	"runtime"
+)
 
 var (
 	// List of env variables where to find the editor to use
 	// Order in slice is override order, the latest will override the first ones
 	editorEnvVariables = []string{"EDITOR", "VISUAL"}
 )
+
+func GetSystemDefaultEditor() string {
+	switch runtime.GOOS {
+	case "windows":
+		return "notepad"
+	default:
+		return "vi"
+	}
+}
 
 func GetDefaultEditor() string {
 	editor := ""
@@ -18,7 +30,7 @@ func GetDefaultEditor() string {
 	}
 
 	if editor == "" {
-		return "vi"
+		return GetSystemDefaultEditor()
 	}
 
 	return editor
