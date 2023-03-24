@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Ask for an immediate check of a domain (DNS check).
+Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters.
 
 USAGE:
   scw tem domain check <domain-id ...> [arg=value ...]

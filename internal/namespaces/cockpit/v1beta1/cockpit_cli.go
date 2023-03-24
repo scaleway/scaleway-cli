@@ -310,7 +310,7 @@ func cockpitTokenGet() *core.Command {
 				Name:       "token-id",
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

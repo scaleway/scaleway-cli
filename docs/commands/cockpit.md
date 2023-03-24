@@ -408,7 +408,7 @@ Get the token associated with the given ID.
 **Usage:**
 
 ```
-scw cockpit token get [arg=value ...]
+scw cockpit token get <token-id ...> [arg=value ...]
 ```
 
 

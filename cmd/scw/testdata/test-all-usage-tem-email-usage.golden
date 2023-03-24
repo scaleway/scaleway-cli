@@ -6,11 +6,11 @@ USAGE:
   scw tem email <command>
 
 AVAILABLE COMMANDS:
-  cancel         Try to cancel an email if it has not yet been sent
+  cancel         Cancel an email
   create         Send an email
-  get            Get information about an email
-  get-statistics Get statistics on the email statuses
-  list           List emails sent from a domain and/or for a project and/or for an organization
+  get            Get an email
+  get-statistics Email statuses
+  list           List emails
 
 FLAGS:
   -h, --help   help for email
