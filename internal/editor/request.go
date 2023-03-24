@@ -11,7 +11,7 @@ func createGetRequest(updateRequest interface{}, getRequestType reflect.Type) in
 
 	// Fill GetRequest args using Update arg content
 	// This should copy important argument like ID, zone
-	valueMapper(getRequestV, updateRequestV, nil)
+	valueMapper(getRequestV, updateRequestV)
 
 	return getRequest
 }
@@ -24,8 +24,8 @@ func copyAndCompleteUpdateRequest(updateRequest interface{}, resource interface{
 	// Create a new updateRequest that will be edited
 	// It will allow user to edit it, then we will extract diff to perform update
 	newUpdateRequestV := reflect.New(updateRequestV.Type().Elem())
-	valueMapper(newUpdateRequestV, updateRequestV, nil)
-	valueMapper(newUpdateRequestV, resourceV, nil)
+	valueMapper(newUpdateRequestV, updateRequestV)
+	valueMapper(newUpdateRequestV, resourceV)
 
 	return newUpdateRequestV.Interface()
 }
@@ -42,5 +42,5 @@ func newRequest(request interface{}) interface{} {
 
 // copyRequestPathParameters will copy all path parameters present in src to their correct fields in dest
 func copyRequestPathParameters(dest interface{}, src interface{}) {
-	valueMapper(reflect.ValueOf(dest), reflect.ValueOf(src), []string{"-"})
+	valueMapper(reflect.ValueOf(dest), reflect.ValueOf(src), mapWithTag("-"))
 }
