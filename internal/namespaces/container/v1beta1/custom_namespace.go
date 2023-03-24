@@ -1,12 +1,19 @@
 package container
 
 import (
+	"context"
+	"time"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
+	containerNamespaceActionTimeout = 5 * time.Minute
+
 	namespaceStatusMarshalSpecs = human.EnumMarshalSpecs{
 		container.NamespaceStatusCreating: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 		container.NamespaceStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
@@ -17,3 +24,46 @@ var (
 		container.NamespaceStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint},
 	}
 )
+
+func containerNamespaceCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		res := respI.(*container.Namespace)
+
+		client := core.ExtractClient(ctx)
+		api := container.NewAPI(client)
+		return api.WaitForNamespace(&container.WaitForNamespaceRequest{
+			NamespaceID:   res.ID,
+			Region:        res.Region,
+			Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+
+	return c
+}
+
+func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		req := argsI.(*container.DeleteNamespaceRequest)
+
+		client := core.ExtractClient(ctx)
+		api := container.NewAPI(client)
+		_, err := api.WaitForNamespace(&container.WaitForNamespaceRequest{
+			NamespaceID:   req.NamespaceID,
+			Region:        req.Region,
+			Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+		if err != nil {
+			if core.IsNotFoundError(err) {
+				return nil, nil
+			}
+
+			return nil, err
+		}
+
+		return nil, nil
+	}
+
+	return c
+}
