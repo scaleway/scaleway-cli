@@ -1296,7 +1296,7 @@ scw instance security-group delete-rule security-group-id=a01a36e5-5c0c-42c1-ae0
 ### Edit all rules of a security group
 
 This command starts your default editor to edit a marshaled version of your resource
-Default editor will be taken from $VISUAL, then $EDITOR or will be "vi"
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
 
 **Usage:**
 
