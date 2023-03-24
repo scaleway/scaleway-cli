@@ -32,6 +32,7 @@ type containerDeployRequest struct {
 	Dockerfile  string
 	BuildSource string
 	Cache       bool
+	BuildArgs   map[string]*string
 
 	NamespaceID *string
 	Port        uint32
@@ -64,6 +65,11 @@ func containerDeployCommand() *core.Command {
 				Name:    "cache",
 				Short:   "Use cache when building the image",
 				Default: core.DefaultValueSetter("true"),
+			},
+			{
+				Name:     "build-args.{key}",
+				Short:    "Build-time variables",
+				Required: false,
 			},
 			{
 				Name:    "port",
@@ -232,6 +238,7 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 		Dockerfile: data.Args.Dockerfile,
 		Tags:       []string{tag},
 		NoCache:    !data.Args.Cache,
+		BuildArgs:  data.Args.BuildArgs,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not build image: %w", errors.Unwrap(err))

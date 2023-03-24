@@ -32,6 +32,14 @@ RUN apk add --no-cache curl git bash
 COPY ./index.html /usr/share/nginx/html/index.html
 EXPOSE 80
 	`)
+	nginxDockerfileWithBuildArgs = strings.TrimSpace(`
+FROM nginx:alpine
+RUN apk add --no-cache curl git bash
+COPY ./index.html /usr/share/nginx/html/index.html
+ARG TEST
+RUN test -n "$TEST"
+EXPOSE 80
+	`)
 )
 
 func Test_Deploy(t *testing.T) {
@@ -112,6 +120,38 @@ func Test_Deploy(t *testing.T) {
 		),
 		DisableParallel: true,
 	}))
+
+	t.Run("Build args", core.Test(&core.TestConfig{
+		Commands: commands,
+		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				// Create index.html
+				err := os.WriteFile(filepath.Join(path, "index.html"), []byte(indexHTML), 0600)
+				if err != nil {
+					return err
+				}
+				return nil
+			},
+			func(ctx *core.BeforeFuncCtx) error {
+				// Create Dockerfile
+				err := os.WriteFile(filepath.Join(path, "Dockerfile"), []byte(nginxDockerfileWithBuildArgs), 0600)
+				if err != nil {
+					return err
+				}
+				return nil
+			},
+		),
+		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest", appName, path),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			testDeleteContainersNamespaceAfter(appName),
+			testDeleteRegistryAfter(appName),
+		),
+		DisableParallel: true,
+	}))
 }
 
 func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx) error {
@@ -137,7 +177,7 @@ func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx)
 			return fmt.Errorf("namespace not found")
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw container namespace delete %s", namespaceID))(ctx)
+		return core.ExecAfterCmd(fmt.Sprintf("scw container namespace delete %s --wait", namespaceID))(ctx)
 	}
 }
 
