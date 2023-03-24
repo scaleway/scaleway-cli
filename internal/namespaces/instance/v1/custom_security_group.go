@@ -67,10 +67,10 @@ func marshalSecurityGroupRules(i interface{}, opt *human.MarshalOpt) (out string
 			Dest:     dest,
 		}
 	}
-	humanRules := []*humanRule(nil)
+	humanRules := make([]*humanRule, len(rules))
 
-	for _, rule := range rules {
-		humanRules = append(humanRules, toHumanRule(rule))
+	for i, rule := range rules {
+		humanRules[i] = toHumanRule(rule)
 	}
 
 	return human.Marshal(humanRules, nil)
