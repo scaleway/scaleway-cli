@@ -8,7 +8,7 @@ import (
 )
 
 var LongDescription = fmt.Sprintf(`This command starts your default editor to edit a marshaled version of your resource
-Default editor will be taken from $VISUAL, then $EDITOR or will be %q`, config.GetDefaultEditor())
+Default editor will be taken from $VISUAL, then $EDITOR or will be %q`, config.GetSystemDefaultEditor())
 
 func MarshalModeArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
