@@ -142,6 +142,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		securityGroupClearCommand(),
 		securityGroupUpdateCommand(),
+		securityGroupEditCommand(),
 	))
 
 	//

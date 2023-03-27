@@ -10,6 +10,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -484,6 +485,98 @@ func securityGroupUpdateCommand() *core.Command {
 				// Unknown error, use default behavior.
 				return nil, resErr
 			}
+		},
+	}
+}
+
+var instanceSecurityGroupEditYamlExample = `rules:
+- action: drop
+  dest_port_from: 1200
+  dest_port_to: 1300
+  direction: inbound
+  ip_range: 192.168.0.0/24
+  protocol: TCP
+- action: drop
+  direction: inbound
+  protocol: ICMP
+  ip_range: 0.0.0.0/0
+- action: accept
+  dest_port_from: 25565
+  direction: outbound
+  ip_range: 0.0.0.0/0
+  protocol: UDP
+`
+
+type instanceSecurityGroupEditArgs struct {
+	Zone            scw.Zone
+	SecurityGroupID string
+	Mode            editor.MarshalMode
+}
+
+func securityGroupEditCommand() *core.Command {
+	return &core.Command{
+		Short:     `Edit all rules of a security group`,
+		Long:      editor.LongDescription,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "edit",
+		ArgsType:  reflect.TypeOf(instanceSecurityGroupEditArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `ID of the security group to reset.`,
+				Required:   true,
+				Positional: true,
+			},
+			editor.MarshalModeArgSpec(),
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			args := argsI.(*instanceSecurityGroupEditArgs)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			rules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
+				Zone:            args.Zone,
+				SecurityGroupID: args.SecurityGroupID,
+			}, scw.WithAllPages(), scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("failed to list security-group rules: %w", err)
+			}
+
+			// Get only rules that can be edited
+			editableRules := []*instance.SecurityGroupRule(nil)
+			for _, rule := range rules.Rules {
+				if rule.Editable {
+					editableRules = append(editableRules, rule)
+				}
+			}
+			rules.Rules = editableRules
+
+			setRequest := &instance.SetSecurityGroupRulesRequest{
+				Zone:            args.Zone,
+				SecurityGroupID: args.SecurityGroupID,
+			}
+
+			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
+				PutRequest:   true,
+				MarshalMode:  args.Mode,
+				Template:     instanceSecurityGroupEditYamlExample,
+				IgnoreFields: []string{"editable"},
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			setRequest = editedSetRequest.(*instance.SetSecurityGroupRulesRequest)
+
+			resp, err := api.SetSecurityGroupRules(setRequest, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Rules, nil
 		},
 	}
 }
