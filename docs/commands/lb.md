@@ -300,6 +300,8 @@ scw lb backend create [arg=value ...]
 | health-check.check-timeout |  | Maximum time a backend server has to reply to the health check |
 | health-check.check-delay |  | Time to wait between two consecutive health checks |
 | health-check.check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
+| health-check.transient-check-delay.seconds |  |  |
+| health-check.transient-check-delay.nanos |  |  |
 | lb-id | Required | Load Balancer ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
 | instance-server-tag.{index} |  | Tag of the instance server. |
@@ -316,6 +318,8 @@ scw lb backend create [arg=value ...]
 | failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://) |
 | ssl-bridging |  | Defines whether to enable SSL between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
+| redispatch-attempt-count |  | Whether to use another backend server on each attempt |
+| max-retries |  | Number of retries when a backend server connection failed |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -485,6 +489,8 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://) |
 | ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
+| redispatch-attempt-count |  | Whether to use another backend server on each retries |
+| max-retries |  | Number of retries when a backend server connection failed |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -521,6 +527,8 @@ scw lb backend update-healthcheck [arg=value ...]
 | https-config.host-header |  | HTTP host header used for the health check |
 | https-config.sni |  | SNI used for SSL health checks |
 | check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
+| transient-check-delay.seconds |  |  |
+| transient-check-delay.nanos |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

@@ -894,6 +894,18 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "health-check.transient-check-delay.seconds",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.transient-check-delay.nanos",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "lb-id",
 				Short:      `Load Balancer ID`,
 				Required:   true,
@@ -968,6 +980,20 @@ func lbBackendCreate() *core.Command {
 			{
 				Name:       "ignore-ssl-server-verify",
 				Short:      `Defines whether the server certificate verification should be ignored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "redispatch-attempt-count",
+				Short:      `Whether to use another backend server on each attempt`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-retries",
+				Short:      `Number of retries when a backend server connection failed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1138,6 +1164,20 @@ func lbBackendUpdate() *core.Command {
 			{
 				Name:       "ignore-ssl-server-verify",
 				Short:      `Defines whether the server certificate verification should be ignored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "redispatch-attempt-count",
+				Short:      `Whether to use another backend server on each retries`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-retries",
+				Short:      `Number of retries when a backend server connection failed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1425,6 +1465,18 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			{
 				Name:       "check-send-proxy",
 				Short:      `Defines whether proxy protocol should be activated for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "transient-check-delay.seconds",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "transient-check-delay.nanos",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
