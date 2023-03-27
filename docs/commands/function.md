@@ -8,6 +8,7 @@ Functions API.
   - [Get a cron](#get-a-cron)
   - [List all your crons](#list-all-your-crons)
   - [Update an existing cron](#update-an-existing-cron)
+- [Deploy a function](#deploy-a-function)
 - [Domain management commands](#domain-management-commands)
   - [Create a domain name binding](#create-a-domain-name-binding)
   - [Delete a domain name binding](#delete-a-domain-name-binding)
@@ -147,6 +148,31 @@ scw function cron update <cron-id ...> [arg=value ...]
 | schedule |  |  |
 | args |  |  |
 | name |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Deploy a function
+
+Create or fetch, upload and deploy your function
+
+Create or fetch, upload and deploy your function
+
+**Usage:**
+
+```
+scw function deploy [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id |  | Function Namespace ID to deploy to |
+| function-name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
+| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` |  |
+| zip-file | Required | Path of the zip file that contains your code |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
