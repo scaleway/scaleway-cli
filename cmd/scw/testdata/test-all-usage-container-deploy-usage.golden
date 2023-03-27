@@ -10,6 +10,7 @@ ARGS:
   [dockerfile=Dockerfile]   Path to the Dockerfile
   [build-source=.]          Path to the build context
   [cache=true]              Use cache when building the image
+  [build-args.{key}]        Build-time variables
   [port=8080]               Port to expose
   [namespace-id]            Container Namespace ID to deploy to
   [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
