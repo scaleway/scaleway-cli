@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [project-id]                   Project ID to use. If none is passed the default project ID will be used
-  [name]                         
+  [name=<generated>]             
   [scopes.query-metrics]         
   [scopes.write-metrics]         
   [scopes.setup-metrics-rules]   

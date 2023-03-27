@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func temRoot() *core.Command {
 	return &core.Command{
 		Short:     `Tem`,
-		Long:      `Transactional Email API.`,
+		Long:      `Transactional Email API documentation.`,
 		Namespace: "tem",
 	}
 }
@@ -63,7 +63,7 @@ func temDomain() *core.Command {
 func temEmailCreate() *core.Command {
 	return &core.Command{
 		Short:     `Send an email`,
-		Long:      `Send an email.`,
+		Long:      `You must specify the ` + "`" + `region` + "`" + `, the sender and the recipient's information and the ` + "`" + `project_id` + "`" + ` to send an email from a checked domain. The subject of the email must contain at least 6 characters.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "create",
@@ -79,7 +79,7 @@ func temEmailCreate() *core.Command {
 			},
 			{
 				Name:       "from.name",
-				Short:      `Optional display name`,
+				Short:      `(Optional) Name displayed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -93,7 +93,7 @@ func temEmailCreate() *core.Command {
 			},
 			{
 				Name:       "to.{index}.name",
-				Short:      `Optional display name`,
+				Short:      `(Optional) Name displayed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -107,7 +107,7 @@ func temEmailCreate() *core.Command {
 			},
 			{
 				Name:       "cc.{index}.name",
-				Short:      `Optional display name`,
+				Short:      `(Optional) Name displayed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -121,14 +121,14 @@ func temEmailCreate() *core.Command {
 			},
 			{
 				Name:       "bcc.{index}.name",
-				Short:      `Optional display name`,
+				Short:      `(Optional) Name displayed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "subject",
-				Short:      `Message subject`,
+				Short:      `Subject of the email`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -157,21 +157,21 @@ func temEmailCreate() *core.Command {
 			},
 			{
 				Name:       "attachments.{index}.type",
-				Short:      `MIME type of the attachment (Currently only allow, text files, pdf and html files)`,
+				Short:      `MIME type of the attachment`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "attachments.{index}.content",
-				Short:      `Content of the attachment, encoded in base64`,
+				Short:      `Content of the attachment encoded in base64`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "send-before",
-				Short:      `Maximum date to deliver mail`,
+				Short:      `Maximum date to deliver the email`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -191,8 +191,8 @@ func temEmailCreate() *core.Command {
 
 func temEmailGet() *core.Command {
 	return &core.Command{
-		Short:     `Get information about an email`,
-		Long:      `Get information about an email.`,
+		Short:     `Get an email`,
+		Long:      `Retrieve information about a specific email using the ` + "`" + `email_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "get",
@@ -221,8 +221,8 @@ func temEmailGet() *core.Command {
 
 func temEmailList() *core.Command {
 	return &core.Command{
-		Short:     `List emails sent from a domain and/or for a project and/or for an organization`,
-		Long:      `List emails sent from a domain and/or for a project and/or for an organization.`,
+		Short:     `List emails`,
+		Long:      `Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the ` + "`" + `region` + "`" + `.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "list",
@@ -231,67 +231,67 @@ func temEmailList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `Optional ID of the project in which to list the emails`,
+				Short:      `ID of the Project in which to list the emails (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "domain-id",
-				Short:      `Optional ID of the domain for which to list the emails`,
+				Short:      `ID of the domain for which to list the emails (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "message-id",
-				Short:      `Optional ID of the message for which to list the emails`,
+				Short:      `ID of the message for which to list the emails (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subject",
+				Short:      `Subject of the email`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "since",
-				Short:      `Optional, list emails created after this date`,
+				Short:      `List emails created after this date (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "until",
-				Short:      `Optional, list emails created before this date`,
+				Short:      `List emails created before this date (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "mail-from",
-				Short:      `Optional, list emails sent with this ` + "`" + `mail_from` + "`" + ` sender's address`,
+				Short:      `List emails sent with this ` + "`" + `mail_from` + "`" + ` sender's address (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "mail-to",
-				Short:      `Optional, list emails sent with this ` + "`" + `mail_to` + "`" + ` recipient's address`,
+				Short:      `List emails sent with this ` + "`" + `mail_to` + "`" + ` recipient's address (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "statuses.{index}",
-				Short:      `Optional, list emails having any of this status`,
+				Short:      `List emails having any of this status (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown", "new", "sending", "sent", "failed", "canceled"},
-			},
-			{
-				Name:       "subject",
-				Short:      `Optional, list emails having this subject`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
@@ -317,8 +317,8 @@ func temEmailList() *core.Command {
 
 func temEmailGetStatistics() *core.Command {
 	return &core.Command{
-		Short:     `Get statistics on the email statuses`,
-		Long:      `Get statistics on the email statuses.`,
+		Short:     `Email statuses`,
+		Long:      `Get information on your emails' statuses.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "get-statistics",
@@ -327,35 +327,35 @@ func temEmailGetStatistics() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `Optional, count emails for this project`,
+				Short:      `Number of emails for this Project (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "domain-id",
-				Short:      `Optional, count emails send from this domain (must be coherent with the ` + "`" + `project_id` + "`" + ` and the ` + "`" + `organization_id` + "`" + `)`,
+				Short:      `Number of emails sent from this domain (must be coherent with the ` + "`" + `project_id` + "`" + ` and the ` + "`" + `organization_id` + "`" + `) (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "since",
-				Short:      `Optional, count emails created after this date`,
+				Short:      `Number of emails created after this date (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "until",
-				Short:      `Optional, count emails created before this date`,
+				Short:      `Number of emails created before this date (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "mail-from",
-				Short:      `Optional, count emails sent with this ` + "`" + `mail_from` + "`" + ` sender's address`,
+				Short:      `Number of emails sent with this ` + "`" + `mail_from` + "`" + ` sender's address (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -375,8 +375,8 @@ func temEmailGetStatistics() *core.Command {
 
 func temEmailCancel() *core.Command {
 	return &core.Command{
-		Short:     `Try to cancel an email if it has not yet been sent`,
-		Long:      `Try to cancel an email if it has not yet been sent.`,
+		Short:     `Cancel an email`,
+		Long:      `You can cancel the sending of an email if it has not been sent yet. You must specify the ` + "`" + `region` + "`" + ` and the ` + "`" + `email_id` + "`" + ` of the email you want to cancel.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "cancel",
@@ -406,7 +406,7 @@ func temEmailCancel() *core.Command {
 func temDomainCreate() *core.Command {
 	return &core.Command{
 		Short:     `Register a domain in a project`,
-		Long:      `Register a domain in a project.`,
+		Long:      `You must specify the ` + "`" + `region` + "`" + `, ` + "`" + `project_id` + "`" + ` and ` + "`" + `domain_name` + "`" + ` to register a domain in a specific Project.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "create",
@@ -423,7 +423,7 @@ func temDomainCreate() *core.Command {
 			},
 			{
 				Name:       "accept-tos",
-				Short:      `Accept the Scaleway Terms of Service`,
+				Short:      `Accept Scaleway's Terms of Service`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -444,7 +444,7 @@ func temDomainCreate() *core.Command {
 func temDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get information about a domain`,
-		Long:      `Get information about a domain.`,
+		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "get",
@@ -473,8 +473,8 @@ func temDomainGet() *core.Command {
 
 func temDomainList() *core.Command {
 	return &core.Command{
-		Short:     `List domains in a project and/or in an organization`,
-		Long:      `List domains in a project and/or in an organization.`,
+		Short:     `List domains`,
+		Long:      `Retrieve domains in a specific project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "list",
@@ -530,8 +530,8 @@ func temDomainList() *core.Command {
 
 func temDomainRevoke() *core.Command {
 	return &core.Command{
-		Short:     `Revoke a domain`,
-		Long:      `Revoke a domain.`,
+		Short:     `Delete a domain`,
+		Long:      `You must specify the domain you want to delete by the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + `. Deleting a domain is permanent and cannot be undone.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "revoke",
@@ -540,7 +540,7 @@ func temDomainRevoke() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
-				Short:      `ID of the domain to revoke`,
+				Short:      `ID of the domain to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -560,8 +560,8 @@ func temDomainRevoke() *core.Command {
 
 func temDomainCheck() *core.Command {
 	return &core.Command{
-		Short:     `Ask for an immediate check of a domain (DNS check)`,
-		Long:      `Ask for an immediate check of a domain (DNS check).`,
+		Short:     `Domain DNS check`,
+		Long:      `Perform an immediate DNS check of a domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "check",
