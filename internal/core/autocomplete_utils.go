@@ -2,13 +2,17 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
+
+var autoCompleteCache *cache.Cache
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
 	return func(ctx context.Context, prefix string) AutocompleteSuggestions {
@@ -96,9 +100,15 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 			return runner(ctx, argsI)
 		}
 	}
-	resp, err := listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
-	if err != nil {
-		return nil
+
+	rawCommand := fmt.Sprintf("%s %s", listCmd.getPath(), strings.Join(listRawArgs, " "))
+	resp := autoCompleteCache.Get(rawCommand)
+	if resp == nil {
+		resp, err = listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
+		if err != nil {
+			return nil
+		}
+		autoCompleteCache.Set(rawCommand, resp)
 	}
 
 	// As we run the "list" verb instead of using the sdk ListResource, response is already the slice

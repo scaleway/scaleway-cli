@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/c-bata/go-prompt"
+	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/spf13/cobra"
 )
@@ -182,37 +183,6 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 	return suggests
 }
 
-// CompletionCache allows to keep last completion request in cache
-// Useful to avoid request spamming when adding a character
-type CompletionCache struct {
-	wordsSum     string
-	arg          string
-	LastResponse *AutocompleteResponse
-}
-
-// completionCacheResetCharacterList is the list of character that will trigger cache reset
-var completionCacheResetCharacterList = []string{"=", "."}
-var completionCache CompletionCache
-
-func (cache *CompletionCache) HasChanged(leftWords []string, currentArg string, rightWords []string) bool {
-	wordsSum := strings.Join(leftWords, "-") + "_" + strings.Join(rightWords, "-")
-	if cache.wordsSum != wordsSum {
-		cache.wordsSum = wordsSum
-		cache.arg = currentArg
-		return true
-	}
-
-	for _, character := range completionCacheResetCharacterList {
-		if strings.Count(cache.arg, character) != strings.Count(currentArg, character) {
-			cache.arg = currentArg
-			return true
-		}
-	}
-
-	cache.arg = currentArg
-	return false
-}
-
 // Complete returns the list of suggestion based on prompt content
 func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	// shell lib can request duplicate Complete request with empty strings as text
@@ -234,17 +204,9 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	leftWords := append([]string{"scw"}, leftArgs...)
 
-	var acr *AutocompleteResponse
-
-	if completionCache.HasChanged(leftWords, currentArg, rightWords) {
-		acr = AutoComplete(c.ctx, leftWords, currentArg, rightWords)
-		completionCache.LastResponse = acr
-	} else {
-		acr = completionCache.LastResponse
-	}
+	acr := AutoComplete(c.ctx, leftWords, currentArg, rightWords)
 
 	suggestions := []prompt.Suggest(nil)
-
 	rawSuggestions := []string(acr.Suggestions)
 
 	// if first suggestion is an option, all suggestions should be options
@@ -289,6 +251,8 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s 
 			return
 		}
 
+		autoCompleteCache.Update(meta.command.Namespace)
+
 		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, printErr)
@@ -309,6 +273,7 @@ func getShellCommand(rootCmd *cobra.Command) *cobra.Command {
 
 // RunShell will run an interactive shell that runs cobra commands
 func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.Command, args []string) {
+	autoCompleteCache = cache.New()
 	completer := NewShellCompleter(ctx)
 
 	shellCobraCommand := getShellCommand(rootCmd)
