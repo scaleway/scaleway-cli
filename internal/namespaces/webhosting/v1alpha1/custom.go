@@ -13,5 +13,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(webhosting.DNSRecordsStatus(""), human.EnumMarshalFunc(hostingDNSMarshalSpecs))
 	human.RegisterMarshalerFunc(webhosting.NameserverStatus(""), human.EnumMarshalFunc(nameserverMarshalSpecs))
 
+	cmds.MustFind("webhosting", "offer", "list").Override(webhostingOfferListBuilder)
+
 	return cmds
 }
