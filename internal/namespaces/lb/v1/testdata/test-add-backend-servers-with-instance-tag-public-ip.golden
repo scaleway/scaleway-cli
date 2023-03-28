@@ -63,6 +63,7 @@ ID                                    STATUS   IP ADDRESS     CREATED AT       U
     "tcp_config": {},
     "port": 8888,
     "check_send_proxy": false,
+    "transient_check_delay": null,
     "check_timeout": 1000,
     "check_delay": 3000
   },
@@ -120,6 +121,8 @@ ID                                    STATUS   IP ADDRESS     CREATED AT       U
   "failover_host": null,
   "ssl_bridging": false,
   "ignore_ssl_server_verify": null,
+  "redispatch_attempt_count": null,
+  "max_retries": null,
   "timeout_server": null,
   "timeout_connect": null,
   "timeout_tunnel": null
