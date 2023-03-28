@@ -63,6 +63,7 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
     "tcp_config": {},
     "port": 8888,
     "check_send_proxy": false,
+    "transient_check_delay": null,
     "check_timeout": 1000,
     "check_delay": 3000
   },
@@ -120,6 +121,8 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
   "failover_host": null,
   "ssl_bridging": false,
   "ignore_ssl_server_verify": null,
+  "redispatch_attempt_count": null,
+  "max_retries": null,
   "timeout_server": null,
   "timeout_connect": null,
   "timeout_tunnel": null
