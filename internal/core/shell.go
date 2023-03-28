@@ -169,7 +169,7 @@ func getSuggestDescription(meta *meta, args []string, suggest string) string {
 		return ""
 	}
 
-	// Should be a command, juste use command short
+	// Should be a command, just use command short
 	return command.Short
 }
 
