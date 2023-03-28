@@ -20,7 +20,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 28 Mar 2023 12:48:08 GMT
+      - Tue, 28 Mar 2023 13:19:36 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -30,7 +30,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d23a2fd4-94cc-4bad-985f-a04b2e467ff6
+      - 623afde2-5a9d-4c65-953d-0331be842ae5
     status: 200 OK
     code: 200
     duration: ""

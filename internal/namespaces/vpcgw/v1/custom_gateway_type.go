@@ -1,17 +1,22 @@
 package vpcgw
 
-import "github.com/scaleway/scaleway-cli/v2/internal/core"
+import (
+	"context"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
+)
 
 func vpcgwGatewayTypeListBuilder(c *core.Command) *core.Command {
-	c.View = &core.View{
-		Sections: []*core.ViewSection{
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
 
-			{
-				FieldName: "Types",
-				Title:     "Types",
-			},
-		},
-	}
+		typesResponse := res.(*vpcgw.ListGatewayTypesResponse)
+		return typesResponse.Types, nil
+	})
 
 	return c
 }
