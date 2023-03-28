@@ -200,6 +200,7 @@ scw secret version create [arg=value ...]
 | secret-id | Required | ID of the secret |
 | data | Required | Content of the secret version. Base64 is handled by the SDK |
 | description |  | Description of the version |
+| disable-previous |  | Disable the previous secret version |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
