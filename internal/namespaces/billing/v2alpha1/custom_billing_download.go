@@ -56,6 +56,16 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Deprecated: false,
 			Positional: false,
 		},
+		{
+			Name:       "file-type",
+			Short:      `Wanted file extension`,
+			Required:   false,
+			Deprecated: false,
+			Positional: false,
+			Default: func(ctx context.Context) (value string, doc string) {
+				return billing.DownloadInvoiceRequestFileTypePdf.String(), "File extension `.pdf` as default"
+			},
+		},
 	}
 	command.Run = billingDownloadRun
 	command.PreValidateFunc = func(ctx context.Context, argsI interface{}) error {
@@ -77,41 +87,39 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			return fmt.Errorf("parse date on file name")
 		}
 
-		filePath := args.FilePath
-		f, err := os.Stat(args.FilePath)
-		if err == nil {
-			// case filepath is directory
-			if f.IsDir() {
-				// setting default name
-				filePath = filepath.Join(args.FilePath, fmt.Sprintf("%s-%s-%s", invoiceDefaultPrefix, date, args.InvoiceID))
-				// check content-type
-				filePath = addExt(filePath, resp.ContentType)
-				f, err = os.Stat(filePath)
-				if err != nil {
-					return nil
-				}
+		dir, file := filepath.Split(args.FilePath)
+		entries, err := os.ReadDir(dir)
+		// check default name
+		defaultFileName := fmt.Sprintf("%s-%s-%s.%s", invoiceDefaultPrefix, date, args.InvoiceID, args.FileType)
+		// read only in the parent path
+		for _, e := range entries {
+			if e.IsDir() {
+				continue
+			}
+			// case default name
+			if e.Name() == defaultFileName {
 				askPrompt = true
-			} else {
-				// case filepath is a file
-				fmt.Printf("%v", f)
 			}
 
-			if askPrompt {
-				_, _ = interactive.PrintlnWithoutIndent(`
-					Current file exist is located at ` + terminal.Style(fmt.Sprint(filePath), color.Faint))
-				overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to override the current file?",
-					DefaultValue: true,
-					Ctx:          ctx,
-				})
-				if err != nil {
-					return err
-				}
-				if !overrideFile {
-					return fmt.Errorf("download file canceled")
-				}
+			if file == e.Name() {
+				askPrompt = true
 			}
+		}
 
+		if askPrompt {
+			_, _ = interactive.PrintlnWithoutIndent(`
+					Current file exist is located at ` + terminal.Style(args.FilePath, color.Faint))
+			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+				Prompt:       "Do you want to override the current file?",
+				DefaultValue: true,
+				Ctx:          ctx,
+			})
+			if err != nil {
+				return err
+			}
+			if !overrideFile {
+				return fmt.Errorf("download file canceled")
+			}
 		}
 
 		return nil
