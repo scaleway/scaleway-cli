@@ -74,6 +74,18 @@ func argIsOption(arg string) bool {
 	return strings.Contains(arg, "=") || strings.Contains(arg, ".")
 }
 
+func argIsPositional(cmd *Command, arg string) bool {
+	if cmd.Verb != "" && cmd.Verb == arg {
+		return false
+	} else if cmd.Resource != "" && cmd.Resource == arg {
+		return false
+	} else if cmd.Namespace != "" && cmd.Resource == arg {
+		return false
+	}
+
+	return true
+}
+
 // removeOptions removes options from a list of argument
 // ex: scw instance create name=myserver
 // will be changed to: scw instance server create
@@ -122,9 +134,12 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 
 	rawCommand = meta.CliConfig.Alias.ResolveAliases(rawCommand)
 
-	command, foundCommand := meta.Commands.find(rawCommand...)
-	if foundCommand {
-		return command
+	// Find the closest command in case there is multiple positional arguments
+	for ; len(rawCommand) > 1; rawCommand = rawCommand[:len(rawCommand)-1] {
+		command, foundCommand := meta.Commands.find(rawCommand...)
+		if foundCommand {
+			return command
+		}
 	}
 	return nil
 }
@@ -133,23 +148,29 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 // it will return command description if it is a command
 // or option description if suggest is an option of a command
 func getSuggestDescription(meta *meta, args []string, suggest string) string {
-	isOption := argIsOption(suggest)
-
 	command := getCommand(meta, args, suggest)
 	if command == nil {
 		return "command not found"
 	}
 
-	if isOption {
+	if argIsOption(suggest) {
 		option := command.ArgSpecs.GetByName(optionToArgSpecName(suggest))
 		if option != nil {
 			return option.Short
 		}
-	} else {
-		return command.Short
+		return ""
 	}
 
-	return ""
+	if argIsPositional(command, suggest) {
+		option := command.ArgSpecs.GetPositionalArg()
+		if option != nil {
+			return option.Short
+		}
+		return ""
+	}
+
+	// Should be a command, just use command short
+	return command.Short
 }
 
 // sortOptions sorts options, putting required first then order alphabetically
