@@ -141,7 +141,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 
 	webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
 	if err == nil && webFlag {
-		return nil, runWeb(cmd, cmdArgs)
+		return runWeb(cmd, cmdArgs)
 	}
 
 	// execute the command
@@ -240,14 +240,17 @@ Relative time error: %s
 
 func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 	return func(cobraCmd *cobra.Command, args []string) error {
-		if commandHasWeb(cmd) {
-			webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
-			if err == nil && webFlag {
-				return runWeb(cmd, nil)
+		webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
+		if err == nil && webFlag {
+			out, err := runWeb(cmd, nil)
+			if err != nil {
+				return err
 			}
+			cobraCmd.Println(out)
+			return nil
 		}
 
-		err := cobraCmd.Help()
+		err = cobraCmd.Help()
 		if err != nil {
 			return err
 		}
