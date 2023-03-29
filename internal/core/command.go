@@ -73,7 +73,7 @@ type Command struct {
 	WaitFunc WaitFunc
 
 	// WebURL will be used as url to open when the --web flag is passed
-	// Can contain template of values in response, ex: "url/{{ .ID }}"
+	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
 	WebURL string
 
 	// Aliases contains a list of aliases for a command
