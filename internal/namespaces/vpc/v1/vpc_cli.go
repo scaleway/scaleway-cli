@@ -99,6 +99,13 @@ func vpcPrivateNetworkList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "include-regional",
+				Short:      `Include regional Private Networks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `The organization ID on which to filter the returned private networks`,
 				Required:   false,
