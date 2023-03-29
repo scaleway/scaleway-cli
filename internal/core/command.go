@@ -72,6 +72,10 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// WebURL will be used as url to open when the --web flag is passed
+	// Can contain template of values in response, ex: "url/{{ .ID }}"
+	WebURL string
+
 	// Aliases contains a list of aliases for a command
 	Aliases []string
 	// cache command path

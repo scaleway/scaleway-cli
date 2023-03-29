@@ -139,6 +139,11 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		return nil, err
 	}
 
+	webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
+	if err == nil && webFlag {
+		return nil, runWeb(cmd, cmdArgs)
+	}
+
 	// execute the command
 	interceptor := combineCommandInterceptor(
 		sdkStdErrorInterceptor,
@@ -230,5 +235,22 @@ Relative time error: %s
 
 	default:
 		return &CliError{Err: unmarshalErr}
+	}
+}
+
+func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
+	return func(cobraCmd *cobra.Command, args []string) error {
+		if commandHasWeb(cmd) {
+			webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
+			if err == nil && webFlag {
+				return runWeb(cmd, nil)
+			}
+		}
+
+		err := cobraCmd.Help()
+		if err != nil {
+			return err
+		}
+		return &CliError{Empty: true, Code: 1}
 	}
 }
