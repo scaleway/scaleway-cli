@@ -10,6 +10,7 @@ Cockpit API.
   - [Activate a cockpit](#activate-a-cockpit)
   - [Deactivate a cockpit](#deactivate-a-cockpit)
   - [Get cockpit](#get-cockpit)
+  - [Get cockpit metrics](#get-cockpit-metrics)
   - [Reset Grafana](#reset-grafana)
   - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
 - [Contacts management commands](#contacts-management-commands)
@@ -149,6 +150,28 @@ scw cockpit cockpit get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### Get cockpit metrics
+
+Get the cockpit metrics with the given project ID.
+
+**Usage:**
+
+```
+scw cockpit cockpit get-metrics [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| start-date |  | Start date |
+| end-date |  | End date |
+| metric-name |  | Metric name |
 
 
 
