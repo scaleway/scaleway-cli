@@ -8,7 +8,7 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
-	github.com/docker/docker v23.0.1+incompatible
+	github.com/docker/docker v23.0.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.15.0
 	github.com/getsentry/raven-go v0.2.0
