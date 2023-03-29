@@ -201,6 +201,11 @@ scw secret version create [arg=value ...]
 | data | Required | Content of the secret version. Base64 is handled by the SDK |
 | description |  | Description of the version |
 | disable-previous |  | Disable the previous secret version |
+| password-generation.length |  | Length of the password to generate (between 1 and 1024) |
+| password-generation.no-lowercase-letters |  | Do not include lower case letters by default in the alphabet |
+| password-generation.no-uppercase-letters |  | Do not include upper case letters by default in the alphabet |
+| password-generation.no-digits |  | Do not include digits by default in the alphabet |
+| password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
