@@ -11,8 +11,8 @@ AVAILABLE COMMANDS:
   placement-group Placement group management commands
   private-nic     Private NIC management commands
   security-group  Security group management commands
-  server          Server management commands
-  server-type     Server type management commands
+  server          Instance management commands
+  server-type     Instance type management commands
   snapshot        Snapshot management commands
   user-data       User data management commands
   volume          Volume management commands

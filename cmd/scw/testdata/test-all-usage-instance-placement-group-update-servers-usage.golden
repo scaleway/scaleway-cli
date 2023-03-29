@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update all servers belonging to the given placement group.
+Update all Instances belonging to the specified placement group.
 
 USAGE:
   scw instance placement-group update-servers [arg=value ...]
 
 ARGS:
-  placement-group-id   UUID of the placement group
-  servers.{index}      
+  placement-group-id   UUID of the placement group you want to update
+  servers.{index}      An array of the Instances' UUIDs you want to configure
   [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:

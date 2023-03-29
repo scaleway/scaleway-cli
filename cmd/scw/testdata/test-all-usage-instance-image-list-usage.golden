@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all images available in an account.
+List all existing Instance images.
 
 USAGE:
   scw instance image list [arg=value ...]

@@ -1,19 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A volume is where you store your data inside your instance. It
+A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-We have two different types of volume (`volume_type`):
+Two different types of volume (`volume_type`) are available:
   - `l_ssd` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your instance to attach
+    the hypervisor and you need to power off your Instance to attach
     or detach a volume.
   - `b_ssd` is a remote block storage: your data is stored on a
-    centralised cluster. You can plug and unplug a volume while
-    your instance is running. As of today, `b_ssd` is only available
-    for `DEV1`, `GP1` and `RENDER` offers.
+    centralized cluster. You can plug and unplug a volume while
+    your Instance is running.
 
-note: The `unified` volume type is not available for volumes. This
+Note: The `unified` volume type is not available for volumes. This
 type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
@@ -21,12 +20,12 @@ from the zone `/products/volumes` API endpoint. _I.e_ for:
   - `fr-par-1`  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
   - `nl-ams-1`  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
 
-Each types of volumes is also subject to a global quota for the sum of all the
+Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
 
-Be wary that when terminating an instance, if you want to keep
-your block storage volume, **you must** detach it beforehand you
+Be wary that when terminating an Instance, if you want to keep
+your block storage volume, **you must** detach it before you
 issue the `terminate` call.
 
 When using multiple block devices, it's advised to mount them by

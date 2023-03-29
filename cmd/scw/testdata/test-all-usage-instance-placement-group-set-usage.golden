@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Set all parameters of the given placement group.
+Set all parameters of the specified placement group.
 
 USAGE:
   scw instance placement-group set [arg=value ...]

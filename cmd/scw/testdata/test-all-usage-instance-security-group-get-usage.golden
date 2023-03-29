@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the details of a Security Group with the given ID.
+Get the details of a security group with the specified ID.
 
 USAGE:
   scw instance security-group get <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
-  Get a security group with the given ID
+  Get a security group with the specified ID
     scw instance security-group get a3244331-5d32-4e36-9bf9-b60233e201c7
 
 ARGS:
