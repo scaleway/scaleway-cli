@@ -170,7 +170,7 @@ scw function deploy [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | namespace-id |  | Function Namespace ID to deploy to |
-| function-name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
+| name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
 | runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` |  |
 | zip-file | Required | Path of the zip file that contains your code |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
