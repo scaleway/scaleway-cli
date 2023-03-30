@@ -14,11 +14,11 @@ import (
 )
 
 type functionDeployRequest struct {
-	NamespaceID  string                   `json:"namespace_id"`
-	ZipFile      string                   `json:"zip_file"`
-	Runtime      function.FunctionRuntime `json:"runtime"`
-	FunctionName string                   `json:"function_name"`
-	Region       scw.Region               `json:"region"`
+	NamespaceID string                   `json:"namespace_id"`
+	ZipFile     string                   `json:"zip_file"`
+	Runtime     function.FunctionRuntime `json:"runtime"`
+	Name        string                   `json:"name"`
+	Region      scw.Region               `json:"region"`
 }
 
 func functionDeploy() *core.Command {
@@ -36,7 +36,7 @@ func functionDeploy() *core.Command {
 				Short: "Function Namespace ID to deploy to",
 			},
 			{
-				Name:     "function-name",
+				Name:     "name",
 				Short:    "Name of the function to deploy, will be used in namespace's name if no ID is provided",
 				Required: true,
 			},
@@ -76,9 +76,9 @@ func functionDeploy() *core.Command {
 			if args.NamespaceID != "" {
 				tasks.Add(ts, "Fetching namespace", DeployStepFetchNamespace(api, args.Region, args.NamespaceID))
 			} else {
-				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.FunctionName))
+				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
 			}
-			tasks.Add(ts, "Creating or fetching function", DeployStepCreateFunction(api, args.FunctionName, args.Runtime))
+			tasks.Add(ts, "Creating or fetching function", DeployStepCreateFunction(api, args.Name, args.Runtime))
 			tasks.Add(ts, "Uploading function", DeployStepFunctionUpload(httpClient, scwClient, api, zipFileStat.Name(), zipFileStat.Size()))
 			tasks.Add(ts, "Deploying function", DeployStepFunctionDeploy(api, args.Runtime))
 
@@ -106,7 +106,7 @@ func validateRuntime(api *function.API, region scw.Region, runtime function.Func
 
 func DeployStepCreateNamespace(api *function.API, region scw.Region, functionName string) tasks.TaskFunc[any, *function.Namespace] {
 	return func(t *tasks.Task, args any) (nextArgs *function.Namespace, err error) {
-		namespaceName := fmt.Sprintf("namespace-%s", functionName)
+		namespaceName := functionName
 
 		namespaces, err := api.ListNamespaces(&function.ListNamespacesRequest{
 			Region: region,
