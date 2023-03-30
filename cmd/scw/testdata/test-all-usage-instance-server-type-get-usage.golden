@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get availability for all server types.
+Get availability for all Instance types.
 
 USAGE:
   scw instance server-type get [arg=value ...]

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only `b_ssd` volume growing is supported.
+Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only `b_ssd` volumes can currently be increased in size.
 
 USAGE:
   scw instance volume update <volume-id ...> [arg=value ...]
@@ -17,9 +17,9 @@ EXAMPLES:
 
 ARGS:
   volume-id         UUID of the volume
-  [name]            The volume name
-  [tags.{index}]    The tags of the volume
-  [size]            The volume disk size, must be a multiple of 512
+  [name]            Volume name
+  [tags.{index}]    Tags of the volume
+  [size]            Volume disk size, must be a multiple of 512
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:

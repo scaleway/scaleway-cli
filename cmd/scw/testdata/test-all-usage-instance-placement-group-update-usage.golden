@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update one or more parameter of the given placement group.
+Update one or more parameter of the specified placement group.
 
 USAGE:
   scw instance placement-group update <placement-group-id ...> [arg=value ...]
@@ -9,18 +9,18 @@ EXAMPLES:
   Update the name of a placement group
     scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
 
-  Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)
+  Update the policy mode of a placement group (all Instances in your placement group MUST be shut down)
     scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 policy-mode=enforced
 
-  Update the policy type of a placement group (All instances in your placement group MUST be shutdown)
+  Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
     scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
 
 ARGS:
   placement-group-id   UUID of the placement group
   [name]               Name of the placement group
-  [tags.{index}]       The tags of the placement group
-  [policy-mode]        The operating mode of the placement group (optional | enforced)
-  [policy-type]        The policy type of the placement group (max_availability | low_latency)
+  [tags.{index}]       Tags of the placement group
+  [policy-mode]        Operating mode of the placement group (optional | enforced)
+  [policy-type]        Policy type of the placement group (max_availability | low_latency)
   [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:

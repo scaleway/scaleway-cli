@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a security group.
+Delete a security group with the specified ID.
 
 USAGE:
   scw instance security-group delete <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete a security group with the given ID
+  Delete the security group with the specified ID
     scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 ARGS:

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get server types technical details.
+List available Instance types and their technical details.
 
 USAGE:
   scw instance server-type list [arg=value ...]
