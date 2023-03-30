@@ -346,10 +346,10 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		vpcAPI := vpc.NewAPI(client)
 
 		type customNICs struct {
-			ID                 string
-			MacAddress         string
-			PrivateNetworkName string
-			PrivateNetworkID   string
+			ID                 string `json:"id"`
+			MacAddress         string `json:"mac_address"`
+			PrivateNetworkName string `json:"private_network_name"`
+			PrivateNetworkID   string `json:"private_network_id"`
 		}
 
 		nics := []customNICs{}
