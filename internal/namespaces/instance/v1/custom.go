@@ -192,6 +192,10 @@ func GetCommands() *core.Commands {
 		sshRemoveKeyCommand(),
 	))
 
+	// Web URLs (--web)
+
+	addWebUrls(cmds)
+
 	return cmds
 }
 
