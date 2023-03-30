@@ -79,7 +79,7 @@ func functionDeploy() *core.Command {
 				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
 			}
 			tasks.Add(ts, "Creating or fetching function", DeployStepCreateFunction(api, args.Name, args.Runtime))
-			tasks.Add(ts, "Uploading function", DeployStepFunctionUpload(httpClient, scwClient, api, zipFileStat.Name(), zipFileStat.Size()))
+			tasks.Add(ts, "Uploading function", DeployStepFunctionUpload(httpClient, scwClient, api, args.ZipFile, zipFileStat.Size()))
 			tasks.Add(ts, "Deploying function", DeployStepFunctionDeploy(api, args.Runtime))
 
 			return ts.Execute(ctx, nil)
