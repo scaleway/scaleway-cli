@@ -12,9 +12,13 @@ ARGS:
   forward-port-algorithm=roundrobin              Load balancing algorithm to be used when determining which backend server to forward new traffic to (roundrobin | leastconn | first)
   sticky-sessions=none                           Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server (none | cookie | table)
   [sticky-sessions-cookie-name]                  Cookie name for cookie-based sticky sessions
-  [health-check.mysql-config.user]               
+  lb-id                                          Load Balancer ID
+  [health-check.port]                            Port to use for the backend server health check
+  [health-check.check-delay]                     Time to wait between two consecutive health checks
+  [health-check.check-timeout]                   Maximum time a backend server has to reply to the health check
   [health-check.check-max-retries]               Number of consecutive unsuccessful health checks after which the server will be considered dead
-  [health-check.pgsql-config.user]               
+  [health-check.mysql-config.user]               MySQL user to use for the health check
+  [health-check.pgsql-config.user]               PostgreSQL user to use for the health check
   [health-check.http-config.uri]                 HTTP URI used for the health check
   [health-check.http-config.method]              HTTP method used for the health check
   [health-check.http-config.code]                HTTP response code expected for a successful health check
@@ -24,13 +28,9 @@ ARGS:
   [health-check.https-config.code]               HTTP response code expected for a successful health check
   [health-check.https-config.host-header]        HTTP host header used for the health check
   [health-check.https-config.sni]                SNI used for SSL health checks
-  [health-check.port]                            Port to use for the backend server health check
-  [health-check.check-timeout]                   Maximum time a backend server has to reply to the health check
-  [health-check.check-delay]                     Time to wait between two consecutive health checks
   [health-check.check-send-proxy]                Defines whether proxy protocol should be activated for the health check
   [health-check.transient-check-delay.seconds]   
   [health-check.transient-check-delay.nanos]     
-  lb-id                                          Load Balancer ID
   [instance-server-id.{index}]                   UIID of the instance server.
   [instance-server-tag.{index}]                  Tag of the instance server.
   [use-instance-server-public-ip]                Use public IP address of the instance instead of the private one
@@ -41,9 +41,9 @@ ARGS:
   [timeout-connect]                              Maximum allowed time for establishing a connection to a backend server
   [timeout-tunnel]                               Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)
   [on-marked-down-action]                        Action to take when a backend server is marked as down (on_marked_down_action_none | shutdown_sessions)
-  [proxy-protocol]                               PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
-  [failover-host]                                Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://)
-  [ssl-bridging]                                 Defines whether to enable SSL between the Load Balancer and backend servers
+  [proxy-protocol]                               Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
+  [failover-host]                                Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud
+  [ssl-bridging]                                 Defines whether to enable SSL bridging between the Load Balancer and backend servers
   [ignore-ssl-server-verify]                     Defines whether the server certificate verification should be ignored
   [redispatch-attempt-count]                     Whether to use another backend server on each attempt
   [max-retries]                                  Number of retries when a backend server connection failed
