@@ -48,10 +48,10 @@ UpdatedAt                 few seconds ago
 SslBridging               false
 
 Health Check:
-CheckMaxRetries  5
 Port             8888
-CheckTimeout     1s
 CheckDelay       3s
+CheckTimeout     1s
+CheckMaxRetries  5
 CheckSendProxy   false
 
 Pool:
@@ -95,13 +95,13 @@ ID   STATUS  IP ADDRESS  CREATED AT  UPDATED AT  REGION  ZONE
     "sticky_sessions": "none",
     "sticky_sessions_cookie_name": "",
     "health_check": {
+      "port": 8888,
       "check_max_retries": 5,
       "tcp_config": {},
-      "port": 8888,
       "check_send_proxy": false,
       "transient_check_delay": null,
-      "check_timeout": 1000,
-      "check_delay": 3000
+      "check_delay": 3000,
+      "check_timeout": 1000
     },
     "pool": [],
     "lb": {
