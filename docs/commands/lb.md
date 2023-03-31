@@ -284,9 +284,13 @@ scw lb backend create [arg=value ...]
 | forward-port-algorithm | Required<br />Default: `roundrobin`<br />One of: `roundrobin`, `leastconn`, `first` | Load balancing algorithm to be used when determining which backend server to forward new traffic to |
 | sticky-sessions | Required<br />Default: `none`<br />One of: `none`, `cookie`, `table` | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server |
 | sticky-sessions-cookie-name |  | Cookie name for cookie-based sticky sessions |
-| health-check.mysql-config.user |  |  |
+| lb-id | Required | Load Balancer ID |
+| health-check.port |  | Port to use for the backend server health check |
+| health-check.check-delay |  | Time to wait between two consecutive health checks |
+| health-check.check-timeout |  | Maximum time a backend server has to reply to the health check |
 | health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
-| health-check.pgsql-config.user |  |  |
+| health-check.mysql-config.user |  | MySQL user to use for the health check |
+| health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
 | health-check.http-config.uri |  | HTTP URI used for the health check |
 | health-check.http-config.method |  | HTTP method used for the health check |
 | health-check.http-config.code |  | HTTP response code expected for a successful health check |
@@ -296,13 +300,9 @@ scw lb backend create [arg=value ...]
 | health-check.https-config.code |  | HTTP response code expected for a successful health check |
 | health-check.https-config.host-header |  | HTTP host header used for the health check |
 | health-check.https-config.sni |  | SNI used for SSL health checks |
-| health-check.port |  | Port to use for the backend server health check |
-| health-check.check-timeout |  | Maximum time a backend server has to reply to the health check |
-| health-check.check-delay |  | Time to wait between two consecutive health checks |
 | health-check.check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
 | health-check.transient-check-delay.seconds |  |  |
 | health-check.transient-check-delay.nanos |  |  |
-| lb-id | Required | Load Balancer ID |
 | instance-server-id.{index} |  | UIID of the instance server. |
 | instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
@@ -314,9 +314,9 @@ scw lb backend create [arg=value ...]
 | timeout-connect |  | Maximum allowed time for establishing a connection to a backend server |
 | timeout-tunnel |  | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
-| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://) |
-| ssl-bridging |  | Defines whether to enable SSL between the Load Balancer and backend servers |
+| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
+| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
+| ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
@@ -484,12 +484,12 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | timeout-server |  | Maximum allowed time for a backend server to process a request |
 | timeout-connect |  | Maximum allowed time for establishing a connection to a backend server |
 | timeout-tunnel |  | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
-| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked down |
-| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://) |
+| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
+| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
+| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
 | ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
-| redispatch-attempt-count |  | Whether to use another backend server on each retries |
+| redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -513,10 +513,11 @@ scw lb backend update-healthcheck [arg=value ...]
 | port | Required | Port to use for the backend server health check |
 | check-delay | Required | Time to wait between two consecutive health checks |
 | check-timeout | Required | Maximum time a backend server has to reply to the health check |
-| check-max-retries | Required | Number of consecutive unsuccessful health checks, after which the server will be considered dead |
+| check-max-retries | Required | Number of consecutive unsuccessful health checks after which the server will be considered dead |
 | backend-id | Required | Backend ID |
-| mysql-config.user |  |  |
-| pgsql-config.user |  |  |
+| check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
+| mysql-config.user |  | MySQL user to use for the health check |
+| pgsql-config.user |  | PostgreSQL user to use for the health check |
 | http-config.uri |  | HTTP URI used for the health check |
 | http-config.method |  | HTTP method used for the health check |
 | http-config.code |  | HTTP response code expected for a successful health check |
@@ -526,7 +527,6 @@ scw lb backend update-healthcheck [arg=value ...]
 | https-config.code |  | HTTP response code expected for a successful health check |
 | https-config.host-header |  | HTTP host header used for the health check |
 | https-config.sni |  | SNI used for SSL health checks |
-| check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
 | transient-check-delay.seconds |  |  |
 | transient-check-delay.nanos |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -1113,7 +1113,7 @@ scw lb private-network attach <lb-id ...> [arg=value ...]
 |------|---|-------------|
 | lb-id | Required | Load Balancer ID |
 | private-network-id | Required | Private Network ID |
-| static-config.ip-address.{index} |  |  |
+| static-config.ip-address.{index} |  | Array of a local IP address for the Load Balancer on this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1244,7 +1244,7 @@ scw lb route list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of routes in the response |
-| frontend-id |  |  |
+| frontend-id |  | Frontend ID to filter for, only Routes from this Frontend will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
