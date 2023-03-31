@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   cockpit      Cockpit management commands
   contact      Contacts management commands
   grafana-user Grafana user management commands
+  plan         Pricing plans management commands
   token        Token management commands
 
 FLAGS:
