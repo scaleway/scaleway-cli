@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+	"io/ioutil"
 	"os"
 	"path"
 	"regexp"
@@ -303,6 +305,38 @@ func Test_ConfigInfoCommand(t *testing.T) {
 	}))
 }
 
+func Test_ConfigImportCommand(t *testing.T) {
+	t.Run("Simple", func(t *testing.T) {
+		tmpFile, err := createTempConfigFile()
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer os.Remove(tmpFile.Name())
+
+		core.Test(&core.TestConfig{
+			Commands:   GetCommands(),
+			BeforeFunc: beforeFuncCreateFullConfig(),
+			Cmd:        fmt.Sprintf("scw config import %s", tmpFile.Name()),
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, config *scw.Config) {
+					// config
+					assert.Equal(t, "22222222-2222-2222-2222-222222222222", *config.SecretKey)
+					assert.Equal(t, "nl-ams", *config.DefaultRegion)
+					// modified p1
+					assert.Equal(t, "99999999-9999-9999-9999-999999999999", *config.Profiles["p1"].SecretKey)
+					assert.Equal(t, "nl-ams", *config.Profiles["p1"].DefaultRegion)
+					// new p3
+					assert.Equal(t, "33333333-3333-3333-3333-333333333333", *config.Profiles["p3"].SecretKey)
+					assert.Equal(t, "fr-par", *config.Profiles["p3"].DefaultRegion)
+				}),
+			),
+			TmpHomeDir: true,
+		})(t)
+	})
+}
+
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		homeDir := ctx.OverrideEnv["HOME"]
@@ -360,4 +394,50 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 			},
 		},
 	})
+}
+
+func createTempConfigFile() (*os.File, error) {
+	tmpFile, err := ioutil.TempFile("", "tmp.yaml")
+	if err != nil {
+		return nil, err
+	}
+
+	configContent := `
+access_key: SCWXXXXXXXXXXXXXXXXX
+secret_key: 22222222-2222-2222-2222-222222222222
+api_url: https://mock-api-url.com
+insecure: true
+default_organization_id: 22222222-2222-2222-2222-222222222222
+default_region: nl-ams
+default_zone: nl-ams-1
+send_telemetry: true
+profiles:
+  p1:
+    access_key: SCWP1XXXXXXXXXXXXXXX
+    secret_key: 99999999-9999-9999-9999-999999999999
+    api_url: https://p1-mock-api-url.com
+    insecure: true
+    default_organization_id: 99999999-9999-9999-9999-999999999999
+    default_region: nl-ams
+    default_zone: nl-ams-1
+    send_telemetry: true
+  p3:
+    access_key: SCWP3XXXXXXXXXXXXXXX
+    secret_key: 33333333-3333-3333-3333-333333333333
+    api_url: https://p3-mock-api-url.com
+    insecure: true
+    default_organization_id: 33333333-3333-3333-3333-333333333333
+    default_region: fr-par
+    default_zone: fr-par-1
+    send_telemetry: true
+`
+
+	if _, err := tmpFile.Write([]byte(configContent)); err != nil {
+		return nil, err
+	}
+	if err := tmpFile.Close(); err != nil {
+		return nil, err
+	}
+
+	return tmpFile, nil
 }

@@ -32,6 +32,7 @@ func GetCommands() *core.Commands {
 		configResetCommand(),
 		configDestroyCommand(),
 		configInfoCommand(),
+		configImportCommand(),
 	)
 }
 
@@ -623,6 +624,72 @@ func configInfoCommand() *core.Command {
 				ConfigPath:  core.ExtractConfigPath(ctx),
 				ProfileName: core.ExtractProfileName(ctx),
 				Profile:     values,
+			}, nil
+		},
+	}
+}
+
+// configImportCommand imports an external config
+func configImportCommand() *core.Command {
+	type configImportArgs struct {
+		File string
+	}
+
+	return &core.Command{
+		Groups:               []string{"config"},
+		Short:                "Import configurations from another file",
+		Namespace:            "config",
+		Resource:             "import",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configImportArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "file",
+				Short:      "Path to the configuration file to import",
+				Required:   true,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			args := argsI.(*configImportArgs)
+			configPath := core.ExtractConfigPath(ctx)
+
+			currentConfig, err := scw.LoadConfigFromPath(configPath)
+			if err != nil {
+				return nil, err
+			}
+			currentProfileName := core.ExtractProfileName(ctx)
+			currentProfile, err := currentConfig.GetProfile(currentProfileName)
+			if err != nil {
+				return nil, err
+			}
+
+			// Read the content of the file to import
+			importedConfig, err := scw.LoadConfigFromPath(args.File)
+			if err != nil {
+				return nil, err
+			}
+			importedProfile := importedConfig.Profile
+
+			// Merge the imported configurations into the existing configuration
+			currentConfig.Profile = *scw.MergeProfiles(currentProfile, &importedProfile)
+
+			for profileName, profile := range importedConfig.Profiles {
+				existingProfile, exists := currentConfig.Profiles[profileName]
+				if exists {
+					currentConfig.Profiles[profileName] = scw.MergeProfiles(existingProfile, profile)
+				} else {
+					currentConfig.Profiles[profileName] = profile
+				}
+			}
+
+			err = currentConfig.SaveTo(configPath)
+			if err != nil {
+				return nil, fmt.Errorf("failed to save updated configuration: %v", err)
+			}
+
+			return &core.SuccessResult{
+				Message: "successfully import config",
 			}, nil
 		},
 	}
