@@ -19,7 +19,7 @@ import (
 )
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(
+	cmds := core.NewCommands(
 		autocompleteRootCommand(),
 		autocompleteInstallCommand(),
 		autocompleteCompleteBashCommand(),
@@ -27,6 +27,12 @@ func GetCommands() *core.Commands {
 		autocompleteCompleteZshCommand(),
 		autocompleteScriptCommand(),
 	)
+
+	for _, cmd := range cmds.GetAll() {
+		cmd.DisableVersionCheck = true
+	}
+
+	return cmds
 }
 
 func autocompleteRootCommand() *core.Command {

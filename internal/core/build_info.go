@@ -57,7 +57,9 @@ func (b *BuildInfo) GetUserAgent() string {
 }
 
 func (b *BuildInfo) checkVersion(ctx context.Context) {
-	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" {
+	cmd := extractMeta(ctx).command
+	cmdDisableCheckVersion := cmd != nil && cmd.DisableVersionCheck
+	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" || cmdDisableCheckVersion {
 		ExtractLogger(ctx).Debug("skipping check version")
 		return
 	}
