@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitCockpit(),
 		cockpitToken(),
 		cockpitGrafanaUser(),
+		cockpitPlan(),
 		cockpitAlert(),
 		cockpitContact(),
 		cockpitCockpitActivate(),
@@ -78,6 +79,15 @@ func cockpitGrafanaUser() *core.Command {
 		Long:      `Grafana user management commands.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
+	}
+}
+
+func cockpitPlan() *core.Command {
+	return &core.Command{
+		Short:     `Pricing plans management commands`,
+		Long:      `Pricing plans management commands.`,
+		Namespace: "cockpit",
+		Resource:  "plan",
 	}
 }
 
