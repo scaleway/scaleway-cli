@@ -204,6 +204,7 @@ scw secret version create [arg=value ...]
 | password-generation.no-uppercase-letters |  | Do not include upper case letters by default in the alphabet |
 | password-generation.no-digits |  | Do not include digits by default in the alphabet |
 | password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
+| data-crc32 |  | The CRC32 checksum of the data as a base-10 integer |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
