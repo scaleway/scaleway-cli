@@ -24,7 +24,8 @@ const (
 type billingDownloadRequest struct {
 	billing.DownloadInvoiceRequest
 	// extra arguments
-	FilePath string
+	FilePath     string
+	ForceReplace bool
 }
 
 func fileNameWithoutExtTrimSuffix(fileName string) string {
@@ -66,6 +67,16 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 				return billing.DownloadInvoiceRequestFileTypePdf.String(), "File extension `.pdf` as default"
 			},
 		},
+		{
+			Name:       "force-replace",
+			Short:      `Force file replacement`,
+			Required:   false,
+			Deprecated: false,
+			Positional: false,
+			Default: func(ctx context.Context) (value string, doc string) {
+				return "false", "File replacement false as default"
+			},
+		},
 	}
 	command.Run = billingDownloadRun
 	command.PreValidateFunc = func(ctx context.Context, argsI interface{}) error {
@@ -88,7 +99,22 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 		}
 
 		dir, file := filepath.Split(args.FilePath)
+		if len(file) > 0 {
+			fileExtension := filepath.Ext(file)
+			if extensionOnFile := checkInvoiceExt(fileExtension); !extensionOnFile {
+				return fmt.Errorf("file has not supported extension")
+			}
+		}
+
 		entries, err := os.ReadDir(dir)
+		if err != nil {
+			return err
+		}
+
+		if args.ForceReplace {
+			return nil
+		}
+
 		// check default name
 		defaultFileName := fmt.Sprintf("%s-%s-%s.%s", invoiceDefaultPrefix, date, args.InvoiceID, args.FileType)
 		// read only in the parent path
@@ -96,8 +122,9 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			if e.IsDir() {
 				continue
 			}
-			// case default name
-			if e.Name() == defaultFileName {
+			// case default name on directory
+			if len(file) == 0 && e.Name() == defaultFileName {
+				file = defaultFileName
 				askPrompt = true
 			}
 
@@ -110,7 +137,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			_, _ = interactive.PrintlnWithoutIndent(`
 					Current file exist is located at ` + terminal.Style(args.FilePath, color.Faint))
 			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       "Do you want to override the current file?",
+				Prompt:       fmt.Sprintf("Do you want to override the current file: %s ?", file),
 				DefaultValue: true,
 				Ctx:          ctx,
 			})
@@ -135,6 +162,15 @@ func addExt(fileName, contentType string) string {
 	}
 
 	return fileName
+}
+
+func checkInvoiceExt(ext string) bool {
+	switch ext {
+	case ".pdf":
+		return true
+	}
+
+	return false
 }
 
 func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, error) {
@@ -171,7 +207,8 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 			fileName = filepath.Join(pathAbs, defaultFileName)
 		}
 	}
-	addExt(fileName, resp.ContentType)
+	// add supported extension
+	fileName = addExt(fileName, resp.ContentType)
 
 	fileOutput, err := os.Create(fileName)
 	if err != nil {
