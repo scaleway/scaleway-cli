@@ -250,7 +250,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
 	}
 
-	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
+	serverType := getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
 
 	if serverType != nil && getImageResponse != nil {
 		if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
@@ -677,13 +677,13 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 	return suggestions
 }
 
-// getServeType is a util to get a instance.ServerType by its commercialType
-func getServeType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
+// getServerType is a util to get a instance.ServerType by its commercialType
+func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
 	serverType := (*instance.ServerType)(nil)
 
 	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
 		Zone: zone,
-	})
+	}, scw.WithAllPages())
 	if err != nil {
 		logger.Warningf("cannot get server types: %s", err)
 	} else {
