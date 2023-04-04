@@ -47,9 +47,8 @@ func secretRoot() *core.Command {
 
 func secretSecret() *core.Command {
 	return &core.Command{
-		Short: `Secret management commands`,
-		Long: `Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
-`,
+		Short:     `Secret management commands`,
+		Long:      `Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.`,
 		Namespace: "secret",
 		Resource:  "secret",
 	}
@@ -57,9 +56,8 @@ func secretSecret() *core.Command {
 
 func secretVersion() *core.Command {
 	return &core.Command{
-		Short: `Secret Version management commands`,
-		Long: `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).
-`,
+		Short:     `Secret Version management commands`,
+		Long:      `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).`,
 		Namespace: "secret",
 		Resource:  "version",
 	}
@@ -411,7 +409,7 @@ func secretVersionGet() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -448,7 +446,7 @@ func secretVersionUpdate() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -539,7 +537,7 @@ func secretVersionDelete() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -582,7 +580,7 @@ func secretVersionEnable() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -619,7 +617,7 @@ func secretVersionDisable() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -656,7 +654,7 @@ func secretVersionAccess() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
