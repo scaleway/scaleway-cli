@@ -10,7 +10,7 @@ func Test_IPAttach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S stopped=true ip=none"),
 			createIP("Ip"),
 		),
 		Cmd: "scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}",
@@ -27,7 +27,7 @@ func Test_IPAttach(t *testing.T) {
 	t.Run("With IP", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S stopped=true ip=none"),
 			createIP("Ip"),
 		),
 		Cmd: "scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}",
@@ -46,7 +46,7 @@ func Test_IPDetach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S stopped=true ip=none"),
 			createIP("Ip"),
 			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}"),
 		),
@@ -65,7 +65,7 @@ func Test_IPDetach(t *testing.T) {
 	t.Run("With IP", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S stopped=true ip=none"),
 			createIP("Ip"),
 			core.ExecBeforeCmd("scw instance ip attach {{ .Ip.Address }} server-id={{ .Server.ID }}"),
 		),
