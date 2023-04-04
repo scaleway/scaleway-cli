@@ -316,8 +316,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate total local volume sizes.
-		if serverType != nil {
-			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
+		if serverType != nil && getImageResponse != nil {
+			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType, getImageResponse.Image.RootVolume.Size); err != nil {
 				return nil, err
 			}
 		} else {
@@ -575,7 +575,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string, defaultRootVolumeSize scw.Size) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -588,7 +588,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 
 	// If no root volume provided, count the default root volume size added by the API.
 	if rootVolume := volumes["0"]; rootVolume == nil {
-		localVolumeTotalSize += volumeConstraint.MinSize
+		localVolumeTotalSize += defaultRootVolumeSize
 	}
 
 	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
