@@ -270,7 +270,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	////
 	t.Run("Error: invalid total local volumes size: too low 1", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=l:10GB",
+		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=l:5GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -280,7 +280,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too low 2", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=l:10GB additional-volumes.0=block:10GB",
+		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=l:5GB additional-volumes.0=block:10GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -289,8 +289,9 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_bionic root-volume=block:20GB",
+		Commands:   GetCommands(),
+		BeforeFunc: createVolume("Volume", 5, instance.VolumeVolumeTypeLSSD),
+		Cmd:        "scw instance server create image=ubuntu_bionic root-volume={{ .Volume.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -310,7 +311,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=local:10GB",
+		Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=local:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),

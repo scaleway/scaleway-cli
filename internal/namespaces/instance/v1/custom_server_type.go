@@ -74,7 +74,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 		// Get server types.
 		request := argsI.(*instance.ListServersTypesRequest)
-		listServersTypesResponse, err := api.ListServersTypes(request)
+		listServersTypesResponse, err := api.ListServersTypes(request, scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}

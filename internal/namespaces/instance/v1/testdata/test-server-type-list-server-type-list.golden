@@ -1,16 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME      HOURLY PRICE  LOCAL VOLUME MAX SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
-DEV1-S    € 0.006       20 GB                  2    -    2.0 GiB  x86_64  available
-DEV1-M    € 0.016       40 GB                  3    -    4.0 GiB  x86_64  available
-DEV1-L    € 0.032       80 GB                  4    -    8.0 GiB  x86_64  available
-DEV1-XL   € 0.048       120 GB                 4    -    12 GiB   x86_64  available
-GP1-XS    € 0.078       150 GB                 4    -    16 GiB   x86_64  available
-GP1-S     € 0.158       300 GB                 8    -    32 GiB   x86_64  available
-GP1-M     € 0.318       600 GB                 16   -    64 GiB   x86_64  available
-GP1-L     € 0.598       600 GB                 32   -    128 GiB  x86_64  available
-GP1-XL    € 1.138       600 GB                 48   -    256 GiB  x86_64  available
-RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  available
+NAME         HOURLY PRICE  LOCAL VOLUME MAX SIZE  CPU  GPU  RAM      ARCH    AVAILABILITY
+DEV1-S       € 0.014       20 GB                  2    0    2.0 GiB  x86_64  available
+DEV1-M       € 0.026       40 GB                  3    0    4.0 GiB  x86_64  available
+DEV1-L       € 0.05        80 GB                  4    0    8.0 GiB  x86_64  available
+DEV1-XL      € 0.073       120 GB                 4    0    12 GiB   x86_64  available
+ENT1-XXS     € 0.073       0 B                    2    0    8.0 GiB  x86_64  available
+ENT1-XS      € 0.147       0 B                    4    0    16 GiB   x86_64  available
+ENT1-S       € 0.29        0 B                    8    0    32 GiB   x86_64  available
+ENT1-M       € 0.59        0 B                    16   0    64 GiB   x86_64  available
+ENT1-L       € 1.18        0 B                    32   0    128 GiB  x86_64  available
+ENT1-XL      € 2.35        0 B                    64   0    256 GiB  x86_64  available
+ENT1-2XL     € 3.53        0 B                    96   0    384 GiB  x86_64  out of stock
+GP1-VIZ      € 0.10        300 GB                 8    0    32 GiB   x86_64  available
+GP1-XS       € 0.102       150 GB                 4    0    16 GiB   x86_64  available
+GP1-S        € 0.204       300 GB                 8    0    32 GiB   x86_64  available
+GP1-M        € 0.406       600 GB                 16   0    64 GiB   x86_64  available
+GP1-L        € 0.789       600 GB                 32   0    128 GiB  x86_64  available
+GP1-XL       € 1.671       600 GB                 48   0    256 GiB  x86_64  available
+PLAY2-PICO   € 0.014       0 B                    1    0    2.0 GiB  x86_64  available
+PLAY2-NANO   € 0.027       0 B                    2    0    4.0 GiB  x86_64  available
+PLAY2-MICRO  € 0.054       0 B                    4    0    8.0 GiB  x86_64  available
+PRO2-XXS     € 0.055       0 B                    2    0    8.0 GiB  x86_64  available
+PRO2-XS      € 0.11        0 B                    4    0    16 GiB   x86_64  available
+PRO2-S       € 0.219       0 B                    8    0    32 GiB   x86_64  available
+PRO2-M       € 0.438       0 B                    16   0    64 GiB   x86_64  available
+PRO2-L       € 0.877       0 B                    32   0    128 GiB  x86_64  available
+RENDER-S     € 1.243       400 GB                 10   1    42 GiB   x86_64  available
+STARDUST1-S  € 0.005       10 GB                  1    0    1.0 GiB  x86_64  out of stock
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -18,11 +35,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 6000000
+      "nanos": 14000000
     },
     "local_volume_max_size": 20000000000,
     "cpu": 2,
-    "gpu": null,
+    "gpu": 0,
     "ram": 2147483648,
     "arch": "x86_64",
     "availability": "available"
@@ -32,11 +49,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 16000000
+      "nanos": 26000000
     },
     "local_volume_max_size": 40000000000,
     "cpu": 3,
-    "gpu": null,
+    "gpu": 0,
     "ram": 4294967296,
     "arch": "x86_64",
     "availability": "available"
@@ -46,11 +63,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 32000000
+      "nanos": 50000000
     },
     "local_volume_max_size": 80000000000,
     "cpu": 4,
-    "gpu": null,
+    "gpu": 0,
     "ram": 8589934592,
     "arch": "x86_64",
     "availability": "available"
@@ -60,12 +77,124 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 48000000
+      "nanos": 73000000
     },
     "local_volume_max_size": 120000000000,
     "cpu": 4,
-    "gpu": null,
+    "gpu": 0,
     "ram": 12884901888,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-XXS",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 73000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-XS",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 147000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-S",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 290000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-M",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 590000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-L",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 180000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-XL",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 350000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "ENT1-2XL",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 3,
+      "nanos": 530000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 96,
+    "gpu": 0,
+    "ram": 412316860416,
+    "arch": "x86_64",
+    "availability": "shortage"
+  },
+  {
+    "name": "GP1-VIZ",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 100000000
+    },
+    "local_volume_max_size": 300000000000,
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
     "arch": "x86_64",
     "availability": "available"
   },
@@ -74,11 +203,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 78000000
+      "nanos": 102000000
     },
     "local_volume_max_size": 150000000000,
     "cpu": 4,
-    "gpu": null,
+    "gpu": 0,
     "ram": 17179869184,
     "arch": "x86_64",
     "availability": "available"
@@ -88,11 +217,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 158000000
+      "nanos": 204000000
     },
     "local_volume_max_size": 300000000000,
     "cpu": 8,
-    "gpu": null,
+    "gpu": 0,
     "ram": 34359738368,
     "arch": "x86_64",
     "availability": "available"
@@ -102,11 +231,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 318000000
+      "nanos": 406000000
     },
     "local_volume_max_size": 600000000000,
     "cpu": 16,
-    "gpu": null,
+    "gpu": 0,
     "ram": 68719476736,
     "arch": "x86_64",
     "availability": "available"
@@ -116,11 +245,11 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 598000000
+      "nanos": 789000000
     },
     "local_volume_max_size": 600000000000,
     "cpu": 32,
-    "gpu": null,
+    "gpu": 0,
     "ram": 137438953472,
     "arch": "x86_64",
     "availability": "available"
@@ -130,12 +259,124 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 1,
-      "nanos": 138000000
+      "nanos": 671000000
     },
     "local_volume_max_size": 600000000000,
     "cpu": 48,
-    "gpu": null,
+    "gpu": 0,
     "ram": 274877906944,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PLAY2-PICO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 14000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 1,
+    "gpu": 0,
+    "ram": 2147483648,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PLAY2-NANO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 27000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PLAY2-MICRO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 54000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PRO2-XXS",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 55000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PRO2-XS",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 110000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PRO2-S",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 219000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PRO2-M",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 438000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x86_64",
+    "availability": "available"
+  },
+  {
+    "name": "PRO2-L",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 877000000
+    },
+    "local_volume_max_size": 0,
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
     "arch": "x86_64",
     "availability": "available"
   },
@@ -144,13 +385,27 @@ RENDER-S  € 1.00        400 GB                 10   1    45 GiB   x86_64  avai
     "hourly_price": {
       "currency_code": "EUR",
       "units": 1,
-      "nanos": 0
+      "nanos": 243000000
     },
     "local_volume_max_size": 400000000000,
     "cpu": 10,
     "gpu": 1,
-    "ram": 48318382080,
+    "ram": 45097156608,
     "arch": "x86_64",
     "availability": "available"
+  },
+  {
+    "name": "STARDUST1-S",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 5000000
+    },
+    "local_volume_max_size": 10000000000,
+    "cpu": 1,
+    "gpu": 0,
+    "ram": 1073741824,
+    "arch": "x86_64",
+    "availability": "shortage"
   }
 ]
