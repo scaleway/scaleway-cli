@@ -48,7 +48,7 @@ alias:
 
 type Config struct {
 	Alias  *alias.Config `json:"alias"`
-	Output *string       `json:"output"`
+	Output string        `json:"output"`
 
 	path string
 }
@@ -57,14 +57,12 @@ type Config struct {
 // returns a new empty config if file doesn't exist
 // return error if fail to load config file
 func LoadConfig(configPath string) (*Config, error) {
-	output := DefaultOutput
-
 	file, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return &Config{
 				Alias:  alias.EmptyConfig(),
-				Output: &output,
+				Output: DefaultOutput,
 				path:   configPath,
 			}, nil
 		}
@@ -72,7 +70,7 @@ func LoadConfig(configPath string) (*Config, error) {
 	}
 	config := &Config{
 		Alias:  alias.EmptyConfig(),
-		Output: &output,
+		Output: DefaultOutput,
 		path:   configPath,
 	}
 	err = yaml.Unmarshal(file, &config)
