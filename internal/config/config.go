@@ -26,7 +26,8 @@ const (
 {{ if .Output }}output: {{ .Output }}{{ else }}# output: human{{ end }}
 
 # Alias creates custom aliases for your Scaleway CLI commands
-{{ if .Alias }}alias:
+{{- if .Alias }}
+alias:
     aliases:
         {{- range $alias, $commands := .Alias.Aliases }}
         {{ $alias }}:
