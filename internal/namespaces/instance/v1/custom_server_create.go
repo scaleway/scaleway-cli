@@ -250,7 +250,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
 	}
 
-	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
+	serverType := getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
 
 	if serverType != nil && getImageResponse != nil {
 		if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
@@ -316,8 +316,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate total local volume sizes.
-		if serverType != nil {
-			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
+		if serverType != nil && getImageResponse != nil {
+			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType, getImageResponse.Image.RootVolume.Size); err != nil {
 				return nil, err
 			}
 		} else {
@@ -575,7 +575,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string, defaultRootVolumeSize scw.Size) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -588,7 +588,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 
 	// If no root volume provided, count the default root volume size added by the API.
 	if rootVolume := volumes["0"]; rootVolume == nil {
-		localVolumeTotalSize += volumeConstraint.MinSize
+		localVolumeTotalSize += defaultRootVolumeSize
 	}
 
 	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
@@ -677,13 +677,13 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 	return suggestions
 }
 
-// getServeType is a util to get a instance.ServerType by its commercialType
-func getServeType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
+// getServerType is a util to get a instance.ServerType by its commercialType
+func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
 	serverType := (*instance.ServerType)(nil)
 
 	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
 		Zone: zone,
-	})
+	}, scw.WithAllPages())
 	if err != nil {
 		logger.Warningf("cannot get server types: %s", err)
 	} else {

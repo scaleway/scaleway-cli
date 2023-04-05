@@ -24,7 +24,6 @@ Secret Manager API documentation.
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
 
 
-
 ### Create a secret
 
 You must sepcify the `region` to create a secret.
@@ -160,7 +159,6 @@ scw secret secret update [arg=value ...]
 Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).
 
 
-
 ### Access a secret's version using the secret's ID
 
 Access sensitive data in a secret's version specified by the `region`, `secret_id` and `revision` parameters.
@@ -177,7 +175,7 @@ scw secret version access [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -206,6 +204,7 @@ scw secret version create [arg=value ...]
 | password-generation.no-uppercase-letters |  | Do not include upper case letters by default in the alphabet |
 | password-generation.no-digits |  | Do not include digits by default in the alphabet |
 | password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
+| data-crc32 |  | The CRC32 checksum of the data as a base-10 integer |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -226,7 +225,7 @@ scw secret version delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -257,7 +256,7 @@ scw secret version disable [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -278,7 +277,7 @@ scw secret version enable [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -299,7 +298,7 @@ scw secret version get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -341,7 +340,7 @@ scw secret version update [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| revision | Required | Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest" |
+| revision | Required | Version number |
 | description |  | Description of the version |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
