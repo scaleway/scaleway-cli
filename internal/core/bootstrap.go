@@ -70,10 +70,6 @@ type BootstrapConfig struct {
 	BetaMode bool
 }
 
-const (
-	defaultOutput = "human"
-)
-
 // Bootstrap is the main entry point. It is directly called from main.
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
@@ -87,7 +83,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", defaultOutput, "Output format: json or human")
+	flags.StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -104,7 +100,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
-	if outputFlag != defaultOutput {
+	if outputFlag != cliConfig.DefaultOutput {
 		logLevel = logger.LogLevelError
 	}
 
@@ -207,6 +203,18 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		return 1, nil, err
 	}
 	meta.CliConfig = cliCfg
+	if *cliCfg.Output != cliConfig.DefaultOutput && *cliCfg.Output != "" {
+		outputFlag = *cliCfg.Output
+		printer, err = NewPrinter(&PrinterConfig{
+			OutputFlag: outputFlag,
+			Stdout:     config.Stdout,
+			Stderr:     config.Stderr,
+		})
+		if err != nil {
+			_, _ = fmt.Fprintln(config.Stderr, err)
+			return 1, nil, err
+		}
+	}
 
 	// Check CLI new version when exiting the bootstrap
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
@@ -242,7 +250,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// declaration in order for them to be shown in the cobra usage documentation.
 	rootCmd.PersistentFlags().StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
+	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
