@@ -34,7 +34,7 @@ alias:
         {{- range $index, $command := $commands }}
             - {{ $command }}
         {{- end }}
-       {{- end }}
+        {{- end }}
 {{ else }}
 # alias:
 #     aliases:
