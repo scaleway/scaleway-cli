@@ -35,7 +35,7 @@ alias:
             - {{ $command }}
         {{- end }}
         {{- end }}
-{{ else }}
+{{- else }}
 # alias:
 #     aliases:
 #         isl:
