@@ -203,7 +203,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		return 1, nil, err
 	}
 	meta.CliConfig = cliCfg
-	if *cliCfg.Output != cliConfig.DefaultOutput && *cliCfg.Output != "" {
+	if *cliCfg.Output != cliConfig.DefaultOutput {
 		outputFlag = *cliCfg.Output
 		printer, err = NewPrinter(&PrinterConfig{
 			OutputFlag: outputFlag,
