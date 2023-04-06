@@ -45,6 +45,8 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitGrafanaUserList(),
 		cockpitGrafanaUserDelete(),
 		cockpitGrafanaUserResetPassword(),
+		cockpitPlanList(),
+		cockpitPlanSelect(),
 	)
 }
 func cockpitRoot() *core.Command {
@@ -723,6 +725,69 @@ func cockpitGrafanaUserResetPassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewAPI(client)
 			return api.ResetGrafanaUserPassword(request)
+
+		},
+	}
+}
+
+func cockpitPlanList() *core.Command {
+	return &core.Command{
+		Short:     `List plans`,
+		Long:      `List all pricing plans.`,
+		Namespace: "cockpit",
+		Resource:  "plan",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.ListPlansRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"name_asc", "name_desc"},
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.ListPlansRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListPlans(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Plans, nil
+
+		},
+	}
+}
+
+func cockpitPlanSelect() *core.Command {
+	return &core.Command{
+		Short:     `Select pricing plan`,
+		Long:      `Select the wanted pricing plan.`,
+		Namespace: "cockpit",
+		Resource:  "plan",
+		Verb:      "select",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.SelectPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "plan-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.SelectPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewAPI(client)
+			return api.SelectPlan(request)
 
 		},
 	}

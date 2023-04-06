@@ -23,6 +23,8 @@ Cockpit API.
   - [List grafana users](#list-grafana-users)
   - [Reset Grafana user password](#reset-grafana-user-password)
 - [Pricing plans management commands](#pricing-plans-management-commands)
+  - [List plans](#list-plans)
+  - [Select pricing plan](#select-pricing-plan)
 - [Token management commands](#token-management-commands)
   - [Create a token](#create-a-token)
   - [Delete token](#delete-token)
@@ -378,13 +380,43 @@ scw cockpit grafana-user reset-password [arg=value ...]
 
 Pricing plans management commands.
 
-Pricing plans management commands.
+
+### List plans
+
+List all pricing plans.
 
 **Usage:**
 
 ```
-scw cockpit plan
+scw cockpit plan list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `name_asc`, `name_desc` |  |
+
+
+
+### Select pricing plan
+
+Select the wanted pricing plan.
+
+**Usage:**
+
+```
+scw cockpit plan select [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| plan-id |  |  |
 
 
 
