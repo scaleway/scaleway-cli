@@ -42,7 +42,7 @@ alias:
 #             - instance
 #             - server
 #             - list
-{{- end -}}
+{{- end }}
 `
 )
 
