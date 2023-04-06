@@ -41,12 +41,15 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 )
 
-var labs = os.Getenv("SCW_LABS") == "true"
+var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
+
+// Enable beta in the code when products are in beta
+// var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
 // We can not put it in `core` package as it would result in a import cycle `core` -> `namespaces/autocomplete` -> `core`.
-func GetCommands(beta ...bool) *core.Commands {
+func GetCommands() *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommandsMerge(

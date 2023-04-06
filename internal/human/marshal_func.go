@@ -159,7 +159,7 @@ func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 }
 
 // DefaultMarshalerFunc is used by default for all non-registered type
-func defaultMarshalerFunc(i interface{}, opt *MarshalOpt) (string, error) {
+func defaultMarshalerFunc(i interface{}, _ *MarshalOpt) (string, error) {
 	if i == nil {
 		i = "-"
 	}

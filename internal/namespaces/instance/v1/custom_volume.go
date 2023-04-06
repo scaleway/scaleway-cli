@@ -34,7 +34,7 @@ func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, e
 }
 
 // volumeMapMarshalerFunc returns the length of the map.
-func volumeMapMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func volumeMapMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
 	return fmt.Sprintf("%v", len(volumes)), nil
 }

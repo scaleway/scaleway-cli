@@ -37,7 +37,7 @@ func initCommand() *core.Command {
 	}
 }
 
-func InitRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func InitRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
 	// Get default local SSH key
 	var shortenedFilename string
 	var err error
