@@ -1,9 +1,11 @@
 package config
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
+	"text/template"
 
 	"gopkg.in/yaml.v3"
 
@@ -16,10 +18,37 @@ const (
 
 	DefaultConfigFileName   = "cli.yaml"
 	defaultConfigPermission = 0644
+
+	DefaultOutput      = "human"
+	configFileTemplate = `# Scaleway CLI config file
+# This config file can be used only with Scaleway CLI (>2.0.0) (https://github.com/scaleway/scaleway-cli)
+# Output sets the output format for all commands you run
+{{ if .Output }}output: {{ .Output }}{{ else }}# output: human{{ end }}
+
+# Alias creates custom aliases for your Scaleway CLI commands
+{{- if .Alias }}
+alias:
+    aliases:
+        {{- range $alias, $commands := .Alias.Aliases }}
+        {{ $alias }}:
+        {{- range $index, $command := $commands }}
+            - {{ $command }}
+        {{- end }}
+        {{- end }}
+{{- else }}
+# alias:
+#     aliases:
+#         isl:
+#             - instance
+#             - server
+#             - list
+{{- end }}
+`
 )
 
 type Config struct {
-	Alias *alias.Config `json:"alias"`
+	Alias  *alias.Config `json:"alias"`
+	Output string        `json:"output"`
 
 	path string
 }
@@ -32,15 +61,17 @@ func LoadConfig(configPath string) (*Config, error) {
 	if err != nil {
 		if os.IsNotExist(err) {
 			return &Config{
-				Alias: alias.EmptyConfig(),
-				path:  configPath,
+				Alias:  alias.EmptyConfig(),
+				Output: DefaultOutput,
+				path:   configPath,
 			}, nil
 		}
 		return nil, fmt.Errorf("failed to read cli config file: %w", err)
 	}
 	config := &Config{
-		Alias: alias.EmptyConfig(),
-		path:  configPath,
+		Alias:  alias.EmptyConfig(),
+		Output: DefaultOutput,
+		path:   configPath,
 	}
 	err = yaml.Unmarshal(file, &config)
 	if err != nil {
@@ -52,15 +83,32 @@ func LoadConfig(configPath string) (*Config, error) {
 
 // Save marshal config to config file
 func (c *Config) Save() error {
-	config, err := yaml.Marshal(c)
+	file, err := c.HumanConfig()
 	if err != nil {
 		return err
 	}
+
 	err = os.MkdirAll(filepath.Dir(c.path), 0700)
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(c.path, config, defaultConfigPermission)
+	return os.WriteFile(c.path, []byte(file), defaultConfigPermission)
+}
+
+// HumanConfig will generate a config file with documented arguments
+func (c *Config) HumanConfig() (string, error) {
+	tmpl, err := template.New("configuration").Parse(configFileTemplate)
+	if err != nil {
+		return "", err
+	}
+
+	var buf bytes.Buffer
+	err = tmpl.Execute(&buf, c)
+	if err != nil {
+		return "", err
+	}
+
+	return buf.String(), nil
 }
 
 func FilePath() (string, error) {

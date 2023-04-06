@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"regexp"
@@ -397,7 +396,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 }
 
 func createTempConfigFile() (*os.File, error) {
-	tmpFile, err := ioutil.TempFile("", "tmp.yaml")
+	tmpFile, err := os.CreateTemp("", "tmp.yaml")
 	if err != nil {
 		return nil, err
 	}

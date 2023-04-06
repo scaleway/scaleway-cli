@@ -43,7 +43,7 @@ var (
 )
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
-func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	location := i.(instance.ServerLocation)
 	zone, err := scw.ParseZone(location.ZoneID)
 	if err != nil {
@@ -130,7 +130,7 @@ func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer 
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
-func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
 	return bootscript.Title, nil
 }
