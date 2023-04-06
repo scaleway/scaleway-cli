@@ -253,7 +253,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {

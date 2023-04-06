@@ -160,7 +160,7 @@ func registryDockerHelperGetCommand() *core.Command {
 	}
 }
 
-func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
 	var serverURL string
 	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
 	if err != nil && err != io.EOF {

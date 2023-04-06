@@ -189,7 +189,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func instanceUpdateBuilder(c *core.Command) *core.Command {
+func instanceUpdateBuilder(_ *core.Command) *core.Command {
 	type rdbUpdateInstanceRequestCustom struct {
 		*rdb.UpdateInstanceRequest
 		Settings []*rdb.InstanceSetting

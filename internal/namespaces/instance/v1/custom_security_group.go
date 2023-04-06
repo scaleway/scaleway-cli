@@ -41,7 +41,7 @@ var (
 	}
 )
 
-func marshalSecurityGroupRules(i interface{}, opt *human.MarshalOpt) (out string, err error) {
+func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, err error) {
 	rules := i.([]*instance.SecurityGroupRule)
 
 	type humanRule struct {

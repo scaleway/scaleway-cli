@@ -29,7 +29,7 @@ var (
 	GoVersion = runtime.Version()
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
-	BetaMode  = os.Getenv(scw.ScwEnableBeta) != ""
+	BetaMode  = os.Getenv(scw.ScwEnableBeta) == "true"
 )
 
 func cleanup(buildInfo *core.BuildInfo) {
@@ -70,7 +70,7 @@ func main() {
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  namespaces.GetCommands(BetaMode),
+		Commands:  namespaces.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),

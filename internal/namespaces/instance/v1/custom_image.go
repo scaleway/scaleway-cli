@@ -32,7 +32,7 @@ var (
 	}
 )
 
-func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	type humanImage struct {
 		ID               string
 		Name             string
