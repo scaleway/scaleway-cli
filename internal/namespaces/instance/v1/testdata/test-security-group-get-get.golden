@@ -15,16 +15,16 @@ ModificationDate       few seconds ago
 Stateful               true
 
 Inbound Rules (default policy accept):
-ID   PROTOCOL  ACTION  IP RANGE  DEST
+ID   DIRECTION  PROTOCOL  ACTION  IP RANGE  DEST
 
 Outbound Rules (default policy accept):
-ID                                    PROTOCOL  ACTION  IP RANGE   DEST
-58909be7-d17c-4ac8-9eb3-23d5fc58abc5  TCP       drop    0.0.0.0/0  25
-25680235-108b-4bbc-8e25-114303d950bd  TCP       drop    0.0.0.0/0  465
-4a31b633-118e-4900-bd52-facf1085fc8d  TCP       drop    0.0.0.0/0  587
-e7dd28e8-3747-4c7c-9a4f-35ae3f0ae2cd  TCP       drop    ::/0       25
-f37d9e7c-8ed7-4e0f-baff-7f5e7ede0baf  TCP       drop    ::/0       465
-68054851-54e3-46c9-9cd7-83219751248b  TCP       drop    ::/0       587
+ID                                    DIRECTION  PROTOCOL  ACTION  IP RANGE   DEST
+58909be7-d17c-4ac8-9eb3-23d5fc58abc5  outbound   TCP       drop    0.0.0.0/0  25
+25680235-108b-4bbc-8e25-114303d950bd  outbound   TCP       drop    0.0.0.0/0  465
+4a31b633-118e-4900-bd52-facf1085fc8d  outbound   TCP       drop    0.0.0.0/0  587
+e7dd28e8-3747-4c7c-9a4f-35ae3f0ae2cd  outbound   TCP       drop    ::/0       25
+f37d9e7c-8ed7-4e0f-baff-7f5e7ede0baf  outbound   TCP       drop    ::/0       465
+68054851-54e3-46c9-9cd7-83219751248b  outbound   TCP       drop    ::/0       587
 
 Servers:
 ID   NAME
