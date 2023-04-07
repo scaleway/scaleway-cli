@@ -63,9 +63,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
-			Default: func(ctx context.Context) (value string, doc string) {
-				return billing.DownloadInvoiceRequestFileTypePdf.String(), "File extension `.pdf` as default"
-			},
+			Default: core.DefaultValueSetter(billing.DownloadInvoiceRequestFileTypePdf.String()),
 		},
 		{
 			Name:       "force-replace",
