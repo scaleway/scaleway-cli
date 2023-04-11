@@ -33,6 +33,7 @@ func GetCommands() *core.Commands {
 		configDestroyCommand(),
 		configInfoCommand(),
 		configImportCommand(),
+		configValidateCommand(),
 	)
 }
 
@@ -695,6 +696,43 @@ func configImportCommand() *core.Command {
 	}
 }
 
+// configValidateCommand validates the config
+func configValidateCommand() *core.Command {
+	type configValidateArgs struct{}
+
+	return &core.Command{
+		Short:                `Validate the config`,
+		Namespace:            "config",
+		Resource:             "validate",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configValidateArgs{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			// validate default profile
+			err = validateProfile(&config.Profile)
+			if err != nil {
+				return nil, err
+			}
+			// validate the remaining profiles
+			for _, profile := range config.Profiles {
+				err = validateProfile(profile)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			return &core.SuccessResult{
+				Message: "successfully validate config",
+			}, nil
+		},
+	}
+}
+
 // Helper functions
 func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error) {
 	field, err := getProfileField(profile, fieldName)
@@ -748,4 +786,68 @@ func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
 		return nil, unknownProfileError(profileName)
 	}
 	return profile, nil
+}
+
+func validateProfile(profile *scw.Profile) error {
+	if profile.AccessKey != nil {
+		if *profile.AccessKey == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("access key cannot be empty"),
+			}
+		} else if !validation.IsAccessKey(*profile.AccessKey) {
+			return core.InvalidAccessKeyError(*profile.AccessKey)
+		}
+	}
+	if profile.SecretKey != nil {
+		if *profile.SecretKey == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("secret key cannot be empty"),
+			}
+		} else if !validation.IsSecretKey(*profile.SecretKey) {
+			return core.InvalidSecretKeyError(*profile.SecretKey)
+		}
+	}
+	if profile.DefaultOrganizationID != nil {
+		if *profile.DefaultOrganizationID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default organization ID cannot be empty"),
+			}
+		} else if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
+			return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
+		}
+	}
+	if profile.DefaultProjectID != nil {
+		if *profile.DefaultProjectID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default project ID cannot be empty"),
+			}
+		} else if !validation.IsProjectID(*profile.DefaultProjectID) {
+			return core.InvalidProjectIDError(*profile.DefaultProjectID)
+		}
+	}
+	if profile.DefaultRegion != nil {
+		if *profile.DefaultRegion == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default region cannot be empty"),
+			}
+		} else if !validation.IsRegion(*profile.DefaultRegion) {
+			return core.InvalidRegionError(*profile.DefaultRegion)
+		}
+	}
+	if profile.DefaultZone != nil {
+		if *profile.DefaultZone == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default zone cannot be empty"),
+			}
+		} else if !validation.IsZone(*profile.DefaultZone) {
+			return core.InvalidZoneError(*profile.DefaultZone)
+		}
+	}
+	if profile.APIURL != nil {
+		if *profile.APIURL != "" && !validation.IsURL(*profile.APIURL) {
+			return core.InvalidAPIURLError(*profile.APIURL)
+		}
+	}
+
+	return nil
 }

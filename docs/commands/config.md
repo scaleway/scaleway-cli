@@ -37,6 +37,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Reset the config](#reset-the-config)
 - [Set a line from the config file](#set-a-line-from-the-config-file)
 - [Unset a line from the config file](#unset-a-line-from-the-config-file)
+- [Validate the config](#validate-the-config)
 
   
 ## Destroy the config file
@@ -274,6 +275,20 @@ scw config unset <key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+
+
+
+## Validate the config
+
+
+
+
+
+**Usage:**
+
+```
+scw config validate
+```
 
 
 
