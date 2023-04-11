@@ -794,7 +794,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("access key cannot be empty"),
 			}
-		} else if !validation.IsAccessKey(*profile.AccessKey) {
+		}
+
+		if !validation.IsAccessKey(*profile.AccessKey) {
 			return core.InvalidAccessKeyError(*profile.AccessKey)
 		}
 	}
@@ -803,7 +805,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("secret key cannot be empty"),
 			}
-		} else if !validation.IsSecretKey(*profile.SecretKey) {
+		}
+
+		if !validation.IsSecretKey(*profile.SecretKey) {
 			return core.InvalidSecretKeyError(*profile.SecretKey)
 		}
 	}
@@ -812,7 +816,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("default organization ID cannot be empty"),
 			}
-		} else if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
+		}
+
+		if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
 			return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
 		}
 	}
@@ -821,7 +827,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("default project ID cannot be empty"),
 			}
-		} else if !validation.IsProjectID(*profile.DefaultProjectID) {
+		}
+
+		if !validation.IsProjectID(*profile.DefaultProjectID) {
 			return core.InvalidProjectIDError(*profile.DefaultProjectID)
 		}
 	}
@@ -830,7 +838,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("default region cannot be empty"),
 			}
-		} else if !validation.IsRegion(*profile.DefaultRegion) {
+		}
+
+		if !validation.IsRegion(*profile.DefaultRegion) {
 			return core.InvalidRegionError(*profile.DefaultRegion)
 		}
 	}
@@ -839,7 +849,9 @@ func validateProfile(profile *scw.Profile) error {
 			return &core.CliError{
 				Err: fmt.Errorf("default zone cannot be empty"),
 			}
-		} else if !validation.IsZone(*profile.DefaultZone) {
+		}
+
+		if !validation.IsZone(*profile.DefaultZone) {
 			return core.InvalidZoneError(*profile.DefaultZone)
 		}
 	}
