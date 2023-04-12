@@ -390,7 +390,7 @@ List your application logs.
 **Usage:**
 
 ```
-scw function function get-logs <function-id ...> [arg=value ...]
+scw function logs list [arg=value ...]
 ```
 
 
