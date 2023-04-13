@@ -227,6 +227,13 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "is-managed",
+				Short:      `Filter by managed / not managed (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "order-by",
 				Required:   false,
 				Deprecated: false,

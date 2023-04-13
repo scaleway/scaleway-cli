@@ -125,6 +125,7 @@ scw secret secret list [arg=value ...]
 | project-id |  | Filter by Project ID (optional) |
 | name |  | Filter by secret name (optional) |
 | tags.{index} |  | List of tags to filter on (optional) |
+| is-managed |  | Filter by managed / not managed (optional) |
 | order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |  |
 | organization-id |  | Filter by Organization ID (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
