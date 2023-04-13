@@ -6,8 +6,8 @@ USAGE:
   scw marketplace version <command>
 
 AVAILABLE COMMANDS:
-  get         Get marketplace resources
-  list        List marketplace resources
+  get         Get a specific image version
+  list        List versions of an Image
 
 FLAGS:
   -h, --help   help for version
