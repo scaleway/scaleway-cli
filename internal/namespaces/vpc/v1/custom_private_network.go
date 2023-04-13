@@ -4,18 +4,52 @@ import (
 	"context"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {
-	type customServer struct {
+	type customInstanceServer struct {
 		ID         string               `json:"id"`
 		Name       string               `json:"name"`
 		State      instance.ServerState `json:"state"`
 		NicID      string               `json:"nic_id"`
 		MacAddress string               `json:"mac"`
+	}
+	type customBaremetalServer struct {
+		ID                 string                 `json:"id"`
+		Name               string                 `json:"server_id"`
+		State              baremetal.ServerStatus `json:"state"`
+		BaremetalNetworkID string                 `json:"baremetal_network_id"`
+	}
+	type customLB struct {
+		ID    string      `json:"id"`
+		Name  string      `json:"server_id"`
+		State lb.LBStatus `json:"state"`
+	}
+	type customRdb struct {
+		ID         string             `json:"id"`
+		Name       string             `json:"server_id"`
+		State      rdb.InstanceStatus `json:"state"`
+		EndpointID string             `json:"endpoint_id"`
+	}
+	type customRedis struct {
+		ID         string              `json:"id"`
+		Name       string              `json:"server_id"`
+		State      redis.ClusterStatus `json:"state"`
+		EndpointID string              `json:"endpoint_id"`
+	}
+	type customGateway struct {
+		ID               string              `json:"id"`
+		Name             string              `json:"server_id"`
+		State            vpcgw.GatewayStatus `json:"state"`
+		GatewayNetworkID string              `json:"gateway_network_id"`
 	}
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
@@ -26,19 +60,20 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 		pn := getPNResp.(*vpc.PrivateNetwork)
 
 		client := core.ExtractClient(ctx)
+
+		// Instance
 		instanceAPI := instance.NewAPI(client)
-		listServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
+		listInstanceServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
 			PrivateNetwork: &pn.ID,
 		}, scw.WithAllPages())
 		if err != nil {
-			return getPNResp, err
+			return nil, err
 		}
-
-		customServers := []customServer{}
-		for _, server := range listServers.Servers {
+		var customInstanceServers []customInstanceServer
+		for _, server := range listInstanceServers.Servers {
 			for _, nic := range server.PrivateNics {
 				if nic.PrivateNetworkID == pn.ID {
-					customServers = append(customServers, customServer{
+					customInstanceServers = append(customInstanceServers, customInstanceServer{
 						NicID:      nic.ID,
 						ID:         nic.ServerID,
 						MacAddress: nic.MacAddress,
@@ -49,18 +84,185 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			}
 		}
 
+		// Baremetal
+		baremtalPNAPI := baremetal.NewPrivateNetworkAPI(client)
+		baremetalAPI := baremetal.NewAPI(client)
+		listBaremetalServers, err := baremtalPNAPI.ListServerPrivateNetworks(&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
+			Zone:             pn.Zone,
+			PrivateNetworkID: &pn.ID,
+		}, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+		var customBaremetalServers []customBaremetalServer
+		for _, server := range listBaremetalServers.ServerPrivateNetworks {
+			if server.PrivateNetworkID == pn.ID {
+				getBaremetalServer, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
+					Zone:     pn.Zone,
+					ServerID: server.ServerID,
+				})
+				if err != nil {
+					return nil, err
+				}
+				customBaremetalServers = append(customBaremetalServers, customBaremetalServer{
+					ID:                 server.ServerID,
+					State:              getBaremetalServer.Status,
+					BaremetalNetworkID: server.ID,
+					Name:               getBaremetalServer.Name,
+				})
+			}
+		}
+
+		// LB
+		LBAPI := lb.NewZonedAPI(client)
+		listLbs, err := LBAPI.ListLBs(&lb.ZonedAPIListLBsRequest{
+			Zone: pn.Zone,
+		})
+		var filteredLBs []*lb.LB
+		for _, loadbalancer := range listLbs.LBs {
+			if loadbalancer.PrivateNetworkCount >= 1 {
+				filteredLBs = append(filteredLBs, loadbalancer)
+			}
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		var customLBs []customLB
+		for _, loadbalancer := range filteredLBs {
+			listLBpns, err := LBAPI.ListLBPrivateNetworks(&lb.ZonedAPIListLBPrivateNetworksRequest{
+				Zone: loadbalancer.Zone,
+				LBID: loadbalancer.ID,
+			}, scw.WithAllPages())
+			if err != nil {
+				return nil, err
+			}
+			for _, res := range listLBpns.PrivateNetwork {
+				if res.PrivateNetworkID == pn.ID {
+					customLBs = append(customLBs, customLB{
+						ID:    res.LB.ID,
+						Name:  res.LB.Name,
+						State: res.LB.Status,
+					})
+				}
+			}
+		}
+
+		// Rdb
+		rdbAPI := rdb.NewAPI(client)
+		region, err := scw.Zone.Region(pn.Zone)
+		if err != nil {
+			return nil, err
+		}
+		listDBs, err := rdbAPI.ListInstances(&rdb.ListInstancesRequest{
+			Region: region,
+		}, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+		var customRdbs []customRdb
+		for _, db := range listDBs.Instances {
+			for _, endpoint := range db.Endpoints {
+				if endpoint.PrivateNetwork != nil && endpoint.PrivateNetwork.PrivateNetworkID == pn.ID {
+					customRdbs = append(customRdbs, customRdb{
+						EndpointID: endpoint.ID,
+						ID:         db.ID,
+						Name:       db.Name,
+						State:      db.Status,
+					})
+				}
+			}
+		}
+
+		// Redis
+		redisAPI := redis.NewAPI(client)
+		listRedisClusters, err := redisAPI.ListClusters(&redis.ListClustersRequest{
+			Zone: pn.Zone,
+		}, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+		var customClusters []customRedis
+		for _, cluster := range listRedisClusters.Clusters {
+			for _, endpoint := range cluster.Endpoints {
+				if endpoint.PrivateNetwork.ID == pn.ID {
+					customClusters = append(customClusters, customRedis{
+						ID:         cluster.ID,
+						Name:       cluster.Name,
+						State:      cluster.Status,
+						EndpointID: endpoint.ID,
+					})
+				}
+			}
+		}
+
+		// VPCGateway
+		vpcgwAPI := vpcgw.NewAPI(client)
+		listGateways, err := vpcgwAPI.ListGateways(&vpcgw.ListGatewaysRequest{
+			Zone: pn.Zone,
+		}, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+		var customGateways []customGateway
+		for _, gateway := range listGateways.Gateways {
+			for _, gatewayNetwork := range gateway.GatewayNetworks {
+				if gatewayNetwork.PrivateNetworkID == pn.ID {
+					customGateways = append(customGateways, customGateway{
+						ID:               gateway.ID,
+						Name:             gateway.Name,
+						State:            gateway.Status,
+						GatewayNetworkID: gatewayNetwork.GatewayID,
+					})
+				}
+			}
+		}
+
 		return &struct {
 			*vpc.PrivateNetwork
-			Servers []customServer `json:"servers"`
+			InstanceServers  []customInstanceServer  `json:"instance_servers"`
+			BaremetalServers []customBaremetalServer `json:"baremetal_servers"`
+			LBs              []customLB              `json:"lbs"`
+			RdbInstances     []customRdb             `json:"rdb_instances"`
+			RedisClusters    []customRedis           `json:"redis_clusters"`
+			Gateways         []customGateway         `json:"gateways"`
 		}{
 			pn,
-			customServers,
+			customInstanceServers,
+			customBaremetalServers,
+			customLBs,
+			customRdbs,
+			customClusters,
+			customGateways,
 		}, nil
 	}
 
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
-			{FieldName: "Servers", Title: "Servers"},
+			{
+				FieldName: "InstanceServers",
+				Title:     "InstanceServers",
+			},
+			{
+				FieldName: "BaremetalServers",
+				Title:     "BaremetalServers",
+			},
+			{
+				FieldName: "LBs",
+				Title:     "LBs",
+			},
+			{
+				FieldName: "RdbInstances",
+				Title:     "RdbInstances",
+			},
+			{
+				FieldName: "RedisClusters",
+				Title:     "RedisClusters",
+			},
+			{
+				FieldName: "Gateways",
+				Title:     "Gateways",
+			},
 		},
 	}
 

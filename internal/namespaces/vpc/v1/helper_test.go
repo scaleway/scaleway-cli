@@ -1,6 +1,8 @@
 package vpc
 
 import (
+	"fmt"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
@@ -31,4 +33,50 @@ func createNIC() core.BeforeFunc {
 		"NIC",
 		"scw instance private-nic create server-id={{ .Instance.ID }} private-network-id={{ .PN.ID }}",
 	)
+}
+
+func createLB() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"LB",
+		"scw lb lb create name=cli-test description=cli-test --wait",
+	)
+}
+
+func attachLB() core.BeforeFunc {
+	return core.ExecBeforeCmd(
+		"scw lb private-network attach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
+
+func detachLB() core.AfterFunc {
+	return core.ExecAfterCmd(
+		"scw lb private-network detach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
+
+func deleteLB() core.AfterFunc {
+	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }}")
+}
+
+func createRdbInstance() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"RDB",
+		fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=cli-test engine=PostgreSQL-12 user-name=foobar password={4xdl*#QOoP+&3XRkGA)] init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip=192.168.0.1/24 --wait"),
+	)
+}
+
+func detachRdbInstance() core.AfterFunc {
+	return core.ExecAfterCmd(
+		"scw rdb endpoint delete endpoint-id={{ (index .RDB.Endpoints 0).ID  }}",
+	)
+}
+
+func waitRdbInstance() core.AfterFunc {
+	return core.ExecAfterCmd(
+		"scw rdb instance wait {{ .RDB.ID }}",
+	)
+}
+
+func deleteRdbInstance() core.AfterFunc {
+	return core.ExecAfterCmd("scw rdb instance delete {{ .RDB.ID }}")
 }
