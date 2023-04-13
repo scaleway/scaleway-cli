@@ -6,7 +6,7 @@ USAGE:
   scw cockpit plan <command>
 
 AVAILABLE COMMANDS:
-  list        List plans
+  list        List pricing plans
   select      Select pricing plan
 
 FLAGS:
