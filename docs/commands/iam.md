@@ -929,7 +929,7 @@ scw iam user delete <user-id ...> [arg=value ...]
 
 ### Get a given user
 
-Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
+Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `mfa` are returned in the response.
 
 **Usage:**
 
@@ -963,6 +963,7 @@ scw iam user list [arg=value ...]
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
+| mfa |  | Filter by MFA status |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
