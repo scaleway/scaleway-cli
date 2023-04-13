@@ -6,8 +6,8 @@ USAGE:
   scw marketplace category <command>
 
 AVAILABLE COMMANDS:
-  get         Get marketplace resources
-  list        List marketplace resources
+  get         Get a specific category
+  list        List existing image categories
 
 FLAGS:
   -h, --help   help for category

@@ -53,8 +53,8 @@ func marketplaceImage() *core.Command {
 
 func marketplaceLocalImage() *core.Command {
 	return &core.Command{
-		Short:     `Marketplace Local Images management commands`,
-		Long:      `Marketplace Local Images management commands.`,
+		Short:     `Marketplace local images management commands`,
+		Long:      `Marketplace local images management commands.`,
 		Namespace: "marketplace",
 		Resource:  "local-image",
 	}
@@ -81,7 +81,7 @@ func marketplaceCategory() *core.Command {
 func marketplaceImageList() *core.Command {
 	return &core.Command{
 		Short:     `List marketplace images`,
-		Long:      `List marketplace images.`,
+		Long:      `List all available images on the marketplace, their UUID, CPU architecture and description.`,
 		Namespace: "marketplace",
 		Resource:  "image",
 		Verb:      "list",
@@ -172,7 +172,7 @@ func marketplaceImageList() *core.Command {
 func marketplaceImageGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a specific marketplace image`,
-		Long:      `Get a specific marketplace image.`,
+		Long:      `Get detailed information about a marketplace image, specified by its ` + "`" + `image_id` + "`" + ` (UUID format).`,
 		Namespace: "marketplace",
 		Resource:  "image",
 		Verb:      "get",
@@ -200,8 +200,8 @@ func marketplaceImageGet() *core.Command {
 
 func marketplaceVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List marketplace resources`,
-		Long:      `List marketplace resources.`,
+		Short:     `List versions of an Image`,
+		Long:      `Get a list of all available version of an image, specified by its ` + "`" + `image_id` + "`" + ` (UUID format).`,
 		Namespace: "marketplace",
 		Resource:  "version",
 		Verb:      "list",
@@ -240,8 +240,8 @@ func marketplaceVersionList() *core.Command {
 
 func marketplaceVersionGet() *core.Command {
 	return &core.Command{
-		Short:     `Get marketplace resources`,
-		Long:      `Get marketplace resources.`,
+		Short:     `Get a specific image version`,
+		Long:      `Get information such as the name, creation date, last update and published date for an image version specified by its ` + "`" + `version_id` + "`" + ` (UUID format).`,
 		Namespace: "marketplace",
 		Resource:  "version",
 		Verb:      "get",
@@ -269,7 +269,7 @@ func marketplaceVersionGet() *core.Command {
 func marketplaceLocalImageList() *core.Command {
 	return &core.Command{
 		Short:     `List local images from a specific image or version`,
-		Long:      `List local images from a specific image or version.`,
+		Long:      `List information about local images in a specific Availability Zone, specified by its ` + "`" + `image_id` + "`" + ` (UUID format), ` + "`" + `version_id` + "`" + ` (UUID format) or ` + "`" + `image_label` + "`" + `. Only one of these three parameters may be set.`,
 		Namespace: "marketplace",
 		Resource:  "local-image",
 		Verb:      "list",
@@ -326,8 +326,8 @@ func marketplaceLocalImageList() *core.Command {
 
 func marketplaceLocalImageGet() *core.Command {
 	return &core.Command{
-		Short:     `Get marketplace resources`,
-		Long:      `Get marketplace resources.`,
+		Short:     `Get a specific local image by ID`,
+		Long:      `Get detailed information about a local image, including compatible commercial types, supported architecture, labels and the Availability Zone of the image, specified by its ` + "`" + `local_image_id` + "`" + ` (UUID format).`,
 		Namespace: "marketplace",
 		Resource:  "local-image",
 		Verb:      "get",
@@ -354,8 +354,8 @@ func marketplaceLocalImageGet() *core.Command {
 
 func marketplaceCategoryList() *core.Command {
 	return &core.Command{
-		Short:     `List marketplace resources`,
-		Long:      `List marketplace resources.`,
+		Short:     `List existing image categories`,
+		Long:      `Get a list of all existing categories. The output can be paginated.`,
 		Namespace: "marketplace",
 		Resource:  "category",
 		Verb:      "list",
@@ -380,8 +380,8 @@ func marketplaceCategoryList() *core.Command {
 
 func marketplaceCategoryGet() *core.Command {
 	return &core.Command{
-		Short:     `Get marketplace resources`,
-		Long:      `Get marketplace resources.`,
+		Short:     `Get a specific category`,
+		Long:      `Get information about a specific category of the marketplace catalog, specified by its ` + "`" + `category_id` + "`" + ` (UUID format).`,
 		Namespace: "marketplace",
 		Resource:  "category",
 		Verb:      "get",

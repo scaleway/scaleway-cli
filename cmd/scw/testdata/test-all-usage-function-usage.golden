@@ -13,6 +13,9 @@ AVAILABLE COMMANDS:
   runtime     Runtime management commands
   token       Token management commands
 
+WORKFLOW COMMANDS:
+  deploy      Deploy a function
+
 FLAGS:
   -h, --help   help for function
 
