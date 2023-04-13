@@ -3,17 +3,17 @@
 Marketplace API.
   
 - [Marketplace category management commands](#marketplace-category-management-commands)
-  - [Get marketplace resources](#get-marketplace-resources)
-  - [List marketplace resources](#list-marketplace-resources)
+  - [Get a specific category](#get-a-specific-category)
+  - [List existing image categories](#list-existing-image-categories)
 - [Marketplace images management commands](#marketplace-images-management-commands)
   - [Get a specific marketplace image](#get-a-specific-marketplace-image)
   - [List marketplace images](#list-marketplace-images)
-- [Marketplace Local Images management commands](#marketplace-local-images-management-commands)
-  - [Get marketplace resources](#get-marketplace-resources)
+- [Marketplace local images management commands](#marketplace-local-images-management-commands)
+  - [Get a specific local image by ID](#get-a-specific-local-image-by-id)
   - [List local images from a specific image or version](#list-local-images-from-a-specific-image-or-version)
 - [Marketplace version management commands](#marketplace-version-management-commands)
-  - [Get marketplace resources](#get-marketplace-resources)
-  - [List marketplace resources](#list-marketplace-resources)
+  - [Get a specific image version](#get-a-specific-image-version)
+  - [List versions of an Image](#list-versions-of-an-image)
 
   
 ## Marketplace category management commands
@@ -21,9 +21,9 @@ Marketplace API.
 Marketplace category management commands.
 
 
-### Get marketplace resources
+### Get a specific category
 
-Get marketplace resources.
+Get information about a specific category of the marketplace catalog, specified by its `category_id` (UUID format).
 
 **Usage:**
 
@@ -40,9 +40,9 @@ scw marketplace category get [arg=value ...]
 
 
 
-### List marketplace resources
+### List existing image categories
 
-List marketplace resources.
+Get a list of all existing categories. The output can be paginated.
 
 **Usage:**
 
@@ -59,7 +59,7 @@ Marketplace images management commands.
 
 ### Get a specific marketplace image
 
-Get a specific marketplace image.
+Get detailed information about a marketplace image, specified by its `image_id` (UUID format).
 
 **Usage:**
 
@@ -78,7 +78,7 @@ scw marketplace image get [arg=value ...]
 
 ### List marketplace images
 
-List marketplace images.
+List all available images on the marketplace, their UUID, CPU architecture and description.
 
 **Usage:**
 
@@ -98,14 +98,14 @@ scw marketplace image list [arg=value ...]
 
 
 
-## Marketplace Local Images management commands
+## Marketplace local images management commands
 
-Marketplace Local Images management commands.
+Marketplace local images management commands.
 
 
-### Get marketplace resources
+### Get a specific local image by ID
 
-Get marketplace resources.
+Get detailed information about a local image, including compatible commercial types, supported architecture, labels and the Availability Zone of the image, specified by its `local_image_id` (UUID format).
 
 **Usage:**
 
@@ -124,7 +124,7 @@ scw marketplace local-image get [arg=value ...]
 
 ### List local images from a specific image or version
 
-List local images from a specific image or version.
+List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
 
 **Usage:**
 
@@ -150,9 +150,9 @@ scw marketplace local-image list [arg=value ...]
 Marketplace version management commands.
 
 
-### Get marketplace resources
+### Get a specific image version
 
-Get marketplace resources.
+Get information such as the name, creation date, last update and published date for an image version specified by its `version_id` (UUID format).
 
 **Usage:**
 
@@ -169,9 +169,9 @@ scw marketplace version get [arg=value ...]
 
 
 
-### List marketplace resources
+### List versions of an Image
 
-List marketplace resources.
+Get a list of all available version of an image, specified by its `image_id` (UUID format).
 
 **Usage:**
 

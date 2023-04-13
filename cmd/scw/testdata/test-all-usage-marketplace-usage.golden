@@ -8,7 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   category    Marketplace category management commands
   image       Marketplace images management commands
-  local-image Marketplace Local Images management commands
+  local-image Marketplace local images management commands
   version     Marketplace version management commands
 
 FLAGS:
