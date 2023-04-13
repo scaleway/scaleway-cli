@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the cockpit metrics with the given project ID.
+Get metrics from your Cockpit with the specified Project ID.
 
 USAGE:
   scw cockpit cockpit get-metrics [arg=value ...]
 
 ARGS:
   [project-id]    Project ID to use. If none is passed the default project ID will be used
-  [start-date]    Start date
-  [end-date]      End date
-  [metric-name]   Metric name
+  [start-date]    Desired time range's start date for the metrics
+  [end-date]      Desired time range's end date for the metrics
+  [metric-name]   Name of the metric requested
 
 FLAGS:
   -h, --help   help for get-metrics

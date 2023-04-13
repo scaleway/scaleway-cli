@@ -6,9 +6,9 @@ USAGE:
   scw cockpit contact <command>
 
 AVAILABLE COMMANDS:
-  create      Create an alert contact point
+  create      Create a contact point
   delete      Delete an alert contact point
-  list        List alert contact points
+  list        List contact points
 
 FLAGS:
   -h, --help   help for contact

@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Select the wanted pricing plan.
+Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request.
 
 USAGE:
   scw cockpit plan select [arg=value ...]
 
 ARGS:
   [project-id]   Project ID to use. If none is passed the default project ID will be used
-  [plan-id]      
+  [plan-id]      ID of the pricing plan
 
 FLAGS:
   -h, --help   help for select
