@@ -444,6 +444,13 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "mfa",
+				Short:      `Filter by MFA status`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `ID of the Organization to filter`,
 				Required:   true,
@@ -470,7 +477,7 @@ func iamUserList() *core.Command {
 func iamUserGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a given user`,
-		Long:      `Retrieve information about a user, specified by the ` + "`" + `user_id` + "`" + ` parameter. The user's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `email` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `two_factor_enabled` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a user, specified by the ` + "`" + `user_id` + "`" + ` parameter. The user's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `email` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `mfa` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "get",
