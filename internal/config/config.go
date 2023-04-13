@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"text/template"
 
 	"gopkg.in/yaml.v3"
@@ -57,6 +58,13 @@ type Config struct {
 // returns a new empty config if file doesn't exist
 // return error if fail to load config file
 func LoadConfig(configPath string) (*Config, error) {
+	if runtime.GOARCH == "wasm" {
+		return &Config{
+			Alias:  alias.EmptyConfig(),
+			Output: DefaultOutput,
+			path:   configPath,
+		}, nil
+	}
 	file, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -83,6 +91,9 @@ func LoadConfig(configPath string) (*Config, error) {
 
 // Save marshal config to config file
 func (c *Config) Save() error {
+	if runtime.GOARCH == "wasm" {
+		return nil
+	}
 	file, err := c.HumanConfig()
 	if err != nil {
 		return err

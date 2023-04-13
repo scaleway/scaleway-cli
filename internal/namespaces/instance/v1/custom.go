@@ -51,7 +51,6 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		serverAttachVolumeCommand(),
 		serverBackupCommand(),
-		serverConsoleCommand(),
 		serverCreateCommand(),
 		serverDeleteCommand(),
 		serverTerminateCommand(),
@@ -65,6 +64,10 @@ func GetCommands() *core.Commands {
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
 	))
+
+	if cmdConsole := serverConsoleCommand(); cmdConsole != nil {
+		cmds.Add(cmdConsole)
+	}
 
 	//
 	// Server-Type
