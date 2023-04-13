@@ -1,8 +1,6 @@
 package vpc
 
 import (
-	"fmt"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
@@ -61,7 +59,7 @@ func deleteLB() core.AfterFunc {
 func createRdbInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"RDB",
-		fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=cli-test engine=PostgreSQL-12 user-name=foobar password={4xdl*#QOoP+&3XRkGA)] init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip=192.168.0.1/24 --wait"),
+		"scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=cli-test engine=PostgreSQL-12 user-name=foobar password={4xdl*#QOoP+&3XRkGA)] init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip=192.168.0.1/24 --wait",
 	)
 }
 
