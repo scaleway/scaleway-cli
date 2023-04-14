@@ -9,7 +9,7 @@ ARGS:
   invoice-id                                          Invoice ID
   [file-type]                                         Wanted file type (pdf)
   [file-path]                                         Wanted file locality
-  [file-type=File extension `.pdf` as default]        Wanted file extension
+  [file-type=pdf]                                     Wanted file extension
   [force-replace=File replacement false as default]   Force file replacement
 
 FLAGS:

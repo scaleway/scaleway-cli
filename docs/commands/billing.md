@@ -28,10 +28,9 @@ scw billing invoice download [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | invoice-id | Required | Invoice ID |
-| file-type | One of: `pdf` | Wanted file type |
 | file-path |  | Wanted file locality |
-| file-type | Default: `File extension `.pdf` as default` | Wanted file extension |
-| force-replace | Default: `File replacement false as default` | Force file replacement |
+| file-type | Default: `pdf` | Wanted file extension |
+| force-replace | Default: `false` | Force file replacement |
 
 
 

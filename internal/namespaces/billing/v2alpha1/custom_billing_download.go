@@ -43,14 +43,6 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Positional: false,
 		},
 		{
-			Name:       "file-type",
-			Short:      `Wanted file type`,
-			Required:   false,
-			Deprecated: false,
-			Positional: false,
-			EnumValues: []string{"pdf"},
-		},
-		{
 			Name:       "file-path",
 			Short:      `Wanted file locality`,
 			Required:   false,
@@ -63,7 +55,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
-			Default: core.DefaultValueSetter(billing.DownloadInvoiceRequestFileTypePdf.String()),
+			Default:    core.DefaultValueSetter(billing.DownloadInvoiceRequestFileTypePdf.String()),
 		},
 		{
 			Name:       "force-replace",
@@ -71,9 +63,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
-			Default: func(ctx context.Context) (value string, doc string) {
-				return "false", "File replacement false as default"
-			},
+			Default:    core.DefaultValueSetter("false"),
 		},
 	}
 	command.Run = billingDownloadRun
@@ -136,7 +126,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 					Current file exist is located at ` + terminal.Style(args.FilePath, color.Faint))
 			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 				Prompt:       fmt.Sprintf("Do you want to override the current file: %s ?", file),
-				DefaultValue: true,
+				DefaultValue: false,
 				Ctx:          ctx,
 			})
 			if err != nil {
