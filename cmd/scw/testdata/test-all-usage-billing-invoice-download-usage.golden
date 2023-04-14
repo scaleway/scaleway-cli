@@ -6,11 +6,10 @@ USAGE:
   scw billing invoice download [arg=value ...]
 
 ARGS:
-  invoice-id                                          Invoice ID
-  [file-type]                                         Wanted file type (pdf)
-  [file-path]                                         Wanted file locality
-  [file-type=pdf]                                     Wanted file extension
-  [force-replace=File replacement false as default]   Force file replacement
+  invoice-id              Invoice ID
+  [file-path]             Wanted file path
+  [file-type=pdf]         Wanted file extension
+  [force-replace=false]   Force file replacement
 
 FLAGS:
   -h, --help   help for download
