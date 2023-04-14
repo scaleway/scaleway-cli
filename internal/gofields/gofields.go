@@ -23,8 +23,8 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		return value, nil
 	}
 
-	if !value.IsValid() || isNil(value) {
-		return reflect.Value{}, fmt.Errorf("field %s is nil", strings.Join(parents, "."))
+	if !value.IsValid() || IsNil(value) {
+		return value, nil
 	}
 
 	if value.Type().Kind() == reflect.Ptr {
@@ -148,8 +148,8 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 	}
 }
 
-// isNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
-func isNil(value reflect.Value) bool {
+// IsNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
+func IsNil(value reflect.Value) bool {
 	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil()
 }
 
