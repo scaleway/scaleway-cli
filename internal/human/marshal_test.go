@@ -175,6 +175,35 @@ func TestMarshal(t *testing.T) {
 		`,
 	}))
 
+	t.Run("hide if empty", run(&testCase{
+		data: &Human{
+			Name:    "Sherlock Holmes",
+			Age:     42,
+			Address: nil,
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Address", HideIfEmpty: true},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Name  Sherlock Holmes
+			Age   42
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
 	t.Run("empty string", run(&testCase{
 		data:   "",
 		result: `-`,

@@ -102,6 +102,10 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		if err != nil {
 			return "", err
 		}
+		if sectionStr == "" {
+			continue
+		}
+
 		sectionsStrs = append(sectionsStrs, sectionStr)
 		sectionFieldNames[section.FieldName] = true
 	}
@@ -381,6 +385,23 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	if err != nil {
 		return "", err
 	}
+
+	if section.HideIfEmpty {
+		kind := reflect.ValueOf(field).Kind()
+
+		// if is pointer
+		switch kind {
+		case reflect.Ptr:
+			if reflect.ValueOf(field).IsNil() {
+				return "", nil
+			}
+		case reflect.String:
+			if field.(string) == "" {
+				return "", nil
+			}
+		}
+	}
+
 	return Marshal(field, &subOpt)
 }
 
