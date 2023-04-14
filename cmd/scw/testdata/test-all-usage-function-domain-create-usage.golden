@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a domain name binding.
+Create a domain name binding for the function with the specified ID.
 
 USAGE:
   scw function domain create [arg=value ...]
 
 ARGS:
-  [hostname]        
-  [function-id]     
+  [hostname]        Hostame to create
+  [function-id]     UUID of the function to associate the domain with
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

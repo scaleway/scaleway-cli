@@ -31,10 +31,10 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionGet(),
 		secretVersionUpdate(),
 		secretVersionList(),
-		secretVersionDelete(),
 		secretVersionEnable(),
 		secretVersionDisable(),
 		secretVersionAccess(),
+		secretVersionDelete(),
 	)
 }
 func secretRoot() *core.Command {
@@ -213,11 +213,11 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "name",
-				Short:      `Filter by secret name (optional)`,
+				Name:       "order-by",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
 			},
 			{
 				Name:       "tags.{index}",
@@ -227,11 +227,18 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "order-by",
+				Name:       "name",
+				Short:      `Filter by secret name (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+			},
+			{
+				Name:       "is-managed",
+				Short:      `Filter by managed / not managed (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "organization-id",
@@ -525,49 +532,6 @@ func secretVersionList() *core.Command {
 	}
 }
 
-func secretVersionDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete a version`,
-		Long:      `Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.`,
-		Namespace: "secret",
-		Resource:  "version",
-		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DestroySecretVersionRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "secret-id",
-				Short:      `ID of the secret`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "revision",
-				Short:      `Version number`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*secret.DestroySecretVersionRequest)
-
-			client := core.ExtractClient(ctx)
-			api := secret.NewAPI(client)
-			return api.DestroySecretVersion(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Delete a given Secret Version",
-				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-	}
-}
-
 func secretVersionEnable() *core.Command {
 	return &core.Command{
 		Short:     `Enable a version`,
@@ -675,6 +639,49 @@ func secretVersionAccess() *core.Command {
 			api := secret.NewAPI(client)
 			return api.AccessSecretVersion(request)
 
+		},
+	}
+}
+
+func secretVersionDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a version`,
+		Long:      `Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.`,
+		Namespace: "secret",
+		Resource:  "version",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.DestroySecretVersionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "revision",
+				Short:      `Version number`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.DestroySecretVersionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.DestroySecretVersion(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a given Secret Version",
+				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
 		},
 	}
 }

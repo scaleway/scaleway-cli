@@ -6,11 +6,11 @@ USAGE:
   scw function function list [arg=value ...]
 
 ARGS:
-  [order-by]           (created_at_asc | created_at_desc | name_asc | name_desc)
-  [namespace-id]      
-  [name]              
-  [project-id]        
-  [organization-id]   
+  [order-by]          Order of the functions (created_at_asc | created_at_desc | name_asc | name_desc)
+  [namespace-id]      UUID of the namespace the function belongs to
+  [name]              Name of the function
+  [project-id]        UUID of the Project the function belongs to
+  [organization-id]   UUID of the Organziation the function belongs to
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
