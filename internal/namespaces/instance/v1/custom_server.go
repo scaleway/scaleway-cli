@@ -915,7 +915,7 @@ func serverDeleteCommand() *core.Command {
 			{
 				Name:    "with-volumes",
 				Short:   "Delete the volumes attached to the server",
-				Default: core.DefaultValueSetter("none"),
+				Default: core.DefaultValueSetter("all"),
 				EnumValues: []string{
 					string(withVolumesNone),
 					string(withVolumesLocal),
