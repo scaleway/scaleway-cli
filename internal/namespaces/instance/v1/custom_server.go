@@ -1013,10 +1013,11 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			deletedVolumeMessages := [][2]string(nil)
+		volumeDelete:
 			for index, volume := range server.Server.Volumes {
 				switch {
 				case deleteServerArgs.WithVolumes == withVolumesNone:
-					break
+					break volumeDelete
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
 				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
