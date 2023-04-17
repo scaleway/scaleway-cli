@@ -39,13 +39,10 @@ func vpcRoot() *core.Command {
 func vpcPrivateNetwork() *core.Command {
 	return &core.Command{
 		Short: `Private network management command`,
-		Long: `A private network allows interconnecting your instances in an
-isolated and private network. The network reachability is limited
-to the instances that are on the same private network.  Network
-Interface Controllers (NICs) are available on the instance and can
-be freely managed (adding IP addresses, shutdown interface...)
-
-Note that an instance can be a part of multiple private networks.
+		Long: `A Private Network allows you to interconnect your Scaleway resources in an
+isolated and private network. Network reachability is limited
+to resources that are on the same Private Network. Note that a resource can
+be part of multiple Private Networks.
 `,
 		Namespace: "vpc",
 		Resource:  "private-network",
@@ -54,8 +51,8 @@ Note that an instance can be a part of multiple private networks.
 
 func vpcPrivateNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List private networks`,
-		Long:      `List private networks.`,
+		Short:     `List Private Networks`,
+		Long:      `List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "list",
@@ -64,7 +61,7 @@ func vpcPrivateNetworkList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned private networks`,
+				Short:      `Sort order of the returned Private Networks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -72,42 +69,42 @@ func vpcPrivateNetworkList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Filter private networks with names containing this string`,
+				Short:      `Name to filter for. Only Private Networks with names containing this string will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Filter private networks with one or more matching tags`,
+				Short:      `Tags to filter for. Only Private Networks with one or more matching tags will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned private networks`,
+				Short:      `Project ID to filter for. Only Private Networks belonging to this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-network-ids.{index}",
-				Short:      `The PrivateNetwork IDs on which to filter the returned private networks`,
+				Short:      `Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-regional",
-				Short:      `Include regional Private Networks`,
+				Short:      `Defines whether to include regional Private Networks in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `The organization ID on which to filter the returned private networks`,
+				Short:      `Organization ID to filter for. Only Private Networks belonging to this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -136,8 +133,8 @@ func vpcPrivateNetworkList() *core.Command {
 
 func vpcPrivateNetworkCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a private network`,
-		Long:      `Create a private network.`,
+		Short:     `Create a Private Network`,
+		Long:      `Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "create",
@@ -146,7 +143,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The name of the private network`,
+				Short:      `Name for the Private Network`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -155,14 +152,14 @@ func vpcPrivateNetworkCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The private networks tags`,
+				Short:      `Tags for the Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "subnets.{index}",
-				Short:      `Private network subnets CIDR`,
+				Short:      `Private Network subnets CIDR`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -182,8 +179,8 @@ func vpcPrivateNetworkCreate() *core.Command {
 
 func vpcPrivateNetworkGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a private network`,
-		Long:      `Get a private network.`,
+		Short:     `Get a Private Network`,
+		Long:      `Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "get",
@@ -192,7 +189,7 @@ func vpcPrivateNetworkGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
-				Short:      `The private network id`,
+				Short:      `Private Network ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -212,8 +209,8 @@ func vpcPrivateNetworkGet() *core.Command {
 
 func vpcPrivateNetworkUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update private network`,
-		Long:      `Update private network.`,
+		Short:     `Update Private Network`,
+		Long:      `Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "update",
@@ -222,28 +219,28 @@ func vpcPrivateNetworkUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
-				Short:      `The private network ID`,
+				Short:      `Private Network ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `The name of the private network`,
+				Short:      `Name of the private network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The private networks tags`,
+				Short:      `Tags for the Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "subnets.{index}",
-				Short:      `Private network subnets CIDR (deprecated)`,
+				Short:      `Private Network subnets CIDR (deprecated)`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
@@ -263,8 +260,8 @@ func vpcPrivateNetworkUpdate() *core.Command {
 
 func vpcPrivateNetworkDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a private network`,
-		Long:      `Delete a private network.`,
+		Short:     `Delete a Private Network`,
+		Long:      `Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "delete",
@@ -273,7 +270,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
-				Short:      `The private network ID`,
+				Short:      `Private Network ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
