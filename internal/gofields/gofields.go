@@ -7,6 +7,18 @@ import (
 	"strings"
 )
 
+type NilValueError struct {
+	Path string
+}
+
+func NewNilValueError(path string) *NilValueError {
+	return &NilValueError{Path: path}
+}
+
+func (e *NilValueError) Error() string {
+	return fmt.Sprintf("field %s is nil", e.Path)
+}
+
 // GetValue will extract the value at the given path from the data Go struct
 // E.g data = { Friends: []Friend{ { Name: "John" } }, path = "Friends.0.Name"  will return "John"
 func GetValue(data interface{}, path string) (interface{}, error) {
@@ -24,7 +36,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 	}
 
 	if !value.IsValid() || IsNil(value) {
-		return value, nil
+		return reflect.Value{}, NewNilValueError(strings.Join(parents, "."))
 	}
 
 	if value.Type().Kind() == reflect.Ptr {

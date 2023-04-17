@@ -383,22 +383,20 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 
 	field, err := gofields.GetValue(value.Interface(), section.FieldName)
 	if err != nil {
+		if section.HideIfEmpty {
+			if _, ok := err.(*gofields.NilValueError); ok {
+				return "", nil
+			}
+		}
+
 		return "", err
 	}
 
 	if section.HideIfEmpty {
-		kind := reflect.ValueOf(field).Kind()
+		reflected := reflect.ValueOf(field)
 
-		// if is pointer
-		switch kind {
-		case reflect.Ptr:
-			if reflect.ValueOf(field).IsNil() {
-				return "", nil
-			}
-		case reflect.String:
-			if field.(string) == "" {
-				return "", nil
-			}
+		if gofields.IsNil(reflected) {
+			return "", nil
 		}
 	}
 

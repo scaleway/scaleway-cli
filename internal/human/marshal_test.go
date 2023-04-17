@@ -175,7 +175,7 @@ func TestMarshal(t *testing.T) {
 		`,
 	}))
 
-	t.Run("hide if empty", run(&testCase{
+	t.Run("hide if empty pointer 1", run(&testCase{
 		data: &Human{
 			Name:    "Sherlock Holmes",
 			Age:     42,
@@ -189,6 +189,35 @@ func TestMarshal(t *testing.T) {
 			Title: "Personal Information",
 			Sections: []*MarshalSection{
 				{FieldName: "Address", HideIfEmpty: true},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Name  Sherlock Holmes
+			Age   42
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
+	t.Run("hide if empty pointer 2", run(&testCase{
+		data: &Human{
+			Name:    "Sherlock Holmes",
+			Age:     42,
+			Address: nil,
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Address.Street", HideIfEmpty: true},
 				{Title: "Relationship", FieldName: "Acquaintances"},
 			},
 		},
