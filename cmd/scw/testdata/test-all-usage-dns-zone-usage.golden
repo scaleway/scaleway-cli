@@ -8,11 +8,11 @@ USAGE:
 AVAILABLE COMMANDS:
   clone       Clone a DNS zone
   create      Create a DNS zone
-  delete      Delete DNS zone
-  export      Export raw DNS zone
-  import      Import raw DNS zone
+  delete      Delete a DNS zone
+  export      Export a raw DNS zone
+  import      Import a raw DNS zone
   list        List DNS zones
-  refresh     Refresh DNS zone
+  refresh     Refresh a DNS zone
   update      Update a DNS zone
 
 FLAGS:

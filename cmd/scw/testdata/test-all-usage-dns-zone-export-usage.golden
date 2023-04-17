@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a DNS zone in a given format with default NS.
+Export a DNS zone with default name servers, in a specific format.
 
 USAGE:
   scw dns zone export <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone        The DNS zone to export
-  [format=bind]   Format for DNS zone (unknown_raw_format | bind)
+  dns-zone        DNS zone to export
+  [format=bind]   DNS zone format (unknown_raw_format | bind)
 
 FLAGS:
   -h, --help   help for export

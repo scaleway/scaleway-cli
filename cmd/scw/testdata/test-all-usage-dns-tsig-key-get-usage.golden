@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the DNS zone TSIG Key to allow AXFR request.
+Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.
 
 USAGE:
   scw dns tsig-key get <dns-zone ...> [arg=value ...]
