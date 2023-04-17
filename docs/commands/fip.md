@@ -3,30 +3,30 @@
 Flexible IP API.
   
 - [Flexible IP management commands](#flexible-ip-management-commands)
-  - [Attach a Flexible IP to a server](#attach-a-flexible-ip-to-a-server)
-  - [Create a Flexible IP](#create-a-flexible-ip)
-  - [Delete a Flexible IP](#delete-a-flexible-ip)
-  - [Detach a Flexible IP from a server](#detach-a-flexible-ip-from-a-server)
-  - [Get a Flexible IP](#get-a-flexible-ip)
-  - [List Flexible IPs](#list-flexible-ips)
-  - [Update a Flexible IP](#update-a-flexible-ip)
+  - [Attach an existing flexible IP to a server](#attach-an-existing-flexible-ip-to-a-server)
+  - [Create a new flexible IP](#create-a-new-flexible-ip)
+  - [Delete an existing flexible IP](#delete-an-existing-flexible-ip)
+  - [Detach an existing flexible IP from a server](#detach-an-existing-flexible-ip-from-a-server)
+  - [Get an existing flexible IP](#get-an-existing-flexible-ip)
+  - [List flexible IPs](#list-flexible-ips)
+  - [Update an existing flexible IP](#update-an-existing-flexible-ip)
 - [MAC address management commands](#mac-address-management-commands)
-  - [Generate a virtual MAC on a given Flexible IP](#generate-a-virtual-mac-on-a-given-flexible-ip)
-  - [Remove a virtual MAC from a Flexible IP](#remove-a-virtual-mac-from-a-flexible-ip)
-  - [Duplicate a Virtual MAC](#duplicate-a-virtual-mac)
-  - [Move a virtual MAC](#move-a-virtual-mac)
+  - [Generate a virtual MAC address on an existing flexible IP](#generate-a-virtual-mac-address-on-an-existing-flexible-ip)
+  - [Detach a given virtual MAC address from an existing flexible IP](#detach-a-given-virtual-mac-address-from-an-existing-flexible-ip)
+  - [Duplicate a virtual MAC address to another flexible IP](#duplicate-a-virtual-mac-address-to-another-flexible-ip)
+  - [Relocate an existing virtual MAC address to a different flexible IP](#relocate-an-existing-virtual-mac-address-to-a-different-flexible-ip)
 
   
 ## Flexible IP management commands
 
-A Flexible IP can be attached to any server in the same zone.
-A server can be linked with multiple Flexible IPs attached to it.
+A flexible IP can be attached to any Elastic Metal server within the same zone.
+Multiple flexible IPs can be attached to a server.
 
 
 
-### Attach a Flexible IP to a server
+### Attach an existing flexible IP to a server
 
-Attach a Flexible IP to a server.
+Attach an existing flexible IP to a specified Elastic Metal server.
 
 **Usage:**
 
@@ -39,15 +39,15 @@ scw fip ip attach [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fips-ids.{index} | Required | A list of Flexible IP IDs to attach |
-| server-id | Required | A server ID on which to attach the Flexible IPs |
+| fips-ids.{index} | Required | List of flexible IP IDs to attach to a server |
+| server-id | Required | ID of the server on which to attach the flexible IPs |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Create a Flexible IP
+### Create a new flexible IP
 
-Create a Flexible IP.
+Generate a new flexible IP within a given zone, specifying its configuration including Project ID and description.
 
 **Usage:**
 
@@ -61,18 +61,18 @@ scw fip ip create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| description |  | Description to associate with the Flexible IP, max 255 characters |
-| tags.{index} |  | Tags to associate to the Flexible IP |
-| server-id |  | Server ID on which to attach the created Flexible IP |
-| reverse |  | Reverse DNS value |
-| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
+| description |  | Flexible IP description (max. of 255 characters) |
+| tags.{index} |  | Tags to associate to the flexible IP |
+| server-id |  | ID of the server to which the newly created flexible IP will be attached. |
+| reverse |  | Value of the reverse DNS |
+| is-ipv6 |  | Defines whether the flexible IP has an IPv6 address. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete a Flexible IP
+### Delete an existing flexible IP
 
-Delete a Flexible IP.
+Delete an existing flexible IP, specified by its ID and zone. Note that deleting a flexible IP is permanent and cannot be undone.
 
 **Usage:**
 
@@ -85,14 +85,14 @@ scw fip ip delete <fip-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | ID of the Flexible IP to delete |
+| fip-id | Required | ID of the flexible IP to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Detach a Flexible IP from a server
+### Detach an existing flexible IP from a server
 
-Detach a Flexible IP from a server.
+Detach an existing flexible IP from a specified Elastic Metal server.
 
 **Usage:**
 
@@ -105,14 +105,14 @@ scw fip ip detach [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fips-ids.{index} | Required | A list of Flexible IP IDs to detach |
+| fips-ids.{index} | Required | List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Get a Flexible IP
+### Get an existing flexible IP
 
-Get a Flexible IP.
+Retrieve information about an existing flexible IP, specified by its ID and zone. Its full details, including Project ID, description and status, are returned in the response object.
 
 **Usage:**
 
@@ -125,14 +125,14 @@ scw fip ip get <fip-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | Flexible IP ID |
+| fip-id | Required | ID of the flexible IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### List Flexible IPs
+### List flexible IPs
 
-List Flexible IPs.
+List all flexible IPs within a given zone.
 
 **Usage:**
 
@@ -145,19 +145,19 @@ scw fip ip list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | The sort order of the returned Flexible IPs |
-| tags.{index} |  | Filter Flexible IPs with one or more matching tags |
-| status.{index} | One of: `unknown`, `ready`, `updating`, `attached`, `error`, `detaching`, `locked` | Filter Flexible IPs by status |
-| server-ids.{index} |  | Filter Flexible IPs by server IDs |
-| project-id |  | Filter Flexible IPs by project ID |
-| organization-id |  | Filter Flexible IPs by organization ID |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of the returned flexible IPs |
+| tags.{index} |  | Filter by tag, only flexible IPs with one or more matching tags will be returned |
+| status.{index} | One of: `unknown`, `ready`, `updating`, `attached`, `error`, `detaching`, `locked` | Filter by status, only flexible IPs with this status will be returned |
+| server-ids.{index} |  | Filter by server IDs, only flexible IPs with these server IDs will be returned |
+| project-id |  | Filter by Project ID, only flexible IPs from this Project will be returned |
+| organization-id |  | Filter by Organization ID, only flexible IPs from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Update a Flexible IP
+### Update an existing flexible IP
 
-Update a Flexible IP.
+Update the parameters of an existing flexible IP, specified by its ID and zone. These parameters include tags and description.
 
 **Usage:**
 
@@ -170,10 +170,10 @@ scw fip ip update <fip-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | ID of the Flexible IP to update |
-| description |  | Description to associate with the Flexible IP, max 255 characters |
-| tags.{index} |  | Tags to associate with the Flexible IP |
-| reverse |  | Reverse DNS value |
+| fip-id | Required | ID of the flexible IP to update |
+| description |  | Flexible IP description (max. 255 characters) |
+| tags.{index} |  | Tags associated with the flexible IP |
+| reverse |  | Value of the reverse DNS |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -183,9 +183,9 @@ scw fip ip update <fip-id ...> [arg=value ...]
 MAC address management commands.
 
 
-### Generate a virtual MAC on a given Flexible IP
+### Generate a virtual MAC address on an existing flexible IP
 
-Generate a virtual MAC on a given Flexible IP.
+Generate a virtual MAC (Media Access Control) address on an existing flexible IP.
 
 **Usage:**
 
@@ -198,15 +198,15 @@ scw fip mac create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | Flexible IP ID on which to generate a Virtual MAC |
+| fip-id | Required | ID of the flexible IP for which to generate a virtual MAC |
 | mac-type | Required<br />One of: `unknown_type`, `vmware`, `xen`, `kvm` | TODO |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Remove a virtual MAC from a Flexible IP
+### Detach a given virtual MAC address from an existing flexible IP
 
-Remove a virtual MAC from a Flexible IP.
+Detach a given MAC (Media Access Control) address from an existing flexible IP.
 
 **Usage:**
 
@@ -219,14 +219,14 @@ scw fip mac delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | Flexible IP ID from which to delete the Virtual MAC |
+| fip-id | Required | ID of the flexible IP from which to delete the virtual MAC |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Duplicate a Virtual MAC
+### Duplicate a virtual MAC address to another flexible IP
 
-Duplicate a Virtual MAC from a given Flexible IP onto another attached on the same server.
+Duplicate a virtual MAC address from a given flexible IP to another flexible IP attached to the same server.
 
 **Usage:**
 
@@ -239,15 +239,15 @@ scw fip mac duplicate [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| fip-id | Required | Flexible IP ID on which to duplicate the Virtual MAC |
-| duplicate-from-fip-id | Required | Flexible IP ID to duplicate the Virtual MAC from |
+| fip-id | Required | ID of the flexible IP on which to duplicate the virtual MAC |
+| duplicate-from-fip-id | Required | ID of the flexible IP to duplicate the Virtual MAC from |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Move a virtual MAC
+### Relocate an existing virtual MAC address to a different flexible IP
 
-Move a Virtual MAC from a given Flexible IP onto another Flexible IP.
+Relocate a virtual MAC (Media Access Control) address from an existing flexible IP to a different flexible IP.
 
 **Usage:**
 

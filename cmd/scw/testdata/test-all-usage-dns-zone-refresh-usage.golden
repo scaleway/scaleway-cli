@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Refresh SOA DNS zone.
+Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
 You can recreate the given DNS zone and its sub DNS zone if needed.
 
 USAGE:
   scw dns zone refresh <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone                  The DNS zone to refresh
-  [recreate-dns-zone]       Whether or not to recreate the DNS zone
-  [recreate-sub-dns-zone]   Whether or not to recreate the sub DNS zone
+  dns-zone                  DNS zone to refresh
+  [recreate-dns-zone]       Specifies whether or not to recreate the DNS zone
+  [recreate-sub-dns-zone]   Specifies whether or not to recreate the sub DNS zone
 
 FLAGS:
   -h, --help   help for refresh

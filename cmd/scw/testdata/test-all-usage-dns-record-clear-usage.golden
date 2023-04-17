@@ -1,14 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Only available with default NS.<br/>
-Delete all the records from a DNS zone.
+Delete all records within a DNS zone that has default name servers.<br/>
 All edits will be versioned.
 
 USAGE:
   scw dns record clear <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone   The DNS zone to clear
+  dns-zone   DNS zone to clear
 
 FLAGS:
   -h, --help   help for clear

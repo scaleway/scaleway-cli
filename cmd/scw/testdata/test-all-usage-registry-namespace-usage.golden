@@ -1,25 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A namespace is for images what a folder is for files
+A namespace is a collection of container images, each bearing the unique identifier of that namespace. A namespace can be either public or private, by default.
 
-To use our services, the first step is to create a namespace.
+Each namespace must have a globally unique name within its region. This means no namespaces in the same region can bear the same name.
 
-A namespace is for images what a folder is for files. Every push or pull must mention the namespace :
-```docker pull rg.nl-ams.scw.cloud/<namespace_name>/<image_name>:<tag_name>```
-
-Note that a namespace name is unique on a region. Thus, if another client already has created "test", you can't have it as a namespace
-
-A namespace can be either public or private (default), which determines who can pull images.
+You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.
 
 USAGE:
   scw registry namespace <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new namespace
-  delete      Delete an existing namespace
+  create      Create a namespace
+  delete      Delete a namespace
   get         Get a namespace
-  list        List all your namespaces
-  update      Update an existing namespace
+  list        List namespaces
+  update      Update a namespace
 
 FLAGS:
   -h, --help   help for namespace

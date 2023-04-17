@@ -27,8 +27,9 @@ type MarshalFieldOpt struct {
 // MarshalSection describes a section to build from a given struct.
 // When marshalling, this section is shown under the main struct section.
 type MarshalSection struct {
-	FieldName string
-	Title     string
+	FieldName   string
+	Title       string
+	HideIfEmpty bool
 }
 
 func (s *MarshalFieldOpt) getLabel() string {
