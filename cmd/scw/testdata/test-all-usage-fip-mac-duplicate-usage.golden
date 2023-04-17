@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Duplicate a Virtual MAC from a given Flexible IP onto another attached on the same server.
+Duplicate a virtual MAC address from a given flexible IP to another flexible IP attached to the same server.
 
 USAGE:
   scw fip mac duplicate [arg=value ...]
 
 ARGS:
-  fip-id                  Flexible IP ID on which to duplicate the Virtual MAC
-  duplicate-from-fip-id   Flexible IP ID to duplicate the Virtual MAC from
+  fip-id                  ID of the flexible IP on which to duplicate the virtual MAC
+  duplicate-from-fip-id   ID of the flexible IP to duplicate the Virtual MAC from
   [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:

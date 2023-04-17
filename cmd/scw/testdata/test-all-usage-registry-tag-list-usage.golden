@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all your tags.
+List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
 
 USAGE:
   scw registry tag list [arg=value ...]
 
 ARGS:
-  [order-by]        Field by which to order the display of Images (created_at_asc | created_at_desc | name_asc | name_desc)
-  image-id          The unique ID of the image
+  [order-by]        Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. (created_at_asc | created_at_desc | name_asc | name_desc)
+  image-id          The UUID of the image
   [name]            Filter by the tag name (exact match)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

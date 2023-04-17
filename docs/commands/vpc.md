@@ -3,28 +3,25 @@
 VPC API.
   
 - [Private network management command](#private-network-management-command)
-  - [Create a private network](#create-a-private-network)
-  - [Delete a private network](#delete-a-private-network)
-  - [Get a private network](#get-a-private-network)
-  - [List private networks](#list-private-networks)
-  - [Update private network](#update-private-network)
+  - [Create a Private Network](#create-a-private-network)
+  - [Delete a Private Network](#delete-a-private-network)
+  - [Get a Private Network](#get-a-private-network)
+  - [List Private Networks](#list-private-networks)
+  - [Update Private Network](#update-private-network)
 
   
 ## Private network management command
 
-A private network allows interconnecting your instances in an
-isolated and private network. The network reachability is limited
-to the instances that are on the same private network.  Network
-Interface Controllers (NICs) are available on the instance and can
-be freely managed (adding IP addresses, shutdown interface...)
-
-Note that an instance can be a part of multiple private networks.
+A Private Network allows you to interconnect your Scaleway resources in an
+isolated and private network. Network reachability is limited
+to resources that are on the same Private Network. Note that a resource can
+be part of multiple Private Networks.
 
 
 
-### Create a private network
+### Create a Private Network
 
-Create a private network.
+Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.
 
 **Usage:**
 
@@ -37,17 +34,17 @@ scw vpc private-network create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` | The name of the private network |
+| name | Required<br />Default: `<generated>` | Name for the Private Network |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The private networks tags |
-| subnets.{index} |  | Private network subnets CIDR |
+| tags.{index} |  | Tags for the Private Network |
+| subnets.{index} |  | Private Network subnets CIDR |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete a private network
+### Delete a Private Network
 
-Delete a private network.
+Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
 
 **Usage:**
 
@@ -60,14 +57,14 @@ scw vpc private-network delete <private-network-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| private-network-id | Required | The private network ID |
+| private-network-id | Required | Private Network ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Get a private network
+### Get a Private Network
 
-Get a private network.
+Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
 
 **Usage:**
 
@@ -80,14 +77,14 @@ scw vpc private-network get <private-network-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| private-network-id | Required | The private network id |
+| private-network-id | Required | Private Network ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### List private networks
+### List Private Networks
 
-List private networks.
+List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 
 **Usage:**
 
@@ -100,20 +97,20 @@ scw vpc private-network list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | The sort order of the returned private networks |
-| name |  | Filter private networks with names containing this string |
-| tags.{index} |  | Filter private networks with one or more matching tags |
-| project-id |  | The project ID on which to filter the returned private networks |
-| private-network-ids.{index} |  | The PrivateNetwork IDs on which to filter the returned private networks |
-| include-regional |  | Include regional Private Networks |
-| organization-id |  | The organization ID on which to filter the returned private networks |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned Private Networks |
+| name |  | Name to filter for. Only Private Networks with names containing this string will be returned |
+| tags.{index} |  | Tags to filter for. Only Private Networks with one or more matching tags will be returned |
+| project-id |  | Project ID to filter for. Only Private Networks belonging to this Project will be returned |
+| private-network-ids.{index} |  | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned |
+| include-regional |  | Defines whether to include regional Private Networks in the response |
+| organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Update private network
+### Update Private Network
 
-Update private network.
+Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
 
 **Usage:**
 
@@ -126,10 +123,10 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| private-network-id | Required | The private network ID |
-| name |  | The name of the private network |
-| tags.{index} |  | The private networks tags |
-| ~~subnets.{index}~~ | Deprecated | Private network subnets CIDR (deprecated) |
+| private-network-id | Required | Private Network ID |
+| name |  | Name of the private network |
+| tags.{index} |  | Tags for the Private Network |
+| ~~subnets.{index}~~ | Deprecated | Private Network subnets CIDR (deprecated) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

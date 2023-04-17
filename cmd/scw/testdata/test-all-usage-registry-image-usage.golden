@@ -1,18 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-An image represents a container image.
+An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
 
-The visibility of an image can be public (everyone can pull it), private (only your organization can pull it) or inherit from the namespace visibility (default)
-It can be changed with an update on the image via the registry API.
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](https://developers.scaleway.com/en/products/registry/api/#patch-e73745).
 
 USAGE:
   scw registry image <command>
 
 AVAILABLE COMMANDS:
   delete      Delete an image
-  get         Get a image
-  list        List all your images
-  update      Update an existing image
+  get         Get an image
+  list        List images
+  update      Update an image
 
 FLAGS:
   -h, --help   help for image

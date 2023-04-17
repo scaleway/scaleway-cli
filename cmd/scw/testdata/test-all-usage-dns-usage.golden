@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage your DNS zones and records.
+Manage your domains, DNS zones and records with the Domains and DNS API.
 
 USAGE:
   scw dns <command>

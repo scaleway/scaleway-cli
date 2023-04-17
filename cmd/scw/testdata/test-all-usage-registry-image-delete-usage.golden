@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the image associated with the given id.
+Delete a given image. You must specify, in the endpoint, the `region` and `image_id` parameters of the image you want to delete.
 
 USAGE:
   scw registry image delete <image-id ...> [arg=value ...]
 
 ARGS:
-  image-id          The unique ID of the Image
+  image-id          The UUID of the image
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

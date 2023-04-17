@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Returns a list of DNS records of a DNS zone with default NS.
-You can filter the records by type and name.
+Retrieve a list of DNS records within a DNS zone that has default name servers.
+You can filter records by type and name.
 
 USAGE:
   scw dns record list <dns-zone ...> [arg=value ...]
 
 ARGS:
-  [project-id]   The project ID on which to filter the returned DNS zone records
-  [order-by]     The sort order of the returned DNS zone records (name_asc | name_desc)
-  dns-zone       The DNS zone on which to filter the returned DNS zone records
-  [name]         The name on which to filter the returned DNS zone records
-  [type]         The record type on which to filter the returned DNS zone records (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
-  [id]           The record ID on which to filter the returned DNS zone records
+  [project-id]   Project ID on which to filter the returned DNS zone records
+  [order-by]     Sort order of the returned DNS zone records (name_asc | name_desc)
+  dns-zone       DNS zone on which to filter the returned DNS zone records
+  [name]         Name on which to filter the returned DNS zone records
+  [type]         Record type on which to filter the returned DNS zone records (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [id]           Record ID on which to filter the returned DNS zone records
 
 FLAGS:
   -h, --help   help for list
