@@ -274,6 +274,26 @@ func Test_ServerDelete(t *testing.T) {
 		DisableParallel: true,
 	}))
 
+	t.Run("with none volumes", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=none`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetVolume(&instance.GetVolumeRequest{
+					VolumeID: server.Volumes["0"].ID,
+				})
+				assert.NoError(t, err)
+			},
+		),
+		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
+		DisableParallel: true,
+	}))
+
 	interactive.IsInteractive = false
 }
 

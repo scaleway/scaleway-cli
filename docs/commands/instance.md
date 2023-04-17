@@ -1756,7 +1756,7 @@ scw instance server delete <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required |  |
-| with-volumes | Default: `none`<br />One of: `none`, `local`, `block`, `root`, `all` | Delete the volumes attached to the server |
+| with-volumes | Default: `all`<br />One of: `none`, `local`, `block`, `root`, `all` | Delete the volumes attached to the server |
 | with-ip |  | Delete the IP attached to the server |
 | force-shutdown |  | Force shutdown of the instance server before deleting it |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
