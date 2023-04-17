@@ -33,6 +33,7 @@ type meta struct {
 	stdin                       io.Reader
 	result                      interface{}
 	httpClient                  *http.Client
+	config                      *scw.Config
 	isClientFromBootstrapConfig bool
 	betaMode                    bool
 }
@@ -51,6 +52,15 @@ func injectMeta(ctx context.Context, meta *meta) context.Context {
 // extractMeta extracts meta from a given context.
 func extractMeta(ctx context.Context) *meta {
 	return ctx.Value(metaContextKey).(*meta)
+}
+
+// injectSDKConfig add config to a meta context
+func injectConfig(ctx context.Context, config *scw.Config) {
+	extractMeta(ctx).config = config
+}
+
+func extractConfig(ctx context.Context) *scw.Config {
+	return extractMeta(ctx).config
 }
 
 func ExtractCommands(ctx context.Context) *Commands {
