@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a hub.
+Update the parameters of an existing IoT Hub, specified by its Hub ID.
 
 USAGE:
   scw iot hub update <hub-id ...> [arg=value ...]
 
 ARGS:
-  hub-id                              Hub ID
+  hub-id                              ID of the Hub you want to update
   [name]                              Hub name (up to 255 characters)
-  [product-plan]                      Hub feature set (plan_unknown | plan_shared | plan_dedicated | plan_ha)
+  [product-plan]                      Hub product plan (plan_unknown | plan_shared | plan_dedicated | plan_ha)
   [disable-events]                    Disable Hub events
-  [events-topic-prefix]               Hub events topic prefix
+  [events-topic-prefix]               Topic prefix of Hub events
   [enable-device-auto-provisioning]   Enable device auto provisioning
   [twins-graphite-config.push-uri]    
   [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par)

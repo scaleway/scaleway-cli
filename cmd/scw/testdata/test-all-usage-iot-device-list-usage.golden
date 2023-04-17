@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List devices.
+List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 
 USAGE:
   scw iot device list [arg=value ...]
 
 ARGS:
   [order-by]         Ordering of requested devices (name_asc | name_desc | status_asc | status_desc | hub_id_asc | hub_id_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | allow_insecure_asc | allow_insecure_desc)
-  [name]             Filter on the name
-  [hub-id]           Filter on the hub
-  [allow-insecure]   Filter on the allow_insecure flag
+  [name]             Name to filter for, only devices with this name will be returned
+  [hub-id]           Hub ID to filter for, only devices attached to this Hub will be returned
+  [allow-insecure]   Defines wheter to filter the allow_insecure flag
   [status]           Device status (enabled, disabled, etc.) (unknown | error | enabled | disabled)
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | all)
 
