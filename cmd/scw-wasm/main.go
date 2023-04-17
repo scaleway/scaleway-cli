@@ -64,6 +64,7 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 
 func main() {
 	js.Global().Set("cliRun", asyncFunc(wasmRun))
+	js.Global().Get("cliLoaded").Invoke()
 	<-make(chan struct{}, 0)
 	//end := runCommand(os.Args, os.Stdout, os.Stderr)
 	//log.Fatalln(<-end)
