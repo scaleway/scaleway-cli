@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a device.
+Retrieve information about an existing device, specified by its device ID. Its full details, including name, status and ID, are returned in the response object.
 
 USAGE:
   scw iot device get <device-id ...> [arg=value ...]
