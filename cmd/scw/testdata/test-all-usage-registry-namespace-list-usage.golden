@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all your namespaces.
+List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
 
 USAGE:
   scw registry namespace list [arg=value ...]
 
 ARGS:
-  [order-by]          Field by which to order the display of Images (created_at_asc | created_at_desc | description_asc | description_desc | name_asc | name_desc)
+  [order-by]          Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. (created_at_asc | created_at_desc | description_asc | description_desc | name_asc | name_desc)
   [project-id]        Filter by Project ID
   [name]              Filter by the namespace name (exact match)
   [organization-id]   Filter by Organization ID
