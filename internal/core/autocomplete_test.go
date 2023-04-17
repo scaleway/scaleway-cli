@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -78,6 +79,12 @@ func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*te
 		if len(words) == 0 {
 			name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
 			name = strings.Replace(name, "_", " ", -1)
+			// Test can contain a sharp if duplicated
+			// MyTest/scw_-flag_#01
+			sharpIndex := strings.Index(name, "#")
+			if sharpIndex != -1 {
+				name = name[:sharpIndex]
+			}
 			words = strings.Split(name, " ")
 		}
 
@@ -251,4 +258,32 @@ func TestAutocompleteArgs(t *testing.T) {
 	t.Run("scw test flower get material-name=", run(&testCase{Suggestions: AutocompleteSuggestions{"material-name=material1", "material-name=material2"}}))
 	t.Run("scw test flower get material-name=mat ", run(&testCase{Suggestions: AutocompleteSuggestions{"flower1", "flower2"}}))
 	t.Run("scw test flower create name=", run(&testCase{Suggestions: AutocompleteSuggestions(nil)}))
+}
+
+func TestAutocompleteProfiles(t *testing.T) {
+	commands := testAutocompleteGetCommands()
+	ctx := injectMeta(context.Background(), &meta{
+		Commands: commands,
+		betaMode: true,
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+	t.Run("scw -p ", run(&testCase{Suggestions: nil}))
+	t.Run("scw test -p ", run(&testCase{Suggestions: nil}))
+	t.Run("scw test flower --profile ", run(&testCase{Suggestions: nil}))
+
+	injectConfig(ctx, &scw.Config{
+		Profiles: map[string]*scw.Profile{
+			"p1": nil,
+			"p2": nil,
+		},
+	})
+
+	t.Run("scw -p ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
+	t.Run("scw test -p ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
+	t.Run("scw test flower --profile ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
 }
