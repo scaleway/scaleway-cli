@@ -56,7 +56,6 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 			EnumValues:       profiles,
 		},
 	}
-
 }
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
