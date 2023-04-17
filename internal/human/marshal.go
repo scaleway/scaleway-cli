@@ -102,8 +102,12 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		sectionsStrs = append(sectionsStrs, sectionStr)
+
 		sectionFieldNames[section.FieldName] = true
+
+		if sectionStr != "" {
+			sectionsStrs = append(sectionsStrs, sectionStr)
+		}
 	}
 
 	var marshal func(reflect.Value, []string) ([][]string, error)
@@ -379,8 +383,19 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 
 	field, err := gofields.GetValue(value.Interface(), section.FieldName)
 	if err != nil {
+		if section.HideIfEmpty {
+			if _, ok := err.(*gofields.NilValueError); ok {
+				return "", nil
+			}
+		}
+
 		return "", err
 	}
+
+	if section.HideIfEmpty && reflect.ValueOf(field).IsZero() {
+		return "", nil
+	}
+
 	return Marshal(field, &subOpt)
 }
 
