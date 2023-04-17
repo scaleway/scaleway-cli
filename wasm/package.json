@@ -1,0 +1,14 @@
+{
+  "name": "scaleway-cli-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cli.wasm",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "vitest": "^0.30.1"
+  }
+}
