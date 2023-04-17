@@ -233,6 +233,39 @@ func TestMarshal(t *testing.T) {
 		`,
 	}))
 
+	t.Run("hide if empty string", run(&testCase{
+		data: &Human{
+			Name:    "",
+			Age:     42,
+			Address: &Address{Street: "221b Baker St", City: "London"},
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Name", HideIfEmpty: true},
+				{FieldName: "Address"},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Age  42
+			
+			Address:
+			Street  221b Baker St
+			City    London
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
 	t.Run("empty string", run(&testCase{
 		data:   "",
 		result: `-`,
