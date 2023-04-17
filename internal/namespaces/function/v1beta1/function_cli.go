@@ -121,7 +121,7 @@ func functionToken() *core.Command {
 func functionNamespaceList() *core.Command {
 	return &core.Command{
 		Short:     `List all your namespaces`,
-		Long:      `List all your namespaces.`,
+		Long:      `List all existing namespaces in the specified region.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "list",
@@ -130,6 +130,7 @@ func functionNamespaceList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the namespaces`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -137,18 +138,21 @@ func functionNamespaceList() *core.Command {
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
+				Short:      `UUID of the Project the namespace belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `UUID of the Organization the namespace belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -213,7 +217,7 @@ func functionNamespaceList() *core.Command {
 func functionNamespaceGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a namespace`,
-		Long:      `Get the namespace associated with the given id.`,
+		Long:      `Get the namespace associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "get",
@@ -222,6 +226,7 @@ func functionNamespaceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -242,7 +247,7 @@ func functionNamespaceGet() *core.Command {
 func functionNamespaceCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new namespace`,
-		Long:      `Create a new namespace.`,
+		Long:      `Create a new namespace in a specified Organization or Proejct.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "create",
@@ -258,6 +263,7 @@ func functionNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -265,6 +271,7 @@ func functionNamespaceCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "description",
+				Short:      `Description of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -297,7 +304,7 @@ func functionNamespaceCreate() *core.Command {
 func functionNamespaceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing namespace`,
-		Long:      `Update the space associated with the given id.`,
+		Long:      `Update the namespace associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "update",
@@ -306,18 +313,21 @@ func functionNamespaceUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespapce`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -350,7 +360,7 @@ func functionNamespaceUpdate() *core.Command {
 func functionNamespaceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an existing namespace`,
-		Long:      `Delete the namespace associated with the given id.`,
+		Long:      `Delete the namespace associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "delete",
@@ -359,6 +369,7 @@ func functionNamespaceDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -388,6 +399,7 @@ func functionFunctionList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the functions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -395,24 +407,28 @@ func functionFunctionList() *core.Command {
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the function belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
+				Short:      `UUID of the Project the function belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `UUID of the Organziation the function belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -442,7 +458,7 @@ func functionFunctionList() *core.Command {
 func functionFunctionGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a function`,
-		Long:      `Get the function associated with the given id.`,
+		Long:      `Get the function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "get",
@@ -451,6 +467,7 @@ func functionFunctionGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -471,7 +488,7 @@ func functionFunctionGet() *core.Command {
 func functionFunctionCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new function`,
-		Long:      `Create a new function.`,
+		Long:      `Create a new function in the specified region for a specified Organization or Project.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "create",
@@ -480,6 +497,7 @@ func functionFunctionCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
+				Short:      `Name of the function to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -487,30 +505,35 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the function will be created in`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-scale",
+				Short:      `Minumum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-scale",
+				Short:      `Maximum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "runtime",
+				Short:      `Runtime to use with the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -518,6 +541,7 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the function in MB`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -536,12 +560,14 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "handler",
+				Short:      `Handler to use with the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "privacy",
+				Short:      `Privacy setting of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -549,6 +575,7 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -590,7 +617,7 @@ func functionFunctionCreate() *core.Command {
 func functionFunctionUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing function`,
-		Long:      `Update the function associated with the given id.`,
+		Long:      `Update the function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "update",
@@ -599,30 +626,35 @@ func functionFunctionUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the function to update`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-scale",
+				Short:      `Minumum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-scale",
+				Short:      `Maximum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "runtime",
+				Short:      `Runtime to use with the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -630,6 +662,7 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the function in MB`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -648,18 +681,21 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "redeploy",
+				Short:      `Redeploy failed function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "handler",
+				Short:      `Handler to use with the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "privacy",
+				Short:      `Privacy setting of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -667,6 +703,7 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -708,7 +745,7 @@ func functionFunctionUpdate() *core.Command {
 func functionFunctionDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a function`,
-		Long:      `Delete the function associated with the given id.`,
+		Long:      `Delete the function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "delete",
@@ -717,6 +754,7 @@ func functionFunctionDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -737,7 +775,7 @@ func functionFunctionDelete() *core.Command {
 func functionFunctionDeploy() *core.Command {
 	return &core.Command{
 		Short:     `Deploy a function`,
-		Long:      `Deploy a function associated with the given id.`,
+		Long:      `Deploy a function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "deploy",
@@ -746,6 +784,7 @@ func functionFunctionDeploy() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to deploy`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -789,7 +828,7 @@ func functionRuntimeList() *core.Command {
 func functionFunctionGetUploadURL() *core.Command {
 	return &core.Command{
 		Short:     `Get an upload URL of a function`,
-		Long:      `Get an upload URL of a function associated with the given id.`,
+		Long:      `Get an upload URL of a function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "get-upload-url",
@@ -798,6 +837,7 @@ func functionFunctionGetUploadURL() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to get the upload URL for`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -824,7 +864,7 @@ func functionFunctionGetUploadURL() *core.Command {
 func functionFunctionGetDownloadURL() *core.Command {
 	return &core.Command{
 		Short:     `Get a download URL of a function`,
-		Long:      `Get a download URL for a function associated with the given id.`,
+		Long:      `Get a download URL for a function associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "get-download-url",
@@ -833,6 +873,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to get the the download URL for`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -852,8 +893,8 @@ func functionFunctionGetDownloadURL() *core.Command {
 
 func functionCronList() *core.Command {
 	return &core.Command{
-		Short:     `List all your crons`,
-		Long:      `List all your crons.`,
+		Short:     `List all crons`,
+		Long:      `List all the cronjobs in a specified region.`,
 		Namespace: "function",
 		Resource:  "cron",
 		Verb:      "list",
@@ -862,6 +903,7 @@ func functionCronList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the crons`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -869,6 +911,7 @@ func functionCronList() *core.Command {
 			},
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -898,7 +941,7 @@ func functionCronList() *core.Command {
 func functionCronGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a cron`,
-		Long:      `Get the cron associated with the given id.`,
+		Long:      `Get the cron associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "cron",
 		Verb:      "get",
@@ -907,6 +950,7 @@ func functionCronGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -927,7 +971,7 @@ func functionCronGet() *core.Command {
 func functionCronCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new cron`,
-		Long:      `Create a new cron.`,
+		Long:      `Create a new cronjob for a function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "cron",
 		Verb:      "create",
@@ -936,24 +980,28 @@ func functionCronCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to use the cron with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "schedule",
+				Short:      `Schedule of the cron in UNIX cron format`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "args",
+				Short:      `Arguments to use with the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -974,7 +1022,7 @@ func functionCronCreate() *core.Command {
 func functionCronUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing cron`,
-		Long:      `Update the cron associated with the given id.`,
+		Long:      `Update the cron associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "cron",
 		Verb:      "update",
@@ -983,30 +1031,35 @@ func functionCronUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to use the cron with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "schedule",
+				Short:      `Schedule of the cron in UNIX cron format`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "args",
+				Short:      `Arguments to use with the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1027,7 +1080,7 @@ func functionCronUpdate() *core.Command {
 func functionCronDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an existing cron`,
-		Long:      `Delete the cron associated with the given id.`,
+		Long:      `Delete the cron associated with the specified ID.`,
 		Namespace: "function",
 		Resource:  "cron",
 		Verb:      "delete",
@@ -1036,6 +1089,7 @@ func functionCronDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1055,8 +1109,8 @@ func functionCronDelete() *core.Command {
 
 func functionFunctionGetLogs() *core.Command {
 	return &core.Command{
-		Short:     `List your application logs`,
-		Long:      `List your application logs.`,
+		Short:     `List application logs`,
+		Long:      `List the application logs of the function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "get-logs",
@@ -1065,12 +1119,14 @@ func functionFunctionGetLogs() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to get the logs for`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "order-by",
+				Short:      `Order of the logs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1101,7 +1157,7 @@ func functionFunctionGetLogs() *core.Command {
 func functionDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List all domain name bindings`,
-		Long:      `List all domain name bindings.`,
+		Long:      `List all domain name bindings in a specified region.`,
 		Namespace: "function",
 		Resource:  "domain",
 		Verb:      "list",
@@ -1110,6 +1166,7 @@ func functionDomainList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1117,6 +1174,7 @@ func functionDomainList() *core.Command {
 			},
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function the domain is assoicated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1146,7 +1204,7 @@ func functionDomainList() *core.Command {
 func functionDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a domain name binding`,
-		Long:      `Get a domain name binding.`,
+		Long:      `Get a domain name binding for the function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "domain",
 		Verb:      "get",
@@ -1155,6 +1213,7 @@ func functionDomainGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
+				Short:      `UUID of the domain to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1175,7 +1234,7 @@ func functionDomainGet() *core.Command {
 func functionDomainCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a domain name binding`,
-		Long:      `Create a domain name binding.`,
+		Long:      `Create a domain name binding for the function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "domain",
 		Verb:      "create",
@@ -1184,12 +1243,14 @@ func functionDomainCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hostname",
+				Short:      `Hostame to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to associate the domain with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1210,7 +1271,7 @@ func functionDomainCreate() *core.Command {
 func functionDomainDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a domain name binding`,
-		Long:      `Delete a domain name binding.`,
+		Long:      `Delete a domain name binding for the function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "domain",
 		Verb:      "delete",
@@ -1219,6 +1280,7 @@ func functionDomainDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
+				Short:      `UUID of the domain to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1248,24 +1310,28 @@ func functionTokenCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function to associate the token with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to associate the token with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the token`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "expires-at",
+				Short:      `Date on which the token expires`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1295,6 +1361,7 @@ func functionTokenGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
+				Short:      `UUID of the token to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1324,6 +1391,7 @@ func functionTokenList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Sort order for the tokens`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1331,12 +1399,14 @@ func functionTokenList() *core.Command {
 			},
 			{
 				Name:       "function-id",
+				Short:      `UUID of the function the token is assoicated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the token is associated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1375,6 +1445,7 @@ func functionTokenDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
+				Short:      `UUID of the token to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,

@@ -6,7 +6,7 @@ Functions API.
   - [Create a new cron](#create-a-new-cron)
   - [Delete an existing cron](#delete-an-existing-cron)
   - [Get a cron](#get-a-cron)
-  - [List all your crons](#list-all-your-crons)
+  - [List all crons](#list-all-crons)
   - [Update an existing cron](#update-an-existing-cron)
 - [Deploy a function](#deploy-a-function)
 - [Domain management commands](#domain-management-commands)
@@ -20,7 +20,7 @@ Functions API.
   - [Deploy a function](#deploy-a-function)
   - [Get a function](#get-a-function)
   - [Get a download URL of a function](#get-a-download-url-of-a-function)
-  - [List your application logs](#list-your-application-logs)
+  - [List application logs](#list-application-logs)
   - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
   - [List all your functions](#list-all-your-functions)
   - [Update an existing function](#update-an-existing-function)
@@ -46,7 +46,7 @@ Cron management commands.
 
 ### Create a new cron
 
-Create a new cron.
+Create a new cronjob for a function with the specified ID.
 
 **Usage:**
 
@@ -59,17 +59,17 @@ scw function cron create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id |  |  |
-| schedule |  |  |
-| args |  |  |
-| name |  |  |
+| function-id |  | UUID of the function to use the cron with |
+| schedule |  | Schedule of the cron in UNIX cron format |
+| args |  | Arguments to use with the cron |
+| name |  | Name of the cron |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Delete an existing cron
 
-Delete the cron associated with the given id.
+Delete the cron associated with the specified ID.
 
 **Usage:**
 
@@ -82,14 +82,14 @@ scw function cron delete <cron-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cron-id | Required |  |
+| cron-id | Required | UUID of the cron to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get a cron
 
-Get the cron associated with the given id.
+Get the cron associated with the specified ID.
 
 **Usage:**
 
@@ -102,14 +102,14 @@ scw function cron get <cron-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cron-id | Required |  |
+| cron-id | Required | UUID of the cron to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### List all your crons
+### List all crons
 
-List all your crons.
+List all the cronjobs in a specified region.
 
 **Usage:**
 
@@ -122,15 +122,15 @@ scw function cron list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| function-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the crons |
+| function-id |  | UUID of the function |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Update an existing cron
 
-Update the cron associated with the given id.
+Update the cron associated with the specified ID.
 
 **Usage:**
 
@@ -143,11 +143,11 @@ scw function cron update <cron-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cron-id | Required |  |
-| function-id |  |  |
-| schedule |  |  |
-| args |  |  |
-| name |  |  |
+| cron-id | Required | UUID of the cron to update |
+| function-id |  | UUID of the function to use the cron with |
+| schedule |  | Schedule of the cron in UNIX cron format |
+| args |  | Arguments to use with the cron |
+| name |  | Name of the cron |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -184,7 +184,7 @@ Domain management commands.
 
 ### Create a domain name binding
 
-Create a domain name binding.
+Create a domain name binding for the function with the specified ID.
 
 **Usage:**
 
@@ -197,15 +197,15 @@ scw function domain create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| hostname |  |  |
-| function-id |  |  |
+| hostname |  | Hostame to create |
+| function-id |  | UUID of the function to associate the domain with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Delete a domain name binding
 
-Delete a domain name binding.
+Delete a domain name binding for the function with the specified ID.
 
 **Usage:**
 
@@ -218,14 +218,14 @@ scw function domain delete <domain-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| domain-id | Required |  |
+| domain-id | Required | UUID of the domain to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get a domain name binding
 
-Get a domain name binding.
+Get a domain name binding for the function with the specified ID.
 
 **Usage:**
 
@@ -238,14 +238,14 @@ scw function domain get <domain-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| domain-id | Required |  |
+| domain-id | Required | UUID of the domain to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### List all domain name bindings
 
-List all domain name bindings.
+List all domain name bindings in a specified region.
 
 **Usage:**
 
@@ -258,8 +258,8 @@ scw function domain list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` |  |
-| function-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` | Order of the domains |
+| function-id |  | UUID of the function the domain is assoicated with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -271,7 +271,7 @@ Function management commands.
 
 ### Create a new function
 
-Create a new function.
+Create a new function in the specified region for a specified Organization or Project.
 
 **Usage:**
 
@@ -284,18 +284,18 @@ scw function function create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Default: `<generated>` |  |
-| namespace-id |  |  |
-| environment-variables.{key} |  |  |
-| min-scale |  |  |
-| max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` |  |
-| memory-limit |  |  |
+| name | Default: `<generated>` | Name of the function to create |
+| namespace-id |  | UUID of the namespace the function will be created in |
+| environment-variables.{key} |  | Environment variables of the function |
+| min-scale |  | Minumum number of instances to scale the function to |
+| max-scale |  | Maximum number of instances to scale the function to |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` | Runtime to use with the function |
+| memory-limit |  | Memory limit of the function in MB |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
-| handler |  |  |
-| privacy | One of: `unknown_privacy`, `public`, `private` |  |
-| description |  |  |
+| handler |  | Handler to use with the function |
+| privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |
+| description |  | Description of the function |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
@@ -305,7 +305,7 @@ scw function function create [arg=value ...]
 
 ### Delete a function
 
-Delete the function associated with the given id.
+Delete the function associated with the specified ID.
 
 **Usage:**
 
@@ -318,14 +318,14 @@ scw function function delete <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
+| function-id | Required | UUID of the function to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Deploy a function
 
-Deploy a function associated with the given id.
+Deploy a function associated with the specified ID.
 
 **Usage:**
 
@@ -338,14 +338,14 @@ scw function function deploy <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
+| function-id | Required | UUID of the function to deploy |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get a function
 
-Get the function associated with the given id.
+Get the function associated with the specified ID.
 
 **Usage:**
 
@@ -358,14 +358,14 @@ scw function function get <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
+| function-id | Required | UUID of the function |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get a download URL of a function
 
-Get a download URL for a function associated with the given id.
+Get a download URL for a function associated with the specified ID.
 
 **Usage:**
 
@@ -378,14 +378,14 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
+| function-id | Required | UUID of the function to get the the download URL for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### List your application logs
+### List application logs
 
-List your application logs.
+List the application logs of the function with the specified ID.
 
 **Usage:**
 
@@ -398,15 +398,15 @@ scw function function get-logs <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
-| order-by | One of: `timestamp_desc`, `timestamp_asc` |  |
+| function-id | Required | UUID of the function to get the logs for |
+| order-by | One of: `timestamp_desc`, `timestamp_asc` | Order of the logs |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get an upload URL of a function
 
-Get an upload URL of a function associated with the given id.
+Get an upload URL of a function associated with the specified ID.
 
 **Usage:**
 
@@ -419,7 +419,7 @@ scw function function get-upload-url <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
+| function-id | Required | UUID of the function to get the upload URL for |
 | content-length |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -440,18 +440,18 @@ scw function function list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
-| namespace-id |  |  |
-| name |  |  |
-| project-id |  |  |
-| organization-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the functions |
+| namespace-id |  | UUID of the namespace the function belongs to |
+| name |  | Name of the function |
+| project-id |  | UUID of the Project the function belongs to |
+| organization-id |  | UUID of the Organziation the function belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Update an existing function
 
-Update the function associated with the given id.
+Update the function associated with the specified ID.
 
 **Usage:**
 
@@ -464,18 +464,18 @@ scw function function update <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required |  |
-| environment-variables.{key} |  |  |
-| min-scale |  |  |
-| max-scale |  |  |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` |  |
-| memory-limit |  |  |
+| function-id | Required | UUID of the function to update |
+| environment-variables.{key} |  | Environment variables of the function to update |
+| min-scale |  | Minumum number of instances to scale the function to |
+| max-scale |  | Maximum number of instances to scale the function to |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120` | Runtime to use with the function |
+| memory-limit |  | Memory limit of the function in MB |
 | timeout.seconds |  |  |
 | timeout.nanos |  |  |
-| redeploy |  |  |
-| handler |  |  |
-| privacy | One of: `unknown_privacy`, `public`, `private` |  |
-| description |  |  |
+| redeploy |  | Redeploy failed function |
+| handler |  | Handler to use with the function |
+| privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |
+| description |  | Description of the function |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
@@ -490,7 +490,7 @@ Function namespace management commands.
 
 ### Create a new namespace
 
-Create a new namespace.
+Create a new namespace in a specified Organization or Proejct.
 
 **Usage:**
 
@@ -504,9 +504,9 @@ scw function namespace create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Default: `<generated>` |  |
-| environment-variables.{key} |  |  |
+| environment-variables.{key} |  | Environment variables of the namespace |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| description |  |  |
+| description |  | Description of the namespace |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -515,7 +515,7 @@ scw function namespace create [arg=value ...]
 
 ### Delete an existing namespace
 
-Delete the namespace associated with the given id.
+Delete the namespace associated with the specified ID.
 
 **Usage:**
 
@@ -528,14 +528,14 @@ scw function namespace delete <namespace-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required |  |
+| namespace-id | Required | UUID of the namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Get a namespace
 
-Get the namespace associated with the given id.
+Get the namespace associated with the specified ID.
 
 **Usage:**
 
@@ -548,14 +548,14 @@ scw function namespace get <namespace-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required |  |
+| namespace-id | Required | UUID of the namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### List all your namespaces
 
-List all your namespaces.
+List all existing namespaces in the specified region.
 
 **Usage:**
 
@@ -568,17 +568,17 @@ scw function namespace list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
-| name |  |  |
-| project-id |  |  |
-| organization-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the namespaces |
+| name |  | Name of the namespace |
+| project-id |  | UUID of the Project the namespace belongs to |
+| organization-id |  | UUID of the Organization the namespace belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Update an existing namespace
 
-Update the space associated with the given id.
+Update the namespace associated with the specified ID.
 
 **Usage:**
 
@@ -591,9 +591,9 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required |  |
-| environment-variables.{key} |  |  |
-| description |  |  |
+| namespace-id | Required | UUID of the namespapce |
+| environment-variables.{key} |  | Environment variables of the namespace |
+| description |  | Description of the namespace |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -644,10 +644,10 @@ scw function token create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id |  |  |
-| namespace-id |  |  |
-| description |  |  |
-| expires-at |  |  |
+| function-id |  | UUID of the function to associate the token with |
+| namespace-id |  | UUID of the namespace to associate the token with |
+| description |  | Description of the token |
+| expires-at |  | Date on which the token expires |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -667,7 +667,7 @@ scw function token delete <token-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| token-id | Required |  |
+| token-id | Required | UUID of the token to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -687,7 +687,7 @@ scw function token get <token-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| token-id | Required |  |
+| token-id | Required | UUID of the token to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -707,9 +707,9 @@ scw function token list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| function-id |  |  |
-| namespace-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for the tokens |
+| function-id |  | UUID of the function the token is assoicated with |
+| namespace-id |  | UUID of the namespace the token is associated with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
