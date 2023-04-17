@@ -6,10 +6,10 @@ USAGE:
   scw function token create [arg=value ...]
 
 ARGS:
-  [function-id]     
-  [namespace-id]    
-  [description]     
-  [expires-at]      
+  [function-id]     UUID of the function to associate the token with
+  [namespace-id]    UUID of the namespace to associate the token with
+  [description]     Description of the token
+  [expires-at]      Date on which the token expires
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
