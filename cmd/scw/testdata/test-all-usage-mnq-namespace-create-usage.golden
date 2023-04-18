@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a namespace.
+Create a Messaging and Queuing namespace, set to the desired protocol.
 
 USAGE:
   scw mnq namespace create [arg=value ...]
 
 ARGS:
   [name=<generated>]   Namespace name
-  protocol             Namespace protocol (unknown | nats | sqs_sns)
+  protocol             Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error. (unknown | nats | sqs_sns)
   [project-id]         Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par)
 
