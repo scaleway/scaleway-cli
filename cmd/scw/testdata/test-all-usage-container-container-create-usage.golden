@@ -1,25 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new container.
+Create a new container in the specified region.
 
 USAGE:
   scw container container create [arg=value ...]
 
 ARGS:
-  [namespace-id]                                 
-  [name=<generated>]                             
-  [environment-variables.{key}]                  
-  [min-scale]                                    
-  [max-scale]                                    
-  [memory-limit]                                 
+  [namespace-id]                                 UUID of the namespace the container belongs to
+  [name]                                         Name of the container
+  [environment-variables.{key}]                  Environment variables of the container
+  [min-scale]                                    Minimum number of instances to scale the container to
+  [max-scale]                                    Maximum number of instances to scale the container to
+  [memory-limit]                                 Memory limit of the container in MB
+  [cpu-limit]                                    CPU limit of the container in mvCPU
   [timeout.seconds]                              
   [timeout.nanos]                                
-  [privacy]                                       (unknown_privacy | public | private)
-  [description]                                  
-  [registry-image]                               
-  [max-concurrency]                              
-  [protocol]                                      (unknown_protocol | http1 | h2c)
-  [port]                                         
+  [privacy]                                      Privacy setting of the container (unknown_privacy | public | private)
+  [description]                                  Description of the container
+  [registry-image]                               Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+  [max-concurrency]                              Number of maximum concurrent executions of the container
+  [protocol]                                     Protocol the container uses (unknown_protocol | http1 | h2c)
+  [port]                                         Port the container listens on
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
