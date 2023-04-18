@@ -6,10 +6,10 @@ USAGE:
   scw container token create [arg=value ...]
 
 ARGS:
-  [container-id]    
-  [namespace-id]    
-  [description]     
-  [expires-at]      
+  [container-id]    UUID of the container to create the token for
+  [namespace-id]    UUID of the namespace to create the token for
+  [description]     Description of the token
+  [expires-at]      Expiry date of the token
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
