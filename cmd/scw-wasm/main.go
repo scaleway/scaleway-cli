@@ -63,9 +63,19 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 }
 
 func main() {
-	js.Global().Set("cliRun", asyncFunc(wasmRun))
-	js.Global().Get("cliLoaded").Invoke()
+	args := getArgs()
+
+	if args.targetObject != "" {
+		cliPackage := js.ValueOf(map[string]any{})
+		cliPackage.Set("run", asyncFunc(wasmRun))
+		js.Global().Set(args.targetObject, cliPackage)
+	}
+
+	if args.callback != "" {
+		givenCallback := js.Global().Get(args.callback)
+		if !givenCallback.IsUndefined() {
+			givenCallback.Invoke()
+		}
+	}
 	<-make(chan struct{}, 0)
-	//end := runCommand(os.Args, os.Stdout, os.Stderr)
-	//log.Fatalln(<-end)
 }
