@@ -1,4 +1,4 @@
-name: Build and test wasm
+name: WASM
 
 on:
   pull_request:
