@@ -1,4 +1,3 @@
-//nolint
 //go:build !windows && !wasm
 
 package gotty
