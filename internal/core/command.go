@@ -75,6 +75,9 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// WaitUsage override the usage for the -w (--wait) flag
+	WaitUsage string
+
 	// Aliases contains a list of aliases for a command
 	Aliases []string
 	// cache command path
