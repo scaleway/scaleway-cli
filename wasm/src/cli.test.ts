@@ -28,6 +28,7 @@ describe('With wasm CLI', async () => {
         return go.run(result.instance)
     }).catch((err) => {
         console.error(err)
+        console.error("webassembly error")
         process.exit(1)
     })
     await waitForCLI

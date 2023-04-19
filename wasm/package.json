@@ -2,7 +2,6 @@
   "name": "scaleway-cli-wasm",
   "version": "1.0.0",
   "description": "",
-  "main": "cli.wasm",
   "scripts": {
     "include": "cp /usr/local/go/misc/wasm/wasm_exec.js src/go/",
     "test": "vitest"
