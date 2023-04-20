@@ -35,8 +35,8 @@ type Command struct {
 	// DisableTelemetry disable telemetry for the command.
 	DisableTelemetry bool
 
-	// DisableVersionCheck disable the version check to avoid superfluous message
-	DisableVersionCheck bool
+	// DisableAfterChecks disable checks that run after the command to avoid superfluous message
+	DisableAfterChecks bool
 
 	// Hidden hides the command form usage and auto-complete.
 	Hidden bool
