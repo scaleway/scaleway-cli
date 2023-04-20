@@ -23,6 +23,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for terminate
+  -w, --wait   wait until the server and its resources are deleted
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

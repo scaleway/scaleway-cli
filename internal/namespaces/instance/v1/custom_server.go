@@ -3,6 +3,7 @@ package instance
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -1127,6 +1128,48 @@ func serverTerminateCommand() *core.Command {
 				Short:   "Stop a running server",
 			},
 		},
+		WaitUsage: "wait until the server and its resources are deleted",
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			terminateServerArgs := argsI.(*customTerminateServerRequest)
+			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			notFoundErr := &scw.ResourceNotFoundError{}
+
+			_, err := api.WaitForServer(&instance.WaitForServerRequest{
+				Zone:          server.Zone,
+				ServerID:      server.ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+			if err != nil {
+				err = errors.Unwrap(err)
+				if !errors.As(err, &notFoundErr) {
+					return nil, err
+				}
+			}
+
+			if terminateServerArgs.WithBlock == withBlockTrue {
+				for _, volume := range server.Volumes {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
+						continue
+					}
+					_, err := api.WaitForVolume(&instance.WaitForVolumeRequest{
+						VolumeID: volume.ID,
+						Zone:     volume.Zone,
+					})
+					if err != nil {
+						if errors.As(err, &notFoundErr) {
+							continue
+						}
+						return nil, err
+					}
+				}
+			}
+
+			return respI, nil
+		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 
@@ -1183,7 +1226,9 @@ func serverTerminateCommand() *core.Command {
 				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
-			return &core.SuccessResult{}, err
+			return &core.SuccessResult{
+				TargetResource: server.Server,
+			}, err
 		},
 	}
 }
