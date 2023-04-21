@@ -191,11 +191,6 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
-	// if client is from bootstrap we are probably running test
-	// if we reload the client we loose the cassette recorder
-	if meta.isClientFromBootstrapConfig {
-		return nil
-	}
 	meta.Client, err = createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
 	return err
 }

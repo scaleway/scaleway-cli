@@ -92,7 +92,7 @@ func checkAPIKey(ctx context.Context) {
 	apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{
 		AccessKey: accessKey,
 	})
-	if err != nil {
+	if err != nil || apiKey.ExpiresAt == nil {
 		return
 	}
 	now := time.Now()
