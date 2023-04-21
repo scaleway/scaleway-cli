@@ -286,8 +286,8 @@ scw lb backend create [arg=value ...]
 | sticky-sessions-cookie-name |  | Cookie name for cookie-based sticky sessions |
 | lb-id | Required | Load Balancer ID |
 | health-check.port |  | Port to use for the backend server health check |
-| health-check.check-delay |  | Time to wait between two consecutive health checks |
-| health-check.check-timeout |  | Maximum time a backend server has to reply to the health check |
+| health-check.check-delay | Default: `3s` | Time to wait between two consecutive health checks |
+| health-check.check-timeout | Default: `1s` | Maximum time a backend server has to reply to the health check |
 | health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
 | health-check.mysql-config.user |  | MySQL user to use for the health check |
 | health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
@@ -310,9 +310,9 @@ scw lb backend create [arg=value ...]
 | baremetal-server-tag.{index} |  | Tag of the baremetal server. |
 | server-ip.{index} | Required | List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to |
 | ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field |
-| timeout-server |  | Maximum allowed time for a backend server to process a request |
-| timeout-connect |  | Maximum allowed time for establishing a connection to a backend server |
-| timeout-tunnel |  | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
+| timeout-server | Default: `5m` | Maximum allowed time for a backend server to process a request |
+| timeout-connect | Default: `5s` | Maximum allowed time for establishing a connection to a backend server |
+| timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
 | failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
@@ -481,9 +481,9 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | sticky-sessions | Required<br />One of: `none`, `cookie`, `table` | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server |
 | sticky-sessions-cookie-name |  | Cookie name for cookie-based sticky sessions |
 | ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field |
-| timeout-server |  | Maximum allowed time for a backend server to process a request |
-| timeout-connect |  | Maximum allowed time for establishing a connection to a backend server |
-| timeout-tunnel |  | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
+| timeout-server | Default: `5m` | Maximum allowed time for a backend server to process a request |
+| timeout-connect | Default: `5s` | Maximum allowed time for establishing a connection to a backend server |
+| timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
 | failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
@@ -669,7 +669,7 @@ scw lb frontend create [arg=value ...]
 | inbound-port | Required | Port the frontend should listen on |
 | lb-id | Required | Load Balancer ID (ID of the Load Balancer to attach the frontend to) |
 | backend-id | Required | Backend ID (ID of the backend the frontend should pass traffic to) |
-| timeout-client |  | Maximum allowed inactivity time on the client side |
+| timeout-client | Default: `5m` | Maximum allowed inactivity time on the client side |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
@@ -758,7 +758,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 | name | Required | Frontend name |
 | inbound-port | Required | Port the frontend should listen on |
 | backend-id | Required | Backend ID (ID of the backend the frontend should pass traffic to) |
-| timeout-client |  | Maximum allowed inactivity time on the client side |
+| timeout-client | Default: `5m` | Maximum allowed inactivity time on the client side |
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |

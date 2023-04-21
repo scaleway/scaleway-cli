@@ -32,6 +32,7 @@ RuntimeMessage  -
   "timeout": "300.000000000s",
   "handler": "Handle",
   "error_message": null,
+  "build_message": null,
   "privacy": "public",
   "description": "",
   "domain_name": "clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
