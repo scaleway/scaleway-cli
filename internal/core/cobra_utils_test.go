@@ -125,6 +125,14 @@ Relative time error: unknown unit in duration: "R"
 }
 
 func Test_RawArgs(t *testing.T) {
+	t.Run("Simple", Test(&TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test raw-args -- blabla",
+		Check: TestCheckCombine(
+			TestCheckExitCode(0),
+			TestCheckStdout("blabla\n"),
+		),
+	}))
 	t.Run("Multiple", Test(&TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test raw-args -- blabla foo bar",
