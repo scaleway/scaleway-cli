@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   access-key             Access key to update
-  [default-project-id]   The new default Project ID to set
-  [description]          The new description to update
+  [default-project-id]   New default Project ID to set
+  [description]          New description to update
 
 FLAGS:
   -h, --help   help for update
