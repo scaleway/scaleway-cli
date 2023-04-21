@@ -94,7 +94,8 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	// ex with "scw instance private-nic list server-id=<tab>"
 	// we get server as resource instead of private-nic to find command "scw instance server list"
 	if !strings.HasPrefix(argName, cmd.Resource) {
-		dashIndex := strings.Index(argName, "-")
+		// Use last index as resource name might contain a dash (ex: security-group-id)
+		dashIndex := strings.LastIndex(argName, "-")
 		if dashIndex > 0 {
 			argResource = argName[:dashIndex]
 		}
