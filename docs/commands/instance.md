@@ -1731,6 +1731,11 @@ Create an instance with 2 local volumes (10GB and 10GB)
 scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 ```
 
+Create an instance with volumes from snapshots
+```
+scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
+```
+
 Use an existing IP
 ```
 ip=$(scw instance ip create | grep id | awk '{ print $2 }')
