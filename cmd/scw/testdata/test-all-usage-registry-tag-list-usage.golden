@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [order-by]        Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. (created_at_asc | created_at_desc | name_asc | name_desc)
-  image-id          The UUID of the image
+  image-id          UUID of the image
   [name]            Filter by the tag name (exact match)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
