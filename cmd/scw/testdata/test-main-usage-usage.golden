@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   baremetal     Elastic Metal API
   cockpit       Cockpit API
   container     Container as a Service API
-  dns           Domains and DNS API documetation
+  dns           Domains and DNS API
   fip           Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
@@ -25,7 +25,7 @@ AVAILABLE COMMANDS:
   rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API
   registry      Container Registry API
-  secret        This API allows you to conveniently store, access and share sensitive data
+  secret        Secret Manager API
   tem           Tem
   vpc           VPC API
   vpc-gw        Public Gateways API

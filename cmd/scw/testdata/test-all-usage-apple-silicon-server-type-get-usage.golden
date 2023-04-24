@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a server technical details.
+Get technical details (CPU, disk size etc.) of a server type.
 
 USAGE:
   scw apple-silicon server-type get <server-type ...> [arg=value ...]

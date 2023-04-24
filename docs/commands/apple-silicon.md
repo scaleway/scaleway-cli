@@ -14,7 +14,7 @@ Scaleway is not affiliated with Apple Inc.
   
 - [OS management commands](#os-management-commands)
   - [Get an Operating System (OS)](#get-an-operating-system-(os))
-  - [List all Operating System (OS)](#list-all-operating-system-(os))
+  - [List all Operating Systems (OS)](#list-all-operating-systems-(os))
 - [Apple silicon management commands](#apple-silicon-management-commands)
   - [Create a server](#create-a-server)
   - [Delete a server](#delete-a-server)
@@ -55,9 +55,9 @@ scw apple-silicon os get <os-id ...> [arg=value ...]
 
 
 
-### List all Operating System (OS)
+### List all Operating Systems (OS)
 
-List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
+List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
 
 **Usage:**
 
@@ -286,7 +286,7 @@ Server-Types management commands
 
 ### Get a server type
 
-Get a server technical details.
+Get technical details (CPU, disk size etc.) of a server type.
 
 **Usage:**
 
