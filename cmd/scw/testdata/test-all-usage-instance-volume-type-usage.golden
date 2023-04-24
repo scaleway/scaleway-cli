@@ -7,7 +7,7 @@ USAGE:
   scw instance volume-type <command>
 
 AVAILABLE COMMANDS:
-  list        List volumes types
+  list        List volume types
 
 FLAGS:
   -h, --help   help for volume-type
