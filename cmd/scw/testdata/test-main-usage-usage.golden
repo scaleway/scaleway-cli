@@ -17,7 +17,7 @@ AVAILABLE COMMANDS:
   iam           IAM API
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
-  k8s           Kapsule API
+  k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
   mnq           This API allows you to manage Scaleway Messaging and Queueing brokers
