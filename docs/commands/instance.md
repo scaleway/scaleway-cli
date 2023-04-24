@@ -90,7 +90,7 @@ Instance API.
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
 - [Volume type management commands](#volume-type-management-commands)
-  - [List volumes types](#list-volumes-types)
+  - [List volume types](#list-volume-types)
 
   
 ## Image management commands
@@ -1138,7 +1138,7 @@ scw instance security-group create [arg=value ...]
 | stateful | Default: `true` | Whether the security group is stateful or not |
 | inbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for inbound rules |
 | outbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for outbound rules |
-| enable-default-security |  | True to block SMTP on IPv4 and IPv6 |
+| enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2933,7 +2933,7 @@ Each of these types will contains all the capabilities and constraints of the vo
 
 
 
-### List volumes types
+### List volume types
 
 List all volume types and their technical details.
 
