@@ -58,7 +58,7 @@ func GetGeneratedCommands() *core.Commands {
 func iotRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage IoT hubs and devices`,
-		Long:      `IoT API.`,
+		Long:      `IoT Hub API.`,
 		Namespace: "iot",
 	}
 }
@@ -1056,7 +1056,7 @@ func iotDeviceDelete() *core.Command {
 func iotDeviceGetMetrics() *core.Command {
 	return &core.Command{
 		Short:     `Get a device's metrics`,
-		Long:      `Get a device's metrics.`,
+		Long:      `Get the metrics of an existing device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "get-metrics",
@@ -1504,8 +1504,8 @@ func iotRouteDelete() *core.Command {
 
 func iotNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List the Networks`,
-		Long:      `List the Networks.`,
+		Short:     `List the networks`,
+		Long:      `List the networks.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "list",
@@ -1588,8 +1588,8 @@ func iotNetworkList() *core.Command {
 
 func iotNetworkCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new Network`,
-		Long:      `Create a new Network.`,
+		Short:     `Create a new network`,
+		Long:      `Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "create",
@@ -1641,8 +1641,8 @@ func iotNetworkCreate() *core.Command {
 
 func iotNetworkGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve a specific Network`,
-		Long:      `Retrieve a specific Network.`,
+		Short:     `Retrieve a specific network`,
+		Long:      `Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "get",
@@ -1672,7 +1672,7 @@ func iotNetworkGet() *core.Command {
 func iotNetworkDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Network`,
-		Long:      `Delete a Network.`,
+		Long:      `Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "delete",

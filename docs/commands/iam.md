@@ -75,8 +75,8 @@ scw iam api-key create [arg=value ...]
 | application-id |  | ID of the application |
 | user-id |  | ID of the user |
 | expires-at |  | Expiration date of the API key |
-| default-project-id |  | The default Project ID to use with Object Storage |
-| description |  | The description of the API key (max length is 200 characters) |
+| default-project-id |  | Default Project ID to use with Object Storage |
+| description |  | Description of the API key (max length is 200 characters) |
 
 
 
@@ -146,8 +146,8 @@ scw iam api-key list [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `expires_at_asc`, `expires_at_desc`, `access_key_asc`, `access_key_desc` | Criteria for sorting results |
 | ~~application-id~~ | Deprecated | ID of application that bears the API key |
 | ~~user-id~~ | Deprecated | ID of user that bears the API key |
-| editable |  | Whether to filter out editable API keys or not |
-| expired |  | Whether to filter out expired API keys or not |
+| editable |  | Defines whether to filter out editable API keys or not |
+| expired |  | Defines whether to filter out expired API keys or not |
 | access-key |  | Filter by access key |
 | description |  | Filter by description |
 | bearer-id |  | Filter by bearer ID |
@@ -172,8 +172,8 @@ scw iam api-key update <access-key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | access-key | Required | Access key to update |
-| default-project-id |  | The new default Project ID to set |
-| description |  | The new description to update |
+| default-project-id |  | New default Project ID to set |
+| description |  | New description to update |
 
 
 
@@ -258,7 +258,7 @@ scw iam application list [arg=value ...]
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Criteria for sorting results |
 | name |  | Name of the application to filter |
-| editable |  | Whether to filter out editable applications or not |
+| editable |  | Defines whether to filter out editable applications or not |
 | application-ids.{index} |  | Filter by list of IDs |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
@@ -613,7 +613,7 @@ scw iam policy create [arg=value ...]
 | user-id |  | ID of user attributed to the policy |
 | group-id |  | ID of group attributed to the policy |
 | application-id |  | ID of application attributed to the policy |
-| no-principal |  | Whether or not a policy is attributed to a principal |
+| no-principal |  | Defines whether or not a policy is attributed to a principal |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -682,11 +682,11 @@ scw iam policy list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | Default: `created_at_asc`<br />One of: `policy_name_asc`, `policy_name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results |
-| editable |  | Whether or not filter out editable policies |
-| user-ids.{index} |  | Whether or not to filter by list of user IDs |
-| group-ids.{index} |  | Whether or not to filter by list of group IDs |
+| editable |  | Defines whether or not filter out editable policies |
+| user-ids.{index} |  | Defines whether or not to filter by list of user IDs |
+| group-ids.{index} |  | Defines whether or not to filter by list of group IDs |
 | application-ids.{index} |  | Filter by a list of application IDs |
-| no-principal |  | Whether or not the policy is attributed to a principal |
+| no-principal |  | Defines whether or not the policy is attributed to a principal |
 | policy-name |  | Name of the policy to fetch |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
@@ -713,7 +713,7 @@ scw iam policy update <policy-id ...> [arg=value ...]
 | user-id |  | New ID of user attributed to the policy |
 | group-id |  | New ID of group attributed to the policy |
 | application-id |  | New ID of application attributed to the policy |
-| no-principal |  | Whether or not the policy is attributed to a principal |
+| no-principal |  | Defines whether or not the policy is attributed to a principal |
 
 
 
@@ -783,7 +783,7 @@ scw iam ssh-key create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` | The name of the SSH key. Max length is 1000 |
+| name | Required<br />Default: `<generated>` | Name of the SSH key. Max length is 1000 |
 | public-key | Required | SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
@@ -843,7 +843,7 @@ scw iam ssh-key get <ssh-key-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| ssh-key-id | Required | The ID of the SSH key |
+| ssh-key-id | Required | ID of the SSH key |
 
 
 
@@ -877,7 +877,7 @@ scw iam ssh-key list [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of the SSH keys |
 | name |  | Name of group to find |
 | project-id |  | Filter by Project ID |
-| disabled |  | Whether to include disabled SSH keys or not |
+| disabled |  | Defines whether to include disabled SSH keys or not |
 | organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
 
 

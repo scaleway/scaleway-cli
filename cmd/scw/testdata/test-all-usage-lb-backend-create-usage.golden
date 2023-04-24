@@ -14,8 +14,8 @@ ARGS:
   [sticky-sessions-cookie-name]                  Cookie name for cookie-based sticky sessions
   lb-id                                          Load Balancer ID
   [health-check.port]                            Port to use for the backend server health check
-  [health-check.check-delay]                     Time to wait between two consecutive health checks
-  [health-check.check-timeout]                   Maximum time a backend server has to reply to the health check
+  [health-check.check-delay=3s]                  Time to wait between two consecutive health checks
+  [health-check.check-timeout=1s]                Maximum time a backend server has to reply to the health check
   [health-check.check-max-retries]               Number of consecutive unsuccessful health checks after which the server will be considered dead
   [health-check.mysql-config.user]               MySQL user to use for the health check
   [health-check.pgsql-config.user]               PostgreSQL user to use for the health check
@@ -37,9 +37,9 @@ ARGS:
   [baremetal-server-id.{index}]                  UIID of the baremetal server.
   [baremetal-server-tag.{index}]                 Tag of the baremetal server.
   server-ip.{index}                              List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to
-  [timeout-server]                               Maximum allowed time for a backend server to process a request
-  [timeout-connect]                              Maximum allowed time for establishing a connection to a backend server
-  [timeout-tunnel]                               Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)
+  [timeout-server=5m]                            Maximum allowed time for a backend server to process a request
+  [timeout-connect=5s]                           Maximum allowed time for establishing a connection to a backend server
+  [timeout-tunnel=15m]                           Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)
   [on-marked-down-action]                        Action to take when a backend server is marked as down (on_marked_down_action_none | shutdown_sessions)
   [proxy-protocol]                               Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software (proxy_protocol_unknown | proxy_protocol_none | proxy_protocol_v1 | proxy_protocol_v2 | proxy_protocol_v2_ssl | proxy_protocol_v2_ssl_cn)
   [failover-host]                                Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud

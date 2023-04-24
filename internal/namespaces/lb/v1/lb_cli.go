@@ -803,6 +803,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("3s"),
 			},
 			{
 				Name:       "health-check.check-timeout",
@@ -810,6 +811,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("1s"),
 			},
 			{
 				Name:       "health-check.check-max-retries",
@@ -934,6 +936,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
@@ -941,6 +944,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
@@ -948,6 +952,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
@@ -1118,6 +1123,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
@@ -1125,6 +1131,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
@@ -1132,6 +1139,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
@@ -1597,6 +1605,7 @@ func lbFrontendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",
@@ -1706,6 +1715,7 @@ func lbFrontendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",

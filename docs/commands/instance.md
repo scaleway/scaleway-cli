@@ -76,6 +76,7 @@ Instance API.
   - [Export a snapshot](#export-a-snapshot)
   - [Get a snapshot](#get-a-snapshot)
   - [List snapshots](#list-snapshots)
+  - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [User data management commands](#user-data-management-commands)
   - [Delete user data](#delete-user-data)
@@ -89,7 +90,7 @@ Instance API.
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
 - [Volume type management commands](#volume-type-management-commands)
-  - [List volumes types](#list-volumes-types)
+  - [List volume types](#list-volume-types)
 
   
 ## Image management commands
@@ -1137,7 +1138,7 @@ scw instance security-group create [arg=value ...]
 | stateful | Default: `true` | Whether the security group is stateful or not |
 | inbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for inbound rules |
 | outbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for outbound rules |
-| enable-default-security |  | True to block SMTP on IPv4 and IPv6 |
+| enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1729,6 +1730,11 @@ scw instance server create image=ubuntu_focal additional-volumes.0=block:50GB ad
 Create an instance with 2 local volumes (10GB and 10GB)
 ```
 scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
+```
+
+Create an instance with volumes from snapshots
+```
+scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
 ```
 
 Use an existing IP
@@ -2527,6 +2533,28 @@ scw instance snapshot list zone=fr-par-1
 
 
 
+### Update a snapshot
+
+
+
+**Usage:**
+
+```
+scw instance snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot. |
+| name |  | Name of the snapshot. |
+| tags.{index} |  | Tags of the snapshot. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Wait for snapshot to reach a stable state
 
 Wait for snapshot to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the snapshot.
@@ -2905,7 +2933,7 @@ Each of these types will contains all the capabilities and constraints of the vo
 
 
 
-### List volumes types
+### List volume types
 
 List all volume types and their technical details.
 

@@ -357,10 +357,19 @@ func Test_ServerTerminate(t *testing.T) {
 	t.Run("with block", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
+		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true -w`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := instance.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instance.Server)
+				_, err := api.GetVolume(&instance.GetVolumeRequest{
+					VolumeID: server.Volumes["0"].ID,
+					Zone:     server.Zone,
+				})
+				require.IsType(t, &scw.ResourceNotFoundError{}, err)
+			},
 		),
 		DisableParallel: true,
 	}))

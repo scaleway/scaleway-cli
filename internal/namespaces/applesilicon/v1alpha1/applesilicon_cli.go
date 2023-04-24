@@ -107,7 +107,7 @@ func appleSiliconServerTypeList() *core.Command {
 func appleSiliconServerTypeGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a server type`,
-		Long:      `Get a server technical details.`,
+		Long:      `Get technical details (CPU, disk size etc.) of a server type.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 		Verb:      "get",
@@ -230,8 +230,8 @@ func appleSiliconServerList() *core.Command {
 
 func appleSiliconOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all Operating System (OS)`,
-		Long:      `List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.`,
+		Short:     `List all Operating Systems (OS)`,
+		Long:      `List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "list",
