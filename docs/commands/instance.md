@@ -76,6 +76,7 @@ Instance API.
   - [Export a snapshot](#export-a-snapshot)
   - [Get a snapshot](#get-a-snapshot)
   - [List snapshots](#list-snapshots)
+  - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [User data management commands](#user-data-management-commands)
   - [Delete user data](#delete-user-data)
@@ -2524,6 +2525,28 @@ List all snapshots in fr-par-1 zone
 scw instance snapshot list zone=fr-par-1
 ```
 
+
+
+
+### Update a snapshot
+
+
+
+**Usage:**
+
+```
+scw instance snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot. |
+| name |  | Name of the snapshot. |
+| tags.{index} |  | Tags of the snapshot. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
