@@ -6,7 +6,7 @@ USAGE:
   scw registry namespace get <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id      The UUID of the namespace
+  namespace-id      UUID of the namespace
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

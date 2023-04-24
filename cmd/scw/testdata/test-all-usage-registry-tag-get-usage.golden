@@ -6,7 +6,7 @@ USAGE:
   scw registry tag get <tag-id ...> [arg=value ...]
 
 ARGS:
-  tag-id            The UUID of the tag
+  tag-id            UUID of the tag
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

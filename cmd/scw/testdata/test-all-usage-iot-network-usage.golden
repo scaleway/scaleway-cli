@@ -6,10 +6,10 @@ USAGE:
   scw iot network <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new Network
+  create      Create a new network
   delete      Delete a Network
-  get         Retrieve a specific Network
-  list        List the Networks
+  get         Retrieve a specific network
+  list        List the networks
 
 FLAGS:
   -h, --help   help for network
