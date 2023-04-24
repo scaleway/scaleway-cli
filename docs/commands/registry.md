@@ -26,7 +26,7 @@ Container Registry API.
 
 An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
 
-The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](https://developers.scaleway.com/en/products/registry/api/#patch-e73745).
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).
 
 
 
@@ -45,7 +45,7 @@ scw registry image delete <image-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| image-id | Required | The UUID of the image |
+| image-id | Required | UUID of the image |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -65,7 +65,7 @@ scw registry image get <image-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| image-id | Required | The UUID of the image |
+| image-id | Required | UUID of the image |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -222,7 +222,7 @@ scw registry namespace create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of the namespace |
 | description |  | Description of the namespace |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| is-public |  | Whether or not namespace is public |
+| is-public |  | Defines whether or not namespace is public |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -243,7 +243,7 @@ scw registry namespace delete <namespace-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required | The UUID of the namespace |
+| namespace-id | Required | UUID of the namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -263,7 +263,7 @@ scw registry namespace get <namespace-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required | The UUID of the namespace |
+| namespace-id | Required | UUID of the namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -308,7 +308,7 @@ scw registry namespace update <namespace-id ...> [arg=value ...]
 |------|---|-------------|
 | namespace-id | Required | ID of the namespace to update |
 | description |  | Namespace description |
-| is-public |  | Whether or not the namespace is public |
+| is-public |  | Defines whether or not the namespace is public |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -334,7 +334,7 @@ scw registry tag delete <tag-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| tag-id | Required | The UUID of the tag |
+| tag-id | Required | UUID of the tag |
 | force |  | If two tags share the same digest the deletion will fail unless this parameter is set to true |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -355,7 +355,7 @@ scw registry tag get <tag-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| tag-id | Required | The UUID of the tag |
+| tag-id | Required | UUID of the tag |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -376,7 +376,7 @@ scw registry tag list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
-| image-id | Required | The UUID of the image |
+| image-id | Required | UUID of the image |
 | name |  | Filter by the tag name (exact match) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
