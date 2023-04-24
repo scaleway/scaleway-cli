@@ -124,7 +124,7 @@ func rdbInstance() *core.Command {
 		Short: `Instance management commands`,
 		Long: `A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.
 
-**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](https://developers.scaleway.com/en/products/rdb/api/#read-replicas-8e2cf2)
+**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)
 
 Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 `,
@@ -220,7 +220,7 @@ The replica mirrors the data of the primary Database node and any changes made a
 
 A Read Replica can have at most one direct access and one Private Network endpoint. ` + "`" + `Loadbalancer` + "`" + ` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
 
-If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](https://developers.scaleway.com/en/products/rdb/api/#delete-401f48) API call.
+If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](#path-endpoints-delete-a-database-instance-endpoint) API call.
 
 Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
 
@@ -239,7 +239,7 @@ func rdbSetting() *core.Command {
 		Short: `Setting management`,
 		Long: `Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
 
-Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](https://developers.scaleway.com/en/products/rdb/api/#get-1eafb7) endpoint.
+Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance) endpoint.
 
 Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 `,

@@ -50,8 +50,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func k8sRoot() *core.Command {
 	return &core.Command{
-		Short:     `Kapsule API`,
-		Long:      `Kapsule API.`,
+		Short:     `Kubernetes API`,
+		Long:      `Kubernetes API.`,
 		Namespace: "k8s",
 	}
 }

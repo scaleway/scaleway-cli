@@ -5,7 +5,7 @@ The replica mirrors the data of the primary Database node and any changes made a
 
 A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
 
-If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](https://developers.scaleway.com/en/products/rdb/api/#delete-401f48) API call.
+If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](#path-endpoints-delete-a-database-instance-endpoint) API call.
 
 Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
 

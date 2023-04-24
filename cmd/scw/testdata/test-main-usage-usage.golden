@@ -10,14 +10,14 @@ AVAILABLE COMMANDS:
   baremetal     Elastic Metal API
   cockpit       Cockpit API
   container     Container as a Service API
-  dns           Domains and DNS API documetation
+  dns           Domains and DNS API
   fip           Elastic Metal - Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
   iam           IAM API
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
-  k8s           Kapsule API
+  k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
   mnq           This API allows you to manage Scaleway Messaging and Queueing brokers
@@ -26,7 +26,7 @@ AVAILABLE COMMANDS:
   redis         Managed Database for Redis™ API
   registry      Container Registry API
   secret        This API allows you to conveniently store, access and share sensitive data
-  tem           Tem
+  tem           Transactional Email API
   vpc           VPC API
   vpc-gw        Public Gateways API
   webhosting    Webhosting API

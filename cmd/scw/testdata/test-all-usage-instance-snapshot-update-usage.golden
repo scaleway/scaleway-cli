@@ -1,17 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the parameters of an API key, including `default_project_id` and `description`.
+Update a snapshot
 
 USAGE:
-  scw iam api-key update <access-key ...> [arg=value ...]
+  scw instance snapshot update <snapshot-id ...> [arg=value ...]
 
 ARGS:
-  access-key             Access key to update
-  [default-project-id]   New default Project ID to set
-  [description]          New description to update
+  snapshot-id       UUID of the snapshot.
+  [name]            Name of the snapshot.
+  [tags.{index}]    Tags of the snapshot.
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
   -h, --help   help for update
+  -w, --wait   wait until the snapshot is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
