@@ -25,7 +25,7 @@ AVAILABLE COMMANDS:
   rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API
   registry      Container Registry API
-  secret        This API allows you to conveniently store, access and share sensitive data
+  secret        Secret Manager API
   tem           Transactional Email API
   vpc           VPC API
   vpc-gw        Public Gateways API
