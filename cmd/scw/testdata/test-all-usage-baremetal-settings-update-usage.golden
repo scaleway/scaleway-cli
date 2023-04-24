@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a setting for a project ID (enable or disable).
+Update a setting for a Project ID (enable or disable).
 
 USAGE:
   scw baremetal settings update [arg=value ...]
