@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
+List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
 
 USAGE:
   scw apple-silicon os list [arg=value ...]
