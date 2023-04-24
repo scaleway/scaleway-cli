@@ -6,7 +6,7 @@ USAGE:
   scw iam ssh-key get <ssh-key-id ...> [arg=value ...]
 
 ARGS:
-  ssh-key-id   The ID of the SSH key
+  ssh-key-id   ID of the SSH key
 
 FLAGS:
   -h, --help   help for get
