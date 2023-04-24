@@ -12,7 +12,7 @@ ARGS:
   [user-id]          New ID of user attributed to the policy
   [group-id]         New ID of group attributed to the policy
   [application-id]   New ID of application attributed to the policy
-  [no-principal]     Whether or not the policy is attributed to a principal
+  [no-principal]     Defines whether or not the policy is attributed to a principal
 
 FLAGS:
   -h, --help   help for update

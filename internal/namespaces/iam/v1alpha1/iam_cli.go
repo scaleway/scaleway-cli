@@ -193,7 +193,7 @@ func iamSSHKeyList() *core.Command {
 			},
 			{
 				Name:       "disabled",
-				Short:      `Whether to include disabled SSH keys or not`,
+				Short:      `Defines whether to include disabled SSH keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -254,7 +254,7 @@ func iamSSHKeyCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The name of the SSH key. Max length is 1000`,
+				Short:      `Name of the SSH key. Max length is 1000`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -308,7 +308,7 @@ func iamSSHKeyGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
-				Short:      `The ID of the SSH key`,
+				Short:      `ID of the SSH key`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -566,7 +566,7 @@ func iamApplicationList() *core.Command {
 			},
 			{
 				Name:       "editable",
-				Short:      `Whether to filter out editable applications or not`,
+				Short:      `Defines whether to filter out editable applications or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1180,21 +1180,21 @@ func iamPolicyList() *core.Command {
 			},
 			{
 				Name:       "editable",
-				Short:      `Whether or not filter out editable policies`,
+				Short:      `Defines whether or not filter out editable policies`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-ids.{index}",
-				Short:      `Whether or not to filter by list of user IDs`,
+				Short:      `Defines whether or not to filter by list of user IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "group-ids.{index}",
-				Short:      `Whether or not to filter by list of group IDs`,
+				Short:      `Defines whether or not to filter by list of group IDs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1208,7 +1208,7 @@ func iamPolicyList() *core.Command {
 			},
 			{
 				Name:       "no-principal",
-				Short:      `Whether or not the policy is attributed to a principal`,
+				Short:      `Defines whether or not the policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1313,7 +1313,7 @@ func iamPolicyCreate() *core.Command {
 			},
 			{
 				Name:       "no-principal",
-				Short:      `Whether or not a policy is attributed to a principal`,
+				Short:      `Defines whether or not a policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1420,7 +1420,7 @@ func iamPolicyUpdate() *core.Command {
 			},
 			{
 				Name:       "no-principal",
-				Short:      `Whether or not the policy is attributed to a principal`,
+				Short:      `Defines whether or not the policy is attributed to a principal`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1656,14 +1656,14 @@ func iamAPIKeyList() *core.Command {
 			},
 			{
 				Name:       "editable",
-				Short:      `Whether to filter out editable API keys or not`,
+				Short:      `Defines whether to filter out editable API keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "expired",
-				Short:      `Whether to filter out expired API keys or not`,
+				Short:      `Defines whether to filter out expired API keys or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1771,14 +1771,14 @@ func iamAPIKeyCreate() *core.Command {
 			},
 			{
 				Name:       "default-project-id",
-				Short:      `The default Project ID to use with Object Storage`,
+				Short:      `Default Project ID to use with Object Storage`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the API key (max length is 200 characters)`,
+				Short:      `Description of the API key (max length is 200 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1853,14 +1853,14 @@ func iamAPIKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "default-project-id",
-				Short:      `The new default Project ID to set`,
+				Short:      `New default Project ID to set`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The new description to update`,
+				Short:      `New description to update`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
