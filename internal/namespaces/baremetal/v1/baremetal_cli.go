@@ -148,8 +148,8 @@ Note that a resource can be a part of multiple Private Networks.
 
 func baremetalServerList() *core.Command {
 	return &core.Command{
-		Short:     `List Elastic Metal servers for an organization`,
-		Long:      `List Elastic Metal servers for a specific organization.`,
+		Short:     `List Elastic Metal servers for an Organization`,
+		Long:      `List Elastic Metal servers for a specific Organization.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "list",
@@ -1204,7 +1204,7 @@ func baremetalOptionsList() *core.Command {
 func baremetalSettingsList() *core.Command {
 	return &core.Command{
 		Short:     `List all settings`,
-		Long:      `Return all settings for a project ID.`,
+		Long:      `Return all settings for a Project ID.`,
 		Namespace: "baremetal",
 		Resource:  "settings",
 		Verb:      "list",
@@ -1221,7 +1221,7 @@ func baremetalSettingsList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `ID of the project`,
+				Short:      `ID of the Project`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1251,7 +1251,7 @@ func baremetalSettingsList() *core.Command {
 func baremetalSettingsUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update setting`,
-		Long:      `Update a setting for a project ID (enable or disable).`,
+		Long:      `Update a setting for a Project ID (enable or disable).`,
 		Namespace: "baremetal",
 		Resource:  "settings",
 		Verb:      "update",
@@ -1326,8 +1326,8 @@ func baremetalOsList() *core.Command {
 
 func baremetalOsGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an OS with an ID`,
-		Long:      `Return specific OS for the ID.`,
+		Short:     `Get OS with an ID`,
+		Long:      `Return the specific OS for the ID.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 		Verb:      "get",
