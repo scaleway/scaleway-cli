@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   baremetal     Elastic Metal API
   cockpit       Cockpit API
   container     Container as a Service API
-  dns           Domains and DNS API documetation
+  dns           Domains and DNS API
   fip           Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
