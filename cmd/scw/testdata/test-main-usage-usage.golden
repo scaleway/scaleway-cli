@@ -26,7 +26,7 @@ AVAILABLE COMMANDS:
   redis         Managed Database for Redis™ API
   registry      Container Registry API
   secret        This API allows you to conveniently store, access and share sensitive data
-  tem           Tem
+  tem           Transactional Email API
   vpc           VPC API
   vpc-gw        Public Gateways API
   webhosting    Webhosting API
