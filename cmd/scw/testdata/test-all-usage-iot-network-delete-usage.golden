@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a Network.
+Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.
 
 USAGE:
   scw iot network delete <network-id ...> [arg=value ...]

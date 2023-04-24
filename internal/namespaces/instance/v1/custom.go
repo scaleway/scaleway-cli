@@ -109,6 +109,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
+		snapshotUpdateCommand(),
 	))
 
 	//

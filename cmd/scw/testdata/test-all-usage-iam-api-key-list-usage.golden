@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | expires_at_asc | expires_at_desc | access_key_asc | access_key_desc)
-  [editable]                                Whether to filter out editable API keys or not
-  [expired]                                 Whether to filter out expired API keys or not
+  [editable]                                Defines whether to filter out editable API keys or not
+  [expired]                                 Defines whether to filter out expired API keys or not
   [access-key]                              Filter by access key
   [description]                             Filter by description
   [bearer-id]                               Filter by bearer ID

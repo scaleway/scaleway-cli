@@ -9,7 +9,7 @@ ARGS:
   [order-by=created_at_asc]                   Sort order of the SSH keys (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
   [name]                                      Name of group to find
   [project-id]                                Filter by Project ID
-  [disabled]                                  Whether to include disabled SSH keys or not
+  [disabled]                                  Defines whether to include disabled SSH keys or not
   [organization-id=<retrieved from config>]   Filter by Organization ID
 
 FLAGS:

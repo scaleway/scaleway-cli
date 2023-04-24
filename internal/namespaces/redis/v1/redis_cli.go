@@ -91,7 +91,7 @@ func redisVersion() *core.Command {
 func redisSetting() *core.Command {
 	return &core.Command{
 		Short: `Settings management commands`,
-		Long: `Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](https://developers.scaleway.com/en/products/redis/api/v1/#get-209533) endpoint.
+		Long: `Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
 
 Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 `,
@@ -211,7 +211,7 @@ func redisClusterCreate() *core.Command {
 			},
 			{
 				Name:       "tls-enabled",
-				Short:      `Whether or not TLS is enabled`,
+				Short:      `Defines whether or not TLS is enabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -550,7 +550,7 @@ func redisNodeTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
-				Short:      `Whether or not to include disabled types`,
+				Short:      `Defines whether or not to include disabled types`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -589,21 +589,21 @@ func redisVersionList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
-				Short:      `Whether or not to include disabled Redis™ engine versions`,
+				Short:      `Defines whether or not to include disabled Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-beta",
-				Short:      `Whether or not to include beta Redis™ engine versions`,
+				Short:      `Defines whether or not to include beta Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-deprecated",
-				Short:      `Whether or not to include deprecated Redis™ engine versions`,
+				Short:      `Defines whether or not to include deprecated Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

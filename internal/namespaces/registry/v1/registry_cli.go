@@ -64,7 +64,7 @@ func registryImage() *core.Command {
 		Short: `Image management commands`,
 		Long: `An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
 
-The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](https://developers.scaleway.com/en/products/registry/api/#patch-e73745).
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).
 `,
 		Namespace: "registry",
 		Resource:  "image",
@@ -198,7 +198,7 @@ func registryNamespaceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
-				Short:      `The UUID of the namespace`,
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -244,7 +244,7 @@ func registryNamespaceCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "is-public",
-				Short:      `Whether or not namespace is public`,
+				Short:      `Defines whether or not namespace is public`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -289,7 +289,7 @@ func registryNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "is-public",
-				Short:      `Whether or not the namespace is public`,
+				Short:      `Defines whether or not the namespace is public`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -319,7 +319,7 @@ func registryNamespaceDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
-				Short:      `The UUID of the namespace`,
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -449,7 +449,7 @@ func registryImageGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
-				Short:      `The UUID of the image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -517,7 +517,7 @@ func registryImageDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
-				Short:      `The UUID of the image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -555,7 +555,7 @@ func registryTagList() *core.Command {
 			},
 			{
 				Name:       "image-id",
-				Short:      `The UUID of the image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -601,7 +601,7 @@ func registryTagGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
-				Short:      `The UUID of the tag`,
+				Short:      `UUID of the tag`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -631,7 +631,7 @@ func registryTagDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
-				Short:      `The UUID of the tag`,
+				Short:      `UUID of the tag`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,

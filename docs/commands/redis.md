@@ -156,7 +156,7 @@ scw redis cluster create [arg=value ...]
 | acl-rules.{index}.description |  | Description of the rule |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
-| tls-enabled |  | Whether or not TLS is enabled |
+| tls-enabled |  | Defines whether or not TLS is enabled |
 | cluster-settings.{index}.value |  | Value of the setting |
 | cluster-settings.{index}.name |  | Name of the setting |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -471,14 +471,14 @@ scw redis node-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| include-disabled-types |  | Whether or not to include disabled types |
+| include-disabled-types |  | Defines whether or not to include disabled types |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Settings management commands
 
-Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](https://developers.scaleway.com/en/products/redis/api/v1/#get-209533) endpoint.
+Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
 
 Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 
@@ -569,9 +569,9 @@ scw redis version list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| include-disabled |  | Whether or not to include disabled Redis™ engine versions |
-| include-beta |  | Whether or not to include beta Redis™ engine versions |
-| include-deprecated |  | Whether or not to include deprecated Redis™ engine versions |
+| include-disabled |  | Defines whether or not to include disabled Redis™ engine versions |
+| include-beta |  | Defines whether or not to include beta Redis™ engine versions |
+| include-deprecated |  | Defines whether or not to include deprecated Redis™ engine versions |
 | version |  | List Redis™ engine versions that match a given name pattern |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
