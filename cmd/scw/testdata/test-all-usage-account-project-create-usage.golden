@@ -6,9 +6,9 @@ USAGE:
   scw account project create [arg=value ...]
 
 ARGS:
-  [name]              Name of the Project
-  [description]       Description of the Project
-  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  [name=<generated>]   Name of the Project
+  [description]        Description of the Project
+  [organization-id]    Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for create
