@@ -1,10 +1,11 @@
 package container
 
 import (
+	_ "embed"
+
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,32 +16,30 @@ import (
 )
 
 var (
-	indexHTML = strings.TrimSpace(`
-<!DOCTYPE html>
-<html>
-<head>
-<title>My container</title>
-</head>
-<body>
-<h1>Deployed with scw container deploy</h1>
-</body>
-</html>
-	`)
-	nginxDockerfile = strings.TrimSpace(`
-FROM nginx:alpine
-RUN apk add --no-cache curl git bash
-COPY ./index.html /usr/share/nginx/html/index.html
-EXPOSE 80
-	`)
-	nginxDockerfileWithBuildArgs = strings.TrimSpace(`
-FROM nginx:alpine
-RUN apk add --no-cache curl git bash
-COPY ./index.html /usr/share/nginx/html/index.html
-ARG TEST
-RUN test -n "$TEST"
-EXPOSE 80
-	`)
+	//go:embed testdata/docker/Dockerfile
+	testdataDockerDockerfile string
+	//go:embed testdata/docker/index.html
+	testdataDockerIndexHTML string
+	//go:embed testdata/docker/Dockerfile.build-args
+	testdataDockerDockerfileBuildArgs string
+
+	//go:embed testdata/node/index.js
+	testDataBuildpackNodeIndexJS string
+	//go:embed testdata/node/package.json
+	testDataBuildpackNodePackageJSON string
+	//go:embed testdata/node/package-lock.json
+	testDataBuildpackNodePackageLockJSON string
 )
+
+func loadTestdataBeforeFunc(path string, filename string, content string) func(ctx *core.BeforeFuncCtx) error {
+	return func(ctx *core.BeforeFuncCtx) error {
+		err := os.WriteFile(filepath.Join(path, filename), []byte(content), 0600)
+		if err != nil {
+			return err
+		}
+		return err
+	}
+}
 
 func Test_Deploy(t *testing.T) {
 	appName := "cli-test-container-deploy"
@@ -52,22 +51,8 @@ func Test_Deploy(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "Dockerfile"), []byte(nginxDockerfile), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			loadTestdataBeforeFunc(path, "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(path, "Dockerfile", testdataDockerDockerfile),
 		),
 		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80", appName, path),
 		Check: core.TestCheckCombine(
@@ -92,22 +77,8 @@ func Test_Deploy(t *testing.T) {
 				}
 				return nil
 			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "cli-test-deploy-poney", "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "cli-test-deploy-poney", "Dockerfile"), []byte(nginxDockerfile), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			loadTestdataBeforeFunc(filepath.Join(path, "cli-test-deploy-poney"), "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(filepath.Join(path, "cli-test-deploy-poney"), "Dockerfile", testdataDockerDockerfile),
 		),
 		Cmd: fmt.Sprintf("scw container deploy build-source=%s/cli-test-deploy-poney port=80", path),
 		Check: core.TestCheckCombine(
@@ -124,24 +95,29 @@ func Test_Deploy(t *testing.T) {
 	t.Run("Build args", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "Dockerfile"), []byte(nginxDockerfileWithBuildArgs), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			loadTestdataBeforeFunc(path, "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(path, "Dockerfile", testdataDockerDockerfileBuildArgs),
 		),
 		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest", appName, path),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			testDeleteContainersNamespaceAfter(appName),
+			testDeleteRegistryAfter(appName),
+		),
+		DisableParallel: true,
+	}))
+
+	t.Run("Buildpack", core.Test(&core.TestConfig{
+		Commands: commands,
+		BeforeFunc: core.BeforeFuncCombine(
+			loadTestdataBeforeFunc(path, "index.js", testDataBuildpackNodeIndexJS),
+			loadTestdataBeforeFunc(path, "package.json", testDataBuildpackNodePackageJSON),
+			loadTestdataBeforeFunc(path, "package-lock.json", testDataBuildpackNodePackageLockJSON),
+		),
+		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=3000", appName, path),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

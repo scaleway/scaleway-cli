@@ -314,6 +314,7 @@ func DeployStepBuildpackBuildImage(t *tasks.Task, data *DeployStepFetchOrCreateR
 		Image:        tag,
 		ClearCache:   !data.Args.Cache,
 		TrustBuilder: func(string) bool { return true },
+		Interactive:  false,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not build: %w", err)
