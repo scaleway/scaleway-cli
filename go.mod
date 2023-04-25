@@ -2,6 +2,8 @@ module github.com/scaleway/scaleway-cli/v2
 
 go 1.19
 
+replace github.com/buildpacks/pack => github.com/quantumsheep/pack v0.30.0-pre1.0.20230425092336-fc32ac8e0cf1
+
 require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.30.0-pre1.0.20230418191058-1190b6c52128
