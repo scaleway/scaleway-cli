@@ -48,6 +48,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
+			Default:    core.DefaultValueSetter("/tmp/"),
 		},
 		{
 			Name:       "file-type",
@@ -86,7 +87,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			return fmt.Errorf("parse date on file name")
 		}
 
-		dir, file := filepath.Split(args.FilePath)
+		dir, file := getDirFile(args.FilePath)
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkInvoiceExt(fileExtension); !extensionOnFile {
@@ -141,6 +142,20 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 	}
 
 	return command
+}
+
+func getDirFile(filePath string) (string, string) {
+	dir := "."
+	dirTmp, file := filepath.Split(filePath)
+	if len(dirTmp) > 0 {
+		dir = dirTmp
+	}
+
+	if file == "." {
+		file = ""
+	}
+
+	return dir, file
 }
 
 func addExt(fileName, contentType string) string {
@@ -200,7 +215,8 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 
 	fileOutput, err := os.Create(fileName)
 	if err != nil {
-		return nil, err
+		dir, file := getDirFile(fileName)
+		return nil, fmt.Errorf("unavailable to create file %s on directory %s", file, dir)
 	}
 	defer fileOutput.Close()
 

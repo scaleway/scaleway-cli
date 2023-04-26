@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   invoice-id              Invoice ID
-  [file-path]             Wanted file path
+  [file-path=/tmp/]       Wanted file path
   [file-type=pdf]         Wanted file extension
   [force-replace=false]   Force file replacement
 
