@@ -6,7 +6,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
     method: GET
   response:
@@ -30,7 +30,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 99fca1cc-4e34-4c80-adad-97e13e2fe80a
+      - fb9187fb-ad1d-4ff2-99a6-761497ad4df3
     status: 403 Forbidden
     code: 403
     duration: ""
