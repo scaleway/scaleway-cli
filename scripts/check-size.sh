@@ -1,5 +1,7 @@
 #/bin/env bash
 
+MAX_BINARY_SIZE=25000000
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 function usage() {
@@ -18,7 +20,7 @@ BINARY_SIZE=$(stat -c %s $1)
 
 echo "Binary size: $BINARY_SIZE"
 
-if (( $BINARY_SIZE > 25000000 )); then
+if (( $BINARY_SIZE > $MAX_BINARY_SIZE )); then
   echo "Size is greater than limit"
   exit 1
 else
