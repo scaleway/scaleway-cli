@@ -2,6 +2,7 @@
 
 export CGO_ENABLED=0
 LDFLAGS=(
+   -s
    -w
    -extldflags
    -static
