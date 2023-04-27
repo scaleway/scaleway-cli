@@ -14,6 +14,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(container.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
 
 	cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
+	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)
+	cmds.MustFind("container", "container", "update").Override(containerContainerUpdateBuilder)
 	cmds.MustFind("container", "namespace", "create").Override(containerNamespaceCreateBuilder)
 	cmds.MustFind("container", "namespace", "delete").Override(containerNamespaceDeleteBuilder)
 
