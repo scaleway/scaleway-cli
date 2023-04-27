@@ -108,8 +108,9 @@ func TestInit(t *testing.T) {
 			},
 			Profiles: map[string]*scw.Profile{
 				"test": {
-					AccessKey: &dummyAccessKey,
-					SecretKey: &dummySecretKey,
+					AccessKey:   &dummyAccessKey,
+					SecretKey:   &dummySecretKey,
+					DefaultZone: scw.StringPtr("fr-test"), // Used to check profile override
 				},
 			},
 		}
@@ -152,6 +153,47 @@ func TestInit(t *testing.T) {
 			PromptResponseMocks: []string{
 				// Do you want to override the current config?
 				"yes",
+			},
+		}))
+
+		t.Run("No Prompt Overwrite for new profile", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw -p test2 init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config? (Should not be prompted as profile is a new one)
+				"no",
+			},
+		}))
+
+		t.Run("Prompt Overwrite for existing profile", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw -p test init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.NotNil(t, config.Profiles["test"].DefaultZone)
+					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config? (Should not be prompted as profile is a new one)
+				"no",
 			},
 		}))
 	})
