@@ -28,7 +28,7 @@ scw billing invoice download [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | invoice-id | Required | Invoice ID |
-| file-path | Default: `/tmp/` | Wanted file path |
+| file-path | Default: `./` | Wanted file path |
 | file-type | Default: `pdf` | Wanted file extension |
 | force-replace | Default: `false` | Force file replacement |
 
