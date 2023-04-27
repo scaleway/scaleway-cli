@@ -80,6 +80,8 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 			ProtoMinor: 1,
 			Header: map[string][]string{
 				"Content-Type": {"text/plain"},
+				"Connection":   {"Upgrade"},
+				"Upgrade":      {"tcp"},
 			},
 		})
 		if err != nil {
@@ -87,7 +89,7 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 		}
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK {
+		if resp.StatusCode != http.StatusSwitchingProtocols {
 			panic(fmt.Errorf("unexpected status code: %d", resp.StatusCode))
 		}
 
