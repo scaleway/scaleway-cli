@@ -136,7 +136,12 @@ Default path for configuration file is based on the following priority order:
 			// Show logo banner, or simple welcome message
 			printScalewayBanner()
 
-			err := promptProfileOverride(ctx, configPath, profileName)
+			config, err := loadConfigOrEmpty(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			err = promptProfileOverride(ctx, config, configPath, profileName)
 			if err != nil {
 				return nil, err
 			}
@@ -213,11 +218,6 @@ Default path for configuration file is based on the following priority order:
 				DefaultRegion:         scw.StringPtr(args.Region.String()),
 				DefaultOrganizationID: &args.OrganizationID,
 				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
-			}
-
-			config, err := loadConfigOrEmpty(configPath)
-			if err != nil {
-				return nil, err
 			}
 
 			// Save the profile as default or as a named profile

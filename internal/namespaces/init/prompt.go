@@ -163,15 +163,22 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 	return scw.ParseZone(zone)
 }
 
-// promptProfileOverride prompt user if profileName is getting override in configPath
-func promptProfileOverride(ctx context.Context, configPath string, profileName string) error {
-	config, err := scw.LoadConfigFromPath(configPath)
+// promptProfileOverride prompt user if profileName is getting override in config
+func promptProfileOverride(ctx context.Context, config *scw.Config, configPath string, profileName string) error {
+	var profile *scw.Profile
+	var profileExists bool
 
-	// If it is not a new config, ask if we want to override the existing config
-	if err == nil && !config.IsEmpty() {
+	if profileName == scw.DefaultProfileName {
+		profile = &config.Profile
+		profileExists = true
+	} else {
+		profile, profileExists = config.Profiles[profileName]
+	}
+
+	if !config.IsEmpty() && profileExists {
 		_, _ = interactive.PrintlnWithoutIndent(`
 					Current config is located at ` + configPath + `
-					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
+					` + terminal.Style(fmt.Sprint(profile), color.Faint) + `
 				`)
 		overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 			Prompt:       fmt.Sprintf("Do you want to override the current profile (%s) ?", profileName),
