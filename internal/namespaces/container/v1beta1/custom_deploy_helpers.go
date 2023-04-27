@@ -80,8 +80,8 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 			ProtoMinor: 1,
 			Header: map[string][]string{
 				"Content-Type": {"text/plain"},
-				"Connection":   {"Upgrade"},
-				"Upgrade":      {"tcp"},
+				// "Connection":   {"Upgrade"},
+				// "Upgrade":      {"tcp"},
 			},
 		})
 		if err != nil {
