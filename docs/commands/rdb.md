@@ -659,6 +659,7 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| private-network | Default: `false` | Connect by the private network endpoint attached. |
 | instance-id | Required | UUID of the instance |
 | username | Required | Name of the user to connect with to the database |
 | database | Default: `rdb` | Name of the database |
