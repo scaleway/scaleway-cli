@@ -120,6 +120,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `applesilicon` | Apple silicon API                       | [CLI](./docs/commands/apple-silicon.md) / [API](https://developers.scaleway.com/en/products/apple-silicon/api/) |
 | `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                          |
 | `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/)         |
+| `billing`      | Billing API                             | [CLI](./docs/commands/billing.md) / [API](https://developers.scaleway.com/en/products/billing/api/)             |
 | `cockpit`      | Cockpit API                             | [CLI](./docs/commands/cockpit.md) / [API](https://developers.scaleway.com/en/products/cockpit/api/)             |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                                |
 | `container`    | Serverless Container API                | [CLI](./docs/commands/container.md) / [API](https://developers.scaleway.com/en/products/containers/api/)        |

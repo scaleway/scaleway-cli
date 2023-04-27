@@ -8,6 +8,7 @@ AVAILABLE COMMANDS:
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic Metal API
+  billing       This API allows you to query your consumption
   cockpit       Cockpit API
   container     Container as a Service API
   dns           Domains and DNS API
