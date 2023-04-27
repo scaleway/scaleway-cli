@@ -48,7 +48,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 			Required:   false,
 			Deprecated: false,
 			Positional: false,
-			Default:    core.DefaultValueSetter("/tmp/"),
+			Default:    core.DefaultValueSetter("./"),
 		},
 		{
 			Name:       "file-type",
