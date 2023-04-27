@@ -85,15 +85,18 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 			},
 		})
 		if err != nil {
-			return
+			panic(err)
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusOK {
-			return
+			panic(fmt.Errorf("unexpected status code: %d", resp.StatusCode))
 		}
 
-		_, _ = io.Copy(server, resp.Body)
+		_, err = io.Copy(server, resp.Body)
+		if err != nil {
+			panic(err)
+		}
 	}()
 
 	return dockertypes.NewHijackedResponse(client, "text/plain"), nil
