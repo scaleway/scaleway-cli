@@ -66,10 +66,10 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 		RawQuery: query.Encode(),
 	}
 
-	server, client := net.Pipe()
+	reader, writer := net.Pipe()
 
 	go func() {
-		defer server.Close()
+		defer writer.Close()
 
 		resp, err := c.httpClient.Do(&http.Request{
 			Method:     http.MethodPost,
@@ -80,8 +80,6 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 			ProtoMinor: 1,
 			Header: map[string][]string{
 				"Content-Type": {"text/plain"},
-				// "Connection":   {"Upgrade"},
-				// "Upgrade":      {"tcp"},
 			},
 		})
 		if err != nil {
@@ -93,11 +91,11 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 			panic(fmt.Errorf("unexpected status code: %d", resp.StatusCode))
 		}
 
-		_, err = io.Copy(server, resp.Body)
+		_, err = io.Copy(writer, resp.Body)
 		if err != nil {
 			panic(err)
 		}
 	}()
 
-	return dockertypes.NewHijackedResponse(client, "text/plain"), nil
+	return dockertypes.NewHijackedResponse(reader, "text/plain"), nil
 }
