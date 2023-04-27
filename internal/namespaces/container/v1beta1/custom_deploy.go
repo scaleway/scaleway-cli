@@ -250,7 +250,7 @@ type DeployStepBuildImageResponse struct {
 	*DeployStepData
 	Namespace    *container.Namespace
 	Tag          string
-	DockerClient *docker.Client
+	DockerClient DockerClient
 }
 
 func DeployStepDockerBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {
@@ -298,9 +298,9 @@ func DeployStepBuildpackBuildImage(t *tasks.Task, data *DeployStepFetchOrCreateR
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
 	httpClient := core.ExtractHTTPClient(t.Ctx)
-	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation(), docker.WithHTTPClient(httpClient))
+	dockerClient, err := NewCustomDockerClient(httpClient)
 	if err != nil {
-		return nil, fmt.Errorf("could not connect to Docker: %w", err)
+		return nil, err
 	}
 
 	packClient, err := pack.NewClient(pack.WithDockerClient(dockerClient), pack.WithLogger(logging.NewLogWithWriters(t.Logs, t.Logs)))
