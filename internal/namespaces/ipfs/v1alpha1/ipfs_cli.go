@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		ipfsRoot(),
 		ipfsIpfs(),
 		ipfsVolume(),
+		ipfsToken(),
 		ipfsVolumeCreate(),
 		ipfsVolumeGet(),
 		ipfsVolumeList(),
@@ -57,6 +58,15 @@ func ipfsVolume() *core.Command {
 		Long:      `manage volumes.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
+	}
+}
+
+func ipfsToken() *core.Command {
+	return &core.Command{
+		Short:     `manage token in ipfs cli`,
+		Long:      `manage token in ipfs cli.`,
+		Namespace: "ipfs",
+		Resource:  "token",
 	}
 }
 

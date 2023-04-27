@@ -8,7 +8,7 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.3
 	github.com/dnaeon/go-vcr v1.2.0
-	github.com/docker/docker v23.0.4+incompatible
+	github.com/docker/docker v23.0.5+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.15.0
 	github.com/getsentry/raven-go v0.2.0
@@ -22,7 +22,7 @@ require (
 	github.com/moby/buildkit v0.11.6
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.16.0.20230424152630-05355b6e32c3
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.16.0.20230425114903-9de7ce5b674f
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.2
