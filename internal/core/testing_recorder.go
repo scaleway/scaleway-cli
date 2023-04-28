@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -49,8 +48,8 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	}
 
 	// Buildpacks
-	if r.URL.Host == strings.ReplaceAll("npipe://"+windowDockerEngine, "/", "%2F") {
-		r.URL.Host = strings.ReplaceAll(unixDockerEngine, "/", "%2F")
+	if r.URL.Scheme == "npipe" {
+		r.URL.Scheme = "http"
 	}
 
 	r.URL.RawQuery = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(r.URL.RawQuery, "pack.local%2Fbuilder%2F11111111111111111111")
