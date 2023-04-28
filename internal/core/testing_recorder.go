@@ -49,7 +49,7 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	}
 
 	// Buildpacks
-	if r.URL.Host == strings.ReplaceAll(windowDockerEngine, "/", "%2F") {
+	if r.URL.Host == strings.ReplaceAll("npipe://"+windowDockerEngine, "/", "%2F") {
 		r.URL.Host = strings.ReplaceAll(unixDockerEngine, "/", "%2F")
 	}
 
