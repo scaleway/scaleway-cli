@@ -1,6 +1,9 @@
 package core
 
 import (
+	"bytes"
+	"io"
+	"log"
 	"net/http"
 	"regexp"
 	"testing"
@@ -27,6 +30,9 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 	i.Request.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(i.Request.URL, "pack.local%2Fbuilder%2F11111111111111111111")
 	i.Request.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Request.URL, "pack.local/builder/11111111111111111111")
 
+	i.Request.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
+	i.Response.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
+
 	return nil
 }
 
@@ -38,6 +44,15 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	// Buildpacks
 	r.URL.RawQuery = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(r.URL.RawQuery, "pack.local%2Fbuilder%2F11111111111111111111")
 	r.URL.Path = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(r.URL.Path, "pack.local/builder/11111111111111111111")
+
+	if r.Body != nil && r.Body != http.NoBody {
+		reqBody, err := io.ReadAll(r.Body)
+		if err != nil {
+			log.Fatal("failed to read request body")
+		}
+		r.Body.Close()
+		r.Body = io.NopCloser(bytes.NewBuffer(reqBody))
+	}
 
 	return cassette.DefaultMatcher(r, i)
 }
