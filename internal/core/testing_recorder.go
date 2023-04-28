@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -36,15 +37,26 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 	return nil
 }
 
+const (
+	windowDockerEngine = "//./pipe/docker_engine"
+	unixDockerEngine   = "/var/run/docker.sock"
+)
+
 func cassetteMatcher(r *http.Request, i cassette.Request) bool {
-	if r.URL.Host == "//./pipe/docker_engine" {
-		r.URL.Host = "/var/run/docker.sock"
+	// Docker
+	if r.URL.Host == windowDockerEngine {
+		r.URL.Host = unixDockerEngine
 	}
 
 	// Buildpacks
+	if r.URL.Host == strings.ReplaceAll(windowDockerEngine, "/", "%2F") {
+		r.URL.Host = strings.ReplaceAll(unixDockerEngine, "/", "%2F")
+	}
+
 	r.URL.RawQuery = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(r.URL.RawQuery, "pack.local%2Fbuilder%2F11111111111111111111")
 	r.URL.Path = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(r.URL.Path, "pack.local/builder/11111111111111111111")
 
+	// Read body
 	if r.Body != nil && r.Body != http.NoBody {
 		reqBody, err := io.ReadAll(r.Body)
 		if err != nil {
