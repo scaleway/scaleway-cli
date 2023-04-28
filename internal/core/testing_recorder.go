@@ -47,7 +47,8 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 		r.URL.Host = unixDockerEngine
 	}
 
-	// Buildpacks
+	r.URL.Host = regexp.MustCompile(`docker_engine`).ReplaceAllString(r.URL.Host, "docker.sock")
+
 	if r.URL.Scheme == "npipe" {
 		r.URL.Scheme = "http"
 	}
