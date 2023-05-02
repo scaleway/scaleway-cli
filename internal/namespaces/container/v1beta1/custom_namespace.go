@@ -25,19 +25,27 @@ var (
 	}
 )
 
-func containerNamespaceCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		res := respI.(*container.Namespace)
+func waitForContainerNamespace(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	ns := respI.(*container.Namespace)
 
-		client := core.ExtractClient(ctx)
-		api := container.NewAPI(client)
-		return api.WaitForNamespace(&container.WaitForNamespaceRequest{
-			NamespaceID:   res.ID,
-			Region:        res.Region,
-			Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
-	}
+	client := core.ExtractClient(ctx)
+	api := container.NewAPI(client)
+	return api.WaitForNamespace(&container.WaitForNamespaceRequest{
+		NamespaceID:   ns.ID,
+		Region:        ns.Region,
+		Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
+		RetryInterval: core.DefaultRetryInterval,
+	})
+}
+
+func containerNamespaceCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = waitForContainerNamespace
+
+	return c
+}
+
+func containerNamespaceUpdateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = waitForContainerNamespace
 
 	return c
 }
