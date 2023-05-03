@@ -2574,6 +2574,7 @@ scw instance snapshot wait <snapshot-id ...> [arg=value ...]
 |------|---|-------------|
 | snapshot-id | Required | ID of the snapshot. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**
