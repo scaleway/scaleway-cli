@@ -864,6 +864,7 @@ scw baremetal server wait <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**
