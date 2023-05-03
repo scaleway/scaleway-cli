@@ -45,6 +45,7 @@ var (
 type serverWaitRequest struct {
 	InstanceID string
 	Region     scw.Region
+	Timeout    time.Duration
 }
 
 func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -376,7 +377,7 @@ func instanceWaitCommand() *core.Command {
 			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -388,6 +389,7 @@ func instanceWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(instanceActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
