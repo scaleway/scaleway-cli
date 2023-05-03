@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -212,5 +213,13 @@ func OrganizationIDArgSpec() *ArgSpec {
 		Name:         "organization-id",
 		Short:        "Organization ID to use. If none is passed the default organization ID will be used",
 		ValidateFunc: ValidateOrganizationID(),
+	}
+}
+
+func WaitTimeoutArgSpec(defaultTimeout time.Duration) *ArgSpec {
+	return &ArgSpec{
+		Name:    "timeout",
+		Short:   "Timeout of the wait",
+		Default: DefaultValueSetter(defaultTimeout.String()),
 	}
 }

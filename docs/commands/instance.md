@@ -2245,6 +2245,7 @@ scw instance server wait <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| timeout | Default: `10m0s` | Timeout of the wait |
 | server-id | Required | ID of the server affected by the action. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 

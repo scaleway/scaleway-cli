@@ -832,6 +832,12 @@ Once your image is ready you will be able to create a new server based on this i
 	}
 }
 
+type serverWaitRequest struct {
+	Zone     scw.Zone
+	ServerID string
+	Timeout  time.Duration
+}
+
 func serverWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for server to reach a stable state`,
@@ -840,11 +846,27 @@ func serverWaitCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			return waitForServerFunc()(ctx, argsI, nil)
+			args := argsI.(*serverWaitRequest)
+
+			return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+				Zone:          argsI.(*serverWaitRequest).Zone,
+				ServerID:      argsI.(*serverWaitRequest).ServerID,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 		},
-		ArgSpecs: serverActionArgSpecs,
+		ArgSpecs: core.ArgSpecs{
+			core.WaitTimeoutArgSpec(serverActionTimeout),
+			{
+				Name:       "server-id",
+				Short:      `ID of the server affected by the action.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
 		Examples: []*core.Example{
 			{
 				Short:    "Wait for a server to reach a stable state",
