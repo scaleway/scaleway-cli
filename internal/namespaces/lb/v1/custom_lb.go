@@ -4,6 +4,7 @@ import (
 	"context"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -13,6 +14,7 @@ import (
 )
 
 var (
+	defaultLBTimeout     = 10 * time.Minute
 	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
 		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
 		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
@@ -74,6 +76,7 @@ func lbWaitCommand() *core.Command {
 				LBID:          args.LBID,
 				Zone:          args.Zone,
 				RetryInterval: core.DefaultRetryInterval,
+				Timeout:       args.Timeout,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -84,6 +87,7 @@ func lbWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZonePlWaw1, scw.ZoneNlAms1),
+			core.WaitTimeoutArgSpec(defaultLBTimeout),
 		},
 		Examples: []*core.Example{
 			{
