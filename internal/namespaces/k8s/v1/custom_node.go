@@ -67,7 +67,7 @@ func k8sNodeWaitCommand() *core.Command {
 			return api.WaitForNode(&k8s.WaitForNodeRequest{
 				Region:        argsI.(*k8s.WaitForNodeRequest).Region,
 				NodeID:        argsI.(*k8s.WaitForNodeRequest).NodeID,
-				Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+				Timeout:       argsI.(*k8s.WaitForNodeRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -79,6 +79,7 @@ func k8sNodeWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(),
+			core.WaitTimeoutArgSpec(nodeActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
