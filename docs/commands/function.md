@@ -37,6 +37,12 @@ Serverless Functions API.
   - [Delete a token](#delete-a-token)
   - [Get a token](#get-a-token)
   - [List all tokens](#list-all-tokens)
+- [Trigger management commands](#trigger-management-commands)
+  - [Create function resources](#create-function-resources)
+  - [Delete function resources](#delete-function-resources)
+  - [Get function resources](#get-function-resources)
+  - [List function resources](#list-function-resources)
+  - [Update function resources](#update-function-resources)
 
   
 ## Cron management commands
@@ -711,6 +717,132 @@ scw function token list [arg=value ...]
 | function-id |  | UUID of the function the token is assoicated with |
 | namespace-id |  | UUID of the namespace the token is associated with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Trigger management commands
+
+Trigger management commands.
+
+
+### Create function resources
+
+Create function resources.
+
+**Usage:**
+
+```
+scw function trigger create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  |  |
+| description |  |  |
+| function-id |  |  |
+| scw-sqs-config.mnq-namespace-id |  |  |
+| scw-sqs-config.queue |  |  |
+| scw-sqs-config.mnq-project-id |  |  |
+| scw-sqs-config.mnq-region |  |  |
+| sqs-config.endpoint |  |  |
+| sqs-config.queue-url |  |  |
+| sqs-config.access-key |  |  |
+| sqs-config.secret-key |  |  |
+| scw-nats-config.mnq-namespace-id |  |  |
+| scw-nats-config.subject |  |  |
+| scw-nats-config.mnq-project-id |  |  |
+| scw-nats-config.mnq-region |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete function resources
+
+Delete function resources.
+
+**Usage:**
+
+```
+scw function trigger delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get function resources
+
+Get function resources.
+
+**Usage:**
+
+```
+scw function trigger get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List function resources
+
+List function resources.
+
+**Usage:**
+
+```
+scw function trigger list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| function-id |  |  |
+| namespace-id |  |  |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update function resources
+
+Update function resources.
+
+**Usage:**
+
+```
+scw function trigger update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| name |  |  |
+| description |  |  |
+| sqs-config.access-key |  |  |
+| sqs-config.secret-key |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

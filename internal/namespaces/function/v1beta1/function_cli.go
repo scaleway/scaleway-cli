@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		functionRuntime(),
 		functionDomain(),
 		functionToken(),
+		functionTrigger(),
 		functionNamespaceList(),
 		functionNamespaceGet(),
 		functionNamespaceCreate(),
@@ -54,6 +55,11 @@ func GetGeneratedCommands() *core.Commands {
 		functionTokenGet(),
 		functionTokenList(),
 		functionTokenDelete(),
+		functionTriggerCreate(),
+		functionTriggerGet(),
+		functionTriggerList(),
+		functionTriggerUpdate(),
+		functionTriggerDelete(),
 	)
 }
 func functionRoot() *core.Command {
@@ -115,6 +121,15 @@ func functionToken() *core.Command {
 		Long:      `Token management commands.`,
 		Namespace: "function",
 		Resource:  "token",
+	}
+}
+
+func functionTrigger() *core.Command {
+	return &core.Command{
+		Short:     `Trigger management commands`,
+		Long:      `Trigger management commands.`,
+		Namespace: "function",
+		Resource:  "trigger",
 	}
 }
 
@@ -1458,6 +1473,282 @@ func functionTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteToken(request)
+
+		},
+	}
+}
+
+func functionTriggerCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create function resources`,
+		Long:      `Create function resources.`,
+		Namespace: "function",
+		Resource:  "trigger",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.CreateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.queue",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.endpoint",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.queue-url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.access-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.secret-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.subject",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.CreateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.CreateTrigger(request)
+
+		},
+	}
+}
+
+func functionTriggerGet() *core.Command {
+	return &core.Command{
+		Short:     `Get function resources`,
+		Long:      `Get function resources.`,
+		Namespace: "function",
+		Resource:  "trigger",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.GetTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.GetTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.GetTrigger(request)
+
+		},
+	}
+}
+
+func functionTriggerList() *core.Command {
+	return &core.Command{
+		Short:     `List function resources`,
+		Long:      `List function resources.`,
+		Namespace: "function",
+		Resource:  "trigger",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.ListTriggersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.ListTriggersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTriggers(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Triggers, nil
+
+		},
+	}
+}
+
+func functionTriggerUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update function resources`,
+		Long:      `Update function resources.`,
+		Namespace: "function",
+		Resource:  "trigger",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.UpdateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.access-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.secret-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.UpdateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.UpdateTrigger(request)
+
+		},
+	}
+}
+
+func functionTriggerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete function resources`,
+		Long:      `Delete function resources.`,
+		Namespace: "function",
+		Resource:  "trigger",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(function.DeleteTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*function.DeleteTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := function.NewAPI(client)
+			return api.DeleteTrigger(request)
 
 		},
 	}

@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   namespace   Function namespace management commands
   runtime     Runtime management commands
   token       Token management commands
+  trigger     Trigger management commands
 
 WORKFLOW COMMANDS:
   deploy      Deploy a function
