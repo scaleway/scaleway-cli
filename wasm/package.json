@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "include": "cp $(go env GOROOT)/misc/wasm/wasm_exec.js src/go/",
     "test": "vitest"
   },
   "keywords": [],
