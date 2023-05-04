@@ -1,4 +1,4 @@
-name: WASM
+name: WebAssembly
 
 on:
   pull_request:
