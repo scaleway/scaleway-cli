@@ -54,11 +54,11 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 	exitCode := <-exitCodeChan
 	if exitCode != 0 {
 		errBody := stderr.String()
-		fmt.Println(errBody)
 		return js.ValueOf(errBody), fmt.Errorf("exit code: %d", exitCode)
 	}
+
 	outBody := stdout.String()
-	fmt.Println(outBody)
+
 	return js.ValueOf(outBody), nil
 }
 
