@@ -2,6 +2,8 @@ module github.com/scaleway/scaleway-cli/v2
 
 go 1.19
 
+replace github.com/buildpacks/pack => github.com/quantumsheep/pack v0.30.0-pre1.0.20230505095233-37158bb223a4
+
 require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.30.0-pre1.0.20230418191058-1190b6c52128
@@ -79,7 +81,7 @@ require (
 	github.com/containerd/typeurl/v2 v2.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
-	github.com/docker/cli v23.0.4+incompatible // indirect
+	github.com/docker/cli v23.0.5+incompatible // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
