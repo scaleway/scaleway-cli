@@ -1,7 +1,9 @@
 {
-  "name": "scaleway-cli-wasm",
-  "version": "1.0.0",
+  "name": "@scaleway/scaleway-cli-wasm",
+  "version": "0.0.2",
   "description": "",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "vitest"
   },
@@ -10,5 +12,9 @@
   "devDependencies": {
     "typescript": "^5.0.4",
     "vitest": "^0.30.1"
-  }
+  },
+  "files": [
+    "cli.wasm",
+    "index.js"
+  ]
 }
