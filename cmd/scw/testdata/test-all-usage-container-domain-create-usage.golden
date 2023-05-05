@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a domain name binding.
+Create a domain name binding for the container with the specified ID.
 
 USAGE:
   scw container domain create [arg=value ...]
 
 ARGS:
-  [hostname]        
-  [container-id]    
+  [hostname]        Domain to assign
+  [container-id]    UUID of the container to assign the domain to
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

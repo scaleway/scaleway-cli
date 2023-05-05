@@ -29,8 +29,8 @@ func GetGeneratedCommands() *core.Commands {
 		ipfsVolumeDelete(),
 		ipfsIpfsAddURL(),
 		ipfsIpfsAddCid(),
-		ipfsIpfsAddFile(),
 		ipfsIpfsGetPinID(),
+		ipfsIpfsListPins(),
 		ipfsIpfsRmPinID(),
 	)
 }
@@ -44,8 +44,8 @@ func ipfsRoot() *core.Command {
 
 func ipfsIpfs() *core.Command {
 	return &core.Command{
-		Short:     `add content in s3 bucket`,
-		Long:      `add content in s3 bucket.`,
+		Short:     `add content by cid or url and manage pins`,
+		Long:      `add content by cid or url and manage pins.`,
 		Namespace: "ipfs",
 		Resource:  "ipfs",
 	}
@@ -62,8 +62,8 @@ func ipfsVolume() *core.Command {
 
 func ipfsVolumeCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create volume in S3 bucket`,
-		Long:      `Create volume in S3 bucket.`,
+		Short:     `Create volume`,
+		Long:      `Create volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "create",
@@ -202,8 +202,8 @@ func ipfsVolumeUpdate() *core.Command {
 
 func ipfsVolumeDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete volume in S3 bucket`,
-		Long:      `Delete volume in S3 bucket.`,
+		Short:     `Delete volume`,
+		Long:      `Delete volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "delete",
@@ -237,8 +237,8 @@ func ipfsVolumeDelete() *core.Command {
 
 func ipfsIpfsAddURL() *core.Command {
 	return &core.Command{
-		Short:     `Add content in s3 bucket`,
-		Long:      `Add content in s3 bucket.`,
+		Short:     `Add content in volume by url`,
+		Long:      `Add content in volume by url.`,
 		Namespace: "ipfs",
 		Resource:  "ipfs",
 		Verb:      "add-url",
@@ -290,8 +290,8 @@ func ipfsIpfsAddURL() *core.Command {
 
 func ipfsIpfsAddCid() *core.Command {
 	return &core.Command{
-		Short:     `Add content in s3 bucket`,
-		Long:      `Add content in s3 bucket.`,
+		Short:     `Add content in volume by cid`,
+		Long:      `Add content in volume by cid.`,
 		Namespace: "ipfs",
 		Resource:  "ipfs",
 		Verb:      "add-cid",
@@ -353,69 +353,10 @@ func ipfsIpfsAddCid() *core.Command {
 	}
 }
 
-func ipfsIpfsAddFile() *core.Command {
-	return &core.Command{
-		Short:     `Add content in s3 bucket`,
-		Long:      `Add content in s3 bucket.`,
-		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "add-file",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipfs.CreatePinByRawRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "volume-id",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "content",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "mime-type",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pin-options.required-zones.{index}",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pin-options.replication-count",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*ipfs.CreatePinByRawRequest)
-
-			client := core.ExtractClient(ctx)
-			api := ipfs.NewAPI(client)
-			return api.CreatePinByRaw(request)
-
-		},
-	}
-}
-
 func ipfsIpfsGetPinID() *core.Command {
 	return &core.Command{
-		Short:     `Get pin id create when content is add in s3 bucket`,
-		Long:      `Get pin id create when content is add in s3 bucket.`,
+		Short:     `Get pin id in volume`,
+		Long:      `Get pin id in volume.`,
 		Namespace: "ipfs",
 		Resource:  "ipfs",
 		Verb:      "get-pin-id",
@@ -442,6 +383,70 @@ func ipfsIpfsGetPinID() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipfs.NewAPI(client)
 			return api.GetPin(request)
+
+		},
+	}
+}
+
+func ipfsIpfsListPins() *core.Command {
+	return &core.Command{
+		Short:     `List pins in specific volume`,
+		Long:      `List pins in specific volume.`,
+		Namespace: "ipfs",
+		Resource:  "ipfs",
+		Verb:      "list-pins",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.ListPinsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "status",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_status", "queued", "pinning", "failed", "pinned"},
+			},
+			{
+				Name:       "organization-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.ListPinsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListPins(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Pins, nil
 
 		},
 	}

@@ -176,6 +176,9 @@ func stringExists(strs []string, s string) bool {
 func ValidateSecretKey() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
 		value := valueI.(string)
+		if value == "" && !argSpec.Required {
+			return nil
+		}
 		err := DefaultArgSpecValidateFunc()(argSpec, value)
 		if err != nil {
 			return err
@@ -191,6 +194,9 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 func ValidateAccessKey() ArgSpecValidateFunc {
 	return func(argSpec *ArgSpec, valueI interface{}) error {
 		value := valueI.(string)
+		if value == "" && !argSpec.Required {
+			return nil
+		}
 		err := DefaultArgSpecValidateFunc()(argSpec, value)
 		if err != nil {
 			return err

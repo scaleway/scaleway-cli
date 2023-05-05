@@ -55,17 +55,22 @@ func userListBuilder(c *core.Command) *core.Command {
 		}
 
 		for _, privilege := range listPrivileges.Privileges {
+			user, userExists := index[privilege.UserName]
+			if !userExists {
+				continue
+			}
+
 			switch privilege.Permission {
 			case rdb.PermissionAll:
-				index[privilege.UserName].All = append(index[privilege.UserName].All, privilege.DatabaseName)
+				user.All = append(user.All, privilege.DatabaseName)
 			case rdb.PermissionReadonly:
-				index[privilege.UserName].ReadOnly = append(index[privilege.UserName].ReadOnly, privilege.DatabaseName)
+				user.ReadOnly = append(user.ReadOnly, privilege.DatabaseName)
 			case rdb.PermissionCustom:
-				index[privilege.UserName].Custom = append(index[privilege.UserName].Custom, privilege.DatabaseName)
+				user.Custom = append(user.Custom, privilege.DatabaseName)
 			case rdb.PermissionNone:
-				index[privilege.UserName].None = append(index[privilege.UserName].None, privilege.DatabaseName)
+				user.None = append(user.None, privilege.DatabaseName)
 			case rdb.PermissionReadwrite:
-				index[privilege.UserName].ReadWrite = append(index[privilege.UserName].ReadWrite, privilege.DatabaseName)
+				user.ReadWrite = append(user.ReadWrite, privilege.DatabaseName)
 			default:
 				core.ExtractLogger(ctx).Errorf("unsupported permission value %s", privilege.Permission)
 			}

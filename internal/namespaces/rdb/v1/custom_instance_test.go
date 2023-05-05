@@ -180,4 +180,19 @@ func Test_Connect(t *testing.T) {
 		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
 		AfterFunc:    deleteInstance(),
 	}))
+	t.Run("psql", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.BeforeFuncStoreInMeta("username", user),
+			createPN(),
+			createInstanceWithPrivateNetwork("PostgreSQL-14"),
+		),
+		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
+		AfterFunc:    deleteInstance(),
+	}))
 }

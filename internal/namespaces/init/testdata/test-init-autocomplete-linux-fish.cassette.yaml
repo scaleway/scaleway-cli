@@ -1,33 +1,36 @@
 ---
 version: 1
 interactions:
-  - request:
-      body: ""
-      form: {}
-      headers: {}
-      url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
-      method: GET
-    response:
-      body: '{"access_key":"SCWXXXXXXXXXXXXXXXXX","secret_key":null,"description":"default","created_at":"2023-02-08T13:37:42.867291Z","updated_at":"2023-02-08T13:37:42.867291Z","expires_at":null,"default_project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","editable":true,"creation_ip":"195.154.228.158","user_id":"284d6fc3-6cf7-485b-bd32-efa92c2335d9"}'
-      headers:
-        Content-Length:
-          - "340"
-        Content-Security-Policy:
-          - default-src 'none'; frame-ancestors 'none'
-        Content-Type:
-          - application/json
-        Date:
-          - Mon, 20 Feb 2023 13:44:28 GMT
-        Server:
-          - Scaleway API-Gateway
-        Strict-Transport-Security:
-          - max-age=63072000
-        X-Content-Type-Options:
-          - nosniff
-        X-Frame-Options:
-          - DENY
-        X-Request-Id:
-          - edbe64c1-9d5f-42e6-8705-6b6c91df28f5
-      status: 200 OK
-      code: 200
-      duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: GET
+  response:
+    body: '{"details":[{"action":"read","resource":"api_key"}],"message":"insufficient
+      permissions","type":"permissions_denied"}'
+    headers:
+      Content-Length:
+      - "117"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 24 Apr 2023 14:38:55 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 31011696-b97f-4d83-b76f-c60025ad3fef
+    status: 403 Forbidden
+    code: 403
+    duration: ""

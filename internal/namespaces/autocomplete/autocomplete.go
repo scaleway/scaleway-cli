@@ -29,7 +29,7 @@ func GetCommands() *core.Commands {
 	)
 
 	for _, cmd := range cmds.GetAll() {
-		cmd.DisableVersionCheck = true
+		cmd.DisableAfterChecks = true
 	}
 
 	return cmds

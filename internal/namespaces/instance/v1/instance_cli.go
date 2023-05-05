@@ -350,7 +350,7 @@ func instanceServerTypeList() *core.Command {
 
 func instanceVolumeTypeList() *core.Command {
 	return &core.Command{
-		Short:     `List volumes types`,
+		Short:     `List volume types`,
 		Long:      `List all volume types and their technical details.`,
 		Namespace: "instance",
 		Resource:  "volume-type",
@@ -2044,7 +2044,7 @@ func instanceSecurityGroupCreate() *core.Command {
 			},
 			{
 				Name:       "enable-default-security",
-				Short:      `True to block SMTP on IPv4 and IPv6`,
+				Short:      `True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

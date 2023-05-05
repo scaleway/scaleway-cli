@@ -46,6 +46,10 @@ jobs:
           fetch-depth: 1
       - name: Build binaries
         run: ./scripts/build.sh
+      - name: Print binaries size
+        run: ls -lh ./bin
+      - name: Check binary size
+        run: ./scripts/check-size.sh ./bin/*linux-x86_64
 
   docker-tests:
     runs-on: ubuntu-latest

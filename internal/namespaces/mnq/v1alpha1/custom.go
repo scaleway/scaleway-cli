@@ -7,5 +7,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("mnq", "credential", "create").Override(credentialCreateBuilder)
+	cmds.MustFind("mnq", "credential", "get").Override(credentialGetBuilder)
+
 	return cmds
 }

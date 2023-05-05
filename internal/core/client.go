@@ -48,6 +48,9 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 		return nil, err
 
 	default:
+		// Store latest version of config in context
+		injectConfig(ctx, config)
+
 		// found and loaded a config file -> merge with env
 		activeProfile, err := config.GetProfile(profileName)
 		if err != nil {

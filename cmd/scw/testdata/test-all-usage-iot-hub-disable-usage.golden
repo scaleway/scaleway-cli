@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Disable a hub.
+Disable an existing IoT Hub, specified by its Hub ID.
 
 USAGE:
   scw iot hub disable <hub-id ...> [arg=value ...]

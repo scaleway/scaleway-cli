@@ -33,7 +33,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop",
 		Check: TestCheckCombine(
 			func(t *testing.T, ctx *CheckFuncCtx) {
-				assert.Equal(t, "a new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n", ctx.LogBuffer)
+				assert.Equal(t, "A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n", ctx.LogBuffer)
 			},
 		),
 		TmpHomeDir: true,
@@ -85,7 +85,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop",
 		Check: TestCheckCombine(
 			func(t *testing.T, ctx *CheckFuncCtx) {
-				assert.Contains(t, ctx.LogBuffer, "a new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n")
+				assert.Contains(t, ctx.LogBuffer, "A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n")
 			},
 		),
 		TmpHomeDir: true,
