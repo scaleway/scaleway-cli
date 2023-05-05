@@ -374,6 +374,7 @@ scw rdb backup wait <backup-id ...> [arg=value ...]
 |------|---|-------------|
 | backup-id | Required | ID of the backup you want to wait for. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -943,6 +944,7 @@ scw rdb instance wait <instance-id ...> [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | ID of the instance you want to wait for. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**

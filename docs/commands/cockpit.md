@@ -213,6 +213,7 @@ scw cockpit cockpit wait <project-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id | Required | The ID of the project the cockpit is attached to |
+| timeout | Default: `3m0s` | Timeout of the wait |
 
 
 **Examples:**

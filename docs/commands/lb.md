@@ -1054,6 +1054,7 @@ scw lb lb wait <lb-id ...> [arg=value ...]
 |------|---|-------------|
 | lb-id | Required | ID of the load balancer you want to wait for. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `pl-waw-1`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `10m0s` | Timeout of the wait |
 
 
 **Examples:**

@@ -266,6 +266,7 @@ scw apple-silicon server wait <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**

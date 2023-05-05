@@ -251,7 +251,7 @@ func k8sClusterWaitCommand() *core.Command {
 			cluster, err := api.WaitForCluster(&k8s.WaitForClusterRequest{
 				Region:        args.Region,
 				ClusterID:     args.ClusterID,
-				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				Timeout:       args.Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -270,7 +270,7 @@ func k8sClusterWaitCommand() *core.Command {
 					_, err := api.WaitForPool(&k8s.WaitForPoolRequest{
 						Region:        pool.Region,
 						PoolID:        pool.ID,
-						Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+						Timeout:       args.Timeout,
 						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {
@@ -293,6 +293,7 @@ func k8sClusterWaitCommand() *core.Command {
 				Short: "Wait for pools to be ready.",
 			},
 			core.RegionArgSpec(),
+			core.WaitTimeoutArgSpec(clusterActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

@@ -444,6 +444,7 @@ scw k8s cluster wait <cluster-id ...> [arg=value ...]
 | cluster-id | Required | ID of the cluster. |
 | wait-for-pools |  | Wait for pools to be ready. |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `10m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -753,6 +754,7 @@ scw k8s node wait <node-id ...> [arg=value ...]
 |------|---|-------------|
 | node-id | Required | ID of the node. |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `10m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -1033,6 +1035,7 @@ scw k8s pool wait <pool-id ...> [arg=value ...]
 |------|---|-------------|
 | pool-id | Required | ID of the pool. |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `10m0s` | Timeout of the wait |
 
 
 **Examples:**

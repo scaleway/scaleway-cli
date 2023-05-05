@@ -315,6 +315,7 @@ scw instance image wait <image-id ...> [arg=value ...]
 |------|---|-------------|
 | image-id | Required | ID of the image. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -2245,6 +2246,7 @@ scw instance server wait <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| timeout | Default: `10m0s` | Timeout of the wait |
 | server-id | Required | ID of the server affected by the action. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2572,6 +2574,7 @@ scw instance snapshot wait <snapshot-id ...> [arg=value ...]
 |------|---|-------------|
 | snapshot-id | Required | ID of the snapshot. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**

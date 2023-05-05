@@ -121,7 +121,7 @@ func snapshotWaitCommand() *core.Command {
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
 				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
-				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+				Timeout:       argsI.(*instance.WaitForSnapshotRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -133,6 +133,7 @@ func snapshotWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(snapshotActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
