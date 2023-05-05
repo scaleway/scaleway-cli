@@ -1,10 +1,11 @@
 package container
 
 import (
+	_ "embed"
+
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,32 +16,40 @@ import (
 )
 
 var (
-	indexHTML = strings.TrimSpace(`
-<!DOCTYPE html>
-<html>
-<head>
-<title>My container</title>
-</head>
-<body>
-<h1>Deployed with scw container deploy</h1>
-</body>
-</html>
-	`)
-	nginxDockerfile = strings.TrimSpace(`
-FROM nginx:alpine
-RUN apk add --no-cache curl git bash
-COPY ./index.html /usr/share/nginx/html/index.html
-EXPOSE 80
-	`)
-	nginxDockerfileWithBuildArgs = strings.TrimSpace(`
-FROM nginx:alpine
-RUN apk add --no-cache curl git bash
-COPY ./index.html /usr/share/nginx/html/index.html
-ARG TEST
-RUN test -n "$TEST"
-EXPOSE 80
-	`)
+	//go:embed testdata/docker/Dockerfile
+	testdataDockerDockerfile string
+	//go:embed testdata/docker/index.html
+	testdataDockerIndexHTML string
+	//go:embed testdata/docker/Dockerfile.build-args
+	testdataDockerDockerfileBuildArgs string
+
+	//go:embed testdata/node/index.js
+	testDataBuildpackNodeIndexJS string
+	//go:embed testdata/node/package.json
+	testDataBuildpackNodePackageJSON string
+	//go:embed testdata/node/package-lock.json
+	testDataBuildpackNodePackageLockJSON string
 )
+
+func loadTestdataBeforeFunc(path string, filename string, content string) func(ctx *core.BeforeFuncCtx) error {
+	return func(ctx *core.BeforeFuncCtx) error {
+		err := os.WriteFile(filepath.Join(path, filename), []byte(content), 0600)
+		if err != nil {
+			return err
+		}
+		return err
+	}
+}
+
+func mkdirAllBeforeFunc(path string) func(ctx *core.BeforeFuncCtx) error {
+	return func(ctx *core.BeforeFuncCtx) error {
+		err := os.MkdirAll(path, 0700)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+}
 
 func Test_Deploy(t *testing.T) {
 	appName := "cli-test-container-deploy"
@@ -49,27 +58,15 @@ func Test_Deploy(t *testing.T) {
 	commands := GetCommands()
 	commands.Merge(registrycmds.GetCommands())
 
+	simplePath := filepath.Join(path, "simple")
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "Dockerfile"), []byte(nginxDockerfile), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			mkdirAllBeforeFunc(simplePath),
+			loadTestdataBeforeFunc(simplePath, "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(simplePath, "Dockerfile", testdataDockerDockerfile),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80", appName, path),
+		Cmd: fmt.Sprintf("scw container deploy name=%s-simple build-source=%s port=80", appName, simplePath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -81,35 +78,15 @@ func Test_Deploy(t *testing.T) {
 		DisableParallel: true,
 	}))
 
+	appNameFromPathPath := filepath.Join(path, "cli-test-deploy-poney")
 	t.Run("App name deduced from path", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create directory
-				err := os.Mkdir(filepath.Join(path, "cli-test-deploy-poney"), 0700)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "cli-test-deploy-poney", "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "cli-test-deploy-poney", "Dockerfile"), []byte(nginxDockerfile), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			mkdirAllBeforeFunc(appNameFromPathPath),
+			loadTestdataBeforeFunc(appNameFromPathPath, "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(appNameFromPathPath, "Dockerfile", testdataDockerDockerfile),
 		),
-		Cmd: fmt.Sprintf("scw container deploy build-source=%s/cli-test-deploy-poney port=80", path),
+		Cmd: fmt.Sprintf("scw container deploy build-source=%s port=80", appNameFromPathPath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -121,27 +98,36 @@ func Test_Deploy(t *testing.T) {
 		DisableParallel: true,
 	}))
 
+	buildArgsPath := filepath.Join(path, "build-args")
 	t.Run("Build args", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create index.html
-				err := os.WriteFile(filepath.Join(path, "index.html"), []byte(indexHTML), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
-			func(ctx *core.BeforeFuncCtx) error {
-				// Create Dockerfile
-				err := os.WriteFile(filepath.Join(path, "Dockerfile"), []byte(nginxDockerfileWithBuildArgs), 0600)
-				if err != nil {
-					return err
-				}
-				return nil
-			},
+			mkdirAllBeforeFunc(buildArgsPath),
+			loadTestdataBeforeFunc(buildArgsPath, "index.html", testdataDockerIndexHTML),
+			loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest", appName, path),
+		Cmd: fmt.Sprintf("scw container deploy name=%s-ba build-source=%s port=80 build-args.TEST=thisisatest", appName, buildArgsPath),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			testDeleteContainersNamespaceAfter(appName),
+			testDeleteRegistryAfter(appName),
+		),
+		DisableParallel: true,
+	}))
+
+	buildpackPath := filepath.Join(path, "bp")
+	t.Run("Buildpack", core.Test(&core.TestConfig{
+		Commands: commands,
+		BeforeFunc: core.BeforeFuncCombine(
+			mkdirAllBeforeFunc(buildpackPath),
+			loadTestdataBeforeFunc(buildpackPath, "index.js", testDataBuildpackNodeIndexJS),
+			loadTestdataBeforeFunc(buildpackPath, "package.json", testDataBuildpackNodePackageJSON),
+			loadTestdataBeforeFunc(buildpackPath, "package-lock.json", testDataBuildpackNodePackageLockJSON),
+		),
+		Cmd: fmt.Sprintf("scw container deploy name=%s-bp build-source=%s port=3000", appName, buildpackPath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -174,7 +160,7 @@ func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx)
 		}
 
 		if namespaceID == "" {
-			return fmt.Errorf("namespace not found")
+			return nil
 		}
 
 		return core.ExecAfterCmd(fmt.Sprintf("scw container namespace delete %s --wait", namespaceID))(ctx)
