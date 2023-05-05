@@ -4,9 +4,9 @@
 
 import {describe, it, expect} from 'vitest'
 
-import './go/wasm_exec_node.js'
-import './go/wasm_exec.js'
-import {CLI} from './cli'
+import '../wasm_exec_node.js'
+import '../wasm_exec.js'
+import {CLI} from '../cli'
 import * as fs from 'fs'
 
 const CLI_PACKAGE = 'scw'

@@ -15,6 +15,8 @@
   },
   "files": [
     "cli.wasm",
-    "index.js"
+    "index.js",
+    "wasm_exec.cjs",
+    "wasm_exec_node.cjs"
   ]
 }
