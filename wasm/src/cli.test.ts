@@ -4,8 +4,8 @@
 
 import {describe, it, expect} from 'vitest'
 
-import '../wasm_exec_node.js'
-import '../wasm_exec.js'
+import '../wasm_exec_node.cjs'
+import '../wasm_exec.cjs'
 import {CLI} from '../cli'
 import * as fs from 'fs'
 
