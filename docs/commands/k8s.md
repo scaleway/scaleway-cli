@@ -61,7 +61,7 @@ scw k8s cluster create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type |  | Type of the cluster |
+| type |  | Type of the cluster (possible values are kapsule, multicloud). |
 | name | Required<br />Default: `<generated>` | Name of the cluster |
 | description |  | Description of the cluster |
 | tags.{index} |  | Tags associated with the cluster |
@@ -311,7 +311,7 @@ scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster to migrate from one type to another |
-| type | Required | Type of the cluster |
+| type | Required | Type of the cluster. Note that some migrations are not possible (please refer to product documentation). |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

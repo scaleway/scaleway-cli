@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   cluster-id        ID of the cluster to migrate from one type to another
-  type              Type of the cluster
+  type              Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

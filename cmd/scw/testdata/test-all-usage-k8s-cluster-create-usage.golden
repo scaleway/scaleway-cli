@@ -14,7 +14,7 @@ EXAMPLES:
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used
-  [type]                                                 Type of the cluster
+  [type]                                                 Type of the cluster (possible values are kapsule, multicloud).
   name=<generated>                                       Name of the cluster
   [description]                                          Description of the cluster
   [tags.{index}]                                         Tags associated with the cluster
