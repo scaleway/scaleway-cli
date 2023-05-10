@@ -30,6 +30,7 @@ func createClient(ctx context.Context, httpClient *http.Client, buildInfo *Build
 	if runtime.GOARCH == "wasm" {
 		return createWasmClient(httpClient, buildInfo)
 	}
+
 	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:

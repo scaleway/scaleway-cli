@@ -65,6 +65,7 @@ func LoadConfig(configPath string) (*Config, error) {
 			path:   configPath,
 		}, nil
 	}
+
 	file, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -94,6 +95,7 @@ func (c *Config) Save() error {
 	if runtime.GOARCH == "wasm" {
 		return nil
 	}
+
 	file, err := c.HumanConfig()
 	if err != nil {
 		return err
