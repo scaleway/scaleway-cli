@@ -242,7 +242,7 @@ func k8sClusterCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "type",
-				Short:      `Type of the cluster`,
+				Short:      `Type of the cluster (possible values are kapsule, multicloud).`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1000,7 +1000,7 @@ func k8sClusterSetType() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Type of the cluster`,
+				Short:      `Type of the cluster. Note that some migrations are not possible (please refer to product documentation).`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
