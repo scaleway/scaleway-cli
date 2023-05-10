@@ -1,5 +1,4 @@
-//go:build !freebsd
-// +build !freebsd
+//go:build !freebsd && !wasm
 
 // shell is disabled on freebsd as current version of github.com/pkg/term@v1.1.0 is not compiling
 package core

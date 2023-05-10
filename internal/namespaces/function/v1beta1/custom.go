@@ -13,7 +13,9 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(function.FunctionStatus(""), human.EnumMarshalFunc(functionStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(function.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
 
-	cmds.Add(functionDeploy())
+	if cmdDeploy := functionDeploy(); cmdDeploy != nil {
+		cmds.Add(cmdDeploy)
+	}
 
 	return cmds
 }

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"runtime"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -12,8 +13,24 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+func createWasmClient(httpClient *http.Client, buildInfo *BuildInfo) (*scw.Client, error) {
+	opts := []scw.ClientOption{
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent(buildInfo.GetUserAgent()),
+		scw.WithProfile(scw.LoadEnvProfile()),
+		scw.WithHTTPClient(httpClient),
+	}
+
+	return scw.NewClient(opts...)
+}
+
 // createClient creates a Scaleway SDK client.
 func createClient(ctx context.Context, httpClient *http.Client, buildInfo *BuildInfo, profileName string) (*scw.Client, error) {
+	if runtime.GOARCH == "wasm" {
+		return createWasmClient(httpClient, buildInfo)
+	}
+
 	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:

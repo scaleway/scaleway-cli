@@ -20,7 +20,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("container", "namespace", "update").Override(containerNamespaceUpdateBuilder)
 	cmds.MustFind("container", "namespace", "delete").Override(containerNamespaceDeleteBuilder)
 
-	cmds.Add(containerDeployCommand())
+	if cmdDeploy := containerDeployCommand(); cmdDeploy != nil {
+		cmds.Add(cmdDeploy)
+	}
 
 	return cmds
 }
