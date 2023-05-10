@@ -30,7 +30,7 @@ AVAILABLE COMMANDS:
   tem           Transactional Email API
   vpc           VPC API
   vpc-gw        Public Gateways API
-  webhosting    Webhosting API
+  webhosting    Web Hosting API
 
 CONFIGURATION COMMANDS:
   alias         Alias related commands
