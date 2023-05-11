@@ -1,4 +1,4 @@
-//go:build !wasm
+//go:build !wasm && !freebsd
 
 package container
 
