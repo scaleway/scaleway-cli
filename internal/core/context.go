@@ -9,6 +9,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -26,6 +27,7 @@ type meta struct {
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
 	CliConfig    *cliConfig.Config
+	Platform     platform.Platform
 
 	command                     *Command
 	stdout                      io.Writer
@@ -33,7 +35,6 @@ type meta struct {
 	stdin                       io.Reader
 	result                      interface{}
 	httpClient                  *http.Client
-	config                      *scw.Config
 	isClientFromBootstrapConfig bool
 	betaMode                    bool
 }
@@ -56,11 +57,7 @@ func extractMeta(ctx context.Context) *meta {
 
 // injectSDKConfig add config to a meta context
 func injectConfig(ctx context.Context, config *scw.Config) {
-	extractMeta(ctx).config = config
-}
-
-func extractConfig(ctx context.Context) *scw.Config {
-	return extractMeta(ctx).config
+	extractMeta(ctx).Platform.SetScwConfig(config)
 }
 
 func ExtractCommands(ctx context.Context) *Commands {
@@ -191,7 +188,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
-	meta.Client, err = createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+	meta.Client, err = meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 	return err
 }
 

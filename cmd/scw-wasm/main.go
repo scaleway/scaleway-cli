@@ -9,7 +9,9 @@ import (
 	"syscall/js"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 )
 
 var commands *core.Commands
@@ -21,7 +23,11 @@ func getCommands() *core.Commands {
 	return commands
 }
 
-func runCommand(args []string, stdout io.Writer, stderr io.Writer) chan int {
+type RunConfig struct {
+	JWT string `js:"jwt"`
+}
+
+func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) chan int {
 	ret := make(chan int, 1)
 	go func() {
 		exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
@@ -31,6 +37,9 @@ func runCommand(args []string, stdout io.Writer, stderr io.Writer) chan int {
 			Stdout:    stdout,
 			Stderr:    stderr,
 			Stdin:     nil,
+			Platform: &platform.Web{
+				JWT: cfg.JWT,
+			},
 		})
 		ret <- exitCode
 	}()
@@ -43,14 +52,25 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 	stdout := bytes.NewBuffer(nil)
 	stderr := bytes.NewBuffer(nil)
 
-	for argIndex, arg := range args {
-		if arg.Type() != js.TypeString {
-			return nil, fmt.Errorf("invalid argument at index %d", argIndex)
-		}
-		cliArgs = append(cliArgs, arg.String())
+	if len(args) < 2 {
+		return nil, fmt.Errorf("not enough arguments")
 	}
 
-	exitCodeChan := runCommand(cliArgs, stdout, stderr)
+	runCfg, err := jshelpers.AsObject[RunConfig](args[0])
+	if err != nil {
+		return nil, fmt.Errorf("invalid config given: %w", err)
+	}
+
+	givenArgs, err := jshelpers.AsSlice[string](args[1])
+	if err != nil {
+		return nil, fmt.Errorf("invalid args given: %w", err)
+	}
+
+	for _, arg := range givenArgs {
+		cliArgs = append(cliArgs, arg)
+	}
+
+	exitCodeChan := runCommand(runCfg, cliArgs, stdout, stderr)
 	exitCode := <-exitCodeChan
 	if exitCode != 0 {
 		errBody := stderr.String()

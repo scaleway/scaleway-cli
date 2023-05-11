@@ -21,7 +21,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
-			client, err := createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+			client, err := meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 			if err != nil {
 				return fmt.Errorf("failed to create client: %w", err)
 			}
