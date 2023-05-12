@@ -11,7 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
-	"github.com/scaleway/scaleway-cli/v2/internal/platform"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/web"
 )
 
 var commands *core.Commands
@@ -37,7 +37,7 @@ func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Write
 			Stdout:    stdout,
 			Stderr:    stderr,
 			Stdin:     nil,
-			Platform: &platform.Web{
+			Platform: &web.Platform{
 				JWT: cfg.JWT,
 			},
 		})
