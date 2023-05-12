@@ -11,9 +11,8 @@ import (
 func asString(value js.Value) (string, error) {
 	if value.Type() == js.TypeString {
 		return value.String(), nil
-	} else {
-		return "", fmt.Errorf("value type should be string")
 	}
+	return "", fmt.Errorf("value type should be string")
 }
 
 func goValue(typ reflect.Type, value js.Value) (any, error) {

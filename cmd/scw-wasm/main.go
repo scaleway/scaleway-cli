@@ -66,9 +66,7 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 		return nil, fmt.Errorf("invalid args given: %w", err)
 	}
 
-	for _, arg := range givenArgs {
-		cliArgs = append(cliArgs, arg)
-	}
+	cliArgs = append(cliArgs, givenArgs...)
 
 	exitCodeChan := runCommand(runCfg, cliArgs, stdout, stderr)
 	exitCode := <-exitCodeChan
@@ -97,5 +95,5 @@ func main() {
 			givenCallback.Invoke()
 		}
 	}
-	<-make(chan struct{}, 0)
+	<-make(chan struct{})
 }

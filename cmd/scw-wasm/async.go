@@ -10,9 +10,9 @@ import (
 type fn func(this js.Value, args []js.Value) (any, error)
 
 var (
-	jsErr     js.Value = js.Global().Get("Error")
-	jsObject  js.Value = js.Global().Get("Object")
-	jsPromise js.Value = js.Global().Get("Promise")
+	jsErr     = js.Global().Get("Error")
+	jsObject  = js.Global().Get("Object")
+	jsPromise = js.Global().Get("Promise")
 )
 
 func asyncFunc(innerFunc fn) js.Func {

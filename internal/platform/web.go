@@ -15,6 +15,7 @@ func (p *Web) CreateClient(client *http.Client, _ string, _ string) (*scw.Client
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent(p.UserAgent),
 		scw.WithProfile(scw.LoadEnvProfile()),
 		scw.WithHTTPClient(client),
