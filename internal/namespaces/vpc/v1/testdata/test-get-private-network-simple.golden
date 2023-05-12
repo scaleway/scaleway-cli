@@ -1,37 +1,37 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              1ef530e6-a9c9-4c50-8fbc-edb5fd7a87c1
-Name            cli-pn-recursing-clarke
+ID              a7389447-5a20-4ac0-af97-a6d354a1d09a
+Name            cli-pn-agitated-ritchie
 OrganizationID  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Zone            fr-par-1
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-Subnets.0       172.16.184.0/22
-Subnets.1       fd46:78ab:30b8:ab9b::/64
+Subnets.0       172.16.8.0/22
+Subnets.1       fd46:78ab:30b8:fa22::/64
 
-InstanceServers:
-ID                                    NAME                      STATE     NIC ID                                MAC ADDRESS
-fdfb455b-280c-4bd2-bbd2-34dfab08dac3  cli-srv-charming-burnell  archived  9a367c4e-1fd7-434f-8264-e904e5e4482c  02:00:00:12:b4:63
+Instance Servers:
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+89040064-4dd1-414d-9f5a-6239a0055847  cli-srv-epic-goldstine  archived  8c08dd03-da4d-4e44-8a6a-564d6df9ae13  02:00:00:12:e9:f2
 
-BaremetalServers:
-ID   NAME  STATE  BAREMETAL NETWORK ID
+Baremetal Servers:
+ID   NAME  STATE  BAREMETAL NETWORK ID  VLAN
 
-LBs:
+Load-Balancers:
 ID   NAME  STATE
 
-RdbInstances:
+Rdb Instances:
 ID   NAME  STATE  ENDPOINT ID
 
-RedisClusters:
+Redis Clusters:
 ID   NAME  STATE  ENDPOINT ID
 
-Gateways:
+Public Gateways:
 ID   NAME  STATE  GATEWAY NETWORK ID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1ef530e6-a9c9-4c50-8fbc-edb5fd7a87c1",
-  "name": "cli-pn-recursing-clarke",
+  "id": "a7389447-5a20-4ac0-af97-a6d354a1d09a",
+  "name": "cli-pn-agitated-ritchie",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "zone": "fr-par-1",
@@ -39,16 +39,16 @@ ID   NAME  STATE  GATEWAY NETWORK ID
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
-    "172.16.184.0/22",
-    "fd46:78ab:30b8:ab9b::/64"
+    "172.16.8.0/22",
+    "fd46:78ab:30b8:fa22::/64"
   ],
   "instance_servers": [
     {
-      "id": "fdfb455b-280c-4bd2-bbd2-34dfab08dac3",
-      "name": "cli-srv-charming-burnell",
+      "id": "89040064-4dd1-414d-9f5a-6239a0055847",
+      "name": "cli-srv-epic-goldstine",
       "state": "stopped",
-      "nic_id": "9a367c4e-1fd7-434f-8264-e904e5e4482c",
-      "mac": "02:00:00:12:b4:63"
+      "nic_id": "8c08dd03-da4d-4e44-8a6a-564d6df9ae13",
+      "mac": "02:00:00:12:e9:f2"
     }
   ],
   "baremetal_servers": null,
