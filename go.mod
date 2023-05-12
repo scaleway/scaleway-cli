@@ -74,7 +74,7 @@ require (
 	github.com/buildpacks/lifecycle v0.17.0-pre.1 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
-	github.com/cloudflare/circl v1.3.2 // indirect
+	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/containerd/containerd v1.7.0 // indirect
 	github.com/containerd/continuity v0.3.1-0.20230206214859-2a963a2f56e8 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
