@@ -14,11 +14,12 @@ var (
 
 func asSlice(typ reflect.Type, value js.Value) (any, error) {
 	l := value.Length()
-	slice := reflect.MakeSlice(typ, l, l)
+
+	slice := reflect.MakeSlice(reflect.SliceOf(typ), l, l)
 	for i := 0; i < l; i++ {
-		val, err := goValue(typ, value)
+		val, err := goValue(typ, value.Index(i))
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("slice item is invalid: %w", err)
 		}
 		slice.Index(i).Set(reflect.ValueOf(val))
 	}

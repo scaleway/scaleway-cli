@@ -24,7 +24,8 @@ func goValue(typ reflect.Type, value js.Value) (any, error) {
 }
 
 func asObject(typ reflect.Type, value js.Value) (any, error) {
-	obj := reflect.New(typ)
+	objPtr := reflect.New(typ)
+	obj := objPtr.Elem()
 
 	for i := 0; i < typ.NumField(); i++ {
 		field := typ.Field(i)
@@ -39,7 +40,7 @@ func asObject(typ reflect.Type, value js.Value) (any, error) {
 		}
 	}
 
-	return obj.Interface(), nil
+	return objPtr.Interface(), nil
 }
 
 // AsObject converts a JS value to a go struct
