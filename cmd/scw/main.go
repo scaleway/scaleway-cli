@@ -77,11 +77,7 @@ func main() {
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
 		BetaMode:  BetaMode,
-		Platform: &platform.Default{
-			Config: platform.Config{
-				UserAgent: buildInfo.GetUserAgent(),
-			},
-		},
+		Platform:  platform.NewDefault(buildInfo.GetUserAgent()),
 	})
 
 	os.Exit(exitCode)

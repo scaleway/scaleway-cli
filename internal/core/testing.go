@@ -22,6 +22,7 @@ import (
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -389,6 +390,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Ctx:              ctx,
 				Logger:           testLogger,
 				HTTPClient:       httpClient,
+				Platform:         platform.NewDefault(buildInfo.GetUserAgent()),
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -449,6 +451,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Ctx:              ctx,
 				Logger:           cmdLogger,
 				HTTPClient:       httpClient,
+				Platform:         platform.NewDefault(buildInfo.GetUserAgent()),
 			})
 
 			meta["CmdResult"] = result

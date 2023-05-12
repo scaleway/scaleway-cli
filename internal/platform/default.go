@@ -1,6 +1,10 @@
 package platform
 
-import "github.com/scaleway/scaleway-sdk-go/scw"
+import (
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+var _ Platform = (*Default)(nil)
 
 type Default struct {
 	Config
@@ -8,7 +12,14 @@ type Default struct {
 	cfg *scw.Config
 }
 
-var _ Platform = (*Default)(nil)
+func NewDefault(useragent string) *Default {
+	return &Default{
+		Config: Config{
+			UserAgent: useragent,
+		},
+		cfg: nil,
+	}
+}
 
 func (p *Default) ScwConfig() *scw.Config {
 	return p.cfg
