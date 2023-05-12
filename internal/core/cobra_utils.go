@@ -23,13 +23,9 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
 			client, err := meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 			if err != nil {
-				return fmt.Errorf("failed to create client: %w", err)
+				return createClientError(err)
 			}
 			meta.Client = client
-			err = validateClient(meta.Client)
-			if err != nil {
-				return fmt.Errorf("failed to validate client: %w", err)
-			}
 		}
 
 		// If command has no Run method there is nothing to do.

@@ -1,6 +1,7 @@
 package terminal
 
 import (
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -20,4 +21,10 @@ func (p *Platform) ScwConfig() *scw.Config {
 
 func (p *Platform) SetScwConfig(cfg *scw.Config) {
 	p.cfg = cfg
+}
+
+func NewPlatform(useragent string) platform.Platform {
+	return &Platform{
+		UserAgent: useragent,
+	}
 }

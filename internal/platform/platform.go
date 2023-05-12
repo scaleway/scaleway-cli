@@ -3,7 +3,6 @@ package platform
 import (
 	"net/http"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -19,10 +18,4 @@ type Platform interface {
 	ScwConfig() *scw.Config
 	// SetScwConfig set the stored config, useful for testing purpose
 	SetScwConfig(cfg *scw.Config)
-}
-
-func NewDefault(useragent string) *terminal.Platform {
-	return &terminal.Platform{
-		UserAgent: useragent,
-	}
 }
