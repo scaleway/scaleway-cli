@@ -1,3 +1,5 @@
+//go:build js
+
 package jshelpers
 
 import (
@@ -24,6 +26,8 @@ func asSlice(typ reflect.Type, value js.Value) (any, error) {
 	return slice.Interface(), nil
 }
 
+// AsSlice converts a JS value to a slice of T
+// value must be an array of a type handled by goValue
 func AsSlice[T any](value js.Value) ([]T, error) {
 	var t T
 

@@ -1,3 +1,5 @@
+//go:build js
+
 package jshelpers
 
 import (
@@ -41,6 +43,9 @@ func asObject(typ reflect.Type, value js.Value) (any, error) {
 	return obj.Interface(), nil
 }
 
+// AsObject converts a JS value to a go struct
+// JS value must be an object
+// Given Go struct must have "js" tags to specify fields mapping
 func AsObject[T any](value js.Value) (*T, error) {
 	var t T
 
