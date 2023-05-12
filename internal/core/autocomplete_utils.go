@@ -23,7 +23,7 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 		PrinterTypeTemplate.String(),
 	}
 	profiles := []string(nil)
-	cfg := extractMeta(ctx).Platform.ScwConfig()
+	cfg := extractConfig(ctx)
 	if cfg != nil {
 		for profile := range cfg.Profiles {
 			profiles = append(profiles, profile)

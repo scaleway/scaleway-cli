@@ -60,6 +60,15 @@ func injectConfig(ctx context.Context, config *scw.Config) {
 	extractMeta(ctx).Platform.SetScwConfig(config)
 }
 
+func extractConfig(ctx context.Context) *scw.Config {
+	m := extractMeta(ctx)
+	if m.Platform != nil {
+		return m.Platform.ScwConfig()
+	}
+
+	return nil
+}
+
 func ExtractCommands(ctx context.Context) *Commands {
 	return extractMeta(ctx).Commands
 }

@@ -22,6 +22,10 @@ func NewDefault(useragent string) *Default {
 }
 
 func (p *Default) ScwConfig() *scw.Config {
+	if p == nil {
+		return nil
+	}
+
 	return p.cfg
 }
 
