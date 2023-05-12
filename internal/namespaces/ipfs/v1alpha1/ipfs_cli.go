@@ -329,6 +329,12 @@ func ipfsIpfsAddCid() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "meta.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "pin-options.required-zones.{index}",
 				Required:   false,
 				Deprecated: false,
