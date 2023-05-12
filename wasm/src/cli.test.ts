@@ -48,4 +48,6 @@ describe('With wasm CLI', async () => {
     })
 
     it('can run help', async () => runWithError(cli, runCfg, /USAGE:\n.*scw <command>.*/, []))
+
+    it('can use jwt', async () => runWithError(cli, runCfg, /.*denied authentication.*invalid JWT.*/, ['instance', 'server', 'list']))
 })
