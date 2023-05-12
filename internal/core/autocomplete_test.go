@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/platform"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
@@ -266,7 +266,7 @@ func TestAutocompleteProfiles(t *testing.T) {
 	ctx := injectMeta(context.Background(), &meta{
 		Commands: commands,
 		betaMode: true,
-		Platform: platform.NewDefault(""),
+		Platform: terminal.NewPlatform(""),
 	})
 
 	type testCase = autoCompleteTestCase
