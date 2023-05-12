@@ -1012,7 +1012,7 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 
 Upgrade a specific pool to the Kubernetes version 1.24.7
 ```
-scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.24.7
+scw k8s pool upgrade 11111111-1111-1111-111111111111 region=fr-par version=1.24.7 
 ```
 
 
