@@ -1,3 +1,7 @@
+export type RunConfig = {
+    jwt: string
+}
+
 export type CLI = {
-    run(...args: string[]): Promise<string>
+    run(cfg: RunConfig, args: string[]): Promise<string>
 }
