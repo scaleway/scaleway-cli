@@ -3,6 +3,7 @@ package platform
 import (
 	"net/http"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -20,6 +21,8 @@ type Platform interface {
 	SetScwConfig(cfg *scw.Config)
 }
 
-type Config struct {
-	UserAgent string
+func NewDefault(useragent string) *terminal.Platform {
+	return &terminal.Platform{
+		UserAgent: useragent,
+	}
 }

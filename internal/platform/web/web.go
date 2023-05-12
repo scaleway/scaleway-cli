@@ -1,4 +1,4 @@
-package platform
+package web
 
 import (
 	"net/http"
@@ -6,12 +6,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type Web struct {
-	Config
-	JWT string
+type Platform struct {
+	UserAgent string
+	JWT       string
 }
 
-func (p *Web) CreateClient(client *http.Client, _ string, _ string) (*scw.Client, error) {
+func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.Client, error) {
 	opts := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
@@ -25,10 +25,8 @@ func (p *Web) CreateClient(client *http.Client, _ string, _ string) (*scw.Client
 	return scw.NewClient(opts...)
 }
 
-func (p *Web) ScwConfig() *scw.Config {
+func (p *Platform) ScwConfig() *scw.Config {
 	return nil
 }
 
-func (p *Web) SetScwConfig(_ *scw.Config) {}
-
-var _ Platform = (*Web)(nil)
+func (p *Platform) SetScwConfig(_ *scw.Config) {}

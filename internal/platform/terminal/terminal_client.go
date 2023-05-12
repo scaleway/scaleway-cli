@@ -1,4 +1,4 @@
-package platform
+package terminal
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func (p *Default) CreateClient(httpClient *http.Client, configPath string, profileName string) (*scw.Client, error) {
+func (p *Platform) CreateClient(httpClient *http.Client, configPath string, profileName string) (*scw.Client, error) {
 	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:
